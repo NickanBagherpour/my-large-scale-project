@@ -24,6 +24,9 @@
       ],
       "@oxygen-portal/utils": [
         "libs/utils/src/index.ts"
+      ],
+      "@oxygen-portal/translation": [
+        "libs/translation/src/index.ts"
       ]
     }
   },

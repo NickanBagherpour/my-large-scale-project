@@ -1,0 +1,21 @@
+export default {
+  title: 'title',
+  search: 'search',
+  inbox: 'inbox',
+  home: 'home',
+  button: {
+    cancel: 'cancel',
+    register: 'register',
+  },
+  appbar: {
+    title: 'Melli Bank',
+    logout: 'Logout',
+  },
+  error: {
+    unknown_error: 'unknown error',
+    unspecific: 'unspecific error',
+    '404': 'page not found',
+    info_error_title: 'error in info',
+    user_error_desc: 'user error',
+  },
+};
