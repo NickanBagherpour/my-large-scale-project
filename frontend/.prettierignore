@@ -1,0 +1,19 @@
+# Directories
+node_modules/
+coverage/
+dist/
+/.nx/cache
+.tmp/
+logs/
+#.cypress/
+#.e2e/
+apps/*/out-tsc/
+libs/*/dist/
+libs/*/coverage/
+.next/
+#public/
+.yarn
+.vscode
+
+# Files
+*.md
