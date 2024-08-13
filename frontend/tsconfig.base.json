@@ -27,6 +27,9 @@
       ],
       "@oxygen-portal/translation": [
         "libs/translation/src/index.ts"
+      ],
+      "@oxygen-portal/hooks": [
+        "libs/hooks/src/index.ts"
       ]
     }
   },
