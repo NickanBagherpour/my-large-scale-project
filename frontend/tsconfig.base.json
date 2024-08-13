@@ -30,6 +30,9 @@
       ],
       "@oxygen-portal/hooks": [
         "libs/hooks/src/index.ts"
+      ],
+      "@oxygen-portal/ui-kit": [
+        "libs/ui-kit/src/index.ts"
       ]
     }
   },
