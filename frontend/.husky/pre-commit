@@ -1,0 +1,8 @@
+cd frontend
+
+#npm run lint
+#npx lint-staged
+
+npx lint-staged --concurrent false --relative
+
+#exit 1

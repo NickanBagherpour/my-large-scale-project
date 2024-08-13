@@ -1,0 +1,4 @@
+cd frontend
+
+npx --no -- commitlint --edit
+#exit 1

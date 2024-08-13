@@ -1,0 +1,9 @@
+{
+    "**/*.{js,jsx,ts,tsx}": [
+        "nx affected -t lint",
+        "nx format:write --untracked",
+        "nx format:write --uncommitted"
+    ],
+    "!**/node_modules/**": [],
+    "!gateway/**/*.*": []
+}
