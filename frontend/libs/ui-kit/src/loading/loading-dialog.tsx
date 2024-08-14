@@ -29,10 +29,13 @@ const Wrapper = styled.div<any>`
 const LoadingDialog: React.FC<LoadingDialogProps> = (props) => {
   const { open = false, message, onClose } = props;
 
-  const handleClose = (event, reason) => {
-    //
+  function handleClose(event: React.SyntheticEvent, reason: any) {
+    // if (onClose) {
+    //   onClose(event, reason);
+    // }
+
     return;
-  };
+  }
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth={'sm'}>

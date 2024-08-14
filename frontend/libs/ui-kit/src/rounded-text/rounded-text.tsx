@@ -31,9 +31,9 @@ const RoundedText: React.FC<RoundedTextProps> = (props) => {
 
   const theme = useAppTheme();
 
-  const colors = calcColors(kind);
+  const colors = calcColors(kind as kindType);
 
-  function calcColors(kind) {
+  function calcColors(kind: kindType) {
     switch (kind) {
       case 'success':
         return {

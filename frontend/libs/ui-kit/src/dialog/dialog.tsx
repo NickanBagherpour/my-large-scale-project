@@ -12,11 +12,12 @@ const Dialog: React.FC<DialogProps> = (props) => {
 
   if (!open) return <></>;
 
-  function handleCloseClick(event, reason) {
+  function handleCloseClick(event: React.SyntheticEvent, reason: any) {
     if (onClose) {
       onClose(event, reason);
     }
   }
+
 
   return (
     <S.Dialog
