@@ -4,9 +4,9 @@ import React, { createContext, useContext, useMemo } from 'react';
 
 import { LocalStorageKey } from '@oxygen-portal/types';
 import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen-portal/utils';
+import { client } from '@oxygen-portal/client';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
-// import { client } from '@oxygen-portal/client';
 
 const AuthContext = createContext<any>(null);
 
@@ -48,7 +48,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
       clearAllCookies();
 
-      // await client.get(`/signout/`); fixme after implement client uncommit this section
+      await client.get(`/signout/`);
 
       /*   if (props.logout) {
            props.logout();
