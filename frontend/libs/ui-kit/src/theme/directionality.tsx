@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
+import createCache, { Options as CacheOptions } from '@emotion/cache';
 
 interface IDirectionalityProps {
   isRtl: boolean;
@@ -12,14 +12,14 @@ interface IDirectionalityProps {
 
 // Create rtl cache
 const cacheRtl = createCache({
-  key: 'muirtl',
+  key: 'muidir',
   stylisPlugins: [prefixer, rtlPlugin],
-});
+} satisfies CacheOptions);
 
 const cacheLtr = createCache({
-  key: 'muiltr',
+  key: 'muidir',
   stylisPlugins: [prefixer],
-});
+} satisfies CacheOptions);
 
 export const Directionality = (props: IDirectionalityProps) => {
   const stylisPlugins = props.isRtl ? cacheRtl : cacheLtr;

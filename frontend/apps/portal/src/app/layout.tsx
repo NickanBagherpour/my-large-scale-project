@@ -1,6 +1,6 @@
 import { BaseProvider } from '../providers';
-
-import './global.css';
+import { iransans } from './fonts';
+// import '../../public/assets/fonts/font.css';
 
 export const metadata = {
   title: 'Welcome to portal',
@@ -9,10 +9,12 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
-      <body>
-        <BaseProvider>{children}</BaseProvider>
-      </body>
+    <html lang="en" className={`${iransans.variable}`}>
+    <body>
+    <BaseProvider>
+      {children}
+    </BaseProvider>
+    </body>
     </html>
   );
 }

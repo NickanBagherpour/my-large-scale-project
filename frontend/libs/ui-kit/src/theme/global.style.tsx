@@ -1,5 +1,4 @@
-import { css } from '@emotion/react';
-import { GlobalStyles } from '@mui/material';
+import { css, Global } from '@emotion/react';
 
 import { useAppTheme } from '@oxygen-portal/hooks';
 import { Direction } from '@oxygen-portal/types';
@@ -8,11 +7,10 @@ import { cssVar, respondTo } from '@oxygen-portal/utils';
 const GlobalStyle = () => {
   const theme = useAppTheme();
 
-  // console.log('theme', theme );
   const radius = (theme as any).shape.borderRadius || 8;
 
   return (
-    <GlobalStyles
+    <Global
       styles={css`
         :root {
           ${cssVar.drawerWidth}: 27rem;
@@ -76,6 +74,8 @@ const GlobalStyle = () => {
           font-size: 62.5%; // font-size = 10px; 1rem = 10px, 10px/16px = 62.5% or 10px is 0.625em
           box-sizing: border-box;
 
+          font-family: ${theme.base.direction === Direction.RTL ? 'var(--font-iransans)' : 'Tahoma'}, sans-serif;
+
           ${respondTo.down('md')} {
             font-size: 50%; //  font-size = 8px; 50% of 1em [1em = 16px]
           }
@@ -85,13 +85,12 @@ const GlobalStyle = () => {
           padding: 0 !important;
           margin: 0;
           overflow: auto !important;
-          font-family: ${theme.base.direction === Direction.RTL ? 'iransans' : 'Tahoma'}, sans-serif;
           font-size: 1.4rem;
           background-color: ${theme.base.background};
           color: ${theme.base.textPrimary};
 
           /* @noflip */
-          direction: ${theme.base.direction === Direction.RTL ? Direction.LTR : Direction.RTL}; //fix this later
+          direction: ${theme.base.direction === Direction.RTL ? Direction.LTR : Direction.LTR}; //fix this later
         }
 
         #__next {

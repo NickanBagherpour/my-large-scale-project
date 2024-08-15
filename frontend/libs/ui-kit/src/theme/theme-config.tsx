@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali';
+// import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali';
 import { faIR } from '@mui/x-date-pickers/locales';
 
 import { useConfig } from '@oxygen-portal/hooks';
@@ -23,11 +23,8 @@ const ThemeConfig = (props: ThemeConfigProps): JSX.Element => {
 
   const isRtl = config?.direction === Direction.RTL;
   const faIRLocaleText = faIR.components.MuiLocalizationProvider.defaultProps.localeText;
-  const inputGlobalStyles = <GlobalStyle />;
 
   const baseTheme: ITheme = getTheme(config);
-
-  // console.log('ThemeConfig', config, baseTheme);
 
   useEffect(() => {
     if (props.onLocaleChange) {
@@ -39,13 +36,13 @@ const ThemeConfig = (props: ThemeConfigProps): JSX.Element => {
     <MuiThemeProvider theme={getMuiTheme(baseTheme)}>
       <ThemeProvider theme={baseTheme}>
         <LocalizationProvider
-          // dateAdapter={AdapterDateFnsJalali}  fixme implement this part
+          // dateAdapter={AdapterDateFnsJalali} // fixme implement this part
           localeText={faIRLocaleText}
           dateFormats={{ monthShort: 'MMMM' }}
         >
           <Directionality isRtl={isRtl}>
             <CssBaseline />
-            {inputGlobalStyles}
+            <GlobalStyle />
             {props.children}
           </Directionality>
         </LocalizationProvider>

@@ -16,6 +16,9 @@ export default function Index() {
         <Box display={'flex'} marginY={'2rem'} color={'blue'}>
           This is Material
         </Box>
+        <Box display={'flex'} marginY={'2rem'} color={'blue'}>
+          متن فارسی
+        </Box>
 
         <Button variant={'contained'}>Click me</Button>
 
