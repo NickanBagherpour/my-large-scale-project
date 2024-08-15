@@ -15,7 +15,7 @@ const StyledButton = styled(MuiButton)<any>`
   box-shadow: none;
 
   ${(props) => {
-    if (props.is_tona === true)
+    if (props.is_tona === 'true')
       return css`
         background-color: ${props.theme.base[props.color]}20;
         border: 1px solid ${props.theme.base[props.color]};
@@ -67,7 +67,7 @@ const Button = (props: ButtonProps) => {
   }
 
   return (
-    <StyledButton variant={getVariant()} is_tona={isTona()} disabled={disabled || loading} {...rest}>
+    <StyledButton variant={getVariant()} is_tona={isTona().toString()} disabled={disabled || loading} {...rest}>
       {!loading || !displayTextOnLoading ? children : null}
       {loading && <CircularProgress className={'btn-loading'} thickness={3} size={'1.5rem'} />}
     </StyledButton>

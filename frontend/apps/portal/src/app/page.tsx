@@ -1,12 +1,12 @@
 'use client';
 
-import { Button, Box } from '@oxygen-portal/ui-kit';
+import { Button, Box, Icons } from '@oxygen-portal/ui-kit';
 
 export default function Index() {
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div id="welcome">
+    <div className='wrapper'>
+      <div className='container'>
+        <div id='welcome'>
           <h1>
             <span> Hello there, </span>
             Welcome to Oxygen Portal 👋
@@ -20,8 +20,8 @@ export default function Index() {
           متن فارسی
         </Box>
 
+        <Icons.PDFIcon />
         <Button variant={'contained'}>Click me</Button>
-
       </div>
     </div>
   );
