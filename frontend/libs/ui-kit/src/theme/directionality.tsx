@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { CacheProvider } from '@emotion/react';
-import createCache, { Options as CacheOptions } from '@emotion/cache';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
 interface IDirectionalityProps {
   isRtl: boolean;
@@ -11,19 +10,23 @@ interface IDirectionalityProps {
 }
 
 // Create rtl cache
-const cacheRtl = createCache({
+const cacheRtl = {
   key: 'muidir',
   stylisPlugins: [prefixer, rtlPlugin],
-} satisfies CacheOptions);
+};
 
-const cacheLtr = createCache({
+const cacheLtr = {
   key: 'muidir',
   stylisPlugins: [prefixer],
-} satisfies CacheOptions);
+};
 
 export const Directionality = (props: IDirectionalityProps) => {
   const stylisPlugins = props.isRtl ? cacheRtl : cacheLtr;
-  return <CacheProvider value={stylisPlugins}>{props.children}</CacheProvider>;
+  return (
+    <AppRouterCacheProvider options={stylisPlugins}>
+      {props.children}
+    </AppRouterCacheProvider>
+  );
 };
 
 // export default Directionality;

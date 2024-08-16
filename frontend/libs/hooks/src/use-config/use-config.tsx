@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
@@ -43,7 +43,7 @@ const ConfigProvider = (props: ConfigProviderProps) => {
     (newConfig: IConfig) => {
       setConfigCallback((prevState) => (prevState ? { ...prevState, ...newConfig } : newConfig));
     },
-    [setConfigCallback]
+    [setConfigCallback],
   );
 
   const value = useMemo(() => {

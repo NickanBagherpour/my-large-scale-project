@@ -1,6 +1,5 @@
 'use client';
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeConfig } from '@oxygen-portal/ui-kit';
 import { IConfig } from '@oxygen-portal/types';
 import { ConfigProvider } from '@oxygen-portal/hooks';
@@ -17,13 +16,11 @@ const BaseProvider = ({ children }: BaseProviderProps) => {
 
   return (
     <>
-      <AppRouterCacheProvider>
         <ConfigProvider>
           <ThemeConfig onLocaleChange={handleLocaleChange}>
             {children}
           </ThemeConfig>
         </ConfigProvider>
-      </AppRouterCacheProvider>
     </>
   );
 };

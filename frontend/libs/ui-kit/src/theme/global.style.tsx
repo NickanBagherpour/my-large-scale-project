@@ -90,7 +90,7 @@ const GlobalStyle = () => {
           color: ${theme.base.textPrimary};
 
           /* @noflip */
-          direction: ${theme.base.direction === Direction.RTL ? Direction.LTR : Direction.LTR}; //fix this later
+             direction: ${theme.base.direction === Direction.RTL ? Direction.LTR : Direction.LTR}; //fix this later
         }
 
         #__next {
