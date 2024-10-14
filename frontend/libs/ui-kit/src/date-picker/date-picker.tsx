@@ -10,8 +10,6 @@ export type DatePickerProps = AntDatePickerProps & {
   disableFuture?: boolean;
 };
 
-const StyledDatePicker = styled(AntDatePicker)``;
-
 const dateFormat = 'YYYY/MM/DD';
 
 export const DatePicker = (props: DatePickerProps) => {
@@ -34,14 +32,14 @@ export const DatePicker = (props: DatePickerProps) => {
       return current && current > dayjs().endOf('day');
     }
     if (disabledDate) {
-      return disabledDate(current);
+      return disabledDate(current, { type: 'date' });
     }
 
     return false;
   };
 
   return (
-    <StyledDatePicker
+    <AntDatePicker
       format={format}
       defaultValue={defVal as any}
       disabledDate={handleDisableDate as RangePickerProps['disabledDate']}

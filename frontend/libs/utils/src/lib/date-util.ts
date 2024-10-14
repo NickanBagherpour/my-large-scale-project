@@ -62,7 +62,9 @@ export function datetimeLocale(date?: string, withSeconds?: boolean, delimiter =
   let result = '';
   try {
     result = `${dateLocale(date)}${delimiter}${timeFromDate(date, withSeconds)}`;
-  } catch (e) {}
+  } catch (e) {
+    //
+  }
 
   return result;
 }

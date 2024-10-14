@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Direction, Locale, ThemeID } from './enums';
 
 export interface IConfig {
@@ -5,7 +6,6 @@ export interface IConfig {
   direction: Direction;
   locale: Locale;
 }
-
 
 export interface ITheme {
   id: string;
@@ -45,4 +45,14 @@ export interface ITheme {
 
 export type Obj = {
   [key: string]: string | number | boolean | null | undefined | Obj[] | { [key: string]: Obj };
+};
+
+export type InfoItemType = {
+  key: string;
+  value: string | ReactNode;
+  subValue?: string | ReactNode;
+  displayValue?: boolean;
+  type?: 'text' | 'file';
+  files?: any;
+  fullwidth?: boolean;
 };

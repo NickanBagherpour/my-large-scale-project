@@ -48,7 +48,7 @@ describe('OtpInput', () => {
   });*/
 
   it('allows navigating between input fields using arrow keys', () => {
-    const { getAllByRole } = render(<OtpInput value='' valueLength={3} onChange={() => {}} />);
+    const { getAllByRole } = render(<OtpInput value='' valueLength={3} onChange={() => void 1} />);
     const inputs = getAllByRole('textbox');
 
     fireEvent.keyDown(inputs[0], { key: 'ArrowRight' });
