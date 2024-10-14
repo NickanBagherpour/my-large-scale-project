@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Select as AntSelect, SelectProps as AntSelectProps } from 'antd';
-import { Disabled } from '../button/button.stories';
 
 export type SelectProps = AntSelectProps & {
   // children?: React.ReactNode;

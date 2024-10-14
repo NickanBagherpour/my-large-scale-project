@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { cssVar } from '@oxygen/utils';
 
 import { Panel } from '../panel/panel';
+import { TableProps } from './table';
 
 export const Wrapper = styled(Panel)`
   padding: 0;
   // min-height: 40rem;
 `;
 
-export const Table = styled(AntTable)`
+export const Table = styled(AntTable)<TableProps>`
   --table-min-height: 40rem;
 
   div.ant-table {

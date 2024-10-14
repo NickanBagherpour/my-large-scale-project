@@ -60,7 +60,7 @@ const StyledExpandButton = styled(Button)<ExpandButtonProps>`
 export const ExpandButton = (props: ExpandButtonProps) => {
   const { children, open = false, onClick, size = 'middle', ...rest } = props;
 
-  function handleClick(e: React.MouseEvent, info?: onClickType['info']) {
+  function handleClick(e: onClickType['event'], info?: onClickType['info']) {
     if (onClick) {
       onClick(e, { open: !open, ...info });
     }
