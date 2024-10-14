@@ -92,7 +92,9 @@ export const getValueByKey = (targetEnum: object, key: string) => {
   try {
     const indexOfS = Object.keys(targetEnum).indexOf(key as any);
     value = Object.values(targetEnum)[indexOfS];
-  } catch (ex) {}
+  } catch (ex) {
+    //
+  }
   return value;
 };
 
@@ -109,7 +111,9 @@ export const clearLocalStorageExceptForKey = (keyToKeep: string): void => {
         // storage.clear();
       }
     }
-  } catch (e) {}
+  } catch (e) {
+    //
+  }
 };
 
 export const clearAllCookies = (): void => {
@@ -122,7 +126,9 @@ export const clearAllCookies = (): void => {
       const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
       document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
     }
-  } catch (e) {}
+  } catch (e) {
+    //
+  }
 };
 
 export const readFromCookieByKey = (key: string) => {

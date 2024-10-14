@@ -107,6 +107,7 @@ export const ApiUtil = {
             };
         }*/
     } catch (e) {
+      //
     } finally {
       if (!errorMessage?.txt && !errorMessage?.type) {
         errorMessage = {
