@@ -3,12 +3,9 @@
 import React, { useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
-export function StyledComponentsRegistry({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
   // Only create stylesheet once with lazy initial state
   // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
@@ -27,7 +24,7 @@ export function StyledComponentsRegistry({
 
   return (
     <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children}
+      <AntdRegistry>{children}</AntdRegistry>
     </StyleSheetManager>
   );
 }

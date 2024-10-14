@@ -3,9 +3,6 @@ import { BaseProvider } from '@oxygen/hooks';
 import { StyledComponentsRegistry } from './registry';
 import 'normalize.css';
 import { iransans } from './fonts';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import { getCookieConfig } from './server-fns';
-// import '../../public/assets/fonts/font.css';
 
 export const metadata = {
   title: 'Welcome to portal',
@@ -13,15 +10,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const config = await getCookieConfig();
-
   return (
     <html lang='en' className={`${iransans.variable}`}>
       <body>
         <StyledComponentsRegistry>
-          <AntdRegistry>
-            <BaseProvider config={config}>{children}</BaseProvider>
-          </AntdRegistry>
+          <BaseProvider>{children}</BaseProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -19,6 +19,8 @@ export const ENV_CONSTANTS = {
   IS_AUTH_MODE_2: +(process.env.NEXT_PUBLIC_AUTH_MODE ?? 1) === 2,
 };
 
+export const IS_BROWSER = typeof window !== 'undefined';
+
 export const MAIN_HREF = {
   AUTH: '/auth',
   HOME: '/home',
