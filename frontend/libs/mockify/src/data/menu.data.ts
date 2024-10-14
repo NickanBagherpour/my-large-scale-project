@@ -1,0 +1,26 @@
+export const menus = [
+  {
+    id: '100',
+    title: 'درخواست ها',
+    order: 1,
+    href: '/requests',
+    icon: 'icon-user-search',
+    active: true,
+    description: null,
+    name: 'products',
+    target: null,
+    subMenus: [],
+  },
+  {
+    id: '200',
+    title: 'واریز دسته‌ای',
+    order: 1,
+    href: '/batch-deposit',
+    icon: 'icon-user-search',
+    active: true,
+    description: null,
+    name: 'batch-deposit',
+    target: null,
+    subMenus: [],
+  },
+];

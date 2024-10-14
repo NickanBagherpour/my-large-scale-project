@@ -8,8 +8,8 @@ const GlobalStyle = createGlobalStyle<any>`
     ${cssVar.appBarHeight}: 8rem;
     ${cssVar.drawerWidth}: 30rem;
     ${cssVar.mainContentMargin}: var(${cssVar.drawerWidth});
-    ${cssVar.drawerSideGap}: 10rem;
-    ${cssVar.verticalGap}: 2.8rem;
+    ${cssVar.drawerSideGap}: 0;//1rem;
+    ${cssVar.verticalGap}: 0px;//2.8rem;
     ${cssVar.radius}: 0.6rem;
     ${cssVar.appbarZIndex}: 10000;
 
@@ -31,14 +31,14 @@ const GlobalStyle = createGlobalStyle<any>`
 
   ${respondTo.down('lg')} {
     :root {
-      ${cssVar.drawerSideGap}: 2.4rem;
+      ${cssVar.drawerSideGap}: 0;//2.4rem;
     }
   }
 
 
   @media only screen and (min-width: 150em) {
     :root {
-      ${cssVar.drawerSideGap}: 10vw;
+      ${cssVar.drawerSideGap}: 0;//10vw;
     }
   }
 

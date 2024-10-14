@@ -9,3 +9,5 @@ export { default as ConfigProvider, useConfig } from './use-config/use-config';
 export { default as useAppTheme } from './use-app-theme/use-app-theme';
 export { default as useBounce } from './use-bounce/use-bounce';
 export { default as useDateLocaleListener } from './use-date-locale-listener/use-date-locale-listener';
+export { default as QueryProvider } from './query-provider/react-query-provider';
+export { default as TestProvider } from './test-provider/test-provider';

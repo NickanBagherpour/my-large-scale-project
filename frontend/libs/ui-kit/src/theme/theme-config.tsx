@@ -34,7 +34,7 @@ const ThemeConfig = (props: ThemeConfigProps): JSX.Element => {
       <ThemeProvider theme={baseTheme}>
         <Directionality isRtl={isRtl}>
             <GlobalStyle />
-            <AntConfigProvider {...getAntBaseConfig(config)}>{props.children}</AntConfigProvider>
+            <AntConfigProvider {...getAntBaseConfig(config)} >{props.children}</AntConfigProvider>
         </Directionality>
       </ThemeProvider>
 

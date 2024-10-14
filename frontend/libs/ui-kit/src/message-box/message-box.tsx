@@ -1,3 +1,5 @@
+'use  client';
+
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { BasicComponentProps, Direction } from '@oxygen/types';
@@ -7,7 +9,7 @@ import { uuid } from '@oxygen/utils';
 import { StyledContainer } from './message-box.style';
 import Link from 'next/link';
 import { AlertProps } from '../alert/alert';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 type LinkTargetType = '_self' | '_blank';
 

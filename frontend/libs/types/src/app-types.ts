@@ -13,34 +13,30 @@ export interface ITheme {
   primary: string;
   primaryDark: string;
   primaryLight: string;
-  // primaryLightest: string;
-  secondary: string;
+  // secondary: string;
   background: string;
   surface: string;
   onPrimary: string;
+  cardColor: string;
+  cardSecondaryColor: string;
   success: string;
   successBackground: string;
-  successBackgroundLight: string;
   info: string;
   infoBackground: string;
-  infoBackgroundLight: string;
   lightGray: string;
   error: string;
   errorBackground: string;
-  errorBackgroundLight: string;
   warning: string;
-  warningBackground: string;
-  warningBackgroundLight: string;
   iconPrimary: string;
   textPrimary: string;
   textSecondary: string;
-  textPrimaryDark: string;
-  hint: string;
-  // divider: string;
-  drawer: string;
+  textTerritory: string;
+  textQuaternary: string;
+  // hint: string;
+  divider: string;
+  // drawer: string;
   border: string;
-  borderLight: string;
-  orange: string;
+  appbar: string;
 }
 
 export type Obj = {
