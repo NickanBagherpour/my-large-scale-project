@@ -1,57 +1,51 @@
-import { uuid } from '@oxygen-portal/utils';
-import React, { ReactNode } from 'react';
+import React, { CSSProperties } from 'react';
 
+import { InfoItemType } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+
+import { Box } from '../box/box';
 import * as S from './info-box.style';
-import { BasicComponentProps, Nullable } from '@oxygen-portal/types';
-import { Box } from '../index';
 
-export type InfoBoxItem = {
-  title?: ReactNode;
-  value?: ReactNode;
-  fullWidth?: boolean;
-  error?: boolean;
+type InfoBoxProps = {
+  data: InfoItemType[] | null;
+  footer?: React.ReactNode;
+  isDense?: boolean;
+  margin?: CSSProperties['margin'];
+  minColumnCount?: number;
+  titleWordWrap?: boolean;
 };
 
-export type InfoBoxProps = BasicComponentProps & {
-  bordered?: boolean;
-  data?: Nullable<InfoBoxItem[]>;
-  footer?: ReactNode;
-  columnsCount?: number;
-  sideItem?: any;
-};
+export const InfoBox = (props: InfoBoxProps) => {
+  const {
+    data = [],
+    footer,
+    isDense = false,
+    margin = '2rem 3.2rem',
+    minColumnCount = 1,
+    titleWordWrap = true,
+  } = props;
 
-export const InfoBox: React.FC<InfoBoxProps> = (props) => {
-  const { bordered = true, data, footer, columnsCount = 3, ...rest } = props;
-
-  if (!data || data?.length === 0) {
-    return <></>;
-  }
+  const [t] = useTr();
 
   return (
-    <S.InfoBoxWrapper bordered={bordered} cols={columnsCount} {...rest}>
-      <Box className={'infobox__container'}>
-        {props.sideItem}
+    <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={minColumnCount} wrap={titleWordWrap}>
+      {data?.map((item: InfoItemType, index) => {
+        return (
+          <>
+            <Box className='info-box__title'>{t(item.key)} :</Box>
 
-        <div className='infobox__data-container'>
-          {data?.map((item, index) => {
-            return (
-              <div className={`infobox__item ${item.fullWidth ? 'infobox__item--full' : ''}`} key={uuid(index)}>
-                {item.title && <span className='infobox__item__title'>{item.title}</span>}
-                <span className='infobox__item__value'>
-                  {
-                    item.error ?
-                      <i className={'icon-info-noback error-icon'} /> : item.value
-                  }
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </Box>
-
-      {footer && <div className='infobox__footer'>{footer}</div>}
+            {item.type !== 'file' ? (
+              <Box className={`info-box__value-wrapper ${item?.fullwidth ? 'fullwidth' : ''}`}>
+                <span className='info-box__value'>{item.value}</span>
+                <span className='info-box__sub-value'>{item.subValue}</span>
+              </Box>
+            ) : (
+              <span className='info-box__files'>{item.files.map((subItem, index) => subItem)}</span>
+            )}
+          </>
+        );
+      })}
+      {footer && <Box className='info-box__footer'>{footer}</Box>}
     </S.InfoBoxWrapper>
   );
 };
-
-// export default InfoBox;

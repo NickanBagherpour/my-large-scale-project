@@ -1,76 +1,27 @@
-import { CircularProgress, Button as MuiButton, ButtonProps as MuiButtonProps, css, styled } from '@mui/material';
+import React from 'react';
 
-export type ButtonProps = Omit<MuiButtonProps, 'variant'> & {
-  loading?: boolean;
-  variant?: 'contained' | 'outlined' | 'text' | 'tona';
-  displayTextOnLoading?: boolean;
+import { ButtonProps as AntButtonProps } from 'antd';
+import { StyledButton } from './button.style';
+
+export type ButtonProps = Omit<AntButtonProps, 'type'> & {
+  children?: React.ReactNode;
+  type?: 'table' | AntButtonProps['type'];
+  flex?: boolean;
 };
 
-const StyledButton = styled(MuiButton)<any>`
-  padding: 1rem 2rem;
-  min-width: ${(props) => (props.fullWidth ? 'inherit' : '6rem')};
-  font-weight: 500;
-  font-size: 1.4rem;
-  height: 4.8rem;
-  box-shadow: none;
+export const Button = (props: ButtonProps) => {
+  const { children, type, flex = true, ...rest } = props;
 
-  ${(props) => {
-    if (props.is_tona === 'true')
-      return css`
-        background-color: ${props.theme.base[props.color]}20;
-        border: 1px solid ${props.theme.base[props.color]};
-        color: ${props.theme.base[props.color]};
-      `;
-
-    css``;
-  }}
-
-  span.MuiButton-endIcon,
-  span.MuiButton-startIcon {
-    color: inherit !important;
-  }
-
-  span.MuiButton-endIcon i,
-  span.MuiButton-startIcon i {
-    //font-size: 1.4rem;
-  }
-
-  .btn-loading {
-    margin-left: 1rem;
-  }
-`;
-
-const Button = (props: ButtonProps) => {
-  const {
-    children,
-    loading = false,
-    disabled = false,
-    displayTextOnLoading = false,
-    variant = 'text',
-    ...rest
-  } = props;
-
-  function isTona() {
-    if (variant === 'tona') {
-      return true;
-    }
-
-    return false;
-  }
-
-  function getVariant() {
-    if (variant === 'tona') {
-      return 'outlined';
-    }
-
-    return variant;
+  let _type: any = type;
+  if (type === 'table') {
+    _type = 'default';
   }
 
   return (
-    <StyledButton variant={getVariant()} is_tona={isTona().toString()} disabled={disabled || loading} {...rest}>
-      {!loading || !displayTextOnLoading ? children : null}
-      {loading && <CircularProgress className={'btn-loading'} thickness={3} size={'1.5rem'} />}
+    <StyledButton type={_type} org_type={type} flex={flex} {...rest}>
+      {children}
     </StyledButton>
   );
 };
-export default Button;
+
+// export default Button;

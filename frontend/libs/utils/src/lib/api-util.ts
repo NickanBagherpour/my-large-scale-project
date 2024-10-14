@@ -1,5 +1,7 @@
+import { readFromCookieByKey } from './util';
+
 export const ApiUtil = {
-  downloadFile: function(data: any, type: any, extension: any, preferredName?: any) {
+  downloadFile: function (data, type, extension, preferredName?) {
     const blob = new Blob([data], { type: type });
     const downloadUrl = URL.createObjectURL(blob);
 
@@ -23,7 +25,48 @@ export const ApiUtil = {
 
     return false;
   },
-  encodeQueryData: function(data: any) {
+  getFile: function (serviceURL: string, params?: any, options?: any) {
+    const { method = 'GET', encodeQuery = true, contentType = 'application/octet-stream' } = options ?? {};
+
+    const xsrfTokenKey = 'XSRF-TOKEN';
+    const xsrfToken = readFromCookieByKey(xsrfTokenKey) as string;
+
+    const xhr = new XMLHttpRequest();
+    if (params && typeof params === 'object' && encodeQuery) {
+      serviceURL = serviceURL + '?' + this.encodeQueryData(params);
+    }
+
+    return new Promise(function (resolve, reject) {
+      xhr.open(method, serviceURL, true);
+      xhr.responseType = 'blob';
+      xhr.setRequestHeader('Content-type', contentType);
+      xhr.setRequestHeader('X-XSRF-TOKEN', xsrfToken);
+
+      if (method === 'POST' && !encodeQuery) {
+        // If method is POST and encodeQuery is false, send params in the request body
+        xhr.send(JSON.stringify(params));
+      } else {
+        xhr.send();
+      }
+
+      xhr.onload = function (e) {
+        try {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(e);
+          }
+        } catch (e) {
+          reject(e);
+        }
+      };
+
+      xhr.onerror = (error) => {
+        reject(error);
+      };
+    });
+  },
+  encodeQueryData: function (data) {
     const ret: any[] = [];
     for (const d in data) {
       if (encodeURIComponent(data[d]) !== 'null') {
@@ -32,21 +75,14 @@ export const ApiUtil = {
     }
     return ret.join('&');
   },
-  getErrorMessage: function(reason: any) {
+  getErrorMessage: function (reason) {
     if (!reason) {
       return null;
     }
 
     let errorMessage: any = {};
-
     try {
-      if (reason.response.data.message) {
-        errorMessage = {
-          txt: reason.response.data.message,
-          type: 'error',
-          shouldTranslate: false,
-        };
-      } else if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
+      if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
         errorMessage = {
           txt: reason.response.data.subErrors[0].localizedMessage,
           type: 'error',
@@ -71,7 +107,6 @@ export const ApiUtil = {
             };
         }*/
     } catch (e) {
-      //
     } finally {
       if (!errorMessage?.txt && !errorMessage?.type) {
         errorMessage = {
@@ -83,17 +118,5 @@ export const ApiUtil = {
     }
 
     return errorMessage;
-  },
-  delayedApi: async function(apiRequest, delay=2000): Promise<any> {
-    return new Promise((resolve, reject) => {
-      setTimeout(async () => {
-        try {
-          const response = await apiRequest();
-          resolve(response);
-        } catch (e) {
-          reject(e);
-        }
-      }, delay);
-    });
   },
 };

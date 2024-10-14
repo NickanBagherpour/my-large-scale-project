@@ -1,37 +1,37 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 
-import { useAppTheme } from '@oxygen-portal/hooks';
-import { BasicComponentProps } from '@oxygen-portal/types';
+import { StyledText } from './text.style';
+import { Color, FontWeight } from '@oxygen/types';
+import { useAppTheme } from '@oxygen/hooks';
 
-import * as S from './text.style';
+type VariantType = 'head' | 'subhead' | 'title' | 'desc' | 'body' | 'subtitle';
 
-type VariantType = 'heading' | 'subhead' | 'title' | 'body' | 'subtitle';
-
-export type TextProps = BasicComponentProps & {
+export interface ITextProps {
+  children?: React.ReactNode;
   variant?: VariantType;
-  fontWeight?: CSSProperties['fontWeight'];
+  fontWeight?: FontWeight;
   fontSize?: string;
-  color?: CSSProperties['color'];
-  margin?: CSSProperties['margin'];
+  color?: Color;
+  margin?: string | 0;
   lineHeight?: number;
-  // children?: ReactNode;
+  className?: string;
   as?: React.ElementType;
-};
+}
 
-export type $TextProps = TextProps & {
-  $fontWeight?: CSSProperties['fontWeight'];
-  $fontSize?: CSSProperties['fontSize'];
-  $margin?: CSSProperties['margin'];
-  $color?: CSSProperties['color'];
-  $lineHeight?: CSSProperties['lineHeight'];
-};
+export interface I$TextProps extends ITextProps {
+  $fontWeight?: FontWeight;
+  $fontSize?: string;
+  $margin?: string | 0;
+  $color?: Color;
+  $lineHeight?: number;
+}
 
-const Text: React.FC<TextProps> = (props) => {
-  const { children, as, variant, fontWeight, fontSize, color, margin = 0, lineHeight = 1, ...rest } = props;
+export const Text: React.FC<ITextProps> = (props) => {
+  const { children, as, variant, fontWeight, fontSize, color, margin = 0, lineHeight = 1.8, ...rest } = props;
   const Tag = as || 'p';
   const theme = useAppTheme();
 
-  function getFontWeight(): CSSProperties['fontWeight'] {
+  function getFontWeight(): FontWeight {
     if (variant && fontWeight) {
       throw Error("both variant and fontWeight shouldn't have value");
     }
@@ -41,14 +41,16 @@ const Text: React.FC<TextProps> = (props) => {
     }
 
     switch (variant) {
-      case 'heading':
+      case 'head':
       case 'subhead':
         return 'bold';
       case 'title':
-      case 'body':
         return 500;
-      case 'subtitle':
+      case 'desc':
+      case 'body':
         return 400;
+      case 'subtitle':
+        return 300;
       default:
         return 500;
     }
@@ -64,11 +66,12 @@ const Text: React.FC<TextProps> = (props) => {
     }
 
     switch (variant) {
-      case 'heading':
+      case 'head':
+      case 'title':
         return '1.8rem';
       case 'subhead':
         return '1.7rem';
-      case 'title':
+      case 'desc':
         return '1.6rem';
       case 'subtitle':
         return '1.2rem';
@@ -78,29 +81,31 @@ const Text: React.FC<TextProps> = (props) => {
     }
   }
 
-  function getColor(): CSSProperties['color'] {
+  function getColor(): Color {
     if (color) {
       return color;
     }
 
     switch (variant) {
-      case 'heading':
-        return theme.base.textPrimary; //theme.base.textPrimaryDark
+      case 'head':
+        return theme.textPrimary;
       case 'subhead':
-        return theme.base.textSecondary;
+        return theme.textSecondary;
       case 'title':
-        return theme.base.textPrimary;
+        return theme.textPrimary;
+      case 'desc':
+        return theme.textSecondary;
       case 'body':
-        return theme.base.textSecondary;
+        return theme.textSecondary;
       case 'subtitle':
-        return theme.base.textSecondary;
+        return theme.textSecondary;
       default:
-        return theme.base.textPrimary;
+        return theme.textPrimary;
     }
   }
 
   return (
-    <S.TextWrapper
+    <StyledText
       as={Tag}
       $fontWeight={getFontWeight()}
       $fontSize={getFontSize()}
@@ -110,7 +115,7 @@ const Text: React.FC<TextProps> = (props) => {
       {...rest}
     >
       {children}
-    </S.TextWrapper>
+    </StyledText>
   );
 };
-export default Text;
+// export default Text;

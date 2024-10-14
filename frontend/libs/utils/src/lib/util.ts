@@ -1,11 +1,13 @@
+import { storage } from './storage';
+
 export const RE_DIGIT = new RegExp(/^\d+$/);
 
 export function addThousandSeparator(value: number | string) {
   return value
-    .toString()
-    .split(',')
-    .join('')
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    ?.toString()
+    ?.split(',')
+    ?.join('')
+    ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 export function removeLettersFromNumber(value: string) {
@@ -33,8 +35,8 @@ export function isNumberComma(value: string): boolean {
   return /^[0-9,,]*$/.test(value);
 }
 
-export function getValueOrDash(value: any) {
-  return value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : ' - ';
+export function getValueOrDash(value: any, emptyValue?: string) {
+  return value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
 }
 
 export function isEmptyObject(obj: Record<string, unknown>) {
@@ -58,50 +60,6 @@ export function uuid(key?: string | number) {
       v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(20);
   });
-}
-
-export function fileSize(bytes: number) {
-  const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
-
-  let i = 0;
-
-  for (i; bytes > 1024; i++) {
-    bytes /= 1024;
-  }
-
-  return `${bytes
-    .toFixed(1)
-    .toString()
-    .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1')} ${units[i]}`;
-}
-
-export function getFileExtension(fileName: string) {
-  const lastIndexOf: number = fileName.lastIndexOf('.');
-  if (lastIndexOf == -1) {
-    return ''; // empty extension
-  }
-  return fileName.substring(lastIndexOf + 1);
-}
-
-export function getFileType(fileName: string) {
-  const extension = getFileExtension(fileName);
-  switch (extension) {
-    case 'xls':
-      return 'application/vnd.ms-excel';
-    case 'xlsx':
-      return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    case 'xml':
-      return 'application/xml';
-    case 'txt':
-    case extension.match(/^[0-9]*$/) ? extension : undefined:
-      return 'text/plain';
-    case 'pdf':
-      return 'application/pdf';
-    case 'zip':
-      return 'application/zip';
-    default:
-      return '';
-  }
 }
 
 export function mergeObjects(obj1: any, obj2: any) {
@@ -134,25 +92,24 @@ export const getValueByKey = (targetEnum: object, key: string) => {
   try {
     const indexOfS = Object.keys(targetEnum).indexOf(key as any);
     value = Object.values(targetEnum)[indexOfS];
-  } catch (ex) {
-    //
-  }
+  } catch (ex) {}
   return value;
 };
 
 export const clearLocalStorageExceptForKey = (keyToKeep: string): void => {
   try {
+    // const keys = Object.keys(storage['_localStorageItems']);
     const keys = Object.keys(localStorage);
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
-      if (key !== keyToKeep) {
+
+      if (!key.endsWith(keyToKeep)) {
         localStorage.removeItem(key);
+        // storage.clear();
       }
     }
-  } catch (e) {
-    //
-    }
+  } catch (e) {}
 };
 
 export const clearAllCookies = (): void => {
@@ -165,9 +122,31 @@ export const clearAllCookies = (): void => {
       const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
       document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
     }
-  } catch (e) {
-    //
+  } catch (e) {}
+};
+
+export const readFromCookieByKey = (key: string) => {
+  if (typeof window !== 'undefined') {
+    return (
+      document.cookie
+        .split('; ')
+        .find((row) => row.startsWith(key))
+        ?.split('=')[1] || ''
+    );
+  } else {
+    return null;
   }
+};
+
+export const debounceFn = (callback, delay) => {
+  let timer;
+  return function (...args) {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
 };
 
 export function convertToEnglishNumbers(text) {
@@ -196,10 +175,3 @@ export function convertToEnglishNumbers(text) {
 
   return text.replace(/[٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹]/g, (match) => arabicPersianMap[match]);
 }
-
-function replaceAll(str, targetChar, replacementChar) {
-  // Use regular expression with global flag to replace all occurrences
-  const regex = new RegExp(targetChar, 'g');
-  return str.replace(regex, replacementChar);
-}
-

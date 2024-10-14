@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
-import { Direction, IConfig, Locale, LocalStorageKey, ThemeID } from '@oxygen-portal/types';
+import { Direction, IConfig, Locale, LocalStorageKey, ThemeID } from '@oxygen/types';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 

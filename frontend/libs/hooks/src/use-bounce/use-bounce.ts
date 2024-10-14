@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 function useBounce(callback: () => void, dependencies: any[], delay = 500) {

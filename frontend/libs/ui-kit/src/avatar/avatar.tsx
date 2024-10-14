@@ -1,18 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Avatar as AntAvatar, AvatarProps as AntAvatarProps } from 'antd';
 
-import { Avatar as muiAvatar, AvatarProps as MuiAvatarProps } from '@mui/material';
-import styled from '@emotion/styled';
-
-export type AvatarProps = MuiAvatarProps & {
+export type AvatarProps = AntAvatarProps & {
   // children?: React.ReactNode;
 };
 
-const StyledAvatar = styled(muiAvatar)``;
+const StyledAvatar = styled(AntAvatar)``;
 
 export const Avatar = (props: AvatarProps) => {
   const { ...rest } = props;
 
   return <StyledAvatar {...rest} />;
 };
-
-export default Avatar;

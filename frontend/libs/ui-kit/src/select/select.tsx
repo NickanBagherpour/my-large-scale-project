@@ -1,79 +1,34 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import { Select as AntSelect, SelectProps as AntSelectProps } from 'antd';
+import { Disabled } from '../button/button.stories';
 
-import { FormHelperText, IconButton, SelectProps as MuiSelectProps } from '@mui/material';
-
-import * as S from './select.style';
-import { useToggle } from '@oxygen-portal/hooks';
-import { Box, Loading } from '../index';
-
-export type SelectProps = MuiSelectProps & {
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  shrink?: boolean;
-  loading?: boolean;
-  helperText?: string;
+export type SelectProps = AntSelectProps & {
+  // children?: React.ReactNode;
 };
 
-const Select: React.FC<SelectProps> = (props) => {
-  const {
-    variant = 'outlined',
-    size = 'small',
-    // InputProps,
-    // InputLabelProps,
-    loading = false,
-    label,
-    labelId,
-    startIcon,
-    endIcon,
-    shrink,
-    error,
-    helperText,
-    ...rest
-  } = props;
-  const { name, id } = rest;
+const StyledSelect = styled(AntSelect)`
+  &.ant-select .ant-select-arrow i {
+    color: ${(p) => p.theme.border};
+  }
+`;
 
-  const [toggle, setToggle] = useToggle(false);
+export const Select = (props: SelectProps) => {
+  const { loading = false, disabled = false, suffixIcon = null, ...rest } = props;
 
-  const id_name = id ?? name;
+  let _suffix: {
+    suffixIcon?: React.ReactNode;
+  } = {};
 
-  const handleToggle = () => {
-    if (loading) return;
-    setToggle();
-  };
+  if (suffixIcon) {
+    _suffix.suffixIcon = suffixIcon;
+  } else if (loading) {
+    _suffix = {};
+  } else {
+    // _suffix.suffixIcon = <i className={`ri-arrow-down-s-line ri-1x`} />; //fixme change to custom icon if needed
+  }
 
-  return (
-    <>
-      {label && (
-        <S.InputLabel id={`${id_name}-label`} shrink={shrink} error={error}>
-          {label}
-        </S.InputLabel>
-      )}
-      <S.Select
-        id={id_name}
-        size={size}
-        variant={variant}
-        label={label}
-        labelId={`${id_name}-label`}
-        error={error}
-        IconComponent={() => {
-          return loading ? (
-            <Box margin={'0.5rem 1rem 0rem 0'}>
-              <Loading size={'2rem'} />
-            </Box>
-          ) : (
-            <IconButton onClick={handleToggle}>
-              <i className={`icon-bottom-arrow ${toggle && 'select-open'}`} />
-            </IconButton>
-          );
-        }}
-        open={toggle}
-        onClose={handleToggle}
-        onOpen={handleToggle}
-        {...rest}
-      ></S.Select>
-
-      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
-    </>
-  );
+  return <StyledSelect disabled={loading || disabled} loading={loading} {..._suffix} {...rest} />;
 };
-export default Select;
+
+Select.Option = AntSelect.Option;

@@ -1,34 +1,23 @@
-import React from 'react';
-import { CircularProgress, CircularProgressProps as MuiCircularProgressProps } from '@mui/material';
-import styled from '@emotion/styled';
+import React, { CSSProperties } from 'react';
 
-import Box, { BoxProps } from '../box/box';
+import { Spin, SpinProps as AntSpinProps } from 'antd';
+import { Box, BoxProps } from '../box/box';
 
-export type LoadingProps = MuiCircularProgressProps & {
-  hasContainer?: boolean;
-  containerHeight?: string;
+export type LoadingProps = AntSpinProps & {
+  // children?: React.ReactNode;
   containerProps?: BoxProps;
+  width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
 };
 
-const StyledContainer = styled(Box)<any>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: ${(p) => p.height || '15rem'};
-`;
+export const Loading = (props: LoadingProps) => {
+  const { width = '100%', height = 'min-content', containerProps = {}, ...rest } = props;
+  containerProps.alignItems = 'center';
+  containerProps.justifyContent = 'center';
 
-const StyledCircularProgress = styled(CircularProgress)<LoadingProps>``;
-
-const Loading: React.FC<LoadingProps> = (props) => {
-  const { hasContainer = false, containerHeight, containerProps, ...rest } = props;
-
-  return hasContainer ? (
-    <StyledContainer height={containerHeight} {...containerProps}>
-      <StyledCircularProgress {...rest} />
-    </StyledContainer>
-  ) : (
-    <StyledCircularProgress {...rest} />
+  return (
+    <Box width={width} height={height} {...containerProps}>
+      <Spin {...rest} />
+    </Box>
   );
 };
-export default Loading;

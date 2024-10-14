@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LocalStorageKey } from '@oxygen-portal/types';
+import { LocalStorageKey } from '@oxygen/types';
 
 const baseUrl = '/';
 
@@ -25,14 +25,14 @@ const client = axios.create({
 
 client.interceptors.request.use((config) => {
 
-  const userDataString = localStorage.getItem(LocalStorageKey.USER);
+  // const userDataString = localStorage.getItem(LocalStorageKey.USER);
 
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  const branchCode = userData?.branchCode || '';
+  // const userData = userDataString ? JSON.parse(userDataString) : null;
+  // const branchCode = userData?.branchCode || '';
 
-  if (branchCode) {
-    config.headers['BRANCH_CODE'] = branchCode;
-  }
+  // if (branchCode) {
+  //   config.headers['BRANCH_CODE'] = branchCode;
+  // }
 
   return config;
 });
@@ -50,7 +50,7 @@ client.interceptors.response.use(
         if (error.response.data.location) {
           window.location.href = error.response.data.location;
         } else {
-          window.location.href = '/auth.html';  //fixme remove .html extension
+          window.location.href = '/auth';  //fixme remove .html extension
         }
       } /* else if (error.response.status === 300) {
 

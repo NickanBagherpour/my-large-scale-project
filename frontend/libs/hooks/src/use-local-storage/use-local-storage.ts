@@ -1,17 +1,22 @@
+'use client';
+
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { storage } from '@oxygen/utils';
 
 type ReturnType<T> = [T | null, Dispatch<SetStateAction<T | null>>, () => void];
 
 const useLocalStorage = <T>(key: string, initialValue?: T): ReturnType<T> => {
   const isBrowser = typeof window !== 'undefined';
+  // const storage = ENV_CONSTANTS.IS_DEV ? localStorage : secureLocalStorage;
+
   const [state, setState] = useState<T | null>(() => {
     try {
       if (isBrowser) {
-        const value = localStorage.getItem(key);
+        const value = storage.getItem(key);
         if (initialValue !== undefined && !value) {
           return initialValue;
         }
-        return value ? JSON.parse(value) : null;
+        return value ? JSON.parse(value as string) : null;
       }
     } catch (err) {
       console.log(err);
@@ -24,7 +29,7 @@ const useLocalStorage = <T>(key: string, initialValue?: T): ReturnType<T> => {
   useEffect(() => {
     if (isBrowser && state !== null) {
       try {
-        localStorage.setItem(keyRef.current, JSON.stringify(state));
+        storage.setItem(keyRef.current, JSON.stringify(state));
       } catch (err) {
         console.log(err);
       }
@@ -34,7 +39,7 @@ const useLocalStorage = <T>(key: string, initialValue?: T): ReturnType<T> => {
   const remove = useCallback(() => {
     if (isBrowser) {
       try {
-        localStorage.removeItem(keyRef.current);
+        storage.removeItem(keyRef.current);
         setState(null);
       } catch (err) {
         console.log(err);
@@ -45,11 +50,11 @@ const useLocalStorage = <T>(key: string, initialValue?: T): ReturnType<T> => {
   useEffect(() => {
     if (isBrowser) {
       try {
-        const value = localStorage.getItem(keyRef.current);
+        const value = storage.getItem(keyRef.current);
         if (initialValue === undefined && !value) {
           setState(null);
         } else {
-          setState(value ? JSON.parse(value) : initialValue || null);
+          setState(value ? JSON.parse(value as string) : initialValue || null);
         }
       } catch (err) {
         console.log(err);

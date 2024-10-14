@@ -1,17 +1,17 @@
 'use client';
 
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
-import { Button, Box, Icons, MobileDatePicker } from '@oxygen-portal/ui-kit';
+import { Button, Box ,Select} from '@oxygen/ui-kit';
 
 const Div = styled.div`
   margin-left: 2rem;
-  display: inline;
+  
 `;
 
 export default function Index() {
   return (
-    <div className='wrapper'>
+    <Div className='wrapper'>
       <div className='container'>
         <div id='welcome'>
           <h1>
@@ -20,29 +20,26 @@ export default function Index() {
           </h1>
         </div>
 
-        <Box display={'flex'} marginY={'2rem'} color={'blue'}>
+        <Box display={'flex'} color={'blue'}>
           This is Material
         </Box>
-        <Box display={'flex'} marginY={'2rem'} color={'blue'}>
+        <Box display={'flex'} color={'blue'}>
           متن فارسی
         </Box>
 
-        <Icons.PDFIcon />
-        <Button variant={'contained'}>Click me</Button>
+        <Button type={'primary'}>Click me</Button>
 
         <Div>
-          <MobileDatePicker
-            label={'from_date'}
-            placeholder={'primary_date'}
-            // format="YYYY/MM/DD"
-            views={['year', 'month', 'day']}
-            closeOnSelect
-            // value={fromDate && new Date(fromDate)}
-            // maxDate={toDate ? new Date(toDate) : new Date()}
-            // onChange={(date: Date) => updateFilters({ key: 'fromDate', value: date?.toISOString() })}
-          />
+          <Select defaultValue="lucy" style={{ width: 120 }}>
+            <Select.Option value="jack">Jack</Select.Option>
+            <Select.Option value="lucy">Lucy</Select.Option>
+            <Select.Option value="disabled" disabled>
+              Disabled
+            </Select.Option>
+            <Select.Option value="Yiminghe">yiminghe</Select.Option>
+          </Select>
         </Div>
       </div>
-    </div>
+    </Div>
   );
 }

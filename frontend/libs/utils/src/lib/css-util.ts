@@ -1,4 +1,4 @@
-import { ThemeID } from '@oxygen-portal/types';
+import { ThemeID } from '@oxygen/types';
 
 export const breakpoints = {
   xs: '30em', // 480px / 16px(1em)
@@ -12,12 +12,13 @@ export const breakpoints = {
 type BreakpointKey = keyof typeof breakpoints;
 
 export const cssVar = {
+  appBarHeight: '--appbar-height',
   drawerWidth: '--drawer-width',
-  appbarHeight: '--appbar-height',
   drawerSideGap: '--drawer-side-gap',
   verticalGap: '--vertical-gap',
   mainContentMargin: '--main-content-margin',
   radius: '--radius',
+  appbarZIndex: '--appbar-z-index',
 };
 
 export const respondTo = {
@@ -72,5 +73,12 @@ export const getRelatedColor = (themeId: string, lightColor: string, darkColor: 
   return color;
 };
 
+export const hideScrollbar = (): string => {
+  return `
+    scrollbar-width: none !important;
+  `;
+};
+
 export const boxShadowColor = `rgba(0, 0, 0, 0.2)`;
-export const boxShadow = `box-shadow: 0 0 2rem 0 ${boxShadowColor};`;
+export const boxShadow = `inset 0 0 3px 0 ${boxShadowColor};`;
+export const boxShadowThin = `inset 0 0 1.5px 0 ${boxShadowColor};`;

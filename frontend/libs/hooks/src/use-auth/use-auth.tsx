@@ -1,10 +1,12 @@
+'use client';
+
 import { useRouter } from 'next/router';
 
 import React, { createContext, useContext, useMemo } from 'react';
 
-import { LocalStorageKey } from '@oxygen-portal/types';
-import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen-portal/utils';
-import { client } from '@oxygen-portal/client';
+import { LocalStorageKey } from '@oxygen/types';
+import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen/utils';
+import { client } from '@oxygen/client';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 

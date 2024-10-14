@@ -1,7 +1,9 @@
+'use client';
+
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Nullable } from '@oxygen-portal/types';
-import { ApiUtil } from '@oxygen-portal/utils';
+import { Nullable } from '@oxygen/types';
+import { ApiUtil } from '@oxygen/utils';
 
 type AsyncFunction = () => Promise<any>;
 

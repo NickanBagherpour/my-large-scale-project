@@ -1,153 +1,122 @@
-import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
-// import { Cancel, CheckCircle, ChevronLeft, Close, Info } from '@mui/icons-material';
-import { IconButton, Link } from '@mui/material';
+import { BasicComponentProps, Direction } from '@oxygen/types';
+import { useAppTheme } from '@oxygen/hooks';
+import { uuid } from '@oxygen/utils';
 
-import { uuid } from '@oxygen-portal/utils';
-
-import { useAppTheme } from '@oxygen-portal/hooks';
-import { BasicComponentProps } from '@oxygen-portal/types';
-import Box from '../box/box';
-import Text from '../text/text';
 import { StyledContainer } from './message-box.style';
+import Link from 'next/link';
+import { AlertProps } from '../alert/alert';
+import { useRouter } from 'next/router';
 
 type LinkTargetType = '_self' | '_blank';
-type MessageKindType = 'success' | 'error' | 'info' | 'warning' | undefined;
 
-export type MessageBoxProps = BasicComponentProps & {
-  message?: string;
-  kind?: MessageKindType;
-  dismissible?: boolean;
-  linkTitle?: string;
-  linkUrl?: string;
-  linkTarget?: LinkTargetType;
-  linkIcon?: ReactNode;
-  shouldScroll?: boolean;
-  once?: boolean;
-  margin?: CSSProperties['margin'];
-  onDismiss?: () => void;
-};
+export type MessageBoxProps = BasicComponentProps &
+  AlertProps & {
+    // message?: string;
+    // kind?: MessageKindType;
+    // dismissible?: boolean;
+    linkProps?: {
+      title: string;
+      url: string;
+      target?: LinkTargetType;
+      icon?: ReactNode;
+      samePath?: boolean;
+    };
+    shouldScroll?: boolean;
+    once?: boolean;
+    margin?: string /*import('csstype').Property.Margin<string | number> | undefined*/;
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
+  };
 
-export type $MessageBoxProps = MessageBoxProps;
+export type I$MessageBoxProps = MessageBoxProps;
 
-const MessageBox: React.FC<$MessageBoxProps> = (props) => {
+export const MessageBox: React.FC<I$MessageBoxProps> = (props) => {
   const {
-    message = null,
-    kind = 'info',
-    dismissible = true,
-    linkTitle = null,
-    linkUrl = null,
-    linkTarget = '_self',
-    linkIcon = undefined,
+    linkProps,
     shouldScroll = false,
     margin = '0',
     once = false,
+    showIcon = true,
+    children,
+    description,
+    onClose,
+    ...rest
   } = props;
 
   const theme = useAppTheme();
 
-  const [visible, setVisible] = useState<boolean>(true);
+  const router = useRouter();
+
   const mainRef = useRef<HTMLDivElement>(null);
-  const [result, setResult] = useState<string | null>(null);
-
-  const bgColor: any = {
-    error: theme.base.errorBackground,
-    success: theme.base.successBackground,
-    info: theme.base.infoBackground,
-  };
-
-  const iconColor: any = {
-    error: theme.base.error,
-    success: theme.base.success,
-    info: theme.base.info,
-  };
 
   useEffect(() => {
-    setResult(message);
-
-    if (shouldScroll && message) {
+    if (shouldScroll && props.message) {
       setTimeout(() => {
         mainRef?.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
         // window.scroll(0,mainRef.current.offsetTop);
-      }, 100);
+      }, 200);
     }
-  }, [message, shouldScroll]);
+  }, [props.message, shouldScroll]);
 
-  const handleCloseClick = (event: React.MouseEvent<any>) => {
-    setVisible(false);
-    setResult(null);
-    if (props.onDismiss) props.onDismiss();
-  };
-
-  const handleLinkClick = (event: React.MouseEvent<any>) => {
-    event.preventDefault();
-    // window.location.replace(messageLinkUrl);
-    window.open(linkUrl || '', linkTarget);
-  };
-
-  if (once && !visible) {
+  if (!props.message || props.message.toString().trim().length === 0) {
     return null;
   }
 
-  if (!result || result.toString().trim().length === 0) {
-    return null;
+  function generateLink() {
+    if (!linkProps) return null;
+
+    const { title = '', url = '#', target = '_self', icon, samePath = false } = linkProps;
+
+    const handleLinkClick = (e) => {
+      // Check if the clicked URL is the same as the current URL
+      if (samePath) {
+        router.reload();
+      }
+    };
+
+    const _icon =
+      icon ??
+      (theme.direction === Direction.LTR ? (
+        <i className={'ri-arrow-right-s-line'} />
+      ) : (
+        <i className={'ri-arrow-left-s-line'} />
+      ));
+    return (
+      <Link
+        className='message-box__link'
+        href={url}
+        target={target}
+        onClick={handleLinkClick}
+        style={{ color: theme.primary }}
+      >
+        {title}
+
+        <span>{_icon}</span>
+      </Link>
+    );
+  }
+
+  function generateDescription() {
+    return (
+      <>
+        {description}
+        {children}
+        {generateLink()}
+      </>
+    );
+  }
+
+  function handleDismiss(e) {
+    // setVisible(false);
+    if (onClose) {
+      onClose(e);
+    }
   }
 
   return (
     <div ref={mainRef} style={{ margin: margin }} id={`message-box-${uuid()}`}>
-      <StyledContainer style={{ backgroundColor: bgColor[kind] }}>
-        <Box className='message-box-container__top-row'>
-          <Box fontSize='2.4rem' color={iconColor[kind]}>
-            {kind === 'error' ? (
-                <i className='ri-close-circle-fill' />
-              ) : // <Cancel style={{ color: iconColor[kind], height: '2rem' }} />
-              kind === 'success' ? (
-                // <CheckCircle style={{ color: iconColor[kind], height: '2rem' }} />
-                <i className='ri-checkbox-circle-fill' />
-              ) : (
-                // <Info style={{ color: iconColor[kind], height: '2rem' }} />
-                <i className='ri-information-fill' />
-              )}
-          </Box>
-
-          <span>
-            {result.split('\n').map((line: string, index: number) => (
-              <Text
-                key={uuid(index)}
-                className='message-box-container__top-row__title'
-                fontSize='1.4rem'
-                fontWeight={500}
-                lineHeight={1.5}
-              >
-                {line ?? ''}
-              </Text>
-            ))}
-          </span>
-
-          {dismissible && (
-            <IconButton onClick={handleCloseClick} className='message-box-container__clickable-item'>
-              <i className='ri-close-fill' />
-            </IconButton>
-          )}
-        </Box>
-
-        {linkUrl && (
-          <Link
-            href='#'
-            onClick={handleLinkClick}
-            className='message-box-container__link-container'
-            style={{ color: theme.base.primary }}
-          >
-            {linkTitle ?? ''}
-
-            <span>{linkIcon || <i className='ri-arrow-drop-left-line' />}</span>
-          </Link>
-        )}
-
-        {props.children}
-      </StyledContainer>
+      <StyledContainer showIcon={showIcon} description={generateDescription()} onClose={handleDismiss} {...rest} />
     </div>
   );
 };
-
-export default MessageBox;

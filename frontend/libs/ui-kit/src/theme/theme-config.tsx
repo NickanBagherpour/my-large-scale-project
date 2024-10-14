@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
+import { ConfigProvider as AntConfigProvider } from 'antd';
+import { ThemeProvider } from 'styled-components';
 
-import { ThemeProvider } from '@emotion/react';
-import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material';
-
-import { useConfig } from '@oxygen-portal/hooks';
-import { Direction, IConfig, ITheme } from '@oxygen-portal/types';
+import { useConfig } from '@oxygen/hooks';
+import { Direction, IConfig, ITheme } from '@oxygen/types';
 
 import { Directionality } from './directionality';
-import GlobalStyle from './global.style';
-import getMuiTheme from './mui-theme';
 import { getTheme } from './theme';
-import LocalizationProvider from './localization-provider';
+import { getAntBaseConfig } from './ant-base-config';
+import GlobalStyle from './global.style';
 
 export interface ThemeConfigProps {
   onLocaleChange: (config: IConfig) => void;
@@ -32,18 +30,13 @@ const ThemeConfig = (props: ThemeConfigProps): JSX.Element => {
 
   return (
 
-    <MuiThemeProvider theme={getMuiTheme(baseTheme)}>
 
       <ThemeProvider theme={baseTheme}>
         <Directionality isRtl={isRtl}>
-          <LocalizationProvider locale={config.locale}>
-            <CssBaseline />
             <GlobalStyle />
-            {props.children}
-          </LocalizationProvider>
+            <AntConfigProvider {...getAntBaseConfig(config)}>{props.children}</AntConfigProvider>
         </Directionality>
       </ThemeProvider>
-    </MuiThemeProvider>
 
   );
 };

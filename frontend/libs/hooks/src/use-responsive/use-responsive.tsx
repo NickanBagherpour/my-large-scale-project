@@ -1,6 +1,8 @@
+'use client';
+
 import { useEffect, useMemo, useState } from 'react';
 
-import { breakpoints } from '@oxygen-portal/utils';
+import { breakpoints } from '@oxygen/utils';
 
 type ResponsiveValues = {
   isMobile: boolean;

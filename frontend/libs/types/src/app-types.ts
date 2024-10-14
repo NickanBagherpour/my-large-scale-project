@@ -6,11 +6,8 @@ export interface IConfig {
   locale: Locale;
 }
 
-export interface ITheme {
-  base: IBaseTheme;
-}
 
-export interface IBaseTheme {
+export interface ITheme {
   id: string;
   direction: string;
   primary: string;

@@ -1,6 +1,8 @@
+'use client';
+
 import React, { createContext, useCallback, useContext, useMemo } from 'react';
 
-import { LocalStorageKey } from '@oxygen-portal/types';
+import { LocalStorageKey } from '@oxygen/types';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 
