@@ -73,7 +73,7 @@ export const MessageBox: React.FC<I$MessageBoxProps> = (props) => {
     const handleLinkClick = (e) => {
       // Check if the clicked URL is the same as the current URL
       if (samePath) {
-        router.reload();
+        router.refresh();
       }
     };
 

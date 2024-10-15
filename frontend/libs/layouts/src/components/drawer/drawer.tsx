@@ -153,7 +153,7 @@ const Drawer = (props: DrawerProps) => {
   }
 
   function getDefaultSelectedKeys() {
-    const activeMenuItem = findActiveMenuItem(menu, router.asPath);
+    const activeMenuItem = findActiveMenuItem(menu, pathname);
 
     if (!activeMenuItem) {
       return [];
