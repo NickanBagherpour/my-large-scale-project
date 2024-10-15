@@ -12,7 +12,7 @@ export const AppBar = styled(Header)`
   height: var(${cssVar.appBarHeight});
   top: 0;
   left: 0;
-  padding: 2rem 4rem;
+  padding: 1.2rem 1.6rem;
   z-index: var(${cssVar.appbarZIndex});
   color: ${(p) => p.theme.onPrimary};
   background-color: ${(p) => p.theme.appbar};
@@ -29,11 +29,28 @@ export const AppBar = styled(Header)`
     padding: 2rem 2rem;
   }
 
+  .appbar-title-oxygen-logo {
+    display: flex;
+    align-items: center;
+    height: 1.8rem;
+    padding: 1rem 1.6rem;
+  }
+  .appbar-title-bank-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    width: 3.6rem;
+    height: 3.6rem;
+    object-fit: scale-down;
+    padding: 0.4rem;
+  }
+
   .menu-toggle-wrapper {
     display: none;
     font-size: 3rem;
     color: ${(p) => p.theme.onPrimary};
-
     &:hover {
       color: ${(p) => p.theme.onPrimary} !important;
     }
@@ -41,33 +58,6 @@ export const AppBar = styled(Header)`
     ${respondTo.down('md')} {
       display: inline-flex;
       margin: 1rem;
-    }
-  }
-
-  .appbar-title-logo-date {
-    display: flex;
-    align-items: center;
-    font-size: 1.4rem;
-    font-weight: normal;
-
-    svg {
-      width: 4.8rem;
-      height: 4.8rem;
-      margin-right: 1.3rem;
-    }
-  }
-
-  .appbar-title-bank-logo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    line-height: 1;
-
-    img {
-      width: 15rem;
-      height: 3.2rem;
-      object-fit: scale-down;
     }
   }
 
@@ -82,15 +72,11 @@ export const AppBar = styled(Header)`
       line-height: 0;
     }
   }
-
-  .appbar-item:last-child {
-    //margin-right: 3.2rem;
-  }
 `;
 
 export const Divider = styled.div`
   width: 1px;
-  height: 100%;
-  margin-left: 1.6rem;
-  background-color: ${(p) => p.theme.onPrimary};
+  height: 70%;
+  margin: 0 1.6rem;
+  background-color: ${(p) => p.theme.border};
 `;
