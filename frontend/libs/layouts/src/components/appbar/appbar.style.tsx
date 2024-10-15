@@ -3,9 +3,7 @@ import { Layout, Switch as AntSwitch, Dropdown as AntDropdown, Dropdown } from '
 import { cssVar, respondTo } from '@oxygen/utils';
 
 const { Header } = Layout;
-export const StyleDropDown = styled(Dropdown)`
-  background-color: red;
-`;
+
 export const AppBar = styled(Header)`
   display: flex;
   align-items: center;
@@ -19,6 +17,7 @@ export const AppBar = styled(Header)`
   color: ${(p) => p.theme.onPrimary};
   background-color: ${(p) => p.theme.background.main};
   line-height: 1.5;
+  border-bottom: 1px solid ${(p) => p.theme.border._100};
 
   /* span[role='img'] {
     font-size: 2.4rem;
@@ -80,5 +79,5 @@ export const Divider = styled.div`
   width: 1px;
   height: 70%;
   margin: 0 1.6rem;
-  background-color: ${(p) => p.theme.border.main};
+  background-color: ${(p) => p.theme.border._100};
 `;

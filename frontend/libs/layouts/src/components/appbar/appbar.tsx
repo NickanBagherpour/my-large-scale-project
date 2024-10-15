@@ -27,7 +27,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <i className={'ri-menu-line'} />
+          {/* <i className={'ri-menu-line'} /> */}
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
 
@@ -48,7 +48,7 @@ const Appbar = (props: AppBarProps) => {
 
         <span style={{ flexGrow: 1 }} />
 
-        <AppbarUserMenu />
+        <AppbarUserMenu userName={'علیرضا غفار'} />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />

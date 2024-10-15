@@ -5,7 +5,7 @@ import { Direction } from '@oxygen/types';
 
 const GlobalStyle = createGlobalStyle<any>`
   :root {
-    ${cssVar.appBarHeight}: 8rem;
+    ${cssVar.appBarHeight}: 7.7rem;
     ${cssVar.drawerWidth}: 30rem;
     ${cssVar.mainContentMargin}: var(${cssVar.drawerWidth});
     ${cssVar.drawerSideGap}: 0;//1rem;
