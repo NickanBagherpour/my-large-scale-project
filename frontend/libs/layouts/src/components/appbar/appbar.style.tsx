@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
-import { Layout, Switch as AntSwitch, Dropdown as AntDropdown } from 'antd';
+import { Layout, Switch as AntSwitch, Dropdown as AntDropdown, Dropdown } from 'antd';
 import { cssVar, respondTo } from '@oxygen/utils';
 
 const { Header } = Layout;
-
+export const StyleDropDown = styled(Dropdown)`
+  color: red;
+`;
 export const AppBar = styled(Header)`
   display: flex;
   align-items: center;

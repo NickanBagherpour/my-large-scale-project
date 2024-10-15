@@ -8,6 +8,7 @@ import { OxegenLogo, Button, LocaleSwitcher, BankLogo, ThemeSwitch, Select } fro
 
 import * as S from './appbar.style';
 import AppBarMenu from '../appbar-menu/appbar-menu';
+import { MenuProps } from 'antd';
 
 export type AppBarProps = {
   isMobileOrTablet: boolean;
@@ -20,6 +21,33 @@ export type AppBarProps = {
 const Appbar = (props: AppBarProps) => {
   const { onToggleDrawer, isMobileOrTablet, config } = props;
   const [t] = useTr();
+
+  const items: MenuProps['items'] = [
+    {
+      label: (
+        <a target='_blank' rel='noopener noreferrer' href='https://www.antgroup.com'>
+          1st menu item
+        </a>
+      ),
+      key: '0',
+    },
+    {
+      label: (
+        <a target='_blank' rel='noopener noreferrer' href='https://www.aliyun.com'>
+          2nd menu item
+        </a>
+      ),
+      key: '1',
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: '3rd menu item（disabled）',
+      key: '3',
+      disabled: true,
+    },
+  ];
 
   const getMobileAppbar = () => {
     return (
@@ -46,14 +74,13 @@ const Appbar = (props: AppBarProps) => {
 
         <span style={{ flexGrow: 1 }} />
 
-        <Select defaultValue='alireza ghaffar' style={{ width: 120 }}>
-          <Select.Option value='jack'>Jack</Select.Option>
-          <Select.Option value='lucy'>Lucy</Select.Option>
-          <Select.Option value='disabled' disabled>
-            Disabled
-          </Select.Option>
-          <Select.Option value='Yiminghe'>yiminghe</Select.Option>
-        </Select>
+        <S.StyleDropDown menu={{ items }} trigger={['click']}>
+          <a onClick={(e) => e.preventDefault()}>
+            علیرضا غفار
+            {/* <DownOutlined /> */}
+          </a>
+        </S.StyleDropDown>
+
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />
