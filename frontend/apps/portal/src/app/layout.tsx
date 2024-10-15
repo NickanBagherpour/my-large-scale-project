@@ -1,4 +1,4 @@
-import { BaseProvider } from '@oxygen/hooks';
+import { BaseProvider, AntStyleProvider } from '@oxygen/hooks';
 
 import { StyledComponentsRegistry } from './registry';
 import 'normalize.css';
@@ -11,11 +11,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' className={`${iransans.variable}`}>
+    <html lang='fa' className={iransans.variable}>
       <body>
-        <StyledComponentsRegistry>
-          <BaseProvider>{children}</BaseProvider>
-        </StyledComponentsRegistry>
+        <AntStyleProvider>
+          <StyledComponentsRegistry>
+            <BaseProvider>{children}</BaseProvider>
+          </StyledComponentsRegistry>
+        </AntStyleProvider>
       </body>
     </html>
   );

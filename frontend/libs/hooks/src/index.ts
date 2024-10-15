@@ -11,3 +11,4 @@ export { default as useBounce } from './use-bounce/use-bounce';
 export { default as useDateLocaleListener } from './use-date-locale-listener/use-date-locale-listener';
 export { default as QueryProvider } from './query-provider/react-query-provider';
 export { default as TestProvider } from './test-provider/test-provider';
+export { default as AntStyleProvider } from './ant-style-provider/ant-style-provider';

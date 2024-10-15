@@ -1,6 +1,6 @@
 import { Badge, Empty, Input, Menu, MenuProps, Result } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
@@ -63,10 +63,11 @@ const Drawer = (props: DrawerProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [openKeys, setOpenKeys] = useState<string[]>();
   const router = useRouter();
+  const pathname = usePathname();
 
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
   const filteredMenuItems = useMemo(() => generateMenuItems(filteredItems?.result), [filteredItems]);
-  const menuSelectedKeys = useMemo(() => getDefaultSelectedKeys(), [menu, router.asPath]);
+  const menuSelectedKeys = useMemo(() => getDefaultSelectedKeys(), [menu, pathname]);
   // console.log('defaultOpenKeys', filteredItems.parentIds, filteredItems);
 
   const { asyncState: stateMenu, execute: executeMenu } = useAsync();
