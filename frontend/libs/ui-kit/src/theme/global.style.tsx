@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle<any>`
     ${cssVar.verticalGap}: 0px;//2.8rem;
     ${cssVar.radius}: 0.6rem;
     ${cssVar.appbarZIndex}: 10000;
-
+    ${cssVar.onAppbarZIndex}: 10001;
   }
 
   ${respondTo.down('md')} {

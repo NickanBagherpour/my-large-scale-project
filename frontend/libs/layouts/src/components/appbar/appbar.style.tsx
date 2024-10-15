@@ -4,7 +4,7 @@ import { cssVar, respondTo } from '@oxygen/utils';
 
 const { Header } = Layout;
 export const StyleDropDown = styled(Dropdown)`
-  color: red;
+  background-color: red;
 `;
 export const AppBar = styled(Header)`
   display: flex;
@@ -17,12 +17,12 @@ export const AppBar = styled(Header)`
   padding: 1.2rem 1.6rem;
   z-index: var(${cssVar.appbarZIndex});
   color: ${(p) => p.theme.onPrimary};
-  background-color: ${(p) => p.theme.appbar};
+  background-color: ${(p) => p.theme.background.main};
   line-height: 1.5;
 
-  span[role='img'] {
+  /* span[role='img'] {
     font-size: 2.4rem;
-  }
+  } */
 
   ${respondTo.down('md')} {
     // display: inline-flex;
@@ -80,5 +80,5 @@ export const Divider = styled.div`
   width: 1px;
   height: 70%;
   margin: 0 1.6rem;
-  background-color: ${(p) => p.theme.border};
+  background-color: ${(p) => p.theme.border.main};
 `;
