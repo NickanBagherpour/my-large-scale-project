@@ -74,3 +74,9 @@ export type InfoItemType = {
   files?: any;
   fullwidth?: boolean;
 };
+
+export interface WidgetHeaderType {
+  title?: string[] | string;
+  message?: string[] | string;
+  icon?: React.ReactNode;
+}
