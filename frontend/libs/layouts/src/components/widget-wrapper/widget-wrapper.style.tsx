@@ -22,7 +22,7 @@ export const Header = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0.8rem 0.4rem 2.4rem 0.4rem;
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.text.primary};
   //background-color: ${(props) => props.theme.surface};
   //min-height: 8rem;
   border-radius: var(${cssVar.radius});
@@ -35,7 +35,7 @@ export const HeaderTitleContainer = styled.div`
   display: flex;
   align-items: center;
   // padding: 1.3rem;
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.text.primary};
   //background-color: ${(props) => props.theme.surface};
   // min-height: 8rem;
   // border-radius: 0.4rem;
@@ -55,14 +55,14 @@ export const HeaderIcon = styled.div`
 export const HeaderTitle = styled.span<{ $lastTitle: boolean }>`
   font-weight: bold;
   font-size: 1.8rem;
-  color: ${(p) => (p.$lastTitle ? p.theme.textPrimary : p.theme.textTerritory)};
+  color: ${(p) => (p.$lastTitle ? p.theme.text.primary : p.theme.text.territory)};
 `;
 
 export const HeaderMessage = styled.p`
   width: 100%;
   font-size: 1.4rem;
   font-weight: normal;
-  color: ${(props) => props.theme.textSecondary};
+  color: ${(props) => props.theme.text.secondary};
   margin: 0;
   line-height: 1.5;
   // margin-left: 4.7rem;
@@ -70,7 +70,7 @@ export const HeaderMessage = styled.p`
 
 export const Icon = styled.i`
   font-size: 1.8rem;
-  color: ${(props) => props.theme.textTerritory};
+  color: ${(props) => props.theme.text.territory};
   margin: 0 0.4rem;
 `;
 
@@ -88,7 +88,7 @@ export const BodyContainer = styled.div<{ $padding; overflow_x }>`
     margin: 0 -3rem;
   }*/
 
-  // border: 1px solid ${(props) => props.theme.border}; //#dbdee1; //fixme: get it's color fr
+  // border: 1px solid ${(props) => props.theme.border.main}; //#dbdee1; //fixme: get it's color fr
   border-radius: var(${cssVar.radius});
 
   ${hideScrollbar()}

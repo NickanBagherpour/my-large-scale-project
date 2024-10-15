@@ -3,20 +3,20 @@ import { Button as AntButton } from 'antd';
 import { cssVar } from '@oxygen/utils';
 
 const defaultStyles = css`
-  color: ${(p) => p.theme.textPrimary};
+  color: ${(p) => p.theme.text.primary};
   background-color: ${(p) => p.theme.surface};
 `;
 
 const tableStyles = css`
-  color: ${(p) => p.theme.primary};
-  background-color: ${(p) => p.theme.background};
+  color: ${(p) => p.theme.primary.main};
+  background-color: ${(p) => p.theme.background.main};
   border: none;
   box-shadow: none;
   display: table-cell;
 `;
 
 const linkStyles = css`
-  color: ${(p) => p.theme.primary};
+  color: ${(p) => p.theme.primary.main};
 `;
 
 export const StyledButton = styled<any>(AntButton)`

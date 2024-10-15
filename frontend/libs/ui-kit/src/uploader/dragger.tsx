@@ -18,7 +18,7 @@ const StyledDragger = styled(Upload.Dragger)`
 
   .ant-upload {
     border-radius: 1rem;
-    background-color: ${(p) => p.theme.background};
+    background-color: ${(p) => p.theme.background.main};
   }
 
   .ant-upload-drag-hover {
@@ -32,7 +32,7 @@ const StyledDragger = styled(Upload.Dragger)`
 
     i {
       font-size: 3.6rem;
-      color: ${(p) => p.theme.primary};
+      color: ${(p) => p.theme.primary.main};
     }
 
     .dragger-container__text {
@@ -44,13 +44,13 @@ const StyledDragger = styled(Upload.Dragger)`
       .dragger-container__text__title {
         font-size: 1.4rem;
         font-weight: 500;
-        color: ${(p) => p.theme.textPrimary};
+        color: ${(p) => p.theme.text.primary};
       }
 
       .dragger-container__text__desc {
         font-size: 1.2rem;
         font-weight: normal;
-        color: ${(p) => p.theme.textSecondary};
+        color: ${(p) => p.theme.text.secondary};
         margin-top: 0.4rem;
       }
     }

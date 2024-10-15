@@ -24,7 +24,7 @@ export const ResultBoxContainer = styled(Box)<any>`
     grid-template-columns: max-content auto;
     font-size: 1.4rem;
     font-weight: bold;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
     grid-column: 1/-1;
     margin: 1.6rem 0;
 
@@ -45,13 +45,13 @@ export const ResultBoxContainer = styled(Box)<any>`
   .info-item__title {
     font-size: 1.4rem;
     font-weight: normal;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
   }
 
   .info-item__value {
     font-size: 1.4rem;
     font-weight: 500;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
     ${(p) =>
       p.modal_view &&
       css`

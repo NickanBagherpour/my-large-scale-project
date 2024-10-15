@@ -8,7 +8,7 @@ export type SelectProps = AntSelectProps & {
 
 const StyledSelect = styled(AntSelect)`
   &.ant-select .ant-select-arrow i {
-    color: ${(p) => p.theme.border};
+    color: ${(p) => p.theme.border.main};
   }
 `;
 

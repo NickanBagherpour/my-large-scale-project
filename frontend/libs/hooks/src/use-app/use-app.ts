@@ -43,10 +43,10 @@ const useApp = (): IUseApp => {
       ...modalInstance,
       ...contextHolder,
       confirm: Modal.confirm,
-      success: Modal.success,
+      success: Modal.success.main,
       info: Modal.info,
       error: Modal.error,
-      warning: Modal.warning,
+      warning: Modal.warning.main,
     },
   };
 };

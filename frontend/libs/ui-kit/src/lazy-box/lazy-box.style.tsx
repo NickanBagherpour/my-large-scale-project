@@ -25,13 +25,13 @@ export const Wrapper = styled(Box)`
     }
 
     & .lazybox__header__title {
-      color: ${(p) => p.theme.textSecondary};
+      color: ${(p) => p.theme.text.secondary};
       font-size: 1.6rem;
       font-weight: bold;
     }
 
     & .lazybox__header__subtitle {
-      color: ${(p) => p.theme.textSecondary};
+      color: ${(p) => p.theme.text.secondary};
       font-size: 1.4rem;
       flex-grow: 1;
       //margin: 0 1rem;

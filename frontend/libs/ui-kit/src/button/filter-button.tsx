@@ -28,9 +28,9 @@ const StyledButton = styled<any>(Button)`
   // min-width: ${(p) => p.width};
   ${(props) => props.width && `min-width: ${props.width};`}
   font-size: 1.4rem;
-  background-color: ${(p) => (p.active ? p.theme.background : 'inherit')};
-  color: ${(p) => (p.active ? p.theme.primary : p.theme.textTerritory)};
-  border-color: ${(p) => (p.active ? p.theme.primary : p.theme.border)};
+  background-color: ${(p) => (p.active ? p.theme.background.main : 'inherit')};
+  color: ${(p) => (p.active ? p.theme.primary.main : p.theme.text.territory)};
+  border-color: ${(p) => (p.active ? p.theme.primary.main : p.theme.border.main)};
 
   i {
     font-size: 2rem;

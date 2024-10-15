@@ -5,9 +5,9 @@ export const Root = styled.label<any>`
   cursor: pointer;
   text-align: center;
   display: flex;
-  border: 1px dashed ${(p) => p.theme.primary};
+  border: 1px dashed ${(p) => p.theme.primary.main};
   border-radius: var(${cssVar.radius});
-  background-color: ${(p) => p.theme.background};
+  background-color: ${(p) => p.theme.background.main};
 
   &:hover {
     opacity: 0.8;
@@ -17,7 +17,7 @@ export const Root = styled.label<any>`
     $isDragOver &&
     css`
       opacity: 1;
-      border: 2px dashed ${(p) => p.theme.primaryDark};
+      border: 2px dashed ${(p) => p.theme.primary._900};
     `}
 `;
 
