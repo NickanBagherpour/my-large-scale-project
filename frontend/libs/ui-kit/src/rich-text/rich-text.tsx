@@ -19,7 +19,7 @@ const StyledSpan = styled.span<any>`
   ${({ $isPrimary, theme }) =>
     $isPrimary
       ? css`
-          color: ${theme.primary};
+          color: ${theme.primary.main};
         `
       : css``}
 `;

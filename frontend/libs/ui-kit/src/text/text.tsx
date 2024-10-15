@@ -88,19 +88,19 @@ export const Text: React.FC<ITextProps> = (props) => {
 
     switch (variant) {
       case 'head':
-        return theme.textPrimary;
+        return theme.text.primary;
       case 'subhead':
-        return theme.textSecondary;
+        return theme.text.secondary;
       case 'title':
-        return theme.textPrimary;
+        return theme.text.primary;
       case 'desc':
-        return theme.textSecondary;
+        return theme.text.secondary;
       case 'body':
-        return theme.textSecondary;
+        return theme.text.secondary;
       case 'subtitle':
-        return theme.textSecondary;
+        return theme.text.secondary;
       default:
-        return theme.textPrimary;
+        return theme.text.primary;
     }
   }
 

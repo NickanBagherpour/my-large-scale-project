@@ -12,7 +12,7 @@ export const MainContentContainer = styled(Content)`
   margin-left: calc(var(${cssVar.verticalGap}) + var(${cssVar.drawerSideGap}));
   margin-right: calc(1 * var(${cssVar.drawerSideGap}));
   //margin-top: 0.6rem;
-  //background-color: ${(props) => props.theme.background};
+  //background-color: ${(props) => props.theme.background.main};
 
   ${respondTo.down('md')} {
     margin-left: var(${cssVar.drawerSideGap});

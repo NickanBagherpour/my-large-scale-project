@@ -33,13 +33,13 @@ export const StyledContainer = styled(Alert)`
     color: ${(p) => {
       switch (p.type) {
         case 'success':
-          return p.theme.success;
+          return p.theme.success.main;
         case 'error':
-          return p.theme.error;
+          return p.theme.error.main;
         case 'warning':
-          return p.theme.warning;
+          return p.theme.warning.main;
         case 'info':
-          return p.theme.info;
+          return p.theme.info.main;
         default:
           return 'inherit';
       }

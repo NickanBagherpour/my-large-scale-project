@@ -49,13 +49,13 @@ export const ModalWrapper = styled(Modal)`
     margin-block-end: 0 !important;
     font-size: 1.4rem !important;
     font-weight: 500;
-    color: ${(p) => p.theme.textPrimary} !important;
+    color: ${(p) => p.theme.text.primary} !important;
   }
 
   .ant-list-item-meta-description {
     font-size: 1.3rem !important;
     font-weight: 400;
-    color: ${(p) => p.theme.textSecondary} !important;
+    color: ${(p) => p.theme.text.secondary} !important;
   }
 
   .ant-list-item-meta-avatar,

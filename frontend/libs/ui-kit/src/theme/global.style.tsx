@@ -54,12 +54,12 @@ const GlobalStyle = createGlobalStyle<any>`
   }
 
   *::-webkit-scrollbar-track {
-    background: ${(props) => props.theme.background};
+    background: ${(props) => props.theme.background.main};
   }
 
   *::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.border};
-      //box-shadow: inset 0 0 0 0.4rem ${(props) => props.theme.background};
+    background: ${(props) => props.theme.border.main};
+      //box-shadow: inset 0 0 0 0.4rem ${(props) => props.theme.background.main};
   }
 
   * {
@@ -78,10 +78,11 @@ const GlobalStyle = createGlobalStyle<any>`
   body {
     padding: 0;
     margin: 0;
-    font-family: ${(props) => (props.theme.direction === Direction.RTL ? 'var(--font-iransans)' : 'Tahoma')}, sans-serif;
+    font-family: ${(props) =>
+      props.theme.direction === Direction.RTL ? 'var(--font-iransans)' : 'Tahoma'}, sans-serif;
     font-size: 1.4rem;
-    background-color: ${(props) => props.theme.background};
-    color: ${(props) => props.theme.textPrimary};
+    background-color: ${(props) => props.theme.background.main};
+    color: ${(props) => props.theme.text.primary};
     /*! @noflip */
     direction: ${(props) => (props.theme.direction === Direction.RTL ? Direction.RTL : Direction.LTR)};
   }
@@ -99,7 +100,7 @@ const GlobalStyle = createGlobalStyle<any>`
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
-    -webkit-text-fill-color: ${(props) => props.theme.textPrimary} !important;
+    -webkit-text-fill-color: ${(props) => props.theme.text.primary} !important;
     //background-color: #d92525 !important;
     //transition: background-color 5000s ease-in-out 0s;
     -webkit-box-shadow: 0 0 0 50px ${(props) =>
@@ -138,7 +139,7 @@ const GlobalStyle = createGlobalStyle<any>`
       border-radius: 10px;
 
       & .ant-notification-notice {
-        color: ${(props) => props.theme.textPrimary};
+        color: ${(props) => props.theme.text.primary};
         padding: 2rem 1.6rem;
         font-family: inherit;
 

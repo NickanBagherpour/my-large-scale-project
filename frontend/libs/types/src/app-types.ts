@@ -7,35 +7,57 @@ export interface IConfig {
   locale: Locale;
 }
 
+export type Pallete = {
+  main: string;
+  _50: string;
+  _100: string;
+  _200: string;
+  _300: string;
+  _400: string;
+  _500: string;
+  _600: string;
+  _700: string;
+  _800: string;
+  _900: string;
+};
+
+export type TextPallete = {
+  primary: string;
+  secondary: string;
+  territory: string;
+  quaternary: string;
+};
+
 export interface ITheme {
   id: string;
   direction: string;
-  primary: string;
-  primaryDark: string;
-  primaryLight: string;
-  // secondary: string;
-  background: string;
+  primary: Partial<Pallete>;
+  // primaryDark: string;
+  // primaryLight: string;
+  secondary: Partial<Pallete>;
+  background: Partial<Pallete>;
   surface: string;
   onPrimary: string;
   cardColor: string;
   cardSecondaryColor: string;
-  success: string;
-  successBackground: string;
-  info: string;
-  infoBackground: string;
+  success: Partial<Pallete>;
+  // successBackground: string;
+  info: Partial<Pallete>;
+  // infoBackground: string;
   lightGray: string;
-  error: string;
-  errorBackground: string;
-  warning: string;
+  error: Partial<Pallete>;
+  // errorBackground: string;
+  warning: Partial<Pallete>;
   iconPrimary: string;
-  textPrimary: string;
-  textSecondary: string;
-  textTerritory: string;
-  textQuaternary: string;
+  text: Partial<TextPallete>;
+  // textPrimary: string;
+  // textSecondary: string;
+  // textTerritory: string;
+  // textQuaternary: string;
   // hint: string;
   divider: string;
   // drawer: string;
-  border: string;
+  border: Partial<Pallete>;
   appbar: string;
 }
 

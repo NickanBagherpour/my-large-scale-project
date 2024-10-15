@@ -90,7 +90,7 @@ export const MessageBox: React.FC<I$MessageBoxProps> = (props) => {
         href={url}
         target={target}
         onClick={handleLinkClick}
-        style={{ color: theme.primary }}
+        style={{ color: theme.primary.main }}
       >
         {title}
 

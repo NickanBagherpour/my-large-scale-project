@@ -14,8 +14,8 @@ export const AppBar = styled(Header)<any>`
   left: 0;
   padding: 2rem 10rem;
   z-index: var(${cssVar.appbarZIndex});
-  color: ${(p) => (p.primary ? p.theme.onPrimary : p.theme.textSecondary)};
-  background-color: ${(p) => (p.primary ? p.theme.appbar : p.theme.surface)};
+  color: ${(p) => (p.primary.main ? p.theme.onPrimary : p.theme.text.secondary)};
+  background-color: ${(p) => (p.primary.main ? p.theme.appbar : p.theme.surface)};
   line-height: 1.5;
 
   ${respondTo.down('md')} {
@@ -48,7 +48,7 @@ export const AppBar = styled(Header)<any>`
     //flex-wrap: wrap-reverse;
     margin: 0 2rem;
     font-weight: 500;
-    color: ${(p) => (p.primary ? p.theme.onPrimary : p.theme.textSecondary)};
+    color: ${(p) => (p.primary.main ? p.theme.onPrimary : p.theme.text.secondary)};
 
     //> * {
     //  margin: 1rem 1.2rem;
@@ -57,7 +57,7 @@ export const AppBar = styled(Header)<any>`
     a {
       text-decoration: none;
       // color: ${(p) => p.theme.onPrimary};
-      color: ${(p) => (p.primary ? p.theme.onPrimary : p.theme.textSecondary)};
+      color: ${(p) => (p.primary.main ? p.theme.onPrimary : p.theme.text.secondary)};
     }
   }
 `;
