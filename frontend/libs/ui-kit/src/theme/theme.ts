@@ -1,6 +1,6 @@
 import { Direction, IConfig, ITheme, ThemeID } from '@oxygen/types';
 
-const getLightTheme = (direction: Direction): Partial<ITheme> => {
+const getLightTheme = (direction: Direction): ITheme => {
   return {
     id: ThemeID.LIGHT,
     direction: direction,
@@ -36,12 +36,6 @@ const getLightTheme = (direction: Direction): Partial<ITheme> => {
       _100: '#f1f5f9',
       _200: '#e2e8f0',
       _600: '#475569',
-      _700: '',
-      _800: '',
-      _900: '',
-      _300: '',
-      _400: '',
-      _500: '',
     },
     surface: '#ffffff',
     onPrimary: '#ffffff',
@@ -54,11 +48,6 @@ const getLightTheme = (direction: Direction): Partial<ITheme> => {
       _300: '#86EFAC',
       _500: '#22C55E',
       _600: '#16A34A',
-      _700: '',
-      _800: '',
-      _900: '',
-      _400: '',
-      _200: '',
     },
     // successBackground: '#ddf8ed',
     error: {
@@ -100,17 +89,17 @@ const getLightTheme = (direction: Direction): Partial<ITheme> => {
     // // drawer: '#feffff',
     border: {
       main: '#94A3B8',
-      _100: '#F1F5F9',
-      _200: '#E2E8F0',
+      _50: '#F1F5F9',
+      _100: '#E2E8F0',
       _300: '#CBD5E1',
-      _400: '#94A3B8',
-      _500: '#64748B',
+      _500: '#94A3B8',
+      _600: '#64748B',
     },
     appbar: '#30398b' /*primary*/,
   };
 };
 
-const getDarkTheme = (direction: Direction): Partial<ITheme> => {
+const getDarkTheme = (direction: Direction): ITheme => {
   return {
     id: ThemeID.DARK,
     direction: direction,
@@ -199,11 +188,11 @@ const getDarkTheme = (direction: Direction): Partial<ITheme> => {
     // // drawer: '#feffff',
     border: {
       main: '#3e4761',
-      _100: '#F1F5F9',
-      _200: '#E2E8F0',
+      _50: '#F1F5F9',
+      _100: '#E2E8F0',
       _300: '#CBD5E1',
-      _400: '#94A3B8',
-      _500: '#3e4761',
+      _500: '#94A3B8',
+      _600: '#3e4761',
     },
     appbar: '#1e1e2d' /*primary*/,
   };

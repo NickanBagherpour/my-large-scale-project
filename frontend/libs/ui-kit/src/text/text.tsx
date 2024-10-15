@@ -81,7 +81,7 @@ export const Text: React.FC<ITextProps> = (props) => {
     }
   }
 
-  function getColor(): Color {
+  function getColor(): Color | undefined {
     if (color) {
       return color;
     }

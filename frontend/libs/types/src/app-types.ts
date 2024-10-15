@@ -21,6 +21,15 @@ export type Pallete = {
   _900: string;
 };
 
+export type AlertPallete = {
+  main: string;
+  _50: string;
+  _100: string;
+  _300: string;
+  _500: string;
+  _600: string;
+};
+
 export type TextPallete = {
   primary: string;
   secondary: string;
@@ -39,15 +48,15 @@ export interface ITheme {
   surface: string;
   onPrimary: string;
   cardColor: string;
-  cardSecondaryColor: string;
-  success: Partial<Pallete>;
+  // cardSecondaryColor: string;
+  success: Partial<AlertPallete>;
   // successBackground: string;
-  info: Partial<Pallete>;
+  info: Partial<AlertPallete>;
   // infoBackground: string;
   lightGray: string;
-  error: Partial<Pallete>;
+  error: Partial<AlertPallete>;
   // errorBackground: string;
-  warning: Partial<Pallete>;
+  warning: Partial<AlertPallete>;
   iconPrimary: string;
   text: Partial<TextPallete>;
   // textPrimary: string;
@@ -57,7 +66,7 @@ export interface ITheme {
   // hint: string;
   divider: string;
   // drawer: string;
-  border: Partial<Pallete>;
+  border: Partial<AlertPallete>;
   appbar: string;
 }
 
