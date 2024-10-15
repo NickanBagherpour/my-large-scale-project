@@ -68,7 +68,7 @@ export const RightPanelContainer = styled.section`
     button:hover,
     button:focus,
     button:active {
-      color: ${(p) => p.theme.textPrimary} !important;
+      color: ${(p) => p.theme.text.primary} !important;
     }
   }
 
@@ -95,7 +95,7 @@ export const LeftPanelContainer = styled.section`
   position: relative;
   color: ${(p) => p.theme.onPrimary};
 
-  background-color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary, p.theme.background)} !important;
+  background-color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.background.main)} !important;
 
   .auth-bg-container {
     position: absolute;

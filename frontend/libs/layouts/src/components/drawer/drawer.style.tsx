@@ -40,12 +40,12 @@ export const MenuWrapper = styled.div`
   ul.ant-menu-root {
     background-color: transparent;
     border-inline-end: none !important;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
 
     li.ant-menu-item-selected {
-      background-color: ${(p) => p.theme.primaryLight};
+      background-color: ${(p) => p.theme.primary._200};
       font-weight: bold;
-      color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary, p.theme.textPrimary)};
+      color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.text.primary)};
     }
 
     li.ant-menu-item,
@@ -94,7 +94,7 @@ export const MenuWrapper = styled.div`
   }
 
   .ant-result-icon {
-    color: ${(p) => p.theme.error};
+    color: ${(p) => p.theme.error.main};
   }
 
   ${hideScrollbar()}

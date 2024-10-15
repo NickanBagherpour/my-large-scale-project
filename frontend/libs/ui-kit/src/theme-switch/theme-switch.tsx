@@ -11,16 +11,16 @@ export type ThemeSwitchProps = AntSwitchProps & {
 };
 
 const ThemeSwitchWrapper = styled(AntSwitch)`
-  background-color: ${(p) => getRelatedColor(p.theme.id, p.theme.background, p.theme.onPrimary)}80 !important;
+  background-color: ${(p) => getRelatedColor(p.theme.id, p.theme.background.main, p.theme.onPrimary)}80 !important;
   box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.25);
 
   & .ant-switch {
-    // background-color: ${(p) => p.theme.background}80  ;
+    // background-color: ${(p) => p.theme.background.main}80  ;
   }
 
   & .ant-switch-handle::before {
     //background-color: #b7bbe1 !important;
-    //background-color: ${(p) => p.theme.background}90  !important;
+    //background-color: ${(p) => p.theme.background.main}90  !important;
   }
 
   & .ant-switch-inner {

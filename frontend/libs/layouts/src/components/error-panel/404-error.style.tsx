@@ -29,7 +29,7 @@ export const ErrorDesc = styled.div`
   & .not-found-title {
     font-size: 1.8rem;
     font-weight: bold;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
   }
   & .not-found-btns {
     display: flex;
@@ -40,7 +40,7 @@ export const ErrorDesc = styled.div`
   }
   & .back-btn {
     min-width: 17rem;
-    border-color: ${(p) => p.theme.primary};
-    color: ${(p) => p.theme.primary};
+    border-color: ${(p) => p.theme.primary.main};
+    color: ${(p) => p.theme.primary.main};
   }
 `;

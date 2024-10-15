@@ -27,7 +27,7 @@ export const InfoBoxWrapper = styled.div<any>`
   & .info-box__title {
     font-size: 1.4rem;
     font-weight: 500;
-    color: ${(p) => p.theme.textPrimary};
+    color: ${(p) => p.theme.text.primary};
     white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
   }
 
@@ -51,7 +51,7 @@ export const InfoBoxWrapper = styled.div<any>`
   & .info-box__value {
     font-size: 1.4rem;
     font-weight: normal;
-    color: ${(p) => p.theme.textSecondary};
+    color: ${(p) => p.theme.text.secondary};
     text-align: left;
     unicode-bidi: plaintext;
     /*! @noflip */
@@ -61,7 +61,7 @@ export const InfoBoxWrapper = styled.div<any>`
   & .info-box__sub-value {
     font-size: 1.3rem;
     font-weight: 300;
-    color: ${(p) => p.theme.textTerritory};
+    color: ${(p) => p.theme.text.territory};
   }
 
   & .info-box__files {
@@ -74,7 +74,7 @@ export const InfoBoxWrapper = styled.div<any>`
     }
 
     // .ri-file-excel-line {
-    //   color: ${(props) => props.theme.success};
+    //   color: ${(props) => props.theme.success.main};
     // }
     //
     // .ri-file-pdf-2-line {
@@ -86,12 +86,12 @@ export const InfoBoxWrapper = styled.div<any>`
     // }
     //
     // .ri-file-3-line {
-    //   color: ${(props) => props.theme.textPrimary};
+    //   color: ${(props) => props.theme.text.primary};
     // }
   }
 
   & .info-box__footer {
-    // background-color: ${(p) => p.theme.textTerritory};
+    // background-color: ${(p) => p.theme.text.territory};
     //width: 100%;
     grid-column: 1 / -1;
     justify-self: flex-end;

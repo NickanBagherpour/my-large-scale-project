@@ -28,11 +28,11 @@ export const StyledTree = styled<any>(AntTree)`
     //color: #17387a;
     //font-size: 2rem;
     //margin: 0.5rem 0;
-    background-color: ${(p) => p.theme.background};
+    background-color: ${(p) => p.theme.background.main};
   }
 
   .ant-tree-switcher-wrapper {
-    background-color: ${(p) => !p.isCompact && p.theme.background};
+    background-color: ${(p) => !p.isCompact && p.theme.background.main};
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -51,7 +51,7 @@ export const StyledTree = styled<any>(AntTree)`
 
   .tree-root {
     font-weight: bold;
-    color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary, p.theme.textPrimary)};
+    color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.text.primary)};
   }
 
   .ant-tree-switcher-leaf-line:after,

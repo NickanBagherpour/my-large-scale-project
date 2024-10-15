@@ -3,7 +3,7 @@ import { ITheme, ThemeID } from '@oxygen/types';
 const getLightTheme = (themeBase: ITheme) => {
   return {
     token: {
-      colorPrimary: themeBase.primary,
+      colorPrimary: themeBase.primary.main,
     },
   };
 };
@@ -11,7 +11,7 @@ const getLightTheme = (themeBase: ITheme) => {
 function getDarkTheme(themeBase: ITheme) {
   return {
     token: {
-      colorPrimary: themeBase.primary,
+      colorPrimary: themeBase.primary.main,
     },
   };
 }
@@ -20,18 +20,18 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
   return {
     token: {
       fontFamily: 'inherit',
-      colorPrimary: themeBase.primary,
-      // colorTextBase: themeBase.textPrimary,
-      // colorBgBase: themeBase.background,
+      colorPrimary: themeBase.primary.main,
+      // colorTextBase: themeBase.text.primary,
+      // colorBgBase: themeBase.background.main,
       colorBgContainer: 'transparent',
-      colorBgLayout: themeBase.background,
+      colorBgLayout: themeBase.background.main,
       // colorBgContainer: themeBase.surface,
       //
     },
     algorithm: themeBase.id === ThemeID.DARK ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm,
     components: {
       Tree: {
-        nodeSelectedBg: themeBase.primaryLight,
+        nodeSelectedBg: themeBase.primary._200,
       },
       Modal: {
         contentBg: themeBase.surface,

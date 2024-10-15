@@ -37,7 +37,7 @@ export const UserProfileWrapper = styled.div`
                     font-size: 1.4rem;
                     font-weight: bold;
                     margin-top: 0.8rem;
-                    color: ${(p) => p.theme.textPrimary};
+                    color: ${(p) => p.theme.text.primary};
                     line-height: 1;
 
                     overflow: hidden;
@@ -48,7 +48,7 @@ export const UserProfileWrapper = styled.div`
                 & .user-profile-organization-container {
                     font-size: 1.4rem;
                     font-weight: normal;
-                    color: ${(p) => p.theme.textSecondary};
+                    color: ${(p) => p.theme.text.secondary};
 
                     overflow: hidden;
                     white-space: nowrap;

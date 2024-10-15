@@ -20,7 +20,7 @@ export const DropdownRender = styled.div`
   min-width: 17.5rem;
 
   li {
-    color: ${(p) => p.theme.textSecondary} !important;
+    color: ${(p) => p.theme.text.secondary} !important;
     font-weight: 500 !important;
   }
 

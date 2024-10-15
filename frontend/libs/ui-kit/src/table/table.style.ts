@@ -30,7 +30,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   thead {
-    //background-color: ${(p) => p.theme.background};
+    //background-color: ${(p) => p.theme.background.main};
     border-radius: 0;
   }
 
@@ -69,7 +69,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody tr.ant-table-row:hover {
-    // background-color: ${(p) => p.theme.background};
+    // background-color: ${(p) => p.theme.background.main};
     cursor: pointer;
   }
 
@@ -102,7 +102,7 @@ export const Table = styled(AntTable)<TableProps>`
 
 export const Caption = styled.div`
   background-color: ${(p) => p.theme.surface};
-  color: ${(p) => p.theme.textPrimary};
+  color: ${(p) => p.theme.text.primary};
   border-radius: var(${cssVar.radius});
   display: flex;
   flex-direction: row;
@@ -131,7 +131,7 @@ export const MobileColumnWrapper = styled.div`
   justify-content: space-between;
   font-size: 1.5rem;
   font-weight: bold;
-  color: ${(props) => props.theme.textSecondary};
+  color: ${(props) => props.theme.text.secondary};
 
   margin-bottom: 1rem;
 
