@@ -2,6 +2,20 @@ import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
 export const InputWrapper = styled<any>(AntInput)`
+  border-color: ${(p) => p.theme.border};
+
+  padding-top: 0.8rem;
+
+  .ant-input-prefix {
+    padding-right: 0.8rem;
+    padding-left: 1.6rem;
+  }
+
+  .ant-input-suffix {
+    padding-right: 1.6rem;
+    padding-left: 0.8rem;
+  }
+
   & .ant-input-group-addon {
     padding-left: 6px;
     padding-right: 6px;
