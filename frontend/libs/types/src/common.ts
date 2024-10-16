@@ -29,3 +29,7 @@ export type KeysOfType<T, U> = { [K in keyof T]: T[K] extends U ? K : never }[ke
  * This type gives you the difference between two types by removing all properties that exist in both types.
  */
 export type Diff<T, U> = T extends U ? never : T;
+
+export type Obj = {
+  [key: string]: string | number | boolean | null | undefined | Obj[] | { [key: string]: Obj };
+};
