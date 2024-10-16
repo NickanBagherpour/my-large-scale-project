@@ -19,6 +19,7 @@ export const cssVar = {
   mainContentMargin: '--main-content-margin',
   radius: '--radius',
   appbarZIndex: '--appbar-z-index',
+  onAppbarZIndex: '--on-appbar-z-index',
 };
 
 export const respondTo = {

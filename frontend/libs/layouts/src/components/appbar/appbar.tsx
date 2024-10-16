@@ -2,12 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 
 import { useTr } from '@oxygen/translation';
-import { ENV_CONSTANTS, fullDateLocale } from '@oxygen/utils';
+import { cssVar, ENV_CONSTANTS, fullDateLocale } from '@oxygen/utils';
 import { IConfig } from '@oxygen/types';
-import { BaamsunLogo, bankLogo, Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
+import { OxegenLogo, Button, LocaleSwitcher, BankLogo, ThemeSwitch, Select } from '@oxygen/ui-kit';
 
 import * as S from './appbar.style';
 import AppBarMenu from '../appbar-menu/appbar-menu';
+import { MenuProps } from 'antd';
+import AppbarUserMenu from './appbar-user-menu';
 
 export type AppBarProps = {
   isMobileOrTablet: boolean;
@@ -25,12 +27,12 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <i className={'ri-menu-line'} />
+          {/* <i className={'ri-menu-line'} /> */}
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          <BaamsunLogo />
+          <OxegenLogo />
         </span>
         <AppBarMenu />
       </>
@@ -40,34 +42,16 @@ const Appbar = (props: AppBarProps) => {
   const getDesktopAppbar = () => {
     return (
       <>
-        <span className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <i className={'ri-menu-line'} />
-          {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
-        </span>
-
-        <span className={'appbar-title-logo-date'}>
-          <BaamsunLogo />
-          <span>{fullDateLocale(undefined, config.locale)}</span>
+        <span className={'appbar-title-oxygen-logo'}>
+          <OxegenLogo />
         </span>
 
         <span style={{ flexGrow: 1 }} />
 
-        <span className={'appbar-title-bank-logo'}>
-          <Image src={bankLogo} alt='Bank Melli' />
-        </span>
-
-        <ThemeSwitch />
-
-        {(ENV_CONSTANTS.IS_DEV || true) && <LocaleSwitcher />}
-
+        <AppbarUserMenu userName={'علیرضا غفار'} />
         <S.Divider />
-
-        <span className={'appbar-item'}>
-          <Button icon={<i className='ri-notification-2-fill' />} type='text' shape='circle' />
-        </span>
-
-        <span className={'appbar-item'}>
-          <Button icon={<i className='ri-logout-box-r-line' />} type='text' shape='circle' onClick={props.onLogout} />
+        <span className={'appbar-title-bank-logo'}>
+          <BankLogo />
         </span>
       </>
     );

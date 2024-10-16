@@ -5,14 +5,14 @@ import { Direction } from '@oxygen/types';
 
 const GlobalStyle = createGlobalStyle<any>`
   :root {
-    ${cssVar.appBarHeight}: 8rem;
+    ${cssVar.appBarHeight}: 7.7rem;
     ${cssVar.drawerWidth}: 30rem;
     ${cssVar.mainContentMargin}: var(${cssVar.drawerWidth});
     ${cssVar.drawerSideGap}: 0;//1rem;
     ${cssVar.verticalGap}: 0px;//2.8rem;
     ${cssVar.radius}: 0.6rem;
     ${cssVar.appbarZIndex}: 10000;
-
+    ${cssVar.onAppbarZIndex}: 10001;
   }
 
   ${respondTo.down('md')} {
