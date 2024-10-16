@@ -3,6 +3,7 @@ import { BaseProvider, AntStyleProvider } from '@oxygen/hooks';
 import { StyledComponentsRegistry } from './registry';
 import 'normalize.css';
 import { iransans } from './fonts';
+import '../../public/assets/fonts/iconly/iconly.css';
 
 export const metadata = {
   title: 'Welcome to portal',

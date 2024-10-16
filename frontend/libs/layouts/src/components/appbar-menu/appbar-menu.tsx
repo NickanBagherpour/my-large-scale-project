@@ -111,7 +111,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         shape='circle'
         icon={
           <span className={'appbar-menu-icon'}>
-            <i className='ri-more-2-line' />
+            <i className='icon-three-dots-vertical' />
           </span>
         }
       />

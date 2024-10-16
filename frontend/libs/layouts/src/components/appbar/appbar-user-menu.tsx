@@ -4,11 +4,11 @@ import { Divider, MenuProps, Space } from 'antd';
 
 import * as S from './appbar-user-menu.style';
 import { cssVar } from '@oxygen/utils';
-import { ArrowDown, Button, InputPassword, PencilSquare, SignOut, UserProfile } from '@oxygen/ui-kit';
+import { ArrowDown, InputPassword, PencilSquare, SignOut, UserProfile } from '@oxygen/ui-kit';
 
-export default function AppbarUserMenu({ userName }) {
+export default function AppbarUserMenu({ userName, onLogout }) {
   const handleclose = () => {
-    console.log('close');
+    onLogout();
   };
 
   const items: MenuProps['items'] = [

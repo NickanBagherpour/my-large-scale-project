@@ -20,14 +20,14 @@ export type AppBarProps = {
 };
 
 const Appbar = (props: AppBarProps) => {
-  const { onToggleDrawer, isMobileOrTablet, config } = props;
+  const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
 
   const getMobileAppbar = () => {
     return (
       <>
         <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          {/* <i className={'ri-menu-line'} /> */}
+          <i className={'icon-hamburger-menu'} style={{ color: 'black' }} />
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
 
@@ -47,8 +47,8 @@ const Appbar = (props: AppBarProps) => {
         </span>
 
         <span style={{ flexGrow: 1 }} />
-
-        <AppbarUserMenu userName={'علیرضا غفار'} />
+        <i className={'icon-hamburger-menu'} />
+        <AppbarUserMenu userName={'علیرضا غفار'} onLogout={onLogout} />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />
