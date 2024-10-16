@@ -41,11 +41,27 @@ export const MenuWrapper = styled.div`
     background-color: transparent;
     border-inline-end: none !important;
     color: ${(p) => p.theme.text.secondary};
+    padding: 1.6rem;
+
+    & li.ant-menu-item:not(last-of-type) {
+      margin-bottom: 1.2rem;
+    }
 
     li.ant-menu-item-selected {
-      background-color: ${(p) => p.theme.primary._200};
+      background-color: ${(p) => p.theme.primary._100};
       font-weight: bold;
       color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.text.primary)};
+      position: relative;
+    }
+
+    li.ant-menu-item-selected::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      width: 0.5rem;
+      height: 100%;
+      background-color: ${(props) => props.theme.primary.main};
     }
 
     li.ant-menu-item,
@@ -53,19 +69,22 @@ export const MenuWrapper = styled.div`
       margin: 0 auto;
       text-wrap: unset;
       line-height: 1.5;
+      height: 4.4rem;
     }
 
     li.ant-menu-item i,
     div[role='menuitem'] i {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
 
     .ant-menu-title-content {
       font-size: 1.4rem;
       font-weight: 500;
+      line-height: 2.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-inline-start: 1.2rem;
 
       .menu-item-badge {
         color: white;

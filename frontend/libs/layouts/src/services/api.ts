@@ -1,8 +1,15 @@
 import { client, portalUrl } from '@oxygen/client';
+import { isDevelop } from '@oxygen/utils';
+import { getMenus } from '@oxygen/mockify';
 
 const Api = {
   getMenus: async () => {
-    const response = await client.get(`${portalUrl}/profile/menu`);
+    let response;
+    if (isDevelop) {
+      response = await getMenus();
+    } else {
+      response = await client.get(`${portalUrl}/profile/menu`);
+    }
     return response.data;
   },
   getUserPhoto: async () => {
