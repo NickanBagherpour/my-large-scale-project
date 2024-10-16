@@ -1,13 +1,15 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
+
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { cssVar, ENV_CONSTANTS, fullDateLocale } from '@oxygen/utils';
 import { IConfig } from '@oxygen/types';
-import { OxegenLogo, Button, LocaleSwitcher, BankLogo, ThemeSwitch, Select } from '@oxygen/ui-kit';
+import { OxegenLogo, Button, BankLogo } from '@oxygen/ui-kit';
+
+import AppbarUserMenu from './appbar-user-menu';
+import { useAsync, useAuth } from '@oxygen/hooks';
 
 import * as S from './appbar.style';
-import AppbarUserMenu from './appbar-user-menu';
 
 export type AppBarProps = {
   isMobileOrTablet: boolean;
@@ -20,6 +22,24 @@ export type AppBarProps = {
 const Appbar = (props: AppBarProps) => {
   const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
+  const { user, setUser } = useAuth();
+  const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+
+  useEffect(() => {
+    if (!user) {
+      fetchUserProfile();
+    }
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await executeUserProfile(async () => await Api.getUserProfile());
+      setUser(response);
+      return response;
+    } catch (error) {
+      return null;
+    }
+  };
 
   const getMobileAppbar = () => {
     return (
@@ -32,11 +52,10 @@ const Appbar = (props: AppBarProps) => {
         <span className={'appbar-title-logo-date'}>
           <OxegenLogo />
         </span>
-        <AppbarUserMenu userInfo={userInfo} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} />
+        <AppbarUserMenu userInfo={user} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} loading={stateUserProfile.loading} />
       </>
     );
   };
-  const userInfo = { userName: 'علیرضا غفار', userRole: 'مسئول اصلی' };
   const getDesktopAppbar = () => {
     return (
       <>
@@ -46,7 +65,7 @@ const Appbar = (props: AppBarProps) => {
 
         <span style={{ flexGrow: 1 }} />
 
-        <AppbarUserMenu userInfo={userInfo} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} />
+        <AppbarUserMenu userInfo={user} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} loading={stateUserProfile.loading} />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />

@@ -1,3 +1,4 @@
+import { cssVar } from '@oxygen/utils';
 import { Dropdown } from 'antd';
 import styled from 'styled-components';
 
@@ -8,6 +9,18 @@ export const StyleDropDown = styled(Dropdown)`
   font-weight: 500;
   line-height: 2rem;
   align-items: start;
+`;
+
+export const Overlay = styled.div`
+  & > ul.ant-dropdown-menu-root li {
+    margin: 0.5rem 0;
+  }
+
+    & > ul.ant-dropdown-menu-root li[role='separator'] {
+    margin:0;
+    background-color: ${(p) => p.theme.border._100};
+  }
+
 `;
 
 export const StyleParagraph = styled('p')`
@@ -42,19 +55,20 @@ export const StyleSpan = styled('span')`
   }
 `;
 
-export const styleDiv = styled('div')`
+export const StyleDiv = styled('div')`
   display: flex;
   align-items: center;
-  gap: 3rem;
+  justify-content: space-between;
+  width: 100%;
 `;
 
-export const styleDivider = styled.div`
+export const StyleDivider = styled.div`
   height: 0.1rem;
   min-width: 15rem;
-  margin: 1rem 0.3rem 2rem 0.3rem;
+  margin: 1rem 0.3rem 1rem 0.3rem;
   background: ${(p) => p.theme.border._100};
 `;
-export const styleIcon = styled.i`
+export const StyleIcon = styled.i`
   height: 2.4rem;
   width: 2.4rem;
   font-size: 3rem;

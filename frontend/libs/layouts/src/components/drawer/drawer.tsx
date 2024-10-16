@@ -57,7 +57,6 @@ const Drawer = (props: DrawerProps) => {
   } = props;
 
   const { menu, setMenu } = useMenu();
-  const { user, setUser } = useAuth();
 
   const [t] = useTr();
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,7 +70,6 @@ const Drawer = (props: DrawerProps) => {
   // console.log('defaultOpenKeys', filteredItems.parentIds, filteredItems);
 
   const { asyncState: stateMenu, execute: executeMenu } = useAsync();
-  const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
 
   useEffect(() => {
     if (!menu && !stateMenu?.data) {
@@ -80,11 +78,7 @@ const Drawer = (props: DrawerProps) => {
     getActiveParentkeys();
   }, [menu]);
 
-  useEffect(() => {
-    if (!user) {
-      fetchUserProfile();
-    }
-  }, []);
+
 
   const fetchMenu = async () => {
     try {
@@ -97,15 +91,7 @@ const Drawer = (props: DrawerProps) => {
     }
   };
 
-  const fetchUserProfile = async () => {
-    try {
-      const response = await executeUserProfile(async () => await Api.getUserProfile());
-      setUser(response);
-      return response;
-    } catch (error) {
-      return null;
-    }
-  };
+
 
   function getMenuLabelNode(menuItem) {
     const badgeCount = 0; // Replace with your non-zero value
@@ -256,9 +242,10 @@ const Drawer = (props: DrawerProps) => {
           open={openDrawer}
           getContainer={'div'}
           width={`var(${cssVar.drawerWidth})`}
-          bodyStyle={{
-            padding: 0,
-            // background: '#001529',
+          styles={{
+            body: {
+              padding: 0,
+            },
           }}
         >
           {getMenuContainer()}

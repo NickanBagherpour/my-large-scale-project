@@ -1,18 +1,10 @@
 import { MenuProps } from 'antd';
 import { useTr } from '@oxygen/translation';
 
+import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
+import { ArrowDown, Button, Loading, LocaleSwitcher, ThemeSwitch, UserProfile } from '@oxygen/ui-kit';
+
 import * as S from './appbar-user-menu.style';
-import { cssVar } from '@oxygen/utils';
-import {
-  ArrowDown,
-  Button,
-  InputPassword,
-  LocaleSwitcher,
-  PencilSquare,
-  SignOut,
-  ThemeSwitch,
-  UserProfile,
-} from '@oxygen/ui-kit';
 
 enum MenuItemKey {
   ChangeLanguage = 'changeLanguage',
@@ -23,46 +15,53 @@ enum MenuItemKey {
   Logout = 'logout',
   EditInfo = 'editInfo',
 }
-export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet }) {
+export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, loading = false }) {
   const [t] = useTr();
-
-  const isDevelopment = process.env.NODE_ENV === 'development';
 
   const handleClose = () => {
     onLogout();
+  };
+
+  const handlePreventClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const items: MenuProps['items'] = [
     {
       label: (
         <S.StyleSpan>
-          <div className='menu-header'>
-            <p className='menu-p'>{userInfo.userName}</p>
-            <span className='menu-span'>{userInfo.userRole}</span>
-          </div>
-          <S.styleDivider />
+          {loading ? (
+            <Loading size='small' />
+          ) : (
+            <div className='menu-header'>
+              <p className='menu-p'>{userInfo.userFullName}</p>
+              <span className='menu-span'>{userInfo.jobName}</span>
+            </div>
+          )}
         </S.StyleSpan>
       ),
       key: MenuItemKey.Username,
-      disabled: true,
     },
-    ...(isDevelopment
+    { type: 'divider' },
+    ...(ENV_CONSTANTS.IS_DEV
       ? [
           {
             label: (
-              <S.styleDiv>
-                {t('appbar.change_language')}
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.change_language')}</span>
                 <LocaleSwitcher type='textPrimary' />
-              </S.styleDiv>
+              </S.StyleDiv>
             ),
             key: MenuItemKey.ChangeLanguage,
+            // disabled: true,
           },
           {
             label: (
-              <S.styleDiv>
-                {t('appbar.background_color')}
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.background_color')}</span>
                 <ThemeSwitch />
-              </S.styleDiv>
+              </S.StyleDiv>
             ),
             key: MenuItemKey.BackgroundColor,
           },
@@ -70,34 +69,38 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet })
       : []),
     {
       label: `${t('appbar.edit_info')}`,
-      icon: <PencilSquare />,
+      icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
       key: MenuItemKey.EditInfo,
     },
     {
       label: `${t('appbar.change_password')}`,
-      icon: <InputPassword />,
+      icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
       key: MenuItemKey.ChangePassword,
     },
     {
       label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
-      icon: <SignOut />,
+      icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
       key: MenuItemKey.Logout,
       danger: true,
     },
   ];
+
   return (
     <S.StyleDropDown
       menu={{ items }}
       trigger={['click']}
       placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
+      dropdownRender={(node) => {
+        return <S.Overlay>{node}</S.Overlay>;
+      }}
     >
       {isMobileOrTablet ? (
-        <Button type='text' shape='circle' icon={<S.styleIcon className={'icon-three-dots-vertical'}></S.styleIcon>} />
+        <Button type='text' shape='circle' icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>} />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <UserProfile />
-          {userInfo.userName}
+          {loading ? <Loading size='small' /> : userInfo.userFullName}
           <ArrowDown />
         </S.StyleParagraph>
       )}
