@@ -7,7 +7,7 @@ export interface IConfig {
   locale: Locale;
 }
 
-export type Pallete = {
+export type Palette = {
   main: string;
   _50: string;
   _100: string;
@@ -21,58 +21,36 @@ export type Pallete = {
   _900: string;
 };
 
-export type AlertPallete = {
-  main: string;
-  _50: string;
-  _100: string;
-  _300: string;
-  _500: string;
-  _600: string;
-};
-
-export type TextPallete = {
+export type TextPalette = {
   primary: string;
   secondary: string;
   territory: string;
   quaternary: string;
 };
 
+type BackgroundPalette = Pick<Palette, 'main' | '_50' | '_100' | '_200' | '_600'>;
+type AlertPalette = Pick<Palette, 'main' | '_50' | '_100' | '_300' | '_500' | '_600'>;
+
 export interface ITheme {
   id: string;
   direction: string;
-  primary: Partial<Pallete>;
-  // primaryDark: string;
-  // primaryLight: string;
-  secondary: Partial<Pallete>;
-  background: Partial<Pallete>;
+  primary: Palette;
+  secondary: Palette;
+  background: BackgroundPalette;
   surface: string;
   onPrimary: string;
   cardColor: string;
-  // cardSecondaryColor: string;
-  success: Partial<AlertPallete>;
-  // successBackground: string;
-  info: Partial<AlertPallete>;
-  // infoBackground: string;
+  success: AlertPalette;
+  info: AlertPalette;
   lightGray: string;
-  error: Partial<AlertPallete>;
-  // errorBackground: string;
-  warning: Partial<AlertPallete>;
+  error: AlertPalette;
+  warning: AlertPalette;
   iconPrimary: string;
-  text: Partial<TextPallete>;
-  // textPrimary: string;
-  // textSecondary: string;
-  // textTerritory: string;
-  // textQuaternary: string;
-  // hint: string;
+  text: TextPalette;
   divider: string;
-  // drawer: string;
-  border: Partial<AlertPallete>;
+  border: AlertPalette;
   appbar: string;
 }
-
-export type Obj = {
-  [key: string]: string | number | boolean | null | undefined | Obj[] | { [key: string]: Obj };
-};
 
 export type InfoItemType = {
   key: string;
