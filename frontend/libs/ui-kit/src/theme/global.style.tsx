@@ -6,13 +6,19 @@ import { Direction } from '@oxygen/types';
 const GlobalStyle = createGlobalStyle<any>`
   :root {
     ${cssVar.appBarHeight}: 7.7rem;
-    ${cssVar.drawerWidth}: 30rem;
+    ${cssVar.drawerWidth}: 23rem;
     ${cssVar.mainContentMargin}: var(${cssVar.drawerWidth});
     ${cssVar.drawerSideGap}: 0;//1rem;
     ${cssVar.verticalGap}: 0px;//2.8rem;
     ${cssVar.radius}: 0.6rem;
     ${cssVar.appbarZIndex}: 10000;
     ${cssVar.onAppbarZIndex}: 10001;
+  }
+
+  ${respondTo.down('md')} {
+    :root {
+      ${cssVar.appbarZIndex}: 1000;
+    }
   }
 
   ${respondTo.down('md')} {
@@ -25,7 +31,7 @@ const GlobalStyle = createGlobalStyle<any>`
 
   ${respondTo.down('xl')} {
     :root {
-      ${cssVar.drawerSideGap}: 3.2rem;
+      ${cssVar.drawerSideGap}: 0;
     }
   }
 
