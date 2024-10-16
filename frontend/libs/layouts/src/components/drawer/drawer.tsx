@@ -111,11 +111,11 @@ const Drawer = (props: DrawerProps) => {
     const badgeCount = 0; // Replace with your non-zero value
     const badge = badgeCount > 0 ? <Badge className={'menu-item-badge'} count={badgeCount} showZero={false} /> : null;
 
-    const isLink = menuItem.v3_href && menuItem.v3_ready;
+    const isLink = menuItem.href && menuItem.active;
 
     return (
       <>
-        {isLink ? <Link href={menuItem.v3_href}>{menuItem.title}</Link> : menuItem.title}
+        {isLink ? <Link href={menuItem.href}>{menuItem.title}</Link> : menuItem.title}
         {badge}
       </>
     );
@@ -134,8 +134,8 @@ const Drawer = (props: DrawerProps) => {
       const item: MenuItem = getItem(
         getMenuLabelNode(menuItem),
         menuItem?.id?.toString(),
-        menuItem.v3_icon ? <i className={menuItem.v3_icon} /> : undefined,
-        !menuItem?.v3_ready,
+        menuItem.icon ? <i className={menuItem.icon} /> : undefined,
+        !menuItem?.active,
         menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
       items.push(item);
@@ -187,14 +187,14 @@ const Drawer = (props: DrawerProps) => {
           ></Result>
         ) : (
           <>
-            <div className='menu-search-input-container'>
-              <Input
-                placeholder={`${t('field.search')}`}
-                onChange={handleSearchChange}
-                prefix={<i className={'ri-search-line'} />}
-                size='middle'
-              />
-            </div>
+            {/*<div className='menu-search-input-container'>*/}
+            {/*  <Input*/}
+            {/*    placeholder={`${t('field.search')}`}*/}
+            {/*    onChange={handleSearchChange}*/}
+            {/*    prefix={<i className={'ri-search-line'} />}*/}
+            {/*    size='middle'*/}
+            {/*  />*/}
+            {/*</div>*/}
 
             {stateMenu?.loading ? (
               <div className='menu-spin-container'>
@@ -224,7 +224,7 @@ const Drawer = (props: DrawerProps) => {
   function getMenuContainer() {
     return (
       <S.SiderItemsWrapper>
-        <UserSection />
+        {/*<UserSection />*/}
         {getMenu()}
       </S.SiderItemsWrapper>
     );
