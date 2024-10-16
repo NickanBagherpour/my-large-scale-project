@@ -38,7 +38,7 @@ const Appbar = (props: AppBarProps) => {
       </>
     );
   };
-
+  const userInfo = { userName: 'علیرضا غفار', userRole: 'مسئول اصلی' };
   const getDesktopAppbar = () => {
     return (
       <>
@@ -47,8 +47,8 @@ const Appbar = (props: AppBarProps) => {
         </span>
 
         <span style={{ flexGrow: 1 }} />
-        <i className={'icon-hamburger-menu'} />
-        <AppbarUserMenu userName={'علیرضا غفار'} onLogout={onLogout} />
+
+        <AppbarUserMenu userInfo={userInfo} onLogout={onLogout} />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />

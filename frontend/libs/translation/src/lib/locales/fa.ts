@@ -38,7 +38,7 @@ export default {
     title: 'سامانه مدیریت اوراق (سما)',
     logout: 'خروج',
     notifications: 'اعلانات',
-    Change_Language: 'تغییر زبان',
+    change_language: 'تغییر زبان',
     background_color: 'رنگ زمینه',
     receipt: 'رسید',
   },

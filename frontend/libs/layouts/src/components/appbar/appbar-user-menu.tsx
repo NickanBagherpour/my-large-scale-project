@@ -1,39 +1,88 @@
 import React from 'react';
 
-import { Divider, MenuProps, Space } from 'antd';
+import { Divider, Form, MenuProps, Space } from 'antd';
+import { useTr } from '@oxygen/translation';
+import { CONSTANTS } from '@oxygen/utils';
+import { useAuth } from '@oxygen/hooks';
 
 import * as S from './appbar-user-menu.style';
 import { cssVar } from '@oxygen/utils';
-import { ArrowDown, InputPassword, PencilSquare, SignOut, UserProfile } from '@oxygen/ui-kit';
+import {
+  ArrowDown,
+  InputPassword,
+  LocaleSwitcher,
+  PencilSquare,
+  SignOut,
+  ThemeSwitch,
+  UserProfile,
+} from '@oxygen/ui-kit';
 
-export default function AppbarUserMenu({ userName, onLogout }) {
+enum MenuItemKey {
+  ChangeLanguage = 'changeLanguage',
+  BackgroundColor = 'backgroundColor',
+  Divider = 'divider',
+  ChangePassword = 'changePassword',
+  Username = 'username',
+  Logout = 'logout',
+  EditInfo = 'editInfo',
+}
+export default function AppbarUserMenu({ userInfo, onLogout }) {
+  const [t] = useTr();
+
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   const handleclose = () => {
     onLogout();
   };
 
   const items: MenuProps['items'] = [
     {
-      label: <S.StyleSpan>{userName}</S.StyleSpan>,
-      key: '0',
+      label: (
+        <S.StyleSpan>
+          <div className='menu-header'>
+            <p className='menu-p'>{userInfo.userName}</p>
+            <span className='menu-span'>{userInfo.userRole}</span>
+          </div>
+          <S.styleDivider />
+        </S.StyleSpan>
+      ),
+      key: MenuItemKey.Username,
+      disabled: true,
+    },
+
+    {
+      label: (
+        <S.styleDiv>
+          {t('appbar.change_language')}
+          <LocaleSwitcher type='textPrimary' />
+        </S.styleDiv>
+      ),
+      key: MenuItemKey.ChangeLanguage,
     },
     {
-      type: 'divider',
+      label: (
+        <S.styleDiv>
+          {t('appbar.background_color')}
+          <ThemeSwitch />
+        </S.styleDiv>
+      ),
+      key: MenuItemKey.BackgroundColor,
     },
     {
       label: 'ویرایش مشخصات ',
       icon: <PencilSquare />,
-      key: '1',
+      key: MenuItemKey.EditInfo,
     },
     {
       label: 'تغییر رمز عبور',
       icon: <InputPassword />,
-      key: '2',
+      key: MenuItemKey.ChangePassword,
     },
 
     {
-      label: <S.StyleSpan onClick={handleclose}>خروج از حساب کاربری</S.StyleSpan>,
+      label: <span onClick={handleclose}>خروج از حساب کاربری</span>,
       icon: <SignOut />,
-      key: '4',
+      key: MenuItemKey.Logout,
       danger: true,
     },
   ];
@@ -43,18 +92,10 @@ export default function AppbarUserMenu({ userName, onLogout }) {
       trigger={['click']}
       placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
-      //   dropdownRender={(menu) => (
-      //     <div>
-      //       {React.cloneElement(menu as React.ReactElement)}
-      //       <Divider style={{ margin: 0 }} />
-      //       <p>علیرضا غفار</p>
-      //       <span>مسئول اصلی</span>
-      //     </div>
-      //   )}
     >
       <S.StyleParagraph onClick={(e) => e.preventDefault()}>
         <UserProfile />
-        {userName}
+        {userInfo.userName}
         <ArrowDown />
       </S.StyleParagraph>
     </S.StyleDropDown>
