@@ -7,8 +7,6 @@ import { IConfig } from '@oxygen/types';
 import { OxegenLogo, Button, LocaleSwitcher, BankLogo, ThemeSwitch, Select } from '@oxygen/ui-kit';
 
 import * as S from './appbar.style';
-import AppBarMenu from '../appbar-menu/appbar-menu';
-import { MenuProps } from 'antd';
 import AppbarUserMenu from './appbar-user-menu';
 
 export type AppBarProps = {
@@ -27,18 +25,18 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <i className={'icon-hamburger-menu'} style={{ color: 'black' }} />
+          <S.styleIcon className={'icon-hamburger-menu'} />
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
 
         <span className={'appbar-title-logo-date'}>
           <OxegenLogo />
         </span>
-        <AppBarMenu />
+        <AppbarUserMenu userInfo={userInfo} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} />
       </>
     );
   };
-
+  const userInfo = { userName: 'علیرضا غفار', userRole: 'مسئول اصلی' };
   const getDesktopAppbar = () => {
     return (
       <>
@@ -47,8 +45,8 @@ const Appbar = (props: AppBarProps) => {
         </span>
 
         <span style={{ flexGrow: 1 }} />
-        <i className={'icon-hamburger-menu'} />
-        <AppbarUserMenu userName={'علیرضا غفار'} onLogout={onLogout} />
+
+        <AppbarUserMenu userInfo={userInfo} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />

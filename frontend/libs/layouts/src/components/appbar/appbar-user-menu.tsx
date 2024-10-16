@@ -1,39 +1,87 @@
-import React from 'react';
-
-import { Divider, MenuProps, Space } from 'antd';
+import { MenuProps } from 'antd';
+import { useTr } from '@oxygen/translation';
 
 import * as S from './appbar-user-menu.style';
 import { cssVar } from '@oxygen/utils';
-import { ArrowDown, InputPassword, PencilSquare, SignOut, UserProfile } from '@oxygen/ui-kit';
+import {
+  ArrowDown,
+  Button,
+  InputPassword,
+  LocaleSwitcher,
+  PencilSquare,
+  SignOut,
+  ThemeSwitch,
+  UserProfile,
+} from '@oxygen/ui-kit';
 
-export default function AppbarUserMenu({ userName, onLogout }) {
-  const handleclose = () => {
+enum MenuItemKey {
+  ChangeLanguage = 'changeLanguage',
+  BackgroundColor = 'backgroundColor',
+  Divider = 'divider',
+  ChangePassword = 'changePassword',
+  Username = 'username',
+  Logout = 'logout',
+  EditInfo = 'editInfo',
+}
+export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet }) {
+  const [t] = useTr();
+
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
+  const handleClose = () => {
     onLogout();
   };
 
   const items: MenuProps['items'] = [
     {
-      label: <S.StyleSpan>{userName}</S.StyleSpan>,
-      key: '0',
+      label: (
+        <S.StyleSpan>
+          <div className='menu-header'>
+            <p className='menu-p'>{userInfo.userName}</p>
+            <span className='menu-span'>{userInfo.userRole}</span>
+          </div>
+          <S.styleDivider />
+        </S.StyleSpan>
+      ),
+      key: MenuItemKey.Username,
+      disabled: true,
     },
+    ...(isDevelopment
+      ? [
+          {
+            label: (
+              <S.styleDiv>
+                {t('appbar.change_language')}
+                <LocaleSwitcher type='textPrimary' />
+              </S.styleDiv>
+            ),
+            key: MenuItemKey.ChangeLanguage,
+          },
+          {
+            label: (
+              <S.styleDiv>
+                {t('appbar.background_color')}
+                <ThemeSwitch />
+              </S.styleDiv>
+            ),
+            key: MenuItemKey.BackgroundColor,
+          },
+        ]
+      : []),
     {
-      type: 'divider',
-    },
-    {
-      label: 'ویرایش مشخصات ',
+      label: `${t('appbar.edit_info')}`,
       icon: <PencilSquare />,
-      key: '1',
+      key: MenuItemKey.EditInfo,
     },
     {
-      label: 'تغییر رمز عبور',
+      label: `${t('appbar.change_password')}`,
       icon: <InputPassword />,
-      key: '2',
+      key: MenuItemKey.ChangePassword,
     },
-
     {
-      label: <S.StyleSpan onClick={handleclose}>خروج از حساب کاربری</S.StyleSpan>,
+      label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
       icon: <SignOut />,
-      key: '4',
+      key: MenuItemKey.Logout,
       danger: true,
     },
   ];
@@ -43,20 +91,16 @@ export default function AppbarUserMenu({ userName, onLogout }) {
       trigger={['click']}
       placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
-      //   dropdownRender={(menu) => (
-      //     <div>
-      //       {React.cloneElement(menu as React.ReactElement)}
-      //       <Divider style={{ margin: 0 }} />
-      //       <p>علیرضا غفار</p>
-      //       <span>مسئول اصلی</span>
-      //     </div>
-      //   )}
     >
-      <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-        <UserProfile />
-        {userName}
-        <ArrowDown />
-      </S.StyleParagraph>
+      {isMobileOrTablet ? (
+        <Button type='text' shape='circle' icon={<S.styleIcon className={'icon-three-dots-vertical'}></S.styleIcon>} />
+      ) : (
+        <S.StyleParagraph onClick={(e) => e.preventDefault()}>
+          <UserProfile />
+          {userInfo.userName}
+          <ArrowDown />
+        </S.StyleParagraph>
+      )}
     </S.StyleDropDown>
   );
 }
