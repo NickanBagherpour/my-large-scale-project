@@ -81,7 +81,7 @@ const getLightTheme = (direction: Direction): ITheme => {
     text: {
       primary: '#0F172A',
       secondary: '#334155',
-      territory: '#475569',
+      tertiary: '#475569',
       quaternary: '#64748B',
     },
     // // hint: '#a4a9b0',
@@ -180,7 +180,7 @@ const getDarkTheme = (direction: Direction): ITheme => {
     text: {
       primary: '#ffffff',
       secondary: '#d9d9d9',
-      territory: '#6d6d77',
+      tertiary: '#6d6d77',
       quaternary: '#5e5e66',
     },
     // // hint: '#a4a9b0',
