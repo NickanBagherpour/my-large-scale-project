@@ -49,8 +49,16 @@ export const styleDiv = styled('div')`
 `;
 
 export const styleDivider = styled.div`
-  height: 1px;
+  height: 0.1rem;
   min-width: 15rem;
   margin: 1rem 0.3rem 2rem 0.3rem;
   background: ${(p) => p.theme.border._100};
+`;
+export const styleIcon = styled.i`
+  height: 2.4rem;
+  width: 2.4rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  color: ${(p) => p.theme.text.primary};
 `;

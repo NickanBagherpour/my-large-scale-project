@@ -1,14 +1,11 @@
-import React from 'react';
-
-import { Divider, Form, MenuProps, Space } from 'antd';
+import { MenuProps } from 'antd';
 import { useTr } from '@oxygen/translation';
-import { CONSTANTS } from '@oxygen/utils';
-import { useAuth } from '@oxygen/hooks';
 
 import * as S from './appbar-user-menu.style';
 import { cssVar } from '@oxygen/utils';
 import {
   ArrowDown,
+  Button,
   InputPassword,
   LocaleSwitcher,
   PencilSquare,
@@ -26,12 +23,12 @@ enum MenuItemKey {
   Logout = 'logout',
   EditInfo = 'editInfo',
 }
-export default function AppbarUserMenu({ userInfo, onLogout }) {
+export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet }) {
   const [t] = useTr();
 
   const isDevelopment = process.env.NODE_ENV === 'development';
 
-  const handleclose = () => {
+  const handleClose = () => {
     onLogout();
   };
 
@@ -49,38 +46,40 @@ export default function AppbarUserMenu({ userInfo, onLogout }) {
       key: MenuItemKey.Username,
       disabled: true,
     },
-
+    ...(isDevelopment
+      ? [
+          {
+            label: (
+              <S.styleDiv>
+                {t('appbar.change_language')}
+                <LocaleSwitcher type='textPrimary' />
+              </S.styleDiv>
+            ),
+            key: MenuItemKey.ChangeLanguage,
+          },
+          {
+            label: (
+              <S.styleDiv>
+                {t('appbar.background_color')}
+                <ThemeSwitch />
+              </S.styleDiv>
+            ),
+            key: MenuItemKey.BackgroundColor,
+          },
+        ]
+      : []),
     {
-      label: (
-        <S.styleDiv>
-          {t('appbar.change_language')}
-          <LocaleSwitcher type='textPrimary' />
-        </S.styleDiv>
-      ),
-      key: MenuItemKey.ChangeLanguage,
-    },
-    {
-      label: (
-        <S.styleDiv>
-          {t('appbar.background_color')}
-          <ThemeSwitch />
-        </S.styleDiv>
-      ),
-      key: MenuItemKey.BackgroundColor,
-    },
-    {
-      label: 'ویرایش مشخصات ',
+      label: `${t('appbar.edit_info')}`,
       icon: <PencilSquare />,
       key: MenuItemKey.EditInfo,
     },
     {
-      label: 'تغییر رمز عبور',
+      label: `${t('appbar.change_password')}`,
       icon: <InputPassword />,
       key: MenuItemKey.ChangePassword,
     },
-
     {
-      label: <span onClick={handleclose}>خروج از حساب کاربری</span>,
+      label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
       icon: <SignOut />,
       key: MenuItemKey.Logout,
       danger: true,
@@ -93,11 +92,15 @@ export default function AppbarUserMenu({ userInfo, onLogout }) {
       placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
     >
-      <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-        <UserProfile />
-        {userInfo.userName}
-        <ArrowDown />
-      </S.StyleParagraph>
+      {isMobileOrTablet ? (
+        <Button type='text' shape='circle' icon={<S.styleIcon className={'icon-three-dots-vertical'}></S.styleIcon>} />
+      ) : (
+        <S.StyleParagraph onClick={(e) => e.preventDefault()}>
+          <UserProfile />
+          {userInfo.userName}
+          <ArrowDown />
+        </S.StyleParagraph>
+      )}
     </S.StyleDropDown>
   );
 }
