@@ -23,6 +23,7 @@ export default {
     day: 'روز',
     receipt: 'رسید',
     active: 'فعال',
+    inactive: 'غیرفعال',
     blocked: 'مسدود',
     matured: 'سررسید شده',
     closed: 'تسویه شده',

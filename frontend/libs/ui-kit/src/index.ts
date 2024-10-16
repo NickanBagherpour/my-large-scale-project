@@ -34,3 +34,4 @@ export * from './select/select';
 export * from './tree/tree';
 export * from './page-stepper/page-stepper';
 export * from './result-box/result-box';
+export * from './client-card/client-card';
