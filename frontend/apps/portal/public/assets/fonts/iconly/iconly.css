@@ -7,8 +7,8 @@
   font-family: "Iconly";
   font-style: normal;
   font-weight: 400;
-  src: url("./iconly.eot?1729078155148");
-  src: url("./iconly.eot?#iefix") format("embedded-opentype"), url("./iconly.woff2?1729078155148") format("woff2"), url("./iconly.woff?1729078155148") format("woff"), url("./iconly.ttf?1729078155148") format("truetype"), url("./iconly.svg?1729078155148#Iconly") format("svg");
+  src: url("./iconly.eot?1729159273985");
+  src: url("./iconly.eot?#iefix") format("embedded-opentype"), url("./iconly.woff2?1729159273985") format("woff2"), url("./iconly.woff?1729159273985") format("woff"), url("./iconly.ttf?1729159273985") format("truetype"), url("./iconly.svg?1729159273985#Iconly") format("svg");
 }
 
 [class="icon"], [class^="icon-"], [class*=" icon-"] {
@@ -25,6 +25,14 @@
 
 .icon-grid:before {
   content: "\e000";
+}
+
+.icon-sun-fill:before {
+  content: "\e001";
+}
+
+.icon-moon-fill:before {
+  content: "\e002";
 }
 
 .icon-trash:before {
