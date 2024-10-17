@@ -22,7 +22,6 @@ export const ENV_CONSTANTS = {
 };
 
 export const IS_BROWSER = typeof window !== 'undefined';
-export const isDevelop = process.env['NODE_ENV'] === 'development';
 
 export const MAIN_HREF = {
   AUTH: '/auth',

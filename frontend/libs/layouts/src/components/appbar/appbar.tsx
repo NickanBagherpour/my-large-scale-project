@@ -8,6 +8,7 @@ import { OxegenLogo, Button, BankLogo } from '@oxygen/ui-kit';
 
 import AppbarUserMenu from './appbar-user-menu';
 import { useAsync, useAuth } from '@oxygen/hooks';
+import { Api } from '../../services';
 
 import * as S from './appbar.style';
 
@@ -25,7 +26,11 @@ const Appbar = (props: AppBarProps) => {
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
 
+  console.log('test', 'user', user);
+
   useEffect(() => {
+    console.log('test12', 'user', user);
+
     if (!user) {
       fetchUserProfile();
     }
@@ -52,7 +57,12 @@ const Appbar = (props: AppBarProps) => {
         <span className={'appbar-title-logo-date'}>
           <OxegenLogo />
         </span>
-        <AppbarUserMenu userInfo={user} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} loading={stateUserProfile.loading} />
+        <AppbarUserMenu
+          userInfo={user}
+          onLogout={onLogout}
+          isMobileOrTablet={isMobileOrTablet}
+          loading={stateUserProfile.loading}
+        />
       </>
     );
   };
@@ -65,7 +75,12 @@ const Appbar = (props: AppBarProps) => {
 
         <span style={{ flexGrow: 1 }} />
 
-        <AppbarUserMenu userInfo={user} onLogout={onLogout} isMobileOrTablet={isMobileOrTablet} loading={stateUserProfile.loading} />
+        <AppbarUserMenu
+          userInfo={user}
+          onLogout={onLogout}
+          isMobileOrTablet={isMobileOrTablet}
+          loading={stateUserProfile.loading}
+        />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <BankLogo />

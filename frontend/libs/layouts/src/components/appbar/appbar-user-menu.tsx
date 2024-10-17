@@ -33,6 +33,8 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
         <S.StyleSpan>
           {loading ? (
             <Loading size='small' />
+          ) : !userInfo ? (
+            '-'
           ) : (
             <div className='menu-header'>
               <p className='menu-p'>{userInfo.userFullName}</p>
@@ -100,7 +102,7 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <UserProfile />
-          {loading ? <Loading size='small' /> : userInfo.userFullName}
+          {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
           <ArrowDown />
         </S.StyleParagraph>
       )}
