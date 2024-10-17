@@ -47,10 +47,11 @@ const ThemeSwitchWrapper = styled(AntSwitch)`
     & .ant-switch-inner-unchecked {
       width: 1.6rem;
       height: 1.6rem;
-      margin-top: -0.5rem;
-
+      margin-top: 0.8rem;
+      font-size: 1.4rem;
       ${respondTo.down('md')} {
-        margin-top: -8px;
+        margin-top: 1.2rem;
+        font-size: 1.6rem;
       }
     }
   }
@@ -74,8 +75,8 @@ export const ThemeSwitch = (props: ThemeSwitchProps) => {
   return (
     <ThemeSwitchWrapper
       {...rest}
-      checkedChildren={<i className={'ri-sun-fill'} />}
-      unCheckedChildren={<i className={'ri-moon-fill'} />}
+      checkedChildren={<i className={'icon-sun-fill'} />}
+      unCheckedChildren={<i className={'icon-moon-fill'} />}
       defaultChecked={config.themeId !== ThemeID.DARK}
       onChange={handleOnChange}
     />
