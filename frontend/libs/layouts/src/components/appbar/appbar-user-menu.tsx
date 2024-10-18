@@ -2,7 +2,7 @@ import { MenuProps } from 'antd';
 import { useTr } from '@oxygen/translation';
 
 import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
-import { ArrowDown, Button, Loading, LocaleSwitcher, ThemeSwitch, UserProfile } from '@oxygen/ui-kit';
+import { Icons, Button, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
 import * as S from './appbar-user-menu.style';
 
@@ -101,9 +101,9 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
         <Button type='text' shape='circle' icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>} />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-          <UserProfile />
+          <Icons.UserProfile />
           {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
-          <ArrowDown />
+          <Icons.ArrowDown />
         </S.StyleParagraph>
       )}
     </S.StyleDropDown>

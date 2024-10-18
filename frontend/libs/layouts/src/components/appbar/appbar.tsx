@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { IConfig } from '@oxygen/types';
-import { OxegenLogo, Button, BankLogo } from '@oxygen/ui-kit';
+import { Icons, Button } from '@oxygen/ui-kit';
 
 import AppbarUserMenu from './appbar-user-menu';
 import { useAsync, useAuth } from '@oxygen/hooks';
@@ -55,7 +55,7 @@ const Appbar = (props: AppBarProps) => {
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          <OxegenLogo />
+          <Icons.OxegenLogo />
         </span>
         <AppbarUserMenu
           userInfo={user}
@@ -70,7 +70,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          <OxegenLogo />
+          <Icons.OxegenLogo />
         </span>
 
         <span style={{ flexGrow: 1 }} />
@@ -83,7 +83,7 @@ const Appbar = (props: AppBarProps) => {
         />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
-          <BankLogo />
+          <Icons.BankLogo />
         </span>
       </>
     );
