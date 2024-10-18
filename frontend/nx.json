@@ -57,5 +57,11 @@
                 "unitTestRunner": "jest"
             }
         }
-    }
+    },
+    "targetDefaults": {
+        "e2e-ci--**/*": {
+            "dependsOn": ["^build"]
+        }
+    },
+    "useLegacyCache": true
 }
