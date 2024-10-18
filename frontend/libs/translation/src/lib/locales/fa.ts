@@ -37,11 +37,13 @@ export default {
   },
   appbar: {
     title: 'سامانه مدیریت اوراق (سما)',
-    logout: 'خروج',
+    logout: 'خروج از حساب کاربری',
     notifications: 'اعلانات',
-    Change_Language: 'تغییر زبان',
+    change_language: 'تغییر زبان',
     background_color: 'رنگ زمینه',
     receipt: 'رسید',
+    change_password: 'تغییر رمز عبور',
+    edit_info: 'ویرایش مشخصات ',
   },
   uikit: {
     error_count: 'تعداد خطاها',

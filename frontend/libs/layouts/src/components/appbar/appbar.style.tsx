@@ -81,3 +81,9 @@ export const Divider = styled.div`
   margin: 0 1.6rem;
   background-color: ${(p) => p.theme.border._100};
 `;
+export const styleIcon = styled.i`
+  width: 2.4rem;
+  height: 2.4rem;
+
+  color: ${(p) => p.theme.text.primary};
+`;

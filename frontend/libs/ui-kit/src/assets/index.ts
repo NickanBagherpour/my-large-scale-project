@@ -9,6 +9,8 @@ export { ReactComponent as SignOut } from './media/sign-out.svg';
 export { ReactComponent as Sort } from './media/sort.svg';
 export { ReactComponent as InputPassword } from './media/Input-password.svg';
 export { ReactComponent as ArrowDown } from './media/arrow-down.svg';
+export { ReactComponent as EmptyIcon } from './media/empty-state.svg';
+
 export { ReactComponent as Calendar } from './media/calendar.svg';
 export { default as looper } from './media/looper.svg';
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';

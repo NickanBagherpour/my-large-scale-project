@@ -2,17 +2,15 @@
 
 import styled from 'styled-components';
 
-import { Button, Box ,Select} from '@oxygen/ui-kit';
+import { Button, Box, Select } from '@oxygen/ui-kit';
 
 const Div = styled.div`
-  margin-left: 2rem;
-  
+  //margin-left: 2rem;
+  background-color: ${(props) => props.theme.background._100};
+  width: 100%;
+  height: 90vh;
 `;
 
 export default function Index() {
-  return (
-    <Div className='wrapper'>
-        Hello from dashboard!
-    </Div>
-  );
+  return <Div className='wrapper'>Hello from dashboard!</Div>;
 }

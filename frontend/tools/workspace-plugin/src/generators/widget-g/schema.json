@@ -1,0 +1,18 @@
+{
+    "$schema": "https://json-schema.org/schema",
+    "$id": "widget-g",
+    "title": "",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Widget name",
+            "$default": {
+                "$source": "argv",
+                "index": 0
+            },
+            "x-prompt": "What's the title of your new widget?"
+        }
+    },
+    "required": ["name"]
+}

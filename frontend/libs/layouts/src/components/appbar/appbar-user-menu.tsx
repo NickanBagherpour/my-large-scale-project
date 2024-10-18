@@ -1,62 +1,111 @@
-import React from 'react';
+import { MenuProps } from 'antd';
+import { useTr } from '@oxygen/translation';
 
-import { Divider, MenuProps, Space } from 'antd';
+import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
+import { Icons, Button, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
 import * as S from './appbar-user-menu.style';
-import { cssVar } from '@oxygen/utils';
-import { ArrowDown, InputPassword, PencilSquare, SignOut, UserProfile } from '@oxygen/ui-kit';
 
-export default function AppbarUserMenu({ userName, onLogout }) {
-  const handleclose = () => {
+enum MenuItemKey {
+  ChangeLanguage = 'changeLanguage',
+  BackgroundColor = 'backgroundColor',
+  Divider = 'divider',
+  ChangePassword = 'changePassword',
+  Username = 'username',
+  Logout = 'logout',
+  EditInfo = 'editInfo',
+}
+export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, loading = false }) {
+  const [t] = useTr();
+
+  const handleClose = () => {
     onLogout();
+  };
+
+  const handlePreventClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const items: MenuProps['items'] = [
     {
-      label: <S.StyleSpan>{userName}</S.StyleSpan>,
-      key: '0',
+      label: (
+        <S.StyleSpan>
+          {loading ? (
+            <Loading size='small' />
+          ) : !userInfo ? (
+            '-'
+          ) : (
+            <div className='menu-header'>
+              <p className='menu-p'>{userInfo.userFullName}</p>
+              <span className='menu-span'>{userInfo.jobName}</span>
+            </div>
+          )}
+        </S.StyleSpan>
+      ),
+      key: MenuItemKey.Username,
+    },
+    { type: 'divider' },
+    ...(ENV_CONSTANTS.IS_DEV
+      ? [
+          {
+            label: (
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.change_language')}</span>
+                <LocaleSwitcher type='textPrimary' />
+              </S.StyleDiv>
+            ),
+            key: MenuItemKey.ChangeLanguage,
+            // disabled: true,
+          },
+          {
+            label: (
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.background_color')}</span>
+                <ThemeSwitch />
+              </S.StyleDiv>
+            ),
+            key: MenuItemKey.BackgroundColor,
+          },
+        ]
+      : []),
+    {
+      label: `${t('appbar.edit_info')}`,
+      icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
+      key: MenuItemKey.EditInfo,
     },
     {
-      type: 'divider',
+      label: `${t('appbar.change_password')}`,
+      icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
+      key: MenuItemKey.ChangePassword,
     },
     {
-      label: 'ویرایش مشخصات ',
-      icon: <PencilSquare />,
-      key: '1',
-    },
-    {
-      label: 'تغییر رمز عبور',
-      icon: <InputPassword />,
-      key: '2',
-    },
-
-    {
-      label: <S.StyleSpan onClick={handleclose}>خروج از حساب کاربری</S.StyleSpan>,
-      icon: <SignOut />,
-      key: '4',
+      label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
+      icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
+      key: MenuItemKey.Logout,
       danger: true,
     },
   ];
+
   return (
     <S.StyleDropDown
       menu={{ items }}
       trigger={['click']}
       placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
-      //   dropdownRender={(menu) => (
-      //     <div>
-      //       {React.cloneElement(menu as React.ReactElement)}
-      //       <Divider style={{ margin: 0 }} />
-      //       <p>علیرضا غفار</p>
-      //       <span>مسئول اصلی</span>
-      //     </div>
-      //   )}
+      dropdownRender={(node) => {
+        return <S.Overlay>{node}</S.Overlay>;
+      }}
     >
-      <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-        <UserProfile />
-        {userName}
-        <ArrowDown />
-      </S.StyleParagraph>
+      {isMobileOrTablet ? (
+        <Button type='text' shape='circle' icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>} />
+      ) : (
+        <S.StyleParagraph onClick={(e) => e.preventDefault()}>
+          <Icons.UserProfile />
+          {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
+          <Icons.ArrowDown />
+        </S.StyleParagraph>
+      )}
     </S.StyleDropDown>
   );
 }

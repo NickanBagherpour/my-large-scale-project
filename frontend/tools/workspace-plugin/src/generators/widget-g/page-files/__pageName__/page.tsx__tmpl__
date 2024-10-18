@@ -1,0 +1,9 @@
+'use client';
+
+import <%= className %> from '@oxygen/widgets/<%= fileName %>';
+
+export default function Index(props) {
+   return (
+     <<%= className %> parentProps={props} />
+   );
+}

@@ -1,15 +1,16 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
+
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { cssVar, ENV_CONSTANTS, fullDateLocale } from '@oxygen/utils';
 import { IConfig } from '@oxygen/types';
-import { OxegenLogo, Button, LocaleSwitcher, BankLogo, ThemeSwitch, Select } from '@oxygen/ui-kit';
+import { Icons, Button } from '@oxygen/ui-kit';
+
+import AppbarUserMenu from './appbar-user-menu';
+import { useAsync, useAuth } from '@oxygen/hooks';
+import { Api } from '../../services';
 
 import * as S from './appbar.style';
-import AppBarMenu from '../appbar-menu/appbar-menu';
-import { MenuProps } from 'antd';
-import AppbarUserMenu from './appbar-user-menu';
 
 export type AppBarProps = {
   isMobileOrTablet: boolean;
@@ -22,36 +23,67 @@ export type AppBarProps = {
 const Appbar = (props: AppBarProps) => {
   const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
+  const { user, setUser } = useAuth();
+  const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+
+  console.log('test', 'user', user);
+
+  useEffect(() => {
+    console.log('test12', 'user', user);
+
+    if (!user) {
+      fetchUserProfile();
+    }
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await executeUserProfile(async () => await Api.getUserProfile());
+      setUser(response);
+      return response;
+    } catch (error) {
+      return null;
+    }
+  };
 
   const getMobileAppbar = () => {
     return (
       <>
         <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <i className={'icon-hamburger-menu'} style={{ color: 'black' }} />
+          <S.styleIcon className={'icon-hamburger-menu'} />
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          <OxegenLogo />
+          <Icons.OxegenLogo />
         </span>
-        <AppBarMenu />
+        <AppbarUserMenu
+          userInfo={user}
+          onLogout={onLogout}
+          isMobileOrTablet={isMobileOrTablet}
+          loading={stateUserProfile.loading}
+        />
       </>
     );
   };
-
   const getDesktopAppbar = () => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          <OxegenLogo />
+          <Icons.OxegenLogo />
         </span>
 
         <span style={{ flexGrow: 1 }} />
-        <i className={'icon-hamburger-menu'} />
-        <AppbarUserMenu userName={'علیرضا غفار'} onLogout={onLogout} />
+
+        <AppbarUserMenu
+          userInfo={user}
+          onLogout={onLogout}
+          isMobileOrTablet={isMobileOrTablet}
+          loading={stateUserProfile.loading}
+        />
         <S.Divider />
         <span className={'appbar-title-bank-logo'}>
-          <BankLogo />
+          <Icons.BankLogo />
         </span>
       </>
     );

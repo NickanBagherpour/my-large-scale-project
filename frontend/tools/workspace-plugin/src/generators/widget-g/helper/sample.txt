@@ -1,0 +1,7 @@
+/*--import--*/
+import { KEYS as <%= pageName.toUpperCase() %>_KEYS } from './widgets/<%= pageName %>.key';
+/*--end import--*/
+
+/*--export--*/
+  <%= pageName.toUpperCase() %>: <%= pageName.toUpperCase() %>_KEYS,
+/*--end export--*/
