@@ -15,7 +15,7 @@ const patternMap = {
 };
 
 export const Input = (props: InputProps) => {
-  const { children, allow = 'all', ...rest } = props;
+  const { children, allow = 'all', size = 'large', ...rest } = props;
 
   function getPattern() {
     let pattern = '';
@@ -92,6 +92,7 @@ export const Input = (props: InputProps) => {
       onKeyPress={allow !== 'all' ? handleKeyPress : undefined}
       onPaste={allow !== 'all' ? handlePaste : undefined}
       // onBlur={allow !== 'all' ? handleBlur : undefined}
+      size={size}
       {...rest}
     >
       {children}
