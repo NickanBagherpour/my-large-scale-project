@@ -65,7 +65,7 @@ export const LocaleSwitcher = (props: LocaleSwitcherProps) => {
 
   return (
     <Wrapper color={props.color} type={props.type}>
-      <Button type='text' onClick={onToggleLocale} shape={'circle'}>
+      <Button type='link' onClick={onToggleLocale} size='small' color='primary'>
         {getLocaleText()}
       </Button>
     </Wrapper>

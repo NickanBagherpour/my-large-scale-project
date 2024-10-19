@@ -13,6 +13,7 @@ export const AppBarMenuContainer = styled<any>(Dropdown)`
 
   .appbar-menu-icon {
     font-size: 3rem !important;
+    color: black;
   }
 `;
 

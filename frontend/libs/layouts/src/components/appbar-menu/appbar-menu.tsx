@@ -4,7 +4,7 @@ import { Form, MenuProps } from 'antd';
 
 import { Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { CONSTANTS } from '@oxygen/utils';
+import { CONSTANTS, ENV_CONSTANTS } from '@oxygen/utils';
 import { useAuth } from '@oxygen/hooks';
 
 import * as S from './appbar-menu.style';
@@ -29,8 +29,6 @@ const AppBarMenu = (props: AppBarMenuProps) => {
 
   const [logoutForm] = Form.useForm();
 
-  const isDevelopment = process.env.NODE_ENV === 'development';
-
   const menuObject = [
     {
       labelTitle: t('appbar.change_language'),
@@ -47,7 +45,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
   ];
 
   const items: any /*MenuProps['items']*/ = menuObject
-    .filter((item) => !(item.key === MenuItemKey.ChangeLanguage && !isDevelopment))
+    .filter((item) => !(item.key === MenuItemKey.ChangeLanguage && !ENV_CONSTANTS.IS_DEV))
     .map((item, index) => {
       return {
         label: (
@@ -111,7 +109,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         shape='circle'
         icon={
           <span className={'appbar-menu-icon'}>
-            <i className='ri-more-2-line' />
+            <i className='icon-three-dots-vertical' />
           </span>
         }
       />

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Space } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-import { bankLogoBlack, bankLogo, Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
+import { Button, LocaleSwitcher, ThemeSwitch, Icons } from '@oxygen/ui-kit';
 import { IConfig, ThemeID } from '@oxygen/types';
 import { CONSTANTS, ENV_CONSTANTS, MAIN_HREF } from '@oxygen/utils';
 
@@ -29,14 +29,14 @@ const LandingAppbar = (props: LandingAppBarProps) => {
 
   function getBankImage() {
     if (isPrimaryAppbar) {
-      return bankLogo;
+      return Icons.bankLogo;
     }
 
     if (config.themeId === ThemeID.DARK) {
-      return bankLogo;
+      return Icons.bankLogo;
     }
 
-    return bankLogoBlack;
+    return Icons.bankLogoBlack;
   }
 
   const bankImage = getBankImage();

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTr } from '@oxygen/translation';
-import { bankLogo, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
+import { Icons, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 import { CONSTANTS, ENV_CONSTANTS } from '@oxygen/utils';
 
 import AppBarMenu from '../components/appbar-menu/appbar-menu';
@@ -70,7 +70,7 @@ export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
               <span className={'left-panel__nav__bank-logo'}>
                 <Image
                   // src={bankLogo}
-                  src={bankLogo}
+                  src={Icons.bankLogo}
                   alt='Bank Melli'
                 />
               </span>
