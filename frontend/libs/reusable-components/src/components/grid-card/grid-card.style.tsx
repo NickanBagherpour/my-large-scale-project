@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { type Status as StatusType } from './client-card';
+import { type Status as StatusType } from './grid-card';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,18 +18,18 @@ export const Container = styled(Link)`
   }
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<{ flip?: boolean }>`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.6rem;
+  align-items: center;
+  flex-direction: ${(p) => (p.flip ? 'row-reverse' : 'row')};
 `;
 
 export const Title = styled.h3`
   font-size: 1.6rem;
   font-weight: 600;
-  margin: 0 0 0.5rem;
   color: ${(p) => p.theme.text.primary};
+  margin: 0;
 `;
 
 export const Settings = styled.i`
@@ -40,7 +40,7 @@ export const Settings = styled.i`
 export const EName = styled.p`
   font-size: 1rem;
   color: ${(p) => p.theme.text.primary};
-  margin: 0;
+  margin: 0.5rem 0 0;
 `;
 
 export const Indicator = styled.div<{ status: StatusType }>`
@@ -65,6 +65,7 @@ export const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1.6rem;
 
   & p {
     margin-block: 0;
