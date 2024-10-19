@@ -35,3 +35,4 @@ export * from './tree/tree';
 export * from './page-stepper/page-stepper';
 export * from './result-box/result-box';
 export * from './divider/divider';
+export * from './progress/progress';
