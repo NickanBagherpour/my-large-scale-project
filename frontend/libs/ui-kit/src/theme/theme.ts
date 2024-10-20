@@ -5,7 +5,7 @@ const getLightTheme = (direction: Direction): ITheme => {
     id: ThemeID.LIGHT,
     direction: direction,
     primary: {
-      main: '#4958df',
+      main: '#4f46e5',
       _50: '#eef2ff',
       _100: '#e1e7f8',
       _200: '#c7d2fe',
