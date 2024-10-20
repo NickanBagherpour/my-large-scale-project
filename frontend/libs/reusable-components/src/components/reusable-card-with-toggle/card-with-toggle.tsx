@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch } from 'antd';
+
+import { Switch } from '@oxygen/ui-kit';
 
 import * as S from './card-with-toggle.style';
 
@@ -28,7 +29,7 @@ const CardWithToggle: React.FC<CardWithToggleProps> = (props) => {
       <S.ContentContainer>
         <S.TitleContainer>
           <S.Title>{title}</S.Title>
-          <Switch size={'small'} disabled={disabled} defaultChecked={defaultChecked} />
+          <Switch disabled={disabled} defaultChecked={defaultChecked} />
         </S.TitleContainer>
 
         {subtitle ? <S.Title>{subtitle}</S.Title> : <></>}

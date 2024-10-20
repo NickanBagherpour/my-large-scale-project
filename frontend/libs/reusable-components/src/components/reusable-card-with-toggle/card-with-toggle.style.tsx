@@ -23,6 +23,14 @@ export const StyledCard = styled(Card)<StyledCardProps>`
     color: ${(props) => (props.disabled ? props.theme.iconPrimary : props.theme.primary.main)};
     align-self: flex-end;
   }
+
+  //& button.ant-switch{
+  //  min-height: 2rem;
+  //}
+  //& .ant-switch-handle{
+  //  min-width:1.6rem;
+  //  min-height:1.6rem;
+  //}
 `;
 
 export const ContentContainer = styled.div`
@@ -37,7 +45,7 @@ export const TitleContainer = styled.div`
   display: flex;
   gap: 1.8rem;
   justify-content: space-between;
-  align-items: baseline;
+  //align-items: baseline;
 `;
 
 export const Title = styled.span`
