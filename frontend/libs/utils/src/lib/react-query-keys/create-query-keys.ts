@@ -7,7 +7,7 @@
 export const createQueryKeys = <T extends string>(pagePrefix: string, keys: T[]) => {
     const prefixedKeys = {} as Record<T, `${string}_${string}`>;
     keys.forEach((key) => {
-      prefixedKeys[key] = `${pagePrefix}_${key.toLowerCase()}` as `${string}_${string}`;
+      prefixedKeys[key] = `${pagePrefix.toLowerCase()}_${key.toLowerCase()}` as `${string}_${string}`;
     });
     return prefixedKeys;
   };

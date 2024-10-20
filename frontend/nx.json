@@ -48,7 +48,7 @@
     "generators": {
         "@nx/next": {
             "application": {
-                "style": "@emotion/styled",
+                "style": "styled-components",
                 "linter": "eslint"
             }
         },
@@ -57,5 +57,11 @@
                 "unitTestRunner": "jest"
             }
         }
-    }
+    },
+    "targetDefaults": {
+        "e2e-ci--**/*": {
+            "dependsOn": ["^build"]
+        }
+    },
+    "useLegacyCache": true
 }

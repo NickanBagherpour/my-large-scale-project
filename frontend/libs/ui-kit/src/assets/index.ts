@@ -9,6 +9,8 @@ export { ReactComponent as SignOut } from './media/sign-out.svg';
 export { ReactComponent as Sort } from './media/sort.svg';
 export { ReactComponent as InputPassword } from './media/Input-password.svg';
 export { ReactComponent as ArrowDown } from './media/arrow-down.svg';
+export { ReactComponent as EmptyIcon } from './media/empty-state.svg';
+
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';
 export * as bankLogo from './media/bank.png';
 export * as bankLogoBlack from './media/bank_logo_black.png';

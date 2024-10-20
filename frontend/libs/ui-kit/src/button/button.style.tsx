@@ -29,8 +29,9 @@ export const StyledButton = styled<any>(AntButton)`
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: row-reverse;
     `}
+
+
   > * {
     //margin-left: 0.5rem;
   }
