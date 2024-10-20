@@ -7,7 +7,7 @@ function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is Up
   return 'activeServersCount' in props;
 }
 
-export function GridCard(props: ClientCardProps | UpstreamCardProps) {
+export default function GridCard(props: ClientCardProps | UpstreamCardProps) {
   if (isUpstreamCard(props)) {
     return <UpstreamCard {...props} />;
   }
