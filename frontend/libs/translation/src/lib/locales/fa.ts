@@ -324,4 +324,8 @@ export default {
   grid_card: {
     active_servers_count: '{{count}} سرور فعال ',
   },
+
+  autocomplete: {
+    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+  },
 };
