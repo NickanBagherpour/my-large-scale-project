@@ -1,8 +1,8 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
-import { Button, Box, Select, Switch, Tabs, Chip } from '@oxygen/ui-kit';
+import { Button, Box, Select, Switch, Tabs, Chip, Progress } from '@oxygen/ui-kit';
 import type { TabsProps } from 'antd';
 
 const Div = styled.div`
@@ -32,6 +32,7 @@ function closeAlert() {
 }
 
 export default function Index() {
+  const theme = useTheme();
   return (
     <Div className='wrapper'>
       <div className='container'>
@@ -42,14 +43,9 @@ export default function Index() {
           </h1>
         </div>
 
-        <Box display={'flex'} color={'blue'}>
-          This is Material
+        <Box width='60%'>
+          <Progress isPrimary={true} percent={40} height={20} />
         </Box>
-        <Box display={'flex'} color={'blue'}>
-          متن فارسی
-        </Box>
-
-        <Button type={'primary'}>Click me</Button>
 
         <Div>
           <Select defaultValue='lucy' style={{ width: 120 }}>
