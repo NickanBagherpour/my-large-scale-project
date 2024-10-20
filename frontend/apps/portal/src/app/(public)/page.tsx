@@ -2,12 +2,34 @@
 
 import styled from 'styled-components';
 
-import { Button, Box ,Select} from '@oxygen/ui-kit';
+import { Button, Box, Select, Switch, Tabs, Chip } from '@oxygen/ui-kit';
+import type { TabsProps } from 'antd';
 
 const Div = styled.div`
   margin-left: 2rem;
-  
 `;
+
+const items: TabsProps['items'] = [
+  {
+    key: '1',
+    label: 'اطلاعات کلاینت',
+    children: 'در این تب شما اطلاعات کلاینت‌ها را مشاهده می‌کنید',
+  },
+  {
+    key: '2',
+    label: 'سرویس‌ها',
+    children: 'در این تب شما سرویس‌ها را مشاهده می‌کنید',
+  },
+  {
+    key: '3',
+    label: 'پلاگین‌ها',
+    children: 'در این تب شما پلاگین‌ها را مشاهده می‌کنید',
+  },
+];
+
+function closeAlert() {
+  console.log('delete');
+}
 
 export default function Index() {
   return (
@@ -30,14 +52,27 @@ export default function Index() {
         <Button type={'primary'}>Click me</Button>
 
         <Div>
-          <Select defaultValue="lucy" style={{ width: 120 }}>
-            <Select.Option value="jack">Jack</Select.Option>
-            <Select.Option value="lucy">Lucy</Select.Option>
-            <Select.Option value="disabled" disabled>
+          <Select defaultValue='lucy' style={{ width: 120 }}>
+            <Select.Option value='jack'>Jack</Select.Option>
+            <Select.Option value='lucy'>Lucy</Select.Option>
+            <Select.Option value='disabled' disabled>
               Disabled
             </Select.Option>
-            <Select.Option value="Yiminghe">yiminghe</Select.Option>
+            <Select.Option value='Yiminghe'>yiminghe</Select.Option>
           </Select>
+        </Div>
+        <Div>
+          <Switch />
+        </Div>
+        <Div>
+          <Tabs defaultActiveKey='1' items={items} />
+        </Div>
+        <Div>
+          <Chip>chip</Chip>
+          <Chip active>chip Active</Chip>
+          <Chip active closeIcon onClose={() => closeAlert()}>
+            closeIcon Chip
+          </Chip>
         </Div>
       </div>
     </Div>
