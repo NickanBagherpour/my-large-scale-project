@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 
 // copied from: https://mantine.dev/hooks/use-debounced-value/
