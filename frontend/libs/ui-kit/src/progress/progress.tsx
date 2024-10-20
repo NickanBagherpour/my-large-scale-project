@@ -7,11 +7,20 @@ import { useTheme } from 'styled-components';
 
 export type ProgressProps = AntProgressProps & {
   isPrimary?: boolean;
+  height?: number | string;
 };
 
 export const Progress = (props: ProgressProps) => {
   const theme = useTheme();
-  const { isPrimary, ...rest } = props;
+  const { isPrimary, height, size, ...rest } = props;
 
-  return <S.StyledProgress strokeColor={isPrimary ? theme.primary.main : ''} {...rest} />;
+  let _size = {};
+
+  if (size) {
+    _size = size;
+  } else if (height) {
+    _size = { height: height };
+  }
+
+  return <S.StyledProgress strokeColor={isPrimary ? theme.primary.main : ''} size={_size} {...rest} />;
 };
