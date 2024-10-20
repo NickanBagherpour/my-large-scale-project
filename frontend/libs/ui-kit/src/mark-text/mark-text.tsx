@@ -8,15 +8,16 @@ type PropsType = {
   text: string;
   wordToHighlight: string;
   highlightColor: HighlightColorType;
+  className?: string;
   // fontSize?: string;
   // fontWeight?: string;
   // [key: string]: any;
 };
 
-export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: PropsType) => {
+export const MarkText = ({ text, wordToHighlight, highlightColor, className = '', ...rest }: PropsType) => {
   const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
   return (
-    <p>
+    <p className={className}>
       {parts.map((part, index) =>
         part === wordToHighlight ? (
           <S.StyledSpan customStyle={highlightColor} key={index} {...rest}>
