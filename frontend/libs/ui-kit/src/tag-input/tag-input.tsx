@@ -54,7 +54,7 @@ export const TagInput = (props: TagInputProps) => {
           {t('uikit.select_all')}
         </Checkbox>
       ),
-      key: '0',
+      key: '00',
       icon: <></>,
     },
     {
@@ -71,6 +71,7 @@ export const TagInput = (props: TagInputProps) => {
           {option.label}
         </Checkbox>
       ),
+      style: { backgroundColor: checkedItems.includes(option.value) ? theme.primary._50 : '' },
       key: index,
       icon: <></>,
       danger: true,
@@ -85,6 +86,7 @@ export const TagInput = (props: TagInputProps) => {
   };
   return (
     <S.TagInputContainer>
+      <S.DropdownContainer id={'area'}></S.DropdownContainer>
       <Dropdown
         menu={menuProps}
         trigger={['click']}
@@ -92,6 +94,7 @@ export const TagInput = (props: TagInputProps) => {
         onOpenChange={(flag) => setOpen(flag)}
         overlayClassName={'drop-down'}
         overlayStyle={{ height: '20vh' }}
+        getPopupContainer={() => document.getElementById('area')}
       >
         <Button>
           <Space>
@@ -103,13 +106,15 @@ export const TagInput = (props: TagInputProps) => {
       {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
       {checkedItems.map((item) => {
         return (
-          <Chip
-            closable={true}
-            onClose={() => handleCheckboxChange(item)}
-            style={{ backgroundColor: theme.border._300, border: 0 }}
-          >
-            {item}
-          </Chip>
+          <React.Fragment key={item}>
+            <Chip
+              closable={true}
+              onClose={() => handleCheckboxChange(item)}
+              style={{ backgroundColor: theme.border._300, border: 0 }}
+            >
+              {item}
+            </Chip>
+          </React.Fragment>
         );
       })}
     </S.TagInputContainer>
