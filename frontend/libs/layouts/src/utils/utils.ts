@@ -23,14 +23,18 @@ export function searchMenuItems(menu, query) {
   return { result, parentIds };
 }
 
-export function findActiveMenuItem(menuItems, currentUrl) {
+export function findActiveMenuItem(menuItems, currentUrl, pathGroups) {
   if (!menuItems) return null;
 
   for (let i = 0; i < menuItems.length; i++) {
-    if (menuItems[i].v3_href && currentUrl && currentUrl.includes(menuItems[i].v3_href)) {
+    if (
+      menuItems[i].href &&
+      currentUrl &&
+      /*currentUrl.includes(menuItems[i].href*/ isPathActive(currentUrl, menuItems[i].href, pathGroups)
+    ) {
       return menuItems[i];
     } else if (menuItems[i].children) {
-      const subMenuActiveItem = findActiveMenuItem(menuItems[i].children, currentUrl);
+      const subMenuActiveItem = findActiveMenuItem(menuItems[i].children, currentUrl, pathGroups);
       if (subMenuActiveItem) {
         return subMenuActiveItem;
       }
@@ -57,4 +61,16 @@ export function findActiveParentKeys(data, targetKey) {
   }
   recursiveSearchParentNode(data, []);
   return parentChain;
+}
+
+export function isPathActive(pathname: string, menuItemHref: string | undefined, pathGroups: string[][]) {
+  if (!menuItemHref) return false;
+  // debugger;
+  for (const group of pathGroups) {
+    if (group.some((path) => pathname === path)) {
+      return group.includes(menuItemHref);
+    }
+  }
+
+  return pathname === menuItemHref;
 }

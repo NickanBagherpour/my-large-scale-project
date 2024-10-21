@@ -2,40 +2,7 @@ import styled, { css } from 'styled-components';
 import { Button as AntButton } from 'antd';
 import { cssVar } from '@oxygen/utils';
 
-const defaultStyles = css`
-  color: ${(p) => p.theme.text.primary};
-  background-color: ${(p) => p.theme.surface};
-`;
-
-const tableStyles = css`
-  color: ${(p) => p.theme.primary.main};
-  background-color: ${(p) => p.theme.background.main};
-  border: none;
-  box-shadow: none;
-  display: table-cell;
-`;
-
-const linkStyles = css`
-  color: ${(p) => p.theme.primary.main};
-`;
-
 export const StyledButton = styled<any>(AntButton)`
-  ${(p) => p.org_type === 'default' && defaultStyles}
-  ${(p) => p.org_type === 'table' && tableStyles}
-  ${(p) => p.org_type === 'link' && linkStyles}
-  ${(p) =>
-    p.flex &&
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `}
-
-
-  > * {
-    //margin-left: 0.5rem;
-  }
-
   > *:first-child {
     margin-left: 0;
   }
@@ -47,20 +14,82 @@ export const StyledButton = styled<any>(AntButton)`
 
   &.ant-btn {
     column-gap: 0.8rem;
+    ${(p) => getRelatedVariantBackground(p)};
     .ant-btn-icon:not(:last-child) {
       margin-inline-end: 0;
     }
   }
-
-  &.ant-btn-primary,
-  &.ant-btn-default,
-  &.ant-btn-danger {
-    box-shadow: none;
-  }
-
-  &.ant-btn-primary:hover,
-  &.ant-btn-default:hover,
-  &.ant-btn-danger:hover {
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-  }
 `;
+
+function getRelatedVariantBackground(p: any) {
+  const color = p.color;
+
+  switch (p.variant) {
+    case 'outlined':
+      return css`
+        border-color: ${(p) => p.theme[color].main};
+        color: ${(p) => p.theme[color].main};
+        &:hover {
+          opacity: 0.7;
+        }
+        &:active {
+          filter: brightness(0.7);
+        }
+      `;
+    case 'filled':
+      return css`
+        background-color: ${(p) => p.theme[color]._100};
+        color: ${(p) => p.theme[color].main};
+        &:hover {
+          background-color: ${(p) => p.theme[color]._300}6;
+        }
+        &:active {
+          background-color: ${(p) => p.theme[color]._300};
+        }
+      `;
+
+    case 'dashed':
+      return css`
+        border-color: ${(p) => p.theme[color].main};
+        border-style: dashed;
+        color: ${(p) => p.theme[color].main};
+        &:hover {
+          opacity: 0.7;
+        }
+        &:active {
+          filter: brightness(0.7);
+        }
+      `;
+    case 'text':
+      return css`
+        color: ${(p) => p.theme[color].main};
+        &:hover {
+          background-color: ${(p) => p.theme[color]._50};
+        }
+        &:active {
+          background-color: ${(p) => p.theme[color]._300};
+        }
+      `;
+    case 'link':
+      return css`
+        color: ${(p) => p.theme[color].main};
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          filter: brightness(0.7);
+        }
+      `;
+    default:
+      return css`
+        background-color: ${(p) => p.theme[color].main};
+        color: ${(p) => p.theme.onPrimary};
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          filter: brightness(0.85);
+        }
+      `;
+  }
+}

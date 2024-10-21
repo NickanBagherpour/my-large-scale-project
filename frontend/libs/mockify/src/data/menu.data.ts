@@ -99,7 +99,7 @@ export const menus = [
     children: [],
   },
   {
-    id: 3,
+    id: 10,
     title: 'گزارش',
     order: 3,
     href: '',
@@ -109,7 +109,7 @@ export const menus = [
     parentId: null,
     children: [
       {
-        id: 301,
+        id: 101,
         title: 'گزارش 1',
         order: 1,
         href: '/report1',
@@ -120,7 +120,7 @@ export const menus = [
         children: [],
       },
       {
-        id: 302,
+        id: 102,
         title: 'گزارش 2',
         order: 2,
         href: '/report2',

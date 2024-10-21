@@ -7,7 +7,7 @@ import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
-import { cssVar } from '@oxygen/utils';
+import { cssVar, ROUTE_GROUPS } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
@@ -67,7 +67,7 @@ const Drawer = (props: DrawerProps) => {
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
   const filteredMenuItems = useMemo(() => generateMenuItems(filteredItems?.result), [filteredItems]);
   const menuSelectedKeys = useMemo(() => getDefaultSelectedKeys(), [menu, pathname]);
-  // console.log('defaultOpenKeys', filteredItems.parentIds, filteredItems);
+  // console.log('defaultOpenKeys', pathname, filteredItems.parentIds, filteredItems, menuSelectedKeys);
 
   const { asyncState: stateMenu, execute: executeMenu } = useAsync();
 
@@ -75,7 +75,7 @@ const Drawer = (props: DrawerProps) => {
     if (!menu && !stateMenu?.data) {
       fetchMenu();
     }
-    getActiveParentkeys();
+    getActiveParentKeys();
   }, [menu]);
 
   const fetchMenu = async () => {
@@ -135,7 +135,7 @@ const Drawer = (props: DrawerProps) => {
   }
 
   function getDefaultSelectedKeys() {
-    const activeMenuItem = findActiveMenuItem(menu, pathname);
+    const activeMenuItem = findActiveMenuItem(menu, pathname, ROUTE_GROUPS);
 
     if (!activeMenuItem) {
       return [];
@@ -144,7 +144,7 @@ const Drawer = (props: DrawerProps) => {
     return [activeMenuItem.id.toString()];
   }
 
-  function getActiveParentkeys() {
+  function getActiveParentKeys() {
     if (!menu) return false;
     const activeKeys = findActiveParentKeys(menu, +menuSelectedKeys[0]);
     setOpenKeys(activeKeys);
@@ -163,7 +163,6 @@ const Drawer = (props: DrawerProps) => {
                 <Button type={'link'} onClick={handleMenuTryAgain}>
                   {t('button.retry')}
                 </Button>
-                ,
               </Box>,
             ]}
           ></Result>
