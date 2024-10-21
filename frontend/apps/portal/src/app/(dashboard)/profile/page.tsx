@@ -3,8 +3,10 @@
 import styled from 'styled-components';
 
 import { Button, Box, Select, TabsProps, Switch, Tabs, Chip } from '@oxygen/ui-kit';
+import Container from 'libs/ui-kit/src/container/container';
+import { useTr } from '@oxygen/translation';
 
-const Container = styled.div`
+const styledContainer = styled.div`
   //margin-left: 2rem;
   background-color: ${(props) => props.theme.background.main};
   width: 100%;
@@ -34,6 +36,8 @@ const items: TabsProps['items'] = [
 ];
 
 export default function Index() {
+  const [t] = useTr();
+
   function closeAlert() {
     console.log('close');
   }
@@ -47,7 +51,7 @@ export default function Index() {
   }
 
   return (
-    <Container className='wrapper'>
+    <Container title={t('field.customer')} subtitle={'(245)'}>
       <div className='container'>
         <div id='welcome'>
           <h1>

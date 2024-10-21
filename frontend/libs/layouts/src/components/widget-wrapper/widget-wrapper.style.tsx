@@ -7,7 +7,7 @@ export const WidgetWrapper = styled.div`
   width: 100%;
   min-height: 100%;
   background-color: transparent;
-  //gap: 2.4rem;
+  gap: 1.6rem;
 `;
 
 export const HeaderContainer = styled.div`
