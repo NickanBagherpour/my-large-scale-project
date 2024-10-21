@@ -84,6 +84,5 @@ export const Divider = styled.div`
 export const styleIcon = styled.i`
   width: 2.4rem;
   height: 2.4rem;
-
   color: ${(p) => p.theme.text.primary};
 `;

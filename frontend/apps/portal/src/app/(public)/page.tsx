@@ -68,6 +68,20 @@ export default function Index() {
         <Div>
           <Switch />
         </Div>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button color='primary'>primary</Button>
+          <Button color='secondary'>secondary</Button>
+          <Button color='warning'>warning</Button>
+          <Button color='error'>error</Button>
+        </Div>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button variant='solid'>solid</Button>
+          <Button variant='filled'>filled</Button>
+          <Button variant='outlined'>outlined</Button>
+          <Button variant='dashed'>dashed</Button>
+          <Button variant='text'>text</Button>
+          <Button variant='link'>link</Button>
+        </Div>
         <Div>
           <Tabs defaultActiveKey='1' items={items} />
         </Div>
