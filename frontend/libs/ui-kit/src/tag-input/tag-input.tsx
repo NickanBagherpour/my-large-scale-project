@@ -25,8 +25,8 @@ export const TagInput = (props: TagInputProps) => {
   const [checkedItems, setCheckedItems] = React.useState<DropdownOptions[]>([]);
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const handleCheckboxChange = (value: string) => {
-    setOpen(true);
+  const handleCheckboxChange = (value: string, e) => {
+    e.stopPropagation();
     setCheckedItems((prev) => {
       const existingItem = prev.find((item) => item.value === value);
       if (existingItem) {
@@ -78,7 +78,10 @@ export const TagInput = (props: TagInputProps) => {
       label: (
         <Checkbox
           checked={checkedItems.some((item) => item.value === option.value)}
-          onChange={() => handleCheckboxChange(option.value)}
+          onChange={(e) => {
+            setOpen(true);
+            handleCheckboxChange(option.value, e);
+          }}
         >
           {option.label}
         </Checkbox>
@@ -116,15 +119,11 @@ export const TagInput = (props: TagInputProps) => {
       {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
       {checkedItems.map((item) => {
         return (
-          <React.Fragment key={item.value}>
-            <Chip
-              closable={true}
-              onClose={() => handleCheckboxChange(item.value)}
-              style={{ backgroundColor: theme.border._50, border: 0, minHeight: '3.7rem' }}
-            >
+          <S.ChipsContainer key={item.value}>
+            <Chip closable={true} onClose={(e) => handleCheckboxChange(item.value, e)}>
               {item.label}
             </Chip>
-          </React.Fragment>
+          </S.ChipsContainer>
         );
       })}
     </S.TagInputContainer>

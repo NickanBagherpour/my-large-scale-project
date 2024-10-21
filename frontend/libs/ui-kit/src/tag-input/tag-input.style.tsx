@@ -56,3 +56,10 @@ export const StyledSpace = styled(Space)`
   gap: 0.8rem;
   align-items: center;
 `;
+export const ChipsContainer = styled.div`
+  & .ant-tag {
+    background-color: ${(props) => props.theme.border._50};
+    border: 0;
+    min-height: 3.7rem;
+  }
+`;
