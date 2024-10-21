@@ -24,7 +24,7 @@ export type Palette = {
 export type TextPalette = {
   primary: string;
   secondary: string;
-  territory: string;
+  tertiary: string;
   quaternary: string;
 };
 

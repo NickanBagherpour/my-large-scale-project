@@ -4,18 +4,15 @@
     "title": "",
     "type": "object",
     "properties": {
-      "name": {
-        "type": "string",
-        "description": "Widget name",
-        "$default": {
-          "$source": "argv",
-          "index": 0
-        },
-        "x-prompt": "What's the title of your new widget?"
-      }
+        "name": {
+            "type": "string",
+            "description": "Widget name",
+            "$default": {
+                "$source": "argv",
+                "index": 0
+            },
+            "x-prompt": "What's the title of your new widget?"
+        }
     },
-    "required": [
-      "name"
-    ]
-  }
-  
+    "required": ["name"]
+}
