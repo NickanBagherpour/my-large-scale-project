@@ -22,8 +22,12 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) => {
       <S.ErrorTitle>{t('error.unspecific')}</S.ErrorTitle>
       <S.ErrorDetail>{error.message}</S.ErrorDetail>
       <S.ButtonContainer>
-        <Button variant={'outlined'} color={'primary'} onClick={reset}>{t('button.retry')}</Button>
-        <Button variant={'outlined'} color='default' onClick={navigateToSupport}>{t('button.contact_support')}</Button>
+        <Button variant={'outlined'} color={'primary'} onClick={reset}>
+          {t('button.retry')}
+        </Button>
+        <Button variant={'outlined'} color={'error'} onClick={navigateToSupport}>
+          {t('button.contact_support')}
+        </Button>
       </S.ButtonContainer>
     </S.ErrorFallbackWrapper>
   );

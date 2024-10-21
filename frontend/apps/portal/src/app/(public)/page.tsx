@@ -2,8 +2,9 @@
 
 import styled, { useTheme } from 'styled-components';
 
-import { Button, Box, Select, Switch, Tabs, Chip, Progress } from '@oxygen/ui-kit';
-import type { TabsProps } from 'antd';
+import { Button, Box, Select, Switch, Tabs, Chip, Progress, Modal } from '@oxygen/ui-kit';
+import { TabsProps } from 'antd';
+import { useState } from 'react';
 
 const Div = styled.div`
   margin-left: 2rem;
@@ -41,6 +42,7 @@ function PreventCloseAlert(e) {
 
 export default function Index() {
   const theme = useTheme();
+  const [modalState, setModalState] = useState(false);
   return (
     <Div className='wrapper'>
       <div className='container'>
@@ -55,6 +57,23 @@ export default function Index() {
           <Progress isPrimary={true} percent={40} height={20} />
         </Box>
 
+        <Modal
+          title={'Delete'}
+          open={modalState}
+          centered={true}
+          onCancel={() => setModalState(false)}
+          maskClosable={false}
+          footer={
+            <Box>
+              <Button color={'primary'} variant={'solid'} onClick={() => setModalState(false)}>
+                Confirm
+              </Button>
+            </Box>
+          }
+        >
+          <p>Modal Body</p>
+        </Modal>
+
         <Div>
           <Select defaultValue='lucy' style={{ width: 120 }}>
             <Select.Option value='jack'>Jack</Select.Option>
@@ -67,6 +86,20 @@ export default function Index() {
         </Div>
         <Div>
           <Switch />
+        </Div>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button color='primary'>primary</Button>
+          <Button color='secondary'>secondary</Button>
+          <Button color='warning'>warning</Button>
+          <Button color='error'>error</Button>
+        </Div>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button variant='solid'>solid</Button>
+          <Button variant='filled'>filled</Button>
+          <Button variant='outlined'>outlined</Button>
+          <Button variant='dashed'>dashed</Button>
+          <Button variant='text'>text</Button>
+          <Button variant='link'>link</Button>
         </Div>
         <Div>
           <Tabs defaultActiveKey='1' items={items} />
@@ -83,6 +116,11 @@ export default function Index() {
           <Chip type='active' closeIcon onClose={(e) => PreventCloseAlert(e)}>
             prevent close Chip
           </Chip>
+        </Div>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button color={'error'} variant={'solid'} onClick={() => setModalState(!modalState)}>
+            open Modal
+          </Button>
         </Div>
       </div>
     </Div>

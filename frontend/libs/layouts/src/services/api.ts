@@ -28,7 +28,6 @@ const Api = {
   },
   getUserProfile: async () => {
     let response;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     if (ENV_CONSTANTS.IS_DEV) {
       response = await mockify.getUserProfile();
     } else {
