@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'clients-list-widget',
+  widget_name: 'لیست کلاینت‌ها',
 };

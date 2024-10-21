@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
 export const AppContainer = styled.div`
-  // background-color: pink;
+  padding-inline: 1.6rem;
+  background-color: ${(p) => p.theme.background.main};
+  width: 100%;
 `;
