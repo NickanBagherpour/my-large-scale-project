@@ -1,8 +1,8 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
-import { Button, Box, Select, Switch, Tabs, Chip } from '@oxygen/ui-kit';
+import { Button, Box, Select, Switch, Tabs, Chip, Progress } from '@oxygen/ui-kit';
 import type { TabsProps } from 'antd';
 
 const Div = styled.div`
@@ -28,10 +28,19 @@ const items: TabsProps['items'] = [
 ];
 
 function closeAlert() {
-  console.log('delete');
+  console.log('close');
+}
+
+function clickAlert() {
+  console.log('click');
+}
+
+function PreventCloseAlert(e) {
+  e.preventDefault();
 }
 
 export default function Index() {
+  const theme = useTheme();
   return (
     <Div className='wrapper'>
       <div className='container'>
@@ -42,14 +51,9 @@ export default function Index() {
           </h1>
         </div>
 
-        <Box display={'flex'} color={'blue'}>
-          This is Material
+        <Box width='60%'>
+          <Progress isPrimary={true} percent={40} height={20} />
         </Box>
-        <Box display={'flex'} color={'blue'}>
-          متن فارسی
-        </Box>
-
-        <Button type={'primary'}>Click me</Button>
 
         <Div>
           <Select defaultValue='lucy' style={{ width: 120 }}>
@@ -68,10 +72,16 @@ export default function Index() {
           <Tabs defaultActiveKey='1' items={items} />
         </Div>
         <Div>
-          <Chip>chip</Chip>
-          <Chip active>chip Active</Chip>
-          <Chip active closeIcon onClose={() => closeAlert()}>
+          <Chip onClick={() => clickAlert()}>chip</Chip>
+          <Chip type='active' iconProp='checked icon-checkmark'>
+            chip Active
+          </Chip>
+          <Chip type='active'>info Chip</Chip>
+          <Chip type='active' closeIcon onClose={() => closeAlert()}>
             closeIcon Chip
+          </Chip>
+          <Chip type='active' closeIcon onClose={(e) => PreventCloseAlert(e)}>
+            prevent close Chip
           </Chip>
         </Div>
       </div>

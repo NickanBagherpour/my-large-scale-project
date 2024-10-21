@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Switch } from '@oxygen/ui-kit';
+import { CardProps } from 'antd';
 
 import * as S from './card-with-toggle.style';
 
-interface CardWithToggleProps {
+export type CardWithToggleProps = CardProps & {
   title: string;
   subtitle?: string;
   icon?: string;
@@ -12,9 +13,9 @@ interface CardWithToggleProps {
   disabled?: boolean;
   defaultChecked?: boolean;
   customStyle?: React.CSSProperties;
-}
+};
 
-const CardWithToggle: React.FC<CardWithToggleProps> = (props) => {
+const CardWithToggle = (props: CardWithToggleProps) => {
   const { title, subtitle, icon, handleIconClick, disabled = false, defaultChecked = false, customStyle } = props;
 
   const iconClickHandler = (event: React.MouseEvent<HTMLElement>) => {

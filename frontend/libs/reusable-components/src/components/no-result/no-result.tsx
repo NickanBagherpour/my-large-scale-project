@@ -16,7 +16,7 @@ const NoResult = (props: Props) => {
   return (
     <S.NoResult {...restOfProps}>
       {isLoading ? (
-        <Loading hasContainer={true} containerProps={{ flexGrow: 1 }} />
+        <Loading containerProps={{ flexGrow: 1 }} />
       ) : (
         <>
           <Icons.EmptyIcon />
