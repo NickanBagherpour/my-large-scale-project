@@ -26,7 +26,10 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
       colorBgContainer: 'transparent',
       colorBgLayout: themeBase.background.main,
       // colorBgContainer: themeBase.surface,
-      //
+      colorInfo: themeBase.info.main,
+      colorWarning: themeBase.warning.main,
+      colorError: themeBase.error.main,
+      colorSuccess: themeBase.success.main,
     },
     algorithm: themeBase.id === ThemeID.DARK ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm,
     components: {
