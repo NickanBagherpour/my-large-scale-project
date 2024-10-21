@@ -8,11 +8,11 @@ export const InputWrapper = styled<any>(AntInput)`
 
   .ant-input-prefix {
     padding-right: 0.8rem;
-    padding-left: 1.6rem;
+    padding-left: 0.5rem;
   }
 
   .ant-input-suffix {
-    padding-right: 1.6rem;
+    padding-right: 0.5rem;
     padding-left: 0.8rem;
   }
 

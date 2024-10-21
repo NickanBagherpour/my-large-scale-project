@@ -1,3 +1,9 @@
 export default {
   widget_name: 'لیست کلاینت‌ها',
+  search_by_name_or_id: 'جستجو براساس نام یا ID',
+  upload_client: 'بارگذاری کلاینت',
+  create_new_client: 'ایجاد کلاینت جدید',
+  all_clients: 'همه کلاینت‌ها',
+  active_clients: 'کلاینت‌های فعال',
+  inactive_clients: 'کلاینت‌های غیر‌فعال',
 };
