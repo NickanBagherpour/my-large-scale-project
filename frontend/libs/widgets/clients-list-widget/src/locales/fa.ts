@@ -6,4 +6,5 @@ export default {
   all_clients: 'همه کلاینت‌ها',
   active_clients: 'کلاینت‌های فعال',
   inactive_clients: 'کلاینت‌های غیر‌فعال',
+  show_all: 'نمایش همه',
 };
