@@ -35,7 +35,7 @@ const getLightTheme = (direction: Direction): ITheme => {
       _50: '#f8fafc',
       _100: '#f1f5f9',
       _200: '#e2e8f0',
-      _600: '#475569',
+      _600: '#ffffff',
     },
     surface: '#ffffff',
     onPrimary: '#ffffff',
@@ -105,7 +105,7 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _300: '#4c4fb1',
       _400: '#6366f1',
       _500: '#7c83ff',
-      _600: '#949cf8',
+      _600: '#8c9eff',
       _700: '#a5b4fc',
       _800: '#c7d2fe',
       _900: '#eef2ff',
@@ -128,7 +128,7 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _50: '#1e293b',
       _100: '#2c3e57',
       _200: '#3a4f6e',
-      _600: '#94a3b8',
+      _600: '#0f172a',
     },
     surface: '#1e293b',
     onPrimary: '#ffffff',
@@ -166,7 +166,7 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _600: '#69b1ff',
     },
     lightGray: '#2c3e57',
-    iconPrimary: '#a0aec0', 
+    iconPrimary: '#a0aec0',
     text: {
       primary: '#f8fafc',
       secondary: '#e2e8f0',
@@ -180,12 +180,11 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _100: '#4b5563',
       _300: '#6b7280',
       _500: '#9ca3af',
-      _600: '#e5e7eb',
+      _600: '#64748b',
     },
     appbar: '#1f2366',
   };
 };
-
 
 export const getTheme = (config: IConfig) => {
   switch (config.themeId) {
