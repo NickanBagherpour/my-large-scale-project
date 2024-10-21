@@ -2,8 +2,9 @@
 
 import styled, { useTheme } from 'styled-components';
 
-import { Button, Box, Select, Switch, Tabs, Chip, Progress } from '@oxygen/ui-kit';
-import type { TabsProps } from 'antd';
+import { Button, Box, Select, Switch, Tabs, Chip, Progress, Modal } from '@oxygen/ui-kit';
+import { TabsProps } from 'antd';
+import { useState } from 'react';
 
 const Div = styled.div`
   margin-left: 2rem;
@@ -41,6 +42,7 @@ function PreventCloseAlert(e) {
 
 export default function Index() {
   const theme = useTheme();
+  const [modalState, setModalState] = useState(false);
   return (
     <Div className='wrapper'>
       <div className='container'>
@@ -54,6 +56,23 @@ export default function Index() {
         <Box width='60%'>
           <Progress isPrimary={true} percent={40} height={20} />
         </Box>
+
+        <Modal
+          title={'Delete'}
+          open={modalState}
+          centered={true}
+          onCancel={() => setModalState(false)}
+          maskClosable={false}
+          footer={
+            <Box>
+              <Button color={'primary'} variant={'solid'} onClick={() => setModalState(false)}>
+                Confirm
+              </Button>
+            </Box>
+          }
+        >
+          <p>Modal Body</p>
+        </Modal>
 
         <Div>
           <Select defaultValue='lucy' style={{ width: 120 }}>
@@ -83,6 +102,11 @@ export default function Index() {
           <Chip type='active' closeIcon onClose={(e) => PreventCloseAlert(e)}>
             prevent close Chip
           </Chip>
+        </Div>
+        <Div>
+          <Button color={'danger'} variant={'solid'} onClick={() => setModalState(!modalState)}>
+            open Modal
+          </Button>
         </Div>
       </div>
     </Div>
