@@ -78,8 +78,6 @@ const Drawer = (props: DrawerProps) => {
     getActiveParentkeys();
   }, [menu]);
 
-
-
   const fetchMenu = async () => {
     try {
       const response = await executeMenu(async () => await Api.getMenus());
@@ -90,8 +88,6 @@ const Drawer = (props: DrawerProps) => {
       return null;
     }
   };
-
-
 
   function getMenuLabelNode(menuItem) {
     const badgeCount = 0; // Replace with your non-zero value

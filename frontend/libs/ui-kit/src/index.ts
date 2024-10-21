@@ -39,3 +39,4 @@ export * from './tabs/tabs';
 export * from './chip/chip';
 export * from './divider/divider';
 export * from './progress/progress';
+export * from './mark-text/mark-text';

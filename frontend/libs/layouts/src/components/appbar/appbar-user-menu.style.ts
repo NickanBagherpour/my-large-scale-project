@@ -16,11 +16,10 @@ export const Overlay = styled.div`
     margin: 0.5rem 0;
   }
 
-    & > ul.ant-dropdown-menu-root li[role='separator'] {
-    margin:0;
+  & > ul.ant-dropdown-menu-root li[role='separator'] {
+    margin: 0;
     background-color: ${(p) => p.theme.border._100};
   }
-
 `;
 
 export const StyleParagraph = styled('p')`

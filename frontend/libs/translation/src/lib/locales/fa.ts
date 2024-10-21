@@ -23,6 +23,7 @@ export default {
     day: 'روز',
     receipt: 'رسید',
     active: 'فعال',
+    inactive: 'غیرفعال',
     blocked: 'مسدود',
     matured: 'سررسید شده',
     closed: 'تسویه شده',
@@ -318,5 +319,13 @@ export default {
     unique_id: 'شناسه یکتا',
     actions_without_id_not_allowed:
       'فروش، افتتاح حساب اوراق و عملیات های مرتبط با اوراق بدون ثبت و دریافت کد از سامانه سما فاقد اعتبار بوده و مورد قبول بانک مرکزی نمیباشد.',
+  },
+
+  grid_card: {
+    active_servers_count: '{{count}} سرور فعال ',
+  },
+
+  autocomplete: {
+    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   },
 };
