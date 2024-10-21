@@ -8,7 +8,7 @@ export type DividerProps = AntDividerProps & {
   //
 };
 
-export const Divider = (props: AntDividerProps) => {
+export const Divider = (props: DividerProps) => {
   const { children, ...rest } = props;
 
   return children ? <S.StyledDivider {...rest}>{children}</S.StyledDivider> : <S.StyledDivider {...rest} />;
