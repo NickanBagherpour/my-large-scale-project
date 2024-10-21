@@ -1,10 +1,9 @@
-import { client, portalUrl } from '@oxygen/client';
-
-import { FetchParamsType, ReportResponseType } from '../types';
+import type { ParamsType } from '../types';
+import Mockify from '@oxygen/mockify';
 
 const Api = {
-  getReportData: async (params: FetchParamsType) => {
-    return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  getClientsListData: async (params: ParamsType) => {
+    return Mockify.getClients(params);
   },
 };
 export default Api;

@@ -1,25 +1,26 @@
 import * as S from './grid.style';
 import { GridCard } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { ClientType } from '../../types';
 
-function getRandomItem<T>(arr: [T, T]): T {
-  const randomIndex = Math.floor(Math.random() * 2); // Generates 0 or 1
-  return arr[randomIndex];
-}
+type Props = {
+  data: ClientType[];
+};
 
-export default function Grid() {
+export default function Grid(props: Props) {
+  const { data } = props;
   const [t] = useTr();
 
   return (
     <>
       <S.Container>
-        {Array.from({ length: 16 }).map((_, idx) => (
+        {data.map(({ name, description, isActiveInTheService, date }, idx) => (
           <GridCard
             key={idx}
-            name='پیام رسان بله'
-            englishName='App-Bale'
-            status={getRandomItem(['active', 'inactive'])}
-            date='1403/02/24'
+            name={description}
+            englishName={name}
+            status={isActiveInTheService ? 'active' : 'inactive'}
+            date={date}
             href='/'
           />
         ))}

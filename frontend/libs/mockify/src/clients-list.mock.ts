@@ -1,11 +1,10 @@
 import { clientsList, type Client } from './data/clients-list.data';
 
-export type WidgetStateType = {
+type Params = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
   status: 'all' | 'active' | 'inactive';
   page: number;
-  // errorMessage: Nullable<ErrorMessageType>;
 };
 
 function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
@@ -27,11 +26,16 @@ function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
   });
 }
 
-export const getClients = async ({ searchTerm, status, sort, page }: WidgetStateType) => {
+export const getClients = async ({ searchTerm, status, sort, page }: Params) => {
   const data = clientsList
     .filter((client) => {
-      const isActiveInTheService = status === 'active';
-      return client.description.includes(searchTerm) && isActiveInTheService;
+      const searchMatches = client.description.includes(searchTerm);
+      if (status === 'all') {
+        return searchMatches;
+      } else {
+        const isActive = status === 'active';
+        return searchMatches && client.isActiveInTheService === isActive;
+      }
     })
     .slice(page - 1, 16);
 
