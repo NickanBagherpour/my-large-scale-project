@@ -1,18 +1,20 @@
-import { ApiUtil } from '@oxygen/utils';
 import { ErrorMessageType, Nullable } from '@oxygen/types';
+import { WidgetDispatchType, WidgetStateType } from './types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
-
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
+export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
+  dispatch({ type: 'UPDATE_SORT', payload: sort });
 }
 
-export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
+export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+  dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
-  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
+export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+  dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
+}
+
+export function updatePagination(dispatch: WidgetDispatchType, page: WidgetStateType['page']) {
+  dispatch({ type: 'UPDATE_PAGINATION', payload: page });
 }
 
 export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {
@@ -21,10 +23,4 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateErrorMessageAction(dispatch, null);
-}
-
-function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
-  const errorMessage = ApiUtil.getErrorMessage(reason);
-  dispatch({ type: actionType, payload: { errorMessage, ...extraPayload } });
-  return null;
 }
