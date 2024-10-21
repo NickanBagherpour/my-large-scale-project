@@ -117,8 +117,8 @@ export default function Index() {
             prevent close Chip
           </Chip>
         </Div>
-        <Div>
-          <Button color={'danger'} variant={'solid'} onClick={() => setModalState(!modalState)}>
+        <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
+          <Button color={'error'} variant={'solid'} onClick={() => setModalState(!modalState)}>
             open Modal
           </Button>
         </Div>
