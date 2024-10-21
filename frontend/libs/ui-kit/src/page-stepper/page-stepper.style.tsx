@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const StepsWrapper = styled.div`
+export const PageStepperWrapper = styled.div<any>`
+  margin-left: 2rem;
   width: 100%;
 
   .ant-steps-item::after {

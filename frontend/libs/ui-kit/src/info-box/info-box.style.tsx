@@ -1,4 +1,4 @@
-import { respondTo } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import styled, { css } from 'styled-components';
 
 function generateXs(props) {
@@ -14,10 +14,24 @@ function generateXs(props) {
 export const InfoBoxWrapper = styled.div<any>`
   margin: ${(p) => p.margin};
   display: grid;
-  grid-template-columns: max(15%, 14rem) 1fr max(15%, 14rem) 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* grid-template-columns: max(15%, 14rem) 1fr max(15%, 14rem) 1fr; */
+  background-color: ${(p) => p.theme.cardColor};
+  border: 2px solid ${(p) => p.theme.background._200};
+  border-radius: 12px;
+  /* border-radius: var(${cssVar.radius}); */
+  padding: 3rem;
   column-gap: 1%;
   row-gap: ${(p) => (p.dense ? '1rem' : '2rem')};
   overflow: hidden;
+
+  .ant-tag {
+    width: fit-content;
+    padding: 0.3rem 0.8rem;
+    border-radius: 25px;
+    background-color: ${(p) => p.theme.primary._100};
+    color: ${(p) => p.theme.text.primary};
+  }
 
   ${respondTo.down('lg')} {
     grid-template-columns: max(20%, 15rem) 1fr;
@@ -26,13 +40,14 @@ export const InfoBoxWrapper = styled.div<any>`
   ${(p) => generateXs(p)}
   & .info-box__title {
     font-size: 1.4rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
     color: ${(p) => p.theme.text.primary};
     white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
   }
 
   & .info-box__value-wrapper {
-    display: flex;
+    display: block;
     flex-direction: column;
 
     ${respondTo.down('lg')} {
