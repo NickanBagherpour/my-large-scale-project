@@ -55,7 +55,7 @@ export const HeaderIcon = styled.div`
 export const HeaderTitle = styled.span<{ $lastTitle: boolean }>`
   font-weight: bold;
   font-size: 1.8rem;
-  color: ${(p) => (p.$lastTitle ? p.theme.text.primary : p.theme.text.territory)};
+  color: ${(p) => (p.$lastTitle ? p.theme.text.primary : p.theme.text.tertiary)};
 `;
 
 export const HeaderMessage = styled.p`
@@ -70,7 +70,7 @@ export const HeaderMessage = styled.p`
 
 export const Icon = styled.i`
   font-size: 1.8rem;
-  color: ${(props) => props.theme.text.territory};
+  color: ${(props) => props.theme.text.tertiary};
   margin: 0 0.4rem;
 `;
 
