@@ -2,15 +2,16 @@ import { TagProps as AntChipProps } from 'antd';
 import { StyledChip } from './chip.style';
 
 export type ChipProps = AntChipProps & {
-  active?: boolean;
+  type?: string;
+  iconProp?: string;
 };
 
 export const Chip = (props: ChipProps) => {
-  const { children, icon, active = false, ...rest } = props;
-  // debugger;
+  const { children, iconProp, type = 'unActive', ...rest } = props;
 
   return (
-    <StyledChip active={active.toString()} {...rest}>
+    <StyledChip type={type} iconProp={iconProp} {...rest}>
+      {type === 'active' && iconProp && <i className={iconProp} />}
       {children}
     </StyledChip>
   );

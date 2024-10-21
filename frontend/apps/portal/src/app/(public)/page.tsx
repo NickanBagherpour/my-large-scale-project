@@ -28,7 +28,15 @@ const items: TabsProps['items'] = [
 ];
 
 function closeAlert() {
-  console.log('delete');
+  console.log('close');
+}
+
+function clickAlert() {
+  console.log('click');
+}
+
+function PreventCloseAlert(e) {
+  e.preventDefault();
 }
 
 export default function Index() {
@@ -68,10 +76,16 @@ export default function Index() {
           <Tabs defaultActiveKey='1' items={items} />
         </Div>
         <Div>
-          <Chip>chip</Chip>
-          <Chip active>chip Active</Chip>
-          <Chip active closeIcon onClose={() => closeAlert()}>
+          <Chip onClick={() => clickAlert()}>chip</Chip>
+          <Chip type='active' iconProp='checked icon-checkmark'>
+            chip Active
+          </Chip>
+          <Chip type='active'>info Chip</Chip>
+          <Chip type='active' closeIcon onClose={() => closeAlert()}>
             closeIcon Chip
+          </Chip>
+          <Chip type='active' closeIcon onClose={(e) => PreventCloseAlert(e)}>
+            prevent close Chip
           </Chip>
         </Div>
       </div>
