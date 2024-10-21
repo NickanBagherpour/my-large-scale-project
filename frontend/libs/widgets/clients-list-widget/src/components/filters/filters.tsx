@@ -19,30 +19,34 @@ export default function Filters() {
           onChange={(e) => updateSearchTerm(dispatch, e.target.value)}
         />
 
-        <Button color='primary' variant='outlined'>
-          {t('upload_client')}
-        </Button>
-        <Button color='primary' variant='solid'>
-          {t('create_new_client')}
-        </Button>
+        <S.Buttons>
+          <Button color='primary' variant='outlined'>
+            {t('upload_client')}
+          </Button>
+          <Button color='primary' variant='solid'>
+            {t('create_new_client')}
+          </Button>
+        </S.Buttons>
       </S.Actions>
 
       <S.Indicators>
-        <Chip
-          type={status === 'all' ? 'active' : 'unActive'}
-          iconProp='checked icon-checkmark'
-          onClick={() => updateStatus(dispatch, 'all')}
-        >
-          {t('all_clients')}
-        </Chip>
+        <S.Chips>
+          <Chip
+            type={status === 'all' ? 'active' : 'unActive'}
+            iconProp='checked icon-checkmark'
+            onClick={() => updateStatus(dispatch, 'all')}
+          >
+            {t('all_clients')}
+          </Chip>
 
-        <Chip type={status === 'active' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'active')}>
-          {t('active_clients')}
-        </Chip>
+          <Chip type={status === 'active' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'active')}>
+            {t('active_clients')}
+          </Chip>
 
-        <Chip type={status === 'inactive' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'inactive')}>
-          {t('inactive_clients')}
-        </Chip>
+          <Chip type={status === 'inactive' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'inactive')}>
+            {t('inactive_clients')}
+          </Chip>
+        </S.Chips>
 
         <S.RadioGroup onChange={(e) => updateSort(dispatch, e.target.value)} value={sort}>
           <Radio value='newest'>{t('newest')}</Radio>
