@@ -1,17 +1,17 @@
 import React from 'react';
-import { Checkbox, Dropdown, DropdownProps, Space } from 'antd';
+import { useTheme } from 'styled-components';
+import { Checkbox, Dropdown, DropdownProps } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-
 import { Button, Chip, Divider } from '@oxygen/ui-kit';
 
 import * as S from './tag-input.style';
-import { useTheme } from 'styled-components';
 
 export type DropdownOptions = {
   label: string;
   value: string;
 };
+
 export type TagInputProps = DropdownProps & {
   buttonCaption: string;
   options: DropdownOptions[];
@@ -20,13 +20,24 @@ export type TagInputProps = DropdownProps & {
 export const TagInput = (props: TagInputProps) => {
   const { buttonCaption, options } = props;
   const { t } = useTr();
+  const theme = useTheme();
 
-  const [checkedItems, setCheckedItems] = React.useState<string[]>([]);
+  const [checkedItems, setCheckedItems] = React.useState<DropdownOptions[]>([]);
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const theme = useTheme();
   const handleCheckboxChange = (value: string) => {
-    setCheckedItems((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]));
+    setOpen(true);
+    setCheckedItems((prev) => {
+      const existingItem = prev.find((item) => item.value === value);
+      if (existingItem) {
+        // Remove item if it's already checked
+        return prev.filter((item) => item.value !== value);
+      } else {
+        // Find the corresponding option and add it
+        const optionToAdd = options.find((option) => option.value === value);
+        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
+      }
+    });
   };
 
   const handleSelectAll = () => {
@@ -34,12 +45,11 @@ export const TagInput = (props: TagInputProps) => {
     if (checkedItems.length === options.length) {
       setCheckedItems([]); // Deselect all if all are selected
     } else {
-      setCheckedItems(options.map((option) => option.value)); // Select all
+      setCheckedItems(options.map((option) => ({ label: option.label, value: option.value }))); // Select all
     }
   };
 
   function handleMenuClick(e) {
-    // message.info('Click on menu item.');
     console.log('click', e);
   }
 
@@ -54,28 +64,30 @@ export const TagInput = (props: TagInputProps) => {
           {t('uikit.select_all')}
         </Checkbox>
       ),
-      key: '00',
+      key: 'selectAll',
       icon: <></>,
     },
     {
       type: 'divider',
-      key: 'divider1', // Unique key for the divider
-      style: { backgroundColor: theme.border._300 }, // Custom styles for the divider
+      key: 'divider1',
     },
   ];
 
   const menuItems = options.map((option, index) => {
     return {
       label: (
-        <Checkbox checked={checkedItems.includes(option.value)} onChange={() => handleCheckboxChange(option.value)}>
+        <Checkbox
+          checked={checkedItems.some((item) => item.value === option.value)}
+          onChange={() => handleCheckboxChange(option.value)}
+        >
           {option.label}
         </Checkbox>
       ),
-      style: { backgroundColor: checkedItems.includes(option.value) ? theme.primary._50 : '' },
-      key: index,
+      style: { backgroundColor: checkedItems.some((item) => item.value === option.value) ? theme.primary._50 : '' },
+      key: option.value,
       icon: <></>,
-      danger: true,
-      disabled: true,
+      // danger: true,
+      // disabled: true,
     };
   });
 
@@ -92,27 +104,25 @@ export const TagInput = (props: TagInputProps) => {
         trigger={['click']}
         open={open}
         onOpenChange={(flag) => setOpen(flag)}
-        overlayClassName={'drop-down'}
-        overlayStyle={{ height: '20vh' }}
         getPopupContainer={() => document.getElementById('area')}
       >
         <Button>
-          <Space>
+          <S.StyledSpace>
             <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} onClick={() => console.log('click')} />
             <span>{buttonCaption}</span>
-          </Space>
+          </S.StyledSpace>
         </Button>
       </Dropdown>
       {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
       {checkedItems.map((item) => {
         return (
-          <React.Fragment key={item}>
+          <React.Fragment key={item.value}>
             <Chip
               closable={true}
-              onClose={() => handleCheckboxChange(item)}
-              style={{ backgroundColor: theme.border._300, border: 0 }}
+              onClose={() => handleCheckboxChange(item.value)}
+              style={{ backgroundColor: theme.border._50, border: 0, minHeight: '3.7rem' }}
             >
-              {item}
+              {item.label}
             </Chip>
           </React.Fragment>
         );

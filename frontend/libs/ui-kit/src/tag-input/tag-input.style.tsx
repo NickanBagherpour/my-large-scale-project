@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import { Space } from 'antd';
 
 export const TagInputContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  row-gap: 1.6rem;
+  //margin:1rem 0;
 `;
 
 export const DropdownContainer = styled.div`
@@ -19,6 +22,10 @@ export const DropdownContainer = styled.div`
     &:not(:last-child):not(:first-child) {
       margin-bottom: 0.8rem;
     }
+  }
+  & .ant-dropdown-menu-item-divider {
+    background-color: ${(props) => props.theme.border._300};
+    margin: 0.8rem 0.4rem;
   }
 
   & label span:last-of-type {
@@ -42,4 +49,10 @@ export const DropdownContainer = styled.div`
   & .ant-checkbox-checked {
     background-color: ${(props) => props.theme.background.main};
   }
+`;
+export const StyledSpace = styled(Space)`
+  display: flex;
+  flex-flow: row-reverse;
+  gap: 0.8rem;
+  align-items: center;
 `;
