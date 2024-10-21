@@ -1,7 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './grid-card.style';
-import looper from './looper.svg';
-import { ReactComponent as Calendar } from './calendar.svg';
+import { looper, Calendar } from '../../assets';
 
 function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
   return 'activeServersCount' in props;

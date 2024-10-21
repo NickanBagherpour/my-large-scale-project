@@ -12,6 +12,7 @@ export const Container = styled(Link)`
   text-decoration: none;
   transition: all 200ms;
   overflow: hidden;
+  display: block;
 
   &:hover {
     border-color: ${(p) => p.theme.primary._400};
