@@ -7,4 +7,6 @@ export default {
   active_clients: 'کلاینت‌های فعال',
   inactive_clients: 'کلاینت‌های غیر‌فعال',
   show_all: 'نمایش همه',
+  newest: 'جدیدترین',
+  oldest: 'قدیمی‌ترین',
 };

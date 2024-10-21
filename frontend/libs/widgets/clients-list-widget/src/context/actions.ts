@@ -13,8 +13,8 @@ export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: Widge
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, page: WidgetStateType['page']) {
-  dispatch({ type: 'UPDATE_PAGINATION', payload: page });
+export function updatePagination(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'UPDATE_PAGINATION' });
 }
 
 export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {

@@ -28,7 +28,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_PAGINATION': {
-      return void (state.page = action.payload);
+      return void state.page++;
     }
 
     default:

@@ -7,6 +7,8 @@ type Params = {
   page: number;
 };
 
+export const CLIENTS_LIST_LIMIT = 16;
+
 function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
   return clients.sort((a, b) => {
     const dateA = a.date.split('/').map(Number);
@@ -28,6 +30,7 @@ function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
 
 export const getClients = async ({ searchTerm, status, sort, page }: Params) => {
   const data = clientsList
+    .slice(0, 40)
     .filter((client) => {
       const searchMatches = client.description.includes(searchTerm);
       if (status === 'all') {
@@ -37,13 +40,13 @@ export const getClients = async ({ searchTerm, status, sort, page }: Params) => 
         return searchMatches && client.isActiveInTheService === isActive;
       }
     })
-    .slice(page - 1, 16);
+    .slice(0, page * CLIENTS_LIST_LIMIT);
 
   const sortedData = sortByDate(data, sort);
 
-  return new Promise<{ data: Client[] }>((resolve) => {
+  return new Promise<{ data: { list: Client[]; total: number } }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: sortedData });
+      resolve({ data: { list: sortedData, total: 40 /* clientsList.length */ } });
     }, 700);
   });
 };

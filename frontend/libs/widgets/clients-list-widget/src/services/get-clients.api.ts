@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { ParamsType } from '../types';
@@ -11,5 +11,6 @@ export const useGetClientsQuery = (params: ParamsType) => {
   return useQuery({
     queryKey: [RQKEYS.CLIENTS_LIST.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getClientsListData(params), dispatch),
+    placeholderData: keepPreviousData,
   });
 };
