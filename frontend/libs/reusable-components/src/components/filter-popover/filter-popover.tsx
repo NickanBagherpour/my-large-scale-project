@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+
+import { PopoverProps } from 'antd';
+import * as S from './filter-popover.style';
+
+export type FilterType = {
+  key: number;
+  title: string;
+  icon: string;
+};
+
+export type FilterPopoverProps = PopoverProps & {
+  filters: FilterType[];
+  initialValue?: number;
+  onChange: (key: number) => void;
+};
+
+const FilterPopover = (props: FilterPopoverProps) => {
+  const { filters, initialValue = 1, onChange } = props;
+
+  const [filterIsOpen, setFilterIsOpen] = useState(false);
+  const [filterValue, setFilterValue] = useState(initialValue);
+  const [open, setOpen] = useState(false);
+
+  const handleFilterButtonClick = () => {
+    setFilterIsOpen(!filterIsOpen);
+  };
+
+  const handleFilterItemClick = (key: number) => {
+    onChange(key);
+    setFilterValue(key);
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
+  const content = () => (
+    <S.ContentContainer>
+      {filters.map((filter, index) => (
+        <S.ContentItem key={index}>
+          <p
+            onClick={() => handleFilterItemClick(filter.key)}
+            className={filter.key === filterValue ? 'active-item' : ''}
+          >
+            <i className={`icon-item ${filter.icon}`} />
+            {filter.title}
+          </p>
+        </S.ContentItem>
+      ))}
+    </S.ContentContainer>
+  );
+
+  return (
+    <S.StyledFilterPopover
+      content={content}
+      open={open}
+      trigger='click'
+      placement='bottomLeft'
+      onOpenChange={handleOpenChange}
+    >
+      <S.FilterButton onClick={handleFilterButtonClick}>
+        <i className={`${filterIsOpen ? 'rotate-up' : 'rotate-down'} icon-fill-arrow-down`} />
+        <i className='icon-sort' />
+      </S.FilterButton>
+    </S.StyledFilterPopover>
+  );
+};
+
+export default FilterPopover;
