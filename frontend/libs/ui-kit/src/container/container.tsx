@@ -8,16 +8,17 @@ export interface IWidgetWrapperProps {
   subtitle?: string | number;
   caption?: React.ReactNode;
   children?: React.ReactNode;
+  isFullHeight?: boolean;
 }
 
 export const Container = (props: IWidgetWrapperProps) => {
-  const { title, subtitle, children, caption } = props;
+  const { title, subtitle, children, caption, isFullHeight = true } = props;
 
   const widgetTitle = title;
   const widgetSubTitle = subtitle;
 
   return (
-    <S.WidgetWrapperContainer>
+    <S.WidgetWrapperContainer isFullHeight={isFullHeight}>
       <S.Header>
         <div className='header__title'>{widgetTitle}</div>
         <div className='header__subtitle'>{widgetSubTitle}</div>

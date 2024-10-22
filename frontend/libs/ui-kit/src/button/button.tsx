@@ -12,7 +12,6 @@ export type ButtonProps = Omit<AntButtonProps, 'color'> & {
 
 export const Button = (props: ButtonProps) => {
   const { children, color = 'primary', flex = true, ...rest } = props;
-
   return (
     <StyledButton color={color} flex={flex} {...rest}>
       {children}

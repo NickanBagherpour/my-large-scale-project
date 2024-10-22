@@ -2,8 +2,8 @@
 
 import styled, { useTheme } from 'styled-components';
 
-import { Button, Box, Select, Switch, Tabs, Chip, Progress, Modal } from '@oxygen/ui-kit';
-import { TabsProps } from 'antd';
+import { Button as MyButton, Box, Select, Switch, Tabs, Chip, Progress, Modal } from '@oxygen/ui-kit';
+import { Button, TabsProps } from 'antd';
 import { useState } from 'react';
 
 const Div = styled.div`
@@ -65,9 +65,9 @@ export default function Index() {
           maskClosable={false}
           footer={
             <Box>
-              <Button color={'primary'} variant={'solid'} onClick={() => setModalState(false)}>
+              <MyButton color={'primary'} variant={'solid'} onClick={() => setModalState(false)}>
                 Confirm
-              </Button>
+              </MyButton>
             </Box>
           }
         >
@@ -88,18 +88,23 @@ export default function Index() {
           <Switch />
         </Div>
         <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
-          <Button color='primary'>primary</Button>
-          <Button color='secondary'>secondary</Button>
-          <Button color='warning'>warning</Button>
-          <Button color='error'>error</Button>
+          <MyButton color='primary'>primary</MyButton>
+          <MyButton color='secondary'>secondary</MyButton>
+          <MyButton color='warning'>warning</MyButton>
+          <MyButton color='error'>error</MyButton>
         </Div>
         <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
-          <Button variant='solid'>solid</Button>
-          <Button variant='filled'>filled</Button>
-          <Button variant='outlined'>outlined</Button>
-          <Button variant='dashed'>dashed</Button>
-          <Button variant='text'>text</Button>
-          <Button variant='link'>link</Button>
+          <MyButton shape='round' variant='solid'>
+            solid
+          </MyButton>
+          <MyButton variant='filled'>filled</MyButton>
+          <MyButton variant='outlined'>outlined</MyButton>
+          <MyButton variant='dashed'>dashed</MyButton>
+          <MyButton variant='text'>text</MyButton>
+          <MyButton variant='link'>link</MyButton>
+          <Button color='primary' variant='solid' size='small' shape='round'>
+            alireza
+          </Button>
         </Div>
         <Div>
           <Tabs defaultActiveKey='1' items={items} />
@@ -118,9 +123,9 @@ export default function Index() {
           </Chip>
         </Div>
         <Div style={{ display: 'flex', gap: '3rem', margin: '2rem' }}>
-          <Button color={'error'} variant={'solid'} onClick={() => setModalState(!modalState)}>
+          <MyButton color={'error'} variant={'solid'} onClick={() => setModalState(!modalState)}>
             open Modal
-          </Button>
+          </MyButton>
         </Div>
       </div>
     </Div>
