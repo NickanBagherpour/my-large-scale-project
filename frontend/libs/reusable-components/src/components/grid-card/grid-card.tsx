@@ -70,7 +70,7 @@ function UpstreamCard(props: UpstreamCardProps) {
   return (
     <S.Container href={href}>
       <S.Header flip>
-        <S.Title>{name}</S.Title>
+        <S.Title text={name} highlightColor='' wordToHighlight='' />
         <S.Settings className='icon-setting' />
       </S.Header>
 
