@@ -28,7 +28,7 @@ export const TagInput = (props: TagInputProps) => {
   const handleCheckboxChange = (value: string, e) => {
     e.stopPropagation(); // Prevent dropdown from closing
     e.preventDefault(); // Prevent default behavior
-    setOpen(true); // Ensure dropdown opens when checkbox is clicked
+    // setOpen(true); // Ensure dropdown opens when checkbox is clicked
     setCheckedItems((prev) => {
       const existingItem = prev.find((item) => item.value === value);
       if (existingItem) {
@@ -81,7 +81,7 @@ export const TagInput = (props: TagInputProps) => {
           checked={checkedItems.some((item) => item.value === option.value)}
           onChange={(e) => {
             handleCheckboxChange(option.value, e);
-            // setOpen(true); // Ensure dropdown opens when checkbox is clicked
+            setOpen(true); // Ensure dropdown opens when checkbox is clicked
           }}
         >
           {option.label}

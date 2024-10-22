@@ -84,5 +84,6 @@ export const ChipsContainer = styled.div`
     background-color: ${(props) => props.theme.border._50};
     border: 0;
     min-height: 3.7rem;
+    color: ${(props) => props.theme.text.primary};
   }
 `;

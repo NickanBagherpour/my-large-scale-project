@@ -42,4 +42,4 @@ export * from './modal/modal';
 export * from './progress/progress';
 export * from './mark-text/mark-text';
 export * from './container/container';
-// export * from './tag-input/tag-input';
+export * from './tag-input/tag-input';
