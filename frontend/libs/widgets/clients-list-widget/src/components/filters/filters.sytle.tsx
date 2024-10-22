@@ -25,7 +25,7 @@ export const Chips = styled.div`
   display: flex;
   align-items: center;
 
-  ${respondTo.down('md')} {
+  ${respondTo.down('sm')} {
     flex-direction: column;
     gap: 1.5rem;
   }
@@ -55,6 +55,10 @@ export const Indicators = styled.div`
 export const Input = styled(KitInput)`
   max-width: 50.4rem;
   margin-inline-end: auto;
+
+  ${respondTo.down('md')} {
+    max-width: 100%;
+  }
 `;
 
 export const RadioGroup = styled(Radio.Group)`
