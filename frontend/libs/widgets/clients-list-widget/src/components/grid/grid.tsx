@@ -17,6 +17,8 @@ export default function Grid(props: Props) {
   const dispatch = useAppDispatch();
   const { page } = useAppState();
 
+  const showLoadMore = page * Mockify.CLIENTS_LIST_LIMIT <= (total ?? 0) && data.length >= Mockify.CLIENTS_LIST_LIMIT;
+
   return (
     <>
       <S.Container>
@@ -33,7 +35,7 @@ export default function Grid(props: Props) {
         ))}
       </S.Container>
 
-      {page * Mockify.CLIENTS_LIST_LIMIT <= (total ?? 0) && (
+      {showLoadMore && (
         <S.Button variant='text' color='primary' onClick={() => updatePagination(dispatch)}>
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
