@@ -17,7 +17,7 @@ const GlobalErrorContainer: React.FC<GlobalErrorContainerProps> = ({ onClose, er
   return (
     <Box {...containerProps}>
       <Alert
-        severity={'error'}
+        type={'error'}
         shouldScroll={true}
         description={errorMessage.shouldTranslate ? t(errorMessage.description) : errorMessage.description}
         onClose={onClose}

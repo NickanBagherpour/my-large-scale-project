@@ -26,10 +26,10 @@ const Appbar = (props: AppBarProps) => {
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
 
-  console.log('test', 'user', user);
+  // console.log('test', 'user', user);
 
   useEffect(() => {
-    console.log('test12', 'user', user);
+    // console.log('test12', 'user', user);
 
     if (!user) {
       fetchUserProfile();
@@ -49,7 +49,7 @@ const Appbar = (props: AppBarProps) => {
   const getMobileAppbar = () => {
     return (
       <>
-        <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+        <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
           <S.styleIcon className={'icon-hamburger-menu'} />
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>

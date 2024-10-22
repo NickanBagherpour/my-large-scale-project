@@ -28,3 +28,8 @@ export const MAIN_HREF = {
   HOME: '/home',
   LANDING: '/',
 };
+
+export const ROUTE_GROUPS = [
+  ['/dashboard', '/dashboard-report'],
+  ['/clients-list', '/client-detail', 'client-management'],
+];

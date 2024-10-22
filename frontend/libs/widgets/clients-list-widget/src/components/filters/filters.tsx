@@ -1,0 +1,76 @@
+import { useTr } from '@oxygen/translation';
+import { Button, Chip } from '@oxygen/ui-kit';
+import * as S from './filters.sytle';
+import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
+import { Radio } from 'antd';
+import { WidgetStateType } from '../../context/types';
+import { useTheme } from 'styled-components';
+
+type Status = WidgetStateType['status'];
+
+function getChipType(currentStatus: Status, chipStatus: Status) {
+  return currentStatus === chipStatus ? 'active' : 'unActive';
+}
+
+export default function Filters() {
+  const [t] = useTr();
+  const dispatch = useAppDispatch();
+  const { searchTerm, status, sort } = useAppState();
+
+  return (
+    <S.Container>
+      <S.Actions>
+        <S.Input
+          value={searchTerm}
+          placeholder={t('search_by_name_or_id')}
+          prefix={<i className='icon-search-normal' />}
+          onChange={(e) => updateSearchTerm(dispatch, e.target.value)}
+        />
+
+        <S.Buttons>
+          <Button href='/load-client' color='primary' variant='outlined'>
+            {t('upload_client')}
+          </Button>
+          <Button href='/create-client' color='primary' variant='solid'>
+            {t('create_new_client')}
+          </Button>
+        </S.Buttons>
+      </S.Actions>
+
+      <S.Indicators>
+        <S.Chips>
+          <Chip
+            iconProp='checked icon-checkmark'
+            type={getChipType(status, 'all')}
+            onClick={() => updateStatus(dispatch, 'all')}
+          >
+            {t('all_clients')}
+          </Chip>
+
+          <S.Divider type='vertical' />
+
+          <Chip
+            iconProp='checked icon-checkmark'
+            type={getChipType(status, 'active')}
+            onClick={() => updateStatus(dispatch, 'active')}
+          >
+            {t('active_clients')}
+          </Chip>
+
+          <Chip
+            iconProp='checked icon-checkmark'
+            type={getChipType(status, 'inactive')}
+            onClick={() => updateStatus(dispatch, 'inactive')}
+          >
+            {t('inactive_clients')}
+          </Chip>
+        </S.Chips>
+
+        <S.RadioGroup onChange={(e) => updateSort(dispatch, e.target.value)} value={sort}>
+          <Radio value='newest'>{t('newest')}</Radio>
+          <Radio value='oldest'>{t('oldest')}</Radio>
+        </S.RadioGroup>
+      </S.Indicators>
+    </S.Container>
+  );
+}

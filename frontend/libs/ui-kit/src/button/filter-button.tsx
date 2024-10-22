@@ -29,7 +29,7 @@ const StyledButton = styled<any>(Button)`
   ${(props) => props.width && `min-width: ${props.width};`}
   font-size: 1.4rem;
   background-color: ${(p) => (p.active ? p.theme.background.main : 'inherit')};
-  color: ${(p) => (p.active ? p.theme.primary.main : p.theme.text.territory)};
+  color: ${(p) => (p.active ? p.theme.primary.main : p.theme.text.tertiary)};
   border-color: ${(p) => (p.active ? p.theme.primary.main : p.theme.border.main)};
 
   i {
