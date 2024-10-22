@@ -8,10 +8,11 @@ import Mockify from '@oxygen/mockify';
 type Props = {
   data: ClientType[];
   total?: number;
+  searchTerm: string;
 };
 
 export default function Grid(props: Props) {
-  const { data, total } = props;
+  const { data, total, searchTerm } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { page } = useAppState();
@@ -26,6 +27,7 @@ export default function Grid(props: Props) {
             englishName={name}
             status={isActiveInTheService ? 'active' : 'inactive'}
             date={date}
+            wordToHighlight={searchTerm}
             href='/'
           />
         ))}

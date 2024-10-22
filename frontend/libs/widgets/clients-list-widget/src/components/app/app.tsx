@@ -9,8 +9,8 @@ import { useTr } from '@oxygen/translation';
 
 const App = () => {
   const { errorMessage, ...fetchState } = useAppState();
-  const [value] = useDebouncedValue(fetchState, 500);
-  const { data, isFetching } = useGetClientsQuery(value);
+  const [debouncedValue] = useDebouncedValue(fetchState, 500);
+  const { data, isFetching } = useGetClientsQuery(debouncedValue);
   const [t] = useTr();
 
   return (
@@ -18,7 +18,7 @@ const App = () => {
       <S.AppContainer>
         <Filters />
         <Loading spinning={isFetching} delay={500}>
-          <Grid data={data?.list ?? []} total={data?.total} />
+          <Grid data={data?.list ?? []} total={data?.total} searchTerm={debouncedValue.searchTerm} />
         </Loading>
       </S.AppContainer>
     </Container>
