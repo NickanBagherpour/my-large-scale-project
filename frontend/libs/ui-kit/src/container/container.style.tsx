@@ -42,7 +42,7 @@ export const Header = styled.div`
     font-weight: 400;
     font-size: 1.4rem;
     margin: 0 0 0 0.4rem;
-    color: ${(props) => props.theme.text.tertiary};
+    color: ${(props) => props.theme.text.quaternary};
   }
 
   & .header__caption {

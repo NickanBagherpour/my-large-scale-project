@@ -2,8 +2,7 @@
 
 import styled from 'styled-components';
 
-import { Button, Box, Select, TabsProps, Switch, Tabs, Chip } from '@oxygen/ui-kit';
-import Container from 'libs/ui-kit/src/container/container';
+import { Button, Box, Select, TabsProps, Switch, Tabs, Chip, Container } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 const styledContainer = styled.div`
