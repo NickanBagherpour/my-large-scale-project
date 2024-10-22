@@ -2,6 +2,7 @@ import { useTr } from '@oxygen/translation';
 import * as S from './grid-card.style';
 import { looper, Calendar } from '../../assets';
 import { useTheme } from 'styled-components';
+import { Tooltip } from 'antd';
 
 function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
   return 'activeServersCount' in props;
@@ -38,7 +39,9 @@ function ClientCard(props: ClientCardProps) {
   return (
     <S.Container href={href}>
       <S.Header>
-        <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
+        <Tooltip title={name}>
+          <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
+        </Tooltip>
         <S.Settings className='icon-setting' />
       </S.Header>
 

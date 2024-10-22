@@ -14,6 +14,7 @@ export const Container = styled(Link)`
   transition: all 200ms;
   overflow: hidden;
   display: block;
+  isolation: isolate;
 
   &:hover {
     border-color: ${(p) => p.theme.primary._400};
@@ -32,6 +33,9 @@ export const Title = styled(MarkText)`
   font-weight: 600;
   color: ${(p) => p.theme.text.primary};
   margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const Settings = styled.i`
@@ -90,4 +94,5 @@ export const Looper = styled(Image)`
   position: absolute;
   right: 0;
   bottom: 0;
+  z-index: -1;
 `;

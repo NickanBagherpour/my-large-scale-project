@@ -1,12 +1,13 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip } from '@oxygen/ui-kit';
+import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
-import { Radio } from 'antd';
 import { WidgetStateType } from '../../context/types';
-import { useTheme } from 'styled-components';
+import { useState } from 'react';
+import { useBounce } from '@oxygen/hooks';
 
 type Status = WidgetStateType['status'];
+type Sort = WidgetStateType['sort'];
 
 function getChipType(currentStatus: Status, chipStatus: Status) {
   return currentStatus === chipStatus ? 'active' : 'unActive';
@@ -15,25 +16,30 @@ function getChipType(currentStatus: Status, chipStatus: Status) {
 export default function Filters() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { searchTerm, status, sort } = useAppState();
+  const { status, sort } = useAppState();
+  const [value, setValue] = useState('');
+
+  useBounce(() => {
+    updateSearchTerm(dispatch, value);
+  }, [value]);
 
   return (
     <S.Container>
       <S.Actions>
         <S.Input
-          value={searchTerm}
+          value={value}
           placeholder={t('search_by_name_or_id')}
           prefix={<i className='icon-search-normal' />}
-          onChange={(e) => updateSearchTerm(dispatch, e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
         />
 
         <S.Buttons>
-          <Button href='/load-client' color='primary' variant='outlined'>
+          <S.Button href='/load-client' color='primary' variant='outlined'>
             {t('upload_client')}
-          </Button>
-          <Button href='/create-client' color='primary' variant='solid'>
+          </S.Button>
+          <S.Button href='/create-client' color='primary' variant='solid'>
             {t('create_new_client')}
-          </Button>
+          </S.Button>
         </S.Buttons>
       </S.Actions>
 
@@ -66,10 +72,14 @@ export default function Filters() {
           </Chip>
         </S.Chips>
 
-        <S.RadioGroup onChange={(e) => updateSort(dispatch, e.target.value)} value={sort}>
-          <Radio value='newest'>{t('newest')}</Radio>
-          <Radio value='oldest'>{t('oldest')}</Radio>
-        </S.RadioGroup>
+        <S.FilterPopover
+          filters={[
+            { key: 'newest', title: t('newest'), icon: 'icon-arrow-ascending' },
+            { key: 'oldest', title: t('oldest'), icon: 'icon-arrow-descending' },
+          ]}
+          initialValue={sort}
+          onChange={(value) => updateSort(dispatch, value as Sort)}
+        />
       </S.Indicators>
     </S.Container>
   );
