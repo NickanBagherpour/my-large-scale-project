@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { loadTr } from '@oxygen/translation';
+import { WidgetWrapper } from '@oxygen/layouts';
 import { PageProps } from '@oxygen/types';
 
 import App from './components/app/app';
@@ -12,9 +13,11 @@ const ClientsListWidget: React.FC<PageProps> = (_) => {
   loadTr({ en, fa });
 
   return (
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <WidgetWrapper>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </WidgetWrapper>
   );
 };
 
