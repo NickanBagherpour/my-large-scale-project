@@ -2,10 +2,11 @@ import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
-import { Radio } from 'antd';
 import { WidgetStateType } from '../../context/types';
+import { FilterPopover } from '@oxygen/reusable-components';
 
 type Status = WidgetStateType['status'];
+type Sort = WidgetStateType['sort'];
 
 function getChipType(currentStatus: Status, chipStatus: Status) {
   return currentStatus === chipStatus ? 'active' : 'unActive';
@@ -65,10 +66,14 @@ export default function Filters() {
           </Chip>
         </S.Chips>
 
-        <S.RadioGroup onChange={(e) => updateSort(dispatch, e.target.value)} value={sort}>
-          <Radio value='newest'>{t('newest')}</Radio>
-          <Radio value='oldest'>{t('oldest')}</Radio>
-        </S.RadioGroup>
+        <S.FilterPopover
+          filters={[
+            { key: 'newest', title: t('newest'), icon: 'icon-arrow-ascending' },
+            { key: 'oldest', title: t('oldest'), icon: 'icon-arrow-descending' },
+          ]}
+          initialValue={sort}
+          onChange={(value) => updateSort(dispatch, value as Sort)}
+        />
       </S.Indicators>
     </S.Container>
   );
