@@ -140,7 +140,7 @@ const UserSection = (props: DrawerProps) => {
             </div>
           </div>
           <div className='user-section__bottom-row'>
-            <Button size='middle' type='table' onClick={handleChangeOrgClick}>
+            <Button size='middle' onClick={handleChangeOrgClick}>
               {t('button.change_org')}
             </Button>
             <Button size='middle' type='primary' onClick={handleUserProfileClick}>

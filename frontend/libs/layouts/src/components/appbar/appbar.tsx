@@ -26,10 +26,10 @@ const Appbar = (props: AppBarProps) => {
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
 
-  console.log('test', 'user', user);
+  // console.log('test', 'user', user);
 
   useEffect(() => {
-    console.log('test12', 'user', user);
+    // console.log('test12', 'user', user);
 
     if (!user) {
       fetchUserProfile();

@@ -1,4 +1,4 @@
-import { Tree, joinPathFragments } from '@nx/devkit'; // Import strings for string manipulation
+import { Tree, joinPathFragments, names } from '@nx/devkit'; // Import strings for string manipulation
 import { IWidgetSchema } from '../schema';
 import * as fs from 'fs'; // Use Node.js fs module to read file from file system
 import * as path from 'path';
@@ -35,7 +35,7 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
   const templateContent = fs.readFileSync(templatePath, 'utf-8');
 
   // Replace the template placeholders manually
-  const renderedTemplate = replacePlaceholders(templateContent, schema.pageName);
+  const renderedTemplate = replacePlaceholders(templateContent, schema);
 
   // Extract the content between /*--import--*/ and /*--end import--*/ from the rendered template
   const importSection = extractSection(renderedTemplate, 'import');
@@ -63,13 +63,14 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
  * Replaces placeholders in the template content using schema values.
  *
  * @param template - The template content.
- * @param pageName - The pageName value to use for replacements.
+ * @param constantName - The constantName value to use for replacements.
  * @returns The rendered template content.
  */
-function replacePlaceholders(template: string, pageName: string): string {
-  return template
-    .replace(/<%= pageName %>/g, pageName)
-    .replace(/<%= pageName.toUpperCase\(\) %>/g, pageName.toUpperCase());
+function replacePlaceholders(template: string, schema: IWidgetSchema): string {
+  const constantName = names(schema.name).constantName.replace(/_widget$/i, '');
+  const pageName = names(schema.name).fileName.replace(/-widget$/i, '');
+
+  return template.replace(/<%= constantName %>/g, constantName).replace(/<%= pageName %>/g, pageName);
 }
 
 /**
