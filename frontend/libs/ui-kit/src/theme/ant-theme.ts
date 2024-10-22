@@ -26,10 +26,14 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
       colorBgContainer: 'transparent',
       colorBgLayout: themeBase.background.main,
       // colorBgContainer: themeBase.surface,
-      //
     },
     algorithm: themeBase.id === ThemeID.DARK ? antTheme.darkAlgorithm : antTheme.defaultAlgorithm,
     components: {
+      Input: {
+        colorBorder: themeBase.border.main,
+        colorTextPlaceholder: themeBase.text.quaternary,
+      },
+
       Tree: {
         nodeSelectedBg: themeBase.primary._200,
       },
