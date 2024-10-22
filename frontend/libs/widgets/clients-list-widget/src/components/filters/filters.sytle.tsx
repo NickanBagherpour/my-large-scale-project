@@ -56,7 +56,7 @@ export const Input = styled(KitInput)`
   max-width: 50.4rem;
   margin-inline-end: auto;
 
-  ${respondTo.down('md')} {
+  ${respondTo.down('lg')} {
     max-width: 100%;
     font-size: 1.7rem;
   }

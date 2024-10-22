@@ -37,6 +37,7 @@ export const Title = styled(MarkText)`
 export const Settings = styled.i`
   font-size: 2.4rem;
   color: ${(p) => p.theme.text.primary};
+  margin-inline-start: 1rem;
 `;
 
 export const EName = styled.p`
