@@ -11,20 +11,25 @@ export const initialStateValue: WidgetStateType = {
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
     case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
-      state.errorMessage = action.payload;
-      return;
+      return void (state.errorMessage = action.payload);
     }
 
     case 'UPDATE_SORT': {
-      return void (state.sort = action.payload);
+      state.page = initialStateValue['page'];
+      state.sort = action.payload;
+      return;
     }
 
     case 'UPDATE_STATUS': {
-      return void (state.status = action.payload);
+      state.page = initialStateValue['page'];
+      state.status = action.payload;
+      return;
     }
 
     case 'UPDATE_SEARCH_TERM': {
-      return void (state.searchTerm = action.payload);
+      state.page = initialStateValue['page'];
+      state.searchTerm = action.payload;
+      return;
     }
 
     case 'UPDATE_PAGINATION': {
