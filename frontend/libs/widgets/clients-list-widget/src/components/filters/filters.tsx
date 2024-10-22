@@ -3,6 +3,14 @@ import { Button, Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { Radio } from 'antd';
+import { WidgetStateType } from '../../context/types';
+import { useTheme } from 'styled-components';
+
+type Status = WidgetStateType['status'];
+
+function getChipType(currentStatus: Status, chipStatus: Status) {
+  return currentStatus === chipStatus ? 'active' : 'unActive';
+}
 
 export default function Filters() {
   const [t] = useTr();
@@ -20,10 +28,10 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <Button color='primary' variant='outlined'>
+          <Button href='/load-client' color='primary' variant='outlined'>
             {t('upload_client')}
           </Button>
-          <Button color='primary' variant='solid'>
+          <Button href='/create-client' color='primary' variant='solid'>
             {t('create_new_client')}
           </Button>
         </S.Buttons>
@@ -32,18 +40,28 @@ export default function Filters() {
       <S.Indicators>
         <S.Chips>
           <Chip
-            type={status === 'all' ? 'active' : 'unActive'}
             iconProp='checked icon-checkmark'
+            type={getChipType(status, 'all')}
             onClick={() => updateStatus(dispatch, 'all')}
           >
             {t('all_clients')}
           </Chip>
 
-          <Chip type={status === 'active' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'active')}>
+          <S.Divider type='vertical' />
+
+          <Chip
+            iconProp='checked icon-checkmark'
+            type={getChipType(status, 'active')}
+            onClick={() => updateStatus(dispatch, 'active')}
+          >
             {t('active_clients')}
           </Chip>
 
-          <Chip type={status === 'inactive' ? 'active' : 'unActive'} onClick={() => updateStatus(dispatch, 'inactive')}>
+          <Chip
+            iconProp='checked icon-checkmark'
+            type={getChipType(status, 'inactive')}
+            onClick={() => updateStatus(dispatch, 'inactive')}
+          >
             {t('inactive_clients')}
           </Chip>
         </S.Chips>

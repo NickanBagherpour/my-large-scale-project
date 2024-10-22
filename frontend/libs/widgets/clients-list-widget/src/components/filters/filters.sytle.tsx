@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { Input as KitInput } from '@oxygen/ui-kit';
+import { Input as KitInput, Divider as KitDivider } from '@oxygen/ui-kit';
 import { Radio } from 'antd';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
   margin-bottom: 4rem;
-  margin-top: 2.8rem;
 `;
 
 export const Actions = styled.div`
@@ -68,4 +67,11 @@ export const RadioGroup = styled(Radio.Group)`
   ${respondTo.down('lg')} {
     margin-inline-start: 0;
   }
+`;
+
+export const Divider = styled(KitDivider)`
+  height: 2.1rem;
+  border-color: ${(p) => p.theme.primary.main};
+  margin-inline-start: 0;
+  margin-inline-end: 2rem;
 `;

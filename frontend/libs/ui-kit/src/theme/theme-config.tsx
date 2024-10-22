@@ -29,15 +29,12 @@ const ThemeConfig = (props: ThemeConfigProps): JSX.Element => {
   }, [config.locale]);
 
   return (
-
-
-      <ThemeProvider theme={baseTheme}>
-        <Directionality isRtl={isRtl}>
-            <GlobalStyle />
-            <AntConfigProvider {...getAntBaseConfig(config)} >{props.children}</AntConfigProvider>
-        </Directionality>
-      </ThemeProvider>
-
+    <ThemeProvider theme={baseTheme}>
+      <Directionality isRtl={isRtl}>
+        <GlobalStyle />
+        <AntConfigProvider {...getAntBaseConfig(config)}>{props.children}</AntConfigProvider>
+      </Directionality>
+    </ThemeProvider>
   );
 };
 

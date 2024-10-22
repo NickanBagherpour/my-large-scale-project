@@ -18,7 +18,7 @@ const App = () => {
     <Container title={t('widget_name')} subtitle={`(${data?.total ?? 0})`}>
       <S.AppContainer>
         <Filters />
-        <Loading spinning={isFetching} delay={500}>
+        <Loading spinning={isFetching} delay={500} size='large'>
           {data?.list.length ? (
             <Grid data={data.list} total={data.total} searchTerm={debouncedValue.searchTerm} />
           ) : (
