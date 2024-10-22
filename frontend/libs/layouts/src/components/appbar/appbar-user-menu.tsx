@@ -98,7 +98,11 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
       }}
     >
       {isMobileOrTablet ? (
-        <Button type='text' shape='circle' icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>} />
+        <Button
+          variant='text'
+          shape='circle'
+          icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>}
+        />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
