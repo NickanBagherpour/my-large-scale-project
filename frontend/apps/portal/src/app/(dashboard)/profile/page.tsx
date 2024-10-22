@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 
 import { Button, Box, Select, TabsProps, Switch, Tabs, Chip } from '@oxygen/ui-kit';
+import { FilterPopover, FilterType } from '@oxygen/reusable-components';
 
 const Container = styled.div`
   //margin-left: 2rem;
@@ -13,6 +14,7 @@ const Container = styled.div`
 
 const Div = styled.div`
   margin-left: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const items: TabsProps['items'] = [
@@ -33,6 +35,19 @@ const items: TabsProps['items'] = [
   },
 ];
 
+const content: FilterType[] = [
+  {
+    key: 1,
+    title: 'جدیدترین',
+    icon: 'icon-arrow-ascending',
+  },
+  {
+    key: 2,
+    title: 'قدیمی‌ترین',
+    icon: 'icon-arrow-descending',
+  },
+];
+
 export default function Index() {
   function closeAlert() {
     console.log('close');
@@ -44,6 +59,10 @@ export default function Index() {
 
   function PreventCloseAlert(e) {
     e.preventDefault();
+  }
+
+  function onChange(key: number) {
+    console.log('invoked filter : ', key);
   }
 
   return (
@@ -93,6 +112,11 @@ export default function Index() {
           <Chip type='active' closeIcon onClose={(e) => PreventCloseAlert(e)}>
             prevent close Chip
           </Chip>
+        </Div>
+        <Div style={{ padding: '2rem' }}>
+          <FilterPopover filters={content} onChange={(key) => onChange(key)} initialValue={2}>
+            <Button>Click me</Button>
+          </FilterPopover>
         </Div>
       </div>
     </Container>

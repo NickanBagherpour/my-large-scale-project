@@ -7,8 +7,8 @@
   font-family: "Iconly";
   font-style: normal;
   font-weight: 400;
-  src: url("./iconly.eot?1729159273985");
-  src: url("./iconly.eot?#iefix") format("embedded-opentype"), url("./iconly.woff2?1729159273985") format("woff2"), url("./iconly.woff?1729159273985") format("woff"), url("./iconly.ttf?1729159273985") format("truetype"), url("./iconly.svg?1729159273985#Iconly") format("svg");
+  src: url("./iconly.eot?1729576634344");
+  src: url("./iconly.eot?#iefix") format("embedded-opentype"), url("./iconly.woff2?1729576634344") format("woff2"), url("./iconly.woff?1729576634344") format("woff"), url("./iconly.ttf?1729576634344") format("truetype"), url("./iconly.svg?1729576634344#Iconly") format("svg");
 }
 
 [class="icon"], [class^="icon-"], [class*=" icon-"] {
@@ -33,6 +33,22 @@
 
 .icon-moon-fill:before {
   content: "\e002";
+}
+
+.icon-fill-arrow-up:before {
+  content: "\e003";
+}
+
+.icon-fill-arrow-down:before {
+  content: "\e004";
+}
+
+.icon-arrow-descending:before {
+  content: "\e005";
+}
+
+.icon-arrow-ascending:before {
+  content: "\e006";
 }
 
 .icon-trash:before {

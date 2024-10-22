@@ -6,3 +6,5 @@ export { default as PrintData } from './components/print-data/print-data';
 export { default as ExportButton } from './components/export-button/export-button';
 export { default as NoResult } from './components/no-result/no-result';
 export { default as GlobalErrorContainer } from './components/global-error-container/global-error-container';
+export { default as CardWithToggle } from './components/reusable-card-with-toggle/card-with-toggle';
+export { default as FilterPopover, FilterType } from './components/filter-popover/filter-popover';
