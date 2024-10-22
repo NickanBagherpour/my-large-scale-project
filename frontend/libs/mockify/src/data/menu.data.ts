@@ -14,7 +14,7 @@ export const menus = [
     id: 2,
     title: 'مدیریت کلاینت‌',
     order: 2,
-    href: '/client-management',
+    href: '/clients-list',
     icon: 'icon-grid',
     active: true,
     description: null,

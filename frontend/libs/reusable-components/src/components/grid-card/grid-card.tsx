@@ -1,6 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './grid-card.style';
 import { looper, Calendar } from '../../assets';
+import { useTheme } from 'styled-components';
 
 function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
   return 'activeServersCount' in props;
@@ -21,11 +22,13 @@ type ClientCardProps = {
   status: Status;
   date: string;
   href: string;
+  wordToHighlight: string;
 };
 
 function ClientCard(props: ClientCardProps) {
-  const { date, name, englishName, status, href } = props;
+  const { date, name, englishName, status, href, wordToHighlight } = props;
   const [t] = useTr();
+  const theme = useTheme();
 
   const translation: Record<Status, string> = {
     active: t('common.active'),
@@ -35,7 +38,7 @@ function ClientCard(props: ClientCardProps) {
   return (
     <S.Container href={href}>
       <S.Header>
-        <S.Title>{name}</S.Title>
+        <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
         <S.Settings className='icon-setting' />
       </S.Header>
 
@@ -67,7 +70,7 @@ function UpstreamCard(props: UpstreamCardProps) {
   return (
     <S.Container href={href}>
       <S.Header flip>
-        <S.Title>{name}</S.Title>
+        <S.Title text={name} highlightColor='' wordToHighlight='' />
         <S.Settings className='icon-setting' />
       </S.Header>
 

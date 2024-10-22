@@ -2,11 +2,10 @@
 
 import styled from 'styled-components';
 
-import { Button, Box, Select, TabsProps, Switch, Tabs, Chip } from '@oxygen/ui-kit';
-import { DropdownOptions, TagInput } from '@oxygen/ui-kit';
-import { CardWithToggle } from '@oxygen/reusable-components';
+import { Button, Box, Select, TabsProps, Switch, Tabs, Chip, Container } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
 
-const Container = styled.div`
+const styledContainer = styled.div`
   //margin-left: 2rem;
   background-color: ${(props) => props.theme.background.main};
   width: 100%;
@@ -35,20 +34,9 @@ const items: TabsProps['items'] = [
   },
 ];
 
-const dropdownOptions: DropdownOptions[] = [
-  { label: 'Client Flow', value: 'option1' },
-  { label: 'Password Flow', value: 'option2' },
-  { label: 'Authorization Code Flow', value: 'option3' },
-  { label: 'Implicit Flow', value: 'option4' },
-  { label: 'Refresh Token', value: 'option5' },
-  // { label: 'Client Flow', value: 'option6' },
-  // { label: 'Password Flow', value: 'option7' },
-  // { label: 'Authorization Code Flow', value: 'option8' },
-  // { label: 'Implicit Flow', value: 'option9' },
-  // { label: 'Refresh Token', value: 'option10' },
-];
-
 export default function Index() {
+  const [t] = useTr();
+
   function closeAlert() {
     console.log('close');
   }
@@ -62,18 +50,7 @@ export default function Index() {
   }
 
   return (
-    <Container className='wrapper'>
-      <CardWithToggle
-        title={'اعتبارسنجی درخواست جدید'}
-        subtitle={'Rate Limit'}
-        icon={'icon-setting'}
-        defaultChecked={false}
-        disabled={false}
-        // customStyle={customStyles}
-        handleIconClick={(e) => console.log('handle click from usage', e)}
-      />
-      <TagInput buttonCaption={' اضافه‌کردن Grant Type'} options={dropdownOptions} />
-
+    <Container title={t('field.customer')} subtitle={'(245)'}>
       <div className='container'>
         <div id='welcome'>
           <h1>

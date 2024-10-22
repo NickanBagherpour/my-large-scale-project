@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { type Status as StatusType } from './grid-card';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MarkText } from '@oxygen/ui-kit';
 
 export const Container = styled(Link)`
   border-radius: 1.8rem;
@@ -26,7 +27,7 @@ export const Header = styled.header<{ flip?: boolean }>`
   flex-direction: ${(p) => (p.flip ? 'row-reverse' : 'row')};
 `;
 
-export const Title = styled.h3`
+export const Title = styled(MarkText)`
   font-size: 1.6rem;
   font-weight: 600;
   color: ${(p) => p.theme.text.primary};
@@ -36,6 +37,7 @@ export const Title = styled.h3`
 export const Settings = styled.i`
   font-size: 2.4rem;
   color: ${(p) => p.theme.text.primary};
+  margin-inline-start: 1rem;
 `;
 
 export const EName = styled.p`
