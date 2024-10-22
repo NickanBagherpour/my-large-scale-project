@@ -6,6 +6,19 @@ export const TagInputContainer = styled.div`
   flex-wrap: wrap;
   row-gap: 1.6rem;
   //margin:1rem 0;
+
+  & .dropdown-button {
+    background-color: ${(props) => props.theme.background.main};
+    color: ${(props) => props.theme.primary.main};
+    border-color: ${(props) => props.theme.border._500};
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0.8rem 1.6rem;
+
+    & i {
+      font-size: 1.8rem;
+    }
+  }
 `;
 
 export const DropdownContainer = styled.div`
@@ -13,6 +26,7 @@ export const DropdownContainer = styled.div`
     min-width: 30rem;
     max-width: 45rem;
     max-height: 30rem;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
   }
 
   & .ant-dropdown-menu-item {
@@ -46,16 +60,25 @@ export const DropdownContainer = styled.div`
     height: 1.2rem; /* Adjust tick size */
   }
 
+  //& .ant-checkbox-wrapper span:last-of-type{
+  //  text-overflow: ellipsis;
+  //  overflow: hidden;
+  //  white-space: nowrap;
+  //  max-width: 90%;
+  //}
+
   & .ant-checkbox-checked {
     background-color: ${(props) => props.theme.background.main};
   }
 `;
+
 export const StyledSpace = styled(Space)`
   display: flex;
   flex-flow: row-reverse;
   gap: 0.8rem;
   align-items: center;
 `;
+
 export const ChipsContainer = styled.div`
   & .ant-tag {
     background-color: ${(props) => props.theme.border._50};

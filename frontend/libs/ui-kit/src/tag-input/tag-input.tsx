@@ -2,8 +2,8 @@ import React from 'react';
 import { useTheme } from 'styled-components';
 import { Checkbox, Dropdown, DropdownProps } from 'antd';
 
-import { useTr } from '@oxygen/translation';
 import { Button, Chip, Divider } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
 
 import * as S from './tag-input.style';
 
@@ -26,7 +26,9 @@ export const TagInput = (props: TagInputProps) => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   const handleCheckboxChange = (value: string, e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent dropdown from closing
+    e.preventDefault(); // Prevent default behavior
+    setOpen(true); // Ensure dropdown opens when checkbox is clicked
     setCheckedItems((prev) => {
       const existingItem = prev.find((item) => item.value === value);
       if (existingItem) {
@@ -49,9 +51,9 @@ export const TagInput = (props: TagInputProps) => {
     }
   };
 
-  function handleMenuClick(e) {
-    console.log('click', e);
-  }
+  // function handleMenuClick(e) {
+  //   console.log('handleMenuClick', e.key, e);
+  // }
 
   const baseItems = [
     {
@@ -65,11 +67,10 @@ export const TagInput = (props: TagInputProps) => {
         </Checkbox>
       ),
       key: 'selectAll',
-      icon: <></>,
     },
     {
       type: 'divider',
-      key: 'divider1',
+      key: 'divider',
     },
   ];
 
@@ -79,8 +80,8 @@ export const TagInput = (props: TagInputProps) => {
         <Checkbox
           checked={checkedItems.some((item) => item.value === option.value)}
           onChange={(e) => {
-            setOpen(true);
             handleCheckboxChange(option.value, e);
+            // setOpen(true); // Ensure dropdown opens when checkbox is clicked
           }}
         >
           {option.label}
@@ -88,17 +89,15 @@ export const TagInput = (props: TagInputProps) => {
       ),
       style: { backgroundColor: checkedItems.some((item) => item.value === option.value) ? theme.primary._50 : '' },
       key: option.value,
-      icon: <></>,
-      // danger: true,
-      // disabled: true,
     };
   });
 
-  const items = [...baseItems, ...menuItems];
+  const items: any = [...baseItems, ...menuItems];
   const menuProps = {
     items,
-    onClick: handleMenuClick,
+    // onClick: handleMenuClick,
   };
+  // console.log('open', open)
   return (
     <S.TagInputContainer>
       <S.DropdownContainer id={'area'}></S.DropdownContainer>
@@ -106,10 +105,18 @@ export const TagInput = (props: TagInputProps) => {
         menu={menuProps}
         trigger={['click']}
         open={open}
-        onOpenChange={(flag) => setOpen(flag)}
-        getPopupContainer={() => document.getElementById('area')}
+        onOpenChange={(flag, info) => {
+          // console.log('info', info);
+          // if (info.source === 'menu') {
+          //   setOpen(true)
+          // } else {
+          //   setOpen(flag)
+          // }
+          setOpen(flag);
+        }}
+        getPopupContainer={() => document.getElementById('area')!}
       >
-        <Button>
+        <Button type='default' className={'dropdown-button'}>
           <S.StyledSpace>
             <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} onClick={() => console.log('click')} />
             <span>{buttonCaption}</span>
