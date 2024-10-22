@@ -9,10 +9,11 @@ type Props = {
   data: ClientType[];
   total?: number;
   searchTerm: string;
+  isLoading: boolean;
 };
 
 export default function Grid(props: Props) {
-  const { data, total, searchTerm } = props;
+  const { data, total, searchTerm, isLoading } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { page } = useAppState();
@@ -36,7 +37,7 @@ export default function Grid(props: Props) {
       </S.Container>
 
       {showLoadMore && (
-        <S.Button variant='text' color='primary' onClick={() => updatePagination(dispatch)}>
+        <S.Button variant='text' color='primary' disabled={isLoading} onClick={() => updatePagination(dispatch)}>
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
         </S.Button>

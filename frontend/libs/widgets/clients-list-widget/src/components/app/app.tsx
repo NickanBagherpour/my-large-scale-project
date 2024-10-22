@@ -1,4 +1,3 @@
-import { useDebouncedValue } from '@oxygen/hooks';
 import { useAppState } from '../../context';
 import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
@@ -10,17 +9,16 @@ import { NoResult } from '@oxygen/reusable-components';
 
 const App = () => {
   const { errorMessage, ...fetchState } = useAppState();
-  const [debouncedValue] = useDebouncedValue(fetchState, 500);
-  const { data, isFetching } = useGetClientsQuery(debouncedValue);
+  const { data, isFetching } = useGetClientsQuery(fetchState);
   const [t] = useTr();
 
   return (
     <Container title={t('widget_name')} subtitle={`(${data?.total ?? 0})`}>
       <S.AppContainer>
         <Filters />
-        <Loading spinning={isFetching} delay={500} size='large'>
+        <Loading spinning={isFetching} size='large'>
           {data?.list.length ? (
-            <Grid data={data.list} total={data.total} searchTerm={debouncedValue.searchTerm} />
+            <Grid data={data.list} total={data.total} searchTerm={fetchState.searchTerm} isLoading={isFetching} />
           ) : (
             <NoResult isLoading={false} />
           )}

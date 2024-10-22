@@ -3,6 +3,8 @@ import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
+import { useState } from 'react';
+import { useBounce } from '@oxygen/hooks';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -14,16 +16,21 @@ function getChipType(currentStatus: Status, chipStatus: Status) {
 export default function Filters() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { searchTerm, status, sort } = useAppState();
+  const { status, sort } = useAppState();
+  const [value, setValue] = useState('');
+
+  useBounce(() => {
+    updateSearchTerm(dispatch, value);
+  }, [value]);
 
   return (
     <S.Container>
       <S.Actions>
         <S.Input
-          value={searchTerm}
+          value={value}
           placeholder={t('search_by_name_or_id')}
           prefix={<i className='icon-search-normal' />}
-          onChange={(e) => updateSearchTerm(dispatch, e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
         />
 
         <S.Buttons>
