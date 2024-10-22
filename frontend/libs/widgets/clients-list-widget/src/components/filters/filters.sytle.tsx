@@ -58,6 +58,7 @@ export const Input = styled(KitInput)`
 
   ${respondTo.down('md')} {
     max-width: 100%;
+    font-size: 1.7rem;
   }
 `;
 
