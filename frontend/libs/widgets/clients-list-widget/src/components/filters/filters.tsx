@@ -3,7 +3,6 @@ import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
-import { FilterPopover } from '@oxygen/reusable-components';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
