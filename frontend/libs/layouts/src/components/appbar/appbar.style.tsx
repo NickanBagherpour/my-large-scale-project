@@ -82,6 +82,9 @@ export const Divider = styled.div`
   background-color: ${(p) => p.theme.border._100};
 `;
 export const styleIcon = styled.i`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 2.4rem;
   height: 2.4rem;
   color: ${(p) => p.theme.text.primary};
