@@ -16,7 +16,7 @@ export type FilterPopoverProps = PopoverProps & {
   className?: string;
 };
 
-const FilterPopover = (props: FilterPopoverProps) => {
+export const FilterPopover = (props: FilterPopoverProps) => {
   const { filters, initialValue, onChange, className = '' } = props;
 
   const [filterIsOpen, setFilterIsOpen] = useState(false);
@@ -69,5 +69,3 @@ const FilterPopover = (props: FilterPopoverProps) => {
     </S.StyledFilterPopover>
   );
 };
-
-export default FilterPopover;
