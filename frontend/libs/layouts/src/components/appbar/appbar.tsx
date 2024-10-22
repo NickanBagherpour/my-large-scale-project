@@ -49,7 +49,7 @@ const Appbar = (props: AppBarProps) => {
   const getMobileAppbar = () => {
     return (
       <>
-        <Button shape={'circle'} type={'text'} className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+        <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
           <S.styleIcon className={'icon-hamburger-menu'} />
           {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
         </Button>
