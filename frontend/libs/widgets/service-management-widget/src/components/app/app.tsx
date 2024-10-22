@@ -7,7 +7,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
-import Container from 'libs/ui-kit/src/container/container';
+import { Container } from 'libs/ui-kit/src/container/container';
 import { Box } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {

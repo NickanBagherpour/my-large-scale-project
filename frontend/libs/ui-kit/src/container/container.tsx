@@ -10,7 +10,7 @@ export interface IWidgetWrapperProps {
   children?: React.ReactNode;
 }
 
-const Container = (props: IWidgetWrapperProps) => {
+export const Container = (props: IWidgetWrapperProps) => {
   const { title, subtitle, children, caption } = props;
 
   const widgetTitle = title;
@@ -29,5 +29,3 @@ const Container = (props: IWidgetWrapperProps) => {
     </S.WidgetWrapperContainer>
   );
 };
-
-export default Container;
