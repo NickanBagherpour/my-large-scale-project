@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider } from '@oxygen/ui-kit';
+import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { Radio } from 'antd';
 import { respondTo } from '@oxygen/utils';
 
@@ -38,6 +38,12 @@ export const Buttons = styled.div`
   ${respondTo.down('lg')} {
     width: 100%;
     justify-content: space-between;
+  }
+`;
+
+export const Button = styled(KitButton)`
+  &&& {
+    font-size: 1.4rem;
   }
 `;
 

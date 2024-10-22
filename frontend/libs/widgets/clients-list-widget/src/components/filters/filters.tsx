@@ -1,10 +1,9 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip } from '@oxygen/ui-kit';
+import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { Radio } from 'antd';
 import { WidgetStateType } from '../../context/types';
-import { useTheme } from 'styled-components';
 
 type Status = WidgetStateType['status'];
 
@@ -28,12 +27,12 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <Button href='/load-client' color='primary' variant='outlined'>
+          <S.Button href='/load-client' color='primary' variant='outlined'>
             {t('upload_client')}
-          </Button>
-          <Button href='/create-client' color='primary' variant='solid'>
+          </S.Button>
+          <S.Button href='/create-client' color='primary' variant='solid'>
             {t('create_new_client')}
-          </Button>
+          </S.Button>
         </S.Buttons>
       </S.Actions>
 
