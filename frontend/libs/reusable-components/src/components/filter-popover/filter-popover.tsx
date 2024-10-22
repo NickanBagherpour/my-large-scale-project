@@ -24,13 +24,16 @@ const FilterPopover = (props: FilterPopoverProps) => {
 
   const handleFilterButtonClick = () => {
     setFilterIsOpen(!filterIsOpen);
-    setOpen(true);
   };
 
   const handleFilterItemClick = (key: number) => {
     onChange(key);
     setFilterValue(key);
     setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
   };
 
   const content = () => (
@@ -50,7 +53,13 @@ const FilterPopover = (props: FilterPopoverProps) => {
   );
 
   return (
-    <S.StyledFilterPopover content={content} open={open} trigger='click' placement='bottomLeft'>
+    <S.StyledFilterPopover
+      content={content}
+      open={open}
+      trigger='click'
+      placement='bottomLeft'
+      onOpenChange={handleOpenChange}
+    >
       <S.FilterButton onClick={handleFilterButtonClick}>
         <i className={`${filterIsOpen ? 'rotate-up' : 'rotate-down'} icon-fill-arrow-down`} />
         <i className='icon-sort' />
