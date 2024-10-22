@@ -46,7 +46,7 @@ export const getClients = async ({ searchTerm, status, sort, page }: Params) => 
 
   return new Promise<{ data: { list: Client[]; total: number } }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: { list: sortedData, total: 40 /* clientsList.length */ } });
+      resolve({ data: { list: sortedData, total: clientsList.length } });
     }, 700);
   });
 };

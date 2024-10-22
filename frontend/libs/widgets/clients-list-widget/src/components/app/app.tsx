@@ -6,6 +6,7 @@ import Grid from '../grid/grid';
 import * as S from './app.style';
 import { Container, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { NoResult } from '@oxygen/reusable-components';
 
 const App = () => {
   const { errorMessage, ...fetchState } = useAppState();
@@ -18,7 +19,11 @@ const App = () => {
       <S.AppContainer>
         <Filters />
         <Loading spinning={isFetching} delay={500}>
-          <Grid data={data?.list ?? []} total={data?.total} searchTerm={debouncedValue.searchTerm} />
+          {data?.list.length ? (
+            <Grid data={data.list} total={data.total} searchTerm={debouncedValue.searchTerm} />
+          ) : (
+            <NoResult isLoading={false} />
+          )}
         </Loading>
       </S.AppContainer>
     </Container>
