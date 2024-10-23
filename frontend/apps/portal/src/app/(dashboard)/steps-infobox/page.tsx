@@ -1,20 +1,12 @@
 'use client';
 
 import styled from 'styled-components';
-import { Button, Box, Select, PageStepper, InfoBox, Steps } from '@oxygen/ui-kit';
+import { Button, Box, Select, PageStepper, InfoBox, Steps, Chip } from '@oxygen/ui-kit';
 import React from 'react';
 import { Progress } from 'antd';
 import { ActiveBadge } from 'libs/ui-kit/src/assets';
+import { InfoItemType } from '@oxygen/types';
 
-export type InfoItemType = {
-  key: string;
-  value: string;
-  subValue?: string;
-  type?: string;
-  roundedText?: boolean;
-  startIcon?: React.ReactNode;
-  files?: string[];
-};
 export default function Index() {
   const [currentStep, setCurrentStep] = React.useState(0);
 
@@ -48,22 +40,37 @@ export default function Index() {
   const mockData: InfoItemType[] = [
     {
       key: 'UserName',
-      value: 'John Doe',
+      value: (
+        <>
+          <Chip type='active'>info Chip</Chip>
+          <Chip type='active'>info Chip</Chip>
+          <Chip type='active'>info Chip</Chip>
+          <Chip type='active'>info Chip</Chip>
+        </>
+      ),
       subValue: 'Administrator',
+      fullwidth: true,
       type: 'text',
-      roundedText: true,
     },
     {
       key: 'Email',
-      value: 'john.doe@example.com',
+      value: (
+        <>
+          <span>John Doe</span>
+          <span> | </span>
+          <a href='/profile'>View Profile</a>
+          <span> | </span>
+          <button onClick={() => alert('Hi, John Doe!')}>Greet</button>
+          <ActiveBadge style={{ margin: '0 0.5rem' }} />
+        </>
+      ),
+      fullwidth: true,
       type: 'text',
-      startIcon: <ActiveBadge />,
     },
     {
       key: 'ContactNumber',
       value: '+123 456 7890',
       type: 'text',
-      roundedText: true,
     },
     {
       key: 'AccountType',
@@ -88,7 +95,6 @@ export default function Index() {
   return (
     <div style={{ width: '100%' }}>
       Hello from dashboard!
-      {/* <ActiveBadge /> */}
       <Steps items={steps} current={currentStep} onChange={onChange} />
       infobox ui-kit
       <InfoBox data={mockData} />

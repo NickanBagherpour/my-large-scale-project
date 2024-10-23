@@ -37,4 +37,12 @@ export const StepsWrapper = styled.div`
   .ant-steps-item-wait .ant-steps-item-container:hover .ant-steps-item-title {
     color: ${(p) => p.theme.border.main};
   }
+
+  .ant-progress-circle-path {
+    stroke: ${(p) => p.theme.secondary._200};
+  }
+
+  .ant-progress-circle-trail {
+    stroke: ${(p) => p.theme.secondary.main};
+  }
 `;
