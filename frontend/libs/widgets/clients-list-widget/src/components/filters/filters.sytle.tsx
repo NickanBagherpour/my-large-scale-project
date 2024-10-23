@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider } from '@oxygen/ui-kit';
-import { Radio } from 'antd';
+import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
 export const Container = styled.section`
   margin-bottom: 4rem;
@@ -23,8 +23,9 @@ export const Actions = styled.div`
 export const Chips = styled.div`
   display: flex;
   align-items: center;
+  margin-inline-end: auto;
 
-  ${respondTo.down('sm')} {
+  ${respondTo.down('xs')} {
     flex-direction: column;
     gap: 1.5rem;
   }
@@ -41,13 +42,18 @@ export const Buttons = styled.div`
   }
 `;
 
+export const Button = styled(KitButton)`
+  &&& {
+    font-size: 1.4rem;
+  }
+`;
+
 export const Indicators = styled.div`
   display: flex;
   align-items: center;
 
-  ${respondTo.down('lg')} {
+  ${respondTo.between('lg', 'md')} {
     flex-direction: column;
-    gap: 2rem;
   }
 `;
 
@@ -61,17 +67,17 @@ export const Input = styled(KitInput)`
   }
 `;
 
-export const RadioGroup = styled(Radio.Group)`
-  margin-inline-start: auto;
-
-  ${respondTo.down('lg')} {
-    margin-inline-start: 0;
-  }
-`;
-
 export const Divider = styled(KitDivider)`
   height: 2.1rem;
   border-color: ${(p) => p.theme.primary.main};
   margin-inline-start: 0;
   margin-inline-end: 2rem;
+
+  ${respondTo.down('sm')} {
+    display: none;
+  }
+`;
+
+export const FilterPopover = styled(KitFilterPopover)`
+  margin-inline-start: auto;
 `;

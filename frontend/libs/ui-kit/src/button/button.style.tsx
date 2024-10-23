@@ -3,21 +3,21 @@ import { Button as AntButton } from 'antd';
 import { cssVar } from '@oxygen/utils';
 
 export const StyledButton = styled<any>(AntButton)`
-  > *:first-child {
+  /* > *:first-child {
     margin-left: 0;
   }
 
   &.ant-btn-lg {
     border-radius: var(${cssVar.radius});
     font-size: 1.6rem;
-  }
+  } */
 
   &.ant-btn {
     column-gap: 0.8rem;
     ${(p) => getRelatedVariantBackground(p)};
-    .ant-btn-icon:not(:last-child) {
+    /* .ant-btn-icon:not(:last-child) {
       margin-inline-end: 0;
-    }
+    } */
   }
 `;
 
