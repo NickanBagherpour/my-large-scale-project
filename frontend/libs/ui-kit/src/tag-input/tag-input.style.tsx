@@ -8,8 +8,6 @@ export const TagInputContainer = styled.div`
   //margin:1rem 0;
 
   & .dropdown-button {
-    background-color: ${(props) => props.theme.background.main};
-    color: ${(props) => props.theme.primary.main};
     border-color: ${(props) => props.theme.border._500};
     font-size: 1.4rem;
     font-weight: 500;
@@ -77,13 +75,4 @@ export const StyledSpace = styled(Space)`
   flex-flow: row-reverse;
   gap: 0.8rem;
   align-items: center;
-`;
-
-export const ChipsContainer = styled.div`
-  & .ant-tag {
-    background-color: ${(props) => props.theme.border._50};
-    border: 0;
-    min-height: 3.7rem;
-    color: ${(props) => props.theme.text.primary};
-  }
 `;
