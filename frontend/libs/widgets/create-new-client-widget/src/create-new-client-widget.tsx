@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useTr, loadTr } from '@oxygen/translation';
+import { loadTr, useTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/layouts';
 import { PageProps } from '@oxygen/types';
 
@@ -19,7 +19,7 @@ const CreateNewClientWidget: React.FC<PageProps> = (props) => {
   };
 
   return (
-    <WidgetWrapper headerTitle={headerTitles}>
+    <WidgetWrapper /*headerTitle={headerTitles}*/>
       <AppProvider>
         <App parentProps={props.parentProps} updateHeaderTitle={handleTitleUpdate} />
       </AppProvider>
