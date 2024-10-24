@@ -1,4 +1,4 @@
-import { respondTo } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import styled, { css } from 'styled-components';
 
 function generateXs(props) {
@@ -14,25 +14,39 @@ function generateXs(props) {
 export const InfoBoxWrapper = styled.div<any>`
   margin: ${(p) => p.margin};
   display: grid;
-  grid-template-columns: max(15%, 14rem) 1fr max(15%, 14rem) 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: ${(p) => p.theme.cardColor};
+  border: 2px solid ${(p) => p.theme.background._200};
+  border-radius: 12px;
+  padding: 3rem;
   column-gap: 1%;
   row-gap: ${(p) => (p.dense ? '1rem' : '2rem')};
   overflow: hidden;
+
+  .ant-tag {
+    width: fit-content;
+    padding: 0.3rem 0.8rem;
+    border-radius: 25px;
+    background-color: ${(p) => p.theme.primary._100};
+    color: ${(p) => p.theme.text.primary};
+  }
 
   ${respondTo.down('lg')} {
     grid-template-columns: max(20%, 15rem) 1fr;
   }
 
   ${(p) => generateXs(p)}
+
   & .info-box__title {
     font-size: 1.4rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
     color: ${(p) => p.theme.text.primary};
     white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
+    display: block; /* Ensure block display */
   }
 
   & .info-box__value-wrapper {
-    display: flex;
     flex-direction: column;
 
     ${respondTo.down('lg')} {
@@ -41,10 +55,10 @@ export const InfoBoxWrapper = styled.div<any>`
   }
 
   & .fullwidth {
-    grid-column: span 3;
-
-    ${respondTo.down('md')} {
-      grid-column: span 1;
+    grid-column: 1 / -1; /* Span all columns */
+    display: block;
+    Ensure block display ${respondTo.down('md')} {
+      grid-column: 1 / -1; /* Adjust for responsive grid span */
     }
   }
 
@@ -54,7 +68,6 @@ export const InfoBoxWrapper = styled.div<any>`
     color: ${(p) => p.theme.text.secondary};
     text-align: left;
     unicode-bidi: plaintext;
-    /*! @noflip */
     direction: ltr;
   }
 
@@ -72,27 +85,9 @@ export const InfoBoxWrapper = styled.div<any>`
     & > * {
       margin-right: 1rem;
     }
-
-    // .ri-file-excel-line {
-    //   color: ${(props) => props.theme.success.main};
-    // }
-    //
-    // .ri-file-pdf-2-line {
-    //   color: ${(props) => props.theme.error};
-    // }
-    //
-    // .ri-image-line {
-    //   color: ${(props) => props.theme.textSecendry};
-    // }
-    //
-    // .ri-file-3-line {
-    //   color: ${(props) => props.theme.text.primary};
-    // }
   }
 
   & .info-box__footer {
-    // background-color: ${(p) => p.theme.text.territory};
-    //width: 100%;
     grid-column: 1 / -1;
     justify-self: flex-end;
 
