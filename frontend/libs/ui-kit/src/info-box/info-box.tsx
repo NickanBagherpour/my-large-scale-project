@@ -31,18 +31,18 @@ export const InfoBox = (props: InfoBoxProps) => {
     <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={minColumnCount} wrap={titleWordWrap}>
       {data?.map((item: InfoItemType, index) => {
         return (
-          <>
+          <div className={`${item?.fullwidth ? 'fullwidth' : ''}`}>
             <Box className='info-box__title'>{t(item.key)} :</Box>
 
             {item.type !== 'file' ? (
-              <Box className={`info-box__value-wrapper ${item?.fullwidth ? 'fullwidth' : ''}`}>
+              <Box className={`info-box__value-wrapper`}>
                 <span className='info-box__value'>{item.value}</span>
                 <span className='info-box__sub-value'>{item.subValue}</span>
               </Box>
             ) : (
               <span className='info-box__files'>{item.files.map((subItem, index) => subItem)}</span>
             )}
-          </>
+          </div>
         );
       })}
       {footer && <Box className='info-box__footer'>{footer}</Box>}

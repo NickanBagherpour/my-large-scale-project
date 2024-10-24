@@ -31,10 +31,12 @@ export const FilterPopover = (props: FilterPopoverProps) => {
     onChange(key);
     setFilterValue(key);
     setOpen(false);
+    setFilterIsOpen(!filterIsOpen);
   };
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
+    setFilterIsOpen(!filterIsOpen);
   };
 
   const content = () => (

@@ -18,4 +18,7 @@ export default {
     info_error_title: 'error in info',
     user_error_desc: 'user error',
   },
+  uikit: {
+    select_all: 'select all',
+  },
 };
