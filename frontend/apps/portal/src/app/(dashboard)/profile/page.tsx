@@ -71,6 +71,7 @@ export default function Index() {
   return (
     <Container title={t('field.customer')} subtitle={'(245)'}>
       <div className='container'>
+
         <div id='welcome'>
           <h1>
             <span> Hello there, </span>
@@ -81,6 +82,7 @@ export default function Index() {
         <Box display={'flex'} color={'blue'}>
           This is Material
         </Box>
+        
         <Box display={'flex'} color={'blue'}>
           متن فارسی
         </Box>
@@ -97,12 +99,15 @@ export default function Index() {
             <Select.Option value='Yiminghe'>yiminghe</Select.Option>
           </Select>
         </Div>
+
         <Div>
           <Switch />
         </Div>
+
         <Div>
           <Tabs defaultActiveKey='1' items={items} />
         </Div>
+
         <Div>
           <Chip onClick={() => clickAlert()}>chip</Chip>
           <Chip type='active' iconProp='checked icon-checkmark'>
@@ -116,11 +121,13 @@ export default function Index() {
             prevent close Chip
           </Chip>
         </Div>
+
         <Div style={{ padding: '2rem' }}>
           <FilterPopover filters={content} onChange={(key) => onChange(key)} initialValue={'2'}>
             <Button>Click me</Button>
           </FilterPopover>
         </Div>
+
       </div>
     </Container>
   );

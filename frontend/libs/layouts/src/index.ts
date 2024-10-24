@@ -1,4 +1,5 @@
 export { default as AuthLayout } from './auth-layout/auth-layout';
+export { default as StorybookLayout } from './storybook-layout/storybook-layout';
 export { default as DashboardLayout } from './dashboard-layout/dashboard-layout';
 export { default as LandingLayout } from './landing-layout/landing-layout';
 export * from './components/widget-wrapper/widget-wrapper';

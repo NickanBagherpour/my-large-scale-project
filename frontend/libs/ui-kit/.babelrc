@@ -4,10 +4,17 @@
       "@nx/react/babel",
       {
         "runtime": "automatic",
-        "useBuiltIns": "usage",
-        "importSource": "@emotion/react"
+        "useBuiltIns": "usage"
       }
     ]
   ],
-  "plugins": ["@emotion/babel-plugin"]
+  "plugins": [
+    [
+      "styled-components",
+      {
+        "pure": true,
+        "ssr": true
+      }
+    ]
+  ]
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Box, BoxProps } from '@oxygen/ui-kit';
+import { Box, BoxProps, MessageBox } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { ErrorMessageType, Nullable } from '@oxygen/types';
 
@@ -16,7 +16,7 @@ const GlobalErrorContainer: React.FC<GlobalErrorContainerProps> = ({ onClose, er
 
   return (
     <Box {...containerProps}>
-      <Alert
+      <MessageBox
         type={'error'}
         shouldScroll={true}
         description={errorMessage.shouldTranslate ? t(errorMessage.description) : errorMessage.description}
