@@ -4,19 +4,20 @@ import { PopoverProps } from 'antd';
 import * as S from './filter-popover.style';
 
 export type FilterType = {
-  key: number;
+  key: string;
   title: string;
   icon: string;
 };
 
 export type FilterPopoverProps = PopoverProps & {
   filters: FilterType[];
-  initialValue?: number;
-  onChange: (key: number) => void;
+  initialValue?: string;
+  onChange: (key: string) => void;
+  className?: string;
 };
 
-const FilterPopover = (props: FilterPopoverProps) => {
-  const { filters, initialValue = 1, onChange } = props;
+export const FilterPopover = (props: FilterPopoverProps) => {
+  const { filters, initialValue, onChange, className = '' } = props;
 
   const [filterIsOpen, setFilterIsOpen] = useState(false);
   const [filterValue, setFilterValue] = useState(initialValue);
@@ -26,7 +27,7 @@ const FilterPopover = (props: FilterPopoverProps) => {
     setFilterIsOpen(!filterIsOpen);
   };
 
-  const handleFilterItemClick = (key: number) => {
+  const handleFilterItemClick = (key: string) => {
     onChange(key);
     setFilterValue(key);
     setOpen(false);
@@ -59,6 +60,7 @@ const FilterPopover = (props: FilterPopoverProps) => {
       trigger='click'
       placement='bottomLeft'
       onOpenChange={handleOpenChange}
+      className={className}
     >
       <S.FilterButton onClick={handleFilterButtonClick}>
         <i className={`${filterIsOpen ? 'rotate-up' : 'rotate-down'} icon-fill-arrow-down`} />
@@ -67,5 +69,3 @@ const FilterPopover = (props: FilterPopoverProps) => {
     </S.StyledFilterPopover>
   );
 };
-
-export default FilterPopover;

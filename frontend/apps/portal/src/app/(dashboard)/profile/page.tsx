@@ -38,12 +38,12 @@ const items: TabsProps['items'] = [
 
 const content: FilterType[] = [
   {
-    key: 1,
+    key: '1',
     title: 'جدیدترین',
     icon: 'icon-arrow-ascending',
   },
   {
-    key: 2,
+    key: '2',
     title: 'قدیمی‌ترین',
     icon: 'icon-arrow-descending',
   },
@@ -64,7 +64,7 @@ export default function Index() {
     e.preventDefault();
   }
 
-  function onChange(key: number) {
+  function onChange(key: string) {
     console.log('invoked filter : ', key);
   }
 
@@ -117,7 +117,7 @@ export default function Index() {
           </Chip>
         </Div>
         <Div style={{ padding: '2rem' }}>
-          <FilterPopover filters={content} onChange={(key) => onChange(key)} initialValue={2}>
+          <FilterPopover filters={content} onChange={(key) => onChange(key)} initialValue={'2'}>
             <Button>Click me</Button>
           </FilterPopover>
         </Div>
