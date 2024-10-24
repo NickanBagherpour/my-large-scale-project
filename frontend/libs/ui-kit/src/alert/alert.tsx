@@ -36,5 +36,3 @@ export const Alert = (props: AlertProps) => {
 
   return <StyledAlert {...rest} />;
 };
-
-// export default Button;
