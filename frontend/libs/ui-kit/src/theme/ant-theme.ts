@@ -33,7 +33,10 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
         colorBorder: themeBase.border.main,
         colorTextPlaceholder: themeBase.text.quaternary,
       },
-
+      Select: {
+        colorBorder: themeBase.border.main,
+        colorTextPlaceholder: themeBase.text.quaternary,
+      },
       Tree: {
         nodeSelectedBg: themeBase.primary._200,
       },

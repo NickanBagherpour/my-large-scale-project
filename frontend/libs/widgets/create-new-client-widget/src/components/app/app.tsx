@@ -37,6 +37,7 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.AppContainer>
       <Container title={t('widget_name')}>
+        {/*<Steps items={arrayList} />*/}
         <FirstStep />
       </Container>
     </S.AppContainer>

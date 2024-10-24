@@ -26,7 +26,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   return (
     <S.FirtStepContainer>
-      <p className={'cards-title'}>اطلاعات کلی کلاینت</p>
+      <p className={'cards-title'}>{t('client_info')}</p>
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
         <Card>
           <SearchItemsContainer>
@@ -38,73 +38,61 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={'app-bale'} />
             </Form.Item>
             <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+              <Input placeholder={t('placeholder.client_bale')} />
             </Form.Item>
             <Form.Item name={'validation-system'} label={t('form.client_type')}>
-              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+              <Select placeholder={t('placeholder.credit_system')}></Select>
             </Form.Item>
             <Form.Item name={'client-id'} label={t('form.client_id')}>
-              <Input placeholder={'407af44d-f469-413d-81cf-469b21fa'} />
+              <Input placeholder={t('placeholder.client_id')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.identity_auth')}>
+              <Input placeholder={t('placeholder.identity_auth')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.website_url')}>
+              <Input placeholder={t('placeholder.website_url')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.input_address')}>
+              <Input placeholder={t('placeholder.input_address')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.return_address')}>
+              <Input placeholder={t('placeholder.return_address')} />
             </Form.Item>
-            <Form.Item layout={'horizontal'}>
+            <Form.Item layout={'vertical'} label={t('form.aggregator_status')}>
               <Switch />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+            <Form.Item name={'persian-client-name'} label={t('form.aggregator')}>
+              <Select placeholder={t('placeholder.faraboom')}></Select>
             </Form.Item>
             {/*<Button type='primary' htmlType={'submit'}>*/}
             {/*  تایید*/}
             {/*</Button>*/}
           </SearchItemsContainer>
         </Card>
-        <p className={'cards-title'}>اطلاعات کاربر متقاضی</p>
+        <p className={'cards-title'}>{t('applicant_info')}</p>
         <Card>
           <SearchItemsContainer>
             <Form.Item
               name={'latin-name-client'}
-              label={t('form.latin_name_client')}
+              label={t('form.user_name')}
               rules={[{ required: true, message: t('error.required') }]}
             >
-              <Input placeholder={'app-bale'} />
+              <Input placeholder={t('placeholder.user_name')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.national_code')}>
+              <Input placeholder={t('placeholder.national_code')} />
             </Form.Item>
-            <Form.Item name={'validation-system'} label={t('form.client_type')}>
-              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+            <Form.Item name={'validation-system'} label={t('form.organization_name')}>
+              <Input placeholder={t('placeholder.organization_name')}></Input>
             </Form.Item>
-            <Form.Item name={'client-id'} label={t('form.client_id')}>
-              <Input placeholder={'407af44d-f469-413d-81cf-469b21fa'} />
+            <Form.Item name={'client-id'} label={t('form.mobile_number')}>
+              <Input placeholder={t('placeholder.mobile_number')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
+            <Form.Item name={'persian-client-name'} label={t('form.telephone')}>
+              <Input placeholder={t('placeholder.telephone')} />
             </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
-            </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Input placeholder={'کلاینت بله'} />
-            </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')} rules={[{ required: true }]}>
-              <Input placeholder={'کلاینت بله'} />
-            </Form.Item>
-            <Form.Item layout={'horizontal'}>
-              <Switch />
-            </Form.Item>
-            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
-              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+            <Form.Item name={'persian-client-name'} label={t('form.email')}>
+              <Input placeholder={t('placeholder.email')} />
             </Form.Item>
             {/*<Button type='primary' htmlType={'submit'}>*/}
             {/*  تایید*/}
@@ -119,7 +107,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         </Button>
         <Button variant={'outlined'}>بازگشت</Button>
       </FooterButtonContainer>
-
       <Divider />
     </S.FirtStepContainer>
   );
