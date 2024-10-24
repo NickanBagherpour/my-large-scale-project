@@ -6,8 +6,9 @@ import { PageProps } from '@oxygen/types';
 import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 import * as S from './first-step.style';
-import { Card, Form, Switch } from 'antd';
-import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Card, Form } from 'antd';
+import { Button, Divider, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
+import { FooterButtonContainer } from '@oxygen/reusable-components';
 
 type FirstStepProps = PageProps & {
   //
@@ -17,6 +18,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log(values);
@@ -25,7 +27,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   return (
     <S.FirtStepContainer>
       <p className={'cards-title'}>اطلاعات کلی کلاینت</p>
-      <Form layout={'vertical'} onFinish={onFinish}>
+      <Form layout={'vertical'} onFinish={onFinish} form={form}>
         <Card>
           <SearchItemsContainer>
             <Form.Item
@@ -67,7 +69,58 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             {/*</Button>*/}
           </SearchItemsContainer>
         </Card>
+        <p className={'cards-title'}>اطلاعات کاربر متقاضی</p>
+        <Card>
+          <SearchItemsContainer>
+            <Form.Item
+              name={'latin-name-client'}
+              label={t('form.latin_name_client')}
+              rules={[{ required: true, message: t('error.required') }]}
+            >
+              <Input placeholder={'app-bale'} />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
+              <Input placeholder={'کلاینت بله'} />
+            </Form.Item>
+            <Form.Item name={'validation-system'} label={t('form.client_type')}>
+              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+            </Form.Item>
+            <Form.Item name={'client-id'} label={t('form.client_id')}>
+              <Input placeholder={'407af44d-f469-413d-81cf-469b21fa'} />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
+              <Input placeholder={'کلاینت بله'} />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
+              <Input placeholder={'کلاینت بله'} />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
+              <Input placeholder={'کلاینت بله'} />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')} rules={[{ required: true }]}>
+              <Input placeholder={'کلاینت بله'} />
+            </Form.Item>
+            <Form.Item layout={'horizontal'}>
+              <Switch />
+            </Form.Item>
+            <Form.Item name={'persian-client-name'} label={t('form.persian_name_client')}>
+              <Select placeholder={'سامانه های اعتباردهی - اعتبارسنجی'}></Select>
+            </Form.Item>
+            {/*<Button type='primary' htmlType={'submit'}>*/}
+            {/*  تایید*/}
+            {/*</Button>*/}
+          </SearchItemsContainer>
+        </Card>
       </Form>
+      <FooterButtonContainer>
+        <Button htmlType={'submit'} onClick={() => form.submit()}>
+          ثبت اطلاعات
+          <i className={'icon-sun-fill'}></i>
+        </Button>
+        <Button variant={'outlined'}>بازگشت</Button>
+      </FooterButtonContainer>
+
+      <Divider />
     </S.FirtStepContainer>
   );
 };

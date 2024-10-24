@@ -18,19 +18,19 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  // const { data, isFetching, isError } = useGetReportDataQuery('asdfas');
+  //
+  // console.log(data);
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
+  // function prepareParams() {
+  //   const { filters, submit, pagination, ...rest } = state;
+  //   const params = {
+  //     form: submit,
+  //     pagination: pagination,
+  //   };
+  //
+  //   return params;
+  // }
 
   const arrayList = [{ title: 'First_Step' }, { title: 'Second_Step' }, { title: 'Third_Step' }];
 

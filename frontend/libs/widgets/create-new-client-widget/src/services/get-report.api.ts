@@ -9,7 +9,7 @@ export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CREATE - NEW - CLIENT.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
+    queryKey: [RQKEYS.CREATE_NEW_CLIENT.POURIA, params],
+    queryFn: withErrorHandling(() => Api.getReportData(), dispatch),
   });
 };

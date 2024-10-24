@@ -5,4 +5,7 @@ export const FirtStepContainer = styled.div`
     font-weight: bold;
     font-size: 1.6rem;
   }
+
+  .footer {
+  }
 `;
