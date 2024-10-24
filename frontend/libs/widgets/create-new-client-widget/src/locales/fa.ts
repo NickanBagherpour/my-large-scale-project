@@ -2,7 +2,15 @@ export default {
   widget_name: 'ایجاد کلاینت جدید',
   client_info: 'اطلاعات کلی کلاینت ',
   applicant_info: 'اطلاعات کاربر متقاضی',
+  progress_bar: {
+    first_step: 'دریافت اطلاعات',
+    second_step: 'افزودن سرویس',
+    third_step: 'افزودن پلاگین',
+    fourth_step: 'مدیریت تعرفه',
+  },
   form: {
+    grant_type: 'اضافه کردن Grant Type',
+    add_tags: 'اضافه کردن تگ ها',
     latin_name_client: 'نام لاتین کلاینت',
     persian_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
@@ -34,7 +42,7 @@ export default {
     national_code: '0110453068',
     organization_name: 'شرکت داده ورزی سداد',
     mobile_number: '09128600352',
-    telephone: '021 - 88698541',
+    telephone: `021- 88698541`,
     email: 'Farzane@gmail.com',
   },
 };
