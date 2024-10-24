@@ -55,6 +55,7 @@ export default {
     search_result: 'نتیجه جستجو',
     available_balance: 'موجودی قابل برداشت',
     rows_per_page: 'تعداد سطرها',
+    select_all: 'انتخاب همه',
   },
   button: {
     register: 'ثبت',
