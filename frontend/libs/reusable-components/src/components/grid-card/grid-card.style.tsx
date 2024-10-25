@@ -92,7 +92,8 @@ export const Date = styled.p`
 
 export const Looper = styled(Image)`
   position: absolute;
-  right: 0;
   bottom: 0;
   z-index: -1;
+  right: ${(p) => (p.theme.direction === 'rtl' ? '0' : 'auto')};
+  left: ${(p) => (p.theme.direction === 'rtl' ? 'auto' : '0')};
 `;
