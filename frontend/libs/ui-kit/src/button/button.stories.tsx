@@ -1,59 +1,62 @@
 import { Meta, StoryFn } from '@storybook/react';
 import { Button, ButtonProps } from './button';
 
-// Define argTypes for Storybook Controls
-const argTypes = {
-  color: {
-    options: ['primary', 'secondary', 'warning', 'error'],
-    control: {
-      type: 'radio',
-    },
-    description: 'Defines the color theme of the button.',
-    defaultValue: 'primary',
-  },
-  variant: {
-    options: ['solid', 'outlined', 'filled', 'dashed', 'text', 'link'],
-    control: {
-      type: 'select',
-    },
-    description: 'Defines the variant style of the button.',
-    defaultValue: 'solid',
-  },
-  size: {
-    options: ['small', 'middle', 'large'],
-    control: {
-      type: 'radio',
-    },
-    description: 'Defines the size of the button.',
-    defaultValue: 'middle',
-  },
-  flex: {
-    control: 'boolean',
-    description: 'If true, the button will flexibly adjust its width.',
-    defaultValue: true,
-  },
-  disabled: {
-    control: 'boolean',
-    description: 'Disables the button if true.',
-    defaultValue: false,
-  },
-  loading: {
-    control: 'boolean',
-    description: 'Displays a loading spinner if true.',
-    defaultValue: false,
-  },
-  onClick: { action: 'clicked', description: 'Handles click events.' },
-  icon: {
-    control: false, // Icons are handled separately
-    description: 'Optional icon to display inside the button.',
-  },
-};
+const colors = ['warning', 'error', 'primary', 'secondary'] satisfies ButtonProps['color'][];
+const variants = ['solid', 'outlined', 'filled', 'dashed', 'text', 'link'] satisfies ButtonProps['variant'][];
+const sizes = ['small', 'middle', 'large'] satisfies ButtonProps['size'][];
 
-export default {
+const meta = {
   title: 'UI-Kit/Button',
   component: Button,
-  argTypes: argTypes,
-} as Meta;
+  argTypes: {
+    color: {
+      options: colors,
+      control: {
+        type: 'radio',
+      },
+      description: 'Defines the color theme of the button.',
+      defaultValue: 'primary',
+    },
+    variant: {
+      options: variants,
+      control: {
+        type: 'radio',
+      },
+      description: 'Defines the variant style of the button.',
+      defaultValue: 'solid',
+    },
+    size: {
+      options: sizes,
+      control: {
+        type: 'radio',
+      },
+      description: 'Defines the size of the button.',
+      defaultValue: 'middle',
+    },
+    flex: {
+      control: 'boolean',
+      description: 'If true, the button will flexibly adjust its width.',
+      defaultValue: true,
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disables the button if true.',
+      defaultValue: false,
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Displays a loading spinner if true.',
+      defaultValue: false,
+    },
+    onClick: { action: 'clicked', description: 'Handles click events.' },
+    icon: {
+      control: false, // Icons are handled separately
+      description: 'Optional icon to display inside the button.',
+    },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
 
 // Define a Template for reusable stories
 const Template: StoryFn<ButtonProps> = (args) => <Button {...args} />;
@@ -66,10 +69,6 @@ Default.args = {
 
 // AllVariants Story
 export const AllVariants: StoryFn = () => {
-  const colors: any = argTypes.color.options;
-  const variants: any = argTypes.variant.options;
-  const sizes: any = argTypes.size.options;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Color and Variant Combinations */}
@@ -79,7 +78,7 @@ export const AllVariants: StoryFn = () => {
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             {variants.map((variant) => (
               <Button key={variant} color={color} variant={variant}>
-                {variant!.charAt(0).toUpperCase() + variant!.slice(1)}
+                {variant.charAt(0).toUpperCase() + variant.slice(1)}
               </Button>
             ))}
           </div>
@@ -92,7 +91,7 @@ export const AllVariants: StoryFn = () => {
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           {sizes.map((size) => (
             <Button key={size} size={size} variant='filled'>
-              {size!.charAt(0).toUpperCase() + size!.slice(1)}
+              {size.charAt(0).toUpperCase() + size.slice(1)}
             </Button>
           ))}
         </div>

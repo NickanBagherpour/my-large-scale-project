@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { Checkbox, Dropdown, DropdownProps } from 'antd';

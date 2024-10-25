@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-import { Layout } from 'antd';
+import { Layout as AntLayout } from 'antd';
 
-export const Header = styled(Layout.Header)`
+export const Layout = styled(AntLayout)`
+  font-family: 'iransans';
+`;
+
+export const Header = styled(AntLayout.Header)`
   // margin: 1rem;
   display: flex;
   align-items: center;
@@ -10,7 +14,7 @@ export const Header = styled(Layout.Header)`
   background-color: ${({ theme }) => theme.appbar};
 `;
 
-export const MainContent = styled(Layout.Content)`
+export const MainContent = styled(AntLayout.Content)`
   margin: 1rem;
   // background-color: ${({ theme }) => theme.background._100};
   min-height: 100vh;
