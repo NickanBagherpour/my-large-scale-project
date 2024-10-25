@@ -1,9 +1,9 @@
-import React from 'react';
-
 import type { Preview } from '@storybook/react';
 
 import { TestProvider } from '@oxygen/hooks';
-import { DashboardLayout, StorybookLayout } from '@oxygen/layouts';
+import { StorybookLayout } from '@oxygen/layouts';
+import '../../../apps/portal/public/assets/fonts/font.css';
+import '../../../apps/portal/public/assets/fonts/iconly/iconly.css';
 
 const preview: Preview = {
   decorators: [

@@ -1,5 +1,4 @@
-import React, { ReactNode, useState } from 'react';
-import { Layout } from 'antd';
+import React, { ReactNode } from 'react';
 
 import { useConfig, useResponsive } from '@oxygen/hooks';
 import StoryBookAppbar from './storybook-appbar';
@@ -15,10 +14,10 @@ export const StorybookLayout = ({ children }: StorybookLayoutProps) => {
   const { isMobile, isMobileOrTablet, isUndefined } = useResponsive();
 
   return (
-    <Layout>
+    <S.Layout>
       <StoryBookAppbar config={config} isMobileOrTablet={isMobileOrTablet} />
       <S.MainContent>{children}</S.MainContent>
-    </Layout>
+    </S.Layout>
   );
 };
 
