@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button, Box, Select, PageStepper, InfoBox, Steps, Chip } from '@oxygen/ui-kit';
 import React from 'react';
 import { Progress } from 'antd';
-import { ActiveBadge } from 'libs/ui-kit/src/assets';
+import { ActiveBadge } from '../../../../../../libs/ui-kit/src/assets/media';
 import { InfoItemType } from '@oxygen/types';
 
 export default function Index() {

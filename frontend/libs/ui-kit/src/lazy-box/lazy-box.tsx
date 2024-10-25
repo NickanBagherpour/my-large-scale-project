@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { Button } from '../button/button';
 import { Box } from '../box/box';
 
 import * as S from './lazy-box.style';

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { CSSProperties } from 'react';
 
 import { InfoItemType } from '@oxygen/types';

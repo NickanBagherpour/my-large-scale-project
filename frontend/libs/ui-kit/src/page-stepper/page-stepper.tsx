@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Steps, Progress } from 'antd';
 import { useAppTheme } from '@oxygen/hooks';
