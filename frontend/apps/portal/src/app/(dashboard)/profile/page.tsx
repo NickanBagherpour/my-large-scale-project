@@ -2,9 +2,25 @@
 
 import styled from 'styled-components';
 
-import { Button, Box, Select, TabsProps, Switch, Tabs, Chip, Container, Table } from '@oxygen/ui-kit';
+import {
+  Button,
+  Box,
+  Select,
+  TabsProps,
+  Switch,
+  Tabs,
+  Chip,
+  Container,
+  Table,
+  TagInput,
+  DropdownOptions,
+  Divider,
+} from '@oxygen/ui-kit';
 import { FilterPopover, FilterType } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { CardWithToggle } from '@oxygen/reusable-components';
+import { WidgetWrapper } from '@oxygen/layouts';
+import React from 'react';
 
 const styledContainer = styled.div`
   //margin-left: 2rem;
@@ -12,12 +28,36 @@ const styledContainer = styled.div`
   width: 100%;
   height: 90vh;
 `;
+const TagInputContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  & .ant-tag {
+    background-color: ${(props) => props.theme.border._50};
+    border: 0;
+    min-height: 3.7rem;
+    color: ${(props) => props.theme.text.primary};
+  }
+`;
 
 const Div = styled.div`
   margin-left: 2rem;
   margin-bottom: 2rem;
 `;
-
+const dropdownOptions: DropdownOptions[] = [
+  { label: 'Client Flow', value: 'option1' },
+  { label: 'Password Flow', value: 'option2' },
+  { label: 'Implicit Flow', value: 'option4' },
+  { label: 'Refresh Token', value: 'option5' },
+  { label: 'Client Flow', value: 'option6' },
+  { label: 'Password Flow', value: 'option7' },
+  { label: 'Authorization Code Flow', value: 'option8' },
+  { label: 'Implicit Flow', value: 'option9' },
+  { label: 'Refresh Token', value: 'option10' },
+];
+//for single select mode:
+// const dropdownOptions = ['Client Flow', 'Password Flow', 'Implicit Flow', 'Refresh Token', 'Client Floww', 'Password Floww', 'Implicit Floww', 'Refresh Tokenn'];
 const items: TabsProps['items'] = [
   {
     key: '1',
@@ -50,6 +90,7 @@ const content: FilterType[] = [
 ];
 
 export default function Index() {
+  const [checkedItems, setCheckedItems] = React.useState<any[]>([]);
   const [t] = useTr();
 
   function closeAlert() {
@@ -67,6 +108,29 @@ export default function Index() {
   function onChange(key: string) {
     console.log('invoked filter : ', key);
   }
+  //for single select mode:
+  // const handleCheckboxChange = (value: string, e) => {
+  //   e.stopPropagation(); // Prevent dropdown from closing
+  //   e.preventDefault(); // Prevent default behavior
+  //   if (checkedItems.includes(value)) {
+  //     setCheckedItems([])
+  //   } else {
+  //     setCheckedItems([value])
+  //   }
+  // }
+  const handleCheckboxChange = (value: string, e) => {
+    e.stopPropagation(); // Prevent dropdown from closing
+    e.preventDefault(); // Prevent default behavior
+    setCheckedItems((prev) => {
+      const existingItem = prev.find((item) => item.value === value);
+      if (existingItem) {
+        return prev.filter((item) => item.value !== value);
+      } else {
+        const optionToAdd = dropdownOptions.find((option) => option.value === value);
+        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
+      }
+    });
+  };
 
   const dataSource = [
     { id: 1, name: 'John Doe', age: 25 },
@@ -130,8 +194,51 @@ export default function Index() {
   ];
 
   return (
-    <Box width={'100%'}>
+    <WidgetWrapper>
       <Container title={t('field.customer')} subtitle={'(245)'}>
+        <CardWithToggle
+          title={'اعتبارسنجی درخواست جدید'}
+          subtitle={'Rate Limit'}
+          icon={'icon-setting'}
+          defaultChecked={false}
+          disabled={false}
+          // customStyle={customStyles}
+          handleIconClick={(e) => console.log('handle click from usage', e)}
+        />
+        <TagInputContainer>
+          <TagInput
+            buttonCaption={' اضافه‌کردن Grant Type'}
+            options={dropdownOptions}
+            multiSelect={true}
+            handleCheckboxChange={handleCheckboxChange}
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+          />
+          {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
+          {/*//for single select mode:*/}
+          {/*{checkedItems[0] &&*/}
+          {/*  <Chip className={'chip-style'} closable={true}*/}
+          {/*        onClose={(e) => handleCheckboxChange(checkedItems[0], e)}*/}
+          {/*  >*/}
+          {/*    {checkedItems[0]}*/}
+          {/*  </Chip>*/}
+          {/*}*/}
+          {checkedItems.map((item) => {
+            return (
+              <React.Fragment key={item.value}>
+                <Chip
+                  className={'chip-style'}
+                  closable={true}
+                  onClose={(e) => {
+                    handleCheckboxChange(item.value, e);
+                  }}
+                >
+                  {item?.label}
+                </Chip>
+              </React.Fragment>
+            );
+          })}
+        </TagInputContainer>
         <div className='container'>
           <div id='welcome'>
             <h1>
@@ -194,6 +301,6 @@ export default function Index() {
           </Div>
         </div>
       </Container>
-    </Box>
+    </WidgetWrapper>
   );
 }

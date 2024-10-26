@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { Input, InputProps as AntInputProps } from 'antd';

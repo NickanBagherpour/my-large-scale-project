@@ -1,6 +1,5 @@
 'use client';
-
-export * as Icons from './assets';
+export * as Icons from './assets/media';
 export { default as getAntTheme } from './theme/ant-theme';
 export { default as ThemeConfig } from './theme/theme-config';
 export * from './theme/theme';
@@ -42,4 +41,4 @@ export * from './modal/modal';
 export * from './progress/progress';
 export * from './mark-text/mark-text';
 export * from './container/container';
-// export * from './tag-input/tag-input';
+export * from './tag-input/tag-input';

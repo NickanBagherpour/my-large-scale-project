@@ -4,7 +4,7 @@ import { Input as AntInput } from 'antd';
 export const InputWrapper = styled<any>(AntInput)`
   border-color: ${(p) => p.theme.border};
 
-  padding-top: 0.8rem;
+  //padding: 0.8rem;
 
   .ant-input-prefix {
     padding-right: 0.8rem;

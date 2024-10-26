@@ -1,5 +1,4 @@
-import { cssVar, respondTo } from '@oxygen/utils';
-import { calc } from 'antd/es/theme/internal';
+import { cssVar } from '@oxygen/utils';
 
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ export const WidgetWrapperContainer = styled.div<{ isFullHeight: boolean }>`
   display: flex;
   flex-direction: column;
   min-height: ${(props) => (props.isFullHeight ? '100%' : 'auto')};
-  color: ${(props) => props.theme.primary.main};
+  // color: ${(props) => props.theme.primary.main};
   border-radius: var(${cssVar.radius});
   background-color: ${(props) => props.theme.surface};
   padding: 0 1.6rem;

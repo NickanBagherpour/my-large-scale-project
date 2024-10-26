@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import * as S from './container.style';
-import { Divider } from 'antd';
 
 export interface IWidgetWrapperProps {
   title?: string[] | string;
