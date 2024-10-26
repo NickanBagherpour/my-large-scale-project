@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -42,17 +42,18 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     console.log(values);
   };
 
-  const [pouria, setPouria] = useState('');
-
-  console.log(pouria);
-
   return (
     <S.FirtStepContainer>
       <p className={'cards-title'}>{t('client_info')}</p>
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
         <Box>
           <Form.Item className={'tag-input'}>
-            <TagInput buttonCaption={t('form.grant_type')} options={['af', 'asdf']} multiSelect={true} />
+            <TagInput
+              handleCheckboxChange={(value, e) => console.log('handleCheckboxChange', value)}
+              buttonCaption={t('form.grant_type')}
+              options={['af', 'asdf']}
+              multiSelect={false}
+            />
           </Form.Item>
           <Box flexGrow={9} marginLeft={'1rem'}>
             <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>
@@ -84,7 +85,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={t('placeholder.client_bale')} />
             </Form.Item>
             <Form.Item name={FormItem.client_type} label={t('form.client_type')}>
-              <Select placeholder={t('placeholder.credit_system')}></Select>
+              <Select size={'middle'} placeholder={t('placeholder.credit_system')}></Select>
             </Form.Item>
             <Form.Item name={FormItem.client_id} label={t('form.client_id')}>
               <Input placeholder={t('placeholder.client_id')} />
@@ -101,11 +102,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <Form.Item name={FormItem.return_address} label={t('form.return_address')}>
               <Input placeholder={t('placeholder.return_address')} />
             </Form.Item>
-            <Form.Item name={FormItem.aggregator_status} layout={'vertical'} label={t('form.aggregator_status')}>
+            <Form.Item
+              name={FormItem.aggregator_status}
+              className={'label-switch'}
+              layout={'horizontal'}
+              label={t('form.aggregator_status')}
+            >
               <Switch />
             </Form.Item>
-            <Form.Item name={FormItem.aggregator} label={t('form.aggregator')}>
-              <Select placeholder={t('placeholder.faraboom')}></Select>
+            <Form.Item
+              name={FormItem.aggregator}
+              label={t('form.aggregator')}
+              rules={[{ required: true, message: t('error.required') }]}
+            >
+              <Select size={'middle'} placeholder={t('placeholder.faraboom')}></Select>
             </Form.Item>
             {/*  تایید*/}
             {/*</Button>*/}
@@ -136,9 +146,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <Form.Item name={FormItem.email} label={t('form.email')}>
               <Input placeholder={t('placeholder.email')} />
             </Form.Item>
-            {/*<Button type='primary' htmlType={'submit'}>*/}
-            {/*  تایید*/}
-            {/*</Button>*/}
           </SearchItemsContainer>
         </Card>
       </Form>

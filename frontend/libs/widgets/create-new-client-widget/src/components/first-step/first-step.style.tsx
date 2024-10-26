@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { respondTo } from '@oxygen/utils';
 
 export const FirtStepContainer = styled.div`
   .cards-title {
@@ -16,6 +17,21 @@ export const FirtStepContainer = styled.div`
 
   .tags {
     width: max-content;
+  }
+
+  .label-switch {
+    display: flex;
+    align-items: end;
+
+    div {
+      gap: 1rem;
+      display: flex;
+      align-items: center;
+
+      ${respondTo.down('md')} {
+        align-items: start;
+      }
+    }
   }
 
   .seperator {

@@ -31,7 +31,7 @@ export default {
   },
   placeholder: {
     client_bale: 'کلاینت بله',
-    credit_system: 'سامانه های اعتبار دهی - اعتبار سنجی',
+    credit_system: 'سامانه های اعتبار دهی - اعتبارسنجی',
     client_id: '407af44d-f469-413d-81cf-469b21fa',
     identity_auth: '2689574859658',
     website_url: 'https://bale.ai',
