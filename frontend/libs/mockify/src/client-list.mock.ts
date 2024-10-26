@@ -1,4 +1,4 @@
-import { clientsList, drafts, type Client } from './data/clients-list.data';
+import { clientsList, drafts, type Client } from './data/client-list.data';
 
 type Params = {
   searchTerm: string;

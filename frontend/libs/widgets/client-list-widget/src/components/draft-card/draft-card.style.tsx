@@ -7,6 +7,7 @@ export const Container = styled(Link)`
   padding: 1.6rem;
   background: ${(p) => p.theme.primary._50};
   color: ${(p) => p.theme.text.primary};
+  transition: all 200ms;
 
   &:hover {
     border-color: ${(p) => p.theme.primary._400};
