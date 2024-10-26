@@ -1,30 +1,50 @@
 import { useAppState } from '../../context';
 import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
-import Grid from '../grid/grid';
+import Clients from '../clients/clients';
 import * as S from './app.style';
-import { Container, Loading } from '@oxygen/ui-kit';
+import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
+import DraftCard from '../draft-card/draft-card';
+import { useGetDraftsQuery } from '../../services/get-drafts.api';
 
 const App = () => {
   const { errorMessage, ...fetchState } = useAppState();
-  const { data, isFetching } = useGetClientsQuery(fetchState);
+  const { data: clients, isFetching: isClientsFetching } = useGetClientsQuery(fetchState);
+  const { data: drafts } = useGetDraftsQuery();
   const [t] = useTr();
+  const hasDrafts = !!drafts?.length;
+  const clientsSubTitle = clients?.total ? `(${clients?.total ?? 0})` : '';
 
   return (
-    <Container title={t('widget_name')} subtitle={`(${data?.total ?? 0})`}>
-      <S.AppContainer>
+    <>
+      {hasDrafts && (
+        <S.DraftsContainer title={t('draft')} isFullHeight={false}>
+          <S.Grid>
+            {drafts?.map((item) => (
+              <DraftCard key={item.id} {...item} />
+            ))}
+          </S.Grid>
+        </S.DraftsContainer>
+      )}
+
+      <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle} isFullHeight={!hasDrafts}>
         <Filters />
-        <Loading spinning={isFetching} size='large'>
-          {data?.list.length ? (
-            <Grid data={data.list} total={data.total} searchTerm={fetchState.searchTerm} isLoading={isFetching} />
+        <Loading spinning={isClientsFetching} size='large'>
+          {clients?.list.length ? (
+            <Clients
+              data={clients.list}
+              total={clients.total}
+              searchTerm={fetchState.searchTerm}
+              isLoading={isClientsFetching}
+            />
           ) : (
             <NoResult isLoading={false} />
           )}
         </Loading>
-      </S.AppContainer>
-    </Container>
+      </S.ClientsContainer>
+    </>
   );
 };
 

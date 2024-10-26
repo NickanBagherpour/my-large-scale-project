@@ -1,4 +1,4 @@
-import { clientsList, type Client } from './data/clients-list.data';
+import { clientsList, drafts, type Client } from './data/clients-list.data';
 
 type Params = {
   searchTerm: string;
@@ -47,6 +47,14 @@ export const getClients = async ({ searchTerm, status, sort, page }: Params) => 
   return new Promise<{ data: { list: Client[]; total: number } }>((resolve) => {
     setTimeout(() => {
       resolve({ data: { list: sortedData, total: clientsList.length } });
+    }, 700);
+  });
+};
+
+export const getDrafts = async () => {
+  return new Promise<{ data: typeof drafts }>((resolve) => {
+    setTimeout(() => {
+      resolve({ data: drafts });
     }, 700);
   });
 };
