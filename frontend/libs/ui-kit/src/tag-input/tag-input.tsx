@@ -6,9 +6,9 @@ import { Checkbox, Dropdown, DropdownProps } from 'antd';
 
 import { Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { uuid } from '@oxygen/utils';
 
 import * as S from './tag-input.style';
-import { uuid } from '@oxygen/utils';
 
 export type DropdownOptions = {
   label: string;
@@ -17,11 +17,12 @@ export type DropdownOptions = {
 
 export type TagInputProps = DropdownProps & {
   buttonCaption: string;
+  // options: (DropdownOptions|string)[];
   options: any[];
   multiSelect: boolean;
-  handleCheckboxChange?: any;
-  checkedItems?: any[];
-  setCheckedItems?: any;
+  handleCheckboxChange: (value, e) => void;
+  checkedItems: any[];
+  setCheckedItems: (value: ((prevState: any[]) => any[]) | any[]) => void;
 };
 
 export const TagInput = (props: TagInputProps) => {
@@ -38,7 +39,12 @@ export const TagInput = (props: TagInputProps) => {
       if (checkedItems.length === options.length) {
         setCheckedItems([]); // Deselect all if all are selected
       } else {
-        setCheckedItems(options.map((option) => ({ label: option.label, value: option.value }))); // Select all
+        setCheckedItems(
+          options.map((option) => {
+            // if (typeof option !== "string")
+            return { label: option.label, value: option.value };
+          })
+        ); // Select all
       }
     }
   };
@@ -47,9 +53,15 @@ export const TagInput = (props: TagInputProps) => {
     if (!multiSelect) setCheckedItems([e.key]);
   }
 
-  const generateBaseItems = () => {
-    if (!multiSelect) return [];
-    else if (multiSelect && checkedItems) {
+  const handleLabelClick = (e: React.MouseEvent) => {
+    if (multiSelect) {
+      e.preventDefault(); // Prevent default behavior to keep dropdown open
+      setOpen(true);
+    }
+  };
+  const generateBaseItems = (): any[] => {
+    // if (!multiSelect) return [];
+    if (multiSelect && checkedItems) {
       return [
         {
           label: (
@@ -68,8 +80,9 @@ export const TagInput = (props: TagInputProps) => {
           key: 'divider',
         },
       ];
-    }
+    } else return [];
   };
+
   const menuItems = options.map((option, index) => {
     if (multiSelect && checkedItems)
       return {
@@ -81,12 +94,11 @@ export const TagInput = (props: TagInputProps) => {
               setOpen(true); // Ensure dropdown opens when checkbox is clicked
             }}
           >
-            {option.label}
+            <span onMouseDown={handleLabelClick}>{option.label}</span> {/* Prevent dropdown close on label click */}
           </Checkbox>
         ),
         style: {
-          backgroundColor:
-            checkedItems && checkedItems.some((item) => item.value === option.value) ? theme.primary._50 : '',
+          backgroundColor: checkedItems.some((item) => item.value === option.value) ? theme.primary._50 : '',
         },
         key: option.value,
       };
@@ -101,14 +113,14 @@ export const TagInput = (props: TagInputProps) => {
     }
   });
 
-  const baseItems = generateBaseItems();
-  const items: any = baseItems ? [...baseItems, ...menuItems] : menuItems;
+  const items: any = [...generateBaseItems(), ...menuItems];
   const menuProps = {
     items,
     onClick: handleMenuClick,
   };
 
   const uniqueId = uuid();
+
   return (
     <S.TagInputContainer>
       <S.DropdownContainer id={uniqueId}></S.DropdownContainer>
@@ -117,13 +129,13 @@ export const TagInput = (props: TagInputProps) => {
         trigger={['click']}
         open={open}
         onOpenChange={(flag, info) => {
-          setOpen(flag);
+          if (!multiSelect || flag || info.source === 'trigger') setOpen(flag); // Only close in single-select mode
         }}
         getPopupContainer={() => document.getElementById(uniqueId)!}
       >
         <Button type='default' className={'dropdown-button'} variant={'outlined'}>
           <S.StyledSpace>
-            <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} onClick={() => console.log('click')} />
+            <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} />
             <span>{buttonCaption}</span>
           </S.StyledSpace>
         </Button>
