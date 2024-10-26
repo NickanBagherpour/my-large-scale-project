@@ -7,7 +7,7 @@ export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/clients-list');
+    router.replace('/client-list');
   }, [router]);
 
   return null;

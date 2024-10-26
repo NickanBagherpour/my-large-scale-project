@@ -9,4 +9,8 @@ export default {
   show_all: 'نمایش همه',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
+  draft: 'پیش‌نویس‌',
+  get_info: 'دریافت اطلاعات',
+  add_service: 'افزودن سرویس',
+  add_plugin: 'افزودن پلاگین',
 };

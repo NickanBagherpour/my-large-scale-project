@@ -1,3 +1,8 @@
+export const drafts = [
+  { name: 'شرکت آسان پرداخت', level: 1, id: 1 },
+  { name: 'سامانه چکاوک', level: 2, id: 2 },
+] as const;
+
 export type Client = {
   name: string;
   logo: unknown;

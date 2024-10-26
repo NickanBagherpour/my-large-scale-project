@@ -9,7 +9,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const ClientsListWidget: React.FC<PageProps> = (_) => {
+const ClientListWidget: React.FC<PageProps> = (_) => {
   loadTr({ en, fa });
 
   return (
@@ -21,4 +21,4 @@ const ClientsListWidget: React.FC<PageProps> = (_) => {
   );
 };
 
-export default ClientsListWidget;
+export default ClientListWidget;
