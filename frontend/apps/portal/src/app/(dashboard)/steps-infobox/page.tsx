@@ -14,6 +14,18 @@ export default function Index() {
     setCurrentStep(current);
   };
 
+  const nextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   const steps = [
     {
       title: 'دریافت اطلاعات',
@@ -95,7 +107,15 @@ export default function Index() {
   return (
     <div style={{ width: '100%' }}>
       Hello from dashboard!
-      <Steps items={steps} current={currentStep} onChange={onChange} />
+      <Steps items={steps} current={currentStep} onChange={onChange} disabled={true} />
+      <div>
+        <button onClick={prevStep} disabled={currentStep === 0}>
+          Previous
+        </button>
+        <button onClick={nextStep} disabled={currentStep === steps.length - 1}>
+          Next
+        </button>
+      </div>
       infobox ui-kit
       <InfoBox data={mockData} />
     </div>

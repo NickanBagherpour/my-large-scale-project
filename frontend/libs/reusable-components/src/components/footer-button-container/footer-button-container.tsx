@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const FooterButtonContainer = styled.div<any>`
   display: flex;
   flex-direction: row-reverse;
-  border-top: 1px solid ${(p) => p.theme.base.border};
+  border-top: 1px solid ${(p) => p.theme.border};
   margin-left: calc(var(${cssVar.drawerWidth}));
   width: calc(100% - var(${cssVar.drawerWidth}) - 3rem);
   bottom: 0;
