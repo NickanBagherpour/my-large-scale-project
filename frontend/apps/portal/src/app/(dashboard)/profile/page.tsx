@@ -19,7 +19,6 @@ import { FilterPopover, FilterType } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { CardWithToggle } from '@oxygen/reusable-components';
 import { WidgetWrapper } from '@oxygen/layouts';
-import * as S from '../../../../../../libs/ui-kit/src/tag-input/tag-input.style';
 import React from 'react';
 
 const styledContainer = styled.div`

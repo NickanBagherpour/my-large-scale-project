@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { Tree as AntTree, TreeProps as AntTreeProps } from 'antd';
 import { collectKeys, collectSubChildKeys } from './tree-util';

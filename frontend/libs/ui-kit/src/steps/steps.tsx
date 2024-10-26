@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import { Steps as AntSteps, StepsProps as AntStepsProps, Progress } from 'antd';

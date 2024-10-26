@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { CSSProperties, useState } from 'react';
 import { Input } from 'antd';
 import * as S from './autocomplete.style';
 import { AutoComplete as AntAutoComplete } from 'antd';
@@ -10,12 +10,13 @@ import { useTr } from '@oxygen/translation';
 
 type Props = {
   className?: string;
+  style: CSSProperties;
   onClear: () => void;
   onSelect: (item: ClientService) => void;
 };
 
 const AutoComplete = (props: Props) => {
-  const { onSelect, onClear, className = '' } = props;
+  const { onSelect, onClear, className = '', style = {} } = props;
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
   const { data, isLoading } = useGetClientService({ name: debouncedSearchTerm.trim() });
@@ -25,6 +26,7 @@ const AutoComplete = (props: Props) => {
   return (
     <AntAutoComplete
       className={className}
+      style={style}
       popupClassName={'popup'}
       options={data?.map((item) => ({ value: item.title, item }))}
       notFoundContent={t('message.empty')}

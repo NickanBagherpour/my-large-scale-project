@@ -1,6 +1,5 @@
 import { Fragment, ReactNode } from 'react';
 import * as S from './result-box.style';
-import { Box } from '../box/box';
 
 export interface ResultBoxItemType {
   type: 'header' | 'item';

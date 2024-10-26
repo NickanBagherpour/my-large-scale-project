@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Alert as AntAlert, AlertProps as AntAlertProps } from 'antd';
@@ -36,5 +38,3 @@ export const Alert = (props: AlertProps) => {
 
   return <StyledAlert {...rest} />;
 };
-
-// export default Button;

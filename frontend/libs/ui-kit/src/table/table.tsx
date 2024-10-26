@@ -1,3 +1,5 @@
+'use client';
+
 import { Table as AntTable, TableProps as AntTableProps } from 'antd';
 import { ColumnsType as AntColumnsType } from 'antd/lib/table';
 import React from 'react';
