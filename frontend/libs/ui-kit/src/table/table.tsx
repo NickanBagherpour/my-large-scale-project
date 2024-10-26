@@ -26,6 +26,7 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
   // Custom props specific to your component
   // isExpandable?: boolean;
   // hidePagination?: boolean;
+  simpleTables?: boolean;
   total?: number;
   current?: number;
   title?: Nullable<string>;
@@ -34,6 +35,7 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
   mobileColumns?: ColumnsType<any>;
   isLastPage?: boolean;
   paginationType?: PaginationType;
+  scroll_x?: number;
 };
 
 const ExpandIcon = ({ expanded, onExpand, record }) => (
@@ -46,6 +48,7 @@ export const Table = (props: TableProps) => {
     columns,
     mobileColumns,
     // isExpandable = false,
+    simpleTables = false,
     expandable,
     pagination,
     total,
@@ -55,6 +58,7 @@ export const Table = (props: TableProps) => {
     captionChildren = null,
     paginationType = PaginationType.PAGINATED,
     showHeader,
+    scroll_x,
     ...restProps
   } = props;
 
@@ -124,13 +128,14 @@ export const Table = (props: TableProps) => {
     <>
       <S.Table
         caption={caption}
+        simpleTables={simpleTables}
         // dataSource={dataSource}
         columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
         rowClassName={rowClassName}
         expandable={_expandable}
         pagination={_pagination}
         showHeader={_showHeader}
-        scroll={{ x: 'fit-content' }}
+        scroll={scroll_x ? { x: scroll_x } : { x: 'fit-content' }}
         {...restProps}
       />
 

@@ -12,7 +12,7 @@ export const Wrapper = styled(Panel)`
 `;
 
 export const Table = styled(AntTable)<TableProps>`
-  --table-min-height: 40rem;
+  --table-min-height: 20rem;
 
   div.ant-table {
     min-height: var(--table-min-height);
@@ -27,11 +27,17 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   table {
+    border: ${(p) => (p.simpleTables ? `1px solid ` : 0)};
+    border-color: ${(p) => (p.simpleTables ? p.theme.border._100 : 'transparent')};
+    border-radius: 0.6rem;
+    padding-top: ${(p) => (p.simpleTables ? `0.6rem ` : 0)};
+    padding-bottom: ${(p) => (p.simpleTables ? `0.6rem ` : 0)};
   }
 
   thead {
     //background-color: ${(p) => p.theme.background.main};
-    border-radius: 0;
+    /* border-radius: 0; */
+    border-color: ${(p) => p.theme.border._100};
   }
 
   tbody tr {
@@ -39,7 +45,8 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody tr.odd-row {
-    background-color: ${(p) => p.theme.cardColor};
+    /* background-color: ${(p) => p.theme.background._800}; */
+    background-color: ${(p) => (p.simpleTables ? p.theme.background.main : p.theme.background._800)};
   }
 
   tbody tr.odd-row + .ant-table-expanded-row {
@@ -48,6 +55,26 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead > tr > th {
     padding: 1.4rem !important;
+    background-color: ${(p) => p.theme.background.main};
+    /* border-top: 1px solid ${(p) => p.theme.border._100}; */
+    border-top: ${(p) => (p.simpleTables ? 0 : `1px solid ${(p) => p.theme.border._100}`)};
+    border-color: ${(p) => p.theme.border._100};
+
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.8rem;
+  }
+
+  tbody > tr > td {
+    /* border-color: ${(p) => p.theme.border._100}; */
+    border-color: ${(p) => (p.simpleTables ? '#D4D4D4' : p.theme.border._100)};
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+  }
+
+  tbody > tr > td:last-child {
+    border-bottom: 0;
   }
 
   thead > tr > th::before {
@@ -61,7 +88,8 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead,
   tbody tr.even-row {
-    background-color: ${(p) => p.theme.surface};
+    /* background-color: ${(p) => p.theme.background._700}; */
+    background-color: ${(p) => (p.simpleTables ? p.theme.background.main : p.theme.background._700)};
   }
 
   tbody tr.even-row + .ant-table-expanded-row {
