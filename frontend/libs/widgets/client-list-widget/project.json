@@ -1,0 +1,9 @@
+{
+    "name": "client-list-widget",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/widgets/client-list-widget/src",
+    "projectType": "library",
+    "tags": [],
+    "// targets": "to see all targets run: nx show project test --web",
+    "targets": {}
+}

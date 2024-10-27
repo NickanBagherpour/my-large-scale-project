@@ -39,10 +39,10 @@ export const StepsWrapper = styled.div`
   }
 
   .ant-progress-circle-path {
-    stroke: ${(p) => p.theme.secondary._200};
+    stroke: ${(p) => p.theme.secondary.main};
   }
 
   .ant-progress-circle-trail {
-    stroke: ${(p) => p.theme.secondary.main};
+    stroke: ${(p) => p.theme.secondary._200};
   }
 `;

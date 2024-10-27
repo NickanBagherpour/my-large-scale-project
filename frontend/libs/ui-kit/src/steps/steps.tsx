@@ -1,55 +1,33 @@
 'use client';
 
-import React from 'react';
-
 import { Steps as AntSteps, StepsProps as AntStepsProps, Progress } from 'antd';
-
-import { useAppTheme } from '@oxygen/hooks';
-
 import * as S from './steps.style';
 
 export type StepsProps = AntStepsProps & {
-  //
+  disabled?: boolean;
 };
 
 export const Steps = (props: StepsProps) => {
-  const { items = [], type = 'navigation', size = 'small', ...rest } = props;
+  const { items = [], type = 'navigation', size = 'small', disabled = true, ...rest } = props;
 
-  const theme = useAppTheme();
+  const minPercent = 10;
 
   return (
     <S.StepsWrapper>
       <AntSteps type={type} size={size} {...rest}>
-        {items.map((step, index) => (
-          <AntSteps.Step
-            key={index}
-            title={<strong>{`${index + 1}. ${step.title}`}</strong>}
-            // subTitle={<div style={{ fontStyle: 'italic' }}>{step.subTitle}</div>}
-            // description={<div>{/**/}</div>}
-            icon={
-              <Progress
-                percent={(index / (items.length - 1)) * 100}
-                showInfo={false}
-                strokeWidth={10}
-                type='circle'
-                size={20}
-                trailColor={theme.secondary._200}
-                strokeColor={theme.secondary.main}
-              />
-            }
-          />
-        ))}
+        {items.map((step, index) => {
+          const progressPercent = minPercent + (index / (items.length - 1)) * (100 - minPercent);
+
+          return (
+            <AntSteps.Step
+              disabled={disabled}
+              key={index}
+              title={<strong>{`${index + 1}. ${step.title}`}</strong>}
+              icon={<Progress percent={progressPercent} showInfo={false} strokeWidth={10} type='circle' size={20} />}
+            />
+          );
+        })}
       </AntSteps>
     </S.StepsWrapper>
   );
 };
-
-// export const Steps = (props: StepsProps) => {
-//   const { children, ...rest } = props;
-
-//   return (
-//     <S.StepsWrapper>
-//       <AntSteps {...rest}>{children} </AntSteps>
-//     </S.StepsWrapper>
-//   );
-// };
