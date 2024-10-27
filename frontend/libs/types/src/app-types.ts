@@ -28,7 +28,7 @@ export type TextPalette = {
   quaternary: string;
 };
 
-type BackgroundPalette = Pick<Palette, 'main' | '_50' | '_100' | '_200' | '_600' | '_700' | '_800'>;
+type BackgroundPalette = Pick<Palette, 'main' | '_50' | '_100' | '_200' | '_600'>;
 type AlertPalette = Pick<Palette, 'main' | '_50' | '_100' | '_300' | '_500' | '_600'>;
 
 export interface ITheme {

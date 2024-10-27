@@ -135,20 +135,20 @@ export default function Index() {
   const dataSource = [
     { id: 1, name: 'John Doe', age: 25 },
     { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
+    { id: 3, name: 'John Doe', age: 25 },
+    { id: 4, name: 'Jane Smith', age: 30 },
+    { id: 5, name: 'John Doe', age: 25 },
+    { id: 6, name: 'Jane Smith', age: 30 },
+    { id: 7, name: 'John Doe', age: 25 },
+    { id: 8, name: 'Jane Smith', age: 30 },
+    { id: 9, name: 'John Doe', age: 25 },
+    { id: 10, name: 'Jane Smith', age: 30 },
+    { id: 11, name: 'John Doe', age: 25 },
+    { id: 12, name: 'Jane Smith', age: 30 },
+    { id: 13, name: 'John Doe', age: 25 },
+    { id: 14, name: 'Jane Smith', age: 30 },
+    { id: 15, name: 'John Doe', age: 25 },
+    { id: 16, name: 'Jane Smith', age: 30 },
     // ...
   ];
 
@@ -159,9 +159,7 @@ export default function Index() {
       title: 'Age',
       dataIndex: 'age',
       key: 'age',
-      render: (age) => (
-        <span style={{ fontWeight: age > 30 ? 'bold' : 'normal', color: age > 25 ? '#ff4d4f' : 'blue' }}>{age}</span>
-      ),
+      render: (age) => <span style={{ color: age > 25 ? '#ff4d4f' : 'blue' }}>{age}</span>,
     },
     { title: 'ID', dataIndex: 'id', key: 'id' },
     { title: 'Name', dataIndex: 'name', key: 'name' },
@@ -291,13 +289,7 @@ export default function Index() {
             </FilterPopover>
           </Div>
           <Div>
-            <Table
-              dataSource={dataSource}
-              columns={columns}
-              hasContainer={false}
-              scroll_x={5500}
-              simpleTables={false}
-            />
+            <Table dataSource={dataSource} columns={columns} hasContainer={false} pagination={{ pageSize: 5 }} />
           </Div>
         </div>
       </Container>
