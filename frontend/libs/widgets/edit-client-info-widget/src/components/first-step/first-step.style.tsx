@@ -31,7 +31,7 @@ export const FirtStepContainer = styled.div`
         width: 1px;
         height: 4rem;
         margin-left: 1rem;
-        background-color: red;
+        //background-color: red;
         // background-color: ${(p) => p.theme.border.su};
       }
     }
@@ -44,8 +44,9 @@ export const FirtStepContainer = styled.div`
 
   .grid {
     display: grid;
-    grid-template-columns: 20rem auto;
+    grid-template-columns: 20rem 2rem auto;
     grid-template-rows: max-content auto;
+    align-items: flex-start;
 
     ${respondTo.down('sm')} {
       grid-auto-flow: column;
@@ -63,8 +64,6 @@ export const FirtStepContainer = styled.div`
         grid-column: auto;
       }
 
-      //border: 1px solid red;
-
       button {
         width: 100%;
 
@@ -76,10 +75,23 @@ export const FirtStepContainer = styled.div`
       }
     }
 
+    .line {
+      background-color: ${(p) => p.theme.border.main};
+      margin-left: 1rem;
+      width: 0.1rem;
+      height: 4rem;
+      grid-column-start: 2;
+      grid-column-start-end: 3;
+
+      ${respondTo.down('md')} {
+        height: 5rem;
+      }
+    }
+
     .item2 {
       width: 100%;
-      grid-column-start: 2;
-      grid-column-end: 4;
+      grid-column-start: 3;
+      grid-column-end: 5;
       grid-row: auto;
 
       ${respondTo.down('sm')} {
@@ -114,14 +126,22 @@ export const FirtStepContainer = styled.div`
     }
   }
 
-  .seperator {
-    margin-bottom: 1.6rem;
-  }
-
   .footer {
     display: flex;
-    flex: 1;
+    flex: 2;
     justify-content: flex-end;
     gap: 1.2rem;
+
+    ${respondTo.down('sm')} {
+      flex-direction: column;
+    }
+
+    ${respondTo.down('sm')} {
+      .return_btn {
+        order: 1;
+      }
+    }
   }
 `;
+
+export const Footer = styled.div``;

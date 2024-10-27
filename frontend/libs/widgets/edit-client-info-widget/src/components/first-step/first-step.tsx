@@ -150,6 +150,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 />
               </Form.Item>
             </div>
+            <span className={'line'}></span>
             <div className='item2'>
               {grantTypeState.map((item, index) => (
                 <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-close style-icon'}></i>}>
@@ -171,6 +172,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 />
               </Form.Item>
             </div>
+            <span className={'line'}></span>
             <div className='item2'>
               {tagsState.map((item, index) => (
                 <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-close style-icon'}></i>}>
@@ -266,10 +268,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       </div>
 
       <Divider className={'seperator'} />
-      {/*//Todo add footer button container */}
+
       <div className={'footer'}>
-        <Button variant={'outlined'}>{t('form.return')}</Button>
-        <Button htmlType={'submit'} onClick={() => form.submit()}>
+        <Button variant={'outlined'} className={'return_btn'}>
+          {t('form.return')}
+        </Button>
+        <Button htmlType={'submit'} className={'submit_btn'} onClick={() => form.submit()}>
           {t('form.register_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>
