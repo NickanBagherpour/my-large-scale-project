@@ -8,12 +8,11 @@ import {
   Tree,
 } from '@nx/devkit';
 
-import { IWidgetSchema } from './schema';
-
 import { Linter } from '@nx/linter';
 import { libraryGenerator } from '@nx/react';
+
+import { IWidgetSchema } from './schema';
 import { appendToUtilIndexFile } from './helper/append-to-util-index-file';
-import { constants } from 'buffer';
 
 export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
   const NxJsonConf = readNxJson(tree);
@@ -58,6 +57,7 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
     {
       ...schema,
       ...names(schema.name),
+      constantName: names(schema.name).constantName.replace(/_widget$/i, ''),
       pageName: schema.pageName.replace(/_widget$/i, ''),
       tmpl: '',
     } // config object to replace variable in file templates
