@@ -1,5 +1,6 @@
+import { Tabs as KitTabs } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
-export const AppContainer = styled.div`
-  // background-color: pink;
+export const Tabs = styled(KitTabs)`
+  margin-top: 2.4rem;
 `;

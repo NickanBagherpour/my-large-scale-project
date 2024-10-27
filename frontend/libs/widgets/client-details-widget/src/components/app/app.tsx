@@ -1,37 +1,32 @@
-import React from 'react';
-
-import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
-
+import { Container } from '@oxygen/ui-kit';
 import * as S from './app.style';
+import { useTr } from '@oxygen/translation';
+import ClientInfo from '../client-info/client-info';
 
-type AppProps = PageProps & {
-  //
-};
-
-const App: React.FC<AppProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
+const App = () => {
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const tabs = [
+    { label: t('client_info'), key: '1', children: <ClientInfo /> },
+    { label: t('services'), key: '2', children: 'first tab' },
+    { label: t('plugins'), key: '3', children: 'first tab' },
+  ];
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
-
-  return <S.AppContainer>ClientDetailsWidget</S.AppContainer>;
+  return (
+    <Container title={'App-Bale'}>
+      <S.Tabs
+        type='line'
+        onChange={(e) => console.log(':)', e)}
+        items={tabs.map(({ label, key, children }) => {
+          return {
+            label,
+            key,
+            children,
+          };
+        })}
+      />
+    </Container>
+  );
 };
 
 export default App;
