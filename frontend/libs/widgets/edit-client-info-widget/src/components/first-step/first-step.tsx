@@ -1,0 +1,259 @@
+import React, { useState } from 'react';
+
+import { useTr } from '@oxygen/translation';
+import { PageProps } from '@oxygen/types';
+
+import { useAppDispatch, useAppState } from '../../context';
+//import { useGetReportDataQuery } from '../../services';
+import * as S from './first-step.style';
+import { Form } from 'antd';
+import { Button, Chip, Divider, Input, SearchItemsContainer, Select, Switch, TagInput } from '@oxygen/ui-kit';
+import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
+import { useGetTags } from '../../services/get-tag-info.api';
+
+type FirstStepProps = PageProps & {
+  //
+};
+
+const FirstStep: React.FC<FirstStepProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const state = useAppState();
+  const [t] = useTr();
+  const [form] = Form.useForm();
+  const [grantTypeState, setGrantTypeState] = useState<any>([]);
+  const [tagsState, setTagsState] = useState<any>([]);
+
+  const { data: grantType } = useGetGrantTypeQuery();
+
+  const { data: tags } = useGetTags();
+
+  const FormItem = {
+    latin_name_client: 'latin-name-client',
+    persian_name_client: 'persian_name_client',
+    client_type: 'client_type',
+    client_id: 'client_id',
+    identity_auth: 'identity_auth',
+    website_url: 'website_url',
+    input_address: 'input_address',
+    return_address: 'return_address',
+    aggregator_status: 'aggregator_status',
+    aggregator: 'aggregator',
+    user_name: 'user_name',
+    national_code: 'national_code',
+    organization_name: 'organization_name',
+    mobile_number: 'mobile_number',
+    telephone: 'telephone',
+    email: 'email',
+  };
+
+  const grantTypeData = grantType?.content ?? [];
+
+  const tagsData = tags?.content ?? [];
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
+
+  const handleGrantTypeChange = (value: string, e) => {
+    e.stopPropagation(); // Prevent dropdown from closing
+    e.preventDefault(); // Prevent default behavior
+    setGrantTypeState((prev) => {
+      const existingItem = prev.find((item) => item.value === value);
+      if (existingItem) {
+        return prev.filter((item) => item.value !== value);
+      } else {
+        const optionToAdd = grantTypeData.find((option) => option.value === value);
+        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
+      }
+    });
+  };
+
+  const handleTagsChange = (value: string, e) => {
+    e.stopPropagation(); // Prevent dropdown from closing
+    e.preventDefault(); // Prevent default behavior
+    setTagsState((prev) => {
+      const existingItem = prev.find((item) => item.value === value);
+      if (existingItem) {
+        return prev.filter((item) => item.value !== value);
+      } else {
+        const optionToAdd = tagsData.find((option) => option.value === value);
+        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
+      }
+    });
+  };
+
+  const options = [
+    { value: 'jack', label: 'Jack' },
+    { value: 'lucy', label: 'Lucy' },
+    { value: 'Yiminghe', label: 'yiminghe' },
+    { value: 'disabled', label: 'Disabled', disabled: true },
+  ];
+
+  const otherOption = [
+    {
+      value: 'jack',
+      label: 'Jack (100)',
+    },
+    {
+      value: 'lucy',
+      label: 'Lucy (101)',
+    },
+  ];
+
+  return (
+    <S.FirtStepContainer>
+      <div className={'form_wrapper'}>
+        <p className={'cards-title'}>{t('edit_client_info')}</p>
+        <Form layout={'vertical'} onFinish={onFinish} form={form}>
+          {/*<Box className={'tag_input'}>*/}
+          {/*  <Form.Item name='grantType' className={'drop_down_input'}>*/}
+          {/*    <TagInput*/}
+          {/*      buttonCaption={t('form.grant_type')}*/}
+          {/*      options={grantTypeData}*/}
+          {/*      multiSelect={true}*/}
+          {/*      handleCheckboxChange={handleGrantTypeChange}*/}
+          {/*      setCheckedItems={setGrantTypeState}*/}
+          {/*      checkedItems={grantTypeState}*/}
+          {/*    />*/}
+          {/*  </Form.Item>*/}
+          {/*  <Box flexGrow={8} flexWrap={'wrap'}>*/}
+          {/*    {grantTypeState.map((item, index) => (*/}
+          {/*      <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>*/}
+          {/*        {item.label}*/}
+          {/*      </Chip>*/}
+          {/*    ))}*/}
+          {/*  </Box>*/}
+          {/*</Box>*/}
+          {/*<Box className={'tag_input'}>*/}
+          {/*  <Form.Item name='grantType' className={'drop_down_input'}>*/}
+          {/*    <TagInput*/}
+          {/*      buttonCaption={t('form.add_tags')}*/}
+          {/*      options={tagsData}*/}
+          {/*      multiSelect={true}*/}
+          {/*      handleCheckboxChange={handleTagsChange}*/}
+          {/*      setCheckedItems={setTagsState}*/}
+          {/*      checkedItems={tagsState}*/}
+          {/*    />*/}
+          {/*  </Form.Item>*/}
+          {/*  <Box flexGrow={8} flexWrap={'wrap'}>*/}
+          {/*    {tagsState.map((item, index) => (*/}
+          {/*      <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>*/}
+          {/*        {item.label}*/}
+          {/*      </Chip>*/}
+          {/*    ))}*/}
+          {/*  </Box>*/}
+          {/*</Box>*/}
+          <div className={'grid'}>
+            <div className='item1'>
+              <Form.Item name='grantType' className={'drop_down_input'}>
+                <TagInput
+                  buttonCaption={t('form.grant_type')}
+                  options={grantTypeData}
+                  multiSelect={true}
+                  handleCheckboxChange={handleGrantTypeChange}
+                  setCheckedItems={setGrantTypeState}
+                  checkedItems={grantTypeState}
+                />
+              </Form.Item>
+            </div>
+            <div className='item2'>
+              {grantTypeState.map((item, index) => (
+                <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>
+                  {item.label}
+                </Chip>
+              ))}
+            </div>
+
+            {/*<div className='grid'>*/}
+            {/*  <div className='item1'>*/}
+            {/*    <Form.Item name='grantType' className={'drop_down_input'}>*/}
+            {/*      <TagInput*/}
+            {/*        buttonCaption={t('form.add_tags')}*/}
+            {/*        options={tagsData}*/}
+            {/*        multiSelect={true}*/}
+            {/*        handleCheckboxChange={handleTagsChange}*/}
+            {/*        setCheckedItems={setTagsState}*/}
+            {/*        checkedItems={tagsState}*/}
+            {/*      />*/}
+            {/*    </Form.Item>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
+
+            {/*<div className='item3'>3</div>*/}
+            {/*<div className='item4'>4</div>*/}
+          </div>
+          <div className={'grid'}>
+            <div className='item1'>
+              <Form.Item name='grantType' className={'drop_down_input'}>
+                <TagInput
+                  buttonCaption={t('form.add_tags')}
+                  options={tagsData}
+                  multiSelect={true}
+                  handleCheckboxChange={handleTagsChange}
+                  setCheckedItems={setTagsState}
+                  checkedItems={tagsState}
+                />
+              </Form.Item>
+            </div>
+            <div className='item2'>
+              {tagsState.map((item, index) => (
+                <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>
+                  {item.label}
+                </Chip>
+              ))}
+            </div>
+          </div>
+
+          <SearchItemsContainer>
+            <Form.Item name={FormItem.latin_name_client} label={t('form.latin_name_client')}>
+              <Input placeholder={'app-bale'} />
+            </Form.Item>
+            <Form.Item name={FormItem.persian_name_client} label={t('form.persian_name_client')}>
+              <Input placeholder={t('placeholder.client_bale')} />
+            </Form.Item>
+            <Form.Item name={FormItem.client_type} label={t('form.client_type')}>
+              <Select size={'middle'} placeholder={t('placeholder.credit_system')} options={otherOption}></Select>
+            </Form.Item>
+            <Form.Item name={FormItem.client_id} label={t('form.client_id')}>
+              <Input placeholder={t('placeholder.client_id')} />
+            </Form.Item>
+            <Form.Item name={FormItem.identity_auth} label={t('form.identity_auth')}>
+              <Input placeholder={t('placeholder.identity_auth')} />
+            </Form.Item>
+            <Form.Item name={FormItem.website_url} label={t('form.website_url')}>
+              <Input placeholder={t('placeholder.website_url')} />
+            </Form.Item>
+            <Form.Item name={FormItem.input_address} label={t('form.input_address')}>
+              <Input placeholder={t('placeholder.input_address')} />
+            </Form.Item>
+            <Form.Item name={FormItem.return_address} label={t('form.return_address')}>
+              <Input placeholder={t('placeholder.return_address')} />
+            </Form.Item>
+            <Form.Item
+              name={FormItem.aggregator_status}
+              className={'label-switch'}
+              layout={'horizontal'}
+              label={t('form.aggregator_status')}
+            >
+              <Switch />
+            </Form.Item>
+            <Form.Item name={FormItem.aggregator} label={t('form.aggregator')}>
+              <Select size={'middle'} options={options} placeholder={t('placeholder.faraboom')}></Select>
+            </Form.Item>
+          </SearchItemsContainer>
+        </Form>
+      </div>
+
+      <Divider className={'seperator'} />
+      {/*//Todo add footer button container */}
+      <div className={'footer'}>
+        <Button variant={'outlined'}>{t('form.return')}</Button>
+        <Button htmlType={'submit'} onClick={() => form.submit()}>
+          {t('form.register_info')}
+        </Button>
+      </div>
+    </S.FirtStepContainer>
+  );
+};
+
+export default FirstStep;

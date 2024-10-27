@@ -32,6 +32,9 @@
             "@oxygen/widgets/clients-list-widget": [
                 "libs/widgets/clients-list-widget/src/index.ts"
             ],
+            "@oxygen/widgets/edit-client-info-widget": [
+                "libs/widgets/edit-client-info-widget/src/index.ts"
+            ],
             "@oxygen/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"
             ],
