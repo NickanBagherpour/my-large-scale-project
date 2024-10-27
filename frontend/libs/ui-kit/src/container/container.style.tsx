@@ -2,17 +2,18 @@ import { cssVar } from '@oxygen/utils';
 
 import styled from 'styled-components';
 
-export const WidgetWrapperContainer = styled.div<{ isFullHeight: boolean }>`
+export const WidgetWrapperContainer = styled.div<{ fill_container: boolean }>`
   display: flex;
   flex-direction: column;
-  min-height: ${(props) => (props.isFullHeight ? '100%' : 'auto')};
+  // min-height: ${(props) => (props.fill_container ? '100%' : 'auto')};
   // color: ${(props) => props.theme.primary.main};
   border-radius: var(${cssVar.radius});
   background-color: ${(props) => props.theme.surface};
   padding: 0 1.6rem;
+  flex-grow: ${(props) => (props.fill_container ? '1' : 'unset')};
 `;
 
-export const BodyContainer = styled.div<any>`
+export const BodyContainer = styled.div`
   width: 100%;
   height: max-content;
   background-color: ${(props) => props.theme.surface};
