@@ -10,7 +10,7 @@ import { useTr } from '@oxygen/translation';
 
 type Props = {
   className?: string;
-  style: CSSProperties;
+  style?: CSSProperties;
   onClear: () => void;
   onSelect: (item: ClientService) => void;
 };

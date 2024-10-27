@@ -1,7 +1,11 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "strict": true,
+        "plugins": [
+            {
+                "name": "typescript-styled-plugin"
+            }
+        ],
         "rootDir": ".",
         "sourceMap": true,
         "declaration": false,
@@ -29,8 +33,11 @@
             "@oxygen/types": ["libs/types/src/index.ts"],
             "@oxygen/ui-kit": ["libs/ui-kit/src/index.ts"],
             "@oxygen/utils": ["libs/utils/src/index.ts"],
-            "@oxygen/widgets/clients-list-widget": [
-                "libs/widgets/clients-list-widget/src/index.ts"
+            "@oxygen/widgets/client-list-widget": [
+                "libs/widgets/client-list-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/create-new-client-widget": [
+                "libs/widgets/create-new-client-widget/src/index.ts"
             ],
             "@oxygen/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"

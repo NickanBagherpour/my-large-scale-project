@@ -43,7 +43,7 @@ export const InfoBoxWrapper = styled.div<any>`
     font-weight: 500;
     color: ${(p) => p.theme.text.primary};
     white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
-    display: block; /* Ensure block display */
+    display: block;
   }
 
   & .info-box__value-wrapper {
@@ -55,10 +55,10 @@ export const InfoBoxWrapper = styled.div<any>`
   }
 
   & .fullwidth {
-    grid-column: 1 / -1; /* Span all columns */
+    grid-column: 1 / -1;
     display: block;
     Ensure block display ${respondTo.down('md')} {
-      grid-column: 1 / -1; /* Adjust for responsive grid span */
+      grid-column: 1 / -1;
     }
   }
 
