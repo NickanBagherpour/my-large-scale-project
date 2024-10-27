@@ -1,8 +1,8 @@
 'use client';
 
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { useTheme } from 'styled-components';
-import { Checkbox, Dropdown, DropdownProps, MenuProps } from 'antd';
+import { Checkbox, Dropdown, DropdownProps } from 'antd';
 
 import { Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -36,6 +36,8 @@ export const TagInput = (props: TagInputProps) => {
 
   const IS_SELECTED_ALL = !!options && checkedItems?.length === options?.length;
 
+  const checkboxClicked = useRef(false);
+
   const handleSelectAll = (e) => {
     if (!multiSelect) return;
 
@@ -43,7 +45,6 @@ export const TagInput = (props: TagInputProps) => {
   };
 
   function updateSelectedValues(option: DropdownOption, isSelectAll = false) {
-    console.log('updateSelectedValues');
     if (isSelectAll) {
       return IS_SELECTED_ALL ? [] : options;
     }
@@ -67,8 +68,6 @@ export const TagInput = (props: TagInputProps) => {
   }
 
   const handleOnChange = (e, value, isSelectAll = false) => {
-    console.log('handleOnChange');
-
     const newValues = updateSelectedValues(value, isSelectAll);
 
     setCheckedItems(newValues);
@@ -79,20 +78,19 @@ export const TagInput = (props: TagInputProps) => {
   };
 
   function handleMenuClick(info) {
-    console.log('handleMenuClick', info.key, info.item, info.domEvent);
-    /*
-    console.log('menu click');
-        if (!multiSelect) setCheckedItems([e.key]);
-      */
-    // info.domEvent.nativeEvent.stopPropagation();
+    info.domEvent.stopPropagation();
 
-    if (info.key === 'selectAll') {
-      //handle selectAll
-      handleSelectAll(info.domEvent);
+    if (checkboxClicked.current && info.domEvent.target.tagName.toUpperCase() === 'SPAN') {
+      checkboxClicked.current = false; // Reset the flag and skip handling
       return;
     }
 
-    if (info.domEvent.target.tagName.toUpperCase() === 'INPUT') {
+    // if (info.domEvent.target.tagName.toUpperCase() === 'INPUT') {
+    //   return;
+    // }
+
+    if (info.key === 'selectAll') {
+      handleSelectAll(info.domEvent);
       return;
     }
 
@@ -104,19 +102,17 @@ export const TagInput = (props: TagInputProps) => {
     const foundItem = getOptionByKey(info.key);
 
     handleOnChange(null, foundItem);
-
-    // console.log('handleMenuClick', foundItem, info.domEvent.target.tagName.toUpperCase());
   }
 
-  const handleLabelClick = (e: React.MouseEvent) => {
-    console.log('handleLabelClick');
-    e.stopPropagation();
-
-    if (multiSelect) {
-      e.preventDefault(); // Prevent default behavior to keep dropdown open
-      setOpen(true);
-    }
-  };
+  // const handleLabelClick = (e: React.MouseEvent) => {
+  //   console.log('handleLabelClick');
+  //   e.stopPropagation();
+  //
+  //   if (multiSelect) {
+  //     e.preventDefault(); // Prevent default behavior to keep dropdown open
+  //     setOpen(true);
+  //   }
+  // };
 
   function getOptionByKey(key: string) {
     return options.find((item) => item.value === key);
@@ -129,10 +125,14 @@ export const TagInput = (props: TagInputProps) => {
           label: (
             <Checkbox
               checked={IS_SELECTED_ALL}
-              // onChange={handleSelectAll}
+              onClick={(e) => {
+                checkboxClicked.current = true;
+                e.stopPropagation();
+              }}
+              onChange={handleSelectAll}
               indeterminate={checkedItems?.length > 0 && checkedItems?.length !== options?.length}
             >
-              {t('uikit.select_all')}
+              <span>{t('uikit.select_all')}</span>
             </Checkbox>
           ),
           key: 'selectAll',
@@ -150,24 +150,16 @@ export const TagInput = (props: TagInputProps) => {
       label: multiSelect ? (
         <Checkbox
           checked={checkedItems?.some((item) => item.value === option.value)}
-          onClick={(e) => e.stopPropagation()}
-          onChange={(e) => {
-            // handleOnChange(e, option);
-            // setOpen(true); // Ensure dropdown opens when checkbox is clicked
-          }}
-        >
-          <span onMouseDown={handleLabelClick}>{option.label}</span>
-          {/* Prevent dropdown close on label click */}
-          {/* {option.label} */}
-        </Checkbox>
-      ) : (
-        <span
           onClick={(e) => {
-            // handleOnChange(e, option);
+            e.stopPropagation(); // Prevent dropdown from closing
+            checkboxClicked.current = true; // Set flag to indicate checkbox click
+            handleMenuClick({ key: option.value, domEvent: e });
           }}
         >
           {option.label}
-        </span>
+        </Checkbox>
+      ) : (
+        <span>{option.label}</span>
       ),
       style: {
         backgroundColor: checkedItems?.some((item) => item.value === option.value) ? theme.primary._50 : '',
