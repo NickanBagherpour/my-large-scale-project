@@ -31,7 +31,8 @@ export const FirtStepContainer = styled.div`
         width: 1px;
         height: 4rem;
         margin-left: 1rem;
-        background-color: ${(p) => p.theme.border.main};
+        background-color: red;
+        // background-color: ${(p) => p.theme.border.su};
       }
     }
   }
@@ -62,8 +63,16 @@ export const FirtStepContainer = styled.div`
         grid-column: auto;
       }
 
+      //border: 1px solid red;
+
       button {
         width: 100%;
+
+        .ant-space.bjcYak {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
       }
     }
 
@@ -78,6 +87,11 @@ export const FirtStepContainer = styled.div`
         grid-column-end: 4;
         grid-column: auto;
         margin-bottom: 1rem;
+      }
+
+      .style-icon {
+        font-size: 1.4rem;
+        color: ${(p) => p.theme.text.primary};
       }
 
       padding: 0;

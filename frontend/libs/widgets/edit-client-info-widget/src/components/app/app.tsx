@@ -32,6 +32,7 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer>
       <Container title={t('widget_name')}>
         <FirstStep />
+        {/*<SecondStep />*/}
       </Container>
     </S.AppContainer>
   );
