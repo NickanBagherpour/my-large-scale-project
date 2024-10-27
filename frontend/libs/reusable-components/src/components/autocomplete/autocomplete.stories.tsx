@@ -5,15 +5,6 @@ import Autocomplete from './autocomplete';
 const meta = {
   title: 'Reusable-Components/Autocomplete',
   component: Autocomplete,
-  argTypes: {
-    style: { control: 'object' },
-  },
-} satisfies Meta<typeof Autocomplete>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const DefaultStory: Story = {
   args: {
     onClear: fn(),
     onSelect: fn(),
@@ -21,4 +12,9 @@ export const DefaultStory: Story = {
       width: '100%',
     },
   },
-};
+} satisfies Meta<typeof Autocomplete>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const DefaultStory: Story = {};

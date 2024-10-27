@@ -48,12 +48,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
         <Box>
           <Form.Item className={'tag-input'}>
+            {/*
             <TagInput
               handleCheckboxChange={(value, e) => console.log('handleCheckboxChange', value)}
               buttonCaption={t('form.grant_type')}
               options={['af', 'asdf']}
               multiSelect={false}
             />
+            */}
           </Form.Item>
           <Box flexGrow={9} marginLeft={'1rem'}>
             <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>
@@ -64,7 +66,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
         <Box>
           <Form.Item className={'tag-input'}>
+            {/*
             <TagInput buttonCaption={t('form.grant_type')} options={['af', 'asdf']} multiSelect={true} />
+            */}
           </Form.Item>
           <Box flexGrow={9} marginLeft={'1rem'}>
             <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-sun-fill'}></i>}>

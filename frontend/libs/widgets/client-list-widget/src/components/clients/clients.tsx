@@ -1,4 +1,4 @@
-import * as S from './grid.style';
+import * as S from './clients.style';
 import { GridCard } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ClientType } from '../../types';
@@ -12,7 +12,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export default function Grid(props: Props) {
+export default function Clients(props: Props) {
   const { data, total, searchTerm, isLoading } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export default function Grid(props: Props) {
 
   return (
     <>
-      <S.Container>
+      <S.Grid>
         {data.map(({ name, description, isActiveInTheService, date }, idx) => (
           <GridCard
             key={idx}
@@ -34,7 +34,7 @@ export default function Grid(props: Props) {
             href='/'
           />
         ))}
-      </S.Container>
+      </S.Grid>
 
       {showLoadMore && (
         <S.Button variant='text' color='primary' disabled={isLoading} onClick={() => updatePagination(dispatch)}>
