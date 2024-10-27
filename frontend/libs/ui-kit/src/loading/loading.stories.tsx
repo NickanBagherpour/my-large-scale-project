@@ -53,7 +53,7 @@ Default.args = {};
 
 // All Variants Story
 export const AllVariants: StoryFn = () => {
-  const sizes: any= argTypes.size.options;
+  const sizes: any = argTypes.size.options;
 
   // Custom loading indicator using Ant Design icons
   const customIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -74,8 +74,8 @@ export const AllVariants: StoryFn = () => {
       <div>
         <h3>With Tips</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Loading tip="Loading..." />
-          <Loading tip="Please wait..." />
+          <Loading tip='Loading...' />
+          <Loading tip='Please wait...' />
         </div>
       </div>
 
@@ -91,7 +91,6 @@ export const AllVariants: StoryFn = () => {
         <h3>Custom Indicator</h3>
         <Loading indicator={customIcon} />
       </div>
-
     </div>
   );
 };
