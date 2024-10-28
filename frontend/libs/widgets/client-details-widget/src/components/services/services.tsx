@@ -2,6 +2,8 @@ import { useTr } from '@oxygen/translation';
 import { Button, type ColumnsType, Input, Switch, Table } from '@oxygen/ui-kit';
 import * as S from './services.style';
 import Link from 'next/link';
+import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
+import { useToggle } from '@oxygen/hooks';
 
 const dataSource = Array.from({ length: 7 }).map(() => ({
   serviceName: 'samat-lc-gutr-del',
@@ -16,6 +18,7 @@ const dataSource = Array.from({ length: 7 }).map(() => ({
 
 export default function Services() {
   const [t] = useTr();
+  const [isRemoveModalOpen, toggleIsRemoveModalOpen] = useToggle(false);
 
   const columns: ColumnsType<(typeof dataSource)[number]> = [
     {
@@ -82,7 +85,7 @@ export default function Services() {
       dataIndex: 'remove',
       key: 'remove',
       render: () => (
-        <Button variant='text' color='error'>
+        <Button variant='text' color='error' onClick={toggleIsRemoveModalOpen}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -90,13 +93,15 @@ export default function Services() {
   ];
 
   return (
-    <section>
+    <>
       <S.Header>
         <S.Title>{t('client_services')}</S.Title>
         <Input size='large' placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
       </S.Header>
 
       <Table dataSource={dataSource} columns={columns} pagination={{ position: ['bottomCenter'] }} />
-    </section>
+
+      <RemoveServiceModal isOpen={isRemoveModalOpen} toggle={toggleIsRemoveModalOpen} id={'samat-lc-gutr-del'} />
+    </>
   );
 }

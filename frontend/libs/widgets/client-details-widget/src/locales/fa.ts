@@ -45,7 +45,6 @@ export default {
   second: 'ثانیه',
   minute: 'دقیقه',
   hour: 'ساعت',
-
   client_services: 'سرویس‌های کلاینت',
   searchByNames: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   service_name: 'نام سرویس',
@@ -54,4 +53,11 @@ export default {
   details: 'جزئیات',
   operational: 'عملیاتی',
   stop: 'توقف',
+  remove_service: 'حذف سرویس',
+  are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این کلاینت اطمینان دارید؟',
+  make_operational: 'عملیاتی سازی',
+  are_you_sure_to_make_operational: 'آیا سرویس samat-lc-gutr-del برای این کلاینت عملیاتی شود؟',
+  stop_service: 'توقف سرویس',
+  are_you_sure_to_stop_service: 'آیا سرویس samat-lc-gutr-del برای این کلاینت متوقف شود؟',
+  remove: 'حذف',
 };
