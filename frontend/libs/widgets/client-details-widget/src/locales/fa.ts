@@ -23,4 +23,18 @@ export default {
   mobile: 'تلفن همراه',
   phone: 'تلفن',
   email: 'ایمیل',
+
+  app_plugins_for_each_service: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
+  add_limits_for_services: 'تنظیم محدودیت فراخوانی برای همه سرویس‌ها',
+  search_by_service_name: 'جستجو براساس نام سرویس',
+  version: 'نسخه',
+  scope: 'اسکوپ',
+  upstream: 'آپ‌استریم',
+
+  service: 'سرویس',
+  english_name: 'نام لاتین',
+  status: 'وضعیت',
+  rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
+  non_denial: 'عدم انکار',
+  new_request_validation: 'اعتبارسنجی درخواست جدید',
 };
