@@ -56,9 +56,9 @@ export default {
   remove_service: 'حذف سرویس',
   are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این کلاینت اطمینان دارید؟',
   make_operational: 'عملیاتی سازی',
-  are_you_sure_to_make_operational: 'آیا سرویس samat-lc-gutr-del برای این کلاینت عملیاتی شود؟',
+  are_you_sure_to_make_operational: 'آیا سرویس {{id}} برای این کلاینت عملیاتی شود؟',
   stop_service: 'توقف سرویس',
-  are_you_sure_to_stop_service: 'آیا سرویس samat-lc-gutr-del برای این کلاینت متوقف شود؟',
+  are_you_sure_to_stop_service: 'آیا سرویس {{id}} برای این کلاینت متوقف شود؟',
   remove: 'حذف',
 
   service_detail: 'جزئیات سرویس',

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
 import { useToggle } from '@oxygen/hooks';
 import DetailsModal from '../details-modal/details-modal';
+import StartServiceModal from '../start-service-modal/start-service-modal';
+import StopServiceModal from '../stop-service-modal/stop-service-modal';
 
 const dataSource = Array.from({ length: 7 }).map(() => ({
   serviceName: 'samat-lc-gutr-del',
@@ -21,6 +23,8 @@ export default function Services() {
   const [t] = useTr();
   const [isRemoveModalOpen, toggleIsRemoveModalOpen] = useToggle(false);
   const [isDetailsModalOpen, toggleIsDetailsModalOpen] = useToggle(false);
+  const [isStopModalOpen, toggleIsStopModalOpen] = useToggle(false);
+  const [isStartModalOpen, toggleIsStartModalOpen] = useToggle(false);
 
   const columns: ColumnsType<(typeof dataSource)[number]> = [
     {
@@ -65,7 +69,11 @@ export default function Services() {
       render: () => (
         <S.Status>
           <S.StatusTxt>{t('operational')}</S.StatusTxt>
-          <Switch />
+          <Switch
+            onChange={(checked) => {
+              checked ? toggleIsStopModalOpen() : toggleIsStartModalOpen();
+            }}
+          />
           <S.StatusTxt>{t('stop')}</S.StatusTxt>
         </S.Status>
       ),
@@ -103,6 +111,8 @@ export default function Services() {
 
       <Table dataSource={dataSource} columns={columns} pagination={{ position: ['bottomCenter'] }} />
 
+      <StopServiceModal isOpen={isStopModalOpen} toggle={toggleIsStopModalOpen} id={'samat-lc-gutr-del'} />
+      <StartServiceModal isOpen={isStartModalOpen} toggle={toggleIsStartModalOpen} id={'samat-lc-gutr-del'} />
       <RemoveServiceModal isOpen={isRemoveModalOpen} toggle={toggleIsRemoveModalOpen} id={'samat-lc-gutr-del'} />
       <DetailsModal isOpen={isDetailsModalOpen} toggle={toggleIsDetailsModalOpen} />
     </>
