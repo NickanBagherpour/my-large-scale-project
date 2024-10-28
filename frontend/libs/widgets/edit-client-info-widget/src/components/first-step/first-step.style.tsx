@@ -42,7 +42,7 @@ export const FirtStepContainer = styled.div`
       button {
         width: 100%;
 
-        .ant-space.bjcYak {
+        .ant-space {
           display: flex;
           justify-content: space-between;
           width: 100%;

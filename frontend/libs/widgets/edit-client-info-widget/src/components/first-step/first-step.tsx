@@ -8,7 +8,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 import * as S from './first-step.style';
 import { Form } from 'antd';
-import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
+import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 
 import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
 import { useGetTags } from '../../services/get-tag-info.api';
@@ -26,12 +26,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [tagsState, setTagsState] = useState<any>([]);
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
 
-  const { data: grantType } = useGetGrantTypeQuery();
+  const { data: grantType, isFetching: grantTypeFetching } = useGetGrantTypeQuery();
 
-  const { data: tags } = useGetTags();
+  const { data: tags, isFetching: tagsFetching } = useGetTags();
 
   const FormItem = {
     latin_name_client: 'latin_name_client',
+    grant_type: 'grant_type',
+    tags: 'tags',
     persian_name_client: 'persian_name_client',
     client_type: 'client_type',
     client_id: 'client_id',
@@ -63,10 +65,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   });
 
   type FormValues = z.infer<typeof formSchema>;
-  //
-  // const grantTypeData = grantType?.content ?? [];
-  //
-  // const tagsData = tags?.content ?? [];
+
+  const grantTypeData = grantType?.content ?? [];
+
+  const tagsData = tags?.content ?? [];
 
   const onFinish = async (values) => {
     try {
@@ -86,11 +88,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     }
   };
 
-  const handleGrantTypeChange = (e, value: any) => {
+  const handleGrantTypeChange = (value) => {
     setGrantTypeState(value);
   };
 
-  const handleTagsChange = (e, value: any) => {
+  const handleTagsChange = (value) => {
     setTagsState(value);
   };
 
@@ -119,14 +121,16 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <div className={'grid'}>
             <div className='item1'>
-              {/*<Form.Item name='grantType' className={'drop_down_input'}>*/}
-              {/*  <TagInput*/}
-              {/*    title={t('form.grant_type')}*/}
-              {/*    options={grantTypeData}*/}
-              {/*    multiSelect={true}*/}
-              {/*    onChange={handleGrantTypeChange}*/}
-              {/*  />*/}
-              {/*</Form.Item>*/}
+              <Form.Item name={FormItem.grant_type} className={'drop_down_input'}>
+                <Dropdown.Select
+                  loading={grantTypeFetching}
+                  menu={grantTypeData}
+                  multiSelect={true}
+                  onChange={handleGrantTypeChange}
+                >
+                  {t('form.grant_type')}
+                </Dropdown.Select>
+              </Form.Item>
             </div>
             <span className={'line'}></span>
             <div className='item2'>
@@ -139,14 +143,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </div>
           <div className={'grid'}>
             <div className='item1'>
-              {/*<Form.Item name='tags' className={'drop_down_input'}>*/}
-              {/*  <TagInput*/}
-              {/*    title={t('form.add_tags')}*/}
-              {/*    options={tagsData}*/}
-              {/*    multiSelect={true}*/}
-              {/*    onChange={handleTagsChange}*/}
-              {/*  />*/}
-              {/*</Form.Item>*/}
+              <Form.Item name={FormItem.tags} className={'drop_down_input'}>
+                <Dropdown.Select loading={tagsFetching} menu={tagsData} multiSelect={true} onChange={handleTagsChange}>
+                  {t('form.add_tags')}
+                </Dropdown.Select>
+              </Form.Item>
             </div>
             <span className={'line'}></span>
             <div className='item2'>
