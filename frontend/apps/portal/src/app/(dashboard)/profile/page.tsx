@@ -13,7 +13,7 @@ import {
   Container,
   Table,
   TagInput,
-  DropdownOptions,
+  DropdownOption,
   Divider,
 } from '@oxygen/ui-kit';
 import { FilterPopover, FilterType } from '@oxygen/reusable-components';
@@ -45,7 +45,7 @@ const Div = styled.div`
   margin-left: 2rem;
   margin-bottom: 2rem;
 `;
-const dropdownOptions: DropdownOptions[] = [
+const dropdownOptions: DropdownOption[] = [
   { label: 'Client Flow', value: 'option1' },
   { label: 'Password Flow', value: 'option2' },
   { label: 'Implicit Flow', value: 'option4' },
@@ -56,8 +56,7 @@ const dropdownOptions: DropdownOptions[] = [
   { label: 'Implicit Flow', value: 'option9' },
   { label: 'Refresh Token', value: 'option10' },
 ];
-//for single select mode:
-// const dropdownOptions = ['Client Flow', 'Password Flow', 'Implicit Flow', 'Refresh Token', 'Client Floww', 'Password Floww', 'Implicit Floww', 'Refresh Tokenn'];
+
 const items: TabsProps['items'] = [
   {
     key: '1',
@@ -108,28 +107,20 @@ export default function Index() {
   function onChange(key: string) {
     console.log('invoked filter : ', key);
   }
-  //for single select mode:
-  // const handleCheckboxChange = (value: string, e) => {
-  //   e.stopPropagation(); // Prevent dropdown from closing
-  //   e.preventDefault(); // Prevent default behavior
-  //   if (checkedItems.includes(value)) {
-  //     setCheckedItems([])
-  //   } else {
-  //     setCheckedItems([value])
-  //   }
-  // }
-  const handleCheckboxChange = (value: string, e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
-    e.preventDefault(); // Prevent default behavior
-    setCheckedItems((prev) => {
-      const existingItem = prev.find((item) => item.value === value);
-      if (existingItem) {
-        return prev.filter((item) => item.value !== value);
-      } else {
-        const optionToAdd = dropdownOptions.find((option) => option.value === value);
-        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
-      }
-    });
+
+  const handleCheckboxChange = (e, values, value) => {
+    //console.log('handleCheckboxChange', value, values);
+    /* e.stopPropagation(); // Prevent dropdown from closing
+     e.preventDefault(); // Prevent default behavior
+     setCheckedItems((prev) => {
+       const existingItem = prev.find((item) => item.value === value);
+       if (existingItem) {
+         return prev.filter((item) => item.value !== value);
+       } else {
+         const optionToAdd = dropdownOptions.find((option) => option.value === value);
+         return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
+       }
+     });*/
   };
 
   const dataSource = [
@@ -205,22 +196,25 @@ export default function Index() {
         />
         <TagInputContainer>
           <TagInput
-            buttonCaption={' اضافه‌کردن Grant Type'}
+            title={' اضافه‌کردن Grant Type'}
             options={dropdownOptions}
             multiSelect={true}
-            handleCheckboxChange={handleCheckboxChange}
-            checkedItems={checkedItems}
-            setCheckedItems={setCheckedItems}
+            onChange={handleCheckboxChange}
+            loading={false}
+            defaultValue={
+              [
+                /*   {
+                label: "Client Flow",
+                value: "option1"
+              },
+              {
+                label: "Password Flow",
+                value: "option2"
+              }*/
+              ]
+            }
           />
           {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
-          {/*//for single select mode:*/}
-          {/*{checkedItems[0] &&*/}
-          {/*  <Chip className={'chip-style'} closable={true}*/}
-          {/*        onClose={(e) => handleCheckboxChange(checkedItems[0], e)}*/}
-          {/*  >*/}
-          {/*    {checkedItems[0]}*/}
-          {/*  </Chip>*/}
-          {/*}*/}
           {checkedItems.map((item) => {
             return (
               <React.Fragment key={item.value}>
@@ -228,7 +222,7 @@ export default function Index() {
                   className={'chip-style'}
                   closable={true}
                   onClose={(e) => {
-                    handleCheckboxChange(item.value, e);
+                    // handleCheckboxChange(item.value, e);
                   }}
                 >
                   {item?.label}
