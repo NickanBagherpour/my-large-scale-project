@@ -28,7 +28,7 @@ const App: React.FC<AppProps> = (props) => {
   // }
 
   return (
-    <S.AppContainer fillContainer={true}>
+    <S.AppContainer fillContainer={true} title={t('widget_name')}>
       <FirstStep />
     </S.AppContainer>
   );

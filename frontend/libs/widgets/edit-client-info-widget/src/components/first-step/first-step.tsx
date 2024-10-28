@@ -8,7 +8,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 import * as S from './first-step.style';
 import { Form } from 'antd';
-import { Button, Chip, Input, SearchItemsContainer, Select, Switch, TagInput } from '@oxygen/ui-kit';
+import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 
 import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
 import { useGetTags } from '../../services/get-tag-info.api';
@@ -63,10 +63,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   });
 
   type FormValues = z.infer<typeof formSchema>;
-
-  const grantTypeData = grantType?.content ?? [];
-
-  const tagsData = tags?.content ?? [];
+  //
+  // const grantTypeData = grantType?.content ?? [];
+  //
+  // const tagsData = tags?.content ?? [];
 
   const onFinish = async (values) => {
     try {
@@ -86,32 +86,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     }
   };
 
-  const handleGrantTypeChange = (value: string, e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
-    e.preventDefault(); // Prevent default behavior
-    setGrantTypeState((prev) => {
-      const existingItem = prev.find((item) => item.value === value);
-      if (existingItem) {
-        return prev.filter((item) => item.value !== value);
-      } else {
-        const optionToAdd = grantTypeData.find((option) => option.value === value);
-        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
-      }
-    });
+  const handleGrantTypeChange = (e, value: any) => {
+    setGrantTypeState(value);
   };
 
-  const handleTagsChange = (value: string, e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
-    e.preventDefault(); // Prevent default behavior
-    setTagsState((prev) => {
-      const existingItem = prev.find((item) => item.value === value);
-      if (existingItem) {
-        return prev.filter((item) => item.value !== value);
-      } else {
-        const optionToAdd = tagsData.find((option) => option.value === value);
-        return optionToAdd ? [...prev, { label: optionToAdd.label, value }] : prev;
-      }
-    });
+  const handleTagsChange = (e, value: any) => {
+    setTagsState(value);
   };
 
   const options = [
@@ -139,16 +119,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <div className={'grid'}>
             <div className='item1'>
-              <Form.Item name='grantType' className={'drop_down_input'}>
-                <TagInput
-                  buttonCaption={t('form.grant_type')}
-                  options={grantTypeData}
-                  multiSelect={true}
-                  handleCheckboxChange={handleGrantTypeChange}
-                  setCheckedItems={setGrantTypeState}
-                  checkedItems={grantTypeState}
-                />
-              </Form.Item>
+              {/*<Form.Item name='grantType' className={'drop_down_input'}>*/}
+              {/*  <TagInput*/}
+              {/*    title={t('form.grant_type')}*/}
+              {/*    options={grantTypeData}*/}
+              {/*    multiSelect={true}*/}
+              {/*    onChange={handleGrantTypeChange}*/}
+              {/*  />*/}
+              {/*</Form.Item>*/}
             </div>
             <span className={'line'}></span>
             <div className='item2'>
@@ -161,16 +139,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </div>
           <div className={'grid'}>
             <div className='item1'>
-              <Form.Item name='tags' className={'drop_down_input'}>
-                <TagInput
-                  buttonCaption={t('form.add_tags')}
-                  options={tagsData}
-                  multiSelect={true}
-                  handleCheckboxChange={handleTagsChange}
-                  setCheckedItems={setTagsState}
-                  checkedItems={tagsState}
-                />
-              </Form.Item>
+              {/*<Form.Item name='tags' className={'drop_down_input'}>*/}
+              {/*  <TagInput*/}
+              {/*    title={t('form.add_tags')}*/}
+              {/*    options={tagsData}*/}
+              {/*    multiSelect={true}*/}
+              {/*    onChange={handleTagsChange}*/}
+              {/*  />*/}
+              {/*</Form.Item>*/}
             </div>
             <span className={'line'}></span>
             <div className='item2'>
