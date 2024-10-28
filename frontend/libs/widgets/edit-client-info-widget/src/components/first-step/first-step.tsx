@@ -8,7 +8,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 import * as S from './first-step.style';
 import { Form } from 'antd';
-import { Button, Chip, Divider, Input, SearchItemsContainer, Select, Switch, TagInput } from '@oxygen/ui-kit';
+import { Button, Chip, Input, SearchItemsContainer, Select, Switch, TagInput } from '@oxygen/ui-kit';
 
 import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
 import { useGetTags } from '../../services/get-tag-info.api';
@@ -266,14 +266,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-
-      <Divider className={'seperator'} />
-
       <div className={'footer'}>
-        <Button variant={'outlined'} className={'return_btn'}>
-          {t('form.return')}
-        </Button>
-        <Button htmlType={'submit'} className={'submit_btn'} onClick={() => form.submit()}>
+        <Button variant={'outlined'}>{t('form.return')}</Button>
+        <Button htmlType={'submit'} onClick={() => form.submit()}>
           {t('form.register_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

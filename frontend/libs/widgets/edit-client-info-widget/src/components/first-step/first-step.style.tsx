@@ -2,39 +2,14 @@ import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 
 export const FirtStepContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   .form_wrapper {
     display: flex;
     flex-direction: column;
-    height: 100%;
-  }
-
-  .cards-title {
-    font-weight: bold;
-    font-size: 1.6rem;
-  }
-
-  .tag_input {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 1rem 0;
-
-    .drop_down_input {
-      display: flex;
-      align-items: center;
-      flex: 1;
-      margin: 0.5rem;
-      flex-wrap: nowrap;
-
-      &::after {
-        content: '';
-        width: 1px;
-        height: 4rem;
-        margin-left: 1rem;
-        //background-color: red;
-        // background-color: ${(p) => p.theme.border.su};
-      }
-    }
+    flex: 1;
   }
 
   .tags {
@@ -128,17 +103,21 @@ export const FirtStepContainer = styled.div`
 
   .footer {
     display: flex;
-    flex: 2;
+    align-items: center;
     justify-content: flex-end;
-    gap: 1.2rem;
+    border-top: 1px solid ${(p) => p.theme.border.main};
+    gap: 1rem;
+    padding: 1.5rem 0;
 
     ${respondTo.down('sm')} {
       flex-direction: column;
-    }
 
-    ${respondTo.down('sm')} {
-      .return_btn {
-        order: 1;
+      button {
+        width: 100%;
+
+        &:first-of-type {
+          order: 1;
+        }
       }
     }
   }

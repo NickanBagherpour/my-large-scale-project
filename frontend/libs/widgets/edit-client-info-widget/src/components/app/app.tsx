@@ -5,8 +5,8 @@ import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
-import FirstStep from '../first-step/first-step';
 import * as S from './app.style';
+import FirstStep from '../first-step/first-step';
 
 type AppProps = PageProps & {
   //
@@ -28,9 +28,8 @@ const App: React.FC<AppProps> = (props) => {
   // }
 
   return (
-    <S.AppContainer>
+    <S.AppContainer fillContainer={true}>
       <FirstStep />
-      {/*<SecondStep />*/}
     </S.AppContainer>
   );
 };
