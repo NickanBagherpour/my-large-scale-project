@@ -44,3 +44,9 @@ export const FirstStepContainer = styled.div`
     gap: 1.2rem;
   }
 `;
+
+export const TagInputBox = styled.div`
+  .ant-form-item {
+    margin: 0;
+  }
+`;
