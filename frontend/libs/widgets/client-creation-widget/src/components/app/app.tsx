@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -21,6 +21,7 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const [currentStep, setCurrentStep] = useState(0);
 
   /* Sample Query Usage
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
@@ -44,8 +45,8 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('create_new_client')}>
-      <S.Steps items={stepsItem} current={1} />
-      {stepsItem[2].Content}
+      <S.Steps items={stepsItem} current={currentStep} />
+      {stepsItem[currentStep].Content}
     </S.AppContainer>
   );
 };
