@@ -7,6 +7,6 @@ import { Direction } from '@oxygen/types';
 export const MainContentLayout = styled(Layout)`
   margin-left: var(${cssVar.mainContentMargin});
   //margin-left: ${(p) => (p.theme.direction === Direction.RTL ? 0 : `var(${cssVar.mainContentMargin})`)};
-  //  margin-right: ${(p) => (p.theme.direction === Direction.LTR ? 0 : `var(${cssVar.mainContentMargin})`)};
-  //background-color:  ${(p) => p.theme.background.main};
+  //margin-right: ${(p) => (p.theme.direction === Direction.LTR ? 0 : `var(${cssVar.mainContentMargin})`)};
+  background-color: ${(p) => p.theme.background.main};
 `;

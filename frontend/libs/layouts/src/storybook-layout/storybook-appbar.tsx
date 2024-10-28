@@ -19,10 +19,10 @@ const StoryBookAppbar = (props: StoryBookAppbarProps) => {
 
   return (
     <S.Header>
-        <LocaleSwitcher type='onPrimary' />
-        <S.ThemeSwitchWrapper >
+      <LocaleSwitcher type='onPrimary' />
+      <S.ThemeSwitchWrapper>
         <ThemeSwitch /> {t('appbar.background_color')}
-        </S.ThemeSwitchWrapper>
+      </S.ThemeSwitchWrapper>
     </S.Header>
   );
 };
