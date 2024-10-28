@@ -60,4 +60,17 @@ export default {
   stop_service: 'توقف سرویس',
   are_you_sure_to_stop_service: 'آیا سرویس samat-lc-gutr-del برای این کلاینت متوقف شود؟',
   remove: 'حذف',
+
+  service_detail: 'جزئیات سرویس',
+  action: 'اکشن/متود',
+  protocole: 'پروتوکل',
+  access: 'دسترسی',
+  category: 'دسته‌بندی',
+  throughout: 'Throughout',
+  owner: 'مالک',
+  tag: 'تگ',
+  path: 'Path',
+  host: 'Host',
+  upstream_details: 'Upstream',
+  descriptions: 'توضیحات',
 };

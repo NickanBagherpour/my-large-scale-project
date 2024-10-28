@@ -4,6 +4,7 @@ import * as S from './services.style';
 import Link from 'next/link';
 import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
 import { useToggle } from '@oxygen/hooks';
+import DetailsModal from '../details-modal/details-modal';
 
 const dataSource = Array.from({ length: 7 }).map(() => ({
   serviceName: 'samat-lc-gutr-del',
@@ -19,6 +20,7 @@ const dataSource = Array.from({ length: 7 }).map(() => ({
 export default function Services() {
   const [t] = useTr();
   const [isRemoveModalOpen, toggleIsRemoveModalOpen] = useToggle(false);
+  const [isDetailsModalOpen, toggleIsDetailsModalOpen] = useToggle(false);
 
   const columns: ColumnsType<(typeof dataSource)[number]> = [
     {
@@ -74,7 +76,7 @@ export default function Services() {
       dataIndex: 'details',
       key: 'details',
       render: () => (
-        <Button variant='text' color='primary'>
+        <Button variant='text' color='primary' onClick={toggleIsDetailsModalOpen}>
           {t('details')}
         </Button>
       ),
@@ -102,6 +104,7 @@ export default function Services() {
       <Table dataSource={dataSource} columns={columns} pagination={{ position: ['bottomCenter'] }} />
 
       <RemoveServiceModal isOpen={isRemoveModalOpen} toggle={toggleIsRemoveModalOpen} id={'samat-lc-gutr-del'} />
+      <DetailsModal isOpen={isDetailsModalOpen} toggle={toggleIsDetailsModalOpen} />
     </>
   );
 }
