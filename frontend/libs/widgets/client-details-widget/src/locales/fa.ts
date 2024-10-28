@@ -37,4 +37,15 @@ export default {
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   non_denial: 'عدم انکار',
   new_request_validation: 'اعتبارسنجی درخواست جدید',
+
+  call_limitation_for_all_services: 'پلاگین محدودیت فراخوانی برای کل سرویس‌ها',
+  service_call_rate: 'نرخ فراخوانی سرویس',
+  in: 'در',
+  total_number_of_calls_limit: 'محدودیت تعداد فراخوانی کل',
+  register_data: 'ثبت اطلاعات',
+  in_month: 'در ماه',
+  in_week: 'در هفته',
+  second: 'ثانیه',
+  minute: 'دقیقه',
+  hour: 'ساعت',
 };
