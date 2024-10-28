@@ -7,6 +7,7 @@ const { Content } = Layout;
 export const MainContentContainer = styled(Content)`
   display: flex;
   min-height: calc(100vh - 1px - var(${cssVar.appBarHeight}));
+  // align-items: flex-start;
   //padding: 3.6rem 5rem;
   margin: var(${cssVar.verticalGap}) 0;
   margin-left: calc(var(${cssVar.verticalGap}) + var(${cssVar.drawerSideGap}));

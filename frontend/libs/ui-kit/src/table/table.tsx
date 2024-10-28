@@ -24,10 +24,13 @@ export enum PaginationType {
   INCREMENTAL = 'incremental',
 }
 
+type TableVariant = 'simple' | 'complex';
+
 export type TableProps = Omit<AntTableProps<any>, 'title'> & {
   // Custom props specific to your component
   // isExpandable?: boolean;
   // hidePagination?: boolean;
+  variant?: TableVariant;
   total?: number;
   current?: number;
   title?: Nullable<string>;
@@ -47,7 +50,7 @@ export const Table = (props: TableProps) => {
     // dataSource,
     columns,
     mobileColumns,
-    // isExpandable = false,
+    variant = 'simple',
     expandable,
     pagination,
     total,
@@ -91,9 +94,9 @@ export const Table = (props: TableProps) => {
     pagination === false || paginationType === PaginationType.INCREMENTAL
       ? false
       : {
-          // onChange: onPaginationUpdate,
+          //onChange: onPaginationUpdate,
           pageSizeOptions: [5, 10, 20, 50, 100],
-          showTotal: (total, range) => `${range[0]} - ${range[1]} ${t('common.of')} ${total}`,
+          // showTotal: (total, range) => `${range[0]} - ${range[1]} ${t('common.of')} ${total}`,
           // pageSize: paginationInfo.limit,
           // current: paginationInfo.current,
           total,
@@ -126,13 +129,14 @@ export const Table = (props: TableProps) => {
     <>
       <S.Table
         caption={caption}
+        variant={variant}
         // dataSource={dataSource}
         columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
         rowClassName={rowClassName}
         expandable={_expandable}
         pagination={_pagination}
         showHeader={_showHeader}
-        scroll={{ x: 'fit-content' }}
+        scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
         {...restProps}
       />
 
