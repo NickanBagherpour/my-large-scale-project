@@ -1,6 +1,7 @@
 import * as S from './service.style';
 import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
+import { Button } from '@oxygen/ui-kit';
 
 interface Props {
   idx: number;
@@ -52,6 +53,12 @@ export default function Service(props: Props) {
           {cardsData.map(({ name }, idx) => (
             <PluginCard name={name} idx={idx} />
           ))}
+
+          <S.Divider orientation='center' type='vertical' />
+
+          <Button shape='circle'>
+            <S.PlusIcon className='icon-plus' />
+          </Button>
         </S.Cards>
       </S.Body>
     </S.Container>

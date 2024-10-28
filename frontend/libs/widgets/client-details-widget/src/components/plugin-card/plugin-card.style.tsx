@@ -28,6 +28,10 @@ export const CardName = styled.h4`
 export const SettingBtn = styled(Button)`
   display: block;
   margin-inline-start: auto;
+
+  &:disabled > i {
+    color: ${(p) => p.theme.border.main};
+  }
 `;
 
 export const Icon = styled.i`

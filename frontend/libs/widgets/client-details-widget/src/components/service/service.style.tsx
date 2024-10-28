@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Divider as KitDivider } from '@oxygen/ui-kit';
 
 export const Container = styled.section`
   border: ${(p) => `1px solid ${p.theme.border._100}`};
@@ -62,4 +63,14 @@ export const Cards = styled.div`
   align-items: center;
   gap: 1.6rem;
   padding: 1.6rem 2.4rem;
+`;
+
+export const PlusIcon = styled.i`
+  font-size: 2.4rem;
+`;
+
+export const Divider = styled(KitDivider)`
+  height: 2.6rem;
+  border-color: ${(p) => p.theme.border._300};
+  margin: 0;
 `;
