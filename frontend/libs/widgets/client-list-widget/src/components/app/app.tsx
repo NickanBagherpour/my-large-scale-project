@@ -20,7 +20,7 @@ const App = () => {
   return (
     <>
       {hasDrafts && (
-        <S.DraftsContainer title={t('draft')} isFullHeight={false}>
+        <S.DraftsContainer title={t('draft')} fillContainer={false}>
           <S.Grid>
             {drafts?.map((item) => (
               <DraftCard key={item.id} {...item} />
@@ -29,7 +29,7 @@ const App = () => {
         </S.DraftsContainer>
       )}
 
-      <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle} isFullHeight={!hasDrafts}>
+      <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>
         <Filters />
         <Loading spinning={isClientsFetching} size='large'>
           {clients?.list.length ? (
