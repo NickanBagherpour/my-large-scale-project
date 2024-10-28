@@ -3,13 +3,24 @@ import styled from 'styled-components';
 export const StepsWrapper = styled.div`
   width: 100%;
 
+  .ant-steps {
+    padding: 0;
+  }
   .ant-steps-item::after {
     display: none;
   }
   .ant-steps-item {
     padding: 2rem;
+  }
+
+  .ant-steps-item-disabled {
+    background: transparent;
+  }
+
+  .ant-steps-item-active {
     background-color: ${(p) => p.theme.secondary._50};
   }
+
   .ant-steps-item-container {
     padding-bottom: 0;
   }

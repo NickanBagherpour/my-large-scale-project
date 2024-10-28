@@ -14,8 +14,11 @@ export const WidgetWrapperContainer = styled.div<{ fill_container: boolean }>`
 `;
 
 export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: max-content;
+  flex-grow: 1;
   background-color: ${(props) => props.theme.surface};
 `;
 

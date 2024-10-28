@@ -12,16 +12,11 @@ import fa from './locales/fa';
 const ClientCreationWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
   const [t] = useTr();
-  const [headerTitles, setHeaderTitles] = useState<string | string[]>([t('widget_name')]);
-
-  const handleTitleUpdate = (newTitles: string | string[]) => {
-    setHeaderTitles(newTitles);
-  };
 
   return (
-    <WidgetWrapper headerTitle={headerTitles}>
+    <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps} updateHeaderTitle={handleTitleUpdate} />
+        <App parentProps={props.parentProps} />
       </AppProvider>
     </WidgetWrapper>
   );

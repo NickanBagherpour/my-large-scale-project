@@ -6,8 +6,12 @@ import { PageProps } from '@oxygen/types';
 import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
+import FirstStep from '../first-step/first-step';
+import SecondStep from '../second-step/second-step';
+import ThirdStep from '../third-step/third-step';
+import FourthStep from '../fourth-step/fourth-step';
+
 import * as S from './app.style';
-import { Container } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {
   //
@@ -31,10 +35,17 @@ const App: React.FC<AppProps> = (props) => {
      return params;
    }
  */
+  const stepsItem = [
+    { title: t('progress_bar.first_step'), Content: <FirstStep /> },
+    { title: t('progress_bar.second_step'), Content: <SecondStep /> },
+    { title: t('progress_bar.third_step'), Content: <ThirdStep /> },
+    { title: t('progress_bar.fourth_step'), Content: <FourthStep /> },
+  ];
 
   return (
-    <S.AppContainer>
-      <Container title={'ایجاد کلاینت جدید'}></Container>
+    <S.AppContainer title={t('create_new_client')}>
+      <S.Steps items={stepsItem} current={1} />
+      {stepsItem[2].Content}
     </S.AppContainer>
   );
 };
