@@ -211,7 +211,9 @@ export default function Index() {
             <Tabs defaultActiveKey='1' items={items} />
           </Div>
           <Div>
-            <Chip onClick={() => clickAlert()}>chip</Chip>
+            <Chip type='unActive' onClick={() => clickAlert()}>
+              chip
+            </Chip>
             <Chip type='active' iconProp='checked icon-checkmark'>
               chip Active
             </Chip>

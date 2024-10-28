@@ -42,6 +42,9 @@
             "@oxygen/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"
             ],
+            "@oxygen/widgets/services-list-widget": [
+                "libs/widgets/services-list-widget/src/index.ts"
+            ],
             "@oxygen/workspace-plugin": ["tools/workspace-plugin/src/index.ts"]
         }
     },
