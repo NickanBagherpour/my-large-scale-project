@@ -7,6 +7,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
+import { Container } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {
   //
@@ -31,7 +32,11 @@ const App: React.FC<AppProps> = (props) => {
    }
  */
 
-  return <S.AppContainer>ClientCreationWidget</S.AppContainer>;
+  return (
+    <S.AppContainer>
+      <Container title={'ایجاد کلاینت جدید'}></Container>
+    </S.AppContainer>
+  );
 };
 
 export default App;
