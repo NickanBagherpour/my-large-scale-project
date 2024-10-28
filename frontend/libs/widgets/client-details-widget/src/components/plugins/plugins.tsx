@@ -1,4 +1,4 @@
-import Service from '../service/service';
+import PluginServices from '../plugin-services/plugin-services';
 import Header from '../plugin-header/plugin-header';
 
 const data = {
@@ -15,7 +15,7 @@ export default function Plugins() {
     <section>
       <Header />
       {Array.from({ length: 4 }).map((_, idx) => (
-        <Service key={idx} idx={idx + 1} {...data} />
+        <PluginServices key={idx} idx={idx + 1} {...data} />
       ))}
     </section>
   );

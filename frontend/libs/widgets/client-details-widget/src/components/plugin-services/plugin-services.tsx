@@ -1,4 +1,4 @@
-import * as S from './service.style';
+import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
 import { Button } from '@oxygen/ui-kit';
@@ -13,7 +13,7 @@ interface Props {
   upstream: string;
 }
 
-export default function Service(props: Props) {
+export default function PluginServices(props: Props) {
   const { idx, name, englishName, status, version, scope, upstream } = props;
   const [t] = useTr();
 
