@@ -23,21 +23,18 @@ export default {
   mobile: 'تلفن همراه',
   phone: 'تلفن',
   email: 'ایمیل',
-
   app_plugins_for_each_service: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
   add_limits_for_services: 'تنظیم محدودیت فراخوانی برای همه سرویس‌ها',
   search_by_service_name: 'جستجو براساس نام سرویس',
   version: 'نسخه',
   scope: 'اسکوپ',
   upstream: 'آپ‌استریم',
-
   service: 'سرویس',
   english_name: 'نام لاتین',
   status: 'وضعیت',
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   non_denial: 'عدم انکار',
   new_request_validation: 'اعتبارسنجی درخواست جدید',
-
   call_limitation_for_all_services: 'پلاگین محدودیت فراخوانی برای کل سرویس‌ها',
   service_call_rate: 'نرخ فراخوانی سرویس',
   in: 'در',
@@ -48,4 +45,13 @@ export default {
   second: 'ثانیه',
   minute: 'دقیقه',
   hour: 'ساعت',
+
+  client_services: 'سرویس‌های کلاینت',
+  searchByNames: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+  service_name: 'نام سرویس',
+  persian_name: 'نام فارسی',
+  url: 'url',
+  details: 'جزئیات',
+  operational: 'عملیاتی',
+  stop: 'توقف',
 };
