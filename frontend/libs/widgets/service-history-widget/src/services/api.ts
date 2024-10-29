@@ -1,7 +1,5 @@
-import { client, portalUrl } from '@oxygen/client';
-
-import { FetchParamsType, ServiceHistoryResponseType } from '../types';
 import Mockify from '@oxygen/mockify';
+import { FetchParamsType } from '../types';
 
 const Api = {
   // getServiceHistoryData: async (params: FetchParamsType) => {

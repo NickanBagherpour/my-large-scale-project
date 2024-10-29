@@ -13,16 +13,18 @@ export type PaginationType = {
 
 export type WidgetStateType = {
   // filters: FiltersType;
-  pagination: PaginationType;
+  table: {
+    pagination: PaginationType;
+  };
   // submit: FiltersType;
   errorMessage: Nullable<ErrorMessageType>;
 };
 
 export type WidgetActionType =
-  // | {
-  //     type: 'UPDATE_GLOBAL_ERROR_MESSAGE';
-  //     payload: Nullable<ErrorMessageType>;
-  //   }
+  | {
+      type: 'UPDATE_GLOBAL_ERROR_MESSAGE';
+      payload: Nullable<ErrorMessageType>;
+    }
   // | {
   //     type: 'UPDATE_FILTERS';
   //     payload: Partial<FiltersType>;
@@ -31,9 +33,9 @@ export type WidgetActionType =
   //     type: 'UPDATE_SUBMIT';
   //     payload: Partial<FiltersType>;
   //   }
-  {
-    type: 'UPDATE_PAGINATION';
-    payload: Partial<PaginationType>;
-  };
+  | {
+      type: 'UPDATE_PAGINATION';
+      payload: Partial<PaginationType>;
+    };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
