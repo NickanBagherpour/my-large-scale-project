@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 import { Checkbox, Dropdown, DropdownProps, Form } from 'antd';
 import { ItemType } from 'antd/lib/menu/interface';
 
-import { Button } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 
@@ -120,7 +120,6 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
               onChange={handleSelectAll}
               indeterminate={checkedItems?.length > 0 && checkedItems?.length !== menu?.length}
             >
-
               <span onClick={(e) => e.stopPropagation()}>{t('uikit.select_all')}</span>
             </Checkbox>
           ),
@@ -134,7 +133,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
     } else return [];
   };
 
-  const menuItems = menu?.map((option : any, index) => {
+  const menuItems = menu?.map((option: any, index) => {
     return {
       label: multiSelect ? (
         <Checkbox
@@ -180,9 +179,9 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
         disabled={loading}
         {...rest}
       >
-        <Button type='default' className={'dropdown-button'} variant={'outlined'} loading={loading}>
+        <Button type='default' className={'dropdown-button'} variant={'outlined'}>
           <S.StyledSpace>
-            <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} />
+            {loading ? <Loading size={'small'} /> : <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} />}
             {children}
           </S.StyledSpace>
         </Button>
