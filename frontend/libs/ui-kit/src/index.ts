@@ -42,4 +42,4 @@ export * from './progress/progress';
 export * from './mark-text/mark-text';
 export * from './container/container';
 export * from './dropdown/dropdown';
-export {MenuItemType} from './dropdown/dropdown-select/dropdown-select';
+export type { MenuItemType } from './dropdown/dropdown-select/dropdown-select';
