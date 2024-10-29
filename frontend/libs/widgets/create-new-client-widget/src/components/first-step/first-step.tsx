@@ -7,7 +7,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 import * as S from './first-step.style';
 import { Card, Form } from 'antd';
-import { Box, Button, Chip, Divider, Input, SearchItemsContainer, Select, Switch, TagInput } from '@oxygen/ui-kit';
+import { Box, Button, Chip, Divider, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 
 type FirstStepProps = PageProps & {
   //
