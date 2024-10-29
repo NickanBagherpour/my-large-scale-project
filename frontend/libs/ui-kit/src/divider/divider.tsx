@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Divider as AntDivider, DividerProps as AntDividerProps } from 'antd';
+import { DividerProps as AntDividerProps } from 'antd';
 
 import * as S from './divider.style';
 

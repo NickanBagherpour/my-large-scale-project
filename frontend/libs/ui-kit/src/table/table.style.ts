@@ -95,11 +95,13 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   .ant-pagination {
+    //too much padding
     padding: 2.4rem 3rem;
     position: relative;
   }
 
   .ant-pagination-options {
+    //no margin on the right
     order: -1;
     margin: 0 1.6rem 0 0;
     position: absolute;

@@ -7,12 +7,10 @@ export type DropdownProps = AntDropdownProps & {
   // children?: React.ReactNode;
 };
 
-const StyledDropdown = styled(AntDropdown)`
-
-`;
+const StyledDropdown = styled(AntDropdown)``;
 
 export const Dropdown = (props: DropdownProps) => {
-  const {  ...rest } = props;
+  const { ...rest } = props;
 
   return <StyledDropdown {...rest} />;
 };

@@ -120,7 +120,6 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
               onChange={handleSelectAll}
               indeterminate={checkedItems?.length > 0 && checkedItems?.length !== menu?.length}
             >
-
               <span onClick={(e) => e.stopPropagation()}>{t('uikit.select_all')}</span>
             </Checkbox>
           ),
@@ -134,7 +133,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
     } else return [];
   };
 
-  const menuItems = menu?.map((option : any, index) => {
+  const menuItems = menu?.map((option: any, index) => {
     return {
       label: multiSelect ? (
         <Checkbox
