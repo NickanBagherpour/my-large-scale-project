@@ -17,6 +17,9 @@ export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   height: max-content;
   flex-grow: 1;
   background-color: ${(props) => props.theme.surface};
