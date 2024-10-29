@@ -20,6 +20,7 @@ export type ClientHistoryData = {
 };
 
 export const getClientHistory = async (params): Promise<any> => {
+  console.log('getClientHistory', params);
   // const offset:number = params.pagination.offset;
   const limit = params.pagination.limit;
   const offset = params.pagination.page * limit - limit;

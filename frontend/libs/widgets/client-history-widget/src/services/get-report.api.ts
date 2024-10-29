@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { FetchParamsType } from '../types';
@@ -9,7 +9,9 @@ export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CLIENT - HISTORY.GET_LIST, params],
+    queryKey: [RQKEYS.CLIENT_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
+    placeholderData: keepPreviousData,
+    networkMode: 'offlineFirst',
   });
 };
