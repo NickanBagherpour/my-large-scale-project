@@ -39,6 +39,9 @@
             "@oxygen/widgets/create-new-client-widget": [
                 "libs/widgets/create-new-client-widget/src/index.ts"
             ],
+            "@oxygen/widgets/edit-client-info-widget": [
+                "libs/widgets/edit-client-info-widget/src/index.ts"
+            ],
             "@oxygen/widgets/service-history-widget": [
                 "libs/widgets/service-history-widget/src/index.ts"
             ],

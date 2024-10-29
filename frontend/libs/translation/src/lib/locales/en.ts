@@ -18,6 +18,7 @@ export default {
     '404': 'page not found',
     info_error_title: 'error in info',
     user_error_desc: 'user error',
+    required: 'This field is required',
   },
   uikit: {
     select_all: 'select all',

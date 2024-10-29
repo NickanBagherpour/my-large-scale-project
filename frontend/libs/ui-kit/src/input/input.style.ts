@@ -1,10 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Input as AntInput } from 'antd';
 
-export const InputWrapper = styled<any>(AntInput)`
-  border-color: ${(p) => p.theme.border};
+function getSize(p: any) {
+  switch (p.size) {
+    case 'large':
+      return css`
+        min-height: 4rem;
+        font-size: 1.4rem;
+      `;
+    case 'middle':
+      return css`
+        height: 3.2rem;
+      `;
+    case 'small':
+      return css`
+        height: 2.4rem;
+      `;
+  }
+}
 
-  //padding: 0.8rem;
+export const InputWrapper = styled<any>(AntInput)`
+  line-height: 0;
+
+  ${(p) => getSize(p)};
+
+  // border-color: ${(p) => p.theme.border};
 
   .ant-input-prefix {
     padding-right: 0.8rem;
