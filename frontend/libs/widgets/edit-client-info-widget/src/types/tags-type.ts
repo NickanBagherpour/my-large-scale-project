@@ -1,4 +1,4 @@
 export type TagsType = {
-  content: any;
+  content: Array<{ label: string; key: string }>;
   length: number;
 };

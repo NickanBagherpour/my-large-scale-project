@@ -22,7 +22,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
   const [form] = Form.useForm();
 
   const [grantTypeState, setGrantTypeState] = useState<any>([]);
@@ -76,7 +75,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <div className={'grid'}>
             <div className='item1'>
-              <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grant_type}>
+              <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
                 <Dropdown.Select
                   loading={isGrantTypeFetching}
                   menu={grantTypeData}
@@ -120,32 +119,32 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </div>
 
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM_NAMES.latin_name_client} label={t('form.latin_name_client')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
               <Input placeholder={t('placeholder.latin_name_client')} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.persian_name_client} label={t('form.persian_name_client')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
               <Input placeholder={t('placeholder.client_bale')} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.client_type} rules={[rule]} label={t('form.client_type')}>
+            <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
               <Select size={'large'} placeholder={t('placeholder.credit_system')} options={aggregatorOption}></Select>
             </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.client_id} rules={[rule]} label={t('form.client_id')}>
+            <Form.Item name={FORM_ITEM_NAMES.clientId} rules={[rule]} label={t('form.client_id')}>
               <Input placeholder={t('placeholder.client_id')} />
             </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.identity_auth} label={t('form.identity_auth')}>
+            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.identityAuth} label={t('form.identity_auth')}>
               <Input placeholder={t('placeholder.identity_auth')} />
             </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.website_url} label={t('form.website_url')}>
+            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.websiteUrl} label={t('form.website_url')}>
               <Input placeholder={t('placeholder.website_url')} />
             </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.input_address} label={t('form.input_address')}>
+            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.inputAddress} label={t('form.input_address')}>
               <Input placeholder={t('placeholder.input_address')} />
             </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.return_address} label={t('form.return_address')}>
+            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.returnAddress} label={t('form.return_address')}>
               <Input placeholder={t('placeholder.return_address')} />
             </Form.Item>
             <Form.Item
-              name={FORM_ITEM_NAMES.aggregator_status}
+              name={FORM_ITEM_NAMES.aggregatorStatus}
               className={'label-switch'}
               layout={'horizontal'}
               label={t('form.aggregator_status')}
