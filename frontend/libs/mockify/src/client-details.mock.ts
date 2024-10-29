@@ -1,4 +1,4 @@
-import { clientInfo, services } from './data/client-info.details.data';
+import { clientInfo, services } from './data/client-info-details.data';
 import type { Pagination, Service, ClientInfo } from '@oxygen/types';
 
 export const getClientInfo = async () => {
@@ -14,7 +14,7 @@ export const getServices = async ({ page, rowsPerPage }: Pagination) => {
     setTimeout(() => {
       const start = (page - 1) * rowsPerPage;
       const end = start + rowsPerPage;
-      resolve({ data: { list: services.slice(start, end), total: 100 } });
+      resolve({ data: { list: services.slice(start, end), total: services.length } });
     }, 700);
   });
 };

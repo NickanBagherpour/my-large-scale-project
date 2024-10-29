@@ -26,7 +26,7 @@ export const services: Service[] = Array.from({ length: 100 }).map(() => ({
   serviceName: 'samat-lc-gutr-del',
   persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
   scope: 'svc-mgmt-iban-inq',
-  url: '/services',
+  url: 'localhost:3000/services',
   version: 'V 1.1',
   status: 'status',
   details: 'details',
