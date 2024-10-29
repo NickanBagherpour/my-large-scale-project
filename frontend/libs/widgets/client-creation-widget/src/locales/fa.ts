@@ -1,8 +1,13 @@
+import { client } from '@oxygen/client';
+
 export default {
   create_new_client: 'ایجاد کلاینت جدید',
   widget_name: 'ایجاد کلاینت جدید',
   client_info: 'اطلاعات کلی کلاینت ',
   applicant_info: 'اطلاعات کاربر متقاضی',
+  step_two: {
+    client_services: 'سرویس‌های کلاینت',
+  },
 
   progress_bar: {
     first_step: 'دریافت اطلاعات',

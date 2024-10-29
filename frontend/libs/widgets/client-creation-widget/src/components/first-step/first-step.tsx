@@ -79,7 +79,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const handleSubmit = () => {
     form.submit();
-    // setCurrentStep((prev) => prev + 1);
+    setCurrentStep((prev) => prev + 1);
   };
   form.setFieldValue('grant-tag', grantTags);
   form.setFieldValue('add-tag', nameTags);
@@ -151,7 +151,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               label={t('form.client_type')}
               rules={[{ required: true, message: t('error.required') }]}
             >
-              <Select size={'middle'} placeholder={'...'}></Select>
+              <Select size={'large'} placeholder={'...'}></Select>
             </Form.Item>
             <Form.Item
               name={FormItem.client_id}
@@ -197,7 +197,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               label={t('form.aggregator')}
               rules={[{ required: true, message: t('error.required') }]}
             >
-              <Select size={'middle'} placeholder={'...'}></Select>
+              <Select size={'large'} placeholder={'...'}></Select>
             </Form.Item>
           </SearchItemsContainer>
         </Card>

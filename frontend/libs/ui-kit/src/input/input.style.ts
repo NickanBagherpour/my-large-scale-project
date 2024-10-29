@@ -3,7 +3,7 @@ import { Input as AntInput } from 'antd';
 
 export const InputWrapper = styled<any>(AntInput)`
   border-color: ${(p) => p.theme.border};
-
+  line-height: 0;
   //padding: 0.8rem;
 
   .ant-input-prefix {

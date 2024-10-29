@@ -17,7 +17,8 @@ export const StepsWrapper = styled.div`
     background: transparent;
   }
 
-  .ant-steps-item-active {
+  .ant-steps-item-active,
+  .ant-steps-item-finish.ant-steps-item-disabled {
     background-color: ${(p) => p.theme.secondary._50};
   }
 

@@ -21,7 +21,7 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
 
   /* Sample Query Usage
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
@@ -38,7 +38,7 @@ const App: React.FC<AppProps> = (props) => {
  */
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },
-    { title: t('progress_bar.second_step'), Content: <SecondStep /> },
+    { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.third_step'), Content: <ThirdStep /> },
     { title: t('progress_bar.fourth_step'), Content: <FourthStep /> },
   ];
