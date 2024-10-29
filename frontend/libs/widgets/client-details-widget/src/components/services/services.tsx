@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import { Button, type ColumnsType, Input, Switch, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Input, Switch, Table } from '@oxygen/ui-kit';
 import * as S from './services.style';
 import Link from 'next/link';
 import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
@@ -7,17 +7,10 @@ import { useToggle } from '@oxygen/hooks';
 import DetailsModal from '../details-modal/details-modal';
 import StartServiceModal from '../start-service-modal/start-service-modal';
 import StopServiceModal from '../stop-service-modal/stop-service-modal';
-
-const dataSource = Array.from({ length: 7 }).map(() => ({
-  serviceName: 'samat-lc-gutr-del',
-  persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
-  scope: 'svc-mgmt-iban-inq',
-  url: '/services',
-  version: 'V 1.1',
-  status: 'status',
-  details: 'details',
-  remove: 'remove',
-}));
+import { useState } from 'react';
+import { useGetServicesQuery } from '../../services';
+import { type TablePaginationConfig } from 'antd';
+import type { Pagination, Service } from '@oxygen/types';
 
 export default function Services() {
   const [t] = useTr();
@@ -25,8 +18,21 @@ export default function Services() {
   const [isDetailsModalOpen, toggleIsDetailsModalOpen] = useToggle(false);
   const [isStopModalOpen, toggleIsStopModalOpen] = useToggle(false);
   const [isStartModalOpen, toggleIsStartModalOpen] = useToggle(false);
+  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
 
-  const columns: ColumnsType<(typeof dataSource)[number]> = [
+  const { data, isFetching } = useGetServicesQuery(pagination);
+
+  const changePage = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+    if (pageSize && current) {
+      setPagination({
+        page: pageSize === pagination.rowsPerPage ? current : 1,
+        rowsPerPage: pageSize,
+      });
+    }
+  };
+
+  const columns: ColumnsType<Service> = [
     {
       title: t('service_name'),
       dataIndex: 'serviceName',
@@ -45,7 +51,6 @@ export default function Services() {
       key: 'scope',
       align: 'center',
     },
-
     {
       title: t('url'),
       dataIndex: 'url',
@@ -53,14 +58,12 @@ export default function Services() {
       align: 'center',
       render: (url) => <Link href={url}>{url}</Link>,
     },
-
     {
       title: t('version'),
       dataIndex: 'version',
       key: 'version',
       align: 'center',
     },
-
     {
       title: t('status'),
       dataIndex: 'status',
@@ -78,7 +81,6 @@ export default function Services() {
         </S.Status>
       ),
     },
-
     {
       title: '',
       dataIndex: 'details',
@@ -89,7 +91,6 @@ export default function Services() {
         </Button>
       ),
     },
-
     {
       title: '',
       dataIndex: 'remove',
@@ -109,7 +110,15 @@ export default function Services() {
         <Input size='large' placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
       </S.Header>
 
-      <Table dataSource={dataSource} columns={columns} pagination={{ position: ['bottomCenter'] }} />
+      <Table
+        loading={isFetching}
+        current={pagination.page}
+        total={data?.total}
+        dataSource={data?.list}
+        pagination={{ pageSize: pagination.rowsPerPage }}
+        columns={columns}
+        onChange={changePage}
+      />
 
       <StopServiceModal isOpen={isStopModalOpen} toggle={toggleIsStopModalOpen} id={'samat-lc-gutr-del'} />
       <StartServiceModal isOpen={isStartModalOpen} toggle={toggleIsStartModalOpen} id={'samat-lc-gutr-del'} />
