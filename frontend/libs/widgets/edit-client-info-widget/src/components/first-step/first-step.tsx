@@ -24,20 +24,18 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [t] = useTr();
   const [form] = Form.useForm();
 
-  const [grantTypeState, setGrantTypeState] = useState<any>([]);
+  const [grantTypeState, setGrantTypeState] = useState<{ key: string; label: string }[]>([]);
 
-  const [tagsState, setTagsState] = useState<any>([]);
+  const [tagsState, setTagsState] = useState<{ key: string; label: string }[]>([]);
 
   const { data: grantType, isFetching: isGrantTypeFetching } = useGetGrantTypeQuery();
 
   const { data: tags, isFetching: isTagsFetching } = useGetTags();
 
-  const grantTypeData = grantType?.content ?? [];
-  const tagsData = tags?.content ?? [];
+  const grantTypeData = grantType?.content;
+  const tagsData = tags?.content;
 
-  const submitClick = () => {
-    form.submit();
-  };
+  const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
     console.log(values);
@@ -49,6 +47,23 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const handleTagsChange = (value) => {
     setTagsState(value);
+  };
+
+  const handleGrantTypeClose = (item) => {
+    const updatedGrantTypes = grantTypeState.filter((grantType: any) => grantType.key !== item.key);
+    console.log(updatedGrantTypes);
+    setGrantTypeState(updatedGrantTypes);
+    form.setFieldsValue({
+      [FORM_ITEM_NAMES.grantType]: updatedGrantTypes,
+    });
+  };
+
+  const handleTagsClose = (option) => {
+    const updatedTags = tagsState.filter((tag: any) => tag.key !== option.key);
+    setTagsState(updatedTags);
+    form.setFieldsValue({
+      [FORM_ITEM_NAMES.tags]: updatedTags,
+    });
   };
 
   const clientType = [
@@ -89,7 +104,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <span className={'line'}></span>
             <div className='item2'>
               {grantTypeState.map((item) => (
-                <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-close style-icon'}></i>}>
+                <Chip
+                  type={'active'}
+                  key={item.key}
+                  onClose={() => handleGrantTypeClose(item)}
+                  className={'tags'}
+                  closeIcon
+                >
                   {item.label}
                 </Chip>
               ))}
@@ -111,7 +132,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <span className={'line'}></span>
             <div className='item2'>
               {tagsState.map((item) => (
-                <Chip type={'active'} className={'tags'} closeIcon={<i className={'icon-close style-icon'}></i>}>
+                <Chip type={'active'} key={item.key} onClose={() => handleTagsClose(item)} className={'tags'} closeIcon>
                   {item.label}
                 </Chip>
               ))}

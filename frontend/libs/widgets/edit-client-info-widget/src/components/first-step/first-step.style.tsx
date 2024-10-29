@@ -19,9 +19,8 @@ export const FirtStepContainer = styled.div`
 
   .grid {
     display: grid;
-    grid-template-columns: 20rem 2rem auto;
+    grid-template-columns: 20rem 3.2rem auto;
     grid-template-rows: max-content auto;
-    align-items: flex-start;
 
     ${respondTo.down('sm')} {
       grid-auto-flow: column;
@@ -52,7 +51,8 @@ export const FirtStepContainer = styled.div`
 
     .line {
       background-color: ${(p) => p.theme.border.main};
-      margin-left: 1rem;
+      margin-left: 1.6rem;
+      margin-right: 1.6rem;
       width: 0.1rem;
       height: 4rem;
       grid-column-start: 2;
