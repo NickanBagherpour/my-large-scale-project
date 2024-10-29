@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
 export const InputWrapper = styled<any>(AntInput)`
-  border-color: ${(p) => p.theme.border};
+  line-height: 0;
 
-  //padding: 0.8rem;
+  // border-color: ${(p) => p.theme.border};
 
   .ant-input-prefix {
     padding-right: 0.8rem;

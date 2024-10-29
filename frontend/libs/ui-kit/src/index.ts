@@ -43,3 +43,5 @@ export * from './mark-text/mark-text';
 export * from './container/container';
 export * from './tag-input/tag-input';
 export * from './status/status.style';
+export * from './dropdown/dropdown';
+export { MenuItemType } from './dropdown/dropdown-select/dropdown-select';
