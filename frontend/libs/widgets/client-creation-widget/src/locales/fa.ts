@@ -3,7 +3,7 @@ export default {
   widget_name: 'ایجاد کلاینت جدید',
   client_info: 'اطلاعات کلی کلاینت ',
   applicant_info: 'اطلاعات کاربر متقاضی',
-  add_grant_type: ' اضافه‌کردن Grant Type',
+
   progress_bar: {
     first_step: 'دریافت اطلاعات',
     second_step: 'افزودن سرویس',

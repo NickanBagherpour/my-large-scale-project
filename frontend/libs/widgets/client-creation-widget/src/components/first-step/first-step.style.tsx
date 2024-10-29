@@ -45,8 +45,14 @@ export const FirstStepContainer = styled.div`
   }
 `;
 
-export const TagInputBox = styled.div`
+export const FirstForm = styled.div`
+  margin: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
   .ant-form-item {
-    margin: 0;
+    padding: 0 1.6rem 0 0;
+    width: auto;
+    border-right: 1px solid ${(p) => p.theme.border.main};
   }
 `;
