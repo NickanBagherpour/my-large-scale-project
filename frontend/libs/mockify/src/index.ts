@@ -24,6 +24,7 @@ import * as GrantTypeMock from './grant-type.mock';
 import * as TagsInfo from './tags.mock';
 import * as ClientsListMock from './client-list.mock';
 import * as ApplicantInfo from './applicant-info.mock';
+import * as ClientInfo from './client-info.mock';
 
 const Mockify = {
   ...UserMock,
@@ -52,6 +53,7 @@ const Mockify = {
   ...GrantTypeMock,
   ...TagsInfo,
   ...ApplicantInfo,
+  ...ClientInfo,
 };
 
 export default Mockify;

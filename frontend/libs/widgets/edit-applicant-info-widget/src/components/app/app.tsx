@@ -9,6 +9,8 @@ import * as S from './app.style';
 import FirstStep from '../first-step/first-step';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { useGetApplicantInfo } from '../../services/get-applicant-info.api';
+import { useGetGrantTypeQuery } from '../../../../edit-client-info-widget/src/services/get-grant-type.api';
+import { useGetTags } from '../../../../edit-client-info-widget/src/services/get-tag-info.api';
 
 type AppProps = PageProps & {
   //

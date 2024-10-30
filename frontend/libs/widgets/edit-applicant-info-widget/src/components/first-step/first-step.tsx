@@ -28,7 +28,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log(values);
+    console.log('asdfadsf', values);
   };
 
   const defaultValues = {
@@ -39,23 +39,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     [FORM_ITEM_NAMES.telePhone]: userData.tele,
     [FORM_ITEM_NAMES.email]: userData.email,
   };
-
-  const clientType = [
-    { value: 'TEST-1', label: 'TEST-1' },
-    { value: 'TEST-2', label: 'TEST-2' },
-    { value: 'TEST-3', label: 'TEST-3' },
-  ];
-
-  const aggregatorOption = [
-    {
-      value: 'test-1',
-      label: 'test-1',
-    },
-    {
-      value: 'test-2',
-      label: 'test-2',
-    },
-  ];
 
   return (
     <S.FirtStepContainer>
