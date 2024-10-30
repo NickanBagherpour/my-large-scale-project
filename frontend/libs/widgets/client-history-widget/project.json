@@ -1,0 +1,9 @@
+{
+    "name": "client-history-widget",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/widgets/client-history-widget/src",
+    "projectType": "library",
+    "tags": [],
+    "// targets": "to see all targets run: nx show project test --web",
+    "targets": {}
+}
