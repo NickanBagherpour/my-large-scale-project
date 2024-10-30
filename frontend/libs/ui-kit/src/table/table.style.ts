@@ -79,7 +79,7 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead,
   tbody tr.even-row {
-    background-color: ${(p) => (p.variant === 'simple' ? p.theme.background.main : p.theme.border._50)};
+    background-color: ${(p) => (p.variant === 'simple' ? p.theme.background.main : p.theme.background._50)};
   }
 
   tbody tr.even-row + .ant-table-expanded-row {

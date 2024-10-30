@@ -172,7 +172,7 @@ const DataTable: React.FC<AppProps> = () => {
       {displayTable ? (
         <S.TableContainer>
           <Table
-            scroll={{ x: 1800 }}
+            variant='complex'
             columns={columns}
             dataSource={data?.items}
             loading={isFetching}

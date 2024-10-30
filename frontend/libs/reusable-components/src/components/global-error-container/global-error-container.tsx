@@ -20,6 +20,7 @@ const GlobalErrorContainer: React.FC<GlobalErrorContainerProps> = ({ onClose, er
         shouldScroll={true}
         description={errorMessage?.shouldTranslate ? t(errorMessage?.description) : errorMessage?.description}
         onClose={onClose}
+        closable={!!onClose}
         message={errorMessage?.shouldTranslate ? t(errorMessage?.title || '') : errorMessage?.title}
       />
     </Box>

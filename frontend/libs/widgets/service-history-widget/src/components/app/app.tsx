@@ -25,6 +25,9 @@ const App: React.FC<AppProps> = () => {
   const [t] = useTr();
   const router = useRouter();
 
+
+  console.log('errorMessage', errorMessage);
+
   function prepareParams() {
     const params = {
       pagination: table.pagination,
@@ -43,18 +46,22 @@ const App: React.FC<AppProps> = () => {
 
   return (
     <>
+      <S.HistoryContainer title={title}>
+
       <GlobalErrorContainer
-        containerProps={{ marginBottom: '2.4rem' }}
+        containerProps={{ margin: '1.6rem 0' }}
         errorMessage={errorMessage}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <S.HistoryContainer title={title}>
+
         <S.TableContainer>
           <DataTable />
         </S.TableContainer>
+
         <Divider />
+        
         <S.FooterContainer>
           <Button className='btn-return' onClick={handleReturn}>
             {t('button.return')}

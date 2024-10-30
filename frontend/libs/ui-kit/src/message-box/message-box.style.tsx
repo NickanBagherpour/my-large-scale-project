@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Alert } from '../alert/alert';
 
-export const StyledContainer = styled(Alert)`
+export const StyledAlert = styled(Alert)`
   padding-top: 1rem;
   padding-bottom: 1rem;
 
