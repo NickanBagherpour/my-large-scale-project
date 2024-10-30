@@ -1,36 +1,58 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
+
+import { Badge, TablePaginationConfig } from 'antd';
+import { useTheme } from 'styled-components';
+
 import { dateLocale, getValueOrDash, uuid } from '@oxygen/utils';
+import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
+import { PageProps } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { useGetReportDataQuery } from '../../services';
 
 import * as S from './data-list.style';
 
 type dataListProps = PageProps & {
-  data: any;
-  isFetching: boolean;
+  //
 };
 
 const DataList: React.FC<dataListProps> = (props) => {
-  const { data, isFetching } = props;
+  // const { data, isFetching } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
 
+  const theme = useTheme();
+
+  // const [showBadge, setShowBadge] = useState(true);
+
   const {
     table: { pagination },
   } = state;
-  console.log('state', state);
 
-  // const handlePageChange = async (_: ChangeEvent<unknown>, page: number, rowsPerPage?: number) => {
-  // const updatedPagination = { page, ...(rowsPerPage ? { limit: rowsPerPage } : {}) };
+  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 
-  const handlePageChange = async (pageData: any) => {
-    const updatedPagination = { page: pageData.current, ...(pageData.pageSize ? { limit: pageData.pageSize } : {}) };
-    updatePagination(dispatch, updatedPagination);
+  function prepareParams() {
+    const params = {
+      ...pagination,
+    };
+
+    return params;
+  }
+
+  const handlePageChange = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+
+    if (pageSize && current) {
+      const updatedPagination = {
+        page: pageSize === pagination.rowsPerPage ? current : 1,
+        rowsPerPage: pageSize,
+      };
+      updatePagination(dispatch, updatedPagination);
+    }
   };
 
   const mobileColumns: ColumnsType<any> = [
@@ -90,7 +112,6 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
   ];
-
   const columns: ColumnsType<any> = [
     {
       title: t('table.edit_time'),
@@ -99,6 +120,7 @@ const DataList: React.FC<dataListProps> = (props) => {
       width: 'min-content',
       render: (value) => {
         return getValueOrDash(value);
+        // convertShamsiDateFormat
       },
     },
     {
@@ -106,8 +128,28 @@ const DataList: React.FC<dataListProps> = (props) => {
       dataIndex: 'adminName',
       align: 'center',
       width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      render: (value, record) => {
+        const showBadge = record?.someCondition;
+        return (
+          <S.ValueContainer>
+            {'showBadge' && (
+              <Badge
+                status='error'
+                // offset={[2, 0]}
+                dot={showBadge}
+                color={theme.error._600}
+              />
+            )}
+
+            <span style={{ marginLeft: showBadge ? 8 : 0 }}>{getValueOrDash(value)}</span>
+          </S.ValueContainer>
+          // <Badge
+          //   status={'error'}
+          //   offset={[10, 0]}
+          //   dot={showBadge}
+          //   text={<span style={{ fontSize: 'inherit' }}>{getValueOrDash(value)}</span>}
+          // ></Badge>
+        );
       },
     },
     {
@@ -194,22 +236,26 @@ const DataList: React.FC<dataListProps> = (props) => {
   ];
 
   return (
-    <Box marginTop={'2.4rem'}>
-      <Table
-        columns={columns}
-        mobileColumns={mobileColumns}
-        variant={'complex'}
-        total={data?.totalElements}
-        current={pagination.page}
-        // size={pagination.limit}
-        title={t('table.client_change_history')}
-        hasContainer={true}
-        dataSource={data?.content}
-        loading={isFetching}
-        onChange={handlePageChange}
-        rowKey={() => uuid()}
-      />
-    </Box>
+    <S.TableContainer>
+      {data?.content ? (
+        <Table
+          loading={isFetching}
+          current={pagination.page}
+          total={data?.total}
+          dataSource={data?.content}
+          pagination={{ pageSize: pagination.rowsPerPage }}
+          columns={columns}
+          mobileColumns={mobileColumns}
+          variant={'complex'}
+          title={t('table.client_change_history')}
+          hasContainer={true}
+          onChange={handlePageChange}
+          rowKey={() => uuid()}
+        />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
+    </S.TableContainer>
   );
 };
 

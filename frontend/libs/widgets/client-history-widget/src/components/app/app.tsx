@@ -1,17 +1,17 @@
 import React from 'react';
 
+import { useRouter } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
+
+import { Button } from '@oxygen/ui-kit';
+import { GlobalErrorContainer } from '@oxygen/reusable-components';
+
 import { PageProps } from '@oxygen/types';
 
-import { FooterButtonContainer, GlobalErrorContainer, NoResult } from '@oxygen/reusable-components';
-
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import { useGetReportDataQuery } from '../../services';
 import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
-import { Button } from '@oxygen/ui-kit';
-import { useRouter } from 'next/navigation';
 
 type AppProps = PageProps & {
   //
@@ -21,45 +21,15 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  // console.log('app state', state);
 
   const router = useRouter();
 
-  const {
-    table: { pagination },
-  } = state;
-
-  // console.log('pagination', pagination);
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
-
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
   const handleReturn = () => {
     router.back();
   };
 
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
-
-  function prepareParams() {
-    const params = {
-      pagination: pagination,
-    };
-
-    return params;
-  }
-
   return (
-    <S.AppContainer fillContainer={true} subtitle={'Todo subtitle '}>
-      {/*//related to selected client*/}
+    <S.AppContainer fillContainer={true} title={t('widget_name')}>
       <GlobalErrorContainer
         containerProps={{ marginBottom: '2.4rem' }}
         errorMessage={state.errorMessage}
@@ -67,8 +37,8 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      {data?.content ? <DataList data={data} isFetching={isFetching} /> : <NoResult isLoading={isFetching} />}
-      <FooterButtonContainer>
+      <DataList />
+      <S.FooterContainer>
         <Button
           className={'return-button'}
           variant={'outlined'}
@@ -78,7 +48,7 @@ const App: React.FC<AppProps> = (props) => {
         >
           {t('button.return')}
         </Button>
-      </FooterButtonContainer>
+      </S.FooterContainer>
     </S.AppContainer>
   );
 };

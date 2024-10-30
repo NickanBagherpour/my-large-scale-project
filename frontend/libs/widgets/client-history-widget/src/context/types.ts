@@ -8,7 +8,7 @@ export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
+  rowsPerPage: number;
 };
 
 export type WidgetStateType = {
@@ -35,7 +35,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
-      payload: Partial<PaginationType>;
+      payload: PaginationType;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

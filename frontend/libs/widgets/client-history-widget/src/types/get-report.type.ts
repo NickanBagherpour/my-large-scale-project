@@ -25,7 +25,4 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
-export type FetchParamsType = {
-  // filters?: FiltersType;
-  pagination: PaginationType;
-};
+export type FetchParamsType = PaginationType;
