@@ -25,6 +25,7 @@ import * as TagsInfo from './tags.mock';
 import * as ClientsListMock from './client-list.mock';
 import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
+import * as ServiceHistoryMock from './service-history.mock';
 
 const Mockify = {
   ...UserMock,
@@ -50,6 +51,7 @@ const Mockify = {
   ...DetailTableMock,
   ...ProductsMock,
   ...ClientsListMock,
+  ...ServiceHistoryMock,
   ...GrantTypeMock,
   ...TagsInfo,
   ...ApplicantInfo,
