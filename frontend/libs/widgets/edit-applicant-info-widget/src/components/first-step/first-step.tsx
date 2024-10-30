@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+'useClient';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -14,6 +15,7 @@ import { rule } from '../../types/settings.schema';
 
 type FirstStepProps = PageProps & {
   //
+  userData: any;
 };
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
@@ -21,11 +23,21 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
   const [form] = Form.useForm();
+  const { userData } = props;
 
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
     console.log(values);
+  };
+
+  const defaultValues = {
+    [FORM_ITEM_NAMES.userName]: userData.userName,
+    [FORM_ITEM_NAMES.nationalCode]: userData.nationalCode,
+    [FORM_ITEM_NAMES.organizationName]: userData.organizationName,
+    [FORM_ITEM_NAMES.mobileNumber]: userData.phoneNumber,
+    [FORM_ITEM_NAMES.telePhone]: userData.tele,
+    [FORM_ITEM_NAMES.email]: userData.email,
   };
 
   const clientType = [
@@ -49,7 +61,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     <S.FirtStepContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_applicant_info')}</p>
-        <Form layout={'vertical'} onFinish={onFinish} form={form}>
+        <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.userName} label={t('form.userName')} rules={[rule]}>
               <Input placeholder={t('placeholder.userName')} />
