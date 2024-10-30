@@ -34,10 +34,6 @@ export const FirtStepContainer = styled.div`
     }
   }
 
-  .seperator {
-    margin-bottom: 1.6rem;
-  }
-
   .footer {
     display: flex;
     justify-content: flex-end;

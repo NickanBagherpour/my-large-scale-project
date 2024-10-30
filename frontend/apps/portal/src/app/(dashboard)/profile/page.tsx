@@ -12,9 +12,8 @@ import {
   Chip,
   Container,
   Table,
-  TagInput,
-  DropdownOption,
   Divider,
+  MenuItemType,
 } from '@oxygen/ui-kit';
 import { FilterPopover, FilterType } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
@@ -45,16 +44,16 @@ const Div = styled.div`
   margin-left: 2rem;
   margin-bottom: 2rem;
 `;
-const dropdownOptions: DropdownOption[] = [
-  { label: 'Client Flow', value: 'option1' },
-  { label: 'Password Flow', value: 'option2' },
-  { label: 'Implicit Flow', value: 'option4' },
-  { label: 'Refresh Token', value: 'option5' },
-  { label: 'Client Flow', value: 'option6' },
-  { label: 'Password Flow', value: 'option7' },
-  { label: 'Authorization Code Flow', value: 'option8' },
-  { label: 'Implicit Flow', value: 'option9' },
-  { label: 'Refresh Token', value: 'option10' },
+const dropdownOptions: MenuItemType[] = [
+  { label: 'Client Flow', key: 'option1' },
+  { label: 'Password Flow', key: 'option2' },
+  { label: 'Implicit Flow', key: 'option4' },
+  { label: 'Refresh Token', key: 'option5' },
+  { label: 'Client Flow', key: 'option6' },
+  { label: 'Password Flow', key: 'option7' },
+  { label: 'Authorization Code Flow', key: 'option8' },
+  { label: 'Implicit Flow', key: 'option9' },
+  { label: 'Refresh Token', key: 'option10' },
 ];
 
 const items: TabsProps['items'] = [
@@ -194,43 +193,43 @@ export default function Index() {
           // customStyle={customStyles}
           handleIconClick={(e) => console.log('handle click from usage', e)}
         />
-        <TagInputContainer>
-          <TagInput
-            title={' اضافه‌کردن Grant Type'}
-            options={dropdownOptions}
-            multiSelect={true}
-            onChange={handleCheckboxChange}
-            loading={false}
-            defaultValue={
-              [
-                /*   {
-                label: "Client Flow",
-                value: "option1"
-              },
-              {
-                label: "Password Flow",
-                value: "option2"
-              }*/
-              ]
-            }
-          />
-          {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}
-          {checkedItems.map((item) => {
-            return (
-              <React.Fragment key={item.value}>
-                <Chip
-                  className={'chip-style'}
-                  closable={true}
-                  onClose={(e) => {
-                    // handleCheckboxChange(item.value, e);
-                  }}
-                >
-                  {item?.label}
-                </Chip>
-              </React.Fragment>
-            );
-          })}
-        </TagInputContainer>
+        {/*<TagInputContainer>*/}
+        {/*  <TagInput*/}
+        {/*    title={' اضافه‌کردن Grant Type'}*/}
+        {/*    options={dropdownOptions}*/}
+        {/*    multiSelect={true}*/}
+        {/*    onChange={handleCheckboxChange}*/}
+        {/*    loading={false}*/}
+        {/*    defaultValue={*/}
+        {/*      [*/}
+        {/*        {*/}
+        {/*        label: "Client Flow",*/}
+        {/*        value: "option1"*/}
+        {/*      },*/}
+        {/*      {*/}
+        {/*        label: "Password Flow",*/}
+        {/*        value: "option2"*/}
+        {/*      }*/}
+        {/*      ]*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*  {checkedItems.length > 0 && <Divider type='vertical' style={{ height: 'auto' }} />}*/}
+        {/*  {checkedItems.map((item) => {*/}
+        {/*    return (*/}
+        {/*      <React.Fragment key={item.value}>*/}
+        {/*        <Chip*/}
+        {/*          className={'chip-style'}*/}
+        {/*          closable={true}*/}
+        {/*          onClose={(e) => {*/}
+        {/*            // handleCheckboxChange(item.value, e);*/}
+        {/*          }}*/}
+        {/*        >*/}
+        {/*          {item?.label}*/}
+        {/*        </Chip>*/}
+        {/*      </React.Fragment>*/}
+        {/*    );*/}
+        {/*  })}*/}
+        {/*</TagInputContainer>*/}
         <div className='container'>
           <div id='welcome'>
             <h1>

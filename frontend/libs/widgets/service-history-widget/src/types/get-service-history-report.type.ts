@@ -1,6 +1,6 @@
-import { FiltersType, PaginationType } from '../context/types';
+import { PaginationType } from '../context/types';
 
-export type ReportResponseType = {
+export type ServiceHistoryResponseType = {
   responseId: number;
   serviceTypeCode: number;
   items: ItemType[];
@@ -26,6 +26,5 @@ export type PaginationResultType = {
 };
 
 export type FetchParamsType = {
-  filters?: FiltersType;
   pagination: PaginationType;
 };

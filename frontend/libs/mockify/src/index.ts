@@ -21,8 +21,9 @@ import * as ProductHistoryMock from './product-history.mock';
 import * as DetailTableMock from './detail-table.mock';
 import * as ProductsMock from './products.mock';
 import * as GrantTypeMock from './grant-type.mock';
-import * as TagsInfo from './Tags.mock';
+import * as TagsInfo from './tags.mock';
 import * as ClientsListMock from './client-list.mock';
+import * as ServiceHistoryMock from './service-history.mock';
 import * as ClientHistoryMock from './client-history.mock';
 
 const Mockify = {
@@ -49,6 +50,7 @@ const Mockify = {
   ...DetailTableMock,
   ...ProductsMock,
   ...ClientsListMock,
+  ...ServiceHistoryMock,
   ...GrantTypeMock,
   ...TagsInfo,
   ...ClientHistoryMock,

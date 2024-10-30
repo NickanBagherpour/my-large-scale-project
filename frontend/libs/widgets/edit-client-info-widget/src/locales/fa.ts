@@ -27,6 +27,7 @@ export default {
     return: 'بازگشت',
   },
   placeholder: {
+    latin_name_client: 'app-bale',
     client_bale: 'کلاینت بله',
     credit_system: 'سامانه های اعتبار دهی - اعتبارسنجی',
     client_id: '407af44d-f469-413d-81cf-469b21fa',
