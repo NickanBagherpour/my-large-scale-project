@@ -19,7 +19,7 @@ const ClientHistoryWidget: React.FC<PageProps> = (props) => {
   };
 
   return (
-    <WidgetWrapper headerTitle={headerTitles}>
+    <WidgetWrapper>
       <AppProvider>
         <App parentProps={props.parentProps} updateHeaderTitle={handleTitleUpdate} />
       </AppProvider>
