@@ -46,10 +46,11 @@ const DataTable: React.FC<AppProps> = () => {
       dataIndex: 'enName',
       key: 'enName',
       ellipsis: true,
+      className: 'left-to-right',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 170,
+      width: 140,
     },
     {
       title: t('column.fa-name'),
