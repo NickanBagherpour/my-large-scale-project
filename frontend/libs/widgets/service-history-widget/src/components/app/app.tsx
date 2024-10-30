@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Divider } from '@oxygen/ui-kit';
+import { GlobalErrorContainer } from '@oxygen/reusable-components';
 
 import { useGetsServiceHistoryDataQuery } from '../../services';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
-import { GlobalErrorContainer } from '@oxygen/reusable-components';
 
 import * as S from './app.style';
 
