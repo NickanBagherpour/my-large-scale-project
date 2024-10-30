@@ -1,0 +1,19 @@
+{
+    "name": "backoffice-portal",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/backoffice-portal",
+    "projectType": "application",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/next:build",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "root": "apps/backoffice-portal",
+                "outputPath": "dist/apps/backoffice-portal"
+            }
+        },
+        "tags": {}
+    }
+}

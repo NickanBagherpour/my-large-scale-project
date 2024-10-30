@@ -24,8 +24,8 @@
         "**/*.tsx",
         "**/*.js",
         "**/*.jsx",
-        "../../apps/portal/.next/types/**/*.ts",
-        "../../dist/apps/portal/.next/types/**/*.ts",
+        "../../apps/backoffice-portal/.next/types/**/*.ts",
+        "../../dist/apps/backoffice-portal/.next/types/**/*.ts",
         "next-env.d.ts",
         ".next/types/**/*.ts",
         "../../type.d.ts"

@@ -234,7 +234,7 @@ export default function Index() {
           <div id='welcome'>
             <h1>
               <span> Hello there, </span>
-              Welcome to Oxygen Portal 👋
+              Welcome to Oxygen Portals 👋
             </h1>
           </div>
 

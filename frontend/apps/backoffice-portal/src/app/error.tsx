@@ -8,7 +8,5 @@ type ErrorProps = {
 };
 
 export default function Error({ error, reset }: ErrorProps) {
-  return (
-    <ErrorFallback error={error} reset={reset} />
-  );
+  return <ErrorFallback error={error} reset={reset} />;
 }

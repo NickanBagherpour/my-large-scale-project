@@ -6,15 +6,15 @@ export const MetaTags = () => (
       name='viewport'
       content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
     />
-    <meta name='description' content='Enterprise Banking Portal' />
-    <meta name='keywords' content='Enterprise, Banking, Portal, Melli' />
+    <meta name='description' content='Oxygen Portal' />
+    <meta name='keywords' content='Oxygen, Portal, Melli' />
     <link rel='icon' href='/favicon.ico' />
 
-    <meta name='application-name' content='Enterprise Banking Portal' />
+    <meta name='application-name' content='Oxygen Portal' />
     <meta name='apple-mobile-web-app-capable' content='yes' />
     <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-    <meta name='apple-mobile-web-app-title' content='Enterprise Banking' />
-    <meta name='description' content='Enterprise Banking Portal App' />
+    <meta name='apple-mobile-web-app-title' content='Oxygen' />
+    <meta name='description' content='Oxygen Portal App' />
     <meta name='format-detection' content='telephone=no' />
     <meta name='mobile-web-app-capable' content='yes' />
     {/*<meta name='msapplication-config' content='/icons/browserconfig.xml' />*/}
