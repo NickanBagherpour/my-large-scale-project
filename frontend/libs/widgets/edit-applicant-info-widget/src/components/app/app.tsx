@@ -6,7 +6,7 @@ import { Loading } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
 import * as S from './app.style';
-import FirstStep from '../first-step/first-step';
+import EditApplicant from '../edit-applicant/edit-applicant';
 import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import { useGetApplicantInfo } from '../../services/get-applicant-info.api';
 import { useGetGrantTypeQuery } from '../../../../edit-client-info-widget/src/services/get-grant-type.api';
@@ -39,7 +39,7 @@ const App: React.FC<AppProps> = (props) => {
     if (!requestId || !data) {
       redirect('/not-found');
     }
-    return <FirstStep userData={data} />;
+    return <EditApplicant userData={data} />;
   };
 
   return (

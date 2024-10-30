@@ -10,7 +10,7 @@ import { useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 
-import * as S from './first-step.style';
+import * as S from './edit-applicant.style';
 import { rule } from '../../types/settings.schema';
 
 type FirstStepProps = PageProps & {
@@ -18,7 +18,7 @@ type FirstStepProps = PageProps & {
   userData: any;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+const EditApplicant: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -78,4 +78,4 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   );
 };
 
-export default FirstStep;
+export default EditApplicant;

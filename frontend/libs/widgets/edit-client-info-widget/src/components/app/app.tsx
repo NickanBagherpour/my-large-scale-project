@@ -5,7 +5,7 @@ import { Nullable, PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import FirstStep from '../first-step/first-step';
+import EditClient from '../edit-client/edit-client';
 import * as S from './app.style';
 import { redirect, useSearchParams } from 'next/navigation';
 import { useGetApplicantInfo } from '../../../../edit-applicant-info-widget/src/services/get-applicant-info.api';
@@ -41,7 +41,7 @@ const App: React.FC<AppProps> = (props) => {
     if (!requestId || !data) {
       redirect('/not-found');
     }
-    return <FirstStep userData={data} />;
+    return <EditClient userData={data} />;
   };
 
   console.log(data);

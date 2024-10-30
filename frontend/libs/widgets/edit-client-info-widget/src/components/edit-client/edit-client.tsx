@@ -12,14 +12,14 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { rule } from '../../types';
 
-import * as S from './first-step.style';
+import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
   //
   userData: any;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+const EditClient: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -215,4 +215,4 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   );
 };
 
-export default FirstStep;
+export default EditClient;

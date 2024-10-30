@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'edit-client-info-widget',
+  widget_name: 'edit-applicant-info-widget',
 };
