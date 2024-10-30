@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
   // Only create stylesheet once with lazy initial state
@@ -21,5 +22,9 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 
   if (typeof window !== 'undefined') return <>{children}</>;
 
-  return <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>;
+  return (
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      <AntdRegistry>{children}</AntdRegistry>
+    </StyleSheetManager>
+  );
 }
