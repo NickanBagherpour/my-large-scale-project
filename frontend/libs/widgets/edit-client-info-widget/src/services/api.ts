@@ -11,5 +11,9 @@ const Api = {
     return Mockify.TagInfo();
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
+  getClientInfo: async (reqId) => {
+    return Mockify.getClientInfo(reqId);
+    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  },
 };
 export default Api;

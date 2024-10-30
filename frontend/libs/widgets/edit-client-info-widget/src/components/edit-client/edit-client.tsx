@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
@@ -12,17 +12,19 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { rule } from '../../types';
 
-import * as S from './first-step.style';
+import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
   //
+  userData: any;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+const EditClient: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
   const [form] = Form.useForm();
+  const { userData } = props;
 
   const [grantTypeState, setGrantTypeState] = useState<{ key: string; label: string }[]>([]);
 
@@ -34,6 +36,30 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const grantTypeData = grantType?.content;
   const tagsData = tags?.content;
+
+  useEffect(() => {
+    if (grantTypeData) {
+      setGrantTypeState(userData.grantType);
+    }
+    if (tagsData) {
+      setTagsState(userData.tags);
+    }
+  }, [grantTypeData, tagsData]);
+
+  const defaultValues = {
+    [FORM_ITEM_NAMES.grantType]: userData.grantType,
+    [FORM_ITEM_NAMES.tags]: userData.tags,
+    [FORM_ITEM_NAMES.latinNameClient]: userData.latinNameClient,
+    [FORM_ITEM_NAMES.persianNameClient]: userData.persianNameClient,
+    [FORM_ITEM_NAMES.clientType]: userData.clientType,
+    [FORM_ITEM_NAMES.clientId]: userData.clientId,
+    [FORM_ITEM_NAMES.identityAuth]: userData.identityAuth,
+    [FORM_ITEM_NAMES.websiteUrl]: userData.websiteUrl,
+    [FORM_ITEM_NAMES.inputAddress]: userData.inputAddress,
+    [FORM_ITEM_NAMES.returnAddress]: userData.returnAddress,
+    [FORM_ITEM_NAMES.aggregatorStatus]: userData.aggregatorStatus,
+    [FORM_ITEM_NAMES.aggregator]: userData.aggregator,
+  };
 
   const submitClick = () => form.submit();
 
@@ -87,7 +113,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     <S.FirtStepContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
-        <Form layout={'vertical'} onFinish={onFinish} form={form}>
+        <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
           <div className={'grid'}>
             <div className='item1'>
               <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
@@ -189,4 +215,4 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   );
 };
 
-export default FirstStep;
+export default EditClient;
