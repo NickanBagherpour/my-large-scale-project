@@ -10,6 +10,7 @@ export const Title = styled.h2`
   color: ${(p) => p.theme.text.primary};
   font-weight: 600;
   margin: 0;
+  padding-inline-start: 0.8rem;
 `;
 
 export const Actions = styled.div`
@@ -25,4 +26,8 @@ export const Input = styled(KitInput)`
 
 export const SettingsIcon = styled.i`
   font-size: 2rem;
+`;
+
+export const SearchIcon = styled.i`
+  font-size: 1.8rem;
 `;

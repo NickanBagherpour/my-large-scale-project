@@ -18,7 +18,7 @@ export default function PluginHeader() {
             {t('add_limits_for_services')}
           </Button>
         </S.Actions>
-        <S.Input placeholder={t('search_by_service_name')} prefix={<i className='icon-search-normal' />} />
+        <S.Input placeholder={t('search_by_service_name')} prefix={<S.SearchIcon className='icon-search-normal' />} />
       </S.Header>
 
       <LimitationsModal toggle={toggleModalOpen} isOpen={isModalOpen} />
