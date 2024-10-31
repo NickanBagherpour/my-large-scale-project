@@ -40,7 +40,7 @@ export const InfoBoxWrapper = styled.div<any>`
   & .info-box__title {
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-weight: 600;
     color: ${(p) => p.theme.text.primary};
     white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
     display: block;

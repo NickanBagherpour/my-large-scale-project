@@ -31,7 +31,7 @@ export default function Clients(props: Props) {
             status={isActiveInTheService ? 'active' : 'inactive'}
             date={date}
             wordToHighlight={searchTerm}
-            href='/'
+            href='/client-details'
           />
         ))}
       </S.Grid>

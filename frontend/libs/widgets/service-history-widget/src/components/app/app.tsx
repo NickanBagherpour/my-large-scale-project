@@ -25,7 +25,6 @@ const App: React.FC<AppProps> = () => {
   const [t] = useTr();
   const router = useRouter();
 
-
   console.log('errorMessage', errorMessage);
 
   function prepareParams() {
@@ -47,21 +46,20 @@ const App: React.FC<AppProps> = () => {
   return (
     <>
       <S.HistoryContainer title={title}>
-
-      <GlobalErrorContainer
-        containerProps={{ margin: '1.6rem 0' }}
-        errorMessage={errorMessage}
-        onClose={() => {
-          resetErrorMessageAction(dispatch);
-        }}
-      />
+        <GlobalErrorContainer
+          containerProps={{ margin: '1.6rem 0' }}
+          errorMessage={errorMessage}
+          onClose={() => {
+            resetErrorMessageAction(dispatch);
+          }}
+        />
 
         <S.TableContainer>
           <DataTable />
         </S.TableContainer>
 
         <Divider />
-        
+
         <S.FooterContainer>
           <Button className='btn-return' onClick={handleReturn}>
             {t('button.return')}

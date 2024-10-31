@@ -15,8 +15,7 @@ export const TableContainer = styled.div`
     margin: 0 1.6rem 0 2.5rem;
   }
   & td.left-to-right {
-  
-     /*! @noflip */
+    /*! @noflip */
     direction: ${(props) => props.theme.direction};
   }
 `;
