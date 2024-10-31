@@ -1,4 +1,4 @@
-import type { ClientInfo, Service } from '@oxygen/types';
+import type { ClientInfo, Service, Plugin } from '@oxygen/types';
 
 export const clientInfo: ClientInfo = {
   grantType: ['Client Flow', 'Password Flow', 'Authorization Code Flow'],
@@ -31,4 +31,14 @@ export const services: Service[] = Array.from({ length: 100 }).map(() => ({
   status: 'status',
   details: 'details',
   remove: 'remove',
+}));
+
+export const plugins: Plugin[] = Array.from({ length: 4 }).map((_, idx) => ({
+  idx: idx + 1,
+  name: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+  englishName: 'Customer-idnumber-phonenumber',
+  status: 'تایید‌ شده',
+  version: 'V2.0',
+  scope: 'svc-mgmt-samat-lc-bal-del',
+  upstream: 'sejam',
 }));

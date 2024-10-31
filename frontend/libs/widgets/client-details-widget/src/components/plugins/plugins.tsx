@@ -1,22 +1,19 @@
 import PluginServices from '../plugin-services/plugin-services';
 import Header from '../plugin-header/plugin-header';
-
-const data = {
-  name: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
-  englishName: 'Customer-idnumber-phonenumber',
-  status: 'تایید‌ شده',
-  version: 'V2.0',
-  scope: 'svc-mgmt-samat-lc-bal-del',
-  upstream: 'sejam',
-};
+import { useGetPluginsQuery } from '../../services';
+import { Loading } from '@oxygen/ui-kit';
 
 export default function Plugins() {
+  const { data, isFetching } = useGetPluginsQuery();
+
   return (
     <section>
       <Header />
-      {Array.from({ length: 4 }).map((_, idx) => (
-        <PluginServices key={idx} idx={idx + 1} {...data} />
-      ))}
+      <Loading spinning={isFetching} size='large'>
+        {data?.map((plugin) => (
+          <PluginServices key={plugin.idx} {...plugin} />
+        ))}
+      </Loading>
     </section>
   );
 }

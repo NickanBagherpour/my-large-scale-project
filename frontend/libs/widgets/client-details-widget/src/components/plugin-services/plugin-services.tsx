@@ -2,18 +2,9 @@ import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
 import { Button } from '@oxygen/ui-kit';
+import { Plugin } from '@oxygen/types';
 
-interface Props {
-  idx: number;
-  name: string;
-  englishName: string;
-  status: string;
-  version: string;
-  scope: string;
-  upstream: string;
-}
-
-export default function PluginServices(props: Props) {
+export default function PluginServices(props: Plugin) {
   const { idx, name, englishName, status, version, scope, upstream } = props;
   const [t] = useTr();
 

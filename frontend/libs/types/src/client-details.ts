@@ -32,3 +32,13 @@ export type Service = {
   details: string;
   remove: string;
 };
+
+export type Plugin = {
+  idx: number;
+  name: string;
+  englishName: string;
+  status: string;
+  version: string;
+  scope: string;
+  upstream: string;
+};
