@@ -11,7 +11,7 @@ export const TagInfo = async (): Promise<any> => {
       };
 
       resolve(response);
-    }, 2500);
+    }, 4500);
   });
 
   return data;

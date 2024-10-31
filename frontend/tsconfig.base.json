@@ -36,14 +36,23 @@
             "@oxygen/widgets/client-details-widget": [
                 "libs/widgets/client-details-widget/src/index.ts"
             ],
+            "@oxygen/widgets/client-history-widget": [
+                "libs/widgets/client-history-widget/src/index.ts"
+            ],
             "@oxygen/widgets/client-list-widget": [
                 "libs/widgets/client-list-widget/src/index.ts"
             ],
             "@oxygen/widgets/create-new-client-widget": [
                 "libs/widgets/create-new-client-widget/src/index.ts"
             ],
+            "@oxygen/widgets/edit-applicant-info-widget": [
+                "libs/widgets/edit-applicant-info-widget/src/index.ts"
+            ],
             "@oxygen/widgets/edit-client-info-widget": [
                 "libs/widgets/edit-client-info-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/service-history-widget": [
+                "libs/widgets/service-history-widget/src/index.ts"
             ],
             "@oxygen/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"

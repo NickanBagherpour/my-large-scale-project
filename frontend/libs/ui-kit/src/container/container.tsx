@@ -36,17 +36,14 @@ export const Container = (props: IWidgetWrapperProps) => {
   const widgetTitle = title;
   const widgetSubTitle = subtitle;
 
-
   const combinedStyle: React.CSSProperties = {
     ...style,
-    margin, 
+    margin,
     marginTop,
     marginBottom,
     marginLeft,
     marginRight,
   };
-
-
 
   return (
     <S.WidgetWrapperContainer fill_container={fillContainer} className={className} style={combinedStyle}>

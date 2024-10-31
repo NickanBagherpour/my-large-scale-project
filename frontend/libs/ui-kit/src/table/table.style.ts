@@ -79,7 +79,7 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead,
   tbody tr.even-row {
-    background-color: ${(p) => (p.variant === 'simple' ? p.theme.background.main : p.theme.border._50)};
+    background-color: ${(p) => (p.variant === 'simple' ? p.theme.background.main : p.theme.background._50)};
   }
 
   tbody tr.even-row + .ant-table-expanded-row {
@@ -95,11 +95,13 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   .ant-pagination {
+    //too much padding
     padding: 2.4rem 3rem;
     position: relative;
   }
 
   .ant-pagination-options {
+    //no margin on the right
     order: -1;
     margin: 0 1.6rem 0 0;
     position: absolute;

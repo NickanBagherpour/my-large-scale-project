@@ -1,15 +1,15 @@
 'use client';
 
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { BasicComponentProps, Direction } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
 import { uuid } from '@oxygen/utils';
 
-import { StyledContainer } from './message-box.style';
-import Link from 'next/link';
+import { StyledAlert } from './message-box.style';
 import { AlertProps } from '../alert/alert';
-import { useRouter } from 'next/navigation';
 
 type LinkTargetType = '_self' | '_blank';
 
@@ -118,7 +118,7 @@ export const MessageBox: React.FC<I$MessageBoxProps> = (props) => {
 
   return (
     <div ref={mainRef} style={{ margin: margin }} id={`message-box-${uuid()}`}>
-      <StyledContainer showIcon={showIcon} description={generateDescription()} onClose={handleDismiss} {...rest} />
+      <StyledAlert showIcon={showIcon} description={generateDescription()} onClose={handleDismiss} {...rest} />
     </div>
   );
 };

@@ -29,6 +29,8 @@ export default {
     closed: 'تسویه شده',
     row_number: 'ردیف',
     print_date: 'تاریخ چاپ',
+    error: 'خطا',
+    warning: 'هشدار',
   },
   app: {
     app_name: 'سامانه مدیریت اوراق (سما)',

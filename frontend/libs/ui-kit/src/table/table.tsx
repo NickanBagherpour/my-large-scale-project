@@ -56,7 +56,7 @@ export const Table = (props: TableProps) => {
     total,
     current = 1,
     title,
-    hasContainer = true,
+    hasContainer = false,
     captionChildren = null,
     paginationType = PaginationType.PAGINATED,
     showHeader,
