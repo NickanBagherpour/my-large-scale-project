@@ -9,7 +9,8 @@ import { useState } from 'react';
 import { useGetServicesQuery } from '../../services';
 import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
-import { getDesktopColumns } from '../../utils/services-table.util';
+import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
+import { Input } from '@oxygen/ui-kit';
 
 export default function Services() {
   const [t] = useTr();
@@ -32,7 +33,7 @@ export default function Services() {
     }
   };
 
-  const columns = getDesktopColumns({
+  const tableData = {
     t,
     page,
     rowsPerPage,
@@ -40,13 +41,15 @@ export default function Services() {
     toggleIsStartModalOpen,
     toggleIsRemoveModalOpen,
     toggleIsDetailsModalOpen,
-  });
+  };
+  const desktopColumns = getDesktopColumns(tableData);
+  const mobileColumns = getMobileColumns(tableData);
 
   return (
     <>
       <S.Header>
         <S.Title>{t('client_services')}</S.Title>
-        <S.Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
+        <Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
       </S.Header>
 
       <S.Table
@@ -55,8 +58,10 @@ export default function Services() {
         total={data?.total}
         dataSource={data?.list}
         pagination={{ pageSize: pagination.rowsPerPage }}
-        columns={columns}
+        columns={desktopColumns}
+        mobileColumns={mobileColumns}
         onChange={changePage}
+        scroll={{ x: 'max-content' }}
       />
 
       <StopServiceModal isOpen={isStopModalOpen} toggle={toggleIsStopModalOpen} id={'samat-lc-gutr-del'} />
