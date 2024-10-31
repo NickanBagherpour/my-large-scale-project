@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { loadTr } from '@oxygen/translation';
-import { WidgetWrapper } from '@oxygen/layouts';
+import { WidgetWrapper } from '@oxygen/<%= shortPortalName %>/layouts';
 import { PageProps } from '@oxygen/types';
 
 import App from './components/app/app';
