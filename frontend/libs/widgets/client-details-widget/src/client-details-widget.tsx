@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { useTr, loadTr } from '@oxygen/translation';
+import { loadTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/layouts';
 import { PageProps } from '@oxygen/types';
 
@@ -9,19 +9,13 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const ClientDetailsWidget: React.FC<PageProps> = (props) => {
+const ClientDetailsWidget: React.FC<PageProps> = (_) => {
   loadTr({ en, fa });
-  const [t] = useTr();
-  const [headerTitles, setHeaderTitles] = useState<string | string[]>([t('widget_name')]);
-
-  const handleTitleUpdate = (newTitles: string | string[]) => {
-    setHeaderTitles(newTitles);
-  };
 
   return (
-    <WidgetWrapper headerTitle={headerTitles}>
+    <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps} updateHeaderTitle={handleTitleUpdate} />
+        <App />
       </AppProvider>
     </WidgetWrapper>
   );

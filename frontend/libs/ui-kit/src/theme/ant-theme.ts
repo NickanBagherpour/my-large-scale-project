@@ -32,7 +32,7 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
       Input: {
         colorBorder: themeBase.border.main,
         colorTextPlaceholder: themeBase.text.quaternary,
-        inputFontSizeLG: '1.4rem',
+        inputFontSizeLG: 14,
       },
       Select: {
         colorBorder: themeBase.border.main,
