@@ -27,7 +27,7 @@ export default function LimitationsModal(props: Props) {
       centered
       title={t('call_limitation_for_all_services')}
       open={isOpen}
-      onClose={toggle}
+      onCancel={toggle}
       footer={[<S.RegisterBtn onClick={toggle}>{t('register_data')}</S.RegisterBtn>]}
     >
       <S.Content>
