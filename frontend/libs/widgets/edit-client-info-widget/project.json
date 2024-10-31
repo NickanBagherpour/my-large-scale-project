@@ -1,9 +1,0 @@
-{
-    "name": "edit-client-info-widget",
-    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/widgets/edit-client-info-widget/src",
-    "projectType": "library",
-    "tags": [],
-    "// targets": "to see all targets run: nx show project test --web",
-    "targets": {}
-}

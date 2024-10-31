@@ -1,6 +1,6 @@
 'use client';
 
-import { ClientOnly } from '@oxygen/layouts';
+import { ClientOnly } from '@oxygen/business/layouts';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

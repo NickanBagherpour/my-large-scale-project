@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react';
 
 import { TestProvider } from '@oxygen/hooks';
-import { StorybookLayout } from '@oxygen/layouts';
+import { StorybookLayout } from '@oxygen/backoffice/layouts';
 import '../../../apps/backoffice-portal/public/assets/fonts/font.css';
 import '../../../apps/backoffice-portal/public/assets/fonts/iconly/iconly.css';
 

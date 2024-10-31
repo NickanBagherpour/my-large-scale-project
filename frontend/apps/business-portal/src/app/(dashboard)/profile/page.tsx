@@ -18,7 +18,7 @@ import {
 import { FilterPopover, FilterType } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { CardWithToggle } from '@oxygen/reusable-components';
-import { WidgetWrapper } from '@oxygen/layouts';
+import { WidgetWrapper } from '@oxygen/business/layouts';
 import React from 'react';
 
 
