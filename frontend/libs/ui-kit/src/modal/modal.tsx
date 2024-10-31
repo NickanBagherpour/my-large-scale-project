@@ -1,6 +1,5 @@
-import React from 'react';
-
-import { Modal as AntModal, ModalProps as AntModalProps } from 'antd';
+import { ModalProps as AntModalProps } from 'antd';
+import { Divider } from '../divider/divider';
 
 import * as S from './modal.style';
 
@@ -14,6 +13,7 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <S.StyledModal headerDivider={headerDivider} {...rest}>
+      {headerDivider && <Divider />}
       {children}
     </S.StyledModal>
   );

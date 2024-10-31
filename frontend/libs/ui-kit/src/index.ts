@@ -41,5 +41,6 @@ export * from './modal/modal';
 export * from './progress/progress';
 export * from './mark-text/mark-text';
 export * from './container/container';
+export * from './status/status.style';
 export * from './dropdown/dropdown';
 export type { MenuItemType } from './dropdown/dropdown-select/dropdown-select';

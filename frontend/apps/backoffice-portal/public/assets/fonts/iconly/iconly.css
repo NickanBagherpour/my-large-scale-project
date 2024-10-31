@@ -4,20 +4,16 @@
 
 @font-face {
   font-display: auto;
-  font-family: 'Iconly';
+  font-family: "Iconly";
   font-style: normal;
   font-weight: 400;
-  src: url('./iconly.eot?1730011844616');
-  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1730011844616') format('woff2'),
-    url('./iconly.woff?1730011844616') format('woff'), url('./iconly.ttf?1730011844616') format('truetype'),
-    url('./iconly.svg?1730011844616#Iconly') format('svg');
+  src: url("./iconly.eot?1730096438501");
+  src: url("./iconly.eot?#iefix") format("embedded-opentype"), url("./iconly.woff2?1730096438501") format("woff2"), url("./iconly.woff?1730096438501") format("woff"), url("./iconly.ttf?1730096438501") format("truetype"), url("./iconly.svg?1730096438501#Iconly") format("svg");
 }
 
-[class='icon'],
-[class^='icon-'],
-[class*=' icon-'] {
+[class="icon"], [class^="icon-"], [class*=" icon-"] {
   display: inline-block;
-  font-family: 'Iconly' !important;
+  font-family: "Iconly" !important;
   font-weight: 400;
   font-style: normal;
   font-variant: normal;
@@ -28,185 +24,189 @@
 }
 
 .icon-grid:before {
-  content: '\e000';
+  content: "\e000";
 }
 
 .icon-sun-fill:before {
-  content: '\e001';
+  content: "\e001";
 }
 
 .icon-moon-fill:before {
-  content: '\e002';
+  content: "\e002";
 }
 
 .icon-fill-arrow-up:before {
-  content: '\e003';
+  content: "\e003";
 }
 
 .icon-fill-arrow-down:before {
-  content: '\e004';
+  content: "\e004";
 }
 
 .icon-arrow-descending:before {
-  content: '\e005';
+  content: "\e005";
 }
 
 .icon-arrow-ascending:before {
-  content: '\e006';
+  content: "\e006";
 }
 
 .icon-arrow-left:before {
-  content: '\e007';
+  content: "\e007";
 }
 
 .icon-close:before {
-  content: '\e008';
+  content: "\e008";
+}
+
+.icon-setting-linear:before {
+  content: "\e009";
 }
 
 .icon-trash:before {
-  content: '\e00e';
+  content: "\e00e";
 }
 
 .icon-tick-circle:before {
-  content: '\e00f';
+  content: "\e00f";
 }
 
 .icon-sort:before {
-  content: '\e010';
+  content: "\e010";
 }
 
 .icon-sign-out:before {
-  content: '\e011';
+  content: "\e011";
 }
 
 .icon-setting:before {
-  content: '\e012';
+  content: "\e012";
 }
 
 .icon-search-normal:before {
-  content: '\e013';
+  content: "\e013";
 }
 
 .icon-printer:before {
-  content: '\e014';
+  content: "\e014";
 }
 
 .icon-plus:before {
-  content: '\e015';
+  content: "\e015";
 }
 
 .icon-person:before {
-  content: '\e016';
+  content: "\e016";
 }
 
 .icon-pencil-square:before {
-  content: '\e017';
+  content: "\e017";
 }
 
 .icon-pdf:before {
-  content: '\e018';
+  content: "\e018";
 }
 
 .icon-loader:before {
-  content: '\e019';
+  content: "\e019";
 }
 
 .icon-input-password:before {
-  content: '\e01a';
+  content: "\e01a";
 }
 
 .icon-export:before {
-  content: '\e01b';
+  content: "\e01b";
 }
 
 .icon-excel:before {
-  content: '\e01c';
+  content: "\e01c";
 }
 
 .icon-edit:before {
-  content: '\e01d';
+  content: "\e01d";
 }
 
 .icon-clock:before {
-  content: '\e01e';
+  content: "\e01e";
 }
 
 .icon-chev-down:before {
-  content: '\e01f';
+  content: "\e01f";
 }
 
 .icon-checkmark:before {
-  content: '\e020';
+  content: "\e020";
 }
 
 .icon-calendar:before {
-  content: '\e021';
+  content: "\e021";
 }
 
 .icon-arrow-up:before {
-  content: '\e022';
+  content: "\e022";
 }
 
 .icon-three-dots-vertical:before {
-  content: '\e023';
+  content: "\e023";
 }
 
 .icon-hamburger-menu:before {
-  content: '\e024';
+  content: "\e024";
 }
 
 .icon-ticket-2:before {
-  content: '\e025';
+  content: "\e025";
 }
 
 .icon-status-2:before {
-  content: '\e026';
+  content: "\e026";
 }
 
 .icon-profile-2user:before {
-  content: '\e027';
+  content: "\e027";
 }
 
 .icon-presention-chart-2:before {
-  content: '\e028';
+  content: "\e028";
 }
 
 .icon-judge-2:before {
-  content: '\e029';
+  content: "\e029";
 }
 
 .icon-hierarchy-2:before {
-  content: '\e02a';
+  content: "\e02a";
 }
 
 .icon-format-square-2:before {
-  content: '\e02b';
+  content: "\e02b";
 }
 
 .icon-folder-cloud-2:before {
-  content: '\e02c';
+  content: "\e02c";
 }
 
 .icon-document-text-2:before {
-  content: '\e02d';
+  content: "\e02d";
 }
 
 .icon-document-copy-2:before {
-  content: '\e02e';
+  content: "\e02e";
 }
 
 .icon-document-code-2:before {
-  content: '\e02f';
+  content: "\e02f";
 }
 
 .icon-cloud-2:before {
-  content: '\e030';
+  content: "\e030";
 }
 
 .icon-chart-2:before {
-  content: '\e031';
+  content: "\e031";
 }
 
 .icon-book-2:before {
-  content: '\e032';
+  content: "\e032";
 }

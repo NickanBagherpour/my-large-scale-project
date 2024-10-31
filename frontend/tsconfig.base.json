@@ -37,6 +37,9 @@
             "@oxygen/backoffice/widgets/client-history-widget": [
                 "libs/backoffice/widgets/client-history-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/client-details-widget": [
+                "libs/backoffice/widgets/client-details-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/client-list-widget": [
                 "libs/backoffice/widgets/client-list-widget/src/index.ts"
             ],

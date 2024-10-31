@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { type Status as StatusType } from './grid-card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MarkText } from '@oxygen/ui-kit';
@@ -50,24 +49,6 @@ export const EName = styled.p`
   margin: 0.5rem 0 0;
 `;
 
-export const Indicator = styled.div<{ status: StatusType }>`
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 50%;
-  margin-inline-end: 0.4rem;
-  box-sizing: content-box;
-  ${(p) =>
-    p.status === 'inactive'
-      ? css`
-          background: ${(p) => p.theme.error.main};
-          border: ${(p) => `0.2rem solid ${p.theme.error._300}`};
-        `
-      : css`
-          background: ${(p) => p.theme.secondary.main};
-          border: ${(p) => `0.2rem solid ${p.theme.secondary._200}`};
-        `};
-`;
-
 export const Footer = styled.footer`
   display: flex;
   justify-content: space-between;
@@ -79,8 +60,9 @@ export const Footer = styled.footer`
   }
 `;
 
-export const Status = styled.p`
+export const StatusTxt = styled.p`
   margin-inline-end: auto;
+  margin-inline-start: 0.4rem;
   color: ${(p) => p.theme.text.tertiary};
 `;
 
