@@ -1,7 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
 import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
-import { useToggle } from '@oxygen/hooks';
 import DetailsModal from '../details-modal/details-modal';
 import StartServiceModal from '../start-service-modal/start-service-modal';
 import StopServiceModal from '../stop-service-modal/stop-service-modal';
@@ -11,13 +10,16 @@ import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Input } from '@oxygen/ui-kit';
+import { Modals } from '../../types';
 
 export default function Services() {
   const [t] = useTr();
-  const [isRemoveModalOpen, toggleIsRemoveModalOpen] = useToggle(false);
-  const [isDetailsModalOpen, toggleIsDetailsModalOpen] = useToggle(false);
-  const [isStopModalOpen, toggleIsStopModalOpen] = useToggle(false);
-  const [isStartModalOpen, toggleIsStartModalOpen] = useToggle(false);
+  const [modals, setModals] = useState<Modals>({
+    details: false,
+    stopService: false,
+    startService: false,
+    removeService: false,
+  });
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
 
@@ -27,21 +29,17 @@ export default function Services() {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
       setPagination({
-        page: pageSize === pagination.rowsPerPage ? current : 1,
+        page: pageSize === rowsPerPage ? current : 1,
         rowsPerPage: pageSize,
       });
     }
   };
 
-  const tableData = {
-    t,
-    page,
-    rowsPerPage,
-    toggleIsStopModalOpen,
-    toggleIsStartModalOpen,
-    toggleIsRemoveModalOpen,
-    toggleIsDetailsModalOpen,
+  const toggleModal = (modal: keyof Modals) => {
+    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
   };
+
+  const tableData = { t, pagination, toggleModal };
   const desktopColumns = getDesktopColumns(tableData);
   const mobileColumns = getMobileColumns(tableData);
 
@@ -54,20 +52,32 @@ export default function Services() {
 
       <S.Table
         loading={isFetching}
-        current={pagination.page}
+        current={page}
         total={data?.total}
         dataSource={data?.list}
-        pagination={{ pageSize: pagination.rowsPerPage }}
+        pagination={{ pageSize: rowsPerPage }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
         scroll={{ x: 'max-content' }}
       />
 
-      <StopServiceModal isOpen={isStopModalOpen} toggle={toggleIsStopModalOpen} id={'samat-lc-gutr-del'} />
-      <StartServiceModal isOpen={isStartModalOpen} toggle={toggleIsStartModalOpen} id={'samat-lc-gutr-del'} />
-      <RemoveServiceModal isOpen={isRemoveModalOpen} toggle={toggleIsRemoveModalOpen} id={'samat-lc-gutr-del'} />
-      <DetailsModal isOpen={isDetailsModalOpen} toggle={toggleIsDetailsModalOpen} />
+      <StopServiceModal
+        isOpen={modals['stopService']}
+        toggle={() => toggleModal('stopService')}
+        id={'samat-lc-gutr-del'}
+      />
+      <StartServiceModal
+        isOpen={modals['startService']}
+        toggle={() => toggleModal('startService')}
+        id={'samat-lc-gutr-del'}
+      />
+      <RemoveServiceModal
+        isOpen={modals['removeService']}
+        toggle={() => toggleModal('removeService')}
+        id={'samat-lc-gutr-del'}
+      />
+      <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
     </>
   );
 }

@@ -1,28 +1,21 @@
 import { Button, ColumnsType, Switch } from '@oxygen/ui-kit';
 import * as S from '../components/services/services.style';
-import type { Service } from '@oxygen/types';
+import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import Link from 'next/link';
+import { Modals } from '../types';
 
 type Props = {
   t: TFunction;
-  page: number;
-  rowsPerPage: number;
-  toggleIsStartModalOpen: () => void;
-  toggleIsStopModalOpen: () => void;
-  toggleIsDetailsModalOpen: () => void;
-  toggleIsRemoveModalOpen: () => void;
+  pagination: Pagination;
+  toggleModal: (modal: keyof Modals) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
     t,
-    page,
-    rowsPerPage,
-    toggleIsStopModalOpen,
-    toggleIsStartModalOpen,
-    toggleIsRemoveModalOpen,
-    toggleIsDetailsModalOpen,
+    pagination: { page, rowsPerPage },
+    toggleModal,
   } = props;
 
   return [
@@ -72,7 +65,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
           <S.StatusTxt>{t('stop')} </S.StatusTxt>
           <Switch
             onChange={(checked) => {
-              checked ? toggleIsStartModalOpen() : toggleIsStopModalOpen();
+              checked ? toggleModal('startService') : toggleModal('stopService');
             }}
           />
           <S.StatusTxt> {t('operational')} </S.StatusTxt>
@@ -83,7 +76,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '7rem',
       key: 'status',
       render: () => (
-        <S.DetailsBtn variant='link' color='primary' onClick={toggleIsDetailsModalOpen}>
+        <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
           {t('details')}
         </S.DetailsBtn>
       ),
@@ -92,7 +85,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '7rem',
       key: 'remove',
       render: () => (
-        <Button variant='link' color='error' onClick={toggleIsRemoveModalOpen}>
+        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -101,7 +94,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t, toggleIsStopModalOpen, toggleIsStartModalOpen, toggleIsRemoveModalOpen, toggleIsDetailsModalOpen } = props;
+  const { t, toggleModal } = props;
   return [
     {
       title: '',
@@ -123,7 +116,7 @@ export function getMobileColumns(props: Props) {
                 <S.StatusTxt>{t('stop')} </S.StatusTxt>
                 <Switch
                   onChange={(checked) => {
-                    checked ? toggleIsStartModalOpen() : toggleIsStopModalOpen();
+                    checked ? toggleModal('startService') : toggleModal('stopService');
                   }}
                 />
                 <S.StatusTxt> {t('operational')} </S.StatusTxt>
@@ -133,7 +126,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('details'),
             value: (
-              <S.DetailsBtn variant='link' color='primary' onClick={toggleIsDetailsModalOpen}>
+              <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
                 {t('details')}
               </S.DetailsBtn>
             ),
@@ -141,7 +134,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('remove'),
             value: (
-              <Button variant='link' color='error' onClick={toggleIsRemoveModalOpen}>
+              <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
                 <S.TrashIcon className='icon-trash' />
               </Button>
             ),
