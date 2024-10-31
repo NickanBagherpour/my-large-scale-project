@@ -36,12 +36,24 @@ export default function ClientInfo() {
     {
       fullwidth: true,
       key: t('grant_type'),
-      value: grantType.map((t) => <Chip type='active'>{t}</Chip>),
+      value: (
+        <S.Chips>
+          {grantType.map((t) => (
+            <Chip type='active'>{t}</Chip>
+          ))}
+        </S.Chips>
+      ),
     },
     {
       fullwidth: true,
       key: t('tags'),
-      value: tags.map((t) => <Chip type='active'>{t}</Chip>),
+      value: (
+        <S.Chips>
+          {tags.map((t) => (
+            <Chip type='active'>{t}</Chip>
+          ))}
+        </S.Chips>
+      ),
     },
     {
       key: t('client_status'),
@@ -74,18 +86,20 @@ export default function ClientInfo() {
   ];
 
   return (
-    <Space direction='vertical' size={'large'}>
+    <S.Container>
       <section>
         <S.Header>
           <S.TabName>{t('client_info')}</S.TabName>
-          <Button color='primary' variant='filled'>
-            <i className='icon-clock' />
-            {t('display_change_history')}
-          </Button>
-          <Button href='/edit-client-info' color='primary' variant='solid'>
-            <i className='icon-edit' />
-            {t('edit')}
-          </Button>
+          <S.Btns>
+            <Button color='primary' variant='filled'>
+              <i className='icon-clock' />
+              {t('display_change_history')}
+            </Button>
+            <Button href='/edit-client-info' color='primary' variant='solid'>
+              <i className='icon-edit' />
+              {t('edit')}
+            </Button>
+          </S.Btns>
         </S.Header>
 
         <InfoBox margin={0} data={clientInfoData} />
@@ -93,18 +107,20 @@ export default function ClientInfo() {
       <section>
         <S.Header>
           <S.TabName>{t('applicant_info')}</S.TabName>
-          <Button color='primary' variant='filled'>
-            <i className='icon-clock' />
-            {t('display_change_history')}
-          </Button>
-          <Button href='/edit-applicant-info' color='primary' variant='solid'>
-            <i className='icon-edit' />
-            {t('edit')}
-          </Button>
+          <S.Btns>
+            <Button color='primary' variant='filled'>
+              <i className='icon-clock' />
+              {t('display_change_history')}
+            </Button>
+            <Button href='/edit-applicant-info' color='primary' variant='solid'>
+              <i className='icon-edit' />
+              {t('edit')}
+            </Button>
+          </S.Btns>
         </S.Header>
 
         <InfoBox margin={0} data={applicantInfoData} />
       </section>
-    </Space>
+    </S.Container>
   );
 }
