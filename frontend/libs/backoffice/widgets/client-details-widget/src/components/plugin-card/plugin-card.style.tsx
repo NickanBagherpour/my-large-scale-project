@@ -1,22 +1,27 @@
 import { Button } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Card = styled.div<{ isChecked: boolean }>`
-  flex-basis: 22.8rem;
+  width: 22.8rem;
   border: ${(p) => `1px solid ${p.theme.border._300}`};
   background: ${(p) => (p.isChecked ? p.theme.primary._50 : p.theme.background._50)};
   transition: background-color 200ms;
   border-radius: 1.2rem;
-  padding: 0.8rem 1rem;
   height: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  ${respondTo.down('lg')} {
+    width: 100%;
+  }
 `;
 
 export const CardHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 0.8rem 1rem 0;
 `;
 
 export const CardName = styled.h4`

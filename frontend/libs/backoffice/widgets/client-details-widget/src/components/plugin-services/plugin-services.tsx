@@ -3,6 +3,7 @@ import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
 import { Button } from '@oxygen/ui-kit';
 import { Plugin } from '@oxygen/types';
+import { Tooltip } from 'antd';
 
 export default function PluginServices(props: Plugin) {
   const { idx, name, englishName, status, version, scope, upstream } = props;
@@ -30,12 +31,14 @@ export default function PluginServices(props: Plugin) {
         </S.Tag>
         <S.ServiceName>{name}</S.ServiceName>
       </S.Header>
-      <S.Body>
+      <div>
         <S.Items>
           {data.map(({ name, value }, idx) => (
             <div key={idx}>
               <S.ItemName>{name}</S.ItemName>
-              <S.ItemValue>{value}</S.ItemValue>
+              <Tooltip title={value} placement='top'>
+                <S.ItemValue>{value}</S.ItemValue>
+              </Tooltip>
             </div>
           ))}
         </S.Items>
@@ -51,7 +54,7 @@ export default function PluginServices(props: Plugin) {
             <S.PlusIcon className='icon-plus' />
           </Button>
         </S.Cards>
-      </S.Body>
+      </div>
     </S.Container>
   );
 }
