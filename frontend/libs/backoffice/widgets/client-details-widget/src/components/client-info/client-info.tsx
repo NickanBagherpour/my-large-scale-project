@@ -91,7 +91,7 @@ export default function ClientInfo() {
         <S.Header>
           <S.TabName>{t('client_info')}</S.TabName>
           <S.Btns>
-            <Button color='primary' variant='filled'>
+            <Button href='/client-history' color='primary' variant='filled'>
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>
@@ -108,7 +108,7 @@ export default function ClientInfo() {
         <S.Header>
           <S.TabName>{t('applicant_info')}</S.TabName>
           <S.Btns>
-            <Button color='primary' variant='filled'>
+            <Button href='/client-history' color='primary' variant='filled'>
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>

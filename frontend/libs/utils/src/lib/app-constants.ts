@@ -29,7 +29,14 @@ export const MAIN_HREF = {
   LANDING: '/',
 };
 
-export const ROUTE_GROUPS = [
+export const BACKOFFICE_ROUTE_GROUPS = [
   ['/dashboard', '/dashboard-report'],
-  ['/client-list', '/client-details', 'client-management'],
+  [
+    '/client-list',
+    '/client-details',
+    'client-management',
+    '/edit-client-info',
+    '/edit-applicant-info',
+    '/client-history',
+  ],
 ];
