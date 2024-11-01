@@ -3,7 +3,7 @@ import { Layout, Space } from 'antd';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
-import ClientOnly from '../components/client-only/client-only';
+import { ClientOnly } from '@oxygen/reusable-components';
 import LandingAppbar from '../components/appbar/landing-appbar';
 
 type LandingLayoutProps = {
