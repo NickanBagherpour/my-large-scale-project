@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorFallback } from '@oxygen/business/layouts';
+import { ErrorFallback } from '@oxygen/reusable-components';
 
 type ErrorProps = {
   error: Error;

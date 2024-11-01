@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
-import Protected from '../components/protected/protected';
+import { Protected } from '@oxygen/reusable-components';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
