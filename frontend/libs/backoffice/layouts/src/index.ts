@@ -5,5 +5,4 @@ export { default as LandingLayout } from './landing-layout/landing-layout';
 export * from './components/widget-wrapper/widget-wrapper';
 export { default as ErrorFallback } from './components/error-fallback/error-fallback';
 export { default as ErrorPanel } from './components/error-panel/error-panel';
-export { default as ConfigLoader } from './components/config-loader/config-loader';
 export * from './components/meta-tags/meta-tags';
