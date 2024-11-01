@@ -1,4 +1,3 @@
-import { Container } from '@oxygen/ui-kit';
 import * as S from './app.style';
 import { useTr } from '@oxygen/translation';
 import ClientInfo from '../client-info/client-info';
@@ -23,9 +22,9 @@ const App = () => {
   ];
 
   return (
-    <Container title={'App-Bale'}>
+    <S.Container title={'App-Bale'}>
       <S.Tabs type='line' items={tabs} activeKey={tab} onTabClick={(tab) => router.replace(`?tab=${tab}`)} />
-    </Container>
+    </S.Container>
   );
 };
 
