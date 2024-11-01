@@ -95,7 +95,7 @@ export default function ClientInfo() {
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>
-            <Button href='/edit-client-info' color='primary' variant='solid'>
+            <Button href='/edit-client-info?requestId=123456789' color='primary' variant='solid'>
               <i className='icon-edit' />
               {t('edit')}
             </Button>
@@ -112,7 +112,7 @@ export default function ClientInfo() {
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>
-            <Button href='/edit-applicant-info' color='primary' variant='solid'>
+            <Button href='/edit-applicant-info?requestId=123456789' color='primary' variant='solid'>
               <i className='icon-edit' />
               {t('edit')}
             </Button>
