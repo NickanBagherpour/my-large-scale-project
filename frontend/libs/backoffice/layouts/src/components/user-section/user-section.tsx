@@ -8,7 +8,6 @@ import { Avatar, Box, Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import { Api } from '../../services';
-import ChangeOrganizationModal from '../change-organization-modal/change-organization-modal';
 import { defaultUserPhoto } from '../../assets/mock/data';
 
 import * as S from './user-section.style';
@@ -149,14 +148,14 @@ const UserSection = (props: DrawerProps) => {
           </div>
         </section>
       </S.UserProfileWrapper>
-      {openChangeOrgModal && (
-        <ChangeOrganizationModal
-          open={openChangeOrgModal}
-          userOrganizationData={userOrg}
-          onCancel={handleChangeOrgCancel}
-          onConfirm={handleChangeOrgConfirm}
-        />
-      )}
+      {/*{openChangeOrgModal && (*/}
+      {/*  <ChangeOrganizationModal*/}
+      {/*    open={openChangeOrgModal}*/}
+      {/*    userOrganizationData={userOrg}*/}
+      {/*    onCancel={handleChangeOrgCancel}*/}
+      {/*    onConfirm={handleChangeOrgConfirm}*/}
+      {/*  />*/}
+      {/*)}*/}
     </>
   );
 };

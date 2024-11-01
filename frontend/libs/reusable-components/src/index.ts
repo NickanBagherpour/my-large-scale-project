@@ -10,6 +10,7 @@ export * from './components/filter-popover/filter-popover';
 export { default as GridCard } from './components/grid-card/grid-card';
 export { default as AutoComplete } from './components/autocomplete/autocomplete';
 export { default as CardWithToggle } from './components/card-with-toggle/card-with-toggle';
+export { default as StorybookLayout } from './components/storybook-layout/storybook-layout';
 export { default as Anonymous } from './components/anonymous/anonymous';
 export { default as ClientOnly } from './components/client-only/client-only';
 export { default as ConfigLoader } from './components/config-loader/config-loader';
