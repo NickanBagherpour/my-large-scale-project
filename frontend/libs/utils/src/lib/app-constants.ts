@@ -31,5 +31,5 @@ export const MAIN_HREF = {
 
 export const ROUTE_GROUPS = [
   ['/dashboard', '/dashboard-report'],
-  ['/client-list', '/client-detail', 'client-management'],
+  ['/client-list', '/client-details', 'client-management'],
 ];
