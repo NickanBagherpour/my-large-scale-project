@@ -33,6 +33,7 @@ export const CardName = styled.h4`
 export const SettingBtn = styled(Button)`
   display: block;
   margin-inline-start: auto;
+  padding: 0.8rem 1rem;
 
   &:disabled > i {
     color: ${(p) => p.theme.border.main};
