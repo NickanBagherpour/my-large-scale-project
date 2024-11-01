@@ -4,7 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@oxygen/hooks';
 import { MAIN_HREF } from '@oxygen/utils';
 
-import ClientOnly from '../client-only/client-only';
+// import ClientOnly from '../client-only/client-only';
+
+import { ClientOnly } from '@oxygen/reusable-components';
 
 export type ProtectedProps = {
   children: ReactNode;

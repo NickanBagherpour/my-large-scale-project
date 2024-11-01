@@ -10,3 +10,5 @@ export * from './components/filter-popover/filter-popover';
 export { default as GridCard } from './components/grid-card/grid-card';
 export { default as AutoComplete } from './components/autocomplete/autocomplete';
 export { default as CardWithToggle } from './components/card-with-toggle/card-with-toggle';
+export { default as Anonymous } from './components/anonymous/anonymous';
+export { default as ClientOnly } from './components/client-only/client-only';

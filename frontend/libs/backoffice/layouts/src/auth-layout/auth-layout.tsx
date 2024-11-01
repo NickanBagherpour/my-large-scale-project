@@ -1,13 +1,14 @@
 import React, { ReactNode } from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTr } from '@oxygen/translation';
 import { Icons, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
+import { Anonymous } from '@oxygen/reusable-components';
 import { CONSTANTS, ENV_CONSTANTS } from '@oxygen/utils';
 
 import AppBarMenu from '../components/appbar-menu/appbar-menu';
-import Anonymous from '../components/anonymous/anonymous';
 
 import * as authBG from '../assets/media/auth-bg.png';
 import * as S from './auth-layout.style';

@@ -6,5 +6,4 @@ export * from './components/widget-wrapper/widget-wrapper';
 export { default as ErrorFallback } from './components/error-fallback/error-fallback';
 export { default as ErrorPanel } from './components/error-panel/error-panel';
 export { default as ConfigLoader } from './components/config-loader/config-loader';
-export { default as ClientOnly } from './components/client-only/client-only';
 export * from './components/meta-tags/meta-tags';
