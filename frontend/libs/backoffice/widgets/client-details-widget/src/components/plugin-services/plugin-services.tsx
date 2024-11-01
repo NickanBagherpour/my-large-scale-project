@@ -18,9 +18,9 @@ export default function PluginServices(props: Plugin) {
   ];
 
   const cardsData = [
-    { name: t('rate_limit_plugin'), isChecked: false },
-    { name: t('non_denial'), isChecked: true },
-    { name: t('new_request_validation'), isChecked: true },
+    { name: t('rate_limit_plugin'), hasLimitations: true },
+    { name: t('non_denial'), hasLimitations: false },
+    { name: t('new_request_validation'), hasLimitations: true },
   ];
 
   return (
@@ -44,8 +44,8 @@ export default function PluginServices(props: Plugin) {
         </S.Items>
 
         <S.Cards>
-          {cardsData.map(({ name }, idx) => (
-            <PluginCard name={name} idx={idx} />
+          {cardsData.map((data, idx) => (
+            <PluginCard {...data} idx={idx} />
           ))}
 
           <S.Divider orientation='center' type='vertical' />
