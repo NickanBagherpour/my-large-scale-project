@@ -33,7 +33,7 @@ const securityHeaders = [
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   nx: {
     // Set this to true if you would like to to use SVGR
     // See: https://github.com/gregberge/svgr
