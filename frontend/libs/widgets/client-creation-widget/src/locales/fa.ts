@@ -7,6 +7,12 @@ export default {
   applicant_info: 'اطلاعات کاربر متقاضی',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
+    row: 'ردیف',
+    service_name: 'نام سرویس',
+    persian_name: 'نام فارسی',
+    scope: 'اسکوپ',
+    url: 'rul',
+    version: 'نسخه',
   },
 
   progress_bar: {

@@ -22,6 +22,37 @@ export default function SecondStep(props) {
     console.log('handle select value is:', item);
   };
 
+  const dataSource = [];
+
+  const columns = [
+    {
+      title: t('step_two.row'),
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: t('step_two.service_name'),
+    },
+    {
+      title: t('step_two.persian_name'),
+    },
+    {
+      title: t('step_two.scope'),
+    },
+    {
+      title: t('step_two.url'),
+    },
+    {
+      title: t('step_two.version'),
+    },
+    {
+      title: '',
+    },
+    {
+      title: '',
+    },
+  ];
+
   return (
     <S.SecondStepContainer>
       <S.SearchField>
@@ -29,7 +60,7 @@ export default function SecondStep(props) {
         <AutoComplete onSelect={handleSelect}></AutoComplete>
       </S.SearchField>
       <Box>
-        <Table></Table>
+        <Table dataSource={dataSource} columns={columns} />
       </Box>
       <div className={'footer'}>
         <Button variant={'outlined'} onClick={handleReturn}>

@@ -1,7 +1,11 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
-export const SecondStepContainer = styled.div``;
+export const SecondStepContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
 
 export const SearchField = styled.div`
   display: flex;
@@ -23,5 +27,7 @@ export const SearchField = styled.div`
     font-weight: 500;
     line-height: 2.5rem;
     min-width: fit-content;
+  }
+  .footer {
   }
 `;
