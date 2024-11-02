@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Divider as KitDivider } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
   border: ${(p) => `1px solid ${p.theme.border._100}`};
@@ -13,6 +14,12 @@ export const Header = styled.header`
   border-bottom: ${(p) => `1px solid ${p.theme.border._100}`};
   padding: 1.6rem 2.4rem;
   gap: 0.8rem;
+
+  ${respondTo.down('sm')} {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
 `;
 
 export const Tag = styled.p`
@@ -32,12 +39,23 @@ export const ServiceName = styled.h4`
   color: ${(p) => p.theme.text.primary};
 `;
 
-export const Body = styled.div``;
-
 export const Items = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   padding: 1.6rem 3.6rem;
+  gap: 1rem;
+
+  ${respondTo.down('xl')} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  ${respondTo.down('md')} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${respondTo.down('sm')} {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const Item = styled.div`
@@ -56,6 +74,11 @@ export const ItemValue = styled.div`
   font-size: 1.2rem;
   margin: 0;
   font-weight: 300;
+  width: fit-content;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 `;
 
 export const Cards = styled.div`
@@ -63,6 +86,10 @@ export const Cards = styled.div`
   align-items: center;
   gap: 1.6rem;
   padding: 1.6rem 2.4rem;
+
+  ${respondTo.down('lg')} {
+    flex-direction: column;
+  }
 `;
 
 export const PlusIcon = styled.i`
@@ -73,4 +100,8 @@ export const Divider = styled(KitDivider)`
   height: 2.6rem;
   border-color: ${(p) => p.theme.border._300};
   margin: 0;
+
+  ${respondTo.down('lg')} {
+    display: none;
+  }
 `;

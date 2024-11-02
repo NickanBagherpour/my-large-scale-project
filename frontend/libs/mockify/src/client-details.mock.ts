@@ -1,4 +1,4 @@
-import { clientInfo, services, plugins } from './data/client-info-details.data';
+import { clientInfo, services, plugins } from './data/client-details.data';
 import type { Pagination, Service, ClientInfo, Plugin } from '@oxygen/types';
 
 export const getClientInformation = async () => {
