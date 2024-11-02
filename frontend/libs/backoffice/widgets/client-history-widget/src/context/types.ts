@@ -18,6 +18,7 @@ export type WidgetStateType = {
     submit: FiltersType;
   };
   errorMessage: Nullable<ErrorMessageType>;
+  clientId: Nullable<string>;
 };
 
 export type WidgetActionType =
@@ -36,6 +37,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: PaginationType;
+    }
+  | {
+      type: 'UPDATE_CLIENT_ID';
+      payload: Nullable<string>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

@@ -24,7 +24,6 @@ const DataList: React.FC<dataListProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
   const theme = useTheme();
 
   // const [showBadge, setShowBadge] = useState(true);
@@ -37,6 +36,7 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   function prepareParams() {
     const params = {
+      clientId: state?.clientId,
       ...pagination,
     };
 
