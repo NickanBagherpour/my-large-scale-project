@@ -32,4 +32,8 @@ export default {
   ascending: 'صعودی',
   descending: 'نزولی',
   delete_service: 'حذف سرویس',
+  service_question: 'آیا سرویس',
+  done_stopped: 'شود؟',
+  delete_service_question: 'آیا از حذف سرویس',
+  are_you_sure: 'اطمینان دارید؟',
 };

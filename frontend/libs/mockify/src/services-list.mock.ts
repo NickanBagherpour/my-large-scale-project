@@ -66,7 +66,7 @@ export const getServicesList = async ({ searchTerm, status, sort, page }: Params
 
   return new Promise<{ data: { list: Service[]; total: number } }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: { list: sortedData, total: servicesList.length } });
+      resolve({ data: { list: sortedData, total: sortedData.length } });
     }, 700);
   });
 };

@@ -1,9 +1,15 @@
+import { FiltersType, PaginationType } from '../context/types';
+
 export type ParamsType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
   status: 'all' | 'active' | 'inactive';
+  table: {
+    filters: FiltersType;
+    pagination: PaginationType;
+    submit: FiltersType;
+  };
   page: number;
-  rowsPerPage: any;
 };
 
 export type ServiceType = {
@@ -12,4 +18,10 @@ export type ServiceType = {
   scope: string;
   url: string;
   status: boolean;
+};
+
+export type PaginationResultType = {
+  pageNumber: number;
+  pageSize: number;
+  totalNumberOfEntries: number;
 };

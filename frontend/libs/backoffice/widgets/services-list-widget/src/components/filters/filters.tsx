@@ -5,7 +5,6 @@ import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState
 import { WidgetStateType } from '../../context/types';
 import { useState } from 'react';
 import { useBounce } from '@oxygen/hooks';
-import { Status } from 'libs/reusable-components/src/components/grid-card/grid-card.style';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];

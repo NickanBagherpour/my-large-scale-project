@@ -1,56 +1,25 @@
-import { useAppDispatch, useAppState } from '../../context';
+import { useAppState } from '../../context';
 import { useGetServicesQuery } from '../../servicesList';
 import Filters from '../filters/filters';
 import Services from '../services/services';
 import * as S from './app.style';
 import { Loading, Modal } from '@oxygen/ui-kit';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
 import { useGetDraftsQuery } from '../../servicesList/get-drafts.api';
 import { useTheme } from 'styled-components';
-import { RQKEYS } from '@oxygen/utils';
-import { useQueryClient } from '@tanstack/react-query';
-import { ServiceType, ParamsType } from '../../types';
-import { PageProps } from '@oxygen/types';
-import { stat } from 'fs';
-
-//import { useGetReportDataQuery } from '../../services';
-
-// import * as S from './app.style';
-
-// type AppProps = PageProps & {
-//   //
-// };
-
-// const App: React.FC<AppProps> = (props) => {
-//   const dispatch = useAppDispatch();
-//   const state = useAppState();
-//   const [t] = useTr();
-
-//   // Sample Query Usage
-//   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
-
-//   function prepareParams() {
-//      const { filters,submit,pagination,...rest } = state;
-//      const params = {
-//        form: submit,
-//        pagination: pagination,
-//      };
-
-//      return params;
-//    }
-
-//   return <S.AppContainer>ServicesListWidget</S.AppContainer>;
-// };
+import { ParamsType } from '../../types';
 
 const App = () => {
   const theme = useTheme();
   const { errorMessage, ...fetchState } = useAppState();
+
   const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(fetchState);
   const { data: drafts } = useGetDraftsQuery();
+
   const [t] = useTr();
   const hasDrafts = !!drafts?.length;
   const clientsSubTitle = services?.total ? `(${services?.total ?? 0})` : '';
@@ -119,13 +88,14 @@ const App = () => {
         cancelButtonProps={{ style: { color: operationalStatus ? theme.warning.main : theme.secondary.main } }}
       >
         <S.ModalMessage>
-          آیا سرویس
+          {/* آیا سرویس */}
+          {t('service_question')}
           <S.ServiceName
             text={selectedServiceName}
             highlightColor={operationalStatus ? theme.warning.main : theme.secondary.main}
             wordToHighlight={selectedServiceName}
           />
-          {operationalStatus ? t('stop') : t('operational')} شود؟
+          {operationalStatus ? t('stop') : t('operational')} {t('done_stopped')}
         </S.ModalMessage>
       </Modal>
 
@@ -143,13 +113,15 @@ const App = () => {
         cancelButtonProps={{ style: { color: theme.primary.main } }}
       >
         <S.ModalMessage>
-          آیا از حذف سرویس
+          {/* آیا از حذف سرویس */}
+          {t('delete_service_question')}
           <S.ServiceName
             text={selectedServiceName}
             highlightColor={theme.error.main}
             wordToHighlight={selectedServiceName}
           />
-          اطمینان دارید؟
+          {/* اطمینان دارید؟ */}
+          {t('are_you_sure')}
         </S.ModalMessage>
       </Modal>
       {hasDrafts && (
@@ -167,6 +139,7 @@ const App = () => {
         <Loading spinning={isClientsFetching} size='large'>
           {services?.list.length ? (
             <Services
+              isFetching={isClientsFetching}
               data={services.list}
               total={services.total}
               searchTerm={fetchState.searchTerm}
