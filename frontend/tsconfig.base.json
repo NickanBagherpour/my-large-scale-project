@@ -21,9 +21,36 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@oxygen/backoffice/layouts": [
+                "libs/backoffice/layouts/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-details-widget": [
+                "libs/backoffice/widgets/client-details-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-history-widget": [
+                "libs/backoffice/widgets/client-history-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-list-widget": [
+                "libs/backoffice/widgets/client-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/create-new-client-widget": [
+                "libs/backoffice/widgets/create-new-client-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
+                "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/edit-client-info-widget": [
+                "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/service-history-widget": [
+                "libs/backoffice/widgets/service-history-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/service-management-widget": [
+                "libs/widgets/service-management-widget/src/index.ts"
+            ],
+            "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
-            "@oxygen/layouts": ["libs/layouts/src/index.ts"],
             "@oxygen/mockify": ["libs/mockify/src/index.ts"],
             "@oxygen/reusable-components": [
                 "libs/reusable-components/src/index.ts"

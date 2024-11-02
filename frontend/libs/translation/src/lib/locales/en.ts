@@ -6,6 +6,7 @@ export default {
   button: {
     cancel: 'cancel',
     register: 'register',
+    return: 'return',
   },
   appbar: {
     title: 'Melli Bank',

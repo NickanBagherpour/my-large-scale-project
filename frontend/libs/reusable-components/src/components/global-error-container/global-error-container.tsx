@@ -11,7 +11,6 @@ interface GlobalErrorContainerProps {
 
 const GlobalErrorContainer: React.FC<GlobalErrorContainerProps> = ({ onClose, errorMessage, containerProps = {} }) => {
   const [t] = useTr();
-
   if (!errorMessage) return null;
 
   return (
@@ -19,8 +18,10 @@ const GlobalErrorContainer: React.FC<GlobalErrorContainerProps> = ({ onClose, er
       <MessageBox
         type={'error'}
         shouldScroll={true}
-        description={errorMessage.shouldTranslate ? t(errorMessage.description) : errorMessage.description}
+        description={errorMessage?.shouldTranslate ? t(errorMessage?.description) : errorMessage?.description}
         onClose={onClose}
+        closable={!!onClose}
+        message={errorMessage?.shouldTranslate ? t(errorMessage?.title || '') : errorMessage?.title}
       />
     </Box>
   );

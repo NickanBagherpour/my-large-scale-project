@@ -1,0 +1,39 @@
+export const clientInfoData = [
+  {
+    requestId: 123456789,
+    latinNameClient: 'app-bale',
+    grantType: [
+      { label: 'Client Flow', key: 'clientFlow' },
+      { label: 'Password Flow', key: 'passwordFlow' },
+    ],
+    tags: [
+      { label: 'سازمان ها و شرکت های بزرگ', key: 'bigOrganization' },
+      { label: 'شرکت های پرداخت ساز - دانش بنیان و فین تک ها', key: 'payCompany' },
+    ],
+    persianNameClient: 'کلاینت بله',
+    clientType: 'test-1',
+    clientId: '407af44d-f469-413d-81cf-469b21fa',
+    identityAuth: '2689574859658',
+    websiteUrl: 'https://bale.ai',
+    inputAddress: 'optional address',
+    returnAddress: 'http://localhost',
+    aggregatorStatus: true,
+    aggregator: 'TEST-1',
+  },
+
+  {
+    requestId: 987654321,
+    latinNameClient: 'app-sadad',
+    grantType: [{ label: 'Client Flow', key: 'clientFlow' }],
+    tags: [{ label: 'سازمان ها و شرکت های بزرگ', key: 'bigOrganization' }],
+    persianNameClient: 'کلاینت سداد',
+    clientType: 'test-2',
+    clientId: '407af44d-f469-413d-81cf-469b21fa',
+    identityAuth: '2689574859658',
+    websiteUrl: 'https://bale.ai',
+    inputAddress: 'optional address',
+    returnAddress: 'http://localhost',
+    aggregatorStatus: false,
+    aggregator: 'TEST-2',
+  },
+];
