@@ -29,4 +29,8 @@ export const StyledModal = styled<any>(AntModal)`
   .ant-modal-body {
     margin: 2rem 0rem;
   }
+
+  .ant-modal-footer .ant-btn {
+    margin-left: 1.6rem;
+  }
 `;

@@ -1,4 +1,4 @@
-import { Container } from '@oxygen/ui-kit';
+import { Container, MarkText } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 import RawGrid from '../grid/grid.style';
 
@@ -16,4 +16,20 @@ export const ServicesContainer = styled(Container)`
 
 export const AppContainer = styled.div`
   // background-color: pink;
+`;
+
+export const ModalMessage = styled.div`
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+
+  .delete-modal {
+    background-color: red;
+  }
+`;
+
+export const ServiceName = styled(MarkText)`
+  margin: 0.4rem;
 `;

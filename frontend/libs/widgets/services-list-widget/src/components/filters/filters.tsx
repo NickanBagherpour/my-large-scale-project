@@ -36,10 +36,10 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <S.Button href='/load-client' color='primary' variant='outlined'>
+          <S.Button href='/load-service' color='primary' variant='outlined'>
             {t('upload_service')}
           </S.Button>
-          <S.Button href='/create-client' color='primary' variant='solid'>
+          <S.Button href='/create-service' color='primary' variant='solid'>
             {t('create_new_service')}
           </S.Button>
         </S.Buttons>
@@ -76,8 +76,8 @@ export default function Filters() {
 
         <S.FilterPopover
           filters={[
-            { key: 'newest', title: t('newest'), icon: 'icon-arrow-ascending' },
-            { key: 'oldest', title: t('oldest'), icon: 'icon-arrow-descending' },
+            { key: 'newest', title: t('ascending'), icon: 'icon-arrow-ascending' },
+            { key: 'oldest', title: t('descending'), icon: 'icon-arrow-descending' },
           ]}
           initialValue={sort}
           onChange={(value) => updateSort(dispatch, value as Sort)}

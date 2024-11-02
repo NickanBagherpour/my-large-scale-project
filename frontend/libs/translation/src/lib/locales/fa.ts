@@ -94,6 +94,7 @@ export default {
     display: 'مشاهده',
     detail: 'جزئیات',
     cancel: 'انصراف',
+    delete: 'حذف',
     genuine: 'حقیقی',
     real: 'حقیقی',
     legal: 'حقوقی',

@@ -52,6 +52,7 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead > tr > th {
     padding: 1.4rem !important;
+    text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid ${(p) => p.theme.border._100}`)};
     border-color: ${(p) => p.theme.border._100};
@@ -62,6 +63,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody > tr > td {
+    text-align: center;
     border-color: ${(p) => (p.variant === 'simple' ? p.theme.divider : p.theme.border._100)};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
