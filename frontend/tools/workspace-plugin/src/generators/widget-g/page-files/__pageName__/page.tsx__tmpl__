@@ -1,6 +1,6 @@
 'use client';
 
-import <%= className %> from '@oxygen/widgets/<%= fileName %>';
+import <%= className %> from '@oxygen/<%= shortPortalName %>/widgets/<%= fileName %>';
 
 export default function Index(props) {
    return (

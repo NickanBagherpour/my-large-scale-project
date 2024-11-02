@@ -1,5 +1,7 @@
 cd frontend
 
-npm run build
+#npm run build
+
+nx affected -t=build --base=develop --head=HEAD --exclude='*,!tag:type:portal'
 
 #exit 1

@@ -5,3 +5,4 @@ export * from './app-enums';
 export * from './app-models';
 export * from './app-types';
 export * from './css-types';
+export * from './client-details';

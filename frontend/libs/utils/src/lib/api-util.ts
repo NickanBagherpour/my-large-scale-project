@@ -84,19 +84,19 @@ export const ApiUtil = {
     try {
       if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
         errorMessage = {
-          txt: reason.response.data.subErrors[0].localizedMessage,
+          description: reason.response.data.subErrors[0].localizedMessage,
           type: 'error',
           shouldTranslate: false,
         };
       } else if (reason.response.data.localizedMessage) {
         errorMessage = {
-          txt: reason.response.data.localizedMessage,
+          description: reason.response.data.localizedMessage,
           type: 'error',
           shouldTranslate: false,
         };
       } else if (reason.response.data.localMessage) {
         errorMessage = {
-          txt: reason.response.data.localMessage,
+          description: reason.response.data.localMessage,
           type: 'error',
           shouldTranslate: false,
         };
@@ -111,7 +111,8 @@ export const ApiUtil = {
     } finally {
       if (!errorMessage?.txt && !errorMessage?.type) {
         errorMessage = {
-          txt: 'error.unknown_error',
+          title: 'common.error',
+          description: 'error.unknown_error',
           type: 'error',
           shouldTranslate: true,
         };

@@ -17,7 +17,7 @@ import { appendToUtilIndexFile } from './helper/append-to-util-index-file';
 export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
   const NxJsonConf = readNxJson(tree);
 
-  const projectName = schema.project || NxJsonConf?.defaultProject || '';
+  const projectName = schema.project || schema.portalName || NxJsonConf?.defaultProject || '';
 
   const projConf = readProjectConfiguration(tree, projectName);
 
@@ -29,17 +29,18 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
   }
 
   schema.pageName = schema.name.replace('-widget', '');
+  schema.shortPortalName = schema.portalName.replace(/-portal$/, '');
 
   const a = await libraryGenerator(tree, {
     // projectNameAndRootFormat: 'derived',
     name: schema.name,
     // pascalCaseFiles: false,
-    directory: `libs/widgets/${schema.name}`,
+    directory: `libs/${schema.shortPortalName}/widgets/${schema.name}`,
     linter: Linter.EsLint,
     style: 'styled-components',
     unitTestRunner: 'jest',
     skipPackageJson: true,
-    importPath: `@oxygen/widgets/${schema.name}`,
+    importPath: `@oxygen/${schema.shortPortalName}/widgets/${schema.name}`,
   });
 
   // const libName = `widgets-${schema.name}`;
@@ -74,7 +75,6 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
     {
       ...schema,
       ...names(schema.name),
-      pageName: schema.pageName,
       tmpl: '',
     } // config object to replace variable in file templates
   );

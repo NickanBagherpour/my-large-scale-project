@@ -12,7 +12,13 @@
                 "index": 0
             },
             "x-prompt": "What's the title of your new widget?"
+        },
+        "portalName": {
+            "type": "string",
+            "description": "Select the type of portal",
+            "enum": ["backoffice-portal", "business-portal", "customer-portal"],
+            "x-prompt": "Please select the portal for this widget:"
         }
     },
-    "required": ["name"]
+    "required": ["name", "portalName"]
 }

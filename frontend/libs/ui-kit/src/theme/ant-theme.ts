@@ -32,10 +32,12 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
       Input: {
         colorBorder: themeBase.border.main,
         colorTextPlaceholder: themeBase.text.quaternary,
+        inputFontSizeLG: 14,
       },
       Select: {
         colorBorder: themeBase.border.main,
         colorTextPlaceholder: themeBase.text.quaternary,
+        fontSizeLG: 14,
       },
       Tree: {
         nodeSelectedBg: themeBase.primary._200,

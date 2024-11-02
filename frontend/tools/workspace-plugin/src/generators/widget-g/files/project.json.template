@@ -1,6 +1,6 @@
 {
   "name": "<%= fileName %>",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/widgets/<%= fileName %>/src",
   "projectType": "library",
   "tags": [],

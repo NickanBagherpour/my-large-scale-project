@@ -20,8 +20,15 @@ import * as AccountNumberAssignmentMock from './account-number-assignment.mock';
 import * as ProductHistoryMock from './product-history.mock';
 import * as DetailTableMock from './detail-table.mock';
 import * as ProductsMock from './products.mock';
+import * as GrantTypeMock from './grant-type.mock';
+import * as TagsInfo from './tags.mock';
 import * as ClientsListMock from './client-list.mock';
 import * as ServicesListMock from './services-list.mock';
+import * as ClientsDetailsMock from './client-details.mock';
+import * as ApplicantInfo from './applicant-info.mock';
+import * as ClientInfo from './client-info.mock';
+import * as ServiceHistoryMock from './service-history.mock';
+import * as ClientHistoryMock from './client-history.mock';
 
 const Mockify = {
   ...UserMock,
@@ -48,6 +55,13 @@ const Mockify = {
   ...ProductsMock,
   ...ClientsListMock,
   ...ServicesListMock,
+  ...ServiceHistoryMock,
+  ...GrantTypeMock,
+  ...TagsInfo,
+  ...ClientsDetailsMock,
+  ...ClientHistoryMock,
+  ...ClientInfo,
+  ...ApplicantInfo,
 };
 
 export default Mockify;
