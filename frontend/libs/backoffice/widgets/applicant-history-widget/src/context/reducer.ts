@@ -1,26 +1,21 @@
-import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
-const initialFilters: FormFieldsType = {
-  name: null,
-  code: null,
-};
-
 export const initialStateValue: WidgetStateType = {
   table: {
-    filters: initialFilters,
-    submit: initialFilters,
+    filters: {},
+    submit: {},
     pagination: {
-      limit: INITIAL_ROW_PER_PAGE,
+      rowsPerPage: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
   errorMessage: null,
+  clientId: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  //console.log(action.type, state, action);
+  // console.log('reducer', action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
       state.errorMessage = action.payload;
@@ -39,6 +34,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
+      return;
+    }
+    case 'UPDATE_CLIENT_ID': {
+      state.clientId = action.payload;
       return;
     }
 

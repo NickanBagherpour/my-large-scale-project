@@ -11,7 +11,7 @@ export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial
   dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
+export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
@@ -27,4 +27,8 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   const errorMessage = ApiUtil.getErrorMessage(reason);
   dispatch({ type: actionType, payload: { errorMessage, ...extraPayload } });
   return null;
+}
+
+export function updateClientIdAction(dispatch: WidgetDispatchType, clientId: Nullable<string>) {
+  dispatch({ type: 'UPDATE_CLIENT_ID', payload: clientId });
 }
