@@ -42,6 +42,9 @@
             "@oxygen/backoffice/widgets/edit-client-info-widget": [
                 "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/service-creation-widget": [
+                "libs/backoffice/widgets/service-creation-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
             ],
