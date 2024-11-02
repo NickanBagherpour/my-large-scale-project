@@ -22,7 +22,14 @@ export default function SecondStep(props) {
     console.log('handle select value is:', item);
   };
 
-  const dataSource = [];
+  const dataSource = [
+    {
+      key: '1',
+      name: 'Mike',
+      age: 32,
+      address: '10 Downing Street',
+    },
+  ];
 
   const columns = [
     {
@@ -32,9 +39,13 @@ export default function SecondStep(props) {
     },
     {
       title: t('step_two.service_name'),
+      dataIndex: 'age',
+      key: 'name',
     },
     {
       title: t('step_two.persian_name'),
+      dataIndex: 'address',
+      key: 'name',
     },
     {
       title: t('step_two.scope'),
@@ -59,9 +70,9 @@ export default function SecondStep(props) {
         <p className={'auto-complete-p'}>{t('step_two.client_services')}</p>
         <AutoComplete onSelect={handleSelect}></AutoComplete>
       </S.SearchField>
-      <Box>
-        <Table dataSource={dataSource} columns={columns} />
-      </Box>
+
+      <S.Table dataSource={dataSource} columns={columns} />
+
       <div className={'footer'}>
         <Button variant={'outlined'} onClick={handleReturn}>
           بازگشت

@@ -1,5 +1,6 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+import { Table as antTable } from '@oxygen/ui-kit';
 
 export const SecondStepContainer = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ export const SecondStepContainer = styled.div`
 export const SearchField = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 2.4rem;
+  margin: 2.4rem 0;
   align-items: center;
   gap: 2.4rem;
   ${respondTo.down('sm')} {
@@ -30,4 +31,15 @@ export const SearchField = styled.div`
   }
   .footer {
   }
+  .table {
+    padding: 0;
+  }
+`;
+export const Table = styled(antTable)`
+  & .ant-table-content table {
+    padding: 0;
+  }
+  /* .ant-spin-nested-loading .ant-spin-container .ant-table .ant-table-container .ant-table-content table {
+    padding: 0;
+  } */
 `;
