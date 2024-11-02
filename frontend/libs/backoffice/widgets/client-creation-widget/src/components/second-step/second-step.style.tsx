@@ -29,17 +29,27 @@ export const SearchField = styled.div`
     line-height: 2.5rem;
     min-width: fit-content;
   }
-  .footer {
-  }
-  .table {
-    padding: 0;
-  }
 `;
 export const Table = styled(antTable)`
+  &.ant-table-wrapper {
+    display: flex;
+    flex-grow: 1;
+  }
+  .ant-spin-nested-loading {
+    width: 100%;
+  }
   & .ant-table-content table {
     padding: 0;
   }
   /* .ant-spin-nested-loading .ant-spin-container .ant-table .ant-table-container .ant-table-content table {
     padding: 0;
   } */
+`;
+export const Footer = styled.div`
+  display: flex;
+  height: 7.2rem;
+  align-items: center;
+  justify-content: end;
+  border-top: 1px solid ${(p) => p.theme.border._100};
+  gap: 1.2rem;
 `;

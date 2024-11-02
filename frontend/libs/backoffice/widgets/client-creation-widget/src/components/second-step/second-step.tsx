@@ -22,14 +22,7 @@ export default function SecondStep(props) {
     console.log('handle select value is:', item);
   };
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-  ];
+  const dataSource = [];
 
   const columns = [
     {
@@ -71,9 +64,9 @@ export default function SecondStep(props) {
         <AutoComplete onSelect={handleSelect}></AutoComplete>
       </S.SearchField>
 
-      <S.Table dataSource={dataSource} columns={columns} />
+      <S.Table dataSource={dataSource} columns={columns} pagination={false} />
 
-      <div className={'footer'}>
+      <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
           بازگشت
         </Button>
@@ -81,7 +74,7 @@ export default function SecondStep(props) {
           ثبت اطلاعات
           <i className={'icon-arrow-up'}></i>
         </Button>
-      </div>
+      </S.Footer>
     </S.SecondStepContainer>
   );
 }
