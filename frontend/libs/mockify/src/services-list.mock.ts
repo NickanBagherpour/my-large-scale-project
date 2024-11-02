@@ -47,7 +47,7 @@ function sortByName(services: Service[], order: 'newest' | 'oldest'): Service[] 
   });
 }
 
-export const getServices = async ({ searchTerm, status, sort, page }: Params) => {
+export const getServicesList = async ({ searchTerm, status, sort, page }: Params) => {
   const data = servicesList
     .slice(0, 40)
     .filter((service) => {

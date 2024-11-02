@@ -22,7 +22,7 @@ export default function Services(props: Props) {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { page } = useAppState();
-
+  console.log('alireza', data);
   const theme = useTheme();
 
   const columns = [
@@ -82,10 +82,8 @@ export default function Services(props: Props) {
   // const showLoadMore = page * Mockify.CLIENTS_LIST_LIMIT <= (total ?? 0) && data.length >= Mockify.CLIENTS_LIST_LIMIT;
 
   return (
-    <>
-      <S.TableContainer>
-        <Table dataSource={tableData} columns={columns} hasContainer={false} pagination={{ pageSize: 5 }} />
-      </S.TableContainer>
-    </>
+    <S.TableContainer>
+      <Table dataSource={tableData} columns={columns} hasContainer={false} pagination={{ pageSize: 5 }} />
+    </S.TableContainer>
   );
 }

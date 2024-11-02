@@ -3,6 +3,7 @@ export type ParamsType = {
   sort: 'newest' | 'oldest';
   status: 'all' | 'active' | 'inactive';
   page: number;
+  rowsPerPage: any;
 };
 
 export type ServiceType = {

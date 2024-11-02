@@ -7,8 +7,9 @@ const Api = {
   // getReportData: async (params: FetchParamsType) => {
   //   return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   // },
-  getServicesListData: async (params: ParamsType) => {
-    return Mockify.getServices(params);
+  getServicesList: async (params: ParamsType) => {
+    const res = Mockify.getServicesList(params);
+    return res;
   },
 
   getDraftsData: async () => {

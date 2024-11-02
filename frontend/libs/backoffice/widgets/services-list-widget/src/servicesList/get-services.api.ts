@@ -10,7 +10,7 @@ export const useGetServicesQuery = (params: ParamsType) => {
 
   return useQuery({
     queryKey: [RQKEYS.SERVICES_LIST.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getServicesListData(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getServicesList(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

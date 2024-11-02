@@ -1,6 +1,6 @@
 {
     "name": "services-list-widget",
-    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/widgets/services-list-widget/src",
     "projectType": "library",
     "tags": [],
