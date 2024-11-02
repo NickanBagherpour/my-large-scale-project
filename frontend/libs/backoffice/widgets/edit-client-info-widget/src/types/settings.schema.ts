@@ -4,6 +4,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { i18nBase } from '@oxygen/translation';
 
 export const FormSchema = z.object({
+  [FORM_ITEM_NAMES.clientStatus]: z.boolean().optional(),
   // [FORM_ITEM_NAMES.grantType]: z.string({required_error: i18nBase.t("error.required")}),
   // [FORM_ITEM_NAMES.tags]: z.string({required_error: i18nBase.t("error.required")}),
   [FORM_ITEM_NAMES.latinNameClient]: z.string({ required_error: i18nBase.t('error.required') }),

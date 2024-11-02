@@ -4,6 +4,7 @@ export default {
   applicant_info: 'اطلاعات کاربر متقاضی',
 
   form: {
+    client_status: 'وضعیت کلاینت',
     grant_type: 'اضافه کردن Grant Type',
     add_tags: 'اضافه کردن تگ ها',
     latin_name_client: 'نام لاتین کلاینت',

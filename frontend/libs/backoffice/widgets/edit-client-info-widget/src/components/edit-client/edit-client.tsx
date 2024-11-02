@@ -47,6 +47,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   }, [grantTypeData, tagsData]);
 
   const defaultValues = {
+    [FORM_ITEM_NAMES.clientStatus]: userData.clientStatus,
     [FORM_ITEM_NAMES.grantType]: userData.grantType,
     [FORM_ITEM_NAMES.tags]: userData.tags,
     [FORM_ITEM_NAMES.latinNameClient]: userData.latinNameClient,
@@ -64,7 +65,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log(values);
+    console.log('hi', values);
   };
 
   const handleGrantTypeChange = (value) => {
@@ -114,6 +115,14 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
+          <Form.Item
+            name={FORM_ITEM_NAMES.clientStatus}
+            className={'label-switch'}
+            layout={'horizontal'}
+            label={t('form.client_status')}
+          >
+            <Switch />
+          </Form.Item>
           <div className={'grid'}>
             <div className='item1'>
               <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
