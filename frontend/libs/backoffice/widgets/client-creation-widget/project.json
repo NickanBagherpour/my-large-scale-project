@@ -1,6 +1,6 @@
 {
-    "name": "client1-creation-widget",
-    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "name": "client-creation-widget",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/widgets/client-creation-widget/src",
     "projectType": "library",
     "tags": [],
