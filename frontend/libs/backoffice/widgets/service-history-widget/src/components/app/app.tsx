@@ -21,11 +21,9 @@ const App: React.FC<AppProps> = () => {
   const dispatch = useAppDispatch();
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
   const items = history?.items;
-  const [title, setTitle] = useState('');
   const [t] = useTr();
+  const [title, setTitle] = useState(t('default-title'));
   const router = useRouter();
-
-  console.log('errorMessage', errorMessage);
 
   function prepareParams() {
     const params = {
@@ -38,7 +36,7 @@ const App: React.FC<AppProps> = () => {
   };
 
   useEffect(() => {
-    if (items && items.length > 0 && title === '') {
+    if (items && items.length > 0 && title === t('default-title')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);
     }
   }, [items, title]);

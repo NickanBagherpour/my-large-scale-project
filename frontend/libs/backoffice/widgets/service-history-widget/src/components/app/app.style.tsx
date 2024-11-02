@@ -1,4 +1,4 @@
-import { Button, Container } from '@oxygen/ui-kit';
+import { Container } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
 export const HistoryContainer = styled(Container)`
@@ -7,7 +7,6 @@ export const HistoryContainer = styled(Container)`
   height: 100%;
 `;
 export const TableContainer = styled.div`
-  min-height: 64vh;
   flex-grow: 1;
 `;
 

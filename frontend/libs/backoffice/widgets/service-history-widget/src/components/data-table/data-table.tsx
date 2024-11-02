@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { TablePaginationConfig } from 'antd';
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Table } from '@oxygen/ui-kit';
@@ -7,7 +10,6 @@ import { PageProps } from '@oxygen/types';
 import { useGetsServiceHistoryDataQuery } from '../../services';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-import { TablePaginationConfig } from 'antd';
 
 import * as S from './data-table.style';
 
@@ -17,10 +19,12 @@ type AppProps = PageProps & {
 const DataTable: React.FC<AppProps> = () => {
   const { table } = useAppState();
   const { data, isFetching } = useGetsServiceHistoryDataQuery(prepareParams());
+  const lastValidTotal = data?.paginationResult.total;
+  const [lastTotal, setLastTotal] = useState(lastValidTotal);
   const [t] = useTr();
-  const displayTable = data?.items?.length;
+  const displayTable = true;
   const dispatch = useAppDispatch();
-
+  const dataSource = data?.items || [];
   const columns: ColumnsType<any> = [
     {
       title: t('column.edit-date'),
@@ -29,7 +33,7 @@ const DataTable: React.FC<AppProps> = () => {
       render: (value, record) => {
         return <div>{getValueOrDash(value)}</div>;
       },
-      width: 150,
+      width: 130,
     },
     {
       title: t('column.admin-name'),
@@ -39,7 +43,7 @@ const DataTable: React.FC<AppProps> = () => {
       render: (value, record) => {
         return <div>{getValueOrDash(value)}</div>;
       },
-      width: 130,
+      width: 100,
     },
     {
       title: t('column.en-name'),
@@ -50,7 +54,7 @@ const DataTable: React.FC<AppProps> = () => {
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 140,
+      width: 130,
     },
     {
       title: t('column.fa-name'),
@@ -162,6 +166,7 @@ const DataTable: React.FC<AppProps> = () => {
     return params;
   }
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
+    if (lastValidTotal) setLastTotal(lastValidTotal);
     const updatedPagination = { page: current, limit: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
@@ -172,16 +177,18 @@ const DataTable: React.FC<AppProps> = () => {
       {displayTable ? (
         <S.TableContainer>
           <Table
+            scroll={{ x: 1000 }}
             variant='complex'
             columns={columns}
-            dataSource={data?.items}
+            dataSource={dataSource}
             loading={isFetching}
             pagination={{
               ...table?.pagination,
-              total: data?.paginationResult.total,
+              total: data?.paginationResult.total || lastTotal,
               pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
               pageSize: table?.pagination?.limit,
               current: table?.pagination?.page,
+              hideOnSinglePage: false,
             }}
             onChange={handlePageChange}
           />

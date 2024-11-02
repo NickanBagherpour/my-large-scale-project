@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 
 import { FetchParamsType } from '../types';
@@ -11,5 +11,6 @@ export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
   return useQuery({
     queryKey: [RQKEYS.SERVICE_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getServiceHistoryData(params), dispatch),
+    placeholderData: keepPreviousData,
   });
 };
