@@ -4,9 +4,12 @@
     "license": "MIT",
     "scripts": {
         "dev": "nx dev",
+        "dev-business": "nx dev business-portal",
         "start": "nx start",
         "start-prod": "nx serve portal --prod",
         "build": "nx build",
+        "build-backoffice": "nx build backoffice-portal",
+        "build-business": "nx build business-portal",
         "test": "nx test",
         "lint": "nx lint",
         "widget-g": "nx g widget-g",

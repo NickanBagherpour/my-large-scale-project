@@ -13,7 +13,6 @@
                 "root": "apps/backoffice-portal",
                 "outputPath": "dist/apps/backoffice-portal"
             }
-        },
-        "tags": {}
+        }
     }
 }
