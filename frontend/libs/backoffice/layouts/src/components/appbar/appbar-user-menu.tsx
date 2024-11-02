@@ -46,7 +46,7 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
       key: MenuItemKey.Username,
     },
     { type: 'divider' },
-    ...(ENV_CONSTANTS.IS_DEV
+    ...(ENV_CONSTANTS.IS_DEV || 1 === 1 /* TODO: remove this condition */
       ? [
           {
             label: (
