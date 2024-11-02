@@ -28,6 +28,7 @@ import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
 import * as ServiceHistoryMock from './service-history.mock';
 import * as ClientHistoryMock from './client-history.mock';
+import * as clientCreationTable from './client-creation-table';
 
 const Mockify = {
   ...UserMock,
@@ -60,6 +61,7 @@ const Mockify = {
   ...ClientHistoryMock,
   ...ClientInfo,
   ...ApplicantInfo,
+  ...clientCreationTable,
 };
 
 export default Mockify;

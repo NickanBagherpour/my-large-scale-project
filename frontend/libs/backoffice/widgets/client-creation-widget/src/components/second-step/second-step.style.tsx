@@ -1,6 +1,6 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import { Table as antTable } from '@oxygen/ui-kit';
+import { Table as antTable, Button } from '@oxygen/ui-kit';
 
 export const SecondStepContainer = styled.div`
   display: flex;
@@ -44,7 +44,51 @@ export const Table = styled(antTable)`
   /* .ant-spin-nested-loading .ant-spin-container .ant-table .ant-table-container .ant-table-content table {
     padding: 0;
   } */
+  ${respondTo.down('md')} {
+    && tr:nth-child(odd) {
+      background-color: ${(p) => p.theme.primary._50};
+    }
+  }
 `;
+export const TrashIcon = styled.i`
+  font-size: 2.4rem;
+`;
+
+export const StatusTxt = styled.p`
+  color: ${(p) => p.theme.text.quaternary};
+  font-weight: 600;
+`;
+
+export const Status = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  justify-content: center;
+`;
+export const DetailsBtn = styled(Button)`
+  font-weight: 600;
+`;
+
+export const TableRow = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const RowItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  color: ${(p) => p.theme.text.secondary};
+  min-height: 5rem;
+  gap: 2rem;
+
+  & > button {
+    /* to align buttons with other elements */
+    margin-inline-end: -15px;
+  }
+`;
+
 export const Footer = styled.div`
   display: flex;
   height: 7.2rem;

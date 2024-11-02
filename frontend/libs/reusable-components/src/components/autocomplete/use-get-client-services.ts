@@ -9,19 +9,138 @@ type params = {
 export type ClientService = {
   title: string;
   subTitle: string;
+  serviceName: string;
+  persianName: string;
+  scope: string;
+  url: string;
+  version: string;
+  status: string;
+  details: string;
+  remove: string;
 };
 
 const mockData: ClientService[] = [
-  { title: 'دریافت کد‌های ملی متعلق به یک شماره موبایل', subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
-  { title: 'دریافت اشتراک شماره های بله و ساینا بر اساس ماه و روز تولد', subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
-  { title: 'بررسی وضعیت حساب بانکی به وسیله کد ملی', subTitle: 'svc-abc-xztf-kfgv-pqlmn-jki' },
-  { title: 'دریافت اطلاعات بیمه بر اساس شماره کارت ملی', subTitle: 'svc-lki-wqqr-nbdj-fvxtr-yuio' },
-  { title: 'دریافت تاریخچه تراکنش‌های بانکی با شماره موبایل', subTitle: 'svc-xyz-lopf-zsed-qwert-tyu' },
-  { title: 'ثبت نام در سامانه خدمات الکترونیکی با کد ملی', subTitle: 'svc-hjk-tyui-lkjh-vbmn-azsx' },
-  { title: 'دریافت جزئیات حساب‌های بانکی از طریق شماره حساب', subTitle: 'svc-pqlm-kjbv-xcvb-sdfg-rtyu' },
-  { title: 'استعلام وضعیت مالیاتی به وسیله شماره کارت ملی', subTitle: 'svc-mnbv-cxwr-qwer-jlkj-hgtr' },
-  { title: 'دریافت اطلاعات وام‌ها بر اساس شماره ملی', subTitle: 'svc-jklo-pqrt-uytr-jkjl-hjkl' },
-  { title: 'دریافت وضعیت املاک و مستغلات با کد ملی', subTitle: 'svc-xcvz-ytuf-ghjb-nbvc-plmj' },
+  {
+    title: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+    subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+
+  {
+    title: 'دریافت اشتراک شماره های بله و ساینا بر اساس ماه و روز تولد',
+    subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت اشتراک شماره های بله و ساینا بر اساس ماه و روز تولد',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'بررسی وضعیت حساب بانکی به وسیله کد ملی',
+    subTitle: 'svc-abc-xztf-kfgv-pqlmn-jki',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'بررسی وضعیت حساب بانکی به وسیله کد ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'دریافت اطلاعات بیمه بر اساس شماره کارت ملی',
+    subTitle: 'svc-lki-wqqr-nbdj-fvxtr-yuio',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت اطلاعات بیمه بر اساس شماره کارت ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'دریافت تاریخچه تراکنش‌های بانکی با شماره موبایل',
+    subTitle: 'svc-xyz-lopf-zsed-qwert-tyu',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت تاریخچه تراکنش‌های بانکی با شماره موبایل',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'ثبت نام در سامانه خدمات الکترونیکی با کد ملی',
+    subTitle: 'svc-hjk-tyui-lkjh-vbmn-azsx',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'ثبت نام در سامانه خدمات الکترونیکی با کد ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'دریافت جزئیات حساب‌های بانکی از طریق شماره حساب',
+    subTitle: 'svc-pqlm-kjbv-xcvb-sdfg-rtyu',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت جزئیات حساب‌های بانکی از طریق شماره حساب',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'استعلام وضعیت مالیاتی به وسیله شماره کارت ملی',
+    subTitle: 'svc-mnbv-cxwr-qwer-jlkj-hgtr',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'استعلام وضعیت مالیاتی به وسیله شماره کارت ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'دریافت اطلاعات وام‌ها بر اساس شماره ملی',
+    subTitle: 'svc-jklo-pqrt-uytr-jkjl-hjkl',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت اطلاعات وام‌ها بر اساس شماره ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
+  {
+    title: 'دریافت وضعیت املاک و مستغلات با کد ملی',
+    subTitle: 'svc-xcvz-ytuf-ghjb-nbvc-plmj',
+    serviceName: 'samat-lc-gutr-del',
+    persianName: 'دریافت وضعیت املاک و مستغلات با کد ملی',
+    scope: 'svc-mgmt-iban-inq',
+    url: 'localhost:3000/services',
+    version: 'V 1.1',
+    status: 'status',
+    details: 'details',
+    remove: 'remove',
+  },
 ];
 
 const Api = {

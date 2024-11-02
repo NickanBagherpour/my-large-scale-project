@@ -5,6 +5,8 @@ export default {
   widget_name: 'ایجاد کلاینت جدید',
   client_info: 'اطلاعات کلی کلاینت ',
   applicant_info: 'اطلاعات کاربر متقاضی',
+  details: 'جزئیات',
+  remove: 'حذف',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
