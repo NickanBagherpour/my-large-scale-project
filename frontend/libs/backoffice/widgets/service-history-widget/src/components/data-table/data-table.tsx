@@ -12,12 +12,16 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
+import { useSearchParams } from 'next/navigation';
 
 type AppProps = PageProps & {
   //
 };
 const DataTable: React.FC<AppProps> = () => {
   const { table } = useAppState();
+  const searchParams = useSearchParams();
+
+  const id = searchParams.get('historyId') || '';
   const { data, isFetching } = useGetsServiceHistoryDataQuery(prepareParams());
   const lastValidTotal = data?.paginationResult.total;
   const [lastTotal, setLastTotal] = useState(lastValidTotal);
@@ -162,6 +166,7 @@ const DataTable: React.FC<AppProps> = () => {
   function prepareParams() {
     const params = {
       pagination: table?.pagination,
+      id,
     };
     return params;
   }

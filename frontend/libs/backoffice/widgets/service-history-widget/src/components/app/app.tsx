@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -19,6 +19,9 @@ type AppProps = PageProps & {
 const App: React.FC<AppProps> = () => {
   const { errorMessage, table } = useAppState();
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+
+  const id = searchParams.get('historyId') || '';
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
   const items = history?.items;
   const [t] = useTr();
@@ -28,6 +31,7 @@ const App: React.FC<AppProps> = () => {
   function prepareParams() {
     const params = {
       pagination: table.pagination,
+      id,
     };
     return params;
   }
