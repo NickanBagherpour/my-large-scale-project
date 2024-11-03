@@ -45,6 +45,9 @@
             "@oxygen/backoffice/widgets/edit-client-info-widget": [
                 "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/edit-scope-widget": [
+                "libs/backoffice/widgets/edit-scope-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/scope-creation-widget": [
                 "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
             ],
