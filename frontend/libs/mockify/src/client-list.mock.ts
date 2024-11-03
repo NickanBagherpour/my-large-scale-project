@@ -1,15 +1,9 @@
-import { clientsList, drafts, type Client } from './data/client-list.data';
-
-type Params = {
-  searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'inactive';
-  page: number;
-};
+import type { ClientType, ParamsType } from '@oxygen/types';
+import { clientsList, drafts } from './data/client-list.data';
 
 export const CLIENTS_LIST_LIMIT = 16;
 
-function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
+function sortByDate(clients: ClientType[], order: 'newest' | 'oldest'): ClientType[] {
   return clients.sort((a, b) => {
     const dateA = a.date.split('/').map(Number);
     const dateB = b.date.split('/').map(Number);
@@ -28,7 +22,7 @@ function sortByDate(clients: Client[], order: 'newest' | 'oldest'): Client[] {
   });
 }
 
-export const getClients = async ({ searchTerm, status, sort, page }: Params) => {
+export const getClients = async ({ searchTerm, status, sort, page }: ParamsType) => {
   const data = clientsList
     .slice(0, 40)
     .filter((client) => {
@@ -44,7 +38,7 @@ export const getClients = async ({ searchTerm, status, sort, page }: Params) => 
 
   const sortedData = sortByDate(data, sort);
 
-  return new Promise<{ data: { list: Client[]; total: number } }>((resolve) => {
+  return new Promise<{ data: { list: ClientType[]; total: number } }>((resolve) => {
     setTimeout(() => {
       resolve({ data: { list: sortedData, total: clientsList.length } });
     }, 700);

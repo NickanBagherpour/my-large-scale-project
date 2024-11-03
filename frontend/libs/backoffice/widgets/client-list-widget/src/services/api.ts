@@ -1,5 +1,5 @@
-import type { ParamsType } from '../types';
 import Mockify from '@oxygen/mockify';
+import type { ParamsType } from '@oxygen/types';
 
 const Api = {
   getClientsListData: async (params: ParamsType) => {
