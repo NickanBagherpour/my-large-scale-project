@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Box, Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { Box, Button } from '@oxygen/ui-kit';
 import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalErrorContainer } from '@oxygen/reusable-components';
 
@@ -38,7 +38,7 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer fillContainer={true} title={t('widget_name')}>
       {/*render widget name based on clientId*/}
       <GlobalErrorContainer
-        containerProps={{ marginBottom: '2.4rem' }}
+        containerProps={{ marginTop: '2.4rem' }}
         errorMessage={state.errorMessage}
         onClose={() => {
           resetErrorMessageAction(dispatch);
