@@ -27,6 +27,17 @@ export default {
     scope: 'اسکوپ',
     upstream: 'آپ‌استریم',
     service: 'سرویس',
+    service_call_rate: 'نرخ فراخوانی سرویس',
+    all_services: 'همه سرویس ها',
+    restriction_calling: 'محدودیت فراخوانی',
+    register_data: 'ثبت اطلاعات',
+    in: 'در',
+    total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
+    in_week: 'در هفته',
+    in_month: 'در ماه',
+    hour: 'ساعت',
+    minute: 'دقیقه',
+    second: 'ثانیه',
   },
 
   progress_bar: {

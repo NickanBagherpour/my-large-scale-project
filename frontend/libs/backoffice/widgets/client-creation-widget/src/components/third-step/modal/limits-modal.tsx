@@ -5,40 +5,41 @@ import * as S from './limits-modal.style';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
+  services?: string;
 };
 
 export default function LimitsModal(props: Props) {
-  const { isOpen, toggle } = props;
   const [t] = useTr();
+  const { isOpen, toggle, services = `${t('step_three.all_services')}` } = props;
 
   const callRateOptions = [
-    { value: 'second', label: t('second') },
-    { value: 'minute', label: t('minute') },
-    { value: 'hour', label: t('hour') },
+    { value: 'second', label: t('step_three.second') },
+    { value: 'minute', label: t('step_three.minute') },
+    { value: 'hour', label: t('step_three.hour') },
   ];
 
   const totalCallLimitOptions = [
-    { value: 'month', label: t('in_month') },
-    { value: 'week', label: t('in_week') },
+    { value: 'month', label: t('step_three.in_month') },
+    { value: 'week', label: t('step_three.in_week') },
   ];
 
   return (
     <Modal
       centered
-      title={t('call_limitation_for_all_services')}
+      title={`${t('step_three.restriction_calling')} ${services}`}
       open={isOpen}
       onCancel={toggle}
-      footer={[<S.RegisterBtn onClick={toggle}>{t('register_data')}</S.RegisterBtn>]}
+      footer={[<S.RegisterBtn onClick={toggle}>{t('step_three.register_data')}</S.RegisterBtn>]}
     >
       <S.Content>
         <S.Rate>
-          <S.RateTxt>{t('service_call_rate')}:</S.RateTxt>
+          <S.RateTxt>{t('step_three.service_call_rate')}:</S.RateTxt>
           <S.RateInput size='middle' />
-          <S.RateTxt>{t('in')}</S.RateTxt>
+          <S.RateTxt>{t('step_three.in')}</S.RateTxt>
         </S.Rate>
         <Select options={callRateOptions} size='middle' />
 
-        <Input placeholder={t('total_number_of_calls_limit')} size='middle' />
+        <Input placeholder={t('step_three.total_number_calls_limit')} size='middle' />
         <Select options={totalCallLimitOptions} size='middle' />
       </S.Content>
     </Modal>

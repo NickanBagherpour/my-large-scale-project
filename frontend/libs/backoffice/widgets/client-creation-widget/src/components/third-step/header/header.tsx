@@ -13,11 +13,7 @@ export default function PluginHeader() {
       <S.Header>
         <S.Actions>
           <S.Title>{t('step_three.header_title')}</S.Title>
-          <Button
-            color='secondary'
-            variant='text'
-            // onClick={toggleModalOpen}
-          >
+          <Button color='secondary' variant='text' onClick={toggleModalOpen}>
             <S.SettingsIcon className='icon-setting-linear' />
             {t('step_three.header_button')}
           </Button>

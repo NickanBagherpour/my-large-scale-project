@@ -1,9 +1,9 @@
-import { Button, Input } from '@oxygen/ui-kit';
+import { Button, Input, Modal as uiKitModal } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
 export const RegisterBtn = styled(Button)`
   width: 100%;
-  margin-bottom: 1.5rem;
+  height: 5.6rem;
 `;
 
 export const Content = styled.div`

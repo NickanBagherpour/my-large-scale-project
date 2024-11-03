@@ -25,13 +25,11 @@ export default function MainCard(props: Plugin) {
     { name: t('non_denial'), hasLimitations: false },
     { name: t('new_request_validation'), hasLimitations: true },
   ];
-
+  const serviceCount = `${t('step_three.service')} ${idx}`;
   return (
     <S.Container>
       <S.Header>
-        <S.Tag>
-          {t('step_three.service')} {idx}
-        </S.Tag>
+        <S.Tag>{serviceCount}</S.Tag>
         <S.ServiceName>{name}</S.ServiceName>
       </S.Header>
       <div>
@@ -48,7 +46,7 @@ export default function MainCard(props: Plugin) {
 
         <S.Cards>
           {cardsData.map((data, idx) => (
-            <SwitchCard {...data} idx={idx} />
+            <SwitchCard {...data} idx={idx} serviceCount={serviceCount} />
           ))}
 
           <S.Divider orientation='center' type='vertical' />
