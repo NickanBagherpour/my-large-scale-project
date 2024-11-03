@@ -56,7 +56,9 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         </Form>
       </div>
       <div className={'footer'}>
-        <Button variant={'outlined'}>{t('buttons.cancel')}</Button>
+        <Button href={'/scope-management'} variant={'outlined'}>
+          {t('buttons.cancel')}
+        </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
