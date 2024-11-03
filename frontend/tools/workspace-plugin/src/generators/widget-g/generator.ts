@@ -31,7 +31,6 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
   schema.pageName = schema.name.replace('-widget', '');
   schema.shortPortalName = schema.portalName.replace(/-portal$/, '');
 
-  
   const a = await libraryGenerator(tree, {
     // projectNameAndRootFormat: 'derived',
     name: schema.name,
@@ -97,7 +96,7 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
   );
 
   appendToUtilIndexFile(tree, utilsLibRQKPath, schema);
-  
+
   return () => {
     // installPackagesTask(tree);
   };
