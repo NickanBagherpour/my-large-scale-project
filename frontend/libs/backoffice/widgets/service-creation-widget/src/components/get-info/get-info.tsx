@@ -1,4 +1,4 @@
-import { Button, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
@@ -6,7 +6,7 @@ import { createFormSchema } from '../../types';
 import * as S from './get-info.style';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateStep, useAppDispatch } from '../../context';
-import { Footer } from '../footer/footer';
+import Footer from '../footer/footer';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -70,12 +70,7 @@ export default function GetInfo() {
         </SearchItemsContainer>
       </S.Form>
 
-      <Footer>
-        <Button variant={'outlined'}>{t('button.return')}</Button>
-        <Button htmlType={'submit'} onClick={() => form.submit()}>
-          {t('register_info')}
-        </Button>
-      </Footer>
+      <Footer onRegister={() => form.submit()} onReturn={() => void 1} />
     </S.Container>
   );
 }

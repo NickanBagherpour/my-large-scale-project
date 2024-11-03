@@ -3,7 +3,7 @@ import * as S from './add-scope.style';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Button, Input } from '@oxygen/ui-kit';
-import { Footer } from '../footer/footer';
+import Footer from '../footer/footer';
 import { useToggle } from '@oxygen/hooks';
 import ScopeLibrary from '../scope-library/scope-library';
 
@@ -50,12 +50,7 @@ export default function AddScope() {
           )}
         </S.Box>
 
-        <Footer>
-          <Button variant={'outlined'}>{t('button.return')}</Button>
-          <Button htmlType={'submit'} onClick={() => form.submit()}>
-            {t('register_info')}
-          </Button>
-        </Footer>
+        <Footer onRegister={() => form.submit()} onReturn={() => void 1} />
       </S.Form>
 
       <S.Drawer

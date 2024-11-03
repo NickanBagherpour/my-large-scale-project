@@ -1,22 +1,23 @@
-import { respondTo } from '@oxygen/utils';
-import styled from 'styled-components';
+import { Button } from '@oxygen/ui-kit';
+import * as S from './footer.style';
+import { useTr } from '@oxygen/translation';
 
-export const Footer = styled.footer`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-top: 1px solid ${(p) => p.theme.border._100};
-  gap: 1rem;
-  padding: 1.5rem 0;
-  ${respondTo.down('sm')} {
-    flex-direction: column;
+type Props = {
+  onRegister: () => void;
+  onReturn: () => void;
+};
 
-    button {
-      width: 100%;
-
-      &:first-of-type {
-        order: 1;
-      }
-    }
-  }
-`;
+export default function Footer(props: Props) {
+  const { onRegister, onReturn } = props;
+  const [t] = useTr();
+  return (
+    <S.Footer>
+      <Button variant={'outlined'} onClick={onReturn}>
+        {t('button.return')}
+      </Button>
+      <Button htmlType={'submit'} onClick={onRegister}>
+        {t('register_info')}
+      </Button>
+    </S.Footer>
+  );
+}
