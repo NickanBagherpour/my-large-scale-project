@@ -10,6 +10,7 @@ import { KEYS as SERVICE_MANAGEMENT_KEYS } from './widgets/service-management.ke
 import { KEYS as CLIENTS_LIST_KEYS } from './widgets/client-list.key';
 import { KEYS as REUSABLE_COMPONENTS_KEYS } from './widgets/reusable-components.key';
 import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
+import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
 
 export const RQKEYS = {
   /*--export--*/
@@ -24,4 +25,5 @@ export const RQKEYS = {
   CLIENTS_LIST: CLIENTS_LIST_KEYS,
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
   EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
+  SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
 };
