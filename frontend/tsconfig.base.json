@@ -63,6 +63,9 @@
             "@oxygen/backoffice/widgets/services-list-widget": [
                 "libs/backoffice/widgets/services-list-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/upstream-list-widget": [
+                "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
+            ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
