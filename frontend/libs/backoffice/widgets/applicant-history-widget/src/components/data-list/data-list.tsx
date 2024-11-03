@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { useTr } from '@oxygen/translation';
-
 import { Badge, TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
 
 import { dateLocale, getValueOrDash, uuid } from '@oxygen/utils';
 import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
+import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -121,7 +120,6 @@ const DataList: React.FC<dataListProps> = (props) => {
         return (
           <S.ValueContainer>
             {'showBadge' && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
-
             <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
           // <Badge
