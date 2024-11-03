@@ -6,6 +6,7 @@ import { createFormSchema } from '../../types';
 import * as S from './get-info.style';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateStep, useAppDispatch } from '../../context';
+import { Footer } from '../footer/footer';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -69,12 +70,12 @@ export default function GetInfo() {
         </SearchItemsContainer>
       </S.Form>
 
-      <S.Footer>
+      <Footer>
         <Button variant={'outlined'}>{t('button.return')}</Button>
         <Button htmlType={'submit'} onClick={() => form.submit()}>
           {t('register_info')}
         </Button>
-      </S.Footer>
+      </Footer>
     </S.Container>
   );
 }
