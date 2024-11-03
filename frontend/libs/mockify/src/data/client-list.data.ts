@@ -1,20 +1,11 @@
+import type { ClientType } from '@oxygen/types';
+
 export const drafts = [
   { name: 'شرکت آسان پرداخت', level: 1, id: 1 },
   { name: 'سامانه چکاوک', level: 2, id: 2 },
 ] as const;
 
-export type Client = {
-  name: string;
-  logo: unknown;
-  id: string;
-  applicationKey: string;
-  tags: string[] | null;
-  description: string;
-  isActiveInTheService: boolean;
-  date: string;
-};
-
-export const clientsList: Client[] = [
+export const clientsList: ClientType[] = [
   {
     name: 'app-bale',
     logo: null,

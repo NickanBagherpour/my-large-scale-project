@@ -1,4 +1,3 @@
-import { Direction } from '@oxygen/types';
 import styled from 'styled-components';
 
 export const SubtitleContainer = styled.div`
@@ -15,7 +14,6 @@ export const TableContainer = styled.div`
     margin: 0 1.6rem 0 2.5rem;
   }
   & td.left-to-right {
-    /*! @noflip */
     direction: ${(props) => props.theme.direction};
   }
 `;

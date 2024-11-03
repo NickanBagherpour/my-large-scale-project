@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+import { Box, Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-
-import { Button } from '@oxygen/ui-kit';
+import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalErrorContainer } from '@oxygen/reusable-components';
 
-import { PageProps } from '@oxygen/types';
-
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
@@ -22,14 +21,22 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const clientId: Nullable<string> = searchParams.get('clientId');
 
+  useEffect(() => {
+    // console.log('clientId: ', clientId);
+    updateClientIdAction(dispatch, clientId);
+  }, [clientId]);
+
+  const router = useRouter();
   const handleReturn = () => {
     router.back();
   };
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')}>
+      {/*render widget name based on clientId*/}
       <GlobalErrorContainer
         containerProps={{ marginBottom: '2.4rem' }}
         errorMessage={state.errorMessage}
@@ -37,7 +44,10 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <DataList />
+      <Box className={'table-container'}>
+        {/*{clientId ? <DataList /> : <NoResult isLoading={false} />}*/}
+        <DataList />
+      </Box>
       <S.FooterContainer>
         <Button
           className={'return-button'}

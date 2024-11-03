@@ -5,6 +5,10 @@ import { cssVar, respondTo } from '@oxygen/utils';
 
 export const AppContainer = styled(Container)`
   height: 100%;
+
+  & .table-container {
+    flex: 1;
+  }
 `;
 
 export const FooterContainer = styled.div<any>`
