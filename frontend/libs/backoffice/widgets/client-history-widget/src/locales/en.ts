@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'client-history-widget',
+  widget_name: 'App Bale',
 };

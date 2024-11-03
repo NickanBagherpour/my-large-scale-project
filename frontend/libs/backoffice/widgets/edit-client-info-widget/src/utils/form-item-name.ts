@@ -1,4 +1,5 @@
 export const FORM_ITEM_NAMES = {
+  clientStatus: 'clientStatus',
   latinNameClient: 'latinNameClient',
   grantType: 'grantType',
   tags: 'tags',
