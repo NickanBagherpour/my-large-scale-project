@@ -6,6 +6,7 @@ import { Button, Input } from '@oxygen/ui-kit';
 import Footer from '../footer/footer';
 import { useToggle } from '@oxygen/hooks';
 import ScopeLibrary from '../scope-library/scope-library';
+import Box from '../box/box';
 
 type Mode = 'importFromSso' | 'createScope';
 
@@ -22,7 +23,7 @@ export default function AddScope() {
   return (
     <>
       <S.Form layout='vertical'>
-        <S.Box>
+        <Box>
           <S.Radios onChange={onChange} value={mode}>
             <Radio value={'importFromSso'}>{t('import_from_sso')}</Radio>
             <Radio value={'createScope'}>{t('create_scope')}</Radio>
@@ -48,7 +49,7 @@ export default function AddScope() {
               </S.FormItem>
             </S.Create>
           )}
-        </S.Box>
+        </Box>
 
         <Footer onRegister={() => form.submit()} onReturn={() => void 1} />
       </S.Form>

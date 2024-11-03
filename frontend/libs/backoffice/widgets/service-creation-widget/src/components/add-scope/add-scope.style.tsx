@@ -9,12 +9,6 @@ export const Form = styled(AntForm)`
   flex: 1;
 `;
 
-export const Box = styled.section`
-  padding: 1.6rem;
-  border: ${(p) => `1px solid ${p.theme.border._300}`};
-  border-radius: 0.5rem;
-`;
-
 export const Radios = styled(Radio.Group)`
   margin-bottom: 2.4rem;
 `;
