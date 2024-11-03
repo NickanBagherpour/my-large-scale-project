@@ -4,10 +4,11 @@ import GetInfo from '../get-info/get-info';
 import { useAppState } from '../../context';
 import { Step } from '../../context/types';
 import { ReactNode } from 'react';
+import AddScope from '../add-scope/add-scope';
 
 const steps: Record<Step, ReactNode> = {
   0: <GetInfo />,
-  1: <div>Adding Scope</div>,
+  1: <AddScope />,
   2: <div>Load Docs</div>,
 };
 

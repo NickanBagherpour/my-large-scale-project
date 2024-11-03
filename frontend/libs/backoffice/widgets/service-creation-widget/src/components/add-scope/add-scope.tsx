@@ -1,0 +1,72 @@
+import { Form, Radio, RadioChangeEvent } from 'antd';
+import * as S from './add-scope.style';
+import { useState } from 'react';
+import { useTr } from '@oxygen/translation';
+import { Button, Input } from '@oxygen/ui-kit';
+import { Footer } from '../footer/footer';
+import { useToggle } from '@oxygen/hooks';
+import ScopeLibrary from '../scope-library/scope-library';
+
+type Mode = 'importFromSso' | 'createScope';
+
+export default function AddScope() {
+  const [mode, setMode] = useState<Mode>('importFromSso');
+  const [t] = useTr();
+  const [form] = Form.useForm();
+  const [isScopeLibraryOpen, toggleIsScopeLibraryOpen] = useToggle(true);
+
+  const onChange = (e: RadioChangeEvent) => {
+    setMode(e.target.value);
+  };
+
+  return (
+    <>
+      <S.Form layout='vertical'>
+        <S.Box>
+          <S.Radios onChange={onChange} value={mode}>
+            <Radio value={'importFromSso'}>{t('import_from_sso')}</Radio>
+            <Radio value={'createScope'}>{t('create_scope')}</Radio>
+          </S.Radios>
+
+          {mode === 'importFromSso' ? (
+            <S.Sso>
+              <S.FormItem label={t('scope_name')}>
+                <Input placeholder={t('scope_name_from_o2_or_scope')} />
+              </S.FormItem>
+              <Button color='secondary' onClick={toggleIsScopeLibraryOpen}>
+                <S.PlusIcon className='icon-plus' />
+                {t('scope_library')}
+              </Button>
+            </S.Sso>
+          ) : (
+            <S.Create>
+              <S.FormItem label={t('scope_name')}>
+                <Input />
+              </S.FormItem>
+              <S.FormItem label={t('persian_scope_name')}>
+                <Input />
+              </S.FormItem>
+            </S.Create>
+          )}
+        </S.Box>
+
+        <Footer>
+          <Button variant={'outlined'}>{t('button.return')}</Button>
+          <Button htmlType={'submit'} onClick={() => form.submit()}>
+            {t('register_info')}
+          </Button>
+        </Footer>
+      </S.Form>
+
+      <S.Drawer
+        title={t('scope_library')}
+        placement={'left'}
+        width={800}
+        onClose={toggleIsScopeLibraryOpen}
+        open={isScopeLibraryOpen}
+      >
+        <ScopeLibrary />
+      </S.Drawer>
+    </>
+  );
+}

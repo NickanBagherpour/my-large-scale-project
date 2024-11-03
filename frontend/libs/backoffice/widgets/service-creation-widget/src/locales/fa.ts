@@ -26,4 +26,13 @@ export default {
   host: 'Host',
   upstream: 'Upstream',
   register_info: 'ثبت اطلاعات',
+
+  import_from_sso: 'ایمپورت از SSO',
+  create_scope: 'ایجاد اسکوپ',
+  scope_name: 'نام اسکوپ',
+  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن',
+  scope_library: 'کتابخانه اسکوپ',
+  choose: 'انتخاب',
+  add: 'افزودن',
+  persian_scope_name: 'نام فارسی اسکوپ',
 };

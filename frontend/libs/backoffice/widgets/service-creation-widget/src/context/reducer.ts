@@ -1,7 +1,7 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 0,
+  step: 1,
   errorMessage: null,
 };
 
