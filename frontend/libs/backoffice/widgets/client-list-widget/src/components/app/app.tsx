@@ -3,7 +3,7 @@ import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
 import Clients from '../clients/clients';
 import * as S from './app.style';
-import { Loading } from '@oxygen/ui-kit';
+import { Container, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
@@ -20,13 +20,13 @@ const App = () => {
   return (
     <>
       {hasDrafts && (
-        <S.DraftsContainer title={t('draft')} fillContainer={false}>
+        <Container title={t('draft')} fillContainer={false}>
           <S.Grid>
             {drafts?.map((item) => (
               <DraftCard key={item.id} {...item} />
             ))}
           </S.Grid>
-        </S.DraftsContainer>
+        </Container>
       )}
 
       <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>

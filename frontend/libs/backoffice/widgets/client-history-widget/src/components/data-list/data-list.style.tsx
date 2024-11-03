@@ -23,7 +23,7 @@ export const MobileTableItem = styled.div`
 `;
 
 export const TableContainer = styled(Box)`
-  flex: 1;
+  //flex: 1;
   margin-top: 2.4rem;
 
   & tbody > tr > td {
@@ -32,6 +32,20 @@ export const TableContainer = styled(Box)`
 
   & .ant-pagination .ant-select {
     margin: 0 1.6rem;
+  }
+
+  & .ant-table-caption {
+    & div {
+      padding: 1rem 0.8rem 0.8rem 0.8rem;
+
+      & .caption-title {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 25px;
+        color: ${(props) => props.theme.text.primary};
+      }
+    }
   }
 `;
 

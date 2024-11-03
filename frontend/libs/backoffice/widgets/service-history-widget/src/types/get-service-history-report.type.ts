@@ -27,4 +27,5 @@ export type PaginationResultType = {
 
 export type FetchParamsType = {
   pagination: PaginationType;
+  id: string;
 };

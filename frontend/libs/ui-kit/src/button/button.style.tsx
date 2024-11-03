@@ -17,6 +17,7 @@ export const StyledButton = styled<any>(AntButton)`
     ${(p) => getRelatedVariantBackground(p)};
     font-size: 1.4rem;
     /* .ant-btn-icon:not(:last-child) {
+
       margin-inline-end: 0;
     } */
   }
