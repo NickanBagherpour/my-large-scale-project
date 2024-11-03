@@ -17,7 +17,7 @@ type PropsType = {
 export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: PropsType) => {
   const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
   return (
-    <p {...rest}>
+    <span {...rest}>
       {parts.map((part, index) =>
         part === wordToHighlight ? (
           <S.StyledSpan customStyle={highlightColor} key={index}>
@@ -27,6 +27,6 @@ export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: Pro
           part
         )
       )}
-    </p>
+    </span>
   );
 };

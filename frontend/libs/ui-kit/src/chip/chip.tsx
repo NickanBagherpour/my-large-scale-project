@@ -8,7 +8,6 @@ export type ChipProps = AntChipProps & {
 
 export const Chip = (props: ChipProps) => {
   const { children, iconProp, type = 'unActive', ...rest } = props;
-
   return (
     <StyledChip type={type} iconProp={iconProp} {...rest}>
       {type === 'active' && iconProp && <i className={iconProp} />}
