@@ -18,6 +18,16 @@ export default {
     url: 'URL',
     version: 'نسخه',
   },
+  step_three: {
+    header_title: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
+    header_button: 'تنظیم محدودیت فراخوانی برای همه سرویس‌ها',
+    english_name: 'نام لاتین',
+    status: 'وضعیت',
+    version: 'نسخه',
+    scope: 'اسکوپ',
+    upstream: 'آپ‌استریم',
+    service: 'سرویس',
+  },
 
   progress_bar: {
     first_step: 'دریافت اطلاعات',

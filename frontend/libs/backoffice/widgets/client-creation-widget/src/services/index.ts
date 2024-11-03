@@ -1,2 +1,2 @@
 export { default as Api } from './api';
-export { useGetReportDataQuery } from './get-report.api';
+export { useGetMainCardQuery } from './get-main-card.api';

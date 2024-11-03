@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button } from '@oxygen/ui-kit';
+import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { AutoComplete } from '@oxygen/reusable-components';
 
@@ -8,28 +8,24 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/second-step-tab
 
 import * as S from './second-step.style';
 
-export default function SecondStep(props) {
-  const { setCurrentStep } = props;
+type SecondStep = PageProps & {
+  setIsDisable: any;
+};
+
+export const SecondStep: React.FC<SecondStep> = (props) => {
+  const { setIsDisable } = props;
   const [t] = useTr();
   const [data, setData] = useState([]);
+
   const handleSelect = (item) => {
     setData((pre): any => {
       return [...pre, item];
     });
   };
 
-  const handleReturn = () => {
-    setCurrentStep((perv) => perv - 1);
-  };
-
-  const handleSubmit = () => {
-    setCurrentStep((perv) => perv + 1);
-  };
-
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
   const revertData = data.slice().reverse();
-  const isDisabled = data.length ? false : true;
   return (
     <S.SecondStepContainer>
       <S.SearchField>
@@ -38,16 +34,6 @@ export default function SecondStep(props) {
       </S.SearchField>
 
       <S.Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
-
-      <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
-          {t('return')}
-        </Button>
-        <Button disabled={isDisabled} htmlType={'submit'} onClick={handleSubmit}>
-          {t('submit_info')}
-          <i className={'icon-arrow-left'}></i>
-        </Button>
-      </S.Footer>
     </S.SecondStepContainer>
   );
-}
+};

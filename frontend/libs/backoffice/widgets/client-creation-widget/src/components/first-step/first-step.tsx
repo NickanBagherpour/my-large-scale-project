@@ -237,15 +237,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </SearchItemsContainer>
         </Card>
       </Form>
-      <Divider className={'seperator'} />
-
-      <div className={'footer'}>
-        <Button variant={'outlined'}>بازگشت</Button>
-        <Button htmlType={'submit'} onClick={handleSubmit}>
-          ثبت اطلاعات
-          <i className={'icon-arrow-up'}></i>
-        </Button>
-      </div>
     </S.FirstStepContainer>
   );
 };
