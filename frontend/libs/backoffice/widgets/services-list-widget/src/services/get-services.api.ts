@@ -6,6 +6,7 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 
 export const useGetServicesQuery = (params: ParamsType) => {
+  // debugger;
   const dispatch = useAppDispatch();
 
   return useQuery({

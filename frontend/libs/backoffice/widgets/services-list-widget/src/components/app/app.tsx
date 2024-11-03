@@ -1,7 +1,7 @@
 import { useAppState } from '../../context';
-import { useGetServicesQuery } from '../../servicesList';
+import { useGetServicesQuery } from '../../services';
 import Filters from '../filters/filters';
-import Services from '../services/services';
+import Services from '../services-list/services';
 import * as S from './app.style';
 import { Loading, Modal } from '@oxygen/ui-kit';
 import { useState } from 'react';
@@ -9,9 +9,11 @@ import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
-import { useGetDraftsQuery } from '../../servicesList/get-drafts.api';
+import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import { useTheme } from 'styled-components';
-import { ParamsType } from '../../types';
+import { ParamsType, ServiceType, ServiceTypeQuery } from '../../types';
+import { useQueryClient } from '@tanstack/react-query';
+import { RQKEYS } from '@oxygen/utils';
 
 const App = () => {
   const theme = useTheme();
@@ -28,7 +30,8 @@ const App = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [selectedServiceName, setSelectedServiceName] = useState('');
   const [operationalStatus, setOperationalStatus] = useState(false);
-  const [serviceInfo, setServiceInfo] = useState<ParamsType>({} as ParamsType);
+
+  const queryClient = useQueryClient();
 
   const changeStatusHandler = (status: boolean, name: string) => {
     setOpenStatusModal(true);
@@ -52,16 +55,18 @@ const App = () => {
   const deleteHandler = (name: string, status: ParamsType) => {
     setOpenDeleteModal(true);
     setSelectedServiceName(name);
-    setServiceInfo(status);
   };
 
   const handleDeleteOk = (name: string) => {
     setConfirmLoading(true);
     setTimeout(() => {
-      // queryClient.setQueryData([RQKEYS.SERVICES_LIST.GET_LIST, serviceInfo], (oldData: ServiceType[]) => {
-      //   debugger;
-      //   return oldData.filter((item) => item.name !== name);
-      // });
+      queryClient.setQueryData([RQKEYS.SERVICES_LIST.GET_LIST, fetchState], (oldData: ServiceTypeQuery) => {
+        if (!oldData) return;
+        return {
+          ...oldData,
+          list: oldData.list.filter((item) => item.name !== name),
+        };
+      });
 
       setOpenDeleteModal(false);
       setConfirmLoading(false);
@@ -88,7 +93,6 @@ const App = () => {
         cancelButtonProps={{ style: { color: operationalStatus ? theme.warning.main : theme.secondary.main } }}
       >
         <S.ModalMessage>
-          {/* آیا سرویس */}
           {t('service_question')}
           <S.ServiceName
             text={selectedServiceName}
@@ -113,14 +117,12 @@ const App = () => {
         cancelButtonProps={{ style: { color: theme.primary.main } }}
       >
         <S.ModalMessage>
-          {/* آیا از حذف سرویس */}
           {t('delete_service_question')}
           <S.ServiceName
             text={selectedServiceName}
             highlightColor={theme.error.main}
             wordToHighlight={selectedServiceName}
           />
-          {/* اطمینان دارید؟ */}
           {t('are_you_sure')}
         </S.ModalMessage>
       </Modal>

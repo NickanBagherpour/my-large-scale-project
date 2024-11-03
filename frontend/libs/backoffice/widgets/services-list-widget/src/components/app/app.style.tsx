@@ -22,7 +22,6 @@ export const ModalMessage = styled.div`
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.5rem;
-  display: inline-flex;
   align-items: center;
 
   .delete-modal {

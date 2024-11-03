@@ -20,6 +20,11 @@ export type ServiceType = {
   status: boolean;
 };
 
+export type ServiceTypeQuery = {
+  list: ServiceType[];
+  total: number;
+};
+
 export type PaginationResultType = {
   pageNumber: number;
   pageSize: number;
