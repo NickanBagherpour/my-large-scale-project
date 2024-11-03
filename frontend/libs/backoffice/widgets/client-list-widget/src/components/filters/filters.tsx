@@ -9,9 +9,8 @@ import { useBounce } from '@oxygen/hooks';
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
 
-function getChipType(currentStatus: Status, chipStatus: Status) {
-  return currentStatus === chipStatus ? 'active' : 'unActive';
-}
+const getChipProps = (currentStatus: Status, chipStatus: Status) =>
+  currentStatus === chipStatus ? { type: 'active', iconProp: 'checked icon-checkmark' } : { type: 'inactive' };
 
 export default function Filters() {
   const [t] = useTr();
@@ -45,29 +44,17 @@ export default function Filters() {
 
       <S.Indicators>
         <S.Chips>
-          <Chip
-            iconProp='checked icon-checkmark'
-            type={getChipType(status, 'all')}
-            onClick={() => updateStatus(dispatch, 'all')}
-          >
+          <Chip {...getChipProps(status, 'all')} onClick={() => updateStatus(dispatch, 'all')}>
             {t('all_clients')}
           </Chip>
 
           <S.Divider type='vertical' />
 
-          <Chip
-            iconProp='checked icon-checkmark'
-            type={getChipType(status, 'active')}
-            onClick={() => updateStatus(dispatch, 'active')}
-          >
+          <Chip {...getChipProps(status, 'active')} onClick={() => updateStatus(dispatch, 'active')}>
             {t('active_clients')}
           </Chip>
 
-          <Chip
-            iconProp='checked icon-checkmark'
-            type={getChipType(status, 'inactive')}
-            onClick={() => updateStatus(dispatch, 'inactive')}
-          >
+          <Chip {...getChipProps(status, 'inactive')} onClick={() => updateStatus(dispatch, 'inactive')}>
             {t('inactive_clients')}
           </Chip>
         </S.Chips>

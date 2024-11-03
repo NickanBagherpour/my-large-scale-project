@@ -6,3 +6,4 @@ export * from './app-models';
 export * from './app-types';
 export * from './css-types';
 export * from './client-details';
+export * from './client-list';
