@@ -7,13 +7,15 @@ export default {
   applicant_info: 'اطلاعات کاربر متقاضی',
   details: 'جزئیات',
   remove: 'حذف',
+  return: 'بازگشت',
+  submit_info: 'ثبت‌اطلاعات',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
     service_name: 'نام سرویس',
     persian_name: 'نام فارسی',
     scope: 'اسکوپ',
-    url: 'rul',
+    url: 'URL',
     version: 'نسخه',
   },
 

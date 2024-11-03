@@ -5,7 +5,6 @@ import { useTr } from '@oxygen/translation';
 import { AutoComplete } from '@oxygen/reusable-components';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/second-step-table-utils';
-import { useGetTableDataQuery } from '../../services/get-table.data.api';
 
 import * as S from './second-step.style';
 
@@ -13,15 +12,11 @@ export default function SecondStep(props) {
   const { setCurrentStep } = props;
   const [t] = useTr();
   const [data, setData] = useState([]);
-  // const { data, isFetching, isError, refetch } = useGetTableDataQuery();
-
   const handleSelect = (item) => {
     setData((pre): any => {
       return [...pre, item];
     });
   };
-
-  // console.log(';', data);
 
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
@@ -34,7 +29,7 @@ export default function SecondStep(props) {
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
   const revertData = data.slice().reverse();
-  const isDisabled = data ? false : true;
+  const isDisabled = data.length ? false : true;
   return (
     <S.SecondStepContainer>
       <S.SearchField>
@@ -42,20 +37,14 @@ export default function SecondStep(props) {
         <AutoComplete onSelect={handleSelect}></AutoComplete>
       </S.SearchField>
 
-      <S.Table
-        dataSource={revertData}
-        columns={desktopColumns}
-        mobileColumns={mobileColumns}
-        pagination={false}
-        // loading={isFetching}
-      />
+      <S.Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
 
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
-          بازگشت
+          {t('return')}
         </Button>
         <Button disabled={isDisabled} htmlType={'submit'} onClick={handleSubmit}>
-          ثبت اطلاعات
+          {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>

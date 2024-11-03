@@ -15,8 +15,6 @@ export type ClientService = {
   url: string;
   version: string;
   status: string;
-  details: string;
-  remove: string;
 };
 
 const mockData: ClientService[] = [
@@ -26,11 +24,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'http://localhost:3000/client-creation',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
 
   {
@@ -39,11 +35,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت اشتراک شماره های بله و ساینا بر اساس ماه و روز تولد',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'بررسی وضعیت حساب بانکی به وسیله کد ملی',
@@ -51,11 +45,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'بررسی وضعیت حساب بانکی به وسیله کد ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'دریافت اطلاعات بیمه بر اساس شماره کارت ملی',
@@ -63,11 +55,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت اطلاعات بیمه بر اساس شماره کارت ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'دریافت تاریخچه تراکنش‌های بانکی با شماره موبایل',
@@ -75,11 +65,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت تاریخچه تراکنش‌های بانکی با شماره موبایل',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'ثبت نام در سامانه خدمات الکترونیکی با کد ملی',
@@ -87,11 +75,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'ثبت نام در سامانه خدمات الکترونیکی با کد ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'دریافت جزئیات حساب‌های بانکی از طریق شماره حساب',
@@ -99,11 +85,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت جزئیات حساب‌های بانکی از طریق شماره حساب',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'استعلام وضعیت مالیاتی به وسیله شماره کارت ملی',
@@ -111,11 +95,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'استعلام وضعیت مالیاتی به وسیله شماره کارت ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'دریافت اطلاعات وام‌ها بر اساس شماره ملی',
@@ -123,11 +105,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت اطلاعات وام‌ها بر اساس شماره ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
   {
     title: 'دریافت وضعیت املاک و مستغلات با کد ملی',
@@ -135,11 +115,9 @@ const mockData: ClientService[] = [
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت وضعیت املاک و مستغلات با کد ملی',
     scope: 'svc-mgmt-iban-inq',
-    url: 'localhost:3000/services',
+    url: 'localhost:3000',
     version: 'V 1.1',
     status: 'status',
-    details: 'details',
-    remove: 'remove',
   },
 ];
 
