@@ -23,7 +23,7 @@ export const MobileTableItem = styled.div`
 `;
 
 export const TableContainer = styled(Box)`
-  flex: 1;
+  //flex: 1;
   margin-top: 2.4rem;
 
   & tbody > tr > td {
