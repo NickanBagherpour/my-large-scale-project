@@ -5,6 +5,12 @@ import { respondTo } from '@oxygen/utils';
 export const DataTableContainer = styled.div``;
 
 export const Table = styled(KitTable)`
+  caption {
+    div {
+      padding-left: 0;
+    }
+  }
+
   & .ant-pagination-options {
     margin-inline-start: 1.6rem;
   }

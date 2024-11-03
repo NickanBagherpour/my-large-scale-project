@@ -40,6 +40,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   return (
     <S.DataTableContainer>
       <S.Table
+        title={t('table.title')}
         loading={isFetching}
         current={page}
         total={data?.total}
