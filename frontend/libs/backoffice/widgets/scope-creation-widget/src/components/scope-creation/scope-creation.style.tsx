@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 
-export const EditScopeContainer = styled.div`
+export const ScopeCreationContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;

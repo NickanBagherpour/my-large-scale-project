@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'edit-scope-widget',
+  widget_name: 'scope-creation-widget',
 };

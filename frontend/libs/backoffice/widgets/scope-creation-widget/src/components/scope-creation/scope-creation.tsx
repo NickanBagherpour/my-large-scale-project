@@ -1,22 +1,23 @@
 import React from 'react';
+import { Form } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
-import * as S from './edit-scope.style';
-import { Form } from 'antd';
-import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
-import { createSchemaFieldRule } from 'antd-zod';
+
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types';
+
+import * as S from './scope-creation.style';
 
 type EditScopeProps = PageProps & {
   //
 };
 
-const EditScope: React.FC<EditScopeProps> = (props) => {
+const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -27,11 +28,11 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log('asdfadsf', values);
+    console.log('formValue', values);
   };
 
   return (
-    <S.EditScopeContainer>
+    <S.ScopeCreationContainer>
       <div className={'form_wrapper'}>
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
@@ -60,8 +61,8 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
           {t('buttons.register_scope')}
         </Button>
       </div>
-    </S.EditScopeContainer>
+    </S.ScopeCreationContainer>
   );
 };
 
-export default EditScope;
+export default ScopeCreation;
