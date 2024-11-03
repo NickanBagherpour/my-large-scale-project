@@ -26,7 +26,6 @@ export default {
   host: 'Host',
   upstream: 'Upstream',
   register_info: 'ثبت اطلاعات',
-
   import_from_sso: 'ایمپورت از SSO',
   create_scope: 'ایجاد اسکوپ',
   scope_name: 'نام اسکوپ',
@@ -35,4 +34,9 @@ export default {
   choose: 'انتخاب',
   add: 'افزودن',
   persian_scope_name: 'نام فارسی اسکوپ',
+
+  choose_or_drag_file: 'فایل مورد نظر را انتخاب کنید یا بکشید و در این قسمت رها کنید.',
+  file_format_xls: 'فرمت فایل ارسالی .xls باشد (حجم زیر ۵ مگابایت)',
+  add_docs: 'افزودن مستند',
+  upload_error: 'بارگذاری فایل با خطا مواجه شد!',
 };

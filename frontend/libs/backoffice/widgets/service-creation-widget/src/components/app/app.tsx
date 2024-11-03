@@ -5,11 +5,12 @@ import { useAppState } from '../../context';
 import { Step } from '../../context/types';
 import { ReactNode } from 'react';
 import AddScope from '../add-scope/add-scope';
+import UploadDocs from '../upload-docs/upload-docs';
 
 const steps: Record<Step, ReactNode> = {
   0: <GetInfo />,
   1: <AddScope />,
-  2: <div>Load Docs</div>,
+  2: <UploadDocs />,
 };
 
 const App = () => {
