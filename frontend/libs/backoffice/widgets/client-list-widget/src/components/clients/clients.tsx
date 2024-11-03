@@ -1,9 +1,9 @@
 import * as S from './clients.style';
 import { GridCard } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ClientType } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import Mockify from '@oxygen/mockify';
+import { ClientType } from '@oxygen/types';
 
 type Props = {
   data: ClientType[];

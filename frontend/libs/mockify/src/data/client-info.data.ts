@@ -1,5 +1,6 @@
 export const clientInfoData = [
   {
+    clientStatus: true,
     requestId: 123456789,
     latinNameClient: 'app-bale',
     grantType: [
@@ -22,6 +23,7 @@ export const clientInfoData = [
   },
 
   {
+    clientStatus: false,
     requestId: 987654321,
     latinNameClient: 'app-sadad',
     grantType: [{ label: 'Client Flow', key: 'clientFlow' }],

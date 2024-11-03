@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -19,17 +19,19 @@ type AppProps = PageProps & {
 const App: React.FC<AppProps> = () => {
   const { errorMessage, table } = useAppState();
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+
+  const id = searchParams.get('historyId') || '';
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
   const items = history?.items;
-  const [title, setTitle] = useState('');
   const [t] = useTr();
+  const [title, setTitle] = useState(t('default-title'));
   const router = useRouter();
-
-  console.log('errorMessage', errorMessage);
 
   function prepareParams() {
     const params = {
       pagination: table.pagination,
+      id,
     };
     return params;
   }
@@ -38,7 +40,7 @@ const App: React.FC<AppProps> = () => {
   };
 
   useEffect(() => {
-    if (items && items.length > 0 && title === '') {
+    if (items && items.length > 0 && title === t('default-title')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);
     }
   }, [items, title]);

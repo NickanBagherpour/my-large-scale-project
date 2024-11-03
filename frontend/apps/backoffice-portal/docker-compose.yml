@@ -14,5 +14,5 @@ services:
       - /app/.next
       - /app/public
     ports:
-      - "3200:3200"
-    container_name: backoffice-portal-app  # Custom name assigned here
+      - '3200:3200'
+    container_name: backoffice-portal-app # Custom name assigned here
