@@ -36,6 +36,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
     }
+
     case 'UPDATE_CLIENT_ID': {
       state.clientId = action.payload;
       return;

@@ -120,16 +120,9 @@ const DataList: React.FC<dataListProps> = (props) => {
         const showBadge = record?.someCondition;
         return (
           <S.ValueContainer>
-            {'showBadge' && (
-              <Badge
-                status='error'
-                // offset={[2, 0]}
-                dot={showBadge}
-                color={theme.error._600}
-              />
-            )}
+            {'showBadge' && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
 
-            <span style={{ marginLeft: showBadge ? 8 : 0 }}>{getValueOrDash(value)}</span>
+            <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
           // <Badge
           //   status={'error'}
@@ -209,7 +202,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           mobileColumns={mobileColumns}
           variant={'complex'}
           title={t('table.applicant_change_history')}
-          hasContainer={true}
+          // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
         />

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Container } from '@oxygen/ui-kit';
-import { cssVar, respondTo } from '@oxygen/utils';
+import { respondTo } from '@oxygen/utils';
 
 export const AppContainer = styled(Container)`
   height: 100%;
@@ -9,16 +9,19 @@ export const AppContainer = styled(Container)`
   & .table-container {
     flex: 1;
   }
+
+  & [class*='container-style__Divider'] {
+    border: 0;
+    border-bottom: 1px solid ${(props) => props.theme.border._100};
+  }
 `;
 
 export const FooterContainer = styled.div<any>`
   display: flex;
   flex-direction: row-reverse;
-  border-top: 1px solid ${(p) => p.theme.border._300};
-  margin-right: 1.5rem;
-  padding: 1.6rem;
+  border-top: 1px solid ${(p) => p.theme.border._100};
+  padding: 1.6rem 0;
   gap: 1.6rem;
-  margin-bottom: 1.5rem;
   background-color: ${(props) => props.theme.background.main};
   flex: 0 0 auto;
 
@@ -35,13 +38,12 @@ export const FooterContainer = styled.div<any>`
   }
 
   & .ant-btn.return-button {
-    padding: 0.8rem 1.6rem;
+    padding: 0.8rem 4rem;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 22px;
     text-align: center;
     border-color: ${(props) => props.theme.border.main};
-    min-width: 9.6rem;
   }
 `;
