@@ -7,6 +7,8 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
+import Filter from '../filter/filter';
+import DataTable from '../data-table/data-table';
 
 type AppProps = PageProps & {
   //
@@ -31,7 +33,12 @@ const App: React.FC<AppProps> = (props) => {
    }
  */
 
-  return <S.AppContainer title={'ScopeManagementWidget'}>ScopeManagementWidget</S.AppContainer>;
+  return (
+    <S.AppContainer title={t('widget_name')} subtitle={'(367)'}>
+      <Filter />
+      <DataTable />
+    </S.AppContainer>
+  );
 };
 
 export default App;
