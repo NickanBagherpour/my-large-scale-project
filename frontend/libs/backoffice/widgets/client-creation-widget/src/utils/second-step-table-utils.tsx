@@ -2,9 +2,14 @@ import { Button, ColumnsType } from '@oxygen/ui-kit';
 import * as S from '../components/second-step/second-step.style';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
-
-export function getDesktopColumns(props): ColumnsType<Service> {
-  const { t } = props;
+import { TFunction } from 'i18next';
+import { Modal } from '../types/modal.type';
+type Props = {
+  t: TFunction;
+  toggleModal: (modal: keyof Modal) => void;
+};
+export function getDesktopColumns(props: Props): ColumnsType<Service> {
+  const { t, toggleModal } = props;
 
   return [
     {
@@ -48,7 +53,7 @@ export function getDesktopColumns(props): ColumnsType<Service> {
       width: '7rem',
       key: 'status',
       render: () => (
-        <S.DetailsBtn variant='link' color='primary' onClick={(p) => console.log(p)}>
+        <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
           {t('details')}
         </S.DetailsBtn>
       ),
@@ -57,7 +62,7 @@ export function getDesktopColumns(props): ColumnsType<Service> {
       width: '7rem',
       key: 'remove',
       render: (p) => (
-        <Button variant='link' color='error' onClick={() => console.log(p)}>
+        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),

@@ -56,3 +56,11 @@ export const FirstForm = styled.div`
     border-right: 1px solid ${(p) => p.theme.border.main};
   }
 `;
+export const Footer = styled.div`
+  display: flex;
+  height: 7.2rem;
+  align-items: center;
+  justify-content: end;
+  border-top: 1px solid ${(p) => p.theme.border._100};
+  gap: 1.2rem;
+`;

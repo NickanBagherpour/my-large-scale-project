@@ -20,9 +20,10 @@ import {
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './first-step.style';
+import { useRouter } from 'next/navigation';
 
 type FirstStepProps = PageProps & {
-  setCurrentStep: any;
+  setCurrentStep: (prev) => void;
 };
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
@@ -30,7 +31,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+
+  const router = useRouter();
   const [form] = Form.useForm();
+
   const [grantTags, setGrantTags] = useState([]);
   const [nameTags, setNameTags] = useState([]);
 
@@ -75,6 +79,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const handleChipClose = (key) => {
     setGrantTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
+  };
+  const handleReturn = () => {
+    router.back();
   };
 
   const handleSubmit = () => {
@@ -237,6 +244,15 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </SearchItemsContainer>
         </Card>
       </Form>
+      <S.Footer>
+        <Button variant={'outlined'} onClick={handleReturn}>
+          {t('return')}
+        </Button>
+        <Button htmlType={'submit'} onClick={handleSubmit}>
+          {t('submit_info')}
+          <i className={'icon-arrow-left'}></i>
+        </Button>
+      </S.Footer>
     </S.FirstStepContainer>
   );
 };

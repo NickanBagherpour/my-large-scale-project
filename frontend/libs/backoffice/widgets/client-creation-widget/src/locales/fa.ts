@@ -17,6 +17,7 @@ export default {
     scope: 'اسکوپ',
     url: 'URL',
     version: 'نسخه',
+    are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این کلاینت اطمینان دارید؟',
   },
   step_three: {
     header_title: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
@@ -38,6 +39,11 @@ export default {
     hour: 'ساعت',
     minute: 'دقیقه',
     second: 'ثانیه',
+  },
+  step_four: {
+    client_tariff: 'تعرفه کلاینت',
+    tariff: 'تعرفه',
+    final_client_registration: 'ثبت نهایی کلاینت',
   },
 
   progress_bar: {
