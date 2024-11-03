@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { Table as KitTable } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
-export const DataTableContainer = styled.div`
-  // background-color: pink;
-`;
+export const DataTableContainer = styled.div``;
 
 export const Table = styled(KitTable)`
   & .ant-pagination-options {

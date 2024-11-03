@@ -1,16 +1,8 @@
-import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
-const initialFilters: FormFieldsType = {
-  name: null,
-  code: null,
-};
-
 export const initialStateValue: WidgetStateType = {
   table: {
-    filters: initialFilters,
-    submit: initialFilters,
     pagination: {
       limit: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
@@ -24,16 +16,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
   switch (action.type) {
     case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
       state.errorMessage = action.payload;
-      return;
-    }
-
-    case 'UPDATE_SUBMIT': {
-      state.table.submit = { ...state.table.submit, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_FILTERS': {
-      state.table.filters = { ...state.table.filters, ...action.payload };
       return;
     }
 
