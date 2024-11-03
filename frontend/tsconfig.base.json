@@ -24,6 +24,9 @@
             "@oxygen/backoffice/layouts": [
                 "libs/backoffice/layouts/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/applicant-history-widget": [
+                "libs/backoffice/widgets/applicant-history-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/client-details-widget": [
                 "libs/backoffice/widgets/client-details-widget/src/index.ts"
             ],

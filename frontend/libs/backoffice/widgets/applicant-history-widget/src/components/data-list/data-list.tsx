@@ -72,40 +72,28 @@ const DataList: React.FC<dataListProps> = (props) => {
               <span className={'item__value'}>{getValueOrDash(value?.adminName)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.client_latin_name')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.clientLatinName)}</span>
+              <span className={'item__title'}>{t('table.user_name')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.userName)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.client_farsi_name')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.clientFarsiName)}</span>
+              <span className={'item__title'}>{t('table.national_code')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.nationalCode)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.client_type')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.clientType)}</span>
+              <span className={'item__title'}>{t('table.organization_name')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.organizationName)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.client_id')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.clientId)}</span>
+              <span className={'item__title'}>{t('table.mobile')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.mobile)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.verification_id')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.verificationId)}</span>
+              <span className={'item__title'}>{t('table.phone')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.phone)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.aggregator_status')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.aggregatorStatus)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.aggregator_name')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.aggregatorName)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.address')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.address)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.input_address')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.inputAddress)}</span>
+              <span className={'item__title'}>{t('table.email')} </span>
+              <span className={'item__value'}>{getValueOrDash(value?.email)}</span>
             </S.MobileTableItem>
           </Box>
         );
@@ -153,8 +141,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.client_latin_name'),
-      dataIndex: 'clientLatinName',
+      title: t('table.user_name'),
+      dataIndex: 'userName',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -162,8 +150,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.client_farsi_name'),
-      dataIndex: 'clientFarsiName',
+      title: t('table.national_code'),
+      dataIndex: 'nationalCode',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -171,8 +159,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.client_type'),
-      dataIndex: 'clientType',
+      title: t('table.organization_name'),
+      dataIndex: 'organizationName',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -180,8 +168,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.client_id'),
-      dataIndex: 'clientId',
+      title: t('table.mobile'),
+      dataIndex: 'mobile',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -189,8 +177,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.verification_id'),
-      dataIndex: 'verificationId',
+      title: t('table.phone'),
+      dataIndex: 'phone',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -198,35 +186,8 @@ const DataList: React.FC<dataListProps> = (props) => {
       },
     },
     {
-      title: t('table.aggregator_status'),
-      dataIndex: 'aggregatorStatus',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.aggregator_name'),
-      dataIndex: 'aggregatorName',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.address'),
-      dataIndex: 'address',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.input_address'),
-      dataIndex: 'inputAddress',
+      title: t('table.email'),
+      dataIndex: 'email',
       align: 'center',
       width: 'min-content',
       render: (value) => {
@@ -247,7 +208,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           columns={columns}
           mobileColumns={mobileColumns}
           variant={'complex'}
-          title={t('table.client_change_history')}
+          title={t('table.applicant_change_history')}
           hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}

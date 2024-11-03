@@ -1,16 +1,17 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { ParamsType } from '@oxygen/types';
 
-export const useGetClientsQuery = (params: ParamsType) => {
+export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CLIENTS_LIST.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getClientsListData(params), dispatch),
+    queryKey: [RQKEYS.APPLICANT_HISTORY.GET_LIST, params],
+    queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
     placeholderData: keepPreviousData,
+    networkMode: 'offlineFirst',
   });
 };
