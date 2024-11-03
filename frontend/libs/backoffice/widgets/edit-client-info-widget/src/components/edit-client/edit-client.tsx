@@ -4,13 +4,14 @@ import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
 import { useGetTags } from '../../services/get-tag-info.api';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { rule } from '../../types';
+import { createFormSchema } from '../../types';
 
 import * as S from './edit-client.style';
 
@@ -20,11 +21,13 @@ type FirstStepProps = PageProps & {
 };
 
 const EditClient: React.FC<FirstStepProps> = (props) => {
+  const { userData } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
   const [form] = Form.useForm();
-  const { userData } = props;
+
+const rule  = createSchemaFieldRule(createFormSchema(t));
 
   const [grantTypeState, setGrantTypeState] = useState<{ key: string; label: string }[]>([]);
 

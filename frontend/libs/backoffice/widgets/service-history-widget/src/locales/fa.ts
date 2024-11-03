@@ -1,6 +1,7 @@
 export default {
   widget_name: 'تاریخچه سرویس',
   subtitle: 'تاریخچه ی تغییرات سرویس',
+  'default-title': 'تاریخچه',
   column: {
     'edit-date': 'زمان ویرایش',
     'admin-name': 'نام ادمین',
