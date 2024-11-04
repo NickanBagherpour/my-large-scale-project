@@ -11,20 +11,20 @@ export default function DetailModal(props: Props) {
   const [t] = useTr();
 
   const data = [
-    { key: t('english_name'), value: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
-    { key: t('persian_name'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-    { key: t('action'), value: 'Post' },
-    { key: t('protocole'), value: 'HTTP' },
-    { key: t('access'), value: 'PUBLIC' },
-    { key: t('category'), value: 'ACCOUNT' },
-    { key: t('throughout'), value: 'Throughout' },
-    { key: t('version'), value: 'V1' },
-    { key: t('owner'), value: 'Sadad' },
-    { key: t('tag'), value: 'CUSOTMER' },
-    { key: t('path'), value: 'api/sapta/v1/bale/customer-info/' },
-    { key: t('host'), value: 'Openapis.bmi.ir' },
-    { key: t('upstream_details'), value: 'ICMS -XzxcZ' },
-    { key: t('descriptions'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
+    { key: t('step_two.english_name'), value: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
+    { key: t('step_two.persian_name'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
+    { key: t('step_two.action'), value: 'Post' },
+    { key: t('step_two.protocole'), value: 'HTTP' },
+    { key: t('step_two.access'), value: 'PUBLIC' },
+    { key: t('step_two.category'), value: 'ACCOUNT' },
+    { key: t('step_two.throughout'), value: 'Throughout' },
+    { key: t('step_two.version'), value: 'V1' },
+    { key: t('step_two.owner'), value: 'Sadad' },
+    { key: t('step_two.tag'), value: 'CUSOTMER' },
+    { key: t('step_two.path'), value: 'api/sapta/v1/bale/customer-info/' },
+    { key: t('step_two.host'), value: 'Openapis.bmi.ir' },
+    { key: t('step_two.upstream_details'), value: 'ICMS -XzxcZ' },
+    { key: t('step_two.descriptions'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
   ];
 
   return (
@@ -36,7 +36,7 @@ export default function DetailModal(props: Props) {
       width={1000}
       footer={[
         <Button size='large' color='primary' variant='outlined' onClick={toggle}>
-          {t('register_data')}
+          {t('close')}
         </Button>,
       ]}
     >

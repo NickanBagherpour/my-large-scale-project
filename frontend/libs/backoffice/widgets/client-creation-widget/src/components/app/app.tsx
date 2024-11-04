@@ -16,7 +16,7 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },

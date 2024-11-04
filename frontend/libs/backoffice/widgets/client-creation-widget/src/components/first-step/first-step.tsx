@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Card, Form } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Box, Button, Chip, Input, SearchItemsContainer, Select, Switch, Dropdown, MenuItemType } from '@oxygen/ui-kit';
 
-import { dropdownOptions, FormItem } from '../../utils/consts';
+import { createFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
+import { dropdownOptions, FormItem, selectOptions } from '../../utils/consts';
 
 import * as S from './first-step.style';
 
@@ -28,6 +30,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [grantTags, setGrantTags] = useState([]);
   const [nameTags, setNameTags] = useState([]);
 
+  const rule = createSchemaFieldRule(createFormSchema(t));
+
   const handleGrantTagChange = (values) => {
     setGrantTags(values);
   };
@@ -37,6 +41,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const onFinish = (values) => {
     console.log('this is on finish:', values);
+    form.submit();
+    setCurrentStep((perv) => perv + 1);
   };
 
   const handleGrantChipClose = (key) => {
@@ -49,9 +55,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     router.back();
   };
 
-  const handleSubmit = () => {
-    form.submit();
-  };
   form.setFieldValue('grant-tag', grantTags);
   form.setFieldValue('add-tag', nameTags);
   return (
@@ -103,58 +106,30 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <S.TitleTxt className={'cards-title'}>{t('client_info')}</S.TitleTxt>
         <Card>
           <SearchItemsContainer>
-            <Form.Item
-              name={FormItem.latin_name_client}
-              label={t('form.latin_name_client')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} size='large' />
+            <Form.Item name={FormItem.latin_name_client} label={t('form.latin_name_client')} rules={[rule]}>
+              <Input size='large' />
             </Form.Item>
 
-            <Form.Item
-              name={FormItem.persian_name_client}
-              label={t('form.persian_name_client')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.persian_name_client} label={t('form.persian_name_client')} rules={[rule]}>
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={FormItem.client_type}
-              label={t('form.client_type')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Select size={'large'} placeholder={'...'}></Select>
+            <Form.Item name={FormItem.client_type} label={t('form.client_type')} rules={[rule]}>
+              <Select size={'large'} options={selectOptions}></Select>
             </Form.Item>
-            <Form.Item
-              name={FormItem.client_id}
-              label={t('form.client_id')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.client_id} label={t('form.client_id')} rules={[rule]}>
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={FormItem.identity_auth}
-              label={t('form.identity_auth')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.identity_auth} label={t('form.identity_auth')} rules={[rule]}>
+              <Input />
             </Form.Item>
             <Form.Item name={FormItem.website_url} label={t('form.website_url')}>
-              <Input placeholder={'...'} />
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={FormItem.input_address}
-              label={t('form.input_address')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.input_address} label={t('form.input_address')} rules={[rule]}>
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={FormItem.return_address}
-              label={t('form.return_address')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.return_address} label={t('form.return_address')} rules={[rule]}>
+              <Input />
             </Form.Item>
             <Form.Item
               name={FormItem.aggregator_status}
@@ -164,47 +139,31 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             >
               <Switch />
             </Form.Item>
-            <Form.Item
-              name={FormItem.aggregator}
-              label={t('form.aggregator')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Select size={'large'} placeholder={'...'}></Select>
+            <Form.Item name={FormItem.aggregator} label={t('form.aggregator')} rules={[rule]}>
+              <Select size={'large'} options={selectOptions}></Select>
             </Form.Item>
           </SearchItemsContainer>
         </Card>
         <S.TitleTxt className={'cards-title'}>{t('applicant_info')}</S.TitleTxt>
         <Card>
           <SearchItemsContainer>
-            <Form.Item
-              name={FormItem.user_name}
-              label={t('form.user_name')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.user_name} label={t('form.user_name')} rules={[rule]}>
+              <Input />
             </Form.Item>
             <Form.Item name={FormItem.national_code} label={t('form.national_code')}>
-              <Input placeholder={'...'} />
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={FormItem.organization_name}
-              label={t('form.organization_name')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'}></Input>
+            <Form.Item name={FormItem.organization_name} label={t('form.organization_name')} rules={[rule]}>
+              <Input></Input>
             </Form.Item>
-            <Form.Item
-              name={FormItem.mobile_number}
-              label={t('form.mobile_number')}
-              rules={[{ required: true, message: t('error.required') }]}
-            >
-              <Input placeholder={'...'} />
+            <Form.Item name={FormItem.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
+              <Input />
             </Form.Item>
             <Form.Item name={FormItem.telephone} label={t('form.telephone')}>
-              <Input placeholder={'...'} />
+              <Input />
             </Form.Item>
             <Form.Item name={FormItem.email} label={t('form.email')}>
-              <Input placeholder={'...'} />
+              <Input />
             </Form.Item>
           </SearchItemsContainer>
         </Card>
@@ -213,7 +172,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={handleSubmit}>
+        <Button htmlType={'submit'} onClick={form.submit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>
