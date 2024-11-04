@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Box, Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { Box, Button } from '@oxygen/ui-kit';
 import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalErrorContainer } from '@oxygen/reusable-components';
 

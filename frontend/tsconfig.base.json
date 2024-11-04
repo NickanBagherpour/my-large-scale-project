@@ -45,6 +45,9 @@
             "@oxygen/backoffice/widgets/edit-client-info-widget": [
                 "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/scope-creation-widget": [
+                "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/scope-management-widget": [
                 "libs/backoffice/widgets/scope-management-widget/src/index.ts"
             ],
@@ -59,6 +62,9 @@
             ],
             "@oxygen/backoffice/widgets/services-list-widget": [
                 "libs/backoffice/widgets/services-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/upstream-list-widget": [
+                "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
             ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
