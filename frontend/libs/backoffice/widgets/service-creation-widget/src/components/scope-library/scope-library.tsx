@@ -1,10 +1,13 @@
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Input } from '@oxygen/ui-kit';
-import { Radio } from 'antd';
 import * as S from './scope-library.style';
-import FormItem from '../form-item/form-item';
 
-const items = Array.from({ length: 20 }).map(() => ({
+type Scope = {
+  scopeName: string;
+  persianName: string;
+};
+
+const items: Scope[] = Array.from({ length: 20 }).map(() => ({
   scopeName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
   persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
 }));
@@ -12,12 +15,12 @@ const items = Array.from({ length: 20 }).map(() => ({
 export default function ScopeLibrary() {
   const [t] = useTr();
 
-  const desktopColumns: ColumnsType<(typeof items)[number]> = [
+  const desktopColumns: ColumnsType<Scope> = [
     {
       title: t('choose'),
       key: 'choose',
       align: 'center',
-      render: () => <Radio name='scope' />,
+      render: () => <S.Radio name='scope' />,
     },
     {
       title: t('scope_name'),
@@ -31,12 +34,40 @@ export default function ScopeLibrary() {
     },
   ];
 
+  const mobileColumns: ColumnsType<Scope> = [
+    {
+      title: null,
+      key: 'mobileColumn',
+      render: ({ persianName, scopeName }: Scope) => (
+        <S.TableCell>
+          <S.TableRow>
+            <strong>{t('choose')}</strong>
+            <S.Radio name='scope' />
+          </S.TableRow>
+          <S.TableRow>
+            <strong>{t('persian_name')}</strong>
+            <span>{persianName}</span>
+          </S.TableRow>
+          <S.TableRow>
+            <strong>{t('scope_name')}</strong>
+            <span>{scopeName}</span>
+          </S.TableRow>
+        </S.TableCell>
+      ),
+    },
+  ];
+
   return (
-    <S.Form>
-      <FormItem>
-        <Input placeholder={t('persian_scope_name')} prefix={<i className='icon-search-normal' />} />
-      </FormItem>
-      <S.Table dataSource={items} columns={desktopColumns} />
+    <S.Form layout={'vertical'}>
+      <S.FormItem label={t('search')}>
+        <Input placeholder={t('persian_or_english_name')} prefix={<i className='icon-search-normal' />} />
+      </S.FormItem>
+      <S.Table
+        scroll={{ x: 'max-content' }}
+        dataSource={items}
+        columns={desktopColumns}
+        mobileColumns={mobileColumns}
+      />
       <S.Button color='primary'>{t('add')}</S.Button>
     </S.Form>
   );

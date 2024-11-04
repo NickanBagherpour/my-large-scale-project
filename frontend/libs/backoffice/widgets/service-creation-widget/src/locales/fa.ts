@@ -34,7 +34,8 @@ export default {
   choose: 'انتخاب',
   add: 'افزودن',
   persian_scope_name: 'نام فارسی اسکوپ',
-
+  persian_or_english_name: 'نام فارسی یا انگلیسی اسکوپ',
+  search: 'جستجو',
   choose_or_drag_file: 'فایل مورد نظر را انتخاب کنید یا بکشید و در این قسمت رها کنید.',
   file_format_xls: 'فرمت فایل ارسالی .xls باشد (حجم زیر ۵ مگابایت)',
   add_docs: 'افزودن مستند',

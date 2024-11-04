@@ -14,7 +14,7 @@ export default function AddScope() {
   const [mode, setMode] = useState<Mode>('importFromSso');
   const [t] = useTr();
   const [form] = Form.useForm();
-  const [isScopeLibraryOpen, toggleIsScopeLibraryOpen] = useToggle(true);
+  const [isScopeLibraryOpen, toggleIsScopeLibraryOpen] = useToggle(false);
 
   const onChange = (e: RadioChangeEvent) => {
     setMode(e.target.value);
@@ -57,9 +57,10 @@ export default function AddScope() {
       <S.Drawer
         title={t('scope_library')}
         placement={'left'}
-        width={800}
+        width={768}
         onClose={toggleIsScopeLibraryOpen}
         open={isScopeLibraryOpen}
+        closeIcon={<S.CloseIcon className='icon-close-square' />}
       >
         <ScopeLibrary />
       </S.Drawer>
