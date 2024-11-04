@@ -114,7 +114,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   ];
 
   return (
-    <S.FirtStepContainer>
+    <S.EditClientContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
@@ -223,7 +223,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </div>
-    </S.FirtStepContainer>
+    </S.EditClientContainer>
   );
 };
 
