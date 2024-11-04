@@ -1,4 +1,4 @@
-import { Form as AntForm, Radio, Drawer as AntDrawer } from 'antd';
+import { Form as AntForm, Radio as AntRadio, Drawer as AntDrawer } from 'antd';
 import styled from 'styled-components';
 import RawFormItem from '../form-item/form-item';
 import { respondTo } from '@oxygen/utils';
@@ -10,8 +10,12 @@ export const Form = styled(AntForm)`
   flex: 1;
 `;
 
-export const Radios = styled(Radio.Group)`
+export const Radios = styled(AntRadio.Group)`
   margin-bottom: 2.4rem;
+`;
+
+export const Radio = styled(AntRadio)`
+  font-size: 1.2rem;
 `;
 
 export const PlusIcon = styled.i`
@@ -33,6 +37,9 @@ export const Sso = styled.div`
 
 export const FormItem = styled(RawFormItem)`
   flex: 1;
+  & label {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Create = styled.div`
@@ -53,6 +60,15 @@ export const Drawer = styled(AntDrawer)`
 
   & .ant-drawer-header-title {
     flex-direction: row-reverse;
+  }
+
+  & .ant-drawer-title {
+    font-weight: 700;
+  }
+
+  & .ant-drawer-body {
+    padding-top: 0;
+    display: flex;
   }
 
   ${respondTo.down('md')} {

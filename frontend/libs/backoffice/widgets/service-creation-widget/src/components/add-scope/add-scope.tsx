@@ -25,8 +25,8 @@ export default function AddScope() {
       <S.Form layout='vertical'>
         <Box>
           <S.Radios onChange={onChange} value={mode}>
-            <Radio value={'importFromSso'}>{t('import_from_sso')}</Radio>
-            <Radio value={'createScope'}>{t('create_scope')}</Radio>
+            <S.Radio value={'importFromSso'}>{t('import_from_sso')}</S.Radio>
+            <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
           </S.Radios>
 
           {mode === 'importFromSso' ? (

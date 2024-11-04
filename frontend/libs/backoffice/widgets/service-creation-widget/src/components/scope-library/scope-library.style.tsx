@@ -1,4 +1,4 @@
-import { Table as KitTable, Button as KitButton } from '@oxygen/ui-kit';
+import { Table as KitTable, Button as KitButton, Divider as KitDivider } from '@oxygen/ui-kit';
 import { Form as AntForm, Radio as AntRadio } from 'antd';
 import styled from 'styled-components';
 
@@ -8,11 +8,6 @@ export const Form = styled(AntForm)`
   height: 100%;
   padding-bottom: 4rem;
   flex: 1;
-
-  .ant-drawer-body:has(&) {
-    display: flex;
-    border-top: ${(p) => `1px solid ${p.theme.border._100}`};
-  }
 `;
 
 export const Button = styled(KitButton)`
@@ -71,7 +66,6 @@ export const TableRow = styled.div`
 
 export const FormItem = styled(Form.Item)`
   margin-bottom: 0;
-
   & .ant-form-item-label {
     padding-bottom: 0rem;
   }
@@ -79,4 +73,8 @@ export const FormItem = styled(Form.Item)`
     font-size: 1.2rem;
     padding-inline-start: 1rem;
   }
+`;
+
+export const Divider = styled(KitDivider)`
+  margin: 0 0 1.2rem;
 `;

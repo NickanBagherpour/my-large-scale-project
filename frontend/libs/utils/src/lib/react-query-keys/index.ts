@@ -1,6 +1,5 @@
 /*--import--*/
 import { KEYS as SERVICE_CREATION_KEYS } from './widgets/service-creation.key';
-import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
 import { KEYS as SCOPE_CREATION_KEYS } from './widgets/scope-creation.key';
 import { KEYS as SERVICES_LIST_KEYS } from './widgets/services-list.key';
 import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
