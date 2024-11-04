@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
-import { Button as KitButton, Input as KitInput } from '@oxygen/ui-kit';
+import { Button as KitButton, Input as KitInput, Modal } from '@oxygen/ui-kit';
 
 export const FilterContainer = styled.section`
   margin-top: 2.4rem;
@@ -45,3 +45,5 @@ export const Actions = styled.div`
     gap: 2rem;
   }
 `;
+
+export const UploadModal = styled(Modal)``;

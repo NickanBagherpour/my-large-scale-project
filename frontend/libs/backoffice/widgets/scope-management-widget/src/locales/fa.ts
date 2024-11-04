@@ -1,5 +1,6 @@
 export default {
   widget_name: 'مدیریت اسکوپ ',
+  add_scope: 'افزودن اسکوپ',
   table: {
     index: 'ردیف',
     persian_name_scope: 'نام فارسی اسکوپ',
@@ -13,5 +14,7 @@ export default {
   button: {
     upload_scope: 'بارگذاری اسکوپ',
     create_new_scope: 'ایجاد اسکوپ جدید',
+    register_info: 'ثبت اطلاعات',
+    cancel: 'انصراف',
   },
 };
