@@ -1,4 +1,5 @@
 /*--import--*/
+import { KEYS as CLIENT_CREATION_KEYS } from './widgets/client-creation.key';
 import { KEYS as SCOPE_CREATION_KEYS } from './widgets/scope-creation.key';
 import { KEYS as SERVICES_LIST_KEYS } from './widgets/services-list.key';
 import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
@@ -17,6 +18,7 @@ import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 
 export const RQKEYS = {
   /*--export--*/
+  CLIENT_CREATION: CLIENT_CREATION_KEYS,
   UPSTREAM_LIST: UPSTREAM_LIST_KEYS,
   EDIT_SCOPE: EDIT_SCOPE_KEYS,
   SCOPE_CREATION: SCOPE_CREATION_KEYS,
