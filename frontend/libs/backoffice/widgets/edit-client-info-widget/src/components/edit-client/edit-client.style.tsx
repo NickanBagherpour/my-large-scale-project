@@ -10,6 +10,10 @@ export const EditClientContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
+
+    .cards-title {
+      margin: 2.4rem 0;
+    }
   }
 
   .tags {
