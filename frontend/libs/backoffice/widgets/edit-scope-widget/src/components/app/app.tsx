@@ -5,7 +5,7 @@ import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import ScopeCreation from '../scope-creation/scope-creation';
+import EditScope from '../edit-scope/edit-scope';
 
 import * as S from './app.style';
 
@@ -20,7 +20,7 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')}>
-      <ScopeCreation />
+      <EditScope />
     </S.AppContainer>
   );
 };

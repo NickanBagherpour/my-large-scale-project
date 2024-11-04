@@ -14,11 +14,14 @@ import { KEYS as CLIENTS_LIST_KEYS } from './widgets/client-list.key';
 import { KEYS as REUSABLE_COMPONENTS_KEYS } from './widgets/reusable-components.key';
 import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
 import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
+import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
+import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 
 export const RQKEYS = {
   /*--export--*/
   SERVICE_CREATION: SERVICE_CREATION_KEYS,
   UPSTREAM_LIST: UPSTREAM_LIST_KEYS,
+  EDIT_SCOPE: EDIT_SCOPE_KEYS,
   SCOPE_CREATION: SCOPE_CREATION_KEYS,
   SERVICES_LIST: SERVICES_LIST_KEYS,
   APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
