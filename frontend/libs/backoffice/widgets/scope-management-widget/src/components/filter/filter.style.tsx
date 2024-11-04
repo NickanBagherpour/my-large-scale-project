@@ -3,7 +3,7 @@ import { respondTo } from '@oxygen/utils';
 import { Button as KitButton, Input as KitInput } from '@oxygen/ui-kit';
 
 export const FilterContainer = styled.section`
-  margin: 2.8rem 0 4rem;
+  margin-top: 2.4rem;
 `;
 
 export const Input = styled(KitInput)`
@@ -38,7 +38,7 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-bottom: 2.3rem;
+  margin-bottom: 3.4rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;

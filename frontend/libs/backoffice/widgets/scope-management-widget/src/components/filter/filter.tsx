@@ -4,9 +4,11 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
-import * as S from './filter.style';
+
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
+
+import * as S from './filter.style';
 
 type FilterProps = PageProps & {
   //
