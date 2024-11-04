@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const RegisterBtn = styled(Button)`
   width: 100%;
-  height: 5.6rem;
   margin: 0;
 `;
 

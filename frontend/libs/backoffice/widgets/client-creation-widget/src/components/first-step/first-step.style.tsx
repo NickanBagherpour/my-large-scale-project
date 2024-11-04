@@ -1,24 +1,13 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
+import { Dropdown } from '@oxygen/ui-kit';
+
+export const TitleTxt = styled.p`
+  font-weight: bold;
+  font-size: 1.6rem;
+`;
 
 export const FirstStepContainer = styled.div`
-  .cards-title {
-    font-weight: bold;
-    font-size: 1.6rem;
-  }
-
-  .tag-input {
-    border-right: 1px solid ${(p) => p.theme.border.main};
-    display: flex;
-    align-items: center;
-    flex: 1;
-    padding-right: 1rem;
-  }
-
-  .tags {
-    width: max-content;
-  }
-
   .label-switch {
     display: flex;
     align-items: end;
@@ -33,16 +22,10 @@ export const FirstStepContainer = styled.div`
       }
     }
   }
+`;
 
-  .seperator {
-    margin-bottom: 1.6rem;
-  }
-
-  .footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
+export const Select = styled(Dropdown.Select)`
+  min-width: 20rem;
 `;
 
 export const FirstForm = styled.div`
@@ -50,10 +33,34 @@ export const FirstForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+`;
+
+export const TagPicker = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  ${respondTo.down('xs')} {
+    flex-direction: column;
+  }
   .ant-form-item {
+    margin: 0;
     padding: 0 1.6rem 0 0;
-    width: auto;
     border-right: 1px solid ${(p) => p.theme.border.main};
+    width: min-content;
+    ${respondTo.down('xs')} {
+      width: 100%;
+      border-right: none;
+      padding: 0;
+    }
+  }
+  .ant-btn {
+    ${respondTo.down('xs')} {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  .ant-tag {
+    margin: 0.5rem 0 0.5rem 1.6rem;
   }
 `;
 export const Footer = styled.div`

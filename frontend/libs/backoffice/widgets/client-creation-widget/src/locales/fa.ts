@@ -18,6 +18,8 @@ export default {
     url: 'URL',
     version: 'نسخه',
     are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این کلاینت اطمینان دارید؟',
+    remove_service: 'حذف سرویس',
+    service_detail: 'جزئیات سرویس',
   },
   step_three: {
     header_title: 'پلاگین‌های اپلکیشن به ازای هر سرویس',

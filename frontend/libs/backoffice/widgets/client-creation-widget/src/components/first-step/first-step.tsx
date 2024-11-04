@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Card, Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import {
-  Box,
-  Button,
-  Chip,
-  Divider,
-  Input,
-  SearchItemsContainer,
-  Select,
-  Switch,
-  Dropdown,
-  MenuItemType,
-} from '@oxygen/ui-kit';
+import { Box, Button, Chip, Input, SearchItemsContainer, Select, Switch, Dropdown, MenuItemType } from '@oxygen/ui-kit';
 
+import { dropdownOptions, FormItem } from '../../utils/consts';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './first-step.style';
-import { useRouter } from 'next/navigation';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -38,47 +28,22 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [grantTags, setGrantTags] = useState([]);
   const [nameTags, setNameTags] = useState([]);
 
-  const dropdownOptions: MenuItemType[] = [
-    { label: 'Client Flow', key: 'option1' },
-    { label: 'Password Flow', key: 'option2' },
-    { label: 'Implicit Flow', key: 'option4' },
-    { label: 'Refresh Token', key: 'option5' },
-    { label: 'Client Flow', key: 'option6' },
-    { label: 'Password Flow', key: 'option7' },
-    { label: 'Authorization Code Flow', key: 'option8' },
-  ];
-  const FormItem = {
-    latin_name_client: 'latin-name-client',
-    persian_name_client: 'persian_name_client',
-    client_type: 'client_type',
-    client_id: 'client_id',
-    identity_auth: 'identity_auth',
-    website_url: 'website_url',
-    input_address: 'input_address',
-    return_address: 'return_address',
-    aggregator_status: 'aggregator_status',
-    aggregator: 'aggregator',
-    user_name: 'user_name',
-    national_code: 'national_code',
-    organization_name: 'organization_name',
-    mobile_number: 'mobile_number',
-    telephone: 'telephone',
-    email: 'email',
-  };
-
-  const handleGrantChange = (values) => {
+  const handleGrantTagChange = (values) => {
     setGrantTags(values);
   };
-  const handleNameChange = (values) => {
+  const handleNameTagChange = (values) => {
     setNameTags(values);
   };
 
   const onFinish = (values) => {
-    console.log(values);
+    console.log('this is on finish:', values);
   };
 
-  const handleChipClose = (key) => {
+  const handleGrantChipClose = (key) => {
     setGrantTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
+  };
+  const handleNameChipClose = (key) => {
+    setNameTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
   };
   const handleReturn = () => {
     router.back();
@@ -86,7 +51,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const handleSubmit = () => {
     form.submit();
-    setCurrentStep((prev) => prev + 1);
   };
   form.setFieldValue('grant-tag', grantTags);
   form.setFieldValue('add-tag', nameTags);
@@ -94,48 +58,49 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     <S.FirstStepContainer>
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
         <S.FirstForm>
-          <Box>
+          <S.TagPicker>
             <Form.Item className={'tag-input-grant-tag'} name={'grant-tag'}>
-              <Dropdown.Select
+              <S.Select
                 multiSelect={true}
                 defaultValue={grantTags}
                 menu={dropdownOptions}
-                onChange={handleGrantChange}
+                onChange={handleGrantTagChange}
                 loading={false}
               >
                 {t('form.grant_type')}
-              </Dropdown.Select>
+              </S.Select>
             </Form.Item>
             <div>
               {grantTags.map((tag: any) => (
-                <Chip key={tag.key} type='active' closeIcon onClose={() => handleChipClose(tag.key)}>
+                <Chip key={tag.key} type='active' closeIcon onClose={() => handleGrantChipClose(tag.key)}>
                   {tag.label}
                 </Chip>
               ))}
             </div>
-          </Box>
-          <Box>
+          </S.TagPicker>
+
+          <S.TagPicker>
             <Form.Item className={'tag-input-grant-tag'} name={'add-tag'}>
-              <Dropdown.Select
+              <S.Select
                 multiSelect={true}
                 defaultValue={nameTags}
                 menu={dropdownOptions}
-                onChange={handleNameChange}
+                onChange={handleNameTagChange}
                 loading={false}
               >
                 {t('form.add_tags')}
-              </Dropdown.Select>
+              </S.Select>
             </Form.Item>
             <div>
               {nameTags.map((tag: any) => (
-                <Chip key={tag.key} type='active' closeIcon onClose={() => handleChipClose(tag.key)}>
+                <Chip key={tag.key} type='active' closeIcon onClose={() => handleNameChipClose(tag.key)}>
                   {tag.label}
                 </Chip>
               ))}
             </div>
-          </Box>
+          </S.TagPicker>
         </S.FirstForm>
-        <p className={'cards-title'}>{t('client_info')}</p>
+        <S.TitleTxt className={'cards-title'}>{t('client_info')}</S.TitleTxt>
         <Card>
           <SearchItemsContainer>
             <Form.Item
@@ -208,7 +173,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             </Form.Item>
           </SearchItemsContainer>
         </Card>
-        <p className={'cards-title'}>{t('applicant_info')}</p>
+        <S.TitleTxt className={'cards-title'}>{t('applicant_info')}</S.TitleTxt>
         <Card>
           <SearchItemsContainer>
             <Form.Item

@@ -17,7 +17,7 @@ export default function RemoveModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('remove_service')}
+      title={t('step_two.remove_service')}
       open={isOpen}
       closable={true}
       onCancel={toggle}
