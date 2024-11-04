@@ -1,4 +1,5 @@
 /*--import--*/
+import { KEYS as SERVICE_EDIT_KEYS } from './widgets/edit-service.key';
 import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
 import { KEYS as CLIENT_DETAILS_KEYS } from './widgets/client-details.key';
 import { KEYS as CLIENT_HISTORY_KEYS } from './widgets/client-history.key';
@@ -12,6 +13,7 @@ import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
 
 export const RQKEYS = {
   /*--export--*/
+  SERVICE_EDIT: SERVICE_EDIT_KEYS,
   APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
   CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
   CLIENT_HISTORY: CLIENT_HISTORY_KEYS,

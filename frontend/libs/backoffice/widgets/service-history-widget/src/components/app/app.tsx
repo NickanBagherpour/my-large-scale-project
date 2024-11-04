@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 import { Button, Divider } from '@oxygen/ui-kit';
 import { GlobalErrorContainer } from '@oxygen/reusable-components';
 
@@ -20,18 +20,21 @@ const App: React.FC<AppProps> = () => {
   const { errorMessage, table } = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const [t] = useTr();
+  const [title, setTitle] = useState(t('subtitle'));
 
-  const id = searchParams.get('historyId') || '';
+  const id: Nullable<string> = searchParams.get('id');
+  if (!id) {
+    redirect('/not-found');
+  }
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
   const items = history?.items;
-  const [t] = useTr();
-  const [title, setTitle] = useState(t('default-title'));
-  const router = useRouter();
 
   function prepareParams() {
     const params = {
       pagination: table.pagination,
-      id,
+      id: id!,
     };
     return params;
   }
@@ -40,35 +43,32 @@ const App: React.FC<AppProps> = () => {
   };
 
   useEffect(() => {
-    if (items && items.length > 0 && title === t('default-title')) {
+    if (items && items.length > 0 && title === t('subtitle')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);
     }
   }, [items, title]);
 
   return (
-    <>
-      <S.HistoryContainer title={title}>
-        <GlobalErrorContainer
-          containerProps={{ margin: '1.6rem 0' }}
-          errorMessage={errorMessage}
-          onClose={() => {
-            resetErrorMessageAction(dispatch);
-          }}
-        />
+    <S.HistoryContainer title={title}>
+      <GlobalErrorContainer
+        containerProps={{ margin: '1.6rem 0' }}
+        errorMessage={errorMessage}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
 
-        <S.TableContainer>
-          <DataTable />
-        </S.TableContainer>
+      <S.SubtitleContainer>{t('subtitle')}</S.SubtitleContainer>
+      <S.TableContainer>
+        <DataTable />
+      </S.TableContainer>
 
-        <Divider />
+      <Divider />
 
-        <S.FooterContainer>
-          <Button className='btn-return' onClick={handleReturn}>
-            {t('button.return')}
-          </Button>
-        </S.FooterContainer>
-      </S.HistoryContainer>
-    </>
+      <S.FooterContainer>
+        <Button onClick={handleReturn}>{t('button.return')}</Button>
+      </S.FooterContainer>
+    </S.HistoryContainer>
   );
 };
 
