@@ -7,6 +7,7 @@ export type ReportResponseType = {
   paginationResult: PaginationResultType;
 };
 
+export type FormFieldsType = any;
 export type ItemType = {
   uid: number;
   count: number;
