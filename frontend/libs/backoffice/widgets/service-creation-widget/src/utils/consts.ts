@@ -13,3 +13,7 @@ export const FORM_ITEM_NAMES = {
   host: 'host',
   upstream: 'upstream',
 };
+
+export const UPLOAD_NAMES = {
+  file: 'file',
+};

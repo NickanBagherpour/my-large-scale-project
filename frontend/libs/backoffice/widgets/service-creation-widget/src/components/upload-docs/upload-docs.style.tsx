@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Upload } from 'antd';
+import { Form as AntForm, Upload } from 'antd';
 import { Button, Progress as KitProgress } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
-export const Container = styled.section`
+export const Form = styled(AntForm)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,11 +11,14 @@ export const Container = styled.section`
 `;
 
 export const Dragger = styled(Upload.Dragger)`
-  margin-bottom: 2.4rem;
   display: block;
 
   & div.ant-upload {
     border: 1px dashed ${(p) => p.theme.primary._400};
+  }
+
+  .ant-form-item-has-error:has(&) div.ant-upload {
+    border: 1px dashed ${(p) => p.theme.error.main};
   }
 `;
 
@@ -46,14 +49,15 @@ export const Status = styled.div<{ hasError: boolean }>`
   padding: 2.8rem 3.8rem;
   border: ${(p) => `1px solid ${p.hasError ? p.theme.error.main : p.theme.border._100}`};
   border-radius: 1.6rem;
+  margin-top: 2.4rem;
 
   ${respondTo.down('xs')} {
     padding: 1rem 2rem;
   }
 `;
 
-export const PdfIcon = styled.i`
-  color: ${(p) => p.theme.error.main};
+export const ExcelIcon = styled.i`
+  color: ${(p) => p.theme.secondary.main};
   margin-inline-end: 0.9rem;
   font-size: 2.5rem;
 `;
@@ -82,7 +86,8 @@ export const Name = styled.p`
   color: ${(p) => p.theme.text.primary};
   font-size: 1.4rem;
   font-weight: 700;
-  margin: 0;
+  margin-inline-end: 0.3rem;
+  margin-block: 0;
   max-width: 25rem;
   text-overflow: ellipsis;
   overflow: hidden;
