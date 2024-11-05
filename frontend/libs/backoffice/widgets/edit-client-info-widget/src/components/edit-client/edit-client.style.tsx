@@ -12,13 +12,30 @@ export const EditClientContainer = styled.div`
     flex: 1;
 
     .cards-title {
+      font-weight: bold;
+      font-size: 1.6rem;
       margin: 2.4rem 0;
     }
   }
 
-  .tags {
-    width: max-content;
-    margin: 0.5rem;
+  .tags_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    .tags {
+      display: flex;
+      height: max-content;
+      width: max-content;
+      margin: 0.5rem;
+
+      span.text {
+        width: max-content;
+        max-width: 19rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 
   .grid {
@@ -126,5 +143,3 @@ export const EditClientContainer = styled.div`
     }
   }
 `;
-
-export const Footer = styled.div``;

@@ -70,10 +70,11 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
         </Form>
       </div>
       <div className={'footer'}>
-        <Button variant={'outlined'}>{t('form.return')}</Button>
+        <Button variant={'outlined'} href={'/client-details'}>
+          {t('form.cancel')}
+        </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
-          {t('form.register_info')}
-          <i className={'icon-arrow-left'}></i>
+          {t('form.save_changes')}
         </Button>
       </div>
     </S.EditApplicantContainer>
