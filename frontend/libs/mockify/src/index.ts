@@ -29,6 +29,7 @@ import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
 import * as ServiceHistoryMock from './service-history.mock';
 import * as ClientHistoryMock from './client-history.mock';
+import * as clientCreationTable from './client-creation-table';
 import * as ApplicantHistoryMock from './applicant-history.mock';
 import * as getScopesList from './list-scopes.mock';
 import * as UpstreamListMock from './upstream-list.mock';
@@ -65,6 +66,7 @@ const Mockify = {
   ...ClientHistoryMock,
   ...ClientInfo,
   ...ApplicantInfo,
+  ...clientCreationTable,
   ...ApplicantHistoryMock,
   ...getScopesList,
   ...UpstreamListMock,

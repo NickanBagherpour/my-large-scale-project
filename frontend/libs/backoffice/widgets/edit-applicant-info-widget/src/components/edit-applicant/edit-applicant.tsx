@@ -43,7 +43,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
   };
 
   return (
-    <S.FirtStepContainer>
+    <S.EditApplicantContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_applicant_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
@@ -76,7 +76,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </div>
-    </S.FirtStepContainer>
+    </S.EditApplicantContainer>
   );
 };
 

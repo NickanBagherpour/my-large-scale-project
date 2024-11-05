@@ -4,9 +4,10 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
+
+import ScopeCreation from '../scope-creation/scope-creation';
+
 import * as S from './app.style';
-import EditScope from '../edit-scope/edit-scope';
 
 type AppProps = PageProps & {
   //
@@ -19,7 +20,7 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')}>
-      <EditScope />
+      <ScopeCreation />
     </S.AppContainer>
   );
 };
