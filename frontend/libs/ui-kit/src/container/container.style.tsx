@@ -12,7 +12,15 @@ export const WidgetWrapperContainer = styled.div<{ fill_container: boolean }>`
   padding: 0 1.6rem;
   flex-grow: ${(props) => (props.fill_container ? '1' : 'unset')};
 `;
-
+export const FooterContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  & .ant-btn {
+    min-width: 12rem;
+  }
+`;
 export const BodyContainer = styled.div`
   width: 100%;
   flex-grow: 1;

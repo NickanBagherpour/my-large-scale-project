@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { Button, Divider } from '@oxygen/ui-kit';
-import { GlobalErrorContainer } from '@oxygen/reusable-components';
+import { Container } from '@oxygen/ui-kit';
+import { GlobalErrorContainer, ReturnButton, SecondaryTitle } from '@oxygen/reusable-components';
 
 import { useGetsServiceHistoryDataQuery } from '../../services';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -20,7 +20,6 @@ const App: React.FC<AppProps> = () => {
   const { errorMessage, table } = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [t] = useTr();
   const [title, setTitle] = useState(t('subtitle'));
 
@@ -38,10 +37,6 @@ const App: React.FC<AppProps> = () => {
     };
     return params;
   }
-  const handleReturn = () => {
-    router.back();
-  };
-
   useEffect(() => {
     if (items && items.length > 0 && title === t('subtitle')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);
@@ -49,7 +44,7 @@ const App: React.FC<AppProps> = () => {
   }, [items, title]);
 
   return (
-    <S.HistoryContainer title={title}>
+    <Container title={title} footer={<ReturnButton />}>
       <GlobalErrorContainer
         containerProps={{ margin: '1.6rem 0' }}
         errorMessage={errorMessage}
@@ -57,18 +52,11 @@ const App: React.FC<AppProps> = () => {
           resetErrorMessageAction(dispatch);
         }}
       />
-
-      <S.SubtitleContainer>{t('subtitle')}</S.SubtitleContainer>
+      <SecondaryTitle text={t('subtitle')} />
       <S.TableContainer>
         <DataTable />
       </S.TableContainer>
-
-      <Divider />
-
-      <S.FooterContainer>
-        <Button onClick={handleReturn}>{t('button.return')}</Button>
-      </S.FooterContainer>
-    </S.HistoryContainer>
+    </Container>
   );
 };
 

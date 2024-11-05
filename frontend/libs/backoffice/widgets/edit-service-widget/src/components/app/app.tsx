@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { Button, Loading } from '@oxygen/ui-kit';
+import { Button, Container, Loading } from '@oxygen/ui-kit';
 
 //import { useGetReportDataQuery } from '../../services';
 
 import { useGetServiceInfoQuery } from '../../services/edit-service.api';
 import { Form } from 'antd';
-import MainContainer from '../containers/main-container';
 import EditService from '../edit-service/edit-servic';
 
 import * as S from './app.style';
+import { SecondaryTitle } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //
@@ -62,9 +62,10 @@ const App: React.FC<AppProps> = (props) => {
     </>
   );
   return (
-    <MainContainer title={title} subtitle={t('subtitle')} footer={footer}>
+    <Container title={title} footer={footer}>
+      <SecondaryTitle text={t('subtitle')} />
       {isFetching ? showLoadingSpinner() : <EditService serviceInfo={serviceInfo} form={form} />}
-    </MainContainer>
+    </Container>
   );
 };
 
