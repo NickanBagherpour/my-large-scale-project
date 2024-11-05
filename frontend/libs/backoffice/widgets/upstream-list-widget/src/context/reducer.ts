@@ -3,14 +3,14 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   searchTerm: '',
   page: 1,
-  errorMessage: null,
+  message: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   //console.log(action.type, state, action);
   switch (action.type) {
-    case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
-      state.errorMessage = action.payload;
+    case 'UPDATE_GLOBAL_MESSAGE': {
+      state.message = action.payload;
       return;
     }
 

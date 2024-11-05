@@ -80,28 +80,28 @@ export const ApiUtil = {
       return null;
     }
 
-    let errorMessage: any = {};
+    let message: any = {};
     try {
       if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
-        errorMessage = {
+        message = {
           description: reason.response.data.subErrors[0].localizedMessage,
           type: 'error',
           shouldTranslate: false,
         };
       } else if (reason.response.data.localizedMessage) {
-        errorMessage = {
+        message = {
           description: reason.response.data.localizedMessage,
           type: 'error',
           shouldTranslate: false,
         };
       } else if (reason.response.data.localMessage) {
-        errorMessage = {
+        message = {
           description: reason.response.data.localMessage,
           type: 'error',
           shouldTranslate: false,
         };
       } /*else {
-            errorMessage = {
+            message = {
                 txt: "unknown-error", type: 'error',
                 shouldTranslate: true,
             };
@@ -109,8 +109,8 @@ export const ApiUtil = {
     } catch (e) {
       //
     } finally {
-      if (!errorMessage?.txt && !errorMessage?.type) {
-        errorMessage = {
+      if (!message?.txt && !message?.type) {
+        message = {
           title: 'common.error',
           description: 'error.unknown_error',
           type: 'error',
@@ -119,6 +119,6 @@ export const ApiUtil = {
       }
     }
 
-    return errorMessage;
+    return message;
   },
 };

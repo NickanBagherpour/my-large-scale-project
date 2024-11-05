@@ -68,7 +68,7 @@ export interface WidgetHeaderType {
   icon?: React.ReactNode;
 }
 
-export type ErrorMessageType = {
+export type MessageType = {
   title?: string;
   description: string;
   type: 'error' | 'success' | 'info' | 'warning';

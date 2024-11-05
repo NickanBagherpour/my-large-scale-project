@@ -1,5 +1,5 @@
-import { ErrorMessageType, Nullable } from '@oxygen/types';
 import { ApiUtil } from '@oxygen/utils';
+import { MessageType, Nullable } from '@oxygen/types';
 
 import { WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
@@ -11,16 +11,20 @@ export function updatePagination(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_PAGINATION' });
 }
 
-export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_ERROR_MESSAGE', payload: errorMessage });
+export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
+  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
+}
+
+export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
-  updateErrorMessageAction(dispatch, null);
+  updateMessageAction(dispatch, null);
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
-  const errorMessage = ApiUtil.getErrorMessage(reason);
-  dispatch({ type: actionType, payload: { errorMessage, ...extraPayload } });
+  const message = ApiUtil.getErrorMessage(reason);
+  dispatch({ type: actionType, payload: { message, ...extraPayload } });
   return null;
 }

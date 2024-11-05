@@ -93,5 +93,5 @@ export const RevertTransactionData = {
   transactionDate: '14:30:41',
   errorCode: 'string',
   transactionDescription: 'ی مقدارdddddddddfffffffffffffffffffffدی',
-  errorMessage: 'string',
+  message: 'string',
 };

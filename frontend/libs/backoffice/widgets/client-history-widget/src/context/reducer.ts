@@ -10,15 +10,15 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
-  errorMessage: null,
+  message: null,
   clientId: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   // console.log('reducer', action.type, state, action);
   switch (action.type) {
-    case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
-      state.errorMessage = action.payload;
+    case 'UPDATE_GLOBAL_MESSAGE': {
+      state.message = action.payload;
       return;
     }
 
