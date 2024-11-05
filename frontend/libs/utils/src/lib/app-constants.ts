@@ -34,7 +34,7 @@ export const BACKOFFICE_ROUTE_GROUPS = [
   [
     '/client-list',
     '/client-details',
-    'client-management',
+    '/client-management',
     '/edit-client-info',
     '/edit-applicant-info',
     '/client-history',

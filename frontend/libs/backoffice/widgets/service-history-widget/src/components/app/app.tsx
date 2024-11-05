@@ -4,7 +4,7 @@ import { redirect, useSearchParams } from 'next/navigation';
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
-import { GlobalErrorContainer, ReturnButton, SecondaryTitle } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, ReturnButton, SecondaryTitle } from '@oxygen/reusable-components';
 
 import { useGetsServiceHistoryDataQuery } from '../../services';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -17,7 +17,7 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = () => {
-  const { errorMessage, table } = useAppState();
+  const { message, table } = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const [t] = useTr();

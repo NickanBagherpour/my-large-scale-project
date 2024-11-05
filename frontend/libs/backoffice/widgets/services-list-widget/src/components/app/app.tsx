@@ -17,7 +17,7 @@ import { RQKEYS } from '@oxygen/utils';
 
 const App = () => {
   const theme = useTheme();
-  const { errorMessage, ...fetchState } = useAppState();
+  const { message, ...fetchState } = useAppState();
 
   const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(fetchState);
   const { data: drafts } = useGetDraftsQuery();

@@ -65,16 +65,18 @@ type UpstreamCardProps = {
   href: string;
   name: string;
   activeServersCount: number;
+  wordToHighlight: string;
 };
 
 function UpstreamCard(props: UpstreamCardProps) {
-  const { name, href, activeServersCount } = props;
+  const { name, href, activeServersCount, wordToHighlight } = props;
   const [t] = useTr();
+  const theme = useTheme();
 
   return (
     <S.Container href={href}>
       <S.Header flip>
-        <S.Title text={name} highlightColor='' wordToHighlight='' />
+        <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
         <S.Settings className='icon-setting' />
       </S.Header>
 
