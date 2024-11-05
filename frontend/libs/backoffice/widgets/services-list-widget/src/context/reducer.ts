@@ -14,13 +14,13 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
-  errorMessage: null,
+  message: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
-    case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
-      return void (state.errorMessage = action.payload);
+    case 'UPDATE_GLOBAL_MESSAGE': {
+      return void (state.message = action.payload);
     }
 
     case 'UPDATE_SORT': {

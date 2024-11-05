@@ -6,7 +6,7 @@ type WithErrorHandlingOptions = {
   actionType?: string;
 };
 
-const DEFAULT_ACTION_TYPE = 'UPDATE_GLOBAL_ERROR_MESSAGE';
+const DEFAULT_ACTION_TYPE = 'UPDATE_GLOBAL_MESSAGE';
 
 export const withErrorHandling =
   <TReturn>(
