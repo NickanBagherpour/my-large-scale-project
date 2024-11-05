@@ -22,8 +22,3 @@ export type PaginationResultType = {
   pageSize: number;
   totalNumberOfEntries: number;
 };
-
-export type FetchParamsType = {
-  searchTerm: string;
-  page: number;
-};

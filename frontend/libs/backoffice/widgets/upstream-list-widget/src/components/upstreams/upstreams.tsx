@@ -1,14 +1,14 @@
 import { GridCard } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ClientType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
+import { UpstreamType } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './upstreams.style';
 
 type Props = {
-  data: ClientType[];
+  data: UpstreamType[];
   total?: number;
   searchTerm: string;
   isLoading: boolean;
@@ -25,7 +25,7 @@ export default function Upstreams(props: Props) {
   return (
     <>
       <S.Grid>
-        {data.map(({ name, date, activeServersCount }, idx) => (
+        {data.map(({ name, activeServersCount }, idx) => (
           <GridCard
             key={idx}
             name={name}

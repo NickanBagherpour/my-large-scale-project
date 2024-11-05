@@ -1,15 +1,9 @@
-import { FetchParamsType } from '../../backoffice/widgets/upstream-list-widget/src/types';
-
 import { upstreamsList } from './data/upstream-list.data';
-
-export type UpstreamType = {
-  name: string;
-  activeServersCount: number;
-};
+import { UpstreamParamsType, UpstreamType } from '@oxygen/types';
 
 export const UPSTREAM_LIST_LIMIT = 16;
 
-export const getUpstreams = async ({ searchTerm, page }: FetchParamsType) => {
+export const getUpstreams = async ({ searchTerm, page }: UpstreamParamsType) => {
   const data = upstreamsList
     // .slice(0, upstreamsList.length)
     .filter((upstream) => {

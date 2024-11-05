@@ -1,4 +1,4 @@
-import { UpstreamType } from '../upstream-list.mock';
+import { UpstreamType } from '@oxygen/types';
 
 export const upstreamsList: UpstreamType[] = [
   {
