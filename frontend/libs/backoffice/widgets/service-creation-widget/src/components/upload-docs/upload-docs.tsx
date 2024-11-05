@@ -26,20 +26,25 @@ export default function UploadDocs() {
 
         <S.Status hasError={hasError}>
           <S.Header>
-            <S.PdfIcon className='icon-pdf' />
-            <S.Name>فایل پی دی اف</S.Name>
-            <S.Extesion>.pdf</S.Extesion>
-            <S.Size>3.2/5 MB</S.Size>
-            {hasError && <S.ErrMsg>{t('upload_error')}</S.ErrMsg>}
-            {isFetching ? (
-              <S.ActionBtn variant='link' hasError={false}>
-                <i className='icon-close-circle' />
-              </S.ActionBtn>
-            ) : (
-              <S.ActionBtn variant='link' hasError={hasError}>
-                <i className='icon-trash' />
-              </S.ActionBtn>
-            )}
+            <S.Group>
+              <S.PdfIcon className='icon-pdf' />
+              <S.Name>فایل پی دی اف</S.Name>
+              <S.Extesion>.pdf</S.Extesion>
+              <S.Size>3.2/5 MB</S.Size>
+            </S.Group>
+
+            <S.Group>
+              {hasError && <S.ErrMsg>{t('upload_error')}</S.ErrMsg>}
+              {isFetching ? (
+                <S.ActionBtn variant='link' hasError={false}>
+                  <i className='icon-close-circle' />
+                </S.ActionBtn>
+              ) : (
+                <S.ActionBtn variant='link' hasError={hasError}>
+                  <i className='icon-trash' />
+                </S.ActionBtn>
+              )}
+            </S.Group>
           </S.Header>
 
           {isFetching && (

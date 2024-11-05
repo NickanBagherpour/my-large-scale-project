@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Upload } from 'antd';
 import { Button, Progress as KitProgress } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
   display: flex;
@@ -45,6 +46,10 @@ export const Status = styled.div<{ hasError: boolean }>`
   padding: 2.8rem 3.8rem;
   border: ${(p) => `1px solid ${p.hasError ? p.theme.error.main : p.theme.border._100}`};
   border-radius: 1.6rem;
+
+  ${respondTo.down('xs')} {
+    padding: 1rem 2rem;
+  }
 `;
 
 export const PdfIcon = styled.i`
@@ -56,6 +61,21 @@ export const PdfIcon = styled.i`
 export const Header = styled.header`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  ${respondTo.down('lg')} {
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+  }
+`;
+
+export const Group = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${respondTo.down('lg')} {
+    width: 100%;
+  }
 `;
 
 export const Name = styled.p`
@@ -63,6 +83,14 @@ export const Name = styled.p`
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0;
+  max-width: 25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  ${respondTo.down('xs')} {
+    max-width: 10rem;
+  }
 `;
 
 export const Extesion = styled.span`
@@ -73,7 +101,9 @@ export const Extesion = styled.span`
 export const Size = styled.span`
   color: ${(p) => p.theme.border.main};
   font-size: 1.4rem;
-  margin-inline-end: auto;
+  ${respondTo.down('lg')} {
+    margin-inline-start: auto;
+  }
 `;
 
 export const Progress = styled(KitProgress)`
@@ -89,9 +119,13 @@ export const ProgressInfo = styled.div`
 `;
 
 export const ActionBtn = styled(Button)<{ hasError: boolean }>`
+  margin-inline-end: -1.6rem;
   & i {
     font-size: 2.4rem;
     color: ${(p) => (p.hasError ? p.theme.error.main : p.theme.text.quaternary)};
+  }
+  ${respondTo.down('lg')} {
+    margin-inline-start: auto;
   }
 `;
 
