@@ -22,7 +22,7 @@ export const initialStateValue: WidgetStateType = {
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   //console.log(action.type, state, action);
   switch (action.type) {
-    case 'UPDATE_GLOBAL_ERROR_MESSAGE': {
+    case 'UPDATE_GLOBAL_MESSAGE': {
       state.errorMessage = action.payload;
       return;
     }

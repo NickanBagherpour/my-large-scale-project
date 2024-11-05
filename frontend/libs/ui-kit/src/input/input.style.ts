@@ -5,26 +5,25 @@ function getSize(p: any) {
   switch (p.size) {
     case 'large':
       return css`
-        min-height: 4rem;
-        font-size: 1.4rem;
+        height: 40px;
       `;
     case 'middle':
       return css`
-        height: 3.2rem;
+        height: 32px;
       `;
     case 'small':
       return css`
-        height: 2.4rem;
+        height: 24px;
       `;
   }
 }
 
 export const InputWrapper = styled<any>(AntInput)`
-  line-height: 0;
+  //line-height: 0;
 
   ${(p) => getSize(p)};
 
-  // border-color: ${(p) => p.theme.border};
+  font-size: 1.4rem;
 
   .ant-input-prefix {
     padding-right: 0.8rem;

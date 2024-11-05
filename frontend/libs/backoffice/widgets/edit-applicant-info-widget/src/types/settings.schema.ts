@@ -7,19 +7,10 @@ export const FormSchema = (t: (key: string) => string) =>
     [FORM_ITEM_NAMES.userName]: z
       .string({ required_error: i18nBase.t('error.required') })
       .min(1, { message: i18nBase.t('error.required') }),
-    [FORM_ITEM_NAMES.nationalCode]: z
-      .string({ required_error: i18nBase.t('error.required') })
-      .min(1, { message: i18nBase.t('error.required') }),
     [FORM_ITEM_NAMES.organizationName]: z
       .string({ required_error: i18nBase.t('error.required') })
       .min(1, { message: i18nBase.t('error.required') }),
     [FORM_ITEM_NAMES.mobileNumber]: z
-      .string({ required_error: i18nBase.t('error.required') })
-      .min(1, { message: i18nBase.t('error.required') }),
-    [FORM_ITEM_NAMES.telePhone]: z
-      .string({ required_error: i18nBase.t('error.required') })
-      .min(1, { message: i18nBase.t('error.required') }),
-    [FORM_ITEM_NAMES.email]: z
       .string({ required_error: i18nBase.t('error.required') })
       .min(1, { message: i18nBase.t('error.required') }),
   });

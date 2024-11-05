@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormFieldsType } from '../types';
-import { ErrorMessageType, Nullable } from '@oxygen/types';
+import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
 
@@ -17,13 +17,13 @@ export type WidgetStateType = {
     pagination: PaginationType;
     submit: FiltersType;
   };
-  errorMessage: Nullable<ErrorMessageType>;
+  errorMessage: Nullable<MessageType>;
 };
 
 export type WidgetActionType =
   | {
-      type: 'UPDATE_GLOBAL_ERROR_MESSAGE';
-      payload: Nullable<ErrorMessageType>;
+      type: 'UPDATE_GLOBAL_MESSAGE';
+      payload: Nullable<MessageType>;
     }
   | {
       type: 'UPDATE_FILTERS';

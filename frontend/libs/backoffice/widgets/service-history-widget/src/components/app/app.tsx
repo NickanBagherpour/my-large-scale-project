@@ -37,6 +37,7 @@ const App: React.FC<AppProps> = () => {
     };
     return params;
   }
+
   useEffect(() => {
     if (items && items.length > 0 && title === t('subtitle')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);
@@ -45,9 +46,9 @@ const App: React.FC<AppProps> = () => {
 
   return (
     <Container title={title} footer={<ReturnButton />}>
-      <GlobalErrorContainer
+      <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
-        errorMessage={errorMessage}
+        message={message}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}
