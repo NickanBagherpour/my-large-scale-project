@@ -21,14 +21,12 @@ import { CardWithToggle } from '@oxygen/reusable-components';
 import { WidgetWrapper } from '@oxygen/business/layouts';
 import React from 'react';
 
-
 export default function Index() {
   const [t] = useTr();
 
   return (
     <WidgetWrapper>
       <Container title={t('Business Portal')}>
-
         <div className='container'>
           <div id='welcome'>
             <h1>
@@ -38,7 +36,6 @@ export default function Index() {
             <h2>This is Business Portal</h2>
           </div>
         </div>
-
       </Container>
     </WidgetWrapper>
   );

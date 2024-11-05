@@ -27,7 +27,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   const [t] = useTr();
   const [form] = Form.useForm();
 
-const rule  = createSchemaFieldRule(createFormSchema(t));
+  const rule = createSchemaFieldRule(createFormSchema(t));
 
   const [grantTypeState, setGrantTypeState] = useState<{ key: string; label: string }[]>([]);
 
@@ -50,6 +50,7 @@ const rule  = createSchemaFieldRule(createFormSchema(t));
   }, [grantTypeData, tagsData]);
 
   const defaultValues = {
+    [FORM_ITEM_NAMES.clientStatus]: userData.clientStatus,
     [FORM_ITEM_NAMES.grantType]: userData.grantType,
     [FORM_ITEM_NAMES.tags]: userData.tags,
     [FORM_ITEM_NAMES.latinNameClient]: userData.latinNameClient,
@@ -67,7 +68,7 @@ const rule  = createSchemaFieldRule(createFormSchema(t));
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log(values);
+    console.log('hi', values);
   };
 
   const handleGrantTypeChange = (value) => {
@@ -113,10 +114,18 @@ const rule  = createSchemaFieldRule(createFormSchema(t));
   ];
 
   return (
-    <S.FirtStepContainer>
+    <S.EditClientContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
+          <Form.Item
+            name={FORM_ITEM_NAMES.clientStatus}
+            className={'label-switch'}
+            layout={'horizontal'}
+            label={t('form.client_status')}
+          >
+            <Switch />
+          </Form.Item>
           <div className={'grid'}>
             <div className='item1'>
               <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
@@ -214,7 +223,7 @@ const rule  = createSchemaFieldRule(createFormSchema(t));
           <i className={'icon-arrow-left'}></i>
         </Button>
       </div>
-    </S.FirtStepContainer>
+    </S.EditClientContainer>
   );
 };
 

@@ -23,13 +23,16 @@ import * as ProductsMock from './products.mock';
 import * as GrantTypeMock from './grant-type.mock';
 import * as TagsInfo from './tags.mock';
 import * as ClientsListMock from './client-list.mock';
+import * as ServicesListMock from './services-list.mock';
 import * as ClientsDetailsMock from './client-details.mock';
 import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
 import * as ServiceHistoryMock from './service-history.mock';
 import * as ClientHistoryMock from './client-history.mock';
+import * as clientCreationTable from './client-creation-table';
 import * as ApplicantHistoryMock from './applicant-history.mock';
 import * as ServiceInfoMock from './service-info.mock';
+import * as getScopesList from './list-scopes.mock';
 
 const Mockify = {
   ...UserMock,
@@ -55,6 +58,7 @@ const Mockify = {
   ...DetailTableMock,
   ...ProductsMock,
   ...ClientsListMock,
+  ...ServicesListMock,
   ...ServiceHistoryMock,
   ...ServiceInfoMock,
   ...GrantTypeMock,
@@ -63,7 +67,9 @@ const Mockify = {
   ...ClientHistoryMock,
   ...ClientInfo,
   ...ApplicantInfo,
+  ...clientCreationTable,
   ...ApplicantHistoryMock,
+  ...getScopesList,
 };
 
 export default Mockify;

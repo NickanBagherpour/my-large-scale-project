@@ -1,17 +1,17 @@
-'useClient';
-import React, { useEffect, useState } from 'react';
+import { createSchemaFieldRule } from 'antd-zod';
+import React from 'react';
 import { Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
-import { Nullable, PageProps } from '@oxygen/types';
+import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
+import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 
 import * as S from './edit-applicant.style';
-import { rule } from '../../types/settings.schema';
+import { FormSchema } from '../../types/settings.schema';
 
 type FirstStepProps = PageProps & {
   //
@@ -24,6 +24,8 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
   const [t] = useTr();
   const [form] = Form.useForm();
   const { userData } = props;
+
+  const rule = createSchemaFieldRule(FormSchema(t));
 
   const submitClick = () => form.submit();
 
@@ -41,7 +43,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
   };
 
   return (
-    <S.FirtStepContainer>
+    <S.EditApplicantContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_applicant_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
@@ -74,7 +76,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </div>
-    </S.FirtStepContainer>
+    </S.EditApplicantContainer>
   );
 };
 

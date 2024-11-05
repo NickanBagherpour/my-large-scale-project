@@ -27,6 +27,9 @@
             "@oxygen/backoffice/widgets/applicant-history-widget": [
                 "libs/backoffice/widgets/applicant-history-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/client-creation-widget": [
+                "libs/backoffice/widgets/client-creation-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/client-details-widget": [
                 "libs/backoffice/widgets/client-details-widget/src/index.ts"
             ],
@@ -45,14 +48,29 @@
             "@oxygen/backoffice/widgets/edit-client-info-widget": [
                 "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/edit-scope-widget": [
+                "libs/backoffice/widgets/edit-scope-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/edit-service-widget": [
                 "libs/backoffice/widgets/edit-service-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/scope-creation-widget": [
+                "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/scope-management-widget": [
+                "libs/backoffice/widgets/scope-management-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/services-list-widget": [
+                "libs/backoffice/widgets/services-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/upstream-list-widget": [
+                "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
             ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
@@ -66,6 +84,24 @@
             "@oxygen/types": ["libs/types/src/index.ts"],
             "@oxygen/ui-kit": ["libs/ui-kit/src/index.ts"],
             "@oxygen/utils": ["libs/utils/src/index.ts"],
+            "@oxygen/widgets/client-creation-widget": [
+                "libs/widgets/client-creation-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/client-list-widget": [
+                "libs/widgets/client-list-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/create-new-client-widget": [
+                "libs/widgets/create-new-client-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/edit-client-info-widget": [
+                "libs/widgets/edit-client-info-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/service-management-widget": [
+                "libs/widgets/service-management-widget/src/index.ts"
+            ],
+            "@oxygen/widgets/services-list-widget": [
+                "libs/widgets/services-list-widget/src/index.ts"
+            ],
             "@oxygen/workspace-plugin": ["tools/workspace-plugin/src/index.ts"]
         }
     },

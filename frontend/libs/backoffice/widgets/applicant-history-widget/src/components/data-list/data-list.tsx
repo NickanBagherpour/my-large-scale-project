@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { useTr } from '@oxygen/translation';
-
 import { Badge, TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
 
 import { dateLocale, getValueOrDash, uuid } from '@oxygen/utils';
 import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
+import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -120,16 +119,8 @@ const DataList: React.FC<dataListProps> = (props) => {
         const showBadge = record?.someCondition;
         return (
           <S.ValueContainer>
-            {'showBadge' && (
-              <Badge
-                status='error'
-                // offset={[2, 0]}
-                dot={showBadge}
-                color={theme.error._600}
-              />
-            )}
-
-            <span style={{ marginLeft: showBadge ? 8 : 0 }}>{getValueOrDash(value)}</span>
+            {'showBadge' && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
+            <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
           // <Badge
           //   status={'error'}
@@ -209,7 +200,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           mobileColumns={mobileColumns}
           variant={'complex'}
           title={t('table.applicant_change_history')}
-          hasContainer={true}
+          // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
         />

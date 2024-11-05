@@ -1,5 +1,5 @@
 import { Table as AntTable } from 'antd';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { cssVar } from '@oxygen/utils';
 
@@ -26,13 +26,31 @@ export const Table = styled(AntTable)<TableProps>`
     height: var(--table-min-height);
   }
 
-  table {
-    border: ${(p) => (p.variant === 'simple' ? `1px solid ` : 0)};
-    border-color: ${(p) => (p.variant === 'simple' ? p.theme.border._100 : 'transparent')};
-    border-radius: 0.6rem;
-    padding-top: ${(p) => (p.variant === 'simple' ? `0.6rem ` : 0)};
-    padding-bottom: ${(p) => (p.variant === 'simple' ? `0.6rem ` : 0)};
-  }
+  ${(p) =>
+    p.variant === 'simple' &&
+    css`
+      table {
+        border: 1px solid ${p.theme.border._100};
+        border-radius: 0.6rem;
+
+        /* remove the last row's border */
+        & tr:last-child td {
+          border: none;
+        }
+
+        /* add border-radius to table's corners */
+        & tr:last-child td:first-child {
+          border-end-start-radius: 0.6rem;
+        }
+        & tr:last-child td:last-child {
+          border-end-end-radius: 0.6rem;
+        }
+        & thead {
+          border-start-start-radius: 0.6rem;
+          border-start-end-radius: 0.6rem;
+        }
+      }
+    `}
 
   thead {
     border-color: ${(p) => p.theme.border._100};
@@ -52,6 +70,7 @@ export const Table = styled(AntTable)<TableProps>`
 
   thead > tr > th {
     padding: 1.4rem !important;
+    text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid ${(p) => p.theme.border._100}`)};
     border-color: ${(p) => p.theme.border._100};
@@ -62,6 +81,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody > tr > td {
+    text-align: center;
     border-color: ${(p) => (p.variant === 'simple' ? p.theme.divider : p.theme.border._100)};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
@@ -113,12 +133,6 @@ export const Table = styled(AntTable)<TableProps>`
 
   & div.ant-table-empty table > tbody > tr.ant-table-placeholder > td {
     border-bottom: 0;
-  }
-
-  & table > thead > tr:first-child > *:first-child,
-  & table > thead > tr:first-child > *:last-child {
-    border-start-start-radius: 0 !important;
-    border-start-end-radius: 0 !important;
   }
 `;
 

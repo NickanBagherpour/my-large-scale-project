@@ -1,5 +1,8 @@
 /*--import--*/
 import { KEYS as EDIT_SERVICE_KEYS } from './widgets/edit-service.key';
+import { KEYS as CLIENT_CREATION_KEYS } from './widgets/client-creation.key';
+import { KEYS as SCOPE_CREATION_KEYS } from './widgets/scope-creation.key';
+import { KEYS as SERVICES_LIST_KEYS } from './widgets/services-list.key';
 import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
 import { KEYS as CLIENT_DETAILS_KEYS } from './widgets/client-details.key';
 import { KEYS as CLIENT_HISTORY_KEYS } from './widgets/client-history.key';
@@ -10,10 +13,18 @@ import { KEYS as SERVICE_MANAGEMENT_KEYS } from './widgets/service-management.ke
 import { KEYS as CLIENTS_LIST_KEYS } from './widgets/client-list.key';
 import { KEYS as REUSABLE_COMPONENTS_KEYS } from './widgets/reusable-components.key';
 import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
+import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
+import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
+import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 
 export const RQKEYS = {
   /*--export--*/
   EDIT_SERVICE: EDIT_SERVICE_KEYS,
+  CLIENT_CREATION: CLIENT_CREATION_KEYS,
+  UPSTREAM_LIST: UPSTREAM_LIST_KEYS,
+  EDIT_SCOPE: EDIT_SCOPE_KEYS,
+  SCOPE_CREATION: SCOPE_CREATION_KEYS,
+  SERVICES_LIST: SERVICES_LIST_KEYS,
   APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
   CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
   CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
@@ -24,4 +35,5 @@ export const RQKEYS = {
   CLIENTS_LIST: CLIENTS_LIST_KEYS,
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
   EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
+  SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
 };

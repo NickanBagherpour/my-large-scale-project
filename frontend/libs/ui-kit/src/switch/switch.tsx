@@ -3,6 +3,7 @@ import { StyledSwitch } from './switch.style';
 
 export type SwitchProps = AntSwitchProps & {
   //
+  notAllowed?: boolean;
 };
 
 export const Switch = (props: SwitchProps) => {

@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { FormFieldsType } from '../types';
+
 import { ErrorMessageType, Nullable } from '@oxygen/types';
+
+import { FormFieldsType } from '../types';
 
 export type FiltersType = FormFieldsType;
 
