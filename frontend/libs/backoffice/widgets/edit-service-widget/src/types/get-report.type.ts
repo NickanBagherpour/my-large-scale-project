@@ -7,7 +7,6 @@ export type ReportResponseType = {
   paginationResult: PaginationResultType;
 };
 
-export type FormFieldsType = any;
 export type ItemType = {
   uid: number;
   count: number;
@@ -27,5 +26,5 @@ export type PaginationResultType = {
 };
 
 export type FetchParamsType = {
-  subTitle?: string;
+  id?: string | null;
 };

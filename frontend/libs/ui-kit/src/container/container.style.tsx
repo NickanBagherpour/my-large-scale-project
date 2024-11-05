@@ -12,7 +12,15 @@ export const WidgetWrapperContainer = styled.div<{ fill_container: boolean }>`
   padding: 0 1.6rem;
   flex-grow: ${(props) => (props.fill_container ? '1' : 'unset')};
 `;
-
+export const FooterContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  & .ant-btn {
+    min-width: 12rem;
+  }
+`;
 export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,6 +30,7 @@ export const BodyContainer = styled.div`
   flex-direction: column;
   height: max-content;
   flex-grow: 1;
+  margin-bottom: 1.2rem;
   background-color: ${(props) => props.theme.surface};
 `;
 

@@ -178,7 +178,6 @@ const DataTable: React.FC<AppProps> = () => {
 
   return (
     <>
-      <S.SubtitleContainer>{t('subtitle')}</S.SubtitleContainer>
       {displayTable ? (
         <S.TableContainer>
           <Table
