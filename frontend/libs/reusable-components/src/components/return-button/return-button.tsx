@@ -11,7 +11,7 @@ const ReturnButton: React.FC<ButtonProps> = (props) => {
   };
   return (
     <Button {...props} onClick={handleReturn}>
-      {t('button.return')}
+      {props.children ? props.children : t('button.return')}
     </Button>
   );
 };
