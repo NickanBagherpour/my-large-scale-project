@@ -43,4 +43,7 @@ export default {
   submitted_file_size: 'فرمت فایل ارسالی اکسل باشد (حجم زیر ۵ مگابایت)',
   max_file_size: 'حجم فایل ارسالی باید زیر ۵ مگابایت باشد',
   file_format: 'فرمت فایل ارسالی باید اکسل باشد',
+  website_url_error: 'آدرس وبسایت معتبر نیست',
+  english_name_error: 'نام انگلیسی معتبر نیست',
+  persian_name_error: 'نام فارسی معتبر نیست',
 };
