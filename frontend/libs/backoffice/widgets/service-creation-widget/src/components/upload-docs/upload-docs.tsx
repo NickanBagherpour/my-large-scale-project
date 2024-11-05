@@ -6,7 +6,7 @@ import * as S from './upload-docs.style';
 import Box from '../box/box';
 import { useState } from 'react';
 import { UploadFile } from 'antd/lib';
-import { createFormSchema } from '../../types/upload-docs.schema';
+import { createUploadDocsSchema } from '../../types/upload-docs.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import { fileSize } from '@oxygen/utils';
 import FormItem from '../form-item/form-item';
@@ -37,7 +37,7 @@ export default function UploadDocs() {
   const isFetching = false;
   const hasError = false;
   const fileDetails = getFileDetails(selectedFile);
-  const rule = createSchemaFieldRule(createFormSchema(t));
+  const rule = createSchemaFieldRule(createUploadDocsSchema(t));
 
   return (
     <S.Form>

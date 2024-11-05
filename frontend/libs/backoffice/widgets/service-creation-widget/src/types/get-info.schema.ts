@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { FORM_ITEM_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
 
-export const createFormSchema = (t: TFunction) =>
+export const createGetInfoSchema = (t: TFunction) =>
   z.object({
     [FORM_ITEM_NAMES.englishName]: z.string({ required_error: t('error.required') }),
     [FORM_ITEM_NAMES.persianName]: z.string({ required_error: t('validation.required') }),
@@ -34,4 +34,4 @@ export const createFormSchema = (t: TFunction) =>
       .refine((val) => val, t('validation.choose_one_option')),
   });
 
-export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
+export type GetInfoValues = z.infer<ReturnType<typeof createGetInfoSchema>>;

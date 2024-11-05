@@ -5,7 +5,7 @@ import { UPLOAD_NAMES } from '../utils/consts';
 
 export const MAX_FILE_SIZE = 5_000_000;
 
-export const createFormSchema = (t: TFunction) =>
+export const createUploadDocsSchema = (t: TFunction) =>
   z.object({
     [UPLOAD_NAMES.file]: z
       .any()
@@ -14,4 +14,4 @@ export const createFormSchema = (t: TFunction) =>
       .refine(isExcel, { message: t('file_format') }),
   });
 
-export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
+export type UploadDocs = z.infer<ReturnType<typeof createUploadDocsSchema>>;

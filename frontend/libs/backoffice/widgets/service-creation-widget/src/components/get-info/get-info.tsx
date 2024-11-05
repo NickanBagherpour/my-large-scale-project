@@ -2,7 +2,7 @@ import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createFormSchema } from '../../types';
+import { createGetInfoSchema } from '../../types';
 import * as S from './get-info.style';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateStep, useAppDispatch } from '../../context';
@@ -18,7 +18,7 @@ const options = [
 export default function GetInfo() {
   const [form] = Form.useForm();
   const [t] = useTr();
-  const rule = createSchemaFieldRule(createFormSchema(t));
+  const rule = createSchemaFieldRule(createGetInfoSchema(t));
   const dispatch = useAppDispatch();
 
   const onFinish = async (values) => {
