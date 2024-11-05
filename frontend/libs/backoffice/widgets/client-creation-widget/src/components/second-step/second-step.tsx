@@ -11,6 +11,7 @@ import * as S from './second-step.style';
 import DetailModal from './modal-detail/modal-detail';
 import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
+import { updateSecondStepTableAction, useAppDispatch, useAppState } from '../../context';
 
 type SecondStep = PageProps & {
   setCurrentStep: any;
@@ -18,6 +19,8 @@ type SecondStep = PageProps & {
 
 export const SecondStep: React.FC<SecondStep> = (props) => {
   const { setCurrentStep } = props;
+  const state= useAppState()
+  const dispatch =useAppDispatch()
   const [t] = useTr();
   const [data, setData] = useState([]);
   const [modals, setModals] = useState<Modal>({
@@ -30,10 +33,12 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   };
 
   const handleSelect = (item) => {
+    updateSecondStepTableAction(dispatch,item)
     setData((pre): any => {
       return [...pre, item];
     });
   };
+  console.log(state)
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
   };
@@ -45,7 +50,8 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
 
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const revertData = data.slice().reverse();
+  // const revertData = data.slice().reverse();
+  const revertData = state.secondStep.table
   return (
     <S.SecondStepContainer>
       <S.SearchField>

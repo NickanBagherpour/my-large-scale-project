@@ -47,7 +47,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const onFinish = (values) => {
-    console.log('this is on finish:', values);
+    // console.log('this is on finish:', values);
     setCurrentStep((perv) => perv + 1);
   };
 
