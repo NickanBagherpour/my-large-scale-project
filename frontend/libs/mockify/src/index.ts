@@ -34,6 +34,7 @@ import * as ApplicantHistoryMock from './applicant-history.mock';
 import * as ServiceInfoMock from './service-info.mock';
 import * as getScopesList from './list-scopes.mock';
 import * as UpstreamListMock from './upstream-list.mock';
+import * as getUpstreamDetailsMock from './upstream-details.mock';
 
 const Mockify = {
   ...UserMock,
@@ -72,6 +73,7 @@ const Mockify = {
   ...ApplicantHistoryMock,
   ...getScopesList,
   ...UpstreamListMock,
+  ...getUpstreamDetailsMock,
 };
 
 export default Mockify;

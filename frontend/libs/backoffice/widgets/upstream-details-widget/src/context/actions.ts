@@ -1,30 +1,34 @@
 import { ApiUtil } from '@oxygen/utils';
-import { MessageType, Nullable } from '@oxygen/types';
+import { ErrorMessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
+export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
+  dispatch({ type: 'UPDATE_SORT', payload: sort });
 }
 
-export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
+export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+  dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
+export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+  dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
+}
+
+export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
-export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
+export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_ERROR_MESSAGE', payload: errorMessage });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
-  updateMessageAction(dispatch, null);
+  updateErrorMessageAction(dispatch, null);
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
-  const message = ApiUtil.getErrorMessage(reason);
-  dispatch({ type: actionType, payload: { message, ...extraPayload } });
+  const errorMessage = ApiUtil.getErrorMessage(reason);
+  dispatch({ type: actionType, payload: { errorMessage, ...extraPayload } });
   return null;
 }
