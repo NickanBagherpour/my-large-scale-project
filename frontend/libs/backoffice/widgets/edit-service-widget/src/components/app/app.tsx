@@ -1,22 +1,22 @@
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
+import { Button, Loading } from '@oxygen/ui-kit';
 
 //import { useGetReportDataQuery } from '../../services';
 
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { useGetServiceInfoQuery } from '../../services/get-report.api';
-import { Button, Divider, Loading } from '@oxygen/ui-kit';
-import * as S from './app.style';
-import ServiceEdit from '../service-edit/service-edit';
+import { useGetServiceInfoQuery } from '../../services/edit-service.api';
 import { Form } from 'antd';
 import MainContainer from '../containers/main-container';
+import EditService from '../edit-service/edit-servic';
+
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //
 };
-
 const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
@@ -62,24 +62,8 @@ const App: React.FC<AppProps> = (props) => {
     </>
   );
   return (
-    // <S.AppContainer title={title}>
-    //   <S.SubtitleContainer>{t('subtitle')}</S.SubtitleContainer>
-    //   <S.ContentContainer>
-    //     {isFetching ? showLoadingSpinner() : <ServiceEdit serviceInfo={serviceInfo} form={form} />}
-    //   </S.ContentContainer>
-
-    //   <Divider />
-    //   <S.FooterContainer>
-    //     <Button variant='outlined' onClick={handleReturn}>
-    //       {t('button.cancel')}
-    //     </Button>
-    //     <Button htmlType={'submit'} onClick={handleSubmitButtonClick}>
-    //       {t('button.apply')}
-    //     </Button>
-    //   </S.FooterContainer>
-    // </S.AppContainer>
     <MainContainer title={title} subtitle={t('subtitle')} footer={footer}>
-      {isFetching ? showLoadingSpinner() : <ServiceEdit serviceInfo={serviceInfo} form={form} />}
+      {isFetching ? showLoadingSpinner() : <EditService serviceInfo={serviceInfo} form={form} />}
     </MainContainer>
   );
 };

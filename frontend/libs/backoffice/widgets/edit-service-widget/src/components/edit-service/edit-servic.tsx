@@ -1,5 +1,5 @@
 import { Form, FormInstance } from 'antd';
-import * as S from './service-edit.style';
+import * as S from './edit-service.style';
 import {
   accessOptions,
   categoryOptions,
@@ -18,7 +18,7 @@ type Props = {
   form: FormInstance<any>;
 };
 
-const ServiceEdit: React.FC<Props> = ({ serviceInfo, form }) => {
+const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createFormSchema(t));
 
@@ -86,4 +86,4 @@ const ServiceEdit: React.FC<Props> = ({ serviceInfo, form }) => {
     </Form>
   );
 };
-export default ServiceEdit;
+export default EditService;

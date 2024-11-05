@@ -1,7 +1,7 @@
 {
-    "name": "service-edit-widget",
+    "name": "edit-service-widget",
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/widgets/service-edit-widget/src",
+    "sourceRoot": "libs/widgets/edit-service-widget/src",
     "projectType": "library",
     "tags": [],
     "// targets": "to see all targets run: nx show project test --web",
