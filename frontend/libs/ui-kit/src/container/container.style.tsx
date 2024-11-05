@@ -30,6 +30,7 @@ export const BodyContainer = styled.div`
   flex-direction: column;
   height: max-content;
   flex-grow: 1;
+  margin-bottom: 1.2rem;
   background-color: ${(props) => props.theme.surface};
 `;
 

@@ -1,10 +1,8 @@
-import { CSSProperties } from 'styled-components';
+import { HTMLAttributes } from 'react';
 import * as S from './secondary-title.style';
 
-type Props = {
+type Props = HTMLAttributes<HTMLDivElement> & {
   text: string;
-  className?: string;
-  style?: CSSProperties;
 };
 const SecondaryTitle: React.FC<Props> = ({ text, ...rest }: Props) => {
   return <S.Container {...rest}>{text}</S.Container>;
