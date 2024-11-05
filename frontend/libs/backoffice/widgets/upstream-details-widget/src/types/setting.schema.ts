@@ -12,4 +12,4 @@ export const FormSchema = (t: (key: string) => string) =>
       .min(1, { message: i18nBase.t('error.required') }),
   });
 
-export type FormValues = z.infer<ReturnType<typeof FormSchema>>;
+export type FormFieldsType = z.infer<ReturnType<typeof FormSchema>>;

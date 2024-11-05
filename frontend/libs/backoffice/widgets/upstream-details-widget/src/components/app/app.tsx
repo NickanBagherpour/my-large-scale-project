@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
-import { GlobalErrorContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useTheme } from 'styled-components';
 import { ParamsType, UpstreamDetailsType, UpstreamDetailsTypeQuery } from '../../types';
 import { useQueryClient } from '@tanstack/react-query';
@@ -93,9 +93,9 @@ const App = () => {
       </Modal>
 
       <S.UpstreamDetailsContainer title={t('widget_name')}>
-        <GlobalErrorContainer
+        <GlobalMessageContainer
           containerProps={{ marginBottom: '2.4rem' }}
-          errorMessage={state.errorMessage}
+          message={state.errorMessage}
           onClose={() => {
             resetErrorMessageAction(dispatch);
           }}

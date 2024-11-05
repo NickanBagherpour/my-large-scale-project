@@ -1,5 +1,5 @@
 import { ApiUtil } from '@oxygen/utils';
-import { ErrorMessageType, Nullable } from '@oxygen/types';
+import { MessageType, Nullable } from '@oxygen/types';
 
 import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
@@ -19,8 +19,8 @@ export function updatePagination(dispatch: WidgetDispatchType, pagination: Pagin
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
-export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_ERROR_MESSAGE', payload: errorMessage });
+export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: errorMessage });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
