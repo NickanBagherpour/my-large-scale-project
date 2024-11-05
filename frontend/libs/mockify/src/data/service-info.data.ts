@@ -1,0 +1,41 @@
+export const serviceInfoData = [
+  {
+    id: '1111111',
+    enName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
+    faName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+    tags: [
+      { label: 'CUSTOMER', key: 'bigOrganization' },
+      { label: 'BACKOFFICE', key: 'payCompany' },
+    ],
+    method: 'Post',
+    protocol: 'HTTP',
+    access: 'PUBLIC',
+    category: 'ACCOUNT',
+    throughout: 'Unlimited',
+    version: 'v1',
+    owner: 'Sadad',
+    path: 'api/sapta/v1/bale/customer-info/',
+    host: 'Openapis.bmi.ir',
+    upstream: 'ICMS -XzxcZ',
+  },
+
+  {
+    id: '2222222',
+    enName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
+    faName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+    tags: [
+      { label: 'CUSTOMER', key: 'bigOrganization' },
+      { label: 'BACKOFFICE', key: 'payCompany' },
+    ],
+    method: 'Post',
+    protocol: 'HTTP',
+    access: 'PUBLIC',
+    category: 'ACCOUNT',
+    throughout: 'Unlimited',
+    version: 'v2',
+    owner: 'Sadad',
+    path: 'api/sapta/v1/bale/customer-info/',
+    host: 'Openapis.bmi.ir',
+    upstream: 'ICMS -XzxcZ',
+  },
+];

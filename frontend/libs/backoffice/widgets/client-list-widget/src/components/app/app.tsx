@@ -10,7 +10,7 @@ import DraftCard from '../draft-card/draft-card';
 import { useGetDraftsQuery } from '../../services/get-drafts.api';
 
 const App = () => {
-  const { errorMessage, ...fetchState } = useAppState();
+  const { message, ...fetchState } = useAppState();
   const { data: clients, isFetching: isClientsFetching } = useGetClientsQuery(fetchState);
   const { data: drafts } = useGetDraftsQuery();
   const [t] = useTr();

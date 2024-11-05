@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
 import { Box, Button } from '@oxygen/ui-kit';
 import { Nullable, PageProps } from '@oxygen/types';
-import { GlobalErrorContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
@@ -37,9 +37,8 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')}>
       {/*render widget name based on clientId*/}
-      <GlobalErrorContainer
-        containerProps={{ marginTop: '2.4rem' }}
-        errorMessage={state.errorMessage}
+      <GlobalMessageContainer
+        message={state.message}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}

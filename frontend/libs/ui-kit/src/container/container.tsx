@@ -6,6 +6,7 @@ export interface IWidgetWrapperProps {
   title?: string[] | string;
   subtitle?: string | number;
   caption?: React.ReactNode;
+  footer?: React.ReactNode;
   children?: React.ReactNode;
   fillContainer?: boolean;
   className?: string;
@@ -23,6 +24,7 @@ export const Container = (props: IWidgetWrapperProps) => {
     subtitle,
     children,
     caption,
+    footer,
     fillContainer = true,
     className = '',
     style,
@@ -55,6 +57,12 @@ export const Container = (props: IWidgetWrapperProps) => {
       <S.Divider />
 
       <S.BodyContainer>{children}</S.BodyContainer>
+      {footer && (
+        <>
+          <S.Divider />
+          <S.FooterContainer>{footer}</S.FooterContainer>
+        </>
+      )}
     </S.WidgetWrapperContainer>
   );
 };
