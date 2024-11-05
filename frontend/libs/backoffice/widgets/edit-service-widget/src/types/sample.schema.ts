@@ -19,4 +19,4 @@ export const createFormSchema = (t: (key: string) => string) =>
     // [FORM_ITEM_NAMES.owner]: z.boolean().optional(),
   });
 
-export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
+export type FormFieldsType = z.infer<ReturnType<typeof createFormSchema>>;
