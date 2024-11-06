@@ -43,12 +43,12 @@ const App: React.FC<AppProps> = (props) => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: t('first_tab'),
+      label: t('first_tab.name'),
       children: <FirstTab />,
     },
     {
       key: '2',
-      label: t('second_tab'),
+      label: t('second_tab.name'),
       children: <SecondTab />,
     },
   ];

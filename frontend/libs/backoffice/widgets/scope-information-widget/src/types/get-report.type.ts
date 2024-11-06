@@ -27,5 +27,4 @@ export type PaginationResultType = {
 
 export type FetchParamsType = {
   filters?: FiltersType;
-  pagination: PaginationType;
 };

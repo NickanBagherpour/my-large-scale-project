@@ -5,11 +5,11 @@ import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetReportDataQuery = (params: FetchParamsType) => {
+export const useGetFirstTabReportDataQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
+    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST],
+    queryFn: withErrorHandling(() => Api.getReportData(), dispatch),
   });
 };
