@@ -17,6 +17,7 @@ export const FooterContainer = styled.div`
   justify-content: end;
   gap: 1rem;
   padding: 2rem 1rem;
+
   & .ant-btn {
     min-width: 12rem;
   }
@@ -68,5 +69,6 @@ export const Header = styled.div`
 
 export const Divider = styled.div`
   height: fit-content;
-  border: 1px solid ${(p) => p.theme.border._100};
+  //border: 1px solid ${(p) => p.theme.border._100};
+  border-bottom: 1px solid ${(props) => props.theme.border._100};
 `;
