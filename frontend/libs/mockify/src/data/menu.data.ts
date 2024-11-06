@@ -25,7 +25,7 @@ export const menus = [
     id: 3,
     title: 'مدیریت سرویس',
     order: 3,
-    href: '/service-management',
+    href: '/services-list',
     icon: 'icon-cloud-2',
     active: true,
     description: null,
