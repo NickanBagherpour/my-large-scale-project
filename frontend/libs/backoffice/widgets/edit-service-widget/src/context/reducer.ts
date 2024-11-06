@@ -23,7 +23,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
   //console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
-      state.errorMessage = action.payload;
+      state.message = action.payload;
       return;
     }
 
