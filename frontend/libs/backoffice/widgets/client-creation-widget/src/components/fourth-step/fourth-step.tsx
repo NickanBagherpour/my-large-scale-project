@@ -23,7 +23,7 @@ export default function FourthStep(props) {
         <S.Header>{`${t('step_four.client_tariff')}`}</S.Header>
         <div>
           <S.Para>{`${t('step_four.tariff')}`}</S.Para>
-          <S.StyleInput />
+          <S.StyleInput size='small' />
         </div>
       </S.FourthStepContainer>
       <S.Footer>

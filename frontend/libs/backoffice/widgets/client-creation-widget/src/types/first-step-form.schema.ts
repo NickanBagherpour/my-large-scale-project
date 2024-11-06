@@ -1,30 +1,31 @@
 import { z } from 'zod';
-
 import { FormItem } from '../utils/consts';
 
-export const createFormSchema = (t: (key: string) => string) =>
-  z.object({
-    [FormItem.latin_name_client]: z.string({ required_error: t('error.required') }).regex(/^[A-Za-z\s]+$/, {
+export const createFormSchema = (t: (key: string) => string) => {
+  const requiredString = z.string({ required_error: t('error.required') }).min(1, { message: t('error.required') });
+
+  return z.object({
+    // Name Fields
+    [FormItem.latin_name_client]: requiredString.regex(/^[A-Za-z\s]+$/, {
       message: t('error.english_only'),
     }),
 
-    [FormItem.persian_name_client]: z.string({ required_error: t('error.required') }).regex(/^[\u0600-\u06FF\s]+$/, {
+    [FormItem.persian_name_client]: requiredString.regex(/^[\u0600-\u06FF\s]+$/, {
       message: t('error.persian_only'),
     }),
 
-    [FormItem.client_type]: z.string({ required_error: t('error.required') }).min(1, { message: t('error.required') }),
+    // Required Fields
+    [FormItem.client_type]: requiredString,
+    [FormItem.user_name]: requiredString,
+    [FormItem.national_code]: requiredString,
+    [FormItem.organization_name]: requiredString,
+    [FormItem.mobile_number]: requiredString,
+    [FormItem.client_id]: requiredString,
+    [FormItem.identity_auth]: requiredString,
 
-    [FormItem.client_id]: z.string({ required_error: t('error.required') }).min(1, { message: t('error.required') }),
-
-    [FormItem.identity_auth]: z
-      .string({ required_error: t('error.required') })
-      .min(1, { message: t('error.required') }),
-
-    [FormItem.website_url]: z.string().url('slkjhfdg').optional().or(z.literal('')),
-
-    [FormItem.return_address]: z
-      .string({ required_error: t('error.required') })
-      .min(1, { message: t('error.required') }),
+    // URL Field
+    [FormItem.return_address]: requiredString.url(t('error.invalid_url')),
   });
+};
 
 export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;

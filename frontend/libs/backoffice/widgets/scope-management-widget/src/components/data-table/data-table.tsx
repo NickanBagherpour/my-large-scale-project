@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps, type Pagination } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
-import * as S from './data-table.style';
-import type { TablePaginationConfig } from 'antd';
+
 import { useGetScopeListQuery } from '../../services/get-scope-list.api';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
+
+import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
   //

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'antd';
+import { Form, Tooltip } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
@@ -14,6 +14,8 @@ import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { createFormSchema } from '../../types';
 
 import * as S from './edit-client.style';
+import { initialValues } from '../../utils/initial-values';
+import { MAX_LENGTH } from '../../utils/consts';
 
 type FirstStepProps = PageProps & {
   //
@@ -49,26 +51,10 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     }
   }, [grantTypeData, tagsData]);
 
-  const defaultValues = {
-    [FORM_ITEM_NAMES.clientStatus]: userData.clientStatus,
-    [FORM_ITEM_NAMES.grantType]: userData.grantType,
-    [FORM_ITEM_NAMES.tags]: userData.tags,
-    [FORM_ITEM_NAMES.latinNameClient]: userData.latinNameClient,
-    [FORM_ITEM_NAMES.persianNameClient]: userData.persianNameClient,
-    [FORM_ITEM_NAMES.clientType]: userData.clientType,
-    [FORM_ITEM_NAMES.clientId]: userData.clientId,
-    [FORM_ITEM_NAMES.identityAuth]: userData.identityAuth,
-    [FORM_ITEM_NAMES.websiteUrl]: userData.websiteUrl,
-    [FORM_ITEM_NAMES.inputAddress]: userData.inputAddress,
-    [FORM_ITEM_NAMES.returnAddress]: userData.returnAddress,
-    [FORM_ITEM_NAMES.aggregatorStatus]: userData.aggregatorStatus,
-    [FORM_ITEM_NAMES.aggregator]: userData.aggregator,
-  };
-
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log('hi', values);
+    // console.log('hi', values);
   };
 
   const handleGrantTypeChange = (value) => {
@@ -81,7 +67,6 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const handleGrantTypeClose = (item) => {
     const updatedGrantTypes = grantTypeState.filter((grantType: any) => grantType.key !== item.key);
-    console.log(updatedGrantTypes);
     setGrantTypeState(updatedGrantTypes);
     form.setFieldsValue({
       [FORM_ITEM_NAMES.grantType]: updatedGrantTypes,
@@ -97,6 +82,10 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const clientType = [
+    {
+      value: '',
+      label: t('select_aggre'),
+    },
     { value: 'TEST-1', label: 'TEST-1' },
     { value: 'TEST-2', label: 'TEST-2' },
     { value: 'TEST-3', label: 'TEST-3' },
@@ -117,15 +106,17 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     <S.EditClientContainer>
       <div className={'form_wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
-        <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
+        <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={initialValues(userData)}>
           <Form.Item
             name={FORM_ITEM_NAMES.clientStatus}
             className={'label-switch'}
             layout={'horizontal'}
             label={t('form.client_status')}
+            colon={true}
           >
             <Switch />
           </Form.Item>
+
           <div className={'grid'}>
             <div className='item1'>
               <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
@@ -141,17 +132,21 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             </div>
             <span className={'line'}></span>
             <div className='item2'>
-              {grantTypeState.map((item) => (
-                <Chip
-                  type={'active'}
-                  key={item.key}
-                  onClose={() => handleGrantTypeClose(item)}
-                  className={'tags'}
-                  closeIcon
-                >
-                  {item.label}
-                </Chip>
-              ))}
+              <div className='tags_wrapper'>
+                {grantTypeState.map((item) => (
+                  <Tooltip placement='top' title={item.label}>
+                    <Chip
+                      type={'active'}
+                      key={item.key}
+                      onClose={() => handleGrantTypeClose(item)}
+                      className={'tags'}
+                      closeIcon
+                    >
+                      <span className={'text'}>{item.label}</span>
+                    </Chip>
+                  </Tooltip>
+                ))}
+              </div>
             </div>
           </div>
           <div className={'grid'}>
@@ -169,58 +164,70 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             </div>
             <span className={'line'}></span>
             <div className='item2'>
-              {tagsState.map((item) => (
-                <Chip type={'active'} key={item.key} onClose={() => handleTagsClose(item)} className={'tags'} closeIcon>
-                  {item.label}
-                </Chip>
-              ))}
+              <div className={'tags_wrapper'}>
+                {tagsState.map((item) => (
+                  <Tooltip placement='top' title={item.label}>
+                    <Chip
+                      type={'active'}
+                      key={item.key}
+                      onClose={() => handleTagsClose(item)}
+                      className={'tags'}
+                      closeIcon
+                    >
+                      <span className={'text'}>{item.label}</span>
+                    </Chip>
+                  </Tooltip>
+                ))}
+              </div>
             </div>
           </div>
 
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.latin_name_client')} />
+              <Input placeholder={t('placeholder.latin_name_client')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.client_bale')} />
+              <Input placeholder={t('placeholder.client_bale')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
               <Select size={'large'} placeholder={t('placeholder.credit_system')} options={aggregatorOption}></Select>
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.clientId} rules={[rule]} label={t('form.client_id')}>
-              <Input placeholder={t('placeholder.client_id')} />
+              <Input placeholder={t('placeholder.client_id')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.identityAuth} label={t('form.identity_auth')}>
-              <Input placeholder={t('placeholder.identity_auth')} />
+              <Input placeholder={t('placeholder.identity_auth')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.websiteUrl} label={t('form.website_url')}>
-              <Input placeholder={t('placeholder.website_url')} />
+              <Input placeholder={t('placeholder.website_url')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.inputAddress} label={t('form.input_address')}>
-              <Input placeholder={t('placeholder.input_address')} />
+              <Input placeholder={t('placeholder.input_address')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.returnAddress} label={t('form.return_address')}>
-              <Input placeholder={t('placeholder.return_address')} />
+              <Input placeholder={t('placeholder.return_address')} maxLength={MAX_LENGTH} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.aggregatorStatus}
               className={'label-switch'}
               layout={'horizontal'}
               label={t('form.aggregator_status')}
+              colon={true}
             >
               <Switch />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.aggregator} label={t('form.aggregator')}>
-              <Select size={'large'} options={clientType} placeholder={t('placeholder.faraboom')}></Select>
+              <Select size={'large'} options={clientType} placeholder={t('placeholder.aggregator')}></Select>
             </Form.Item>
           </SearchItemsContainer>
         </Form>
       </div>
       <div className={'footer'}>
-        <Button variant={'outlined'}>{t('form.return')}</Button>
+        <Button variant={'outlined'} href={'/client-details'}>
+          {t('form.cancel')}
+        </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
-          {t('form.register_info')}
-          <i className={'icon-arrow-left'}></i>
+          {t('form.save_changes')}
         </Button>
       </div>
     </S.EditClientContainer>
