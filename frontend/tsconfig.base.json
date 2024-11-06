@@ -57,6 +57,9 @@
             "@oxygen/backoffice/widgets/scope-creation-widget": [
                 "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/scope-information-widget": [
+                "libs/backoffice/widgets/scope-information-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/scope-management-widget": [
                 "libs/backoffice/widgets/scope-management-widget/src/index.ts"
             ],
