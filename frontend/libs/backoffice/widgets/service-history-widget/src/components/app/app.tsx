@@ -37,6 +37,7 @@ const App: React.FC<AppProps> = () => {
     };
     return params;
   }
+
   useEffect(() => {
     if (items && items.length > 0 && title === t('subtitle')) {
       setTitle(items?.[0]?.[i18nBase.resolvedLanguage + 'Name']);

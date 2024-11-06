@@ -16,6 +16,7 @@ export const SearchItemsContainer = styled.div`
   //grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr);
   grid-template-columns: repeat(var(--grid-column-count), 1fr);
   grid-column-gap: var(--grid-layout-gap);
+  grid-row-gap: var(--grid-layout-gap);
 
   ${respondTo.down('lg')} {
     grid-template-columns: 1fr 1fr;
@@ -107,7 +108,7 @@ export const SearchItemsContainer = styled.div`
 
   & .ant-form-item .ant-form-item-label > label::after {
     //content: '';
-    display: none;
+    //display: none;
   }
 
   & .ant-form-item .ant-form-item-label > label {

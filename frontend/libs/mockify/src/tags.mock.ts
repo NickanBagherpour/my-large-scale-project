@@ -1,7 +1,7 @@
 import { TagsData } from './data/tags';
 
 export const TagInfo = async (): Promise<any> => {
-  const data = await new Promise((resolve) => {
+  const data = await new Promise((resolve, reject) => {
     setTimeout(() => {
       const response = {
         data: {
@@ -11,6 +11,7 @@ export const TagInfo = async (): Promise<any> => {
       };
 
       resolve(response);
+      // reject(Error('THIS IS ERRRRRRRRORRR'));
     }, 4500);
   });
 
