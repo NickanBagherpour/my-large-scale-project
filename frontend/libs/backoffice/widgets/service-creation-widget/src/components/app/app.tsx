@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import AddScope from '../add-scope/add-scope';
 import UploadDocs from '../upload-docs/upload-docs';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { Container } from '@oxygen/ui-kit';
 
 const steps: Record<Step, ReactNode> = {
 	0: <GetInfo />,
@@ -20,14 +21,14 @@ const App = () => {
 	const dispatch = useAppDispatch();
 
 	return (
-		<S.AppContainer title={t('enter_service')}>
+		<Container title={t('enter_service')}>
 			<GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
 			<S.Steps
 				current={step}
 				items={[{ title: t('get_info') }, { title: t('add_scope') }, { title: t('upload_docs') }]}
 			/>
 			{steps[step]}
-		</S.AppContainer>
+		</Container>
 	);
 };
 
