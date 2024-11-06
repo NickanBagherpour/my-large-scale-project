@@ -42,9 +42,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const handleSubmit = () => {
     setCurrentStep((perv) => perv + 1);
   };
-  console.log(state.secondStep.table.length);
   const isDisable = state.secondStep.table.length ? false : true;
-  console.log(isDisable);
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
   const revertData = state.secondStep.table;
