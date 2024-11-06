@@ -39,4 +39,5 @@ export const BACKOFFICE_ROUTE_GROUPS = [
     '/edit-applicant-info',
     '/client-history',
   ],
+  ['/services-list', '/service-creation']
 ];
