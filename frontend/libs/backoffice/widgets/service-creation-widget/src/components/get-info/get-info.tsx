@@ -9,6 +9,7 @@ import { updateGetInfoStep, nextStep, useAppDispatch, useAppState } from '../../
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
+import { useRouter } from 'next/navigation';
 
 const options = [
 	{ label: 'گزینه اول', value: '1' },
@@ -22,11 +23,16 @@ export default function GetInfo() {
 	const rule = createSchemaFieldRule(createGetInfoSchema(t));
 	const dispatch = useAppDispatch();
 	const state = useAppState();
+  const router = useRouter();
 
 	const onFinish: FormProps<GetInfoValuesType>['onFinish'] = async (values) => {
 		nextStep(dispatch);
 		updateGetInfoStep(dispatch, values);
 	};
+
+  const onReturn = () => {
+    router.back();
+  }
 
 	return (
 		<S.Container>
@@ -76,7 +82,7 @@ export default function GetInfo() {
 				</Form>
 			</Box>
 
-			<Footer onRegister={form.submit} />
+			<Footer onRegister={form.submit} onReturn={onReturn} />
 		</S.Container>
 	);
 }

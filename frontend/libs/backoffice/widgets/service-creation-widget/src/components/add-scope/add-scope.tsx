@@ -6,7 +6,7 @@ import Box from '../box/box';
 import ImportFromSso from '../import-from-sso/import-from-sso';
 import CreateScope from '../create-scope/create-scope';
 import type { AddScopeType } from '../../types';
-import { updateAddScopeStep, nextStep, useAppDispatch, useAppState, updateScopeMode } from '../../context';
+import { updateAddScopeStep, nextStep, useAppDispatch, useAppState, updateScopeMode, previousStep } from '../../context';
 
 export default function AddScope() {
 	const [t] = useTr();
@@ -23,6 +23,10 @@ export default function AddScope() {
     nextStep(dispatch);
 	};
 
+  const onReturn = () => {
+    previousStep(dispatch);
+  }
+
 	return (
 		<S.Form layout='vertical' onFinish={onFinish} form={form} initialValues={addScope}>
 			<Box>
@@ -32,7 +36,7 @@ export default function AddScope() {
 				</S.Radios>
 				{scopeMode === 'importFromSso' ? <ImportFromSso /> : <CreateScope />}
 			</Box>
-			<Footer onRegister={() => form.submit()} />
+			<Footer onRegister={() => form.submit()} onReturn={onReturn} />
 		</S.Form>
 	);
 }

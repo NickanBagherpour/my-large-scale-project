@@ -12,7 +12,7 @@ import { fileSize } from '@oxygen/utils';
 import FormItem from '../form-item/form-item';
 import { isExcel } from '../../utils/schema.utils';
 import { UPLOAD_NAMES } from '../../utils/consts';
-import { nextStep, updateUploadDocs, useAppDispatch } from '../../context';
+import { previousStep, updateUploadDocs, useAppDispatch } from '../../context';
 
 const data = {
 	progress: '52%',
@@ -42,9 +42,12 @@ export default function UploadDocs() {
 	const dispatch = useAppDispatch();
 
 	const onFinish: FormProps<UploadDocsType>['onFinish'] = (values) => {
-		// nextStep(dispatch);
     updateUploadDocs(dispatch, values);
 	};
+
+  const onReturn = () => {
+    previousStep(dispatch);
+  }
 
 	return (
 		<S.Form onFinish={onFinish} form={form}>
@@ -105,7 +108,7 @@ export default function UploadDocs() {
 				)}
 			</Box>
 
-			<Footer onRegister={() => form.submit()} />
+			<Footer onRegister={() => form.submit()} onReturn={onReturn} />
 		</S.Form>
 	);
 }
