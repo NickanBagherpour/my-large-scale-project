@@ -5,14 +5,14 @@ import { TFunction } from 'i18next';
 export const createGetInfoSchema = (t: TFunction) =>
   z.object({
     [FORM_ITEM_NAMES.englishName]: z
-      .string({ required_error: t('error.required') })
-      .min(1, { message: t('error.required') })
+      .string({ required_error: t('validation.required') })
+      .min(1, { message: t('validation.required') })
       .regex(/^[a-zA-Z]*$/, {
         message: t('english_name_error'),
       }),
     [FORM_ITEM_NAMES.persianName]: z
       .string({ required_error: t('validation.required') })
-      .min(1, { message: t('error.required') })
+      .min(1, { message: t('validation.required') })
       .regex(/^[\u0600-\u06FF]*$/, {
         message: t('persian_name_error'),
       }),
