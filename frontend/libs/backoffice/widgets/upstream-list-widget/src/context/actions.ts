@@ -11,15 +11,11 @@ export function updatePagination(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_PAGINATION' });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
-  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
-}
-
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
-export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
+export function resetMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }
 

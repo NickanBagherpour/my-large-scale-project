@@ -7,7 +7,7 @@ import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton, SecondaryTitle } from '@oxygen/reusable-components';
 
 import { useGetsServiceHistoryDataQuery } from '../../services';
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
 
 import * as S from './app.style';
@@ -45,11 +45,11 @@ const App: React.FC<AppProps> = () => {
 
   return (
     <Container title={title} footer={<ReturnButton />}>
-      <GlobalErrorContainer
+      <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
-        errorMessage={errorMessage}
+        message={message}
         onClose={() => {
-          resetErrorMessageAction(dispatch);
+          resetMessageAction(dispatch);
         }}
       />
       <SecondaryTitle text={t('subtitle')} />
