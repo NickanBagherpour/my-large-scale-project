@@ -20,7 +20,7 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
-  updateMessageAction(dispatch, null);
+  updateErrorMessageAction(dispatch, null);
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {

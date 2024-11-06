@@ -12,11 +12,14 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
-  table: {
-    filters: FiltersType;
-    pagination: PaginationType;
-    submit: FiltersType;
+  secondStep: {
+    table: FiltersType;
   };
+  // table: {
+  //   filters: FiltersType;
+  //   pagination: PaginationType;
+  //   submit: FiltersType;
+  // };
   message: Nullable<MessageType>;
 };
 
@@ -26,16 +29,8 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_FILTERS';
+      type: 'UPDATE_SECOND_STEP_TABLE';
       payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_SUBMIT';
-      payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_PAGINATION';
-      payload: Partial<PaginationType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
