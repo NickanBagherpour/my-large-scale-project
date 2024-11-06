@@ -340,5 +340,8 @@ export default {
     max_length: 'حداکثر طول مجاز رعایت نشده است',
     min_length: 'حداقل طول مجاز رعایت نشده است',
     choose_one_option: 'یکی از گزینه‌ها را انتخاب کنید',
+    website_url_error: 'آدرس وبسایت معتبر نیست',
+    english_name_error: 'نام انگلیسی معتبر نیست',
+    persian_name_error: 'نام فارسی معتبر نیست',
   },
 };

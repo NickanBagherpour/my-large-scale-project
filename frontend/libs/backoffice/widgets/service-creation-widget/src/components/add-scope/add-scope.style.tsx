@@ -6,7 +6,7 @@ export const Form = styled(AntForm)`
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-`;
+` as typeof AntForm;
 
 export const Radios = styled(AntRadio.Group)`
   margin-bottom: 2.4rem;

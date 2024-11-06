@@ -4,8 +4,8 @@ export function validString(str: string): boolean {
   return !!str.trim().length;
 }
 
-export function isExcel({ file }: { file: UploadFile }): boolean {
-  const name = file?.name;
+export function isExcel(data: { file: UploadFile } | null): boolean {
+  const name = data?.file.name;
   if (!name) return false;
 
   const validExtensions = ['xls', 'xlsx'];

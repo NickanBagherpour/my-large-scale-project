@@ -6,6 +6,6 @@ const FormItem = styled(Form.Item)`
     padding-inline-start: 1rem;
   }
   margin-bottom: 0;
-`;
+` as typeof Form.Item;
 
 export default FormItem;
