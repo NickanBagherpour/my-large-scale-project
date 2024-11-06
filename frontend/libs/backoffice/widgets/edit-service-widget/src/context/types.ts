@@ -17,7 +17,7 @@ export type WidgetStateType = {
     pagination: PaginationType;
     submit: FiltersType;
   };
-  errorMessage: Nullable<MessageType>;
+  message: Nullable<MessageType>;
 };
 
 export type WidgetActionType =

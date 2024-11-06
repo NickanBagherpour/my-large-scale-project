@@ -16,7 +16,7 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
-  errorMessage: null,
+  message: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
