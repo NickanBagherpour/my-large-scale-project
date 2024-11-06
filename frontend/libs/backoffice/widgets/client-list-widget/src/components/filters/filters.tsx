@@ -36,7 +36,7 @@ export default function Filters() {
           <S.Button href='/load-client' color='primary' variant='outlined'>
             {t('upload_client')}
           </S.Button>
-          <S.Button href='/create-client' color='primary' variant='solid'>
+          <S.Button href='/client-creation' color='primary' variant='solid'>
             {t('create_new_client')}
           </S.Button>
         </S.Buttons>
