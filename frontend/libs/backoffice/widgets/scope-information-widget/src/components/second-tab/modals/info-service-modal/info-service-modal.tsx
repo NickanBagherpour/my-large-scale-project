@@ -30,7 +30,7 @@ export default function DetailsModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('service_detail')}
+      title={t('scoop_detail')}
       open={isOpen}
       onCancel={toggle}
       width={1000}
