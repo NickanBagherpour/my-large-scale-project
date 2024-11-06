@@ -20,6 +20,7 @@ export const getAntBaseConfig = (config: IConfig): AntConfigProviderProps => {
     form: {
       validateMessages: { required: '' },
       requiredMark: false,
+      colon: false,
     },
   };
 };

@@ -3,9 +3,9 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Loading } from '@oxygen/ui-kit';
-import { GlobalErrorContainer, NoResult } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useGetUpstreamQuery } from '../../services/get-report.api';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
@@ -18,7 +18,7 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
-  const { errorMessage, ...fetchState } = useAppState();
+  const { message, ...fetchState } = useAppState();
   const [t] = useTr();
 
   const { data: upstreams, isFetching } = useGetUpstreamQuery(fetchState);
@@ -27,11 +27,10 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle} fillContainer={true}>
-      <GlobalErrorContainer
-        containerProps={{ marginTop: '2.4rem' }}
-        errorMessage={errorMessage}
+      <GlobalMessageContainer
+        message={message}
         onClose={() => {
-          resetErrorMessageAction(dispatch);
+          resetMessageAction(dispatch);
         }}
       />
       <Filters />

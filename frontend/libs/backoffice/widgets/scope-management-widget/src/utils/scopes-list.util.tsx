@@ -1,7 +1,7 @@
 import { Button, ColumnsType } from '@oxygen/ui-kit';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
-import * as S from '../../../client-details-widget/src/components/services/services.style';
+import * as S from '../components/data-table/data-table.style';
 
 type Props = {
   t: TFunction;
@@ -19,24 +19,26 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: '5rem',
+      width: '2.8rem',
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
       },
     },
     {
+      width: '43.9rem',
       title: t('table.latin_name_scope'),
       dataIndex: 'latin_name_scope',
       align: 'center',
     },
     {
+      width: '43.9rem',
       title: t('table.persian_name_scope'),
       dataIndex: 'persian_name_scope',
       align: 'center',
     },
     {
-      width: '20rem',
+      width: '11.8rem',
       key: 'status',
       render: () => (
         <Button variant={'text'} color={'primary'}>
