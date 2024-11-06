@@ -64,9 +64,8 @@ const DataTable: React.FC<AppProps> = () => {
       title: t('column.fa-name'),
       dataIndex: 'faName',
       key: 'faName',
-      ellipsis: {
-        showTitle: true,
-      },
+      ellipsis: true,
+      className: 'right-to-left',
       render: (value, record) => {
         return getValueOrDash(value);
       },
@@ -179,10 +178,26 @@ const DataTable: React.FC<AppProps> = () => {
   return (
     <>
       {displayTable ? (
-        <S.TableContainer>
+        <>
+          <S.TableContainer>
+            <Table
+              scroll={{ x: 1000 }}
+              variant='complex'
+              columns={columns}
+              dataSource={dataSource}
+              loading={isFetching}
+              pagination={{
+                ...table?.pagination,
+                total: data?.paginationResult.total || lastTotal,
+                pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+                pageSize: table?.pagination?.limit,
+                current: table?.pagination?.page,
+                hideOnSinglePage: false,
+              }}
+              onChange={handlePageChange}
+            />
+          </S.TableContainer>
           <Table
-            scroll={{ x: 1000 }}
-            variant='complex'
             columns={columns}
             dataSource={dataSource}
             loading={isFetching}
@@ -196,7 +211,7 @@ const DataTable: React.FC<AppProps> = () => {
             }}
             onChange={handlePageChange}
           />
-        </S.TableContainer>
+        </>
       ) : (
         <NoResult isLoading={isFetching} />
       )}

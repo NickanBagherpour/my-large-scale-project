@@ -72,7 +72,7 @@ export const Table = styled(AntTable)<TableProps>`
     padding: 1.4rem !important;
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
-    border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid ${(p) => p.theme.border._100}`)};
+    border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
     border-color: ${(p) => p.theme.border._100};
 
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};

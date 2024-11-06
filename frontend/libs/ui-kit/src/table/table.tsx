@@ -1,6 +1,6 @@
 'use client';
 
-import { Table as AntTable, TableProps as AntTableProps } from 'antd';
+import { Table as AntTable, TableProps as AntTableProps, ConfigProvider } from 'antd';
 import { ColumnsType as AntColumnsType } from 'antd/lib/table';
 import React from 'react';
 
@@ -44,7 +44,6 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
 const ExpandIcon = ({ expanded, onExpand, record }) => (
   <ExpandButton open={expanded} marginX={'1rem'} onClick={(e) => onExpand(record, e)} />
 );
-
 export const Table = (props: TableProps) => {
   const {
     // dataSource,
@@ -60,6 +59,7 @@ export const Table = (props: TableProps) => {
     captionChildren = null,
     paginationType = PaginationType.PAGINATED,
     showHeader,
+    size = 'small',
     ...restProps
   } = props;
 
@@ -73,7 +73,6 @@ export const Table = (props: TableProps) => {
       return 'odd-row';
     }
   };
-
   const _showHeader = showHeader ?? (isMobileOrTablet ? false : !!(props.dataSource && props.dataSource.length));
 
   const _columns: ColumnsType<any> = [...(columns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
@@ -124,21 +123,23 @@ export const Table = (props: TableProps) => {
       props.onChange({}, {}, {}, {} as any);
     }
   }
-
   const table = (
     <>
-      <S.Table
-        caption={caption}
-        variant={variant}
-        // dataSource={dataSource}
-        columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
-        rowClassName={rowClassName}
-        expandable={_expandable}
-        pagination={_pagination}
-        showHeader={_showHeader}
-        scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
-        {...restProps}
-      />
+      <ConfigProvider theme={{ components: { Table: { headerBorderRadius: variant == 'complex' ? 0 : 8 } } }}>
+        <S.Table
+          caption={caption}
+          variant={variant}
+          size={size}
+          // dataSource={dataSource}
+          columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
+          rowClassName={rowClassName}
+          expandable={_expandable}
+          pagination={_pagination}
+          showHeader={_showHeader}
+          scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
+          {...restProps}
+        />
+      </ConfigProvider>
 
       {paginationType === PaginationType.INCREMENTAL && !props?.isLastPage && (
         <Box marginTop={'1.4rem'} marginBottom={'2.4rem'} fillChildren={false} justifyContent={'center'}>
