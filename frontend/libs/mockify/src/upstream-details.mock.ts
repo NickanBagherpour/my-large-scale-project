@@ -1,4 +1,4 @@
-import { servicesList, type UpstreamDetails } from './data/upstream-details.data';
+import { upstreamDetailsList, type UpstreamDetails } from './data/upstream-details.data';
 
 type Params = {
   searchTerm: string;
@@ -29,16 +29,16 @@ export const CLIENTS_LIST_LIMIT = 16;
 //   });
 // }
 
-function sortByName(services: UpstreamDetails[], order: 'newest' | 'oldest'): UpstreamDetails[] {
+function sortByName(services: UpstreamDetails, order: 'newest' | 'oldest'): UpstreamDetails {
   return services;
 }
 
 export const getUpstreamDetails = async ({ searchTerm, status, sort, page }: Params) => {
-  const data = servicesList;
+  const data = upstreamDetailsList;
 
-  return new Promise<{ data: { list: UpstreamDetails[]; total: number } }>((resolve) => {
+  return new Promise<{ data: { list: UpstreamDetails } }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: { list: data, total: 8 } });
+      resolve({ data: { list: data } });
     }, 700);
   });
 };

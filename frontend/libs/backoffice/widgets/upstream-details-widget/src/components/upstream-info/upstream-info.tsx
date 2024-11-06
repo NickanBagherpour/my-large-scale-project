@@ -12,10 +12,11 @@ import { FormSchema } from '../../types/setting.schema';
 
 // export default function UpstreamInfo() {
 type UpstreamInfoProps = PageProps & {
-  //
-  // userData: any;
+  name?: string;
+  persianName?: string;
 };
 const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
+  const { name, persianName } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();
@@ -23,9 +24,16 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   const defaultValues = {
-    [FORM_ITEM_NAMES.name]: 'mohsen',
-    [FORM_ITEM_NAMES.persianName]: 'جعفری',
+    [FORM_ITEM_NAMES.name]: name,
+    [FORM_ITEM_NAMES.persianName]: persianName,
   };
+
+  useEffect(() => {
+    form.setFieldsValue({
+      [FORM_ITEM_NAMES.name]: name,
+      [FORM_ITEM_NAMES.persianName]: persianName,
+    });
+  }, [name, persianName, form]);
 
   const rule = createSchemaFieldRule(FormSchema(t));
 
