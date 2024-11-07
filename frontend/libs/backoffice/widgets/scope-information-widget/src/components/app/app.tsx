@@ -1,8 +1,8 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 import { Box, Button, Tabs, TabsProps } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
@@ -22,6 +22,12 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const id: Nullable<string> = searchParams.get('id');
+  if (!id) {
+    redirect('/not-found');
+  }
   /* Sample Query Usage
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 

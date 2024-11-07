@@ -1,8 +1,6 @@
-import { respondTo } from '@oxygen/utils';
+import { respondTo, withOpacity } from '@oxygen/utils';
 import { Table as UiKitTable } from '@oxygen/ui-kit';
 import styled from 'styled-components';
-
-
 
 export const container = styled.div`
   display: flex;
@@ -26,11 +24,18 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
+
+export const SvgButton = styled.div`
+width: 3.8rem;
+height: 3.8rem;
+border-radius: 10rem;
+background-color:aqua;
+`;
 export const Icon = styled.i`
   font-size: large;
 `;
 export const Table = styled(UiKitTable)`
-margin-top: 1.6rem;
+  margin-top: 1.6rem;
   &.ant-table-wrapper {
     display: flex;
     flex-grow: 1;
@@ -50,3 +55,7 @@ margin-top: 1.6rem;
     }
   }
 `;
+export const ButtonWraper =styled.div<{background:string}>`
+  background-color: ${p=>withOpacity( p.theme[p.background].main,5)};
+  border-radius: 100%;
+`

@@ -73,6 +73,9 @@ export const AppBar = styled(Header)`
       line-height: 0;
     }
   }
+  @media print {
+    display: none;
+  }
 `;
 
 export const Divider = styled.div`

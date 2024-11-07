@@ -12,11 +12,17 @@ export const Sider = styled(AntSider)`
   left: var(${cssVar.drawerSideGap});
   bottom: 0;
   background: ${(p) => p.theme.surface} !important;
+  @media print{
+    display:none;
+  }
 `;
 
 export const Drawer = styled(AntDrawer)`
   &.ant-drawer-content {
     background: ${(p) => p.theme.surface};
+  }
+  @media print{
+    display:none;
   }
 `;
 
@@ -117,6 +123,9 @@ export const MenuWrapper = styled.div`
   }
 
   ${hideScrollbar()}
+  @media print {
+    display:none;
+  }
 `;
 
 export const SiderItemsWrapper = styled.div`
