@@ -6,7 +6,7 @@ export default {
     nationalCode: 'کد ملی (اختیاری)',
     organizationName: 'نام سازمان',
     mobileNumber: 'تلفن همراه',
-    telePhone: 'تلفن (اختیاری)',
+    telPhone: 'تلفن (اختیاری)',
     email: 'ایمیل (اختیاری)',
     save_changes: 'ذخیره تغییرات ',
     cancel: 'انصراف',
@@ -16,7 +16,7 @@ export default {
     nationalCode: 'کدملی(اختیاری)',
     organizationName: 'نام سازمان',
     mobileNumber: 'تلفن همراه',
-    telePhone: 'تلفن(اختیاری)',
+    telPhone: 'تلفن(اختیاری)',
     email: 'ایمیل(اختیاری)',
   },
 };

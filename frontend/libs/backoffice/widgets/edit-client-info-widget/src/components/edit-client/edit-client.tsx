@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Tooltip } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, Dropdown, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
+import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
 import { useGetTags } from '../../services/get-tag-info.api';
-import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { createFormSchema } from '../../types';
+import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
+import { initialValues } from '../../utils/initial-values';
+import { CLIENT_DETAILS_URL, LABEL_LENGTH_LIMIT, MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './edit-client.style';
-import { initialValues } from '../../utils/initial-values';
-import { MAX_LENGTH } from '../../utils/consts';
 
 type FirstStepProps = PageProps & {
   //
@@ -81,6 +81,25 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const shouldShowTooltip = (tag) => {
+    const isLongLabel = tag.label.length > LABEL_LENGTH_LIMIT;
+    if (isLongLabel) {
+      return (
+        <Tooltip title={tag.label} arrow={true} key={tag.key}>
+          <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
+            <span> {tag.label}</span>
+          </Chip>
+        </Tooltip>
+      );
+    } else {
+      return (
+        <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
+          <span> {tag.label}</span>
+        </Chip>
+      );
+    }
+  };
+
   const clientType = [
     {
       value: '',
@@ -104,7 +123,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   return (
     <S.EditClientContainer>
-      <div className={'form_wrapper'}>
+      <div className={'form-wrapper'}>
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={initialValues(userData)}>
           <Form.Item
@@ -117,70 +136,28 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             <Switch />
           </Form.Item>
 
-          <div className={'grid'}>
-            <div className='item1'>
-              <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.grantType}>
-                <Dropdown.Select
-                  loading={isGrantTypeFetching}
-                  menu={grantTypeData}
-                  multiSelect={true}
-                  onChange={handleGrantTypeChange}
-                >
-                  {t('form.grant_type')}
-                </Dropdown.Select>
-              </Form.Item>
-            </div>
-            <span className={'line'}></span>
-            <div className='item2'>
-              <div className='tags_wrapper'>
-                {grantTypeState.map((item) => (
-                  <Tooltip placement='top' title={item.label}>
-                    <Chip
-                      type={'active'}
-                      key={item.key}
-                      onClose={() => handleGrantTypeClose(item)}
-                      className={'tags'}
-                      closeIcon
-                    >
-                      <span className={'text'}>{item.label}</span>
-                    </Chip>
-                  </Tooltip>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className={'grid'}>
-            <div className='item1'>
-              <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.tags} className={'drop_down_input'}>
-                <Dropdown.Select
-                  loading={isTagsFetching}
-                  menu={tagsData}
-                  multiSelect={true}
-                  onChange={handleTagsChange}
-                >
-                  {t('form.add_tags')}
-                </Dropdown.Select>
-              </Form.Item>
-            </div>
-            <span className={'line'}></span>
-            <div className='item2'>
-              <div className={'tags_wrapper'}>
-                {tagsState.map((item) => (
-                  <Tooltip placement='top' title={item.label}>
-                    <Chip
-                      type={'active'}
-                      key={item.key}
-                      onClose={() => handleTagsClose(item)}
-                      className={'tags'}
-                      closeIcon
-                    >
-                      <span className={'text'}>{item.label}</span>
-                    </Chip>
-                  </Tooltip>
-                ))}
-              </div>
-            </div>
-          </div>
+          <S.TagPicker>
+            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.grantType}>
+              <S.Select
+                loading={isGrantTypeFetching}
+                menu={grantTypeData}
+                multiSelect={true}
+                onChange={handleGrantTypeChange}
+              >
+                {t('form.grant_type')}
+              </S.Select>
+            </Form.Item>
+            <div>{grantTypeState.map((tag: any) => shouldShowTooltip(tag))}</div>
+          </S.TagPicker>
+
+          <S.TagPicker>
+            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.tags}>
+              <S.Select loading={isTagsFetching} menu={tagsData} multiSelect={true} onChange={handleTagsChange}>
+                {t('form.add_tags')}
+              </S.Select>
+            </Form.Item>
+            <div>{tagsState.map((tag: any) => shouldShowTooltip(tag))}</div>
+          </S.TagPicker>
 
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
@@ -223,7 +200,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
         </Form>
       </div>
       <div className={'footer'}>
-        <Button variant={'outlined'} href={'/client-details'}>
+        <Button variant={'outlined'} href={CLIENT_DETAILS_URL}>
           {t('form.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>

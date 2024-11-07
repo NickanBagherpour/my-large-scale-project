@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useTheme } from 'styled-components';
 import { Checkbox, Dropdown, DropdownProps, Form } from 'antd';
 import { ItemType } from 'antd/lib/menu/interface';
@@ -20,6 +20,8 @@ export type DropdownSelectProps = Omit<DropdownProps, ' menu'> & {
   defaultValue?: MenuItemType[];
   value?: MenuItemType[];
   loading?: boolean;
+  iconPosition?: 'start' | 'end';
+  firstIconClassName?: string;
 };
 
 export const DropdownSelect = (props: DropdownSelectProps) => {
@@ -31,6 +33,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
     multiSelect = false,
     onChange,
     loading = false,
+    iconPosition = 'end',
     ...rest
   } = props;
 
@@ -166,7 +169,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
   const uniqueId = uuid();
 
   return (
-    <S.DropdownSelectContainer error={hasError()}>
+    <S.DropdownSelectContainer error={hasError()} iconPosition={iconPosition}>
       <S.DropdownContainer id={uniqueId}></S.DropdownContainer>
       <Dropdown
         menu={menuProps}
@@ -179,11 +182,14 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
         disabled={loading}
         {...rest}
       >
-        <Button type='default' className={'dropdown-button'} variant={'outlined'}>
-          <S.StyledSpace>
-            {loading ? <Loading size={'small'} /> : <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} />}
-            {children}
-          </S.StyledSpace>
+        <Button
+          type='default'
+          className={'dropdown-button'}
+          icon={loading ? <Loading size={'small'} /> : <i className={open ? 'icon-arrow-up' : 'icon-chev-down'} />}
+          variant={'outlined'}
+          iconPosition={iconPosition}
+        >
+          <S.StyledSpace>{children}</S.StyledSpace>
         </Button>
       </Dropdown>
     </S.DropdownSelectContainer>

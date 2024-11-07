@@ -6,7 +6,7 @@ export const EditScopeContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .form_wrapper {
+  .form-wrapper {
     display: flex;
     margin: 2.4rem 0;
     flex-direction: column;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Space } from 'antd';
 
-export const DropdownSelectContainer = styled.div<{ error: boolean }>`
+export const DropdownSelectContainer = styled.div<{ error: boolean; iconPosition: string }>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 1.6rem;
@@ -12,6 +12,12 @@ export const DropdownSelectContainer = styled.div<{ error: boolean }>`
     font-size: 1.4rem;
     font-weight: 500;
     padding: 0.8rem 1.6rem;
+
+    &.ant-btn {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
 
     & i {
       font-size: 1.8rem;
@@ -35,6 +41,7 @@ export const DropdownContainer = styled.div`
       margin-bottom: 0.8rem;
     }
   }
+
   & .ant-dropdown-menu-item-divider {
     background-color: ${(props) => props.theme.border._300};
     margin: 0.8rem 0.4rem;

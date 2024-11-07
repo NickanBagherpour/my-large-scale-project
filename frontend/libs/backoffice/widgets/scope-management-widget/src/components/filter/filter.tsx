@@ -9,7 +9,7 @@ import { Input } from '@oxygen/ui-kit';
 import { useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { MAX_LENGTH_INPUT } from '../../utils/consts';
+import { MAX_LENGTH_INPUT, SCOPE_CREATION_URL } from '../../utils/consts';
 
 import { createFormSchema } from '../../types';
 
@@ -58,7 +58,7 @@ const Filter: React.FC<FilterProps> = (props) => {
           <S.Button color='primary' variant='outlined' onClick={handleChangeModal}>
             {t('button.upload_scope')}
           </S.Button>
-          <S.Button href='/scope-creation' color='primary' variant='solid'>
+          <S.Button href={SCOPE_CREATION_URL} color='primary' variant='solid'>
             {t('button.create_new_scope')}
           </S.Button>
         </S.Buttons>
