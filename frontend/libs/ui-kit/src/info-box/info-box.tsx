@@ -35,7 +35,6 @@ export const InfoBox = (props: InfoBoxProps) => {
         return (
           <div className={`${item?.fullwidth ? 'fullwidth' : ''}`}>
             <Box className='info-box__title'>{t(item.key)}</Box>
-
             {item.type !== 'file' ? (
               <Box className={`info-box__value-wrapper`}>
                 <span className='info-box__value'>{item.value}</span>

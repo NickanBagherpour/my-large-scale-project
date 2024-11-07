@@ -23,7 +23,6 @@ export const Para = styled.p`
   margin: 0 0 0.4rem 0;
 `;
 export const StyleInput = styled(Input)`
-  height: 24px;
   max-width: 26.7rem;
 `;
 

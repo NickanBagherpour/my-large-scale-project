@@ -332,4 +332,16 @@ export default {
   autocomplete: {
     search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   },
+
+  validation: {
+    required: 'این فیلد اجباریست',
+    incorrect: 'خطا',
+    // max_length: 'حداکثر طول مجاز {{length}} کاراکتر می باشد',
+    max_length: 'حداکثر طول مجاز رعایت نشده است',
+    min_length: 'حداقل طول مجاز رعایت نشده است',
+    choose_one_option: 'یکی از گزینه‌ها را انتخاب کنید',
+    website_url_error: 'آدرس وبسایت معتبر نیست',
+    english_name_error: 'نام انگلیسی معتبر نیست',
+    persian_name_error: 'نام فارسی معتبر نیست',
+  },
 };

@@ -11,7 +11,7 @@ export function updateMessageAction(dispatch: WidgetDispatchType, message: Nulla
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
-export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
+export function resetMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }
 

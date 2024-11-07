@@ -5,7 +5,7 @@ import { PageProps } from '@oxygen/types';
 import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useGetUpstreamQuery } from '../../services/get-report.api';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
@@ -28,10 +28,9 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle} fillContainer={true}>
       <GlobalMessageContainer
-        containerProps={{ marginTop: '2.4rem' }}
         message={message}
         onClose={() => {
-          resetErrorMessageAction(dispatch);
+          resetMessageAction(dispatch);
         }}
       />
       <Filters />

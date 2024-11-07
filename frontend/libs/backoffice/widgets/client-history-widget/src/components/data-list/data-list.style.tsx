@@ -22,6 +22,11 @@ export const MobileTableItem = styled.div`
   }
 `;
 
+export const BadgeItemContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const TableContainer = styled(Box)`
   //flex: 1;
   margin-top: 2.4rem;
@@ -47,6 +52,10 @@ export const TableContainer = styled(Box)`
       }
     }
   }
+
+  &&& .item__title {
+    max-width: 11rem;
+  }
 `;
 
 export const ValueContainer = styled.div`
@@ -59,4 +68,11 @@ export const ValueContainer = styled.div`
     width: 0.8rem;
     height: 0.8rem;
   }
+`;
+export const EllipsisValueContainer = styled.span<{ width: number }>`
+  display: inline-block;
+  max-width: ${(props) => props.width}px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

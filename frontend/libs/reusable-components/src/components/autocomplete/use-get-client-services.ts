@@ -19,7 +19,7 @@ export type ClientService = {
 
 const mockData: ClientService[] = [
   {
-    title: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
+    title: 'دریافت کد‌های ملی متعلق به یک شمارهn موبایل',
     subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
     serviceName: 'samat-lc-gutr-del',
     persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',

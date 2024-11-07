@@ -10,3 +10,7 @@ export const MainContentLayout = styled(Layout)`
   //margin-right: ${(p) => (p.theme.direction === Direction.LTR ? 0 : `var(${cssVar.mainContentMargin})`)};
   background-color: ${(p) => p.theme.background.main};
 `;
+
+export const MainLayout = styled(Layout)`
+  isolation: isolate;
+`;
