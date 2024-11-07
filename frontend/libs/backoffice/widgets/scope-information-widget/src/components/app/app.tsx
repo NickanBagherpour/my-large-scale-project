@@ -48,12 +48,12 @@ const App: React.FC<AppProps> = (props) => {
 
   const items: TabsProps['items'] = [
     {
-      key: '1',
+      key: 'scop-info',
       label: t('first_tab.name'),
       children: <FirstTab />,
     },
     {
-      key: '2',
+      key: 'services',
       label: t('second_tab.name'),
       children: <SecondTab />,
     },
@@ -62,7 +62,7 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.AppContainer title={t('widget_name')}>
       <S.Content>
-        <Tabs defaultActiveKey='1' items={items}></Tabs>
+        <Tabs defaultActiveKey='scop-info' items={items}></Tabs>
       </S.Content>
       <S.Footer>
         <Button variant={'solid'} onClick={handleReturn}>

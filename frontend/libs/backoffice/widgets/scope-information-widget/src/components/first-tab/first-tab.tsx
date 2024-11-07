@@ -21,7 +21,7 @@ const {data, isFetching}=useGetFirstTabReportDataQuery()
     },
   ];
   return (
-    <>
+    <S.Firststep>
       <S.FirstStepHeader>
         <S.FirstStepTitle>{t('first_tab.title')}</S.FirstStepTitle>
         <S.ButtonContainer>
@@ -32,7 +32,7 @@ const {data, isFetching}=useGetFirstTabReportDataQuery()
         </S.ButtonContainer>
       </S.FirstStepHeader>
       <InfoBox data={item} margin={'1.6rem 0 0 0'}></InfoBox>
-    </>
+    </S.Firststep>
   );
 }
 

@@ -23,6 +23,7 @@ export const Drawer = styled(AntDrawer)`
   }
   @media print{
     display:none;
+    width: 0;
   }
 `;
 

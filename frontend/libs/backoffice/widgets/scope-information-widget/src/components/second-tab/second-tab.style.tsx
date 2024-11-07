@@ -24,15 +24,8 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
-
-export const SvgButton = styled.div`
-width: 3.8rem;
-height: 3.8rem;
-border-radius: 10rem;
-background-color:aqua;
-`;
 export const Icon = styled.i`
-  font-size: large;
+  font-size: x-large;
 `;
 export const Table = styled(UiKitTable)`
   margin-top: 1.6rem;
