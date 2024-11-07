@@ -1,12 +1,13 @@
 import { z } from 'zod';
 import { FORM_ITEM_NAMES } from '../utils/form-item-name';
+import { REGEX_PATTERNS } from '@oxygen/utils';
 
 export const createFormSchema = (t: (key: string) => string) =>
   z.object({
     [FORM_ITEM_NAMES.latinNameClient]: z
       .string({ required_error: t('error.required') })
       .min(1, { message: t('error.required') })
-      .regex(/^[^\u0600-\u06FF]*$/, {
+      .regex(REGEX_PATTERNS.isLatinText, {
         message: t('error.english_character'),
       }),
   });
