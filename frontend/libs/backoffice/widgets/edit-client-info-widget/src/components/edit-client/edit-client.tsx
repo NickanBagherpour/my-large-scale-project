@@ -13,7 +13,7 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { createFormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import { CLIENT_DETAILS_URL, MAX_LENGTH } from '../../utils/consts';
+import { CLIENT_DETAILS_URL, LABEL_LENGTH_LIMIT, MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './edit-client.style';
 
@@ -81,6 +81,25 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const shouldShowTooltip = (tag) => {
+    const isLongLabel = tag.label.length > LABEL_LENGTH_LIMIT;
+    if (isLongLabel) {
+      return (
+        <Tooltip title={tag.label} arrow={true} key={tag.key}>
+          <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
+            <span> {tag.label}</span>
+          </Chip>
+        </Tooltip>
+      );
+    } else {
+      return (
+        <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
+          <span> {tag.label}</span>
+        </Chip>
+      );
+    }
+  };
+
   const clientType = [
     {
       value: '',
@@ -128,15 +147,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
                 {t('form.grant_type')}
               </S.Select>
             </Form.Item>
-            <div>
-              {grantTypeState.map((tag: any) => (
-                <Tooltip title={tag.label} key={tag.key}>
-                  <Chip key={tag.key} type='active' closeIcon onClose={() => handleGrantTypeClose(tag)}>
-                    <span> {tag.label}</span>
-                  </Chip>
-                </Tooltip>
-              ))}
-            </div>
+            <div>{grantTypeState.map((tag: any) => shouldShowTooltip(tag))}</div>
           </S.TagPicker>
 
           <S.TagPicker>
@@ -145,15 +156,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
                 {t('form.add_tags')}
               </S.Select>
             </Form.Item>
-            <div>
-              {tagsState.map((tag: any) => (
-                <Tooltip title={tag.label} arrow={true} key={tag.key}>
-                  <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
-                    <span> {tag.label}</span>
-                  </Chip>
-                </Tooltip>
-              ))}
-            </div>
+            <div>{tagsState.map((tag: any) => shouldShowTooltip(tag))}</div>
           </S.TagPicker>
 
           <SearchItemsContainer>
