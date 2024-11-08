@@ -38,7 +38,7 @@ export default function Filters() {
           <S.Button href='/load-service' color='primary' variant='outlined'>
             {t('upload_service')}
           </S.Button>
-          <S.Button href='/create-service' color='primary' variant='solid'>
+          <S.Button href='/service-creation' color='primary' variant='solid'>
             {t('create_new_service')}
           </S.Button>
         </S.Buttons>

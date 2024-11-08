@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import FirstStep from '../first-step/first-step';
-import { SecondStep } from '../second-step/second-step';
-import { ThirdStep } from '../third-step/third-step';
 import FourthStep from '../fourth-step/fourth-step';
+import { ThirdStep } from '../third-step/third-step';
+import { SecondStep } from '../second-step/second-step';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -16,6 +18,8 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
+  const state = useAppState();
+  const dispatch = useAppDispatch();
   const [currentStep, setCurrentStep] = useState(0);
 
   const stepsItem = [
@@ -27,6 +31,12 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('create_new_client')}>
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       <S.Steps items={stepsItem} current={currentStep} />
       {stepsItem[currentStep].Content}
     </S.AppContainer>

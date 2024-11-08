@@ -11,3 +11,4 @@ export { default as numberToPersian } from './lib/number-to-persian';
 export * from './lib/with-error-handling';
 export * from './lib/react-query-keys';
 export * from './lib/routes';
+export * from './lib/pattern-util';
