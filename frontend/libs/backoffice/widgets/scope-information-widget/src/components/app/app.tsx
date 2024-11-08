@@ -3,11 +3,12 @@ import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { Box, Button, Tabs, TabsProps } from '@oxygen/ui-kit';
+import { Button, Tabs, TabsProps } from '@oxygen/ui-kit';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import FirstTab from '../first-tab/first-tab';
 import SecondTab from '../second-tab/second-tab';
-import { useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -47,6 +48,12 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')}>
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       <S.Content>
         <Tabs defaultActiveKey='scop-info' items={items}></Tabs>
       </S.Content>
