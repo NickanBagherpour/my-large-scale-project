@@ -16,7 +16,7 @@ type InfoBoxProps = {
   margin?: CSSProperties['margin'];
   minColumnCount?: number;
   titleWordWrap?: boolean;
-  loading:boolean;
+  loading?: boolean;
 };
 
 export const InfoBox = (props: InfoBoxProps) => {
@@ -27,16 +27,18 @@ export const InfoBox = (props: InfoBoxProps) => {
     margin = '2rem 3.2rem',
     minColumnCount = 4,
     titleWordWrap = true,
-    loading=false
+    loading = false,
   } = props;
 
   const [t] = useTr();
-if(loading){
-  return(    <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={1} wrap={titleWordWrap}>
-<Loading />
-    {footer && <Box className='info-box__footer'>{footer}</Box>}
-  </S.InfoBoxWrapper>)
-}
+  if (loading) {
+    return (
+      <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={1} wrap={titleWordWrap}>
+        <Loading />
+        {footer && <Box className='info-box__footer'>{footer}</Box>}
+      </S.InfoBoxWrapper>
+    );
+  }
   return (
     <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={minColumnCount} wrap={titleWordWrap}>
       {data?.map((item: InfoItemType, index) => {
