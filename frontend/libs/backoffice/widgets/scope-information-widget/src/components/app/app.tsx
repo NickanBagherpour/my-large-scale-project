@@ -5,12 +5,11 @@ import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Box, Button, Tabs, TabsProps } from '@oxygen/ui-kit';
 
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
-
-import * as S from './app.style';
 import FirstTab from '../first-tab/first-tab';
 import SecondTab from '../second-tab/second-tab';
+import { useAppDispatch, useAppState } from '../../context';
+
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //

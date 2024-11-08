@@ -1,9 +1,13 @@
 import React from 'react';
-import * as S from './first-tab.style';
+
+import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox } from '@oxygen/ui-kit';
+
 import { useGetFirstTabReportDataQuery } from '../../services/get-report.api';
-import { PageProps } from '@oxygen/types';
+
+import * as S from './first-tab.style';
+
 type FirstTabType = PageProps & {
   id: string;
 };
@@ -13,8 +17,8 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
   const [t] = useTr();
   const { data, isFetching } = useGetFirstTabReportDataQuery();
 
-const latinName=data&&data[0].label
-const farsiName=data&&data[1].label
+  const latinName = data && data[0].label;
+  const farsiName = data && data[1].label;
   const item = [
     {
       key: t('first_tab.latin_scope_name'),
@@ -33,7 +37,7 @@ const farsiName=data&&data[1].label
           <Button href={`/scope-history?id=${id}`} variant='filled' icon={<S.Icon className={'icon-clock'}></S.Icon>}>
             {t('first_tab.view_history_changes')}
           </Button>
-          <Button href={`/scope-edit?id=${id}`}  icon={<S.Icon className={'icon-edit'}></S.Icon>}>
+          <Button href={`/scope-edit?id=${id}`} icon={<S.Icon className={'icon-edit'}></S.Icon>}>
             {t('first_tab.edit')}
           </Button>
         </S.ButtonContainer>
