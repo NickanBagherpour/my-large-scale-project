@@ -19,7 +19,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const [t] = useTr();
 
   const { data:tableDataQuery, isFetching:tabelIsFetching } = useGetServicesQuery({ page: 1, rowsPerPage: 5,id:id });
-  const { data, isFetching:excelIsFetching , refetch } = useExcelDownloadQuery({ id:id});
+  const {isFetching:excelIsFetching , refetch } = useExcelDownloadQuery({ id:id});
 
   const [modals, setModals] = useState<Modal>({
     details: false,
@@ -33,7 +33,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
     window.print();
   };
   const handleExcleDownload = () => {
-    refetch
+    refetch()
   };
 
   const desktopColumns = getDesktopColumns({ t, toggleModal });
