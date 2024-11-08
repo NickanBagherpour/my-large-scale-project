@@ -1,16 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 import { Box, Button, Tabs, TabsProps } from '@oxygen/ui-kit';
 
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
-
-import * as S from './app.style';
 import FirstTab from '../first-tab/first-tab';
 import SecondTab from '../second-tab/second-tab';
+import { useAppDispatch, useAppState } from '../../context';
+
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //
@@ -22,19 +21,12 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const router = useRouter();
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const searchParams = useSearchParams();
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
+  const id: Nullable<string> = searchParams.get('id');
+  if (!id) {
+    redirect('/not-found');
+  }
 
   const handleReturn = () => {
     router.back();
@@ -42,21 +34,21 @@ const App: React.FC<AppProps> = (props) => {
 
   const items: TabsProps['items'] = [
     {
-      key: '1',
+      key: 'scop-info',
       label: t('first_tab.name'),
-      children: <FirstTab />,
+      children: <FirstTab id={id} />,
     },
     {
-      key: '2',
+      key: 'services',
       label: t('second_tab.name'),
-      children: <SecondTab />,
+      children: <SecondTab id={id} />,
     },
   ];
 
   return (
     <S.AppContainer title={t('widget_name')}>
       <S.Content>
-        <Tabs defaultActiveKey='1' items={items}></Tabs>
+        <Tabs defaultActiveKey='scop-info' items={items}></Tabs>
       </S.Content>
       <S.Footer>
         <Button variant={'solid'} onClick={handleReturn}>

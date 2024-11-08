@@ -11,10 +11,13 @@ export const Footer = styled.div`
   justify-content: end;
   border-top: 1px solid ${(p) => p.theme.border._100};
   gap: 1.2rem;
+  @media print {
+    display: none;
+  }
 `;
-export const Content=styled.div`
-display: flex;
-flex-direction: column;
-flex-grow: 1;
-margin: 2.4rem 0;
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 2.4rem 0;
 `;
