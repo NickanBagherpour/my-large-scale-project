@@ -33,27 +33,6 @@ export const EditClientContainer = styled.div`
       }
     }
   }
-
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    border-top: 1px solid ${(p) => p.theme.border.main};
-    gap: 1rem;
-    padding: 1.5rem 0;
-
-    ${respondTo.down('sm')} {
-      flex-direction: column;
-
-      button {
-        width: 100%;
-
-        &:first-of-type {
-          order: 1;
-        }
-      }
-    }
-  }
 `;
 
 export const TagPicker = styled.div`
