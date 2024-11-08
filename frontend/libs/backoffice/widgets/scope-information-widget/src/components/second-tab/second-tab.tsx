@@ -1,30 +1,38 @@
 import React, { useState } from 'react';
-import { Button, Table } from '@oxygen/ui-kit';
+
+import { Button } from '@oxygen/ui-kit';
+import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
-import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
-import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
-import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 import DetailsModal from './modals/info-service-modal/info-service-modal';
+import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
+import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
+import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
+import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
 
 import * as S from './second-tab.style';
-import { PageProps } from '@oxygen/types';
-import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
+
 type SecondTabTypes = PageProps & {
   id: string;
 };
 
 const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const { id } = props;
+
   const [t] = useTr();
 
-  const { data:tableDataQuery, isFetching:tabelIsFetching } = useGetServicesQuery({ page: 1, rowsPerPage: 5,id:id });
-  const {isFetching:excelIsFetching , refetch } = useExcelDownloadQuery({ id:id});
+  const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
+    page: 1,
+    rowsPerPage: 5,
+    id: id,
+  });
+  const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
 
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
+
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
   };
@@ -33,7 +41,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
     window.print();
   };
   const handleExcleDownload = () => {
-    refetch()
+    refetch();
   };
 
   const desktopColumns = getDesktopColumns({ t, toggleModal });
@@ -42,12 +50,11 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
 
   return (
     <>
-      <S.FirstStepHeader>
-        <S.FirstStepTitle>{t('second_tab.title')}</S.FirstStepTitle>
+      <S.SecondTabHeader>
+        <S.SecondTabTitle>{t('second_tab.title')}</S.SecondTabTitle>
         <S.ButtonContainer>
           <S.ButtonWraper background={'primary'}>
             <Button
-              href=''
               onClick={handlePrint}
               variant='link'
               color='primary'
@@ -57,7 +64,6 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
           </S.ButtonWraper>
           <S.ButtonWraper background={'secondary'}>
             <Button
-              href=''
               onClick={handleExcleDownload}
               loading={excelIsFetching}
               variant='link'
@@ -67,7 +73,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
             ></Button>
           </S.ButtonWraper>
         </S.ButtonContainer>
-      </S.FirstStepHeader>
+      </S.SecondTabHeader>
       <S.Table
         dataSource={tableData}
         loading={tabelIsFetching}

@@ -10,6 +10,10 @@ export const StyledTabs = styled<any>(AntTabs)`
     font-size: 1.4rem;
     margin: 0;
 
+    @media print {
+      display: none; /*conceal the element in print */
+    }
+
     &.ant-tabs-tab-active {
       background-color: ${(p) => p.theme.primary._50};
     }
