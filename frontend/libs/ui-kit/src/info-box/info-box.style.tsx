@@ -11,10 +11,10 @@ function generateXs(props) {
   `;
 }
 
-export const InfoBoxWrapper = styled.div<any>`
+export const InfoBoxWrapper = styled.div<{min_col:number,margin:string|number,dense:boolean ,wrap:boolean}>`
   margin: ${(p) => p.margin};
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(${(p) => p.min_col}, 1fr);
   background-color: ${(p) => p.theme.cardColor};
   border: 2px solid ${(p) => p.theme.background._200};
   border-radius: 12px;
@@ -74,7 +74,7 @@ export const InfoBoxWrapper = styled.div<any>`
   & .info-box__sub-value {
     font-size: 1.3rem;
     font-weight: 300;
-    color: ${(p) => p.theme.text.territory};
+    color: ${(p) => p.theme.text.tertiary};
   }
 
   & .info-box__files {

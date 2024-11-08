@@ -39,7 +39,7 @@ export const ButtonContainer = styled.div`
 export const Icon = styled.i`
   font-size: large;
 `;
-export const InfoBox = styled(UiKitInfoBox)`
+export const InfoBox = styled.div`
 &.info-box-style{
     background-color: red;
     margin: 0;

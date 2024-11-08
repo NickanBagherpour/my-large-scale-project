@@ -50,7 +50,7 @@ const App: React.FC<AppProps> = (props) => {
     {
       key: 'scop-info',
       label: t('first_tab.name'),
-      children: <FirstTab />,
+      children: <FirstTab id={id} />,
     },
     {
       key: 'services',
