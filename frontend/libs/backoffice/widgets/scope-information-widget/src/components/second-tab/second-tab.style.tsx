@@ -57,7 +57,11 @@ export const Table = styled(UiKitTable)`
     }
   }
   @media print {
-    layout: landscape;
+    /*print config */
+    @page {
+      size: landscape;
+      margin: 0;
+    }
   }
 `;
 export const ButtonWraper = styled.div<{ background: string }>`
