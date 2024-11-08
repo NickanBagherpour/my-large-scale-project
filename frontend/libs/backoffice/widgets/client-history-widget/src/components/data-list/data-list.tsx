@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 
 import { Badge, TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
 
-import { dateLocale, getValueOrDash, uuid } from '@oxygen/utils';
+import { getValueOrDash, uuid } from '@oxygen/utils';
 import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 import { PageProps } from '@oxygen/types';
@@ -26,7 +26,7 @@ const DataList: React.FC<dataListProps> = (props) => {
   const [t] = useTr();
   const theme = useTheme();
 
-  // const [showBadge, setShowBadge] = useState(true);
+  const [showBadge, setShowBadge] = useState(true);
 
   const {
     table: { pagination },
@@ -69,7 +69,7 @@ const DataList: React.FC<dataListProps> = (props) => {
             </S.MobileTableItem>
             <S.MobileTableItem>
               <S.BadgeItemContainer>
-                {'showBadge' && <Badge status='error' offset={[2, 0]} dot={'showBadge'} color={theme.error._600} />}
+                {showBadge && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
                 <span className={'item__title'}>{t('table.admin_name')}</span>
               </S.BadgeItemContainer>
               <span className={'item__value'}>{getValueOrDash(value?.adminName)}</span>

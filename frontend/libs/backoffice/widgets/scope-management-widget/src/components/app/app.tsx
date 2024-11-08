@@ -5,9 +5,10 @@ import { PageProps } from '@oxygen/types';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import * as S from './app.style';
 import Filter from '../filter/filter';
 import DataTable from '../data-table/data-table';
+
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //
