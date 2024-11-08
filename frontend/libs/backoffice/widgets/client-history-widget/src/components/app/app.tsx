@@ -11,6 +11,7 @@ import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppSt
 import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
+import { ROUTES } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -33,6 +34,8 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+
+  console.log('Routes: ', ROUTES);
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')}>

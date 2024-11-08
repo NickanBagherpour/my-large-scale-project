@@ -15,8 +15,8 @@ export function updatePagination(dispatch: WidgetDispatchType, pagination: Parti
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
-export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<MessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: errorMessage });
+export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {

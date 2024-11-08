@@ -39,9 +39,6 @@
             "@oxygen/backoffice/widgets/client-list-widget": [
                 "libs/backoffice/widgets/client-list-widget/src/index.ts"
             ],
-            "@oxygen/backoffice/widgets/create-new-client-widget": [
-                "libs/backoffice/widgets/create-new-client-widget/src/index.ts"
-            ],
             "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
                 "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"
             ],
@@ -57,8 +54,8 @@
             "@oxygen/backoffice/widgets/scope-creation-widget": [
                 "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
             ],
-            "@oxygen/backoffice/widgets/scope-management-widget": [
-                "libs/backoffice/widgets/scope-management-widget/src/index.ts"
+            "@oxygen/backoffice/widgets/scope-list-widget": [
+                "libs/backoffice/widgets/scope-list-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
@@ -66,8 +63,8 @@
             "@oxygen/backoffice/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"
             ],
-            "@oxygen/backoffice/widgets/services-list-widget": [
-                "libs/backoffice/widgets/services-list-widget/src/index.ts"
+            "@oxygen/backoffice/widgets/service-list-widget": [
+                "libs/backoffice/widgets/service-list-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/upstream-list-widget": [
                 "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
@@ -99,8 +96,8 @@
             "@oxygen/widgets/service-management-widget": [
                 "libs/widgets/service-management-widget/src/index.ts"
             ],
-            "@oxygen/widgets/services-list-widget": [
-                "libs/widgets/services-list-widget/src/index.ts"
+            "@oxygen/widgets/service-list-widget": [
+                "libs/widgets/service-list-widget/src/index.ts"
             ],
             "@oxygen/workspace-plugin": ["tools/workspace-plugin/src/index.ts"]
         }
