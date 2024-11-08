@@ -8,11 +8,18 @@ import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-moda
 import DetailsModal from './modals/info-service-modal/info-service-modal';
 
 import * as S from './second-tab.style';
+import { PageProps } from '@oxygen/types';
+import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
+type SecondTabTypes = PageProps & {
+  id: string;
+};
 
-function SecondTab() {
+const SecondTab: React.FC<SecondTabTypes> = (props) => {
+  const { id } = props;
   const [t] = useTr();
 
-  const { data, isFetching } = useGetServicesQuery({ page: 1, rowsPerPage: 5 });
+  const { data:tableDataQuery, isFetching:tabelIsFetching } = useGetServicesQuery({ page: 1, rowsPerPage: 5,id:id });
+  const { data, isFetching:excelIsFetching , refetch } = useExcelDownloadQuery({ id:id});
 
   const [modals, setModals] = useState<Modal>({
     details: false,
@@ -25,11 +32,13 @@ function SecondTab() {
   const handlePrint = () => {
     window.print();
   };
-
+  const handleExcleDownload = () => {
+    refetch
+  };
 
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const tableData = data?.list;
+  const tableData = tableDataQuery?.list;
 
   return (
     <>
@@ -49,6 +58,8 @@ function SecondTab() {
           <S.ButtonWraper background={'secondary'}>
             <Button
               href=''
+              onClick={handleExcleDownload}
+              loading={excelIsFetching}
               variant='link'
               color='secondary'
               shape='circle'
@@ -59,7 +70,7 @@ function SecondTab() {
       </S.FirstStepHeader>
       <S.Table
         dataSource={tableData}
-        loading={isFetching}
+        loading={tabelIsFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         pagination={false}
@@ -72,6 +83,6 @@ function SecondTab() {
       <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
     </>
   );
-}
+};
 
 export default SecondTab;

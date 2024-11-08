@@ -28,19 +28,6 @@ const App: React.FC<AppProps> = (props) => {
   if (!id) {
     redirect('/not-found');
   }
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
-
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
 
   const handleReturn = () => {
     router.back();
@@ -55,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
     {
       key: 'services',
       label: t('second_tab.name'),
-      children: <SecondTab />,
+      children: <SecondTab id={id} />,
     },
   ];
 
