@@ -5,6 +5,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
+import { FooterContainer } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -58,14 +59,14 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
+      <FooterContainer>
         <Button href={SCOPE_MANAGEMENT_URL} variant={'outlined'}>
           {t('buttons.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.EditScopeContainer>
   );
 };

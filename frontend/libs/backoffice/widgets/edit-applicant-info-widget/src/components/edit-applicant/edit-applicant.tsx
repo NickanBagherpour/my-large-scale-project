@@ -5,6 +5,7 @@ import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
+import { FooterContainer } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -69,14 +70,14 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
+      <FooterContainer>
         <Button variant={'outlined'} href={'/client-details'}>
           {t('form.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('form.save_changes')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.EditApplicantContainer>
   );
 };

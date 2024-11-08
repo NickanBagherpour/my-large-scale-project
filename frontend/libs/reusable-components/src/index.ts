@@ -1,4 +1,4 @@
-export { default as FooterButtonContainer } from './components/footer-button-container/footer-button-container';
+export { default as FooterContainer } from './components/footer-container/footer-container';
 export { default as ReturnButton } from './components/return-button/return-button';
 export { default as SecondaryTitle } from './components/title/secondary-title';
 export { default as SectionLabel } from './components/section-label/section-label';

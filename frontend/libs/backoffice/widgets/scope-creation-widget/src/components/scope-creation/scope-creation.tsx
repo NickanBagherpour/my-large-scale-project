@@ -14,6 +14,7 @@ import { SCOPE_MANAGEMENT_URL } from '../../utils/consts';
 import { MAX_LENGTH_INPUT } from '../../../../scope-management-widget/src/utils/consts';
 
 import * as S from './scope-creation.style';
+import { FooterContainer } from '@oxygen/reusable-components';
 
 type EditScopeProps = PageProps & {
   //
@@ -57,14 +58,14 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
+      <FooterContainer>
         <Button href={SCOPE_MANAGEMENT_URL} variant={'outlined'}>
           {t('buttons.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.ScopeCreationContainer>
   );
 };
