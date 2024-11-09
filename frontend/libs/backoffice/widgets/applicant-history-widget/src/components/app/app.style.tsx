@@ -11,11 +11,10 @@ export const AppContainer = styled(Container)`
 
   & .ant-btn.return-button {
     padding: 0.8rem 4rem;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px;
-    text-align: center;
-    border-color: ${(props) => props.theme.border.main};
+
+    & span {
+      font-weight: 500;
+      line-height: 22px;
+    }
   }
 `;
