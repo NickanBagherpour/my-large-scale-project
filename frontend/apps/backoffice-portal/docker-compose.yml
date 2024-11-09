@@ -1,18 +1,30 @@
-version: '3.8'
-
 services:
   app:
+    container_name: backoffice-portal-app # Custom name assigned here
     image: backoffice-portal
     # Remove the build section if you're using the built image
     # build:
     #   context: ./
     #   target: production
     #   dockerfile: Dockerfile
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
-      - /app/public
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+    #   - /app/.next
+    #   - /app/public
     ports:
-      - '3200:3200'
-    container_name: backoffice-portal-app # Custom name assigned here
+      - '3200'
+    networks:
+      - backoffice-portal-net
+
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mounts custom nginx.conf to container
+    ports:
+      - '80:80'
+    networks:
+      - backoffice-portal-net
+
+networks:
+  backoffice-portal-net:

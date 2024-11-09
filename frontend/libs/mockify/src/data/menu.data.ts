@@ -1,9 +1,11 @@
+import { ROUTES } from '@oxygen/utils';
+
 export const menus = [
   {
     id: 1,
     title: 'مدیریت کلاینت‌',
     order: 1,
-    href: '/client-list',
+    href: ROUTES.BACKOFFICE.CLIENT_LIST,
     icon: 'icon-grid',
     active: true,
     description: null,
@@ -14,7 +16,7 @@ export const menus = [
     id: 2,
     title: 'مدیریت سرویس',
     order: 2,
-    href: '/services-list',
+    href: ROUTES.BACKOFFICE.SERVICE_LIST,
     icon: 'icon-cloud-2',
     active: true,
     description: null,
@@ -25,7 +27,7 @@ export const menus = [
     id: 3,
     title: 'مدیریت اسکوپ',
     order: 3,
-    href: '/scope-management',
+    href: ROUTES.BACKOFFICE.SCOPE_LIST,
     icon: 'icon-status-2',
     active: true,
     description: null,
@@ -36,7 +38,7 @@ export const menus = [
     id: 4,
     title: 'مدیریت آپ استریم',
     order: 4,
-    href: '/up-stream-management',
+    href: ROUTES.BACKOFFICE.UPSTREAM_LIST,
     icon: 'icon-hierarchy-2',
     active: true,
     description: null,
