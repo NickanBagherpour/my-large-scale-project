@@ -5,6 +5,7 @@ import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState
 import { WidgetStateType } from '../../context/types';
 import { useState } from 'react';
 import { useBounce } from '@oxygen/hooks';
+import { ROUTES } from '@oxygen/utils';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -33,10 +34,10 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <S.Button href='/load-client' color='primary' variant='outlined'>
+          <S.Button color='primary' variant='outlined'>
             {t('upload_client')}
           </S.Button>
-          <S.Button href='/client-creation' color='primary' variant='solid'>
+          <S.Button href={ROUTES.BACKOFFICE.CLIENT_CREATION} color='primary' variant='solid'>
             {t('create_new_client')}
           </S.Button>
         </S.Buttons>
