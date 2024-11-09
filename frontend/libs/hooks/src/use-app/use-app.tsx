@@ -1,6 +1,6 @@
 'use client';
 
-import { message, Modal, notification } from 'antd';
+import { message, Modal, notification, App } from 'antd';
 import { useConfig } from '../use-config/use-config';
 
 import { Direction } from '@oxygen/types';
@@ -26,7 +26,7 @@ const useApp = (): IUseApp => {
   notification.config({
     placement: config.direction === Direction.RTL ? 'topRight' : 'topLeft',
     top: 85,
-    duration: 30000,
+    duration: 5,
     rtl: config.direction === Direction.RTL,
   });
 
@@ -35,18 +35,6 @@ const useApp = (): IUseApp => {
     duration: 3,
     rtl: config.direction === Direction.RTL,
   });
-
-  // const notify = (type: NotificationType, title: string, description: string) => {
-  //   const NotificationContent = (
-  //     <Notification type={type} title={title} message={description} />
-  //   );
-
-  //   notification.open({
-  //     message: null,
-  //     description: NotificationContent,
-  //     duration: 30000,
-  //   });
-  // };
 
   return {
     message,
