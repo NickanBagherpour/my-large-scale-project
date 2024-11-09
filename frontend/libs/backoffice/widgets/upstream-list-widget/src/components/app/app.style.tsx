@@ -8,9 +8,4 @@ export const UpstreamContainer = styled(Container)`
   & .header__title {
     font-weight: 500;
   }
-
-  & [class*='container-style__Divider'] {
-    border: 0;
-    border-bottom: 1px solid ${(props) => props.theme.border._100};
-  }
 `;

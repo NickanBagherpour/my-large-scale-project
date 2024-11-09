@@ -20,32 +20,6 @@ export const Grid = styled.section`
   ${respondTo.down('lg')} {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  & header[class*='grid-card-style__Header'] {
-    gap: 4rem;
-    min-height: 5rem;
-    align-items: flex-start;
-  }
-
-  & span[class*='grid-card-style__Title'] {
-    font-weight: 500;
-    text-wrap: wrap;
-    line-height: 2.5rem;
-    text-align: ${(props) => (props.theme.direction === 'rtl' ? 'right' : 'left')};
-  }
-
-  & i[class*='grid-card-style__Settings'] {
-    margin-inline-start: 0;
-  }
-
-  & p[class*='grid-card-style__Status'] {
-    font-size: 12px;
-    font-weight: 400;
-  }
-
-  & footer[class*='grid-card-style__Footer'] {
-    margin-top: 0.2rem;
-  }
 `;
 
 export const StyledButton = styled(Button)`
