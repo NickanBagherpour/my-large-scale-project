@@ -51,7 +51,10 @@ export const createGetInfoSchema = (t: TFunction) =>
     [FORM_ITEM_NAMES.host]: z
       .string({ required_error: t('validation.required') })
       .min(1, { message: t('validation.required') }),
-    [FORM_ITEM_NAMES.upstream]: z.string().refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.upstream]: z
+      .string()
+      .nullable()
+      .refine((val) => val, t('validation.choose_one_option')),
   });
 
 export type GetInfoValuesType = z.infer<ReturnType<typeof createGetInfoSchema>>;

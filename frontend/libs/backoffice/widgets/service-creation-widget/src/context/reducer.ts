@@ -11,7 +11,7 @@ export const initialStateValue: WidgetStateType = {
     version: '',
     access: null,
     category: null,
-    upstream: '',
+    upstream: null,
     protocole: null,
     englishName: '',
     persianName: '',
