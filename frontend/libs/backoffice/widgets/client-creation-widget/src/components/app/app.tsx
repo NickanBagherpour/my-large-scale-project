@@ -11,6 +11,8 @@ import { SecondStep } from '../second-step/second-step';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import { useApp } from '@oxygen/hooks';
+import { Button } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {
   //
@@ -20,6 +22,33 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();
+  const { notification } = useApp();
+
+  const handleClick = () => {
+    notification.info({
+      message: 'Notification Title',
+    });
+  };
+  const handleClick1 = () => {
+    notification.warning({
+      message: 'Notification Title',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+  };
+  const handleClick2 = () => {
+    notification.error({
+      message: 'Notification Title',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
+  };
+  const handleClick3 = () => {
+    notification.success({
+      message: 'Notification Title',
+      description: 'Notification Title',
+    });
+  };
   const [currentStep, setCurrentStep] = useState(0);
 
   const stepsItem = [
@@ -31,6 +60,10 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('create_new_client')}>
+      <Button onClick={handleClick}>notif</Button>
+      <Button onClick={handleClick1}>warn</Button>
+      <Button onClick={handleClick2}>error</Button>
+      <Button onClick={handleClick3}>success</Button>
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {
