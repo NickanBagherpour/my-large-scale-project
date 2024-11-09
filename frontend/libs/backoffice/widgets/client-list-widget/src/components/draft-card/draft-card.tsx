@@ -2,7 +2,7 @@ import { Button, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
 import { useTr } from '@oxygen/translation';
 import { useQueryClient } from '@tanstack/react-query';
-import { RQKEYS } from '@oxygen/utils';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
 
 type DraftCardType = {
   id: number;
@@ -31,7 +31,7 @@ export default function DraftCard(props: DraftCardType) {
   const progressPercentage = level * 25;
 
   return (
-    <S.Container href='#'>
+    <S.Container href={ROUTES.BACKOFFICE.CLIENT_CREATION}>
       <S.Header>
         <S.Name>{name}</S.Name>
         <Button onClick={remove} color='primary' variant='text' size='small'>

@@ -6,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -71,7 +72,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
         </Form>
       </div>
       <FooterContainer>
-        <Button variant={'outlined'} href={'/client-details'}>
+        <Button variant={'outlined'} href={ROUTES.BACKOFFICE.CLIENT_DETAILS}>
           {t('form.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>

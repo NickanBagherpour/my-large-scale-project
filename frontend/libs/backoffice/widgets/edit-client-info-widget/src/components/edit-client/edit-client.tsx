@@ -14,7 +14,8 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { createFormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import { CLIENT_DETAILS_URL, LABEL_LENGTH_LIMIT, MAX_LENGTH } from '../../utils/consts';
+import { LABEL_LENGTH_LIMIT, MAX_LENGTH } from '../../utils/consts';
+import { ROUTES } from '@oxygen/utils';
 
 import * as S from './edit-client.style';
 
@@ -202,7 +203,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
       </div>
 
       <FooterContainer>
-        <Button variant={'outlined'} href={CLIENT_DETAILS_URL}>
+        <Button variant={'outlined'} href={ROUTES.BACKOFFICE.CLIENT_DETAILS}>
           {t('form.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>

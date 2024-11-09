@@ -4,6 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import Mockify from '@oxygen/mockify';
 import { ClientType } from '@oxygen/types';
+import { ROUTES } from '@oxygen/utils';
 
 type Props = {
   data: ClientType[];
@@ -31,7 +32,7 @@ export default function Clients(props: Props) {
             status={isActiveInTheService ? 'active' : 'inactive'}
             date={date}
             wordToHighlight={searchTerm}
-            href='/client-details'
+            href={ROUTES.BACKOFFICE.CLIENT_DETAILS}
           />
         ))}
       </S.Grid>
