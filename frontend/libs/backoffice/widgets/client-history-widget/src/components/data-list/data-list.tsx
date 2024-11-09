@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 
 import { Badge, TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
 
-import { dateLocale, getValueOrDash, uuid } from '@oxygen/utils';
+import { getValueOrDash, uuid } from '@oxygen/utils';
 import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 import { PageProps } from '@oxygen/types';
@@ -26,7 +26,7 @@ const DataList: React.FC<dataListProps> = (props) => {
   const [t] = useTr();
   const theme = useTheme();
 
-  // const [showBadge, setShowBadge] = useState(true);
+  const [showBadge, setShowBadge] = useState(true);
 
   const {
     table: { pagination },
@@ -65,10 +65,13 @@ const DataList: React.FC<dataListProps> = (props) => {
           <Box flexDirection='column'>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('table.edit_time')} </span>
-              <span className={'item__value'}>{getValueOrDash(dateLocale(value?.editTime))}</span>
+              <span className={'item__value'}>{getValueOrDash(value?.editTime)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.admin_name')} </span>
+              <S.BadgeItemContainer>
+                {showBadge && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
+                <span className={'item__title'}>{t('table.admin_name')}</span>
+              </S.BadgeItemContainer>
               <span className={'item__value'}>{getValueOrDash(value?.adminName)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
@@ -133,15 +136,8 @@ const DataList: React.FC<dataListProps> = (props) => {
         return (
           <S.ValueContainer>
             {'showBadge' && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
-
             <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
-          // <Badge
-          //   status={'error'}
-          //   offset={[10, 0]}
-          //   dot={showBadge}
-          //   text={<span style={{ fontSize: 'inherit' }}>{getValueOrDash(value)}</span>}
-          // ></Badge>
         );
       },
     },
@@ -167,18 +163,20 @@ const DataList: React.FC<dataListProps> = (props) => {
       title: t('table.client_type'),
       dataIndex: 'clientType',
       align: 'center',
-      width: 'min-content',
+      width: 100,
+      ellipsis: true,
       render: (value) => {
-        return getValueOrDash(value);
+        return <S.EllipsisValueContainer width={100}>{getValueOrDash(value)}</S.EllipsisValueContainer>;
       },
     },
     {
       title: t('table.client_id'),
       dataIndex: 'clientId',
       align: 'center',
-      width: 'min-content',
+      width: 100,
+      ellipsis: true,
       render: (value) => {
-        return getValueOrDash(value);
+        return <S.EllipsisValueContainer width={100}>{getValueOrDash(value)}</S.EllipsisValueContainer>;
       },
     },
     {

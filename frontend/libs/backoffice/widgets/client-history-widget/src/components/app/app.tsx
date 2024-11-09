@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
@@ -33,9 +32,13 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-
+  const footerButton = (
+    <Button className={'return-button'} variant={'outlined'} color={'primary'} size={'large'} onClick={handleReturn}>
+      {t('button.return')}
+    </Button>
+  );
   return (
-    <S.AppContainer fillContainer={true} title={t('widget_name')}>
+    <S.AppContainer fillContainer={true} title={t('widget_name')} footer={footerButton}>
       {/*render widget name based on clientId*/}
       <GlobalMessageContainer
         message={state.message}
@@ -47,17 +50,6 @@ const App: React.FC<AppProps> = (props) => {
         {/*{clientId ? <DataList /> : <NoResult isLoading={false} />}*/}
         <DataList />
       </Box>
-      <S.FooterContainer>
-        <Button
-          className={'return-button'}
-          variant={'outlined'}
-          color={'primary'}
-          size={'large'}
-          onClick={handleReturn}
-        >
-          {t('button.return')}
-        </Button>
-      </S.FooterContainer>
     </S.AppContainer>
   );
 };

@@ -1,6 +1,7 @@
 export { ReactComponent as BaamsunLogo } from './baamsun-logo.svg';
 export { ReactComponent as BankLogo } from './bank-logo.svg';
-export { ReactComponent as OxegenLogo } from './oxygen-logo.svg';
+export { ReactComponent as OxygenLogo } from './oxygen-logo-light-mode.svg';
+export { ReactComponent as OxygenDarkLogo } from './oxygen-logo-dark-mode.svg';
 export { ReactComponent as BaamsunLogoPrimary } from './baamsun-logo-primary.svg';
 export { ReactComponent as BankLogoRed } from './bank_logo_red.svg';
 export { ReactComponent as PencilSquare } from './pencil-square.svg';

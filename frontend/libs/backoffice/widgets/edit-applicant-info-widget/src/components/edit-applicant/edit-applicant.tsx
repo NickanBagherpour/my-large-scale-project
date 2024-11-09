@@ -5,13 +5,14 @@ import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
+import { FooterContainer } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
+import { FormSchema } from '../../types/settings.schema';
 
 import * as S from './edit-applicant.style';
-import { FormSchema } from '../../types/settings.schema';
 
 type FirstStepProps = PageProps & {
   //
@@ -30,7 +31,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log('asdfadsf', values);
+    // console.log(values);
   };
 
   const defaultValues = {
@@ -44,7 +45,7 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
 
   return (
     <S.EditApplicantContainer>
-      <div className={'form_wrapper'}>
+      <div className={'form-wrapper'}>
         <p className={'cards-title'}>{t('edit_applicant_info')}</p>
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
           <SearchItemsContainer>
@@ -60,8 +61,8 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
             <Form.Item name={FORM_ITEM_NAMES.mobileNumber} rules={[rule]} label={t('form.mobileNumber')}>
               <Input placeholder={t('placeholder.mobileNumber')} />
             </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.telePhone} label={t('form.telePhone')}>
-              <Input placeholder={t('placeholder.telePhone')} />
+            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.telePhone} label={t('form.telPhone')}>
+              <Input placeholder={t('placeholder.telPhone')} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.email} label={t('form.email')}>
               <Input placeholder={t('placeholder.email')} />
@@ -69,14 +70,14 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
+      <FooterContainer>
         <Button variant={'outlined'} href={'/client-details'}>
           {t('form.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('form.save_changes')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.EditApplicantContainer>
   );
 };
