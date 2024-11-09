@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
-import { IConfig } from '@oxygen/types';
-import { Icons, Button } from '@oxygen/ui-kit';
+import { IConfig, ThemeID } from '@oxygen/types';
+import { Button, Icons } from '@oxygen/ui-kit';
 
 import AppbarUserMenu from './appbar-user-menu';
 import { useAsync, useAuth } from '@oxygen/hooks';
@@ -23,6 +24,7 @@ export type AppBarProps = {
 const Appbar = (props: AppBarProps) => {
   const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
+  const theme = useTheme();
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
 
@@ -55,7 +57,7 @@ const Appbar = (props: AppBarProps) => {
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          <Icons.OxegenLogo />
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
         </span>
         <AppbarUserMenu
           userInfo={user}
@@ -70,7 +72,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          <Icons.OxegenLogo />
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
         </span>
 
         <span style={{ flexGrow: 1 }} />

@@ -1,4 +1,4 @@
-export { default as FooterButtonContainer } from './components/footer-button-container/footer-button-container';
+export { default as FooterContainer } from './components/footer-container/footer-container';
 export { default as ReturnButton } from './components/return-button/return-button';
 export { default as SecondaryTitle } from './components/title/secondary-title';
 export { default as SectionLabel } from './components/section-label/section-label';
@@ -7,7 +7,7 @@ export { default as PageStepper } from './components/page-stepper/page-stepper';
 export { default as PrintData } from './components/print-data/print-data';
 export { default as ExportButton } from './components/export-button/export-button';
 export { default as NoResult } from './components/no-result/no-result';
-export { default as GlobalErrorContainer } from './components/global-error-container/global-error-container';
+export { default as GlobalMessageContainer } from './components/global-message-container/global-message-container';
 export * from './components/filter-popover/filter-popover';
 export { default as GridCard } from './components/grid-card/grid-card';
 export { default as AutoComplete } from './components/autocomplete/autocomplete';

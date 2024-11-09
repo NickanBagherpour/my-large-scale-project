@@ -14,6 +14,15 @@ export const StyledChip = styled<any>(AntChip)`
     border-radius: 9999px;
     font-size: 1.4rem;
     line-height: 2.2rem;
+    display: inline-flex;
+    align-items: center;
+
+    span {
+      display: inline-block;
+      max-width: 20rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .anticon {

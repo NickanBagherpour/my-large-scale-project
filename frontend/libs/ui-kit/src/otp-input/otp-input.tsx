@@ -68,7 +68,7 @@ export const OtpInput = (props: OtpInputProps) => {
       if (onComplete) {
         onComplete(value);
       }
-    } /* else if (state?.formValue?.errorMessage) {
+    } /* else if (state?.formValue?.message) {
       resetErrorMessageAction(dispatch);
     }*/
   }, [value]);

@@ -1,88 +1,21 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
+import { Dropdown } from '@oxygen/ui-kit';
 
 export const EditClientContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
 
-  .form_wrapper {
+  .form-wrapper {
     display: flex;
     flex-direction: column;
     flex: 1;
-  }
 
-  .tags {
-    width: max-content;
-    margin: 0.5rem;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 20rem 3.2rem auto;
-    grid-template-rows: max-content auto;
-
-    ${respondTo.down('sm')} {
-      grid-auto-flow: column;
-      grid-template-rows: 6rem auto;
-    }
-
-    .item1 {
-      grid-column-start: 1;
-      grid-column-start-end: 2;
-      grid-column: auto;
-
-      ${respondTo.down('sm')} {
-        grid-row-start: 1;
-        grid-row-end: 2;
-        grid-column: auto;
-      }
-
-      button {
-        width: 100%;
-
-        .ant-space {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-        }
-      }
-    }
-
-    .line {
-      background-color: ${(p) => p.theme.border.main};
-      margin-left: 1.6rem;
-      margin-right: 1.6rem;
-      width: 0.1rem;
-      height: 4rem;
-      grid-column-start: 2;
-      grid-column-start-end: 3;
-
-      ${respondTo.down('md')} {
-        height: 5rem;
-      }
-    }
-
-    .item2 {
-      width: 100%;
-      grid-column-start: 3;
-      grid-column-end: 5;
-      grid-row: auto;
-
-      ${respondTo.down('sm')} {
-        grid-column-start: 2;
-        grid-column-end: 4;
-        grid-column: auto;
-        margin-bottom: 1rem;
-      }
-
-      .style-icon {
-        font-size: 1.4rem;
-        color: ${(p) => p.theme.text.primary};
-      }
-
-      padding: 0;
-      flex-wrap: wrap;
+    .cards-title {
+      font-weight: bold;
+      font-size: 1.6rem;
+      margin: 2.4rem 0;
     }
   }
 
@@ -100,27 +33,42 @@ export const EditClientContainer = styled.div`
       }
     }
   }
+`;
 
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    border-top: 1px solid ${(p) => p.theme.border.main};
-    gap: 1rem;
-    padding: 1.5rem 0;
+export const TagPicker = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 3.2rem 1.6rem 3.2rem 0;
 
-    ${respondTo.down('sm')} {
-      flex-direction: column;
+  ${respondTo.down('xs')} {
+    flex-direction: column;
+  }
 
-      button {
-        width: 100%;
+  .ant-form-item {
+    margin: 0;
+    padding: 0 1.6rem 0 0;
+    border-right: 1px solid ${(p) => p.theme.border.main};
+    width: min-content;
 
-        &:first-of-type {
-          order: 1;
-        }
-      }
+    ${respondTo.down('xs')} {
+      width: 100%;
+      border-right: none;
+      padding: 0;
     }
+  }
+
+  .ant-btn {
+    ${respondTo.down('xs')} {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .ant-tag {
+    margin: 0.5rem 0 0.5rem 1.6rem;
   }
 `;
 
-export const Footer = styled.div``;
+export const Select = styled(Dropdown.Select)`
+  min-width: 20rem;
+`;

@@ -25,6 +25,7 @@ export const StyledButton = styled<any>(AntButton)`
 
 function getRelatedVariantBackground(p: any) {
   const color = p.color;
+  if (p.disabled) return;
 
   switch (p.variant) {
     case 'outlined':

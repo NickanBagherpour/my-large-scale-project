@@ -1,31 +1,29 @@
 import React from 'react';
+import { redirect, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
+import { Loading } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import EditClient from '../edit-client/edit-client';
-import * as S from './app.style';
-import { redirect, useSearchParams } from 'next/navigation';
-import { useGetApplicantInfo } from '../../../../edit-applicant-info-widget/src/services/get-applicant-info.api';
-import { Loading } from '@oxygen/ui-kit';
+import { NOT_FOUND_URL, REQUEST_ID_KEY } from '../../utils/consts';
 import { useGetClientInfo } from '../../services/get-client-info.api';
-import { useGetGrantTypeQuery } from '../../services/get-grant-type.api';
-import { useGetTags } from '../../services/get-tag-info.api';
+
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
   const searchParams = useSearchParams();
 
-  const requestId: Nullable<string> = searchParams.get('requestId');
+  const requestId: Nullable<string> = searchParams.get(REQUEST_ID_KEY);
 
   const { data, isFetching } = useGetClientInfo(requestId);
 
@@ -39,12 +37,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const checkParams = (data, requestId) => {
     if (!requestId || !data) {
-      redirect('/not-found');
+      redirect(NOT_FOUND_URL);
     }
     return <EditClient userData={data} />;
   };
-
-  console.log(data);
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')}>

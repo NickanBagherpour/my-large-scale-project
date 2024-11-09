@@ -22,21 +22,3 @@ export const ENV_CONSTANTS = {
 };
 
 export const IS_BROWSER = typeof window !== 'undefined';
-
-export const MAIN_HREF = {
-  AUTH: '/auth',
-  HOME: '/home',
-  LANDING: '/',
-};
-
-export const BACKOFFICE_ROUTE_GROUPS = [
-  ['/dashboard', '/dashboard-report'],
-  [
-    '/client-list',
-    '/client-details',
-    'client-management',
-    '/edit-client-info',
-    '/edit-applicant-info',
-    '/client-history',
-  ],
-];

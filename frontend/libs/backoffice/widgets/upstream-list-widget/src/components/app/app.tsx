@@ -2,9 +2,13 @@ import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { Loading } from '@oxygen/ui-kit';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useGetUpstreamQuery } from '../../services/get-report.api';
+import Upstreams from '../upstreams/upstreams';
+import Filters from '../filters/filters';
 
 import * as S from './app.style';
 
@@ -14,24 +18,36 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
-  const state = useAppState();
+  const { message, ...fetchState } = useAppState();
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const { data: upstreams, isFetching } = useGetUpstreamQuery(fetchState);
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  const upstreamSubTitle = upstreams?.total ? `(${upstreams?.total ?? 0})` : '';
 
-     return params;
-   }
- */
-
-  return <S.AppContainer title={'UpstreamListWidget'}>UpstreamListWidget</S.AppContainer>;
+  return (
+    <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle} fillContainer={true}>
+      <GlobalMessageContainer
+        message={message}
+        onClose={() => {
+          resetMessageAction(dispatch);
+        }}
+      />
+      <Filters />
+      <Loading spinning={isFetching} size='large'>
+        {upstreams?.list.length ? (
+          <Upstreams
+            data={upstreams.list}
+            total={upstreams.total}
+            searchTerm={fetchState.searchTerm}
+            isLoading={isFetching}
+          />
+        ) : (
+          <NoResult isLoading={false} />
+        )}
+      </Loading>
+    </S.UpstreamContainer>
+  );
 };
 
 export default App;

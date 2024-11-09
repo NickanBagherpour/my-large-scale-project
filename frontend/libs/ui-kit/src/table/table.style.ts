@@ -11,6 +11,8 @@ export const Wrapper = styled(Panel)`
   // min-height: 40rem;
 `;
 
+const borderRadius = '1.2rem';
+
 export const Table = styled(AntTable)<TableProps>`
   --table-min-height: 20rem;
 
@@ -31,7 +33,7 @@ export const Table = styled(AntTable)<TableProps>`
     css`
       table {
         border: 1px solid ${p.theme.border._100};
-        border-radius: 0.6rem;
+        border-radius: ${borderRadius};
 
         /* remove the last row's border */
         & tr:last-child td {
@@ -40,14 +42,16 @@ export const Table = styled(AntTable)<TableProps>`
 
         /* add border-radius to table's corners */
         & tr:last-child td:first-child {
-          border-end-start-radius: 0.6rem;
+          border-end-start-radius: ${borderRadius};
         }
         & tr:last-child td:last-child {
-          border-end-end-radius: 0.6rem;
+          border-end-end-radius: ${borderRadius};
         }
-        & thead {
-          border-start-start-radius: 0.6rem;
-          border-start-end-radius: 0.6rem;
+        & thead th:first-child {
+          border-start-start-radius: ${borderRadius};
+        }
+        & thead th:last-child {
+          border-start-end-radius: ${borderRadius};
         }
       }
     `}
@@ -57,7 +61,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody tr {
-    border-radius: 0;
+    // border-radius: 0;
   }
 
   tbody tr.odd-row {

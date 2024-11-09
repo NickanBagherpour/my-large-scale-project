@@ -10,7 +10,7 @@ export interface BaseFetchData {
   errorCode?: unknown;
   receiptDate: string;
   responseId?: unknown;
-  errorMessage?: unknown;
+  message?: unknown;
   serviceTypeCode?: unknown;
   customerInfo: CustomerInfo;
   securitiesDetails: SecuritiesDetails;

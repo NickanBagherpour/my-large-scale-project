@@ -1,4 +1,4 @@
-import { ErrorMessageType, Nullable } from '@oxygen/types';
+import { MessageType, Nullable } from '@oxygen/types';
 import { WidgetDispatchType, WidgetStateType } from './types';
 
 export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
@@ -17,10 +17,10 @@ export function updatePagination(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_PAGINATION' });
 }
 
-export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<ErrorMessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_ERROR_MESSAGE', payload: errorMessage });
+export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
-  updateErrorMessageAction(dispatch, null);
+  updateMessageAction(dispatch, null);
 }
