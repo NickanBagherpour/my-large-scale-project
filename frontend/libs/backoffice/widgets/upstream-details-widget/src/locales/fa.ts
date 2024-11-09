@@ -38,6 +38,7 @@ export default {
   // ascending: 'صعودی',
   // descending: 'نزولی',
   delete_server: 'حذف سرور',
+  register_server: 'ثبت سرور',
   // service_question: 'آیا سرویس',
   // done_stopped: 'شود؟',
   delete_server_question: 'آیا از حذف سرور',

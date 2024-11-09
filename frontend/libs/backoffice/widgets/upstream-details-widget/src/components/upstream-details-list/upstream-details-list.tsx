@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { TablePaginationConfig } from 'antd';
-import { useTheme } from 'styled-components';
 
 import { getValueOrDash, uuid } from '@oxygen/utils';
 import { Table, Box, ColumnsType } from '@oxygen/ui-kit';
@@ -45,7 +44,6 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
     {
       title: '',
       dataIndex: '',
-      // align: 'center',
       render: (value, record, index) => {
         return (
           <Box flexDirection='column'>

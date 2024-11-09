@@ -1,10 +1,12 @@
 import { useRouter, useSearchParams } from 'next/navigation';
+import { createSchemaFieldRule } from 'antd-zod';
+import { Form } from 'antd';
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
 import { useGetUpstreamDetailsQuery } from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
 import UpstreamInfo from '../upstream-info/upstream-info';
 import * as S from './app.style';
-import { Loading, Modal, Box, Button } from '@oxygen/ui-kit';
+import { Loading, Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
 import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
@@ -15,6 +17,8 @@ import { useTheme } from 'styled-components';
 import { ParamsType, UpstreamDetailsType, UpstreamDetailsTypeQuery } from '../../types';
 import { useQueryClient } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
+import { ModalFormSchema } from '../../types/setting.schema';
+import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 
 const App = () => {
   const theme = useTheme();
@@ -24,7 +28,6 @@ const App = () => {
   const upstreamId: Nullable<string> = searchParams.get('upstreamId');
 
   const { data: upstreamDetails, isFetching: isClientsFetching } = useGetUpstreamDetailsQuery(fetchState);
-
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: [],
     total: 0,
@@ -33,10 +36,15 @@ const App = () => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const rule = createSchemaFieldRule(ModalFormSchema(t));
+
+  const [modalForm] = Form.useForm();
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openServerRegisterModal, setOpenServerRegisterModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [selectedServerName, setSelectedServerName] = useState('');
+  const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -46,6 +54,7 @@ const App = () => {
   };
 
   const handleSubmit = () => {
+    setTriggerRegisterAction((prev) => !prev);
     console.log('submit');
   };
 
@@ -75,6 +84,20 @@ const App = () => {
     setOpenDeleteModal(false);
   };
 
+  const registerHandler = () => {
+    modalForm.resetFields();
+    setOpenServerRegisterModal(true);
+  };
+
+  const handleServerRegisterCancel = () => {
+    console.log('Clicked cancel button');
+    setOpenServerRegisterModal(false);
+  };
+
+  const handleFinish = (values: any) => {
+    setOpenServerRegisterModal(false);
+  };
+
   return (
     <>
       <Modal
@@ -100,6 +123,49 @@ const App = () => {
           {t('are_you_sure')}
         </S.ModalMessage>
       </Modal>
+      <Modal
+        title={t('add_server')}
+        open={openServerRegisterModal}
+        confirmLoading={confirmLoading}
+        onCancel={handleServerRegisterCancel}
+        headerDivider={true}
+        centered
+        okButtonProps={{ style: { backgroundColor: theme.primary.main } }}
+        footer={[
+          <Button type='primary' style={{ width: '100%', margin: 0 }} onClick={() => modalForm.submit()}>
+            {t('register_server')}
+          </Button>,
+        ]}
+      >
+        <S.ModalMessage>
+          <Form layout={'vertical'} style={{ width: '100%' }} form={modalForm} onFinish={handleFinish}>
+            <S.InfoItemsContainer>
+              <S.InfoItemsRow>
+                <span className='info-items-title'>{t('domain')} / IP PORT</span>
+                <Form.Item name={FORM_ITEM_NAMES.domain} rules={[rule]}>
+                  <Input />
+                </Form.Item>
+              </S.InfoItemsRow>
+
+              <S.InfoItemsRow>
+                <span className='info-items-title'>{t('weight')}</span>
+                <Form.Item name={FORM_ITEM_NAMES.weight} rules={[rule]}>
+                  <Input />
+                </Form.Item>
+              </S.InfoItemsRow>
+              <S.InfoItemsRow>
+                <span className='info-items-title'>{t('health_status')}</span>
+                <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]}>
+                  <Select defaultValue='1' size={'middle'}>
+                    <Select.Option value='1'>سالم</Select.Option>
+                    <Select.Option value='0'>ناسالم</Select.Option>
+                  </Select>
+                </Form.Item>
+              </S.InfoItemsRow>
+            </S.InfoItemsContainer>
+          </Form>
+        </S.ModalMessage>
+      </Modal>
       <Loading spinning={isClientsFetching} size='large'>
         <S.UpstreamDetailsContainer title={t('widget_name')}>
           <GlobalMessageContainer
@@ -112,6 +178,8 @@ const App = () => {
           <UpstreamInfo
             name={upstreamId ? upstreamDetails?.list.name : ''}
             persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
+            addServer={registerHandler}
+            triggerRegisterAction={triggerRegisterAction}
           />
           {upstreamId && (
             <Box className={'table-container'}>

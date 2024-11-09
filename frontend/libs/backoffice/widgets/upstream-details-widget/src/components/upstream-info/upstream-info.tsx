@@ -3,8 +3,8 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import * as S from './upstream-info.sytle';
-import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
-import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
+import { updateSearchTerm, useAppDispatch, useAppState } from '../../context';
+import { Button, Input } from '@oxygen/ui-kit';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { useBounce } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
@@ -14,12 +14,13 @@ import { FormSchema } from '../../types/setting.schema';
 type UpstreamInfoProps = PageProps & {
   name?: string;
   persianName?: string;
+  addServer: () => void;
+  triggerRegisterAction: boolean;
 };
 const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
-  const { name, persianName } = props;
+  const { name, persianName, addServer, triggerRegisterAction } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { status, sort } = useAppState();
   const [value, setValue] = useState('');
   const [form] = Form.useForm();
 
@@ -35,14 +36,24 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
     });
   }, [name, persianName, form]);
 
+  useEffect(() => {
+    if (triggerRegisterAction) {
+      submitForm();
+    }
+  }, [triggerRegisterAction]);
+
   const rule = createSchemaFieldRule(FormSchema(t));
 
   useBounce(() => {
     updateSearchTerm(dispatch, value);
   }, [value]);
 
+  const submitForm = () => {
+    form.submit();
+  };
+
   const onFinish = async (values) => {
-    console.log('asdfadsf', values);
+    console.log('register');
   };
 
   return (
@@ -59,7 +70,7 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
       </Form>
       <S.Actions>
         <S.UpstreamServerTitle>{t('upstream_server_title')}</S.UpstreamServerTitle>
-        <Button color={'secondary'} onClick={() => form.submit()}>
+        <Button color={'secondary'} onClick={() => addServer()}>
           <i className={'icon-plus'}></i>
           {t('add_server')}
         </Button>
