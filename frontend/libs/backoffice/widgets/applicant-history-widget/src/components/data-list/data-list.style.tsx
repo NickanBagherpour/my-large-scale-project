@@ -22,6 +22,11 @@ export const MobileTableItem = styled.div`
   }
 `;
 
+export const BadgeItemContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const TableContainer = styled(Box)`
   //flex: 1;
   margin-top: 2.4rem;
@@ -46,6 +51,10 @@ export const TableContainer = styled(Box)`
         color: ${(props) => props.theme.text.primary};
       }
     }
+  }
+
+  &&& .item__title {
+    max-width: 11rem;
   }
 `;
 

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MarkText } from '@oxygen/ui-kit';
@@ -20,14 +20,26 @@ export const Container = styled(Link)`
   }
 `;
 
-export const Header = styled.header<{ flip?: boolean }>`
+export const Header = styled.header<{ isUpstream?: boolean }>`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   align-items: center;
-  flex-direction: ${(p) => (p.flip ? 'row-reverse' : 'row')};
+
+  ${(p) =>
+    p.isUpstream &&
+    `
+  /*! @noflip */
+  direction: ltr;
+ // flex-direction: row-reverse;
+  gap: 2rem;
+  min-height: 5rem;
+  max-height: 5rem;
+  align-items: start;
+  `}
 `;
 
-export const Title = styled(MarkText)`
+export const Title = styled(MarkText)<{ isUpstream?: boolean }>`
   font-size: 1.6rem;
   font-weight: 600;
   color: ${(p) => p.theme.text.primary};
@@ -35,12 +47,23 @@ export const Title = styled(MarkText)`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+
+  ${(p) =>
+    p.isUpstream &&
+    `
+    text-wrap: wrap;
+    line-height: 2.5rem;
+    max-height: 5rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  `}
 `;
 
-export const Settings = styled.i`
+export const Settings = styled.i<{ isUpstream?: boolean }>`
   font-size: 2.4rem;
   color: ${(p) => p.theme.text.primary};
-  margin-inline-start: 1rem;
+  margin-inline-start: ${(p) => (p.isUpstream ? '0' : '1rem')};
 `;
 
 export const EName = styled.p`
@@ -49,11 +72,11 @@ export const EName = styled.p`
   margin: 0.5rem 0 0;
 `;
 
-export const Footer = styled.footer`
+export const Footer = styled.footer<{ isUpstream?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.6rem;
+  margin-top: ${(p) => (p.isUpstream ? '0.8rem' : '1.6rem')};
 
   & p {
     margin-block: 0;

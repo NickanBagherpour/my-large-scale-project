@@ -1,30 +1,30 @@
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Input } from '@oxygen/ui-kit';
 import * as S from './scope-library.style';
+import { useGetScopes } from '../../services';
+import { Scope } from '@oxygen/types';
 import { useState } from 'react';
 
-type Scope = {
-  idx: number;
-  scopeName: string;
-  persianName: string;
+type Props = {
+  closeDrawer: () => void;
 };
 
-const items: Scope[] = Array.from({ length: 20 }).map((_, idx) => ({
-  idx,
-  scopeName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
-  persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
-}));
-
-export default function ScopeLibrary() {
+export default function ScopeLibrary(props: Props) {
+  const { closeDrawer } = props;
   const [t] = useTr();
-  const [selected, setSelected] = useState<number | null>(null);
+  const { data, isFetching } = useGetScopes();
+  const [scope, setScope] = useState<Scope | null>(null);
+
+  const addScope = () => {
+    closeDrawer();
+  };
 
   const desktopColumns: ColumnsType<Scope> = [
     {
       title: t('choose'),
       key: 'choose',
       align: 'center',
-      render: (record) => <S.Radio checked={selected === record.idx} onChange={() => setSelected(record.idx)} />,
+      render: (record) => <S.Radio checked={scope?.idx === record.idx} onChange={() => setScope(record)} />,
     },
     {
       title: t('scope_name'),
@@ -42,22 +42,25 @@ export default function ScopeLibrary() {
     {
       title: null,
       key: 'mobileColumn',
-      render: ({ persianName, scopeName, idx }: Scope) => (
-        <S.TableCell>
-          <S.TableRow>
-            <strong>{t('choose')}</strong>
-            <S.Radio checked={selected === idx} onChange={() => setSelected(idx)} />
-          </S.TableRow>
-          <S.TableRow>
-            <strong>{t('persian_name')}</strong>
-            <span>{persianName}</span>
-          </S.TableRow>
-          <S.TableRow>
-            <strong>{t('scope_name')}</strong>
-            <span>{scopeName}</span>
-          </S.TableRow>
-        </S.TableCell>
-      ),
+      render: (scope: Scope) => {
+        const { persianName, scopeName, idx } = scope;
+        return (
+          <S.TableCell>
+            <S.TableRow>
+              <strong>{t('choose')}</strong>
+              <S.Radio checked={scope?.idx === idx} onChange={() => setScope(scope)} />
+            </S.TableRow>
+            <S.TableRow>
+              <strong>{t('persian_name')}</strong>
+              <span>{persianName}</span>
+            </S.TableRow>
+            <S.TableRow>
+              <strong>{t('scope_name')}</strong>
+              <span>{scopeName}</span>
+            </S.TableRow>
+          </S.TableCell>
+        );
+      },
     },
   ];
 
@@ -69,11 +72,12 @@ export default function ScopeLibrary() {
       </S.FormItem>
       <S.Table
         scroll={{ x: 'max-content' }}
-        dataSource={items}
+        dataSource={data}
+        loading={isFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
       />
-      <S.Button disabled={!selected} color='primary'>
+      <S.Button onClick={addScope} disabled={!scope} color='primary'>
         {t('add')}
       </S.Button>
     </S.Form>
