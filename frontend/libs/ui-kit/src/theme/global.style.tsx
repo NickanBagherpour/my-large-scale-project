@@ -140,7 +140,7 @@ const GlobalStyle = createGlobalStyle`
 
 
 
-  .ant-notification {
+  .ant-notification,.ant-notification-stack-expanded {
      font-family: inherit;
      border-radius: 10px;
      
@@ -149,9 +149,9 @@ const GlobalStyle = createGlobalStyle`
        
        & .ant-notification-notice {
          border-radius: inherit;
-         font-family: inherit;
          padding: 2rem 1.6rem;
-      & a{
+         color: ${(props) => props.theme.onPrimary};
+          & a{
           color: ${(props) => props.theme.onPrimary};
         }
 
@@ -180,7 +180,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     & .ant-notification-notice-success {
-      background: ${(props) => props.theme.success._500};
+      background: ${(props) => props.theme.success._600};
     }
 
     & .ant-notification-notice-error {
