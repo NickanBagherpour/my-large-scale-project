@@ -16,9 +16,11 @@ type UpstreamInfoProps = PageProps & {
   persianName?: string;
   addServer: () => void;
   triggerRegisterAction: boolean;
+  toggleLoading: () => void;
+  resetTriggerRegisterAction: () => void;
 };
 const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
-  const { name, persianName, addServer, triggerRegisterAction } = props;
+  const { name, persianName, addServer, triggerRegisterAction, toggleLoading, resetTriggerRegisterAction } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
@@ -52,8 +54,12 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
     form.submit();
   };
 
-  const onFinish = async (values) => {
-    console.log('register');
+  const onFinish = (values) => {
+    toggleLoading();
+    setTimeout(() => {
+      toggleLoading();
+      resetTriggerRegisterAction();
+    }, 2000);
   };
 
   return (

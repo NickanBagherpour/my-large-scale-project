@@ -12,14 +12,6 @@ export type ParamsType = {
   page: number;
 };
 
-// export type ServiceType = {
-//   name: string;
-//   persianName: string;
-//   scope: string;
-//   url: string;
-//   status: boolean;
-// };
-
 export type UpstreamDetailsType = {
   domain: string;
   healthStatus: string;

@@ -27,7 +27,7 @@ const App = () => {
   const searchParams = useSearchParams();
   const upstreamId: Nullable<string> = searchParams.get('upstreamId');
 
-  const { data: upstreamDetails, isFetching: isClientsFetching } = useGetUpstreamDetailsQuery(fetchState);
+  const { data: upstreamDetails, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(fetchState);
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: [],
     total: 0,
@@ -43,6 +43,7 @@ const App = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openServerRegisterModal, setOpenServerRegisterModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
   const [selectedServerName, setSelectedServerName] = useState('');
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
@@ -54,8 +55,12 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    setTriggerRegisterAction((prev) => !prev);
-    console.log('submit');
+    setTriggerRegisterAction(true);
+    // setTimeout(() => setTriggerRegisterAction((prev) => !prev), 0)
+  };
+
+  const handleResetTriggerRegisterAction = () => {
+    setTriggerRegisterAction(false);
   };
 
   const deleteHandler = (domain: string, weight: ParamsType) => {
@@ -95,7 +100,15 @@ const App = () => {
   };
 
   const handleFinish = (values: any) => {
-    setOpenServerRegisterModal(false);
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpenServerRegisterModal(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleToggleRegisterLoading = () => {
+    setRegisterLoading((prev) => !prev);
   };
 
   return (
@@ -126,13 +139,17 @@ const App = () => {
       <Modal
         title={t('add_server')}
         open={openServerRegisterModal}
-        confirmLoading={confirmLoading}
         onCancel={handleServerRegisterCancel}
         headerDivider={true}
         centered
         okButtonProps={{ style: { backgroundColor: theme.primary.main } }}
         footer={[
-          <Button type='primary' style={{ width: '100%', margin: 0 }} onClick={() => modalForm.submit()}>
+          <Button
+            type='primary'
+            style={{ width: '100%', margin: 0 }}
+            onClick={() => modalForm.submit()}
+            loading={confirmLoading}
+          >
             {t('register_server')}
           </Button>,
         ]}
@@ -157,8 +174,8 @@ const App = () => {
                 <span className='info-items-title'>{t('health_status')}</span>
                 <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]}>
                   <Select defaultValue='1' size={'middle'}>
-                    <Select.Option value='1'>سالم</Select.Option>
-                    <Select.Option value='0'>ناسالم</Select.Option>
+                    <Select.Option value='1'>{t('health')}</Select.Option>
+                    <Select.Option value='0'>{t('unHealth')}</Select.Option>
                   </Select>
                 </Form.Item>
               </S.InfoItemsRow>
@@ -166,7 +183,7 @@ const App = () => {
           </Form>
         </S.ModalMessage>
       </Modal>
-      <Loading spinning={isClientsFetching} size='large'>
+      <Loading spinning={isUpstreamFetching} size='large'>
         <S.UpstreamDetailsContainer title={t('widget_name')}>
           <GlobalMessageContainer
             containerProps={{ marginBottom: '2.4rem' }}
@@ -180,16 +197,18 @@ const App = () => {
             persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
             addServer={registerHandler}
             triggerRegisterAction={triggerRegisterAction}
+            toggleLoading={handleToggleRegisterLoading}
+            resetTriggerRegisterAction={handleResetTriggerRegisterAction}
           />
           {upstreamId && (
             <Box className={'table-container'}>
-              <Loading spinning={isClientsFetching} size='large'>
+              <Loading spinning={isUpstreamFetching} size='large'>
                 {upstreamDetails?.list.serverList.length ? (
                   <UpstreamDetails
-                    isFetching={isClientsFetching}
+                    isFetching={isUpstreamFetching}
                     data={upstreamDetails.list.serverList}
                     total={upstreamDetails.list.serverList.length}
-                    isLoading={isClientsFetching}
+                    isLoading={isUpstreamFetching}
                     deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
                   />
                 ) : (
@@ -203,10 +222,10 @@ const App = () => {
               {/* <Loading spinning={isClientsFetching} size='large'> */}
               {
                 <UpstreamDetails
-                  isFetching={isClientsFetching}
+                  isFetching={isUpstreamFetching}
                   data={upstreamServer?.list}
                   total={upstreamServer?.total}
-                  isLoading={isClientsFetching}
+                  isLoading={isUpstreamFetching}
                   deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
                 />
               }
@@ -217,7 +236,7 @@ const App = () => {
           <S.FooterContainer>
             <Button
               className={'register-button'}
-              // variant={'outlined'}
+              variant={'outlined'}
               color={'primary'}
               size={'large'}
               onClick={handleReturn}
@@ -227,10 +246,11 @@ const App = () => {
             {!upstreamId && (
               <Button
                 className={'return-button'}
-                variant={'outlined'}
+                // variant={'outlined'}
                 color={'primary'}
                 size={'large'}
                 onClick={handleSubmit}
+                loading={registerLoading}
               >
                 {t('button.register')}
               </Button>

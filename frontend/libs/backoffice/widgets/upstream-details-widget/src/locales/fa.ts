@@ -5,6 +5,8 @@ export default {
   domain: 'دامنه',
   health_status: 'وضعیت سلامت',
   weight: 'وزن',
+  health: 'سالم',
+  unHealth: 'ناسالم',
 
   // search_by_name_or_scope: 'جستجو براساس نام سرویس یا نام اسکوپ',
   // upload_service: 'بارگذاری سرویس',

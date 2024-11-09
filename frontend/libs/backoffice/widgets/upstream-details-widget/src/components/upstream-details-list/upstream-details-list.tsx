@@ -114,6 +114,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
         pagination={{ pageSize: pagination.rowsPerPage }}
         onChange={handlePageChange}
         rowKey={() => uuid()}
+        showHeader
       />
     </S.TableContainer>
   );
