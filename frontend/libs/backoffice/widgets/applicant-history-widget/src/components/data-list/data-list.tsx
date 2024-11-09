@@ -64,10 +64,13 @@ const DataList: React.FC<dataListProps> = (props) => {
           <Box flexDirection='column'>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('table.edit_time')} </span>
-              <span className={'item__value'}>{getValueOrDash(dateLocale(value?.editTime))}</span>
+              <span className={'item__value'}>{getValueOrDash(value?.editTime)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
-              <span className={'item__title'}>{t('table.admin_name')} </span>
+              <S.BadgeItemContainer>
+                {'showBadge' && <Badge status='error' offset={[2, 0]} dot={true} color={theme.error._600} />}
+                <span className={'item__title'}>{t('table.admin_name')}</span>
+              </S.BadgeItemContainer>
               <span className={'item__value'}>{getValueOrDash(value?.adminName)}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
@@ -122,12 +125,6 @@ const DataList: React.FC<dataListProps> = (props) => {
             {'showBadge' && <Badge status='error' offset={[2, 0]} dot={showBadge} color={theme.error._600} />}
             <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
-          // <Badge
-          //   status={'error'}
-          //   offset={[10, 0]}
-          //   dot={showBadge}
-          //   text={<span style={{ fontSize: 'inherit' }}>{getValueOrDash(value)}</span>}
-          // ></Badge>
         );
       },
     },
