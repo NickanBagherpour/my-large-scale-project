@@ -7,9 +7,12 @@ export type SelectProps = AntSelectProps & {
 };
 
 const StyledSelect = styled(AntSelect)`
-  &.ant-select .ant-select-arrow i {
+  &.ant-select .ant-select-arrow {
     color: ${(p) => p.theme.border.main};
   }
+`;
+const Icon = styled.i`
+  font-size: large;
 `;
 
 export const Select = (props: SelectProps) => {
@@ -24,7 +27,7 @@ export const Select = (props: SelectProps) => {
   } else if (loading) {
     _suffix = {};
   } else {
-    // _suffix.suffixIcon = <i className={`ri-arrow-down-s-line ri-1x`} />; //fixme change to custom icon if needed
+    _suffix.suffixIcon = <Icon className={`icon-chev-down`} />; //fix  me change to custom icon if needed
   }
 
   return <StyledSelect disabled={loading || disabled} loading={loading} {..._suffix} {...rest} />;

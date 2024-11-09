@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { FooterContainer } from '@oxygen/reusable-components';
+
 import * as S from './container.style';
 
 export interface IWidgetWrapperProps {
@@ -57,12 +59,7 @@ export const Container = (props: IWidgetWrapperProps) => {
       <S.Divider />
 
       <S.BodyContainer>{children}</S.BodyContainer>
-      {footer && (
-        <>
-          <S.Divider />
-          <S.FooterContainer>{footer}</S.FooterContainer>
-        </>
-      )}
+      {footer && <FooterContainer>{footer}</FooterContainer>}
     </S.WidgetWrapperContainer>
   );
 };
