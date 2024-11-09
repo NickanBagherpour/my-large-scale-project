@@ -5,15 +5,15 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
+import { FooterContainer } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
-
 import { FormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { MAX_LENGTH_INPUT } from '../../../../scope-management-widget/src/utils/consts';
-import { SCOPE_MANAGEMENT_URL } from '../../utils/consts';
+import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './edit-scope.style';
+import { ROUTES } from '@oxygen/utils';
 
 type EditScopeProps = PageProps & {
   //
@@ -58,14 +58,14 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
-        <Button href={SCOPE_MANAGEMENT_URL} variant={'outlined'}>
+      <FooterContainer>
+        <Button href={ROUTES.BACKOFFICE.SCOPE_LIST} variant={'outlined'}>
           {t('buttons.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.EditScopeContainer>
   );
 };

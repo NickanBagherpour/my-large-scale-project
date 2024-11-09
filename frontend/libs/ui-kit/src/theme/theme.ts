@@ -69,7 +69,7 @@ const getLightTheme = (direction: Direction): ITheme => {
       _50: '#e6f4ff',
       _100: '#91caff',
       _300: '#69b1ff',
-      _500: '#4096ff',
+      _500: '#2563EB',
       _600: '#0958d9',
     },
     lightGray: '#fafafa',

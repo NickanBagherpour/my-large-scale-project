@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import RawFormItem from '../form-item/form-item';
 
 export const FormItem = styled(RawFormItem)`
-	flex: 1;
-	& label {
-		font-size: 1.2rem;
-	}
+  flex: 1;
+  & label {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Create = styled.div`

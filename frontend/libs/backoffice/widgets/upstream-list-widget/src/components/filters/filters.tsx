@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
+import { ROUTES } from '@oxygen/utils';
 
 import { updateSearchTerm, useAppDispatch } from '../../context';
 
@@ -28,7 +29,7 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <S.StyledButton href='/create-upstream' color='primary' variant='solid'>
+          <S.StyledButton href={ROUTES.BACKOFFICE.UPSTREAM_CREATION} color='primary' variant='solid'>
             {t('create_new_upstream')}
           </S.StyledButton>
         </S.Buttons>

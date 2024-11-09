@@ -1,36 +1,43 @@
-import { respondTo } from '@oxygen/utils';
+import { respondTo, withOpacity } from '@oxygen/utils';
 import { Table as UiKitTable } from '@oxygen/ui-kit';
 import styled from 'styled-components';
-
-
 
 export const container = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const FirstStepHeader = styled.div`
+export const SecondTabHeader = styled.div`
   height: 4.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+  @media print {
+    display: none;
+  }
 `;
-export const FirstStepTitle = styled.p`
+export const SecondTabTitle = styled.p`
   color: ${(p) => p.theme.text};
   font-size: 1.6rem;
   font-weight: 500;
   line-height: 2.5rem;
+  @media print {
+    display: none;
+  }
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 1.2rem;
+  @media print {
+    display: none;
+  }
 `;
 export const Icon = styled.i`
-  font-size: large;
+  font-size: x-large;
 `;
 export const Table = styled(UiKitTable)`
-margin-top: 1.6rem;
+  margin-top: 1.6rem;
   &.ant-table-wrapper {
     display: flex;
     flex-grow: 1;
@@ -49,4 +56,15 @@ margin-top: 1.6rem;
       background-color: ${(p) => p.theme.primary._50};
     }
   }
+  @media print {
+    /*print config */
+    @page {
+      size: landscape;
+      margin: 0;
+    }
+  }
+`;
+export const ButtonWraper = styled.div<{ background: string }>`
+  background-color: ${(p) => withOpacity(p.theme[p.background].main, 5)};
+  border-radius: 100%;
 `;

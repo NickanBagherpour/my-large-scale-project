@@ -1,10 +1,10 @@
 export default {
   widget_name: 'اطلاعات اسکوپ',
-  details:'جزئیات',
+  details: 'جزئیات',
   are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
-  remove:'حذف',
-  register_data:'بستن',
-  scoop_detail:'اطلاعات اسکوپ',
+  remove: 'حذف',
+  register_data: 'بستن',
+  scoop_detail: 'اطلاعات اسکوپ',
   first_tab: {
     name: 'اطلاعات اسکوپ',
     title: 'اطلاعات کلی اسکوپ',

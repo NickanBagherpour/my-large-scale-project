@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { breakpoints, cssVar, respondTo } from '@oxygen/utils';
 import { Direction } from '@oxygen/types';
 
-const GlobalStyle = createGlobalStyle<any>`
+const GlobalStyle = createGlobalStyle`
   :root {
     ${cssVar.appBarHeight}: 7.7rem;
     ${cssVar.drawerWidth}: 23rem;
@@ -137,31 +137,69 @@ const GlobalStyle = createGlobalStyle<any>`
     font-size: 2rem;
   }
 
-  .ant-notification {
-    font-family: inherit;
 
-    & .ant-notification-notice-wrapper {
-      background: ${(props) => props.theme.surface};
-      border-radius: 10px;
 
-      & .ant-notification-notice {
-        color: ${(props) => props.theme.text.primary};
-        padding: 2rem 1.6rem;
-        font-family: inherit;
 
-        & .ant-notification-notice-content {
-          margin-right: 2rem;
+  .ant-notification,.ant-notification-stack-expanded {
+     font-family: inherit;
+     border-radius: 10px;
+     
+     & .ant-notification-notice-wrapper {
+       color: ${(p) => p.theme.onPrimary};
+       
+       & .ant-notification-notice {
+         border-radius: inherit;
+         padding: 2rem 1.6rem;
+         color: ${(props) => props.theme.onPrimary};
+          & a{
+          color: ${(props) => props.theme.onPrimary};
         }
 
-        & .ant-notification-notice-message, & .ant-notification-notice-description {
-          color: inherit;
-        }
-
-        & .ant-notification-notice-close {
-          inset-inline-end: 1.6rem;
+      & .ant-notification-notice-content {
+        margin-right: 2rem;
+        & path {
+          color: ${(props) => props.theme.onPrimary};
         }
       }
+
+      & .ant-notification-notice-message{
+        color: inherit;
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+      & .ant-notification-notice-description {
+        color: inherit;
+        font-size:1.4rem;
+        font-weight: 400;
+        margin-top:0.8rem;
+      }
+
+      & .ant-notification-notice-close {
+        inset-inline-end: 1.6rem;
+      }
+    }
+
+    & .ant-notification-notice-success {
+      background: ${(props) => props.theme.success._600};
+    }
+
+    & .ant-notification-notice-error {
+      background: ${(props) => props.theme.error._500};
+    }
+
+    & .ant-notification-notice-warning {
+      background: ${(props) => props.theme.warning._500};
+    }
+
+    & .ant-notification-notice-info {
+      background: ${(props) => props.theme.info._500};
     }
   }
+}
+
+
+
+
+
 `;
 export default GlobalStyle;

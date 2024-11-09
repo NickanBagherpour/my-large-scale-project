@@ -29,4 +29,3 @@ export const RowItem = styled.div`
     margin-inline-end: -15px;
   }
 `;
-

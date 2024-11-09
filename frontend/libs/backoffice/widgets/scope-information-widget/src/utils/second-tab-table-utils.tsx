@@ -4,10 +4,10 @@ import type { Service } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
 export type Modal = {
-    details: boolean;
-    removeService: boolean;
-  };
-  
+  details: boolean;
+  removeService: boolean;
+};
+
 type Props = {
   t: TFunction;
   toggleModal: (modal: keyof Modal) => void;

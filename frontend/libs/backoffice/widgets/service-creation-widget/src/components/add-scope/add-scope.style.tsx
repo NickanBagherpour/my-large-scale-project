@@ -21,4 +21,3 @@ export const Footer = styled.footer`
   align-items: center;
   justify-content: flex-end;
 `;
-

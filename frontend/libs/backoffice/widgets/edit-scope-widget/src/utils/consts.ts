@@ -1,2 +1,2 @@
-export const SCOPE_MANAGEMENT_URL = '/scope-management';
 export const MAX_LENGTH = 100;
+export const MAX_LENGTH_INPUT = 100;
