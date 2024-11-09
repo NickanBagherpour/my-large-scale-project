@@ -20,6 +20,7 @@ export const ROUTES = {
     SCOPE_LIST: '/scope-list',
     SERVICE_HISTORY: '/service-history',
     SERVICE_LIST: '/service-list',
+    UPSTREAM_CREATION: '/upstream-creation',
     UPSTREAM_LIST: '/upstream-list',
   },
 };
