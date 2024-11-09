@@ -4,7 +4,6 @@ import { message, Modal, notification, App } from 'antd';
 import { useConfig } from '../use-config/use-config';
 
 import { Direction } from '@oxygen/types';
-// import { Notification } from '@oxygen/ui-kit';
 
 type CustomModalFunctions = Omit<ReturnType<typeof Modal>, 'warn'> & {
   confirm: typeof Modal.confirm;

@@ -43,5 +43,4 @@ export * from './mark-text/mark-text';
 export * from './container/container';
 export * from './status/status';
 export * from './dropdown/dropdown';
-export * from './notification/notification';
 export type { MenuItemType } from './dropdown/dropdown-select/dropdown-select';
