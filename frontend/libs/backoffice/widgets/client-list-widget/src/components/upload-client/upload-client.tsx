@@ -4,6 +4,7 @@ import { Form, type FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { UploadClient, uploadClient } from '../../types';
 import { UPLOAD_CLIENT_NAMES } from '../../utils/consts';
+import * as S from './upload-client.style';
 
 type Props = {
   isOpen: boolean;
@@ -31,9 +32,9 @@ export default function UploadClient(props: Props) {
       onOk={() => form.submit()}
     >
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
-        <Form.Item name={UPLOAD_CLIENT_NAMES.uploadClient} label={t('clients_english_name')} rules={[rule]}>
+        <S.FormItem name={UPLOAD_CLIENT_NAMES.uploadClient} label={t('clients_english_name')} rules={[rule]}>
           <Input placeholder={t('oauth_key')} />
-        </Form.Item>
+        </S.FormItem>
       </Form>
     </Modal>
   );
