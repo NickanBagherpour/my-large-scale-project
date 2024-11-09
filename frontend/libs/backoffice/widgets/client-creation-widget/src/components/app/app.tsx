@@ -20,6 +20,7 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const stepsItem = [
