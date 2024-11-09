@@ -9,4 +9,4 @@ export const uploadClient = (t: TFunction) =>
       .min(1, { message: t('validation.required') }),
   });
 
-export type UploadClient = z.infer<ReturnType<typeof uploadClient>>;
+export type UploadClientType = z.infer<ReturnType<typeof uploadClient>>;

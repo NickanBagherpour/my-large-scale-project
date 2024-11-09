@@ -2,7 +2,7 @@ import { useTr } from '@oxygen/translation';
 import { Input, Modal } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
-import { UploadClient, uploadClient } from '../../types';
+import { type UploadClientType, uploadClient } from '../../types';
 import { UPLOAD_CLIENT_NAMES } from '../../utils/consts';
 import * as S from './upload-client.style';
 
@@ -14,10 +14,10 @@ type Props = {
 export default function UploadClient(props: Props) {
   const { isOpen, toggle } = props;
   const [t] = useTr();
-  const [form] = Form.useForm<UploadClient>();
+  const [form] = Form.useForm<UploadClientType>();
   const rule = createSchemaFieldRule(uploadClient(t));
 
-  const onFinish: FormProps<UploadClient>['onFinish'] = (values) => {
+  const onFinish: FormProps<UploadClientType>['onFinish'] = (values) => {
     console.log(':)', values);
   };
 
