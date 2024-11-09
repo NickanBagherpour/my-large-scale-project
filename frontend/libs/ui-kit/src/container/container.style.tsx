@@ -16,7 +16,7 @@ export const FooterContainer = styled.div`
   display: flex;
   justify-content: end;
   gap: 1rem;
-  padding: 2rem 0.4rem 2rem 1rem;
+  padding: 2rem 1rem;
 
   & .ant-btn {
     min-width: 12rem;
