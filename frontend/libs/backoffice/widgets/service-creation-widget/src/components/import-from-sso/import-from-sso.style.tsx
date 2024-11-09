@@ -28,8 +28,11 @@ export const PlusIcon = styled.i`
 `;
 
 export const Drawer = styled(AntDrawer)`
-  border-start-start-radius: 2.4rem;
-  border-end-start-radius: 2.4rem;
+  .ant-drawer-content-wrapper:has(&) {
+    border-start-start-radius: 2.4rem;
+    border-end-start-radius: 2.4rem;
+    overflow: hidden;
+  }
 
   & .ant-drawer-header-title {
     flex-direction: row-reverse;
