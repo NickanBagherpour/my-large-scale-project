@@ -31,7 +31,7 @@ export default function ImportFromSso() {
         open={isScopeLibraryOpen}
         closeIcon={<S.CloseIcon className='icon-close-square' />}
       >
-        <ScopeLibrary />
+        <ScopeLibrary closeDrawer={toggleIsScopeLibraryOpen} />
       </S.Drawer>
     </>
   );
