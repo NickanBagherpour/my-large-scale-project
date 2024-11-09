@@ -15,7 +15,7 @@ const UpstreamDetailsWidget: React.FC<PageProps> = (props) => {
   return (
     <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps} />
+        <App />
       </AppProvider>
     </WidgetWrapper>
   );
