@@ -8,13 +8,13 @@ export const createFormSchema = (t: (key: string) => string) =>
       .string({ required_error: t('error.required') })
       .min(1, { message: t('error.required') })
       .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('error.english_name_error'),
+        message: t('error.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianNameClient]: z
       .string({ required_error: t('error.required') })
       .min(1, { message: t('error.required') })
       .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('error.persian_name_error'),
+        message: t('error.persian_validation_message'),
       }),
     [FORM_ITEM_NAMES.clientType]: z.string({ required_error: t('error.required') }),
     [FORM_ITEM_NAMES.clientId]: z
@@ -27,14 +27,14 @@ export const createFormSchema = (t: (key: string) => string) =>
       .string()
       .optional()
       .refine((value) => !value || REGEX_PATTERNS.urlValidator.test(value), {
-        message: t('error.error_website_url'),
+        message: t('error.url_validation_message'),
       }),
     [FORM_ITEM_NAMES.inputAddress]: z
       .string({ required_error: t('error.required') })
-      .url({ message: t('error.error_website_url') }),
+      .url({ message: t('error.url_validation_message') }),
     [FORM_ITEM_NAMES.returnAddress]: z
       .string({ required_error: t('error.required') })
-      .url({ message: t('error.error_website_url') }),
+      .url({ message: t('error.url_validation_message') }),
     [FORM_ITEM_NAMES.aggregatorStatus]: z.boolean().optional(),
     [FORM_ITEM_NAMES.aggregator]: z
       .string({ required_error: t('error.required') })
