@@ -189,7 +189,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
             loading ? (
               <Loading size={'small'} />
             ) : (
-              <S.StyledIcon className={`icon-arrow-up ${open ? 'select-open' : ''}`} />
+              <S.StyledIcon className={`icon-chev-down ${open ? 'select-open' : ''}`} />
             )
           }
           variant={'outlined'}
