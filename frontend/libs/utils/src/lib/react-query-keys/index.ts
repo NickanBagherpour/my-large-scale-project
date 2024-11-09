@@ -1,5 +1,7 @@
 /*--import--*/
 import { KEYS as UPSTREAM_DETAILS_KEYS } from './widgets/upstream-details.key';
+import { KEYS as SCOPE_INFORMATION_KEYS } from './widgets/scope-information.key';
+import { KEYS as SERVICE_CREATION_KEYS } from './widgets/service-creation.key';
 import { KEYS as EDIT_SERVICE_KEYS } from './widgets/edit-service.key';
 import { KEYS as CLIENT_CREATION_KEYS } from './widgets/client-creation.key';
 import { KEYS as SCOPE_CREATION_KEYS } from './widgets/scope-creation.key';
@@ -21,6 +23,8 @@ import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 export const RQKEYS = {
   /*--export--*/
   UPSTREAM_DETAILS: UPSTREAM_DETAILS_KEYS,
+  SCOPE_INFORMATION: SCOPE_INFORMATION_KEYS,
+  SERVICE_CREATION: SERVICE_CREATION_KEYS,
   EDIT_SERVICE: EDIT_SERVICE_KEYS,
   CLIENT_CREATION: CLIENT_CREATION_KEYS,
   UPSTREAM_LIST: UPSTREAM_LIST_KEYS,

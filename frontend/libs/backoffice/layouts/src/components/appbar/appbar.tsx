@@ -3,11 +3,12 @@
 import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { IConfig } from '@oxygen/types';
-import { Icons, Button } from '@oxygen/ui-kit';
+import { IConfig, ThemeID } from '@oxygen/types';
+import { Button, Icons } from '@oxygen/ui-kit';
+import { useAsync, useAuth } from '@oxygen/hooks';
 
 import AppbarUserMenu from './appbar-user-menu';
-import { useAsync, useAuth } from '@oxygen/hooks';
+import { useTheme } from 'styled-components';
 import { Api } from '../../services';
 
 import * as S from './appbar.style';
@@ -25,6 +26,7 @@ const Appbar = (props: AppBarProps) => {
   const [t] = useTr();
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+  const theme = useTheme();
 
   // console.log('test', 'user', user);
 
@@ -55,7 +57,7 @@ const Appbar = (props: AppBarProps) => {
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          <Icons.OxegenLogo />
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
         </span>
         <AppbarUserMenu
           userInfo={user}
@@ -70,7 +72,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          <Icons.OxegenLogo />
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
         </span>
 
         <span style={{ flexGrow: 1 }} />

@@ -10,8 +10,11 @@ import { useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types';
+import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './scope-creation.style';
+import { FooterContainer } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 type EditScopeProps = PageProps & {
   //
@@ -28,12 +31,12 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const submitClick = () => form.submit();
 
   const onFinish = async (values) => {
-    console.log('formValue', values);
+    // console.log('formValue', values);
   };
 
   return (
     <S.ScopeCreationContainer>
-      <div className={'form_wrapper'}>
+      <div className={'form-wrapper'}>
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <Form.Item
@@ -42,7 +45,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
               label={t('form.latin_name_scope')}
               rules={[rule]}
             >
-              <Input />
+              <Input maxLength={MAX_LENGTH_INPUT} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.persianNameScope}
@@ -50,19 +53,19 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
               label={t('form.persian_name_scope')}
               rules={[rule]}
             >
-              <Input />
+              <Input maxLength={MAX_LENGTH_INPUT} />
             </Form.Item>
           </SearchItemsContainer>
         </Form>
       </div>
-      <div className={'footer'}>
-        <Button href={'/scope-management'} variant={'outlined'}>
+      <FooterContainer>
+        <Button href={ROUTES.BACKOFFICE.SCOPE_LIST} variant={'outlined'}>
           {t('buttons.cancel')}
         </Button>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
-      </div>
+      </FooterContainer>
     </S.ScopeCreationContainer>
   );
 };
