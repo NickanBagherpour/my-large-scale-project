@@ -180,6 +180,7 @@ const DataTable: React.FC<AppProps> = () => {
       {displayTable ? (
         <S.TableContainer>
           <Table
+            size='small'
             scroll={{ x: 1000 }}
             variant='complex'
             columns={columns}

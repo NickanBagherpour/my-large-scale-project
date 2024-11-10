@@ -59,7 +59,7 @@ export const Table = (props: TableProps) => {
     captionChildren = null,
     paginationType = PaginationType.PAGINATED,
     showHeader,
-    size = 'small',
+    size,
     ...restProps
   } = props;
 
