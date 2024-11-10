@@ -1,19 +1,19 @@
 'use client';
 
-import { Table as AntTable, TableProps as AntTableProps } from 'antd';
+import { Table as AntTable, TableProps as AntTableProps, ConfigProvider, TablePaginationConfig } from 'antd';
 import { ColumnsType as AntColumnsType } from 'antd/lib/table';
 import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { Nullable } from '@oxygen/types';
+import { useAppTheme, useResponsive } from '@oxygen/hooks';
 
-import { useResponsive } from '@oxygen/hooks';
 import { Button } from '../button/button';
-
 import { Box } from '../box/box';
 import { MobileColumn } from './mobile-column';
-import * as S from './table.style';
 import { ExpandButton } from '../button/expand-button';
+
+import * as S from './table.style';
 
 export type ColumnsType<T> = AntColumnsType<T> & {
   //
@@ -44,7 +44,6 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
 const ExpandIcon = ({ expanded, onExpand, record }) => (
   <ExpandButton open={expanded} marginX={'1rem'} onClick={(e) => onExpand(record, e)} />
 );
-
 export const Table = (props: TableProps) => {
   const {
     // dataSource,
@@ -60,6 +59,7 @@ export const Table = (props: TableProps) => {
     captionChildren = null,
     paginationType = PaginationType.PAGINATED,
     showHeader,
+    size,
     ...restProps
   } = props;
 
@@ -73,13 +73,11 @@ export const Table = (props: TableProps) => {
       return 'odd-row';
     }
   };
-
-  const _showHeader = showHeader ?? (isMobileOrTablet ? false : !!(props.dataSource && props.dataSource.length));
+  const _showHeader = showHeader ?? (isMobileOrTablet ? false : true);
 
   const _columns: ColumnsType<any> = [...(columns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
 
   const _mcolumns: ColumnsType<any> = [...(mobileColumns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
-
   const _expandable = expandable
     ? {
         // expandedRowRender,
@@ -89,13 +87,15 @@ export const Table = (props: TableProps) => {
         ...expandable,
       }
     : undefined;
+  const pageSizeList = pagination && pagination.pageSizeOptions ? pagination.pageSizeOptions : [5, 10, 20, 50, 100];
+  const pageSizeOptions = pageSizeList.map((s: string | number) => ({ value: s, label: s }));
 
-  const _pagination =
+  const _pagination: object | false =
     pagination === false || paginationType === PaginationType.INCREMENTAL
       ? false
       : {
           //onChange: onPaginationUpdate,
-          pageSizeOptions: [5, 10, 20, 50, 100],
+          // pageSizeOptions: [5, 10, 20, 50, 100],
           // showTotal: (total, range) => `${range[0]} - ${range[1]} ${t('common.of')} ${total}`,
           // pageSize: paginationInfo.limit,
           // current: paginationInfo.current,
@@ -103,12 +103,18 @@ export const Table = (props: TableProps) => {
           current: current < 1 ? 1 : current,
           // size: 'small',
           responsive: true,
-          showSizeChanger: true,
-          // hideOnSinglePage: true,
+          showSizeChanger: {
+            variant: 'filled',
+            size: 'large',
+            options: pageSizeOptions,
+          },
+          hideOnSinglePage: false,
           // showQuickJumper:true,
+          // showSizeChanger:false,
+          showTitle: false,
+
           ...pagination,
         };
-
   const caption =
     title || captionChildren ? (
       <S.Caption>
@@ -124,21 +130,23 @@ export const Table = (props: TableProps) => {
       props.onChange({}, {}, {}, {} as any);
     }
   }
-
   const table = (
     <>
-      <S.Table
-        caption={caption}
-        variant={variant}
-        // dataSource={dataSource}
-        columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
-        rowClassName={rowClassName}
-        expandable={_expandable}
-        pagination={_pagination}
-        showHeader={_showHeader}
-        scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
-        {...restProps}
-      />
+      <ConfigProvider theme={{ components: { Table: { headerBorderRadius: variant == 'complex' ? 0 : 8 } } }}>
+        <S.Table
+          caption={caption}
+          variant={variant}
+          size={size}
+          // dataSource={dataSource}
+          columns={isMobileOrTablet && _mcolumns && _mcolumns.length > 0 ? _mcolumns : _columns}
+          rowClassName={rowClassName}
+          expandable={_expandable}
+          pagination={_pagination}
+          showHeader={_showHeader}
+          scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
+          {...restProps}
+        />
+      </ConfigProvider>
 
       {paginationType === PaginationType.INCREMENTAL && !props?.isLastPage && (
         <Box marginTop={'1.4rem'} marginBottom={'2.4rem'} fillChildren={false} justifyContent={'center'}>
