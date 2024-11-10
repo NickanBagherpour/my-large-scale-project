@@ -2,6 +2,7 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { getValueOrDash, uuid } from '@oxygen/utils';
 import { Table, Switch, Box, ColumnsType } from '@oxygen/ui-kit';
@@ -83,7 +84,9 @@ const Services: React.FC<ServicesProps> = (props) => {
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('url')} </span>
-              <span className={'item__value'}>{<S.Url href='/'>{getValueOrDash(value?.url)}</S.Url>}</span>
+              <span className={'item__value'}>
+                {<S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(value?.url)}</S.Url>}
+              </span>
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('status')} </span>
@@ -101,7 +104,9 @@ const Services: React.FC<ServicesProps> = (props) => {
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}> </span>
-              <span className={'item__value'}>{<S.Details href='/'>{t('detailed')}</S.Details>}</span>
+              <span className={'item__value'}>
+                {<S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>}
+              </span>
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}></span>
@@ -143,7 +148,7 @@ const Services: React.FC<ServicesProps> = (props) => {
       title: 'url',
       dataIndex: 'url',
       key: 'url',
-      render: (url) => <S.Url href='/'>{getValueOrDash(url)}</S.Url>,
+      render: (url) => <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(url)}</S.Url>,
     },
     { title: `${t('version')}`, dataIndex: 'version', key: 'version', render: (version) => getValueOrDash(version) },
     {
@@ -164,7 +169,7 @@ const Services: React.FC<ServicesProps> = (props) => {
       title: '',
       dataIndex: 'details',
       key: 'details',
-      render: (url) => <S.Details href='/'>{t('detailed')}</S.Details>,
+      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>,
     },
     {
       title: '',
