@@ -7,6 +7,15 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: {},
   },
+  webpackFinal: async (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'next/font/local': require.resolve('./font.mock.js'),
+      };
+    }
+    return config;
+  },
 };
 
 export default config;
