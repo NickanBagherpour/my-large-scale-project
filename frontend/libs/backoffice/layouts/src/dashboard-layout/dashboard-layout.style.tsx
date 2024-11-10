@@ -13,4 +13,5 @@ export const MainContentLayout = styled(Layout)`
 
 export const MainLayout = styled(Layout)`
   isolation: isolate;
+  // background-color: ${(p) => p.theme.background.main};
 `;

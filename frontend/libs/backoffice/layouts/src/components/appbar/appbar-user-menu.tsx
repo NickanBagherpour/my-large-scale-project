@@ -101,13 +101,14 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
         <Button
           variant='text'
           shape='circle'
+          color='primary'
           icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>}
         />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-          <Icons.UserProfile />
+          <i className='icon-person avatar-icon'/>
           {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
-          <Icons.ArrowDown />
+          <i className='icon-chev-down avatar-icon'/>
         </S.StyleParagraph>
       )}
     </S.StyleDropDown>
