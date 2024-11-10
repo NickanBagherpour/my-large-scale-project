@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 
 import { Box, BoxProps, MessageBox } from '@oxygen/ui-kit';
@@ -47,7 +49,6 @@ const GlobalMessageContainer: React.FC<GlobalMessageContainerProps> = ({
       />
     </Box>
   ) : null;
-
 };
 
 export default GlobalMessageContainer;

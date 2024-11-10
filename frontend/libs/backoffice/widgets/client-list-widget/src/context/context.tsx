@@ -1,4 +1,6 @@
-import React, { ReactNode, createContext, useContext } from 'react';
+'use client';
+
+import { ReactNode, createContext, useContext } from 'react';
 
 import { useImmerReducer } from 'use-immer';
 

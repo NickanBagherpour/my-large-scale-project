@@ -1,3 +1,5 @@
+'use client';
+
 import { useAppState } from '../../context';
 import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
