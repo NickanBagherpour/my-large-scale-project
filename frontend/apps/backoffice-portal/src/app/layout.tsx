@@ -2,8 +2,7 @@ import { BaseProvider, AntStyleProvider } from '@oxygen/hooks';
 
 import { StyledComponentsRegistry } from './registry';
 import 'normalize.css';
-import { iransans } from './fonts';
-import '../../public/assets/fonts/iconly/iconly.css';
+import { iransans } from '@oxygen/ui-kit';
 
 export const metadata = {
   title: 'اکسیژن',
@@ -12,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='fa' className={iransans.variable}>
+    <html lang='fa' className={iransans}>
       <body>
         <AntStyleProvider>
           <StyledComponentsRegistry>
