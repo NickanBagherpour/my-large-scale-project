@@ -12,11 +12,11 @@ export const StyledSpan = styled.span<CustomStyleProps>`
   color: ${(p) => {
     switch (p.customStyle) {
       case 'success':
-        return p.theme.base.success;
+        return p.theme.success.main;
       case 'warning':
-        return p.theme.base.warning;
+        return p.theme.warning.main;
       case 'error':
-        return p.theme.base.error;
+        return p.theme.error.main;
       default:
         return p.customStyle;
     }
