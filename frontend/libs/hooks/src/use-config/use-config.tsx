@@ -1,10 +1,10 @@
 'use client';
 
-import React, { createContext, useCallback, useContext, useMemo } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
-import { Direction, IConfig, Locale, LocalStorageKey, ThemeID } from '@oxygen/types';
+import { Direction, IConfig, Locale, ThemeID } from '@oxygen/types';
 
-import useLocalStorage from '../use-local-storage/use-local-storage';
+import { setCookie } from '@oxygen/utils';
 
 const defaultConfig = {
   themeId: ThemeID.LIGHT,
@@ -27,31 +27,27 @@ export const useConfig = () => {
 
 type ConfigProviderProps = {
   children: React.ReactNode;
+  initialConfig: IConfig | null;
 };
 
 const ConfigProvider = (props: ConfigProviderProps) => {
-  const [config, setConfig, removeConfig] = useLocalStorage<IConfig>(LocalStorageKey.CONFIG, defaultConfig);
-
-  const setConfigCallback = useCallback(setConfig, []);
-
-  function removeConfigHandler() {
-    setConfig(null);
-    removeConfig();
-  }
+  const { initialConfig } = props;
+  const [cookieConfig, setCookieConfig] = useState<IConfig | null>(initialConfig);
 
   const updateConfig = useCallback(
     (newConfig: IConfig) => {
-      setConfigCallback((prevState) => (prevState ? { ...prevState, ...newConfig } : newConfig));
+      setCookieConfig(newConfig);
+      setCookie('configuration', JSON.stringify(newConfig), 120);
     },
-    [setConfigCallback],
+    [setCookieConfig]
   );
 
   const value = useMemo(() => {
     return {
-      config: config ?? defaultConfig,
+      config: cookieConfig ?? defaultConfig,
       updateConfig,
     };
-  }, [JSON.stringify(config)]);
+  }, [JSON.stringify(cookieConfig)]);
 
   return <ConfigContext.Provider value={value}>{props.children}</ConfigContext.Provider>;
 };
