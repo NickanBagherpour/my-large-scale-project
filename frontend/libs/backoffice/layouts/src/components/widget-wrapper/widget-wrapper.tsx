@@ -1,7 +1,4 @@
-import React, { Fragment } from 'react';
-
-import { useAppTheme } from '@oxygen/hooks';
-
+import React from 'react';
 import * as S from './widget-wrapper.style';
 
 export type WidgetWrapperProps = {
@@ -11,10 +8,5 @@ export type WidgetWrapperProps = {
 };
 
 export const WidgetWrapper = (props: WidgetWrapperProps) => {
-  const theme = useAppTheme();
-  const { padding = '2.4rem', overflow_x = 'scroll' } = props;
-
   return <S.WidgetWrapper>{props.children}</S.WidgetWrapper>;
 };
-
-// export default WidgetWrapper;

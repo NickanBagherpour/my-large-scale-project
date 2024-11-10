@@ -10,6 +10,9 @@ const useLocalStorage = <T>(key: string, initialValue?: T): ReturnType<T> => {
   // const storage = ENV_CONSTANTS.IS_DEV ? localStorage : secureLocalStorage;
 
   const [state, setState] = useState<T | null>(() => {
+    return null;
+
+    // THIS CASUSES HYDRATION ERRORS:
     try {
       if (isBrowser) {
         const value = storage.getItem(key);

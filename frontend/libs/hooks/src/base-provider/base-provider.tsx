@@ -18,17 +18,15 @@ const BaseProvider = ({ children }: BaseProviderProps) => {
   };
 
   return (
-    <>
-      <ConfigProvider>
-        <ThemeConfig onLocaleChange={handleLocaleChange}>
+    <ConfigProvider>
+      <ThemeConfig onLocaleChange={handleLocaleChange}>
         <QueryProvider>
           <AuthProvider>
             <MenuProvider>{children}</MenuProvider>
           </AuthProvider>
-          </QueryProvider>
-        </ThemeConfig>
-      </ConfigProvider>
-    </>
+        </QueryProvider>
+      </ThemeConfig>
+    </ConfigProvider>
   );
 };
 
