@@ -4,7 +4,7 @@ import * as S from './mark-text.style';
 
 export type HighlightColorType = 'success' | 'warning' | 'error' | React.CSSProperties['color'];
 
-type PropsType = {
+export type PropsType = {
   text: string;
   wordToHighlight: string;
   highlightColor: HighlightColorType;
