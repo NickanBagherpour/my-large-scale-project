@@ -20,7 +20,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Mounts custom nginx.conf to container
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mounts custom nginx.conf to container
     ports:
       - '80:80'
     networks:
