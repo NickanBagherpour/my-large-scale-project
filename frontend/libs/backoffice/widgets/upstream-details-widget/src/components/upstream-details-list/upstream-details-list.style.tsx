@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
 
 export const TableContainer = styled.div`
-  /* margin-top: 2.4rem; */
   margin-bottom: 3rem;
 `;
 

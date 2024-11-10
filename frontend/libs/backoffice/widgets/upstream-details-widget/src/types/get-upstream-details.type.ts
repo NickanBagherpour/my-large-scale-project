@@ -18,9 +18,18 @@ export type UpstreamDetailsType = {
   weight: string;
 };
 
+export type UpstreamDetails = {
+  name: string;
+  persianName: string;
+  serverList: {
+    domain: string;
+    healthStatus: string;
+    weight: string;
+  }[];
+};
+
 export type UpstreamDetailsTypeQuery = {
-  list: UpstreamDetailsType[];
-  total: number;
+  list: UpstreamDetails;
 };
 
 export type PaginationResultType = {

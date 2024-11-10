@@ -58,11 +58,6 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
-
-  /* ${respondTo.down('sm')} {
-    flex-direction: column;
-    gap: 2rem;
-  } */
 `;
 
 export const Chips = styled.div`

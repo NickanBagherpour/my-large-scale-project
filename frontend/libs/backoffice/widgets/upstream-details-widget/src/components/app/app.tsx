@@ -29,8 +29,7 @@ const App = () => {
 
   const { data: upstreamDetails, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(fetchState);
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
-    list: [],
-    total: 0,
+    list: { name: '', persianName: '', serverList: [] },
   });
 
   const dispatch = useAppDispatch();
@@ -56,7 +55,6 @@ const App = () => {
 
   const handleSubmit = () => {
     setTriggerRegisterAction(true);
-    // setTimeout(() => setTriggerRegisterAction((prev) => !prev), 0)
   };
 
   const handleResetTriggerRegisterAction = () => {
@@ -75,7 +73,11 @@ const App = () => {
         if (!oldData) return;
         return {
           ...oldData,
-          list: oldData.list.filter((item) => item.domain !== domain),
+          list: {
+            name: oldData.list.name,
+            persianName: oldData.list.persianName,
+            serverList: oldData.list.serverList.filter((item) => item.domain !== domain),
+          },
         };
       });
 
@@ -104,6 +106,13 @@ const App = () => {
     setTimeout(() => {
       setOpenServerRegisterModal(false);
       setConfirmLoading(false);
+      setUpstreamServer((prevState) => ({
+        ...prevState,
+        list: {
+          ...prevState.list,
+          serverList: [...prevState.list.serverList, values],
+        },
+      }));
     }, 2000);
   };
 
@@ -203,7 +212,7 @@ const App = () => {
           {upstreamId && (
             <Box className={'table-container'}>
               <Loading spinning={isUpstreamFetching} size='large'>
-                {upstreamDetails?.list.serverList.length ? (
+                {upstreamDetails?.list?.serverList.length ? (
                   <UpstreamDetails
                     isFetching={isUpstreamFetching}
                     data={upstreamDetails.list.serverList}
@@ -223,8 +232,8 @@ const App = () => {
               {
                 <UpstreamDetails
                   isFetching={isUpstreamFetching}
-                  data={upstreamServer?.list}
-                  total={upstreamServer?.total}
+                  data={upstreamServer?.list?.serverList}
+                  total={upstreamServer?.list?.serverList.length}
                   isLoading={isUpstreamFetching}
                   deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
                 />
