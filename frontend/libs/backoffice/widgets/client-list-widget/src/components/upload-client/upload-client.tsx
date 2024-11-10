@@ -19,6 +19,13 @@ export default function UploadClient(props: Props) {
 
   const onFinish: FormProps<UploadClientType>['onFinish'] = (values) => {
     console.log(':)', values);
+    form.resetFields();
+    toggle();
+  };
+
+  const onCancel = () => {
+    form.resetFields();
+    toggle();
   };
 
   return (
@@ -26,7 +33,7 @@ export default function UploadClient(props: Props) {
       open={isOpen}
       centered={true}
       title={t('add_client_from_sso')}
-      onCancel={toggle}
+      onCancel={onCancel}
       cancelText={t('button.cancel')}
       okText={t('save_changes')}
       onOk={() => form.submit()}
