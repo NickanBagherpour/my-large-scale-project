@@ -1,5 +1,6 @@
 import { TagProps as AntChipProps } from 'antd';
 import { StyledChip } from './chip.style';
+import TooltipChip from './tooltip-chip/tooltip-chip';
 
 export type ChipProps = AntChipProps & {
   type?: string;
@@ -15,3 +16,4 @@ export const Chip = (props: ChipProps) => {
     </StyledChip>
   );
 };
+Chip.Tooltip = TooltipChip;
