@@ -21,6 +21,7 @@ export const ROUTES = {
     SERVICE_HISTORY: '/service-history',
     SERVICE_LIST: '/service-list',
     UPSTREAM_CREATION: '/upstream-creation',
+    UPSTREAM_DETAILS: '/upstream-details',
     UPSTREAM_LIST: '/upstream-list',
     SERVICE_CREATION: '/service-creation',
   },
