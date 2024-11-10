@@ -12,7 +12,7 @@ export const Chip = (props: ChipProps) => {
   return (
     <StyledChip type={type} iconProp={iconProp} {...rest}>
       {type === 'active' && iconProp && <i className={iconProp} />}
-      {children}
+      <span>{children}</span>
     </StyledChip>
   );
 };

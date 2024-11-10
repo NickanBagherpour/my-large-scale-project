@@ -36,7 +36,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const [grantTags, setGrantTags] = useState([]);
   const [nameTags, setNameTags] = useState([]);
-
+  console.log(nameTags);
   const rule = createSchemaFieldRule(createFormSchema(t));
 
   const handleGrantTagChange = (values) => {
@@ -102,9 +102,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             </Form.Item>
             <div>
               {nameTags.map((tag: any) => (
-                <Chip key={tag.key} type='active' closeIcon onClose={() => handleNameChipClose(tag.key)}>
+                <Chip.Tooltip data={tag} closeIcon type='active' onClose={() => handleNameChipClose(tag.key)}>
                   {tag.label}
-                </Chip>
+                </Chip.Tooltip>
               ))}
             </div>
           </S.TagPicker>
