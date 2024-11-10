@@ -37,7 +37,7 @@ const ConfigProvider = (props: ConfigProviderProps) => {
   const updateConfig = useCallback(
     (newConfig: IConfig) => {
       setCookieConfig(newConfig);
-      setCookie('configuration', JSON.stringify(newConfig), 120);
+      setCookie('configuration', JSON.stringify(newConfig), 1200);
     },
     [setCookieConfig]
   );

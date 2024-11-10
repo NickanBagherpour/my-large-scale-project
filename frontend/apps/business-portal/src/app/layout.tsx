@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AntStyleProvider>
           <StyledComponentsRegistry>
-            <BaseProvider>{children}</BaseProvider>
+            <BaseProvider initialConfig={null}>{children}</BaseProvider>
           </StyledComponentsRegistry>
         </AntStyleProvider>
       </body>
