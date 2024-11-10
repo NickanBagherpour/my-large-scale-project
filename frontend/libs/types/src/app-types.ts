@@ -1,11 +1,18 @@
 import { ReactNode } from 'react';
 import { Direction, Locale, ThemeID } from './enums';
+import { z } from 'zod';
 
-export interface IConfig {
-  themeId: ThemeID;
-  direction: Direction;
-  locale: Locale;
-}
+const ThemeIDSchema = z.nativeEnum(ThemeID);
+const LocaleSchema = z.nativeEnum(Locale);
+const DirectionSchema = z.nativeEnum(Direction);
+
+export const configSchema = z.object({
+  themeId: ThemeIDSchema,
+  direction: DirectionSchema,
+  locale: LocaleSchema,
+});
+
+export type IConfig = z.infer<typeof configSchema>;
 
 export type Palette = {
   main: string;
