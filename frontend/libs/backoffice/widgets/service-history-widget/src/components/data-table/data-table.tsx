@@ -64,9 +64,8 @@ const DataTable: React.FC<AppProps> = () => {
       title: t('column.fa-name'),
       dataIndex: 'faName',
       key: 'faName',
-      ellipsis: {
-        showTitle: true,
-      },
+      ellipsis: true,
+      className: 'right-to-left',
       render: (value, record) => {
         return getValueOrDash(value);
       },
@@ -181,6 +180,7 @@ const DataTable: React.FC<AppProps> = () => {
       {displayTable ? (
         <S.TableContainer>
           <Table
+            size='small'
             scroll={{ x: 1000 }}
             variant='complex'
             columns={columns}

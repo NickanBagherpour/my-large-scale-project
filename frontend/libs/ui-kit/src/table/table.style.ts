@@ -27,6 +27,15 @@ export const Table = styled(AntTable)<TableProps>`
   tr.ant-table-placeholder {
     height: var(--table-min-height);
   }
+  .ant-table-content {
+    overflow: ${(p) => (p.variant === 'simple' ? 'hidden' : 'auto')} !important;
+    scrollbar-width: thin;
+    scrollbar-color: ${(p) => p.theme.border._300} ${(p) => p.theme.background.main};
+  }
+
+  .ant-table-empty .ant-table-content {
+    overflow: hidden !important;
+  }
 
   ${(p) =>
     p.variant === 'simple' &&
@@ -34,12 +43,10 @@ export const Table = styled(AntTable)<TableProps>`
       table {
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
-
         /* remove the last row's border */
         & tr:last-child td {
           border: none;
         }
-
         /* add border-radius to table's corners */
         & tr:last-child td:first-child {
           border-end-start-radius: ${borderRadius};
@@ -76,7 +83,7 @@ export const Table = styled(AntTable)<TableProps>`
     padding: 1.4rem !important;
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
-    border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid ${(p) => p.theme.border._100}`)};
+    border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
     border-color: ${(p) => p.theme.border._100};
 
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};
@@ -119,13 +126,51 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   .ant-pagination {
-    //too much padding
-    padding: 2.4rem 3rem;
+    padding: 0.5 2rem;
     position: relative;
   }
 
+  li.ant-pagination-item > a {
+    color: ${(p) => p.theme.primary.main};
+  }
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-disabled,
+  .ant-pagination-item-link .anticon {
+    color: ${(p) => p.theme.primary.main};
+  }
+  .ant-pagination-item-ellipsis {
+    color: ${(p) => p.theme.primary.main};
+  }
+  .ant-pagination .ant-select-selector {
+    background-color: ${(p) => p.theme.primary.main};
+    color: ${(p) => p.theme.onPrimary};
+    padding: 1.5rem;
+    min-width: 7rem;
+  }
+  .ant-pagination .anticon-down {
+    transform: rotate(180deg);
+    margin-top: 0.5rem;
+  }
+  .ant-pagination .anticon-search {
+    margin-top: 0.5rem;
+  }
+  .ant-pagination .ant-select-selection-item {
+    color: ${(p) => p.theme.onPrimary};
+  }
+  .ant-pagination .ant-select-suffix {
+    color: ${(p) => p.theme.onPrimary};
+  }
+  .ant-pagination .ant-select-item-option-active {
+    background-color: ${(p) => p.theme.primary._100};
+  }
+  .ant-pagination-item-active {
+    border-radius: 50% !important;
+    border-color: transparent;
+    background-color: ${(p) => p.theme.primary._100};
+  }
   .ant-pagination-options {
-    //no margin on the right
+    margin: 0 1.6rem 0 2.5rem;
     order: -1;
     margin: 0 1.6rem 0 0;
     position: absolute;
