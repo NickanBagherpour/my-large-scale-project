@@ -46,7 +46,7 @@ export const TableContainer = styled(Box)`
       & .caption-title {
         font-size: 16px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 25px;
         color: ${(props) => props.theme.text.primary};
       }
