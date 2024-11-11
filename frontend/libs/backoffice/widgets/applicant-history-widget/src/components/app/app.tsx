@@ -7,7 +7,7 @@ import { Box, Button } from '@oxygen/ui-kit';
 import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, updateApplicantIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
@@ -22,12 +22,12 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const searchParams = useSearchParams();
-  const clientId: Nullable<string> = searchParams.get('clientId');
+  const applicantId: Nullable<string> = searchParams.get('applicantId');
 
   useEffect(() => {
-    // console.log('clientId: ', clientId);
-    updateClientIdAction(dispatch, clientId);
-  }, [clientId]);
+    //console.log('applicantId: ', applicantId);
+    updateApplicantIdAction(dispatch, applicantId);
+  }, [applicantId]);
 
   const router = useRouter();
   const handleReturn = () => {
@@ -42,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')} footer={footerButton}>
-      {/*render widget name based on clientId*/}
+      {/*render widget name based on applicantId*/}
       <GlobalMessageContainer
         containerProps={{ marginBottom: '2.4rem' }}
         message={state.message}
@@ -51,8 +51,8 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Box className={'table-container'}>
-        {/*{clientId ? <DataList /> : <NoResult isLoading={false} />}*/}
-        <DataList />
+        {applicantId ? <DataList /> : <NoResult isLoading={false} />}
+        {/*<DataList />*/}
       </Box>
     </S.AppContainer>
   );

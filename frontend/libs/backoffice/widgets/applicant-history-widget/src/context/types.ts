@@ -20,7 +20,7 @@ export type WidgetStateType = {
     submit: FiltersType;
   };
   message: Nullable<MessageType>;
-  clientId: Nullable<string>;
+  applicantId: Nullable<string>;
 };
 
 export type WidgetActionType =
@@ -41,7 +41,7 @@ export type WidgetActionType =
       payload: PaginationType;
     }
   | {
-      type: 'UPDATE_CLIENT_ID';
+      type: 'UPDATE_APPLICANT_ID';
       payload: Nullable<string>;
     };
 
