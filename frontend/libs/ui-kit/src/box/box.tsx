@@ -48,7 +48,7 @@ export type BoxProps = BasicComponentProps & {
   visible?: boolean;
 };
 
-const StyledBox = styled.div<BoxProps & { $fill_children?: boolean }>`
+const StyledBox = styled.div<BoxProps & { $fill_children?: string }>`
   display: ${(props) => props.display ?? 'flex'};
   flex-direction: ${(props) => props.flexDirection ?? 'row'};
   justify-content: ${(props) => props.justifyContent ?? 'flex-start'};
@@ -92,7 +92,7 @@ const StyledBox = styled.div<BoxProps & { $fill_children?: boolean }>`
   ${(props) => props.borderLeft && `border-left: ${props.borderLeft};`}
 
   ${(props) =>
-    props.$fill_children
+    props.$fill_children === 'true'
       ? css`
           & > * {
             width: 100%;
@@ -109,7 +109,7 @@ export const Box: React.FC<BoxProps> = (props) => {
   const { visible = true, children, fillChildren = true, ...rest } = props;
   return (
     visible && (
-      <StyledBox {...rest} $fill_children={fillChildren}>
+      <StyledBox {...rest} $fill_children={String(fillChildren)}>
         {children}
       </StyledBox>
     )

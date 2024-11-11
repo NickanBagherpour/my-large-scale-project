@@ -4,7 +4,7 @@ import { MessageType, Nullable } from '@oxygen/types';
 export type WidgetStateType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'inactive';
+  status: 'all' | 'active' | 'unActive';
   page: number;
   message: Nullable<MessageType>;
 };

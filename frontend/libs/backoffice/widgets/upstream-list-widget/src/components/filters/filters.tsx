@@ -29,7 +29,7 @@ export default function Filters() {
         />
 
         <S.Buttons>
-          <S.StyledButton href={ROUTES.BACKOFFICE.UPSTREAM_CREATION} color='primary' variant='solid'>
+          <S.StyledButton href={ROUTES.BACKOFFICE.UPSTREAM_DETAILS} color='primary' variant='solid'>
             {t('create_new_upstream')}
           </S.StyledButton>
         </S.Buttons>

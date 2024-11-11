@@ -12,7 +12,9 @@ type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
 
 const getChipProps = (currentStatus: Status, chipStatus: Status) =>
-  currentStatus === chipStatus ? { type: 'active', iconProp: 'checked icon-checkmark' } : { type: 'inactive' };
+  currentStatus === chipStatus
+    ? ({ type: 'active', iconProp: 'checked icon-checkmark' } as const)
+    : ({ type: 'unActive' } as const);
 
 export default function Filters() {
   const [t] = useTr();
@@ -58,7 +60,7 @@ export default function Filters() {
               {t('active_clients')}
             </Chip>
 
-            <Chip {...getChipProps(status, 'inactive')} onClick={() => updateStatus(dispatch, 'inactive')}>
+            <Chip {...getChipProps(status, 'unActive')} onClick={() => updateStatus(dispatch, 'unActive')}>
               {t('inactive_clients')}
             </Chip>
           </S.Chips>

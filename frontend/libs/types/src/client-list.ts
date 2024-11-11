@@ -1,7 +1,7 @@
 export type ParamsType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'inactive';
+  status: 'all' | 'active' | 'unActive';
   page: number;
 };
 

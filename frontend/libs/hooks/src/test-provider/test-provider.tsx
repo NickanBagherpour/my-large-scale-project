@@ -21,7 +21,7 @@ const TestProvider = ({ children }: TestProviderProps) => {
     <div>
       {
         <AntStyleProvider>
-          <ConfigProvider>
+          <ConfigProvider initialConfig={null}>
             <ThemeConfig onLocaleChange={handleLocaleChange}>
               <QueryProvider>{children}</QueryProvider>
             </ThemeConfig>
