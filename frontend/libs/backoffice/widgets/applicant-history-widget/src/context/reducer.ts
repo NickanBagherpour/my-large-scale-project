@@ -11,7 +11,7 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
-  clientId: null,
+  applicantId: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
@@ -37,8 +37,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
-    case 'UPDATE_CLIENT_ID': {
-      state.clientId = action.payload;
+    case 'UPDATE_APPLICANT_ID': {
+      state.applicantId = action.payload;
       return;
     }
 
