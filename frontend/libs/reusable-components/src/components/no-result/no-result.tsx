@@ -1,27 +1,35 @@
 import React from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { Icons, Loading } from '@oxygen/ui-kit';
+import { Loading } from '@oxygen/ui-kit';
 
 import * as S from './no-result.style';
 
 type Props = {
   isLoading: boolean;
+  link?: string;
+  title?: string;
 } & React.ComponentProps<'div'>;
 
 const NoResult = (props: Props) => {
-  const { isLoading, ...restOfProps } = props;
+  const { isLoading, title, link, ...restOfProps } = props;
   const [t] = useTr();
+
+  const displayTitle = title || t('no_result.there_is_no_data_to_show');
 
   return (
     <S.NoResult {...restOfProps}>
       {isLoading ? (
         <Loading containerProps={{ flexGrow: 1 }} />
       ) : (
-        <>
-          <Icons.EmptyIcon />
-          <S.Title>{t('no_result.there_is_no_data_to_show')}</S.Title>
-        </>
+        <S.BoxContainer>
+          <S.Empty description={displayTitle} />
+          {link && (
+            <S.ReturnButton size={'middle'} variant={'outlined'} color={'primary'} href={link}>
+              {t('button.return')}
+            </S.ReturnButton>
+          )}
+        </S.BoxContainer>
       )}
     </S.NoResult>
   );

@@ -6,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { useAppDispatch, useAppState } from '../../context';
 import { FormSchema } from '../../types';
@@ -13,7 +14,6 @@ import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './edit-scope.style';
-import { ROUTES } from '@oxygen/utils';
 
 type EditScopeProps = PageProps & {
   //

@@ -1,3 +1,5 @@
+'use client';
+
 import { CSSProperties, useState } from 'react';
 import { Input } from 'antd';
 import * as S from './autocomplete.style';

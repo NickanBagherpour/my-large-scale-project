@@ -5,11 +5,10 @@ import styled from 'styled-components';
 export const StyleDropDown = styled(Dropdown)`
   color: ${(p) => p.theme.primary._700};
   font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2rem;
+  font-weight: 600;
   align-items: start;
-`;
+
+  `;
 
 export const Overlay = styled.div`
   & > ul.ant-dropdown-menu-root li {
@@ -27,6 +26,10 @@ export const StyleParagraph = styled('p')`
   display: flex;
   align-items: center;
   gap: 0.6rem;
+
+  & .avatar-icon {
+    font-size: 2rem;
+  }
 `;
 
 export const StyleSpan = styled('span')`
@@ -73,5 +76,5 @@ export const StyleIcon = styled.i`
   font-size: 3rem;
   display: flex;
   justify-content: center;
-  color: ${(p) => p.theme.text.primary};
+  color: ${(p) => p.theme.onPrimary};
 `;

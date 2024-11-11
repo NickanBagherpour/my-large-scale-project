@@ -27,5 +27,5 @@ export type PaginationResultType = {
 };
 
 export type FetchParamsType = PaginationType & {
-  clientId: Nullable<string>;
+  applicantId: Nullable<string>;
 };

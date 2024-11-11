@@ -261,6 +261,10 @@ export default {
     count_securities: 'لطفا تعداد را به درستی وارد نمایید',
     min_len: 'مقدار این فیلد نباید کمتر از $val باشد.',
     max_len: 'مقدار این فیلد نباید بیشتر از $val باشد.',
+    english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
+    persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
+    url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
+    only_digit_message: 'لطفا فقط عدد وارد کنید',
   },
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',

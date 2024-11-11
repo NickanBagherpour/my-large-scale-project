@@ -1,3 +1,5 @@
+'use client';
+
 import { respondTo } from '@oxygen/utils';
 
 import styled from 'styled-components';
@@ -7,7 +9,7 @@ const FooterContainer = styled.div<any>`
   justify-content: flex-end;
   gap: 1.2rem;
   border-top: 1px solid ${(p) => p.theme.border._100};
-  padding: 1.6rem 0;
+  padding: 1.6rem 0.4rem;
 
   ${respondTo.down('sm')} {
     flex-direction: column;

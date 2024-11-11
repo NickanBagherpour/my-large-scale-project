@@ -3,6 +3,7 @@ export default {
   details: 'جزئیات',
   are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
   remove: 'حذف',
+  remove_service: ' حذف اسکوپ',
   register_data: 'بستن',
   scoop_detail: 'اطلاعات اسکوپ',
   first_tab: {

@@ -8,9 +8,10 @@ import { QueryProvider, AuthProvider, ConfigProvider, MenuProvider } from '../in
 
 type BaseProviderProps = {
   children: React.ReactNode;
+  initialConfig: IConfig | null;
 };
 
-const BaseProvider = ({ children }: BaseProviderProps) => {
+const BaseProvider = ({ children, initialConfig }: BaseProviderProps) => {
   const handleLocaleChange = (config: IConfig) => {
     changeLanguage(config.locale);
 
@@ -18,17 +19,15 @@ const BaseProvider = ({ children }: BaseProviderProps) => {
   };
 
   return (
-    <>
-      <ConfigProvider>
-        <ThemeConfig onLocaleChange={handleLocaleChange}>
+    <ConfigProvider initialConfig={initialConfig}>
+      <ThemeConfig onLocaleChange={handleLocaleChange}>
         <QueryProvider>
           <AuthProvider>
             <MenuProvider>{children}</MenuProvider>
           </AuthProvider>
-          </QueryProvider>
-        </ThemeConfig>
-      </ConfigProvider>
-    </>
+        </QueryProvider>
+      </ThemeConfig>
+    </ConfigProvider>
   );
 };
 

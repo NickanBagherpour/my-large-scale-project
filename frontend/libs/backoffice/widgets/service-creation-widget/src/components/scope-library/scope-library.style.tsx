@@ -8,7 +8,7 @@ export const Form = styled(AntForm)`
   height: 100%;
   padding-bottom: 4rem;
   flex: 1;
-`;
+` as typeof Form;
 
 export const Button = styled(KitButton)`
   display: block;

@@ -2,6 +2,7 @@ import { GridCard } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import Mockify from '@oxygen/mockify';
 import { UpstreamType } from '@oxygen/types';
+import { ROUTES } from '@oxygen/utils';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
@@ -29,7 +30,7 @@ export default function Upstreams(props: Props) {
           <GridCard
             key={idx}
             name={name}
-            href='/upstream-details'
+            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=1234`}
             activeServersCount={activeServersCount}
             wordToHighlight={searchTerm}
           />

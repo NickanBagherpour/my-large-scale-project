@@ -1,15 +1,16 @@
 import React from 'react';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { Loading } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { useAppDispatch, useAppState } from '../../context';
 
 import EditApplicant from '../edit-applicant/edit-applicant';
 import { useGetApplicantInfo } from '../../services/get-applicant-info.api';
-import { NOT_FOUND_URL, REQUEST_ID_KEY } from '../../utils/consts';
+import { REQUEST_ID_KEY } from '../../utils/consts';
 
 import * as S from './app.style';
 
@@ -28,24 +29,16 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data, isFetching } = useGetApplicantInfo(requestId);
 
-  const showLoadingSpinner = () => {
-    return (
-      <S.LoadingContainer>
-        <Loading />
-      </S.LoadingContainer>
-    );
-  };
-
-  const checkParams = (data, requestId) => {
+  const checkParams = (data, requestId, isLoading) => {
     if (!requestId || !data) {
-      redirect(NOT_FOUND_URL);
+      return <NoResult isLoading={isLoading} link={ROUTES.BACKOFFICE.CLIENT_DETAILS} />;
     }
     return <EditApplicant userData={data} />;
   };
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')}>
-      {isFetching ? showLoadingSpinner() : checkParams(data, requestId)}
+      {checkParams(data, requestId, isFetching)}
     </S.AppContainer>
   );
 };

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Modal as AntModal } from 'antd';
-import { css } from 'styled-components';
 
 // const headerLineStyle = css`
 //   .ant-modal-title::after {
@@ -30,5 +29,11 @@ export const StyledModal = styled<any>(AntModal)`
 
   .ant-modal-body {
     margin: 2rem 0rem;
+  }
+
+  .ant-modal-footer {
+    button {
+      margin-left: 1.2rem;
+    }
   }
 `;

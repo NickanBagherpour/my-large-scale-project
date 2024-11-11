@@ -1,3 +1,5 @@
+'use client';
+
 import i18n from 'i18next';
 import { initReactI18next, useTranslation, Trans } from 'react-i18next';
 
@@ -30,18 +32,13 @@ export function changeLanguage(locale: string) {
 }
 
 export function loadTr(params: any) {
-  // console.log('params', deepResources.fa.translation);
   i18n.removeResourceBundle('en', 'translation');
   i18n.removeResourceBundle('fa', 'translation');
-  // i18n.addResourceBundle('en', 'translation', deepResources.en.translation);
-  // i18n.addResourceBundle('fa', 'translation', deepResources.fa.translation);
   i18n.addResourceBundle('en', 'translation', en);
   i18n.addResourceBundle('fa', 'translation', fa);
   i18n.addResourceBundle('en', 'translation', params.en, true);
   i18n.addResourceBundle('fa', 'translation', params.fa, true);
   i18n.loadResources();
-  // console.log('i18n en', i18n.getResourceBundle('en', 'translation'));
-  // console.log('i18n fa', i18n.getResourceBundle('fa', 'translation'));
 }
 
 export { useTranslation as useTr, Trans as Tr, i18n as i18nBase };

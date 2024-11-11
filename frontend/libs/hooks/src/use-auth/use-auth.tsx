@@ -41,7 +41,6 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async (path?: string) => {
     try {
-
       setUser(null);
       removeUser();
       removeUserPhoto();
@@ -64,7 +63,9 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return !!user && isTokenValid();
+    return true;
+    // fixme: make it real
+    // return !!user && isTokenValid();
   }
 
   const isTokenValid = () => {
@@ -87,7 +88,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto],
+    [JSON.stringify(user), userPhoto]
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

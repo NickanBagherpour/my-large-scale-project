@@ -16,13 +16,6 @@ export const StyledChip = styled<any>(AntChip)`
     line-height: 2.2rem;
     display: inline-flex;
     align-items: center;
-
-    span {
-      display: inline-block;
-      max-width: 20rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
   }
 
   .anticon {
@@ -33,4 +26,14 @@ export const StyledChip = styled<any>(AntChip)`
   .checked {
     margin-right: 1rem;
   }
+`;
+export const ChipContainer = styled.span<{ ellipsis: string }>`
+  ${(props) =>
+    props.ellipsis === 'true' &&
+    `
+    display: inline-block;
+     max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `}
 `;
