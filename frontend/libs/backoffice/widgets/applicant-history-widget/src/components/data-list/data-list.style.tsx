@@ -42,6 +42,7 @@ export const TableContainer = styled(Box)`
   & .ant-table-caption {
     & div {
       padding: 1rem 0.8rem 0.8rem 0.8rem;
+      margin-bottom: 1.6rem;
 
       & .caption-title {
         font-size: 16px;

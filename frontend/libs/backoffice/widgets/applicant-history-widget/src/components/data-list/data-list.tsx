@@ -35,7 +35,7 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   function prepareParams() {
     const params = {
-      clientId: state?.clientId,
+      applicantId: state?.applicantId,
       ...pagination,
     };
 
@@ -200,6 +200,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
+          size={'small'}
         />
       ) : (
         <NoResult isLoading={isFetching} />
