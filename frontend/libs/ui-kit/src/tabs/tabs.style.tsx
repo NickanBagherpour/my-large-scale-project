@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Tabs as AntTabs } from 'antd';
 
-export const StyledTabs = styled<any>(AntTabs)`
+export const StyledTabs = styled(AntTabs)`
   .ant-tabs-tab {
     min-width: 240px;
     display: flex;
@@ -22,5 +22,10 @@ export const StyledTabs = styled<any>(AntTabs)`
   .ant-tabs-nav {
     margin-bottom: 2.4rem;
     max-width: fit-content;
+  }
+
+  body:has(&) .ant-tabs-dropdown-menu {
+    background: ${(p) => p.theme.background.main};
+    text-align: start;
   }
 `;
