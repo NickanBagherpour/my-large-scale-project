@@ -31,8 +31,7 @@ export const Status = styled.div`
 `;
 
 export const StatusTxt = styled.p`
-  color: ${(p) => p.theme.text.quaternary};
-  font-weight: 600;
+  margin: 0;
 `;
 
 export const TrashIcon = styled.i`
@@ -53,24 +52,4 @@ export const Table = styled(KitTable)`
 
 export const DetailsBtn = styled(KitButton)`
   font-weight: 600;
-`;
-
-export const TableRow = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const RowItem = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.5rem;
-  color: ${(p) => p.theme.text.secondary};
-  min-height: 5rem;
-  gap: 2rem;
-
-  & > button {
-    /* to align buttons with other elements */
-    margin-inline-end: -15px;
-  }
 `;
