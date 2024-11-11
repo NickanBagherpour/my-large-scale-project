@@ -209,7 +209,7 @@ export const Caption = styled.div`
   }
 `;
 
-export const MobileColumnWrapper = styled.div`
+export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties['minHeight'] }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -217,8 +217,13 @@ export const MobileColumnWrapper = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   color: ${(props) => props.theme.text.secondary};
+  min-height: ${(p) => p.min_height};
 
   margin-bottom: 1rem;
+
+  .item__btn {
+    margin-inline-end: -1.6rem;
+  }
 
   .item__title {
     max-width: 10rem;
