@@ -42,6 +42,7 @@ export const TableContainer = styled(Box)`
   & .ant-table-caption {
     & div {
       padding: 1rem 0.8rem 0.8rem 0.8rem;
+      margin-bottom: 1.6rem;
 
       & .caption-title {
         font-size: 16px;
@@ -61,7 +62,7 @@ export const TableContainer = styled(Box)`
 export const ValueContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.3rem;
 
   & .ant-badge-status-dot {

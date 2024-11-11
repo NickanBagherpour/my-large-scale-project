@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
 import { Box, Button } from '@oxygen/ui-kit';
 import { Nullable, PageProps } from '@oxygen/types';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
@@ -47,8 +47,8 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Box className={'table-container'}>
-        {/*{clientId ? <DataList /> : <NoResult isLoading={false} />}*/}
-        <DataList />
+        {clientId ? <DataList /> : <NoResult isLoading={false} />}
+        {/*<DataList />*/}
       </Box>
     </S.AppContainer>
   );
