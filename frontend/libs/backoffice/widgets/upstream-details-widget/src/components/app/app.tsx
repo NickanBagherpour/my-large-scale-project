@@ -192,7 +192,6 @@ const App = () => {
           </Form>
         </S.ModalMessage>
       </Modal>
-      {/* <Loading spinning={isUpstreamFetching} size='large'> */}
 
       <S.UpstreamDetailsContainer title={upstreamId ? t('widget_name_details') : t('widget_name_creation')}>
         <GlobalMessageContainer
@@ -229,17 +228,17 @@ const App = () => {
         )}
         {!upstreamId && (
           <Box className={'table-container'}>
-            {/* <Loading spinning={isClientsFetching} size='large'> */}
             {
               <UpstreamDetails
                 isFetching={isUpstreamFetching}
+                // isFetching={true}
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
-                isLoading={isUpstreamFetching}
+                // isLoading={isUpstreamFetching}
+                isLoading={true}
                 deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
               />
             }
-            {/* </Loading> */}
           </Box>
         )}
 
@@ -267,7 +266,6 @@ const App = () => {
           )}
         </FooterContainer>
       </S.UpstreamDetailsContainer>
-      {/* </Loading> */}
     </>
   );
 };

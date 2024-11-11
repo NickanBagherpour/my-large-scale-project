@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const TableContainer = styled.div`
   margin-bottom: 1.6rem;
@@ -43,5 +44,12 @@ export const MobileTableItem = styled.div`
 
   .item__value {
     font-weight: 400;
+  }
+`;
+
+export const SwitchContainer = styled.span`
+  ${respondTo.down('xxl')} {
+    display: flex;
+    flex-direction: column;
   }
 `;
