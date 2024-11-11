@@ -34,7 +34,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   .ant-table-empty .ant-table-content {
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   ${(p) =>
@@ -43,6 +43,7 @@ export const Table = styled(AntTable)<TableProps>`
       table {
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
+        box-sizing: border-box;
         /* remove the last row's border */
         & tr:last-child td {
           border: none;
@@ -135,7 +136,6 @@ export const Table = styled(AntTable)<TableProps>`
   }
   .ant-pagination-prev,
   .ant-pagination-next,
-  .ant-pagination-disabled,
   .ant-pagination-item-link .anticon {
     color: ${(p) => p.theme.primary.main};
   }
@@ -150,10 +150,30 @@ export const Table = styled(AntTable)<TableProps>`
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
-    margin-top: 0.5rem;
+    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
   }
   .ant-pagination .anticon-search {
-    margin-top: 0.5rem;
+    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+  }
+  .ant-pagination-item:not(.ant-pagination-disabled):hover,
+  .ant-pagination-prev:not(.ant-pagination-disabled):hover,
+  .ant-pagination-next:not(.ant-pagination-disabled):hover {
+    border-radius: 50% !important;
+    background-color: ${(p) => p.theme.primary._100} !important;
+    border-color: transparent;
+    transition: none !important;
+  }
+  .ant-pagination-item-link:hover {
+    background-color: transparent;
+  }
+  .ant-pagination-mini .ant-pagination-item {
+    margin: 0 0.3rem;
+  }
+  .ant-pagination-disabled .ant-pagination-item-link .anticon {
+    color: ${(p) => p.theme.primary._400} !important;
+  }
+  .ant-pagination-disabled .ant-pagination-item-link :hover {
+    background-color: transparent !important;
   }
   .ant-pagination .ant-select-selection-item {
     color: ${(p) => p.theme.onPrimary};
@@ -170,7 +190,6 @@ export const Table = styled(AntTable)<TableProps>`
     background-color: ${(p) => p.theme.primary._100};
   }
   .ant-pagination-options {
-    margin: 0 1.6rem 0 2.5rem;
     order: -1;
     margin: 0 1.6rem 0 0;
     position: absolute;
