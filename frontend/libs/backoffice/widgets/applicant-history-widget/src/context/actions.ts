@@ -29,6 +29,6 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   return null;
 }
 
-export function updateClientIdAction(dispatch: WidgetDispatchType, clientId: Nullable<string>) {
-  dispatch({ type: 'UPDATE_CLIENT_ID', payload: clientId });
+export function updateApplicantIdAction(dispatch: WidgetDispatchType, clientId: Nullable<string>) {
+  dispatch({ type: 'UPDATE_APPLICANT_ID', payload: clientId });
 }

@@ -92,7 +92,7 @@ export default function ClientInfo() {
         <S.Header>
           <S.TabName>{t('client_info')}</S.TabName>
           <S.Btns>
-            <Button href={ROUTES.BACKOFFICE.CLIENT_HISTORY} color='primary' variant='filled'>
+            <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>
@@ -109,7 +109,7 @@ export default function ClientInfo() {
         <S.Header>
           <S.TabName>{t('applicant_info')}</S.TabName>
           <S.Btns>
-            <Button href={ROUTES.BACKOFFICE.APPLICANT_HISTORY} color='primary' variant='filled'>
+            <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
               <i className='icon-clock' />
               {t('display_change_history')}
             </Button>

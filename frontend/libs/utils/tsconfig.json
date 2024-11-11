@@ -1,6 +1,7 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
+      "allowSyntheticDefaultImports": true,/*allows you to import modules using import defaultExport from "module" syntax even if the module doesn’t have a default export  */
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "noImplicitOverride": true,
@@ -15,5 +16,5 @@
         {
             "path": "./tsconfig.lib.json"
         }
-    ]
+    ],
 }

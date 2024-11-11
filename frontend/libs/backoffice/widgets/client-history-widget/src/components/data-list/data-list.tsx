@@ -242,6 +242,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
+          size={'small'}
         />
       ) : (
         <NoResult isLoading={isFetching} />
