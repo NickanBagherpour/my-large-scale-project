@@ -15,7 +15,7 @@
         "widget-g": "nx g widget-g",
         "storybook": "nx storybook storybook-host",
         "build-storybook": "nx storybook build storybook-host",
-        "prepare": "cd .. && husky frontend/.husky"
+        "prepare": "husky"
     },
     "private": true,
     "engines": {

@@ -1,5 +1,12 @@
-# nx
-/.nx/*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+dist
+tmp
+/out-tsc
+
+# dependencies
+node_modules
 
 # IDEs and editors
 /.idea
@@ -9,7 +16,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-.vscode/
 
 # IDE - VSCode
 .vscode/*
@@ -17,3 +23,32 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.nx/*
+.nx/cache
+.nx/workspace-data
+
+# Next.js
+.next
+out
+
+storybook-static
+
+# pnpm lock
+pnpm-lock.yaml
+.vscode/extensions.json
+.vscode/settings.json
