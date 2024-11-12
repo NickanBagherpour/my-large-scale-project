@@ -132,8 +132,13 @@ export const Table = (props: TableProps) => {
   }
   const table = (
     <>
-      <ConfigProvider theme={{ components: { Table: { headerBorderRadius: variant == 'complex' ? 0 : 8 } } }}>
+      <ConfigProvider
+        theme={{
+          components: { Table: { borderColor: 'transparent', headerBorderRadius: variant == 'complex' ? 0 : 8 } },
+        }}
+      >
         <S.Table
+          bordered={variant === 'simple'}
           caption={caption}
           variant={variant}
           size={size}
