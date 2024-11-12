@@ -3,6 +3,7 @@ import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
+  firstStep: {},
   secondStep: { table: [] },
   message: null,
 };
@@ -15,6 +16,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'UPDATE_FIRST_STEP_FORM': {
+      state.firstStep = { ...action.payload };
+      return;
+    }
     case 'UPDATE_SECOND_STEP_TABLE': {
       state.secondStep.table = [...state.secondStep.table, { ...action.payload }];
       return;
