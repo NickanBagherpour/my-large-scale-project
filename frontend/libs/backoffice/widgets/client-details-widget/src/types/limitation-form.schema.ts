@@ -1,11 +1,11 @@
 import { TFunction } from 'i18next';
 import z from 'zod';
-import { UPLOAD_CLIENT_NAMES } from '../utils/consts';
 import { REGEX_PATTERNS } from '@oxygen/utils';
+import { LIMITAION_FORM_NAME } from '../utils/const';
 
 export const uploadClient = (t: TFunction) =>
   z.object({
-    [UPLOAD_CLIENT_NAMES.uploadClient]: z
+    [LIMITAION_FORM_NAME.totalCallLimit]: z
       .string({ required_error: t('validation.required') })
       .min(1, t('validation.required'))
       .max(30, t('validation.max_length'))

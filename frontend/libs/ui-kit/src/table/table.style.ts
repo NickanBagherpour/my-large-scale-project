@@ -33,16 +33,13 @@ export const Table = styled(AntTable)<TableProps>`
     scrollbar-color: ${(p) => p.theme.border._300} ${(p) => p.theme.background.main};
   }
 
-  .ant-table-empty .ant-table-content {
-    overflow: hidden !important;
-  }
-
   ${(p) =>
     p.variant === 'simple' &&
     css`
       table {
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
+        box-sizing: border-box;
         /* remove the last row's border */
         & tr:last-child td {
           border: none;
@@ -84,8 +81,10 @@ export const Table = styled(AntTable)<TableProps>`
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
+    border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-color: ${(p) => p.theme.border._100};
-
+    box-sizing: border-box !important;
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};
     font-weight: 700;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '2.2rem')};
@@ -97,6 +96,8 @@ export const Table = styled(AntTable)<TableProps>`
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
+    border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
   }
 
   thead > tr > th::before {
@@ -135,7 +136,6 @@ export const Table = styled(AntTable)<TableProps>`
   }
   .ant-pagination-prev,
   .ant-pagination-next,
-  .ant-pagination-disabled,
   .ant-pagination-item-link .anticon {
     color: ${(p) => p.theme.primary.main};
   }
@@ -150,10 +150,30 @@ export const Table = styled(AntTable)<TableProps>`
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
-    margin-top: 0.5rem;
+    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
   }
   .ant-pagination .anticon-search {
-    margin-top: 0.5rem;
+    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+  }
+  .ant-pagination-item:not(.ant-pagination-disabled):hover,
+  .ant-pagination-prev:not(.ant-pagination-disabled):hover,
+  .ant-pagination-next:not(.ant-pagination-disabled):hover {
+    border-radius: 50% !important;
+    background-color: ${(p) => p.theme.primary._100} !important;
+    border-color: transparent;
+    transition: none !important;
+  }
+  .ant-pagination-item-link:hover {
+    background-color: transparent;
+  }
+  .ant-pagination-mini .ant-pagination-item {
+    margin: 0 0.3rem;
+  }
+  .ant-pagination-disabled .ant-pagination-item-link .anticon {
+    color: ${(p) => p.theme.primary._400} !important;
+  }
+  .ant-pagination-disabled .ant-pagination-item-link :hover {
+    background-color: transparent !important;
   }
   .ant-pagination .ant-select-selection-item {
     color: ${(p) => p.theme.onPrimary};
@@ -170,7 +190,6 @@ export const Table = styled(AntTable)<TableProps>`
     background-color: ${(p) => p.theme.primary._100};
   }
   .ant-pagination-options {
-    margin: 0 1.6rem 0 2.5rem;
     order: -1;
     margin: 0 1.6rem 0 0;
     position: absolute;
@@ -209,7 +228,7 @@ export const Caption = styled.div`
   }
 `;
 
-export const MobileColumnWrapper = styled.div`
+export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties['minHeight'] }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -217,8 +236,13 @@ export const MobileColumnWrapper = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
   color: ${(props) => props.theme.text.secondary};
+  min-height: ${(p) => p.min_height};
 
   margin-bottom: 1rem;
+
+  .item__btn {
+    margin-inline-end: -1.6rem;
+  }
 
   .item__title {
     max-width: 10rem;

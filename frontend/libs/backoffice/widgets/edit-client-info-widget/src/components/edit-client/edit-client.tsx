@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Tooltip } from 'antd';
+import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
@@ -14,7 +14,7 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { createFormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import { LABEL_LENGTH_LIMIT, MAX_LENGTH } from '../../utils/consts';
+import { MAX_LENGTH } from '../../utils/consts';
 import { ROUTES } from '@oxygen/utils';
 
 import * as S from './edit-client.style';
@@ -84,22 +84,19 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const shouldShowTooltip = (tag) => {
-    const isLongLabel = tag.label.length > LABEL_LENGTH_LIMIT;
-    if (isLongLabel) {
-      return (
-        <Tooltip title={tag.label} arrow={true} key={tag.key}>
-          <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
-            <span> {tag.label}</span>
-          </Chip>
-        </Tooltip>
-      );
-    } else {
-      return (
-        <Chip key={tag.key} type='active' closeIcon onClose={() => handleTagsClose(tag)}>
-          <span> {tag.label}</span>
-        </Chip>
-      );
-    }
+    return (
+      <Chip
+        key={tag.key}
+        tooltipTitle={tag.label}
+        ellipsis={true}
+        tooltipOnEllipsis={true}
+        type='active'
+        closeIcon
+        onClose={() => handleTagsClose(tag)}
+      >
+        <span> {tag.label}</span>
+      </Chip>
+    );
   };
 
   const clientType = [

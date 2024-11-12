@@ -30,7 +30,7 @@ export default function PluginCard(props: Props) {
         )}
       </S.Card>
 
-      <LimitationsModal toggle={toggleModalOpen} isOpen={isModalOpen} />
+      {isModalOpen && <LimitationsModal toggle={toggleModalOpen} isOpen={isModalOpen} />}
     </>
   );
 }

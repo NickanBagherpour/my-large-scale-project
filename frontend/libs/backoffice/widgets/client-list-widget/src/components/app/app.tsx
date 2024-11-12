@@ -31,7 +31,7 @@ const App = () => {
         </Container>
       )}
 
-      <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>
+      <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle}>
         <Filters />
         <Loading spinning={isClientsFetching} size='large'>
           {clients?.list.length ? (

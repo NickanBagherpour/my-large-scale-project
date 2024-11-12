@@ -156,13 +156,13 @@ const Services: React.FC<ServicesProps> = (props) => {
       dataIndex: 'status',
       key: 'status',
       render: (status, name) => (
-        <span>
+        <S.SwitchContainer>
           {t('stopped')}
           <span style={{ margin: '0 1.2rem' }}>
             <Switch checked={status} onClick={() => changeStatus(status, name.name)} />
           </span>
           {t('operational')}
-        </span>
+        </S.SwitchContainer>
       ),
     },
     {
