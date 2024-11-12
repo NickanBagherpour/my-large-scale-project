@@ -1,12 +1,16 @@
-import { Button, ColumnsType } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
+import styled from 'styled-components';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
 };
+
+
+
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
@@ -64,9 +68,9 @@ export function getMobileColumns(props: Props) {
           { title: t('table.latin_name_scope'), value: latin_name_scope },
           { title: t('table.persian_name_scope'), value: persian_name_scope },
           {
-            fullwidth: true,
+            title: t('table.details'),
             value: (
-              <Button variant={'text'} color={'primary'}>
+              <Button className={'item__btn'} variant={'text'} color={'primary'}>
                 {t('table.details')}
               </Button>
             ),
@@ -74,11 +78,8 @@ export function getMobileColumns(props: Props) {
         ];
         return (
           <S.TableRow>
-            {data.map(({ title, value }) => (
-              <S.RowItem>
-                <strong>{title}</strong>
-                {value}
-              </S.RowItem>
+            {data.map((item, idx) => (
+              <Table.MobileColumn  key={idx} {...item} />
             ))}
           </S.TableRow>
         );
