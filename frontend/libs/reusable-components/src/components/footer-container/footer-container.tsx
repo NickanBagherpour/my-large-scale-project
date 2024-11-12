@@ -11,6 +11,10 @@ const FooterContainer = styled.div<any>`
   border-top: 1px solid ${(p) => p.theme.border._100};
   padding: 1.6rem 0.4rem;
 
+  & .ant-btn {
+    min-width: 12.8rem;
+  }
+
   ${respondTo.down('sm')} {
     flex-direction: column;
 
