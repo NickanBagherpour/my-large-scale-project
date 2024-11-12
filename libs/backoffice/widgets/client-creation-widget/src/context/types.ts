@@ -16,22 +16,22 @@ export type Tag = {
 };
 
 export type FirstStepType = {
-  grantTag?: Tag[];
-  addTag?: Tag[];
-  latinNameClient?: string;
-  persianNameClient?: string;
-  clientType?: string;
-  clientId?: string;
-  identityAuth?: string;
-  websiteUrl?: string;
-  inputAddress?: string;
-  returnAddress?: string;
-  aggregatorStatus?: boolean;
+  grant_tag?: any;
+  add_tag?: any;
+  latin_name_client?: string;
+  persian_name_client?: string;
+  client_type?: string;
+  client_id?: string;
+  identity_auth?: string;
+  website_url?: string;
+  input_address?: string;
+  return_address?: string;
+  aggregator_status?: boolean;
   aggregator?: string;
-  userName?: string;
-  nationalCode?: string;
-  organizationName?: string;
-  mobileNumber?: string;
+  user_uame?: string;
+  national_code?: string;
+  organization_name?: string;
+  mobile_number?: string;
   telephone?: string;
   email?: string;
 };

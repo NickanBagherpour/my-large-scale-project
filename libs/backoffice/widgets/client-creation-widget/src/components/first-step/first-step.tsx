@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Card, Form } from 'antd';
@@ -33,17 +33,18 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { data: grantTagData, isFetching: grantTagFetching } = useGetGrantTagDataQuery();
   const { data: NameTagData, isFetching: nameTagFetching } = useGetnameTagDataQuery();
   const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
-
-  const [firstStepValues, setFirstStepValues] = useState(undefined);
-  const [grantTags, setGrantTags] = useState([]);
-  const [nameTags, setNameTags] = useState([]);
+  const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
+  const [nameTags, setNameTags] = useState(state.firstStep.add_tag);
   const rule = createSchemaFieldRule(createFormSchema(t));
+
   const handleGrantTagChange = (values) => {
     setGrantTags(values);
   };
+
   const handleNameTagChange = (values) => {
     setNameTags(values);
   };
+
   const onFinish = (values) => {
     updateFirstStepAction(dispatch, values);
     setCurrentStep((perv) => perv + 1);
@@ -52,21 +53,23 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleGrantChipClose = (key) => {
     setGrantTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
   };
+
   const handleNameChipClose = (key) => {
     setNameTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
   };
+
   const handleReturn = () => {
     router.back();
   };
 
-  form.setFieldValue('grant-tag', grantTags);
-  form.setFieldValue('add-tag', nameTags);
+  form.setFieldValue('grant_tag', grantTags);
+  form.setFieldValue('add_tag', nameTags);
   return (
     <S.FirstStepContainer>
       <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
         <S.FirstForm>
           <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={'grant-tag'}>
+            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
               <S.Select
                 multiSelect={true}
                 defaultValue={grantTags}
@@ -94,14 +97,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </S.TagPicker>
 
           <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={'add-tag'}>
-              <S.Select
-                multiSelect={true}
-                defaultValue={nameTags}
-                menu={NameTagData}
-                onChange={handleNameTagChange}
-                loading={nameTagFetching}
-              >
+            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.add_tag}>
+              <S.Select multiSelect={true} menu={NameTagData} onChange={handleNameTagChange} loading={nameTagFetching}>
                 {t('form.add_tags')}
               </S.Select>
             </Form.Item>
@@ -184,7 +181,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={`${t('placeholder.organization_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} type='number' />
             </Form.Item>
             <Form.Item name={FORM_ITEM.telephone} label={t('form.telephone')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.telephone')}`} maxLength={MAX_INPUTE_LENGTH} />

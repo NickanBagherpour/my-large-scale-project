@@ -7,7 +7,9 @@ export const INITIAL_PAGE = 1;
 export const MAX_INPUTE_LENGTH = 75;
 
 export const FORM_ITEM = {
-  latin_name_client: 'latin-name-client',
+  grant_tag:'grant_tag',
+  add_tag:'add_tag',
+  latin_name_client: 'latin_name_client',
   persian_name_client: 'persian_name_client',
   client_type: 'client_type',
   client_id: 'client_id',
