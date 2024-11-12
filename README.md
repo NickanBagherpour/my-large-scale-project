@@ -51,10 +51,9 @@ Follow these steps to set up the project locally:
 
 3. **Install Dependencies**
 
-   Navigate to the `frontend` directory and install the project dependencies:
+   Install the project dependencies:
 
    ```bash
-   cd frontend
    npm install
    # If you encounter issues, you can force install:
    npm install --force
@@ -262,19 +261,13 @@ Each application within the monorepo has its own Dockerfile and Docker Compose c
 
 To build the Docker image and start the Backoffice Portal, follow these steps:
 
-1. **Navigate to the Frontend Directory**
-
-   ```bash
-   cd frontend
-   ```
-
-2. **Build the Docker Image**
+1. **Build the Docker Image**
 
    ```bash
    docker build -t backoffice-portal -f ./apps/backoffice-portal/Dockerfile .
    ```
 
-3. **Start the Container with Docker Compose**
+2. **Start the Container with Docker Compose**
 
    ```bash
    docker-compose -f ./apps/backoffice-portal/docker-compose.yml up
