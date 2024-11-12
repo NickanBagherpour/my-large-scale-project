@@ -18,3 +18,4 @@ export { default as ClientOnly } from './components/client-only/client-only';
 export { default as ConfigLoader } from './components/config-loader/config-loader';
 export { default as ErrorFallback } from './components/error-fallback/error-fallback';
 export { default as Protected } from './components/protected/protected';
+export { default as ConfirmModal} from './components/confirm-modal/confirm-modal'
