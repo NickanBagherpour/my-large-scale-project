@@ -4,7 +4,9 @@ export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const FormItem = {
+export const MAX_INPUTE_LENGTH = 75;
+
+export const FORM_ITEM = {
   latin_name_client: 'latin-name-client',
   persian_name_client: 'persian_name_client',
   client_type: 'client_type',

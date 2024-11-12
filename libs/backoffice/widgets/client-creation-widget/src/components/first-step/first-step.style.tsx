@@ -60,7 +60,7 @@ export const TagPicker = styled.div`
     }
   }
   .ant-tag {
-    margin: 0.5rem 0 0.5rem 1.6rem;
+    margin: 0.5rem 0 0.5rem 1.6rem !important;
   }
 `;
 export const Footer = styled.div`

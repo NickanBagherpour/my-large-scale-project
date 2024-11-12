@@ -3,6 +3,9 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { FiltersType, WidgetActionType, WidgetDispatchType } from './types';
 
+export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
+  dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
+}
 export function updateSecondStepTableAction(dispatch: WidgetDispatchType, secondStepTable: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_SECOND_STEP_TABLE', payload: secondStepTable });
 }

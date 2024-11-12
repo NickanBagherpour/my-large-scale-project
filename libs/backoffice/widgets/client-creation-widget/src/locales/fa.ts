@@ -109,5 +109,7 @@ export default {
     english_only: 'لطفا مقادیر را به انگلیسی وارد کنید',
     persian_only: 'لطفا مقادیر را به فارسی وارد کنید',
     invalid_url: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
+    invalid_email: 'ایمیل نادرست است',
+    invalid_mobile_length: 'شماره موبایل باید11رقم باشد',
   },
 };
