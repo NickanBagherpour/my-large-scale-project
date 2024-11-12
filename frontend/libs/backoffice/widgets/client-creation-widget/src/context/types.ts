@@ -16,24 +16,24 @@ export type Tag = {
 };
 
 export type FirstStepType = {
-  grantTag: Tag[];
-  addTag: Tag[];
-  latinNameClient: string;
-  persianNameClient: string;
-  clientType: string;
-  clientId: string;
-  identityAuth: string;
-  websiteUrl: string;
-  inputAddress: string;
-  returnAddress: string;
-  aggregatorStatus: boolean;
-  aggregator: string;
-  userName: string;
-  nationalCode: string;
-  organizationName: string;
-  mobileNumber: string;
-  telephone: string;
-  email: string;
+  grantTag?: Tag[];
+  addTag?: Tag[];
+  latinNameClient?: string;
+  persianNameClient?: string;
+  clientType?: string;
+  clientId?: string;
+  identityAuth?: string;
+  websiteUrl?: string;
+  inputAddress?: string;
+  returnAddress?: string;
+  aggregatorStatus?: boolean;
+  aggregator?: string;
+  userName?: string;
+  nationalCode?: string;
+  organizationName?: string;
+  mobileNumber?: string;
+  telephone?: string;
+  email?: string;
 };
 
 export type WidgetStateType = {

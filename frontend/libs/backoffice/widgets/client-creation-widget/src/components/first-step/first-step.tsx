@@ -9,10 +9,9 @@ import { PageProps } from '@oxygen/types';
 import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { useAppDispatch, useAppState } from '../../context';
 import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
-import { initialValues } from '../../utils/first-step-initial-values';
 import { useSelectDataQuery } from '../../services/first-step/get-select-data';
+import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
 import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
 
@@ -46,8 +45,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     setNameTags(values);
   };
   const onFinish = (values) => {
-    console.log('this is on finish:', values);
-    setFirstStepValues({ ...values });
+    updateFirstStepAction(dispatch, values);
     setCurrentStep((perv) => perv + 1);
   };
 
@@ -65,7 +63,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   form.setFieldValue('add-tag', nameTags);
   return (
     <S.FirstStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={firstStepValues}>
+      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
         <S.FirstForm>
           <S.TagPicker>
             <Form.Item className={'tag-input-grant-tag'} name={'grant-tag'}>
