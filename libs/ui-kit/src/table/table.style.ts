@@ -1,7 +1,7 @@
 import { Table as AntTable } from 'antd';
 import styled, { css } from 'styled-components';
 
-import { cssVar } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 
 import { Panel } from '../panel/panel';
 import { TableProps } from './table';
@@ -98,6 +98,9 @@ export const Table = styled(AntTable)<TableProps>`
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    ${respondTo.down('md')}{
+      text-align: start;
+    }
   }
 
   thead > tr > th::before {
