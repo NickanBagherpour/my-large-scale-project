@@ -33,10 +33,6 @@ export const Table = styled(AntTable)<TableProps>`
     scrollbar-color: ${(p) => p.theme.border._300} ${(p) => p.theme.background.main};
   }
 
-  .ant-table-empty .ant-table-content {
-    overflow: visible !important;
-  }
-
   ${(p) =>
     p.variant === 'simple' &&
     css`
@@ -85,8 +81,10 @@ export const Table = styled(AntTable)<TableProps>`
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
+    border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-color: ${(p) => p.theme.border._100};
-
+    box-sizing: border-box !important;
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};
     font-weight: 700;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '2.2rem')};
@@ -98,6 +96,8 @@ export const Table = styled(AntTable)<TableProps>`
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
+    border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
   }
 
   thead > tr > th::before {

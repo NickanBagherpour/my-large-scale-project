@@ -142,7 +142,7 @@ const DataTable: React.FC<AppProps> = () => {
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 120,
+      width: 100,
     },
     {
       title: t('column.tags'),
@@ -151,7 +151,7 @@ const DataTable: React.FC<AppProps> = () => {
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 120,
+      width: 100,
     },
     {
       title: t('column.tags'),
@@ -181,7 +181,7 @@ const DataTable: React.FC<AppProps> = () => {
         <S.TableContainer>
           <Table
             size='small'
-            scroll={{ x: 1000 }}
+            scroll={{ x: 1600 }}
             variant='complex'
             columns={columns}
             dataSource={dataSource}
