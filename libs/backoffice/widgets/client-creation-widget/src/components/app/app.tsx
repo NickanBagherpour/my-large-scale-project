@@ -48,3 +48,5 @@ const App: React.FC<AppProps> = (props) => {
     </S.AppContainer>
   );
 };
+
+export default App;
