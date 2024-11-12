@@ -1,7 +1,8 @@
 export default {
   upstream_server_title: 'سرورهای آپ‌استریم',
   add_server: 'افزودن سرور',
-  widget_name: 'جزئیات آپ استریم',
+  widget_name_details: 'جزئیات آپ استریم',
+  widget_name_creation: 'ایجاد آپ استریم',
   domain: 'دامنه',
   health_status: 'وضعیت سلامت',
   weight: 'وزن',
