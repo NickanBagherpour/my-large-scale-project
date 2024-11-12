@@ -21,10 +21,6 @@ export const Drawer = styled(AntDrawer)`
   &.ant-drawer-content {
     background: ${(p) => p.theme.surface};
   }
-  @media print {
-    display: none;
-    width: 0;
-  }
 `;
 
 export const MenuWrapper = styled.div`
@@ -123,10 +119,8 @@ export const MenuWrapper = styled.div`
     color: ${(p) => p.theme.error.main};
   }
 
-  ${hideScrollbar()}
-  @media print {
-    display: none;
-  }
+  ${hideScrollbar()};
+
 `;
 
 export const SiderItemsWrapper = styled.div`
@@ -136,7 +130,6 @@ export const SiderItemsWrapper = styled.div`
   flex-direction: column;
   gap: 2.4rem;
   background: transparent;
-
   ${respondTo.down('sm')} {
     gap: 0;
   }
