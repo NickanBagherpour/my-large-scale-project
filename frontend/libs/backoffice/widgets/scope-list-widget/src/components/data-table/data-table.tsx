@@ -51,7 +51,6 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        scroll={{ x: 'max-content' }}
       />
     </S.DataTableContainer>
   );
