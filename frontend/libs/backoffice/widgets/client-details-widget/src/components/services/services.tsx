@@ -59,7 +59,6 @@ export default function Services() {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        scroll={{ x: 'max-content' }}
       />
 
       <StopServiceModal

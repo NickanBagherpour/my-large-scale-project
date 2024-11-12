@@ -6,11 +6,11 @@ import { useGetUpstreamDetailsQuery } from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
 import UpstreamInfo from '../upstream-info/upstream-info';
 import * as S from './app.style';
-import { Loading, Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
+import { Loading, Modal, Box, Button, Input, Select, Container } from '@oxygen/ui-kit';
 import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { NoResult } from '@oxygen/reusable-components';
+import { NoResult, FooterContainer } from '@oxygen/reusable-components';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTheme } from 'styled-components';
@@ -182,7 +182,7 @@ const App = () => {
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('health_status')}</span>
                 <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]}>
-                  <Select defaultValue='1' size={'middle'}>
+                  <Select defaultValue='1' size={'large'}>
                     <Select.Option value='1'>{t('health')}</Select.Option>
                     <Select.Option value='0'>{t('unHealth')}</Select.Option>
                   </Select>
@@ -192,81 +192,80 @@ const App = () => {
           </Form>
         </S.ModalMessage>
       </Modal>
-      <Loading spinning={isUpstreamFetching} size='large'>
-        <S.UpstreamDetailsContainer title={t('widget_name')}>
-          <GlobalMessageContainer
-            containerProps={{ marginBottom: '2.4rem' }}
-            message={state.errorMessage}
-            onClose={() => {
-              resetErrorMessageAction(dispatch);
-            }}
-          />
-          <UpstreamInfo
-            name={upstreamId ? upstreamDetails?.list.name : ''}
-            persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
-            addServer={registerHandler}
-            triggerRegisterAction={triggerRegisterAction}
-            toggleLoading={handleToggleRegisterLoading}
-            resetTriggerRegisterAction={handleResetTriggerRegisterAction}
-          />
-          {upstreamId && (
-            <Box className={'table-container'}>
-              <Loading spinning={isUpstreamFetching} size='large'>
-                {upstreamDetails?.list?.serverList.length ? (
-                  <UpstreamDetails
-                    isFetching={isUpstreamFetching}
-                    data={upstreamDetails.list.serverList}
-                    total={upstreamDetails.list.serverList.length}
-                    isLoading={isUpstreamFetching}
-                    deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
-                  />
-                ) : (
-                  <NoResult isLoading={false} />
-                )}
-              </Loading>
-            </Box>
-          )}
-          {!upstreamId && (
-            <Box className={'table-container'}>
-              {/* <Loading spinning={isClientsFetching} size='large'> */}
-              {
+
+      <S.UpstreamDetailsContainer title={upstreamId ? t('widget_name_details') : t('widget_name_creation')}>
+        <GlobalMessageContainer
+          containerProps={{ marginBottom: '2.4rem' }}
+          message={state.errorMessage}
+          onClose={() => {
+            resetErrorMessageAction(dispatch);
+          }}
+        />
+        <UpstreamInfo
+          name={upstreamId ? upstreamDetails?.list.name : ''}
+          persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
+          addServer={registerHandler}
+          triggerRegisterAction={triggerRegisterAction}
+          toggleLoading={handleToggleRegisterLoading}
+          resetTriggerRegisterAction={handleResetTriggerRegisterAction}
+        />
+        {upstreamId && (
+          <Box className={'table-container'}>
+            <Loading spinning={isUpstreamFetching} size='large'>
+              {upstreamDetails?.list?.serverList.length ? (
                 <UpstreamDetails
                   isFetching={isUpstreamFetching}
-                  data={upstreamServer?.list?.serverList}
-                  total={upstreamServer?.list?.serverList.length}
+                  data={upstreamDetails.list.serverList}
+                  total={upstreamDetails.list.serverList.length}
                   isLoading={isUpstreamFetching}
                   deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
                 />
-              }
-              {/* </Loading> */}
-            </Box>
-          )}
+              ) : (
+                <NoResult isLoading={false} />
+              )}
+            </Loading>
+          </Box>
+        )}
+        {!upstreamId && (
+          <Box className={'table-container'}>
+            {
+              <UpstreamDetails
+                isFetching={isUpstreamFetching}
+                // isFetching={true}
+                data={upstreamServer?.list?.serverList}
+                total={upstreamServer?.list?.serverList.length}
+                // isLoading={isUpstreamFetching}
+                isLoading={true}
+                deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
+              />
+            }
+          </Box>
+        )}
 
-          <S.FooterContainer>
+        <FooterContainer>
+          <Button
+            className={'register-button'}
+            variant={'outlined'}
+            color={'primary'}
+            size={'large'}
+            onClick={handleReturn}
+          >
+            {t('button.return')}
+          </Button>
+          {!upstreamId && (
             <Button
-              className={'register-button'}
-              variant={'outlined'}
+              className={'return-button'}
+              // variant={'outlined'}
               color={'primary'}
               size={'large'}
-              onClick={handleReturn}
+              onClick={handleSubmit}
+              loading={registerLoading}
             >
-              {t('button.return')}
+              {t('button.register')}
             </Button>
-            {!upstreamId && (
-              <Button
-                className={'return-button'}
-                // variant={'outlined'}
-                color={'primary'}
-                size={'large'}
-                onClick={handleSubmit}
-                loading={registerLoading}
-              >
-                {t('button.register')}
-              </Button>
-            )}
-          </S.FooterContainer>
-        </S.UpstreamDetailsContainer>
-      </Loading>
+          )}
+        </FooterContainer>
+      </S.UpstreamDetailsContainer>
     </>
   );
 };

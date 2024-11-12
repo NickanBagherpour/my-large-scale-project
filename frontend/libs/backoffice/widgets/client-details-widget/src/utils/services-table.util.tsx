@@ -1,4 +1,4 @@
-import { Button, ColumnsType, Switch } from '@oxygen/ui-kit';
+import { Box, Button, ColumnsType, Switch, Table } from '@oxygen/ui-kit';
 import * as S from '../components/services/services.style';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
@@ -74,20 +74,16 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       width: '7rem',
-      key: 'status',
+      key: 'action',
       render: () => (
-        <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
-          {t('details')}
-        </S.DetailsBtn>
-      ),
-    },
-    {
-      width: '7rem',
-      key: 'remove',
-      render: () => (
-        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
-          <S.TrashIcon className='icon-trash' />
-        </Button>
+        <Box>
+          <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
+            {t('details')}
+          </S.DetailsBtn>
+          <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+            <S.TrashIcon className='icon-trash' />
+          </Button>
+        </Box>
       ),
     },
   ];
@@ -115,6 +111,7 @@ export function getMobileColumns(props: Props) {
               <S.Status>
                 <S.StatusTxt>{t('stop')} </S.StatusTxt>
                 <Switch
+                  size='small'
                   onChange={(checked) => {
                     checked ? toggleModal('startService') : toggleModal('stopService');
                   }}
@@ -126,7 +123,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('details'),
             value: (
-              <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
+              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
                 {t('details')}
               </S.DetailsBtn>
             ),
@@ -134,21 +131,19 @@ export function getMobileColumns(props: Props) {
           {
             title: t('remove'),
             value: (
-              <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
                 <S.TrashIcon className='icon-trash' />
               </Button>
             ),
           },
         ];
+
         return (
-          <S.TableRow>
-            {data.map(({ title, value }) => (
-              <S.RowItem>
-                <strong>{title}</strong>
-                {value}
-              </S.RowItem>
+          <Box flexDirection='column'>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'4rem'} key={idx} {...item} />
             ))}
-          </S.TableRow>
+          </Box>
         );
       },
     },
