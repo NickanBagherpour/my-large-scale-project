@@ -1,5 +1,5 @@
 import secureLocalStorage from 'react-secure-storage';
-import { ENV_CONSTANTS } from './app-constants';
+import { ENV_CONSTANTS } from './env';
 
 const isBrowser = typeof window !== 'undefined';
 

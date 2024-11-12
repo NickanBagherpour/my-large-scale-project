@@ -1,3 +1,4 @@
+export * from './lib/env';
 export * from './lib/app-constants';
 export * from './lib/util';
 export * from './lib/date-util';

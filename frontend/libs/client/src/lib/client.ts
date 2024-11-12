@@ -4,7 +4,7 @@ import { LocalStorageKey } from '@oxygen/types';
 
 const baseUrl = '/';
 
-export const portalUrl = process.env['NEXT_PUBLIC_PORTAL_PREFIX'];
+export const portalUrl = process.env.NEXT_PUBLIC_PORTAL_PREFIX;
 
 const client = axios.create({
   baseURL: baseUrl,
