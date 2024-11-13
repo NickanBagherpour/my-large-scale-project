@@ -348,4 +348,16 @@ export default {
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
   },
+  service_call:{
+      service_call_rate: 'نرخ فراخوانی سرویس',
+      register_data: 'ثبت اطلاعات',
+      in: 'در',
+      total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
+      in_week: 'در هفته',
+      in_month: 'در ماه',
+      hour: 'ساعت',
+      minute: 'دقیقه',
+      second: 'ثانیه',
+
+  }
 };
