@@ -9,13 +9,14 @@ import { PageProps } from '@oxygen/types';
 import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
 import { useSelectDataQuery } from '../../services/first-step/get-select-data';
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
 import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
 
 import * as S from './first-step.style';
+import { number } from 'zod';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -175,16 +176,16 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={`${t('placeholder.user_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.national_code} label={t('form.national_code')}>
-              <Input placeholder={`${t('placeholder.national_code')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.national_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.organization_name} label={t('form.organization_name')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.organization_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} type='number' />
+              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} type='tell'allow={'number'} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.telephone} label={t('form.telephone')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.telephone')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.telephone')}`} maxLength={MAX_INPUTE_LENGTH} type='tell' allow={'number'}/>
             </Form.Item>
             <Form.Item name={FORM_ITEM.email} label={t('form.email')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.email')}`} maxLength={MAX_INPUTE_LENGTH} type='email' />

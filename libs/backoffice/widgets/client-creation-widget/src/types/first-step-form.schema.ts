@@ -82,11 +82,36 @@ export const createFormSchema = (t: (key: string) => string) => {
       }
     });
 
-  // to do {handle z.number}
   const mobileNumber = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('error.required') }) 
     .trim()
-    .min(1, { message: t('error.required') });
+    .superRefine((value, ctx) => {
+      if (value.length < 1) {
+
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('error.required'),
+        });
+        return;
+      }
+
+      if (value.length < 11) {
+
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 11,
+          inclusive: true,
+          message: t('error.min_length'), 
+        });
+      }
+    });
+
+
+    // .min(11, { message: t('error.min_length') });
 
   return z.object({
     // Name Fields
