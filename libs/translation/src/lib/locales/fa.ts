@@ -265,6 +265,8 @@ export default {
     persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
     url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
     only_digit_message: 'لطفا فقط عدد وارد کنید',
+    email_validation_message : 'لطفا ایمیل را به صورت صحیح وارد کنید',
+    default_validation_message : 'لطفا مقادیر را به طور صحیح وارد کنید'
   },
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',
