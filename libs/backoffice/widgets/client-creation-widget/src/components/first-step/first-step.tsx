@@ -45,7 +45,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleNameTagChange = (values) => {
     setNameTags(values);
   };
-
   const onFinish = (values) => {
     updateFirstStepAction(dispatch, values);
     setCurrentStep((perv) => perv + 1);
