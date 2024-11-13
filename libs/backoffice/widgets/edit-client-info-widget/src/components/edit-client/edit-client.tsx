@@ -6,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -14,8 +15,7 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { createFormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import { MAX_LENGTH } from '../../utils/consts';
-import { ROUTES } from '@oxygen/utils';
+import {  TEXT_INPUT_LIMIT } from '../../utils/consts';
 
 import * as S from './edit-client.style';
 
@@ -102,7 +102,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   const clientType = [
     {
       value: '',
-      label: t('select_aggre'),
+      label: t('select_aggregator'),
     },
     { value: 'TEST-1', label: 'TEST-1' },
     { value: 'TEST-2', label: 'TEST-2' },
@@ -160,28 +160,28 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.latin_name_client')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.latin_name_client')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.client_bale')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.client_bale')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
               <Select size={'large'} placeholder={t('placeholder.credit_system')} options={aggregatorOption}></Select>
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.clientId} rules={[rule]} label={t('form.client_id')}>
-              <Input placeholder={t('placeholder.client_id')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.client_id')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.identityAuth} label={t('form.identity_auth')}>
-              <Input placeholder={t('placeholder.identity_auth')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.identity_auth')} allow={'number'} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.websiteUrl} label={t('form.website_url')}>
-              <Input placeholder={t('placeholder.website_url')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.website_url')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.inputAddress} label={t('form.input_address')}>
-              <Input placeholder={t('placeholder.input_address')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.input_address')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.returnAddress} label={t('form.return_address')}>
-              <Input placeholder={t('placeholder.return_address')} maxLength={MAX_LENGTH} />
+              <Input placeholder={t('placeholder.return_address')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.aggregatorStatus}
