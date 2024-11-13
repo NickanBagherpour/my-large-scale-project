@@ -7,7 +7,7 @@ export default {
     cancel: 'cancel',
     register: 'register',
     return: 'return',
-    confirm:'confirm'
+    confirm: 'confirm',
   },
   appbar: {
     title: 'Melli Bank',
@@ -33,5 +33,16 @@ export default {
   },
   uikit: {
     select_all: 'select all',
+  },
+  service_call: {
+    service_call_rate: 'service call rate',
+    register_data: 'apply',
+    in: 'in',
+    total_number_calls_limit: 'total call limit rate',
+    in_week: 'in week',
+    in_month: 'in month',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
   },
 };
