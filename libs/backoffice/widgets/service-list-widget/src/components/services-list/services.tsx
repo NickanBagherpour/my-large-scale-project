@@ -13,7 +13,7 @@ import { ServiceType, ParamsType } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
 type ServicesProps = PageProps & {
-  data: ServiceType[];
+  data?: ServiceType[];
   isFetching: boolean;
   total?: number;
   searchTerm: string;
@@ -179,7 +179,7 @@ const Services: React.FC<ServicesProps> = (props) => {
     },
   ];
 
-  const tableData = data.map((item, index) => ({ ...item, index: index + 1 }));
+  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
   return (
     <S.TableContainer>
