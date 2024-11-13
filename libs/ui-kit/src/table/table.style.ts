@@ -92,7 +92,6 @@ export const Table = styled(AntTable)<TableProps>`
 
   tbody > tr > td {
     text-align: center;
-    border-color: ${(p) => (p.variant === 'simple' ? p.theme.divider : p.theme.border._100)};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};

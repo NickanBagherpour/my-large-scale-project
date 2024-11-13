@@ -16,6 +16,7 @@ export const StyledChip = styled<any>(AntChip)`
     line-height: 2.2rem;
     display: inline-flex;
     align-items: center;
+    min-height: 3.7rem;
   }
 
   .anticon {
