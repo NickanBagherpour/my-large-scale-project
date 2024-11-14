@@ -13,7 +13,7 @@ export default function ScopeLibrary(props: Props) {
   const { closeDrawer } = props;
   const [t] = useTr();
   const { data, isFetching } = useGetScopes();
-  const [scope, setScope] = useState<Scope | null>(null);
+  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
 
   const addScope = () => {
     closeDrawer();
@@ -24,7 +24,9 @@ export default function ScopeLibrary(props: Props) {
       title: t('choose'),
       key: 'choose',
       align: 'center',
-      render: (record) => <S.Radio checked={scope?.idx === record.idx} onChange={() => setScope(record)} />,
+      render: (scope) => (
+        <S.Radio checked={selectedScope?.idx === scope.idx} onChange={() => setSelectedScope(scope)} />
+      ),
     },
     {
       title: t('scope_name'),
@@ -48,7 +50,7 @@ export default function ScopeLibrary(props: Props) {
           <S.TableCell>
             <S.TableRow>
               <strong>{t('choose')}</strong>
-              <S.Radio checked={scope?.idx === idx} onChange={() => setScope(scope)} />
+              <S.Radio checked={selectedScope?.idx === idx} onChange={() => setSelectedScope(scope)} />
             </S.TableRow>
             <S.TableRow>
               <strong>{t('persian_name')}</strong>
@@ -77,7 +79,7 @@ export default function ScopeLibrary(props: Props) {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
       />
-      <S.Button onClick={addScope} disabled={!scope} color='primary'>
+      <S.Button onClick={addScope} disabled={!selectedScope} color='primary'>
         {t('add')}
       </S.Button>
     </S.Form>
