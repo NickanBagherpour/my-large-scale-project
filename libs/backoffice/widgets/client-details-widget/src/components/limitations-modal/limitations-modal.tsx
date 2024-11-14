@@ -29,7 +29,6 @@ export default function LimitationsModal(props: Props) {
   ];
 
   const onFinish: FormProps<LimitationsType>['onFinish'] = () => {
-    console.log(':)', 'finishing...');
     toggle();
   };
 
