@@ -13,5 +13,14 @@ export const MainContentLayout = styled(Layout)`
 
 export const MainLayout = styled(Layout)`
   isolation: isolate;
+
+  .ant-layout{
+    .ant-layout{
+      @media print{
+        margin-left: 0rem;
+      }
+    }
+  }
   // background-color: ${(p) => p.theme.background.main};
+
 `;

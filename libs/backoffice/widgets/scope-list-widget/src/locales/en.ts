@@ -1,17 +1,23 @@
 export default {
-  widget_name: 'scope management',
+  widget_name: 'Scope Management',
+  add_scope: 'Add Scope',
   table: {
-    index: 'index',
-    persian_name_scope: 'persianname scope',
-    latin_name_scope: 'latinname scope',
-    details: 'details',
-    title: 'List Scopes',
+    index: 'Row',
+    persian_name_scope: 'Scope Persian Name',
+    latin_name_scope: 'Scope Latin Name',
+    details: 'Details',
+    title: 'Scope List',
   },
   placeholder: {
-    search_by_name_or_id: 'search by name or id',
+    search_by_name_or_id: 'Search by Name or ID',
+  },
+  error: {
+    english_character: 'Please enter values in English',
   },
   button: {
-    upload_scope: 'upload scope',
-    create_new_scope: 'create new scope',
+    upload_scope: 'Upload Scope',
+    create_new_scope: 'Create New Scope',
+    register_info: 'Register Information',
+    cancel: 'Cancel',
   },
 };

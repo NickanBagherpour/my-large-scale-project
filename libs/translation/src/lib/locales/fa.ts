@@ -265,6 +265,8 @@ export default {
     persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
     url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
     only_digit_message: 'لطفا فقط عدد وارد کنید',
+    email_validation_message : 'لطفا ایمیل را به صورت صحیح وارد کنید',
+    default_validation_message : 'لطفا مقادیر را به طور صحیح وارد کنید'
   },
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',
@@ -348,4 +350,16 @@ export default {
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
   },
+  service_call:{
+      service_call_rate: 'نرخ فراخوانی سرویس',
+      register_data: 'ثبت اطلاعات',
+      in: 'در',
+      total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
+      in_week: 'در هفته',
+      in_month: 'در ماه',
+      hour: 'ساعت',
+      minute: 'دقیقه',
+      second: 'ثانیه',
+
+  }
 };

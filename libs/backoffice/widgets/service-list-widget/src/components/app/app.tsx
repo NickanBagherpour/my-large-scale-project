@@ -138,22 +138,16 @@ const App = () => {
 
       <S.ServicesContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>
         <Filters />
-        <Loading spinning={isClientsFetching} size='large'>
-          {services?.list.length ? (
-            <Services
-              isFetching={isClientsFetching}
-              data={services.list}
-              total={services.total}
-              searchTerm={fetchState.searchTerm}
-              isLoading={isClientsFetching}
-              wordToHighlight={fetchState.searchTerm}
-              changeStatus={(status, name) => changeStatusHandler(status, name)}
-              deleteService={(name, status) => deleteHandler(name, status)}
-            />
-          ) : (
-            <NoResult isLoading={false} />
-          )}
-        </Loading>
+        <Services
+          isFetching={isClientsFetching}
+          data={services?.list}
+          total={services?.total}
+          searchTerm={fetchState.searchTerm}
+          isLoading={isClientsFetching}
+          wordToHighlight={fetchState.searchTerm}
+          changeStatus={(status, name) => changeStatusHandler(status, name)}
+          deleteService={(name, status) => deleteHandler(name, status)}
+        />
       </S.ServicesContainer>
     </>
   );
