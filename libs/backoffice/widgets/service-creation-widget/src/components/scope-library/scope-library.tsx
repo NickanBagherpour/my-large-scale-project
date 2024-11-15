@@ -24,9 +24,7 @@ export default function ScopeLibrary(props: Props) {
       title: t('choose'),
       key: 'choose',
       align: 'center',
-      render: (scope) => (
-        <S.Radio checked={selectedScope?.idx === scope.idx} onChange={() => setSelectedScope(scope)} />
-      ),
+      render: (scope) => <S.Radio checked={selectedScope?.idx === scope.idx} />,
     },
     {
       title: t('scope_name'),
@@ -50,7 +48,7 @@ export default function ScopeLibrary(props: Props) {
           <S.TableCell>
             <S.TableRow>
               <strong>{t('choose')}</strong>
-              <S.Radio checked={selectedScope?.idx === idx} onChange={() => setSelectedScope(scope)} />
+              <S.Radio checked={selectedScope?.idx === idx} />
             </S.TableRow>
             <S.TableRow>
               <strong>{t('persian_name')}</strong>
@@ -78,6 +76,11 @@ export default function ScopeLibrary(props: Props) {
         loading={isFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
+        onRow={(scope) => ({
+          onClick() {
+            setSelectedScope(scope);
+          },
+        })}
       />
       <S.Button onClick={addScope} disabled={!selectedScope} color='primary'>
         {t('add')}
