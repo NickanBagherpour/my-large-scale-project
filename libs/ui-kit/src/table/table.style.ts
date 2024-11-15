@@ -242,6 +242,7 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   gap: 1rem;
 
   margin-bottom: 1rem;
+  gap: 1rem;
 
   .item__btn {
     margin-inline-end: -1.6rem;
