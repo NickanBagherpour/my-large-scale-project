@@ -8,6 +8,7 @@ export const limitationsSchema = (t: TFunction) =>
   z.object({
     [LIMITAION_FORM_NAME.serviceCallRate]: z
       .string({ required_error: t('validation.required') })
+      .trim()
       .min(1, t('validation.min_length'))
       .max(MAX_LENGTH, t('validation.max_length')),
 
@@ -18,6 +19,7 @@ export const limitationsSchema = (t: TFunction) =>
 
     [LIMITAION_FORM_NAME.totalCallLimit]: z
       .string({ required_error: t('validation.required') })
+      .trim()
       .min(1, t('validation.min_length'))
       .max(MAX_LENGTH, t('validation.max_length')),
 
