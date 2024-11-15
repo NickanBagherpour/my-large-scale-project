@@ -4,7 +4,7 @@ import { Badge } from 'antd';
 import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
-import { Box, ColumnsType } from '@oxygen/ui-kit';
+import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 
 import { ItemType } from '../types';
@@ -19,8 +19,6 @@ type Props = {
 interface DataItem {
   title: string;
   value: React.ReactNode;
-  badge?: React.ReactNode;
-  ellipsis?: boolean;
 }
 
 export function getDesktopColumns(props: Props): ColumnsType<ItemType> {
@@ -158,50 +156,56 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
       render: (value) => {
         const data: DataItem[] = [
           {
-            title: t('table.edit_time'),
+            title: t('table.edit_time') + ':',
             value: getValueOrDash(value?.editTime),
           },
           {
-            title: t('table.admin_name'),
-            value: getValueOrDash(value?.adminName),
-            badge: (value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 0]} color={badgeColor} />,
+            title: t('table.admin_name') + ':',
+            value: (
+              <S.ValueContainer>
+                {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}{' '}
+                {getValueOrDash(value?.adminName)}
+              </S.ValueContainer>
+            ),
           },
           {
-            title: t('table.client_latin_name'),
+            title: t('table.client_latin_name') + ':',
             value: getValueOrDash(value?.clientLatinName),
           },
           {
-            title: t('table.client_farsi_name'),
+            title: t('table.client_farsi_name') + ':',
             value: getValueOrDash(value?.clientFarsiName),
           },
           {
-            title: t('table.client_type'),
-            value: getValueOrDash(value?.clientType),
-            ellipsis: true,
+            title: t('table.client_type') + ':',
+            value: (
+              <S.EllipsisContainer width={200} title={value?.clientType}>
+                <span className='item__value'>{getValueOrDash(value?.clientType)}</span>
+              </S.EllipsisContainer>
+            ),
           },
           {
-            title: t('table.client_id'),
+            title: t('table.client_id') + ':',
             value: getValueOrDash(value?.clientId),
-            ellipsis: true,
           },
           {
-            title: t('table.verification_id'),
+            title: t('table.verification_id') + ':',
             value: getValueOrDash(value?.verificationId),
           },
           {
-            title: t('table.aggregator_status'),
+            title: t('table.aggregator_status') + ':',
             value: getValueOrDash(value?.aggregatorStatus),
           },
           {
-            title: t('table.aggregator_name'),
+            title: t('table.aggregator_name') + ':',
             value: getValueOrDash(value?.aggregatorName),
           },
           {
-            title: t('table.address'),
+            title: t('table.address') + ':',
             value: getValueOrDash(value?.address),
           },
           {
-            title: t('table.input_address'),
+            title: t('table.input_address') + ':',
             value: getValueOrDash(value?.inputAddress),
           },
         ];
@@ -209,23 +213,7 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
         return (
           <Box flexDirection='column'>
             {data.map((item, idx) => (
-              <S.MobileTableItem key={idx}>
-                {item?.badge ? (
-                  <S.BadgeItemContainer>
-                    {item.badge}
-                    <span className='item__title'>{item.title}</span>
-                  </S.BadgeItemContainer>
-                ) : (
-                  <span className='item__title'>{item.title}</span>
-                )}
-                {item?.ellipsis ? (
-                  <S.EllipsisContainer width={200} title={item?.value as string}>
-                    <span className='item__value'>{item.value}</span>
-                  </S.EllipsisContainer>
-                ) : (
-                  <span className='item__value'>{item.value}</span>
-                )}
-              </S.MobileTableItem>
+              <Table.MobileColumn minHeight={'4rem'} key={idx} {...item} />
             ))}
           </Box>
         );
