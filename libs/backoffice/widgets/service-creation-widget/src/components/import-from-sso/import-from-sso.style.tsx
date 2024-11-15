@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import RawFormItem from '../form-item/form-item';
 import { Drawer as AntDrawer } from 'antd';
 
-export const Sso = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 1.6rem;
-  ${respondTo.down('sm')} {
-    flex-direction: column;
-
-    & > * {
-      width: 100%;
-    }
-  }
-`;
-
 export const FormItem = styled(RawFormItem)`
   flex: 1;
   & label {
     font-size: 1.2rem;
+  }
+
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    ${respondTo.down('sm')} {
+      flex-direction: column;
+      & > * {
+        width: 100%;
+      }
+    }
   }
 `;
 
