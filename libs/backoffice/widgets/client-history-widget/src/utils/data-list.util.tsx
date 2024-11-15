@@ -4,7 +4,7 @@ import { Badge } from 'antd';
 import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
-import { Box, ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table, MobileColumnType } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 
 import { ItemType } from '../types';
@@ -15,11 +15,6 @@ type Props = {
   t: TFunction;
   theme: DefaultTheme;
 };
-
-interface DataItem {
-  title: string;
-  value: React.ReactNode;
-}
 
 export function getDesktopColumns(props: Props): ColumnsType<ItemType> {
   const { t, theme } = props;
@@ -154,13 +149,13 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
       title: '',
       key: 'mobile-columns',
       render: (value) => {
-        const data: DataItem[] = [
+        const columns: MobileColumnType[] = [
           {
-            title: t('table.edit_time') + ':',
+            title: t('table.edit_time'),
             value: getValueOrDash(value?.editTime),
           },
           {
-            title: t('table.admin_name') + ':',
+            title: t('table.admin_name'),
             value: (
               <S.ValueContainer>
                 {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}{' '}
@@ -169,15 +164,15 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
             ),
           },
           {
-            title: t('table.client_latin_name') + ':',
+            title: t('table.client_latin_name'),
             value: getValueOrDash(value?.clientLatinName),
           },
           {
-            title: t('table.client_farsi_name') + ':',
+            title: t('table.client_farsi_name'),
             value: getValueOrDash(value?.clientFarsiName),
           },
           {
-            title: t('table.client_type') + ':',
+            title: t('table.client_type'),
             value: (
               <S.EllipsisContainer width={200} title={value?.clientType}>
                 <span className='item__value'>{getValueOrDash(value?.clientType)}</span>
@@ -185,38 +180,32 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
             ),
           },
           {
-            title: t('table.client_id') + ':',
+            title: t('table.client_id'),
             value: getValueOrDash(value?.clientId),
           },
           {
-            title: t('table.verification_id') + ':',
+            title: t('table.verification_id'),
             value: getValueOrDash(value?.verificationId),
           },
           {
-            title: t('table.aggregator_status') + ':',
+            title: t('table.aggregator_status'),
             value: getValueOrDash(value?.aggregatorStatus),
           },
           {
-            title: t('table.aggregator_name') + ':',
+            title: t('table.aggregator_name'),
             value: getValueOrDash(value?.aggregatorName),
           },
           {
-            title: t('table.address') + ':',
+            title: t('table.address'),
             value: getValueOrDash(value?.address),
           },
           {
-            title: t('table.input_address') + ':',
+            title: t('table.input_address'),
             value: getValueOrDash(value?.inputAddress),
           },
         ];
 
-        return (
-          <Box flexDirection='column'>
-            {data.map((item, idx) => (
-              <Table.MobileColumn minHeight={'4rem'} key={idx} {...item} />
-            ))}
-          </Box>
-        );
+        return <Table.MobileColumns columns={columns} />;
       },
     },
   ];
