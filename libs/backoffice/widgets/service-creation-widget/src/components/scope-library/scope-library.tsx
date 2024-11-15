@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import { ColumnsType, Input } from '@oxygen/ui-kit';
+import { Box, ColumnsType, Input, Table } from '@oxygen/ui-kit';
 import * as S from './scope-library.style';
 import { useGetScopes } from '../../services';
 import { Scope } from '@oxygen/types';
@@ -45,20 +45,12 @@ export default function ScopeLibrary(props: Props) {
       render: (scope: Scope) => {
         const { persianName, scopeName, idx } = scope;
         return (
-          <S.TableCell>
-            <S.TableRow>
-              <strong>{t('choose')}</strong>
-              <S.Radio checked={selectedScope?.idx === idx} />
-            </S.TableRow>
-            <S.TableRow>
-              <strong>{t('persian_name')}</strong>
-              <span>{persianName}</span>
-            </S.TableRow>
-            <S.TableRow>
-              <strong>{t('scope_name')}</strong>
-              <span>{scopeName}</span>
-            </S.TableRow>
-          </S.TableCell>
+          <Box flexDirection='column'>
+            <Table.MobileColumn title={t('choose')} value={<S.Radio checked={selectedScope?.idx === idx} />} />
+            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
+            <Table.MobileColumn minHeight={'22px'} title={t('persian_name')} value={persianName} />
+            <Table.MobileColumn minHeight={'22px'} title={t('scope_name')} value={scopeName} />
+          </Box>
         );
       },
     },
@@ -71,7 +63,6 @@ export default function ScopeLibrary(props: Props) {
         <Input placeholder={t('persian_or_english_name')} prefix={<i className='icon-search-normal' />} />
       </S.FormItem>
       <S.Table
-        scroll={{ x: 'max-content' }}
         dataSource={data}
         loading={isFetching}
         columns={desktopColumns}

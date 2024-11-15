@@ -97,7 +97,7 @@ export const Table = styled(AntTable)<TableProps>`
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
-    ${respondTo.down('md')}{
+    ${respondTo.down('md')} {
       text-align: start;
     }
   }
@@ -239,6 +239,7 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   font-weight: bold;
   color: ${(props) => props.theme.text.secondary};
   min-height: ${(p) => p.min_height};
+  gap: 1rem;
 
   margin-bottom: 1rem;
 
