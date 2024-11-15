@@ -48,7 +48,10 @@ export const Drawer = styled(AntDrawer)`
   }
 
   ${respondTo.down('md')} {
-    border-radius: 0;
+    .ant-drawer-content-wrapper:has(&) {
+      border-radius: 0;
+      overflow: auto;
+    }
   }
 `;
 
