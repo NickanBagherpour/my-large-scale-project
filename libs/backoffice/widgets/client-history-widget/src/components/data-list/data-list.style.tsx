@@ -70,10 +70,13 @@ export const ValueContainer = styled.div`
     height: 0.8rem;
   }
 `;
-export const EllipsisValueContainer = styled.span<{ width: number }>`
+export const EllipsisContainer = styled.span<{ width: number }>`
   display: inline-block;
   max-width: ${(props) => props.width}px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  direction: ${(props) => props.theme.direction};
+  text-align: ${(props) => (props.theme.direction === 'rtl' ? 'right' : 'left')};
+  unicode-bidi: ${(props) => (props.theme.direction === 'rtl' ? 'plaintext' : 'normal')};
 `;
