@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Badge } from 'antd';
+import { Badge, Tooltip } from 'antd';
 import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
@@ -71,9 +71,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> 
       ellipsis: true,
       render: (value) => {
         return (
-          <S.EllipsisContainer width={100} title={getValueOrDash(value)}>
-            {getValueOrDash(value)}
-          </S.EllipsisContainer>
+          <Tooltip title={getValueOrDash(value)} placement={'top'}>
+            <S.EllipsisContainer width={100}>{getValueOrDash(value)}</S.EllipsisContainer>
+          </Tooltip>
         );
       },
     },
@@ -85,9 +85,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> 
       ellipsis: true,
       render: (value) => {
         return (
-          <S.EllipsisContainer width={100} title={getValueOrDash(value)}>
-            {getValueOrDash(value)}
-          </S.EllipsisContainer>
+          <Tooltip title={getValueOrDash(value)} placement={'top'}>
+            <S.EllipsisContainer width={100}>{getValueOrDash(value)}</S.EllipsisContainer>
+          </Tooltip>
         );
       },
     },
@@ -173,9 +173,9 @@ export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
           {
             title: t('table.client_type'),
             value: (
-              <S.EllipsisContainer width={200} title={value?.clientType}>
-                <span className='item__value'>{getValueOrDash(value?.clientType)}</span>
-              </S.EllipsisContainer>
+              <Tooltip title={getValueOrDash(value?.clientType)} placement={'top'}>
+                <S.EllipsisContainer width={200}>{getValueOrDash(value?.clientType)}</S.EllipsisContainer>
+              </Tooltip>
             ),
           },
           {
