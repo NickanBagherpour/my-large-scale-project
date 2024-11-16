@@ -2,15 +2,15 @@ import { cssVar } from '@oxygen/utils';
 
 import styled from 'styled-components';
 
-export const WidgetWrapperContainer = styled.div<{ fill_container: boolean }>`
+export const WidgetWrapperContainer = styled.div<{ fill_container: string }>`
   display: flex;
   flex-direction: column;
-  // min-height: ${(props) => (props.fill_container ? '100%' : 'auto')};
+  // min-height: ${(props) => (props.fill_container === 'true' ? '100%' : 'auto')};
   // color: ${(props) => props.theme.primary.main};
-  border-radius: var(${cssVar.radius});
+  border-radius: var(${cssVar.radiusLg});
   background-color: ${(props) => props.theme.surface};
   padding: 0 1.6rem;
-  flex-grow: ${(props) => (props.fill_container ? '1' : 'unset')};
+  flex-grow: ${(props) => (props.fill_container === 'true' ? '1' : 'unset')};
 `;
 export const FooterContainer = styled.div`
   display: flex;

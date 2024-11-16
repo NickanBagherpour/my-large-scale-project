@@ -7,8 +7,7 @@ export const StyleDropDown = styled(Dropdown)`
   font-size: 1.4rem;
   font-weight: 600;
   align-items: start;
-
-  `;
+`;
 
 export const Overlay = styled.div`
   & > ul.ant-dropdown-menu-root li {
@@ -21,7 +20,7 @@ export const Overlay = styled.div`
   }
 `;
 
-export const StyleParagraph = styled('p')`
+export const StyleParagraph = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
