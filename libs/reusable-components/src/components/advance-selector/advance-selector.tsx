@@ -11,7 +11,7 @@ import { useDebouncedValue } from '@oxygen/hooks';
 
 import { useGetClientService, type ClientService } from './use-get-client-services';
 
-import * as S from './autocomplete.style';
+import * as S from './advance-selector.style';
 
 type Props = {
   className?: string;
@@ -20,7 +20,7 @@ type Props = {
   onSelect: (item: ClientService) => void;
 };
 
-const AutoComplete = (props: Props) => {
+const AdvanceSelector = (props: Props) => {
   const { onSelect, onClear, className = '', style = {} } = props;
 
   const theme = useTheme();
@@ -34,6 +34,7 @@ const AutoComplete = (props: Props) => {
 
   return (
     <AntAutoComplete
+      value={searchTerm}
       className={className}
       style={style}
       popupClassName={'popup'}
@@ -42,7 +43,10 @@ const AutoComplete = (props: Props) => {
       allowClear
       onClear={onClear}
       onSearch={(value) => setSearchTerm(value)}
-      onSelect={(_, option) => onSelect(option.item)}
+      onSelect={(_, option) => {
+        onSelect(option.item);
+        setSearchTerm('');
+      }}
       optionRender={({ value, data }) => (
         <S.Item>
           <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
@@ -60,4 +64,4 @@ const AutoComplete = (props: Props) => {
   );
 };
 
-export default AutoComplete;
+export default AdvanceSelector;

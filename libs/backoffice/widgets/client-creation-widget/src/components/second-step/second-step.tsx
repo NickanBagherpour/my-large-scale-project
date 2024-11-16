@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { AutoComplete } from '@oxygen/reusable-components';
+import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import DetailModal from './modal-detail/modal-detail';
 import { Modal } from '../../types/modal.type';
@@ -50,7 +50,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
     <S.SecondStepContainer>
       <S.SearchField>
         <p className={'auto-complete-p'}>{t('step_two.client_services')}</p>
-        <AutoComplete onSelect={handleSelect}></AutoComplete>
+        <AdvanceSelector onSelect={handleSelect}></AdvanceSelector>
       </S.SearchField>
 
       <S.Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
