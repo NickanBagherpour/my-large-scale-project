@@ -10,6 +10,9 @@ export default {
   return: 'بازگشت',
   submit_info: 'ثبت‌اطلاعات',
   close: 'بستن',
+  non_denial: 'عدم انکار',
+  rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
+  new_request_validation: 'اعتبارسنجی درخواست جدید',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
@@ -111,6 +114,6 @@ export default {
     invalid_url: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
     invalid_email: 'ایمیل نادرست است',
     invalid_mobile_length: 'شماره موبایل باید11رقم باشد',
-    min_length:'11رقم نیاز است',
+    min_length: '11رقم نیاز است',
   },
 };

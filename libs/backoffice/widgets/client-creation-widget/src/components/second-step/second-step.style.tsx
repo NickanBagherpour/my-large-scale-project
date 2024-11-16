@@ -16,22 +16,18 @@ export const SearchField = styled.div`
   gap: 2.4rem;
   ${respondTo.down('sm')} {
     flex-direction: column;
+    gap: 0;
+    align-items: start;
   }
 
   .ant-select {
     width: 100%;
   }
-  .auto-complete-p {
-    text-align: center;
-    font-size: 1.6rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 2.5rem;
-    min-width: fit-content;
-    margin: 0;
-  }
 `;
 export const Table = styled(antTable)`
+  & .ant-table-thead {
+    height: 7rem;
+  }
   &.ant-table-wrapper {
     display: flex;
     flex-grow: 1;

@@ -20,6 +20,16 @@ export const Item = styled.div`
   }
 `;
 
+export const SelectLabel = styled.label`
+  text-align: center;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.5rem;
+  min-width: fit-content;
+  margin: 0;
+`;
+
 export const Title = styled(MarkText)`
   font-family: inherit;
 

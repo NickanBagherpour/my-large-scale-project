@@ -49,8 +49,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   return (
     <S.SecondStepContainer>
       <S.SearchField>
-        <p className={'auto-complete-p'}>{t('step_two.client_services')}</p>
-        <AdvanceSelector onSelect={handleSelect}></AdvanceSelector>
+        <AdvanceSelector onSelect={handleSelect} label={t('step_two.client_services')}></AdvanceSelector>
       </S.SearchField>
 
       <S.Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />

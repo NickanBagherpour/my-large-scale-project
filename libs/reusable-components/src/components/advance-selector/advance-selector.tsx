@@ -18,10 +18,13 @@ type Props = {
   style?: CSSProperties;
   onClear?: () => void;
   onSelect: (item: ClientService) => void;
+  label?: string;
 };
 
 const AdvanceSelector = (props: Props) => {
-  const { onSelect, onClear, className = '', style = {} } = props;
+  const { onSelect, onClear, className = '', style = {}, label } = props;
+
+  const MAX_LENGTH = 50;
 
   const theme = useTheme();
   const [t] = useTr();
@@ -33,34 +36,40 @@ const AdvanceSelector = (props: Props) => {
   const { data, isLoading } = useGetClientService({ name: debouncedSearchTerm.trim() });
 
   return (
-    <AntAutoComplete
-      value={searchTerm}
-      className={className}
-      style={style}
-      popupClassName={'popup'}
-      options={data?.map((item) => ({ value: item.title, item }))}
-      notFoundContent={t('message.empty')}
-      allowClear
-      onClear={onClear}
-      onSearch={(value) => setSearchTerm(value)}
-      onSelect={(_, option) => {
-        onSelect(option.item);
-        setSearchTerm('');
-      }}
-      optionRender={({ value, data }) => (
-        <S.Item>
-          <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
-          <S.Subtitle>{data.item.subTitle}</S.Subtitle>
-          <S.Icon className='icon-plus' />
-        </S.Item>
-      )}
-    >
-      <Input
-        size='large'
-        prefix={isLoading ? <Loading /> : <i className='icon-search-normal' />}
-        placeholder={t('autocomplete.search_by_name_and_scope')}
-      />
-    </AntAutoComplete>
+    <>
+      <S.SelectLabel htmlFor='autocomplete'>{label}</S.SelectLabel>
+      <AntAutoComplete
+        id='autocomplete'
+        autoFocus
+        value={searchTerm}
+        className={className}
+        style={style}
+        popupClassName={'popup'}
+        options={data?.map((item) => ({ value: item.title, item }))}
+        notFoundContent={t('message.empty')}
+        allowClear
+        onClear={onClear}
+        onSearch={(value) => setSearchTerm(value)}
+        onSelect={(_, option) => {
+          onSelect(option.item);
+          setSearchTerm('');
+        }}
+        optionRender={({ value, data }) => (
+          <S.Item>
+            <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
+            <S.Subtitle>{data.item.subTitle}</S.Subtitle>
+            <S.Icon className='icon-plus' />
+          </S.Item>
+        )}
+      >
+        <Input
+          maxLength={MAX_LENGTH}
+          size='large'
+          prefix={isLoading ? <Loading /> : <i className='icon-search-normal' />}
+          placeholder={t('autocomplete.search_by_name_and_scope')}
+        />
+      </AntAutoComplete>
+    </>
   );
 };
 
