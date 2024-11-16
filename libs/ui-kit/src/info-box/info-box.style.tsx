@@ -1,26 +1,39 @@
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled, { css } from 'styled-components';
 
-function generateXs(props) {
-  if (props.min_col > 1) return '';
+function setResponsiveGridColmns(props) {
+  const min_col = props.min_col;
+
+  let xlMin = min_col > 4 ? min_col - 2 : min_col - 1;
+  let lgMin = xlMin > 2 ? xlMin - 1 : 2;
 
   return css`
+    grid-template-columns: repeat(${min_col}, 1fr);
+
+    ${respondTo.down('xl')} {
+      grid-template-columns: repeat(${xlMin}, 1fr);
+    }
+    ${respondTo.down('lg')} {
+      grid-template-columns: repeat(${lgMin}, 1fr);
+    }
     ${respondTo.down('xs')} {
       grid-template-columns: 1fr;
     }
   `;
 }
 
-export const InfoBoxWrapper = styled.div<{ min_col: number; margin: string | number; dense: boolean; wrap: boolean }>`
-  margin: ${(p) => p.margin};
+export const InfoBoxWrapper = styled.div<{ min_col: number; margin?: string | number; dense?: string; wrap?: string }>`
+  margin: ${(p) => p.margin ?? ''};
   display: grid;
-  grid-template-columns: repeat(${(p) => p.min_col}, 1fr);
-  background-color: ${(p) => p.theme.cardColor};
-  border: 2px solid ${(p) => p.theme.background._200};
-  border-radius: 12px;
+
+  ${(p) => setResponsiveGridColmns(p)}
+
+  background-color: ${(p) => p.theme.background._50};
+  border: 1px solid ${(p) => p.theme.border._100};
+  border-radius: var(${cssVar.radius});
   padding: 3rem;
   column-gap: 1%;
-  row-gap: ${(p) => (p.dense ? '1rem' : '2rem')};
+  row-gap: ${(p) => (p.dense === 'true' ? '1rem' : '2rem')};
   overflow: hidden;
 
   .ant-tag {
@@ -31,60 +44,56 @@ export const InfoBoxWrapper = styled.div<{ min_col: number; margin: string | num
     color: ${(p) => p.theme.text.primary};
   }
 
-  ${respondTo.down('lg')} {
-    grid-template-columns: max(20%, 15rem) 1fr;
-  }
-
-  ${(p) => generateXs(p)}
-
   & .info-box__title {
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: ${(p) => p.theme.text.primary};
-    white-space: ${(p) => (p.wrap ? 'unset' : 'nowrap')};
+    white-space: ${(p) => (p.wrap === 'true' ? 'unset' : 'nowrap')};
     display: block;
   }
 
-  & .info-box__value-wrapper {
+  & .grid-item {
+    display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
-    ${respondTo.down('lg')} {
-      justify-self: end;
+    & .info-box__value-wrapper {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      // width: 100%;
+
+      & .info-box__value {
+        font-size: 1.4rem;
+        font-weight: normal;
+        color: ${(p) => p.theme.text.secondary};
+        // text-align: left;
+        unicode-bidi: plaintext;
+        // direction: ltr;
+      }
+
+      & .info-box__sub-value {
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: ${(p) => p.theme.text.tertiary};
+      }
+    }
+
+    & .info-box__files {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      & > * {
+        margin-right: 1rem;
+      }
     }
   }
 
   & .fullwidth {
     grid-column: 1 / -1;
     display: block;
-    Ensure block display ${respondTo.down('md')} {
-      grid-column: 1 / -1;
-    }
-  }
-
-  & .info-box__value {
-    font-size: 1.4rem;
-    font-weight: normal;
-    color: ${(p) => p.theme.text.secondary};
-    text-align: left;
-    unicode-bidi: plaintext;
-    direction: ltr;
-  }
-
-  & .info-box__sub-value {
-    font-size: 1.3rem;
-    font-weight: 300;
-    color: ${(p) => p.theme.text.tertiary};
-  }
-
-  & .info-box__files {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    & > * {
-      margin-right: 1rem;
-    }
   }
 
   & .info-box__footer {
