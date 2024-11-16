@@ -6,8 +6,7 @@ import { DefaultTheme } from 'styled-components';
 
 import { ColumnsType, Table, MobileColumnType } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-
-import { ItemType } from '../types';
+import { ClientHistoryData } from '@oxygen/types';
 
 import * as S from '../components/data-list/data-list.style';
 
@@ -16,10 +15,10 @@ type Props = {
   theme: DefaultTheme;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<ItemType> {
+export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> {
   const { t, theme } = props;
 
-  const badgeColor = theme.error._600 as string;
+  const badgeColor = theme.error._600;
 
   return [
     {
@@ -140,9 +139,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ItemType> {
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<ItemType> {
+export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
   const { t, theme } = props;
-  const badgeColor = theme.error._600 as string;
+  const badgeColor = theme.error._600;
 
   return [
     {
@@ -158,7 +157,7 @@ export function getMobileColumns(props: Props): ColumnsType<ItemType> {
             title: t('table.admin_name'),
             value: (
               <S.ValueContainer>
-                {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}{' '}
+                {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}
                 {getValueOrDash(value?.adminName)}
               </S.ValueContainer>
             ),
