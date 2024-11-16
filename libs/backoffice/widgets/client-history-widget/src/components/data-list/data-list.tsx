@@ -67,7 +67,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           dataSource={data?.content}
           pagination={{ pageSize: pagination.rowsPerPage }}
           columns={desktopColumns}
-          mobileColumns={mobileColumns}
+          // mobileColumns={mobileColumns}
           variant={'complex'}
           title={t('table.client_change_history')}
           // hasContainer={true}
