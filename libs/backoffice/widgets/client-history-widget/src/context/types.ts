@@ -6,8 +6,6 @@ import { FormFieldsType } from '../types';
 
 export type FiltersType = FormFieldsType;
 
-export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
-
 export type PaginationType = {
   page: number;
   rowsPerPage: number;
