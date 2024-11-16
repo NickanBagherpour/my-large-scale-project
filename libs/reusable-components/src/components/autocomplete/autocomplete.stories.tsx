@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 import Autocomplete from './autocomplete';
+import { action } from '@storybook/addon-actions';
 
 const meta = {
   title: 'Reusable-Components/Autocomplete',
   component: Autocomplete,
   args: {
-    onClear: fn(),
-    onSelect: fn(),
+    onClear: action('onClear'),
+    onSelect: action('onSelect'),
     style: {
       width: '100%',
     },

@@ -40,7 +40,9 @@ export default function ClientInfo() {
       value: (
         <S.Chips>
           {grantType.map((t) => (
-            <Chip type='active'>{t}</Chip>
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} type='active'>
+              {t}
+            </Chip>
           ))}
         </S.Chips>
       ),
@@ -51,7 +53,9 @@ export default function ClientInfo() {
       value: (
         <S.Chips>
           {tags.map((t) => (
-            <Chip type='active'>{t}</Chip>
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} type='active'>
+              {t}
+            </Chip>
           ))}
         </S.Chips>
       ),

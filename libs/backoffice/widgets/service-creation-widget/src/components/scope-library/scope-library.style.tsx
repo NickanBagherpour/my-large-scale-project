@@ -1,4 +1,5 @@
 import { Table as KitTable, Button as KitButton, Divider as KitDivider } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 import { Form as AntForm, Radio as AntRadio } from 'antd';
 import styled from 'styled-components';
 
@@ -24,8 +25,10 @@ export const Table = styled(KitTable)`
     padding: 2.4rem !important;
   }
 
-  && td.ant-table-cell {
-    padding: 0.7rem;
+  ${respondTo.up('md')} {
+    && td.ant-table-cell {
+      padding: 0.7rem;
+    }
   }
 
   && .even-row {
@@ -34,6 +37,8 @@ export const Table = styled(KitTable)`
 `;
 
 export const Radio = styled(AntRadio)`
+  margin: 0;
+
   & :not(.ant-radio-checked) .ant-radio-inner {
     border: ${(p) => `2px solid ${p.theme.text.tertiary}`};
   }
@@ -41,26 +46,6 @@ export const Radio = styled(AntRadio)`
   & .ant-radio-inner {
     height: 2rem;
     width: 2rem;
-  }
-`;
-
-export const TableCell = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  padding: 1rem;
-`;
-
-export const TableRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  font-size: 1.5rem;
-  color: ${(p) => p.theme.text.secondary};
-
-  & > * {
-    white-space: nowrap;
   }
 `;
 
