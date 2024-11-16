@@ -239,6 +239,7 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   font-weight: bold;
   color: ${(props) => props.theme.text.secondary};
   min-height: ${(p) => p.min_height};
+  gap: 1rem;
 
   margin-bottom: 1rem;
   gap: 1rem;

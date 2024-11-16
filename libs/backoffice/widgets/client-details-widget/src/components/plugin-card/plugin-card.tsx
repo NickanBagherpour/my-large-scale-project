@@ -24,7 +24,7 @@ export default function PluginCard(props: Props) {
         </S.CardHeader>
 
         {hasLimitations && (
-          <S.SettingBtn onClick={toggleModalOpen} disabled={!isChecked} color='primary' variant='text'>
+          <S.SettingBtn onClick={toggleModalOpen} disabled={!isChecked} color='primary' variant='link'>
             <S.Icon className='icon-setting' />
           </S.SettingBtn>
         )}
