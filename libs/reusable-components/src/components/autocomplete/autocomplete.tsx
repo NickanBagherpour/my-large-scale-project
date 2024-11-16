@@ -1,14 +1,17 @@
 'use client';
-
 import { CSSProperties, useState } from 'react';
+
 import { Input } from 'antd';
-import * as S from './autocomplete.style';
-import { AutoComplete as AntAutoComplete } from 'antd';
-import { useGetClientService, type ClientService } from './use-get-client-services';
 import { useTheme } from 'styled-components';
+import { AutoComplete as AntAutoComplete } from 'antd';
+
 import { Loading } from '@oxygen/ui-kit';
-import { useDebouncedValue } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
+import { useDebouncedValue } from '@oxygen/hooks';
+
+import { useGetClientService, type ClientService } from './use-get-client-services';
+
+import * as S from './autocomplete.style';
 
 type Props = {
   className?: string;
@@ -19,11 +22,15 @@ type Props = {
 
 const AutoComplete = (props: Props) => {
   const { onSelect, onClear, className = '', style = {} } = props;
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
-  const { data, isLoading } = useGetClientService({ name: debouncedSearchTerm.trim() });
+
   const theme = useTheme();
   const [t] = useTr();
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
+
+  const { data, isLoading } = useGetClientService({ name: debouncedSearchTerm.trim() });
 
   return (
     <AntAutoComplete

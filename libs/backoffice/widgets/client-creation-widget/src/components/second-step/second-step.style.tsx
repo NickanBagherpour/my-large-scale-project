@@ -28,6 +28,7 @@ export const SearchField = styled.div`
     font-weight: 500;
     line-height: 2.5rem;
     min-width: fit-content;
+    margin: 0;
   }
 `;
 export const Table = styled(antTable)`

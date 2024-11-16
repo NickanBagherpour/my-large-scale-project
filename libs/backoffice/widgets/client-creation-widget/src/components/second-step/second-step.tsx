@@ -5,13 +5,13 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { AutoComplete } from '@oxygen/reusable-components';
 
-import { getDesktopColumns, getMobileColumns } from '../../utils/second-step-table-utils';
-
-import * as S from './second-step.style';
 import DetailModal from './modal-detail/modal-detail';
 import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
 import { updateSecondStepTableAction, useAppDispatch, useAppState } from '../../context';
+import { getDesktopColumns, getMobileColumns } from '../../utils/second-step-table-utils';
+
+import * as S from './second-step.style';
 
 type SecondStep = PageProps & {
   setCurrentStep: any;
