@@ -1,15 +1,5 @@
 import { applicantHistoryData } from './data/applicant-history.data';
-
-export type ApplicantHistoryData = {
-  editTime: string;
-  adminName: string;
-  userName: string;
-  nationalCode: string;
-  organizationName: string;
-  mobile: string;
-  phone: string;
-  email: string;
-};
+import { ApplicantHistoryData } from '@oxygen/types';
 
 export const getApplicantHistory = async ({ page, rowsPerPage }) => {
   return new Promise<{ data: { content: ApplicantHistoryData[]; total: number } }>((resolve) => {

@@ -7,6 +7,7 @@ export const uploadClient = (t: TFunction) =>
   z.object({
     [UPLOAD_CLIENT_NAMES.uploadClient]: z
       .string({ required_error: t('validation.required') })
+      .trim()
       .min(1, t('validation.required'))
       .max(30, t('validation.max_length'))
       .regex(REGEX_PATTERNS.isLatinText, t('validation.english_name_error')),
