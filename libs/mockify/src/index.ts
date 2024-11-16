@@ -32,6 +32,8 @@ import * as ClientHistoryMock from './client-history.mock';
 import * as clientCreationFirstStep from './client-creation-first-step';
 import * as ApplicantHistoryMock from './applicant-history.mock';
 import * as ServiceInfoMock from './service-info.mock';
+import * as ServiceClientsListMock from './service-clients-list.mock';
+import * as ServiceDetailsMock from './service-details.mock';
 import * as getScopesList from './list-scopes.mock';
 import * as UpstreamListMock from './upstream-list.mock';
 import * as getUpstreamDetailsMock from './upstream-details.mock';
@@ -63,6 +65,8 @@ const Mockify = {
   ...ClientsListMock,
   ...ServicesListMock,
   ...ServiceHistoryMock,
+  ...ServiceDetailsMock,
+  ...ServiceClientsListMock,
   ...ServiceInfoMock,
   ...GrantTypeMock,
   ...TagsInfo,

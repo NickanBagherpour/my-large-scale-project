@@ -1,4 +1,4 @@
-import { ApplicantHistoryData } from '../applicant-history.mock';
+import { ApplicantHistoryData } from '@oxygen/types';
 
 export const applicantHistoryData: ApplicantHistoryData[] = Array.from({ length: 53 }).map(() => ({
   editTime: '1402/01/20 12:30',

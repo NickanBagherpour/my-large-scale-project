@@ -57,9 +57,9 @@ export const menus = [
     children: [],
   },
   {
-    id: 5,
+    id: 6,
     title: 'مستندات open API',
-    order: 5,
+    order: 6,
     href: '/open-api-document',
     icon: 'icon-book-2',
     active: true,
@@ -68,9 +68,9 @@ export const menus = [
     children: [],
   },
   {
-    id: 6,
+    id: 7,
     title: 'کنسول فراخوانی سرویس',
-    order: 6,
+    order: 7,
     href: '/service-console',
     icon: 'icon-document-code-2',
     active: true,
