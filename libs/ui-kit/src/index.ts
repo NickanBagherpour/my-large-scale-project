@@ -45,3 +45,4 @@ export * from './container/container';
 export * from './status/status';
 export * from './dropdown/dropdown';
 export type { MenuItemType } from './dropdown/dropdown-select/dropdown-select';
+export type { MobileColumnType } from './table/mobile-columns';

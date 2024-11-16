@@ -1,7 +1,7 @@
 import { Table as AntTable } from 'antd';
 import styled, { css } from 'styled-components';
 
-import { cssVar } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 
 import { Panel } from '../panel/panel';
 import { TableProps } from './table';
@@ -92,12 +92,14 @@ export const Table = styled(AntTable)<TableProps>`
 
   tbody > tr > td {
     text-align: center;
-    border-color: ${(p) => (p.variant === 'simple' ? p.theme.divider : p.theme.border._100)};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    ${respondTo.down('md')} {
+      text-align: start;
+    }
   }
 
   thead > tr > th::before {
@@ -239,6 +241,7 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   min-height: ${(p) => p.min_height};
 
   margin-bottom: 1rem;
+  gap: 1rem;
 
   .item__btn {
     margin-inline-end: -1.6rem;

@@ -1,6 +1,6 @@
 export default {
   widget_name: 'App Bale',
-  edit_applicant_info: 'اطلاعات کاربر متقاضی',
+  edit_applicant_info: 'ویرایش اطلاعات کاربر متقاضی',
   form: {
     userName: 'نام کاربری',
     nationalCode: 'کد ملی (اختیاری)',

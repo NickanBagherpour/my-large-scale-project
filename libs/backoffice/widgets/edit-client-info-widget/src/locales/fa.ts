@@ -2,7 +2,7 @@ export default {
   widget_name: 'App Bale',
   edit_client_info: 'ویرایش اطلاعات کلاینت',
   applicant_info: 'اطلاعات کاربر متقاضی',
-  select_aggre: 'انتخاب اگریگیتور',
+  select_aggregator:"انتخاب اگریگیتور",
   form: {
     client_status: 'وضعیت کلاینت',
     grant_type: 'اضافه کردن Grant Type',
