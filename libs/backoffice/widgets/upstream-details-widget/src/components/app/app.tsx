@@ -211,7 +211,7 @@ const App = () => {
         />
         {upstreamId && (
           <Box className={'table-container'}>
-            <Loading spinning={isUpstreamFetching} size='large'>
+            <Loading spinning={isUpstreamFetching} size={'default'}>
               {upstreamDetails?.list?.serverList.length ? (
                 <UpstreamDetails
                   isFetching={isUpstreamFetching}
