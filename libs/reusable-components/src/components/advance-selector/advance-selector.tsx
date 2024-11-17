@@ -24,7 +24,7 @@ type Props = {
 const AdvanceSelector = (props: Props) => {
   const { onSelect, onClear, className = '', style = {}, label } = props;
 
-  const MAX_LENGTH = 50;
+  const MAX_LENGTH = 75;
 
   const theme = useTheme();
   const [t] = useTr();
@@ -47,6 +47,7 @@ const AdvanceSelector = (props: Props) => {
         popupClassName={'popup'}
         options={data?.map((item) => ({ value: item.title, item }))}
         notFoundContent={t('message.empty')}
+        maxLength={MAX_LENGTH}
         allowClear
         onClear={onClear}
         onSearch={(value) => setSearchTerm(value)}
@@ -63,7 +64,6 @@ const AdvanceSelector = (props: Props) => {
         )}
       >
         <Input
-          maxLength={MAX_LENGTH}
           size='large'
           prefix={isLoading ? <Loading /> : <i className='icon-search-normal' />}
           placeholder={t('autocomplete.search_by_name_and_scope')}
