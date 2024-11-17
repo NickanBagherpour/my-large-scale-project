@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components';
 function setResponsiveGridColmns(props) {
   const min_col = props.min_col;
 
-  let xlMin = min_col > 4 ? min_col - 2 : min_col - 1;
-  let lgMin = xlMin > 2 ? xlMin - 1 : 2;
+  const xlMin = min_col > 4 ? min_col - 2 : min_col - 1;
+  const lgMin = xlMin > 2 ? xlMin - 1 : 2;
 
   return css`
     grid-template-columns: repeat(${min_col}, 1fr);
