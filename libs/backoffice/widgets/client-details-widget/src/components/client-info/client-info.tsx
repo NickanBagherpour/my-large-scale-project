@@ -97,11 +97,11 @@ export default function ClientInfo() {
           <S.TabName>{t('client_info')}</S.TabName>
           <S.Btns>
             <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
-              <i className='icon-clock' />
+              <S.Icon className='icon-clock' />
               {t('display_change_history')}
             </Button>
             <Button href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`} color='primary' variant='solid'>
-              <i className='icon-edit' />
+              <S.Icon className='icon-edit' />
               {t('edit')}
             </Button>
           </S.Btns>
@@ -114,7 +114,7 @@ export default function ClientInfo() {
           <S.TabName>{t('applicant_info')}</S.TabName>
           <S.Btns>
             <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
-              <i className='icon-clock' />
+              <S.Icon className='icon-clock' />
               {t('display_change_history')}
             </Button>
             <Button
@@ -122,7 +122,7 @@ export default function ClientInfo() {
               color='primary'
               variant='solid'
             >
-              <i className='icon-edit' />
+              <S.Icon className='icon-edit' />
               {t('edit')}
             </Button>
           </S.Btns>
