@@ -8,8 +8,8 @@ export const MAX_INPUTE_LENGTH = 75;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
-  grant_tag:'grant_tag',
-  add_tag:'add_tag',
+  grant_tag: 'grant_tag',
+  add_tag: 'add_tag',
   latin_name_client: 'latin_name_client',
   persian_name_client: 'persian_name_client',
   client_type: 'client_type',
@@ -46,3 +46,10 @@ export const selectOptions: any[] = [
   { label: 'test 6', value: 'test 7' },
   { label: 'test 7', value: 'test 8' },
 ];
+
+export const LIMITAION_FORM_NAME = {
+  serviceCallRate: 'serviceCallRate',
+  serviceCallRateOptions: 'serviceCallRateOptions',
+  totalCallLimit: 'totalCallLimit',
+  callLimitOptions: 'callLimitOptions',
+};

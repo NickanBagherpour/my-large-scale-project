@@ -25,9 +25,9 @@ export const SearchField = styled.div`
   }
 `;
 export const Table = styled(antTable)`
-  & .ant-table-thead {
+  /* & .ant-table-thead {
     height: 7rem;
-  }
+  } */
   &.ant-table-wrapper {
     display: flex;
     flex-grow: 1;

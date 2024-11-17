@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button } from '@oxygen/ui-kit';
+import { Box, Button, Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { AdvanceSelector } from '@oxygen/reusable-components';
@@ -22,7 +22,6 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const [data, setData] = useState([]);
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
@@ -46,13 +45,15 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
   const revertData = state.secondStep.table;
+  console.log(revertData);
   return (
     <S.SecondStepContainer>
       <S.SearchField>
         <AdvanceSelector onSelect={handleSelect} label={t('step_two.client_services')}></AdvanceSelector>
       </S.SearchField>
-
-      <S.Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
+      <Box flexGrow={1}>
+        <Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
+      </Box>
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}

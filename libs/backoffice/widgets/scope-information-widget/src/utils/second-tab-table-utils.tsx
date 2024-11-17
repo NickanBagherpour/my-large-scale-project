@@ -45,7 +45,11 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('second_tab.url'),
       dataIndex: 'url',
       align: 'center',
-      render: (url) => <Link href={url}> {url} </Link>,
+      render: (url) => (
+        <Link href={url} target='_blank' rel='noopener noreferrer'>
+          {url}
+        </Link>
+      ),
     },
     {
       title: t('second_tab.version'),
@@ -88,7 +92,11 @@ export function getMobileColumns(props) {
           { title: t('second_tab.scope'), value: scope },
           {
             title: t('second_tab.url'),
-            value: <Link href={url}>{url}</Link>,
+            value: (
+              <Link href={url} target='_blank' rel='noopener noreferrer'>
+                {url}
+              </Link>
+            ),
           },
           { title: t('second_tab.version'), value: version },
           {
