@@ -31,22 +31,26 @@ export const InfoBox = (props: InfoBoxProps) => {
   } = props;
 
   const [t] = useTr();
+
   if (loading) {
     return (
-      <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={1} wrap={titleWordWrap}>
-        <Loading />
-        {footer && <Box className='info-box__footer'>{footer}</Box>}
+      <S.InfoBoxWrapper min_col={1}>
+        <div className={'fullwidth grid-item'}>
+          <Loading />
+        </div>
+        {/* {footer && <Box className='info-box__footer'>{footer}</Box>} */}
       </S.InfoBoxWrapper>
     );
   }
+
   return (
-    <S.InfoBoxWrapper dense={isDense} margin={margin} min_col={minColumnCount} wrap={titleWordWrap}>
+    <S.InfoBoxWrapper dense={String(isDense)} margin={margin} min_col={minColumnCount} wrap={String(titleWordWrap)}>
       {data?.map((item: InfoItemType, index) => {
         return (
-          <div className={`${item?.fullwidth ? 'fullwidth' : ''}`}>
+          <div key={index} className={`${item?.fullwidth ? 'fullwidth' : ''} grid-item`}>
             <Box className='info-box__title'>{t(item.key)}</Box>
             {item.type !== 'file' ? (
-              <Box className={`info-box__value-wrapper`}>
+              <Box className={'info-box__value-wrapper'}>
                 <span className='info-box__value'>{item.value}</span>
                 <span className='info-box__sub-value'>{item.subValue}</span>
               </Box>

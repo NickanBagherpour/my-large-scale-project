@@ -1,4 +1,4 @@
-import { ClientHistoryData } from '../client-history.mock';
+import { ClientHistoryData } from '@oxygen/types';
 
 export const clientHistoryData: ClientHistoryData[] = Array.from({ length: 53 }).map(() => ({
   editTime: '1402/01/20 12:30',

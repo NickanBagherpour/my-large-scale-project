@@ -18,6 +18,7 @@ export const cssVar = {
   verticalGap: '--vertical-gap',
   mainContentMargin: '--main-content-margin',
   radius: '--radius',
+  radiusLg: '--radius-lg',
   appbarZIndex: '--appbar-z-index',
   onAppbarZIndex: '--on-appbar-z-index',
 };
