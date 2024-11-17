@@ -7,4 +7,8 @@ export const Container = styled(KitContainer)`
 
 export const Tabs = styled(KitTabs)`
   margin-top: 2.4rem;
+
+  & .ant-tabs-nav {
+    margin-bottom: 3.2rem;
+  }
 `;
