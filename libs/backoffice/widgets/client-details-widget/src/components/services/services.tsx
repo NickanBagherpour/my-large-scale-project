@@ -6,7 +6,7 @@ import StartServiceModal from '../start-service-modal/start-service-modal';
 import StopServiceModal from '../stop-service-modal/stop-service-modal';
 import { useState } from 'react';
 import { useGetServicesQuery } from '../../services';
-import { type TablePaginationConfig } from 'antd';
+import { Form, type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Input } from '@oxygen/ui-kit';
@@ -45,10 +45,9 @@ export default function Services() {
 
   return (
     <>
-      <S.Header>
-        <S.Title>{t('client_services')}</S.Title>
+      <S.FormItem name={'clientService'} label={t('client_services')} colon={false}>
         <Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
-      </S.Header>
+      </S.FormItem>
 
       <S.Table
         loading={isFetching}
