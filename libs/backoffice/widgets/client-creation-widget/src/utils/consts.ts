@@ -4,8 +4,13 @@ export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const FormItem = {
-  latin_name_client: 'latin-name-client',
+export const MAX_INPUTE_LENGTH = 75;
+export const MAX_MOBILE_NUMBER_LENGTH = 11;
+
+export const FORM_ITEM = {
+  grant_tag: 'grant_tag',
+  add_tag: 'add_tag',
+  latin_name_client: 'latin_name_client',
   persian_name_client: 'persian_name_client',
   client_type: 'client_type',
   client_id: 'client_id',
@@ -41,3 +46,10 @@ export const selectOptions: any[] = [
   { label: 'test 6', value: 'test 7' },
   { label: 'test 7', value: 'test 8' },
 ];
+
+export const LIMITAION_FORM_NAME = {
+  serviceCallRate: 'serviceCallRate',
+  serviceCallRateOptions: 'serviceCallRateOptions',
+  totalCallLimit: 'totalCallLimit',
+  callLimitOptions: 'callLimitOptions',
+};

@@ -1,10 +1,12 @@
-import { Switch } from '@oxygen/ui-kit';
 import { useState } from 'react';
+
+import { Switch } from '@oxygen/ui-kit';
 import { useToggle } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
+
+import LimitsModal from '../modal/limits-modal';
 
 import * as S from './switch-card.style';
-import LimitsModal from '../modal/limits-modal';
-import { useTr } from '@oxygen/translation';
 
 type Props = {
   idx: number;
@@ -27,7 +29,7 @@ export default function SwitchCard(props: Props) {
         </S.CardHeader>
 
         {hasLimitations && (
-          <S.SettingBtn onClick={toggleModalOpen} disabled={!isChecked} color='primary' variant='text'>
+          <S.SettingBtn onClick={toggleModalOpen} disabled={!isChecked} color='primary' variant='link'>
             <S.Icon className='icon-setting' />
           </S.SettingBtn>
         )}
