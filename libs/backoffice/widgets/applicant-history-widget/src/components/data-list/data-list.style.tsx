@@ -2,10 +2,7 @@ import styled from 'styled-components';
 
 import { Box } from '@oxygen/ui-kit';
 
-export const TableContainer = styled(Box)`
-  //flex: 1;
-  margin-top: 2.4rem;
-`;
+export const TableContainer = styled(Box)``;
 
 export const ValueContainer = styled.div`
   display: flex;

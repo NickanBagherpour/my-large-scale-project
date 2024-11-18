@@ -3,12 +3,13 @@ import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { Box, Button } from '@oxygen/ui-kit';
-import { Nullable, PageProps } from '@oxygen/types';
+import { Button } from '@oxygen/ui-kit';
+import { PageProps } from '@oxygen/types';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, updateApplicantIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
+import { ApplicantId } from '../../types';
 
 import * as S from './app.style';
 
@@ -22,10 +23,9 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const searchParams = useSearchParams();
-  const applicantId: Nullable<string> = searchParams.get('applicantId');
+  const applicantId: ApplicantId = searchParams.get('applicantId');
 
   useEffect(() => {
-    //console.log('applicantId: ', applicantId);
     updateApplicantIdAction(dispatch, applicantId);
   }, [applicantId]);
 
@@ -35,13 +35,13 @@ const App: React.FC<AppProps> = (props) => {
   };
 
   const footerButton = (
-    <Button className={'return-button'} color={'primary'} size={'large'} variant={'outlined'} onClick={handleReturn}>
+    <Button size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
     </Button>
   );
 
   return (
-    <S.AppContainer fillContainer={true} title={t('widget_name')} footer={footerButton}>
+    <S.AppContainer title={t('widget_name')} footer={footerButton}>
       {/*render widget name based on applicantId*/}
       <GlobalMessageContainer
         containerProps={{ marginBottom: '2.4rem' }}
@@ -50,10 +50,7 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <Box className={'table-container'}>
-        {applicantId ? <DataList /> : <NoResult isLoading={false} />}
-        {/*<DataList />*/}
-      </Box>
+      <S.StyledBox>{applicantId ? <DataList /> : <NoResult isLoading={false} />}</S.StyledBox>
     </S.AppContainer>
   );
 };
