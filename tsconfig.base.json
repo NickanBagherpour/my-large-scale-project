@@ -86,6 +86,10 @@
             ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
+            "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
+            "@oxygen/customer/widgets/landing-widget": [
+                "libs/customer/widgets/landing-widget/src/index.ts"
+            ],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
             "@oxygen/mockify": ["libs/mockify/src/index.ts"],
             "@oxygen/reusable-components": [
