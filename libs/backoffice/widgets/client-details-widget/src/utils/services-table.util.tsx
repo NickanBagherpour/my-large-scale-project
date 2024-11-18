@@ -138,13 +138,8 @@ export function getMobileColumns(props: Props) {
           },
         ];
 
-        return (
-          <Box flexDirection='column'>
-            {data.map((item, idx) => (
-              <Table.MobileColumn minHeight={'4rem'} key={idx} {...item} />
-            ))}
-          </Box>
-        );
+        /* using rem to have a constant height acorss all user devices */
+        return <Table.MobileColumns columns={data} minHeight={'40px'} />;
       },
     },
   ];
