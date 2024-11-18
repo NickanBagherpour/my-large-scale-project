@@ -42,7 +42,6 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
           </Button>
         </S.ButtonContainer>
       </S.FirstStepHeader>
-      <S.InfoBox></S.InfoBox>
       <InfoBox loading={isFetching} data={item} margin={'1.6rem 0 0 0'} minColumnCount={2} />
     </S.Firststep>
   );

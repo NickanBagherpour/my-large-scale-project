@@ -26,7 +26,7 @@ export const Header = styled.div`
   color: ${(props) => props.theme.text.primary};
   //background-color: ${(props) => props.theme.surface};
   //min-height: 8rem;
-  border-radius: var(${cssVar.radius});
+  border-radius: var(${cssVar.radiusLg});
   //box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
   gap: 0.4rem;
 `;
@@ -90,7 +90,7 @@ export const BodyContainer = styled.div<{ $padding; overflow_x }>`
   }*/
 
   // border: 1px solid ${(props) => props.theme.border.main}; //#dbdee1; //fixme: get it's color fr
-  border-radius: var(${cssVar.radius});
+  border-radius: var(${cssVar.radiusLg});
 
   ${hideScrollbar()}
 `;

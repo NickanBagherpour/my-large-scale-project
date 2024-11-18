@@ -4,11 +4,11 @@ import { Table as KitTable } from '@oxygen/ui-kit';
 export const DataTableContainer = styled.div``;
 
 export const Table = styled(KitTable)`
-  caption {
+  /* caption {
     div {
       padding-left: 0;
     }
-  }
+  } */
 
   & .ant-pagination-options {
     margin-inline-start: 1.6rem;

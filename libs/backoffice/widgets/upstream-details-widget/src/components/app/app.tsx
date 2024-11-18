@@ -231,11 +231,9 @@ const App = () => {
             {
               <UpstreamDetails
                 isFetching={isUpstreamFetching}
-                // isFetching={true}
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
-                // isLoading={isUpstreamFetching}
-                isLoading={true}
+                isLoading={isUpstreamFetching}
                 deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
               />
             }
