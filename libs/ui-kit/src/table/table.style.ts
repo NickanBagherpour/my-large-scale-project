@@ -15,6 +15,15 @@ const borderRadius = '1.2rem';
 
 export const Table = styled(AntTable)<TableProps>`
   --table-min-height: 20rem;
+  caption {
+    div {
+      padding-left: 0.8rem;
+    }
+  }
+
+  & .ant-pagination-options {
+    padding-inline-start: 0.8rem;
+  }
 
   div.ant-table {
     min-height: var(--table-min-height);
