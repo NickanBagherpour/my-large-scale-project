@@ -6,11 +6,12 @@ import StartServiceModal from '../start-service-modal/start-service-modal';
 import StopServiceModal from '../stop-service-modal/stop-service-modal';
 import { useState } from 'react';
 import { useGetServicesQuery } from '../../services';
-import { Form, type TablePaginationConfig } from 'antd';
+import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Input } from '@oxygen/ui-kit';
 import { Modals } from '../../types';
+import Footer from '../footer/footer';
 
 export default function Services() {
   const [t] = useTr();
@@ -23,7 +24,7 @@ export default function Services() {
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
 
-  const { data, isFetching } = useGetServicesQuery(pagination);
+  const { data, isFetching, isLoading } = useGetServicesQuery(pagination);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -76,6 +77,7 @@ export default function Services() {
         id={'samat-lc-gutr-del'}
       />
       <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
+      <Footer isLoading={isLoading} />
     </>
   );
 }
