@@ -71,11 +71,9 @@ const DataList: React.FC<dataListProps> = (props) => {
           // mobileColumns={mobileColumns}
           variant={'complex'}
           title={t('table.client_change_history')}
-          // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
           size={'small'}
-          // tableLayout="fixed"
         />
       ) : (
         <NoResult isLoading={isFetching} />
