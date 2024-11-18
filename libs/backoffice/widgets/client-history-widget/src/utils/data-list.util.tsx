@@ -67,12 +67,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> 
       title: t('table.client_type'),
       dataIndex: 'clientType',
       align: 'center',
-      width: 100,
-      ellipsis: true,
+      width: 200,
+      ellipsis: {
+        showTitle: false,
+      },
       render: (value) => {
         return (
-          <Tooltip title={getValueOrDash(value)} placement={'top'}>
-            <S.EllipsisContainer width={100}>{getValueOrDash(value)}</S.EllipsisContainer>
+          <Tooltip placement='top' title={getValueOrDash(value)}>
+            {getValueOrDash(value)}
           </Tooltip>
         );
       },
@@ -81,12 +83,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> 
       title: t('table.client_id'),
       dataIndex: 'clientId',
       align: 'center',
-      width: 100,
-      ellipsis: true,
+      width: 150,
+      ellipsis: {
+        showTitle: false,
+      },
       render: (value) => {
         return (
-          <Tooltip title={getValueOrDash(value)} placement={'top'}>
-            <S.EllipsisContainer width={100}>{getValueOrDash(value)}</S.EllipsisContainer>
+          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+            {getValueOrDash(value)}
           </Tooltip>
         );
       },
