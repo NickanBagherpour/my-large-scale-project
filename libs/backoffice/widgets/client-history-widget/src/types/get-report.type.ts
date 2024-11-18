@@ -15,6 +15,8 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
+export type ClientId = Nullable<string>;
+
 export type FetchParamsType = PaginationType & {
-  clientId: Nullable<string>;
+  clientId: ClientId;
 };

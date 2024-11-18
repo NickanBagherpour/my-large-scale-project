@@ -59,8 +59,9 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   return (
     <S.TableContainer>
-      {data?.content ? (
+      {data?.content?.length ? (
         <Table
+          scroll={{ x: 1600 }}
           loading={isFetching}
           current={pagination.page}
           total={data?.total}
@@ -70,11 +71,9 @@ const DataList: React.FC<dataListProps> = (props) => {
           // mobileColumns={mobileColumns}
           variant={'complex'}
           title={t('table.client_change_history')}
-          // hasContainer={true}
           onChange={handlePageChange}
           rowKey={() => uuid()}
           size={'small'}
-          // tableLayout="fixed"
         />
       ) : (
         <NoResult isLoading={isFetching} />

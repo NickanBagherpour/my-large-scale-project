@@ -110,6 +110,9 @@ export const Table = styled(AntTable)<TableProps>`
     ${respondTo.down('md')} {
       text-align: start;
     }
+    &.ant-table-cell-ellipsis {
+      unicode-bidi: plaintext;
+    }
   }
 
   thead > tr > th::before {
