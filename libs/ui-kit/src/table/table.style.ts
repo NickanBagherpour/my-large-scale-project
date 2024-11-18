@@ -66,6 +66,14 @@ export const Table = styled(AntTable)<TableProps>`
         & thead th:last-child {
           border-start-end-radius: ${borderRadius};
         }
+
+        /* add border radius to the first row in mobile devices */
+        ${respondTo.down('md')} {
+          & .ant-table-row:nth-of-type(2) td {
+            border-start-start-radius: ${borderRadius};
+            border-start-end-radius: ${borderRadius};
+          }
+        }
       }
     `}
 
