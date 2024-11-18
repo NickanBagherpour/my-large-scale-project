@@ -45,7 +45,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
   const revertData = state.secondStep.table;
-  console.log(revertData);
+
   return (
     <S.SecondStepContainer>
       <S.SearchField>
