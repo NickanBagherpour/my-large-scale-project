@@ -176,11 +176,7 @@ export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
           },
           {
             title: t('table.client_type'),
-            value: (
-              <Tooltip title={getValueOrDash(value?.clientType)} placement={'top'}>
-                <S.EllipsisContainer width={200}>{getValueOrDash(value?.clientType)}</S.EllipsisContainer>
-              </Tooltip>
-            ),
+            value: getValueOrDash(value?.clientType),
           },
           {
             title: t('table.client_id'),

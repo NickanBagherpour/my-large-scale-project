@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FormFieldsType } from '../types';
+import { ClientId, FormFieldsType } from '../types';
 
 export type FiltersType = FormFieldsType;
 
@@ -18,7 +18,7 @@ export type WidgetStateType = {
     submit: FiltersType;
   };
   message: Nullable<MessageType>;
-  clientId: Nullable<string>;
+  clientId: ClientId;
 };
 
 export type WidgetActionType =
@@ -40,7 +40,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_CLIENT_ID';
-      payload: Nullable<string>;
+      payload: ClientId;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

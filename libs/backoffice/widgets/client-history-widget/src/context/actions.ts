@@ -2,6 +2,7 @@ import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
 import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { ClientId } from '../types';
 
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
@@ -29,6 +30,6 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   return null;
 }
 
-export function updateClientIdAction(dispatch: WidgetDispatchType, clientId: Nullable<string>) {
+export function updateClientIdAction(dispatch: WidgetDispatchType, clientId: ClientId) {
   dispatch({ type: 'UPDATE_CLIENT_ID', payload: clientId });
 }
