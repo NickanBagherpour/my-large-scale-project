@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Space } from 'antd';
 
-export const DropdownSelectContainer = styled.div<{ error: boolean; iconPosition: string }>`
+export const DropdownSelectContainer = styled.div<{ error: boolean }>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 1.6rem;

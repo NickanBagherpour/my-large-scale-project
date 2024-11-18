@@ -169,7 +169,7 @@ export const DropdownSelect = (props: DropdownSelectProps) => {
   const uniqueId = uuid();
 
   return (
-    <S.DropdownSelectContainer error={hasError()} iconPosition={iconPosition}>
+    <S.DropdownSelectContainer error={hasError()}>
       <S.DropdownContainer id={uniqueId}></S.DropdownContainer>
       <Dropdown
         menu={menuProps}
