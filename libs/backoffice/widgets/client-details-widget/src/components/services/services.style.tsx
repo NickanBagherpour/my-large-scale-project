@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Table as KitTable, Button as KitButton } from '@oxygen/ui-kit';
+import { Button as KitButton } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import { Form } from 'antd';
 
@@ -49,18 +49,6 @@ export const StatusTxt = styled.p`
 
 export const TrashIcon = styled.i`
   font-size: 2.4rem;
-`;
-
-export const Table = styled(KitTable)`
-  & .ant-pagination-options {
-    margin-inline-start: 1.6rem;
-  }
-
-  ${respondTo.down('md')} {
-    && tr:nth-child(odd) {
-      background-color: ${(p) => p.theme.primary._50};
-    }
-  }
 `;
 
 export const DetailsBtn = styled(KitButton)`

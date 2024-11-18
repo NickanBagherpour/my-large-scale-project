@@ -9,7 +9,7 @@ import { useGetServicesQuery } from '../../services';
 import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Input } from '@oxygen/ui-kit';
+import { Input, Table } from '@oxygen/ui-kit';
 import { Modals } from '../../types';
 import Footer from '../footer/footer';
 
@@ -50,7 +50,7 @@ export default function Services() {
         <Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
       </S.FormItem>
 
-      <S.Table
+      <Table
         loading={isFetching}
         current={page}
         total={data?.total}
