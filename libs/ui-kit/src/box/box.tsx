@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { ComponentProps, CSSProperties } from 'react';
 import styled, { css } from 'styled-components';
 
 interface TransientBoxProps {
@@ -99,12 +99,13 @@ interface BoxProps {
   children?: React.ReactNode;
   fillChildren?: boolean;
   styleProps?: TransientBoxProps;
+  className?: string;
 }
 
-export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, styleProps }) => {
+export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, styleProps, className }) => {
   return (
     visible && (
-      <StyledBox {...styleProps} $fill_children={String(fillChildren)}>
+      <StyledBox {...styleProps} className={className} $fill_children={String(fillChildren)}>
         {children}
       </StyledBox>
     )
