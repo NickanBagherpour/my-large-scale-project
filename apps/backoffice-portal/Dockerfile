@@ -13,8 +13,9 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN npm install --force
-#RUN npm install --only=production --force
+RUN npm ci --force --loglevel=verbose
+# RUN npm install --omit=optional --force
+# RUN npm install --only=production --force --loglevel=verbose
 # RUN npm ci # Use npm ci for deterministic installs
 
 # Rebuild the source code only when needed
