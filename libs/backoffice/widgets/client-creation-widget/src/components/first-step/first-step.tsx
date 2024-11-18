@@ -181,10 +181,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={`${t('placeholder.organization_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} type='tell'allow={'number'} />
+              <Input
+                placeholder={`${t('placeholder.mobile_number')}`}
+                maxLength={MAX_MOBILE_NUMBER_LENGTH}
+                type='tell'
+                allow={'number'}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM.telephone} label={t('form.telephone')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.telephone')}`} maxLength={MAX_INPUTE_LENGTH} type='tell' allow={'number'}/>
+              <Input
+                placeholder={`${t('placeholder.telephone')}`}
+                maxLength={MAX_INPUTE_LENGTH}
+                type='tell'
+                allow={'number'}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM.email} label={t('form.email')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.email')}`} maxLength={MAX_INPUTE_LENGTH} type='email' />
