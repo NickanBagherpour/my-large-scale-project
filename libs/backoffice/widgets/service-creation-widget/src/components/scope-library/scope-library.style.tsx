@@ -34,11 +34,7 @@ export const Radio = styled(AntRadio)`
 
 export const FormItem = styled(Form.Item)`
   margin-bottom: 0;
-  & .ant-form-item-label {
-    padding-bottom: 0rem;
-  }
   & label {
-    font-size: 1.2rem;
     padding-inline-start: 1rem;
   }
 `;
