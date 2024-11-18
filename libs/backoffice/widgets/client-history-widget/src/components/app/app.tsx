@@ -33,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
   const footerButton = (
-    <Button size={'large'} variant={'outlined'} onClick={handleReturn}>
+    <Button className={'return-button'} size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
     </Button>
   );
