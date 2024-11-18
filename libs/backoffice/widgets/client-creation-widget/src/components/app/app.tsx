@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { PageProps } from '@oxygen/types';
+import { useSearchParams } from 'next/navigation';
+
+import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
@@ -20,6 +22,9 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+
+  const id: Nullable<string> = searchParams.get('id');
 
   const [currentStep, setCurrentStep] = useState(0);
 

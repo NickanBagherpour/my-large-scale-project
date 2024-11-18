@@ -36,4 +36,8 @@ export default {
   done_stopped: 'شود؟',
   delete_service_question: 'آیا از حذف سرویس',
   are_you_sure: 'اطمینان دارید؟',
+  add_service_from_sso: 'افزودن سرویس از SSO',
+  services_english_name: 'نام لاتین سرویس',
+  oauth_key: 'OAuth Key',
+  save_changes: 'ذخیره تغییرات',
 };

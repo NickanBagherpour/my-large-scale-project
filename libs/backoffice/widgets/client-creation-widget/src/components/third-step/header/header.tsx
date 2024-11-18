@@ -1,8 +1,10 @@
+import { useToggle } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Box, Button } from '@oxygen/ui-kit';
-import { useToggle } from '@oxygen/hooks';
-import * as S from './header.style';
+
 import LimitsModal from '../modal/limits-modal';
+
+import * as S from './header.style';
 
 export default function PluginHeader() {
   const [t] = useTr();
@@ -19,7 +21,6 @@ export default function PluginHeader() {
           </Button>
         </S.Actions>
       </S.Header>
-
       <LimitsModal toggle={toggleModalOpen} isOpen={isModalOpen} />
     </Box>
   );
