@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Autocomplete from './autocomplete';
+import AdvanceSelector from './advance-selector';
 import { action } from '@storybook/addon-actions';
 
 const meta = {
-  title: 'Reusable-Components/Autocomplete',
-  component: Autocomplete,
+  title: 'Reusable-Components/AdvanceSelector',
+  component: AdvanceSelector,
   args: {
     onClear: action('onClear'),
     onSelect: action('onSelect'),
@@ -12,7 +12,7 @@ const meta = {
       width: '100%',
     },
   },
-} satisfies Meta<typeof Autocomplete>;
+} satisfies Meta<typeof AdvanceSelector>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

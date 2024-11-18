@@ -13,6 +13,7 @@ export const Header = styled.p`
   font-weight: 500;
   line-height: 2.5rem;
   padding: 1rem;
+  margin: 1.4rem 0;
 `;
 export const Para = styled.p`
   padding-inline-start: 1.6rem;

@@ -1,10 +1,13 @@
-import * as S from './third-step.style';
+import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { Button, Loading } from '@oxygen/ui-kit';
+
 import Header from './header/header';
 import MainCard from './main-card/main-card';
 import { useGetMainCardQuery } from '../../services';
-import { Button, Loading } from '@oxygen/ui-kit';
-import { PageProps } from '@oxygen/types';
+
+import * as S from './third-step.style';
+
 type ThirdStepProps = PageProps & {
   setCurrentStep: any;
 };
