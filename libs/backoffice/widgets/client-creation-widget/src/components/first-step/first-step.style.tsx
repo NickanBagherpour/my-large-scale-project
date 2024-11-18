@@ -6,7 +6,7 @@ export const TitleTxt = styled.p`
   font-weight: bold;
   font-size: 1.6rem;
   margin: 0;
-  padding-top:0.8rem ;
+  padding-top: 0.8rem;
 `;
 
 export const FirstStepContainer = styled.div`

@@ -34,7 +34,7 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Filters />
-      <Loading spinning={isFetching} size='large'>
+      <Loading spinning={isFetching} size='default'>
         {upstreams?.list.length ? (
           <Upstreams
             data={upstreams.list}

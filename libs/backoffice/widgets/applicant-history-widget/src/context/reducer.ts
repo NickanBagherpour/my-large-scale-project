@@ -3,8 +3,6 @@ import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
   table: {
-    filters: {},
-    submit: {},
     pagination: {
       rowsPerPage: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
@@ -19,16 +17,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
-      return;
-    }
-
-    case 'UPDATE_SUBMIT': {
-      state.table.submit = { ...state.table.submit, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_FILTERS': {
-      state.table.filters = { ...state.table.filters, ...action.payload };
       return;
     }
 

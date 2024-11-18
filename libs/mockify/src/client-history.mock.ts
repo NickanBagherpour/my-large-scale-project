@@ -1,5 +1,6 @@
-import { clientHistoryData } from './data/client-history.data';
 import { ClientHistoryData } from '@oxygen/types';
+
+import { clientHistoryData } from './data/client-history.data';
 
 export const getClientHistory = async ({ page, rowsPerPage }) => {
   return new Promise<{ data: { content: ClientHistoryData[]; total: number } }>((resolve, reject) => {

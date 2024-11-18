@@ -1,4 +1,4 @@
-import { Button, ColumnsType } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from './second-tab-table-util.style';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
@@ -102,7 +102,7 @@ export function getMobileColumns(props) {
           {
             title: t('details'),
             value: (
-              <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
+              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
                 {t('details')}
               </S.DetailsBtn>
             ),
@@ -110,22 +110,14 @@ export function getMobileColumns(props) {
           {
             title: t('remove'),
             value: (
-              <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
                 <S.TrashIcon className='icon-trash' />
               </Button>
             ),
           },
         ];
-        return (
-          <S.TableRow>
-            {data.map(({ title, value }) => (
-              <S.RowItem>
-                <strong>{title}</strong>
-                {value}
-              </S.RowItem>
-            ))}
-          </S.TableRow>
-        );
+
+        return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
       },
     },
   ];
