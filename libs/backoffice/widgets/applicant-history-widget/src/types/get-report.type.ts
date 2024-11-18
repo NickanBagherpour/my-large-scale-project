@@ -1,4 +1,5 @@
 import { ApplicantHistoryData, Nullable } from '@oxygen/types';
+
 import { PaginationType } from '../context/types';
 
 export type ReportResponseType = {

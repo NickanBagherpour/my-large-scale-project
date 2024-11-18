@@ -1,16 +1,8 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 import { ApplicantId } from '../types';
-
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
-}
-
-export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
-}
 
 export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });

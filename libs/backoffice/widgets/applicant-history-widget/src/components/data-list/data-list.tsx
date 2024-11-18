@@ -20,7 +20,6 @@ type dataListProps = PageProps & {
 };
 
 const DataList: React.FC<dataListProps> = (props) => {
-  // const { data, isFetching } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();

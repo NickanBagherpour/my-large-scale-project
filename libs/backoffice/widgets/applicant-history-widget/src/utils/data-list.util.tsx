@@ -39,7 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ApplicantHistoryDat
       render: (value, record) => {
         return (
           <S.ValueContainer>
-            {(value?.showBadge ?? 'show') && <Badge offset={[2, 0]} color={badgeColor} />}
+            {(value?.showBadge ?? 'show') && <Badge color={badgeColor} />}
             <span>{getValueOrDash(value)}</span>
           </S.ValueContainer>
         );
