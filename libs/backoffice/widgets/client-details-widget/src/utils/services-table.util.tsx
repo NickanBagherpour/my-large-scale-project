@@ -138,7 +138,8 @@ export function getMobileColumns(props: Props) {
           },
         ];
 
-        return <Table.MobileColumns columns={data} minHeight={'4rem'} />;
+        /* using rem to have a constant height acorss all user devices */
+        return <Table.MobileColumns columns={data} minHeight={'40px'} />;
       },
     },
   ];
