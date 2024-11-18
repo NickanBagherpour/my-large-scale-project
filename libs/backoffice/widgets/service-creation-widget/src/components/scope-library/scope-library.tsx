@@ -83,6 +83,7 @@ export default function ScopeLibrary(props: Props) {
         total={data?.total}
         pagination={{ pageSize: rowsPerPage }}
         onChange={changePage}
+        rowKey={(row) => row.idx}
         onRow={(scope) => ({
           onClick() {
             setSelectedScope(scope);

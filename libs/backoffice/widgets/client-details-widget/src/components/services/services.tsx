@@ -7,7 +7,7 @@ import StopServiceModal from '../stop-service-modal/stop-service-modal';
 import { useState } from 'react';
 import { useGetServicesQuery } from '../../services';
 import { type TablePaginationConfig } from 'antd';
-import type { Pagination } from '@oxygen/types';
+import type { Pagination, Service } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Input, Table } from '@oxygen/ui-kit';
 import { Modals } from '../../types';
@@ -59,6 +59,7 @@ export default function Services() {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
+        rowKey={(row: Service) => row.idx}
       />
 
       <StopServiceModal
