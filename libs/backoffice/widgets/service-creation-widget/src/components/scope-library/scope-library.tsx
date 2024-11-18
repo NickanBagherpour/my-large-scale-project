@@ -58,7 +58,6 @@ export default function ScopeLibrary(props: Props) {
 
   return (
     <S.Form layout={'vertical'}>
-      <S.Divider />
       <S.FormItem label={t('search')}>
         <Input placeholder={t('persian_or_english_name')} prefix={<i className='icon-search-normal' />} />
       </S.FormItem>
