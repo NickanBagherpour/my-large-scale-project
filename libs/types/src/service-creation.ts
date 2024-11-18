@@ -3,3 +3,5 @@ export type Scope = {
   scopeName: string;
   persianName: string;
 };
+
+export type Pagination = { page: number; rowsPerPage: number };

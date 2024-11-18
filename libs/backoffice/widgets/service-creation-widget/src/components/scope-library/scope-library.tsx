@@ -2,8 +2,9 @@ import { useTr } from '@oxygen/translation';
 import { Box, ColumnsType, Input, Table } from '@oxygen/ui-kit';
 import * as S from './scope-library.style';
 import { useGetScopes } from '../../services';
-import { Scope } from '@oxygen/types';
+import { Pagination, Scope } from '@oxygen/types';
 import { useState } from 'react';
+import { type TablePaginationConfig } from 'antd';
 
 type Props = {
   closeDrawer: () => void;
@@ -12,8 +13,20 @@ type Props = {
 export default function ScopeLibrary(props: Props) {
   const { closeDrawer } = props;
   const [t] = useTr();
-  const { data, isFetching } = useGetScopes();
   const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
+  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
+  const { page, rowsPerPage } = pagination;
+  const { data, isFetching } = useGetScopes(pagination);
+
+  const changePage = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+    if (pageSize && current) {
+      setPagination({
+        page: pageSize === rowsPerPage ? current : 1,
+        rowsPerPage: pageSize,
+      });
+    }
+  };
 
   const addScope = () => {
     closeDrawer();
@@ -58,14 +71,18 @@ export default function ScopeLibrary(props: Props) {
 
   return (
     <S.Form layout={'vertical'}>
-      <S.FormItem label={t('search')} name='search'>
+      <S.FormItem label={t('search')} namnee='search'>
         <Input placeholder={t('persian_or_english_name')} prefix={<i className='icon-search-normal' />} />
       </S.FormItem>
       <S.Table
-        dataSource={data}
+        dataSource={data?.items}
         loading={isFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
+        current={page}
+        total={data?.total}
+        pagination={{ pageSize: rowsPerPage }}
+        onChange={changePage}
         onRow={(scope) => ({
           onClick() {
             setSelectedScope(scope);
