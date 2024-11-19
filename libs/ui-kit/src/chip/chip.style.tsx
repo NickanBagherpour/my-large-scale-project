@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Tag as AntChip } from 'antd';
 
-export const StyledChip = styled<any>(AntChip)`
+export const StyledChip = styled<any>(AntChip)<{ iconProp?: string }>`
   &.ant-tag {
     border: ${(p) => (p.type === 'unActive' ? `1px solid ${p.theme.border._500}` : 'inherit')};
     background-color: ${(p) => (p.type === 'unActive' ? p.theme.background.main : p.theme.primary._50)};
