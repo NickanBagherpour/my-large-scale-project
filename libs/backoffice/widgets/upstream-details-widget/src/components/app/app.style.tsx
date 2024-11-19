@@ -10,7 +10,10 @@ export const DraftsContainer = styled(Container)`
 export const UpstreamDetailsContainer = styled(Container)`
   & .table-container {
     flex: 1;
-    flex-grow: 1;
+  }
+
+  & .return-button {
+    border-color: ${(props) => props.theme.border._500};
   }
 `;
 

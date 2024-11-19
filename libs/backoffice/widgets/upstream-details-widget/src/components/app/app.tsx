@@ -242,7 +242,7 @@ const App = () => {
 
         <FooterContainer>
           <Button
-            className={'register-button'}
+            className={'return-button'}
             variant={'outlined'}
             color={'primary'}
             size={'large'}
@@ -252,8 +252,7 @@ const App = () => {
           </Button>
           {!upstreamId && (
             <Button
-              className={'return-button'}
-              // variant={'outlined'}
+              className={'register-button'}
               color={'primary'}
               size={'large'}
               onClick={handleSubmit}
