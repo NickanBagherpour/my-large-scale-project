@@ -48,8 +48,4 @@ export const StyledInput = styled(Input)`
     max-width: 100%;
     font-size: 1.7rem;
   }
-
-  & .ant-input-prefix i {
-    color: ${(props) => props.theme.text.tertiary};
-  }
 `;
