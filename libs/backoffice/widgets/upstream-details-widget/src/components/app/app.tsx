@@ -10,7 +10,7 @@ import { Loading, Modal, Box, Button, Input, Select, Container } from '@oxygen/u
 import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { NoResult, FooterContainer } from '@oxygen/reusable-components';
+import { NoResult, FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTheme } from 'styled-components';
@@ -241,19 +241,12 @@ const App = () => {
         )}
 
         <FooterContainer>
-          <Button
-            className={'register-button'}
-            variant={'outlined'}
-            color={'primary'}
-            size={'large'}
-            onClick={handleReturn}
-          >
+          <ReturnButton variant={'outlined'} color={'primary'} size={'large'} onClick={handleReturn}>
             {t('button.return')}
-          </Button>
+          </ReturnButton>
           {!upstreamId && (
             <Button
-              className={'return-button'}
-              // variant={'outlined'}
+              className={'register-button'}
               color={'primary'}
               size={'large'}
               onClick={handleSubmit}

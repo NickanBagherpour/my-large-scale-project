@@ -3,9 +3,8 @@ import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, updateApplicantIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
@@ -35,9 +34,9 @@ const App: React.FC<AppProps> = (props) => {
   };
 
   const footerButton = (
-    <Button className={'return-button'} size={'large'} variant={'outlined'} onClick={handleReturn}>
+    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
-    </Button>
+    </ReturnButton>
   );
 
   return (

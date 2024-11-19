@@ -4,7 +4,7 @@ import Mockify from '@oxygen/mockify';
 import { UpstreamType } from '@oxygen/types';
 import { ROUTES } from '@oxygen/utils';
 
-import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { updatePaginationAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './upstreams.style';
 
@@ -26,11 +26,11 @@ export default function Upstreams(props: Props) {
   return (
     <>
       <S.Grid>
-        {data.map(({ name, activeServersCount }, idx) => (
+        {data.map(({ name, activeServersCount, upstreamId }, idx) => (
           <GridCard
             key={idx}
             name={name}
-            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=1234`}
+            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${upstreamId}`}
             activeServersCount={activeServersCount}
             wordToHighlight={searchTerm}
           />
@@ -38,7 +38,12 @@ export default function Upstreams(props: Props) {
       </S.Grid>
 
       {showLoadMore && (
-        <S.StyledButton variant='text' color='primary' disabled={isLoading} onClick={() => updatePagination(dispatch)}>
+        <S.StyledButton
+          variant='text'
+          color='primary'
+          disabled={isLoading}
+          onClick={() => updatePaginationAction(dispatch)}
+        >
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
         </S.StyledButton>
