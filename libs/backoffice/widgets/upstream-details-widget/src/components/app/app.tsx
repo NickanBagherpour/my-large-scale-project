@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
@@ -47,11 +47,6 @@ const App = () => {
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
   const queryClient = useQueryClient();
-
-  const router = useRouter();
-  const handleReturn = () => {
-    router.back();
-  };
 
   const handleSubmit = () => {
     setTriggerRegisterAction(true);
@@ -241,9 +236,7 @@ const App = () => {
         )}
 
         <FooterContainer>
-          <ReturnButton variant={'outlined'} color={'primary'} size={'large'} onClick={handleReturn}>
-            {t('button.return')}
-          </ReturnButton>
+          <ReturnButton />
           {!upstreamId && (
             <Button
               className={'register-button'}

@@ -50,7 +50,7 @@ export const Container = (props: IWidgetWrapperProps) => {
   };
 
   return (
-    <S.WidgetWrapperContainer fill_container={String(fillContainer)} className={className} style={combinedStyle}>
+    <S.WidgetWrapperContainer $fill_container={String(fillContainer)} className={className} style={combinedStyle}>
       {title && (
         <>
           <S.Header>

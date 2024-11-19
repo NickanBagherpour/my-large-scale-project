@@ -149,7 +149,7 @@ export const Table = (props: TableProps) => {
           expandable={_expandable}
           pagination={_pagination}
           showHeader={_showHeader}
-          scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
+          scroll={{ x: variant === 'simple' ? 'fit-content' : '100vw' }}
           {...restProps}
         />
       </ConfigProvider>
