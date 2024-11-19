@@ -239,8 +239,7 @@ const App = () => {
           <ReturnButton />
           {!upstreamId && (
             <Button
-              className={'return-button'}
-              // variant={'outlined'}
+              className={'register-button'}
               color={'primary'}
               size={'large'}
               onClick={handleSubmit}

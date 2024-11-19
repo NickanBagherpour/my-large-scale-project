@@ -6,9 +6,10 @@ import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
-import { useGetUpstreamQuery } from '../../services/get-report.api';
+
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
+import { useGetUpstreamQuery } from '../../services';
 
 import * as S from './app.style';
 
@@ -26,7 +27,7 @@ const App: React.FC<AppProps> = (props) => {
   const upstreamSubTitle = upstreams?.total ? `(${upstreams?.total ?? 0})` : '';
 
   return (
-    <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle} fillContainer={true}>
+    <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
