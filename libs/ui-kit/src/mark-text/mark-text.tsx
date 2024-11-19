@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import * as S from './mark-text.style';
 
@@ -14,7 +14,7 @@ export type PropsType = {
   // [key: string]: any;
 };
 
-export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: PropsType) => {
+export const MarkText = forwardRef(({ text, wordToHighlight, highlightColor, ...rest }: PropsType, ref) => {
   const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
   return (
     <span {...rest}>
@@ -29,4 +29,4 @@ export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: Pro
       )}
     </span>
   );
-};
+});
