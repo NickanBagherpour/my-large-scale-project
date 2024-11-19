@@ -33,7 +33,7 @@ const App = () => {
 
       <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle}>
         <Filters />
-        <Loading spinning={isClientsFetching} size='large'>
+        <Loading spinning={isClientsFetching}>
           {clients?.list.length ? (
             <Clients
               data={clients.list}

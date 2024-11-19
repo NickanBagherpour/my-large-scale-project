@@ -10,6 +10,7 @@ import { useGetScopeListQuery } from '../../services/get-scope-list.api';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
 
 import * as S from './data-table.style';
+import { Table } from '@oxygen/ui-kit';
 
 type DataTableProps = PageProps & {
   //
@@ -41,7 +42,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
 
   return (
     <S.DataTableContainer>
-      <S.Table
+      <Table
         title={t('table.title')}
         loading={isFetching}
         current={page}

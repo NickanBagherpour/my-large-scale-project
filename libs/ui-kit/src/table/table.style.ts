@@ -15,6 +15,15 @@ const borderRadius = '1.2rem';
 
 export const Table = styled(AntTable)<TableProps>`
   --table-min-height: 20rem;
+  caption {
+    div {
+      padding-left: 0.8rem;
+    }
+  }
+
+  & .ant-pagination-options {
+    padding-inline-start: 0.8rem;
+  }
 
   div.ant-table {
     min-height: var(--table-min-height);
@@ -57,6 +66,14 @@ export const Table = styled(AntTable)<TableProps>`
         & thead th:last-child {
           border-start-end-radius: ${borderRadius};
         }
+
+        /* add border radius to the first row in mobile devices */
+        ${respondTo.down('md')} {
+          & .ant-table-row:nth-of-type(2) td {
+            border-start-start-radius: ${borderRadius};
+            border-start-end-radius: ${borderRadius};
+          }
+        }
       }
     `}
 
@@ -92,6 +109,7 @@ export const Table = styled(AntTable)<TableProps>`
 
   tbody > tr > td {
     text-align: center;
+    border-color: ${(p) => p.theme.border._100};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
@@ -99,6 +117,9 @@ export const Table = styled(AntTable)<TableProps>`
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     ${respondTo.down('md')} {
       text-align: start;
+    }
+    &.ant-table-cell-ellipsis {
+      unicode-bidi: plaintext;
     }
   }
 

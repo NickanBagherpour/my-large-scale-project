@@ -20,7 +20,6 @@ type dataListProps = PageProps & {
 };
 
 const DataList: React.FC<dataListProps> = (props) => {
-  // const { data, isFetching } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -58,7 +57,7 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   return (
     <S.TableContainer>
-      {data?.content ? (
+      {data?.content?.length ? (
         <Table
           loading={isFetching}
           current={pagination.page}

@@ -1,4 +1,5 @@
 import { ApplicantHistoryData, Nullable } from '@oxygen/types';
+
 import { PaginationType } from '../context/types';
 
 export type ReportResponseType = {
@@ -14,6 +15,8 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
+export type ApplicantId = Nullable<string>;
+
 export type FetchParamsType = PaginationType & {
-  applicantId: Nullable<string>;
+  applicantId: ApplicantId;
 };

@@ -206,7 +206,7 @@ const App = () => {
         />
         {upstreamId && (
           <Box className={'table-container'}>
-            <Loading spinning={isUpstreamFetching} size='large'>
+            <Loading spinning={isUpstreamFetching} size={'default'}>
               {upstreamDetails?.list?.serverList.length ? (
                 <UpstreamDetails
                   isFetching={isUpstreamFetching}
@@ -226,11 +226,9 @@ const App = () => {
             {
               <UpstreamDetails
                 isFetching={isUpstreamFetching}
-                // isFetching={true}
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
-                // isLoading={isUpstreamFetching}
-                isLoading={true}
+                isLoading={isUpstreamFetching}
                 deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
               />
             }

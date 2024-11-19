@@ -58,7 +58,7 @@ const App: React.FC<AppProps> = (props) => {
         <Tabs defaultActiveKey='scop-info' items={items}></Tabs>
       </S.Content>
       <S.Footer>
-        <Button variant={'solid'} onClick={handleReturn}>
+        <Button variant={'outlined'} onClick={handleReturn}>
           {t('button.return')}
         </Button>
       </S.Footer>

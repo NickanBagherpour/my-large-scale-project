@@ -11,7 +11,7 @@ export type ButtonProps = Omit<AntButtonProps, 'color'> & {
 };
 
 export const Button = (props: ButtonProps) => {
-  const { children, color = 'primary', flex = true, href, ...rest } = props;
+  const { children, color = 'primary', flex = `true`, href, ...rest } = props;
 
   if (href) {
     return (

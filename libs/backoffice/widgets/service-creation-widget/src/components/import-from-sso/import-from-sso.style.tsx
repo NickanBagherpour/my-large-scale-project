@@ -34,6 +34,10 @@ export const Drawer = styled(AntDrawer)`
     overflow: hidden;
   }
 
+  & .ant-drawer-header {
+    border-bottom: ${(p) => `1px solid ${p.theme.border._100}`};
+  }
+
   & .ant-drawer-header-title {
     flex-direction: row-reverse;
   }
@@ -43,8 +47,9 @@ export const Drawer = styled(AntDrawer)`
   }
 
   & .ant-drawer-body {
-    padding-top: 0;
+    padding-top: 1.2rem;
     display: flex;
+    flex-direction: column;
   }
 
   ${respondTo.down('md')} {

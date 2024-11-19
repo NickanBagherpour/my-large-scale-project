@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button } from '@oxygen/ui-kit';
+import { Button, Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
@@ -47,7 +47,6 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
   const tableData = tableDataQuery?.list;
-
   return (
     <>
       <S.SecondTabHeader>
@@ -74,7 +73,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
           </S.ButtonWraper>
         </S.ButtonContainer>
       </S.SecondTabHeader>
-      <S.Table
+      <Table
         dataSource={tableData}
         loading={tabelIsFetching}
         columns={desktopColumns}
