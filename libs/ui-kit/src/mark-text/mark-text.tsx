@@ -17,7 +17,7 @@ export const MarkText = React.forwardRef<HTMLSpanElement, PropsType>(
       <span {...rest} ref={ref}>
         {parts.map((part, index) =>
           part === wordToHighlight ? (
-            <S.StyledSpan custom_style={highlightColor} key={index}>
+            <S.StyledSpan $customStyle={highlightColor} key={index}>
               {part}
             </S.StyledSpan>
           ) : (

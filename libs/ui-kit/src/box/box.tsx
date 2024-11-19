@@ -38,7 +38,7 @@ interface TransientBoxProps {
   lineHeight?: CSSProperties['lineHeight'];
   letterSpacing?: CSSProperties['letterSpacing'];
   textAlign?: CSSProperties['textAlign'];
-  fill_children?: string;
+  $fill_children?: string;
 }
 
 const StyledBox = styled.div<TransientBoxProps>`
@@ -66,7 +66,7 @@ const StyledBox = styled.div<TransientBoxProps>`
   ${(props) => props.letterSpacing && `letter-spacing: ${props.letterSpacing ?? 'normal'}`};
   ${(props) => props.textAlign && `text-align: ${props.textAlign ?? 'inherit'}`};
   ${(props) =>
-    props.fill_children === 'true'
+    props.$fill_children === 'true'
       ? `
           & > * {
             width: 100%;
@@ -89,7 +89,7 @@ export interface BoxProps extends TransientBoxProps {
 export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className }) => {
   return (
     visible && (
-      <StyledBox className={className} fill_children={String(fillChildren)}>
+      <StyledBox className={className} $fill_children={String(fillChildren)}>
         {children}
       </StyledBox>
     )

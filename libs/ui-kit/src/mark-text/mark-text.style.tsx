@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import { HighlightColorType } from './mark-text';
 
 type CustomStyleProps = {
-  custom_style: HighlightColorType;
-  font_size?: string;
-  font_weight?: string;
+  $customStyle: HighlightColorType;
+  fontSize?: string;
+  fontWeight?: string;
   [key: string]: any;
 };
 
 export const StyledSpan = styled.span<CustomStyleProps>`
   color: ${(p) => {
-    switch (p.custom_style) {
+    switch (p.$customStyle) {
       case 'success':
         return p.theme.success.main;
       case 'warning':
@@ -18,11 +18,11 @@ export const StyledSpan = styled.span<CustomStyleProps>`
       case 'error':
         return p.theme.error.main;
       default:
-        return p.custom_style;
+        return p.$customStyle;
     }
   }};
 
-  font-size: ${(p) => p.font_size || 'inherit'};
-  font-weight: ${(p) => p.font_weight || 'normal'};
+  font-size: ${(p) => p.fontSize || 'inherit'};
+  font-weight: ${(p) => p.fontWeight || 'normal'};
   ${(p) => ({ ...p })}
 `;
