@@ -5,11 +5,13 @@
     "scripts": {
         "dev": "nx dev",
         "dev-business": "nx dev business-portal",
+        "dev-customer": "nx dev customer-portal",
         "start": "nx start",
         "start-prod": "nx serve portal --prod",
         "build": "nx build",
         "build-backoffice": "nx build backoffice-portal",
         "build-business": "nx build business-portal",
+        "build-customer": "nx build customer-portal",
         "test": "nx test",
         "lint": "nx lint",
         "widget-g": "nx g widget-g",

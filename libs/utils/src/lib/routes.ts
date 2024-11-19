@@ -6,6 +6,7 @@ export const MAIN_HREF = {
 
 export const ROUTES = {
   BACKOFFICE: {
+    HOME: '/',
     DASHBOARD: '/dashboard',
     APPLICANT_HISTORY: '/applicant-history',
     CLIENT_CREATION: '/client-creation',

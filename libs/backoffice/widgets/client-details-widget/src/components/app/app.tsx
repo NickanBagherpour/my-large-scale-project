@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Tab } from '../../types';
 import { ReactNode } from 'react';
 import { getValidTab } from '../../utils/tabs.util';
+import { Container } from '@oxygen/ui-kit';
 
 const App = () => {
   const [t] = useTr();
@@ -22,9 +23,9 @@ const App = () => {
   ];
 
   return (
-    <S.Container title={'App-Bale'}>
+    <Container title={'App-Bale'}>
       <S.Tabs type='line' items={tabs} activeKey={tab} onTabClick={(tab) => router.replace(`?tab=${tab}`)} />
-    </S.Container>
+    </Container>
   );
 };
 

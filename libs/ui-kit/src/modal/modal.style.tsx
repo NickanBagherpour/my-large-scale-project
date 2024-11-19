@@ -36,9 +36,8 @@ export const StyledModal = styled<any>(AntModal)`
   }
 
   .ant-modal-footer {
-    button {
-      margin-left: 1.2rem;
-      min-width: 9.2rem;
-    }
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.2rem;
   }
 `;

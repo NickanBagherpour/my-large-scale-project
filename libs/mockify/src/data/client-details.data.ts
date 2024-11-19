@@ -22,7 +22,8 @@ export const clientInfo: ClientInfo = {
   email: 'Farzane@gmail.com',
 };
 
-export const services: Service[] = Array.from({ length: 100 }).map(() => ({
+export const services: Service[] = Array.from({ length: 100 }).map((_, idx) => ({
+  idx,
   serviceName: 'samat-lc-gutr-del',
   persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
   scope: 'svc-mgmt-iban-inq',
