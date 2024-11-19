@@ -1,29 +1,87 @@
-import React, { ReactNode } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+'use client';
 
-import { useTr } from '@oxygen/translation';
-import { Icons, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
-import { Anonymous } from '@oxygen/reusable-components';
-import { CONSTANTS, ENV_CONSTANTS } from '@oxygen/utils';
+import React, { ReactNode, useState } from 'react';
+import { Layout } from 'antd';
 
-import AppBarMenu from '../components/appbar-menu/appbar-menu';
+import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
-import * as authBG from '../assets/media/auth-bg.png';
+import { Protected } from '@oxygen/reusable-components';
+import Appbar from '../components/appbar/appbar';
+import Drawer from '../components/drawer/drawer';
+import MainContent from '../components/main-content/main-content';
+
 import * as S from './auth-layout.style';
 
-type AuthLayoutProps = {
+type DashboardLayoutProps = {
   children: ReactNode;
-  title?: string;
 };
 
-export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
-  const [t] = useTr();
+export const AuthLayout = ({ children }: DashboardLayoutProps) => {
+  const { config } = useConfig();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const { isMobile, isMobileOrTablet, isUndefined } = useResponsive();
+  const { logout } = useAuth();
+
+  const toggleDrawer = () => {
+    if (isMobile) {
+      if (!collapsed) showDrawer();
+      else onClose();
+      return;
+    }
+    setCollapsed(!collapsed);
+  };
+
+  const showDrawer = () => {
+    if (isMobile) {
+      setOpenDrawer(true);
+    }
+  };
+
+  const onClose = () => {
+    setOpenDrawer(false);
+  };
+
+  const handleLogout = () => {
+    // setOpenDrawer(false);
+    // console.log('logout clicked');
+
+    logout();
+  };
+
+  function handleOnBreakpoint(broken: boolean) {
+    if (broken && !collapsed) {
+      setCollapsed(true);
+    }
+  }
 
   return (
-    <Anonymous>
-      <S.Wrapper>hello</S.Wrapper>
-    </Anonymous>
+    <Protected>
+      <S.MainLayout>
+        <Appbar
+          onToggleDrawer={toggleDrawer}
+          onLogout={handleLogout}
+          config={config}
+          isMobileOrTablet={isMobileOrTablet}
+        />
+
+        <Layout>
+          <Drawer
+            shouldDisplaySider={!isUndefined && !isMobile}
+            shouldDisplayDrawer={isMobile}
+            direction={config.direction}
+            openDrawer={openDrawer}
+            siderCollapsed={collapsed}
+            onBreakpoint={handleOnBreakpoint}
+            onClose={onClose}
+          />
+
+          <S.MainContentLayout>
+            <MainContent>{children}</MainContent>
+          </S.MainContentLayout>
+        </Layout>
+      </S.MainLayout>
+    </Protected>
   );
 };
 
