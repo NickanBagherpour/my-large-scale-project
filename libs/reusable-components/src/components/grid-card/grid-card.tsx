@@ -77,16 +77,16 @@ function UpstreamCard(props: UpstreamCardProps) {
 
   return (
     <S.Container href={href}>
-      <S.Header isUpstream={isUpstream}>
+      <S.Header $isUpstream={isUpstream}>
         <S.Title
           text={name}
           highlightColor={theme.secondary.main}
           wordToHighlight={wordToHighlight}
-          isUpstream={isUpstream}
+          $isUpstream={isUpstream}
         />
-        <S.Settings className='icon-setting' isUpstream={isUpstream} />
+        <S.Settings className='icon-setting' $isUpstream={isUpstream} />
       </S.Header>
-      <S.Footer isUpstream={isUpstream}>
+      <S.Footer $isUpstream={isUpstream}>
         <Status status={'active'} />
         <S.StatusTxt>{t('grid_card.active_servers_count', { count: activeServersCount })}</S.StatusTxt>
       </S.Footer>
