@@ -11,10 +11,6 @@ export const UpstreamDetailsContainer = styled(Container)`
   & .table-container {
     flex: 1;
   }
-
-  & .return-button {
-    border-color: ${(props) => props.theme.border._500};
-  }
 `;
 
 export const ModalMessage = styled.div`
