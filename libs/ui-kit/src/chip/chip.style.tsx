@@ -28,9 +28,9 @@ export const StyledChip = styled<any>(AntChip)<{ $iconProp?: string }>`
     margin-right: 1rem;
   }
 `;
-export const ChipContainer = styled.span<{ ellipsis: string }>`
+export const ChipContainer = styled.span<{ $ellipsis: string }>`
   ${(props) =>
-    props.ellipsis === 'true' &&
+    props.$ellipsis === 'true' &&
     `
     display: inline-block;
      max-width: 20rem;
