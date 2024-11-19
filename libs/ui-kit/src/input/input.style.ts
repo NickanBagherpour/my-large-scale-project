@@ -28,6 +28,10 @@ export const InputWrapper = styled<any>(AntInput)`
   .ant-input-prefix {
     padding-right: 0.8rem;
     padding-left: 0.5rem;
+
+    i {
+      color: ${(props) => props.theme.text.tertiary};
+    }
   }
 
   .ant-input-suffix {
