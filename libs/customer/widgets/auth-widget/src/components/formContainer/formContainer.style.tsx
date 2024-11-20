@@ -36,6 +36,10 @@ export const FormInputs = styled.div`
   border-radius: 1.2rem;
   border: 1px solid ${(p) => p.theme.divider};
   margin-bottom: 1.6rem;
+
+  & .ant-form-item:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const Input = styled(KitInput)`
