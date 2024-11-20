@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { Space } from 'antd';
 
-export const DropdownSelectContainer = styled.div<{ error: boolean; iconPosition: string }>`
+export const DropdownSelectContainer = styled.div<{ $error: boolean; $iconPosition: string }>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 1.6rem;
   //margin:1rem 0;
 
   & .dropdown-button {
-    border-color: ${(props) => (props.error ? props.theme.error.main : props.theme.border._500)};
+    border-color: ${(props) => (props.$error ? props.theme.error.main : props.theme.border._500)};
     font-size: 1.4rem;
     font-weight: 500;
     padding: 0.8rem 1.6rem;

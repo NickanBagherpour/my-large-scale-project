@@ -2,11 +2,7 @@ import * as React from 'react';
 
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FormFieldsType } from '../types';
-
-export type FiltersType = FormFieldsType;
-
-export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
+import { ClientId } from '../types';
 
 export type PaginationType = {
   page: number;
@@ -15,12 +11,10 @@ export type PaginationType = {
 
 export type WidgetStateType = {
   table: {
-    filters: FiltersType;
     pagination: PaginationType;
-    submit: FiltersType;
   };
   message: Nullable<MessageType>;
-  clientId: Nullable<string>;
+  clientId: ClientId;
 };
 
 export type WidgetActionType =
@@ -29,20 +23,12 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_FILTERS';
-      payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_SUBMIT';
-      payload: Partial<FiltersType>;
-    }
-  | {
       type: 'UPDATE_PAGINATION';
       payload: PaginationType;
     }
   | {
       type: 'UPDATE_CLIENT_ID';
-      payload: Nullable<string>;
+      payload: ClientId;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

@@ -1,7 +1,7 @@
 import { Table as AntTable } from 'antd';
 import styled, { css } from 'styled-components';
 
-import { cssVar } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 
 import { Panel } from '../panel/panel';
 import { TableProps } from './table';
@@ -15,6 +15,15 @@ const borderRadius = '1.2rem';
 
 export const Table = styled(AntTable)<TableProps>`
   --table-min-height: 20rem;
+  caption {
+    div {
+      padding-left: 0.8rem;
+    }
+  }
+
+  & .ant-pagination-options {
+    padding-inline-start: 0.8rem;
+  }
 
   div.ant-table {
     min-height: var(--table-min-height);
@@ -57,6 +66,14 @@ export const Table = styled(AntTable)<TableProps>`
         & thead th:last-child {
           border-start-end-radius: ${borderRadius};
         }
+
+        /* add border radius to the first row in mobile devices */
+        ${respondTo.down('md')} {
+          & .ant-table-row:nth-of-type(2) td {
+            border-start-start-radius: ${borderRadius};
+            border-start-end-radius: ${borderRadius};
+          }
+        }
       }
     `}
 
@@ -92,12 +109,18 @@ export const Table = styled(AntTable)<TableProps>`
 
   tbody > tr > td {
     text-align: center;
-    border-color: ${(p) => (p.variant === 'simple' ? p.theme.divider : p.theme.border._100)};
+    border-color: ${(p) => p.theme.border._100};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
+    ${respondTo.down('md')} {
+      text-align: start;
+    }
+    &.ant-table-cell-ellipsis {
+      unicode-bidi: plaintext;
+    }
   }
 
   thead > tr > th::before {
@@ -142,11 +165,16 @@ export const Table = styled(AntTable)<TableProps>`
   .ant-pagination-item-ellipsis {
     color: ${(p) => p.theme.primary.main};
   }
-  .ant-pagination .ant-select-selector {
-    background-color: ${(p) => p.theme.primary.main};
-    color: ${(p) => p.theme.onPrimary};
-    padding: 1.5rem;
-    min-width: 7rem;
+  .ant-pagination {
+    .ant-select-selector {
+      background-color: ${(p) => p.theme.primary.main};
+      color: ${(p) => p.theme.onPrimary};
+      padding: 1.4rem 1.5rem;
+      min-width: 7rem;
+    }
+    .ant-select-selection-search {
+      padding-top: 0.2rem;
+    }
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
@@ -211,11 +239,11 @@ export const Caption = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 2.4rem 3rem;
+  padding: 3rem 0;
 
   .caption-title {
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: 1.6rem;
+    font-weight: 700;
     text-align: left;
     margin-right: 2rem;
   }
@@ -237,8 +265,10 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   font-weight: bold;
   color: ${(props) => props.theme.text.secondary};
   min-height: ${(p) => p.min_height};
+  gap: 1rem;
 
   margin-bottom: 1rem;
+  gap: 1rem;
 
   .item__btn {
     margin-inline-end: -1.6rem;

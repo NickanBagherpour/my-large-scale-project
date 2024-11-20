@@ -24,9 +24,11 @@ export const FilterPopover = (props: FilterPopoverProps) => {
   const [filterIsOpen, setFilterIsOpen] = useState(false);
   const [filterValue, setFilterValue] = useState(initialValue);
   const [open, setOpen] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const handleFilterButtonClick = () => {
     setFilterIsOpen(!filterIsOpen);
+    setIsInitialLoad(false);
   };
 
   const handleFilterItemClick = (key: string) => {
@@ -67,7 +69,7 @@ export const FilterPopover = (props: FilterPopoverProps) => {
       className={className}
     >
       <S.FilterButton onClick={handleFilterButtonClick}>
-        <i className={`${filterIsOpen ? 'rotate-up' : 'rotate-down'} icon-fill-arrow-down`} />
+        <i className={`${isInitialLoad ? '' : filterIsOpen ? 'rotate-up' : 'rotate-down'} icon-fill-arrow-down`} />
         <i className='icon-sort' />
       </S.FilterButton>
     </S.StyledFilterPopover>

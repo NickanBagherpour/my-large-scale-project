@@ -11,6 +11,7 @@ import { useAppTheme, useResponsive } from '@oxygen/hooks';
 import { Button } from '../button/button';
 import { Box } from '../box/box';
 import { MobileColumn } from './mobile-column';
+import { MobileColumns } from './mobile-columns';
 import { ExpandButton } from '../button/expand-button';
 
 import * as S from './table.style';
@@ -148,7 +149,7 @@ export const Table = (props: TableProps) => {
           expandable={_expandable}
           pagination={_pagination}
           showHeader={_showHeader}
-          scroll={{ x: variant === 'simple' ? 'fit-content' : 'max-content' }}
+          scroll={{ x: variant === 'simple' ? 'fit-content' : '100vw' }}
           {...restProps}
         />
       </ConfigProvider>
@@ -177,4 +178,5 @@ export const Table = (props: TableProps) => {
 
 Table.EXPAND_COLUMN = AntTable.EXPAND_COLUMN;
 Table.MobileColumn = MobileColumn;
+Table.MobileColumns = MobileColumns;
 // export default Table;

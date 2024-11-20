@@ -10,6 +10,11 @@ import { ROUTES } from '@oxygen/utils';
 
 import { useAppDispatch, useAppState } from '../../context';
 
+import {
+  MOBILE_NUMBER_LIMIT,
+  NATIONAL_CODE_LIMIT,
+  TEXT_INPUT_LIMIT,
+} from '../../utils/consts';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types/settings.schema';
 
@@ -51,22 +56,32 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={defaultValues}>
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.userName} label={t('form.userName')} rules={[rule]}>
-              <Input placeholder={t('placeholder.userName')} />
+              <Input placeholder={t('placeholder.userName')} allow={'letter'} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.nationalCode} label={t('form.nationalCode')} rules={[rule]}>
-              <Input placeholder={t('placeholder.nationalCode')} />
+              <Input placeholder={t('placeholder.nationalCode')} allow={'number'} maxLength={NATIONAL_CODE_LIMIT} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.organizationName} rules={[rule]} label={t('form.organizationName')}>
-              <Input placeholder={t('placeholder.organizationName')} />
+              <Input placeholder={t('placeholder.organizationName')} allow={'letter'} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.mobileNumber} rules={[rule]} label={t('form.mobileNumber')}>
-              <Input placeholder={t('placeholder.mobileNumber')} />
+              <Input
+                placeholder={t('placeholder.mobileNumber')}
+                allow={'number'}
+                type='tel'
+                maxLength={MOBILE_NUMBER_LIMIT}
+              />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.telePhone} label={t('form.telPhone')}>
-              <Input placeholder={t('placeholder.telPhone')} />
+              <Input
+                placeholder={t('placeholder.telPhone')}
+                allow={'number'}
+                type='tel'
+                maxLength={MOBILE_NUMBER_LIMIT}
+              />
             </Form.Item>
             <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.email} label={t('form.email')}>
-              <Input placeholder={t('placeholder.email')} />
+              <Input placeholder={t('placeholder.email')} maxLength={TEXT_INPUT_LIMIT} />
             </Form.Item>
           </SearchItemsContainer>
         </Form>

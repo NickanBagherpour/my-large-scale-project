@@ -10,7 +10,7 @@ export { default as NoResult } from './components/no-result/no-result';
 export { default as GlobalMessageContainer } from './components/global-message-container/global-message-container';
 export * from './components/filter-popover/filter-popover';
 export { default as GridCard } from './components/grid-card/grid-card';
-export { default as AutoComplete } from './components/autocomplete/autocomplete';
+export { default as AdvanceSelector } from './components/advance-selector/advance-selector';
 export { default as CardWithToggle } from './components/card-with-toggle/card-with-toggle';
 export { default as StorybookLayout } from './components/storybook-layout/storybook-layout';
 export { default as Anonymous } from './components/anonymous/anonymous';
@@ -18,4 +18,5 @@ export { default as ClientOnly } from './components/client-only/client-only';
 export { default as ConfigLoader } from './components/config-loader/config-loader';
 export { default as ErrorFallback } from './components/error-fallback/error-fallback';
 export { default as Protected } from './components/protected/protected';
-export { default as ConfirmModal} from './components/confirm-modal/confirm-modal'
+export { default as ConfirmModal } from './components/confirm-modal/confirm-modal';
+export { default as ServiceCallLimit } from './components/service-call-limit/service-call-limit';

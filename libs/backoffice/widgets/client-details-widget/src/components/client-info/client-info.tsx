@@ -1,15 +1,16 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, InfoBox, Status } from '@oxygen/ui-kit';
+import { Button, Chip, InfoBox, Loading, Status } from '@oxygen/ui-kit';
 import * as S from './client-info.style';
 import { useGetClientInfoQuery } from '../../services';
 import { Space } from 'antd';
 import { ROUTES } from '@oxygen/utils';
+import Footer from '../footer/footer';
 
 export default function ClientInfo() {
   const [t] = useTr();
-  const { data } = useGetClientInfoQuery();
+  const { data, isFetching, isLoading } = useGetClientInfoQuery();
 
-  if (!data) return null;
+  if (!data) return <Loading />;
 
   const {
     grantType,
@@ -39,8 +40,10 @@ export default function ClientInfo() {
       key: t('grant_type'),
       value: (
         <S.Chips>
-          {grantType.map((t) => (
-            <Chip type='active'>{t}</Chip>
+          {grantType.map((t, idx) => (
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
+              {t}
+            </Chip>
           ))}
         </S.Chips>
       ),
@@ -50,8 +53,10 @@ export default function ClientInfo() {
       key: t('tags'),
       value: (
         <S.Chips>
-          {tags.map((t) => (
-            <Chip type='active'>{t}</Chip>
+          {tags.map((t, idx) => (
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
+              {t}
+            </Chip>
           ))}
         </S.Chips>
       ),
@@ -87,45 +92,53 @@ export default function ClientInfo() {
   ];
 
   return (
-    <S.Container>
-      <section>
-        <S.Header>
-          <S.TabName>{t('client_info')}</S.TabName>
-          <S.Btns>
-            <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
-              <i className='icon-clock' />
-              {t('display_change_history')}
-            </Button>
-            <Button href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`} color='primary' variant='solid'>
-              <i className='icon-edit' />
-              {t('edit')}
-            </Button>
-          </S.Btns>
-        </S.Header>
+    <Loading spinning={isFetching}>
+      <S.Container>
+        <section>
+          <S.Header>
+            <S.TabName>{t('client_info')}</S.TabName>
+            <S.Btns>
+              <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
+                <S.Icon className='icon-clock' />
+                {t('display_change_history')}
+              </Button>
+              <Button
+                href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`}
+                color='primary'
+                variant='solid'
+              >
+                <S.Icon className='icon-edit' />
+                {t('edit')}
+              </Button>
+            </S.Btns>
+          </S.Header>
 
-        <InfoBox margin={0} data={clientInfoData} />
-      </section>
-      <section>
-        <S.Header>
-          <S.TabName>{t('applicant_info')}</S.TabName>
-          <S.Btns>
-            <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
-              <i className='icon-clock' />
-              {t('display_change_history')}
-            </Button>
-            <Button
-              href={`${ROUTES.BACKOFFICE.EDIT_APPLICANT_INFO}?requestId=123456789`}
-              color='primary'
-              variant='solid'
-            >
-              <i className='icon-edit' />
-              {t('edit')}
-            </Button>
-          </S.Btns>
-        </S.Header>
+          <InfoBox margin={0} data={clientInfoData} />
+        </section>
+        <section>
+          <S.Header>
+            <S.TabName>{t('applicant_info')}</S.TabName>
+            <S.Btns>
+              <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
+                <S.Icon className='icon-clock' />
+                {t('display_change_history')}
+              </Button>
+              <Button
+                href={`${ROUTES.BACKOFFICE.EDIT_APPLICANT_INFO}?requestId=123456789`}
+                color='primary'
+                variant='solid'
+              >
+                <S.Icon className='icon-edit' />
+                {t('edit')}
+              </Button>
+            </S.Btns>
+          </S.Header>
 
-        <InfoBox margin={0} data={applicantInfoData} />
-      </section>
-    </S.Container>
+          <InfoBox margin={0} data={applicantInfoData} />
+        </section>
+      </S.Container>
+
+      <Footer isLoading={isLoading} />
+    </Loading>
   );
 }

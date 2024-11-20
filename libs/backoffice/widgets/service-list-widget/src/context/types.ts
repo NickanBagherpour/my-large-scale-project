@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { FormFieldsType } from '../types';
+import { UploadServiceType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
 
-export type FiltersType = FormFieldsType;
+export type FiltersType = UploadServiceType;
 
-export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
+export type SimpleFilters = Pick<UploadServiceType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;

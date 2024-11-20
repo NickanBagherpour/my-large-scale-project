@@ -1,6 +1,11 @@
 import { useTr } from '@oxygen/translation';
 import { Input, Modal, Select } from '@oxygen/ui-kit';
 import * as S from './limits-modal.style';
+import { Form } from 'antd';
+import { limitationsSchema, LimitationsType } from '../../../types/limitation-form.schema';
+import { createSchemaFieldRule } from 'antd-zod';
+import { FormProps } from 'antd/lib';
+import { LIMITAION_FORM_NAME } from '../../../utils/consts';
 
 type Props = {
   isOpen: boolean;
@@ -11,6 +16,9 @@ type Props = {
 export default function LimitsModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, services = `${t('step_three.all_services')}` } = props;
+
+  const [form] = Form.useForm<LimitationsType>();
+  const rule = createSchemaFieldRule(limitationsSchema(t));
 
   const callRateOptions = [
     { value: 'second', label: t('step_three.second') },
@@ -23,25 +31,43 @@ export default function LimitsModal(props: Props) {
     { value: 'week', label: t('step_three.in_week') },
   ];
 
+  const onFinish: FormProps<LimitationsType>['onFinish'] = () => {
+    toggle();
+  };
+
   return (
     <Modal
       centered
       title={`${t('step_three.restriction_calling')} ${services}`}
       open={isOpen}
       onCancel={toggle}
+      width={600}
       footer={[<S.RegisterBtn onClick={toggle}>{t('step_three.register_data')}</S.RegisterBtn>]}
     >
-      <S.Content>
-        <S.Rate>
-          <S.RateTxt>{t('step_three.service_call_rate')}:</S.RateTxt>
-          <S.RateInput size='middle' />
-          <S.RateTxt>{t('step_three.in')}</S.RateTxt>
-        </S.Rate>
-        <Select options={callRateOptions} size='middle' />
+      <S.Form form={form} onFinish={onFinish}>
+        <S.Div>
+          <S.RateLimit
+            label={t('step_three.service_call_rate')}
+            name={LIMITAION_FORM_NAME.serviceCallRate}
+            rules={[rule]}
+            colon
+          >
+            <S.RateInput size='middle' />
+          </S.RateLimit>
+          <span>{t('step_three.in')}</span>
+        </S.Div>
 
-        <Input placeholder={t('step_three.total_number_calls_limit')} size='middle' />
-        <Select options={totalCallLimitOptions} size='middle' />
-      </S.Content>
+        <Form.Item name={LIMITAION_FORM_NAME.serviceCallRateOptions} rules={[rule]}>
+          <Select options={callRateOptions} size='middle' />
+        </Form.Item>
+
+        <Form.Item name={LIMITAION_FORM_NAME.totalCallLimit} rules={[rule]}>
+          <Input placeholder={t('step_three.total_number_calls_limit')} size='middle' />
+        </Form.Item>
+        <Form.Item name={LIMITAION_FORM_NAME.callLimitOptions} rules={[rule]}>
+          <Select options={totalCallLimitOptions} size='middle' />
+        </Form.Item>
+      </S.Form>
     </Modal>
   );
 }

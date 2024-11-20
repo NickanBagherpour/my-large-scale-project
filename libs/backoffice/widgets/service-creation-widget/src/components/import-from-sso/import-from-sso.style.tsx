@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import RawFormItem from '../form-item/form-item';
 import { Drawer as AntDrawer } from 'antd';
 
-export const Sso = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 1.6rem;
-  ${respondTo.down('sm')} {
-    flex-direction: column;
-
-    & > * {
-      width: 100%;
-    }
-  }
-`;
-
 export const FormItem = styled(RawFormItem)`
   flex: 1;
   & label {
     font-size: 1.2rem;
+  }
+
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    ${respondTo.down('sm')} {
+      flex-direction: column;
+      & > * {
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -34,6 +34,10 @@ export const Drawer = styled(AntDrawer)`
     overflow: hidden;
   }
 
+  & .ant-drawer-header {
+    border-bottom: ${(p) => `1px solid ${p.theme.border._100}`};
+  }
+
   & .ant-drawer-header-title {
     flex-direction: row-reverse;
   }
@@ -43,12 +47,16 @@ export const Drawer = styled(AntDrawer)`
   }
 
   & .ant-drawer-body {
-    padding-top: 0;
+    padding-top: 1.2rem;
     display: flex;
+    flex-direction: column;
   }
 
   ${respondTo.down('md')} {
-    border-radius: 0;
+    .ant-drawer-content-wrapper:has(&) {
+      border-radius: 0;
+      overflow: auto;
+    }
   }
 `;
 

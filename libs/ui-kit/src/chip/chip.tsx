@@ -28,9 +28,9 @@ export const Chip = (props: ChipProps) => {
 
   const renderChip = (_ellipsis = true) => {
     return (
-      <S.StyledChip type={type} iconProp={iconProp} {...rest}>
+      <S.StyledChip $iconProp={iconProp} type={type} {...rest}>
         {type === 'active' && iconProp && <i className={iconProp} />}
-        <S.ChipContainer ellipsis={String(_ellipsis)}>{children}</S.ChipContainer>
+        <S.ChipContainer $ellipsis={String(_ellipsis)}>{children}</S.ChipContainer>
       </S.StyledChip>
     );
   };

@@ -5,7 +5,7 @@ import { respondTo } from '@oxygen/utils';
 export const Container = styled.section`
   border: ${(p) => `1px solid ${p.theme.border._100}`};
   border-radius: 1.2rem;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
 `;
 
 export const Header = styled.header`

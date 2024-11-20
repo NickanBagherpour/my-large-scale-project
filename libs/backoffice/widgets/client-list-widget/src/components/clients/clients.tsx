@@ -38,7 +38,13 @@ export default function Clients(props: Props) {
       </S.Grid>
 
       {showLoadMore && (
-        <S.Button variant='text' color='primary' disabled={isLoading} onClick={() => updatePagination(dispatch)}>
+        <S.Button
+          loading={isLoading}
+          variant='link'
+          color='primary'
+          disabled={isLoading}
+          onClick={() => updatePagination(dispatch)}
+        >
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
         </S.Button>

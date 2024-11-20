@@ -1,24 +1,12 @@
-import { Nullable } from '@oxygen/types';
+import { ClientHistoryData, Nullable } from '@oxygen/types';
 
 import { PaginationType } from '../context/types';
 
 export type ReportResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
-
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
-
-export type OperationStatusType = {
-  title: string;
-  code: string;
+  data: {
+    content: ClientHistoryData[];
+    total: number;
+  };
 };
 
 export type PaginationResultType = {
@@ -27,6 +15,8 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
+export type ClientId = Nullable<string>;
+
 export type FetchParamsType = PaginationType & {
-  clientId: Nullable<string>;
+  clientId: ClientId;
 };

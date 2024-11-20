@@ -63,6 +63,9 @@
             "@oxygen/backoffice/widgets/service-creation-widget": [
                 "libs/backoffice/widgets/service-creation-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/service-details-widget": [
+                "libs/backoffice/widgets/service-details-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
             ],
@@ -83,6 +86,10 @@
             ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
+            "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
+            "@oxygen/customer/widgets/landing-widget": [
+                "libs/customer/widgets/landing-widget/src/index.ts"
+            ],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
             "@oxygen/mockify": ["libs/mockify/src/index.ts"],
             "@oxygen/reusable-components": [

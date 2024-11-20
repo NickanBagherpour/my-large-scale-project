@@ -1,4 +1,4 @@
-import { Button, ColumnsType } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from './second-tab-table-util.style';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
@@ -45,7 +45,11 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('second_tab.url'),
       dataIndex: 'url',
       align: 'center',
-      render: (url) => <Link href={url}> {url} </Link>,
+      render: (url) => (
+        <Link href={url} target='_blank' rel='noopener noreferrer'>
+          {url}
+        </Link>
+      ),
     },
     {
       title: t('second_tab.version'),
@@ -75,7 +79,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props) {
-  const { t } = props;
+  const { t, toggleModal } = props;
 
   return [
     {
@@ -88,13 +92,17 @@ export function getMobileColumns(props) {
           { title: t('second_tab.scope'), value: scope },
           {
             title: t('second_tab.url'),
-            value: <Link href={url}>{url}</Link>,
+            value: (
+              <Link href={url} target='_blank' rel='noopener noreferrer'>
+                {url}
+              </Link>
+            ),
           },
           { title: t('second_tab.version'), value: version },
           {
             title: t('details'),
             value: (
-              <S.DetailsBtn variant='link' color='primary' onClick={(p) => console.log(p)}>
+              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
                 {t('details')}
               </S.DetailsBtn>
             ),
@@ -102,22 +110,14 @@ export function getMobileColumns(props) {
           {
             title: t('remove'),
             value: (
-              <Button variant='link' color='error' onClick={(p) => console.log(p)}>
+              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
                 <S.TrashIcon className='icon-trash' />
               </Button>
             ),
           },
         ];
-        return (
-          <S.TableRow>
-            {data.map(({ title, value }) => (
-              <S.RowItem>
-                <strong>{title}</strong>
-                {value}
-              </S.RowItem>
-            ))}
-          </S.TableRow>
-        );
+
+        return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
       },
     },
   ];

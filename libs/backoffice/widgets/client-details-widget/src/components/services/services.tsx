@@ -7,10 +7,11 @@ import StopServiceModal from '../stop-service-modal/stop-service-modal';
 import { useState } from 'react';
 import { useGetServicesQuery } from '../../services';
 import { type TablePaginationConfig } from 'antd';
-import type { Pagination } from '@oxygen/types';
+import type { Pagination, Service } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Input } from '@oxygen/ui-kit';
+import { Input, Table } from '@oxygen/ui-kit';
 import { Modals } from '../../types';
+import Footer from '../footer/footer';
 
 export default function Services() {
   const [t] = useTr();
@@ -23,7 +24,7 @@ export default function Services() {
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
 
-  const { data, isFetching } = useGetServicesQuery(pagination);
+  const { data, isFetching, isLoading } = useGetServicesQuery(pagination);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -45,12 +46,11 @@ export default function Services() {
 
   return (
     <>
-      <S.Header>
-        <S.Title>{t('client_services')}</S.Title>
+      <S.FormItem name={'clientService'} label={t('client_services')} colon={false}>
         <Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
-      </S.Header>
+      </S.FormItem>
 
-      <S.Table
+      <Table
         loading={isFetching}
         current={page}
         total={data?.total}
@@ -59,6 +59,7 @@ export default function Services() {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
+        rowKey={(row: Service) => row.idx}
       />
 
       <StopServiceModal
@@ -77,6 +78,7 @@ export default function Services() {
         id={'samat-lc-gutr-del'}
       />
       <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
+      <Footer isLoading={isLoading} />
     </>
   );
 }

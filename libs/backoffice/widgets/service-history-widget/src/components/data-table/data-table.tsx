@@ -33,130 +33,130 @@ const DataTable: React.FC<AppProps> = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'editDate',
-      key: 'editDate',
+      // key: 'editDate',
       render: (value, record) => {
         return <div>{getValueOrDash(value)}</div>;
       },
-      width: 130,
+      // width: 130,
     },
     {
       title: t('column.admin-name'),
       dataIndex: 'adminName',
-      key: 'adminName',
+      // key: 'adminName',
       ellipsis: true,
       render: (value, record) => {
         return <div>{getValueOrDash(value)}</div>;
       },
-      width: 100,
+      // width: 100,
     },
     {
       title: t('column.en-name'),
       dataIndex: 'enName',
-      key: 'enName',
+      // key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 130,
+      // width: 100,
     },
     {
       title: t('column.fa-name'),
       dataIndex: 'faName',
-      key: 'faName',
+      // key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 170,
+      // width: 170,
     },
     {
       title: t('column.method'),
       dataIndex: 'method',
-      key: 'method',
+      // key: 'method',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 100,
+      // width: 20,
     },
     {
       title: t('column.protocol'),
       dataIndex: 'protocol',
-      key: 'protocol',
+      // key: 'protocol',
       render: (value, record) => {
         // return getValueOrDash(convertShamsiDateFormat(value));
         return getValueOrDash(value);
       },
-      width: 100,
+      // width: 1000,
     },
     {
       title: t('column.access'),
       dataIndex: 'access',
-      key: 'access',
+      // key: 'access',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 100,
+      // width: 100,
     },
     {
       title: t('column.category'),
       dataIndex: 'category',
-      key: 'category',
+      // key: 'category',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 120,
+      // width: 120,
     },
     {
       title: t('column.throughout'),
       dataIndex: 'throughout',
-      key: 'throughout',
+      // key: 'throughout',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 120,
+      // width: 120,
     },
     {
       title: t('column.version'),
       dataIndex: 'version',
-      key: 'version',
+      // key: 'version',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 80,
+      // width: 80,
     },
     {
       title: t('column.owner'),
       dataIndex: 'owner',
-      key: 'owner',
+      //key: 'owner',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 120,
+      // width: 120,
     },
     {
       title: t('column.tags'),
-      dataIndex: 'tags',
-      key: 'tags',
+      dataIndex: 'tags1',
+      //key: 'tags1',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 100,
+      // width: 100,
     },
     {
       title: t('column.tags'),
-      dataIndex: 'tags',
-      key: 'tags',
+      dataIndex: 'tags2',
+      //key: 'tags2',
       render: (value, record) => {
         return getValueOrDash(value);
       },
-      width: 100,
+      // width: 100,
     },
     {
       title: t('column.tags'),
-      dataIndex: 'tags',
-      key: 'tags',
+      dataIndex: 'tags3',
+      //key: 'tags3',
       render: (value, record) => {
         return getValueOrDash(value);
       },
@@ -180,8 +180,9 @@ const DataTable: React.FC<AppProps> = () => {
       {displayTable ? (
         <S.TableContainer>
           <Table
+            rowKey={'id'}
+            title={t('subtitle')}
             size='small'
-            scroll={{ x: 1600 }}
             variant='complex'
             columns={columns}
             dataSource={dataSource}

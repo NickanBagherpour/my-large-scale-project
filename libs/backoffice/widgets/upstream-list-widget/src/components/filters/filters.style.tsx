@@ -12,7 +12,6 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  //margin-bottom: 2.3rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;
@@ -34,24 +33,12 @@ export const Buttons = styled.div`
 export const StyledButton = styled(Button)`
   &&& {
     padding: 0.8rem 3.2rem;
-    max-width: 15.6rem;
-    font-size: 1.4rem;
-    font-weight: 500;
   }
 
   ${respondTo.down('sm')} {
     flex: 1;
   }
 `;
-
-// export const Indicators = styled.div`
-//   display: flex;
-//   align-items: center;
-//
-//   ${respondTo.between('lg', 'md')} {
-//     flex-direction: column;
-//   }
-// `;
 
 export const StyledInput = styled(Input)`
   max-width: 42rem;
@@ -61,12 +48,4 @@ export const StyledInput = styled(Input)`
     max-width: 100%;
     font-size: 1.7rem;
   }
-
-  & .ant-input-prefix i {
-    color: ${(props) => props.theme.text.tertiary};
-  }
 `;
-
-// export const FilterPopover = styled(KitFilterPopover)`
-//   margin-inline-start: auto;
-// `;
