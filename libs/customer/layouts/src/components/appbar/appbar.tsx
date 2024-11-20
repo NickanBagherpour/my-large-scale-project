@@ -51,20 +51,13 @@ const Appbar = (props: AppBarProps) => {
   const getMobileAppbar = () => {
     return (
       <>
-        <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <S.styleIcon className={'icon-hamburger-menu'} />
-          {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
-        </Button>
-
         <span className={'appbar-title-logo-date'}>
           {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
         </span>
-        <AppbarUserMenu
-          userInfo={user}
-          onLogout={onLogout}
-          isMobileOrTablet={isMobileOrTablet}
-          loading={stateUserProfile.loading}
-        />
+
+        <span className={'appbar-title-bank-logo'}>
+          <Icons.BankLogo />
+        </span>
       </>
     );
   };
@@ -77,13 +70,6 @@ const Appbar = (props: AppBarProps) => {
 
         <span style={{ flexGrow: 1 }} />
 
-        <AppbarUserMenu
-          userInfo={user}
-          onLogout={onLogout}
-          isMobileOrTablet={isMobileOrTablet}
-          loading={stateUserProfile.loading}
-        />
-        <S.Divider />
         <span className={'appbar-title-bank-logo'}>
           <Icons.BankLogo />
         </span>

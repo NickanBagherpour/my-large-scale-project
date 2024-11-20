@@ -2,5 +2,5 @@ import styled from 'styled-components';
 import { Container } from '@oxygen/ui-kit';
 
 export const AppContainer = styled(Container)`
-  // background-color: pink;
+  background-color: ${(p) => p.theme.background._100};
 `;

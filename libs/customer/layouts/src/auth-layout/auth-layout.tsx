@@ -57,15 +57,16 @@ export const AuthLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <Protected>
-      <S.MainLayout>
-        <Appbar
-          onToggleDrawer={toggleDrawer}
-          onLogout={handleLogout}
-          config={config}
-          isMobileOrTablet={isMobileOrTablet}
-        />
+      {/* <S.MainLayout> */}
+      <Appbar
+        onToggleDrawer={toggleDrawer}
+        onLogout={handleLogout}
+        config={config}
+        isMobileOrTablet={isMobileOrTablet}
+      />
+      <MainContent>{children}</MainContent>
 
-        <Layout>
+      {/* <Layout>
           <Drawer
             shouldDisplaySider={!isUndefined && !isMobile}
             shouldDisplayDrawer={isMobile}
@@ -79,8 +80,11 @@ export const AuthLayout = ({ children }: DashboardLayoutProps) => {
           <S.MainContentLayout>
             <MainContent>{children}</MainContent>
           </S.MainContentLayout>
-        </Layout>
-      </S.MainLayout>
+        </Layout> */}
+      {/* <S.MainContentLayout> */}
+      {/* <MainContent>{children}</MainContent> */}
+      {/* </S.MainContentLayout> */}
+      {/* </S.MainLayout> */}
     </Protected>
   );
 };
