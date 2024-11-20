@@ -1,13 +1,14 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './why.style';
 import WhyCard from '../why-card/why-card';
+import { SectionTitle } from '../section-title/section-title.style';
 
 export default function Why() {
   const [t] = useTr();
 
   return (
     <S.Container>
-      <S.Title>{t('why_oxygen')}</S.Title>
+      <SectionTitle>{t('why_oxygen')}</SectionTitle>
       <S.Cards>
         <WhyCard
           iconClassName='icon-monitor'
