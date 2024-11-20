@@ -1,9 +1,10 @@
 import { useTr } from '@oxygen/translation';
-import * as S from './grid-card.style';
 import { looper, Calendar } from '../../assets';
 import { useTheme } from 'styled-components';
 import { Tooltip } from 'antd';
 import { Status } from '@oxygen/ui-kit';
+
+import * as S from './grid-card.style';
 
 function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
   return 'activeServersCount' in props;

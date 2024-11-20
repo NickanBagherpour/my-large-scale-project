@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { Fragment } from 'react';
 import * as S from './mark-text.style';
 
 export type HighlightColorType = 'success' | 'warning' | 'error' | React.CSSProperties['color'];
@@ -9,22 +8,25 @@ export type PropsType = {
   wordToHighlight: string;
   highlightColor: HighlightColorType;
   className?: string;
-  // fontSize?: string;
-  // fontWeight?: string;
-  // [key: string]: any;
 };
 
-export const MarkText = ({ text, wordToHighlight, highlightColor, ...rest }: PropsType) => {
-  const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
+const escapeRegExp = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+export const MarkText = ({ text, wordToHighlight, highlightColor, className, ...rest }: PropsType) => {
+  const escapedWord = escapeRegExp(wordToHighlight);
+  const parts = text.split(new RegExp(`(${escapedWord})`, 'gi'));
+
   return (
-    <span {...rest}>
+    <span className={className} {...rest}>
       {parts.map((part, index) =>
-        part === wordToHighlight ? (
+        part.toLowerCase() === wordToHighlight.toLowerCase() ? (
           <S.StyledSpan customStyle={highlightColor} key={index}>
             {part}
           </S.StyledSpan>
         ) : (
-          part
+          <Fragment key={index}>{part}</Fragment>
         )
       )}
     </span>
