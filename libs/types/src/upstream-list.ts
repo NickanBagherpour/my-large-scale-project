@@ -6,4 +6,5 @@ export type UpstreamParamsType = {
 export type UpstreamType = {
   name: string;
   activeServersCount: number;
+  upstreamId: string;
 };

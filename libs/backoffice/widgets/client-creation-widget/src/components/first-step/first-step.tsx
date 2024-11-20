@@ -61,9 +61,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+  useEffect(() => {
+    form.setFieldValue('grant_tag', grantTags);
+    form.setFieldValue('add_tag', nameTags);
+  }, [grantTags, nameTags]);
 
-  form.setFieldValue('grant_tag', grantTags);
-  form.setFieldValue('add_tag', nameTags);
   return (
     <S.FirstStepContainer>
       <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
@@ -72,7 +74,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
               <S.Select
                 multiSelect={true}
-                defaultValue={grantTags}
+                // defaultValue={grantTags}
                 menu={grantTagData}
                 onChange={handleGrantTagChange}
                 loading={grantTagFetching}
