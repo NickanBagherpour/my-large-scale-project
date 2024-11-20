@@ -1,19 +1,26 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { MouseEvent } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { Button, ButtonProps } from '@oxygen/ui-kit';
 
-const ReturnButton: React.FC<ButtonProps> = (props) => {
+const ReturnButton: React.FC<ButtonProps> = ({ onClick, children, ...rest }) => {
   const router = useRouter();
+  const path = usePathname();
+
   const [t] = useTr();
-  const handleReturn = () => {
-    router.back();
+  const handleReturn = (e: MouseEvent<HTMLElement>) => {
+    onClick?.(e);
+    if (!onClick) {
+      router.back();
+    }
   };
+
   return (
-    <Button {...props} onClick={handleReturn}>
-      {props.children ? props.children : t('button.return')}
+    <Button variant='outlined' onClick={handleReturn} {...rest}>
+      {children || t('button.return')}
     </Button>
   );
 };

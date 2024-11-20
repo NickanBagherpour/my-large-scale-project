@@ -10,7 +10,6 @@ export const DraftsContainer = styled(Container)`
 export const UpstreamDetailsContainer = styled(Container)`
   & .table-container {
     flex: 1;
-    flex-grow: 1;
   }
 `;
 

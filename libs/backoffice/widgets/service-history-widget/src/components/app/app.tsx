@@ -53,7 +53,7 @@ const App: React.FC<AppProps> = () => {
           resetMessageAction(dispatch);
         }}
       />
-      <SecondaryTitle text={t('subtitle')} />
+      {/* <SecondaryTitle text={t('subtitle')} /> */}
       <S.TableContainer>
         <DataTable />
       </S.TableContainer>
