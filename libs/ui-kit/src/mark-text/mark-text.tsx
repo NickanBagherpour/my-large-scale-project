@@ -14,19 +14,23 @@ export type PropsType = {
   // [key: string]: any;
 };
 
-export const MarkText = forwardRef(({ text, wordToHighlight, highlightColor, ...rest }: PropsType, ref) => {
-  const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
-  return (
-    <span {...rest}>
-      {parts.map((part, index) =>
-        part === wordToHighlight ? (
-          <S.StyledSpan customStyle={highlightColor} key={index}>
-            {part}
-          </S.StyledSpan>
-        ) : (
-          part
-        )
-      )}
-    </span>
-  );
-});
+export const MarkText = React.forwardRef<HTMLSpanElement, PropsType>(
+  ({ text, wordToHighlight, highlightColor, ...rest }, ref) => {
+    const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
+    return (
+      <span {...rest} ref={ref}>
+        {parts.map((part, index) =>
+          part === wordToHighlight ? (
+            <S.StyledSpan $customStyle={highlightColor} key={index}>
+              {part}
+            </S.StyledSpan>
+          ) : (
+            part
+          )
+        )}
+      </span>
+    );
+  }
+);
+
+MarkText.displayName = 'MarkText';

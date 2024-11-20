@@ -12,7 +12,7 @@ import { CONSTANTS, ENV_CONSTANTS } from '@oxygen/utils';
 
 import AppBarMenu from '../components/appbar-menu/appbar-menu';
 
-import authBG from '../assets/media/auth-bg.png';
+import * as authBG from '../assets/media/auth-bg.png';
 import * as S from './auth-layout.style';
 
 type AuthLayoutProps = {
@@ -44,7 +44,7 @@ export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
           <S.LeftPanelContainer>
             <span className='auth-bg-container'>
               {/*<AuthBG />*/}
-              <Image src={authBG} alt={'bg'} priority />
+              <Image src={authBG} alt={'bg'} />
             </span>
 
             <nav className={'left-panel__nav'}>
