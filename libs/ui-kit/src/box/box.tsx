@@ -1,9 +1,7 @@
 import React, { CSSProperties } from 'react';
 import styled, { css } from 'styled-components';
-import { BasicComponentProps } from '@oxygen/types';
 
-export type BoxProps = BasicComponentProps & {
-  children?: React.ReactNode;
+interface TransientBoxProps {
   display?: CSSProperties['display'];
   flexDirection?: CSSProperties['flexDirection'];
   justifyContent?: CSSProperties['justifyContent'];
@@ -31,10 +29,6 @@ export type BoxProps = BasicComponentProps & {
   marginBottom?: CSSProperties['marginBottom'];
   marginLeft?: CSSProperties['marginLeft'];
   border?: CSSProperties['border'];
-  borderTop?: CSSProperties['borderTop'];
-  borderRight?: CSSProperties['borderRight'];
-  borderBottom?: CSSProperties['borderBottom'];
-  borderLeft?: CSSProperties['borderLeft'];
   borderRadius?: CSSProperties['borderRadius'];
   boxShadow?: CSSProperties['boxShadow'];
   backgroundColor?: CSSProperties['backgroundColor'];
@@ -44,76 +38,60 @@ export type BoxProps = BasicComponentProps & {
   lineHeight?: CSSProperties['lineHeight'];
   letterSpacing?: CSSProperties['letterSpacing'];
   textAlign?: CSSProperties['textAlign'];
-  fillChildren?: boolean;
-  visible?: boolean;
-};
+  $fill_children?: string;
+}
 
-const StyledBox = styled.div<BoxProps & { $fill_children?: string }>`
-  display: ${(props) => props.display ?? 'flex'};
-  flex-direction: ${(props) => props.flexDirection ?? 'row'};
-  justify-content: ${(props) => props.justifyContent ?? 'flex-start'};
-  align-items: ${(props) => props.alignItems ?? 'stretch'};
-  align-content: ${(props) => props.alignContent ?? 'stretch'};
-  flex-wrap: ${(props) => props.flexWrap ?? 'nowrap'};
-  flex-grow: ${(props) => props.flexGrow ?? 0};
-  flex-shrink: ${(props) => props.flexShrink ?? 1};
-  flex-basis: ${(props) => props.flexBasis ?? 'auto'};
-  align-self: ${(props) => props.alignSelf ?? 'auto'};
-  height: ${(props) => props.height ?? 'auto'};
-  max-height: ${(props) => props.maxHeight ?? 'none'};
-  min-height: ${(props) => props.minHeight ?? 'auto'};
-  width: ${(props) => props.width ?? 'auto'};
-  max-width: ${(props) => props.maxWidth ?? 'none'};
-  min-width: ${(props) => props.minWidth ?? 'auto'};
-  padding: ${(props) => props.padding ?? 0};
-  margin: ${(props) => props.margin ?? 0};
-  border: ${(props) => props.border ?? 'none'};
-  border-radius: ${(props) => props.borderRadius ?? 0};
-  box-shadow: ${(props) => props.boxShadow ?? 'none'};
-  background-color: ${(props) => props.backgroundColor ?? 'transparent'};
-  color: ${(props) => props.color ?? 'inherit'};
-  font-size: ${(props) => props.fontSize ?? 'inherit'};
-  font-weight: ${(props) => props.fontWeight ?? 'normal'};
-  line-height: ${(props) => props.lineHeight ?? 'normal'};
-  letter-spacing: ${(props) => props.letterSpacing ?? 'normal'};
-  text-align: ${(props) => props.textAlign ?? 'inherit'};
-
-  ${(props) => props.paddingTop && `padding-top: ${props.paddingTop};`}
-  ${(props) => props.paddingRight && `padding-right: ${props.paddingRight};`}
-  ${(props) => props.paddingBottom && `padding-bottom: ${props.paddingBottom};`}
-  ${(props) => props.paddingLeft && `padding-left: ${props.paddingLeft};`}
-  ${(props) => props.marginTop && `margin-top: ${props.marginTop};`}
-  ${(props) => props.marginRight && `margin-right: ${props.marginRight};`}
-  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom};`}
-  ${(props) => props.marginLeft && `margin-left: ${props.marginLeft};`}
-  ${(props) => props.borderTop && `border-top: ${props.borderTop};`}
-  ${(props) => props.borderRight && `border-right: ${props.borderRight};`}
-  ${(props) => props.borderBottom && `border-bottom: ${props.borderBottom};`}
-  ${(props) => props.borderLeft && `border-left: ${props.borderLeft};`}
-
+const StyledBox = styled.div<TransientBoxProps>`
+  ${(props) => props.flexGrow && `flex-grow: ${props.flexGrow ?? 0}`};
+  ${(props) => props.flexWrap && `flex-wrap: ${props.flexWrap ?? 'nowrap'}`};
+  ${(props) => props.flexShrink && `flex-shrink: ${props.flexShrink ?? 1}`};
+  ${(props) => props.flexBasis && `flex-basis: ${props.flexBasis ?? 'auto'}`};
+  ${(props) => props.alignSelf && `align-self: ${props.alignSelf ?? 'auto'}`};
+  ${(props) => props.height && `height: ${props.height ?? 'auto'}`};
+  ${(props) => props.maxHeight && `max-height: ${props.maxHeight ?? 'none'}`};
+  ${(props) => props.minHeight && `min-height: ${props.minHeight ?? 'auto'}`};
+  ${(props) => props.width && `width: ${props.width ?? 'auto'}`};
+  ${(props) => props.maxWidth && `max-width: ${props.maxWidth ?? 'none'}`};
+  ${(props) => props.minWidth && `min-width: ${props.minWidth ?? 'auto'}`};
+  ${(props) => props.padding && `padding: ${props.padding ?? 0}`};
+  ${(props) => props.margin && `margin: ${props.margin ?? 0}`};
+  ${(props) => props.border && `border: ${props.border ?? 'none'}`};
+  ${(props) => props.borderRadius && `border-radius: ${props.borderRadius ?? '0'}`};
+  ${(props) => props.boxShadow && `box-shadow: ${props.boxShadow ?? 'none'}`};
+  ${(props) => props.backgroundColor && `background-color: ${props.backgroundColor ?? 'transparent'}`};
+  ${(props) => props.color && `color: ${props.color ?? 'inherit'}`};
+  ${(props) => props.fontSize && `font-size: ${props.fontSize ?? 'inherit'}`};
+  ${(props) => props.fontWeight && `font-weight: ${props.fontWeight ?? 'normal'}`};
+  ${(props) => props.lineHeight && `line-height: ${props.lineHeight ?? 'normal'}`};
+  ${(props) => props.letterSpacing && `letter-spacing: ${props.letterSpacing ?? 'normal'}`};
+  ${(props) => props.textAlign && `text-align: ${props.textAlign ?? 'inherit'}`};
   ${(props) =>
     props.$fill_children === 'true'
-      ? css`
+      ? `
           & > * {
             width: 100%;
           }
         `
-      : css`
+      : `
           & > * {
             width: fit-content;
           }
         `}
 `;
 
-export const Box: React.FC<BoxProps> = (props) => {
-  const { visible = true, children, fillChildren = true, ...rest } = props;
+export interface BoxProps extends TransientBoxProps {
+  visible?: boolean;
+  children?: React.ReactNode;
+  fillChildren?: boolean;
+  className?: string;
+}
+
+export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className }) => {
   return (
     visible && (
-      <StyledBox {...rest} $fill_children={String(fillChildren)}>
+      <StyledBox className={className} $fill_children={String(fillChildren)}>
         {children}
       </StyledBox>
     )
   );
 };
-
-// export default Box;

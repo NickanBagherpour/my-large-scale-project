@@ -23,6 +23,7 @@ export type ClientInfo = {
 };
 
 export type Service = {
+  idx: number;
   serviceName: string;
   persianName: string;
   scope: string;

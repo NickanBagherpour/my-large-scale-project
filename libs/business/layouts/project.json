@@ -1,5 +1,5 @@
 {
-    "name": "businesslayouts",
+    "name": "business-layouts",
     "$schema": "../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/business/layouts/src",
     "projectType": "library",

@@ -9,9 +9,6 @@ type Props = {
   pagination: Pagination;
 };
 
-
-
-
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
     t,
@@ -45,7 +42,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '11.8rem',
       key: 'status',
       render: () => (
-        <Button variant={'text'} color={'primary'}>
+        <Button variant={'text'} href={'scope-information?id=test'} color={'primary'}>
           {t('table.details')}
         </Button>
       ),
@@ -70,7 +67,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('table.details'),
             value: (
-              <Button className={'item__btn'} variant={'text'} color={'primary'}>
+              <Button className={'item__btn'} href={'scope-information?id=test'} variant={'text'} color={'primary'}>
                 {t('table.details')}
               </Button>
             ),
@@ -79,7 +76,7 @@ export function getMobileColumns(props: Props) {
         return (
           <S.TableRow>
             {data.map((item, idx) => (
-              <Table.MobileColumn  key={idx} {...item} />
+              <Table.MobileColumn key={idx} {...item} />
             ))}
           </S.TableRow>
         );

@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { Box, Button } from '@oxygen/ui-kit';
-import { Nullable, PageProps } from '@oxygen/types';
-import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
+import { PageProps } from '@oxygen/types';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
+import { ClientId } from '../../types';
 
 import * as S from './app.style';
 
@@ -21,10 +21,9 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const searchParams = useSearchParams();
-  const clientId: Nullable<string> = searchParams.get('clientId');
+  const clientId: ClientId = searchParams.get('clientId');
 
   useEffect(() => {
-    // console.log('clientId: ', clientId);
     updateClientIdAction(dispatch, clientId);
   }, [clientId]);
 
@@ -33,12 +32,12 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
   const footerButton = (
-    <Button className={'return-button'} color={'primary'} size={'large'} variant={'solid'} onClick={handleReturn}>
+    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
-    </Button>
+    </ReturnButton>
   );
   return (
-    <S.AppContainer fillContainer={true} title={t('widget_name')} footer={footerButton}>
+    <S.AppContainer title={t('widget_name')} footer={footerButton}>
       {/*render widget name based on clientId*/}
       <GlobalMessageContainer
         message={state.message}
@@ -46,10 +45,7 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <Box className={'table-container'}>
-        {clientId ? <DataList /> : <NoResult isLoading={false} />}
-        {/*<DataList />*/}
-      </Box>
+      <S.StyledBox>{clientId ? <DataList /> : <NoResult isLoading={false} />}</S.StyledBox>
     </S.AppContainer>
   );
 };

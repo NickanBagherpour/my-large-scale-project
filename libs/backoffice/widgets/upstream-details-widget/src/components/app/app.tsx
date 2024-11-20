@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
@@ -10,7 +10,7 @@ import { Loading, Modal, Box, Button, Input, Select, Container } from '@oxygen/u
 import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { NoResult, FooterContainer } from '@oxygen/reusable-components';
+import { NoResult, FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTheme } from 'styled-components';
@@ -47,11 +47,6 @@ const App = () => {
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
   const queryClient = useQueryClient();
-
-  const router = useRouter();
-  const handleReturn = () => {
-    router.back();
-  };
 
   const handleSubmit = () => {
     setTriggerRegisterAction(true);
@@ -211,7 +206,7 @@ const App = () => {
         />
         {upstreamId && (
           <Box className={'table-container'}>
-            <Loading spinning={isUpstreamFetching} size='large'>
+            <Loading spinning={isUpstreamFetching} size={'default'}>
               {upstreamDetails?.list?.serverList.length ? (
                 <UpstreamDetails
                   isFetching={isUpstreamFetching}
@@ -241,19 +236,10 @@ const App = () => {
         )}
 
         <FooterContainer>
-          <Button
-            className={'register-button'}
-            variant={'outlined'}
-            color={'primary'}
-            size={'large'}
-            onClick={handleReturn}
-          >
-            {t('button.return')}
-          </Button>
+          <ReturnButton />
           {!upstreamId && (
             <Button
-              className={'return-button'}
-              // variant={'outlined'}
+              className={'register-button'}
               color={'primary'}
               size={'large'}
               onClick={handleSubmit}

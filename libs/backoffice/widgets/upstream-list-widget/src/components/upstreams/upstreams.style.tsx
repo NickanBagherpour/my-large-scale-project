@@ -24,9 +24,7 @@ export const Grid = styled.section`
 
 export const StyledButton = styled(Button)`
   display: flex;
-  gap: 1rem;
   margin-inline: auto;
-  font-weight: 500;
 
   & i {
     font-size: 1.8rem;

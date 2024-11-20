@@ -66,6 +66,14 @@ export const Table = styled(AntTable)<TableProps>`
         & thead th:last-child {
           border-start-end-radius: ${borderRadius};
         }
+
+        /* add border radius to the first row in mobile devices */
+        ${respondTo.down('md')} {
+          & .ant-table-row:nth-of-type(2) td {
+            border-start-start-radius: ${borderRadius};
+            border-start-end-radius: ${borderRadius};
+          }
+        }
       }
     `}
 
@@ -109,6 +117,9 @@ export const Table = styled(AntTable)<TableProps>`
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     ${respondTo.down('md')} {
       text-align: start;
+    }
+    &.ant-table-cell-ellipsis {
+      unicode-bidi: plaintext;
     }
   }
 
@@ -154,11 +165,16 @@ export const Table = styled(AntTable)<TableProps>`
   .ant-pagination-item-ellipsis {
     color: ${(p) => p.theme.primary.main};
   }
-  .ant-pagination .ant-select-selector {
-    background-color: ${(p) => p.theme.primary.main};
-    color: ${(p) => p.theme.onPrimary};
-    padding: 1.5rem;
-    min-width: 7rem;
+  .ant-pagination {
+    .ant-select-selector {
+      background-color: ${(p) => p.theme.primary.main};
+      color: ${(p) => p.theme.onPrimary};
+      padding: 1.4rem 1.5rem;
+      min-width: 7rem;
+    }
+    .ant-select-selection-search {
+      padding-top: 0.2rem;
+    }
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
@@ -223,11 +239,11 @@ export const Caption = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 2.4rem 3rem;
+  padding: 3rem 0;
 
   .caption-title {
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: 1.6rem;
+    font-weight: 700;
     text-align: left;
     margin-right: 2rem;
   }

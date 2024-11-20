@@ -61,9 +61,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+  useEffect(() => {
+    form.setFieldValue('grant_tag', grantTags);
+    form.setFieldValue('add_tag', nameTags);
+  }, [grantTags, nameTags]);
 
-  form.setFieldValue('grant_tag', grantTags);
-  form.setFieldValue('add_tag', nameTags);
   return (
     <S.FirstStepContainer>
       <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
@@ -72,7 +74,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
               <S.Select
                 multiSelect={true}
-                defaultValue={grantTags}
+                // defaultValue={grantTags}
                 menu={grantTagData}
                 onChange={handleGrantTagChange}
                 loading={grantTagFetching}
@@ -181,10 +183,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={`${t('placeholder.organization_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} type='tell'allow={'number'} />
+              <Input
+                placeholder={`${t('placeholder.mobile_number')}`}
+                maxLength={MAX_MOBILE_NUMBER_LENGTH}
+                type='tell'
+                allow={'number'}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM.telephone} label={t('form.telephone')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.telephone')}`} maxLength={MAX_INPUTE_LENGTH} type='tell' allow={'number'}/>
+              <Input
+                placeholder={`${t('placeholder.telephone')}`}
+                maxLength={MAX_INPUTE_LENGTH}
+                type='tell'
+                allow={'number'}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM.email} label={t('form.email')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.email')}`} maxLength={MAX_INPUTE_LENGTH} type='email' />

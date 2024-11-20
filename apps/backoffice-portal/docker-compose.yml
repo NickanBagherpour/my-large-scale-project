@@ -1,7 +1,7 @@
 services:
   app:
     container_name: backoffice-portal-app # Custom name assigned here
-    image: backoffice-portal
+    image: backoffice-portal-image
     # Remove the build section if you're using the built image
     # build:
     #   context: ./
@@ -13,7 +13,7 @@ services:
     #   - /app/.next
     #   - /app/public
     ports:
-      - '3200'
+      - '3200:3200'
     networks:
       - backoffice-portal-net
 
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mounts custom nginx.conf to container
     ports:
-      - '80:80'
+      - '81:80'
     networks:
       - backoffice-portal-net
 

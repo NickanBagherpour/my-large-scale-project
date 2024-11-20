@@ -83,11 +83,10 @@ export const createFormSchema = (t: (key: string) => string) => {
     });
 
   const mobileNumber = z
-    .string({ required_error: t('error.required') }) 
+    .string({ required_error: t('error.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
-
         ctx.addIssue({
           code: z.ZodIssueCode.too_small,
           type: 'string',
@@ -99,19 +98,17 @@ export const createFormSchema = (t: (key: string) => string) => {
       }
 
       if (value.length < 11) {
-
         ctx.addIssue({
           code: z.ZodIssueCode.too_small,
           type: 'string',
           minimum: 11,
           inclusive: true,
-          message: t('error.min_length'), 
+          message: t('error.min_length'),
         });
       }
     });
 
-
-    // .min(11, { message: t('error.min_length') });
+  // .min(11, { message: t('error.min_length') });
 
   return z.object({
     // Name Fields
