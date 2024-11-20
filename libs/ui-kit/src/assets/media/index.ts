@@ -13,6 +13,7 @@ export { ReactComponent as ArrowDown } from './arrow-down.svg';
 export { ReactComponent as EmptyIcon } from './empty-state.svg';
 export { ReactComponent as ActiveBadge } from './active-badge.svg';
 export { ReactComponent as InactiveBadge } from './inactive-badge.svg';
+export { ReactComponent as SadadLogoLight } from './sadad-logo-light.svg';
 
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';
 export * as bankLogo from './bank.png';

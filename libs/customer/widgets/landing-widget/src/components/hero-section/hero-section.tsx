@@ -1,29 +1,42 @@
-import React from 'react';
-
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-
-import { useAppDispatch, useAppState } from '../../context';
-
 import * as S from './hero-section.style';
-import { Button } from '@oxygen/ui-kit';
+import Link from 'next/link';
+import { Icons } from '@oxygen/ui-kit';
+import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.svg';
+import Image from 'next/image';
 
-type HeroSectionProps = PageProps & {
-  //
-};
-
-const HeroSection: React.FC<HeroSectionProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
+const HeroSection = () => {
   const [t] = useTr();
-
   return (
     <S.Hero>
-      <h1>Welcome to My Landing Page</h1>
-      <p>Your one-stop solution for awesome services.</p>
-      <Button color='secondary' size='large'>
-        {t('button.login_register')}
-      </Button>
+      <S.Nav>
+        <S.BankLink href={'/'}>
+          <Icons.BankLogo width={21} height={29} />
+        </S.BankLink>
+        <S.AppName>{t('widget_name')}</S.AppName>
+        <S.LoginLink href='/'>{t('login_to_platform')}</S.LoginLink>
+        <Link href='/'>
+          <Icons.SadadLogoLight width={69} height={21} />
+        </Link>
+      </S.Nav>
+
+      <S.Intro>
+        <S.Info>
+          <S.Title>
+            {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
+          </S.Title>
+          <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
+
+          <S.Btns>
+            <S.LoginBtn /* variant='outlined' */>
+              <S.ClockIcon className='icon-clock' />
+              {t('login_to_platform')}
+            </S.LoginBtn>
+            <S.ManualBtn>{t('paltform_manual')}</S.ManualBtn>
+          </S.Btns>
+        </S.Info>
+        <Image priority src={userChartsImg} alt='' width={740} height={723} />
+      </S.Intro>
     </S.Hero>
   );
 };

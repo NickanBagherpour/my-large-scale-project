@@ -1,3 +1,11 @@
 export default {
-  widget_name: 'landing-widget',
+  widget_name: 'سامانه درخواست سرویس بانک ملی ایران',
+  bank_melli: 'بانک ملی ایران',
+  sadad: 'شرکت داده‌ورزی سداد',
+  oxygen_platform: 'سامانه اکسیژن',
+  oxygen_pro: 'OXYGEN Pro',
+  oxygen_slogon:
+    ' آسان‌تر از همیشه برای توسعه‌دهندگان، قدرتمند برای کسب‌وکارها تجربه‌ای روان، چابک و موثر در دسترسی به خدماتی که بهره‌وری شما را افزایش می‌دهد. ',
+  login_to_platform: 'ورود به سامانه',
+  paltform_manual: 'راهنمای سامانه ',
 };
