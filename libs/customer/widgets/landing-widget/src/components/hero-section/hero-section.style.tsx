@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import bg from 'apps/customer-portal/public/assets/images/bg.svg';
-import { Button } from '@oxygen/ui-kit';
 import Link from 'next/link';
 
 export const Hero = styled.header`
@@ -66,33 +65,4 @@ export const Intro = styled.section`
   display: flex;
   align-items: center;
   padding-inline: 12.3rem;
-`;
-
-export const Btns = styled.div`
-  display: flex;
-  gap: 2rem;
-`;
-
-export const LoginBtn = styled(Button)`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  && {
-    color: ${(p) => p.theme.text.primary};
-    background: ${(p) => p.theme.background.main};
-    height: 5.8rem;
-    padding-inline-start: 1.6rem;
-    padding-inline-end: 2.4rem;
-  }
-`;
-
-export const ManualBtn = styled(Button)`
-  border: ${(p) => p.theme.border.main};
-  height: 5.8rem;
-  padding-inline-start: 1.6rem;
-  padding-inline-end: 2.4rem;
-`;
-
-export const ClockIcon = styled.i`
-  font-size: 1.8rem;
 `;

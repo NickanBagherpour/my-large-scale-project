@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
   padding-inline: 12rem;
-  margin-bottom: 15.2rem;
 `;
 
 export const Title = styled.h2`

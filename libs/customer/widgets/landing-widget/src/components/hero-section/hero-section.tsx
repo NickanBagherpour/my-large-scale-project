@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Icons } from '@oxygen/ui-kit';
 import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.svg';
 import Image from 'next/image';
+import LoginButtons from '../login-buttons/login-buttons';
 
 const HeroSection = () => {
   const [t] = useTr();
@@ -26,14 +27,7 @@ const HeroSection = () => {
             {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
           </S.Title>
           <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
-
-          <S.Btns>
-            <S.LoginBtn /* variant='outlined' */>
-              <S.ClockIcon className='icon-clock' />
-              {t('login_to_platform')}
-            </S.LoginBtn>
-            <S.ManualBtn>{t('paltform_manual')}</S.ManualBtn>
-          </S.Btns>
+          <LoginButtons />
         </S.Info>
         <Image priority src={userChartsImg} alt='' width={740} height={723} />
       </S.Intro>
