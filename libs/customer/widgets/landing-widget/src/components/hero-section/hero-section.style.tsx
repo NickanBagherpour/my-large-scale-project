@@ -8,6 +8,7 @@ export const Hero = styled.header`
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
+  margin-bottom: 5.5rem;
 `;
 
 export const Nav = styled.nav`
