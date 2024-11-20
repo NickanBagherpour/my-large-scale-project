@@ -56,7 +56,7 @@ function ClientCard(props: ClientCardProps) {
         <S.Date>{date}</S.Date>
       </S.Footer>
 
-      <S.Looper alt='' width={276} height={112} src={looper} />
+      <S.Looper alt='' width={276} height={112} src={looper} priority />
     </S.Container>
   );
 }
@@ -91,7 +91,7 @@ function UpstreamCard(props: UpstreamCardProps) {
         <S.StatusTxt>{t('grid_card.active_servers_count', { count: activeServersCount })}</S.StatusTxt>
       </S.Footer>
 
-      <S.Looper alt='' width={276} height={112} src={looper} />
+      <S.Looper alt='' width={276} height={112} src={looper} priority />
     </S.Container>
   );
 }
