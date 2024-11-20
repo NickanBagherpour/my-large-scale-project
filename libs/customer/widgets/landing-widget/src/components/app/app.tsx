@@ -1,3 +1,4 @@
+import Faq from '../faq/faq';
 import HeroSection from '../hero-section/hero-section';
 import JoinUs from '../join-us/join-us';
 import Vision from '../vision/vision';
@@ -10,6 +11,7 @@ const App = () => {
       <Why />
       <JoinUs />
       <Vision />
+      <Faq />
     </>
   );
 };
