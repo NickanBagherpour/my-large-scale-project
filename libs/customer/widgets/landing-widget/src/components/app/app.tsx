@@ -21,8 +21,8 @@ const App: React.FC<AppProps> = ({ children }) => {
   return (
     <S.Layout>
       <S.Content>
-      <HeroSection />
-      <FeatureSection />
+        <HeroSection />
+        <FeatureSection />
       </S.Content>
     </S.Layout>
   );
