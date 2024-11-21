@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import wave from 'apps/customer-portal/public/assets/images/wave.svg';
 import Image from 'next/image';
 import { Button } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 const top = 20.7;
 
@@ -23,9 +24,19 @@ export const Poster = styled.div`
   position: relative;
 `;
 
+export const DevImgContainer = styled.div`
+  position: relative;
+  aspect-ratio: 1.331;
+  width: 58.3rem;
+  margin-inline: auto;
+
+  ${respondTo.down('md')} {
+    width: 100%;
+  }
+`;
+
 export const DevImg = styled(Image)`
   display: block;
-  margin-inline: auto;
 `;
 
 export const Txts = styled.div`
@@ -59,4 +70,6 @@ export const PlayBtn = styled(Button)`
   width: fit-content;
   height: fit-content;
   padding: 0;
+  width: 8rem;
+  aspect-ratio: 1;
 `;

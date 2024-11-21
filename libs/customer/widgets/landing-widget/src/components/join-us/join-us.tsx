@@ -10,9 +10,11 @@ export default function JoinUs() {
   return (
     <S.Container>
       <S.Poster>
-        <S.DevImg src={developerImg} alt='' width={583} height={438} />
+        <S.DevImgContainer>
+          <S.DevImg src={developerImg} fill alt='' />
+        </S.DevImgContainer>
         <S.PlayBtn shape='round' variant='link'>
-          <Image src={playImg} alt='' width={80} height={80} />
+          <Image src={playImg} alt='' fill />
         </S.PlayBtn>
       </S.Poster>
       <S.Txts>
