@@ -3,8 +3,9 @@ import * as S from './hero.style';
 import Link from 'next/link';
 import { Icons } from '@oxygen/ui-kit';
 import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.svg';
-import Image from 'next/image';
 import LoginButtons from '../login-buttons/login-buttons';
+import Image from 'next/image';
+import { PaddingBox } from '../padding-box/padding-box.style';
 
 const HeroSection = () => {
   const [t] = useTr();
@@ -21,16 +22,21 @@ const HeroSection = () => {
         </Link>
       </S.Nav>
 
-      <S.Intro>
-        <S.Info>
-          <S.Title>
-            {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
-          </S.Title>
-          <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
-          <LoginButtons />
-        </S.Info>
-        <Image priority src={userChartsImg} alt='' width={740} height={723} />
-      </S.Intro>
+      <PaddingBox>
+        <S.Intro>
+          <S.Info>
+            <S.Title>
+              {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
+            </S.Title>
+            <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
+            <LoginButtons />
+          </S.Info>
+
+          <S.ImgContainer>
+            <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />
+          </S.ImgContainer>
+        </S.Intro>
+      </PaddingBox>
     </S.Hero>
   );
 };

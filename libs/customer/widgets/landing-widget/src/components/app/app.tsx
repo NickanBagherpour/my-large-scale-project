@@ -12,12 +12,14 @@ const App = () => {
     <S.Main>
       <S.WithBg>
         <Hero />
+        {/*
         <Why />
         <JoinUs />
         <Vision />
         <Customers />
         <Faq />
         <Footer />
+        */}
       </S.WithBg>
     </S.Main>
   );

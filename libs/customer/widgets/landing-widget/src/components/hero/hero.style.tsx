@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import bg from 'apps/customer-portal/public/assets/images/bg.svg';
 import Link from 'next/link';
+import { respondTo } from '@oxygen/utils';
 
 export const Hero = styled.header`
   min-height: 120vh; /* FIXME */
@@ -19,8 +20,10 @@ export const Nav = styled.nav`
 
 export const AppName = styled.p`
   margin-block: 0;
-  margin-inline-end: auto;
   color: ${(p) => p.theme.onPrimary};
+  ${respondTo.down('md')} {
+    display: none;
+  }
 `;
 
 export const BankLink = styled(Link)`
@@ -36,6 +39,7 @@ export const LoginLink = styled(Link)`
   padding-block: 1rem;
   border-radius: 0.8rem;
   margin-inline-end: 3.2rem;
+  margin-inline-start: auto;
 `;
 
 export const Title = styled.h1`
@@ -58,11 +62,28 @@ export const Slogon = styled.p`
 `;
 
 export const Info = styled.div`
-  width: max-width;
+  flex: 5;
 `;
 
 export const Intro = styled.section`
   display: flex;
   align-items: center;
-  padding-inline: 12.3rem;
+
+  ${respondTo.down('lg')} {
+    flex-direction: column;
+    gap: 3rem;
+  }
+`;
+
+export const ImgContainer = styled.div`
+  position: relative;
+  flex: 7.24;
+  max-width: 72.4rem;
+  /* height: 70.6rem; */
+  aspect-ratio: 1.0264;
+
+  ${respondTo.down('lg')} {
+    width: 100%;
+    flex: unset;
+  }
 `;
