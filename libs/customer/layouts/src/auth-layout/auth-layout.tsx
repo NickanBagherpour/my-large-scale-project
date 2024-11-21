@@ -15,7 +15,7 @@ export const AuthLayout = ({ children }: DashboardLayoutProps) => {
   const { isMobileOrTablet } = useResponsive();
   return (
     <Layout>
-      <Appbar config={config} isMobileOrTablet={isMobileOrTablet} />
+      <Appbar variant='auth' config={config} isMobileOrTablet={isMobileOrTablet} />
       <Layout>
         <Content>{children}</Content>
       </Layout>
