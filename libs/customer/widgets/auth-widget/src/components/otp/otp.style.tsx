@@ -6,7 +6,7 @@ export const FormContainer = styled.div`
   /* height: 100%; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   justify-content: center;
 `;
 
@@ -14,6 +14,14 @@ export const FormTitle = styled.span`
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.5rem;
+`;
+export const Paragraph = styled.p`
+  display: flex;
+  text-align: right;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2rem;
 `;
 
 export const FormInputs = styled.div`

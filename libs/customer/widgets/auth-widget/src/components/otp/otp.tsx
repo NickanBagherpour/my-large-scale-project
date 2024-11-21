@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Button, Input } from '@oxygen/ui-kit';
+import { Box, Button, Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
@@ -24,6 +24,9 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+
+  const phoneNumber = state.OTP.mobileNumber;
+
   //to do : call captcha
   const { data, isFetching } = useGetCaptchaQuery();
 
@@ -39,35 +42,22 @@ export const OTP: React.FC<FormContainerProps> = () => {
 
   return (
     <S.FormContainer>
-      <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
-
+      <Box>
+        <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
+      </Box>
+      <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
       <Form layout={'vertical'} style={{ width: '100%' }} form={registerForm} onFinish={handleFinish}>
-        <S.FormInputs></S.FormInputs>
-
-        <S.Divider />
-
-        <S.FormInput>
-          <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
-            <Input
-              suffix={
-                <span style={{ display: 'flex' }}>
-                  <img alt='capcha' />
-                  <i
-                    className='icon-search-normal'
-                    onClick={() => console.log('allireza')}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </span>
-              }
-              placeholder={t('captcha_code')}
-            />
-          </Form.Item>
-        </S.FormInput>
+        <S.FormInputs>
+          <Input.OTP />
+        </S.FormInputs>
       </Form>
+
       <S.Button onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
+
       <S.Divider />
+
       <S.Span>
         {t('do_you_registered_already')}
         <Link href='/auth?type=login'>{t('login_to_portal')}</Link>
