@@ -8,6 +8,7 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  otp: false,
   table: {
     filters: initialFilters,
     submit: initialFilters,

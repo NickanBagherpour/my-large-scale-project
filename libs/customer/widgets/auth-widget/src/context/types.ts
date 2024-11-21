@@ -12,6 +12,7 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
+  otp: boolean;
   table: {
     filters: FiltersType;
     pagination: PaginationType;

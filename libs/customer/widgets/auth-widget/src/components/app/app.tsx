@@ -19,11 +19,21 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const searchParams = useSearchParams();
-  const authType = searchParams.get('authtype');
+  const authType = searchParams.get('type');
 
-  const isOtp = state;
+  const isOtp = state.otp;
 
-  return <>{isOtp ? <Otp /> : authType === 'login' ? <Login /> : <Register title={'ثبت نام در سامانه'} />}</>;
+  return (
+    <>
+      {isOtp ? (
+        <Otp />
+      ) : authType === 'login' ? (
+        <Login title='ورود به سامانه' />
+      ) : (
+        <Register title={'ثبت نام در سامانه'} />
+      )}
+    </>
+  );
 };
 
 export default App;
