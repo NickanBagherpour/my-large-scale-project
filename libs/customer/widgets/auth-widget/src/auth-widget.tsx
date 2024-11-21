@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { loadTr } from '@oxygen/translation';
-import { WidgetWrapper } from '@oxygen/customer/layouts';
 import { PageProps } from '@oxygen/types';
 
 import App from './components/app/app';
@@ -13,11 +12,9 @@ const AuthWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
 
   return (
-    <WidgetWrapper>
-      <AppProvider>
-        <App parentProps={props.parentProps} />
-      </AppProvider>
-    </WidgetWrapper>
+    <AppProvider>
+      <App parentProps={props.parentProps} />
+    </AppProvider>
   );
 };
 
