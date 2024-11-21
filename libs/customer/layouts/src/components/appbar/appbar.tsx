@@ -54,24 +54,16 @@ const Appbar = (props: AppBarProps) => {
   const getMobileAppbar = () => {
     return (
       <>
-        {
-          variant === 'dashboard' &&
-          (
-            <Button shape={'circle'} variant="text" className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-              <S.styleIcon className={'icon-hamburger-menu'} />
-              {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
-            </Button>
-          )
-        }
+        {variant === 'dashboard' && (
+          <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+            <S.styleIcon className={'icon-hamburger-menu'} />
+            {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
+          </Button>
+        )}
         <span className={'appbar-title-logo-date'}>
-            <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-               {theme.id !== ThemeID.DARK ? (
-                 <Icons.OxygenLogo />
-               ) : (
-                 <Icons.OxygenDarkLogo />
-               )
-               }
-            </Link>
+          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          </Link>
         </span>
         <AppbarUserMenu
           variant={variant}
@@ -88,40 +80,30 @@ const Appbar = (props: AppBarProps) => {
       <>
         <span className={'appbar-title-oxygen-logo'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-               {
-                 theme.id !== ThemeID.DARK ? (
-                   <Icons.OxygenLogo />
-                 ) : (
-                   <Icons.OxygenDarkLogo />
-                 )
-               }
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
           </Link>
         </span>
 
         <span style={{ flexGrow: 1 }} />
 
         {variant === 'dashboard' ? (
-            <>
-              <AppbarUserMenu
-                userInfo={user}
-                onLogout={onLogout}
-                isMobileOrTablet={isMobileOrTablet}
-                loading={stateUserProfile.loading}
-              />
-              <S.Divider />
-            </>
-          )
-          :
-          ENV_CONSTANTS.IS_DEV ? (
-              <>
-                <ThemeSwitch />
-                <S.Divider />
-              </>
-            )
-            : (
-              <></>
-            )
-        }
+          <>
+            <AppbarUserMenu
+              userInfo={user}
+              onLogout={onLogout}
+              isMobileOrTablet={isMobileOrTablet}
+              loading={stateUserProfile.loading}
+            />
+            <S.Divider />
+          </>
+        ) : ENV_CONSTANTS.IS_DEV ? (
+          <>
+            <ThemeSwitch />
+            <S.Divider />
+          </>
+        ) : (
+          <></>
+        )}
 
         <span className={'appbar-title-bank-logo'}>
           <Icons.BankLogo />

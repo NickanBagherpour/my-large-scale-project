@@ -16,15 +16,13 @@ enum MenuItemKey {
   EditInfo = 'editInfo',
 }
 
-export default function AppbarUserMenu(
-  {
-    variant = 'dashboard',
-    userInfo,
-    onLogout,
-    isMobileOrTablet,
-    loading = false,
-  },
-) {
+export default function AppbarUserMenu({
+  variant = 'dashboard',
+  userInfo,
+  onLogout,
+  isMobileOrTablet,
+  loading = false,
+}) {
   const [t] = useTr();
 
   const handleClose = () => {
@@ -37,74 +35,74 @@ export default function AppbarUserMenu(
   };
 
   const getMenuItems = () => {
-    const baseItems = variant === 'auth'
-      ? []
-      :
-      [
-        {
-          label: (
-            <S.StyleSpan>
-              {loading ? (
-                <Loading size="small" />
-              ) : !userInfo ? (
-                '-'
-              ) : (
-                <div className="menu-header">
-                  <p className="menu-p">{userInfo.userFullName}</p>
-                  <span className="menu-span">{userInfo.jobName}</span>
-                </div>
-              )}
-            </S.StyleSpan>
-          ),
-          key: MenuItemKey.Username,
-        },
-        { type: 'divider' },
-      ];
+    const baseItems =
+      variant === 'auth'
+        ? []
+        : ([
+            {
+              label: (
+                <S.StyleSpan>
+                  {loading ? (
+                    <Loading size='small' />
+                  ) : !userInfo ? (
+                    '-'
+                  ) : (
+                    <div className='menu-header'>
+                      <p className='menu-p'>{userInfo.userFullName}</p>
+                      <span className='menu-span'>{userInfo.jobName}</span>
+                    </div>
+                  )}
+                </S.StyleSpan>
+              ),
+              key: MenuItemKey.Username,
+            },
+            { type: 'divider' },
+          ] as const);
 
     const devItems = ENV_CONSTANTS.IS_DEV
       ? [
-        {
-          label: (
-            <S.StyleDiv onClick={handlePreventClick}>
-              <span>{t('appbar.change_language')}</span>
-              <LocaleSwitcher type="textPrimary" />
-            </S.StyleDiv>
-          ),
-          key: MenuItemKey.ChangeLanguage,
-        },
-        {
-          label: (
-            <S.StyleDiv onClick={handlePreventClick}>
-              <span>{t('appbar.background_color')}</span>
-              <ThemeSwitch />
-            </S.StyleDiv>
-          ),
-          key: MenuItemKey.BackgroundColor,
-        },
-      ]
+          {
+            label: (
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.change_language')}</span>
+                <LocaleSwitcher type='textPrimary' />
+              </S.StyleDiv>
+            ),
+            key: MenuItemKey.ChangeLanguage,
+          },
+          {
+            label: (
+              <S.StyleDiv onClick={handlePreventClick}>
+                <span>{t('appbar.background_color')}</span>
+                <ThemeSwitch />
+              </S.StyleDiv>
+            ),
+            key: MenuItemKey.BackgroundColor,
+          },
+        ]
       : [];
 
     const authVariantItems =
       variant === 'auth'
         ? []
         : [
-          {
-            label: `${t('appbar.edit_info')}`,
-            icon: <i className="icon-pencil-square" style={{ fontSize: '2.2rem' }} />,
-            key: MenuItemKey.EditInfo,
-          },
-          {
-            label: `${t('appbar.change_password')}`,
-            icon: <i className="icon-input-password" style={{ fontSize: '2.2rem' }} />,
-            key: MenuItemKey.ChangePassword,
-          },
-          {
-            label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
-            icon: <i className="icon-sign-out" style={{ fontSize: '2.2rem' }} />,
-            key: MenuItemKey.Logout,
-            danger: true,
-          },
-        ];
+            {
+              label: `${t('appbar.edit_info')}`,
+              icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
+              key: MenuItemKey.EditInfo,
+            },
+            {
+              label: `${t('appbar.change_password')}`,
+              icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
+              key: MenuItemKey.ChangePassword,
+            },
+            {
+              label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
+              icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
+              key: MenuItemKey.Logout,
+              danger: true,
+            },
+          ];
 
     return [...baseItems, ...devItems, ...authVariantItems];
   };
@@ -115,7 +113,7 @@ export default function AppbarUserMenu(
     <S.StyleDropDown
       menu={{ items }}
       trigger={['click']}
-      placement="bottomLeft"
+      placement='bottomLeft'
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
       dropdownRender={(node) => {
         return <S.Overlay>{node}</S.Overlay>;
@@ -123,14 +121,14 @@ export default function AppbarUserMenu(
     >
       {isMobileOrTablet ? (
         <Button
-          variant="text"
-          shape="circle"
+          variant='text'
+          shape='circle'
           icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>}
         />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
-          {loading ? <Loading size="small" /> : !userInfo ? '-' : userInfo?.userFullName}
+          {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
           <Icons.ArrowDown />
         </S.StyleParagraph>
       )}
