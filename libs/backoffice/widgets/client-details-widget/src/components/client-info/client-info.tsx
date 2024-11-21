@@ -40,8 +40,8 @@ export default function ClientInfo() {
       key: t('grant_type'),
       value: (
         <S.Chips>
-          {grantType.map((t) => (
-            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} type='active'>
+          {grantType.map((t, idx) => (
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
               {t}
             </Chip>
           ))}
@@ -53,8 +53,8 @@ export default function ClientInfo() {
       key: t('tags'),
       value: (
         <S.Chips>
-          {tags.map((t) => (
-            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} type='active'>
+          {tags.map((t, idx) => (
+            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
               {t}
             </Chip>
           ))}

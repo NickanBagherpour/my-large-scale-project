@@ -1,9 +1,10 @@
 import { useTr } from '@oxygen/translation';
-import * as S from './grid-card.style';
 import { looper, Calendar } from '../../assets';
 import { useTheme } from 'styled-components';
 import { Tooltip } from 'antd';
 import { Status } from '@oxygen/ui-kit';
+
+import * as S from './grid-card.style';
 
 function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
   return 'activeServersCount' in props;
@@ -56,7 +57,7 @@ function ClientCard(props: ClientCardProps) {
         <S.Date>{date}</S.Date>
       </S.Footer>
 
-      <S.Looper alt='' width={276} height={112} src={looper} />
+      <S.Looper alt='' width={276} height={112} src={looper} priority />
     </S.Container>
   );
 }
@@ -91,7 +92,7 @@ function UpstreamCard(props: UpstreamCardProps) {
         <S.StatusTxt>{t('grid_card.active_servers_count', { count: activeServersCount })}</S.StatusTxt>
       </S.Footer>
 
-      <S.Looper alt='' width={276} height={112} src={looper} />
+      <S.Looper alt='' width={276} height={112} src={looper} priority />
     </S.Container>
   );
 }

@@ -1,8 +1,6 @@
 'use client';
 
-import {
-  Container,
-} from '@oxygen/ui-kit';
+import { Container } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/customer/layouts';
 import React from 'react';

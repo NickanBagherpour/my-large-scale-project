@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { Fragment, forwardRef } from 'react';
 
 import * as S from './mark-text.style';
 
@@ -9,24 +9,31 @@ export type PropsType = {
   wordToHighlight: string;
   highlightColor: HighlightColorType;
   className?: string;
-  // fontSize?: string;
-  // fontWeight?: string;
-  // [key: string]: any;
 };
 
-export const MarkText = forwardRef(({ text, wordToHighlight, highlightColor, ...rest }: PropsType, ref) => {
-  const parts = text.split(new RegExp(`(${wordToHighlight})`, 'gi'));
-  return (
-    <span {...rest}>
-      {parts.map((part, index) =>
-        part === wordToHighlight ? (
-          <S.StyledSpan customStyle={highlightColor} key={index}>
-            {part}
-          </S.StyledSpan>
-        ) : (
-          part
-        )
-      )}
-    </span>
-  );
-});
+const escapeRegExp = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+export const MarkText = React.forwardRef<HTMLSpanElement, PropsType>(
+  ({ text, wordToHighlight, highlightColor, ...rest }) => {
+    const escapedWord = escapeRegExp(wordToHighlight);
+    const parts = text.split(new RegExp(`(${escapedWord})`, 'gi'));
+
+    return (
+      <span {...rest}>
+        {parts.map((part, index) =>
+          part.toLowerCase() === wordToHighlight.toLowerCase() ? (
+            <S.StyledSpan $customStyle={highlightColor} key={index}>
+              {part}
+            </S.StyledSpan>
+          ) : (
+            <Fragment key={index}>{part}</Fragment>
+          )
+        )}
+      </span>
+    );
+  }
+);
+
+MarkText.displayName = 'MarkText';
