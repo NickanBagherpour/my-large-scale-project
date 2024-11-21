@@ -5,7 +5,6 @@ import { Icons } from '@oxygen/ui-kit';
 import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.svg';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';
-import { PaddingBox } from '../padding-box/padding-box.style';
 
 const HeroSection = () => {
   const [t] = useTr();
