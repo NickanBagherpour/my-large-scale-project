@@ -5,10 +5,10 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import Login from '../login/login';
+import Register from '../register/register';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import Register from '../register/register';
 
 type AppProps = PageProps & {
   //
