@@ -5,7 +5,6 @@ export const FormContainer = styled.div``;
 
 export const FormBox = styled.div`
   min-height: 20rem;
-  min-width: 49rem;
   display: flex;
   align-items: center;
   flex-direction: column;
