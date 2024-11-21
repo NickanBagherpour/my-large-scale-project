@@ -7,6 +7,7 @@ export const Title = styled(SectionTitle)`
 
 export const Container = styled.section`
   padding-inline: 12rem;
+  margin-bottom: 8rem;
 
   & .ant-collapse-item {
     margin-bottom: 24px;

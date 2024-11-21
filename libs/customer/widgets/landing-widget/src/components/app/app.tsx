@@ -1,5 +1,6 @@
 import Customers from '../customers/customers';
 import Faq from '../faq/faq';
+import Footer from '../footer/footer';
 import HeroSection from '../hero-section/hero-section';
 import JoinUs from '../join-us/join-us';
 import Vision from '../vision/vision';
@@ -16,6 +17,7 @@ const App = () => {
         <Vision />
         <Customers />
         <Faq />
+        <Footer />
       </S.WithBg>
     </S.Main>
   );
