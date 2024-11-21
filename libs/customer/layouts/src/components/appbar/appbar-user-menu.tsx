@@ -38,7 +38,7 @@ export default function AppbarUserMenu({
     const baseItems =
       variant === 'auth'
         ? []
-        : [
+        : ([
             {
               label: (
                 <S.StyleSpan>
@@ -57,7 +57,7 @@ export default function AppbarUserMenu({
               key: MenuItemKey.Username,
             },
             { type: 'divider' },
-          ];
+          ] as const);
 
     const devItems = ENV_CONSTANTS.IS_DEV
       ? [
