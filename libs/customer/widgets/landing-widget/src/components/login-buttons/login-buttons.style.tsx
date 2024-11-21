@@ -11,6 +11,7 @@ export const LoginBtn = styled(Button)`
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-decoration: none;
   && {
     color: ${(p) => p.theme.text.primary};
     background: ${(p) => p.theme.background.main};
