@@ -10,6 +10,11 @@ export type PaginationType = {
   page: number;
   limit: number;
 };
+export type OtpType = {
+  isOpen: boolean;
+  type: 'login' | 'register';
+  phoneNumber: number | string;
+};
 
 export type WidgetStateType = {
   otp: boolean;
