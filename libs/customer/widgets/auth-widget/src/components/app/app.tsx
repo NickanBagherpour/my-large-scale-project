@@ -7,6 +7,7 @@ import { PageProps } from '@oxygen/types';
 import Login from '../login/login';
 import Register from '../register/register';
 import { useAppDispatch, useAppState } from '../../context';
+import Otp from '../otp/otp';
 
 type AppProps = PageProps & {
   //
@@ -20,7 +21,9 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const authType = searchParams.get('authtype');
 
-  return <>{authType === 'login' ? <Login /> : <Register title={'ثبت نام در سامانه'} />}</>;
+  const isOtp = state;
+
+  return <>{isOtp ? <Otp /> : authType === 'login' ? <Login /> : <Register title={'ثبت نام در سامانه'} />}</>;
 };
 
 export default App;
