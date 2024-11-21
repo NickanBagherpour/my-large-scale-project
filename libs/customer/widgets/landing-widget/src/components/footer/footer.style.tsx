@@ -1,3 +1,4 @@
+import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Container = styled.footer`
@@ -9,6 +10,10 @@ export const Container = styled.footer`
   & p {
     color: ${(p) => p.theme.onPrimary};
     font-size: 1.4rem;
+  }
+
+  ${respondTo.down('md')} {
+    padding-inline: 3rem;
   }
 `;
 
@@ -23,4 +28,9 @@ export const Email = styled.p`
 export const Name = styled.p`
   margin-inline: auto;
   margin-block: 0;
+
+  ${respondTo.down('md')} {
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+  }
 `;
