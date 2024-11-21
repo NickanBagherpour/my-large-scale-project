@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { SectionTitle } from '../section-title/section-title.style';
+import { PaddingBox } from '../padding-box/padding-box.style';
 
 export const Title = styled(SectionTitle)`
   margin-bottom: 4rem;
 `;
 
-export const Container = styled.section`
-  padding-inline: 12rem;
+export const Container = styled(PaddingBox)`
   margin-bottom: 8rem;
 
   & .ant-collapse-item {
