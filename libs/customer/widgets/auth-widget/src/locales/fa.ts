@@ -9,4 +9,5 @@ export default {
   login_to_portal: 'ورود به سامانه',
   dont_have_account: 'آیا حساب کاربری ندارید؟',
   register_in_the_system: ' ثبت‌نام در سامانه',
+  get_one_time_code: 'دریافت کد یکبار مصرف',
 };

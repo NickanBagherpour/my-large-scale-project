@@ -8,7 +8,12 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
-  otp: false,
+  OTP: {
+    isOpen: false,
+    type: null,
+    mobileNumber: null,
+    nationalCode: null,
+  },
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -27,7 +32,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.message = action.payload;
       return;
     }
-
+    case 'UPDATE_OTP': {
+      state.OTP = { ...state.OTP, ...action.payload };
+      return;
+    }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };
       return;

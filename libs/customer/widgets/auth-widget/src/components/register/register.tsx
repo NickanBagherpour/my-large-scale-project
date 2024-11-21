@@ -8,12 +8,12 @@ import { Button, Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
+import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 
 import * as S from './register.style';
-import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import Image from 'next/image';
 
 type FormContainerProps = PageProps & {
@@ -34,7 +34,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const handleSubmit = () => registerForm.submit();
 
   const handleFinish = (values: any) => {
-    console.log(':)', values);
+    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true });
   };
 
   return (

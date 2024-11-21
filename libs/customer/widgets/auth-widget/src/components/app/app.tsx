@@ -21,11 +21,11 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const authType = searchParams.get('type');
 
-  const isOtp = state.otp;
+  const isOTPOpen = state.OTP.isOpen;
 
   return (
     <>
-      {isOtp ? (
+      {isOTPOpen ? (
         <Otp />
       ) : authType === 'login' ? (
         <Login title='ورود به سامانه' />

@@ -8,7 +8,7 @@ import { Button, Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 
@@ -34,7 +34,7 @@ export const Login = ({ title }: FormContainerProps) => {
   const handleSubmit = () => loginForm.submit();
 
   const handleFinish = (values: any) => {
-    console.log(':)', values);
+    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true });
   };
 
   return (
