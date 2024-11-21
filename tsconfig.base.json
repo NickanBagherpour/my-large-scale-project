@@ -87,6 +87,9 @@
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
+            "@oxygen/customer/widgets/auth-widget": [
+                "libs/customer/widgets/auth-widget/src/index.ts"
+            ],
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
             ],
