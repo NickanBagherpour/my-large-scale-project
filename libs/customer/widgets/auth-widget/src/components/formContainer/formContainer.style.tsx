@@ -1,22 +1,14 @@
 import styled from 'styled-components';
 import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 
-export const FormContainer = styled.div`
-  background-color: ${(p) => p.theme.background._50};
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+export const FormContainer = styled.div``;
 
 export const FormBox = styled.div`
-  background-color: ${(p) => p.theme.background.main};
   min-height: 20rem;
   min-width: 49rem;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 3.2rem 3.6rem;
 `;
 
 export const FormTitle = styled.span`
