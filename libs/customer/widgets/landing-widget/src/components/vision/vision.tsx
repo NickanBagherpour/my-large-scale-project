@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 export default function Vision() {
   const [t] = useTr();
-
   return (
     <S.Container>
       <div>
@@ -13,7 +12,9 @@ export default function Vision() {
         <S.Desc>{t('oxygen_vision_desc')}</S.Desc>
       </div>
 
-      <Image src={appsImg} alt='' width={740} height={723} />
+      <S.ImgContainer>
+        <Image src={appsImg} alt='' fill />
+      </S.ImgContainer>
     </S.Container>
   );
 }

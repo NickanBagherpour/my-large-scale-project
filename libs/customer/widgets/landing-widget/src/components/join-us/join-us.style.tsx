@@ -42,6 +42,7 @@ export const DevImg = styled(Image)`
 export const Txts = styled.div`
   max-width: 81rem;
   margin-inline: auto;
+  padding-inline: 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
