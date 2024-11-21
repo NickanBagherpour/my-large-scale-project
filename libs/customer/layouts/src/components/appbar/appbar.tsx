@@ -1,19 +1,22 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useTheme } from 'styled-components';
+import Link from 'next/link';
 
 import { useTr } from '@oxygen/translation';
 import { IConfig, ThemeID } from '@oxygen/types';
-import { Button, Icons } from '@oxygen/ui-kit';
+import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
+import { useAsync, useAuth } from '@oxygen/hooks';
+import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
-import { useAsync, useAuth } from '@oxygen/hooks';
+import { useTheme } from 'styled-components';
 import { Api } from '../../services';
 
 import * as S from './appbar.style';
 
 export type AppBarProps = {
+  variant?: 'auth' | 'dashboard';
   isMobileOrTablet: boolean;
   config: IConfig;
   onToggleDrawer?: React.MouseEventHandler;
@@ -22,18 +25,18 @@ export type AppBarProps = {
 };
 
 const Appbar = (props: AppBarProps) => {
-  const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
+  const { variant = 'dashboard', onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
-  const theme = useTheme();
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+  const theme = useTheme();
 
   // console.log('test', 'user', user);
 
   useEffect(() => {
     // console.log('test12', 'user', user);
 
-    if (!user) {
+    if (!user && variant === 'dashboard') {
       fetchUserProfile();
     }
   }, []);
@@ -51,13 +54,24 @@ const Appbar = (props: AppBarProps) => {
   const getMobileAppbar = () => {
     return (
       <>
+        {variant === 'dashboard' && (
+          <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+            <S.styleIcon className={'icon-hamburger-menu'} />
+            {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
+          </Button>
+        )}
         <span className={'appbar-title-logo-date'}>
-          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          </Link>
         </span>
-
-        <span className={'appbar-title-bank-logo'}>
-          <Icons.BankLogo />
-        </span>
+        <AppbarUserMenu
+          variant={variant}
+          userInfo={user}
+          onLogout={onLogout}
+          isMobileOrTablet={isMobileOrTablet}
+          loading={stateUserProfile.loading}
+        />
       </>
     );
   };
@@ -65,10 +79,31 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          </Link>
         </span>
 
         <span style={{ flexGrow: 1 }} />
+
+        {variant === 'dashboard' ? (
+          <>
+            <AppbarUserMenu
+              userInfo={user}
+              onLogout={onLogout}
+              isMobileOrTablet={isMobileOrTablet}
+              loading={stateUserProfile.loading}
+            />
+            <S.Divider />
+          </>
+        ) : ENV_CONSTANTS.IS_DEV ? (
+          <>
+            <ThemeSwitch />
+            <S.Divider />
+          </>
+        ) : (
+          <></>
+        )}
 
         <span className={'appbar-title-bank-logo'}>
           <Icons.BankLogo />
