@@ -24,5 +24,4 @@ export const StyledSpan = styled.span<CustomStyleProps>`
 
   font-size: ${(p) => p.fontSize || 'inherit'};
   font-weight: ${(p) => p.fontWeight || 'normal'};
-  ${(p) => ({ ...p })}
 `;

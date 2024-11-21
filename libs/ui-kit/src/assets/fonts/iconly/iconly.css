@@ -7,10 +7,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url('./iconly.eot?1730699309457');
-  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1730699309457') format('woff2'),
-    url('./iconly.woff?1730699309457') format('woff'), url('./iconly.ttf?1730699309457') format('truetype'),
-    url('./iconly.svg?1730699309457#Iconly') format('svg');
+  src: url('./iconly.eot?1732080733905');
+  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1732080733905') format('woff2'),
+    url('./iconly.woff?1732080733905') format('woff'), url('./iconly.ttf?1732080733905') format('truetype'),
+    url('./iconly.svg?1732080733905#Iconly') format('svg');
 }
 
 [class='icon'],
@@ -77,6 +77,10 @@
 
 .icon-close-circle:before {
   content: '\e00c';
+}
+
+.icon-white_plus:before {
+  content: '\e00d';
 }
 
 .icon-trash:before {
@@ -225,4 +229,16 @@
 
 .icon-book-2:before {
   content: '\e032';
+}
+
+.icon-monitor:before {
+  content: '\e033';
+}
+
+.icon-code:before {
+  content: '\e034';
+}
+
+.icon-bills:before {
+  content: '\e035';
 }

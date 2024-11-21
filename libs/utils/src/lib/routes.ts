@@ -26,6 +26,11 @@ export const ROUTES = {
     UPSTREAM_LIST: '/upstream-list',
     SERVICE_CREATION: '/service-creation',
   },
+  CUSTOMER: {
+    LANDING: '/',
+    AUTH: '/auth',
+    DASHBOARD: '/dashboard',
+  },
 };
 
 export const BACKOFFICE_ROUTE_GROUPS = [
