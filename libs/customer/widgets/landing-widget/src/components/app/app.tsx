@@ -1,30 +1,25 @@
-import React from 'react';
-
-import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-
-import { useAppDispatch, useAppState } from '../../context';
-import HeroSection from '../hero-section/hero-section';
-import FeatureSection from '../feature-section/feature-section';
-
+import Customers from '../customers/customers';
+import Faq from '../faq/faq';
+import Footer from '../footer/footer';
+import Hero from '../hero/hero';
+import JoinUs from '../join-us/join-us';
+import Vision from '../vision/vision';
+import Why from '../why/why';
 import * as S from './app.style';
 
-type AppProps = PageProps & {
-  //
-};
-
-const App: React.FC<AppProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
-  const [t] = useTr();
-
+const App = () => {
   return (
-    <S.Layout>
-      <S.Content>
-        <HeroSection />
-        <FeatureSection />
-      </S.Content>
-    </S.Layout>
+    <S.Main>
+      <S.WithBg>
+        <Hero />
+        <Why />
+        <JoinUs />
+        <Vision />
+        <Customers />
+        <Faq />
+        <Footer />
+      </S.WithBg>
+    </S.Main>
   );
 };
 

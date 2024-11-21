@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import { Layout as AntLayout } from 'antd';
+import looper from 'apps/customer-portal/public/assets/images/looper.svg';
 
-export const Layout = styled(AntLayout)`
-  min-height: 100vh;
+export const Main = styled.div`
+  background: ${(p) => p.theme.background._50};
 `;
 
-export const Content = styled(AntLayout.Content)`
-  padding: 0 50px;
+export const WithBg = styled.div`
+  background-image: url(${looper});
+  background-repeat: none;
+  background-size: cover;
 `;
