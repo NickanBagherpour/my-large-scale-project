@@ -1,7 +1,7 @@
 import Customers from '../customers/customers';
 import Faq from '../faq/faq';
 import Footer from '../footer/footer';
-import HeroSection from '../hero-section/hero-section';
+import Hero from '../hero/hero';
 import JoinUs from '../join-us/join-us';
 import Vision from '../vision/vision';
 import Why from '../why/why';
@@ -11,7 +11,7 @@ const App = () => {
   return (
     <S.Main>
       <S.WithBg>
-        <HeroSection />
+        <Hero />
         <Why />
         <JoinUs />
         <Vision />
