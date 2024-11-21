@@ -59,6 +59,7 @@ export const AuthLayout = ({ children }: DashboardLayoutProps) => {
     <Protected>
       {/* <S.MainLayout> */}
       <Appbar
+        variant={'auth'}
         onToggleDrawer={toggleDrawer}
         onLogout={handleLogout}
         config={config}
