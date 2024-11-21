@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import bg from 'apps/customer-portal/public/assets/images/bg.svg';
 import Link from 'next/link';
 import { respondTo } from '@oxygen/utils';
+import { PaddingBox } from '../padding-box/padding-box.style';
 
 export const Hero = styled.header`
   min-height: 120vh; /* FIXME */
@@ -65,7 +66,7 @@ export const Info = styled.div`
   flex: 5;
 `;
 
-export const Intro = styled.section`
+export const Intro = styled(PaddingBox)`
   display: flex;
   align-items: center;
 

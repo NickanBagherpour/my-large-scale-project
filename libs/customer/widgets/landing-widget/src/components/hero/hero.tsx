@@ -22,21 +22,19 @@ const HeroSection = () => {
         </Link>
       </S.Nav>
 
-      <PaddingBox>
-        <S.Intro>
-          <S.Info>
-            <S.Title>
-              {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
-            </S.Title>
-            <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
-            <LoginButtons />
-          </S.Info>
+      <S.Intro>
+        <S.Info>
+          <S.Title>
+            {t('oxygen_platform')} <span>{t('oxygen_pro')}</span>
+          </S.Title>
+          <S.Slogon>{t('oxygen_slogon')}</S.Slogon>
+          <LoginButtons />
+        </S.Info>
 
-          <S.ImgContainer>
-            <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />
-          </S.ImgContainer>
-        </S.Intro>
-      </PaddingBox>
+        <S.ImgContainer>
+          <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />
+        </S.ImgContainer>
+      </S.Intro>
     </S.Hero>
   );
 };
