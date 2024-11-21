@@ -9,7 +9,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useAppDispatch, useAppState } from '../../context';
 import { Input } from '@oxygen/ui-kit';
 
-import * as S from './formContainer.style';
+import * as S from './register.style';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 

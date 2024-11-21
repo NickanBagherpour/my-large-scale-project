@@ -1,12 +1,14 @@
 import React from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
+import Login from '../login/login';
 import { useAppDispatch, useAppState } from '../../context';
-import FormContainer from '../formContainer/formContainer';
 
 import * as S from './app.style';
+import Register from '../register/register';
 
 type AppProps = PageProps & {
   //
@@ -17,11 +19,10 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  return (
-    <S.AppContainer>
-      <FormContainer title={'ثبت نام در سامانه'}>hello</FormContainer>
-    </S.AppContainer>
-  );
+  const searchParams = useSearchParams();
+  const authType = searchParams.get('authtype');
+
+  return <S.AppContainer>{authType === 'login' ? <Login /> : <Register title={'ثبت نام در سامانه'} />}</S.AppContainer>;
 };
 
 export default App;
