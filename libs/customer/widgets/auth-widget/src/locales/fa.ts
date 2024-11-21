@@ -7,4 +7,6 @@ export default {
   confirm_and_continue: 'تایید و ادامه',
   do_you_registered_already: 'آیا قبلا ثبت نام کرده‌اید؟',
   login_to_portal: 'ورود به سامانه',
+  dont_have_account: 'آیا حساب کاربری ندارید؟',
+  register_in_the_system: ' ثبت‌نام در سامانه',
 };

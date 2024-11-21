@@ -43,9 +43,6 @@ export const Login = ({ title }: FormContainerProps) => {
 
       <Form layout={'vertical'} style={{ width: '100%' }} form={loginForm} onFinish={handleFinish}>
         <S.FormInputs>
-          <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>
-            <Input placeholder={t('national_code')} allow={'number'} maxLength={11} />
-          </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
             <Input placeholder={t('mobile_number')} allow={'number'} maxLength={11} size='large' />
           </Form.Item>
@@ -76,8 +73,8 @@ export const Login = ({ title }: FormContainerProps) => {
       </S.Button>
       <S.Divider />
       <S.Span>
-        {t('do_you_registered_already')}
-        <Link href='/auth?type=login'>{t('login_to_portal')}</Link>
+        {t('dont_have_account')}
+        <Link href='/auth'>{t('register_in_the_system')}</Link>
       </S.Span>
     </S.FormContainer>
   );
