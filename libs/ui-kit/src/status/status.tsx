@@ -1,4 +1,4 @@
-import { ActiveBadge, InactiveBadge } from '../assets/media';
+import { ActiveBadge, InactiveBadge } from '../assets/icons';
 
 export type StatusType = 'active' | 'inactive';
 
