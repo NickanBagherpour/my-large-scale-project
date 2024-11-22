@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './vision.style';
-import appsImg from 'apps/customer-portal/public/assets/images/apps.svg';
+import appsImg from 'apps/customer-portal/public/assets/images/apps.png';
 import Image from 'next/image';
 
 export default function Vision() {
