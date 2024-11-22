@@ -49,7 +49,7 @@ export const Header = styled.div`
   }
 
   & .header__title {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.8rem;
     /* margin: 0 0 0 1rem; */
     color: ${(props) => props.theme.primary.main};
