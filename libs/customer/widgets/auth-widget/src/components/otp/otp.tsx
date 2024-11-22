@@ -10,6 +10,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import { TIMER_INITIALSECONDS } from '../../utils/consts';
+
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
@@ -25,11 +26,14 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const state = useAppState();
   const [t] = useTr();
 
-  const [OTPForm] = Form.useForm();
   const router = useRouter();
+
+  const [OTPForm] = Form.useForm();
+
   const [isTimerFinish, setIsTimerFinish] = useState(false);
 
   const phoneNumber = state.OTP.mobileNumber;
+
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
   const handleLoginSubmit = () => {
@@ -41,13 +45,16 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const handleReturn = () => {
     updateOTPAction(dispatch, { ...state.OTP, isOpen: false });
   };
+
   const handleFinish = (values: any) => {
     console.log(':)', values);
     router.push('/');
   };
+
   const handleTimer = () => {
     setIsTimerFinish(true);
   };
+
   const handleResend = () => {
     setIsTimerFinish(false);
   };

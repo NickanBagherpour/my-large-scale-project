@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
 
+import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import Otp from '../otp/otp';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 type AppProps = PageProps & {
   //

@@ -5,11 +5,12 @@ import Image from 'next/image';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Button, Input } from '@oxygen/ui-kit';
+import { Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import { INPUT_MAX_LENGTH } from '../../utils/consts';
+
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
@@ -68,11 +69,7 @@ export const Register = ({ title }: FormContainerProps) => {
               suffix={
                 <span style={{ display: 'flex' }}>
                   <img alt='capcha' />
-                  <i
-                    className='icon-search-normal'
-                    onClick={() => console.log('allireza')}
-                    style={{ cursor: 'pointer' }}
-                  />
+                  <i className='icon-search-normal' style={{ cursor: 'pointer' }} />
                 </span>
               }
               placeholder={t('captcha_code')}

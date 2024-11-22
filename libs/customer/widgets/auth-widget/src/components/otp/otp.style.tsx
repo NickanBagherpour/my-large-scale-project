@@ -46,6 +46,11 @@ export const FormInput = styled.div`
     width: 100%;
     flex-direction: row-reverse;
     margin: 2.4rem 0;
+    justify-content: space-between;
+  }
+  .ant-input {
+    height: 5.2rem;
+    width: 5.2rem;
   }
 `;
 

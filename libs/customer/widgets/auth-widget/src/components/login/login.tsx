@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -8,14 +9,14 @@ import { Button, Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
-import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
+import { useGetCaptchaQuery } from '../../services/get-captcha.api';
+import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
+
+import { INPUT_MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './login.style';
-import { useGetCaptchaQuery } from '../../services/get-captcha.api';
-import Image from 'next/image';
-import { INPUT_MAX_LENGTH } from '../../utils/consts';
 
 type FormContainerProps = PageProps & {
   title: string;
