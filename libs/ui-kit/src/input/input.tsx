@@ -109,3 +109,5 @@ Input.Search = S.SearchWrapper;
 Input.Group = S.GroupWrapper;
 
 Input.Money = InputMoney;
+
+Input.OTP = S.OTPWrapper;

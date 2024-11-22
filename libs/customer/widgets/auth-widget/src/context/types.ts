@@ -10,8 +10,15 @@ export type PaginationType = {
   page: number;
   limit: number;
 };
+export type OTPType = {
+  isOpen: boolean;
+  type: Nullable<'login' | 'register'>;
+  mobileNumber: Nullable<string>;
+  nationalCode?: Nullable<string>;
+};
 
 export type WidgetStateType = {
+  OTP: OTPType;
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -21,6 +28,10 @@ export type WidgetStateType = {
 };
 
 export type WidgetActionType =
+  | {
+      type: 'UPDATE_OTP';
+      payload: Nullable<OTPType>;
+    }
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
