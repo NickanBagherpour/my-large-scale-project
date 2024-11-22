@@ -3,7 +3,7 @@ import * as S from './join-us.style';
 import playImg from 'apps/customer-portal/public/assets/images/play-circle.svg';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';
-import devImg from 'apps/customer-portal/public/assets/images/developer2.png';
+import devImg from 'apps/customer-portal/public/assets/images/developer.png';
 
 export default function JoinUs() {
   const [t] = useTr();
