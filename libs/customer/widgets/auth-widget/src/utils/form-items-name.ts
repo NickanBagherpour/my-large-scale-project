@@ -3,4 +3,5 @@ export const FORM_ITEM_NAMES = {
   mobile_number: 'mobileNumber',
   national_id: 'nationalId',
   captcha_code: 'captchaCode',
+  otp: 'otp',
 };

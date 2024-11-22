@@ -9,7 +9,7 @@ const initialFilters: FormFieldsType = {
 
 export const initialStateValue: WidgetStateType = {
   OTP: {
-    isOpen: true,
+    isOpen: false,
     type: null,
     mobileNumber: null,
     nationalCode: null,

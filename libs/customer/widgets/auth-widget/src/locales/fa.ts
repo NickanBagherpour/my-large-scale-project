@@ -14,4 +14,5 @@ export default {
   change_mobile_number: 'تغییر شماره همراه',
   time_left: 'زمان باقی مانده',
   resend_otp_code: 'ارسال مجدد',
+  submit: 'ثبت',
 };

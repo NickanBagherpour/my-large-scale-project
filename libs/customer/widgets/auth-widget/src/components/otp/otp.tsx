@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { Form } from 'antd';
@@ -8,14 +9,12 @@ import { Box, Button, Input, Timer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
-import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
+import { TIMER_INITIALSECONDS } from '../../utils/consts';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
-import { useGetCaptchaQuery } from '../../services/get-captcha.api';
+import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './otp.style';
-import Image from 'next/image';
-import { TIMER_INITIALSECONDS } from '../../utils/consts';
 
 type FormContainerProps = PageProps & {
   //
@@ -26,18 +25,25 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const state = useAppState();
   const [t] = useTr();
 
+  const [OTPForm] = Form.useForm();
+  const router = useRouter();
   const [isTimerFinish, setIsTimerFinish] = useState(false);
 
   const phoneNumber = state.OTP.mobileNumber;
+  const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
-  const [OTPForm] = Form.useForm();
-
-  const handleSubmit = () => OTPForm.submit();
+  const handleLoginSubmit = () => {
+    OTPForm.submit();
+  };
+  const handleRegisterSubmit = () => {
+    OTPForm.submit();
+  };
   const handleReturn = () => {
     updateOTPAction(dispatch, { ...state.OTP, isOpen: false });
   };
   const handleFinish = (values: any) => {
     console.log(':)', values);
+    router.push('/');
   };
   const handleTimer = () => {
     setIsTimerFinish(true);
@@ -57,7 +63,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       </S.Box>
       <Form layout={'vertical'} style={{ width: '100%' }} form={OTPForm} onFinish={handleFinish}>
         <S.FormInput>
-          <Form.Item name={'OTP'}>
+          <Form.Item name={FORM_ITEM_NAMES.otp} rules={[rule]}>
             <Input.OTP autoFocus />
           </Form.Item>
         </S.FormInput>
@@ -75,16 +81,29 @@ export const OTP: React.FC<FormContainerProps> = () => {
         )}
       </S.TimerBox>
 
-      <S.Button onClick={handleSubmit} color='primary'>
-        {t('confirm_and_continue')}
-      </S.Button>
-
-      <S.Divider />
-
-      <S.Span>
-        {t('do_you_registered_already')}
-        <Link href='/auth?type=login'>{t('login_to_portal')}</Link>
-      </S.Span>
+      {state.OTP.type === 'login' ? (
+        <>
+          <S.Button onClick={handleRegisterSubmit} color='primary'>
+            {t('submit')}
+          </S.Button>
+          <S.Divider />
+          <S.Span>
+            {t('dont_have_account')}
+            <Link href='/auth'>{t('register_in_the_system')}</Link>
+          </S.Span>
+        </>
+      ) : (
+        <>
+          <S.Button onClick={handleLoginSubmit} color='primary'>
+            {t('submit')}
+          </S.Button>
+          <S.Divider />
+          <S.Span>
+            {t('do_you_registered_already')}
+            <Link href='/auth'>{t('login_to_portal')}</Link>
+          </S.Span>
+        </>
+      )}
     </S.FormContainer>
   );
 };

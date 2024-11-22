@@ -35,7 +35,7 @@ export const Login = ({ title }: FormContainerProps) => {
   const handleSubmit = () => loginForm.submit();
 
   const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captcha: undefined });
+    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined });
   };
 
   return (

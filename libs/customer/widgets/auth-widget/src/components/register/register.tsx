@@ -36,7 +36,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const handleSubmit = () => registerForm.submit();
 
   const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captcha: undefined });
+    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
   };
 
   return (
