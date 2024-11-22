@@ -6,7 +6,7 @@ export const FormContainer = styled.div`
   /* height: 100%; */
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   justify-content: center;
 `;
 
@@ -15,7 +15,18 @@ export const FormTitle = styled.span`
   font-weight: 700;
   line-height: 2.5rem;
 `;
+export const Box = styled.div`
+  width: 100%;
+`;
+export const BackParagraph = styled.span`
+  color: ${(p) => p.theme.primary.main};
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2rem;
+`;
 export const Paragraph = styled.p`
+  margin-top: 3.2rem;
   display: flex;
   text-align: right;
   font-size: 1.4rem;
@@ -24,19 +35,23 @@ export const Paragraph = styled.p`
   line-height: 2rem;
 `;
 
-export const FormInputs = styled.div`
+export const FormInput = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4.2rem;
   gap: 1.8rem;
   .ant-form-item {
     margin: 0;
   }
-`;
-
-export const FormInput = styled.div`
-  display: flex;
-  flex-direction: column;
+  .ant-otp {
+    width: 100%;
+    flex-direction: row-reverse;
+    margin: 2.4rem 0;
+    justify-content: space-between;
+  }
+  .ant-input {
+    height: 5.2rem;
+    width: 5.2rem;
+  }
 `;
 
 export const Input = styled(KitInput)`
@@ -60,4 +75,13 @@ export const Span = styled.span`
   a {
     color: ${(p) => p.theme.primary.main};
   }
+`;
+
+export const TimerBox = styled.div`
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 `;

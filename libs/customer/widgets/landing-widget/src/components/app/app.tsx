@@ -9,17 +9,15 @@ import * as S from './app.style';
 
 const App = () => {
   return (
-    <S.Main>
-      <S.WithBg>
-        <Hero />
-        <Why />
-        <JoinUs />
-        <Vision />
-        <Customers />
-        <Faq />
-        <Footer />
-      </S.WithBg>
-    </S.Main>
+    <S.WithBg>
+      <Hero />
+      <Why />
+      <JoinUs />
+      <Vision />
+      <Customers />
+      <Faq />
+      <Footer />
+    </S.WithBg>
   );
 };
 

@@ -1,42 +1,22 @@
-import React, { ReactNode, useState } from 'react';
-import { Layout, Space } from 'antd';
-
-import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
-
-import { ClientOnly } from '@oxygen/reusable-components';
-import LandingAppbar from '../components/appbar/landing-appbar';
+import React, { ReactNode } from 'react';
 
 type LandingLayoutProps = {
   children: ReactNode;
-  isPrimaryAppbar?: boolean;
+  // isPrimaryAppbar?: boolean;
 };
-export const LandingLayout = ({ children, isPrimaryAppbar = false }: LandingLayoutProps) => {
-  const { config } = useConfig();
-  const { isMobileOrTablet } = useResponsive();
-  const { isAuth, logout } = useAuth();
+export const LandingLayout = ({ children }: LandingLayoutProps) => {
+  // const { config } = useConfig();
+  // const { isMobileOrTablet } = useResponsive();
+  // const { isAuth, logout } = useAuth();
+  //
+  // const handleLogout = () => {
+  //   // setOpenDrawer(false);
+  //   // console.log('logout clicked');
+  //
+  //   logout();
+  // };
 
-  const handleLogout = () => {
-    // setOpenDrawer(false);
-    // console.log('logout clicked');
-
-    logout();
-  };
-
-  return (
-    <ClientOnly>
-      <Layout>
-        <LandingAppbar
-          config={config}
-          isAuth={isAuth}
-          onLogout={handleLogout}
-          isMobileOrTablet={isMobileOrTablet}
-          isPrimaryAppbar={isPrimaryAppbar}
-        />
-
-        <Layout>{children}</Layout>
-      </Layout>
-    </ClientOnly>
-  );
+  return <>{children}</>;
 };
 
 export default LandingLayout;

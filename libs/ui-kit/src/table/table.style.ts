@@ -243,7 +243,7 @@ export const Caption = styled.div`
 
   .caption-title {
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 600;
     text-align: left;
     margin-right: 2rem;
   }

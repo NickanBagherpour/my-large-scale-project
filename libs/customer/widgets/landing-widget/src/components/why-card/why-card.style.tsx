@@ -3,13 +3,14 @@ import styled from 'styled-components';
 export const Container = styled.div`
   border: ${(p) => `1px solid ${p.theme.primary.main}`};
   border-radius: 2.4rem;
-  padding: 2.4rem;
+  padding: 2.4rem 2.4rem 6.9rem;
+  background: ${(p) => p.theme.background.main};
 `;
 
 export const IconContainer = styled.div`
   border-radius: 1.6rem;
-  background-color: ${(p) => p.theme.primary._400};
-  padding: 1.6rem;
+  background-color: ${(p) => p.theme.primary._500};
+  padding: 1.2rem;
   width: fit-content;
   margin-bottom: 1.6rem;
 `;

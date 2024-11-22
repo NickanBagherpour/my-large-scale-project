@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
 
+import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
-import { useAppDispatch, useAppState } from '../../context';
-import Otp from '../otp/otp';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 type AppProps = PageProps & {
   //
@@ -25,12 +26,18 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <>
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       {isOTPOpen ? (
         <Otp />
       ) : authType === 'login' ? (
-        <Login title='ورود به سامانه' />
+        <Login title={t('login_to_portal')} />
       ) : (
-        <Register title={'ثبت نام در سامانه'} />
+        <Register title={t('register_in_the_system')} />
       )}
     </>
   );

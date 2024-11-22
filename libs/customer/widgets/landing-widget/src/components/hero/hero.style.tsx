@@ -5,18 +5,19 @@ import { respondTo } from '@oxygen/utils';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
 export const Hero = styled.header`
-  min-height: 120vh; /* FIXME */
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 5.5rem;
+  aspect-ratio: 1440 / 953;
 `;
 
 export const Nav = styled.nav`
   padding: 1rem 5.2rem;
   display: flex;
   align-items: center;
-  margin-bottom: 4.4rem;
+  /* margin-bottom: 4.4rem; */
+  margin-bottom: 6rem;
 `;
 
 export const AppName = styled.p`
@@ -52,6 +53,9 @@ export const Title = styled.h1`
     font-weight: 300;
     font-size: 3.6rem;
   }
+  ${respondTo.down('md')} {
+    margin-bottom: 3rem;
+  }
 `;
 
 export const Slogon = styled.p`
@@ -59,7 +63,11 @@ export const Slogon = styled.p`
   font-size: 1.8rem;
   margin: 0 0 2rem;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.55;
+  ${respondTo.down('md')} {
+    line-height: 2;
+    margin-bottom: 4rem;
+  }
 `;
 
 export const Info = styled.div`
@@ -72,7 +80,7 @@ export const Intro = styled(PaddingBox)`
 
   ${respondTo.down('lg')} {
     flex-direction: column;
-    gap: 3rem;
+    gap: 7rem;
   }
 `;
 
@@ -80,9 +88,7 @@ export const ImgContainer = styled.div`
   position: relative;
   flex: 7.24;
   max-width: 72.4rem;
-  /* height: 70.6rem; */
-  aspect-ratio: 1.0264;
-
+  aspect-ratio: 725 / 706;
   ${respondTo.down('lg')} {
     width: 100%;
     flex: unset;

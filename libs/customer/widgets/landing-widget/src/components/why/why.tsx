@@ -1,7 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './why.style';
 import WhyCard from '../why-card/why-card';
-import { SectionTitle } from '../section-title/section-title.style';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
 export default function Why() {
@@ -9,7 +8,7 @@ export default function Why() {
 
   return (
     <PaddingBox>
-      <SectionTitle>{t('why_oxygen')}</SectionTitle>
+      <S.Title>{t('why_oxygen')}</S.Title>
       <S.Cards>
         <WhyCard
           iconClassName='icon-monitor'

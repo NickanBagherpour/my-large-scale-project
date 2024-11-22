@@ -8,6 +8,7 @@ export default {
     register: 'register',
     return: 'return',
     confirm: 'confirm',
+    register_new_request: 'register new request',
   },
   appbar: {
     title: 'Melli Bank',
