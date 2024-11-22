@@ -27,6 +27,14 @@ const securityHeaders = [
     key: 'X-Content-Type-Options',
     value: 'nosniff',
   },
+  // {
+  //   key: 'Referrer-Policy',
+  //   value: 'strict-origin-when-cross-origin',
+  // },
+  // {
+  //   key: 'Content-Security-Policy',
+  //   value: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';",
+  // },
 ];
 
 /**
@@ -43,7 +51,7 @@ const nextConfig = {
     unoptimized: true,
   },
   staticPageGenerationTimeout: 180,
-  basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
+  //basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
   rewrites: async () => {
     return rewritesConfig;
   },
