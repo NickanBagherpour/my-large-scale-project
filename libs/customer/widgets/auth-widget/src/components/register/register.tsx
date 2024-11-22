@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Button, Input } from '@oxygen/ui-kit';
+import { Button, Icons, Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
@@ -15,6 +15,7 @@ import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 
 import * as S from './register.style';
 import Image from 'next/image';
+import CaptchaInput from '../captcha-input/captcha-input';
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -24,12 +25,31 @@ export const Register = ({ title }: FormContainerProps) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  //to do : call captcha
-  const { data, isFetching } = useGetCaptchaQuery();
 
+  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
   const [registerForm] = Form.useForm();
+  const [imageSrc, setImageSrc] = useState('');
 
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
+
+  useEffect(() => {
+    if (data?.captchaImage) {
+      // Create a local URL for the Blob data
+      const url = URL.createObjectURL(data?.captchaImage);
+      setImageSrc(url);
+
+      // Clean up the URL object when the component unmounts or when data changes
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, [data]);
+
+  console.log('----------------------------------->', imageSrc, data?.captchaToken , isLoading);
+
+  const refreshCaptcha = () => {
+    refetch(); // Fetch a new captcha
+  };
 
   const handleSubmit = () => registerForm.submit();
 
@@ -47,7 +67,7 @@ export const Register = ({ title }: FormContainerProps) => {
             <Input placeholder={t('national_code')} allow={'number'} maxLength={11} />
           </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={11} size='large' />
+            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={11} size="large" />
           </Form.Item>
         </S.FormInputs>
 
@@ -55,29 +75,23 @@ export const Register = ({ title }: FormContainerProps) => {
 
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
-            <Input
-              suffix={
-                <span style={{ display: 'flex' }}>
-                  <img alt='capcha' />
-                  <i
-                    className='icon-search-normal'
-                    onClick={() => console.log('allireza')}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </span>
-              }
+            <CaptchaInput
+              imageSrc={imageSrc}
+              onRefresh={refreshCaptcha}
+              name="captcha_code"
               placeholder={t('captcha_code')}
+              loading={isLoading}
             />
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color='primary'>
+      <S.Button onClick={handleSubmit} color="primary">
         {t('confirm_and_continue')}
       </S.Button>
       <S.Divider />
       <S.Span>
         {t('do_you_registered_already')}
-        <Link href='/auth?type=login'>{t('login_to_portal')}</Link>
+        <Link href="/auth?type=login">{t('login_to_portal')}</Link>
       </S.Span>
     </S.FormContainer>
   );

@@ -29,6 +29,11 @@ export const FormInputs = styled.div`
 export const FormInput = styled.div`
   display: flex;
   flex-direction: column;
+
+  & .ant-input-suffix{
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 
 export const Input = styled(KitInput)`
@@ -40,9 +45,29 @@ export const Button = styled(KitButton)`
   &&& {
     font-size: 1.6rem;
     width: 100%;
-    margin-top: 1.6;
+    margin-top: 1.6rem;
   }
 `;
+
+export const IconWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  color: inherit; /* Inherit color from parent */
+  //cursor: pointer;
+
+  svg {
+    width: 2.4rem; /* Adjust size as needed */
+    height: 2.4rem; /* Adjust size as needed */
+    fill: none; /* Ensure no fill if only using stroke */
+    stroke: currentColor; /* Ensure stroke uses currentColor */
+  }
+
+  //&:hover {
+  //  color: #40a9ff; /* Optional: Change color on hover */
+  //}
+`;
+
+
 
 export const Divider = styled(KitDivider)`
   border-top-width: 0.2rem;

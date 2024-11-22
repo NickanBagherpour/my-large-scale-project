@@ -7,7 +7,14 @@ const Api = {
     return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getCaptcha: async () => {
-    return client.get<ReportResponseType>(`http://192.168.54.181:8080/api/v1/captcha`);
+    const response = await client.get(`${portalUrl}/v1/captcha`, {
+      responseType: 'blob', // Important for handling binary data
+    });
+
+    return {
+        data: response.data,
+        headers: response.headers,
+    };
   },
 };
 export default Api;
