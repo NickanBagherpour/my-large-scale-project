@@ -80,7 +80,7 @@ const Drawer = (props: DrawerProps) => {
 
   const fetchMenu = async () => {
     try {
-      const response = await executeMenu(async () => await Api.getMenus());
+      const response = await executeMenu(async () => await Api.getCustomerMenus());
 
       setMenu(response);
       return response;

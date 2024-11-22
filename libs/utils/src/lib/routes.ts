@@ -30,6 +30,7 @@ export const ROUTES = {
     LANDING: '/',
     AUTH: '/auth',
     DASHBOARD: '/dashboard',
+    REQUESTS_MANAGEMENT: '/requests-management',
   },
 };
 
