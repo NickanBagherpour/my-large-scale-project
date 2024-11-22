@@ -122,6 +122,7 @@ export default {
     complete_user_info: 'تکمیل اطلاعات کاربر',
     revert_transaction: 'برگشت تراکنش',
     print_receipt: 'چاپ رسید',
+    register_new_request: 'ثبت درخواست جدید',
   },
   field: {
     customer: 'مشتری',
