@@ -21,6 +21,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@oxygen/customer/auth": ["libs/customer/auth/src/index.ts"],
             "@oxygen/backoffice/layouts": [
                 "libs/backoffice/layouts/src/index.ts"
             ],
