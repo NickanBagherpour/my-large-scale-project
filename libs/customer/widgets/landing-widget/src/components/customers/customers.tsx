@@ -8,31 +8,56 @@ import azad from 'apps/customer-portal/public/assets/images/azad.svg';
 import { SectionTitle } from '../section-title/section-title.style';
 import { useTr } from '@oxygen/translation';
 import * as S from './customers.style';
+import { PaddingBox } from '../padding-box/padding-box.style';
 
 const items = [ayandeh, up, top, bale, azad];
+const DESKTOP_SLIDES_TO_SHOW = 11;
+const loopedItems = Array.from({
+  length: DESKTOP_SLIDES_TO_SHOW + 2 /* to prevent having two slides with the same image */,
+}).reduce<string[]>((acc, _, idx) => [...acc, items[idx % items.length]], []);
 
 export default function Customer() {
   const [t] = useTr();
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
-
   return (
     <S.Container>
-      <SectionTitle>{t('our_customers')}</SectionTitle>
+      <PaddingBox>
+        <SectionTitle>{t('our_customers')}</SectionTitle>
+      </PaddingBox>
       <Carousel
-        rtl
+        // rtl // Enabling "rtl" (right-to-left) changes the slide order and causes one slide to be repeated.
         swipe
-        // autoplay
-        // infinite
-        centerMode
+        autoplay
+        infinite
+        draggable
+        dots={false}
         swipeToSlide
-        initialSlide={9}
         slidesToShow={11}
-        afterChange={onChange}
+        responsive={[
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 9,
+            },
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 6,
+            },
+          },
+          {
+            breakpoint: 400,
+            settings: {
+              slidesToShow: 4,
+            },
+          },
+        ]}
       >
-        {items.map((item, idx) => (
-          <Image src={item} key={idx} alt='' width={90} height={80} />
+        {/* generating an array with `DESKTOP_SLIDES_TO_SHOW` items, because INIFITE SHOULD ONLY BE TRUE IF YOU HAVE ENOUGH ITEMS TO COVER ONE "SLIDE" */}
+        {loopedItems.map((item, idx) => (
+          <S.ImgContainer>
+            <Image key={idx} src={item} alt='' fill sizes='90px' />
+          </S.ImgContainer>
         ))}
       </Carousel>
     </S.Container>
