@@ -12,6 +12,7 @@ export const LoginBtn = styled(Button)`
   align-items: center;
   gap: 1rem;
   text-decoration: none;
+  font-weight: 600;
   && {
     color: ${(p) => p.theme.text.primary};
     background: ${(p) => p.theme.background.main};
@@ -23,8 +24,9 @@ export const LoginBtn = styled(Button)`
 
 export const ManualBtn = styled(Button)`
   && {
-    border: ${(p) => `1px solid ${p.theme.onPrimary}`};
+    border: ${(p) => `1px solid ${p.theme.border.main}`};
     height: 5.8rem;
+    font-weight: 600;
     padding-inline-start: 1.6rem;
     padding-inline-end: 2.4rem;
     background: transparent;

@@ -1,16 +1,15 @@
 import { Carousel } from 'antd';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 import ayandeh from 'apps/customer-portal/public/assets/images/ayandeh.png';
 import up from 'apps/customer-portal/public/assets/images/up.png';
 import top from 'apps/customer-portal/public/assets/images/top.png';
 import bale from 'apps/customer-portal/public/assets/images/bale.png';
 import azad from 'apps/customer-portal/public/assets/images/azad.png';
-import { SectionTitle } from '../section-title/section-title.style';
 import { useTr } from '@oxygen/translation';
 import * as S from './customers.style';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
-type CustomerType = { name: string; logo: string };
+type CustomerType = { name: string; logo: StaticImageData };
 
 const customers: CustomerType[] = [
   { name: 'Ayande Bank', logo: ayandeh },
@@ -36,12 +35,12 @@ export default function Customer() {
   return (
     <S.Container>
       <PaddingBox>
-        <SectionTitle>{t('our_customers')}</SectionTitle>
+        <S.Title>{t('our_customers')}</S.Title>
       </PaddingBox>
       <Carousel
         // rtl // Enabling "rtl" (right-to-left) changes the slide order and causes one slide to be repeated.
         swipe
-        autoplay
+        // autoplay
         infinite
         draggable
         dots={false}

@@ -53,6 +53,9 @@ export const Title = styled.h1`
     font-weight: 300;
     font-size: 3.6rem;
   }
+  ${respondTo.down('md')} {
+    margin-bottom: 3rem;
+  }
 `;
 
 export const Slogon = styled.p`
@@ -60,7 +63,11 @@ export const Slogon = styled.p`
   font-size: 1.8rem;
   margin: 0 0 2rem;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.55;
+  ${respondTo.down('md')} {
+    line-height: 2;
+    margin-bottom: 4rem;
+  }
 `;
 
 export const Info = styled.div`
@@ -73,7 +80,7 @@ export const Intro = styled(PaddingBox)`
 
   ${respondTo.down('lg')} {
     flex-direction: column;
-    gap: 3rem;
+    gap: 7rem;
   }
 `;
 
