@@ -1,8 +1,11 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { FiltersType, OTPType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 
+export function updateOTPAction(dispatch: WidgetDispatchType, OTP: Nullable<OTPType>) {
+  dispatch({ type: 'UPDATE_OTP', payload: OTP });
+}
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }

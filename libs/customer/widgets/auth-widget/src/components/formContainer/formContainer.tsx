@@ -8,18 +8,17 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAppDispatch, useAppState } from '../../context';
 import { Input } from '@oxygen/ui-kit';
-import { Tooltip } from 'antd';
 
 import * as S from './formContainer.style';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 
 type FormContainerProps = PageProps & {
-  children: ReactNode;
+  children?: ReactNode;
   title: string;
 };
 
-export const FormContainer = ({ children, title }: FormContainerProps) => {
+export const Register = ({ children, title }: FormContainerProps) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -77,4 +76,4 @@ export const FormContainer = ({ children, title }: FormContainerProps) => {
   );
 };
 
-export default FormContainer;
+export default Register;
