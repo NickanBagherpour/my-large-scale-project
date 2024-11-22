@@ -2,7 +2,7 @@ import { useTr } from '@oxygen/translation';
 import * as S from './hero.style';
 import Link from 'next/link';
 import { Icons } from '@oxygen/ui-kit';
-import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.svg';
+import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.png';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';
 
