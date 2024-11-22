@@ -27,7 +27,7 @@ export const Poster = styled.div`
 
 export const DevImgContainer = styled.div`
   position: relative;
-  aspect-ratio: 1.331;
+  aspect-ratio: 58.3 / 43.8;
   width: 58.3rem;
   margin-inline: auto;
 

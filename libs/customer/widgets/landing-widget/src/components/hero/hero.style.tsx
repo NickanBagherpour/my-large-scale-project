@@ -5,7 +5,6 @@ import { respondTo } from '@oxygen/utils';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
 export const Hero = styled.header`
-  // min-height: 120vh; /* FIXME */
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
@@ -82,9 +81,7 @@ export const ImgContainer = styled.div`
   position: relative;
   flex: 7.24;
   max-width: 72.4rem;
-  /* height: 70.6rem; */
-  aspect-ratio: 1.0264;
-
+  aspect-ratio: 725 / 706;
   ${respondTo.down('lg')} {
     width: 100%;
     flex: unset;
