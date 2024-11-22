@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -10,6 +10,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
+import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
@@ -27,12 +28,30 @@ export const Login = ({ title }: FormContainerProps) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  //to do : api call for captcha
-  const { data, isFetching } = useGetCaptchaQuery();
+
+  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
 
   const [loginForm] = Form.useForm();
+  const [imageSrc, setImageSrc] = useState('');
 
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
+
+  useEffect(() => {
+    if (data?.captchaImage) {
+      // Create a local URL for the Blob data
+      const url = URL.createObjectURL(data?.captchaImage);
+      setImageSrc(url);
+
+      // Clean up the URL object when the component unmounts or when data changes
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+  }, [data]);
+
+  const refreshCaptcha = () => {
+    refetch(); // Fetch a new captcha
+  };
 
   const handleSubmit = () => loginForm.submit();
 
@@ -61,19 +80,12 @@ export const Login = ({ title }: FormContainerProps) => {
 
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
-            <Input
-              maxLength={INPUT_MAX_LENGTH}
-              suffix={
-                <span style={{ display: 'flex' }}>
-                  <img alt='capcha' />
-                  <i
-                    className='icon-search-normal'
-                    onClick={() => console.log('allireza')}
-                    style={{ cursor: 'pointer' }}
-                  />
-                </span>
-              }
+            <CaptchaInput
+              imageSrc={imageSrc}
+              onRefresh={refreshCaptcha}
+              name='captcha_code'
               placeholder={t('captcha_code')}
+              loading={isLoading}
             />
           </Form.Item>
         </S.FormInput>
