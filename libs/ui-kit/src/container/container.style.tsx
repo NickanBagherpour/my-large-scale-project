@@ -57,7 +57,7 @@ export const Header = styled.div`
 
   & .header__subtitle {
     font-weight: 400;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0 0 0 0.4rem;
     color: ${(props) => props.theme.text.quaternary};
   }
