@@ -6,8 +6,9 @@ import { PageProps } from '@oxygen/types';
 
 import Login from '../login/login';
 import Register from '../register/register';
-import { useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import Otp from '../otp/otp';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //
@@ -25,6 +26,12 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <>
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       {isOTPOpen ? (
         <Otp />
       ) : authType === 'login' ? (
