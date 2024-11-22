@@ -15,6 +15,7 @@ import { RegisterFormSchema } from '../../types/sample.schema';
 import * as S from './login.style';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import Image from 'next/image';
+import { INPUT_MAX_LENGTH } from '../../utils/consts';
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -44,7 +45,7 @@ export const Login = ({ title }: FormContainerProps) => {
       <Form layout={'vertical'} style={{ width: '100%' }} form={loginForm} onFinish={handleFinish}>
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={11} size='large' />
+            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size='large' />
           </Form.Item>
         </S.FormInputs>
 
@@ -53,6 +54,7 @@ export const Login = ({ title }: FormContainerProps) => {
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
             <Input
+              maxLength={INPUT_MAX_LENGTH}
               suffix={
                 <span style={{ display: 'flex' }}>
                   <img alt='capcha' />

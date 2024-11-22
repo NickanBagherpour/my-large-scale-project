@@ -61,3 +61,9 @@ export const Span = styled.span`
     color: ${(p) => p.theme.primary.main};
   }
 `;
+
+export const OTP = styled(KitInput.OTP)`
+  & .ant-otp-rtl {
+    direction: ltr;
+  }
+`;

@@ -27,12 +27,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
 
   const phoneNumber = state.OTP.mobileNumber;
 
-  //to do : call captcha
-  const { data, isFetching } = useGetCaptchaQuery();
-
   const [registerForm] = Form.useForm();
-
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
   const handleSubmit = () => registerForm.submit();
 
@@ -48,7 +43,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
       <Form layout={'vertical'} style={{ width: '100%' }} form={registerForm} onFinish={handleFinish}>
         <S.FormInputs>
-          <Input.OTP />
+          <S.OTP />
         </S.FormInputs>
       </Form>
 

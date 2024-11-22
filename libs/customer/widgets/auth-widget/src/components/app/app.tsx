@@ -28,9 +28,9 @@ const App: React.FC<AppProps> = (props) => {
       {isOTPOpen ? (
         <Otp />
       ) : authType === 'login' ? (
-        <Login title='ورود به سامانه' />
+        <Login title={t('login_to_portal')} />
       ) : (
-        <Register title={'ثبت نام در سامانه'} />
+        <Register title={t('register_in_the_system')} />
       )}
     </>
   );
