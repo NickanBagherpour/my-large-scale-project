@@ -36,14 +36,20 @@ export const Register = ({ title }: FormContainerProps) => {
   const handleSubmit = () => registerForm.submit();
 
   const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true });
+    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captcha: undefined });
   };
 
   return (
     <S.FormContainer>
       <S.FormTitle>{title}</S.FormTitle>
 
-      <Form layout={'vertical'} style={{ width: '100%' }} form={registerForm} onFinish={handleFinish}>
+      <Form
+        layout={'vertical'}
+        style={{ width: '100%' }}
+        form={registerForm}
+        initialValues={state.OTP}
+        onFinish={handleFinish}
+      >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>
             <Input placeholder={t('national_code')} allow={'number'} maxLength={INPUT_MAX_LENGTH} />

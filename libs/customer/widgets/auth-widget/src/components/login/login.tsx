@@ -35,14 +35,20 @@ export const Login = ({ title }: FormContainerProps) => {
   const handleSubmit = () => loginForm.submit();
 
   const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true });
+    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captcha: undefined });
   };
 
   return (
     <S.FormContainer>
       <S.FormTitle>{title}</S.FormTitle>
 
-      <Form layout={'vertical'} style={{ width: '100%' }} form={loginForm} onFinish={handleFinish}>
+      <Form
+        layout={'vertical'}
+        style={{ width: '100%' }}
+        form={loginForm}
+        initialValues={state.OTP}
+        onFinish={handleFinish}
+      >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
             <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size='large' />
