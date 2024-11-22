@@ -1,10 +1,10 @@
 import { Carousel } from 'antd';
 import Image from 'next/image';
-import ayandeh from 'apps/customer-portal/public/assets/images/ayandeh.svg';
-import up from 'apps/customer-portal/public/assets/images/up.svg';
-import top from 'apps/customer-portal/public/assets/images/top.svg';
-import bale from 'apps/customer-portal/public/assets/images/bale.svg';
-import azad from 'apps/customer-portal/public/assets/images/azad.svg';
+import ayandeh from 'apps/customer-portal/public/assets/images/ayandeh.png';
+import up from 'apps/customer-portal/public/assets/images/up.png';
+import top from 'apps/customer-portal/public/assets/images/top.png';
+import bale from 'apps/customer-portal/public/assets/images/bale.png';
+import azad from 'apps/customer-portal/public/assets/images/azad.png';
 import { SectionTitle } from '../section-title/section-title.style';
 import { useTr } from '@oxygen/translation';
 import * as S from './customers.style';
@@ -55,8 +55,8 @@ export default function Customer() {
       >
         {/* generating an array with `DESKTOP_SLIDES_TO_SHOW` items, because INIFITE SHOULD ONLY BE TRUE IF YOU HAVE ENOUGH ITEMS TO COVER ONE "SLIDE" */}
         {loopedItems.map((item, idx) => (
-          <S.ImgContainer>
-            <Image key={idx} src={item} alt='' fill sizes='90px' />
+          <S.ImgContainer key={idx}>
+            <Image src={item} alt='' fill sizes='90px' />
           </S.ImgContainer>
         ))}
       </Carousel>

@@ -7,6 +7,7 @@ export const Container = styled(PaddingBox)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 16rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;
@@ -30,8 +31,8 @@ export const Desc = styled.p`
 
 export const ImgContainer = styled.div`
   position: relative;
-  width: 74rem;
-  aspect-ratio: 1.0235;
+  width: 46.1rem;
+  aspect-ratio: 461 / 343;
 
   ${respondTo.down('lg')} {
     width: 70%;

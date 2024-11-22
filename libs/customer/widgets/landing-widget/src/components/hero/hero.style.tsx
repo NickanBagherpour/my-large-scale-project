@@ -5,18 +5,20 @@ import { respondTo } from '@oxygen/utils';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
 export const Hero = styled.header`
-  min-height: 120vh; /* FIXME */
+  // min-height: 120vh; /* FIXME */
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 5.5rem;
+  aspect-ratio: 1440 / 953;
 `;
 
 export const Nav = styled.nav`
   padding: 1rem 5.2rem;
   display: flex;
   align-items: center;
-  margin-bottom: 4.4rem;
+  /* margin-bottom: 4.4rem; */
+  margin-bottom: 6rem;
 `;
 
 export const AppName = styled.p`

@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './join-us.style';
-import developerImg from 'apps/customer-portal/public/assets/images/developer.svg';
+import developerImg from 'apps/customer-portal/public/assets/images/developer.png';
 import playImg from 'apps/customer-portal/public/assets/images/play-circle.svg';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';

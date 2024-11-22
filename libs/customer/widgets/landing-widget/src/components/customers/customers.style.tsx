@@ -1,4 +1,3 @@
-import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Container = styled.section`
@@ -7,9 +6,11 @@ export const Container = styled.section`
 
 export const ImgContainer = styled.div`
   position: relative;
-  aspect-ratio: 9 / 4;
+  height: 8rem;
+  width: auto;
+  max-width: 12rem;
 
-  ${respondTo.down('lg')} {
-    aspect-ratio: 9 / 6;
+  & img {
+    object-fit: contain;
   }
 `;

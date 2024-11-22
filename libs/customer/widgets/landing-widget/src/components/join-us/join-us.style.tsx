@@ -12,6 +12,7 @@ export const Container = styled.section`
   background-size: 100%;
   padding: 1px 0 7.8rem;
   margin-top: ${15.2 + top}rem;
+  margin-bottom: 8rem;
 `;
 
 export const Poster = styled.div`
