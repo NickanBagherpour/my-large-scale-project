@@ -10,11 +10,26 @@ import { useTr } from '@oxygen/translation';
 import * as S from './customers.style';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
-const items = [ayandeh, up, top, bale, azad];
+type CustomerType = { name: string; logo: string };
+
+const customers: CustomerType[] = [
+  { name: 'Ayande Bank', logo: ayandeh },
+  {
+    name: 'Asan Pardakht App',
+    logo: up,
+  },
+  {
+    name: 'Top App',
+    logo: top,
+  },
+  { name: 'Bale App', logo: bale },
+  { name: 'Azad University', logo: azad },
+];
+
 const DESKTOP_SLIDES_TO_SHOW = 11;
 const loopedItems = Array.from({
   length: DESKTOP_SLIDES_TO_SHOW + 2 /* to prevent having two slides with the same image */,
-}).reduce<string[]>((acc, _, idx) => [...acc, items[idx % items.length]], []);
+}).reduce<CustomerType[]>((acc, _, idx) => [...acc, customers[idx % customers.length]], []);
 
 export default function Customer() {
   const [t] = useTr();
@@ -54,9 +69,9 @@ export default function Customer() {
         ]}
       >
         {/* generating an array with `DESKTOP_SLIDES_TO_SHOW` items, because INIFITE SHOULD ONLY BE TRUE IF YOU HAVE ENOUGH ITEMS TO COVER ONE "SLIDE" */}
-        {loopedItems.map((item, idx) => (
+        {loopedItems.map(({ name, logo }, idx) => (
           <S.ImgContainer key={idx}>
-            <Image src={item} alt='' fill sizes='90px' />
+            <Image src={logo} alt={name} fill sizes='90px' />
           </S.ImgContainer>
         ))}
       </Carousel>
