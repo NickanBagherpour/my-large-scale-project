@@ -5,6 +5,7 @@ import { Icons } from '@oxygen/ui-kit';
 import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.png';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';
+import { ROUTES } from '@oxygen/utils';
 
 const HeroSection = () => {
   const [t] = useTr();
@@ -15,7 +16,7 @@ const HeroSection = () => {
           <Icons.BankLogo width={21} height={29} />
         </S.BankLink>
         <S.AppName>{t('widget_name')}</S.AppName>
-        <S.LoginLink href='/'>{t('login_to_platform')}</S.LoginLink>
+        <S.LoginLink href={ROUTES.CUSTOMER.AUTH}>{t('login_to_platform')}</S.LoginLink>
         <Link href='/'>
           <Icons.SadadLogoLight width={69} height={21} />
         </Link>
