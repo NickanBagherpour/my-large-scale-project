@@ -83,6 +83,12 @@ export const DropdownContainer = styled.div`
   & label span:last-of-type {
     font-size: 1.6rem;
     line-height: 2.5rem;
+    padding: 0;
+
+    span {
+      padding: 0 0.8rem;
+      display: inline-block;
+    }
   }
 
   & .ant-checkbox-inner {
