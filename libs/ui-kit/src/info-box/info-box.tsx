@@ -6,8 +6,9 @@ import { InfoItemType } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import { Box } from '../box/box';
-import * as S from './info-box.style';
 import { Loading } from '../loading/loading';
+
+import * as S from './info-box.style';
 
 type InfoBoxProps = {
   data: InfoItemType[] | null;
@@ -34,7 +35,7 @@ export const InfoBox = (props: InfoBoxProps) => {
 
   if (loading) {
     return (
-      <S.InfoBoxWrapper min_col={1}>
+      <S.InfoBoxWrapper min_col={1} margin={margin}>
         <div className={'fullwidth grid-item'}>
           <Loading />
         </div>
