@@ -2,7 +2,8 @@ import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Container = styled.footer`
-  background: #697077;
+  // background: #697077; color_changed
+  background: ${(p) => p.theme.border._600};
   padding: 1.2rem 15.7rem;
   display: flex;
   align-items: center;
