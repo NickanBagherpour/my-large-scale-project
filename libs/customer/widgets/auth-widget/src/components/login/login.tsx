@@ -19,6 +19,7 @@ import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { INPUT_MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './login.style';
+import { set } from 'zod';
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -33,6 +34,7 @@ export const Login = ({ title }: FormContainerProps) => {
 
   const [loginForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
@@ -41,7 +43,7 @@ export const Login = ({ title }: FormContainerProps) => {
       // Create a local URL for the Blob data
       const url = URL.createObjectURL(data?.captchaImage);
       setImageSrc(url);
-
+      setCaptchaToken(data.captchaToken);
       // Clean up the URL object when the component unmounts or when data changes
       return () => {
         URL.revokeObjectURL(url);
@@ -50,13 +52,18 @@ export const Login = ({ title }: FormContainerProps) => {
   }, [data]);
 
   const refreshCaptcha = () => {
-    refetch(); // Fetch a new captcha
+    refetch();
   };
 
   const handleSubmit = () => loginForm.submit();
 
   const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined });
+    updateOTPAction(dispatch, {
+      ...values,
+      type: 'login',
+      isOpen: true,
+      captchaCode: undefined,
+    });
   };
 
   return (

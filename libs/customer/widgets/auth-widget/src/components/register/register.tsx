@@ -31,6 +31,7 @@ export const Register = ({ title }: FormContainerProps) => {
 
   const [registerForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
@@ -39,6 +40,7 @@ export const Register = ({ title }: FormContainerProps) => {
       // Create a local URL for the Blob data
       const url = URL.createObjectURL(data?.captchaImage);
       setImageSrc(url);
+      setCaptchaToken(data.captchaToken);
 
       // Clean up the URL object when the component unmounts or when data changes
       return () => {
