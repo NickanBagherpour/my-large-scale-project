@@ -8,11 +8,11 @@ export const Hero = styled.header`
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center bottom;
+  min-height: 100vh;
+  width: 100%;
   margin-bottom: 3.3rem;
-  aspect-ratio: 1440 / 953;
-  & svg {
-    display: block;
-  }
+  position: relative;
 `;
 
 export const Nav = styled.nav`
@@ -21,6 +21,9 @@ export const Nav = styled.nav`
   align-items: center;
   /* margin-bottom: 4.4rem; */
   margin-bottom: 6rem;
+  & svg {
+    display: block;
+  }
 `;
 
 export const AppName = styled.p`
