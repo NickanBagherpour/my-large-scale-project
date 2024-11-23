@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import {  Input } from '@oxygen/ui-kit';
+import { ROUTES } from '@oxygen/utils';
+import { Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
@@ -16,7 +17,6 @@ import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import CaptchaInput from '../captcha-input/captcha-input';
 
 import * as S from './register.style';
-import { ROUTES } from '@oxygen/utils';
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -28,8 +28,10 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+
   const [registerForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
@@ -38,6 +40,7 @@ export const Register = ({ title }: FormContainerProps) => {
       // Create a local URL for the Blob data
       const url = URL.createObjectURL(data?.captchaImage);
       setImageSrc(url);
+      setCaptchaToken(data.captchaToken);
 
       // Clean up the URL object when the component unmounts or when data changes
       return () => {
@@ -74,7 +77,7 @@ export const Register = ({ title }: FormContainerProps) => {
             <Input placeholder={t('national_code')} allow={'number'} maxLength={INPUT_MAX_LENGTH} />
           </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size="large" />
+            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size='large' />
           </Form.Item>
         </S.FormInputs>
 
@@ -85,14 +88,14 @@ export const Register = ({ title }: FormContainerProps) => {
             <CaptchaInput
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
-              name="captcha_code"
+              name='captcha_code'
               placeholder={t('captcha_code')}
               loading={isLoading}
             />
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color="primary">
+      <S.Button onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
       <S.Divider />
