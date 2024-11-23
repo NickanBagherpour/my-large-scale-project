@@ -8,12 +8,15 @@ export const Hero = styled.header`
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom: 5.5rem;
+  margin-bottom: 3.3rem;
   aspect-ratio: 1440 / 953;
+  & svg {
+    display: block;
+  }
 `;
 
 export const Nav = styled.nav`
-  padding: 1rem 5.2rem;
+  padding: 2rem 5.2rem;
   display: flex;
   align-items: center;
   /* margin-bottom: 4.4rem; */
@@ -22,6 +25,8 @@ export const Nav = styled.nav`
 
 export const AppName = styled.p`
   margin-block: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: ${(p) => p.theme.onPrimary};
   ${respondTo.down('md')} {
     display: none;
@@ -42,11 +47,13 @@ export const LoginLink = styled(Link)`
   border-radius: 0.8rem;
   margin-inline-end: 3.2rem;
   margin-inline-start: auto;
+  display: block;
+  height: 4rem;
 `;
 
 export const Title = styled.h1`
   font-size: 4.8rem;
-  font-weight: 500;
+  font-weight: 600;
   color: ${(p) => p.theme.onPrimary};
   margin: 0 0 1.6rem;
   & span {
@@ -61,12 +68,11 @@ export const Title = styled.h1`
 export const Slogon = styled.p`
   color: ${(p) => p.theme.onPrimary};
   font-size: 1.8rem;
-  margin: 0 0 2rem;
+  margin: 0 0 4rem;
   font-weight: 300;
   line-height: 1.55;
   ${respondTo.down('md')} {
     line-height: 2;
-    margin-bottom: 4rem;
   }
 `;
 
