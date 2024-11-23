@@ -6,8 +6,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
-import { Box, Button, Loading } from '@oxygen/ui-kit';
-import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
+import { Box, Button, Divider, Loading } from '@oxygen/ui-kit';
+import { cssVar, ROUTES, CUSTOMER_ROUTE_GROUPS } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
@@ -80,7 +80,7 @@ const Drawer = (props: DrawerProps) => {
 
   const fetchMenu = async () => {
     try {
-      const response = await executeMenu(async () => await Api.getMenus());
+      const response = await executeMenu(async () => await Api.getCustomerMenus());
 
       setMenu(response);
       return response;
@@ -135,7 +135,7 @@ const Drawer = (props: DrawerProps) => {
   }
 
   function getDefaultSelectedKeys() {
-    const activeMenuItem = findActiveMenuItem(menu, pathname, BACKOFFICE_ROUTE_GROUPS);
+    const activeMenuItem = findActiveMenuItem(menu, pathname, CUSTOMER_ROUTE_GROUPS);
 
     if (!activeMenuItem) {
       return [];
@@ -167,7 +167,7 @@ const Drawer = (props: DrawerProps) => {
             ]}
           ></Result>
         ) : (
-          <>
+          <div className={'menu-button__container'}>
             {/*<div className='menu-search-input-container'>*/}
             {/*  <Input*/}
             {/*    placeholder={`${t('field.search')}`}*/}
@@ -177,6 +177,15 @@ const Drawer = (props: DrawerProps) => {
             {/*  />*/}
             {/*</div>*/}
 
+            <Button
+              className={'register-button'}
+              type={'primary'}
+              icon={<i className={'icon-white_plus'} />}
+              href={ROUTES.CUSTOMER.REQUEST_CREATION}
+            >
+              {t('button.register_new_request')}
+            </Button>
+            <Divider />
             {stateMenu?.loading ? (
               <div className='menu-spin-container'>
                 <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
@@ -196,7 +205,7 @@ const Drawer = (props: DrawerProps) => {
                 {menu && !filteredMenuItems && <Empty style={{ marginTop: '6rem' }} description={false}></Empty>}
               </>
             )}
-          </>
+          </div>
         )}
       </S.MenuWrapper>
     );

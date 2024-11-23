@@ -12,6 +12,15 @@ const Api = {
     }
     return response.data;
   },
+  getCustomerMenus: async () => {
+    let response;
+    if (ENV_CONSTANTS.IS_DEV) {
+      response = await mockify.getCustomerMenus();
+    } else {
+      response = await client.get(`${portalUrl}/profile/menu`);
+    }
+    return response.data;
+  },
   getUserPhoto: async () => {
     const response = await client.get(`${portalUrl}/profile/photo`);
     return response.data;

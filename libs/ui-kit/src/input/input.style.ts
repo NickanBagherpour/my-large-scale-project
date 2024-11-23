@@ -46,13 +46,15 @@ export const InputWrapper = styled<any>(AntInput)`
   }
 `;
 
-export const PasswordWrapper = styled<any>(AntInput.Password)``;
+export const PasswordWrapper = styled(AntInput.Password)``;
 
-export const TextAreaWrapper = styled<any>(AntInput.TextArea)``;
+export const OTPWrapper = styled(AntInput.OTP)``;
 
-export const SearchWrapper = styled<any>(AntInput.Search)``;
+export const TextAreaWrapper = styled(AntInput.TextArea)``;
 
-export const GroupWrapper = styled<any>(AntInput.Group)``;
+export const SearchWrapper = styled(AntInput.Search)``;
+
+export const GroupWrapper = styled(AntInput.Group)``;
 
 export const InputMoneyWrapper = styled.div`
   display: flex;

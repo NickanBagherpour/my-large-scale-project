@@ -26,7 +26,15 @@ export const ROUTES = {
     UPSTREAM_LIST: '/upstream-list',
     SERVICE_CREATION: '/service-creation',
   },
+  CUSTOMER: {
+    LANDING: '/',
+    AUTH: '/auth',
+    DASHBOARD: '/dashboard',
+    REQUESTS_MANAGEMENT: '/requests-management',
+    REQUEST_CREATION: '/request-creation',
+  },
 };
+export const CUSTOMER_ROUTE_GROUPS = [[ROUTES.CUSTOMER.REQUESTS_MANAGEMENT, ROUTES.CUSTOMER.REQUEST_CREATION]];
 
 export const BACKOFFICE_ROUTE_GROUPS = [
   // ['/dashboard', '/dashboard-report'],

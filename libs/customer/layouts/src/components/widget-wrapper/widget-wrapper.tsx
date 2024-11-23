@@ -16,5 +16,3 @@ export const WidgetWrapper = (props: WidgetWrapperProps) => {
 
   return <S.WidgetWrapper>{props.children}</S.WidgetWrapper>;
 };
-
-// export default WidgetWrapper;

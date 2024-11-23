@@ -42,6 +42,11 @@ interface TransientBoxProps {
 }
 
 const StyledBox = styled.div<TransientBoxProps>`
+  ${(props) => props.display && `display: ${props.display ?? 'initial'}`};
+  ${(props) => props.flexDirection && `flex-direction: ${props.flexDirection ?? 'initial'}`};
+  ${(props) => props.justifyContent && `justify-content: ${props.justifyContent ?? 'initial'}`};
+  ${(props) => props.alignItems && `align-Items: ${props.alignItems ?? 'initial'}`};
+  ${(props) => props.alignContent && `align-content: ${props.alignContent ?? 'initial'}`};
   ${(props) => props.flexGrow && `flex-grow: ${props.flexGrow ?? 0}`};
   ${(props) => props.flexWrap && `flex-wrap: ${props.flexWrap ?? 'nowrap'}`};
   ${(props) => props.flexShrink && `flex-shrink: ${props.flexShrink ?? 1}`};
@@ -54,7 +59,15 @@ const StyledBox = styled.div<TransientBoxProps>`
   ${(props) => props.maxWidth && `max-width: ${props.maxWidth ?? 'none'}`};
   ${(props) => props.minWidth && `min-width: ${props.minWidth ?? 'auto'}`};
   ${(props) => props.padding && `padding: ${props.padding ?? 0}`};
+  ${(props) => props.paddingTop && `padding-top: ${props.paddingTop ?? 0}`};
+  ${(props) => props.paddingRight && `padding-right: ${props.paddingRight ?? 0}`};
+  ${(props) => props.paddingBottom && `padding-bottom: ${props.paddingBottom ?? 0}`};
+  ${(props) => props.paddingLeft && `padding-left: ${props.paddingLeft ?? 0}`};
   ${(props) => props.margin && `margin: ${props.margin ?? 0}`};
+  ${(props) => props.marginTop && `margin-top: ${props.marginTop ?? 0}`};
+  ${(props) => props.marginRight && `margin-right: ${props.marginRight ?? 0}`};
+  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom ?? 0}`};
+  ${(props) => props.marginLeft && `margin-left: ${props.marginLeft ?? 0}`};
   ${(props) => props.border && `border: ${props.border ?? 'none'}`};
   ${(props) => props.borderRadius && `border-radius: ${props.borderRadius ?? '0'}`};
   ${(props) => props.boxShadow && `box-shadow: ${props.boxShadow ?? 'none'}`};
@@ -86,10 +99,10 @@ export interface BoxProps extends TransientBoxProps {
   className?: string;
 }
 
-export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className }) => {
+export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className, ...rest }) => {
   return (
     visible && (
-      <StyledBox className={className} $fill_children={String(fillChildren)}>
+      <StyledBox className={className} $fill_children={String(fillChildren)} {...rest}>
         {children}
       </StyledBox>
     )

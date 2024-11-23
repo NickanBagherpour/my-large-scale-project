@@ -27,6 +27,18 @@ export const MenuWrapper = styled.div`
   height: 100%;
   // border-radius: var(${cssVar.radius});
 
+  .menu-button__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.6rem;
+
+    .register-button {
+      padding: 2.8rem 2.6rem;
+    }
+  }
+
   .menu-search-input-container {
     margin-top: 2.4rem;
     margin-bottom: 2.4rem;
@@ -41,7 +53,8 @@ export const MenuWrapper = styled.div`
     background-color: transparent;
     border-inline-end: none !important;
     color: ${(p) => p.theme.text.secondary};
-    padding: 1.6rem;
+    //padding: 1.6rem;
+    padding: 0;
 
     & li.ant-menu-item:not(last-of-type) {
       margin-bottom: 1.2rem;

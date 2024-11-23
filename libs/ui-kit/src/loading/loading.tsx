@@ -12,11 +12,13 @@ export type LoadingProps = AntSpinProps & {
 
 export const Loading = (props: LoadingProps) => {
   const { width = '100%', height = 'min-content', containerProps = {}, ...rest } = props;
-  containerProps.alignItems = 'center';
-  containerProps.justifyContent = 'center';
-
+  const updatedContainerProps = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...containerProps,
+  };
   return (
-    <Box width={width} height={height} {...containerProps}>
+    <Box width={width} height={height} {...updatedContainerProps}>
       <Spin {...rest} />
     </Box>
   );
