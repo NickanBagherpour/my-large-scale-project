@@ -18,6 +18,9 @@ const meta = {
       control: 'text',
       description: 'The initial value of the input.',
     },
+    addonAfter: {
+      control: 'text',
+    },
     allowClear: {
       control: 'boolean',
       description: 'Allows clearing the input field.',
@@ -30,9 +33,18 @@ const meta = {
       description: 'Specifies the maximum length of the input.',
       defaultValue: 19,
     },
+    onChange: {
+      action: 'changed',
+      description: 'Handles input change events.',
+    },
     onValue: {
-      action: 'valueChanged',
-      description: 'Triggered when the value or formatted value changes.',
+      options: ['logHello', 'logGoodbye'],
+      mapping: { logHello: () => console.log('Hello'), logGoodbye: () => console.log('Goodbye') },
+      control: {
+        type: 'select',
+      },
+      defaultValue: 'logHello',
+      // description: 'Triggered when the value or formatted value changes.',
     },
   },
 } satisfies Meta<typeof InputMoney>;
@@ -40,7 +52,7 @@ const meta = {
 export default meta;
 
 // Define a Template for reusable stories
-const Template: StoryFn<InputMoneyProps> = (args) => <InputMoney {...args} />;
+const Template: StoryFn<InputMoneyProps> = (args) => <InputMoney onValue={args.onValue} {...args} />;
 
 // Base Story
 export const Default = Template.bind({});
@@ -56,25 +68,25 @@ export const AllVariants: StoryFn = () => {
       {/* Basic Configuration */}
       <div>
         <h3>Basic Configuration</h3>
-        <InputMoney value="12345" showLetter={true} subtitle="Amount in Toman" />
+        <InputMoney value='12345' showLetter={true} subtitle='Amount in Toman' />
       </div>
 
       {/* Max Length */}
       <div>
         <h3>Max Length</h3>
-        <InputMoney maxLength={10} value="123456789012" />
+        <InputMoney maxLength={10} value='123456789012' />
       </div>
 
       {/* With Subtitle */}
       <div>
         <h3>With Custom Subtitle</h3>
-        <InputMoney value="500000" subtitle="Custom subtitle here" />
+        <InputMoney value='500000' subtitle='Custom subtitle here' />
       </div>
 
       {/* Without Letter Display */}
       <div>
         <h3>Without Letter Display</h3>
-        <InputMoney value="100000" showLetter={false} />
+        <InputMoney value='100000' showLetter={false} />
       </div>
     </div>
   );
@@ -82,6 +94,7 @@ export const AllVariants: StoryFn = () => {
 AllVariants.storyName = 'All Variants';
 AllVariants.parameters = {
   docs: {
-    storyDescription: 'Displays various configurations of the InputMoney component, including max length, subtitles, and letter display options.',
+    storyDescription:
+      'Displays various configurations of the InputMoney component, including max length, subtitles, and letter display options.',
   },
 };

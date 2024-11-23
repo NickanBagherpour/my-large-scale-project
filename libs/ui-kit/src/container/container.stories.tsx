@@ -6,7 +6,7 @@ const meta = {
   component: Container,
   decorators: [
     (Story) => (
-      <div style={{ display:'Flex',height:'90vh' ,flexDirection:'column'}}>
+      <div style={{ display: 'Flex', height: '90vh', flexDirection: 'column' }}>
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />
       </div>
@@ -28,7 +28,7 @@ const meta = {
       description: 'Additional caption displayed in the header.',
     },
     footer: {
-      control: false,
+      control: 'text',
       description: 'Footer content displayed at the bottom of the Container.',
     },
     fillContainer: {
@@ -57,7 +57,7 @@ const meta = {
       description: 'Sets the right margin of the Container.',
     },
     children: {
-      control: 'object',
+      control: 'text',
       description: 'Content displayed inside the Container.',
     },
   },
@@ -85,7 +85,7 @@ export const AllVariants: StoryFn = () => {
       <div>
         <h3>Default State</h3>
         <Container title='Default Title' subtitle='Default Subtitle' caption='Default Caption'>
-          <p style={{display:'flex',flexGrow:'1'}}>This is the default container content.</p>
+          <p style={{ display: 'flex', flexGrow: '1' }}>This is the default container content.</p>
         </Container>
       </div>
 
@@ -98,7 +98,7 @@ export const AllVariants: StoryFn = () => {
           caption='Caption text'
           footer={<div>Footer Content</div>}
         >
-          <p style={{display:'flex',flexGrow:'1'}}>This container includes footer content.</p>
+          <p style={{ display: 'flex', flexGrow: '1' }}>This container includes footer content.</p>
         </Container>
       </div>
 
@@ -113,17 +113,13 @@ export const AllVariants: StoryFn = () => {
           marginBottom='30px'
           fillContainer
         >
-          <p style={{display:'flex',flexGrow:'1'}}>This container has custom margins applied.</p>
+          <p style={{ display: 'flex', flexGrow: '1' }}>This container has custom margins applied.</p>
         </Container>
       </div>
-      <div style={{ display:'flex',height:'1000px'}}>
+      <div style={{ display: 'flex', height: '1000px' }}>
         <h3>Custom Fille</h3>
-        <Container
-          title='Custom Fill'
-          subtitle='fill'
-          fillContainer={false}
-        >
-          <p style={{display:'flex',flexGrow:'1'}}>This container doesnt have fill container.</p>
+        <Container title='Custom Fill' subtitle='fill' fillContainer={false}>
+          <p style={{ display: 'flex', flexGrow: '1' }}>This container doesnt have fill container.</p>
         </Container>
       </div>
     </div>

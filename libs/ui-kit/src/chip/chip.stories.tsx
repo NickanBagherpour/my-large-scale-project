@@ -33,13 +33,16 @@ const meta = {
       control: 'text',
       description: 'The content of the tooltip displayed on ellipsis.',
     },
+    children: {
+      control: 'text',
+    },
   },
 } satisfies Meta<typeof Chip>;
 
 export default meta;
 
 // Define a Template for reusable stories
-const Template: StoryFn<ChipProps> = (args) => <Chip {...args}>Example Chip............</Chip>;
+const Template: StoryFn<ChipProps> = (args) => <Chip {...args}>{args.children ?? 'Example Chip............'}</Chip>;
 
 // Base Story
 export const Default = Template.bind({});

@@ -30,7 +30,7 @@ const meta = {
       description: 'Callback function triggered when the expand/collapse button is clicked.',
     },
     children: {
-        control:'object',
+      control: 'text',
       description: 'The content displayed inside the LazyBox when expanded.',
     },
   },
@@ -56,19 +56,19 @@ export const AllVariants: StoryFn = () => {
       {/* Default State */}
       <div>
         <h3>Default State</h3>
-        <LazyBox title="Default State" subtitle="LazyBox is collapsed by default." open={false} />
+        <LazyBox title='Default State' subtitle='LazyBox is collapsed by default.' open={false} />
       </div>
 
       {/* Loading State */}
       <div>
         <h3>Loading State</h3>
-        <LazyBox title="Loading State" subtitle="LazyBox is in loading state." loading={true} />
+        <LazyBox title='Loading State' subtitle='LazyBox is in loading state.' loading={true} />
       </div>
 
       {/* Expanded State */}
       <div>
         <h3>Expanded State</h3>
-        <LazyBox title="Expanded State" subtitle="LazyBox is expanded." open={true}>
+        <LazyBox title='Expanded State' subtitle='LazyBox is expanded.' open={true}>
           <p>This is the content of the expanded LazyBox.</p>
         </LazyBox>
       </div>
@@ -76,7 +76,7 @@ export const AllVariants: StoryFn = () => {
       {/* With Custom Content */}
       <div>
         <h3>With Custom Content</h3>
-        <LazyBox title="Custom Content" subtitle="LazyBox with custom children." open={true}>
+        <LazyBox title='Custom Content' subtitle='LazyBox with custom children.' open={true}>
           <ul>
             <li>Custom Item 1</li>
             <li>Custom Item 2</li>
@@ -89,6 +89,7 @@ export const AllVariants: StoryFn = () => {
 AllVariants.storyName = 'All Variants';
 AllVariants.parameters = {
   docs: {
-    storyDescription: 'Displays different configurations of the LazyBox component, including loading, expanded, and custom content states.',
+    storyDescription:
+      'Displays different configurations of the LazyBox component, including loading, expanded, and custom content states.',
   },
 };
