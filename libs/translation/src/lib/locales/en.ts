@@ -46,4 +46,10 @@ export default {
     minute: 'minute',
     second: 'second',
   },
+  common: {
+    dashboard: 'dashboard',
+  },
+  message: {
+    no_request: 'No requests have been registered in this system yet.',
+  },
 };

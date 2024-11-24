@@ -4,7 +4,7 @@ import { Input, Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
-  margin: 2.4rem 0 2.4rem;
+  margin: 2.8rem 0 2.4rem;
 `;
 
 export const Actions = styled.div`
