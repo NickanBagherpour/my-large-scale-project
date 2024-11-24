@@ -31,7 +31,6 @@ export * from './lazy-box/lazy-box';
 export * from './select/select';
 export * from './tree/tree';
 export * from './page-stepper/page-stepper';
-export * from './result-box/result-box';
 export * from './switch/switch';
 export * from './tabs/tabs';
 export * from './chip/chip';
