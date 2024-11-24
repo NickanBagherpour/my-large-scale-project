@@ -1,92 +1,130 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
+import { InfoBox, InfoBoxProps } from './info-box'; // Adjust path according to your project
+import { Box } from '../box/box'; // Assuming Box component exists
+import { InfoItemType } from '@oxygen/types';
 
-import { InfoBox } from './info-box';
-import { Box } from '../box/box';
+// Mock Data
+const mockData: InfoItemType[] = [
+  { key: 'Name', value: 'John Doe', subValue: 'Admin', type: 'text', fullwidth: false },
+  { key: 'Email', value: 'johndoe@example.com', subValue: '', type: 'text', fullwidth: false },
+  { key: 'Files', value: '', files: ['File1', 'File2'], type: 'file', fullwidth: false },
+  { key: 'Description', value: 'A brief description about John.', subValue: '', type: 'text', fullwidth: true },
+];
+
+const argTypes = {
+  data: {
+    control: 'object',
+    description: 'Array of information items to display in the InfoBox.',
+    defaultValue: mockData,
+  },
+  footer: {
+    control: 'text',
+    description: 'Optional footer content displayed below the grid.',
+    defaultValue: 'Footer Content',
+  },
+  isDense: {
+    control: 'boolean',
+    description: 'Whether the layout is dense with reduced spacing.',
+    defaultValue: false,
+  },
+  margin: {
+    control: 'text',
+    description: 'CSS margin value for the InfoBox.',
+    defaultValue: '2rem 3.2rem',
+  },
+  minColumnCount: {
+    control: 'number',
+    description: 'Minimum number of grid columns.',
+    defaultValue: 4,
+  },
+  titleWordWrap: {
+    control: 'boolean',
+    description: 'Allows title text to wrap if true.',
+    defaultValue: true,
+  },
+  loading: {
+    control: 'boolean',
+    description: 'Displays a loading spinner if true.',
+    defaultValue: false,
+  },
+};
 
 export default {
-  title: 'Components/InfoBox',
+  title: 'UI-Kit/InfoBox',
   component: InfoBox,
-  argTypes: {
-    data: { control: 'object' },
-    footer: { control: 'text' },
-    isDense: { control: 'boolean' },
-    margin: { control: 'text' },
-    minColumnCount: { control: 'number' },
-    titleWordWrap: { control: 'boolean' },
-    loading: { control: 'boolean' },
-  },
-} as ComponentMeta<typeof InfoBox>;
+  argTypes: argTypes,
+} as Meta;
 
-const Template: ComponentStory<typeof InfoBox> = (args) => <InfoBox {...args} />;
+// Template for reusable stories
+const Template: StoryFn<InfoBoxProps> = (args) => <InfoBox {...args} />;
 
+// Default Story
 export const Default = Template.bind({});
 Default.args = {
-  data: [
-    {
-      key: 'Name',
-      value: 'John Doe',
-      subValue: 'Administrator',
-      type: 'text',
-      fullwidth: false,
-    },
-    {
-      key: 'Email',
-      value: 'john.doe@example.com',
-      subValue: '',
-      type: 'text',
-      fullwidth: false,
-    },
-    {
-      key: 'Phone',
-      value: '+123 456 7890',
-      subValue: '',
-      type: 'text',
-      fullwidth: false,
-    },
-    {
-      key: 'Files',
-      files: ['File1.pdf', 'File2.docx'],
-      type: 'file',
-      fullwidth: false,
-    },
-  ],
-  footer: <Box>Footer content here</Box>,
+  data: mockData,
+  footer: <Box>Footer Content</Box>,
   isDense: false,
-  margin: '2rem 3.2rem',
   minColumnCount: 4,
   titleWordWrap: true,
   loading: false,
 };
 
+// Loading State Story
 export const LoadingState = Template.bind({});
 LoadingState.args = {
-  data: null,
   loading: true,
-  footer: null,
+  data: [],
 };
 
+// Dense Layout Story
 export const DenseLayout = Template.bind({});
 DenseLayout.args = {
-  ...Default.args,
+  data: mockData,
   isDense: true,
 };
 
-export const NoData = Template.bind({});
-NoData.args = {
-  data: [],
-  footer: <Box>No data footer</Box>,
-  isDense: false,
-  loading: false,
-};
-
+// Custom Footer Story
 export const CustomFooter = Template.bind({});
 CustomFooter.args = {
-  ...Default.args,
+  data: mockData,
   footer: (
     <Box>
-      <button>Save</button>
-      <button>Cancel</button>
+      <button>Action 1</button>
+      <button>Action 2</button>
     </Box>
   ),
+};
+
+// All Variants Story
+export const AllVariants: StoryFn = () => {
+  const denseData = { ...mockData, isDense: true };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <h3>Default Layout</h3>
+      <InfoBox data={mockData} minColumnCount={4} />
+
+      <h3>Dense Layout</h3>
+      <InfoBox data={denseData} isDense={true} minColumnCount={3} />
+
+      <h3>Loading State</h3>
+      <InfoBox data={null} loading />
+
+      <h3>Custom Footer</h3>
+      <InfoBox
+        data={mockData}
+        footer={
+          <Box>
+            <button>Custom Action</button>
+          </Box>
+        }
+      />
+    </div>
+  );
+};
+AllVariants.storyName = 'All Variants';
+AllVariants.parameters = {
+  docs: {
+    storyDescription: 'Demonstrates all variations of the InfoBox component in one view.',
+  },
 };

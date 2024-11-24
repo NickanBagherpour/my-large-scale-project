@@ -10,7 +10,7 @@ import { Loading } from '../loading/loading';
 
 import * as S from './info-box.style';
 
-type InfoBoxProps = {
+export type InfoBoxProps = {
   data: InfoItemType[] | null;
   footer?: React.ReactNode;
   isDense?: boolean;
