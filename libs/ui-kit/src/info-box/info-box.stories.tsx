@@ -1,15 +1,19 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import { InfoBox, InfoBoxProps } from './info-box'; // Adjust path according to your project
-import { Box } from '../box/box'; // Assuming Box component exists
+import { InfoBox, InfoBoxProps } from './info-box';
+import { Box } from '../box/box';
 import { InfoItemType } from '@oxygen/types';
 
 // Mock Data
 const mockData: InfoItemType[] = [
   { key: 'Name', value: 'John Doe', subValue: 'Admin', type: 'text', fullwidth: false },
   { key: 'Email', value: 'johndoe@example.com', subValue: '', type: 'text', fullwidth: false },
-  { key: 'Files', value: '', files: ['File1', 'File2'], type: 'file', fullwidth: false },
-  { key: 'Description', value: 'A brief description about John.', subValue: '', type: 'text', fullwidth: true },
+  { key: 'Files', value: 'this is files value', files: ['File1', 'File2'], type: 'file', fullwidth: false },
+  { key: 'Description', value: 'description about John.', subValue: '', type: 'text', fullwidth: false },
+  { key: 'fullwidth', value: 'this is full width.', subValue: '', type: 'text', fullwidth: true },
+  { key: 'subvalue', value: 'this is vlaue', subValue: 'this is subvalue', type: 'text' },
+  { key: 'displayValue true', value: 'displayValue', type: 'text', subValue: 'subvalue', displayValue: true },
+  { key: 'displayValue false', value: 'displayValue', type: 'text', subValue: 'subvalue', displayValue: false },
 ];
 
 const argTypes = {
@@ -98,17 +102,16 @@ CustomFooter.args = {
 
 // All Variants Story
 export const AllVariants: StoryFn = () => {
-  const denseData = { ...mockData, isDense: true };
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <h3>Default Layout</h3>
       <InfoBox data={mockData} minColumnCount={4} />
 
       <h3>Dense Layout</h3>
-      <InfoBox data={denseData} isDense={true} minColumnCount={3} />
+      <InfoBox data={mockData} isDense={true} minColumnCount={3} />
 
       <h3>Loading State</h3>
-      <InfoBox data={null} loading />
+      <InfoBox data={mockData} loading />
 
       <h3>Custom Footer</h3>
       <InfoBox
