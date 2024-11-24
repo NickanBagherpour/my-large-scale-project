@@ -9,9 +9,7 @@ import { useTr } from '@oxygen/translation';
 import * as S from './customers.style';
 import { PaddingBox } from '../padding-box/padding-box.style';
 
-type CustomerType = { name: string; logo: StaticImageData };
-
-const customers: CustomerType[] = [
+const customers = [
   { name: 'Ayande Bank', logo: ayandeh },
   {
     name: 'Asan Pardakht App',
@@ -28,7 +26,7 @@ const customers: CustomerType[] = [
 const DESKTOP_SLIDES_TO_SHOW = 11;
 const loopedItems = Array.from({
   length: DESKTOP_SLIDES_TO_SHOW + 2 /* to prevent having two slides with the same image */,
-}).reduce<CustomerType[]>((acc, _, idx) => [...acc, customers[idx % customers.length]], []);
+}).reduce<typeof customers>((acc, _, idx) => [...acc, customers[idx % customers.length]], []);
 
 export default function Customer() {
   const [t] = useTr();
@@ -40,7 +38,7 @@ export default function Customer() {
       <Carousel
         // rtl // Enabling "rtl" (right-to-left) changes the slide order and causes one slide to be repeated.
         swipe
-        // autoplay
+        autoplay
         infinite
         draggable
         dots={false}
