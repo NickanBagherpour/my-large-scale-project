@@ -1,25 +1,19 @@
 'use client';
 
+import React from 'react';
+
 import { Container } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/customer/layouts';
-import React from 'react';
+import { EmptyState } from '@oxygen/reusable-components';
 
 export default function Index() {
   const [t] = useTr();
 
   return (
     <WidgetWrapper>
-      <Container title={t('Customer Portal')}>
-        <div className='container'>
-          <div id='welcome'>
-            <h1>
-              <span> Hello there, </span>
-              Welcome to Oxygen Portals 👋
-            </h1>
-            <h2>This is Customer Portal</h2>
-          </div>
-        </div>
+      <Container title={t('common.dashboard')}>
+        <EmptyState description={t('message.no_request')} />
       </Container>
     </WidgetWrapper>
   );

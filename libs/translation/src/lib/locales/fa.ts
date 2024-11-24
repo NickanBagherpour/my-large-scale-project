@@ -31,6 +31,7 @@ export default {
     print_date: 'تاریخ چاپ',
     error: 'خطا',
     warning: 'هشدار',
+    dashboard: 'داشبورد',
   },
   app: {
     app_name: '',
@@ -210,6 +211,7 @@ export default {
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',
     inquiry_infobox_warning: 'كاربر گرامی ، آيا از تاييد اطلاعات فوق مطمئن مي باشيد؟',
+    no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
   },
   nav: {},
   locale: {

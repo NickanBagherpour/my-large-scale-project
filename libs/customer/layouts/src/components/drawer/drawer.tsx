@@ -64,6 +64,9 @@ const Drawer = (props: DrawerProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const registerButtonHref = ROUTES.CUSTOMER.REQUEST_CREATION;
+  const isCurrentRoute = pathname === registerButtonHref;
+
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
   const filteredMenuItems = useMemo(() => generateMenuItems(filteredItems?.result), [filteredItems]);
   const menuSelectedKeys = useMemo(() => getDefaultSelectedKeys(), [menu, pathname]);
@@ -167,7 +170,7 @@ const Drawer = (props: DrawerProps) => {
             ]}
           ></Result>
         ) : (
-          <div className={'menu-button__container'}>
+          <S.MenuButtonContainer>
             {/*<div className='menu-search-input-container'>*/}
             {/*  <Input*/}
             {/*    placeholder={`${t('field.search')}`}*/}
@@ -177,15 +180,16 @@ const Drawer = (props: DrawerProps) => {
             {/*  />*/}
             {/*</div>*/}
 
-            <Button
-              className={'register-button'}
+            <S.RegisterButton
               type={'primary'}
+              variant={'solid'}
               icon={<i className={'icon-white_plus'} />}
-              href={ROUTES.CUSTOMER.REQUEST_CREATION}
+              href={registerButtonHref}
+              disabled={isCurrentRoute}
             >
               {t('button.register_new_request')}
-            </Button>
-            <Divider />
+            </S.RegisterButton>
+            <S.StyledDivider />
             {stateMenu?.loading ? (
               <div className='menu-spin-container'>
                 <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
@@ -205,7 +209,7 @@ const Drawer = (props: DrawerProps) => {
                 {menu && !filteredMenuItems && <Empty style={{ marginTop: '6rem' }} description={false}></Empty>}
               </>
             )}
-          </div>
+          </S.MenuButtonContainer>
         )}
       </S.MenuWrapper>
     );
