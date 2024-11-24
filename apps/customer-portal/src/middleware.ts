@@ -5,8 +5,6 @@ import { auth } from '@oxygen/customer/auth';
 
 import { ROUTES } from '@oxygen/utils';
 
-const protectedRoutes: string[] = [/*ROUTES.DASHBOARD, ROUTES.REPORT_1, ROUTES.REPORT_2*/];
-
 // Function to check if a URL has the same origin as the request
 function isSameOrigin(request: NextRequest, url: string | null): boolean {
   if (!url) return false;

@@ -35,9 +35,7 @@ const Api = {
   },
   postVerifyRegisterOTP: async (params: any) => {
 
-    const { otpKey,otpValue  } = params;
-
-    console.log('postRegisterUser:', params);
+    const { otpKey, otpValue } = params;
 
     return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/otp/verify/register`, {}, {
       headers: {
@@ -46,5 +44,26 @@ const Api = {
       },
     });
   },
+  postLoginUser: async (params: any) => {
+
+    const { captchaToken, ...restParams } = params;
+
+    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/client/login`, restParams, {
+      headers: { 'Captcha-Token': captchaToken },
+    });
+  },
+  postVerifyLoginOTP: async (params: any) => {
+
+    const { otpKey, otpValue } = params;
+
+    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/otp/verify/login`, {}, {
+      headers: {
+        'key': otpKey,
+        'value': otpValue,
+      },
+    });
+  },
 };
+
+
 export default Api;

@@ -1,7 +1,7 @@
 import { readFromCookieByKey } from './util';
 
 export const ApiUtil = {
-  downloadFile: function (data, type, extension, preferredName?) {
+  downloadFile: function(data, type, extension, preferredName?) {
     const blob = new Blob([data], { type: type });
     const downloadUrl = URL.createObjectURL(blob);
 
@@ -25,7 +25,7 @@ export const ApiUtil = {
 
     return false;
   },
-  getFile: function (serviceURL: string, params?: any, options?: any) {
+  getFile: function(serviceURL: string, params?: any, options?: any) {
     const { method = 'GET', encodeQuery = true, contentType = 'application/octet-stream' } = options ?? {};
 
     const xsrfTokenKey = 'XSRF-TOKEN';
@@ -36,7 +36,7 @@ export const ApiUtil = {
       serviceURL = serviceURL + '?' + this.encodeQueryData(params);
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       xhr.open(method, serviceURL, true);
       xhr.responseType = 'blob';
       xhr.setRequestHeader('Content-type', contentType);
@@ -49,7 +49,7 @@ export const ApiUtil = {
         xhr.send();
       }
 
-      xhr.onload = function (e) {
+      xhr.onload = function(e) {
         try {
           if (xhr.readyState === 4 && xhr.status === 200) {
             resolve(xhr.response);
@@ -66,7 +66,7 @@ export const ApiUtil = {
       };
     });
   },
-  encodeQueryData: function (data) {
+  encodeQueryData: function(data) {
     const ret: any[] = [];
     for (const d in data) {
       if (encodeURIComponent(data[d]) !== 'null') {
@@ -75,12 +75,15 @@ export const ApiUtil = {
     }
     return ret.join('&');
   },
-  getErrorMessage: function (reason) {
+  getErrorMessage: function(reason) {
     if (!reason) {
       return null;
     }
 
     let message: any = {};
+
+    //fixme remove unused conditions
+
     try {
       if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
         message = {
@@ -97,6 +100,12 @@ export const ApiUtil = {
       } else if (reason.response.data.localMessage) {
         message = {
           description: reason.response.data.localMessage,
+          type: 'error',
+          shouldTranslate: false,
+        };
+      } else if (reason.response.data.message) {
+        message = {
+          description: reason.response.data.message,
           type: 'error',
           shouldTranslate: false,
         };

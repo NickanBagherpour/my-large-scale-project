@@ -15,7 +15,7 @@ import { TIMER_INITIAL_SECONDS } from '../../utils/consts';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
-import { useVerifyRegisterMutation } from '../../services';
+import { useVerifyRegisterMutation, useVerifyLoginMutation } from '../../services';
 
 import * as S from './otp.style';
 
@@ -28,7 +28,8 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const state = useAppState();
   const { login } = useAuth();
   const [t] = useTr();
-  const { mutate, mutateAsync } = useVerifyRegisterMutation();
+  const { mutateAsync: mutateAsyncVerifyRegister } = useVerifyRegisterMutation();
+  const { mutateAsync: mutateAsyncVerifyLogin } = useVerifyLoginMutation();
 
   const router = useRouter();
   const [OTPForm] = Form.useForm();
@@ -58,26 +59,24 @@ export const OTP: React.FC<FormContainerProps> = () => {
     };
 
     try {
-      const data = await mutateAsync(params);
-      // console.log('Authentication signIn data:', data, data.headers, data.headers['authorization']);
+      let data = null;
 
-      // Ensure you're using the correct key for credentials
-      const user = { name: state.OTP.mobileNumber, id: data.headers['authorization'] };
+      if (state.OTP.type === 'register') {
+        data = await mutateAsyncVerifyRegister(params);
+      } else {
+        data = await mutateAsyncVerifyLogin(params);
+      }
+
+      if (!data) return;
+
+      const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
       await login(user, ROUTES.CUSTOMER.PROFILE);
 
-      // if (error) {
-      //   console.error('Sign in error:', error);
-      //   // Handle sign-in error
-      // } else {
-      //   // Successful sign-in logic here
-      //   console.log('Sign in successful');
-      //   // Optionally redirect or update state
-      // }
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     }
-    // router.push('/');
+
   };
 
   const handleTimer = () => {
