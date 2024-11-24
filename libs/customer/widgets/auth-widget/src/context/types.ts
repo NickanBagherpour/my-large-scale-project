@@ -11,6 +11,7 @@ export type PaginationType = {
 export type OTPType = {
   isOpen: boolean;
   type: Nullable<'login' | 'register'>;
+  ip: Nullable<string>;
   mobileNumber: Nullable<string>;
   nationalCode?: Nullable<string>;
   key?: Nullable<string>;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { PageProps } from '@oxygen/types';
@@ -8,7 +8,8 @@ import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, updateOTPAction, useAppDispatch, useAppState } from '../../context';
+import { Api } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -23,6 +24,21 @@ const App: React.FC<AppProps> = (props) => {
   const authType = searchParams.get('type');
 
   const isOTPOpen = state.OTP.isOpen;
+
+  useEffect(() => {
+    const fetchIp = async () => {
+      try {
+        const data = await Api.getIP({});
+        updateOTPAction(dispatch, { ip: data.ip });
+        console.log('Fetched IP:', data);
+
+      } catch (error) {
+        console.error('Failed to fetch IP:', error);
+      }
+    };
+
+    fetchIp();
+  }, []);
 
   return (
     <>

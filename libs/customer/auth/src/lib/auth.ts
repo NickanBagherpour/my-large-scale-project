@@ -1,5 +1,22 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { User } from '@oxygen/types';
+
+declare module 'next-auth' {
+  interface User {
+    accessToken?: string;
+  }
+
+  interface Session {
+    user: User;
+  }
+}
+
+/*declare module 'next-auth/jwt' {
+  interface JWT {
+    user: User;
+  }
+}*/
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -7,12 +24,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       name: 'Credentials',
       credentials: {
         id: { label: 'ID', type: 'text' },
+        name: { label: 'name', type: 'text' },
       },
       async authorize(credentials) {
-        console.error(
-          'Credentials authorize---------------------------------------------------------------------',
-          credentials
-        );
+        // console.error(
+        //   'Credentials authorize---------------------------------------------------------------------',
+        //   credentials,
+        // );
 
         // Your authorization logic here
         if (!credentials.id) {
@@ -20,7 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         // Simulate fetching user data
-        const user = { id: credentials.id.toString(), accessToken: 'your-token-here' };
+        const user = { name: credentials.name, accessToken: credentials.id.toString() };
         return user;
       },
     }),
@@ -29,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
-      console.error('callbacks ---------------------------------------------------------------------', token, user);
+      // console.error('callbacks jwt ---------------------------------------------------------------------', token, user);
 
       if (user) {
         // token.accessToken = user.accessToken; // Store token in JWT
@@ -37,7 +55,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      console.error('session ---------------------------------------------------------------------', session, token);
+      // console.error('callbacks session session---------------------------------------------------------------------', session);
+      // console.error('callbacks session token---------------------------------------------------------------------', token);
 
       // session.accessToken = token.accessToken; // Pass token to session
       return session;

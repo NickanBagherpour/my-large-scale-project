@@ -70,7 +70,7 @@ export const Register = ({ title }: FormContainerProps) => {
       mobileNo: values.mobileNumber,
       captcha: values.captchaCode,
       captchaToken,
-      registerIp: '192.168.52.1',
+      registerIp: state.OTP.ip,
     };
 
     mutate(params, {
