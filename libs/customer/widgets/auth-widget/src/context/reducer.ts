@@ -13,7 +13,7 @@ export const initialStateValue: WidgetStateType = {
     type: undefined,
     mobileNumber: undefined,
     nationalCode: undefined,
-    key:undefined,
+    key: undefined,
   },
   table: {
     filters: initialFilters,
@@ -39,16 +39,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_FILTERS': {
-      state.table.filters = { ...state.table.filters, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_PAGINATION': {
-      state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
     }
 

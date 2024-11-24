@@ -29,7 +29,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  const { mutate, mutateAsync, isLoading } = useVerifyRegisterMutation();
+  const { mutate, mutateAsync } = useVerifyRegisterMutation();
 
   const router = useRouter();
   const [OTPForm] = Form.useForm();

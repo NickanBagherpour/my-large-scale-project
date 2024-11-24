@@ -5,9 +5,6 @@ import { FiltersType, OTPType, WidgetDispatchType } from './types';
 export function updateOTPAction(dispatch: WidgetDispatchType, OTP: Nullable<OTPType>) {
   dispatch({ type: 'UPDATE_OTP', payload: OTP });
 }
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
-}
 
 export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_SUBMIT', payload: submit });

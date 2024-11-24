@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         // Simulate fetching user data
-        const user = { id: credentials.id, accessToken: 'your-token-here' };
+        const user = { id: credentials.id.toString(), accessToken: 'your-token-here' };
         return user;
       },
     }),
