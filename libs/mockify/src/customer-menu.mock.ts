@@ -1,6 +1,6 @@
 import { menus } from './data/customer.menu.data';
 
-export const getCustomerMenus = async (): Promise<any> => {
+export const getCustomerMenu = async (): Promise<any> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const response = {
