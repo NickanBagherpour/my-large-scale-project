@@ -8,12 +8,14 @@ export const FormSchema = (t: (key: string) => string) =>
     [FORM_ITEM_NAMES.name]: z
       .string({ required_error: i18nBase.t('error.required') })
       .min(1, { message: i18nBase.t('error.required') })
+      .max(100, { message: i18nBase.t('error.max_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isLatinText, {
         message: t('error.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianName]: z
       .string({ required_error: i18nBase.t('error.required') })
       .min(1, { message: i18nBase.t('error.required') })
+      .max(100, { message: i18nBase.t('error.max_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isPersianText, {
         message: t('error.persian_validation_message'),
       }),
