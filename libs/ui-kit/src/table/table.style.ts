@@ -37,7 +37,7 @@ export const Table = styled(AntTable)<TableProps>`
     height: var(--table-min-height);
   }
   .ant-table-content {
-    overflow: ${(p) => (p.variant === 'simple' ? 'hidden' : 'auto')} !important;
+    overflow: auto;
     scrollbar-width: thin;
     scrollbar-color: ${(p) => p.theme.border._300} ${(p) => p.theme.background.main};
   }
