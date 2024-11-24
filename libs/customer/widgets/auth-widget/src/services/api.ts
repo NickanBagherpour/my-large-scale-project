@@ -12,9 +12,30 @@ const Api = {
     });
 
     return {
-        data: response.data,
-        headers: response.headers,
+      data: response.data,
+      headers: response.headers,
     };
+  },
+  postRegisterUser: async (params: any) => {
+
+    const { captchaToken, ...restParams } = params;
+
+    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/client/register`, restParams, {
+      headers: { 'Captcha-Token': captchaToken },
+    });
+  },
+  postVerifyRegisterOTP: async (params: any) => {
+
+    const { otpKey,otpValue  } = params;
+
+    console.log('postRegisterUser:', params);
+
+    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/otp/verify/register`, {}, {
+      headers: {
+        'key': otpKey,
+        'value': otpValue,
+      },
+    });
   },
 };
 export default Api;

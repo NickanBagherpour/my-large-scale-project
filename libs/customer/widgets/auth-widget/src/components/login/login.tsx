@@ -90,7 +90,7 @@ export const Login = ({ title }: FormContainerProps) => {
             <CaptchaInput
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
-              name='captcha_code'
+              // name='captcha_code'
               placeholder={t('captcha_code')}
               loading={isLoading}
             />

@@ -13,6 +13,7 @@ export const initialStateValue: WidgetStateType = {
     type: undefined,
     mobileNumber: undefined,
     nationalCode: undefined,
+    key:undefined,
   },
   table: {
     filters: initialFilters,

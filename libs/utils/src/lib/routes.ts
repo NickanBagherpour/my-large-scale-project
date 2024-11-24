@@ -28,7 +28,7 @@ export const ROUTES = {
   },
   CUSTOMER: {
     LANDING: '/',
-    AUTH: '/auth',
+    AUTH: '/authorization',
     DASHBOARD: '/dashboard',
     REQUESTS_MANAGEMENT: '/requests-management',
     REQUEST_CREATION: '/request-creation',

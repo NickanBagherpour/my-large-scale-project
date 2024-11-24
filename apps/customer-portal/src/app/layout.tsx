@@ -1,25 +1,34 @@
+import { SessionProvider } from 'next-auth/react';
+import 'normalize.css';
+
 import { BaseProvider, AntStyleProvider } from '@oxygen/hooks';
+import { auth } from '@oxygen/customer/auth';
+import { iransans } from '@oxygen/ui-kit';
 
 import { StyledComponentsRegistry } from './registry';
-import 'normalize.css';
-import { iransans } from '@oxygen/ui-kit';
 import { getIntitialConfig } from './get-initial-config';
 
 export const metadata = {
-  title: 'Oxygen Plus',
+  title: 'Oxygen Pro',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const validConfig = getIntitialConfig();
+  const session = await auth();
+
+  console.log('sssssssssssssssssssssssssssssssss', session);
+
   return (
-    <html lang='fa' className={iransans}>
-      <body>
-        <AntStyleProvider>
-          <StyledComponentsRegistry>
-            <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
-          </StyledComponentsRegistry>
-        </AntStyleProvider>
-      </body>
+    <html lang="fa" className={iransans}>
+    <body>
+    <AntStyleProvider>
+      <StyledComponentsRegistry>
+        <SessionProvider session={session}>
+          <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
+        </SessionProvider>
+      </StyledComponentsRegistry>
+    </AntStyleProvider>
+    </body>
     </html>
   );
 }

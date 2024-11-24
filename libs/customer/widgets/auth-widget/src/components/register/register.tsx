@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, startTransition, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
@@ -15,8 +15,10 @@ import { RegisterFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import CaptchaInput from '../captcha-input/captcha-input';
+import { useRegisterMutation } from '../../services';
 
 import * as S from './register.style';
+
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -28,6 +30,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { mutate, isRegisterLoading } = useRegisterMutation();
 
   const [registerForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
@@ -50,6 +53,7 @@ export const Register = ({ title }: FormContainerProps) => {
   }, [data]);
 
   // console.log('----------------------------------->', imageSrc, data?.captchaToken , isLoading);
+  // console.log('----------------------------------->', state);
 
   const refreshCaptcha = () => {
     refetch(); // Fetch a new captcha
@@ -57,8 +61,33 @@ export const Register = ({ title }: FormContainerProps) => {
 
   const handleSubmit = () => registerForm.submit();
 
-  const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
+  // const handleFinish = (values: any) => {
+  //   updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
+  // };
+
+  const handleFinish = async (values: any) => {
+    const params = {
+      nationalCode: values.nationalCode,
+      mobileNo: values.mobileNumber,
+      captcha: values.captchaCode,
+      captchaToken,
+      registerIp: '192.168.52.1',
+    };
+
+    mutate(params, {
+      onSuccess: (data) => {
+        console.log('Registration successful:', data.headers['key'], data);
+
+        const otpKey = data.headers['key'];
+        updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined , key: otpKey});
+
+        // document.cookie = `authToken=${token}; path=/; secure; HttpOnly`; // Save the token in cookies
+      },
+      onError: (error) => {
+        console.error('Registration failed:', error);
+      },
+    });
+
   };
 
   return (
@@ -77,7 +106,7 @@ export const Register = ({ title }: FormContainerProps) => {
             <Input placeholder={t('national_code')} allow={'number'} maxLength={INPUT_MAX_LENGTH} />
           </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size='large' />
+            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size="large" />
           </Form.Item>
         </S.FormInputs>
 
@@ -88,14 +117,14 @@ export const Register = ({ title }: FormContainerProps) => {
             <CaptchaInput
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
-              name='captcha_code'
+              name="captcha_code"
               placeholder={t('captcha_code')}
               loading={isLoading}
             />
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color='primary'>
+      <S.Button onClick={handleSubmit} color="primary">
         {t('confirm_and_continue')}
       </S.Button>
       <S.Divider />

@@ -36,7 +36,7 @@ const CaptchaInput: React.FC<CaptchaInputProps> = (
                 <Image
                   src={imageSrc}
                   alt={altText}
-                  width={100}
+                  width={140}
                   height={32}
                   style={{ margin: '0 1rem', objectFit: 'cover' }}
                 />
