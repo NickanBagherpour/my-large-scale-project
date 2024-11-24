@@ -6,10 +6,14 @@ export const TitleTxt = styled.p`
   font-weight: bold;
   font-size: 1.6rem;
   margin: 0;
-  padding-top: 0.8rem;
+  /* padding-top: 0.8rem; */
+  margin: 3.2rem 0 1.6rem 0;
 `;
 
 export const FirstStepContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   .label-switch {
     display: flex;
     align-items: end;
@@ -23,6 +27,10 @@ export const FirstStepContainer = styled.div`
         align-items: start;
       }
     }
+  }
+
+  & .ant-form {
+    flex: 1;
   }
 `;
 

@@ -1,5 +1,5 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import * as S from '../components/second-step/second-step.style';
+import * as S from '../components/third-step/third-step.style';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';

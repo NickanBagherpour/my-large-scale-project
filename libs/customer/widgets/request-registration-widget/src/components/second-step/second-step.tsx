@@ -10,7 +10,7 @@ import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxyg
 
 import { requestFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
-// import { useSelectDataQuery } from '../../services/first-step/get-select-data';
+import { useSelectDataQuery } from '../../services/first-step/get-select-data';
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 // import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
 // import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
@@ -33,7 +33,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
 
   // const { data: grantTagData, isFetching: grantTagFetching } = useGetGrantTagDataQuery();
   // const { data: NameTagData, isFetching: nameTagFetching } = useGetnameTagDataQuery();
-  // const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
+  const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
   // const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
   // const [nameTags, setNameTags] = useState(state.firstStep.add_tag);
   const rule = createSchemaFieldRule(requestFormSchema(t));
@@ -69,43 +69,54 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
   return (
     <S.FirstStepContainer>
       <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
-        <S.TitleTxt className={'cards-title'}>{t('client_info')}</S.TitleTxt>
+        <S.TitleTxt className={'cards-title'}>{t('register_info')}</S.TitleTxt>
         <Card>
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM.latin_name_client} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input size='large' placeholder={`${t('placeholder.latin_name_client')}`} maxLength={MAX_INPUTE_LENGTH} />
+            <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
+              <Input size='large' placeholder={`${t('placeholder.legal_person_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
 
-            <Form.Item name={FORM_ITEM.persian_name_client} label={t('form.persian_name_client')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.farsi_name_client')}`} maxLength={MAX_INPUTE_LENGTH} />
+            <Form.Item name={FORM_ITEM.legal_person_type} label={t('form.legal_person_type')} rules={[rule]}>
+              {/* <Input placeholder={`${t('placeholder.legal_person_type')}`} maxLength={MAX_INPUTE_LENGTH} /> */}
+              <Select
+                size={'large'}
+                options={selectData}
+                loading={selectFetching}
+                placeholder={`${t('placeholder.legal_person_type')}`}
+              ></Select>
             </Form.Item>
 
-            <Form.Item name={FORM_ITEM.client_id} label={t('form.client_id')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.client_id')}`} maxLength={MAX_INPUTE_LENGTH} />
+            <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.registration_number')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.identity_auth} label={t('form.identity_auth')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.authentication_id')}`} maxLength={MAX_INPUTE_LENGTH} />
+            <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.registration_date')}`} maxLength={MAX_INPUTE_LENGTH} type='date' />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.website_url} label={t('form.website_url')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.website_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
+            <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.input_address} label={t('form.input_address')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.input_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
+            <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.economy_code')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.return_address} label={t('form.return_address')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.return_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
+            <Form.Item name={FORM_ITEM.activity_field} label={t('form.activity_field')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.activity_field')}`} maxLength={MAX_INPUTE_LENGTH} />
+            </Form.Item>
+            <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.postal_code')}`} maxLength={MAX_INPUTE_LENGTH} />
+            </Form.Item>
+            <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
+              <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item
-              name={FORM_ITEM.aggregator_status}
-              className={'label-switch'}
-              layout={'horizontal'}
-              label={t('form.aggregator_status')}
+              className='span-4'
+              name={FORM_ITEM.last_registration_address}
+              label={t('form.last_registration_address')}
+              rules={[rule]}
             >
-              <Switch />
+              <Input placeholder={`${t('placeholder.last_registration_address')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </Card>
-        <S.TitleTxt className={'cards-title'}>{t('applicant_info')}</S.TitleTxt>
       </Form>
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
