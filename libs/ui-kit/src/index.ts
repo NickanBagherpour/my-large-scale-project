@@ -9,7 +9,6 @@ export * from './button/filter-button';
 export * from './button/expand-button';
 export * from './theme-switch/theme-switch';
 export * from './locale-switcher/locale-switcher';
-export * from './otp-input/otp-input';
 export * from './timer/timer';
 export * from './alert/alert';
 export * from './table/table';
