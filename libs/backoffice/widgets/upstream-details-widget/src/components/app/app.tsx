@@ -171,7 +171,7 @@ const App = () => {
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('weight')}</span>
                 <Form.Item name={FORM_ITEM_NAMES.weight} rules={[rule]}>
-                  <Input />
+                  <Input allow={'number'} />
                 </Form.Item>
               </S.InfoItemsRow>
               <S.InfoItemsRow>
