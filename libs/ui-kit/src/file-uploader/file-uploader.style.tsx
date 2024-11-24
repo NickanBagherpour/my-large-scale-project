@@ -37,3 +37,8 @@ export const Content = styled.div<any>`
     margin-bottom: 1.2rem;
   }
 `;
+export const TitleText = styled.p`
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: ${(p) => p.theme.text.primary};
+`;
