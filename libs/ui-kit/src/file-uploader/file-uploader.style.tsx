@@ -38,7 +38,7 @@ export const Content = styled.div<any>`
   }
 `;
 export const TitleText = styled.p`
-  font-weight: 500;
-  font-size: 1.8rem;
-  color: ${(p) => p.theme.text.primary};
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: ${(p) => p.theme.text.secondary};
 `;
