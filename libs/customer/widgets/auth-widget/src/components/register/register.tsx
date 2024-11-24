@@ -79,9 +79,7 @@ export const Register = ({ title }: FormContainerProps) => {
 
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
-
-        // document.cookie = `authToken=${token}; path=/; secure; HttpOnly`; // Save the token in cookies
-      },
+        },
       onError: (error) => {
         console.error('Registration failed:', error);
       },

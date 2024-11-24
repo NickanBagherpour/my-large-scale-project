@@ -25,8 +25,6 @@ export default function AppbarUserMenu({
                                        }) {
   const [t] = useTr();
 
-  console.log('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuser', userInfo);
-
   const handleClose = () => {
     onLogout();
   };

@@ -15,7 +15,6 @@ export const registerUser = async (formData: any) => {
   const { captchaToken, ...restParams } = formData;
 
   // console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii requestHeaders', requestHeaders);
-  console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii registerUser', ip, base_url, formData);
   const res = await fetch(`${base_url}/api/v1/client/register`, {
     method: 'POST',
     headers: {
@@ -24,8 +23,6 @@ export const registerUser = async (formData: any) => {
     },
     body: JSON.stringify(restParams),
   });
-
-  console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii res', res);
 
   if (!res.ok) {
     throw new Error('Failed to register');

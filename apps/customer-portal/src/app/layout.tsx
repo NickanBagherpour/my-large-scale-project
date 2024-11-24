@@ -16,8 +16,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const validConfig = getIntitialConfig();
   const session = await auth();
 
-  console.log('sssssssssssssssssssssssssssssssss', session);
-
   return (
     <html lang="fa" className={iransans}>
     <body>
