@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { auth, signIn } from '@oxygen/customer/auth';
+import { signIn } from 'next-auth/react';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ import { RegisterFormSchema } from '../../types/sample.schema';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './otp.style';
-import { useRegisterMutation, useVerifyRegisterMutation } from '../../services';
+import { useVerifyRegisterMutation } from '../../services';
 
 type FormContainerProps = PageProps & {
   //
@@ -53,8 +53,6 @@ export const OTP: React.FC<FormContainerProps> = () => {
   };
 
   const handleFinish = async (values: any) => {
-    console.log(':)', values);
-
     const params = {
       otpKey: state.OTP.key,
       otpValue: values.otp,
@@ -62,7 +60,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
 
     try {
       const data = await mutateAsync(params);
-      console.log('Authentication signIn data:', data, data.headers, data.headers['authorization']);
+      // console.log('Authentication signIn data:', data, data.headers, data.headers['authorization']);
 
       // Ensure you're using the correct key for credentials
       await signIn('credentials', { id: data.headers['authorization'], redirect: false });
@@ -75,7 +73,6 @@ export const OTP: React.FC<FormContainerProps> = () => {
       //   console.log('Sign in successful');
       //   // Optionally redirect or update state
       // }
-
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
@@ -96,7 +93,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
       <S.Box>
         <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
-        <Button variant="link" onClick={handleReturn}>
+        <Button variant='link' onClick={handleReturn}>
           <S.BackParagraph>{t('change_mobile_number')}</S.BackParagraph>
         </Button>
       </S.Box>
@@ -108,23 +105,21 @@ export const OTP: React.FC<FormContainerProps> = () => {
         </S.FormInput>
       </Form>
       <S.TimerBox>
-        {
-          isTimerFinish ? (
-            <Button variant="link" onClick={handleResend}>
-              {<S.BackParagraph>{t('resend_otp_code')}</S.BackParagraph>}
-            </Button>
-          ) : (
-            <>
-              <S.BackParagraph>{t('time_left')}</S.BackParagraph>
-              <Timer initialSeconds={TIMER_INITIAL_SECONDS} onComplete={handleTimer} />
-            </>
-          )
-        }
+        {isTimerFinish ? (
+          <Button variant='link' onClick={handleResend}>
+            {<S.BackParagraph>{t('resend_otp_code')}</S.BackParagraph>}
+          </Button>
+        ) : (
+          <>
+            <S.BackParagraph>{t('time_left')}</S.BackParagraph>
+            <Timer initialSeconds={TIMER_INITIAL_SECONDS} onComplete={handleTimer} />
+          </>
+        )}
       </S.TimerBox>
 
       {state.OTP.type === 'login' ? (
         <>
-          <S.Button onClick={handleRegisterSubmit} color="primary">
+          <S.Button onClick={handleRegisterSubmit} color='primary'>
             {t('submit')}
           </S.Button>
           <S.Divider />
@@ -135,7 +130,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
         </>
       ) : (
         <>
-          <S.Button onClick={handleLoginSubmit} color="primary">
+          <S.Button onClick={handleLoginSubmit} color='primary'>
             {t('submit')}
           </S.Button>
           <S.Divider />

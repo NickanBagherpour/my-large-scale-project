@@ -1,12 +1,7 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
-export const {
-  handlers: { GET, POST },
-  signIn,
-  signOut,
-  auth,
-} = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       name: 'Credentials',
@@ -14,9 +9,10 @@ export const {
         id: { label: 'ID', type: 'text' },
       },
       async authorize(credentials) {
-
-        console.error('Credentials authorize---------------------------------------------------------------------', credentials);
-
+        console.error(
+          'Credentials authorize---------------------------------------------------------------------',
+          credentials
+        );
 
         // Your authorization logic here
         if (!credentials.id) {
@@ -29,10 +25,10 @@ export const {
       },
     }),
   ],
+  secret: process.env['AUTH_SECRET'],
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
-
       console.error('callbacks ---------------------------------------------------------------------', token, user);
 
       if (user) {
@@ -41,7 +37,6 @@ export const {
       return token;
     },
     async session({ session, token }) {
-
       console.error('session ---------------------------------------------------------------------', session, token);
 
       // session.accessToken = token.accessToken; // Pass token to session

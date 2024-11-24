@@ -4,12 +4,11 @@ import { useMutation } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 import Api from '../services/api';
 import { headers } from 'next/headers';
+import { signIn } from '@oxygen/customer/auth';
 
 const base_url = process.env.API_BASE_URL;
 
-
 export const registerUser = async (formData: any) => {
-
   const requestHeaders = headers();
   const ip = requestHeaders.get('x-forwarded-for') || 'Unknown IP';
 
@@ -27,7 +26,6 @@ export const registerUser = async (formData: any) => {
   });
 
   console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii res', res);
-
 
   if (!res.ok) {
     throw new Error('Failed to register');

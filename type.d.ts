@@ -16,6 +16,7 @@ declare global {
       NEXT_PUBLIC_SECURE_LOCAL_STORAGE_HASH_KEY: string;
       NEXT_PUBLIC_TOKEN: string;
       API_BASE_URL: string;
+      AUTH_SECRET: string;
     }
   }
 }
