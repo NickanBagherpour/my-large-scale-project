@@ -36,7 +36,6 @@ export * from './chip/chip';
 export * from './divider/divider';
 export * from './modal/modal';
 export * from './progress/progress';
-export * from './mark-text/mark-text';
 export * from './container/container';
 export * from './status/status';
 export * from './dropdown/dropdown';

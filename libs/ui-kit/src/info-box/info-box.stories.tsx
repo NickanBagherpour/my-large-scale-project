@@ -5,7 +5,7 @@ import { InfoBox } from './info-box';
 import { Box } from '../box/box';
 
 export default {
-  title: 'Components/InfoBox',
+  title: 'UI-Kit/InfoBox',
   component: InfoBox,
   argTypes: {
     data: { control: 'object' },
