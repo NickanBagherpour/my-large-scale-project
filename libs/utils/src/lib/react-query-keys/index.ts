@@ -1,4 +1,5 @@
 /*--import--*/
+import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
 import { KEYS as AUTH_KEYS } from './widgets/auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
@@ -26,6 +27,7 @@ import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 
 export const RQKEYS = {
   /*--export--*/
+  REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
   AUTH: AUTH_KEYS,
   LANDING: LANDING_KEYS,
   UPSTREAM_DETAILS: UPSTREAM_DETAILS_KEYS,
