@@ -15,7 +15,6 @@ export * from './table/table';
 export * from './avatar/avatar';
 export * from './loading/loading';
 export * from './panel/panel';
-export * from './text/text';
 export * from './file-uploader/file-uploader';
 export * from './uploader/uploader';
 export * from './uploader/dragger';
