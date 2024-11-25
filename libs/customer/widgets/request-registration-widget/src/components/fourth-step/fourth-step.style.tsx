@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
-import { Dropdown } from '@oxygen/ui-kit';
+import { Dropdown, Alert } from '@oxygen/ui-kit';
 
 export const TitleTxt = styled.p`
+  display: flex;
   font-weight: bold;
   font-size: 1.6rem;
   margin: 0;
-  /* padding-top: 0.8rem; */
   margin: 3.2rem 0 1.6rem 0;
 `;
 
-export const FirstStepContainer = styled.div`
+export const FourthStepContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,39 @@ export const FirstStepContainer = styled.div`
 
   & .ant-form {
     flex: 1;
+  }
+`;
+
+export const TooltipContainer = styled.span`
+  margin-left: 0.3rem;
+`;
+
+export const AlertContainer = styled(Alert)`
+  padding: 1.2rem 1.6rem;
+  margin-bottom: 2.4rem;
+  border: 0;
+
+  .ant-alert-message {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2.2rem;
+  }
+
+  .ant-alert-description {
+    color: ${(p) => p.theme.primary._500};
+  }
+`;
+
+export const IconWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  color: ${(p) => p.theme.border.main};
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    fill: none;
+    stroke: ${(p) => p.theme.border.main};
   }
 `;
 
@@ -74,6 +107,7 @@ export const TagPicker = styled.div`
   }
 `;
 export const Footer = styled.div`
+  margin-top: 11.4rem;
   display: flex;
   height: 7.2rem;
   align-items: center;
