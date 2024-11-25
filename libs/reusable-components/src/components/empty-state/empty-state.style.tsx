@@ -8,17 +8,7 @@ export const StyledContainer = styled.div`
   gap: 2.4rem;
   justify-content: center;
   align-items: center;
-  margin-top: 19.2rem;
-
-  ${respondTo.down('lg')} {
-    margin-top: 12rem;
-    padding: 0 2rem;
-  }
-
-  ${respondTo.down('sm')} {
-    margin-top: 5rem;
-    padding: 0 1rem;
-  }
+  height: 100%;
 `;
 
 export const StyledText = styled.span`
