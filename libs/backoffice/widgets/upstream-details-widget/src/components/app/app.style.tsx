@@ -15,12 +15,15 @@ export const UpstreamDetailsContainer = styled(Container)`
 
 export const ModalMessage = styled.div`
   font-size: 1.6rem;
-  font-weight: 700;
   line-height: 2.5rem;
   align-items: center;
 
   .delete-modal {
     background-color: red;
+  }
+
+  .ant-modal-title {
+    font-weight: 700;
   }
 `;
 

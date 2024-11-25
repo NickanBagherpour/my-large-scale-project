@@ -58,7 +58,7 @@ export const Tree = (props: TreeProps) => {
     () => (nodeProps) =>
       (
         <span className={'ant-tree-switcher-wrapper'}>
-          {nodeProps.expanded ? <i className={'ri-arrow-up-s-line'} /> : <i className={'ri-arrow-down-s-line'} />}
+          {nodeProps.expanded ? <i className={'icon-arrow-up'} /> : <i className={'icon-chev-down'} />}
         </span>
       ),
     []

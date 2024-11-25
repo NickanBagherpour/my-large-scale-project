@@ -2,7 +2,7 @@ import { Meta, StoryFn } from '@storybook/react/*';
 import { Switch, SwitchProps } from './switch';
 
 export default {
-  title: 'Components/Switch',
+  title: 'UI-Kit/Switch',
   component: Switch,
   argTypes: {
     notAllowed: {
