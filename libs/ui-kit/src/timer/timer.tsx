@@ -5,56 +5,43 @@ import { useState, useEffect } from 'react';
 
 export type TimerProps = {
   initialSeconds: number;
-  onCountDown?: any;
-  onComplete?: any;
+  onCountDown?: (remainingSeconds: number) => void;
+  onComplete?: () => void;
 };
+
 export const Timer = (props: TimerProps) => {
   const { initialSeconds = 0, onCountDown, onComplete } = props;
 
-  const _initialMin = Math.floor(initialSeconds / 60);
-  const _initialSec = initialSeconds - _initialMin * 60;
-
-  const [minutes, setMinutes] = useState(_initialMin);
-  const [seconds, setSeconds] = useState(_initialSec);
-
-  function handleCountDown() {
-    if (onCountDown) {
-      onCountDown(minutes * 60 + seconds);
-    }
-  }
+  const [remainingTime, setRemainingTime] = useState(initialSeconds);
 
   useEffect(() => {
+    if (remainingTime <= 0) return; // Stop if time is up
+
     const myInterval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-        handleCountDown();
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          handleCountDown();
-          if (onComplete) {
-            onComplete();
-          }
+      setRemainingTime(prev => {
+        if (prev <= 1) {
           clearInterval(myInterval);
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
-          handleCountDown();
+          if (onComplete) onComplete();
+          return 0; // Ensure it does not go negative
         }
-      }
+        return prev - 1; // Decrement remaining time
+      });
     }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
-  }, [minutes, seconds]);
+
+    return () => clearInterval(myInterval); // Cleanup interval on unmount
+  }, [remainingTime, onComplete]);
+
+  useEffect(() => {
+    if (onCountDown) {
+      onCountDown(remainingTime);
+    }
+  }, [remainingTime, onCountDown]);
 
   function getTime() {
-    let result = '';
-    result = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-    return result;
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
   }
 
-  return <>{minutes === 0 && seconds === 0 ? null : <span> {getTime()}</span>}</>;
+  return <>{remainingTime > 0 ? <span>{getTime()}</span> : null}</>;
 };
-
-// export default Timer;

@@ -6,7 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { addThousandSeparator, removeLettersFromNumber, numberToPersian, rialToToman } from '@oxygen/utils';
 
 import { InputProps } from './input';
-import { Text } from '../text/text';
+// import { Text } from '../text/text';
 
 import * as S from './input.style';
 
@@ -55,7 +55,7 @@ export const InputMoney = (props: InputMoneyProps) => {
     }
 
     if (number.toString().length > 3 && number > 100) {
-      return <Text variant='subtitle'>{_subtitle}</Text>;
+      return <S.SubtitleText>{_subtitle}</S.SubtitleText>;
     }
 
     return null;
