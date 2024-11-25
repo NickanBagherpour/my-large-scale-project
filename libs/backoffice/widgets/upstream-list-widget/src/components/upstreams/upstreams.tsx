@@ -30,7 +30,7 @@ export default function Upstreams(props: Props) {
           <GridCard
             key={idx}
             name={name}
-            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${upstreamId}`}
+            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${upstreamId}&upstreamName=${name}`}
             activeServersCount={activeServersCount}
             wordToHighlight={searchTerm}
           />

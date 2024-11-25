@@ -10,7 +10,7 @@ export const UpstreamInfoContainer = styled.section`
 
 export const InfoItemsContainer = styled.div`
   // user input values
-  --grid-layout-gap: 1.4rem;
+  --grid-layout-gap: 1.6rem;
   --grid-column-count: 2; /* This gets overridden by an inline style. */
   --grid-item--min-width: 12rem; /* This gets overridden by an inline style. */
 

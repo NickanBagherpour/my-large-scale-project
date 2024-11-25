@@ -3,5 +3,5 @@ export const FORM_ITEM_NAMES = {
   persianName: 'persianName',
   domain: 'domain',
   weight: 'weight',
-  health_status: 'health_status',
+  health_status: 'healthStatus',
 };
