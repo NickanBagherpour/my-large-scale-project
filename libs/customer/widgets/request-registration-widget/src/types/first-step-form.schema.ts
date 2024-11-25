@@ -20,6 +20,33 @@ export const requestFormSchema = (t: (key: string) => string) => {
     }
   });
 
+  const datePickerString = z
+    .preprocess((input) => {
+      // Ensure we are dealing with a string
+      // if (input instanceof Date) {
+      if (input instanceof Object) {
+        return input.toString(); // Convert Date object to ISO string
+      }
+      return input; // Return as is if it's already a string
+    }, z.string({ required_error: t('error.required') }))
+    .superRefine((value, ctx) => {
+      if (value.trim().length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('error.required'),
+        });
+      }
+      if (value.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('error.required'),
+        });
+      }
+    });
+
   const urlString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
     // Check if the value is empty or only whitespace
     if (value.trim().length === 0) {
@@ -131,12 +158,16 @@ export const requestFormSchema = (t: (key: string) => string) => {
     }),
 
     // Required Fields
-    [FORM_ITEM.client_type]: requiredString,
-    [FORM_ITEM.user_name]: requiredString,
-    [FORM_ITEM.national_code]: requiredString,
-    [FORM_ITEM.organization_name]: requiredString,
-    [FORM_ITEM.client_id]: requiredString,
-    [FORM_ITEM.identity_auth]: requiredString,
+    [FORM_ITEM.legal_person_name]: requiredString,
+    [FORM_ITEM.legal_person_type]: requiredString,
+    [FORM_ITEM.registration_number]: requiredString,
+    [FORM_ITEM.registration_date]: datePickerString,
+    [FORM_ITEM.national_id]: requiredString,
+    [FORM_ITEM.economy_code]: requiredString,
+    [FORM_ITEM.activity_field]: requiredString,
+    [FORM_ITEM.postal_code]: requiredString,
+    [FORM_ITEM.phone]: requiredString,
+    [FORM_ITEM.last_registration_address]: requiredString,
 
     //mobile number
     [FORM_ITEM.mobile_number]: mobileNumber,
