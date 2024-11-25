@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = (props) => {
     const fetchIp = async () => {
       try {
         const data = await Api.getIP({});
-        updateOTPAction(dispatch, { ip: data.ip });
+        updateOTPAction(dispatch, { ...state.OTP, ip: data.ip });
         console.log('Fetched IP:', data);
 
       } catch (error) {

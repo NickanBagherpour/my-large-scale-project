@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server';
 import requestIp from 'request-ip';
-import { headers } from 'next/headers';
+
+// import { headers } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   // Create a new response object for request-ip
@@ -12,8 +13,13 @@ export async function GET(request: NextRequest) {
   // Use request-ip middleware to get client IP
   // requestIp.mw()(req, {} as any, () => {});
 
-  const ip = requestIp.getClientIp(request) || '127.0.0.1'; // Fallback if no IP is found
-  const ip2 = headers().get('x-forwarded-for');
+  // const ip = requestIp.getClientIp(request) || '127.0.0.1'; // Fallback if no IP is found
+
+  const forwarded = request.headers['x-forwarded-for'];
+  const ip = forwarded ? forwarded.split(/, /)[0] : request.ip ?? '127.0.0.1';
+  const ip2 = request.ip;
+
+  // const ip2 = headers().get('x-forwarded-for');
   // const userAgent = userAgent(request);
 
   // const detectedIp = requestIp.getClientIp(req)

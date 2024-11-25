@@ -4,15 +4,17 @@ import { z } from 'zod';
 export const userSchema = z.object({
   // hashedPassword: z.string().optional(),
   accessToken: z.string().optional(),
+  name: z.string().optional(),
 });
 
 export type User = AuthUser & z.infer<typeof userSchema>;
 
- export interface UserToken {
+export interface UserToken {
   email?: string;
-  image?: number;
+  image?: string | null;
   exp: number;
   accessToken: string;
 }
 
-export interface UserSession extends UserToken {}
+export interface UserSession extends UserToken {
+}

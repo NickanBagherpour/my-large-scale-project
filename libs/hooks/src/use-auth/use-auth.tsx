@@ -78,19 +78,17 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return true;
-    // fixme: make it real
-    // return !!user && isTokenValid();
+    return !!user //&& isTokenValid();
   }
 
-  const isTokenValid = () => {
+ /* const isTokenValid = () => {
     const tokenExpiryDate = useSession().data?.expires;
     if (tokenExpiryDate && tokenExpiryDate < Date.now()) {
       return false;
     } else {
       return true;
     }
-  };
+  };*/
 
   const value = useMemo(
     () => ({

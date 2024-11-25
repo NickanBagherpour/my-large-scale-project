@@ -11,6 +11,7 @@ export const initialStateValue: WidgetStateType = {
   OTP: {
     isOpen: false,
     type: undefined,
+    ip: undefined,
     mobileNumber: undefined,
     nationalCode: undefined,
     key: undefined,

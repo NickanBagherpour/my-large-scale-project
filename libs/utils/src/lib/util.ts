@@ -131,7 +131,7 @@ export const clearAllCookies = (): void => {
   }
 };
 
-export const readFromCookieByKey = (key: string) => {
+export const getCookie = (key: string) => {
   if (typeof window !== 'undefined') {
     return (
       document.cookie

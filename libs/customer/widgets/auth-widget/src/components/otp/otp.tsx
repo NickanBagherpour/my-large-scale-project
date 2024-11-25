@@ -59,7 +59,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
     };
 
     try {
-      let data = null;
+      let data: any = null;
 
       if (state.OTP.type === 'register') {
         data = await mutateAsyncVerifyRegister(params);

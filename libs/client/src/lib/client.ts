@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { LocalStorageKey } from '@oxygen/types';
+import { getCookie, ROUTES } from '@oxygen/utils';
 
 const baseUrl = '/';
 
@@ -23,16 +24,18 @@ const client = axios.create({
 
 // Add a request interceptor
 
-client.interceptors.request.use((config) => {
+client.interceptors.request.use(async (config) => {
 
-  // const userDataString = localStorage.getItem(LocalStorageKey.USER);
+  /* const session = await auth();
 
-  // const userData = userDataString ? JSON.parse(userDataString) : null;
-  // const branchCode = userData?.branchCode || '';
+ // const userDataString = localStorage.getItem(LocalStorageKey.USER);
 
-  // if (branchCode) {
-  //   config.headers['BRANCH_CODE'] = branchCode;
-  // }
+ // const userData = userDataString ? JSON.parse(userDataString) : null;
+ // const branchCode = userData?.branchCode || '';
+
+ if (session) {
+   config.headers['Authorization'] = `Bearer ${session?.user?.name}`;
+ }*/
 
   return config;
 });
@@ -44,13 +47,14 @@ client.interceptors.response.use(
   async (error) => {
     const originalConfig = error.config;
 
-    if (originalConfig.url !== '/auth' && error.response) {
+
+    if (originalConfig.url !== ROUTES.CUSTOMER.AUTH && error.response) {
       if (error.response.status === 401) {
         localStorage.removeItem(LocalStorageKey.USER);
         if (error.response.data.location) {
           window.location.href = error.response.data.location;
         } else {
-          window.location.href = '/auth';  //fixme remove .html extension
+          window.location.href = ROUTES.CUSTOMER.AUTH;
         }
       } /* else if (error.response.status === 300) {
 

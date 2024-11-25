@@ -1,22 +1,25 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { User } from '@oxygen/types';
+import { User as OxygenUser, userSchema } from '@oxygen/types';
+import { JWT } from 'next-auth/jwt';
+import { encrypt } from '@oxygen/utils';
 
 declare module 'next-auth' {
   interface User {
+    name?: string | null;
     accessToken?: string;
   }
 
   interface Session {
-    user: User;
+    user: OxygenUser;
   }
 }
 
-/*declare module 'next-auth/jwt' {
+declare module 'next-auth/jwt' {
   interface JWT {
-    user: User;
+    user: OxygenUser;
   }
-}*/
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -24,41 +27,49 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       name: 'Credentials',
       credentials: {
         id: { label: 'ID', type: 'text' },
-        name: { label: 'name', type: 'text' },
+        name: { label: 'Name', type: 'text' },
       },
       async authorize(credentials) {
-        // console.error(
-        //   'Credentials authorize---------------------------------------------------------------------',
-        //   credentials,
-        // );
 
-        // Your authorization logic here
         if (!credentials.id) {
           throw new Error('No ID provided');
         }
 
-        // Simulate fetching user data
-        const user = { name: credentials.name, accessToken: credentials.id.toString() };
-        return user;
+        // Simulate fetching user data (replace with actual logic)
+        const user = {
+          name: credentials.name || '', // Ensure name is a string
+          accessToken: credentials.id.toString(),
+        };
+
+        // Validate against the schema
+        const parsedUser = userSchema.parse(user);
+        return parsedUser; // Return the validated user
       },
     }),
   ],
-  secret: process.env['AUTH_SECRET'],
-  session: { strategy: 'jwt' },
+  // secret: process.env['AUTH_SECRET'],
+  session: {
+    strategy: 'jwt',
+  },
+  trustHost: true,
   callbacks: {
-    async jwt({ token, user }) {
-      // console.error('callbacks jwt ---------------------------------------------------------------------', token, user);
+    async jwt({ token, user }: any) {
+
+      // console.log('-----------------------------------token-----------------------------------', token, user);
 
       if (user) {
-        // token.accessToken = user.accessToken; // Store token in JWT
+        token.accessToken = user.accessToken; // Store token in JWT
+        token.username = user.name; // Store token in JWT
       }
       return token;
     },
-    async session({ session, token }) {
-      // console.error('callbacks session session---------------------------------------------------------------------', session);
-      // console.error('callbacks session token---------------------------------------------------------------------', token);
+    async session({ session, token }: any) {
+      // session.user = { ...session.user, name: token.name }; // Only include name or other non-sensitive info
+      session.user.accessToken = encrypt(token.accessToken);
+      session.user.name = token.username;
 
-      // session.accessToken = token.accessToken; // Pass token to session
+      // Object.assign(session.user, token.user ?? {});
+
       return session;
     },
   },

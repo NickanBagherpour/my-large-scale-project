@@ -1,4 +1,4 @@
-import { readFromCookieByKey } from './util';
+import { getCookie } from './util';
 
 export const ApiUtil = {
   downloadFile: function(data, type, extension, preferredName?) {
@@ -29,7 +29,7 @@ export const ApiUtil = {
     const { method = 'GET', encodeQuery = true, contentType = 'application/octet-stream' } = options ?? {};
 
     const xsrfTokenKey = 'XSRF-TOKEN';
-    const xsrfToken = readFromCookieByKey(xsrfTokenKey) as string;
+    const xsrfToken = getCookie(xsrfTokenKey) as string;
 
     const xhr = new XMLHttpRequest();
     if (params && typeof params === 'object' && encodeQuery) {

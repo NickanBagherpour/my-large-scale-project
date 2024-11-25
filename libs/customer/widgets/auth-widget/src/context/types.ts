@@ -8,6 +8,7 @@ export type PaginationType = {
   page: number;
   limit: number;
 };
+
 export type OTPType = {
   isOpen: boolean;
   type: Nullable<'login' | 'register'>;
