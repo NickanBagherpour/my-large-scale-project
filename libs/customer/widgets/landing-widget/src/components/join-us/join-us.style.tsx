@@ -1,19 +1,20 @@
 import styled from 'styled-components';
-import wave from 'apps/customer-portal/public/assets/images/wave.svg';
+import bg from 'apps/customer-portal/public/assets/images/join-us-bg.svg';
 import { Button } from '@oxygen/ui-kit';
 import { getRelatedColor, respondTo } from '@oxygen/utils';
 
 const top = 20.7;
 
 export const Container = styled.section`
-  // background: url('${wave}'), linear-gradient(135deg, #232c43 0%, #324050 100%); color_changed
-  background: ${(p) =>
-    `url('${wave}'), linear-gradient(135deg, ${p.theme.primary._900} 0%, ${p.theme.primary._50} 100%)`};
+  background: url(${bg});
   background-repeat: no-repeat;
   background-size: 100%;
   padding: 1px 0 7.8rem;
   margin-top: ${15.2 + top}rem;
   margin-bottom: 8rem;
+  ${respondTo.down('xxl')} {
+    background-size: cover;
+  }
   ${respondTo.down('md')} {
     margin-top: 15.2rem;
   }
@@ -30,7 +31,6 @@ export const Poster = styled.div`
   margin-top: -${top}rem;
   position: relative;
   aspect-ratio: 111 / 57.1;
-
   ${respondTo.down('md')} {
     margin-top: -5rem;
   }
@@ -62,7 +62,7 @@ export const Title = styled.h4`
   font-size: 3.2rem;
   font-weight: 700;
   margin-block: 0 2.4rem;
-  color: ${(p) => getRelatedColor(p.theme.id, p.theme.onPrimary, p.theme.primary._200)};
+  color: ${(p) => p.theme.onPrimary};
 `;
 
 export const Desc = styled.p`

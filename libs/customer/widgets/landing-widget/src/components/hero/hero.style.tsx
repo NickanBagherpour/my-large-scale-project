@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import bg from 'apps/customer-portal/public/assets/images/bg.svg';
+import bg from 'apps/customer-portal/public/assets/images/hero-bg.svg';
 import Link from 'next/link';
 import { respondTo } from '@oxygen/utils';
 import { PaddingBox } from '../padding-box/padding-box.style';
@@ -86,8 +86,7 @@ export const Info = styled.div`
 export const Intro = styled(PaddingBox)`
   display: flex;
   align-items: center;
-
-  ${respondTo.down('lg')} {
+  ${respondTo.down('xl')} {
     flex-direction: column;
     gap: 7rem;
   }
@@ -98,7 +97,7 @@ export const ImgContainer = styled.div`
   flex: 7.24;
   max-width: 72.4rem;
   aspect-ratio: 725 / 706;
-  ${respondTo.down('lg')} {
+  ${respondTo.down('xl')} {
     width: 100%;
     flex: unset;
   }
