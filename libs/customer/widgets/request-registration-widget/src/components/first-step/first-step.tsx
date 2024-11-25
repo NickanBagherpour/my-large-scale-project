@@ -8,7 +8,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Select, DatePicker } from '@oxygen/ui-kit';
 
-import { requestFormSchema } from '../../types';
+import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
 import { useSelectDataQuery } from '../../services/first-step/get-select-data';
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
@@ -29,7 +29,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [form] = Form.useForm();
 
   const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
-  const rule = createSchemaFieldRule(requestFormSchema(t));
+  const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
 
   const onFinish = (values) => {
     updateFirstStepAction(dispatch, values);

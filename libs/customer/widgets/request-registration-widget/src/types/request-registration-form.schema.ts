@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { FORM_ITEM } from '../utils/consts';
 
-export const requestFormSchema = (t: (key: string) => string) => {
+export const requestRegistrationFormSchema = (t: (key: string) => string) => {
   const requiredString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
     if (value.trim().length === 0) {
       ctx.addIssue({
@@ -148,7 +148,15 @@ export const requestFormSchema = (t: (key: string) => string) => {
       }
     }),
 
-    [FORM_ITEM.persian_name_client]: requiredString.superRefine((value, ctx) => {
+    [FORM_ITEM.persian_name]: requiredString.superRefine((value, ctx) => {
+      if (value.trim() !== '' && !/^[\u0600-\u06FF\s]+$/.test(value)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('error.persian_only'),
+        });
+      }
+    }),
+    [FORM_ITEM.technical_persian_name]: requiredString.superRefine((value, ctx) => {
       if (value.trim() !== '' && !/^[\u0600-\u06FF\s]+$/.test(value)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -171,6 +179,9 @@ export const requestFormSchema = (t: (key: string) => string) => {
 
     //mobile number
     [FORM_ITEM.mobile_number]: mobileNumber,
+    [FORM_ITEM.Phone_number]: mobileNumber,
+    [FORM_ITEM.technical_mobile_number]: mobileNumber,
+    [FORM_ITEM.technical_Phone_number]: mobileNumber,
 
     // optional URL Field
     [FORM_ITEM.input_address]: optionalUrlString,
@@ -184,4 +195,4 @@ export const requestFormSchema = (t: (key: string) => string) => {
   });
 };
 
-export type FormValues = z.infer<ReturnType<typeof requestFormSchema>>;
+export type FormValues = z.infer<ReturnType<typeof requestRegistrationFormSchema>>;

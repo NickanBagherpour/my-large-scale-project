@@ -1,2 +1,2 @@
 export * from './get-report.type';
-export * from './first-step-form.schema';
+export * from './request-registration-form.schema';

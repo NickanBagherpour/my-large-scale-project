@@ -8,6 +8,7 @@ export const MAX_INPUTE_LENGTH = 75;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
+  //firstStep
   legal_person_name: 'legal_person_name',
   legal_person_type: 'legal_person_type',
   registration_number: 'registration_number',
@@ -18,6 +19,14 @@ export const FORM_ITEM = {
   postal_code: 'postal_code',
   phone: 'phone',
   last_registration_address: 'last_registration_address',
+  //secondStep
+  persian_name: 'persianName',
+  mobile_number: 'mobile_number',
+  Phone_number: 'Phone_number',
+  technical_persian_name: 'technical_persianName',
+  technical_mobile_number: 'technical_mobile_number',
+  technical_Phone_number: 'technical_Phone_number',
+  clientKey: 'clientKey',
 
   grant_tag: 'grant_tag',
   add_tag: 'add_tag',
@@ -34,7 +43,7 @@ export const FORM_ITEM = {
   user_name: 'user_name',
   national_code: 'national_code',
   organization_name: 'organization_name',
-  mobile_number: 'mobile_number',
+
   telephone: 'telephone',
   email: 'email',
 };
