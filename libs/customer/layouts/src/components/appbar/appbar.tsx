@@ -28,20 +28,20 @@ const Appbar = (props: AppBarProps) => {
   const { variant = 'dashboard', onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
   const { user, setUser } = useAuth();
-  const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+  // const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
   const theme = useTheme();
 
   // console.log('test', 'user', user);
 
-  useEffect(() => {
+/*  useEffect(() => {
     // console.log('test12', 'user', user);
 
     if (!user && variant === 'dashboard') {
       fetchUserProfile();
     }
-  }, []);
+  }, []);*/
 
-  const fetchUserProfile = async () => {
+ /* const fetchUserProfile = async () => {
     try {
       const response = await executeUserProfile(async () => await Api.getUserProfile());
       setUser(response);
@@ -49,7 +49,7 @@ const Appbar = (props: AppBarProps) => {
     } catch (error) {
       return null;
     }
-  };
+  };*/
 
   const getMobileAppbar = () => {
     return (
@@ -70,7 +70,7 @@ const Appbar = (props: AppBarProps) => {
           userInfo={user}
           onLogout={onLogout}
           isMobileOrTablet={isMobileOrTablet}
-          loading={stateUserProfile.loading}
+          // loading={stateUserProfile.loading}
         />
       </>
     );
@@ -92,7 +92,7 @@ const Appbar = (props: AppBarProps) => {
               userInfo={user}
               onLogout={onLogout}
               isMobileOrTablet={isMobileOrTablet}
-              loading={stateUserProfile.loading}
+              // loading={stateUserProfile.loading}
             />
             <S.Divider />
           </>

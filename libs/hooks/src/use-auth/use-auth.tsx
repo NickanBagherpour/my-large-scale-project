@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import React, { createContext, useContext, useMemo } from 'react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { LocalStorageKey } from '@oxygen/types';
 import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen/utils';
@@ -23,14 +24,26 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = (props: AuthProviderProps) => {
-  const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
+  // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
+  const user = useSession()?.data?.user;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();
 
-  const login = (data: any, path?: string) => {
+  const login2 = (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-    setUser(data);
+    // setUser(data);
+    /*    if (props.login) {
+          props.login();
+        }*/
+    // navigate(path ?? '/');
+    // router.push(path ?? '/');
+    router.replace(path ?? '/');
+  };
+
+  const login = async (data: any, path?: string) => {
+    clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
+    await signIn('credentials', { ...data, redirect: false });
     /*    if (props.login) {
           props.login();
         }*/
@@ -41,15 +54,17 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async (path?: string) => {
     try {
-      setUser(null);
-      removeUser();
+      //fixme
+      // setUser(null);
+      // removeUser();
       removeUserPhoto();
       setMenu(null);
       removeMenus();
       clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-      clearAllCookies();
+      // clearAllCookies();
 
-      await client.get(`/signout/`);
+      // await client.get(`/signout/`);
+      await signOut();
 
       /*   if (props.logout) {
            props.logout();
@@ -63,32 +78,30 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return true;
-    // fixme: make it real
-    // return !!user && isTokenValid();
+    return !!user //&& isTokenValid();
   }
 
-  const isTokenValid = () => {
-    const tokenExpiryDate = user?.expireDate;
+ /* const isTokenValid = () => {
+    const tokenExpiryDate = useSession().data?.expires;
     if (tokenExpiryDate && tokenExpiryDate < Date.now()) {
       return false;
     } else {
       return true;
     }
-  };
+  };*/
 
   const value = useMemo(
     () => ({
       user,
       login,
       logout,
-      setUser,
+      // setUser,
       isAuth: isAuth(),
       userPhoto,
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto]
+    [JSON.stringify(user), userPhoto],
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

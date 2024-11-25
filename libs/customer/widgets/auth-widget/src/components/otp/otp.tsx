@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -8,13 +8,14 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { Box, Button, Input, Timer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { ROUTES } from '@oxygen/utils';
+import { ApiUtil, ROUTES } from '@oxygen/utils';
+import { useAuth } from '@oxygen/hooks';
 
-import { TIMER_INITIALSECONDS } from '../../utils/consts';
-
+import { TIMER_INITIAL_SECONDS } from '../../utils/consts';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types/sample.schema';
+import { RegisterFormSchema } from '../../types';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
+import { useVerifyRegisterMutation, useVerifyLoginMutation } from '../../services';
 
 import * as S from './otp.style';
 
@@ -25,7 +26,10 @@ type FormContainerProps = PageProps & {
 export const OTP: React.FC<FormContainerProps> = () => {
   const dispatch = useAppDispatch();
   const state = useAppState();
+  const { login } = useAuth();
   const [t] = useTr();
+  const { mutateAsync: mutateAsyncVerifyRegister } = useVerifyRegisterMutation();
+  const { mutateAsync: mutateAsyncVerifyLogin } = useVerifyLoginMutation();
 
   const router = useRouter();
   const [OTPForm] = Form.useForm();
@@ -39,16 +43,40 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const handleLoginSubmit = () => {
     OTPForm.submit();
   };
+
   const handleRegisterSubmit = () => {
     OTPForm.submit();
   };
+
   const handleReturn = () => {
     updateOTPAction(dispatch, { ...state.OTP, isOpen: false });
   };
 
-  const handleFinish = (values: any) => {
-    console.log(':)', values);
-    router.push('/');
+  const handleFinish = async (values: any) => {
+    const params = {
+      otpKey: state.OTP.key,
+      otpValue: values.otp,
+    };
+
+    try {
+      let data: any = null;
+
+      if (state.OTP.type === 'register') {
+        data = await mutateAsyncVerifyRegister(params);
+      } else {
+        data = await mutateAsyncVerifyLogin(params);
+      }
+
+      if (!data) return;
+
+      const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
+      await login(user, ROUTES.CUSTOMER.PROFILE);
+
+    } catch (e) {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    }
+
   };
 
   const handleTimer = () => {
@@ -64,7 +92,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
       <S.Box>
         <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
-        <Button variant='link' onClick={handleReturn}>
+        <Button variant="link" onClick={handleReturn}>
           <S.BackParagraph>{t('change_mobile_number')}</S.BackParagraph>
         </Button>
       </S.Box>
@@ -77,20 +105,20 @@ export const OTP: React.FC<FormContainerProps> = () => {
       </Form>
       <S.TimerBox>
         {isTimerFinish ? (
-          <Button variant='link' onClick={handleResend}>
+          <Button variant="link" onClick={handleResend}>
             {<S.BackParagraph>{t('resend_otp_code')}</S.BackParagraph>}
           </Button>
         ) : (
           <>
             <S.BackParagraph>{t('time_left')}</S.BackParagraph>
-            <Timer initialSeconds={TIMER_INITIALSECONDS} onComplete={handleTimer} />
+            <Timer initialSeconds={TIMER_INITIAL_SECONDS} onComplete={handleTimer} />
           </>
         )}
       </S.TimerBox>
 
       {state.OTP.type === 'login' ? (
         <>
-          <S.Button onClick={handleRegisterSubmit} color='primary'>
+          <S.Button onClick={handleRegisterSubmit} color="primary">
             {t('submit')}
           </S.Button>
           <S.Divider />
@@ -101,7 +129,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
         </>
       ) : (
         <>
-          <S.Button onClick={handleLoginSubmit} color='primary'>
+          <S.Button onClick={handleLoginSubmit} color="primary">
             {t('submit')}
           </S.Button>
           <S.Divider />
