@@ -40,6 +40,15 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
     }
   };
 
+  const renderHealthStatus = (t, value) => {
+    switch (value) {
+      case '0':
+        return t('unHealth');
+      case '1':
+        return t('health');
+    }
+  };
+
   const mobileColumns: ColumnsType<any> = [
     {
       title: '',
@@ -53,7 +62,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('health_status')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.health_status)}</span>
+              <span className={'item__value'}>{getValueOrDash(renderHealthStatus(t, value?.healthStatus))}</span>
             </S.MobileTableItem>
             <S.MobileTableItem>
               <span className={'item__title'}>{t('weight')} </span>
@@ -81,8 +90,10 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
     {
       title: `${t('health_status')}`,
       dataIndex: 'healthStatus',
-      key: 'healthStatus',
-      render: (healthStatus) => getValueOrDash(healthStatus),
+      key: 'health_status',
+      render: (value) => {
+        return getValueOrDash(renderHealthStatus(t, value));
+      },
     },
     {
       title: `${t('weight')}`,

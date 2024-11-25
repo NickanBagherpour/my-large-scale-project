@@ -1,43 +1,41 @@
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
+import { useTheme } from 'styled-components';
 import { Form } from 'antd';
+
+import { useTr } from '@oxygen/translation';
+import { Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
+import { NoResult, FooterContainer, ReturnButton, GlobalMessageContainer } from '@oxygen/reusable-components';
+import { Nullable } from '@oxygen/types';
+import { RQKEYS } from '@oxygen/utils';
+
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
 import { useGetUpstreamDetailsQuery } from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
 import UpstreamInfo from '../upstream-info/upstream-info';
-import * as S from './app.style';
-import { Loading, Modal, Box, Button, Input, Select, Container } from '@oxygen/ui-kit';
-import { useState } from 'react';
-
-import { useTr } from '@oxygen/translation';
-import { NoResult, FooterContainer, ReturnButton } from '@oxygen/reusable-components';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { Nullable, PageProps } from '@oxygen/types';
-import { useTheme } from 'styled-components';
-import { ParamsType, UpstreamDetailsType, UpstreamDetailsTypeQuery } from '../../types';
-import { useQueryClient } from '@tanstack/react-query';
-import { RQKEYS } from '@oxygen/utils';
+import { ParamsType, UpstreamDetailsTypeQuery } from '../../types';
 import { ModalFormSchema } from '../../types/setting.schema';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
+
+import * as S from './app.style';
 
 const App = () => {
   const theme = useTheme();
   const { errorMessage, ...fetchState } = useAppState();
+  const dispatch = useAppDispatch();
+  const state = useAppState();
+  const [t] = useTr();
 
   const searchParams = useSearchParams();
   const upstreamId: Nullable<string> = searchParams.get('upstreamId');
+  const upstreamName: Nullable<string> = searchParams.get('upstreamName');
 
   const { data: upstreamDetails, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(fetchState);
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: { name: '', persianName: '', serverList: [] },
   });
-
-  const dispatch = useAppDispatch();
-  const state = useAppState();
-  const [t] = useTr();
-  const rule = createSchemaFieldRule(ModalFormSchema(t));
-
-  const [modalForm] = Form.useForm();
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openServerRegisterModal, setOpenServerRegisterModal] = useState(false);
@@ -46,7 +44,10 @@ const App = () => {
   const [selectedServerName, setSelectedServerName] = useState('');
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
+  const upstreamDetailsTitle = upstreamName ? upstreamName : 'widget_name_details';
   const queryClient = useQueryClient();
+  const rule = createSchemaFieldRule(ModalFormSchema(t));
+  const [modalForm] = Form.useForm();
 
   const handleSubmit = () => {
     setTriggerRegisterAction(true);
@@ -64,6 +65,13 @@ const App = () => {
   const handleDeleteOk = (domain: string) => {
     setConfirmLoading(true);
     setTimeout(() => {
+      setUpstreamServer((prevState) => ({
+        ...prevState,
+        list: {
+          ...prevState.list,
+          serverList: prevState.list.serverList.filter((item) => item.domain !== domain),
+        },
+      }));
       queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
         if (!oldData) return;
         return {
@@ -108,6 +116,24 @@ const App = () => {
           serverList: [...prevState.list.serverList, values],
         },
       }));
+      queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
+        if (!oldData) return;
+
+        // Create a Set of existing domain names for quick lookup
+        const existingDomains = new Set(oldData.list.serverList.map((item) => item.domain));
+
+        // Filter new servers to only include those with domains not already in existingDomains
+        const newServers = (upstreamServer?.list?.serverList || []).filter((item) => !existingDomains.has(item.domain));
+
+        return {
+          ...oldData,
+          list: {
+            name: oldData.list.name,
+            persianName: oldData.list.persianName,
+            serverList: [...oldData.list.serverList, ...newServers, values],
+          },
+        };
+      });
     }, 2000);
   };
 
@@ -176,8 +202,8 @@ const App = () => {
               </S.InfoItemsRow>
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('health_status')}</span>
-                <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]}>
-                  <Select defaultValue='1' size={'large'}>
+                <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]} initialValue={'1'}>
+                  <Select size={'large'}>
                     <Select.Option value='1'>{t('health')}</Select.Option>
                     <Select.Option value='0'>{t('unHealth')}</Select.Option>
                   </Select>
@@ -188,7 +214,7 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
 
-      <S.UpstreamDetailsContainer title={upstreamId ? t('widget_name_details') : t('widget_name_creation')}>
+      <S.UpstreamDetailsContainer title={upstreamId ? t(upstreamDetailsTitle) : t('widget_name_creation')}>
         <GlobalMessageContainer
           containerProps={{ marginBottom: '2.4rem' }}
           message={state.errorMessage}
@@ -206,26 +232,24 @@ const App = () => {
         />
         {upstreamId && (
           <Box className={'table-container'}>
-            <Loading spinning={isUpstreamFetching} size={'default'}>
-              {upstreamDetails?.list?.serverList.length ? (
-                <UpstreamDetails
-                  isFetching={isUpstreamFetching}
-                  data={upstreamDetails.list.serverList}
-                  total={upstreamDetails.list.serverList.length}
-                  isLoading={isUpstreamFetching}
-                  deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
-                />
-              ) : (
-                <NoResult isLoading={false} />
-              )}
-            </Loading>
+            {upstreamDetails?.list?.serverList.length ? (
+              <UpstreamDetails
+                isFetching={isUpstreamFetching}
+                data={upstreamDetails?.list?.serverList}
+                total={upstreamDetails?.list?.serverList.length}
+                isLoading={isUpstreamFetching}
+                deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
+              />
+            ) : (
+              <NoResult isLoading={isUpstreamFetching} />
+            )}
           </Box>
         )}
         {!upstreamId && (
           <Box className={'table-container'}>
             {
               <UpstreamDetails
-                isFetching={isUpstreamFetching}
+                isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
                 isLoading={isUpstreamFetching}
