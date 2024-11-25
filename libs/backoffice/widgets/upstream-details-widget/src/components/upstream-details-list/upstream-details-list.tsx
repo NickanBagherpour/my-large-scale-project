@@ -2,20 +2,22 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { TablePaginationConfig } from 'antd';
 
-import { getValueOrDash, uuid } from '@oxygen/utils';
-import { Table, Box, ColumnsType } from '@oxygen/ui-kit';
+import { uuid } from '@oxygen/utils';
+import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import * as S from './upstream-details-list.style';
 
 import { UpstreamDetailsType, ParamsType } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-details-list-util';
+
+import * as S from './upstream-details-list.style';
 
 type UpstreamDetailsProps = PageProps & {
   data: UpstreamDetailsType[];
   isFetching: boolean;
   total?: number;
   isLoading: boolean;
-  deleteUpstream: (name: string, status: ParamsType) => void;
+  deleteUpstream: (domain: string) => void;
 };
 
 const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
@@ -40,75 +42,8 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
     }
   };
 
-  const renderHealthStatus = (t, value) => {
-    switch (value) {
-      case '0':
-        return t('unHealth');
-      case '1':
-        return t('health');
-    }
-  };
-
-  const mobileColumns: ColumnsType<any> = [
-    {
-      title: '',
-      dataIndex: '',
-      render: (value, record, index) => {
-        return (
-          <Box flexDirection='column'>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('domain')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.domain)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('health_status')} </span>
-              <span className={'item__value'}>{getValueOrDash(renderHealthStatus(t, value?.healthStatus))}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('weight')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.weight)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}></span>
-              <span className={'item__value'}>
-                {<S.Trash className='icon-trash' onClick={() => deleteUpstream(value.domain, value.weight)} />}
-              </span>
-            </S.MobileTableItem>
-          </Box>
-        );
-      },
-    },
-  ];
-
-  const columns: ColumnsType<any> = [
-    {
-      title: `${t('domain')}`,
-      dataIndex: 'domain',
-      key: 'domain',
-      render: (domain) => getValueOrDash(domain),
-    },
-    {
-      title: `${t('health_status')}`,
-      dataIndex: 'healthStatus',
-      key: 'health_status',
-      render: (value) => {
-        return getValueOrDash(renderHealthStatus(t, value));
-      },
-    },
-    {
-      title: `${t('weight')}`,
-      dataIndex: 'weight',
-      key: 'weight',
-      render: (weight) => getValueOrDash(weight),
-    },
-
-    {
-      title: '',
-      dataIndex: 'domain',
-      key: 'domain',
-      render: (domain, weight) => <S.Trash className='icon-trash' onClick={() => deleteUpstream(domain, weight)} />,
-    },
-  ];
+  const desktopColumns = getDesktopColumns({ t, deleteUpstream });
+  const mobileColumns = getMobileColumns({ t, deleteUpstream });
 
   const tableData = data.map((item, index) => ({ ...item, index: index + 1 }));
 
@@ -119,7 +54,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
         current={pagination.page}
         total={total}
         dataSource={tableData}
-        columns={columns}
+        columns={desktopColumns}
         mobileColumns={mobileColumns}
         hasContainer={false}
         pagination={{ pageSize: pagination.rowsPerPage }}

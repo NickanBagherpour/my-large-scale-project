@@ -57,7 +57,7 @@ const App = () => {
     setTriggerRegisterAction(false);
   };
 
-  const deleteHandler = (domain: string, weight: ParamsType) => {
+  const deleteHandler = (domain: string) => {
     setOpenDeleteModal(true);
     setSelectedServerName(domain);
   };
@@ -238,7 +238,7 @@ const App = () => {
                 data={upstreamDetails?.list?.serverList}
                 total={upstreamDetails?.list?.serverList.length}
                 isLoading={isUpstreamFetching}
-                deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
+                deleteUpstream={(domain) => deleteHandler(domain)}
               />
             ) : (
               <NoResult isLoading={isUpstreamFetching} />
@@ -253,7 +253,7 @@ const App = () => {
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
                 isLoading={isUpstreamFetching}
-                deleteUpstream={(domain, weight) => deleteHandler(domain, weight)}
+                deleteUpstream={(domain) => deleteHandler(domain)}
               />
             }
           </Box>
