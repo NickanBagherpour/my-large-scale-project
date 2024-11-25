@@ -1,6 +1,8 @@
-import { cssVar, getRelatedColor, hideScrollbar, respondTo } from '@oxygen/utils';
 import { Drawer as AntDrawer, Layout } from 'antd';
 import styled from 'styled-components';
+
+import { cssVar, getRelatedColor, hideScrollbar, respondTo } from '@oxygen/utils';
+import { Button, Divider } from '@oxygen/ui-kit';
 
 const { Sider: AntSider } = Layout;
 
@@ -25,19 +27,7 @@ export const MenuWrapper = styled.div`
   margin-bottom: var(${cssVar.verticalGap});
   background: ${(p) => p.theme.surface};
   height: 100%;
-  // border-radius: var(${cssVar.radius});
-
-  .menu-button__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.6rem;
-
-    .register-button {
-      padding: 2.8rem 2.6rem;
-    }
-  }
+    // border-radius: var(${cssVar.radius});
 
   .menu-search-input-container {
     margin-top: 2.4rem;
@@ -79,7 +69,9 @@ export const MenuWrapper = styled.div`
 
     li.ant-menu-item,
     li.ant-menu-submenu {
-      margin: 0 auto;
+      margin:0;
+      //margin: 0 auto;
+      width:100%;
       text-wrap: unset;
       line-height: 1.5;
       height: 4.4rem;
@@ -108,15 +100,6 @@ export const MenuWrapper = styled.div`
       }
     }
 
-    //li.ant-menu-item:hover {
-    //  background-color: blue !important;
-    //}
-
-    //li.ant-menu-submenu:hover {
-    //  background-color: blue !important;
-    //}
-  }
-
   .menu-spin-container {
     height: 100%;
     display: flex;
@@ -143,4 +126,37 @@ export const SiderItemsWrapper = styled.div`
   ${respondTo.down('sm')} {
     gap: 0;
   }
+`;
+
+export const StyledDivider = styled(Divider)`
+  margin: 0 0 1.2rem 0;
+`;
+
+export const MenuButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6rem;
+`;
+export const RegisterButton = styled(Button)<{ disabled?: boolean }>`
+  width: 100%;
+  margin-bottom: 1.6rem;
+  padding-top: 2.8rem;
+  padding-bottom: 2.8rem;
+  max-height: 5.8rem;
+
+  &&& span {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  ${(props) =>
+    props.disabled &&
+    `
+  cursor: not-allowed;
+    border-color: #d9d9d9;
+    color: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: none;`}
 `;

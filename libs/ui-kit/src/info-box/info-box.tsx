@@ -6,10 +6,11 @@ import { InfoItemType } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import { Box } from '../box/box';
-import * as S from './info-box.style';
 import { Loading } from '../loading/loading';
 
-type InfoBoxProps = {
+import * as S from './info-box.style';
+
+export type InfoBoxProps = {
   data: InfoItemType[] | null;
   footer?: React.ReactNode;
   isDense?: boolean;
@@ -34,7 +35,7 @@ export const InfoBox = (props: InfoBoxProps) => {
 
   if (loading) {
     return (
-      <S.InfoBoxWrapper min_col={1}>
+      <S.InfoBoxWrapper min_col={1} margin={margin}>
         <div className={'fullwidth grid-item'}>
           <Loading />
         </div>

@@ -22,7 +22,7 @@ export const Overlay = styled.div`
   }
 `;
 
-export const StyleParagraph = styled('p')`
+export const StyleParagraph = styled('div')`
   cursor: pointer;
   display: flex;
   align-items: center;

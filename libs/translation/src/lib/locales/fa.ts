@@ -31,6 +31,7 @@ export default {
     print_date: 'تاریخ چاپ',
     error: 'خطا',
     warning: 'هشدار',
+    dashboard: 'داشبورد',
   },
   app: {
     app_name: '',
@@ -198,8 +199,8 @@ export default {
     required: 'این فیلد اجباریست',
     shaba_code: 'کد شبا را به طور صحیح وارد نمایید',
     count_securities: 'لطفا تعداد را به درستی وارد نمایید',
-    min_len: 'مقدار این فیلد نباید کمتر از $val باشد.',
-    max_len: 'مقدار این فیلد نباید بیشتر از $val باشد.',
+    min_len: 'مقدار این فیلد نباید کمتر از {{val}} باشد.',
+    max_len: 'مقدار این فیلد نباید بیشتر از {{val}} باشد.',
     english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
     persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
     url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
@@ -210,6 +211,7 @@ export default {
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',
     inquiry_infobox_warning: 'كاربر گرامی ، آيا از تاييد اطلاعات فوق مطمئن مي باشيد؟',
+    no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
   },
   nav: {},
   locale: {

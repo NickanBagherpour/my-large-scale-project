@@ -15,7 +15,7 @@ const HeroSection = () => {
         <S.BankLink href={'/'}>
           <Icons.BankLogo width={21} height={29} />
         </S.BankLink>
-        <S.AppName>{t('widget_name')}</S.AppName>
+        <S.AppName>{t('app_name')}</S.AppName>
         <S.LoginLink href={ROUTES.CUSTOMER.AUTH}>{t('login_to_platform')}</S.LoginLink>
         <Link href='/'>
           <Icons.SadadLogoLight width={69} height={21} />

@@ -35,7 +35,13 @@ export const ROUTES = {
     REQUEST_CREATION: '/request-creation',
   },
 };
-export const CUSTOMER_ROUTE_GROUPS = [[ROUTES.CUSTOMER.REQUESTS_MANAGEMENT, ROUTES.CUSTOMER.REQUEST_CREATION]];
+export const CUSTOMER_ROUTE_GROUPS = [
+  // [ROUTES.CUSTOMER.DASHBOARD],
+  [
+    ROUTES.CUSTOMER.REQUESTS_MANAGEMENT,
+    // , ROUTES.CUSTOMER.REQUEST_CREATION
+  ],
+];
 
 export const BACKOFFICE_ROUTE_GROUPS = [
   // ['/dashboard', '/dashboard-report'],
