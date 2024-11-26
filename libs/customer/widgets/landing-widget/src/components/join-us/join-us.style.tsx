@@ -1,18 +1,23 @@
 import styled from 'styled-components';
-import wave from 'apps/customer-portal/public/assets/images/wave.svg';
-import Image from 'next/image';
+import bg from 'apps/customer-portal/public/assets/images/join-us-bg.svg';
 import { Button } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
+import { getRelatedColor, respondTo } from '@oxygen/utils';
 
 const top = 20.7;
 
 export const Container = styled.section`
-  background: url('${wave}'), linear-gradient(135deg, #232c43 0%, #324050 100%);
+  background: url(${bg});
   background-repeat: no-repeat;
   background-size: 100%;
   padding: 1px 0 7.8rem;
   margin-top: ${15.2 + top}rem;
   margin-bottom: 8rem;
+  ${respondTo.down('xxl')} {
+    background-size: cover;
+  }
+  ${respondTo.down('md')} {
+    margin-top: 15.2rem;
+  }
 `;
 
 export const Poster = styled.div`
@@ -26,7 +31,6 @@ export const Poster = styled.div`
   margin-top: -${top}rem;
   position: relative;
   aspect-ratio: 111 / 57.1;
-
   ${respondTo.down('md')} {
     margin-top: -5rem;
   }

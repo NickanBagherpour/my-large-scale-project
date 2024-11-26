@@ -33,5 +33,6 @@ export const ClientCard: Story = {
     href: '/',
     name: 'API-SERVICES-UPSTREAM',
     activeServersCount: 12,
+    wordToHighlight: 'بله',
   },
 };

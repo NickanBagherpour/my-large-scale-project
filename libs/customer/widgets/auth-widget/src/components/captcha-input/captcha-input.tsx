@@ -10,42 +10,39 @@ interface CaptchaInputProps extends InputProps {
   imageSrc: string; // Source URL for the captcha image
   altText?: string; // Alternative text for the image
   onRefresh: () => void; // Function to refresh the captcha
-  name: string; // Form item name
+  name?: string; // Form item name
   rules?: any[]; // Validation rules for the form item
   loading?: boolean; // Loading state for the refresh button
 }
 
-const CaptchaInput: React.FC<CaptchaInputProps> = (
-  {
-    imageSrc,
-    altText = 'Captcha',
-    onRefresh,
-    name,
-    loading = false,
-    rules,
-    ...rest
-  }) => {
+const CaptchaInput: React.FC<CaptchaInputProps> = ({
+  imageSrc,
+  altText = 'Captcha',
+  onRefresh,
+  name,
+  loading = false,
+  rules,
+  ...rest
+}) => {
   return (
-
     <S.KitInput
       suffix={
         <S.SuffixContainer>
-          {
-            loading ? (<Loading size={'small'} style={{padding :'0 2rem'}}/>) :
-              (
-                <Image
-                  src={imageSrc}
-                  alt={altText}
-                  width={100}
-                  height={32}
-                  style={{ margin: '0 1rem', objectFit: 'cover' }}
-                />
-              )
-          }
+          {loading ? (
+            <Loading size={'small'} style={{ padding: '0 2rem' }} />
+          ) : (
+            <Image
+              src={imageSrc}
+              alt={altText}
+              width={140}
+              height={32}
+              style={{ margin: '0 1rem', objectFit: 'cover' }}
+            />
+          )}
           <S.RefreshButton
-            size="small"
-            type="text"
-            shape="circle"
+            size='small'
+            type='text'
+            shape='circle'
             icon={
               <S.IconWrapper>
                 <Icons.Refresh />
@@ -53,7 +50,7 @@ const CaptchaInput: React.FC<CaptchaInputProps> = (
             }
             onClick={onRefresh}
             disabled={loading}
-            aria-label="Refresh Captcha"
+            aria-label='Refresh Captcha'
           />
         </S.SuffixContainer>
       }

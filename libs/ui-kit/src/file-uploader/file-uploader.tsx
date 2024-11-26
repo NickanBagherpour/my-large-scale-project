@@ -6,7 +6,7 @@ import { Nullable } from '@oxygen/types';
 
 import { Button } from '../button/button';
 import { Loading } from '../loading/loading';
-import { Text } from '../text/text';
+// import { Text } from '../text/text';
 
 import * as S from './file-uploader.style';
 
@@ -136,11 +136,11 @@ const FileUploader: React.FC<IFileUploadProps> = ({
             <S.Content height={height} width={width}>
               {!loading ? (
                 <>
-                  <Text variant='title'>{labelText}</Text>
+                  <S.TitleText>{labelText}</S.TitleText>
 
                   {!isDragOver && (
                     <>
-                      <Text variant='title'>{orLabel}</Text>
+                      <S.TitleText>{orLabel}</S.TitleText>
                       <Button type={'primary'} style={{ padding: '0 3rem' }}>
                         {buttonTitle}
                       </Button>

@@ -61,3 +61,8 @@ export const InputMoneyWrapper = styled.div`
   flex-direction: column;
   //flex-wrap: wrap;
 `;
+export const SubtitleText = styled.p`
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: ${(p) => p.theme.text.primary};
+`;

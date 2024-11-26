@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -12,14 +11,14 @@ import { ROUTES } from '@oxygen/utils';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types/sample.schema';
+import { RegisterFormSchema } from '../../types';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
 import { INPUT_MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './login.style';
-import { set } from 'zod';
+import { useLoginMutation } from '../../services';
 
 type FormContainerProps = PageProps & {
   title: string;
@@ -31,6 +30,7 @@ export const Login = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { mutate } = useLoginMutation();
 
   const [loginForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
@@ -57,12 +57,24 @@ export const Login = ({ title }: FormContainerProps) => {
 
   const handleSubmit = () => loginForm.submit();
 
-  const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, {
-      ...values,
-      type: 'login',
-      isOpen: true,
-      captchaCode: undefined,
+  const handleFinish = async (values: any) => {
+    const params = {
+      username: values.mobileNumber,
+      captcha: values.captchaCode,
+      captchaToken,
+      userIp: state.OTP.ip,
+    };
+
+    mutate(params, {
+      onSuccess: (data) => {
+        console.log('Login successful:', data.headers['key'], data);
+
+        const otpKey = data.headers['key'];
+        updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined, key: otpKey });
+      },
+      onError: (error) => {
+        console.error('Login failed:', error);
+      },
     });
   };
 
@@ -90,7 +102,7 @@ export const Login = ({ title }: FormContainerProps) => {
             <CaptchaInput
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
-              name='captcha_code'
+              // name='captcha_code'
               placeholder={t('captcha_code')}
               loading={isLoading}
             />

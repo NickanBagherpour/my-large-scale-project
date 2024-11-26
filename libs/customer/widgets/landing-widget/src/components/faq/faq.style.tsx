@@ -15,7 +15,7 @@ export const Container = styled(PaddingBox)`
 
   & .ant-collapse-item {
     margin-bottom: 2.4rem;
-    background: rgb(255, 255, 255);
+    background: ${(p) => p.theme.background.main};
     border-radius: 1.2rem;
     border: 0.1rem solid rgb(203, 213, 225);
     transition: border 500ms, background-color 500ms;

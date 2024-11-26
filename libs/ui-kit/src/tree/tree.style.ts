@@ -31,6 +31,10 @@ export const StyledTree = styled<any>(AntTree)`
     background-color: ${(p) => p.theme.background.main};
   }
 
+  .ant-tree-switcher {
+    top: 0.6rem;
+  }
+
   .ant-tree-switcher-wrapper {
     background-color: ${(p) => !p.isCompact && p.theme.background.main};
     width: 24px;
@@ -40,7 +44,7 @@ export const StyledTree = styled<any>(AntTree)`
     align-items: center;
     justify-content: center;
     font-size: 1.4rem !important;
-    margin-top: var(--node-offset);
+    /* margin-top: var(--node-offset); */
   }
 
   .ant-tree-node-content-wrapper {
