@@ -1,4 +1,5 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { getValueOrDash } from '@oxygen/utils';
 import * as S from '../components/third-step/third-step.style';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
@@ -6,14 +7,14 @@ import { TFunction } from 'i18next';
 import { Modal } from '../types/modal.type';
 type Props = {
   t: TFunction;
-  toggleModal: (modal: keyof Modal) => void;
+  toggleModal: (modal: keyof Modal, serviceId?: string) => void;
 };
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const { t, toggleModal } = props;
 
   return [
     {
-      title: t('step_two.row'),
+      title: t('table_header.row'),
       align: 'center',
       key: 'index',
       width: '5rem',
@@ -23,51 +24,22 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       },
     },
     {
-      title: t('step_two.service_name'),
+      title: t('table_header.name'),
       dataIndex: 'serviceName',
       align: 'center',
+      render: (serviceName) => getValueOrDash(serviceName),
     },
     {
-      title: t('step_two.persian_name'),
+      title: t('table_header.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-    },
-    {
-      title: t('step_two.scope'),
-      dataIndex: 'scope',
-      align: 'center',
-    },
-    {
-      title: t('step_two.url'),
-      dataIndex: 'url',
-      align: 'center',
-      render: (url) => (
-        <Link href={url} target='_blank' rel='noopener noreferrer'>
-          {' '}
-          {url}{' '}
-        </Link>
-      ),
-    },
-    {
-      title: t('step_two.version'),
-      dataIndex: 'version',
-      align: 'center',
-      width: '7rem',
-    },
-    {
-      width: '7rem',
-      key: 'status',
-      render: () => (
-        <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
-          {t('details')}
-        </S.DetailsBtn>
-      ),
+      render: (persianName) => getValueOrDash(persianName),
     },
     {
       width: '7rem',
       key: 'remove',
-      render: (p) => (
-        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+      render: (p, service) => (
+        <Button variant='link' color='error' onClick={() => toggleModal('removeService', service.serviceName)}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -84,28 +56,14 @@ export function getMobileColumns(props) {
       key: 'mobile-columns',
       render({ scope, url, version, persianName, serviceName }: Service) {
         const data = [
-          { title: t('step_two.service_name'), value: serviceName },
-          { title: t('step_two.persian_name'), value: persianName },
-          { title: t('step_two.scope'), value: scope },
+          { title: t('table_header.name'), value: serviceName, render: (serviceName) => getValueOrDash(serviceName) },
           {
-            title: t('step_two.url'),
-            value: (
-              <Link href={url} target='_blank' rel='noopener noreferrer'>
-                {url}
-              </Link>
-            ),
-          },
-          { title: t('step_two.version'), value: version },
-          {
-            title: t('details'),
-            value: (
-              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
-                {t('details')}
-              </S.DetailsBtn>
-            ),
+            title: t('table_header.persian_name'),
+            value: persianName,
+            render: (persianName) => getValueOrDash(persianName),
           },
           {
-            title: t('remove'),
+            title: t('remove_modal.remove'),
             value: (
               <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
                 <S.TrashIcon className='icon-trash' />

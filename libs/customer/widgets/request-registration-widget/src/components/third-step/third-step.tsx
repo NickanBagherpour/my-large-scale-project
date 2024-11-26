@@ -5,7 +5,6 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { AdvanceSelector } from '@oxygen/reusable-components';
 
-import DetailModal from './modal-detail/modal-detail';
 import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
 import { updateSecondStepTableAction, useAppDispatch, useAppState } from '../../context';
@@ -25,10 +24,15 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
+    serviceId: '',
   });
 
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  const toggleModal = (modal: keyof Modal, serviceId?: string) => {
+    setModals((prev) => ({
+      ...prev,
+      serviceId: serviceId || '',
+      [modal]: !prev[modal],
+    }));
   };
 
   const handleSelect = (item) => {
@@ -47,9 +51,13 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const revertData = state.secondStep.table;
 
   return (
-    <S.SecondStepContainer>
+    <S.ThirdStepContainer>
       <S.SearchField>
-        <AdvanceSelector onSelect={handleSelect} label={t('step_two.client_services')}></AdvanceSelector>
+        <AdvanceSelector
+          onSelect={handleSelect}
+          label={t('search_services')}
+          placeholder={t('search_by_service_name_and_code')}
+        ></AdvanceSelector>
       </S.SearchField>
       <Box flexGrow={1}>
         <Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
@@ -63,12 +71,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-      <RemoveModal
-        isOpen={modals['removeService']}
-        toggle={() => toggleModal('removeService')}
-        id={'samat-lc-gutr-del'}
-      />
-      <DetailModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
-    </S.SecondStepContainer>
+      <RemoveModal isOpen={modals['removeService']} toggle={() => toggleModal('removeService')} id={modals.serviceId} />
+    </S.ThirdStepContainer>
   );
 };

@@ -26,7 +26,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const id: Nullable<string> = searchParams.get('id');
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },

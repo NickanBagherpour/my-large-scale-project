@@ -10,6 +10,19 @@ export default {
   tooTip_text: 'محتوای راهنمای ابزار',
   clientKeyMessage:
     'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
+  //thirdStep
+  search_services: 'جستجوی سرویس‌ها',
+  search_by_service_name_and_code: 'جستجو براساس نام یا کد سرویس',
+  table_header: {
+    row: 'ردیف',
+    name: 'نام سرویس',
+    persian_name: 'نام فارسی',
+  },
+  remove_modal: {
+    remove_service: 'حذف سرویس',
+    remove: 'حذف',
+    are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
+  },
   progress_bar: {
     first_step: 'اطلاعات شرکت',
     second_step: 'اطلاعات نمایندگان',

@@ -49,7 +49,11 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   return (
     <S.SecondStepContainer>
       <S.SearchField>
-        <AdvanceSelector onSelect={handleSelect} label={t('step_two.client_services')}></AdvanceSelector>
+        <AdvanceSelector
+          onSelect={handleSelect}
+          label={t('step_two.client_services')}
+          placeholder={t('search_by_name_and_scope')}
+        ></AdvanceSelector>
       </S.SearchField>
       <Box flexGrow={1}>
         <Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />

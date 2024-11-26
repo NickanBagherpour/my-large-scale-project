@@ -38,7 +38,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
   };
 
   const handleReturn = () => {
-    router.back();
+    setCurrentStep((perv) => perv - 1);
   };
 
   return (

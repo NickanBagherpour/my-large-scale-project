@@ -19,10 +19,11 @@ type Props = {
   onClear?: () => void;
   onSelect: (item: ClientService) => void;
   label?: string;
+  placeholder?: string;
 };
 
 const AdvanceSelector = (props: Props) => {
-  const { onSelect, onClear, className = '', style = {}, label } = props;
+  const { onSelect, onClear, className = '', style = {}, label, placeholder } = props;
 
   const MAX_LENGTH = 75;
 
@@ -66,7 +67,7 @@ const AdvanceSelector = (props: Props) => {
         <Input
           size='large'
           prefix={isLoading ? <Loading /> : <i className='icon-search-normal' />}
-          placeholder={t('autocomplete.search_by_name_and_scope')}
+          placeholder={placeholder}
         />
       </AntAutoComplete>
     </>

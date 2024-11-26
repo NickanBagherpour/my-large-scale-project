@@ -21,7 +21,7 @@ const mockData: ClientService[] = [
   {
     title: 'دریافت کد‌های ملی متعلق به یک شمارهn موبایل',
     subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
-    serviceName: 'samat-lc-gutr-del',
+    serviceName: 'samat-lc-gutr-del222',
     persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
     scope: 'svc-mgmt-iban-inq',
     url: 'http://localhost:3000/client-creation',

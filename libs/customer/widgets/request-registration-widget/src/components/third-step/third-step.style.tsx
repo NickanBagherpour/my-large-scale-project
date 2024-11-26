@@ -2,7 +2,7 @@ import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 import { Table as antTable, Button } from '@oxygen/ui-kit';
 
-export const SecondStepContainer = styled.div`
+export const ThirdStepContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
