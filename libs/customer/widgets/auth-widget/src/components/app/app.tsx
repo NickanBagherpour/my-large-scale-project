@@ -30,8 +30,6 @@ const App: React.FC<AppProps> = (props) => {
       try {
         const data = await Api.getIP({});
         updateOTPAction(dispatch, { ...state.OTP, ip: data.ip });
-        console.log('Fetched IP:', data);
-
       } catch (error) {
         console.error('Failed to fetch IP:', error);
       }

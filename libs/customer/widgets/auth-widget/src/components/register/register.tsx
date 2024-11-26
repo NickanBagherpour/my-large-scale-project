@@ -9,13 +9,15 @@ import { Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
+import { useRegisterMutation } from '../../services';
+
 import { INPUT_MAX_LENGTH } from '../../utils/consts';
+
+import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { RegisterFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
-import CaptchaInput from '../captcha-input/captcha-input';
-import { useRegisterMutation } from '../../services';
 
 import * as S from './register.style';
 
