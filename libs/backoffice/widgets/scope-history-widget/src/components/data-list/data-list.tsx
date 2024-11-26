@@ -102,7 +102,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           title={t('scope_change_history')}
           // title={t('discharge_request_list')}
           // captionChildren={getCaptionChildren()}
-          dataSource={scopeHistoryList?.content}
+          dataSource={scopeHistoryList}
           columns={columns}
           // mobileColumns={mobileColumns}
           loading={isClientsFetching}
@@ -115,7 +115,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           onChange={handlePageChange}
           rowKey={() => uuid()}
           current={pagination.page}
-          total={scopeHistoryList?.content?.length}
+          // total={scopeHistoryList?.length}
         />
       </div>
     </S.TableContainer>
