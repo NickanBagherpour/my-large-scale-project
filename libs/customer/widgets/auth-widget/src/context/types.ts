@@ -4,17 +4,18 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
 
-export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
-
 export type PaginationType = {
   page: number;
   limit: number;
 };
+
 export type OTPType = {
   isOpen: boolean;
   type: Nullable<'login' | 'register'>;
+  ip: Nullable<string>;
   mobileNumber: Nullable<string>;
   nationalCode?: Nullable<string>;
+  key?: Nullable<string>;
 };
 
 export type WidgetStateType = {
@@ -29,24 +30,16 @@ export type WidgetStateType = {
 
 export type WidgetActionType =
   | {
-      type: 'UPDATE_OTP';
-      payload: Nullable<OTPType>;
-    }
+  type: 'UPDATE_OTP';
+  payload: Nullable<OTPType>;
+}
   | {
-      type: 'UPDATE_GLOBAL_MESSAGE';
-      payload: Nullable<MessageType>;
-    }
+  type: 'UPDATE_GLOBAL_MESSAGE';
+  payload: Nullable<MessageType>;
+}
   | {
-      type: 'UPDATE_FILTERS';
-      payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_SUBMIT';
-      payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_PAGINATION';
-      payload: Partial<PaginationType>;
-    };
+  type: 'UPDATE_SUBMIT';
+  payload: Partial<FiltersType>;
+};
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

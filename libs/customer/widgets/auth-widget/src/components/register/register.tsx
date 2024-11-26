@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, startTransition, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
@@ -15,6 +15,7 @@ import { RegisterFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import CaptchaInput from '../captcha-input/captcha-input';
+import { useRegisterMutation } from '../../services';
 
 import * as S from './register.style';
 
@@ -28,6 +29,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { mutate } = useRegisterMutation();
 
   const [registerForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
@@ -50,6 +52,7 @@ export const Register = ({ title }: FormContainerProps) => {
   }, [data]);
 
   // console.log('----------------------------------->', imageSrc, data?.captchaToken , isLoading);
+  // console.log('----------------------------------->', state);
 
   const refreshCaptcha = () => {
     refetch(); // Fetch a new captcha
@@ -57,8 +60,30 @@ export const Register = ({ title }: FormContainerProps) => {
 
   const handleSubmit = () => registerForm.submit();
 
-  const handleFinish = (values: any) => {
-    updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
+  // const handleFinish = (values: any) => {
+  //   updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
+  // };
+
+  const handleFinish = async (values: any) => {
+    const params = {
+      nationalCode: values.nationalCode,
+      mobileNo: values.mobileNumber,
+      captcha: values.captchaCode,
+      captchaToken,
+      registerIp: state.OTP.ip,
+    };
+
+    mutate(params, {
+      onSuccess: (data) => {
+        console.log('Registration successful:', data.headers['key'], data);
+
+        const otpKey = data.headers['key'];
+        updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
+        },
+      onError: (error) => {
+        console.error('Registration failed:', error);
+      },
+    });
   };
 
   return (
