@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import type { UploadFile, UploadProps } from 'antd';
 import { PageProps, type Pagination } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
@@ -16,14 +16,17 @@ import {
   TabsProps,
   Divider,
 } from '@oxygen/ui-kit';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { useGetServiceDetailsQuery, useGetServiceClientsListQuery } from '../../services';
-import {
-  getDesktopColumns,
-  //  getMobileColumns
-} from '../../utils/services-table.util';
+import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
+import { Nullable } from '@oxygen/types';
+import { TablePaginationConfig } from 'antd';
 import * as S from './app.style';
 import { FooterContainer } from '@oxygen/reusable-components';
 import { useBounce } from '@oxygen/hooks';
+import { ROUTES, uuid } from '@oxygen/utils';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
+// import { MobileColumns } from 'libs/ui-kit/src/table/mobile-columns';
 
 type AppProps = PageProps & {
   //
@@ -32,10 +35,38 @@ type AppProps = PageProps & {
 const App: React.FC<AppProps> = (props) => {
   const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery();
   const { data: clientsList, isFetching: isClientsFetching } = useGetServiceClientsListQuery();
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
+  // const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
+  const state = useAppState();
+  const dispatch = useAppDispatch();
 
+  const {
+    table: { pagination },
+  } = state;
+
+  const handlePageChange = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+
+    if (pageSize && current) {
+      const updatedPagination = {
+        page: pageSize === pagination.rowsPerPage ? current : 1,
+        rowsPerPage: pageSize,
+      };
+      updatePagination(dispatch, updatedPagination);
+    }
+  };
   const [t] = useTr();
+  const searchParams = useSearchParams();
+
   const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
+
+  const id: Nullable<string> = searchParams.get('id');
+  if (!id) {
+    redirect('/not-found');
+  }
+
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const dataTableParams = { t, pagination };
   const [value, setValue] = useState('');
@@ -53,37 +84,16 @@ const App: React.FC<AppProps> = (props) => {
     }
   }, [value, clientsList]);
   const desktopColumns = getDesktopColumns(dataTableParams);
+  const mobileColumns = getMobileColumns(dataTableParams);
 
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList, file }) => {
     setFileList(newFileList);
   };
 
   const footerButton = (
-    <Button className={'return-button'} color={'primary'} size={'large'} variant={'solid'}>
+    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
-    </Button>
-  );
-
-  const tariffButton = (
-    <>
-      <Button type={'primary'} color='primary' variant='outlined' onClick={() => router.push('/edit-service')}>
-        {t('button.cancel')}
-      </Button>
-      <Button type={'primary'} color='primary' variant='solid' onClick={() => router.push('/edit-service')}>
-        {t('button.register')}
-      </Button>
-    </>
-  );
-
-  const scopeButton = (
-    <>
-      <Button type={'primary'} color='primary' variant='outlined' onClick={() => router.push('/edit-service')}>
-        {t('button.cancel')}
-      </Button>
-      <Button type={'primary'} color='primary' variant='solid' onClick={() => router.push('/edit-service')}>
-        {t('button.register')}
-      </Button>
-    </>
+    </ReturnButton>
   );
 
   const handleDelete = (uid) => {
@@ -105,7 +115,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push('/service-history')}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -114,14 +124,14 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='solid'
                 icon={<i className='icon-edit' />}
-                onClick={() => router.push('/edit-service')}
+                onClick={() => router.push(`/edit-service?id=1111111`)}
               >
                 {t('edit')}
               </Button>
             </div>
           </div>
 
-          <InfoBox data={serviceDetails} margin={0} />
+          <InfoBox data={serviceDetails} margin={0} loading={isServiceFetching} />
         </>
       ),
     },
@@ -129,7 +139,7 @@ const App: React.FC<AppProps> = (props) => {
       key: '2',
       label: t('clients'),
       children: (
-        <S.ItemsContainer className='clients-list' footer={footerButton}>
+        <S.ItemsContainer className='clients-list'>
           <h3>{t('clients_list')}</h3>
 
           <S.DataTableContainer>
@@ -151,16 +161,21 @@ const App: React.FC<AppProps> = (props) => {
             </S.Buttons>
           </S.DataTableContainer>
 
-          <S.TableContainer>
+          <div>
             <Table
               // dataSource={clientsList?.content}
               dataSource={isClientsFetching ? [] : filteredClients}
               columns={desktopColumns}
+              mobileColumns={mobileColumns}
               loading={isClientsFetching}
-              hasContainer={true}
-              rowKey={'requestId'}
+              hasContainer={false}
+              pagination={{ pageSize: pagination.rowsPerPage }}
+              onChange={handlePageChange}
+              rowKey={() => uuid()}
+              current={pagination.page}
+              total={filteredClients?.length}
             />
-          </S.TableContainer>
+          </div>
         </S.ItemsContainer>
       ),
     },
@@ -168,14 +183,17 @@ const App: React.FC<AppProps> = (props) => {
       key: '3',
       label: t('tariffs'),
       children: (
-        <S.TariffContainer footer={tariffButton}>
-          <div>
-            <h3>{t('tariffs_list')}</h3>
-            <div className='inputs-container'>
-              <div>
-                <span>{t('tariff')}</span>
-                <Input />
-              </div>
+        <S.TariffContainer>
+          <h3>{t('tariffs_list')}</h3>
+          <div className='inputs-container'>
+            <div>
+              <span>{t('tariff')}</span>
+              <Input />
+            </div>
+            <div className='button-container'>
+              <Button type={'primary'} color='primary' variant='solid'>
+                {t('button.register')}
+              </Button>
             </div>
           </div>
         </S.TariffContainer>
@@ -185,7 +203,7 @@ const App: React.FC<AppProps> = (props) => {
       key: '4',
       label: t('scopes'),
       children: (
-        <S.ScopeList footer={scopeButton}>
+        <S.ScopeList>
           <h3>{t('scopes_list')}</h3>
 
           <div className='inputs-container'>
@@ -198,6 +216,12 @@ const App: React.FC<AppProps> = (props) => {
               <Input placeholder={t('scope_persian_name')} />
             </div>
           </div>
+
+          <div className='button-container'>
+            <Button type={'primary'} color='primary' variant='solid'>
+              {t('button.register')}
+            </Button>
+          </div>
         </S.ScopeList>
       ),
     },
@@ -205,9 +229,15 @@ const App: React.FC<AppProps> = (props) => {
       key: '5',
       label: t('documents'),
       children: (
-        <S.UploadContainer footer={footerButton}>
+        <S.UploadContainer>
           <div className='button-container'>
-            <Button type='primary' color='primary' variant='filled' icon={<i className='icon-clock' />}>
+            <Button
+              type='primary'
+              color='primary'
+              variant='filled'
+              onClick={() => router.push(`/documentation-history?id=${id}&type=documentation`)}
+              icon={<i className='icon-clock' />}
+            >
               {t('see_changes_history')}
             </Button>
           </div>
@@ -254,7 +284,7 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer>
+    <S.AppContainer footer={footerButton}>
       <Container title={t('widget_name')} style={{ minHeight: '100%' }}>
         <Tabs defaultActiveKey='1' items={items} style={{ paddingTop: '3rem' }} />
       </Container>

@@ -169,7 +169,7 @@ const Services: React.FC<ServicesProps> = (props) => {
       title: '',
       dataIndex: 'details',
       key: 'details',
-      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>,
+      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
     },
     {
       title: '',
