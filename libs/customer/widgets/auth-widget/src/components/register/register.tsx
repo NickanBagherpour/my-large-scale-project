@@ -28,9 +28,8 @@ export const Register = ({ title }: FormContainerProps) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { data, isLoading, isError, refetch, error } = useGetCaptchaQuery();
   const { mutate } = useRegisterMutation();
-
   const [registerForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
@@ -79,7 +78,7 @@ export const Register = ({ title }: FormContainerProps) => {
 
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
-        },
+      },
       onError: (error) => {
         console.error('Registration failed:', error);
       },
