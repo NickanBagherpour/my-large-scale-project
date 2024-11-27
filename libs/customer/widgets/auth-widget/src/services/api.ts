@@ -1,6 +1,6 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType } from '../types';
+import { FetchIpType, FetchParamsType, ReportResponseType } from '../types';
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
@@ -8,7 +8,7 @@ const Api = {
   },
   getIP: async (params: any) => {
     try {
-      const response = await client.get('/api/auth/ip');
+      const response = await client.get<FetchIpType>('/api/auth/ip');
       return response.data; // This will contain the IP address
     } catch (error) {
       console.error('Error fetching IP:', error);
@@ -26,44 +26,47 @@ const Api = {
     };
   },
   postRegisterUser: async (params: any) => {
-
     const { captchaToken, ...restParams } = params;
 
-    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/client/register`, restParams, {
+    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/client/register`, restParams, {
       headers: { 'Captcha-Token': captchaToken },
     });
   },
   postVerifyRegisterOTP: async (params: any) => {
-
     const { otpKey, otpValue } = params;
 
-    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/otp/verify/register`, {}, {
-      headers: {
-        'key': otpKey,
-        'value': otpValue,
-      },
-    });
+    return client.post(
+      /*<ReportResponseType>*/ `${portalUrl}/v1/otp/verify/register`,
+      {},
+      {
+        headers: {
+          key: otpKey,
+          value: otpValue,
+        },
+      }
+    );
   },
   postLoginUser: async (params: any) => {
-
     const { captchaToken, ...restParams } = params;
 
-    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/client/login`, restParams, {
+    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/client/login`, restParams, {
       headers: { 'Captcha-Token': captchaToken },
     });
   },
   postVerifyLoginOTP: async (params: any) => {
-
     const { otpKey, otpValue } = params;
 
-    return client.post/*<ReportResponseType>*/(`${portalUrl}/v1/otp/verify/login`, {}, {
-      headers: {
-        'key': otpKey,
-        'value': otpValue,
-      },
-    });
+    return client.post(
+      /*<ReportResponseType>*/ `${portalUrl}/v1/otp/verify/login`,
+      {},
+      {
+        headers: {
+          key: otpKey,
+          value: otpValue,
+        },
+      }
+    );
   },
 };
-
 
 export default Api;

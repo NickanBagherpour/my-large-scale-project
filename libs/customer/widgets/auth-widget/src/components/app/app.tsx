@@ -7,9 +7,9 @@ import { useTr } from '@oxygen/translation';
 import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
+import { useGetIpQuery } from '../../services/ip.api';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { resetErrorMessageAction, updateOTPAction, useAppDispatch, useAppState } from '../../context';
-import { Api } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -25,18 +25,11 @@ const App: React.FC<AppProps> = (props) => {
 
   const isOTPOpen = state.OTP.isOpen;
 
-  useEffect(() => {
-    const fetchIp = async () => {
-      try {
-        const data = await Api.getIP({});
-        updateOTPAction(dispatch, { ...state.OTP, ip: data.ip });
-      } catch (error) {
-        console.error('Failed to fetch IP:', error);
-      }
-    };
+  const { data, isFetching, isError, error } = useGetIpQuery({});
 
-    fetchIp();
-  }, []);
+  useEffect(() => {
+    updateOTPAction(dispatch, { ...state.OTP, ip: data?.ip });
+  }, [data]);
 
   return (
     <>
