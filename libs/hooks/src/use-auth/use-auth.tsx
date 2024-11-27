@@ -6,8 +6,7 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { LocalStorageKey } from '@oxygen/types';
-import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen/utils';
-import { client } from '@oxygen/client';
+import { clearLocalStorageExceptForKey } from '@oxygen/utils';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 
@@ -25,8 +24,7 @@ type AuthProviderProps = {
 
 const AuthProvider = (props: AuthProviderProps) => {
   // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
-  // const user = useSession()?.data?.user;
-  const user=true
+  const user = useSession()?.data?.user;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();
@@ -79,17 +77,17 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return !!user //&& isTokenValid();
+    return !!user; //&& isTokenValid();
   }
 
- /* const isTokenValid = () => {
-    const tokenExpiryDate = useSession().data?.expires;
-    if (tokenExpiryDate && tokenExpiryDate < Date.now()) {
-      return false;
-    } else {
-      return true;
-    }
-  };*/
+  /* const isTokenValid = () => {
+     const tokenExpiryDate = useSession().data?.expires;
+     if (tokenExpiryDate && tokenExpiryDate < Date.now()) {
+       return false;
+     } else {
+       return true;
+     }
+   };*/
 
   const value = useMemo(
     () => ({
@@ -102,7 +100,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto],
+    [JSON.stringify(user), userPhoto]
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

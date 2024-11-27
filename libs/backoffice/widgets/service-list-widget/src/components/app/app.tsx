@@ -24,7 +24,8 @@ const App = () => {
 
   const [t] = useTr();
   const hasDrafts = !!drafts?.length;
-  const clientsSubTitle = services?.total ? `(${services?.total ?? 0})` : '';
+  const clientsSubTitle = services?.list?.length ? `(${services?.list?.length ?? 0})` : '';
+  const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
   const [openStatusModal, setOpenStatusModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -127,7 +128,7 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
       {hasDrafts && (
-        <S.DraftsContainer title={t('draft')} fillContainer={false}>
+        <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
             {drafts?.map((item) => (
               <DraftCard key={item.id} {...item} />
@@ -141,7 +142,7 @@ const App = () => {
         <Services
           isFetching={isClientsFetching}
           data={services?.list}
-          total={services?.total}
+          total={services?.list?.length}
           searchTerm={fetchState.searchTerm}
           isLoading={isClientsFetching}
           wordToHighlight={fetchState.searchTerm}

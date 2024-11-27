@@ -40,4 +40,5 @@ export default {
   services_english_name: 'نام لاتین سرویس',
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
+  next_level: 'مرحله بعد',
 };
