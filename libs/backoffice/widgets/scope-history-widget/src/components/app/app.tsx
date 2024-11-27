@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-
 import { useTr } from '@oxygen/translation';
-import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
-
-import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
+import { Button } from '@oxygen/ui-kit';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
 import { ClientId } from '../../types';
-
 import * as S from './app.style';
 
 type AppProps = PageProps & {
@@ -24,10 +21,6 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const clientId: ClientId = searchParams.get('id');
 
-  useEffect(() => {
-    updateClientIdAction(dispatch, clientId);
-  }, [clientId]);
-
   const router = useRouter();
   const handleReturn = () => {
     router.back();
@@ -39,7 +32,6 @@ const App: React.FC<AppProps> = (props) => {
   );
   return (
     <S.AppContainer title={t('widget_name')} footer={footerButton}>
-      {/*render widget name based on clientId*/}
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {

@@ -1,19 +1,13 @@
 import React, { useEffect } from 'react';
+import { TablePaginationConfig } from 'antd';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
-import { useTheme } from 'styled-components';
 import { NoResult } from '@oxygen/reusable-components';
-
-//import { useGetReportDataQuery } from '../../services';
-import { TablePaginationConfig } from 'antd';
-import { ColumnsType, Switch, Table } from '@oxygen/ui-kit';
-
+import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { useGetScopeChangeHistoryQuery } from '../../services';
 import * as S from './data-list.style';
-
-// import { getDesktopColumns, getMobileColumns } from '../../utils/data-list.util';
 
 type dataListProps = PageProps & {
   //
@@ -23,16 +17,12 @@ const DataList: React.FC<dataListProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  useEffect(() => {
-    console.log('*****');
-  }, []);
 
   const {
     table: { pagination },
   } = state;
 
-  const { data: scopeHistoryList, isFetching: isClientsFetching } = useGetScopeChangeHistoryQuery(prepareParams());
-  console.log(scopeHistoryList, 'scopeHistoryList');
+  const { data: data, isFetching: isFetching } = useGetScopeChangeHistoryQuery(prepareParams());
 
   function prepareParams() {
     const params = {
@@ -60,15 +50,7 @@ const DataList: React.FC<dataListProps> = (props) => {
       dataIndex: 'modify_date',
       key: 'id',
       align: 'center',
-      render: (value) => {
-        return (
-          <div>
-            {value?.edit_time}
-            {value?.edit_date}
-          </div>
-        );
-        // disabled={disabled} defaultChecked={defaultChecked}
-      },
+      render: (value) => value,
     },
     {
       title: t('field.admin_name'),
@@ -95,29 +77,25 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   return (
     <S.TableContainer>
-      <div>
+      {data?.content?.length ? (
         <Table
           scroll={{ x: 1600 }}
-          variant='complex'
-          title={t('scope_change_history')}
-          // title={t('discharge_request_list')}
-          // captionChildren={getCaptionChildren()}
-          dataSource={scopeHistoryList}
+          loading={isFetching}
+          current={pagination.page}
+          total={data?.total}
+          dataSource={data?.content}
+          pagination={{ pageSize: pagination.rowsPerPage }}
           columns={columns}
           // mobileColumns={mobileColumns}
-          loading={isClientsFetching}
-          // expandable={{
-          //   expandedRowRender: (record) => <HistoryTableRowDetail data={record} id={record.requestId} />,
-          // }}
-          size='small'
-          hasContainer={false}
-          pagination={{ pageSize: pagination.rowsPerPage }}
+          variant={'complex'}
+          title={t('scope_change_history')}
           onChange={handlePageChange}
           rowKey={() => uuid()}
-          current={pagination.page}
-          // total={scopeHistoryList?.length}
+          size={'small'}
         />
-      </div>
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.TableContainer>
   );
 };

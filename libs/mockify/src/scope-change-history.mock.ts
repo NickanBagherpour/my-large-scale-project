@@ -1,18 +1,10 @@
 import { scopeHistoryData } from '@oxygen/types';
 import { scopeChangeHistoryData } from './data/scope-change-history.data';
 
-export const getScopeChangeHistory = async (params): Promise<any> => {
-  const offset = params.pagination.offset;
-  const limit = params.pagination.limit;
-  const endIndex = offset + limit;
-  return await new Promise((resolve) => {
+export const getScopeChangeHistory = async ({ page, rowsPerPage }) => {
+  return new Promise<{ data: { content: scopeHistoryData[]; total: number } }>((resolve, reject) => {
     setTimeout(() => {
-      const response = {
-        content: scopeChangeHistoryData.slice(offset, endIndex),
-        total: scopeChangeHistoryData.length,
-      };
-
-      resolve(response);
-    }, 2500);
+      resolve({ data: { content: scopeChangeHistoryData, total: scopeChangeHistoryData.length } });
+    }, 700);
   });
 };
