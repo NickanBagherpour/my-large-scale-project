@@ -78,10 +78,10 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return !!user //&& isTokenValid();
+    return !!user; //&& isTokenValid();
   }
 
- /* const isTokenValid = () => {
+  /* const isTokenValid = () => {
     const tokenExpiryDate = useSession().data?.expires;
     if (tokenExpiryDate && tokenExpiryDate < Date.now()) {
       return false;
@@ -101,7 +101,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto],
+    [JSON.stringify(user), userPhoto]
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

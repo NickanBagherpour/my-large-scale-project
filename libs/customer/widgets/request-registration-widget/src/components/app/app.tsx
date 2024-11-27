@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { useGetRequestQuery } from '../../services';
 
 import FirstStep from '../first-step/first-step';
 import FourthStep from '../fourth-step/fourth-step';
@@ -20,25 +21,28 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
-  const state = useAppState();
+  const { message, ...fetchState } = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
 
   const id: Nullable<string> = searchParams.get('id');
-
-  const [currentStep, setCurrentStep] = useState(0);
+  const { data: requestData, isFetching } = useGetRequestQuery();
+  const [currentStep, setCurrentStep] = useState(3);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.third_step'), Content: <ThirdStep setCurrentStep={setCurrentStep} /> },
-    { title: t('progress_bar.fourth_step'), Content: <FourthStep setCurrentStep={setCurrentStep} /> },
+    {
+      title: t('progress_bar.fourth_step'),
+      Content: <FourthStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
+    },
   ];
 
   return (
     <S.AppContainer title={t('request_registration')}>
       <GlobalMessageContainer
-        message={state.message}
+        message={message}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}

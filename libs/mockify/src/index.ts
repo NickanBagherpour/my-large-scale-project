@@ -39,6 +39,7 @@ import * as UpstreamListMock from './upstream-list.mock';
 import * as getUpstreamDetailsMock from './upstream-details.mock';
 import * as ServiceCreation from './service-creation.mock';
 import * as CustomerMenuMock from './customer-menu.mock';
+import * as RequestData from './request-data.mock';
 
 const Mockify = {
   ...UserMock,
@@ -82,6 +83,7 @@ const Mockify = {
   ...getUpstreamDetailsMock,
   ...ServiceCreation,
   ...CustomerMenuMock,
+  ...RequestData,
 };
 
 export default Mockify;

@@ -23,6 +23,15 @@ export default {
     remove: 'حذف',
     are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
   },
+  //fourthStep
+  company_info: 'اطلاعات شرکت',
+  representatives_info: 'اطلاعات نمایندگان',
+  requested_services: 'سرویس‌های درخواستی',
+  legal_name: 'نام و نام خانوادگی نماینده',
+  technical_name: 'نام و نام خانوادگی نماینده فنی',
+  telephone: 'تلفن ثابت',
+  detailed: 'جزئیات',
+
   progress_bar: {
     first_step: 'اطلاعات شرکت',
     second_step: 'اطلاعات نمایندگان',

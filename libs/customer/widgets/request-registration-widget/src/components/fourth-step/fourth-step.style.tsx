@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
-import { Dropdown, Alert } from '@oxygen/ui-kit';
+import { Dropdown, Alert, Divider as KitDivider } from '@oxygen/ui-kit';
 
 export const TitleTxt = styled.p`
   display: flex;
@@ -31,6 +31,41 @@ export const FourthStepContainer = styled.div`
 
   & .ant-form {
     flex: 1;
+  }
+
+  & .ant-card {
+    background-color: ${(p) => p.theme.background._50};
+  }
+
+  & tbody tr.even-row,
+  tbody tr.odd-row,
+  thead > tr > th {
+    background-color: ${(p) => p.theme.background._50};
+  }
+`;
+
+export const Details = styled.a`
+  color: ${(p) => p.theme.primary.main};
+`;
+
+export const InfoItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.6rem 0;
+
+  span:nth-child(2) {
+    color: ${(p) => p.theme.text.tertiary};
+    font-weight: 400;
+  }
+`;
+
+export const Divider = styled(KitDivider)`
+  border-color: ${(p) => p.theme.background._200};
+  margin-top: 1.6rem;
+
+  ${respondTo.down('lg')} {
+    display: none;
   }
 `;
 
