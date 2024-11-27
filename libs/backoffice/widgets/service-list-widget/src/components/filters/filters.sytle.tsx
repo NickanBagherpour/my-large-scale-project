@@ -4,7 +4,7 @@ import { respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
 export const Container = styled.section`
-  margin: 2.8rem 0 4rem;
+  margin: 2.8rem 0 2.7rem;
 `;
 
 export const Actions = styled.div`
@@ -27,6 +27,11 @@ export const Chips = styled.div`
 
   ${respondTo.down('xs')} {
     flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  ${respondTo.between('lg', 'md')} {
+    flex-wrap: wrap;
     gap: 1.5rem;
   }
 `;
@@ -54,6 +59,7 @@ export const Indicators = styled.div`
 
   ${respondTo.between('lg', 'md')} {
     flex-direction: column;
+    row-gap: 1.6rem;
   }
 `;
 
