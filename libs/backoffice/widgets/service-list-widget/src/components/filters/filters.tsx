@@ -20,7 +20,6 @@ export default function Filters() {
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();
   const [value, setValue] = useState('');
-  console.log('status : ', status);
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
 
   useBounce(() => {

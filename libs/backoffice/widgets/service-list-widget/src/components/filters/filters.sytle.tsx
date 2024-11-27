@@ -29,6 +29,11 @@ export const Chips = styled.div`
     flex-direction: column;
     gap: 1.5rem;
   }
+
+  ${respondTo.between('lg', 'md')} {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
 `;
 
 export const Buttons = styled.div`
@@ -54,6 +59,7 @@ export const Indicators = styled.div`
 
   ${respondTo.between('lg', 'md')} {
     flex-direction: column;
+    row-gap: 1.6rem;
   }
 `;
 
