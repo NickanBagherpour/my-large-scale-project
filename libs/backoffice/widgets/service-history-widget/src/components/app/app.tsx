@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { redirect, useSearchParams } from 'next/navigation';
+import { notFound, redirect, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
@@ -25,7 +25,7 @@ const App: React.FC<AppProps> = () => {
 
   const id: Nullable<string> = searchParams.get('id');
   if (!id) {
-    redirect('/not-found');
+    notFound();
   }
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
   const items = history?.items;

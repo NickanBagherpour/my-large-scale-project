@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import React, { createContext, useContext, useMemo } from 'react';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { LocalStorageKey } from '@oxygen/types';
 import { clearLocalStorageExceptForKey } from '@oxygen/utils';
@@ -24,7 +24,7 @@ type AuthProviderProps = {
 
 const AuthProvider = (props: AuthProviderProps) => {
   // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
-  const user = /*useSession()?.data?.user*/ true;
+  const user = useSession()?.data?.user;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();
