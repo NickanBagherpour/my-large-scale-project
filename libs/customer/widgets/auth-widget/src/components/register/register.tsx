@@ -11,7 +11,7 @@ import { useTr } from '@oxygen/translation';
 
 import { useRegisterMutation } from '../../services';
 
-import { INPUT_MAX_LENGTH } from '../../utils/consts';
+import { INPUT_MAX_LENGTH, CAPTCHA_MAX_LENGTH } from '../../utils/consts';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
@@ -112,6 +112,7 @@ export const Register = ({ title }: FormContainerProps) => {
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
             <CaptchaInput
+              captchaMaxLength={CAPTCHA_MAX_LENGTH}
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
               name='captcha_code'
