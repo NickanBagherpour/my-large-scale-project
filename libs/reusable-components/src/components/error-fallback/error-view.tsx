@@ -1,3 +1,4 @@
+'use client'
 import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { MAIN_HREF } from '@oxygen/utils';
@@ -5,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { useAppTheme, useAuth } from '@oxygen/hooks';
 // import LazyLottie from '../animation-loader/lazy-lottie';
 import * as S from './error-view.style';
+import { Container } from '@oxygen/ui-kit';
 
 type Props = {
   onRetry?: () => void;
@@ -15,7 +17,7 @@ type Props = {
   animationData?: any;
   image?: ReactNode;
 };
-const ErrorView = ({ onRetry, onReturn, errorCode, title, description, animationData, image }:Props) => {
+const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image }:Props) => {
   const [t] = useTr();
   const theme = useAppTheme();
   const { isAuth } = useAuth();
@@ -40,7 +42,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, animation
     router.refresh();
   };
   return (
-    <S.StyledContainer fillContainer={true}>
+    <Container margin={'1.6rem'} fillContainer={true} >
       <S.ContentContainer>
         <S.TextContainer>
           {errorCode && (
@@ -68,7 +70,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, animation
           {image}
         </S.AnimationContainer>
       </S.ContentContainer>
-    </S.StyledContainer>
+    </Container>
   );
 };
 export default ErrorView;

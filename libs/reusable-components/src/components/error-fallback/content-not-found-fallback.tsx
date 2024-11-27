@@ -1,4 +1,3 @@
-'use client';
 import { useTr } from '@oxygen/translation';
 import ErrorView from './error-view';
 import { ContentNotFoundImage } from '../../assets';
