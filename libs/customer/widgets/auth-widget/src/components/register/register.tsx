@@ -87,6 +87,25 @@ export const Register = ({ title }: FormContainerProps) => {
     });
   };
 
+  // Automatically move to next input field
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, nextField: string | null) => {
+    if (e.target.value.length === e.target.maxLength) {
+      const nextInput = nextField ? document.getElementById(nextField) : null;
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  };
+
+  // Auto-submit when all fields are filled
+  const handleFieldChange = () => {
+    const fields = registerForm.getFieldsValue();
+    const allFieldsFilled = Object.values(fields).every((value) => value && value.toString().trim().length > 5);
+    if (allFieldsFilled) {
+      handleSubmit();
+    }
+  };
+
   return (
     <S.FormContainer>
       <S.FormTitle>{title}</S.FormTitle>
@@ -97,13 +116,25 @@ export const Register = ({ title }: FormContainerProps) => {
         form={registerForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
+        onValuesChange={handleFieldChange} // Trigger submit when all fields are filled
       >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>
-            <Input placeholder={t('national_code')} allow={'number'} maxLength={INPUT_MAX_LENGTH} />
+            <Input
+              placeholder={t('national_code')}
+              allow={'number'}
+              autoFocus
+              maxLength={INPUT_MAX_LENGTH}
+              onChange={(e) => handleInputChange(e, 'mobileNumber')}
+            />
           </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={INPUT_MAX_LENGTH} size='large' />
+            <Input
+              placeholder={t('mobile_number')}
+              allow={'number'}
+              maxLength={INPUT_MAX_LENGTH}
+              onChange={(e) => handleInputChange(e, 'captcha_code')}
+            />
           </Form.Item>
         </S.FormInputs>
 
@@ -112,12 +143,14 @@ export const Register = ({ title }: FormContainerProps) => {
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
             <CaptchaInput
+              id='captcha_code'
               captchaMaxLength={CAPTCHA_MAX_LENGTH}
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
               name='captcha_code'
               placeholder={t('captcha_code')}
               loading={isLoading}
+              onChange={(e) => handleInputChange(e, null)} // No next field, so just move on to submit
             />
           </Form.Item>
         </S.FormInput>

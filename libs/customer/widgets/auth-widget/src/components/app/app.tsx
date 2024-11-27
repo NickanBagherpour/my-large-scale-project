@@ -3,12 +3,12 @@ import { useSearchParams } from 'next/navigation';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
 import { useGetIpQuery } from '../../services/ip.api';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { resetErrorMessageAction, updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
 type AppProps = PageProps & {
