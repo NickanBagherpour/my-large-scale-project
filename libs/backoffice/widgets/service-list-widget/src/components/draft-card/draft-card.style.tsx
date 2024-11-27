@@ -9,6 +9,10 @@ export const Container = styled(Link)`
   color: ${(p) => p.theme.text.primary};
   transition: all 200ms;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   &:hover {
     border-color: ${(p) => p.theme.primary._400};
   }
@@ -33,9 +37,15 @@ export const Trash = styled.i`
 `;
 
 export const Footer = styled.footer`
+  display: flex;
   width: fit-content;
-  margin-inline-start: auto;
-  margin-top: 0.2rem;
+  margin-inline-end: auto;
+  margin-top: 0.8rem;
   color: ${(p) => p.theme.text.quaternary};
   font-weight: 700;
+
+  & .ant-divider {
+    border-color: ${(p) => p.theme.border._300};
+    height: 100%;
+  }
 `;
