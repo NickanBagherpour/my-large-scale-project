@@ -1,13 +1,8 @@
 import styled from 'styled-components';
-// import {  Container } from '@oxygen/ui-kit';
+import { Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import ReturnButton from '../return-button/return-button';
-import { Typography } from 'antd';
-import { Button } from '@oxygen/ui-kit';
 
-// export const StyledContainer = styled(Container)`
-//   margin: 1.6rem;
-// `;
 export const ContentContainer = styled.div`
   display: grid;
   margin: 1rem;
@@ -49,7 +44,12 @@ export const StyledButton = styled(Button)`
 export const StyledReturnButton = styled(ReturnButton)`
   min-width: ${minBtnWidth};
 `;
-export const StyledText = styled<any>(Typography.Text)`
+export const StyledText = styled.span<{
+  $fontSize?: string;
+  $fontWeight?: number;
+  $lineHeight?: number;
+  $color?: string;
+}>`
   font-size: ${(p) => p.$fontSize};
   font-weight: ${(p) => p.$fontWeight};
   line-height: ${(p) => p.$lineHeight};
