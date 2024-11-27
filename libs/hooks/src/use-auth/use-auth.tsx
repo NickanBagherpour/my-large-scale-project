@@ -24,8 +24,7 @@ type AuthProviderProps = {
 
 const AuthProvider = (props: AuthProviderProps) => {
   // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
-  // const user = useSession()?.data?.user;
-  const user=true
+  const user = useSession()?.data?.user;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();

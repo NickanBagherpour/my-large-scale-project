@@ -9,8 +9,8 @@ const UnexpectedErrorFallback = (props) => {
   const [t] = useTr();
   return (
     <ErrorView
-      title={t('error.unspicific')}
-      description={t('error.unknown_error')}
+      title={t('error.unspecific')}
+      description={t('error.unspecific_desc')}
       image={<ContentNotFoundImage style={{ marginTop: '5rem' }} />}
     />
   );
