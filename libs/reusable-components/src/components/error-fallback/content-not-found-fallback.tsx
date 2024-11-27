@@ -4,7 +4,7 @@ import ErrorView from './error-view';
 import { ContentNotFoundImage } from '../../assets';
 
 // type Props = {};
-const ContentNotFoundFallback: React.FC = () => {
+const ContentNotFoundFallback = () => {
   const [t] = useTr();
   return (
     <ErrorView

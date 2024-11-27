@@ -15,7 +15,7 @@ type Props = {
   animationData?: any;
   image?: ReactNode;
 };
-const ErrorView: React.FC<Props> = ({ onRetry, onReturn, errorCode, title, description, animationData, image }) => {
+const ErrorView = ({ onRetry, onReturn, errorCode, title, description, animationData, image }:Props) => {
   const [t] = useTr();
   const theme = useAppTheme();
   const { isAuth } = useAuth();

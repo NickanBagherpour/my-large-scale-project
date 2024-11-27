@@ -5,7 +5,7 @@ import { ContentNotFoundImage } from '../../assets';
 type Props = {
   reset?: () => void;
 };
-const UnexpectedErrorFallback: React.FC<Props> = (props) => {
+const UnexpectedErrorFallback = (props) => {
   const [t] = useTr();
   return (
     <ErrorView

@@ -5,7 +5,7 @@ import ErrorView from './error-view';
 type Props = {
   reset?: () => void;
 };
-const NotFoundFallback: React.FC<Props> = (props) => {
+const NotFoundFallback = (props) => {
   const [t] = useTr();
   return (
     <ErrorView

@@ -3,7 +3,7 @@ import ErrorView from './error-view';
 // import serverErrorAnimation from '../../assets/media/Error_500.json';
 
 // type Props = {};
-const ServerErrorFallback: React.FC = () => {
+const ServerErrorFallback = () => {
   const [t] = useTr();
   return (
     <ErrorView
