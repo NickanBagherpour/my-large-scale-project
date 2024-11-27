@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { MAIN_HREF } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme, useAuth } from '@oxygen/hooks';
-// import LazyLottie from '../animation-loader/lazy-lottie';
+import LazyLottie from '../animation-loader/lazy-lottie';
 import * as S from './error-view.style';
 import { Container } from '@oxygen/ui-kit';
 
@@ -17,7 +17,7 @@ type Props = {
   animationData?: any;
   image?: ReactNode;
 };
-const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image }:Props) => {
+const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image,animationData }:Props) => {
   const [t] = useTr();
   const theme = useAppTheme();
   const { isAuth } = useAuth();
@@ -66,7 +66,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image }:P
           </S.ButtonGroupContainer>
         </S.TextContainer>
         <S.AnimationContainer>
-          {/* {animationData && <LazyLottie animationData={animationData} height={'30rem'} width={'30rem'} />} */}
+          {animationData && <LazyLottie animationData={animationData} height={'30rem'} width={'30rem'} />}
           {image}
         </S.AnimationContainer>
       </S.ContentContainer>
