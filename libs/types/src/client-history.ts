@@ -13,10 +13,10 @@ export type ClientHistoryData = {
 };
 
 export type scopeHistoryData = {
-  editTime: string;
-  adminName: string;
-  clientLatinName: string;
-  clientFarsiName: string;
+  modify_date: string;
+  admin_name: string;
+  english_name: string;
+  farsi_name: string;
   clientType: string;
   clientId: string;
   verificationId: string;
