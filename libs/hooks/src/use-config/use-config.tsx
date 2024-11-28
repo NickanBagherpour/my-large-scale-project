@@ -37,9 +37,9 @@ const ConfigProvider = (props: ConfigProviderProps) => {
   const updateConfig = useCallback(
     (newConfig: IConfig) => {
       setCookieConfig(newConfig);
-      setCookie('configuration', JSON.stringify(newConfig), 1200);
+      setCookie('configuration', JSON.stringify(newConfig), 5 * 365 * 24 * 60); //5 years
     },
-    [setCookieConfig]
+    [setCookieConfig],
   );
 
   const value = useMemo(() => {

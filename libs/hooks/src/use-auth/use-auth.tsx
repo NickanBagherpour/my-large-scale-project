@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useMemo } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
-import { LocalStorageKey } from '@oxygen/types';
-import { clearLocalStorageExceptForKey } from '@oxygen/utils';
+import { LocalStorageKey, User } from '@oxygen/types';
+import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen/utils';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 
@@ -24,28 +24,18 @@ type AuthProviderProps = {
 
 const AuthProvider = (props: AuthProviderProps) => {
   // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
-  const user = useSession()?.data?.user;
+  const user = useSession()?.data?.user as User;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();
 
-  const login2 = (data: any, path?: string) => {
-    clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-    // setUser(data);
-    /*    if (props.login) {
-          props.login();
-        }*/
-    // navigate(path ?? '/');
-    // router.push(path ?? '/');
-    router.replace(path ?? '/');
-  };
-
   const login = async (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-    await signIn('credentials', { ...data, redirect: false });
+    const res = await signIn('credentials', { ...data, redirect: false });
+
     /*    if (props.login) {
-          props.login();
-        }*/
+           props.login();
+         }*/
     // navigate(path ?? '/');
     // router.push(path ?? '/');
     router.replace(path ?? '/');
@@ -60,7 +50,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setMenu(null);
       removeMenus();
       clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-      // clearAllCookies();
+      clearAllCookies();
 
       // await client.get(`/signout/`);
       await signOut();
@@ -100,7 +90,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto]
+    [JSON.stringify(user), userPhoto],
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

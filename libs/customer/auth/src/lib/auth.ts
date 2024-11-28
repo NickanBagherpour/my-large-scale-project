@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { User as OxygenUser, userSchema } from '@oxygen/types';
-import { JWT } from 'next-auth/jwt';
 import { encrypt } from '@oxygen/utils';
 
 declare module 'next-auth' {
@@ -50,12 +49,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   // secret: process.env['AUTH_SECRET'],
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60, // 1 hour  //todo read from app constants that both session-id and token-session has the same expire time
   },
+  /*  jwt:{
+
+    },*/
   trustHost: true,
   callbacks: {
     async jwt({ token, user }: any) {
 
-      // console.log('-----------------------------------token-----------------------------------', token, user);
+      console.log('-----------------------------------token--token---------------------------------', token);
+      console.log('-----------------------------------token--user---------------------------------', user);
 
       if (user) {
         token.accessToken = user.accessToken; // Store token in JWT
@@ -64,9 +68,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }: any) {
+
+      console.log('-----------------------------------session--session---------------------------------', session);
+
+
       // session.user = { ...session.user, name: token.name }; // Only include name or other non-sensitive info
       session.user.accessToken = encrypt(token.accessToken);
       session.user.name = token.username;
+
+      // Set custom cookie when session is created
+      /*      const cookieStore = cookies();
+            cookieStore.set('my_custom_cookie', session.user.accessToken, {
+              maxAge: 1 * 24 * 60 * 60, // 1 day
+              path: '/',
+              // httpOnly: true,
+              // secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+              sameSite: 'lax',
+            });*/
+
 
       // Object.assign(session.user, token.user ?? {});
 

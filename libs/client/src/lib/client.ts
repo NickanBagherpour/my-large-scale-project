@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { LocalStorageKey } from '@oxygen/types';
-import { getCookie, ROUTES } from '@oxygen/utils';
+import { CookieKey, LocalStorageKey } from '@oxygen/types';
+import { decrypt, getCookie, ROUTES } from '@oxygen/utils';
 
 const baseUrl = '/';
 
@@ -26,16 +26,18 @@ const client = axios.create({
 
 client.interceptors.request.use(async (config) => {
 
+  const sessionId = getCookie(CookieKey.SESSION_ID);
+
   /* const session = await auth();
 
  // const userDataString = localStorage.getItem(LocalStorageKey.USER);
 
  // const userData = userDataString ? JSON.parse(userDataString) : null;
  // const branchCode = userData?.branchCode || '';
-
- if (session) {
-   config.headers['Authorization'] = `Bearer ${session?.user?.name}`;
- }*/
+*/
+  if (sessionId) {
+    config.headers['Authorization'] = `Bearer ${decrypt(sessionId)}`;
+  }
 
   return config;
 });
