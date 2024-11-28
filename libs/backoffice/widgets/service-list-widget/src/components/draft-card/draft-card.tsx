@@ -1,4 +1,4 @@
-import { Button, Progress } from '@oxygen/ui-kit';
+import { Button, Divider, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
 import { useTr } from '@oxygen/translation';
 import { useQueryClient } from '@tanstack/react-query';
@@ -44,7 +44,13 @@ export default function DraftCard(props: DraftCardType) {
       <Progress percent={progressPercentage} showInfo={false} isPrimary />
 
       <S.Footer>
-        ({levelsMap[level]}) {progressPercentage}%
+        <span>{progressPercentage}%</span>
+        <Divider type={'vertical'} />
+        <span>
+          {t('next_level')}
+          {':\u00A0\u00A0'}
+          {levelsMap[level + 1]}
+        </span>
       </S.Footer>
     </S.Container>
   );

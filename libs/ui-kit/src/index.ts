@@ -2,6 +2,7 @@
 export * as Icons from './assets/icons';
 export { default as getAntTheme } from './theme/ant-theme';
 export { default as ThemeConfig } from './theme/theme-config';
+export { default as Typography } from './typography/typography';
 export * from './assets/fonts';
 export * from './theme/theme';
 export * from './button/button';

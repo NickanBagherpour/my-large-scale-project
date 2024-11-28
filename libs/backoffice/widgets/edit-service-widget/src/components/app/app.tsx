@@ -1,4 +1,4 @@
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { notFound, redirect, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
@@ -30,7 +30,7 @@ const App: React.FC<AppProps> = (props) => {
   const { data: serviceInfo, isFetching } = useGetServiceInfoQuery({ id });
 
   if (!id || (!isFetching && !serviceInfo)) {
-    redirect('/not-found');
+    notFound();
   }
 
   const handleReturn = () => {

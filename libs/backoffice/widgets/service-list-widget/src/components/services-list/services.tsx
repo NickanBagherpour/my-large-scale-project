@@ -1,16 +1,17 @@
 import React from 'react';
-import { useTr } from '@oxygen/translation';
 import { TablePaginationConfig } from 'antd';
 import { useTheme } from 'styled-components';
-import { ROUTES } from '@oxygen/utils';
 
-import { getValueOrDash, uuid } from '@oxygen/utils';
-import { Table, Switch, Box, ColumnsType } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { uuid } from '@oxygen/utils';
+import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import * as S from './services.style';
 
 import { ServiceType, ParamsType } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { getDesktopColumns, getMobileColumns } from '../../utils/services-list.util';
+
+import * as S from './services.style';
 
 type ServicesProps = PageProps & {
   data?: ServiceType[];
@@ -46,138 +47,8 @@ const Services: React.FC<ServicesProps> = (props) => {
     }
   };
 
-  const mobileColumns: ColumnsType<any> = [
-    {
-      title: '',
-      dataIndex: '',
-      // align: 'center',
-      render: (value, record, index) => {
-        return (
-          <Box flexDirection='column'>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('name')} </span>
-              <span className={'item__value'}>
-                {
-                  <S.Name
-                    text={getValueOrDash(value?.name)}
-                    highlightColor={theme.secondary.main}
-                    wordToHighlight={wordToHighlight}
-                  />
-                }
-              </span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('persian_name')} </span>
-              <span className={'item__value'}>{getValueOrDash(value?.persian_name)}</span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('scope')} </span>
-              <span className={'item__value'}>
-                {
-                  <S.Name
-                    text={getValueOrDash(value?.scope)}
-                    highlightColor={theme.secondary.main}
-                    wordToHighlight={wordToHighlight}
-                  />
-                }
-              </span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('url')} </span>
-              <span className={'item__value'}>
-                {<S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(value?.url)}</S.Url>}
-              </span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}>{t('status')} </span>
-              <span className={'item__value'}>
-                {
-                  <span>
-                    {t('stopped')}
-                    <span style={{ margin: '0 1.2rem' }}>
-                      <Switch checked={value?.status} onClick={() => changeStatus(value?.status, value?.name)} />
-                    </span>
-                    {t('operational')}
-                  </span>
-                }
-              </span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}> </span>
-              <span className={'item__value'}>
-                {<S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>}
-              </span>
-            </S.MobileTableItem>
-            <S.MobileTableItem>
-              <span className={'item__title'}></span>
-              <span className={'item__value'}>
-                {<S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />}
-              </span>
-            </S.MobileTableItem>
-          </Box>
-        );
-      },
-    },
-  ];
-
-  const columns: ColumnsType<any> = [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index' },
-    {
-      title: `${t('name')}`,
-      dataIndex: 'name',
-      key: 'name',
-      render: (name) => (
-        <S.Name text={getValueOrDash(name)} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
-      ),
-    },
-    {
-      title: `${t('persian_name')}`,
-      dataIndex: 'persianName',
-      key: 'persianName',
-      render: (persian_name) => getValueOrDash(persian_name),
-    },
-    {
-      title: `${t('scope')}`,
-      dataIndex: 'scope',
-      key: 'scope',
-      render: (scope) => (
-        <S.Name text={getValueOrDash(scope)} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
-      ),
-    },
-    {
-      title: 'url',
-      dataIndex: 'url',
-      key: 'url',
-      render: (url) => <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(url)}</S.Url>,
-    },
-    { title: `${t('version')}`, dataIndex: 'version', key: 'version', render: (version) => getValueOrDash(version) },
-    {
-      title: `${t('status')}`,
-      dataIndex: 'status',
-      key: 'status',
-      render: (status, name) => (
-        <S.SwitchContainer>
-          {t('stopped')}
-          <span style={{ margin: '0 1.2rem' }}>
-            <Switch checked={status} onClick={() => changeStatus(status, name.name)} />
-          </span>
-          {t('operational')}
-        </S.SwitchContainer>
-      ),
-    },
-    {
-      title: '',
-      dataIndex: 'details',
-      key: 'details',
-      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
-    },
-    {
-      title: '',
-      dataIndex: 'name',
-      key: 'name',
-      render: (name, status) => <S.Trash className='icon-trash' onClick={() => deleteService(name, status)} />,
-    },
-  ];
+  const mobileColumns = getMobileColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
+  const desktopColumns = getDesktopColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
 
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
@@ -188,7 +59,7 @@ const Services: React.FC<ServicesProps> = (props) => {
         current={pagination.page}
         total={total}
         dataSource={tableData}
-        columns={columns}
+        columns={desktopColumns}
         mobileColumns={mobileColumns}
         hasContainer={false}
         pagination={{ pageSize: pagination.rowsPerPage }}
