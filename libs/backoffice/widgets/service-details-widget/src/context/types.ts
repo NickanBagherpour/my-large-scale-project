@@ -8,7 +8,6 @@ export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
   rowsPerPage: number;
 };
 
