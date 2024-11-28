@@ -15,7 +15,7 @@ import { RegisterFormSchema } from '../../types';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
-import { INPUT_MAX_LENGTH } from '../../utils/consts';
+import { CAPTCHA_MAX_LENGTH, INPUT_MAX_LENGTH } from '../../utils/consts';
 
 import * as S from './login.style';
 import { useLoginMutation } from '../../services';
@@ -100,6 +100,7 @@ export const Login = ({ title }: FormContainerProps) => {
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
             <CaptchaInput
+              captchaMaxLength={CAPTCHA_MAX_LENGTH}
               imageSrc={imageSrc}
               onRefresh={refreshCaptcha}
               // name='captcha_code'

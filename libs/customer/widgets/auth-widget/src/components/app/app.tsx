@@ -3,13 +3,13 @@ import { useSearchParams } from 'next/navigation';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import Otp from '../otp/otp';
 import Login from '../login/login';
 import Register from '../register/register';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { useGetIpQuery } from '../../services/ip.api';
 import { resetErrorMessageAction, updateOTPAction, useAppDispatch, useAppState } from '../../context';
-import { Api } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -25,20 +25,11 @@ const App: React.FC<AppProps> = (props) => {
 
   const isOTPOpen = state.OTP.isOpen;
 
+  const { data, isFetching, isError, error } = useGetIpQuery({});
+
   useEffect(() => {
-    const fetchIp = async () => {
-      try {
-        const data = await Api.getIP({});
-        updateOTPAction(dispatch, { ...state.OTP, ip: data.ip });
-        console.log('Fetched IP:', data);
-
-      } catch (error) {
-        console.error('Failed to fetch IP:', error);
-      }
-    };
-
-    fetchIp();
-  }, []);
+    updateOTPAction(dispatch, { ...state.OTP, ip: data?.ip });
+  }, [data]);
 
   return (
     <>

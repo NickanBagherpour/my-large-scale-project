@@ -1,21 +1,4 @@
 import { ITheme, ThemeID } from '@oxygen/types';
-
-const getLightTheme = (themeBase: ITheme) => {
-  return {
-    token: {
-      colorPrimary: themeBase.primary.main,
-    },
-  };
-};
-
-function getDarkTheme(themeBase: ITheme) {
-  return {
-    token: {
-      colorPrimary: themeBase.primary.main,
-    },
-  };
-}
-
 function makeTheme(themeBase: ITheme, antTheme: any) {
   return {
     token: {
@@ -47,6 +30,22 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
         headerBg: themeBase.surface,
         footerBg: themeBase.surface,
       },
+    },
+  };
+}
+
+const getLightTheme = (themeBase: ITheme) => {
+  return {
+    token: {
+      colorPrimary: themeBase.primary.main,
+    },
+  };
+};
+
+function getDarkTheme(themeBase: ITheme) {
+  return {
+    token: {
+      colorPrimary: themeBase.primary.main,
     },
   };
 }
