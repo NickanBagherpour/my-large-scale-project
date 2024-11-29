@@ -142,7 +142,7 @@ const GlobalStyle = createGlobalStyle`
 
 
   .ant-notification,.ant-notification-stack-expanded {
-     font-family: inherit;
+     font-family: inherit !important;
      border-radius: 10px;
      
      & .ant-notification-notice-wrapper {

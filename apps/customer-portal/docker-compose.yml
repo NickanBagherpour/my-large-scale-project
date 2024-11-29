@@ -1,0 +1,30 @@
+services:
+  app:
+    container_name: customer-portal-app # Custom name assigned here
+    image: customer-portal-image
+    # Remove the build section if you're using the built image
+    # build:
+    #   context: ./
+    #   target: production
+    #   dockerfile: Dockerfile
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+    #   - /app/.next
+    #   - /app/public
+    ports:
+      - '3200:3200'
+    networks:
+      - customer-portal-net
+
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mounts custom nginx.conf to container
+    ports:
+      - '82:80'
+    networks:
+      - customer-portal-net
+
+networks:
+  customer-portal-net:
