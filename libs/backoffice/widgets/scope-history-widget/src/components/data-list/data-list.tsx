@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TablePaginationConfig } from 'antd';
+import { useTheme } from 'styled-components';
+
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 import { NoResult } from '@oxygen/reusable-components';
-import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
+
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
-import { useGetScopeChangeHistoryQuery } from '../../services';
+import { getDesktopColumns } from '../../utils/data-list.util';
+import { useGetScopeHistoryQuery } from '../../services';
+
 import * as S from './data-list.style';
 
 type dataListProps = PageProps & {
@@ -17,12 +22,13 @@ const DataList: React.FC<dataListProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const theme = useTheme();
 
   const {
     table: { pagination },
   } = state;
 
-  const { data: data, isFetching: isFetching } = useGetScopeChangeHistoryQuery(prepareParams());
+  const { data, isFetching } = useGetScopeHistoryQuery(prepareParams());
 
   function prepareParams() {
     const params = {
@@ -44,36 +50,7 @@ const DataList: React.FC<dataListProps> = (props) => {
     }
   };
 
-  const columns: ColumnsType<any> = [
-    {
-      title: t('field.modify_date'),
-      dataIndex: 'modify_date',
-      key: 'id',
-      align: 'center',
-      render: (value) => value,
-    },
-    {
-      title: t('field.admin_name'),
-      dataIndex: 'admin_name',
-      key: 'id',
-      align: 'center',
-      render: (value) => value,
-    },
-    {
-      title: t('field.english_name'),
-      dataIndex: 'english_name',
-      key: 'index',
-      align: 'center',
-      render: (value) => value,
-    },
-    {
-      title: t('field.farsi_name'),
-      dataIndex: 'farsi_name',
-      key: 'index',
-      width: 'min-content',
-      render: (value) => value,
-    },
-  ];
+  const desktopColumns = getDesktopColumns({ t, theme });
 
   return (
     <S.TableContainer>
@@ -85,8 +62,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           total={data?.total}
           dataSource={data?.content}
           pagination={{ pageSize: pagination.rowsPerPage }}
-          columns={columns}
-          // mobileColumns={mobileColumns}
+          columns={desktopColumns}
           variant={'complex'}
           title={t('scope_change_history')}
           onChange={handlePageChange}

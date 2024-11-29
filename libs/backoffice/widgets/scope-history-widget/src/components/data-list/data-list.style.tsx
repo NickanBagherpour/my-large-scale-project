@@ -9,9 +9,4 @@ export const ValueContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-
-  & .ant-badge-status-dot {
-    width: 0.8rem;
-    height: 0.8rem;
-  }
 `;

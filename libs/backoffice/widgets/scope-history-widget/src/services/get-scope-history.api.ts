@@ -5,7 +5,7 @@ import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetScopeChangeHistoryQuery = (params: FetchParamsType) => {
+export const useGetScopeHistoryQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
