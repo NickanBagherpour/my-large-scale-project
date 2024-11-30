@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { FormFieldsType } from '../types';
+// import { FormFieldsType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
 
-export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
+export type FormFieldsType = {
+  name: Nullable<MessageType>;
+};
 
 export type PaginationType = {
   page: number;
