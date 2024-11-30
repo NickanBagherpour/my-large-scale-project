@@ -44,7 +44,7 @@ export const AppContainer = styled(Container)`
     font-size: 3rem !important;
     color: ${(p) => p.theme.text.quaternary};
   }
-
+  /* 
   .inputs-container {
     display: grid;
     gap: 3rem;
@@ -52,7 +52,7 @@ export const AppContainer = styled(Container)`
     ${respondTo.down('md')} {
       grid-template-columns: 1fr;
     }
-  }
+  } */
 
   .clients-list h3 {
     margin-bottom: 4rem;

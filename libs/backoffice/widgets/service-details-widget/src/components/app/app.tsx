@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import type { UploadFile, UploadProps } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
+import { Form } from 'antd';
+
 import { PageProps, type Pagination } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import {
@@ -13,6 +16,7 @@ import {
   Switch,
   Table,
   Tabs,
+  SearchItemsContainer,
   TabsProps,
   Divider,
 } from '@oxygen/ui-kit';
@@ -21,12 +25,17 @@ import { useGetServiceDetailsQuery, useGetServiceClientsListQuery } from '../../
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Nullable } from '@oxygen/types';
 import { TablePaginationConfig } from 'antd';
-import * as S from './app.style';
 import { FooterContainer } from '@oxygen/reusable-components';
 import { useBounce } from '@oxygen/hooks';
 import { ROUTES, uuid } from '@oxygen/utils';
+
+import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
+import { FormSchema } from '../../types';
+import { MAX_LENGTH_INPUT } from '../../utils/consts';
+
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 // import { MobileColumns } from 'libs/ui-kit/src/table/mobile-columns';
+import * as S from './app.style';
 
 type AppProps = PageProps & {
   //
@@ -56,6 +65,15 @@ const App: React.FC<AppProps> = (props) => {
   };
   const [t] = useTr();
   const searchParams = useSearchParams();
+
+  const rule = createSchemaFieldRule(FormSchema(t));
+  const [form] = Form.useForm();
+
+  const submitClick = () => form.submit();
+
+  const onFinish = async (values) => {
+    // console.log('formValue', values);
+  };
 
   const router = useRouter();
   const handleReturn = () => {
@@ -186,15 +204,23 @@ const App: React.FC<AppProps> = (props) => {
         <S.TariffContainer>
           <h3>{t('tariffs_list')}</h3>
           <div className='inputs-container'>
-            <div>
-              <span>{t('tariff')}</span>
-              <Input />
-            </div>
-            <div className='button-container'>
-              <Button type={'primary'} color='primary' variant='solid'>
-                {t('button.register')}
-              </Button>
-            </div>
+            <Form layout={'vertical'} onFinish={onFinish} form={form}>
+              <SearchItemsContainer>
+                <Form.Item
+                  name={FORM_ITEM_NAMES.latinNameScope}
+                  className={'span-2'}
+                  label={t('tariff')}
+                  rules={[rule]}
+                >
+                  <Input maxLength={MAX_LENGTH_INPUT} />
+                </Form.Item>
+                <div className='button-container'>
+                  <Button type={'primary'} color='primary' variant='solid' htmlType={'submit'} onClick={submitClick}>
+                    {t('button.register')}
+                  </Button>
+                </div>
+              </SearchItemsContainer>
+            </Form>
           </div>
         </S.TariffContainer>
       ),
@@ -207,20 +233,31 @@ const App: React.FC<AppProps> = (props) => {
           <h3>{t('scopes_list')}</h3>
 
           <div className='inputs-container'>
-            <div>
-              <span>{t('scope_name')}</span>
-              <Input placeholder={t('scope_name_placeholder')} />
-            </div>
-            <div>
-              <span>{t('scope_persian_name')}</span>
-              <Input placeholder={t('scope_persian_name')} />
-            </div>
-          </div>
-
-          <div className='button-container'>
-            <Button type={'primary'} color='primary' variant='solid'>
-              {t('button.register')}
-            </Button>
+            <Form layout={'vertical'} onFinish={onFinish} form={form}>
+              <SearchItemsContainer>
+                <Form.Item
+                  name={FORM_ITEM_NAMES.latinNameScope}
+                  className={'span-2'}
+                  label={t('scope_name')}
+                  rules={[rule]}
+                >
+                  <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('scope_name')} />
+                </Form.Item>
+                <Form.Item
+                  name={FORM_ITEM_NAMES.latinNameScope}
+                  className={'span-2'}
+                  label={t('scope_persian_name')}
+                  rules={[rule]}
+                >
+                  <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('scope_name_placeholder')} />
+                </Form.Item>
+              </SearchItemsContainer>
+              <div className='button-container'>
+                <Button type={'primary'} color='primary' variant='solid' htmlType={'submit'} onClick={submitClick}>
+                  {t('button.register')}
+                </Button>
+              </div>
+            </Form>
           </div>
         </S.ScopeList>
       ),
