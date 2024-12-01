@@ -1,5 +1,5 @@
 {
-    "name": "customer-auth-widget",
+    "name": "auth-widget",
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/widgets/auth-widget/src",
     "projectType": "library",
