@@ -25,17 +25,18 @@ type FormContainerProps = PageProps & {
 };
 
 export const Login = ({ title }: FormContainerProps) => {
+  //Hooks
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
+  //Queries
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
-  const { mutate } = useLoginMutation();
-
+  const { mutate, isPending } = useLoginMutation();
+  //States
   const [loginForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
-
+  //Validation
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
   useEffect(() => {
@@ -88,7 +89,7 @@ export const Login = ({ title }: FormContainerProps) => {
         form={loginForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
-        onKeyPress={(e) => {
+        onKeyUp={(e) => {
           if (e.key === 'Enter') {
             loginForm.submit();
           }
@@ -115,7 +116,7 @@ export const Login = ({ title }: FormContainerProps) => {
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color='primary'>
+      <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
       <S.Divider />
