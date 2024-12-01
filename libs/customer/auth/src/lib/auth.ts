@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { User as OxygenUser, userSchema } from '@oxygen/types';
 import { encrypt } from '@oxygen/utils';
+import {} from 'next-auth/jwt';
 
 declare module 'next-auth' {
   interface User {
@@ -29,7 +30,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         name: { label: 'Name', type: 'text' },
       },
       async authorize(credentials) {
-
         if (!credentials.id) {
           throw new Error('No ID provided');
         }
@@ -57,7 +57,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
   callbacks: {
     async jwt({ token, user }: any) {
-
       console.log('-----------------------------------token--token---------------------------------', token);
       console.log('-----------------------------------token--user---------------------------------', user);
 
@@ -68,9 +67,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }: any) {
-
       console.log('-----------------------------------session--session---------------------------------', session);
-
 
       // session.user = { ...session.user, name: token.name }; // Only include name or other non-sensitive info
       session.user.accessToken = encrypt(token.accessToken);
@@ -85,7 +82,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               // secure: process.env.NODE_ENV === 'production', // Set secure flag in production
               sameSite: 'lax',
             });*/
-
 
       // Object.assign(session.user, token.user ?? {});
 

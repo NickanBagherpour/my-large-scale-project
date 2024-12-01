@@ -99,7 +99,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'details',
       align: 'center',
       width: 70,
-      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>,
+      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
     },
     {
       title: '',
@@ -163,7 +163,7 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: '',
-            value: <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=1234`}>{t('detailed')}</S.Details>,
+            value: <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
             colon: false,
           },
           {

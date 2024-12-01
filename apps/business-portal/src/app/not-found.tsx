@@ -1,7 +1,6 @@
-'use client'
+'use client';
 
-import { NotFoundFallback } from "@oxygen/reusable-components";
-
+import { NotFoundFallback } from '@oxygen/reusable-components';
 
 const NotFound: React.FC = () => {
   return <NotFoundFallback />;

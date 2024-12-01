@@ -1,8 +1,12 @@
-import { Skeleton } from 'antd';
 import { type LottieComponentProps } from 'lottie-react';
-import { Suspense, lazy } from 'react';
+import dynamic from 'next/dynamic';
+import * as S from './lazy-lottie.style';
+import { Skeleton } from 'antd';
 
-const LazyLottieComponent = lazy(() => import('lottie-react'));
+const LazyLottieComponent = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  loading: () => <Skeleton.Node active={true} />,
+});
 
 interface LottieProps {
   id?: string;
@@ -10,10 +14,8 @@ interface LottieProps {
 
 export default function LazyLottie({ id, ref, animationData, ...props }: LottieProps & LottieComponentProps) {
   return (
-    <Suspense
-      fallback={<Skeleton.Node active={true} style={{ height: props.height, width: props.width, marginTop: '8rem' }} />}
-    >
-      <LazyLottieComponent animationData={animationData} {...props} />
-    </Suspense>
+    <S.Continer style={{ width: props.width, height: props.height }}>
+      <LazyLottieComponent animationData={animationData} />
+    </S.Continer>
   );
 }

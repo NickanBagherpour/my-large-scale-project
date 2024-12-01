@@ -7,16 +7,16 @@ import { Container } from '@oxygen/ui-kit';
 export const ItemsContainer = styled(Container)`
   height: 100%;
 
-  .ant-pagination {
+  /* .ant-pagination {
     margin: 2rem 3rem;
-  }
+  } */
 `;
 
-export const TableContainer = styled.div`
-  margin-bottom: 3rem;
-`;
+// export const TableContainer = styled.div`
+//   margin-bottom: 3rem;
+// `;
 
-export const AppContainer = styled.div`
+export const AppContainer = styled(Container)`
   min-height: 100%;
 
   .service-technical-details {
@@ -31,6 +31,11 @@ export const AppContainer = styled.div`
       gap: 1.5rem;
     }
   }
+  ${respondTo.down('md')} {
+    .service-technical-details {
+      display: block;
+    }
+  }
 
   .ant-tabs-tab {
     min-width: 148px;
@@ -39,12 +44,15 @@ export const AppContainer = styled.div`
     font-size: 3rem !important;
     color: ${(p) => p.theme.text.quaternary};
   }
-
+  /* 
   .inputs-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 3rem;
-  }
+    grid-template-columns: 1fr 1fr;
+    ${respondTo.down('md')} {
+      grid-template-columns: 1fr;
+    }
+  } */
 
   .clients-list h3 {
     margin-bottom: 4rem;
@@ -161,8 +169,9 @@ export const Buttons = styled.div`
   gap: 1.2rem;
 
   ${respondTo.down('lg')} {
-    width: 100%;
-    justify-content: space-between;
+    /* width: 100%; */
+    justify-content: end;
+    padding-left: 2rem;
   }
 `;
 
@@ -173,18 +182,27 @@ export const SwitchContainer = styled.div`
 `;
 
 export const TariffContainer = styled(Container)`
-  min-height: 70vh;
+  /* min-height: 70vh; */
 
   h3 {
     margin-bottom: 3rem;
   }
   input {
     margin-top: 1rem;
+  }
+
+  .button-container {
+    margin-top: 3rem;
+    text-align: left;
+  }
+
+  button {
+    padding: 0 5rem;
   }
 `;
 
 export const ScopeList = styled(Container)`
-  min-height: 70vh;
+  /* min-height: 70vh; */
 
   h3 {
     margin-bottom: 3rem;
@@ -192,10 +210,19 @@ export const ScopeList = styled(Container)`
   input {
     margin-top: 1rem;
   }
+
+  .button-container {
+    margin-top: 3rem;
+    text-align: right;
+  }
+
+  button {
+    padding: 0 5rem;
+  }
 `;
 
 export const UploadContainer = styled(Container)`
-  min-height: 70vh;
+  /* min-height: 70vh; */
 
   .button-container {
     display: flex;

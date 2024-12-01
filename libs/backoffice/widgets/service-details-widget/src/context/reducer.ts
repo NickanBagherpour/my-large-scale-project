@@ -1,10 +1,9 @@
-import { FormFieldsType } from '../types';
+import { FormFieldsType } from './types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 const initialFilters: FormFieldsType = {
   name: null,
-  code: null,
 };
 
 export const initialStateValue: WidgetStateType = {
@@ -12,7 +11,7 @@ export const initialStateValue: WidgetStateType = {
     filters: initialFilters,
     submit: initialFilters,
     pagination: {
-      limit: INITIAL_ROW_PER_PAGE,
+      rowsPerPage: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },

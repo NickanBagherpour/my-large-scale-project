@@ -10,7 +10,7 @@ export const useGetIpQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.AUTH.IP, params],
+    queryKey: [RQKEYS.CUSOMTER_AUTH.IP, params],
     queryFn: () => Api.getIP(params),
   });
 };
