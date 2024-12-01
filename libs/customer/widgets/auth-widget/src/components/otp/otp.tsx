@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
@@ -9,7 +8,7 @@ import { useAuth } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ApiUtil, ROUTES } from '@oxygen/utils';
-import { Box, Button, Input, Timer } from '@oxygen/ui-kit';
+import { Button, Input, Timer } from '@oxygen/ui-kit';
 
 import { TIMER_INITIAL_SECONDS } from '../../utils/consts';
 
@@ -46,6 +45,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
   //Validation
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
+  //Handlers
   const handleSubmit = () => {
     OTPForm.submit();
   };
@@ -84,9 +84,15 @@ export const OTP: React.FC<FormContainerProps> = () => {
   };
 
   const handleOTPSubmit = () => {
-    setTimeout(() => {
-      OTPForm.submit();
-    }, 0);
+    //do auto submit
+    const fields = OTPForm.getFieldsValue();
+    const otp = fields.otp?.length === 6;
+    if (otp) {
+      setTimeout(() => {
+        //add setTimeout to allow form to submit(for outOfDate error)
+        OTPForm.submit();
+      }, 0);
+    }
   };
 
   return (
@@ -127,7 +133,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       {state.OTP.type === 'login' ? (
         <>
           <S.Button loading={loginLoading} onClick={handleSubmit} color='primary'>
-            {t('submit')}
+            {t('enter')}
           </S.Button>
           <S.Divider />
           <S.Span>
