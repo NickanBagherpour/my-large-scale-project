@@ -1,7 +1,7 @@
 export { default as NotFoundFallback } from './components/error-fallback/not-found-fallback';
-export { default as ServerErrorFallback} from './components/error-fallback/server-error-fallback';
-export { default as ContentNotFoundFallback} from './components/error-fallback/content-not-found-fallback';
-export { default as UnexpectedErrorFallback} from './components/error-fallback/unexpected-error-fallback';
+export { default as ServerErrorFallback } from './components/error-fallback/server-error-fallback';
+export { default as ContentNotFoundFallback } from './components/error-fallback/content-not-found-fallback';
+export { default as UnexpectedErrorFallback } from './components/error-fallback/unexpected-error-fallback';
 
 export { default as FooterContainer } from './components/footer-container/footer-container';
 export { default as ReturnButton } from './components/return-button/return-button';
@@ -26,5 +26,3 @@ export { default as Protected } from './components/protected/protected';
 export { default as ConfirmModal } from './components/confirm-modal/confirm-modal';
 export { default as ServiceCallLimit } from './components/service-call-limit/service-call-limit';
 export { default as EmptyState } from './components/empty-state/empty-state';
-
-

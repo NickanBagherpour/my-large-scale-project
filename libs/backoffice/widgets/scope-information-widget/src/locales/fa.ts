@@ -24,4 +24,12 @@ export default {
     url: 'URL',
     version: 'نسخه',
   },
+  scope_information: 'اطلاعات اسکوپ',
+  ScopeChangeHistoryWidget: 'تاریخچه تغییرات اسکوپ',
+  field: {
+    farsi_name: 'نام فارسی اسکوپ',
+    admin_name: 'نام ادمین',
+    english_name: 'نام لاتین اسکوپ',
+    modify_date: 'زمان ویرایش',
+  },
 };

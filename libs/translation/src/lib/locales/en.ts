@@ -9,7 +9,7 @@ export default {
     return: 'return',
     confirm: 'confirm',
     register_new_request: 'register new request',
-    retry:'retry'
+    retry: 'retry',
   },
   appbar: {
     title: 'Melli Bank',
@@ -18,7 +18,7 @@ export default {
   error: {
     unknown_error: 'unknown error',
     unspecific: 'unspecific error',
-    unspecific_desc:'some error happened please try again',
+    unspecific_desc: 'some error happened please try again',
     not_found: 'page not found',
     not_found_desc: 'Oh! The page you are looking for does not exist. Use search if needed.',
     '404': 'page not found',
