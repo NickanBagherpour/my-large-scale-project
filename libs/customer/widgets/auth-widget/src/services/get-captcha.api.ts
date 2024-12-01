@@ -8,7 +8,7 @@ export const useGetCaptchaQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.AUTH.CAPTCHA],
+    queryKey: [RQKEYS.CUSOMTER_AUTH.CAPTCHA],
     queryFn: () => Api.getCaptcha(),
     select: (res) => {
       return {

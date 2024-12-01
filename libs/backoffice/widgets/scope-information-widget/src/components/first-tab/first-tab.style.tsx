@@ -1,7 +1,9 @@
 import { Button, InfoBox as UiKitInfoBox } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-export const Firststep = styled.div`
+import { Container } from '@oxygen/ui-kit';
+
+export const Firststep = styled(Container)`
   display: flex;
   flex-direction: column;
 `;

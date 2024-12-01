@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { MAIN_HREF } from '@oxygen/utils';
@@ -17,7 +17,7 @@ type Props = {
   animationData?: any;
   image?: ReactNode;
 };
-const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image,animationData }:Props) => {
+const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, animationData }: Props) => {
   const [t] = useTr();
   const theme = useAppTheme();
   const { isAuth } = useAuth();
@@ -42,7 +42,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image,ani
     router.refresh();
   };
   return (
-    <Container margin={'16px'} fillContainer={true} >
+    <Container margin={'16px'} fillContainer={true}>
       <S.ContentContainer>
         <S.TextContainer>
           {errorCode && (

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useTr } from '@oxygen/translation';
 import ErrorView from './error-view';
 import notFoundAnimation from '../../assets/media/Error_400.json';
