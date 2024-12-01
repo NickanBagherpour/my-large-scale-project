@@ -1,4 +1,4 @@
-import React, { ReactNode, startTransition, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
@@ -11,7 +11,7 @@ import { useTr } from '@oxygen/translation';
 
 import { useRegisterMutation } from '../../services';
 
-import { INPUT_MAX_LENGTH, CAPTCHA_MAX_LENGTH } from '../../utils/consts';
+import { NATIONALCODE_MAX_LENGTH, MOBILENUMBER_MAX_LENGTH, CAPTCHA_MAX_LENGTH } from '../../utils/consts';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
@@ -26,16 +26,19 @@ type FormContainerProps = PageProps & {
 };
 
 export const Register = ({ title }: FormContainerProps) => {
+  //Hooks
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
-  const { data, isLoading, isError, refetch, error } = useGetCaptchaQuery();
+  //Queries
+  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
   const { mutate } = useRegisterMutation();
+  //Form
   const [registerForm] = Form.useForm();
+  //States
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
-
+  //Validation
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 
   useEffect(() => {
@@ -46,20 +49,18 @@ export const Register = ({ title }: FormContainerProps) => {
       setCaptchaToken(data.captchaToken);
 
       // Clean up the URL object when the component unmounts or when data changes
-      return () => {
-        URL.revokeObjectURL(url);
-      };
+      return () => URL.revokeObjectURL(url);
     }
   }, [data]);
 
-  // console.log('----------------------------------->', imageSrc, data?.captchaToken , isLoading);
-  // console.log('----------------------------------->', state);
-
   const refreshCaptcha = () => {
     refetch(); // Fetch a new captcha
+    registerForm.setFieldsValue({ [FORM_ITEM_NAMES.captcha_code]: '' }); // Clear the captcha input
   };
 
-  const handleSubmit = () => registerForm.submit();
+  const handleSubmit = () => {
+    registerForm.submit();
+  };
 
   // const handleFinish = (values: any) => {
   //   updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined });
@@ -77,7 +78,6 @@ export const Register = ({ title }: FormContainerProps) => {
     mutate(params, {
       onSuccess: (data) => {
         console.log('Registration successful:', data.headers['key'], data);
-
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
       },
@@ -87,22 +87,28 @@ export const Register = ({ title }: FormContainerProps) => {
     });
   };
 
-  // Automatically move to next input field
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, nextField: string | null) => {
-    if (e.target.value.length === e.target.maxLength) {
-      const nextInput = nextField ? document.getElementById(nextField) : null;
-      if (nextInput) {
-        nextInput.focus();
-      }
-    }
-  };
+  // // Automatically move to next input field
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, nextField: string | null) => {
+  //   if (e.target.value.length === e.target.maxLength) {
+  //     const nextInput = nextField ? document.getElementById(nextField) : null;
+  //     if (nextInput) {
+  //       nextInput.focus();
+  //     }
+  //   }
+  // };
 
   // Auto-submit when all fields are filled
   const handleFieldChange = () => {
     const fields = registerForm.getFieldsValue();
-    const allFieldsFilled = Object.values(fields).every((value) => value && value.toString().trim().length > 5);
-    if (allFieldsFilled) {
-      handleSubmit();
+    const mobileNumber = fields.mobileNumber?.length === MOBILENUMBER_MAX_LENGTH;
+    const natonalCode = fields.nationalCode?.length === NATIONALCODE_MAX_LENGTH;
+    const captchaCode = fields.captchaCode?.length === CAPTCHA_MAX_LENGTH;
+    console.log('mobileNumber', mobileNumber, 'natonalCode', natonalCode, 'captchaCode', captchaCode);
+    // Ensure all required fields are filled before submitting
+    if (mobileNumber && natonalCode && captchaCode) {
+      setTimeout(() => {
+        registerForm.submit(); // Proceed with submit after validation
+      }, 0);
     }
   };
 
@@ -120,21 +126,10 @@ export const Register = ({ title }: FormContainerProps) => {
       >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>
-            <Input
-              placeholder={t('national_code')}
-              allow={'number'}
-              autoFocus
-              maxLength={INPUT_MAX_LENGTH}
-              onChange={(e) => handleInputChange(e, 'mobileNumber')}
-            />
+            <Input placeholder={t('national_code')} allow={'number'} autoFocus maxLength={NATIONALCODE_MAX_LENGTH} />
           </Form.Item>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
-            <Input
-              placeholder={t('mobile_number')}
-              allow={'number'}
-              maxLength={INPUT_MAX_LENGTH}
-              onChange={(e) => handleInputChange(e, 'captcha_code')}
-            />
+            <Input placeholder={t('mobile_number')} allow={'number'} maxLength={MOBILENUMBER_MAX_LENGTH} />
           </Form.Item>
         </S.FormInputs>
 
@@ -150,7 +145,6 @@ export const Register = ({ title }: FormContainerProps) => {
               name='captcha_code'
               placeholder={t('captcha_code')}
               loading={isLoading}
-              onChange={(e) => handleInputChange(e, null)} // No next field, so just move on to submit
             />
           </Form.Item>
         </S.FormInput>
