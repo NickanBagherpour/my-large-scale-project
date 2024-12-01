@@ -25,7 +25,6 @@ const client = axios.create({
 // Add a request interceptor
 
 client.interceptors.request.use(async (config) => {
-
   const sessionId = getCookie(CookieKey.SESSION_ID);
 
   /* const session = await auth();
@@ -36,7 +35,7 @@ client.interceptors.request.use(async (config) => {
  // const branchCode = userData?.branchCode || '';
 */
   if (sessionId) {
-    config.headers['Authorization'] = `Bearer ${decrypt(sessionId)}`;
+    config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;
   }
 
   return config;
@@ -48,7 +47,6 @@ client.interceptors.response.use(
   },
   async (error) => {
     const originalConfig = error.config;
-
 
     if (originalConfig.url !== ROUTES.CUSTOMER.AUTH && error.response) {
       if (error.response.status === 401) {
@@ -66,7 +64,7 @@ client.interceptors.response.use(
       }*/
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default client;
