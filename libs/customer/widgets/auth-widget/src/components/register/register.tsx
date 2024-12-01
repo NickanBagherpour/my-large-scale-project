@@ -32,7 +32,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
   //Queries
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
-  const { mutate } = useRegisterMutation();
+  const { mutate, isPending } = useRegisterMutation();
   //Form
   const [registerForm] = Form.useForm();
   //States
@@ -122,7 +122,7 @@ export const Register = ({ title }: FormContainerProps) => {
         form={registerForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
-        onKeyPress={(e) => {
+        onKeyUp={(e) => {
           if (e.key === 'Enter') {
             registerForm.submit();
           }
@@ -153,7 +153,7 @@ export const Register = ({ title }: FormContainerProps) => {
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color='primary'>
+      <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
       <S.Divider />
