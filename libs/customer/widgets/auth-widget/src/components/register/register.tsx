@@ -98,19 +98,19 @@ export const Register = ({ title }: FormContainerProps) => {
   // };
 
   // Auto-submit when all fields are filled
-  const handleFieldChange = () => {
-    const fields = registerForm.getFieldsValue();
-    const mobileNumber = fields.mobileNumber?.length === MOBILENUMBER_MAX_LENGTH;
-    const natonalCode = fields.nationalCode?.length === NATIONALCODE_MAX_LENGTH;
-    const captchaCode = fields.captchaCode?.length === CAPTCHA_MAX_LENGTH;
-    console.log('mobileNumber', mobileNumber, 'natonalCode', natonalCode, 'captchaCode', captchaCode);
-    // Ensure all required fields are filled before submitting
-    if (mobileNumber && natonalCode && captchaCode) {
-      setTimeout(() => {
-        registerForm.submit(); // Proceed with submit after validation
-      }, 0);
-    }
-  };
+  // const handleFieldChange = () => {
+  // const fields = registerForm.getFieldsValue();
+  // const mobileNumber = fields.mobileNumber?.length === MOBILENUMBER_MAX_LENGTH;
+  // const natonalCode = fields.nationalCode?.length === NATIONALCODE_MAX_LENGTH;
+  // const captchaCode = fields.captchaCode?.length === CAPTCHA_MAX_LENGTH;
+  // console.log('mobileNumber', mobileNumber, 'natonalCode', natonalCode, 'captchaCode', captchaCode);
+  // // Ensure all required fields are filled before submitting
+  // if (mobileNumber && natonalCode && captchaCode) {
+  //   setTimeout(() => {
+  //     registerForm.submit(); // Proceed with submit after validation
+  //   }, 0);
+  // }
+  // };
 
   return (
     <S.FormContainer>
@@ -122,7 +122,11 @@ export const Register = ({ title }: FormContainerProps) => {
         form={registerForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
-        onValuesChange={handleFieldChange} // Trigger submit when all fields are filled
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            registerForm.submit();
+          }
+        }}
       >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>

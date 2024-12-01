@@ -88,6 +88,11 @@ export const Login = ({ title }: FormContainerProps) => {
         form={loginForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            loginForm.submit();
+          }
+        }}
       >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
