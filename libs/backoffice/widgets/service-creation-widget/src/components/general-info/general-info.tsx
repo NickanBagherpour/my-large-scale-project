@@ -2,8 +2,8 @@ import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createGetInfoSchema, GetInfoValuesType } from '../../types';
-import * as S from './get-info.style';
+import { createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
+import * as S from './general-info.style';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateGetInfoStep, nextStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
@@ -17,15 +17,15 @@ const options = [
   { label: 'گزینه سوم', value: '3' },
 ];
 
-export default function GetInfo() {
-  const [form] = Form.useForm<GetInfoValuesType>();
+export default function GeneralInfo() {
+  const [form] = Form.useForm<GeneralInfoValuesType>();
   const [t] = useTr();
-  const rule = createSchemaFieldRule(createGetInfoSchema(t));
+  const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
   const state = useAppState();
   const router = useRouter();
 
-  const onFinish: FormProps<GetInfoValuesType>['onFinish'] = async (values) => {
+  const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     nextStep(dispatch);
     updateGetInfoStep(dispatch, values);
   };
@@ -37,7 +37,7 @@ export default function GetInfo() {
   return (
     <S.Container>
       <Box>
-        <Form layout={'vertical'} initialValues={state.getInfo} onFinish={onFinish} form={form}>
+        <Form layout={'vertical'} initialValues={state.generalInfo} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <FormItem name={FORM_ITEM_NAMES.englishName} className='span-2' label={t('english_name')} rules={[rule]}>
               <Input placeholder={t('enter_english_name')} />

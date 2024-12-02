@@ -3,7 +3,7 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   step: 0,
   scopeMode: 'importFromSso',
-  getInfo: {
+  generalInfo: {
     host: '',
     path: '',
     tag: null,
@@ -37,8 +37,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
 
-    case 'UPDATE_GET_INFO_STEP':
-      return void (state.getInfo = action.payload);
+    case 'UPDATE_GENERAL_INFO_STEP':
+      return void (state.generalInfo = action.payload);
 
     case 'UPDATE_ADD_SCOPE_STEP':
       return void (state.addScope = action.payload);

@@ -4,7 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
-import GetInfo from '../get-info/get-info';
+import GeneralInfo from '../general-info/general-info';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { Step } from '../../context/types';
 import AddScope from '../add-scope/add-scope';
@@ -13,7 +13,7 @@ import UploadDocs from '../upload-docs/upload-docs';
 import * as S from './app.style';
 
 const steps: Record<Step, ReactNode> = {
-  0: <GetInfo />,
+  0: <GeneralInfo />,
   1: <AddScope />,
   2: <UploadDocs />,
 };

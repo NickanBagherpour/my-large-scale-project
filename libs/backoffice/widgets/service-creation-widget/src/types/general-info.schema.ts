@@ -4,7 +4,7 @@ import { TFunction } from 'i18next';
 
 const MAX_LENGTH = 30;
 
-export const createGetInfoSchema = (t: TFunction) =>
+export const createGeneralInfoSchema = (t: TFunction) =>
   z.object({
     [FORM_ITEM_NAMES.englishName]: z
       .string({ required_error: t('validation.required') })
@@ -85,4 +85,4 @@ export const createGetInfoSchema = (t: TFunction) =>
       .refine((val) => val, t('validation.choose_one_option')),
   });
 
-export type GetInfoValuesType = z.infer<ReturnType<typeof createGetInfoSchema>>;
+export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;
