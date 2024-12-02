@@ -26,6 +26,7 @@ export const ROUTES = {
     UPSTREAM_DETAILS: '/upstream-details',
     UPSTREAM_LIST: '/upstream-list',
     SERVICE_CREATION: '/service-creation',
+    SCOPE_HISTORY: '/scope-history',
   },
   CUSTOMER: {
     LANDING: '/',
