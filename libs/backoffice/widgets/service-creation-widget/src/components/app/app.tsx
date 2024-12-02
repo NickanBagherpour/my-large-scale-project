@@ -24,11 +24,11 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Container title={t('enter_service')}>
+    <Container title={t('create_new_service')}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[{ title: t('get_info') }, { title: t('add_scope') }, { title: t('upload_docs') }]}
+        items={[{ title: t('general_info') }, { title: t('add_scope') }, { title: t('upload_docs') }]}
       />
       {steps[step]}
     </Container>

@@ -45,38 +45,23 @@ export default function GeneralInfo() {
             <FormItem name={FORM_ITEM_NAMES.persianName} className='span-2' label={t('persian_name')} rules={[rule]}>
               <Input placeholder={t('enter_persian_name')} />
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.actionOrMethod} label={t('action_or_method')} rules={[rule]}>
-              <Input placeholder={t('enter_action_or_method')} />
-            </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.protocole} rules={[rule]} label={t('protocole')}>
-              <Select size={'large'} placeholder={t('select_protocole')} options={options}></Select>
-            </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
+            <FormItem name={FORM_ITEM_NAMES.access} className='span-2' rules={[rule]} label={t('access')}>
               <Select size={'large'} placeholder={t('select_access')} options={options}></Select>
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
+            <FormItem name={FORM_ITEM_NAMES.category} className='span-2' rules={[rule]} label={t('category')}>
               <Select size={'large'} placeholder={t('select_categroy')} options={options}></Select>
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.throughout} rules={[rule]} label={t('throughout')}>
+            <FormItem name={FORM_ITEM_NAMES.throughout} className='span-2' rules={[rule]} label={t('throughout')}>
               <Select size={'large'} placeholder={t('throughout')} options={options}></Select>
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
+            <FormItem name={FORM_ITEM_NAMES.version} className='span-2' label={t('version')} rules={[rule]}>
               <Input placeholder={t('enter_version')} />
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.owner} label={t('owner')} rules={[rule]}>
+            <FormItem name={FORM_ITEM_NAMES.owner} className='span-2' label={t('owner')} rules={[rule]}>
               <Input placeholder={t('enter_owner')} />
             </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.tag} rules={[rule]} label={t('tag')}>
+            <FormItem name={FORM_ITEM_NAMES.tag} className='span-2' rules={[rule]} label={t('tag')}>
               <Select size={'large'} placeholder={t('enter_tag')} options={options}></Select>
-            </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
-              <Input placeholder={t('path')} />
-            </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
-              <Input placeholder={t('host')} />
-            </FormItem>
-            <FormItem name={FORM_ITEM_NAMES.upstream} className='span-2' rules={[rule]} label={t('upstream')}>
-              <Select size={'large'} placeholder={t('upstream')} options={options}></Select>
             </FormItem>
           </SearchItemsContainer>
         </Form>

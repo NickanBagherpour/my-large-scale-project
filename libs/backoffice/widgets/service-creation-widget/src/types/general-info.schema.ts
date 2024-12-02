@@ -24,17 +24,6 @@ export const createGeneralInfoSchema = (t: TFunction) =>
         message: t('validation.persian_name_error'),
       }),
 
-    [FORM_ITEM_NAMES.actionOrMethod]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.protocole]: z
-      .string()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
-
     [FORM_ITEM_NAMES.access]: z
       .string()
       .nullable()
@@ -63,23 +52,6 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .min(1, { message: t('validation.required') }),
 
     [FORM_ITEM_NAMES.tag]: z
-      .string()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
-
-    [FORM_ITEM_NAMES.path]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.host]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.upstream]: z
       .string()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
