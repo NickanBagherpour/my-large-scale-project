@@ -16,5 +16,6 @@ export interface UserToken {
   accessToken: string;
 }
 
-export interface UserSession extends UserToken {
-}
+//export interface UserSession extends UserToken {
+//
+//}
