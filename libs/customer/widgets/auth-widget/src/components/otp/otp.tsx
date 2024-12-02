@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Box, Button, Input, Timer } from '@oxygen/ui-kit';
+import { useAuth } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ApiUtil, ROUTES } from '@oxygen/utils';
-import { useAuth } from '@oxygen/hooks';
+import { Button, Input, Timer } from '@oxygen/ui-kit';
 
 import { TIMER_INITIAL_SECONDS } from '../../utils/consts';
+
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { useVerifyRegisterMutation, useVerifyLoginMutation } from '../../services';
+
+import { authFormSchema } from '../../types';
 
 import * as S from './otp.style';
 
@@ -24,27 +25,28 @@ type FormContainerProps = PageProps & {
 };
 
 export const OTP: React.FC<FormContainerProps> = () => {
+  //Hooks
   const dispatch = useAppDispatch();
-  const state = useAppState();
   const { login } = useAuth();
+  const state = useAppState();
   const [t] = useTr();
-  const { mutateAsync: mutateAsyncVerifyRegister } = useVerifyRegisterMutation();
-  const { mutateAsync: mutateAsyncVerifyLogin } = useVerifyLoginMutation();
-  console.log('otp state', state);
-  const router = useRouter();
+
+  //Queries
+  const { mutateAsync: mutateAsyncVerifyLogin, isPending: loginLoading } = useVerifyLoginMutation();
+  const { mutateAsync: mutateAsyncVerifyRegister, isPending: registerLoading } = useVerifyRegisterMutation();
+
+  //Form
   const [OTPForm] = Form.useForm();
 
+  //State & const
   const [isTimerFinish, setIsTimerFinish] = useState(false);
-
   const phoneNumber = state.OTP.mobileNumber;
 
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
+  //Validation
+  const rule = createSchemaFieldRule(authFormSchema(t));
 
-  const handleLoginSubmit = () => {
-    OTPForm.submit();
-  };
-
-  const handleRegisterSubmit = () => {
+  //Handlers
+  const handleSubmit = () => {
     OTPForm.submit();
   };
 
@@ -57,18 +59,14 @@ export const OTP: React.FC<FormContainerProps> = () => {
       otpKey: state.OTP.key,
       otpValue: values.otp,
     };
-
     try {
       let data: any = null;
-
       if (state.OTP.type === 'register') {
         data = await mutateAsyncVerifyRegister(params);
       } else {
         data = await mutateAsyncVerifyLogin(params);
       }
-
       if (!data) return;
-
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
       await login(user, ROUTES.CUSTOMER.PROFILE);
     } catch (e) {
@@ -85,6 +83,36 @@ export const OTP: React.FC<FormContainerProps> = () => {
     setIsTimerFinish(false);
   };
 
+  //Handle auto submit
+  const handleOTPSubmit = () => {
+    const fields = OTPForm.getFieldsValue();
+    const otp = fields.otp?.length === 6;
+    if (otp) {
+      setTimeout(() => {
+        //add setTimeout to allow form to submit(for resolve outOfDate error)
+        OTPForm.submit();
+      }, 0);
+    }
+  };
+
+  const renderFooter = () => {
+    const isLogin = state.OTP.type === 'login';
+    const loading = isLogin ? loginLoading : registerLoading;
+
+    return (
+      <>
+        <S.Button loading={loading} onClick={handleSubmit} color='primary'>
+          {isLogin ? t('enter') : t('submit')}
+        </S.Button>
+        <S.Divider />
+        <S.Span>
+          {isLogin ? t('dont_have_account') : t('do_you_registered_already')}
+          <Link href={ROUTES.CUSTOMER.AUTH}>{isLogin ? t('register_in_the_system') : t('login_to_portal')}</Link>
+        </S.Span>
+      </>
+    );
+  };
+
   return (
     <S.FormContainer>
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
@@ -94,7 +122,13 @@ export const OTP: React.FC<FormContainerProps> = () => {
           <S.BackParagraph>{t('change_mobile_number')}</S.BackParagraph>
         </Button>
       </S.Box>
-      <Form layout={'vertical'} style={{ width: '100%' }} form={OTPForm} onFinish={handleFinish}>
+      <Form
+        layout={'vertical'}
+        style={{ width: '100%' }}
+        form={OTPForm}
+        onFinish={handleFinish}
+        onValuesChange={handleOTPSubmit}
+      >
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.otp} rules={[rule]}>
             <Input.OTP autoFocus />
@@ -113,30 +147,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
           </>
         )}
       </S.TimerBox>
-
-      {state.OTP.type === 'login' ? (
-        <>
-          <S.Button onClick={handleRegisterSubmit} color='primary'>
-            {t('submit')}
-          </S.Button>
-          <S.Divider />
-          <S.Span>
-            {t('dont_have_account')}
-            <Link href={`${ROUTES.CUSTOMER.AUTH}`}> {t('register_in_the_system')}</Link>
-          </S.Span>
-        </>
-      ) : (
-        <>
-          <S.Button onClick={handleLoginSubmit} color='primary'>
-            {t('submit')}
-          </S.Button>
-          <S.Divider />
-          <S.Span>
-            {t('do_you_registered_already')}
-            <Link href={`${ROUTES.CUSTOMER.AUTH}`}>{t('login_to_portal')}</Link>
-          </S.Span>
-        </>
-      )}
+      {renderFooter()}
     </S.FormContainer>
   );
 };
