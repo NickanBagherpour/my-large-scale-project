@@ -19,5 +19,7 @@ export default {
   login: 'ورود',
   otp: 'کد یکبار مصرف',
   enter: 'ورود',
-  min_length_11: 'این فیلد باید 11 کاراکتر باشد',
+  error: {
+    min_length_mobile_number: 'این فیلد باید {{MOBILENUMBER_MAX_LENGTH}} کاراکتر باشد',
+  },
 };

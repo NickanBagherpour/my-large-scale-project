@@ -89,7 +89,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
     const otp = fields.otp?.length === 6;
     if (otp) {
       setTimeout(() => {
-        //add setTimeout to allow form to submit(for outOfDate error)
+        //add setTimeout to allow form to submit(for resolve outOfDate error)
         OTPForm.submit();
       }, 0);
     }
