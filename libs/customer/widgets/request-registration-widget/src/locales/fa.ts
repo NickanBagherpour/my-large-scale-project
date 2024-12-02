@@ -31,6 +31,9 @@ export default {
   technical_name: 'نام و نام خانوادگی نماینده فنی',
   telephone: 'تلفن ثابت',
   detailed: 'جزئیات',
+  registered_request_successfully: 'درخواست با موفقیت ثبت شد.',
+  follow_code: 'کد پیگیری درخواست :',
+  return_to_request: 'بازگشت به مدیریت درخواست‌ها',
 
   progress_bar: {
     first_step: 'اطلاعات شرکت',

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 
+import { Modal } from '../../types/modal.type';
+import ConfirmModal from './modal-confirm/modal-confirm';
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
@@ -26,6 +28,11 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const [modals, setModals] = useState<Modal>({
+    confirm: false,
+    removeService: false,
+    serviceId: '',
+  });
 
   const theme = useTheme();
 
@@ -35,6 +42,13 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
   const mobileColumns = getMobileColumns({ t });
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
+
+  const toggleModal = (modal: keyof Modal) => {
+    setModals((prev) => ({
+      ...prev,
+      [modal]: !prev[modal],
+    }));
+  };
 
   const onFinish = (values) => {
     updateFirstStepAction(dispatch, values);
@@ -49,6 +63,7 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     <Loading spinning={loading}>
       {!loading && (
         <S.FourthStepContainer>
+          <ConfirmModal isOpen={modals['confirm']} toggle={() => toggleModal('confirm')} />
           <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
             <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
             <Card>
@@ -141,9 +156,7 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
             <Button variant={'outlined'} onClick={handleReturn}>
               {t('return')}
             </Button>
-            <Button htmlType={'submit'} onClick={form.submit}>
-              {t('submit_info')}
-            </Button>
+            <Button onClick={() => toggleModal('confirm')}>{t('submit_info')}</Button>
           </S.Footer>
         </S.FourthStepContainer>
       )}

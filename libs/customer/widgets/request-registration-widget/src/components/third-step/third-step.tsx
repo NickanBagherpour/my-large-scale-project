@@ -22,7 +22,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const [modals, setModals] = useState<Modal>({
-    details: false,
+    confirm: false,
     removeService: false,
     serviceId: '',
   });

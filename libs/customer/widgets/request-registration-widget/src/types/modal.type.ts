@@ -1,5 +1,5 @@
 export type Modal = {
-  details: boolean;
+  confirm: boolean;
   removeService: boolean;
   serviceId: string;
 };
