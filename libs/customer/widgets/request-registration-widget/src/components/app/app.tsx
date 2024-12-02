@@ -27,7 +27,14 @@ const App: React.FC<AppProps> = (props) => {
 
   const id: Nullable<string> = searchParams.get('id');
   const { data: requestData, isFetching } = useGetRequestQuery();
-  const [currentStep, setCurrentStep] = useState(3);
+
+  enum StepsItemKey {
+    FirstStep = 0,
+    SecondStep = 1,
+    ThirdStep = 2,
+    FourthStep = 3,
+  }
+  const [currentStep, setCurrentStep] = useState(StepsItemKey.FirstStep);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },
