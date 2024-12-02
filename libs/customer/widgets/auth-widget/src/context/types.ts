@@ -20,26 +20,21 @@ export type OTPType = {
 
 export type WidgetStateType = {
   OTP: OTPType;
-  table: {
-    filters: FiltersType;
-    pagination: PaginationType;
-    submit: FiltersType;
-  };
   message: Nullable<MessageType>;
 };
 
 export type WidgetActionType =
   | {
-  type: 'UPDATE_OTP';
-  payload: Nullable<OTPType>;
-}
+      type: 'UPDATE_OTP';
+      payload: Nullable<OTPType>;
+    }
   | {
-  type: 'UPDATE_GLOBAL_MESSAGE';
-  payload: Nullable<MessageType>;
-}
+      type: 'UPDATE_GLOBAL_MESSAGE';
+      payload: Nullable<MessageType>;
+    }
   | {
-  type: 'UPDATE_SUBMIT';
-  payload: Partial<FiltersType>;
-};
+      type: 'UPDATE_SUBMIT';
+      payload: Partial<FiltersType>;
+    };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
