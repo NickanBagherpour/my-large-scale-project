@@ -45,7 +45,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
               label={t('form.latin_name_scope')}
               rules={[rule]}
             >
-              <Input maxLength={MAX_LENGTH_INPUT} />
+              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.latin_name')} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.persianNameScope}
@@ -53,7 +53,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
               label={t('form.persian_name_scope')}
               rules={[rule]}
             >
-              <Input maxLength={MAX_LENGTH_INPUT} />
+              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.persian_name')} />
             </Form.Item>
           </SearchItemsContainer>
         </Form>
