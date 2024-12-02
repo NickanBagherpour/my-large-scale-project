@@ -31,4 +31,4 @@ type zInfer<fn extends (...args: any[]) => any> = z.infer<ReturnType<fn>>;
 type CreateScopeSchemaType = zInfer<typeof createScopeSchema>;
 type ImportFromSsoType = zInfer<typeof importFromSso>;
 
-export type AddScopeType = CreateScopeSchemaType | ImportFromSsoType;
+export type ScopeType = CreateScopeSchemaType | ImportFromSsoType;

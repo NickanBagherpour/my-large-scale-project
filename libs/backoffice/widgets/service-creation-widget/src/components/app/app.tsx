@@ -7,14 +7,14 @@ import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { Step } from '../../context/types';
-import AddScope from '../add-scope/add-scope';
+import Scope from '../scope/scope';
 import UploadDocs from '../upload-docs/upload-docs';
 
 import * as S from './app.style';
 
 const steps: Record<Step, ReactNode> = {
   0: <GeneralInfo />,
-  1: <AddScope />,
+  1: <Scope />,
   2: <UploadDocs />,
 };
 
@@ -28,7 +28,7 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[{ title: t('general_info') }, { title: t('add_scope') }, { title: t('upload_docs') }]}
+        items={[{ title: t('general_info') }, { title: t('scope') }, { title: t('upload_docs') }]}
       />
       {steps[step]}
     </Container>

@@ -1,7 +1,7 @@
 export default {
   create_new_service: 'ایجاد سرویس جدید',
   general_info: 'اطلاعات کلی',
-  add_scope: 'افزودن اسکوپ',
+  scope: 'اسکوپ',
   upload_docs: 'بارگذاری مستندات',
   english_name: 'نام لاتین',
   enter_english_name: 'نام لاتین سرویس را وارد نمایید',
