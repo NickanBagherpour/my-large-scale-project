@@ -29,13 +29,16 @@ export const Login = ({ title }: FormContainerProps) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+
   //Queries
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
   const { mutate, isPending } = useLoginMutation();
+
   //States
   const [loginForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
+
   //Validation
   const rule = createSchemaFieldRule(RegisterFormSchema(t));
 

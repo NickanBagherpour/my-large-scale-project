@@ -13,6 +13,32 @@ export const sampleSchema = z
 export type FormFieldsType = z.infer<typeof sampleSchema>;
 
 export const RegisterFormSchema = (t: (key: string) => string) =>
+  // const mobileNumber = z
+  //   .string({ required_error: t('error.required') })
+  //   .trim()
+  //   .superRefine((value, ctx) => {
+  //     if (value.length < 1) {
+  //       ctx.addIssue({
+  //         code: z.ZodIssueCode.too_small,
+  //         type: 'string',
+  //         minimum: 1,
+  //         inclusive: true,
+  //         message: t('error.required'),
+  //       });
+  //       return;
+  //     }
+
+  //     if (value.length < 11) {
+  //       ctx.addIssue({
+  //         code: z.ZodIssueCode.too_small,
+  //         type: 'string',
+  //         minimum: 11,
+  //         inclusive: true,
+  //         message: t('min_length_11'),
+  //       });
+  //     }
+  //   });
+  // return
   z.object({
     [FORM_ITEM_NAMES.national_code]: z
       .string({ required_error: t('error.required') })
