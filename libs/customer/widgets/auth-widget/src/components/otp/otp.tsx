@@ -83,8 +83,8 @@ export const OTP: React.FC<FormContainerProps> = () => {
     setIsTimerFinish(false);
   };
 
+  //Handle auto submit
   const handleOTPSubmit = () => {
-    //do auto submit
     const fields = OTPForm.getFieldsValue();
     const otp = fields.otp?.length === 6;
     if (otp) {
@@ -93,6 +93,24 @@ export const OTP: React.FC<FormContainerProps> = () => {
         OTPForm.submit();
       }, 0);
     }
+  };
+
+  const renderFooter = () => {
+    const isLogin = state.OTP.type === 'login';
+    const loading = isLogin ? loginLoading : registerLoading;
+
+    return (
+      <>
+        <S.Button loading={loading} onClick={handleSubmit} color='primary'>
+          {isLogin ? t('enter') : t('submit')}
+        </S.Button>
+        <S.Divider />
+        <S.Span>
+          {isLogin ? t('dont_have_account') : t('do_you_registered_already')}
+          <Link href={ROUTES.CUSTOMER.AUTH}>{isLogin ? t('register_in_the_system') : t('login_to_portal')}</Link>
+        </S.Span>
+      </>
+    );
   };
 
   return (
@@ -129,30 +147,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
           </>
         )}
       </S.TimerBox>
-
-      {state.OTP.type === 'login' ? (
-        <>
-          <S.Button loading={loginLoading} onClick={handleSubmit} color='primary'>
-            {t('enter')}
-          </S.Button>
-          <S.Divider />
-          <S.Span>
-            {t('dont_have_account')}
-            <Link href={`${ROUTES.CUSTOMER.AUTH}`}> {t('register_in_the_system')}</Link>
-          </S.Span>
-        </>
-      ) : (
-        <>
-          <S.Button loading={registerLoading} onClick={handleSubmit} color='primary'>
-            {t('submit')}
-          </S.Button>
-          <S.Divider />
-          <S.Span>
-            {t('do_you_registered_already')}
-            <Link href={`${ROUTES.CUSTOMER.AUTH}`}>{t('login_to_portal')}</Link>
-          </S.Span>
-        </>
-      )}
+      {renderFooter()}
     </S.FormContainer>
   );
 };
