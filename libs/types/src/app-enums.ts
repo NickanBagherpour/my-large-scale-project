@@ -7,6 +7,10 @@ export enum LocalStorageKey {
   Accounts = 'accounts',
 }
 
+export enum CookieKey {
+  SESSION_ID = 'session-id',
+}
+
 export enum UserType {
   BRANCH_OPERATOR = 'BRANCH_OPERATOR',
   BRANCH_SUPERVISOR = 'BRANCH_SUPERVISOR',
@@ -14,14 +18,3 @@ export enum UserType {
   NONE = 'NONE',
 }
 
-export enum PersonType {
-  REAL = 'REAL',
-  FOREIGNER = 'FOREIGNER',
-  LEGAL = 'LEGAL',
-}
-
-export enum Identifier  {
-  NATIONAL_CODE =1,
-  FIDA ,
-  NATIONAL_ID ,
-}

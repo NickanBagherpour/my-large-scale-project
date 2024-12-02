@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server';
 
 import { auth } from '@oxygen/customer/auth';
 import { ROUTES } from '@oxygen/utils';
-import { decrypt } from '@oxygen/utils';
 
 // Function to check if a URL has the same origin as the request
 function isSameOrigin(request: NextRequest, url: string | null): boolean {
@@ -26,19 +25,23 @@ export default async function middleware(request: NextRequest) {
   // Check if the user is trying to access a protected route
   const isProtectedRoute = !publicPaths.some(path => pathname === path);
 
-  // Handle API routes
-  if (pathname.startsWith('/api/')) {
-    const token = decrypt(session?.user?.accessToken ?? '');
-    // If token exists, set it in the Authorization header
-    // if (token) {
+  /*
+    // Handle API routes
+    if (pathname.startsWith('/api/')) {
+      const token = decrypt(session?.user?.accessToken ?? '');
+      // If token exists, set it in the Authorization header
+      // if (token) {
+      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>hi middleware  with /api/<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', token);
       const modifiedRequest = request.clone(); // Clone the request to modify it
       modifiedRequest.headers.set('Authorization', `Bearer ${token}`);
+      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>hi middleware  with /api/ modified<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', modifiedRequest);
       return NextResponse.next(modifiedRequest); // Proceed with the modified request
-    // }
+      // }
 
-    // Optionally, you might want to handle unauthorized access for API routes
-    // return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  }
+      // Optionally, you might want to handle unauthorized access for API routes
+      // return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+    */
 
   // Handle non-API routes
   if (isProtectedRoute) {
@@ -62,6 +65,6 @@ export const config = {
      * Match all request paths including API routes.
      * This will apply this middleware to all routes.
      */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };

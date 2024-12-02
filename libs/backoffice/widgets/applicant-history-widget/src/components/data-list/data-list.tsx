@@ -26,8 +26,8 @@ const DataList: React.FC<dataListProps> = (props) => {
   const theme = useTheme();
 
   const {
-    table: { pagination },
-  } = state;
+    table: { pagination = { page: 1, rowsPerPage: 10 } } = { pagination: { page: 1, rowsPerPage: 10 } }, // Fallback for pagination
+  } = state || {};
 
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 

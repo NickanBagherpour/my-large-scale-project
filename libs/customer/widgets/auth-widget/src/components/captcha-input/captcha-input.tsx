@@ -13,6 +13,7 @@ interface CaptchaInputProps extends InputProps {
   name?: string; // Form item name
   rules?: any[]; // Validation rules for the form item
   loading?: boolean; // Loading state for the refresh button
+  captchaMaxLength: number; // Maximum length for the captcha
 }
 
 const CaptchaInput: React.FC<CaptchaInputProps> = ({
@@ -22,10 +23,12 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({
   name,
   loading = false,
   rules,
+  captchaMaxLength,
   ...rest
 }) => {
   return (
     <S.KitInput
+      maxLength={captchaMaxLength}
       suffix={
         <S.SuffixContainer>
           {loading ? (

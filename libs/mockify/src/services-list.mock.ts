@@ -64,9 +64,9 @@ export const getServicesList = async ({ searchTerm, status, sort, page }: Params
   // const sortedData = sortByDate(data, sort);
   const sortedData = sortByName(data, sort);
 
-  return new Promise<{ data: { list: Service[]; total: number } }>((resolve) => {
+  return new Promise<{ data: { list: Service[] } }>((resolve) => {
     setTimeout(() => {
-      resolve({ data: { list: sortedData, total: sortedData.length } });
+      resolve({ data: { list: sortedData } });
     }, 700);
   });
 };

@@ -29,3 +29,6 @@ export type FetchParamsType = {
   filters?: FiltersType;
   pagination: PaginationType;
 };
+export type FetchIpType = {
+  ip: string;
+};

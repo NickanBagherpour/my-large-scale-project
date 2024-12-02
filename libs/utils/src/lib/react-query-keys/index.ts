@@ -1,6 +1,7 @@
 /*--import--*/
 import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
-import { KEYS as AUTH_KEYS } from './widgets/auth.key';
+import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
 import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './widgets/service-clients-list.key';
@@ -14,6 +15,7 @@ import { KEYS as SERVICES_LIST_KEYS } from './widgets/services-list.key';
 import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
 import { KEYS as CLIENT_DETAILS_KEYS } from './widgets/client-details.key';
 import { KEYS as CLIENT_HISTORY_KEYS } from './widgets/client-history.key';
+import { KEYS as SCOPE_CHANGE_HISTORY_KEYS } from './widgets/scope-change-history.key';
 import { KEYS as SERVICE_HISTORY_KEYS } from './widgets/service-history.key';
 import { KEYS as EDIT_APPLICANT_INFO_KEYS } from './widgets/edit-applicant-info.key';
 import { KEYS as CREATE_NEW_CLIENT_KEYS } from './widgets/create-new-client.key';
@@ -24,11 +26,13 @@ import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
 import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
 import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
 import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
+import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-history.key';
 
 export const RQKEYS = {
   /*--export--*/
   REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
-  AUTH: AUTH_KEYS,
+  BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,
+  CUSOMTER_AUTH: CUSTOMER_AUTH_KEYS,
   LANDING: LANDING_KEYS,
   UPSTREAM_DETAILS: UPSTREAM_DETAILS_KEYS,
   SERVICE_CLIENTS_LIST: SERVICE_CLIENTS_LIST_KEYS,
@@ -44,6 +48,7 @@ export const RQKEYS = {
   APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
   CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
   CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
+  SCOPE_CHANGE_HISTORY: SCOPE_CHANGE_HISTORY_KEYS,
   SERVICE_HISTORY: SERVICE_HISTORY_KEYS,
   EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
   CREATE_NEW_CLIENT: CREATE_NEW_CLIENT_KEYS,
@@ -52,4 +57,5 @@ export const RQKEYS = {
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
   EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
   SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
+  DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,
 };

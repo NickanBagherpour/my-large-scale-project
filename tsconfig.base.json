@@ -27,6 +27,9 @@
             "@oxygen/backoffice/widgets/applicant-history-widget": [
                 "libs/backoffice/widgets/applicant-history-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/auth-widget": [
+                "libs/backoffice/widgets/auth-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/client-creation-widget": [
                 "libs/backoffice/widgets/client-creation-widget/src/index.ts"
             ],
@@ -53,6 +56,9 @@
             ],
             "@oxygen/backoffice/widgets/scope-creation-widget": [
                 "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/scope-history-widget": [
+                "libs/backoffice/widgets/scope-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/scope-information-widget": [
                 "libs/backoffice/widgets/scope-information-widget/src/index.ts"

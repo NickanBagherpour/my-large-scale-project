@@ -1,3 +1,4 @@
+import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const StepsWrapper = styled.div`
@@ -13,6 +14,12 @@ export const StepsWrapper = styled.div`
     padding: 2rem;
   }
 
+  /* ${respondTo.down('md')} {
+    } */
+  .ant-steps-item {
+    white-space: normal;
+  }
+
   .ant-steps-item-disabled {
     background: transparent;
   }
@@ -23,8 +30,10 @@ export const StepsWrapper = styled.div`
   }
 
   .ant-steps-item-container {
+    text-align: center;
     padding-bottom: 0;
   }
+
   .ant-steps-item::before {
     top: 0;
     bottom: unset;

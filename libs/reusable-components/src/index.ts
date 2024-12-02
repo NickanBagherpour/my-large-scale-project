@@ -1,3 +1,8 @@
+export { default as NotFoundFallback } from './components/error-fallback/not-found-fallback';
+export { default as ServerErrorFallback } from './components/error-fallback/server-error-fallback';
+export { default as ContentNotFoundFallback } from './components/error-fallback/content-not-found-fallback';
+export { default as UnexpectedErrorFallback } from './components/error-fallback/unexpected-error-fallback';
+
 export { default as FooterContainer } from './components/footer-container/footer-container';
 export { default as ReturnButton } from './components/return-button/return-button';
 export { default as SecondaryTitle } from './components/title/secondary-title';

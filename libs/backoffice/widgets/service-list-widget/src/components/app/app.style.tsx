@@ -7,7 +7,7 @@ export const Grid = styled(RawGrid)`
 `;
 
 export const DraftsContainer = styled(Container)`
-  margin-bottom: 1.6rem;
+  //margin-bottom: 1.6rem;
 `;
 
 export const ServicesContainer = styled(Container)`
