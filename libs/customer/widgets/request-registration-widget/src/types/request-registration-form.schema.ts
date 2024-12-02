@@ -27,7 +27,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
       if (input instanceof Object) {
         return input.toString(); // Convert Date object to ISO string
       }
-      return input; // Return as is if it's already a string
+      return input == null ? ' ' : input; // Return as is if it's already a string
     }, z.string({ required_error: t('error.required') }))
     .superRefine((value, ctx) => {
       if (value.trim().length === 0) {

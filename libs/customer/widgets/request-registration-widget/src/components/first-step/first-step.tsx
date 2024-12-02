@@ -6,7 +6,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Select, DatePicker } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
@@ -63,7 +63,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               <Input placeholder={`${t('placeholder.registration_number')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
-              <DatePicker placeholder={`${t('placeholder.registration_date')}`} />
+              {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
+              <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} />

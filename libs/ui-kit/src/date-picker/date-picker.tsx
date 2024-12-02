@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { DatePicker as AntDatePicker, DatePickerProps as AntDatePickerProps } from 'antd';
 import { dayjs } from '@oxygen/utils';
 import { RangePickerProps } from 'antd/lib/date-picker';
+import * as S from './date-picker.style';
 
 export type DatePickerProps = AntDatePickerProps & {
   defaultValueStr?: string;
@@ -39,12 +40,14 @@ export const DatePicker = (props: DatePickerProps) => {
   };
 
   return (
-    <AntDatePicker
-      format={format}
-      defaultValue={defVal as any}
-      disabledDate={handleDisableDate as RangePickerProps['disabledDate']}
-      {...rest}
-    />
+    <S.DatePickerContainer>
+      <AntDatePicker
+        format={format}
+        defaultValue={defVal as any}
+        disabledDate={handleDisableDate as RangePickerProps['disabledDate']}
+        {...rest}
+      />
+    </S.DatePickerContainer>
   );
 };
 
