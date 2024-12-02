@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ROUTES } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox } from '@oxygen/ui-kit';
@@ -7,7 +8,6 @@ import { Button, InfoBox } from '@oxygen/ui-kit';
 import { useGetFirstTabReportDataQuery } from '../../services/get-report.api';
 
 import * as S from './first-tab.style';
-import { ROUTES } from '@oxygen/utils';
 
 type FirstTabType = PageProps & {
   id: string;
