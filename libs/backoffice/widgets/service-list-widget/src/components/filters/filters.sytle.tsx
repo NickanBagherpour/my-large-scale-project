@@ -61,6 +61,9 @@ export const Indicators = styled.div`
     flex-direction: column;
     row-gap: 1.6rem;
   }
+  span {
+    font-weight: 600;
+  }
 `;
 
 export const Input = styled(KitInput)`
