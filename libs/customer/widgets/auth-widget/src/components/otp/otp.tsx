@@ -16,7 +16,7 @@ import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 import { useVerifyRegisterMutation, useVerifyLoginMutation } from '../../services';
 
-import { RegisterFormSchema } from '../../types';
+import { authFormSchema } from '../../types';
 
 import * as S from './otp.style';
 
@@ -43,7 +43,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const phoneNumber = state.OTP.mobileNumber;
 
   //Validation
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
+  const rule = createSchemaFieldRule(authFormSchema(t));
 
   //Handlers
   const handleSubmit = () => {

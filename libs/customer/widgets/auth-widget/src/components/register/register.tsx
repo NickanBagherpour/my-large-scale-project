@@ -15,7 +15,7 @@ import { NATIONALCODE_MAX_LENGTH, MOBILENUMBER_MAX_LENGTH, CAPTCHA_MAX_LENGTH } 
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types/sample.schema';
+import { authFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
@@ -30,16 +30,20 @@ export const Register = ({ title }: FormContainerProps) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+
   //Queries
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
   const { mutate, isPending } = useRegisterMutation();
+
   //Form
   const [registerForm] = Form.useForm();
+
   //States
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
+
   //Validation
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
+  const rule = createSchemaFieldRule(authFormSchema(t));
 
   useEffect(() => {
     if (data?.captchaImage) {

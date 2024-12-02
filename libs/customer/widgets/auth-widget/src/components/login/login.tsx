@@ -11,7 +11,7 @@ import { ROUTES } from '@oxygen/utils';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types';
+import { authFormSchema } from '../../types';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
@@ -40,7 +40,7 @@ export const Login = ({ title }: FormContainerProps) => {
   const [captchaToken, setCaptchaToken] = useState('');
 
   //Validation
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
+  const rule = createSchemaFieldRule(authFormSchema(t));
 
   useEffect(() => {
     if (data?.captchaImage) {
