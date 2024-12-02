@@ -34,4 +34,7 @@ export default {
     cancel: 'cancel',
     apply: 'apply',
   },
+  alert: {
+    edit_success: 'edit operation was successful',
+  },
 };
