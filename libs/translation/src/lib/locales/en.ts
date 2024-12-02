@@ -10,6 +10,7 @@ export default {
     confirm: 'confirm',
     register_new_request: 'register new request',
     retry: 'retry',
+    display_more_items: 'more',
   },
   appbar: {
     title: 'Melli Bank',
