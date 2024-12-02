@@ -100,16 +100,9 @@ export const OTP: React.FC<FormContainerProps> = () => {
     const loading = isLogin ? loginLoading : registerLoading;
 
     return (
-      <>
-        <S.Button loading={loading} onClick={handleSubmit} color='primary'>
-          {isLogin ? t('enter') : t('submit')}
-        </S.Button>
-        <S.Divider />
-        <S.Span>
-          {isLogin ? t('dont_have_account') : t('do_you_registered_already')}
-          <Link href={ROUTES.CUSTOMER.AUTH}>{isLogin ? t('register_in_the_system') : t('login_to_portal')}</Link>
-        </S.Span>
-      </>
+      <S.Button loading={loading} onClick={handleSubmit} color='primary'>
+        {isLogin ? t('enter') : t('submit')}
+      </S.Button>
     );
   };
 
