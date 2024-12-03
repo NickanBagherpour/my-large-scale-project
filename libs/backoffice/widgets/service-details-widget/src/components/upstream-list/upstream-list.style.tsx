@@ -1,9 +1,24 @@
-import { respondTo } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { Container } from '@oxygen/ui-kit';
 
 export const UpstreamContainer = styled.div``;
+
+export const Title = styled.p`
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.5rem; /* 156.25% */
+`;
+
+export const BorderBox = styled.div`
+  border: 1px solid ${(p) => p.theme.border._100};
+  border-radius: var(${cssVar.radius});
+`;
+export const TrashIcon = styled.i`
+  font-size: 2rem;
+`;
 
 export const ItemsContainer = styled(Container)`
   height: 100%;
@@ -39,10 +54,6 @@ export const Button = styled(KitButton)`
   &&& {
     font-size: 1.4rem;
   }
-`;
-
-export const TrashIcon = styled.i`
-  font-size: 2.4rem;
 `;
 
 export const Input = styled(KitInput)`
