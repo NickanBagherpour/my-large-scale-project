@@ -9,6 +9,7 @@ export enum LocalStorageKey {
 
 export enum CookieKey {
   SESSION_ID = 'session-id',
+  SESSION_TICKET = 'session-ticket',
 }
 
 export enum UserType {

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 import { loadTr } from '@oxygen/translation';
@@ -15,7 +17,7 @@ const AuthWidget: React.FC<PageProps> = (props) => {
   return (
     <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps} />
+        <App parentProps={props.parentProps}/>
       </AppProvider>
     </WidgetWrapper>
   );

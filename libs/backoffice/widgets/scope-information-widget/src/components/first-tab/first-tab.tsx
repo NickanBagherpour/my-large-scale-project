@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ROUTES } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox } from '@oxygen/ui-kit';
@@ -34,10 +35,14 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
       <S.FirstStepHeader>
         <S.FirstStepTitle>{t('first_tab.title')}</S.FirstStepTitle>
         <S.ButtonContainer>
-          <Button href={`/scope-history?id=${id}`} variant='filled' icon={<S.Icon className={'icon-clock'}></S.Icon>}>
+          <Button
+            href={`${ROUTES.BACKOFFICE.SCOPE_HISTORY}?id=${id}`}
+            variant='filled'
+            icon={<S.Icon className={'icon-clock'}></S.Icon>}
+          >
             {t('first_tab.view_history_changes')}
           </Button>
-          <Button href={`/scope-edit?id=${id}`} icon={<S.Icon className={'icon-edit'}></S.Icon>}>
+          <Button href={`${ROUTES.BACKOFFICE.EDIT_SCOPE}?id=${id}`} icon={<S.Icon className={'icon-edit'}></S.Icon>}>
             {t('first_tab.edit')}
           </Button>
         </S.ButtonContainer>

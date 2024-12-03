@@ -24,7 +24,7 @@ export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
   const [t] = useTr();
 
   return (
-    <Anonymous>
+    // <Anonymous>
       <S.Wrapper>
         <div className={'auth-container'}>
           <S.RightPanelContainer>
@@ -91,7 +91,7 @@ export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
           </S.LeftPanelContainer>
         </div>
       </S.Wrapper>
-    </Anonymous>
+    // </Anonymous>
   );
 };
 
