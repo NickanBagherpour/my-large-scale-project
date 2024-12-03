@@ -9,8 +9,10 @@ import { handleSSO } from '../../server-actions/handle-sso.action';
 import * as S from './app.style';
 import { useAuth } from '@oxygen/hooks';
 import { ROUTES } from '@oxygen/utils';
-
-const AuthWidget: React.FC<PageProps> = (props) => {
+type AuthWidgetType = PageProps & {
+  parentProps?: any;
+};
+const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const [loading, setLoading] = useState(false);
   const { user, login } = useAuth();
 
@@ -26,10 +28,9 @@ const AuthWidget: React.FC<PageProps> = (props) => {
       window.history.replaceState({}, document.title, url.toString());
       setCode(null);
 
-      await handleSSO(code,ticket);
+      await handleSSO(code, ticket);
       // Clear query parameters from the URL
       login({}, ROUTES.BACKOFFICE.CLIENT_LIST);
-
     } catch (error) {
       console.error('Failed to handle SSO:', error);
     }
@@ -40,11 +41,9 @@ const AuthWidget: React.FC<PageProps> = (props) => {
   // handleSignOut();
 
   useEffect(() => {
-
     if (code) {
       handleRedirect();
     }
-
   }, [code]);
 
   const handleLogin = async () => {
@@ -61,11 +60,7 @@ const AuthWidget: React.FC<PageProps> = (props) => {
 
   return (
     <S.AppContainer title={'AuthWidget'}>
-      {loading ? (
-        <Loading fullscreen={true} />
-      ) : (
-        <Button onClick={handleLogin}>Login</Button>
-      )}
+      {loading ? <Loading fullscreen={true} /> : <Button onClick={handleLogin}>Login</Button>}
     </S.AppContainer>
   );
 };

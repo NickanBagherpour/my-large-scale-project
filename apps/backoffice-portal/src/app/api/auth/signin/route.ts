@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { code ,ticket} = await req.json();
+  const { code, ticket } = await req.json();
 
   const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/token`;
   const headers = {
@@ -29,7 +29,8 @@ export async function POST(req: Request) {
     console.log('Received token:', data);
 
     return new NextResponse(JSON.stringify({ success: true, tokenData: data }));
-  } catch (error) {
+  } catch (error: any) {
+    //add any type cuse build error
     console.error('Error during SSO:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
