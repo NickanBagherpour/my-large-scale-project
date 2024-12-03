@@ -1,7 +1,7 @@
 import { ClientHistoryData } from '@oxygen/types';
 
 export const clientHistoryData: ClientHistoryData[] = Array.from({ length: 53 }).map(() => ({
-  editTime: '1402/01/20 12:30',
+  editTime: '03/01/20 12:30',
   adminName: 'ادمین شماره 1',
   clientLatinName: 'Bale messenger',
   clientFarsiName: 'کلاینت بله',
