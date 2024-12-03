@@ -5,8 +5,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
-import { FooterContainer } from '@oxygen/reusable-components';
-import { ROUTES } from '@oxygen/utils';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 import { FormSchema } from '../../types';
@@ -14,6 +13,7 @@ import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './edit-scope.style';
+import { useRouter } from 'next/navigation';
 
 type EditScopeProps = PageProps & {
   //
@@ -29,6 +29,11 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
   const rule = createSchemaFieldRule(FormSchema(t));
 
   const submitClick = () => form.submit();
+
+  const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
 
   const onFinish = async (values) => {
     // console.log('inputValue', values);
@@ -59,9 +64,9 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
         </Form>
       </div>
       <FooterContainer>
-        <Button href={ROUTES.BACKOFFICE.SCOPE_LIST} variant={'outlined'}>
+        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('buttons.cancel')}
-        </Button>
+        </ReturnButton>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>
