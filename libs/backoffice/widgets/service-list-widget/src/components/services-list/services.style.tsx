@@ -4,6 +4,10 @@ import { respondTo } from '@oxygen/utils';
 
 export const TableContainer = styled.div`
   margin-bottom: 1.6rem;
+
+  .row-number {
+    font-size: 1.4rem;
+  }
 `;
 
 export const Name = styled(MarkText)`
@@ -20,6 +24,7 @@ export const Url = styled.a`
 
 export const Details = styled.a`
   color: ${(p) => p.theme.primary.main};
+  font-size: 1.4rem;
 `;
 
 export const Trash = styled.i`

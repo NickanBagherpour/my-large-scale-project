@@ -92,7 +92,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto],
+    [JSON.stringify(user), userPhoto]
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

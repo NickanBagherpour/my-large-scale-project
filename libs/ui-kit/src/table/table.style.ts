@@ -169,19 +169,19 @@ export const Table = styled(AntTable)<TableProps>`
     .ant-select-selector {
       background-color: ${(p) => p.theme.primary.main};
       color: ${(p) => p.theme.onPrimary};
-      padding: 1.4rem 1.5rem;
+      /* padding: ${(p) => (p.size === 'small' ? ' 1rem 1rem' : 0)}; */
       min-width: 7rem;
     }
     .ant-select-selection-search {
-      padding-top: 0.2rem;
+      padding-top: 0rem;
     }
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
-    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
   .ant-pagination .anticon-search {
-    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
   .ant-pagination-item:not(.ant-pagination-disabled):hover,
   .ant-pagination-prev:not(.ant-pagination-disabled):hover,

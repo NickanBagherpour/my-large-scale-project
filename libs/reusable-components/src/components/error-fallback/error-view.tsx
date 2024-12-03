@@ -42,7 +42,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
     router.refresh();
   };
   return (
-    <Container margin={'16px'} fillContainer={true}>
+    <Container margin={16} fillContainer={true}>
       <S.ContentContainer>
         <S.TextContainer>
           {errorCode && (
