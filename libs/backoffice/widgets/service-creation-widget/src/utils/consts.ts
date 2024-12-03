@@ -19,5 +19,5 @@ export const CREATE_SCOPE_NAMES = {
 } as const;
 
 export const IMPORT_FORM_SSO_NAMES = {
-  scopeName: 'scopeName',
+  existingScopeName: 'existingScopeName',
 } as const;

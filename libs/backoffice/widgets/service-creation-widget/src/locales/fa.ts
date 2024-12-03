@@ -36,4 +36,6 @@ export default {
   submitted_file_size: 'فرمت فایل ارسالی اکسل باشد (حجم زیر ۵ مگابایت)',
   max_file_size: 'حجم فایل ارسالی باید زیر ۵ مگابایت باشد',
   file_format: 'فرمت فایل ارسالی باید اکسل باشد',
+  scope_english_name: 'نام لاتین اسکوپ',
+  scope_persian_name: 'نام فارسی اسکوپ',
 };

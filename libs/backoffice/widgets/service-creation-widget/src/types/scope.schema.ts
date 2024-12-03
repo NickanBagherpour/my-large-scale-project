@@ -20,10 +20,13 @@ export const createScopeSchema = (t: TFunction) =>
 
 export const importFromSso = (t: TFunction) =>
   z.object({
-    [IMPORT_FORM_SSO_NAMES.scopeName]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') }),
+    [IMPORT_FORM_SSO_NAMES.existingScopeName]: z
+      .object({
+        idx: z.number(),
+        scopeName: z.string(),
+        persianName: z.string(),
+      })
+      .optional(),
   });
 
 type zInfer<fn extends (...args: any[]) => any> = z.infer<ReturnType<fn>>;
@@ -31,4 +34,4 @@ type zInfer<fn extends (...args: any[]) => any> = z.infer<ReturnType<fn>>;
 type CreateScopeSchemaType = zInfer<typeof createScopeSchema>;
 type ImportFromSsoType = zInfer<typeof importFromSso>;
 
-export type ScopeType = CreateScopeSchemaType | ImportFromSsoType;
+export type ScopeFormType = CreateScopeSchemaType | ImportFromSsoType;
