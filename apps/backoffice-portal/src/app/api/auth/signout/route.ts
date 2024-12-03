@@ -26,6 +26,7 @@ export async function GET(req: Request) {
 
     return new NextResponse(JSON.stringify({ success: true }));
   } catch (error: any) {
+    //add any type cuse build error
     console.error('Error during SSO:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

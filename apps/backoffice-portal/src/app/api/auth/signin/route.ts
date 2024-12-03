@@ -30,6 +30,7 @@ export async function POST(req: Request) {
 
     return new NextResponse(JSON.stringify({ success: true, tokenData: data }));
   } catch (error: any) {
+    //add any type cuse build error
     console.error('Error during SSO:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

@@ -9,8 +9,10 @@ import { handleSSO } from '../../server-actions/handle-sso.action';
 import * as S from './app.style';
 import { useAuth } from '@oxygen/hooks';
 import { ROUTES } from '@oxygen/utils';
-
-const AuthWidget: React.FC<PageProps> = (props: any) => {
+type AuthWidgetType = PageProps & {
+  parentProps?: any;
+};
+const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const [loading, setLoading] = useState(false);
   const { user, login } = useAuth();
 
