@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     console.log('Received token:', data);
 
     return new NextResponse(JSON.stringify({ success: true, tokenData: data }));
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during SSO:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
