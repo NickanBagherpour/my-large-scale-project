@@ -1,23 +1,22 @@
-import { Button, ColumnsType, Switch, MobileColumnType, Table } from '@oxygen/ui-kit';
-import type { Pagination, Service } from '@oxygen/types';
+import { Button, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import type { Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import Link from 'next/link';
-import * as S from '../components/app/app.style';
+import * as S from '../components/scope-list/scope-list.style';
 import { getValueOrDash } from '@oxygen/utils';
-import { Badge } from 'antd';
+
+export type Modal = {
+  details: boolean;
+  removeService: boolean;
+};
 
 type Props = {
   t: TFunction;
-  pagination: Pagination;
-  // toggleModal: (modal: keyof Modals) => void;
+  toggleModal: (modal: keyof Modal) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
-  const {
-    t,
-    // pagination: { page, rowsPerPage },
-    // toggleModal,
-  } = props;
+  const { t, toggleModal } = props;
 
   return [
     {
@@ -28,14 +27,14 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       render: (value) => value,
     },
     {
-      title: t('field.client_latin_name'),
+      title: t('field.scope_latin_name'),
       dataIndex: 'latin_name',
       key: 'index',
       align: 'center',
       render: (value) => value,
     },
     {
-      title: t('field.client_persian_name'),
+      title: t('field.scope_persian_name'),
       dataIndex: 'persian_name',
       key: 'id',
       align: 'center',
@@ -48,11 +47,9 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       align: 'center',
       render: (value) => {
         return (
-          <S.SwitchContainer>
-            <span>{t('operational')}</span>
-            <Switch />
-            <span>{t('stop')}</span>
-          </S.SwitchContainer>
+          <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
+            <S.TrashIcon className='icon-trash' />
+          </Button>
         );
         // disabled={disabled} defaultChecked={defaultChecked}
       },
@@ -61,7 +58,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t } = props;
+  const { t, toggleModal } = props;
 
   const mobileColumns = [
     {
@@ -74,21 +71,19 @@ export function getMobileColumns(props: Props) {
             value: getValueOrDash(value?.row),
           },
           {
-            title: t('field.client_latin_name'),
+            title: t('field.scope_latin_name'),
             value: getValueOrDash(value?.latin_name),
           },
           {
-            title: t('field.client_persian_name'),
+            title: t('field.scope_persian_name'),
             value: getValueOrDash(value?.persian_name),
           },
           {
             title: t('field.status'),
             value: (
-              <S.SwitchContainer>
-                <span>{t('operational')}</span>
-                <Switch />
-                <span>{t('stop')}</span>
-              </S.SwitchContainer>
+              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
+                <S.TrashIcon className='icon-trash' />
+              </Button>
             ),
           },
         ];
