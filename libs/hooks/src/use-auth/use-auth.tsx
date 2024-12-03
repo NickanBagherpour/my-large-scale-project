@@ -23,16 +23,16 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = (props: AuthProviderProps) => {
-  // const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
-  const user = useSession()?.data?.user as User;
+  const [user, setUser, removeUser] = useLocalStorage<any>(LocalStorageKey.USER, null);
+  // const user = {};//useSession()?.data?.user as User;
   const [userPhoto, setUserPhoto, removeUserPhoto] = useLocalStorage(LocalStorageKey.USER_PHOTO, null);
   const [, setMenu, removeMenus] = useLocalStorage(LocalStorageKey.MENU);
   const router = useRouter();
 
   const login = async (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-    const res = await signIn('credentials', { ...data, redirect: false });
-
+    // const res = await signIn('credentials', { ...data, redirect: false });
+    setUser(data);
     /*    if (props.login) {
            props.login();
          }*/
@@ -46,21 +46,23 @@ const AuthProvider = (props: AuthProviderProps) => {
       //fixme
       // setUser(null);
       // removeUser();
-      removeUserPhoto();
-      setMenu(null);
-      removeMenus();
-      clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-      clearAllCookies();
+      // removeUserPhoto();
+      // setMenu(null);
+      // removeMenus();
+      // clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
+      // clearAllCookies();
 
       // await client.get(`/signout/`);
-      await signOut();
 
-      /*   if (props.logout) {
-           props.logout();
-         }*/
+      await fetch(`/api/auth/signout`);
+      // await signOut();
 
-      // console.log('logout inside', localStorage);
-      await router.replace(path ?? '/');
+      // /*   if (props.logout) {
+      //      props.logout();
+      //    }*/
+      //
+      // // console.log('logout inside', localStorage);
+      // await router.replace(path ?? '/');
     } catch (e) {
       //
     }

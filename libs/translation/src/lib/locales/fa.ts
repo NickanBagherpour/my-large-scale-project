@@ -124,6 +124,7 @@ export default {
     revert_transaction: 'برگشت تراکنش',
     print_receipt: 'چاپ رسید',
     register_new_request: 'ثبت درخواست جدید',
+    display_more_items: 'بیشتر',
   },
   field: {
     customer: 'مشتری',

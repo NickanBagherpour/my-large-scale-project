@@ -2,6 +2,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
+import { Tooltip } from 'antd';
 import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
@@ -21,7 +22,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70 },
+    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
@@ -32,7 +33,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: false,
       },
       render: (name) => (
-        <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+          <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+        </Tooltip>
       ),
     },
     {
@@ -44,7 +47,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: {
         showTitle: false,
       },
-      render: (persian_name) => getValueOrDash(persian_name),
+      render: (persian_name) => (
+        <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
+          {getValueOrDash(persian_name)}
+        </Tooltip>
+      ),
     },
     {
       title: `${t('scope')}`,
@@ -56,7 +63,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: false,
       },
       render: (scope) => (
-        <S.Name text={getValueOrDash(scope)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+        <Tooltip placement='top' title={getValueOrDash(scope)} arrow={true}>
+          <S.Name text={getValueOrDash(scope)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+        </Tooltip>
       ),
     },
     {
@@ -68,7 +77,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: {
         showTitle: false,
       },
-      render: (url) => <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(url)}</S.Url>,
+      render: (url) => (
+        <Tooltip placement='top' title={getValueOrDash(url)} arrow={true}>
+          <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(url)}</S.Url>
+        </Tooltip>
+      ),
     },
     {
       title: `${t('version')}`,
@@ -98,7 +111,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'details',
       key: 'details',
       align: 'center',
-      width: 70,
+      width: 80,
       render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
     },
     {
