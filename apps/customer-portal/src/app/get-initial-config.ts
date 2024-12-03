@@ -1,8 +1,8 @@
-import { configSchema } from '@oxygen/types';
+import { configSchema, CookieKey } from '@oxygen/types';
 import { cookies } from 'next/headers';
 
-export const getIntitialConfig = () => {
-  const maybeConfig = cookies().get('configuration')?.value;
+export const getInitialConfig = () => {
+  const maybeConfig = cookies().get(CookieKey.CONFIG)?.value;
   if (!maybeConfig) return null;
 
   const config = configSchema.safeParse(JSON.parse(maybeConfig));

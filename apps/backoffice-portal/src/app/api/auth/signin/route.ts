@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  const { code ,ticket} = await req.json();
+  const { code} = await req.json();
 
   const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/token`;
   const headers = {

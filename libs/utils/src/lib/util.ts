@@ -131,6 +131,25 @@ export const clearAllCookies = (): void => {
   }
 };
 
+export const clearAllCookiesExceptForKey = (keyToKeep: string): void => {
+  try {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim();
+
+      // Skip the cookie that matches the keyToKeep
+      if (name !== keyToKeep) {
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+    }
+  } catch (e) {
+    console.error('Error while clearing cookies:', e);
+  }
+};
+
 export const getCookie = (key: string) => {
   if (typeof window !== 'undefined') {
     const cookieValue =

@@ -5,8 +5,14 @@ export const MAIN_HREF = {
 };
 
 export const ROUTES = {
+  SHARED: {
+    AUTH: '/auth',
+    HOME: '/home',
+    LANDING: '/',
+  },
   BACKOFFICE: {
     HOME: '/',
+    AUTH: '/auth',
     DASHBOARD: '/dashboard',
     APPLICANT_HISTORY: '/applicant-history',
     CLIENT_CREATION: '/client-creation',
