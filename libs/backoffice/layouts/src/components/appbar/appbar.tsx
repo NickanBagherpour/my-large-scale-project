@@ -62,7 +62,7 @@ const Appbar = (props: AppBarProps) => {
         )}
         <span className={'appbar-title-logo-date'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
         <AppbarUserMenu
@@ -81,7 +81,7 @@ const Appbar = (props: AppBarProps) => {
       <>
         <span className={'appbar-title-oxygen-logo'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
 
