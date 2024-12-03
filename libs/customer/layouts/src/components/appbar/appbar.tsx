@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 import { useTr } from '@oxygen/translation';
 import { IConfig, ThemeID } from '@oxygen/types';
 import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
-import { useAsync, useAuth } from '@oxygen/hooks';
+import { useAuth } from '@oxygen/hooks';
 import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
 import { useTheme } from 'styled-components';
-import { Api } from '../../services';
 
 import * as S from './appbar.style';
 
@@ -33,23 +32,23 @@ const Appbar = (props: AppBarProps) => {
 
   // console.log('test', 'user', user);
 
-/*  useEffect(() => {
-    // console.log('test12', 'user', user);
+  /*  useEffect(() => {
+      // console.log('test12', 'user', user);
 
-    if (!user && variant === 'dashboard') {
-      fetchUserProfile();
-    }
-  }, []);*/
+      if (!user && variant === 'dashboard') {
+        fetchUserProfile();
+      }
+    }, []);*/
 
- /* const fetchUserProfile = async () => {
-    try {
-      const response = await executeUserProfile(async () => await Api.getUserProfile());
-      setUser(response);
-      return response;
-    } catch (error) {
-      return null;
-    }
-  };*/
+  /* const fetchUserProfile = async () => {
+     try {
+       const response = await executeUserProfile(async () => await Api.getUserProfile());
+       setUser(response);
+       return response;
+     } catch (error) {
+       return null;
+     }
+   };*/
 
   const getMobileAppbar = () => {
     return (
@@ -62,7 +61,7 @@ const Appbar = (props: AppBarProps) => {
         )}
         <span className={'appbar-title-logo-date'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
         <AppbarUserMenu
@@ -80,7 +79,7 @@ const Appbar = (props: AppBarProps) => {
       <>
         <span className={'appbar-title-oxygen-logo'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-            {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
 
