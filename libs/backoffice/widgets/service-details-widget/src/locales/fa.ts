@@ -28,4 +28,7 @@ export default {
     scope_latin_name: 'نام لاتین اسکوپ',
     scope_persian_name: 'نام فارسی اسکوپ',
   },
+  upstream_tab: {
+    tab_header: 'آپ‌استریم',
+  },
 };
