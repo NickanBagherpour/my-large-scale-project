@@ -9,7 +9,7 @@ import { Button, Container, Loading } from '@oxygen/ui-kit';
 
 import { useGetServiceInfoQuery } from '../../services/edit-service.api';
 import { Form } from 'antd';
-import EditService from '../edit-service/edit-servic';
+import EditService from '../edit-service/edit-service';
 
 import * as S from './app.style';
 import { SecondaryTitle } from '@oxygen/reusable-components';
