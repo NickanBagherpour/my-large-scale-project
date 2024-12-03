@@ -138,16 +138,24 @@ import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-moda
 
 import * as S from './upstream-list.style';
 import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-tab/table';
+import { useAppState } from '../../context';
+
 type UpstreamListType = PageProps & {
   //
 };
 export const UpstreamList: React.FC<UpstreamListType> = (props) => {
   //Hooks
+  const state = useAppState();
   const [t] = useTr();
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
+
+  //constants
+  // const tableData=state.upstream.table
+  const tableData = [];
+
   //Handlers
   const handleDelete = () => {
     console.log('delete');
@@ -187,7 +195,7 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
         <InfoBox data={infoBoxData} minColumnCount={3} margin={0} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table dataSource={[]} columns={desktopColumns} mobileColumns={mobileColumns} loading={false} />
+          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} loading={false} />
         </S.Table>
       </S.BorderBoxContainer>
       <RemoveServiceModal
