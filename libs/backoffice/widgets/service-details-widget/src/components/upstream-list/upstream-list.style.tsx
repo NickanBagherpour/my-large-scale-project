@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { Container } from '@oxygen/ui-kit';
 
+export const UpstreamContainer = styled.div``;
+
 export const ItemsContainer = styled(Container)`
   height: 100%;
 
