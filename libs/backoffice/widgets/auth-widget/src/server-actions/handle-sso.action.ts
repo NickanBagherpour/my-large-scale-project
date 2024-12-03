@@ -4,10 +4,9 @@ import { cookies, headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
 import { encrypt, ROUTES } from '@oxygen/utils';
 
-export async function handleSSO(code: string, ticket: string): Promise<boolean> {
-
+export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
-  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */'http';
+  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
   const baseUrl = `${protocol}://${host}`;
 
   const response = await fetch(`${baseUrl}/api/auth/signin`, {

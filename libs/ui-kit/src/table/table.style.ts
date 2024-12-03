@@ -94,7 +94,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   thead > tr > th {
-    padding: 1.4rem !important;
+    padding: ${(p) => (p.variant === 'simple' ? '2.4rem 1.6rem' : '0.8rem')};
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
@@ -104,7 +104,7 @@ export const Table = styled(AntTable)<TableProps>`
     box-sizing: border-box !important;
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};
     font-weight: 700;
-    line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '2.2rem')};
+    line-height: ${(p) => (p.variant === 'simple' ? '2.2rem' : '1.8rem')};
   }
 
   tbody > tr > td {

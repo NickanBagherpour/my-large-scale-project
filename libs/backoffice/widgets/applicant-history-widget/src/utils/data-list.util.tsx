@@ -5,7 +5,7 @@ import { DefaultTheme } from 'styled-components';
 import { Badge } from 'antd';
 
 import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { convertShamsiDateFormat, getValueOrDash, normalizePhoneNumber } from '@oxygen/utils';
 
 import { ApplicantHistoryData } from '@oxygen/types';
 
@@ -27,8 +27,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ApplicantHistoryDat
       align: 'center',
       width: 'min-content',
       render: (value) => {
-        return getValueOrDash(value);
-        // convertShamsiDateFormat
+        return convertShamsiDateFormat(value);
       },
     },
     {
@@ -87,7 +86,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ApplicantHistoryDat
       align: 'center',
       width: 'min-content',
       render: (value) => {
-        return getValueOrDash(value);
+        return <S.PhoneContainer>{normalizePhoneNumber(value)}</S.PhoneContainer>;
       },
     },
     {
@@ -114,7 +113,7 @@ export function getMobileColumns(props: Props): ColumnsType<ApplicantHistoryData
         const columns: MobileColumnType[] = [
           {
             title: t('table.edit_time'),
-            value: getValueOrDash(value?.editTime),
+            value: convertShamsiDateFormat(value?.editTime),
           },
           {
             title: t('table.admin_name'),
@@ -143,7 +142,7 @@ export function getMobileColumns(props: Props): ColumnsType<ApplicantHistoryData
           },
           {
             title: t('table.phone'),
-            value: getValueOrDash(value?.phone),
+            value: normalizePhoneNumber(value?.phone),
           },
           {
             title: t('table.email'),

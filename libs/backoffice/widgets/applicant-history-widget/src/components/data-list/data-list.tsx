@@ -59,6 +59,7 @@ const DataList: React.FC<dataListProps> = (props) => {
     <S.TableContainer>
       {data?.content?.length ? (
         <Table
+          scroll={{ x: 1000 }}
           loading={isFetching}
           current={pagination.page}
           total={data?.total}

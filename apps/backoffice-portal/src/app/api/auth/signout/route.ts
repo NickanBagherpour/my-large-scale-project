@@ -16,7 +16,6 @@ export async function GET(req: Request) {
       },
     });
 
-    console.log('External SSO response:', response);
 
     // Check if the external response was not okay
     if (!response.ok) {
@@ -39,11 +38,11 @@ export async function GET(req: Request) {
     console.log('Signout done');
 
     return new NextResponse(JSON.stringify({ success: true }));
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during signout:', error);
     return NextResponse.json({
       success: false,
-      error: error.message,
+      error: error?.message,
       errorDetails: error.stack // You can customize this part as needed
     }, { status: 500 });
   }

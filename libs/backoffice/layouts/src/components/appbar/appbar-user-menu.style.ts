@@ -1,4 +1,3 @@
-import { cssVar } from '@oxygen/utils';
 import { Dropdown } from 'antd';
 import styled from 'styled-components';
 
@@ -33,11 +32,13 @@ export const StyleParagraph = styled.div`
 
 export const StyleSpan = styled('span')`
   margin: 0 auto;
+
   .menu-header {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
   }
+
   .menu-span {
     margin: 0 auto;
     color: ${(p) => p.theme.text.quaternary};
@@ -46,6 +47,7 @@ export const StyleSpan = styled('span')`
     font-weight: 500;
     line-height: 1.6rem;
   }
+
   .menu-p {
     color: ${(p) => p.theme.text.primary};
     margin: 0 auto;
@@ -75,5 +77,5 @@ export const StyleIcon = styled.i`
   font-size: 3rem;
   display: flex;
   justify-content: center;
-  color: ${(p) => p.theme.onPrimary};
+  color: ${(p) => p.theme.text.primary};
 `;

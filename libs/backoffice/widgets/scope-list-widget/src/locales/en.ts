@@ -3,10 +3,10 @@ export default {
   add_scope: 'Add Scope',
   table: {
     index: 'Row',
-    persian_name_scope: 'Scope Persian Name',
-    latin_name_scope: 'Scope Latin Name',
+    persian_name_scope: 'Persian Name of Scope',
+    latin_name_scope: 'Latin Name of Scope',
     details: 'Details',
-    title: 'Scope List',
+    title: 'Scope Service List',
   },
   placeholder: {
     search_by_name_or_id: 'Search by Name or ID',
