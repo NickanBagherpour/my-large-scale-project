@@ -49,12 +49,6 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
         <S.LargeFormItem name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
           <Input placeholder={t('placeholder.fa-name')} />
         </S.LargeFormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.method} label={t('form.method')} rules={[rule]}>
-          <Input placeholder={t('placeholder.method')} />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.protocol} rules={[rule]} label={t('form.protocol')}>
-          <Select size={'large'} placeholder={t('placeholder.protocol')} options={protocolOptions}></Select>
-        </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
           <Select size={'large'} placeholder={t('placeholder.access')} options={accessOptions}></Select>
         </S.FormItem>
@@ -67,20 +61,11 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
         <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
         </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
+        <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.owner')} rules={[rule]}>
           <Input placeholder={t('placeholder.owner')} />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.tag} rules={[rule]} label={t('form.tag')}>
+        </S.LargeFormItem>
+        <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.tag')} rules={[rule]}>
           <Select size={'large'} placeholder={t('placeholder.tag')} options={tagOptions}></Select>
-        </S.FormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.path')} rules={[rule]}>
-          <Input placeholder={t('placeholder.path')} />
-        </S.LargeFormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.host} label={t('form.host')} rules={[rule]}>
-          <Input placeholder={t('placeholder.host')} />
-        </S.LargeFormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.upstream} rules={[rule]} label={t('form.upstream')}>
-          <Select size={'large'} placeholder={t('placeholder.upstream')} options={upstreamOptions}></Select>
         </S.LargeFormItem>
       </S.FormItemsContainer>
     </Form>
