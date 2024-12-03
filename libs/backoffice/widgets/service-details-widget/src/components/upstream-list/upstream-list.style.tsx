@@ -1,6 +1,6 @@
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
+import { Input as KitInput, InfoBox as KitInfobox, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { Container } from '@oxygen/ui-kit';
 
 export const UpstreamContainer = styled.div``;
@@ -12,14 +12,18 @@ export const Title = styled.p`
   line-height: 2.5rem; /* 156.25% */
 `;
 
-export const BorderBox = styled.div`
+export const BorderBoxContainer = styled.div`
   border: 1px solid ${(p) => p.theme.border._100};
   border-radius: var(${cssVar.radius});
+  padding: 1.6rem;
 `;
 export const TrashIcon = styled.i`
   font-size: 2rem;
 `;
-
+export const Table = styled.div`
+  margin-top: 2.4rem;
+`;
+//-----------------------------------==============================================-----------------------------------------
 export const ItemsContainer = styled(Container)`
   height: 100%;
 

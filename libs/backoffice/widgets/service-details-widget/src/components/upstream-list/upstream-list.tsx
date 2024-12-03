@@ -128,7 +128,7 @@ import { useState } from 'react';
 
 import { Button } from 'antd';
 
-import { InfoBox } from '@oxygen/ui-kit';
+import { InfoBox, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { InfoItemType, PageProps } from '@oxygen/types';
 
@@ -137,6 +137,7 @@ import DetailsModal from './modals/info-service-modal/info-service-modal';
 import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 
 import * as S from './upstream-list.style';
+import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-tab/table';
 type UpstreamListType = PageProps & {
   //
 };
@@ -176,18 +177,25 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
     },
   ];
 
+  const desktopColumns = getDesktopColumns({ t });
+  const mobileColumns = getMobileColumns({ t });
+
   return (
     <S.UpstreamContainer>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
-      <S.BorderBox>
-        <InfoBox data={infoBoxData} minColumnCount={3}></InfoBox>
-      </S.BorderBox>
+      <S.BorderBoxContainer>
+        <InfoBox data={infoBoxData} minColumnCount={3} margin={0} />
+        <S.Table>
+          <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
+          <Table dataSource={[]} columns={desktopColumns} mobileColumns={mobileColumns} loading={false} />
+        </S.Table>
+      </S.BorderBoxContainer>
       <RemoveServiceModal
         isOpen={modals.removeService}
         toggle={() => toggleModal('removeService')}
         id='SEJAM-UPSTREAM'
       />
-      <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} />
+      {/* <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} /> */}
     </S.UpstreamContainer>
   );
 };
