@@ -13,8 +13,8 @@ import { FormSchema } from '../../types';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './scope-creation.style';
-import { FooterContainer } from '@oxygen/reusable-components';
-import { ROUTES } from '@oxygen/utils';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
+import { useRouter } from 'next/navigation';
 
 type EditScopeProps = PageProps & {
   //
@@ -29,6 +29,11 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const rule = createSchemaFieldRule(FormSchema(t));
 
   const submitClick = () => form.submit();
+
+  const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
 
   const onFinish = async (values) => {
     // console.log('formValue', values);
@@ -59,9 +64,9 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         </Form>
       </div>
       <FooterContainer>
-        <Button href={ROUTES.BACKOFFICE.SCOPE_LIST} variant={'outlined'}>
-          {t('buttons.cancel')}
-        </Button>
+        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+          {t('button.cancel')}
+        </ReturnButton>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('buttons.register_scope')}
         </Button>

@@ -5,20 +5,16 @@ import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { FooterContainer } from '@oxygen/reusable-components';
-import { ROUTES } from '@oxygen/utils';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import {
-  MOBILE_NUMBER_LIMIT,
-  NATIONAL_CODE_LIMIT,
-  TEXT_INPUT_LIMIT,
-} from '../../utils/consts';
+import { MOBILE_NUMBER_LIMIT, NATIONAL_CODE_LIMIT, TEXT_INPUT_LIMIT } from '../../utils/consts';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types/settings.schema';
 
 import * as S from './edit-applicant.style';
+import { useRouter } from 'next/navigation';
 
 type FirstStepProps = PageProps & {
   //
@@ -35,6 +31,11 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
   const rule = createSchemaFieldRule(FormSchema(t));
 
   const submitClick = () => form.submit();
+
+  const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
 
   const onFinish = async (values) => {
     // console.log(values);
@@ -87,9 +88,9 @@ const EditApplicant: React.FC<FirstStepProps> = (props) => {
         </Form>
       </div>
       <FooterContainer>
-        <Button variant={'outlined'} href={ROUTES.BACKOFFICE.CLIENT_DETAILS}>
+        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('form.cancel')}
-        </Button>
+        </ReturnButton>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('form.save_changes')}
         </Button>
