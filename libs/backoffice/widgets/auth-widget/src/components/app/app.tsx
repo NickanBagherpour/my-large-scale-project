@@ -10,7 +10,7 @@ import * as S from './app.style';
 import { useAuth } from '@oxygen/hooks';
 import { ROUTES } from '@oxygen/utils';
 
-const AuthWidget: React.FC<PageProps> = (props) => {
+const AuthWidget: React.FC<PageProps> = (props: any) => {
   const [loading, setLoading] = useState(false);
   const { user, login } = useAuth();
 
