@@ -1,19 +1,26 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import { useConfig, useResponsive } from '@oxygen/hooks';
+import Appbar from '../components/appbar/appbar';
+import Content from '../components/auth-content/auth-content';
+import { Layout } from 'antd';
 
-import { useTr } from '@oxygen/translation';
-import * as S from './auth-layout.style';
-
-type AuthLayoutProps = {
+type DashboardLayoutProps = {
   children: ReactNode;
-  title?: string;
 };
 
-export const AuthLayout = ({ children, title }: AuthLayoutProps) => {
-  const [t] = useTr();
-
-  return <S.Wrapper>{children}</S.Wrapper>;
+export const AuthLayout = ({ children }: DashboardLayoutProps) => {
+  const { config } = useConfig();
+  const { isMobileOrTablet } = useResponsive();
+  return (
+    <Layout>
+      <Appbar variant='auth' config={config} isMobileOrTablet={isMobileOrTablet} />
+      <Layout>
+        <Content>{children}</Content>
+      </Layout>
+    </Layout>
+  );
 };
 
 export default AuthLayout;

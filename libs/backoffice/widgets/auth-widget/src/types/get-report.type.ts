@@ -1,5 +1,3 @@
-import { FiltersType, PaginationType } from '../context/types';
-
 export type ReportResponseType = {
   responseId: number;
   serviceTypeCode: number;
@@ -23,9 +21,4 @@ export type PaginationResultType = {
   pageNumber: number;
   pageSize: number;
   totalNumberOfEntries: number;
-};
-
-export type FetchParamsType = {
-  filters?: FiltersType;
-  pagination: PaginationType;
 };
