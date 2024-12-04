@@ -4,17 +4,16 @@ import authLooper from 'apps/customer-portal/public/assets/images/auth-looper.sv
 
 export const Main = styled.main`
   min-height: calc(100vh - 1px - var(${cssVar.appBarHeight}));
-  padding: 1.6rem;
   background: ${(p) => p.theme.background._100};
   display: flex;
   flex-direction: column;
+
   ${respondTo.down('sm')} {
     padding: 1rem;
   }
 `;
 
 export const WithImgBackground = styled.div`
-  border-radius: 2rem;
   background-image: url(${authLooper});
   background-repeat: no-repeat;
   background-size: cover;
@@ -31,6 +30,7 @@ export const FormContainer = styled.div`
   background: ${(p) => p.theme.background.main};
   border-radius: 2rem;
   width: min(49rem, 100%);
+
   ${respondTo.down('sm')} {
     padding: 2rem 1rem;
   }

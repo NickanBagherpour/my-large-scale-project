@@ -11,7 +11,7 @@ import { useTr } from '@oxygen/translation';
 
 import { useRegisterMutation } from '../../services';
 
-import { NATIONALCODE_MAX_LENGTH, MOBILENUMBER_MAX_LENGTH, CAPTCHA_MAX_LENGTH } from '../../utils/consts';
+import { CAPTCHA_MAX_LENGTH, MOBILENUMBER_MAX_LENGTH, NATIONALCODE_MAX_LENGTH } from '../../utils/consts';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
@@ -160,10 +160,13 @@ export const Register = ({ title }: FormContainerProps) => {
       <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
+      <S.Button loading={isPending} href={'/'} color='primary' variant={'outlined'}>
+        {t('home_return')}
+      </S.Button>
       <S.Divider />
       <S.Span>
         {t('do_you_registered_already')}
-        <Link href={`${ROUTES.CUSTOMER.AUTH}?type=login`}>{t('login_to_portal')}</Link>
+        <Link href={`${ROUTES.CUSTOMER.AUTH}`}>{t('login_to_portal')}</Link>
       </S.Span>
     </S.FormContainer>
   );
