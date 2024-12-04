@@ -10,6 +10,7 @@ import { useRef, useState } from 'react';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { BoxSearch, ButtonLoading, SearchInputIcon } from '../../assets';
 import * as S from './inspect-service.style';
+import SearchBox from './search-box';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
@@ -19,16 +20,7 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
   const [form] = Form.useForm<SearchServiceType>();
   const inputRef = useRef<InputRef>(null);
-  const rule = createSchemaFieldRule(SearchService(t));
-  const onFinish = () => {
-    setContent('searching');
-    lottieRef.current?.play();
-    //get data then stop animation
-    setTimeout(() => {
-      lottieRef.current?.pause();
-      setContent('alreadyExists');
-    }, 3000);
-  };
+
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const [content, setContent] = useState<ContentType>('searching');
 
@@ -41,12 +33,12 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
-
   const inspectAnother = () => {
     form.resetFields();
     setContent('searching');
     inputRef.current?.focus();
   };
+  const changeContent = (c: ContentType) => setContent(c);
   return (
     <Modal
       width={'40vw'}
@@ -57,20 +49,7 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
       onClose={toggle}
       onCancel={toggle}
     >
-      <Form layout={'vertical'} onFinish={onFinish} form={form}>
-        <S.FormRow style={{ padding: 0 }}>
-          <S.FormItem name={Search_SERVICE_NAMES.SearchService} rules={[rule]}>
-            <Input
-              allowClear
-              autoFocus={true}
-              ref={inputRef}
-              placeholder={t('placeholders.search_service_inspection')}
-              prefix={<SearchInputIcon />}
-            />
-          </S.FormItem>
-          <Button htmlType='submit'>{t('buttons.inspect')}</Button>
-        </S.FormRow>
-      </Form>
+      <SearchBox form={form} changeContent={changeContent} loadingAnimationRef={lottieRef} inputRef={inputRef} />
       <S.MainContainer $content={content}>
         {content === 'searching' && (
           <LazyLottie lottieRef={lottieRef} height={'15rem'} width={'18rem'} {...defaultOptions} />
