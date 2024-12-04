@@ -4,6 +4,7 @@ import { Radio, RadioChangeEvent } from 'antd';
 import { useAppDispatch } from '../../../context';
 import { useTr } from '@oxygen/translation';
 import { RADIO_GROUP_NAME } from '../../../utils/consts';
+import { Card } from './card/card';
 
 export const UpstreamCreation = () => {
   const state = useState();
@@ -22,7 +23,9 @@ export const UpstreamCreation = () => {
           <Radio value={RADIO_GROUP_NAME.SELECT}>{t('upstream_tab.upstream_selection')}</Radio>
           <Radio value={RADIO_GROUP_NAME.CREATE}>{t('upstream_tab.create_upstream')}</Radio>
         </Radio.Group>
-        <></>
+        <S.SelectContainer>
+          {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={[]} /> : <h1>reza</h1>}
+        </S.SelectContainer>
       </S.BorderBox>
     </S.UpstreamCreationContainer>
   );
