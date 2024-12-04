@@ -5,8 +5,14 @@ export const MAIN_HREF = {
 };
 
 export const ROUTES = {
+  SHARED: {
+    AUTH: '/auth',
+    HOME: '/home',
+    LANDING: '/',
+  },
   BACKOFFICE: {
     HOME: '/',
+    AUTH: '/auth',
     DASHBOARD: '/dashboard',
     APPLICANT_HISTORY: '/applicant-history',
     CLIENT_CREATION: '/client-creation',
@@ -26,6 +32,8 @@ export const ROUTES = {
     UPSTREAM_DETAILS: '/upstream-details',
     UPSTREAM_LIST: '/upstream-list',
     SERVICE_CREATION: '/service-creation',
+    SCOPE_HISTORY: '/scope-history',
+    SCOPE_INFORMATION: '/scope-information',
   },
   CUSTOMER: {
     LANDING: '/',
@@ -62,6 +70,11 @@ export const BACKOFFICE_ROUTE_GROUPS = [
     ROUTES.BACKOFFICE.SERVICE_DETAILS,
     ROUTES.BACKOFFICE.SERVICE_CREATION,
   ],
-  [ROUTES.BACKOFFICE.EDIT_SCOPE, ROUTES.BACKOFFICE.SCOPE_CREATION, ROUTES.BACKOFFICE.SCOPE_LIST],
+  [
+    ROUTES.BACKOFFICE.EDIT_SCOPE,
+    ROUTES.BACKOFFICE.SCOPE_CREATION,
+    ROUTES.BACKOFFICE.SCOPE_LIST,
+    ROUTES.BACKOFFICE.SCOPE_INFORMATION,
+  ],
   [ROUTES.BACKOFFICE.UPSTREAM_LIST, ROUTES.BACKOFFICE.UPSTREAM_CREATION],
 ];

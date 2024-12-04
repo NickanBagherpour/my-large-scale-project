@@ -32,14 +32,14 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({
       suffix={
         <S.SuffixContainer>
           {loading ? (
-            <Loading size={'small'} style={{ padding: '0 2rem' }} />
+            <Loading size={'small'} style={{ padding: '0 7rem' }} />
           ) : (
             <Image
               src={imageSrc}
               alt={altText}
               width={140}
               height={32}
-              style={{ margin: '0 1rem', objectFit: 'cover' }}
+              style={{ margin: '0 1rem', objectFit: 'cover', borderRadius: '0.7rem' }}
             />
           )}
           <S.RefreshButton

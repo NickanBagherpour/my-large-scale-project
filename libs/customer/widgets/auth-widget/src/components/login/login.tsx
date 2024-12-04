@@ -1,17 +1,17 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Button, Input } from '@oxygen/ui-kit';
+import { Input } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
 import CaptchaInput from '../captcha-input/captcha-input';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
-import { RegisterFormSchema } from '../../types';
+import { authFormSchema } from '../../types';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
 
@@ -25,18 +25,22 @@ type FormContainerProps = PageProps & {
 };
 
 export const Login = ({ title }: FormContainerProps) => {
+  //Hooks
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
 
+  //Queries
   const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
-  const { mutate } = useLoginMutation();
+  const { mutate, isPending } = useLoginMutation();
 
+  //States
   const [loginForm] = Form.useForm();
   const [imageSrc, setImageSrc] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
 
-  const rule = createSchemaFieldRule(RegisterFormSchema(t));
+  //Validation
+  const rule = createSchemaFieldRule(authFormSchema(t));
 
   useEffect(() => {
     if (data?.captchaImage) {
@@ -53,6 +57,7 @@ export const Login = ({ title }: FormContainerProps) => {
 
   const refreshCaptcha = () => {
     refetch();
+    loginForm.setFieldsValue({ [FORM_ITEM_NAMES.captcha_code]: '' }); // Clear the captcha input
   };
 
   const handleSubmit = () => loginForm.submit();
@@ -88,6 +93,11 @@ export const Login = ({ title }: FormContainerProps) => {
         form={loginForm}
         initialValues={state.OTP}
         onFinish={handleFinish}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            loginForm.submit();
+          }
+        }}
       >
         <S.FormInputs>
           <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
@@ -110,13 +120,16 @@ export const Login = ({ title }: FormContainerProps) => {
           </Form.Item>
         </S.FormInput>
       </Form>
-      <S.Button onClick={handleSubmit} color='primary'>
+      <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
+      </S.Button>
+      <S.Button loading={isPending} href={'/'} color='primary' variant={'outlined'}>
+        {t('home_return')}
       </S.Button>
       <S.Divider />
       <S.Span>
         {t('dont_have_account')}
-        <Link href={`${ROUTES.CUSTOMER.AUTH}`}>{t('register_in_the_system')}</Link>
+        <Link href={`${ROUTES.CUSTOMER.AUTH}?type=register`}>{t('register_in_the_system')}</Link>
       </S.Span>
     </S.FormContainer>
   );

@@ -1,3 +1,5 @@
+import { table } from 'console';
+
 export default {
   widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
   service_information: 'اطلاعات سرویس',
@@ -14,18 +16,36 @@ export default {
   scopes: 'اسکوپ‌ها',
   scopes_list: 'لیست اسکوپ‌ها',
   scope_name: 'نام اسکوپ',
+  scope_search: 'جستجو اسکوپ ها',
   scope_name_placeholder: 'نام اسکوپ مربوطه',
   scope_persian_name: 'نام فارسی اسکوپ',
-  documents: 'مستندات',
-  service_documents: 'مستندات سرویس',
   upload_title: 'فایل مورد نظر را انتخاب کنید یا بکشید و در این قسمت رها کنید.',
   upload_description: 'فرمت فایل ارسالی .xls باشد (حجم زیر ۵ مگابایت)',
-  add_document: 'افزودن مستند',
   operational: 'عملیاتی',
+  route: 'Route',
+  upstream: 'آپ‌استریم',
   stop: 'توقف',
   field: {
     row: 'ردیف',
-    client_latin_name: 'نام لاتین کلاینت',
-    client_persian_name: 'نام فارسی کلاینت',
+    scope_latin_name: 'نام لاتین اسکوپ',
+    scope_persian_name: 'نام فارسی اسکوپ',
   },
+  upstream_tab: {
+    tab_header: 'آپ‌استریم',
+    info_box_latinName: 'نام لاتین آپ‌استریم',
+    info_box_persianName: 'نام فارسی آپ‌استریم',
+    delete_button: 'حذف آپ‌استریم',
+    add_upstream: 'افزودن آپ‌استریم',
+    upstream_name: 'نام آپ‌استریم',
+    upstream_name_placeholder: 'نام آپ‌استریم',
+    are_you_sure_to_remove: 'آیا از حذف آپ‌استریم {{id}} برای این سرویس اطمینان دارید؟',
+    remove_upstream: 'حذف آپ‌استریم',
+    upstream_servers: 'سرورهای آپ‌استریم',
+    table: {
+      range: 'دامنه',
+      health_status: 'وضعیت سلامت',
+      weight: 'وزن',
+    },
+  },
+  remove: 'حذف ',
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { PageProps } from '@oxygen/types';
@@ -41,10 +41,10 @@ const App: React.FC<AppProps> = (props) => {
       />
       {isOTPOpen ? (
         <Otp />
-      ) : authType === 'login' ? (
-        <Login title={t('login_to_portal')} />
-      ) : (
+      ) : authType === 'register' ? (
         <Register title={t('register_in_the_system')} />
+      ) : (
+        <Login title={t('login_to_portal')} />
       )}
     </>
   );

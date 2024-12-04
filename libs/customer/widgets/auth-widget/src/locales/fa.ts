@@ -15,4 +15,12 @@ export default {
   time_left: 'زمان باقی مانده',
   resend_otp_code: 'ارسال مجدد',
   submit: 'ثبت',
+  register: 'ثبت نام',
+  login: 'ورود',
+  otp: 'کد یکبار مصرف',
+  enter: 'ورود',
+  home_return: 'بازگشت به صفحه خانه ',
+  error: {
+    min_length_mobile_number: 'این فیلد باید {{MOBILENUMBER_MAX_LENGTH}} کاراکتر باشد',
+  },
 };

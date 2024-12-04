@@ -57,7 +57,7 @@ const Appbar = (props: AppBarProps) => {
         </Button>
 
         <span className={'appbar-title-logo-date'}>
-          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
         </span>
         <AppbarUserMenu
           userInfo={user}
@@ -72,7 +72,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          {theme.id !== ThemeID.DARK ? <Icons.OxygenLogo /> : <Icons.OxygenDarkLogo />}
+          {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
         </span>
 
         <span style={{ flexGrow: 1 }} />

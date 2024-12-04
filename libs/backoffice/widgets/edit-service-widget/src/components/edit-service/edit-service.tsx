@@ -37,8 +37,11 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
     [FORM_ITEM_NAMES.upstream]: serviceInfo.upstream,
     [FORM_ITEM_NAMES.version]: serviceInfo.version,
   };
+  const handleSubmit = (values: any) => {
+    console.log('submit', values);
+  };
   return (
-    <Form layout={'vertical'} form={form} initialValues={defaultValues}>
+    <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
         <S.LargeFormItem name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
           <Input placeholder={t('placeholder.en-name')} />
@@ -46,12 +49,6 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
         <S.LargeFormItem name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
           <Input placeholder={t('placeholder.fa-name')} />
         </S.LargeFormItem>
-        {/* <S.FormItem name={FORM_ITEM_NAMES.method} label={t('form.method')} rules={[rule]}>
-          <Input placeholder={t('placeholder.method')} />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.protocol} rules={[rule]} label={t('form.protocol')}>
-          <Select size={'large'} placeholder={t('placeholder.protocol')} options={protocolOptions}></Select>
-        </S.FormItem> */}
         <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
           <Select size={'large'} placeholder={t('placeholder.access')} options={accessOptions}></Select>
         </S.FormItem>
@@ -64,21 +61,12 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
         <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
         </S.FormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
+        <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.owner')} rules={[rule]}>
           <Input placeholder={t('placeholder.owner')} />
         </S.LargeFormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.tag} rules={[rule]} label={t('form.tag')}>
+        <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.tag')} rules={[rule]}>
           <Select size={'large'} placeholder={t('placeholder.tag')} options={tagOptions}></Select>
         </S.LargeFormItem>
-        {/* <S.LargeFormItem name={FORM_ITEM_NAMES.path} label={t('form.path')} rules={[rule]}>
-          <Input placeholder={t('placeholder.path')} />
-        </S.LargeFormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.host} label={t('form.host')} rules={[rule]}>
-          <Input placeholder={t('placeholder.host')} />
-        </S.LargeFormItem>
-        <S.LargeFormItem name={FORM_ITEM_NAMES.upstream} rules={[rule]} label={t('form.upstream')}>
-          <Select size={'large'} placeholder={t('placeholder.upstream')} options={upstreamOptions}></Select>
-        </S.LargeFormItem> */}
       </S.FormItemsContainer>
     </Form>
   );
