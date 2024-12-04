@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { Layout } from 'antd';
+import { signOut } from 'next-auth/react';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
@@ -40,10 +41,10 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setOpenDrawer(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // setOpenDrawer(false);
     // console.log('logout clicked');
-
+    await signOut();
     logout();
   };
 
@@ -55,30 +56,30 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     // <Protected>
+    <Layout>
+      <Appbar
+        onToggleDrawer={toggleDrawer}
+        onLogout={handleLogout}
+        config={config}
+        isMobileOrTablet={isMobileOrTablet}
+      />
+
       <Layout>
-        <Appbar
-          onToggleDrawer={toggleDrawer}
-          onLogout={handleLogout}
-          config={config}
-          isMobileOrTablet={isMobileOrTablet}
+        <Drawer
+          shouldDisplaySider={!isUndefined && !isMobile}
+          shouldDisplayDrawer={isMobile}
+          direction={config.direction}
+          openDrawer={openDrawer}
+          siderCollapsed={collapsed}
+          onBreakpoint={handleOnBreakpoint}
+          onClose={onClose}
         />
 
-        <Layout>
-          <Drawer
-            shouldDisplaySider={!isUndefined && !isMobile}
-            shouldDisplayDrawer={isMobile}
-            direction={config.direction}
-            openDrawer={openDrawer}
-            siderCollapsed={collapsed}
-            onBreakpoint={handleOnBreakpoint}
-            onClose={onClose}
-          />
-
-          <S.MainContentLayout>
-            <MainContent>{children}</MainContent>
-          </S.MainContentLayout>
-        </Layout>
+        <S.MainContentLayout>
+          <MainContent>{children}</MainContent>
+        </S.MainContentLayout>
       </Layout>
+    </Layout>
     // </Protected>
   );
 };

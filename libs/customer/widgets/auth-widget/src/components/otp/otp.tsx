@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { signIn } from 'next-auth/react';
 
 import { useAuth } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
@@ -66,9 +66,12 @@ export const OTP: React.FC<FormContainerProps> = () => {
       } else {
         data = await mutateAsyncVerifyLogin(params);
       }
+      console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb', data);
       if (!data) return;
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
-      await login(user, ROUTES.CUSTOMER.PROFILE);
+      console.log('ccccccccccccccccccccccccc', user);
+      await signIn('credentials', { ...user, redirect: false });
+      await login(user, ROUTES.CUSTOMER.REQUEST_CREATION);
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
@@ -100,7 +103,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
     const loading = isLogin ? loginLoading : registerLoading;
 
     return (
-      <S.Button loading={loading} onClick={handleSubmit} color='primary'>
+      <S.Button loading={loading} onClick={handleSubmit} color="primary">
         {isLogin ? t('enter') : t('submit')}
       </S.Button>
     );
@@ -111,7 +114,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
       <S.Box>
         <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
-        <Button variant='link' onClick={handleReturn}>
+        <Button variant="link" onClick={handleReturn}>
           <S.BackParagraph>{t('change_mobile_number')}</S.BackParagraph>
         </Button>
       </S.Box>
@@ -130,7 +133,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       </Form>
       <S.TimerBox>
         {isTimerFinish ? (
-          <Button variant='link' onClick={handleResend}>
+          <Button variant="link" onClick={handleResend}>
             {<S.BackParagraph>{t('resend_otp_code')}</S.BackParagraph>}
           </Button>
         ) : (

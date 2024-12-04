@@ -7,11 +7,12 @@ const DEFAULT_SALT = process.env.NEXT_PUBLIC_CRYPTO_HASH_KEY ?? 'THIS_IS_SECRET'
  * @returns {string} - The encrypted text (base64 encoded)
  */
 export function encrypt(text, password = DEFAULT_SALT) {
-  let encrypted = '';
+  /*let encrypted = '';
   for (let i = 0; i < text.length; i++) {
     encrypted += String.fromCharCode(text.charCodeAt(i) ^ password.charCodeAt(i % password.length));
   }
-  return btoa(encrypted); // Base64 encode the result
+  return btoa(encrypted); // Base64 encode the result*/
+  return text;
 }
 
 /**
@@ -21,10 +22,11 @@ export function encrypt(text, password = DEFAULT_SALT) {
  * @returns {string} - The decrypted text
  */
 export function decrypt(encryptedText, password = DEFAULT_SALT) {
-  const decoded = atob(encryptedText); // Decode from base64
-  let decrypted = '';
-  for (let i = 0; i < decoded.length; i++) {
-    decrypted += String.fromCharCode(decoded.charCodeAt(i) ^ password.charCodeAt(i % password.length));
-  }
-  return decrypted;
+  /*  const decoded = atob(encryptedText); // Decode from base64
+    let decrypted = '';
+    for (let i = 0; i < decoded.length; i++) {
+      decrypted += String.fromCharCode(decoded.charCodeAt(i) ^ password.charCodeAt(i % password.length));
+    }
+    return decrypted;*/
+  return encryptedText;
 }

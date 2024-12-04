@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 
 import React, { createContext, useContext, useMemo } from 'react';
-import { signIn, signOut, useSession } from 'next-auth/react';
 
 import { CookieKey, LocalStorageKey, User } from '@oxygen/types';
 import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey } from '@oxygen/utils';
@@ -43,6 +42,12 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async (path?: string) => {
     try {
+
+      // await client.get(`/signout/`);
+
+      await fetch(`/api/auth/signout`);
+      // await signOut();
+
       setUser(null);
       removeUser();
       removeUserPhoto();
@@ -50,11 +55,6 @@ const AuthProvider = (props: AuthProviderProps) => {
       removeMenus();
       clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
       clearAllCookiesExceptForKey(CookieKey.CONFIG);
-
-      // await client.get(`/signout/`);
-
-      await fetch(`/api/auth/signout`);
-      // await signOut();
 
       // /*   if (props.logout) {
       //      props.logout();
