@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../../context';
 import { useTr } from '@oxygen/translation';
 import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { Card } from './card/card';
+import { useUpstreamCardDetailsQuery } from '../../../services/upstream-tab/upstream-card-detail';
 
 export const UpstreamCreation = () => {
   const state = useState();
@@ -12,6 +13,8 @@ export const UpstreamCreation = () => {
   const [t] = useTr();
 
   const [value, setValue] = useState(RADIO_GROUP_NAME.SELECT);
+
+  const { data, isFetching } = useUpstreamCardDetailsQuery();
 
   const onRadioChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
@@ -24,7 +27,7 @@ export const UpstreamCreation = () => {
           <Radio value={RADIO_GROUP_NAME.CREATE}>{t('upstream_tab.create_upstream')}</Radio>
         </Radio.Group>
         <S.SelectContainer>
-          {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={[]} /> : <h1>reza</h1>}
+          {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={data?.content} loading={isFetching} /> : <h1>reza</h1>}
         </S.SelectContainer>
       </S.BorderBox>
     </S.UpstreamCreationContainer>
