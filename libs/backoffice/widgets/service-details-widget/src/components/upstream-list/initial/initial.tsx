@@ -53,15 +53,19 @@ export const Initial: React.FC<InitialType> = (props) => {
       key: 'upstream_tab.info_box_persianName',
       value: 'آپ‌استریم سجام',
     },
-    {
-      key: '',
-      value: (
-        <Button variant='outlined' color='danger' onClick={handleDeleteButton}>
-          <S.TrashIcon className='icon-trash'></S.TrashIcon>
-          {t('upstream_tab.delete_button')}
-        </Button>
-      ),
-    },
+    ...(state.upstreamTab.isInitialized
+      ? [
+          {
+            key: '',
+            value: (
+              <Button variant='outlined' color='danger' onClick={handleDeleteButton}>
+                <S.TrashIcon className='icon-trash' />
+                {t('upstream_tab.delete_button')}
+              </Button>
+            ),
+          },
+        ]
+      : []),
   ];
 
   const desktopColumns = getDesktopColumns({ t });
