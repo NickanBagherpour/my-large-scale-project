@@ -71,7 +71,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
       console.log('ccccccccccccccccccccccccc', user);
       await signIn('credentials', { ...user, redirect: false });
-      await login(user, ROUTES.CUSTOMER.REQUEST_CREATION);
+      await login(user, ROUTES.CUSTOMER.REQUEST_REGISTRATION);
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
