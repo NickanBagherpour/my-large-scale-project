@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { InfoItemType, PageProps } from '@oxygen/types';
 
 // import DetailsModal from './modals/info-service-modal/info-service-modal';
-import { useAppDispatch, useAppState } from '../../../context';
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 import { Modal } from '../../scope-list/scope-list';
 
@@ -33,12 +33,15 @@ export const Initial: React.FC<InitialType> = (props) => {
   const isInitialized = state.upstreamTab.isInitialized;
 
   //Handlers
-  const handleDelete = () => {
-    console.log('delete');
-    toggleModal('removeService');
-  };
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  };
+  const handleDeleteButton = () => {
+    toggleModal('removeService');
+  };
+  const handleModalDleteButton = () => {
+    updateUpstreamAction(dispatch, { ...state.upstreamTab, isInitialized: false });
+    toggleModal('removeService');
   };
   //Render
   const infoBoxData: InfoItemType[] = [
@@ -53,7 +56,7 @@ export const Initial: React.FC<InitialType> = (props) => {
     {
       key: '',
       value: (
-        <Button variant='outlined' color='danger' onClick={handleDelete}>
+        <Button variant='outlined' color='danger' onClick={handleDeleteButton}>
           <S.TrashIcon className='icon-trash'></S.TrashIcon>
           {t('upstream_tab.delete_button')}
         </Button>
@@ -76,7 +79,8 @@ export const Initial: React.FC<InitialType> = (props) => {
       </S.BorderBoxContainer>
       <RemoveServiceModal
         isOpen={modals.removeService}
-        toggle={() => toggleModal('removeService')}
+        deleteToggle={handleModalDleteButton}
+        cancelToggle={() => toggleModal('removeService')}
         id='SEJAM-UPSTREAM'
       />
       {/* <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} /> */}

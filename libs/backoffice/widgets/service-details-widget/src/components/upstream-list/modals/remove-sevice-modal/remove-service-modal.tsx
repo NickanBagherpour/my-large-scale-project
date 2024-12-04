@@ -6,12 +6,13 @@ import * as S from './remove-service-modal.style';
 type Props = {
   isOpen: boolean;
   id: string;
-  toggle: () => void;
+  cancelToggle: () => void;
+  deleteToggle: () => void;
 };
 
 export default function RemoveServiceModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle, id } = props;
+  const { isOpen, cancelToggle, deleteToggle, id } = props;
   const theme = useTheme();
 
   return (
@@ -20,12 +21,12 @@ export default function RemoveServiceModal(props: Props) {
       title={t('upstream_tab.remove_upstream')}
       open={isOpen}
       closable={true}
-      onCancel={toggle}
+      onCancel={cancelToggle}
       footer={[
-        <Button onClick={toggle} size='large' color='primary' variant='outlined'>
+        <Button onClick={cancelToggle} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <S.RemoveBtn onClick={toggle} size='large' color='error'>
+        <S.RemoveBtn onClick={deleteToggle} size='large' color='error'>
           {t('remove')}
         </S.RemoveBtn>,
       ]}
