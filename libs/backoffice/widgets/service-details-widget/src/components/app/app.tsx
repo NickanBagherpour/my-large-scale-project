@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { createSchemaFieldRule } from 'antd-zod';
-import { Form } from 'antd';
 
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
+
+import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
-import { ReturnButton } from '@oxygen/reusable-components';
-import { useGetServiceDetailsQuery } from '../../services';
-import { Nullable } from '@oxygen/types';
 import { ROUTES, uuid } from '@oxygen/utils';
 import ScopeList from '../scope-list/scope-list';
-import UpstreamList from '../upstream-list/upstream-list';
+import { ReturnButton } from '@oxygen/reusable-components';
+import { useGetServiceDetailsQuery } from '../../services';
+import { UpstreamList } from '../upstream-list/upstream-list';
 import { useAppDispatch, useAppState } from '../../context';
+import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
 
@@ -128,7 +127,8 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.AppContainer footer={footerButton}>
       <Container title={t('widget_name')} style={{ minHeight: '100%' }}>
-        <Tabs defaultActiveKey='1' items={items} style={{ paddingTop: '3rem' }} />
+        {/* change the defaultActiveKey to 0  */}
+        <Tabs defaultActiveKey='3' items={items} style={{ paddingTop: '3rem' }} />
       </Container>
     </S.AppContainer>
   );
