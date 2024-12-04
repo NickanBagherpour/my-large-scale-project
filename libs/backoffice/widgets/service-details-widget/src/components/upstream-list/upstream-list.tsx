@@ -4,6 +4,7 @@ import { InfoItemType, PageProps } from '@oxygen/types';
 import { useAppDispatch, useAppState } from '../../context';
 
 import { Initial } from './initial/initial';
+import UpstreamCreation from './upstream-creation/upstream-creation';
 
 type UpstreamListType = PageProps & {
   //
@@ -17,5 +18,5 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
   //constants
   const isInitialized = state.upstreamTab.isInitialized;
 
-  return <>{isInitialized ? <Initial /> : <h1>alireza</h1>}</>;
+  return <>{isInitialized ? <Initial /> : <UpstreamCreation />}</>;
 };
