@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
+import { Button as KitButton, Divider as KitDivider, Input as KitInput } from '@oxygen/ui-kit';
 
 export const FormContainer = styled.div`
   /* background-color: ${(p) => p.theme.background._50}; */
@@ -21,6 +21,7 @@ export const FormInputs = styled.div`
   flex-direction: column;
   margin-top: 4.2rem;
   gap: 1.8rem;
+
   .ant-form-item {
     margin: 0;
   }
@@ -30,7 +31,7 @@ export const FormInput = styled.div`
   display: flex;
   flex-direction: column;
 
-  & .ant-input-suffix{
+  & .ant-input-suffix {
     margin-left: 0;
     margin-right: 0;
   }
@@ -45,7 +46,7 @@ export const Button = styled(KitButton)`
   &&& {
     font-size: 1.6rem;
     width: 100%;
-    margin-top: 1.6rem;
+    margin-top: 1.2rem;
   }
 `;
 
@@ -66,8 +67,6 @@ export const IconWrapper = styled.span`
   //  color: #40a9ff; /* Optional: Change color on hover */
   //}
 `;
-
-
 
 export const Divider = styled(KitDivider)`
   border-top-width: 0.2rem;
