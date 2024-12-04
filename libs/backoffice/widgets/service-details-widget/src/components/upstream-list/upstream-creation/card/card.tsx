@@ -4,6 +4,7 @@ import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
+import { Loading } from '@oxygen/ui-kit';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -14,33 +15,29 @@ export type CardProps = PageProps & {
   searchTerm?: string;
   activeServer?: number;
   cardData: any[];
+  loading: boolean;
 };
 export const Card = (props: CardProps) => {
-  const {
-    cardData,
-    activeServer = 1,
-    name = 'alireza',
-    description = 'alire zaa aaaa aaa',
-    isActiveInTheService = true,
-    date = 'ghaffar',
-    idx = 0,
-    searchTerm = '',
-  } = props;
+  const { cardData, loading } = props;
 
   return (
-    <S.CardContainer>
-      {cardData.map((data, index) => (
-        <GridCard
-          activeServersCount={activeServer}
-          key={index}
-          name={description}
-          englishName={name}
-          status={isActiveInTheService ? 'active' : 'inactive'}
-          date={date}
-          wordToHighlight={searchTerm}
-          href='#'
-        />
-      ))}
-    </S.CardContainer>
+    <>
+      {loading ? (
+        <Loading style={{ height: '5rem', marginTop: '3rem' }} />
+      ) : (
+        <S.CardContainer>
+          {cardData?.map((data, index) => (
+            <GridCard
+              activeServersCount={data.active_server}
+              key={index}
+              name={data.upstream_latin_name}
+              status={data.is_server_active ? 'active' : 'inactive'}
+              wordToHighlight=''
+              href='#'
+            />
+          ))}
+        </S.CardContainer>
+      )}
+    </>
   );
 };
