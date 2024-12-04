@@ -1,9 +1,13 @@
+import { headers } from 'next/headers';
+import { config } from './../../../../../apps/customer-portal/src/middleware';
 import { withErrorHandling } from '@oxygen/utils';
 import { useQuery } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
+import { client, portalUrl } from '@oxygen/client';
 
 type params = {
-  name: string;
+  name?: string;
+  query: string;
 };
 
 export type ClientService = {
@@ -123,18 +127,31 @@ const mockData: ClientService[] = [
 
 const Api = {
   getClientService: async (params: params) => {
-    return new Promise<{ data: ClientService[] }>((res) => {
-      const data = mockData.filter((item) => item.title.includes(params.name));
-      setTimeout(() => {
-        res({ data });
-      }, 1000);
-    });
+    // debugger;
+    const { query, ...restParams } = params;
+    // return new Promise<{ data: ClientService[] }>((res) => {
+    //   const data = mockData.filter((item) => item.title.includes(params.query));
+    //   setTimeout(() => {
+    //     res({ data });
+    //   }, 1000);
+    // });
+
+    console.log(client);
+    return client.get(
+      /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?customer=123`,
+      // {},
+      {
+        headers: {
+          // query: query,
+        },
+      }
+    );
   },
 };
 
 export const useGetClientService = (params: params) => {
   return useQuery({
-    enabled: !!params.name,
+    enabled: !!params.query,
     queryKey: [RQKEYS.REUSABLE_COMPONENTS.CLIENT_SERVICES, params],
     queryFn: withErrorHandling(
       () => Api.getClientService(params),

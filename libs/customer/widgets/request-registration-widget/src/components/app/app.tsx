@@ -34,7 +34,7 @@ const App: React.FC<AppProps> = (props) => {
     ThirdStep = 2,
     FourthStep = 3,
   }
-  const [currentStep, setCurrentStep] = useState(StepsItemKey.FirstStep);
+  const [currentStep, setCurrentStep] = useState(StepsItemKey.ThirdStep);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },

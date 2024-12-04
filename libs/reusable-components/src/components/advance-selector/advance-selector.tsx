@@ -34,7 +34,7 @@ const AdvanceSelector = (props: Props) => {
 
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
 
-  const { data, isLoading } = useGetClientService({ name: debouncedSearchTerm.trim() });
+  const { data, isLoading } = useGetClientService({ query: debouncedSearchTerm.trim() });
 
   return (
     <>

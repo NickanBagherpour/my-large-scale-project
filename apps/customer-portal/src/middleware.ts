@@ -17,13 +17,13 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 export default async function middleware(request: NextRequest) {
   const session = await auth();
 
-  const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH]; // Define public paths here
+  const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH, ROUTES.CUSTOMER.REQUEST_REGISTRATION]; // Define public paths here
 
   // Get the current pathname
   const { pathname } = request.nextUrl;
 
   // Check if the user is trying to access a protected route
-  const isProtectedRoute = !publicPaths.some(path => pathname === path);
+  const isProtectedRoute = !publicPaths.some((path) => pathname === path);
 
   /*
     // Handle API routes
@@ -52,7 +52,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
-  if (session?.user && publicPaths.some(path => pathname === path)) {
+  if (session?.user && publicPaths.some((path) => pathname === path)) {
     return NextResponse.redirect(new URL(ROUTES.CUSTOMER.PROFILE, request.url));
   }
 
