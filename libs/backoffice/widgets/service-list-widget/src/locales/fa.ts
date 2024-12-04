@@ -41,4 +41,17 @@ export default {
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
   next_level: 'مرحله بعد',
+  en_name: 'نام لاتین',
+  desc: 'توضیحات',
+  scope_en_name: 'نام لاتین اسکوپ',
+  scope_fa_name: 'نام فارسی اسکوپ',
+  inspect_another: 'استعلام سرویس دیگر',
+  already_exists:
+    'مجاز به ثبت سرویس با این مشخصات نمی‌باشید. سرویس مورد نظر قبلاً با مشخصات زیر در سامانه ثبت شده است. ',
+  placeholders: {
+    search_service_inspection: 'جستجو بر‌اساس نام انگلیسی سرویس',
+  },
+  buttons: {
+    inspect: 'استعلام سرویس',
+  },
 };

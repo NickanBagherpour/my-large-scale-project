@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useBounce, useToggle } from '@oxygen/hooks';
 import { ROUTES } from '@oxygen/utils';
 import UploadService from '../upload-service/upload-service';
+import InspectService from '../inspect-service/inspect-service';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -21,6 +22,7 @@ export default function Filters() {
   const { status, sort } = useAppState();
   const [value, setValue] = useState('');
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
+  const [isInspectioModalOpen, toggleInspectionModal] = useToggle(false);
 
   useBounce(() => {
     updateSearchTerm(dispatch, value);
@@ -41,7 +43,7 @@ export default function Filters() {
             <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
               {t('upload_service')}
             </S.Button>
-            <S.Button href={ROUTES.BACKOFFICE.SERVICE_CREATION} color='primary' variant='solid'>
+            <S.Button onClick={toggleInspectionModal} color='primary' variant='solid'>
               {t('create_new_service')}
             </S.Button>
           </S.Buttons>
@@ -86,7 +88,8 @@ export default function Filters() {
           />
         </S.Indicators>
       </S.Container>
-      <UploadService toggle={toggleUploadModal} isOpen={isUploadModalOpen} />
+      {isUploadModalOpen && <UploadService toggle={toggleUploadModal} isOpen={isUploadModalOpen} />}
+      {isInspectioModalOpen && <InspectService toggle={toggleInspectionModal} isOpen={isInspectioModalOpen} />}
     </>
   );
 }

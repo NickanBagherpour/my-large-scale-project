@@ -5,3 +5,6 @@ export const INITIAL_PAGE = 1;
 export const UPLOAD_SERVICE_NAMES = {
   uploadService: 'uploadService',
 };
+export const Search_SERVICE_NAMES = {
+  SearchService: 'searchService',
+};
