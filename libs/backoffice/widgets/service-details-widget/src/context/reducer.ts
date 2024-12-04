@@ -30,6 +30,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.message = action.payload);
     }
 
+    case 'UPDATE_UPSTREAM': {
+      state.upstreamTab = { ...state.upstreamTab, ...action.payload };
+      return;
+    }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };
       return;

@@ -32,6 +32,10 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
+      type: 'UPDATE_UPSTREAM';
+      payload: UpstreamData;
+    }
+  | {
       type: 'UPDATE_FILTERS';
       payload: Partial<FiltersType>;
     }
