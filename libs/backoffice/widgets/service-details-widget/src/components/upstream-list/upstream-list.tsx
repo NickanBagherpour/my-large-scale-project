@@ -1,10 +1,9 @@
 import { useTr } from '@oxygen/translation';
-import { InfoItemType, PageProps } from '@oxygen/types';
-
-import { useAppDispatch, useAppState } from '../../context';
+import { PageProps } from '@oxygen/types';
 
 import { Initial } from './initial/initial';
-import UpstreamCreation from './upstream-creation/upstream-creation';
+import { useAppDispatch, useAppState } from '../../context';
+import { UpstreamCreation } from './upstream-creation/upstream-creation';
 
 type UpstreamListType = PageProps & {
   //
