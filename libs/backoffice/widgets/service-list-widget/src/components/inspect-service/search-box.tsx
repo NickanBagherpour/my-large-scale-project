@@ -1,14 +1,17 @@
-import { Form, FormInstance, InputRef } from 'antd';
+import { LottieRefCurrentProps } from 'lottie-react';
+import { Flex, Form, FormInstance, InputRef } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+
+import { Button, Input } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+
 import { SearchService } from '../../types';
 import { ContentType } from './inspect-service';
 import { MutableRefObject, RefObject } from 'react';
 import { Search_SERVICE_NAMES } from '../../utils/consts';
-import { Button, Input } from '@oxygen/ui-kit';
 import { SearchInputIcon } from '../../assets';
-import { useTr } from '@oxygen/translation';
-import { LottieRefCurrentProps } from 'lottie-react';
 import * as S from './search-box.style';
+
 type Props = {
   form: FormInstance<{
     [x: string]: string;
@@ -31,7 +34,7 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
   };
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
-      <S.FormRow style={{ padding: 0 }}>
+      <Flex gap={'1rem'}>
         <S.FormItem name={Search_SERVICE_NAMES.SearchService} rules={[rule]}>
           <Input
             autoFocus={true}
@@ -41,7 +44,7 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
           />
         </S.FormItem>
         <Button htmlType='submit'>{t('buttons.inspect')}</Button>
-      </S.FormRow>
+      </Flex>
     </Form>
   );
 };
