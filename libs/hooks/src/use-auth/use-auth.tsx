@@ -3,10 +3,9 @@
 import { useRouter } from 'next/navigation';
 
 import React, { createContext, useContext, useMemo } from 'react';
-import { signIn, signOut, useSession } from 'next-auth/react';
 
-import { LocalStorageKey, User } from '@oxygen/types';
-import { clearAllCookies, clearLocalStorageExceptForKey } from '@oxygen/utils';
+import { CookieKey, LocalStorageKey, User } from '@oxygen/types';
+import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey } from '@oxygen/utils';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 
@@ -43,26 +42,26 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async (path?: string) => {
     try {
-      //fixme
-      // setUser(null);
-      // removeUser();
-      // removeUserPhoto();
-      // setMenu(null);
-      // removeMenus();
-      // clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-      // clearAllCookies();
 
       // await client.get(`/signout/`);
 
-      await fetch(`/api/auth/signout`)
+      await fetch(`/api/auth/signout`);
       // await signOut();
+
+      setUser(null);
+      removeUser();
+      removeUserPhoto();
+      setMenu(null);
+      removeMenus();
+      clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
+      clearAllCookiesExceptForKey(CookieKey.CONFIG);
 
       // /*   if (props.logout) {
       //      props.logout();
       //    }*/
       //
       // // console.log('logout inside', localStorage);
-      // await router.replace(path ?? '/');
+      await router.replace(path ?? '/');
     } catch (e) {
       //
     }
@@ -86,13 +85,13 @@ const AuthProvider = (props: AuthProviderProps) => {
       user,
       login,
       logout,
-      // setUser,
+      setUser,
       isAuth: isAuth(),
       userPhoto,
       setUserPhoto,
       removeUserPhoto,
     }),
-    [JSON.stringify(user), userPhoto]
+    [JSON.stringify(user), userPhoto],
   );
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

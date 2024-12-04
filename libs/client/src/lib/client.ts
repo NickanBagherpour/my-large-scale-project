@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 import { CookieKey, LocalStorageKey } from '@oxygen/types';
-import { decrypt, getCookie, ROUTES } from '@oxygen/utils';
+import {
+  clearAllCookiesExceptForKey,
+  clearLocalStorageExceptForKey,
+  decrypt, encrypt,
+  getCookie,
+  ROUTES,
+} from '@oxygen/utils';
 
 const baseUrl = '/';
 
@@ -25,7 +31,9 @@ const client = axios.create({
 // Add a request interceptor
 
 client.interceptors.request.use(async (config) => {
-  const sessionId = getCookie(CookieKey.SESSION_ID);
+  const sessionId = decrypt(getCookie(CookieKey.SESSION_ID));
+
+
 
   /* const session = await auth();
 
@@ -35,7 +43,8 @@ client.interceptors.request.use(async (config) => {
  // const branchCode = userData?.branchCode || '';
 */
   if (sessionId) {
-    config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;
+    // config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;
+    config.headers['Authorization'] = `Bearer ${sessionId}`;
   }
 
   return config;
@@ -48,13 +57,15 @@ client.interceptors.response.use(
   async (error) => {
     const originalConfig = error.config;
 
-    if (originalConfig.url !== ROUTES.CUSTOMER.AUTH && error.response) {
+    if (originalConfig?.url !== ROUTES.SHARED.AUTH && error.response) {
       if (error.response.status === 401) {
-        localStorage.removeItem(LocalStorageKey.USER);
+        // localStorage.removeItem(LocalStorageKey.USER);
+        clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
+        clearAllCookiesExceptForKey(CookieKey.CONFIG);
         if (error.response.data.location) {
           window.location.href = error.response.data.location;
         } else {
-          window.location.href = ROUTES.CUSTOMER.AUTH;
+          window.location.href = ROUTES.SHARED.AUTH;
         }
       } /* else if (error.response.status === 300) {
 
@@ -64,7 +75,7 @@ client.interceptors.response.use(
       }*/
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default client;

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Form, MenuProps } from 'antd';
+import { MenuProps } from 'antd';
+import { signOut } from 'next-auth/react';
 
 import { Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -27,12 +28,10 @@ const AppBarMenu = (props: AppBarMenuProps) => {
   const [t] = useTr();
   const { isAuth, logout } = useAuth();
 
-  const [logoutForm] = Form.useForm();
-
   const menuObject = [
     {
       labelTitle: t('appbar.change_language'),
-      secondItem: <LocaleSwitcher type='textPrimary' />,
+      secondItem: <LocaleSwitcher type="textPrimary" />,
       key: MenuItemKey.ChangeLanguage,
     },
     { labelTitle: t('appbar.background_color'), secondItem: <ThemeSwitch />, key: MenuItemKey.BackgroundColor },
@@ -49,7 +48,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
     .map((item, index) => {
       return {
         label: (
-          <div className='multiple-menu'>
+          <div className="multiple-menu">
             <span>{item.labelTitle}</span>
             {item.secondItem && <span className={'second-item'}>{item.secondItem}</span>}
           </div>
@@ -59,7 +58,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       };
     });
 
-  const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+  const handleMenuClick: MenuProps['onClick'] = async ({ key }) => {
     switch (key) {
       case MenuItemKey.ChangeLanguage:
       case MenuItemKey.BackgroundColor:
@@ -74,7 +73,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         break;
       case MenuItemKey.Logout:
         if (isAuth) {
-          logoutForm.submit();
+          await signOut();
           logout();
         }
         break;
@@ -105,11 +104,11 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       }}
     >
       <Button
-        type='text'
-        shape='circle'
+        type="text"
+        shape="circle"
         icon={
           <span className={'appbar-menu-icon'}>
-            <i className='icon-three-dots-vertical' />
+            <i className="icon-three-dots-vertical" />
           </span>
         }
       />

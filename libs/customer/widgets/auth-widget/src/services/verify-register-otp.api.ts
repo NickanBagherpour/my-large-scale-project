@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { ApiUtil, encrypt, setCookie } from '@oxygen/utils';
+import { CookieKey } from '@oxygen/types';
 
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { CookieKey } from '@oxygen/types';
 import { AUTH_SESSION_DURATION } from '../utils/consts';
 
 export const useVerifyRegisterMutation = () => {
@@ -14,7 +14,7 @@ export const useVerifyRegisterMutation = () => {
     mutationFn: (params: any) => Api.postVerifyRegisterOTP(params),
     onSuccess: async (data) => {
       const sessionId = data?.headers['authorization'];
-      setCookie(CookieKey.SESSION_ID, await encrypt(sessionId), AUTH_SESSION_DURATION);
+      setCookie(CookieKey.SESSION_ID, encrypt(sessionId), AUTH_SESSION_DURATION);
       return data;
     },
     onError: (e) => {

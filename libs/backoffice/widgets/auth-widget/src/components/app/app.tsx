@@ -15,7 +15,7 @@ type AuthWidgetType = PageProps & {
   parentProps?: any;
 };
 const AuthWidget: React.FC<AuthWidgetType> = (props) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { user, login } = useAuth();
   const [t] = useTranslation();
 
@@ -42,11 +42,11 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
     setLoading(false);
   }
 
-  // handleSignOut();
-
   useEffect(() => {
     if (code) {
       handleRedirect();
+    } else {
+      setLoading(false);
     }
   }, [code]);
 
@@ -63,7 +63,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   };
 
   return (
-    <S.CardWrapper title={'AuthWidget'}>
+    <S.CardWrapper>
       {loading && <Loading fullscreen={true} />}
       <S.TopSection>{t('title')}</S.TopSection>
       <S.BottomSection>
