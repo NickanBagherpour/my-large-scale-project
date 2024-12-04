@@ -17,7 +17,7 @@ export default function RemoveServiceModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('remove_service')}
+      title={t('upstream_tab.remove_upstream')}
       open={isOpen}
       closable={true}
       onCancel={toggle}
@@ -30,7 +30,11 @@ export default function RemoveServiceModal(props: Props) {
         </S.RemoveBtn>,
       ]}
     >
-      <S.MarkText text={t('are_you_sure_to_remove', { id })} wordToHighlight={id} highlightColor={theme.error.main} />
+      <S.MarkText
+        text={t('upstream_tab.are_you_sure_to_remove', { id })}
+        wordToHighlight={id}
+        highlightColor={theme.error.main}
+      />
     </Modal>
   );
 }

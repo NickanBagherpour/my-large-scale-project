@@ -10,7 +10,7 @@ const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
 const rewritesConfig = [
   {
     source: `/${auth_prefix}/:path*`,
-    destination: `${base_url}/${auth_prefix}/:path*`,
+    destination: `/${auth_prefix}/:path*`,
   },
   {
     source: `/${portal_prefix}/:path*`,

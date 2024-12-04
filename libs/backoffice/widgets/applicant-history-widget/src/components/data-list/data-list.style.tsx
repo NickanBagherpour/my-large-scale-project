@@ -17,3 +17,8 @@ export const ValueContainer = styled.div`
     height: 0.8rem;
   }
 `;
+
+export const PhoneContainer = styled.div`
+  /*! @noflip */
+  direction: ltr;
+`;

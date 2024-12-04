@@ -131,6 +131,25 @@ export const clearAllCookies = (): void => {
   }
 };
 
+export const clearAllCookiesExceptForKey = (keyToKeep: string): void => {
+  try {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim();
+
+      // Skip the cookie that matches the keyToKeep
+      if (name !== keyToKeep) {
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+    }
+  } catch (e) {
+    console.error('Error while clearing cookies:', e);
+  }
+};
+
 export const getCookie = (key: string) => {
   if (typeof window !== 'undefined') {
     const cookieValue =
@@ -190,4 +209,34 @@ export function convertToEnglishNumbers(text) {
   };
 
   return text.replace(/[٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹]/g, (match) => arabicPersianMap[match]);
+}
+
+export function convertShamsiDateFormat(dateString) {
+  if (dateString) {
+    const [datePart, timePart] = dateString.split(' ');
+
+    const [hours, minutes] = timePart.split(':');
+
+    const newFormat = `${datePart}\u00A0\u00A0\u00A0\u00A0${hours}:${minutes}`;
+
+    return newFormat;
+  } else {
+    return '-';
+  }
+}
+
+export function normalizePhoneNumber(phone) {
+  if (phone) {
+    // Remove any non-numeric characters (dashes, spaces)
+    const cleanedPhone = phone.replace(/\D/g, '');
+
+    // Check if the phone number has at least 10 digits (assuming format like '021 - 88698541')
+    if (cleanedPhone.length === 11) {
+      // Format the phone number as '021 - 88698541'
+      return `${cleanedPhone.slice(0, 3)}\u00A0-\u00A0${cleanedPhone.slice(3)}`;
+    }
+    return phone;
+  } else {
+    return '-';
+  }
 }

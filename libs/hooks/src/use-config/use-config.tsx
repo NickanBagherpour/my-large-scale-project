@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
-import { Direction, IConfig, Locale, ThemeID } from '@oxygen/types';
+import { CookieKey, Direction, IConfig, Locale, ThemeID } from '@oxygen/types';
 
 import { setCookie } from '@oxygen/utils';
 
@@ -37,9 +37,9 @@ const ConfigProvider = (props: ConfigProviderProps) => {
   const updateConfig = useCallback(
     (newConfig: IConfig) => {
       setCookieConfig(newConfig);
-      setCookie('configuration', JSON.stringify(newConfig), 5 * 365 * 24 * 60); //5 years
+      setCookie(CookieKey.CONFIG, JSON.stringify(newConfig), 5 * 365 * 24 * 60); //5 years
     },
-    [setCookieConfig],
+    [setCookieConfig]
   );
 
   const value = useMemo(() => {

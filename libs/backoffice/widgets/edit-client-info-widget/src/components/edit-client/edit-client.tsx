@@ -5,8 +5,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { FooterContainer } from '@oxygen/reusable-components';
-import { ROUTES } from '@oxygen/utils';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
 
@@ -15,9 +14,10 @@ import { useGetTags } from '../../services/get-tag-info.api';
 import { createFormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import {  TEXT_INPUT_LIMIT } from '../../utils/consts';
+import { TEXT_INPUT_LIMIT } from '../../utils/consts';
 
 import * as S from './edit-client.style';
+import { useRouter } from 'next/navigation';
 
 type FirstStepProps = PageProps & {
   //
@@ -54,6 +54,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   }, [grantTypeData, tagsData]);
 
   const submitClick = () => form.submit();
+
+  const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
 
   const onFinish = async (values) => {
     // console.log('hi', values);
@@ -200,9 +205,9 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
       </div>
 
       <FooterContainer>
-        <Button variant={'outlined'} href={ROUTES.BACKOFFICE.CLIENT_DETAILS}>
+        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('form.cancel')}
-        </Button>
+        </ReturnButton>
         <Button htmlType={'submit'} onClick={submitClick}>
           {t('form.save_changes')}
         </Button>

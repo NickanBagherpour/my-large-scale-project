@@ -4,10 +4,11 @@ import { Input, Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
-  margin: 2.8rem 0 2.4rem;
+  margin: 2.4rem 0;
 `;
 
 export const Actions = styled.div`
+  padding: 0.4rem 0.4rem 0.4rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

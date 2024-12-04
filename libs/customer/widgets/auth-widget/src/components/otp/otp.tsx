@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { signIn } from 'next-auth/react';
 
 import { useAuth } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
@@ -66,9 +66,12 @@ export const OTP: React.FC<FormContainerProps> = () => {
       } else {
         data = await mutateAsyncVerifyLogin(params);
       }
+      console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb', data);
       if (!data) return;
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
-      await login(user, ROUTES.CUSTOMER.PROFILE);
+      console.log('ccccccccccccccccccccccccc', user);
+      await signIn('credentials', { ...user, redirect: false });
+      await login(user, ROUTES.CUSTOMER.REQUEST_CREATION);
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });

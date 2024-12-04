@@ -1,3 +1,5 @@
+import { table } from 'console';
+
 export default {
   widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
   service_information: 'اطلاعات سرویس',
@@ -28,4 +30,22 @@ export default {
     scope_latin_name: 'نام لاتین اسکوپ',
     scope_persian_name: 'نام فارسی اسکوپ',
   },
+  upstream_tab: {
+    tab_header: 'آپ‌استریم',
+    info_box_latinName: 'نام لاتین آپ‌استریم',
+    info_box_persianName: 'نام فارسی آپ‌استریم',
+    delete_button: 'حذف آپ‌استریم',
+    add_upstream: 'افزودن آپ‌استریم',
+    upstream_name: 'نام آپ‌استریم',
+    upstream_name_placeholder: 'نام آپ‌استریم',
+    are_you_sure_to_remove: 'آیا از حذف آپ‌استریم {{id}} برای این سرویس اطمینان دارید؟',
+    remove_upstream: 'حذف آپ‌استریم',
+    upstream_servers: 'سرورهای آپ‌استریم',
+    table: {
+      range: 'دامنه',
+      health_status: 'وضعیت سلامت',
+      weight: 'وزن',
+    },
+  },
+  remove: 'حذف ',
 };

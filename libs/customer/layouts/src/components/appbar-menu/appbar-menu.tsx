@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Form, MenuProps } from 'antd';
+import { MenuProps } from 'antd';
+import { signOut } from 'next-auth/react';
 
 import { Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -26,8 +27,6 @@ const AppBarMenu = (props: AppBarMenuProps) => {
   const { color = 'onPrimary' } = props;
   const [t] = useTr();
   const { isAuth, logout } = useAuth();
-
-  const [logoutForm] = Form.useForm();
 
   const menuObject = [
     {
@@ -59,7 +58,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       };
     });
 
-  const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
+  const handleMenuClick: MenuProps['onClick'] = async ({ key }) => {
     switch (key) {
       case MenuItemKey.ChangeLanguage:
       case MenuItemKey.BackgroundColor:
@@ -74,7 +73,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         break;
       case MenuItemKey.Logout:
         if (isAuth) {
-          logoutForm.submit();
+          await signOut();
           logout();
         }
         break;
