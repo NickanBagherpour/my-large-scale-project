@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledText = styled.p`
   font-size: 1.6rem;
+  color: ${(p) => p.theme.primary.main};
 `;
 export const ServiceCompletenessBox = styled.div`
   border: 1px solid ${(p) => p.theme.border._300};
@@ -14,5 +15,8 @@ export const ServiceCompletenessBox = styled.div`
   min-width: 35%;
 `;
 export const Percent = styled.p`
-  margin-right: auto;
+  color: ${(p) => p.theme.text.quaternary};
+  text-align: end;
+  width: 100%;
+  margin-top: -0.2rem;
 `;

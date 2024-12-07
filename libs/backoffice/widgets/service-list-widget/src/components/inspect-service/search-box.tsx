@@ -24,12 +24,12 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
   const [t] = useTr();
   const rule = createSchemaFieldRule(SearchService(t));
   const onFinish = () => {
-    changeContent('searching');
     loadingAnimationRef.current?.play();
+    changeContent('searching');
     //get data then stop animation
     setTimeout(() => {
       loadingAnimationRef.current?.pause();
-      changeContent('alreadyExists');
+      changeContent('addService');
     }, 3000);
   };
   return (
@@ -41,9 +41,12 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
             ref={inputRef}
             placeholder={t('placeholders.search_service_inspection')}
             prefix={<SearchInputIcon />}
+            allowClear
           />
         </S.FormItem>
-        <Button htmlType='submit'>{t('buttons.inspect')}</Button>
+        <Button htmlType='submit' onClick={onFinish}>
+          {t('buttons.inspect')}
+        </Button>
       </Flex>
     </Form>
   );

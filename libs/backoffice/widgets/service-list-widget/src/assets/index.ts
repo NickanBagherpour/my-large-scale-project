@@ -4,3 +4,4 @@ export { ReactComponent as SearchInputIcon } from './media/search-input-icon.svg
 export { ReactComponent as TickCircleIcon } from './media/tick-circle.svg';
 export { ReactComponent as PlusIcon } from './media/plus.svg';
 export { ReactComponent as TickCircleSecondary } from './media/tick-circle-secondary.svg';
+export { ReactComponent as ArrowLeft } from './media/arrow-left.svg';
