@@ -2,7 +2,7 @@ import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Progress } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
-import { TickCircleSecondary } from '../../assets';
+import { ArrowLeft, TickCircleSecondary } from '../../assets';
 import * as S from './complete-service.style';
 
 const CompleteService: React.FC = () => {
@@ -22,6 +22,8 @@ const CompleteService: React.FC = () => {
         href={ROUTES.BACKOFFICE.SERVICE_DETAILS}
         color='primary'
         style={{ width: 'fit-content', marginBottom: '2rem' }}
+        icon={<ArrowLeft />}
+        iconPosition='end'
       >
         {t('buttons.complete_service_info')}
       </Button>

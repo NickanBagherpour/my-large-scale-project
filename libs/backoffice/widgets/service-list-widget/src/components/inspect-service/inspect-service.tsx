@@ -38,8 +38,10 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
     },
   };
   const contentDictionary = {
-    alreadyExists: <ServiceExists form={form} inputRef={inputRef} changeContent={changeContent} />,
     addService: <ServiceCreationAllowed />,
+    alreadyExists: (
+      <ServiceExists form={form} inputRef={inputRef} changeContent={changeContent} loadingAnimationRef={lottieRef} />
+    ),
     completeService: <CompleteService />,
     searching: <LazyLottie lottieRef={lottieRef} height={'15rem'} width={'18rem'} {...defaultOptions} />,
   };
