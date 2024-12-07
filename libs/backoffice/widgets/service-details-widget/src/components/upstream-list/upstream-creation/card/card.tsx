@@ -4,7 +4,7 @@ import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
-import { Loading } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -34,6 +34,8 @@ export const Card = (props: CardProps) => {
               status={data.is_server_active ? 'active' : 'inactive'}
               wordToHighlight=''
               href='#'
+              isSetting={false}
+              onClick={() => alert(data.upstream_latin_name)}
             />
           ))}
         </S.CardContainer>
