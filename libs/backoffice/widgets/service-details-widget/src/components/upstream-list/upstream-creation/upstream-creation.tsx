@@ -7,7 +7,7 @@ import { Card } from './card/card';
 import { CardDetail } from './card-detail/card-detail';
 import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { useAppDispatch, useAppState } from '../../../context';
-import { useUpstreamCardDetailsQuery } from '../../../services/upstream-tab/upstream-card-detail';
+import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
 import * as S from './upstream-creation.style';
 
@@ -18,7 +18,7 @@ export const UpstreamCreation = () => {
 
   const [value, setValue] = useState(RADIO_GROUP_NAME.SELECT);
 
-  const { data, isFetching } = useUpstreamCardDetailsQuery();
+  const { data, isFetching } = useUpstreamCardsDetailsQuery();
 
   const onRadioChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);

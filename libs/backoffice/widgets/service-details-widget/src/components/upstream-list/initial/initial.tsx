@@ -15,9 +15,11 @@ import * as S from './initial.style';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 
 type InitialType = PageProps & {
-  //
+  data: any;
+  loading: boolean;
 };
 export const Initial: React.FC<InitialType> = (props) => {
+  const { data, loading } = props;
   //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
@@ -30,7 +32,6 @@ export const Initial: React.FC<InitialType> = (props) => {
   //constants
   // const tableData=state.upstream.table
   const tableData = [];
-  const isInitialized = state.upstreamTab.isInitialized;
 
   //Handlers
   const toggleModal = (modal: keyof Modal) => {
@@ -43,11 +44,12 @@ export const Initial: React.FC<InitialType> = (props) => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab, isInitialized: false });
     toggleModal('removeService');
   };
+
   //Render
   const infoBoxData: InfoItemType[] = [
     {
       key: 'upstream_tab.info_box_latinName',
-      value: 'SEJAM-UPSTREAM',
+      value: `${data?.content.latinName}`,
     },
     {
       key: 'upstream_tab.info_box_persianName',
