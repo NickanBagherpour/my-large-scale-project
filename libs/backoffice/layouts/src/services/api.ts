@@ -27,13 +27,18 @@ const Api = {
     return response.data;
   },
   getUserProfile: async () => {
-    let response;
-    if (ENV_CONSTANTS.IS_DEV) {
-      response = await mockify.getUserProfile();
-    } else {
-      response = await client.get(`${portalUrl}/profile`);
-    }
+    /*   let response;
+       if (ENV_CONSTANTS.IS_DEV) {
+         response = await mockify.getUserProfile();
+       } else {
+         response = await client.get(`/user-info`);
+       }
+
+       return response.data;*/
+
+    const response = await client.get(`api/auth/user-info`);
     return response.data;
+
   },
 };
 export default Api;
