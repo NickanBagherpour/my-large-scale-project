@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import * as S from './upstream-creation.style';
 import { Radio, RadioChangeEvent } from 'antd';
-import { useAppDispatch } from '../../../context';
+
 import { useTr } from '@oxygen/translation';
-import { RADIO_GROUP_NAME } from '../../../utils/consts';
+
 import { Card } from './card/card';
+import { CardDetail } from './card-detail/card-detail';
+import { RADIO_GROUP_NAME } from '../../../utils/consts';
+import { useAppDispatch, useAppState } from '../../../context';
 import { useUpstreamCardDetailsQuery } from '../../../services/upstream-tab/upstream-card-detail';
 
+import * as S from './upstream-creation.style';
+
 export const UpstreamCreation = () => {
-  const state = useState();
+  const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
@@ -30,6 +34,7 @@ export const UpstreamCreation = () => {
           {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={data?.content} loading={isFetching} /> : <h1>reza</h1>}
         </S.SelectContainer>
       </S.BorderBox>
+      {state.upstreamTab.cardId && <CardDetail />}
     </S.UpstreamCreationContainer>
   );
 };

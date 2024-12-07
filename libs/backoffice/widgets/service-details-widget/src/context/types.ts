@@ -15,6 +15,7 @@ export type PaginationType = {
 export type UpstreamData = {
   isInitialized: boolean;
   id: Nullable<number | string>;
+  cardId: Nullable<number | string>;
 };
 export type WidgetStateType = {
   upstreamTab: UpstreamData;

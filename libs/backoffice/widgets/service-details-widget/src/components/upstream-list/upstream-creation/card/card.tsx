@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
+import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
-import { Button, Loading } from '@oxygen/ui-kit';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
