@@ -37,8 +37,8 @@ export const Card = (props: CardProps) => {
               href='#'
               isSetting={false}
               clickedCard={clickedCard}
-              className={data.upstream_latin_name}
-              onClick={() => setClickedCard(data.upstream_latin_name)}
+              className={data.id}
+              onClick={() => setClickedCard(data.id)}
             />
           ))}
         </S.CardContainer>

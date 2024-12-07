@@ -6,7 +6,7 @@ import { MarkText } from '@oxygen/ui-kit';
 export const Container = styled(Link)<any>`
   border-radius: 1.8rem;
   padding: 1.4rem 1.6rem 2.4rem;
-  /* border: ${(p) => `1px solid ${p.theme.border._300}`}; */
+  border: ${(p) => `1px solid ${p.theme.border._300}`};
   background: ${(p) => p.theme.background.main};
   position: relative;
   text-decoration: none;
@@ -15,8 +15,7 @@ export const Container = styled(Link)<any>`
   display: block;
   isolation: isolate;
 
-  border: ${(p) =>
-    p.clickedCard === p.className ? `2px solid${p.theme.primary._400} ` : `1px solid ${p.theme.border._300}`};
+  border-color: ${(p) => (p.clickedCard === p.className ? p.theme.primary._400 : p.theme.border._300)};
 
   &:hover {
     border-color: ${(p) => p.theme.primary._400};
