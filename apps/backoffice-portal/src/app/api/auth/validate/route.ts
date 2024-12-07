@@ -34,7 +34,7 @@ export async function GET(req: Request) {
 
     // Token is valid if the response is OK
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during token validation:', error);
     return NextResponse.json(
       { success: false, error: 'Error during token validation', errorDetails: error.stack },

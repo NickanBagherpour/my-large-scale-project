@@ -46,6 +46,8 @@ export default {
       health_status: 'وضعیت سلامت',
       weight: 'وزن',
     },
+    upstream_selection: 'انتخاب آپ‌استریم',
+    create_upstream: 'ایجاد آپ‌استریم',
   },
   remove: 'حذف ',
 };
