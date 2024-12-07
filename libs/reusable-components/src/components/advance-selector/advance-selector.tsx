@@ -46,7 +46,7 @@ const AdvanceSelector = (props: Props) => {
         className={className}
         style={style}
         popupClassName={'popup'}
-        options={data?.map((item) => ({ value: item.title, item }))}
+        options={data?.content?.map((item) => ({ value: item.title, item }))}
         notFoundContent={t('message.empty')}
         maxLength={MAX_LENGTH}
         allowClear

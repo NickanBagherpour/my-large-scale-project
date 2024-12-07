@@ -17,7 +17,7 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 export default async function middleware(request: NextRequest) {
   const session = await auth();
 
-  const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH, ROUTES.CUSTOMER.REQUEST_REGISTRATION]; // Define public paths here
+  const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH]; // Define public paths here
 
   // Get the current pathname
   const { pathname } = request.nextUrl;

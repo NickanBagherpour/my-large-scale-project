@@ -127,7 +127,6 @@ const mockData: ClientService[] = [
 
 const Api = {
   getClientService: async (params: params) => {
-    // debugger;
     const { query, ...restParams } = params;
     // return new Promise<{ data: ClientService[] }>((res) => {
     //   const data = mockData.filter((item) => item.title.includes(params.query));
@@ -138,12 +137,10 @@ const Api = {
 
     console.log(client);
     return client.get(
-      /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?customer=123`,
+      /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
       // {},
       {
-        headers: {
-          // query: query,
-        },
+        headers: {},
       }
     );
   },
