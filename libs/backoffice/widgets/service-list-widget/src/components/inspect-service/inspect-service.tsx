@@ -42,7 +42,7 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
     alreadyExists: (
       <ServiceExists form={form} inputRef={inputRef} changeContent={changeContent} loadingAnimationRef={lottieRef} />
     ),
-    completeService: <CompleteService />,
+    completeService: <CompleteService id='111' />,
     searching: <LazyLottie lottieRef={lottieRef} height={'15rem'} width={'18rem'} {...defaultOptions} />,
   };
   return (

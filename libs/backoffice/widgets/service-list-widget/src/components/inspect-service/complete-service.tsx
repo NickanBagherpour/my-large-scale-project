@@ -5,7 +5,10 @@ import { ROUTES } from '@oxygen/utils';
 import { ArrowLeft, TickCircleSecondary } from '../../assets';
 import * as S from './complete-service.style';
 
-const CompleteService: React.FC = () => {
+type Props = {
+  id: string;
+};
+const CompleteService: React.FC<Props> = ({ id }) => {
   const [t] = useTr();
   return (
     <Flex vertical align='center' justify='center' gap={'2rem'}>
@@ -19,7 +22,7 @@ const CompleteService: React.FC = () => {
         <S.Percent>60%</S.Percent>
       </S.ServiceCompletenessBox>
       <Button
-        href={ROUTES.BACKOFFICE.SERVICE_DETAILS}
+        href={ROUTES.BACKOFFICE.SERVICE_DETAILS + `?id=${id}`}
         color='primary'
         style={{ width: 'fit-content', marginBottom: '2rem' }}
         icon={<ArrowLeft />}
