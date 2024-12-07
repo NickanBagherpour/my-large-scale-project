@@ -15,8 +15,8 @@ import * as S from './initial.style';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 
 type InitialType = PageProps & {
-  data: any;
-  loading: boolean;
+  data?: any;
+  loading?: boolean;
 };
 export const Initial: React.FC<InitialType> = (props) => {
   const { data, loading } = props;
