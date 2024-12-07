@@ -69,17 +69,19 @@ type UpstreamCardProps = {
   wordToHighlight: string;
   isSetting?: boolean;
   onClick?: () => void;
+  className?: string;
+  clickedCard?: string;
 };
 
 function UpstreamCard(props: UpstreamCardProps) {
-  const { onClick, name, href, activeServersCount, wordToHighlight, isSetting = true } = props;
+  const { onClick, clickedCard, className, name, href, activeServersCount, wordToHighlight, isSetting = true } = props;
   const [t] = useTr();
   const theme = useTheme();
 
   const isUpstream = isUpstreamCard(props);
 
   return (
-    <S.Container href={href} onClick={onClick}>
+    <S.Container href={href} onClick={onClick} className={className} clickedCard={clickedCard}>
       <S.Header $isUpstream={isUpstream}>
         <S.Title
           text={name}

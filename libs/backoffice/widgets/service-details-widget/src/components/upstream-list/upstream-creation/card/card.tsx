@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
@@ -19,6 +19,7 @@ export type CardProps = PageProps & {
 };
 export const Card = (props: CardProps) => {
   const { cardData, loading } = props;
+  const [clickedCard, setClickedCard] = useState('');
 
   return (
     <>
@@ -35,7 +36,9 @@ export const Card = (props: CardProps) => {
               wordToHighlight=''
               href='#'
               isSetting={false}
-              onClick={() => alert(data.upstream_latin_name)}
+              clickedCard={clickedCard}
+              className={data.upstream_latin_name}
+              onClick={() => setClickedCard(data.upstream_latin_name)}
             />
           ))}
         </S.CardContainer>
