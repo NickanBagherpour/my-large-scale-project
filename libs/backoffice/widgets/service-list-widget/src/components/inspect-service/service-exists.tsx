@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { MutableRefObject, RefObject } from 'react';
 import { Flex, FormInstance, InputRef } from 'antd';
 import { Text } from 'libs/ui-kit/src/typography/typography.style';
 
@@ -8,6 +8,7 @@ import { Button } from '@oxygen/ui-kit';
 import { BoxSearch, ButtonLoading } from '../../assets';
 import { ContentType } from './inspect-service';
 import * as S from './service-exists.style';
+import { LottieRefCurrentProps } from 'lottie-react';
 
 type Props = {
   form: FormInstance<{
@@ -15,14 +16,16 @@ type Props = {
   }>;
   changeContent: (c: ContentType) => void;
   inputRef: RefObject<InputRef>;
+  loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
 };
 
-const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef }) => {
+const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, loadingAnimationRef }) => {
   const [t] = useTr();
 
   const inspectAnother = () => {
     form.resetFields();
     changeContent('searching');
+    loadingAnimationRef.current?.play();
     inputRef.current?.focus();
   };
   return (
