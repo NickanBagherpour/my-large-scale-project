@@ -17,16 +17,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await auth();
 
   return (
-    <html lang="fa" className={iransans}>
-    <body>
-    <AntStyleProvider>
-      <StyledComponentsRegistry>
-        <SessionProvider session={session}>
-          <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
-        </SessionProvider>
-      </StyledComponentsRegistry>
-    </AntStyleProvider>
-    </body>
+    <html lang='fa' className={iransans}>
+      <body>
+        <AntStyleProvider>
+          <StyledComponentsRegistry>
+            <SessionProvider session={session}>
+              <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
+            </SessionProvider>
+          </StyledComponentsRegistry>
+        </AntStyleProvider>
+      </body>
     </html>
   );
 }

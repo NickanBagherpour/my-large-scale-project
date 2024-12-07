@@ -4,7 +4,8 @@ import { CookieKey, LocalStorageKey } from '@oxygen/types';
 import {
   clearAllCookiesExceptForKey,
   clearLocalStorageExceptForKey,
-  decrypt, encrypt,
+  decrypt,
+  encrypt,
   getCookie,
   ROUTES,
 } from '@oxygen/utils';
@@ -32,8 +33,6 @@ const client = axios.create({
 
 client.interceptors.request.use(async (config) => {
   const sessionId = decrypt(getCookie(CookieKey.SESSION_ID));
-
-
 
   /* const session = await auth();
 
@@ -75,7 +74,7 @@ client.interceptors.response.use(
       }*/
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default client;

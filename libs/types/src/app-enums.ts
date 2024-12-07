@@ -19,4 +19,3 @@ export enum UserType {
   OPERATION_OFFICE_USER = 'OPERATION_OFFICE_USER',
   NONE = 'NONE',
 }
-

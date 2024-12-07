@@ -66,7 +66,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }: any) {
-
       // session.user = { ...session.user, name: token.name }; // Only include name or other non-sensitive info
       session.user.accessToken = encrypt(token.accessToken);
       session.user.name = token.username;

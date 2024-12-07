@@ -4,8 +4,8 @@ import { headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
 
 export async function handleSignOut() {
-  const host = headers().get('host');  // Get the current host (domain)
-  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' :*/ 'http';  // Use HTTPS in production
+  const host = headers().get('host'); // Get the current host (domain)
+  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' :*/ 'http'; // Use HTTPS in production
   const baseUrl = `${protocol}://${host}`;
 
   // Assuming the session ticket is stored in a cookie or comes from some other source
@@ -22,7 +22,7 @@ export async function handleSignOut() {
   const response = await fetch(signOutUrl, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',  // Optional, depending on the API's requirements
+      'Content-Type': 'application/json', // Optional, depending on the API's requirements
     },
   });
 

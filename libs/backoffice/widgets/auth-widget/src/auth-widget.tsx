@@ -17,7 +17,7 @@ const AuthWidget: React.FC<PageProps> = (props) => {
   return (
     <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps}/>
+        <App parentProps={props.parentProps} />
       </AppProvider>
     </WidgetWrapper>
   );

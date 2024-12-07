@@ -41,4 +41,21 @@ export default {
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
   next_level: 'مرحله بعد',
+  en_name: 'نام لاتین',
+  desc: 'توضیحات',
+  scope_en_name: 'نام لاتین اسکوپ',
+  scope_fa_name: 'نام فارسی اسکوپ',
+  inspect_another: 'استعلام سرویس دیگر',
+  allowed_Creation: 'مجاز به ثبت سرویس می‌باشید. سرویس با این مشخصات در سامانه ثبت نشده است.',
+  complete_service_info:
+    'مجاز به ثبت سرویس می‌باشید. سرویس مورد نظر تکمیل نشده است. لطفا نسبت به تکمیل فرایند ثبت سرویس اقدام نمایید. ',
+  already_exists:
+    'مجاز به ثبت سرویس با این مشخصات نمی‌باشید. سرویس مورد نظر قبلاً با مشخصات زیر در سامانه ثبت شده است. ',
+  placeholders: {
+    search_service_inspection: 'جستجو بر‌اساس نام انگلیسی سرویس',
+  },
+  buttons: {
+    inspect: 'استعلام سرویس',
+    complete_service_info: 'تکمیل اطلاعات سرویس',
+  },
 };

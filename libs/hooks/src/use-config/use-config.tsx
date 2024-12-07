@@ -39,7 +39,7 @@ const ConfigProvider = (props: ConfigProviderProps) => {
       setCookieConfig(newConfig);
       setCookie(CookieKey.CONFIG, JSON.stringify(newConfig), 5 * 365 * 24 * 60); //5 years
     },
-    [setCookieConfig],
+    [setCookieConfig]
   );
 
   const value = useMemo(() => {

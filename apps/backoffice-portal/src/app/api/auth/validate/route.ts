@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   if (!token) {
     return NextResponse.json(
       { success: false, error: 'Token is missing' },
-      { status: 401 }, // Unauthorized if no token is provided
+      { status: 401 } // Unauthorized if no token is provided
     );
   }
 
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
       const errorMessage = errorData?.message || 'Unknown error';
       return NextResponse.json(
         { success: false, error: errorMessage, errorDetails: errorData },
-        { status: response.status },
+        { status: response.status }
       );
     }
 
@@ -38,7 +38,7 @@ export async function GET(req: Request) {
     console.error('Error during token validation:', error);
     return NextResponse.json(
       { success: false, error: 'Error during token validation', errorDetails: error.stack },
-      { status: 500 }, // Internal server error
+      { status: 500 } // Internal server error
     );
   }
 }

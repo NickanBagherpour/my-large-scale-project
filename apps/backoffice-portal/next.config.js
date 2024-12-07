@@ -7,17 +7,27 @@ const base_url = process.env.API_BASE_URL;
 const auth_prefix = process.env.NEXT_PUBLIC_AUTH_PREFIX || 'api2';
 const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
 
-const rewritesConfig = [{
-  source: `/${auth_prefix}/:path*`, destination: `/${auth_prefix}/:path*`,
-}, {
-  source: `/${portal_prefix}/:path*`, destination: `${base_url}/${portal_prefix}/:path*`,
-}];
+const rewritesConfig = [
+  {
+    source: `/${auth_prefix}/:path*`,
+    destination: `/${auth_prefix}/:path*`,
+  },
+  {
+    source: `/${portal_prefix}/:path*`,
+    destination: `${base_url}/${portal_prefix}/:path*`,
+  },
+];
 
-const securityHeaders = [{
-  key: 'X-Frame-Options', value: 'SAMEORIGIN',
-}, {
-  key: 'X-Content-Type-Options', value: 'nosniff',
-}];
+const securityHeaders = [
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+];
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -38,10 +48,13 @@ const nextConfig = {
     return rewritesConfig;
   },
   headers: async () => {
-    return [{
-      // Apply these headers to all routes in your application.
-      source: '/:path*', headers: securityHeaders,
-    }];
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ];
   },
   compiler: {
     // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
@@ -49,7 +62,9 @@ const nextConfig = {
   },
 };
 
-const plugins = [// Add more Next.js plugins to this list if needed.
-  withNx];
+const plugins = [
+  // Add more Next.js plugins to this list if needed.
+  withNx,
+];
 
 module.exports = composePlugins(...plugins)(nextConfig);

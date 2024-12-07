@@ -31,7 +31,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
   const menuObject = [
     {
       labelTitle: t('appbar.change_language'),
-      secondItem: <LocaleSwitcher type="textPrimary" />,
+      secondItem: <LocaleSwitcher type='textPrimary' />,
       key: MenuItemKey.ChangeLanguage,
     },
     { labelTitle: t('appbar.background_color'), secondItem: <ThemeSwitch />, key: MenuItemKey.BackgroundColor },
@@ -48,7 +48,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
     .map((item, index) => {
       return {
         label: (
-          <div className="multiple-menu">
+          <div className='multiple-menu'>
             <span>{item.labelTitle}</span>
             {item.secondItem && <span className={'second-item'}>{item.secondItem}</span>}
           </div>
@@ -104,11 +104,11 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       }}
     >
       <Button
-        type="text"
-        shape="circle"
+        type='text'
+        shape='circle'
         icon={
           <span className={'appbar-menu-icon'}>
-            <i className="icon-three-dots-vertical" />
+            <i className='icon-three-dots-vertical' />
           </span>
         }
       />

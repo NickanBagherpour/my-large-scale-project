@@ -11,7 +11,7 @@ export async function getSsoUrlAction(): Promise<string> {
   }
 
   const ssoUrl = `${baseUrl}/identity/oauth2/auth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&state=xyz-_123&sso=1&redirect_uri=${encodeURIComponent(
-    redirectUri,
+    redirectUri
   )}`;
 
   return ssoUrl;

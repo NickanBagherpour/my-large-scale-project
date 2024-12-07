@@ -1,5 +1,5 @@
-import React from 'react';
-import { InputProps as AntInputProps } from 'antd';
+import React, { forwardRef, ForwardRefExoticComponent } from 'react';
+import { InputProps as AntInputProps, InputRef } from 'antd';
 
 import { InputMoney } from './input-money';
 import * as S from './input.style';
@@ -14,7 +14,16 @@ const patternMap = {
   letter: '[a-zA-Zآ-ی ]',
 };
 
-export const Input = (props: InputProps) => {
+type InputComponent = ForwardRefExoticComponent<InputProps & { ref?: React.Ref<InputRef> }> & {
+  Password: typeof S.PasswordWrapper;
+  TextArea: typeof S.TextAreaWrapper;
+  Search: typeof S.SearchWrapper;
+  Group: typeof S.GroupWrapper;
+  Money: typeof InputMoney;
+  OTP: typeof S.OTPWrapper;
+};
+
+export const Input = forwardRef<InputRef, InputProps>((props: InputProps, ref) => {
   const { children, allow = 'all', size = 'large', ...rest } = props;
 
   function getPattern() {
@@ -89,6 +98,7 @@ export const Input = (props: InputProps) => {
 
   return (
     <S.InputWrapper
+      ref={ref}
       onKeyPress={allow !== 'all' ? handleKeyPress : undefined}
       onPaste={allow !== 'all' ? handlePaste : undefined}
       // onBlur={allow !== 'all' ? handleBlur : undefined}
@@ -98,7 +108,7 @@ export const Input = (props: InputProps) => {
       {children}
     </S.InputWrapper>
   );
-};
+}) as InputComponent;
 
 Input.Password = S.PasswordWrapper;
 

@@ -26,7 +26,7 @@ async function validateToken(token: string | undefined): Promise<boolean> {
     const response = await fetch('/api/auth/validate', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${decrypt(token)}`,
+        Authorization: `Bearer ${decrypt(token)}`,
       },
     });
 
@@ -51,7 +51,7 @@ export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the user is trying to access a protected route
-  const isProtectedRoute = !publicPaths.some(path => pathname === path);
+  const isProtectedRoute = !publicPaths.some((path) => pathname === path);
 
   // If the request is for an API route
   if (pathname.startsWith('/api/')) {
@@ -87,7 +87,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
-  if (token && publicPaths.some(path => pathname === path)) {
+  if (token && publicPaths.some((path) => pathname === path)) {
     return NextResponse.redirect(new URL(ROUTES.BACKOFFICE.HOME, request.url));
   }
 

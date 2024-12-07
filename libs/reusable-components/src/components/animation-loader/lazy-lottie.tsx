@@ -15,7 +15,7 @@ interface LottieProps {
 export default function LazyLottie({ id, ref, animationData, ...props }: LottieProps & LottieComponentProps) {
   return (
     <S.Continer style={{ width: props.width, height: props.height }}>
-      <LazyLottieComponent animationData={animationData} />
+      <LazyLottieComponent animationData={animationData} {...props} />
     </S.Continer>
   );
 }
