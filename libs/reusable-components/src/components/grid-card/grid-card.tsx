@@ -26,10 +26,11 @@ type ClientCardProps = {
   date: string;
   href: string;
   wordToHighlight: string;
+  className?: string;
 };
 
 function ClientCard(props: ClientCardProps) {
-  const { date, name, englishName, status, href, wordToHighlight } = props;
+  const { date, name, englishName, status, href, wordToHighlight, className = 'clientCard' } = props;
   const [t] = useTr();
   const theme = useTheme();
 
@@ -39,7 +40,7 @@ function ClientCard(props: ClientCardProps) {
   };
 
   return (
-    <S.Container href={href}>
+    <S.Container href={href} className={className}>
       <S.Header>
         <Tooltip title={name}>
           <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
@@ -74,7 +75,16 @@ type UpstreamCardProps = {
 };
 
 function UpstreamCard(props: UpstreamCardProps) {
-  const { onClick, clickedCard, className, name, href, activeServersCount, wordToHighlight, isSetting = true } = props;
+  const {
+    onClick,
+    clickedCard,
+    className = 'upstreamCard',
+    name,
+    href,
+    activeServersCount,
+    wordToHighlight,
+    isSetting = true,
+  } = props;
   const [t] = useTr();
   const theme = useTheme();
 
