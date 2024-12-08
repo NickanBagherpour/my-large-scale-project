@@ -53,10 +53,10 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const handleLogin = async () => {
     setLoading(true);
 
-  /*  if (ENV_CONSTANTS.IS_DEV) {
+    if (ENV_CONSTANTS.IS_DEV) {
       setCode('develop');
       return;
-    }*/
+    }
 
     try {
       const ssoUrl = await getSsoUrlAction(); // Call the server action to get the SSO URL
