@@ -1,5 +1,5 @@
-import { Initial } from '../../active-select/active-select';
-import { useUpstreamCardDetailsQuery } from '../../../../services/upstream-tab/upstream-card-detail';
+import { Initial } from '../../../active-select/active-select';
+import { useUpstreamCardDetailsQuery } from '../../../../../services/upstream-tab/upstream-card-detail';
 
 import * as S from './card-detail.style';
 

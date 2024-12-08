@@ -3,7 +3,7 @@ import { PageProps } from '@oxygen/types';
 
 import { ActiveSelect } from './active-select/active-select';
 import { useAppDispatch, useAppState } from '../../context';
-import { UpstreamCreation } from './upstream-creation/upstream-creation';
+import { UpstreamSelection } from './fallback-select/upstream-selection';
 
 type UpstreamListType = PageProps & {
   //
@@ -17,5 +17,5 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
   //constants
   const isInitialized = state.upstreamTab.isInitialized;
 
-  return <>{isInitialized ? <ActiveSelect /> : <UpstreamCreation />}</>;
+  return <>{isInitialized ? <ActiveSelect /> : <UpstreamSelection />}</>;
 };

@@ -3,15 +3,15 @@ import { Radio, RadioChangeEvent } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 
-import { Card } from './card/card';
-import { CardDetail } from './card-detail/card-detail';
+import { Card } from './selection/card/card';
+import { CardDetail } from './selection/card-detail/card-detail';
 import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { useAppDispatch, useAppState } from '../../../context';
 import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
-import * as S from './upstream-creation.style';
+import * as S from './upstream-selection.style';
 
-export const UpstreamCreation = () => {
+export const UpstreamSelection = () => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
