@@ -50,4 +50,5 @@ export default {
     create_upstream: 'ایجاد آپ‌استریم',
   },
   remove: 'حذف ',
+  save_changes: 'ذخیره تغییرات',
 };

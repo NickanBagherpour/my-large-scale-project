@@ -3,6 +3,9 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { FiltersType, PaginationType, UpstreamData, WidgetActionType, WidgetDispatchType } from './types';
 
+export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
+}
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }

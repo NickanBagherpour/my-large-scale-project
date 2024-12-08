@@ -33,6 +33,9 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
+      type: 'UPDATE_UPSTREAM_TAB_CREATION';
+    }
+  | {
       type: 'UPDATE_UPSTREAM';
       payload: UpstreamData;
     }

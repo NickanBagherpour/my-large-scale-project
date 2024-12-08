@@ -10,7 +10,7 @@ import ScopeList from '../scope-list/scope-list';
 import { ReturnButton } from '@oxygen/reusable-components';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { useAppDispatch, useAppState } from '../../context';
+import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
 import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
@@ -38,11 +38,20 @@ const App: React.FC<AppProps> = (props) => {
   if (!id) {
     redirect('/not-found');
   }
-
+  const handleUpstreamCreation = () => {
+    updateUpstreamTabCreationSubmitAction(dispatch);
+  };
   const footerButton = (
-    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-      {t('button.return')}
-    </ReturnButton>
+    <>
+      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        {t('button.return')}
+      </ReturnButton>
+      {!state.upstreamTab.isInitialized && (
+        <Button disabled={!state.upstreamTab.cardId} onClick={handleUpstreamCreation}>
+          {t('save_changes')}
+        </Button>
+      )}
+    </>
   );
 
   const items: TabsProps['items'] = [

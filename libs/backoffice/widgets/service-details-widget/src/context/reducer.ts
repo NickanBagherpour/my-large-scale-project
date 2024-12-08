@@ -35,6 +35,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.upstreamTab = { ...state.upstreamTab, ...action.payload };
       return;
     }
+    case 'UPDATE_UPSTREAM_TAB_CREATION': {
+      return void ((state.upstreamTab.isInitialized = true),
+      (state.upstreamTab.id = state.upstreamTab.cardId),
+      (state.upstreamTab.cardId = undefined));
+    }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };
       return;
