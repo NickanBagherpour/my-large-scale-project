@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { Initial } from './initial/initial';
+import { ActiveSelect } from './active-select/active-select';
 import { useAppDispatch, useAppState } from '../../context';
 import { UpstreamCreation } from './upstream-creation/upstream-creation';
 
@@ -17,5 +17,5 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
   //constants
   const isInitialized = state.upstreamTab.isInitialized;
 
-  return <>{isInitialized ? <Initial /> : <UpstreamCreation />}</>;
+  return <>{isInitialized ? <ActiveSelect /> : <UpstreamCreation />}</>;
 };

@@ -11,14 +11,14 @@ import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../cont
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 import { Modal } from '../../scope-list/scope-list';
 
-import * as S from './initial.style';
+import * as S from './active-select.style';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 
-type InitialType = PageProps & {
+type ActiveSelectType = PageProps & {
   data?: any;
   loading?: boolean;
 };
-export const Initial: React.FC<InitialType> = (props) => {
+export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const { data, loading } = props;
   //Hooks
   const state = useAppState();

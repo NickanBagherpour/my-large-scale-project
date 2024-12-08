@@ -34,7 +34,7 @@ export const UpstreamCreation = () => {
           {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={data?.content} loading={isFetching} /> : <h1>reza</h1>}
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.cardId && <CardDetail />}
+      {state.upstreamTab.cardId && value === RADIO_GROUP_NAME.SELECT && <CardDetail />}
     </S.UpstreamCreationContainer>
   );
 };
