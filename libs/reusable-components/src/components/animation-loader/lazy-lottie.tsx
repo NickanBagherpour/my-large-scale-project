@@ -1,12 +1,13 @@
-import { type LottieComponentProps } from 'lottie-react';
-import dynamic from 'next/dynamic';
-import * as S from './lazy-lottie.style';
 import { Skeleton } from 'antd';
+import { type LottieComponentProps } from 'lottie-react';
+import { JSXElementConstructor, LazyExoticComponent, ReactElement, Suspense, lazy } from 'react';
 
-const LazyLottieComponent = dynamic(() => import('lottie-react'), {
-  ssr: false,
-  loading: () => <Skeleton.Node active={true} />,
-});
+let LazyLottieComponent: LazyExoticComponent<
+  (props: LottieComponentProps) => ReactElement<any, string | JSXElementConstructor<any>>
+>;
+if (typeof document !== 'undefined') {
+  LazyLottieComponent = lazy(() => import('lottie-react'));
+}
 
 interface LottieProps {
   id?: string;
@@ -14,8 +15,10 @@ interface LottieProps {
 
 export default function LazyLottie({ id, ref, animationData, ...props }: LottieProps & LottieComponentProps) {
   return (
-    <S.Continer style={{ width: props.width, height: props.height }}>
+    <Suspense
+      fallback={<Skeleton.Node active={true} style={{ height: props.height, width: props.width, marginTop: '8rem' }} />}
+    >
       <LazyLottieComponent animationData={animationData} {...props} />
-    </S.Continer>
+    </Suspense>
   );
 }

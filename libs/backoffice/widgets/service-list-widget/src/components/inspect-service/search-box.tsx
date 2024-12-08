@@ -1,13 +1,13 @@
 import { LottieRefCurrentProps } from 'lottie-react';
 import { Flex, Form, FormInstance, InputRef } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { MutableRefObject, RefObject, useState } from 'react';
 
 import { Button, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import { SearchService } from '../../types';
 import { ContentType } from './inspect-service';
-import { MutableRefObject, RefObject } from 'react';
 import { Search_SERVICE_NAMES } from '../../utils/consts';
 import { SearchInputIcon } from '../../assets';
 import * as S from './search-box.style';
@@ -19,17 +19,21 @@ type Props = {
   changeContent: (c: ContentType) => void;
   loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
   inputRef: RefObject<InputRef>;
+  isLoading?: boolean;
 };
 const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, inputRef }) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(SearchService(t));
+  const [loading, setLoading] = useState(false); //later should be changed with a prop from api call
   const onFinish = () => {
     loadingAnimationRef.current?.play();
+    setLoading(true);
     changeContent('searching');
     //get data then stop animation
     setTimeout(() => {
       loadingAnimationRef.current?.pause();
       changeContent('addService');
+      setLoading(false);
     }, 3000);
   };
   return (
@@ -44,7 +48,7 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
             allowClear
           />
         </S.FormItem>
-        <Button htmlType='submit' onClick={onFinish}>
+        <Button htmlType='submit' onClick={onFinish} disabled={loading}>
           {t('buttons.inspect')}
         </Button>
       </Flex>
