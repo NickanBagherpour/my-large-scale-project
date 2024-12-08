@@ -42,7 +42,7 @@ export async function GET(req) {
       data: data, // Response data for successful request
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during user info fetch:', error);
     return createResponse({
       success: false,
