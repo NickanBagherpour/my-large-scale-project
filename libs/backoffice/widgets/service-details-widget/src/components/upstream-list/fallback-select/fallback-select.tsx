@@ -9,9 +9,9 @@ import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { useAppDispatch, useAppState } from '../../../context';
 import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
-import * as S from './upstream-selection.style';
+import * as S from './fallback-select.style';
 
-export const UpstreamSelection = () => {
+export const FallbackSelect = () => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
