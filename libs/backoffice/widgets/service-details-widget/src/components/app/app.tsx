@@ -125,8 +125,8 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer footer={footerButton}>
-      <Container title={t('widget_name')} style={{ minHeight: '100%' }}>
+    <S.AppContainer>
+      <Container title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
         {/* change the defaultActiveKey to 1  */}
         <Tabs defaultActiveKey='3' items={items} style={{ paddingTop: '3rem' }} />
       </Container>
