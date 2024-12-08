@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
-import { Loading } from '@oxygen/ui-kit';
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../context';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -20,6 +21,15 @@ export type CardProps = PageProps & {
 export const Card = (props: CardProps) => {
   const { cardData, loading } = props;
 
+  const dispatch = useAppDispatch();
+  const state = useAppState();
+
+  const [clickedCard, setClickedCard] = useState('');
+
+  const handleClick = (data) => {
+    setClickedCard(data.id);
+    updateUpstreamAction(dispatch, { ...state.upstreamTab, cardId: data.id });
+  };
   return (
     <>
       {loading ? (
@@ -34,6 +44,10 @@ export const Card = (props: CardProps) => {
               status={data.is_server_active ? 'active' : 'inactive'}
               wordToHighlight=''
               href='#'
+              isSetting={false}
+              clickedCard={clickedCard}
+              className={data.id}
+              onClick={() => handleClick(data)}
             />
           ))}
         </S.CardContainer>

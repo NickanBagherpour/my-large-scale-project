@@ -5,10 +5,7 @@ export async function GET(req) {
   const token = req.headers.get('authorization');
 
   if (!token || !token.startsWith('Bearer ')) {
-    return NextResponse.json(
-      { success: false, error: 'Authorization token is missing or invalid' },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: 'Authorization token is missing or invalid' }, { status: 400 });
   }
 
   const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity-user-manager/userInfo`;
@@ -17,7 +14,7 @@ export async function GET(req) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': token, // Passing the token in the authorization header
+        Authorization: token, // Passing the token in the authorization header
       },
     });
 
@@ -31,13 +28,8 @@ export async function GET(req) {
       success: true,
       userInfo: data,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during user info fetch:', error);
-    return NextResponse.json(
-      { success: false, error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
-
-
