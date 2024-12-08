@@ -6,8 +6,18 @@ export const NameInputContainer = styled.div`
   & .ant-form {
     width: 100%;
   }
+  & .ant-form-item {
+    margin-bottom: 0;
+  }
 `;
-export const NameInputLabel = styled.span``;
+
+export const NameInputLabel = styled.span`
+  padding: 0.2rem 1.6rem 0 1.6rem;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;
+`;
 export const Input = styled(kitInput)`
   width: 100%;
 `;

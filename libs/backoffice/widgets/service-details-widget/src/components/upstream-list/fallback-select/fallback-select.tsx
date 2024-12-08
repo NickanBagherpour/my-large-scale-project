@@ -11,6 +11,7 @@ import { CardDetail } from './selection/card-detail/card-detail';
 import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
 import * as S from './fallback-select.style';
+import { DataTable } from './creation/data-table/data-table';
 
 export const FallbackSelect = () => {
   const state = useAppState();
@@ -36,6 +37,7 @@ export const FallbackSelect = () => {
         </S.SelectContainer>
       </S.BorderBox>
       {state.upstreamTab.cardId && value === RADIO_GROUP_NAME.SELECT && <CardDetail />}
+      {value === RADIO_GROUP_NAME.CREATE && <DataTable />}
     </S.UpstreamCreationContainer>
   );
 };

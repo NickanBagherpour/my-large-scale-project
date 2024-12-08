@@ -20,11 +20,11 @@ export const NameInputs: React.FC<NameInputsProps> = (props) => {
       <Form form={form} name='advanced_search' onFinish={onFinish}>
         <SearchItemsContainer style={{ '--grid-column-count': '2' } as React.CSSProperties}>
           <Form.Item>
-            <S.NameInputLabel>{t('form.latin_name_scope')}</S.NameInputLabel>
+            <S.NameInputLabel>{t('english_name')}</S.NameInputLabel>
             <S.Input />
           </Form.Item>
           <Form.Item>
-            <S.NameInputLabel>{t('form.persian_name_scope')}</S.NameInputLabel>
+            <S.NameInputLabel>{t('persian_name')}</S.NameInputLabel>
             <S.Input />
           </Form.Item>
         </SearchItemsContainer>

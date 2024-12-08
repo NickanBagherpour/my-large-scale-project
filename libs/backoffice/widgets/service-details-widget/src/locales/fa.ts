@@ -51,4 +51,6 @@ export default {
   },
   remove: 'حذف ',
   save_changes: 'ذخیره تغییرات',
+  english_name: 'نام انگلیسی',
+  persian_name: 'نام فارسی',
 };
