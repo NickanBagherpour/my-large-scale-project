@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
 import { IConfig, ThemeID } from '@oxygen/types';
@@ -10,8 +11,7 @@ import { useAsync, useAuth } from '@oxygen/hooks';
 import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
-import { useTheme } from 'styled-components';
-import { Api } from '../../services';
+import { useGetUserInfo } from '../../services/use-get-user-info';
 
 import * as S from './appbar.style';
 
@@ -31,25 +31,14 @@ const Appbar = (props: AppBarProps) => {
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
   const theme = useTheme();
 
-  // console.log('test', 'user', user);
+  const { data: userData, isLoading, isError, error } = useGetUserInfo();
 
   useEffect(() => {
-    // console.log('test12', 'user', user);
-
-    if (!user) {
-      fetchUserProfile();
+    // If there’s no user info, set the fetched user profile
+    if (userData) {
+      setUser(userData.userInfo?.userInfo);
     }
-  }, []);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await executeUserProfile(async () => await Api.getUserProfile());
-      setUser(response);
-      return response;
-    } catch (error) {
-      return null;
-    }
-  };
+  }, [userData, setUser]);
 
   const getMobileAppbar = () => {
     return (
@@ -61,7 +50,7 @@ const Appbar = (props: AppBarProps) => {
           </Button>
         )}
         <span className={'appbar-title-logo-date'}>
-          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+          <Link href={ROUTES.BACKOFFICE.DASHBOARD}>
             {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
@@ -70,7 +59,7 @@ const Appbar = (props: AppBarProps) => {
           userInfo={user}
           onLogout={onLogout}
           isMobileOrTablet={isMobileOrTablet}
-          // loading={stateUserProfile.loading}
+          loading={isLoading}
         />
       </>
     );
@@ -80,7 +69,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+          <Link href={ROUTES.BACKOFFICE.DASHBOARD}>
             {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
           </Link>
         </span>
@@ -93,7 +82,7 @@ const Appbar = (props: AppBarProps) => {
               userInfo={user}
               onLogout={onLogout}
               isMobileOrTablet={isMobileOrTablet}
-              // loading={stateUserProfile.loading}
+              loading={isLoading}
             />
             <S.Divider />
           </>

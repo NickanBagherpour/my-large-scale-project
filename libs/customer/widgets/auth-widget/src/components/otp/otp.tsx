@@ -14,7 +14,7 @@ import { TIMER_INITIAL_SECONDS } from '../../utils/consts';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
-import { useVerifyRegisterMutation, useVerifyLoginMutation } from '../../services';
+import { useVerifyLoginMutation, useVerifyRegisterMutation } from '../../services';
 
 import { authFormSchema } from '../../types';
 
@@ -66,10 +66,10 @@ export const OTP: React.FC<FormContainerProps> = () => {
       } else {
         data = await mutateAsyncVerifyLogin(params);
       }
-      console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb', data);
+      // console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb', data);
       if (!data) return;
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
-      console.log('ccccccccccccccccccccccccc', user);
+      // console.log('ccccccccccccccccccccccccc', user);
       await signIn('credentials', { ...user, redirect: false });
       await login(user, ROUTES.CUSTOMER.REQUEST_REGISTRATION);
     } catch (e) {
@@ -103,9 +103,14 @@ export const OTP: React.FC<FormContainerProps> = () => {
     const loading = isLogin ? loginLoading : registerLoading;
 
     return (
-      <S.Button loading={loading} onClick={handleSubmit} color='primary'>
-        {isLogin ? t('enter') : t('submit')}
-      </S.Button>
+      <>
+        <S.Button loading={loading} onClick={handleSubmit} color='primary'>
+          {isLogin ? t('enter') : t('submit')}
+        </S.Button>
+        <S.Button loading={loading} onClick={handleReturn} color='primary' variant={'outlined'}>
+          {t('button.return')}
+        </S.Button>
+      </>
     );
   };
 

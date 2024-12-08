@@ -8,7 +8,7 @@ import { handleSSO } from '../../server-actions/handle-sso.action';
 
 import * as S from './app.style';
 import { useAuth } from '@oxygen/hooks';
-import { ROUTES } from '@oxygen/utils';
+import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 import { useTranslation } from 'react-i18next';
 
 type AuthWidgetType = PageProps & {
@@ -52,6 +52,11 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
 
   const handleLogin = async () => {
     setLoading(true);
+
+    /*  if (ENV_CONSTANTS.IS_DEV) {
+      setCode('develop');
+      return;
+    }*/
 
     try {
       const ssoUrl = await getSsoUrlAction(); // Call the server action to get the SSO URL

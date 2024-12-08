@@ -41,6 +41,7 @@ import * as ServiceCreation from './service-creation.mock';
 import * as CustomerMenuMock from './customer-menu.mock';
 import * as RequestData from './request-data.mock';
 import * as getScopeChangeHistory from './scope-change-history.mock';
+import * as UpstreamCardDetails from './upstream-card-details.mock';
 
 const Mockify = {
   ...UserMock,
@@ -86,6 +87,7 @@ const Mockify = {
   ...CustomerMenuMock,
   ...RequestData,
   ...getScopeChangeHistory,
+  ...UpstreamCardDetails,
 };
 
 export default Mockify;

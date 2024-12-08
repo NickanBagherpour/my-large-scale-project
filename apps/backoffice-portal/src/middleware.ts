@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-import { decrypt, encrypt, ROUTES } from '@oxygen/utils';
+import { decrypt, ROUTES } from '@oxygen/utils';
 import { cookies } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
 

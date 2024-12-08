@@ -35,4 +35,7 @@ export default {
     cancel: 'انصراف',
     apply: 'ذخیره تغییرات',
   },
+  alert: {
+    edit_success: 'ویرایش اطلاعات کلی با موفقیت اعمال شد.',
+  },
 };

@@ -1,0 +1,54 @@
+import { LottieRefCurrentProps } from 'lottie-react';
+import { Flex, Form, FormInstance, InputRef } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
+
+import { Button, Input } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+
+import { SearchService } from '../../types';
+import { ContentType } from './inspect-service';
+import { MutableRefObject, RefObject } from 'react';
+import { Search_SERVICE_NAMES } from '../../utils/consts';
+import { SearchInputIcon } from '../../assets';
+import * as S from './search-box.style';
+
+type Props = {
+  form: FormInstance<{
+    [x: string]: string;
+  }>;
+  changeContent: (c: ContentType) => void;
+  loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
+  inputRef: RefObject<InputRef>;
+};
+const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, inputRef }) => {
+  const [t] = useTr();
+  const rule = createSchemaFieldRule(SearchService(t));
+  const onFinish = () => {
+    loadingAnimationRef.current?.play();
+    changeContent('searching');
+    //get data then stop animation
+    setTimeout(() => {
+      loadingAnimationRef.current?.pause();
+      changeContent('addService');
+    }, 3000);
+  };
+  return (
+    <Form layout={'vertical'} onFinish={onFinish} form={form}>
+      <Flex gap={'1rem'}>
+        <S.FormItem name={Search_SERVICE_NAMES.SearchService} rules={[rule]}>
+          <Input
+            autoFocus={true}
+            ref={inputRef}
+            placeholder={t('placeholders.search_service_inspection')}
+            prefix={<SearchInputIcon />}
+            allowClear
+          />
+        </S.FormItem>
+        <Button htmlType='submit' onClick={onFinish}>
+          {t('buttons.inspect')}
+        </Button>
+      </Flex>
+    </Form>
+  );
+};
+export default SearchBox;

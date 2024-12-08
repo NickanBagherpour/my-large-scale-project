@@ -48,7 +48,7 @@ export default function AppbarUserMenu({
                     '-'
                   ) : (
                     <div className='menu-header'>
-                      <p className='menu-p'>{userInfo.name /*userInfo.userFullName*/}</p>
+                      <p className='menu-p'>{`${userInfo.name} ${userInfo.family}`}</p>
                       <span className='menu-span'>{`-` /*userInfo.jobName*/}</span>
                     </div>
                   )}
@@ -128,7 +128,7 @@ export default function AppbarUserMenu({
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
-          {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.name /*userInfo?.userFullName*/}
+          {loading ? <Loading size='small' /> : !userInfo ? '-' : `${userInfo?.name} ${userInfo?.family}`}
           <Icons.ArrowDown />
         </S.StyleParagraph>
       )}
