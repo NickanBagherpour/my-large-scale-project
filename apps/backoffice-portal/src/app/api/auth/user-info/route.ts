@@ -28,7 +28,7 @@ export async function GET(req) {
       success: true,
       userInfo: data,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during user info fetch:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
