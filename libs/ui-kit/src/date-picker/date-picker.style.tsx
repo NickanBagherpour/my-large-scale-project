@@ -16,6 +16,7 @@ export const DatePickerContainer = styled.div`
 
   & .ant-picker-suffix {
     position: absolute;
+    margin: 0;
   }
 
   & .ant-picker-clear {
