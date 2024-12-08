@@ -1,5 +1,4 @@
 export const userProfile = {
-  'userInfo': {
     'userInfo': {
       'name': 'نام',
       'english_name': null,
@@ -12,5 +11,4 @@ export const userProfile = {
       'job_code': '-1',
       'job_status_code': '1',
     },
-  },
 };

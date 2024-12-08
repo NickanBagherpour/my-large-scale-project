@@ -27,12 +27,8 @@ const Api = {
     return response.data;
   },
   getUserProfile: async () => {
-    let response;
-    if (ENV_CONSTANTS.IS_DEV) {
-      response = await Mockify.getUserProfile();
-    } else {
-      response = await client.get(`api/auth/user-info`);
-    }
+
+    const response = await client.get(`api/auth/user-info`);
 
     return response.data;
   },
