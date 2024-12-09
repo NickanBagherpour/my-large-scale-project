@@ -40,7 +40,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const handleDeleteButton = () => {
     toggleModal('removeService');
   };
-  const handleModalDleteButton = () => {
+  const handleModalDeleteButton = () => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab, isInitialized: false });
     toggleModal('removeService');
   };
@@ -85,7 +85,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
       </S.BorderBoxContainer>
       <RemoveServiceModal
         isOpen={modals.removeService}
-        deleteToggle={handleModalDleteButton}
+        deleteToggle={handleModalDeleteButton}
         cancelToggle={() => toggleModal('removeService')}
         id='SEJAM-UPSTREAM'
       />

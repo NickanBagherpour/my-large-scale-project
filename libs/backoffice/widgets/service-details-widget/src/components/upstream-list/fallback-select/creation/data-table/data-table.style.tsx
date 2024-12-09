@@ -16,5 +16,5 @@ export const TitleSpan = styled.span`
   line-height: 2.5rem; /* 156.25% */
 `;
 export const Icon = styled.i`
-  font-weight: 500;
+  font-size: 1.7rem;
 `;
