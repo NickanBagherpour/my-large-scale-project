@@ -1,11 +1,24 @@
-import { NextResponse } from 'next/server';
+import { createResponse } from '@oxygen/types';
+import Mockify from '@oxygen/mockify';
+import { ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
   const token = req.headers.get('authorization');
 
+  if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
+    return createResponse({
+      success: true,
+      data: (await Mockify.getUserProfile()).data,
+    });
+  }
+
   if (!token || !token.startsWith('Bearer ')) {
-    return NextResponse.json({ success: false, error: 'Authorization token is missing or invalid' }, { status: 400 });
+    return createResponse({
+      success: false,
+      error: 'Authorization token is missing or invalid',
+      statusCode: 400, // Bad Request
+    });
   }
 
   const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity-user-manager/userInfo`;
@@ -14,7 +27,7 @@ export async function GET(req) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: token, // Passing the token in the authorization header
+        'Authorization': token, // Passing the token in the authorization header
       },
     });
 
@@ -24,12 +37,18 @@ export async function GET(req) {
 
     const data = await response.json();
 
-    return NextResponse.json({
+    return createResponse({
       success: true,
-      userInfo: data,
+      data: data, // Response data for successful request
     });
-  } catch (error: any) {
+
+  } catch (error) {
     console.error('Error during user info fetch:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return createResponse({
+      success: false,
+      error: error.message,
+      errorDetails: error.stack, // Optional: Provide error details for debugging
+      statusCode: 500, // Internal Server Error
+    });
   }
 }

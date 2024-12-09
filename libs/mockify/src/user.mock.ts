@@ -9,7 +9,7 @@ export const getUserProfile = async (): Promise<any> => {
 
             resolve(response);
 
-        }, 1500);
+        }, 1000);
     });
 }
 
