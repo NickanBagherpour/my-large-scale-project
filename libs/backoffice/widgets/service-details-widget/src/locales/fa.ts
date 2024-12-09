@@ -53,4 +53,5 @@ export default {
   save_changes: 'ذخیره تغییرات',
   english_name: 'نام انگلیسی',
   persian_name: 'نام فارسی',
+  add_server: 'افزودن سرور',
 };
