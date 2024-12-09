@@ -57,6 +57,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
           onSelect={handleSelect}
           label={t('search_services')}
           placeholder={t('search_by_service_name_and_code')}
+          callServerAPI
         ></AdvanceSelector>
       </S.SearchField>
       <Box flexGrow={1}>

@@ -82,5 +82,7 @@ export default {
     invalid_email: 'ایمیل نادرست است',
     invalid_mobile_length: 'شماره موبایل باید11رقم باشد',
     min_length: '11رقم نیاز است',
+    ten_digits_needed: 'حداقل 10 رقم نیاز است',
+    twelve_digits_needed: 'حداقل 12 رقم نیاز است',
   },
 };

@@ -126,32 +126,34 @@ const mockData: ClientService[] = [
 ];
 
 const Api = {
-  getClientService: async (params: params) => {
+  getClientService: async (params: params, callServerAPI?: boolean) => {
     const { query, ...restParams } = params;
-    // return new Promise<{ data: ClientService[] }>((res) => {
-    //   const data = mockData.filter((item) => item.title.includes(params.query));
-    //   setTimeout(() => {
-    //     res({ data });
-    //   }, 1000);
-    // });
-
-    console.log(client);
-    return client.get(
-      /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
-      // {},
-      {
-        headers: {},
-      }
-    );
+    if (!callServerAPI) {
+      return new Promise<{ data: ClientService[] }>((res) => {
+        const data = mockData.filter((item) => item.title.includes(params.query));
+        setTimeout(() => {
+          res({ data });
+        }, 1000);
+      });
+    } else {
+      console.log(client);
+      return client.get(
+        /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
+        // {},
+        {
+          headers: {},
+        }
+      );
+    }
   },
 };
 
-export const useGetClientService = (params: params) => {
+export const useGetClientService = (params: params, callServerAPI?: boolean) => {
   return useQuery({
     enabled: !!params.query,
     queryKey: [RQKEYS.REUSABLE_COMPONENTS.CLIENT_SERVICES, params],
     queryFn: withErrorHandling(
-      () => Api.getClientService(params),
+      () => Api.getClientService(params, callServerAPI),
       () => void 1
     ),
   });

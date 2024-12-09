@@ -12,24 +12,34 @@ export type PaginationType = {
 };
 
 export type FirstStepType = {
-  grant_tag?: any;
-  add_tag?: any;
-  latin_name_client?: string;
-  persian_name_client?: string;
-  client_type?: string;
-  client_id?: string;
-  identity_auth?: string;
-  website_url?: string;
-  input_address?: string;
-  return_address?: string;
-  aggregator_status?: boolean;
-  aggregator?: string;
-  user_uame?: string;
-  national_code?: string;
-  organization_name?: string;
-  mobile_number?: string;
-  telephone?: string;
-  email?: string;
+  // grant_tag?: any;
+  // add_tag?: any;
+  // latin_name_client?: string;
+  // persian_name_client?: string;
+  // client_type?: string;
+  // client_id?: string;
+  // identity_auth?: string;
+  // website_url?: string;
+  // input_address?: string;
+  // return_address?: string;
+  // aggregator_status?: boolean;
+  // aggregator?: string;
+  // user_uame?: string;
+  // national_code?: string;
+  // organization_name?: string;
+  // mobile_number?: string;
+  // telephone?: string;
+  // email?: string;
+  legal_person_name: string;
+  legal_person_type: string;
+  registration_number: string;
+  registration_date: string;
+  national_id: string;
+  economy_code: string;
+  activity_field: string;
+  postal_code: string;
+  phone: string;
+  last_registration_address: string;
 };
 
 export type WidgetStateType = {

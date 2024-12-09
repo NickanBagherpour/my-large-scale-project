@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -10,7 +11,10 @@ import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker } from '
 
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
-import { useSelectDataQuery } from '../../services/first-step/get-select-data';
+import {
+  useSelectDataQuery,
+  useFirstStepRequestRegistrationMutationQuery,
+} from '../../services/first-step/first-step-data';
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './first-step.style';
@@ -30,10 +34,36 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
+  const { mutate, isPending } = useFirstStepRequestRegistrationMutationQuery();
 
   const onFinish = (values) => {
-    updateFirstStepAction(dispatch, values);
-    setCurrentStep((perv) => perv + 1);
+    const params = {
+      legalName: values.legal_person_name,
+      legalType: values.legal_person_type,
+      registerNo: values.registration_number,
+      registerDate: dayjs(values.registration_date).format('YYYY/MM/DD'),
+      organizationNationalId: values.national_id,
+      economicCode: values.economy_code,
+      activityIndustry: values.activity_field,
+      postalCode: values.postal_code,
+      phone: values.phone,
+      registeredAddress: values.last_registration_address,
+    };
+
+    mutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        updateFirstStepAction(dispatch, values);
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
+  };
+
+  const handleSubmit = () => {
+    form.submit();
   };
 
   const handleReturn = () => {
@@ -60,26 +90,30 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             </Form.Item>
 
             <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.registration_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input
+                placeholder={`${t('placeholder.registration_number')}`}
+                maxLength={MAX_INPUTE_LENGTH}
+                allow={'number'}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
               {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
               <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.economy_code')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.economy_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.activity_field} label={t('form.activity_field')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.activity_field')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.postal_code')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.postal_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
             </Form.Item>
             <Form.Item
               className='full-width-3'
@@ -96,7 +130,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={form.submit}>
+        {/* <Button htmlType={'submit'} onClick={form.submit}> */}
+        <Button htmlType={'submit'} onClick={handleSubmit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

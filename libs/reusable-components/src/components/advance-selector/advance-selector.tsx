@@ -20,10 +20,11 @@ type Props = {
   onSelect: (item: ClientService) => void;
   label?: string;
   placeholder?: string;
+  callServerAPI?: boolean;
 };
 
 const AdvanceSelector = (props: Props) => {
-  const { onSelect, onClear, className = '', style = {}, label, placeholder } = props;
+  const { onSelect, onClear, className = '', style = {}, label, placeholder, callServerAPI } = props;
 
   const MAX_LENGTH = 75;
 
@@ -34,8 +35,7 @@ const AdvanceSelector = (props: Props) => {
 
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
 
-  const { data, isLoading } = useGetClientService({ query: debouncedSearchTerm.trim() });
-
+  const { data, isLoading } = useGetClientService({ query: debouncedSearchTerm.trim() }, callServerAPI);
   return (
     <>
       <S.SelectLabel htmlFor='autocomplete'>{label}</S.SelectLabel>
@@ -46,7 +46,11 @@ const AdvanceSelector = (props: Props) => {
         className={className}
         style={style}
         popupClassName={'popup'}
-        options={data?.content?.map((item) => ({ value: item.title, item }))}
+        options={
+          callServerAPI
+            ? data?.content?.map((item) => ({ value: item.persianName, item }))
+            : data?.map((item) => ({ value: item.title, item }))
+        }
         notFoundContent={t('message.empty')}
         maxLength={MAX_LENGTH}
         allowClear
@@ -59,7 +63,7 @@ const AdvanceSelector = (props: Props) => {
         optionRender={({ value, data }) => (
           <S.Item>
             <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
-            <S.Subtitle>{data.item.subTitle}</S.Subtitle>
+            <S.Subtitle>{callServerAPI ? data.item.name : data.item.subTitle}</S.Subtitle>
             <S.Icon className='icon-plus' />
           </S.Item>
         )}
