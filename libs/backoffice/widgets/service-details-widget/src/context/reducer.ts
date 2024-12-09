@@ -9,6 +9,7 @@ const initialFilters: FormFieldsType = {
 const initialUpstreamTab: UpstreamData = {
   id: null,
   isInitialized: true,
+  cardId: undefined,
 };
 export const initialStateValue: WidgetStateType = {
   upstreamTab: initialUpstreamTab,

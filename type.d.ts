@@ -24,6 +24,7 @@ declare global {
       NEXT_PUBLIC_SSO_CLIENT_KEY: string;
       NEXT_PUBLIC_SSO_CLIENT_SECRET: string;
       NEXT_PUBLIC_SSO_SCOPE: string;
+      NEXT_PUBLIC_DEV_WITH_SSO: string;
     }
   }
 }

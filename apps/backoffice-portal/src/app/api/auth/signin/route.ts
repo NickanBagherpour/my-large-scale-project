@@ -1,18 +1,20 @@
-import { NextResponse } from 'next/server';
+import { createResponse } from '@oxygen/types';
+import { ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function POST(req: Request) {
   const { code } = await req.json();
 
-  /*  if (process.env.NODE_ENV === 'development') {
-    return new NextResponse(JSON.stringify({
-      success: true, tokenData: {
-        'last_logins': '[]',
-        'token_type': 'bearer',
-        'expires_in': 86400,
-        'access_token': process.env.NEXT_PUBLIC_TOKEN,
+  if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
+    return createResponse({
+      success: true,
+      data: {
+        last_logins: '[]',
+        token_type: 'bearer',
+        expires_in: 86400,
+        access_token: process.env.NEXT_PUBLIC_TOKEN,
       },
-    }));
-  }*/
+    });
+  }
 
   const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/token`;
   const headers = {
@@ -38,9 +40,9 @@ export async function POST(req: Request) {
     }
     const data = await response.json();
 
-    return new NextResponse(JSON.stringify({ success: true, tokenData: data }));
+    return createResponse({ success: true, data });
   } catch (error: any) {
     console.error('Error during SSO:', error);
-    return NextResponse.json({ success: false, error: error?.message }, { status: 500 });
+    return createResponse({ success: false, error: error.message, errorDetails: error.stack, statusCode: 500 });
   }
 }

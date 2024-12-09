@@ -21,13 +21,14 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
     throw new Error('Failed to sign in');
   }
 
-  const data = await response.json();
-  if (!data.success) {
-    throw new Error(data.error || 'Unknown error');
+  const tokenData = await response.json();
+
+  if (!tokenData.success) {
+    throw new Error(tokenData.error || 'Unknown error');
   }
 
-  const token = data.tokenData.access_token;
-  const expiresIn = data.tokenData.expires_in;
+  const token = tokenData.data.access_token;
+  const expiresIn = tokenData.data.expires_in;
 
   // Set the cookie directly in the server action
   const cookieStore = cookies();
