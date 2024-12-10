@@ -1,7 +1,7 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 3,
+  step: 2,
   scopeMode: 'importFromSso',
   generalInfo: {
     tag: null,
@@ -17,7 +17,6 @@ export const initialStateValue: WidgetStateType = {
     scopeName: '',
     persianScopeName: '',
   },
-  uploadDocs: {},
   route: {
     protocole: '',
     host: '',
@@ -43,9 +42,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_SCOPE_STEP':
       return void (state.scope = action.payload);
-
-    case 'UPDATE_UPLOAD_DOCS':
-      return void (state.uploadDocs = action.payload);
 
     case 'UPDATE_SCOPE_MODE':
       return void (state.scopeMode = action.payload);
