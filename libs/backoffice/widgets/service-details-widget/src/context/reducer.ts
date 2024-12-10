@@ -40,6 +40,16 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.message = action.payload);
     }
 
+    case 'UPDATE_ENGLISH_NAME': {
+      state.upstreamTab.fallbackSelect.englishName = action.payload;
+      return;
+    }
+
+    case 'UPDATE_PERSIAN_NAME': {
+      state.upstreamTab.fallbackSelect.persianName = action.payload;
+      return;
+    }
+
     case 'UPDATE_UPSTREAM': {
       state.upstreamTab.activeSelect = { ...state.upstreamTab.activeSelect, ...action.payload };
       return;

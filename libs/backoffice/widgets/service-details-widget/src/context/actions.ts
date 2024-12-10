@@ -6,6 +6,12 @@ import { FiltersType, initialActiveSelectType, PaginationType, WidgetActionType,
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
+export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
+  dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
+}
+export function updatepersianNameAction(dispatch: WidgetDispatchType, persianName: Nullable<number | string>) {
+  dispatch({ type: 'UPDATE_PERSIAN_NAME', payload: persianName });
+}
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }

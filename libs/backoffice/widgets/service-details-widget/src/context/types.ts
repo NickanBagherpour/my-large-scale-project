@@ -47,6 +47,14 @@ export type WidgetActionType =
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
     }
   | {
+      type: 'UPDATE_PERSIAN_NAME';
+      payload: Nullable<number | string>;
+    }
+  | {
+      type: 'UPDATE_ENGLISH_NAME';
+      payload: Nullable<number | string>;
+    }
+  | {
       type: 'UPDATE_UPSTREAM';
       payload: Partial<initialActiveSelectType>;
     }
