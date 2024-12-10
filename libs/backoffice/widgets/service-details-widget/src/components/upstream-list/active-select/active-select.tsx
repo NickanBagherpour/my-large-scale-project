@@ -41,10 +41,9 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     toggleModal('removeService');
   };
   const handleModalDeleteButton = () => {
-    updateUpstreamAction(dispatch, { ...state.upstreamTab, isInitialized: false });
+    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-
   //Render
   const infoBoxData: InfoItemType[] = [
     {
@@ -55,7 +54,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
       key: 'upstream_tab.info_box_persianName',
       value: 'آپ‌استریم سجام',
     },
-    ...(state.upstreamTab.isInitialized
+    ...(state.upstreamTab.activeSelect.isInitialized
       ? [
           {
             key: '',

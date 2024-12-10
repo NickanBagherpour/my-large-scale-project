@@ -1,4 +1,4 @@
-import { FormFieldsType, UpstreamData } from './types';
+import { FormFieldsType, initialActiveSelectType, initialFallbackSelectType } from './types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 import { t } from 'i18next';
@@ -6,13 +6,22 @@ import { t } from 'i18next';
 const initialFilters: FormFieldsType = {
   name: null,
 };
-const initialUpstreamTab: UpstreamData = {
+const initialActiveSelect: initialActiveSelectType = {
   id: null,
   isInitialized: true,
   cardId: undefined,
 };
+const fallBackServers = [];
+const initialfallbackSelect: initialFallbackSelectType = {
+  englishName: undefined,
+  persianName: undefined,
+  servers: fallBackServers,
+};
 export const initialStateValue: WidgetStateType = {
-  upstreamTab: initialUpstreamTab,
+  upstreamTab: {
+    activeSelect: initialActiveSelect,
+    fallbackSelect: initialfallbackSelect,
+  },
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -32,13 +41,13 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_UPSTREAM': {
-      state.upstreamTab = { ...state.upstreamTab, ...action.payload };
+      state.upstreamTab.activeSelect = { ...state.upstreamTab.activeSelect, ...action.payload };
       return;
     }
     case 'UPDATE_UPSTREAM_TAB_CREATION': {
-      return void ((state.upstreamTab.isInitialized = true),
-      (state.upstreamTab.id = state.upstreamTab.cardId),
-      (state.upstreamTab.cardId = undefined));
+      return void ((state.upstreamTab.activeSelect.isInitialized = true),
+      (state.upstreamTab.activeSelect.id = state.upstreamTab.activeSelect.cardId),
+      (state.upstreamTab.activeSelect.cardId = undefined));
     }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };

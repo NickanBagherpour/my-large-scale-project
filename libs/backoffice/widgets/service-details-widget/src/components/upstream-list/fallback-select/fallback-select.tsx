@@ -36,7 +36,7 @@ export const FallbackSelect = () => {
           {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={data?.content} loading={isFetching} /> : <NameInputs />}
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.cardId && value === RADIO_GROUP_NAME.SELECT && <CardDetail />}
+      {state.upstreamTab.activeSelect.cardId && value === RADIO_GROUP_NAME.SELECT && <CardDetail />}
       {value === RADIO_GROUP_NAME.CREATE && <DataTable />}
     </S.UpstreamCreationContainer>
   );

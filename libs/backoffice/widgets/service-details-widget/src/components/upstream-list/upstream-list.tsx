@@ -15,7 +15,7 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
   const [t] = useTr();
 
   //constants
-  const isInitialized = state.upstreamTab.isInitialized;
+  const isInitialized = state.upstreamTab.activeSelect.isInitialized;
 
   return <>{isInitialized ? <ActiveSelect /> : <FallbackSelect />}</>;
 };

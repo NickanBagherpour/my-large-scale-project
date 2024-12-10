@@ -12,13 +12,24 @@ export type PaginationType = {
   page: number;
   rowsPerPage: number;
 };
-export type UpstreamData = {
+export type initialActiveSelectType = {
   isInitialized: boolean;
   id: Nullable<number | string>;
   cardId: Nullable<number | string>;
 };
+export type initialFallbackSelectType = {
+  englishName: Nullable<number | string>;
+  persianName: Nullable<number | string>;
+  servers: {
+    weight: string;
+    ipPort: string;
+  }[];
+};
 export type WidgetStateType = {
-  upstreamTab: UpstreamData;
+  upstreamTab: {
+    activeSelect: initialActiveSelectType;
+    fallbackSelect: initialFallbackSelectType;
+  };
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -37,7 +48,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_UPSTREAM';
-      payload: UpstreamData;
+      payload: Partial<initialActiveSelectType>;
     }
   | {
       type: 'UPDATE_FILTERS';

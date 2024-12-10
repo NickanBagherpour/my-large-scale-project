@@ -1,7 +1,7 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, UpstreamData, WidgetActionType, WidgetDispatchType } from './types';
+import { FiltersType, initialActiveSelectType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
@@ -10,8 +10,8 @@ export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Parti
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }
 
-export function updateUpstreamAction(dispatch: WidgetDispatchType, upstream: UpstreamData) {
-  dispatch({ type: 'UPDATE_UPSTREAM', payload: upstream });
+export function updateUpstreamAction(dispatch: WidgetDispatchType, initialupstream: initialActiveSelectType) {
+  dispatch({ type: 'UPDATE_UPSTREAM', payload: initialupstream });
 }
 
 export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {

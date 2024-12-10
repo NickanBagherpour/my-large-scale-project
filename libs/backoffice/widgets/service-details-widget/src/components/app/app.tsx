@@ -46,8 +46,8 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-      {!state.upstreamTab.isInitialized && (
-        <Button disabled={!state.upstreamTab.cardId} onClick={handleUpstreamCreation}>
+      {!state.upstreamTab.activeSelect.isInitialized && (
+        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
           {t('save_changes')}
         </Button>
       )}
