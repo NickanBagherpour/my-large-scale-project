@@ -4,25 +4,30 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
-import { Button, Input, Modal, Select } from '@oxygen/ui-kit';
+import { Input, Modal, Select } from '@oxygen/ui-kit';
 
 import { addServerModalSchema } from '../../../../types';
 import { ADD_SERVER_MODAL_FORM_ITEM, MAX_LENGTH_INPUT } from '../../../../utils/consts';
 
 import * as S from './add-server-modal.style';
+import { updateFallbackServersAction, useAppDispatch } from '../../../../context';
 
 export type AddServerModalPropsType = {
   isOpen: boolean;
   toggle: () => void;
 };
+
 export const AddServerModal: React.FC<AddServerModalPropsType> = (props) => {
   const { isOpen, toggle } = props;
 
+  const dispatch = useAppDispatch();
   const [t] = useTr();
+
   const [form] = Form.useForm();
 
-  const handleSubmit = () => {
-    console.log('submit');
+  const onFinish = (values) => {
+    updateFallbackServersAction(dispatch, values);
+    console.log('submit', values);
     toggle();
   };
 
@@ -41,7 +46,7 @@ export const AddServerModal: React.FC<AddServerModalPropsType> = (props) => {
         </S.SubmitBtn>,
       ]}
     >
-      <Form onFinish={handleSubmit} name={ADD_SERVER_MODAL_FORM_ITEM.ADD_SERVER} form={form}>
+      <Form onFinish={onFinish} name={ADD_SERVER_MODAL_FORM_ITEM.ADD_SERVER} form={form}>
         <S.FormContainer>
           <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.IP_PORT} label={t('upstream_tab.modal.ip_port')} rules={[rule]}>
             <Input maxLength={MAX_LENGTH_INPUT} />

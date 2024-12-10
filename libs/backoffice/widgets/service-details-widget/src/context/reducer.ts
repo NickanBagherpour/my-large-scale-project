@@ -45,6 +45,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'UPDATE_FALLBACK_SERVERS': {
+      console.log('payload in reducer', action.payload);
+      state.upstreamTab.fallbackSelect.servers = [...state.upstreamTab.fallbackSelect.servers, action.payload];
+      return;
+    }
     case 'UPDATE_PERSIAN_NAME': {
       state.upstreamTab.fallbackSelect.persianName = action.payload;
       return;

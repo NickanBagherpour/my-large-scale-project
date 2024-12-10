@@ -20,10 +20,7 @@ export type initialActiveSelectType = {
 export type initialFallbackSelectType = {
   englishName: Nullable<number | string>;
   persianName: Nullable<number | string>;
-  servers: {
-    weight: string;
-    ipPort: string;
-  }[];
+  servers: any[];
 };
 export type WidgetStateType = {
   upstreamTab: {
@@ -45,6 +42,13 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
+    }
+  | {
+      type: 'UPDATE_FALLBACK_SERVERS';
+      payload: {
+        weight: string;
+        ipPort: string;
+      }[];
     }
   | {
       type: 'UPDATE_PERSIAN_NAME';

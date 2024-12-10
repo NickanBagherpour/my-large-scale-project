@@ -6,6 +6,9 @@ import { FiltersType, initialActiveSelectType, PaginationType, WidgetActionType,
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
+export function updateFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
+  dispatch({ type: 'UPDATE_FALLBACK_SERVERS', payload: servers });
+}
 export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
   dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
 }

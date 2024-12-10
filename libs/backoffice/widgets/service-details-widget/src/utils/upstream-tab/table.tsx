@@ -6,6 +6,8 @@ import { Button, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { UpstreamTabModalType } from '../../components/upstream-list/fallback-select/creation/data-table/data-table';
 
 import * as S from '../../components/upstream-list/upstream-list.style';
+import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
+import { getValueOrDash } from '@oxygen/utils';
 
 type Props = {
   t: TFunction;
@@ -19,17 +21,23 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
   return [
     {
       title: t('upstream_tab.table.range'),
-      dataIndex: 'serviceName',
+      dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.IP_PORT],
       align: 'center',
+      render: (value, record) => {
+        return getValueOrDash(value);
+      },
     },
     {
       title: t('upstream_tab.table.health_status'),
-      dataIndex: 'persianName',
+      dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.HEALTH],
       align: 'center',
+      render: (value, record) => {
+        return getValueOrDash(value);
+      },
     },
     {
       title: t('upstream_tab.table.weight'),
-      dataIndex: 'scope',
+      dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.WEIGHT],
       align: 'center',
       // width: '7rem',
     },

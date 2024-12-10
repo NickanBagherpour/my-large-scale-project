@@ -10,6 +10,7 @@ import {
   getDesktopColumns,
   getMobileColumns,
 } from 'libs/backoffice/widgets/service-details-widget/src/utils/upstream-tab/table';
+import { useAppState } from 'libs/backoffice/widgets/service-details-widget/src/context';
 export type UpstreamTabModalType = {
   addService: boolean;
   removeService: boolean;
@@ -20,10 +21,11 @@ export type TablePropsType = PageProps & {
 };
 export const DataTable: React.FC<TablePropsType> = (props) => {
   // const {} = props;
+  const state = useAppState();
   const [t] = useTr();
 
-  const tableData = [];
-
+  const tableData = state.upstreamTab.fallbackSelect.servers;
+  const reverceData = [...tableData].reverse();
   const [modals, setModals] = useState<UpstreamTabModalType>({
     addService: false,
     removeService: false,
@@ -35,7 +37,6 @@ export const DataTable: React.FC<TablePropsType> = (props) => {
 
   const desktopColumns = getDesktopColumns({ t, deletable: true, toggleModal });
   const mobileColumns = getMobileColumns({ t, deletable: true, toggleModal });
-
   return (
     <S.TableContainer>
       <S.Title>
@@ -46,7 +47,7 @@ export const DataTable: React.FC<TablePropsType> = (props) => {
         </Button>
       </S.Title>
       <Table
-        dataSource={tableData}
+        dataSource={reverceData}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         loading={false}
