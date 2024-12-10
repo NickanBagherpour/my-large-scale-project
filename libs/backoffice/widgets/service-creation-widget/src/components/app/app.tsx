@@ -11,11 +11,13 @@ import Scope from '../scope/scope';
 import UploadDocs from '../upload-docs/upload-docs';
 
 import * as S from './app.style';
+import Route from '../route/route';
 
 const steps: Record<Step, ReactNode> = {
   0: <GeneralInfo />,
   1: <Scope />,
   2: <UploadDocs />,
+  3: <Route />,
 };
 
 const App = () => {
@@ -28,7 +30,12 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[{ title: t('general_info') }, { title: t('scope') }, { title: t('upload_docs') }]}
+        items={[
+          { title: t('general_info') },
+          { title: t('scope') },
+          { title: t('upload_docs') },
+          { title: t('route') },
+        ]}
       />
       {steps[step]}
     </Container>

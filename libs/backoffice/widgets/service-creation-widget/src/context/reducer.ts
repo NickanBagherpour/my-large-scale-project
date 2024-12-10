@@ -1,7 +1,7 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 1,
+  step: 3,
   scopeMode: 'importFromSso',
   generalInfo: {
     tag: null,
@@ -14,10 +14,16 @@ export const initialStateValue: WidgetStateType = {
     throughout: null,
   },
   scope: {
-    scopeName: null,
+    scopeName: '',
     persianScopeName: '',
   },
   uploadDocs: {},
+  route: {
+    protocole: '',
+    host: '',
+    path: '',
+    actionOrMethod: '',
+  },
   message: null,
 };
 
@@ -43,6 +49,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_SCOPE_MODE':
       return void (state.scopeMode = action.payload);
+
+    case 'UPDATE_ROUTE_STEP':
+      return void (state.route = action.payload);
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);

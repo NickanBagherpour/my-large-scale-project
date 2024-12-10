@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-import { CreateScopeFormType, GeneralInfoValuesType, UploadDocsType } from '../types';
+import { CreateScopeFormType, GeneralInfoValuesType, RouteType, UploadDocsType } from '../types';
 
-export type Step = 0 | 1 | 2;
+export type Step = 0 | 1 | 2 | 3;
 export type ScopeMode = 'importFromSso' | 'createScope';
 
 export type WidgetStateType = {
@@ -11,6 +11,7 @@ export type WidgetStateType = {
   generalInfo: GeneralInfoValuesType;
   scope: CreateScopeFormType;
   uploadDocs: UploadDocsType;
+  route: RouteType;
   message: Nullable<MessageType>;
 };
 
@@ -40,6 +41,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_UPLOAD_DOCS';
       payload: UploadDocsType;
+    }
+  | {
+      type: 'UPDATE_ROUTE_STEP';
+      payload: RouteType;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

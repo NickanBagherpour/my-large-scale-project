@@ -1,6 +1,6 @@
 import type { MessageType, Nullable } from '@oxygen/types';
 import type { ScopeMode, WidgetDispatchType } from './types';
-import type { CreateScopeFormType, GeneralInfoValuesType, UploadDocsType } from '../types';
+import type { CreateScopeFormType, GeneralInfoValuesType, RouteType, UploadDocsType } from '../types';
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
@@ -28,6 +28,10 @@ export function updateScopeStep(dispatch: WidgetDispatchType, payload: CreateSco
 
 export function updateUploadDocs(dispatch: WidgetDispatchType, payload: UploadDocsType) {
   dispatch({ type: 'UPDATE_UPLOAD_DOCS', payload });
+}
+
+export function updateRouteStep(dispatch: WidgetDispatchType, payload: RouteType) {
+  dispatch({ type: 'UPDATE_ROUTE_STEP', payload });
 }
 
 export function resetMessageAction(dispatch: WidgetDispatchType) {

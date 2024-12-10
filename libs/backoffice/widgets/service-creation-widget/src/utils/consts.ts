@@ -21,3 +21,10 @@ export const CREATE_SCOPE_NAMES = {
 export const IMPORT_FORM_SSO_NAMES = {
   existingScopeName: 'existingScopeName',
 } as const;
+
+export const ROUTE_NAMES = {
+  actionOrMethod: 'actionOrMethod',
+  protocole: 'protocole',
+  path: 'path',
+  host: 'host',
+} as const;

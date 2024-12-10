@@ -41,4 +41,12 @@ export default {
   add_scope: 'افزودن اسکوپ',
   submit_and_add: 'تایید و افزودن',
   you_are_adding_scope: 'شما در حال افزودن اسکوپ {{scope}} در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
+
+  //////////////
+  action_or_method: 'اکشن/متود',
+  protocole: 'پروتوکل',
+  path: 'Path',
+  host: 'Host',
+  route: 'Route',
+  //////////////
 };
