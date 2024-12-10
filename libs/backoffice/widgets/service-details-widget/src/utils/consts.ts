@@ -7,3 +7,9 @@ export const RADIO_GROUP_NAME = {
   CREATE: 'create',
   SELECT: 'select',
 };
+export const ADDSERVERMODAL_FORM_ITEM = {
+  IP_PORT: 'ip_port',
+  WEIGHT: 'weight',
+  HEALTH: 'health',
+  ADD_SERVER: 'add_server',
+};
