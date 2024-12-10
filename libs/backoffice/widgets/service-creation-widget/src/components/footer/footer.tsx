@@ -1,6 +1,6 @@
 import { Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { FooterContainer } from '@oxygen/reusable-components';
+import * as S from './footer.style';
 
 type Props = {
   onRegister: () => void;
@@ -12,13 +12,13 @@ export default function Footer(props: Props) {
   const [t] = useTr();
 
   return (
-    <FooterContainer>
+    <S.FooterContainer>
       <Button variant={'outlined'} onClick={onReturn}>
         {t('button.return')}
       </Button>
       <Button htmlType={'submit'} onClick={onRegister}>
         {t('register_info')}
       </Button>
-    </FooterContainer>
+    </S.FooterContainer>
   );
 }
