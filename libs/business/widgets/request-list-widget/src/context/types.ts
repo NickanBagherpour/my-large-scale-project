@@ -5,7 +5,10 @@ export type WidgetStateType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
   status: 'all' | 'confirmed' | 'rejected' | 'pending';
-  page: number;
+  pagination: {
+    page: number;
+    rowsPerPage: number;
+  };
   message: Nullable<MessageType>;
 };
 
