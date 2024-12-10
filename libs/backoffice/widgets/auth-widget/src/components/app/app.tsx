@@ -1,17 +1,82 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { PageProps } from '@oxygen/types';
+import { Button, Loading } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { useAuth } from '@oxygen/hooks';
+import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
+
+import { getSsoUrlAction } from '../../server-actions/get-sso-url.action';
+import { handleSSO } from '../../server-actions/handle-sso.action';
+
 import * as S from './app.style';
-import { Button } from '@oxygen/ui-kit';
 
-const SSO_URL =
-  'http://185.135.30.10:9443/identity/oauth2/auth/authorize?response_type=code&client_id=oxygen-portal-sd-client&scope=batch-user-info&state=xyz-_123&sso=1&redirect_uri=http%3A%2F%2F192.168.52.138%3A3000%2Fauth';
+type AuthWidgetType = PageProps & {
+  parentProps?: any;
+};
+const AuthWidget: React.FC<AuthWidgetType> = (props) => {
+  const [loading, setLoading] = useState(true);
+  const { user, login } = useAuth();
+  const [t] = useTr();
 
-const App: React.FC<PageProps> = (_) => {
+  const [code, setCode] = useState<string | null>(props?.parentProps.searchParams['code'] ?? null);
+  const ticket = props?.parentProps.searchParams['ticket'];
+
+  async function handleRedirect() {
+    setLoading(true);
+
+    try {
+      const url = new URL(window.location.href);
+      url.search = ''; // Remove all query parameters
+      window.history.replaceState({}, document.title, url.toString());
+      setCode(null);
+      if (code) {
+        await handleSSO(code, ticket);
+      }
+      // Clear query parameters from the URL
+      login({}, ROUTES.BACKOFFICE.CLIENT_LIST);
+    } catch (error) {
+      console.error('Failed to handle SSO:', error);
+    }
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (code) {
+      handleRedirect();
+    } else {
+      setLoading(false);
+    }
+  }, [code]);
+
+  const handleLogin = async () => {
+    setLoading(true);
+
+    if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
+      setCode('develop');
+      return;
+    }
+
+    try {
+      const ssoUrl = await getSsoUrlAction(); // Call the server action to get the SSO URL
+      window.location.href = ssoUrl; // Redirect to the SSO URL
+    } catch (error) {
+      console.error('Failed to fetch SSO URL:', error);
+      setLoading(false);
+    }
+  };
+
   return (
-    <S.AppContainer title={'AuthWidget'}>
-      <Button href={SSO_URL}>Login</Button>
-    </S.AppContainer>
+    <S.CardWrapper>
+      {loading && <Loading fullscreen={true} />}
+      <S.TopSection>{t('title')}</S.TopSection>
+      <S.BottomSection>
+        <Button onClick={handleLogin}>{t('button.landing_login')}</Button>
+      </S.BottomSection>
+    </S.CardWrapper>
   );
 };
 
-export default App;
+export default AuthWidget;

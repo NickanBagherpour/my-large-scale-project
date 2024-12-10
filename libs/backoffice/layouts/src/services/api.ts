@@ -1,12 +1,12 @@
 import { client, portalUrl } from '@oxygen/client';
-import mockify from '@oxygen/mockify';
 import { ENV_CONSTANTS } from '@oxygen/utils';
+import Mockify from '@oxygen/mockify';
 
 const Api = {
   getMenus: async () => {
     let response;
     if (ENV_CONSTANTS.IS_DEV) {
-      response = await mockify.getMenus();
+      response = await Mockify.getMenus();
     } else {
       response = await client.get(`${portalUrl}/profile/menu`);
     }
@@ -27,12 +27,9 @@ const Api = {
     return response.data;
   },
   getUserProfile: async () => {
-    let response;
-    if (ENV_CONSTANTS.IS_DEV) {
-      response = await mockify.getUserProfile();
-    } else {
-      response = await client.get(`${portalUrl}/profile`);
-    }
+
+    const response = await client.get(`api/auth/user-info`);
+
     return response.data;
   },
 };

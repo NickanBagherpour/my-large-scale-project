@@ -1,7 +1,10 @@
 export { ReactComponent as BaamsunLogo } from './media/baamsun-logo.svg';
 export { ReactComponent as BankLogo } from './media/bank-logo.svg';
-export { ReactComponent as OxygenLogo } from './media/oxygen-logo-light-mode.svg';
-export { ReactComponent as OxygenDarkLogo } from './media/oxygen-logo-dark-mode.svg';
+export { ReactComponent as OxygenTextLogo } from './media/oxygen-text-logo.svg';
+export { ReactComponent as OxygenDarkTextLogo } from './media/oxygen-dark-text-logo.svg';
+export { ReactComponent as OxygenLogo } from './media/oxygen-logo.svg';
+export { ReactComponent as OxygenDarkLogo } from './media/oxygen-dark-logo.svg';
+
 export { ReactComponent as BaamsunLogoPrimary } from './media/baamsun-logo-primary.svg';
 export { ReactComponent as BankLogoRed } from './media/bank_logo_red.svg';
 export { ReactComponent as PencilSquare } from './media/pencil-square.svg';

@@ -1,4 +1,4 @@
-import { notFound, redirect, useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
@@ -9,10 +9,12 @@ import { Button, Container, Loading } from '@oxygen/ui-kit';
 
 import { useGetServiceInfoQuery } from '../../services/edit-service.api';
 import { Form } from 'antd';
-import EditService from '../edit-service/edit-servic';
+import EditService from '../edit-service/edit-service';
 
 import * as S from './app.style';
 import { SecondaryTitle } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
+import { useApp } from '@oxygen/hooks';
 
 type AppProps = PageProps & {
   //
@@ -22,7 +24,7 @@ const App: React.FC<AppProps> = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [form] = Form.useForm();
-
+  const { notification } = useApp();
   const id: Nullable<string> = searchParams.get('id');
 
   const [title, setTitle] = useState(t('subtitle'));
@@ -36,8 +38,18 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-  const handleSubmitButtonClick = () => {
+  const handleSubmit = () => {
     form.submit();
+    const success = true;
+    //also hanlde errors
+    if (success) {
+      router.push(
+        `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=${id}` // Replace 123 with your item ID
+      );
+      notification.success({
+        message: t('alert.edit_success'),
+      });
+    }
   };
   useEffect(() => {
     if (serviceInfo && title === t('subtitle')) {
@@ -56,7 +68,7 @@ const App: React.FC<AppProps> = (props) => {
       <Button variant='outlined' onClick={handleReturn}>
         {t('button.cancel')}
       </Button>
-      <Button htmlType={'submit'} onClick={handleSubmitButtonClick}>
+      <Button htmlType={'submit'} onClick={handleSubmit}>
         {t('button.apply')}
       </Button>
     </>

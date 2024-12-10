@@ -12,3 +12,4 @@ export * from './service-creation';
 export * from './client-history';
 export * from './applicant-history';
 export * from './user.type';
+export * from './api-response';

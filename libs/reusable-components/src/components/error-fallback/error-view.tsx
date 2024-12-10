@@ -42,7 +42,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
     router.refresh();
   };
   return (
-    <Container margin={'16px'} fillContainer={true}>
+    <Container margin={'1.6rem'} fillContainer={true}>
       <S.ContentContainer>
         <S.TextContainer>
           {errorCode && (
@@ -66,7 +66,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
           </S.ButtonGroupContainer>
         </S.TextContainer>
         <S.AnimationContainer>
-          {animationData && <LazyLottie animationData={animationData} height={'30rem'} width={'30rem'} />}
+          {animationData && <LazyLottie animationData={animationData} height={'25vw'} width={'23vw'} />}
           {image}
         </S.AnimationContainer>
       </S.ContentContainer>

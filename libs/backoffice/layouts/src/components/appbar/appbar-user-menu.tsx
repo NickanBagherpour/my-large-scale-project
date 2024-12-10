@@ -2,7 +2,7 @@ import { MenuProps } from 'antd';
 import { useTr } from '@oxygen/translation';
 
 import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
-import { Icons, Button, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
+import { Button, Icons, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
 import * as S from './appbar-user-menu.style';
 
@@ -15,7 +15,16 @@ enum MenuItemKey {
   Logout = 'logout',
   EditInfo = 'editInfo',
 }
-export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, loading = false }) {
+
+export default function AppbarUserMenu(
+  {
+    variant = 'dashboard',
+    userInfo,
+    onLogout,
+    isMobileOrTablet,
+    loading = false,
+  },
+) {
   const [t] = useTr();
 
   const handleClose = () => {
@@ -27,71 +36,86 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
     e.stopPropagation();
   };
 
-  const items: MenuProps['items'] = [
-    {
-      label: (
-        <S.StyleSpan>
-          {loading ? (
-            <Loading size='small' />
-          ) : !userInfo ? (
-            '-'
-          ) : (
-            <div className='menu-header'>
-              <p className='menu-p'>{userInfo.userFullName}</p>
-              <span className='menu-span'>{userInfo.jobName}</span>
-            </div>
-          )}
-        </S.StyleSpan>
-      ),
-      key: MenuItemKey.Username,
-    },
-    { type: 'divider' },
-    ...(ENV_CONSTANTS.IS_DEV || 1 === 1 /* TODO: remove this condition */
+  const getMenuItems = () => {
+    const baseItems =
+      variant === 'auth'
+        ? []
+        : ([
+          {
+            label: (
+              <S.StyleSpan>
+                {loading ? (
+                  <Loading size="small" />
+                ) : !userInfo ? (
+                  '-'
+                ) : (
+                  <div className="menu-header">
+                    <p className="menu-p">{`${userInfo.name} ${userInfo.family}`}</p>
+                    <span className="menu-span">{`-` /*userInfo.jobName*/}</span>
+                  </div>
+                )}
+              </S.StyleSpan>
+            ),
+            key: MenuItemKey.Username,
+          },
+          { type: 'divider' },
+        ] as const);
+
+    const devItems = ENV_CONSTANTS.IS_DEV
       ? [
+        {
+          label: (
+            <S.StyleDiv onClick={handlePreventClick}>
+              <span>{t('appbar.change_language')}</span>
+              <LocaleSwitcher type="textPrimary" />
+            </S.StyleDiv>
+          ),
+          key: MenuItemKey.ChangeLanguage,
+        },
+        {
+          label: (
+            <S.StyleDiv onClick={handlePreventClick}>
+              <span>{t('appbar.background_color')}</span>
+              <ThemeSwitch />
+            </S.StyleDiv>
+          ),
+          key: MenuItemKey.BackgroundColor,
+        },
+      ]
+      : [];
+
+    const authVariantItems =
+      variant === 'auth'
+        ? []
+        : [
           {
-            label: (
-              <S.StyleDiv onClick={handlePreventClick}>
-                <span>{t('appbar.change_language')}</span>
-                <LocaleSwitcher type='textPrimary' />
-              </S.StyleDiv>
-            ),
-            key: MenuItemKey.ChangeLanguage,
-            // disabled: true,
+            label: `${t('appbar.edit_info')}`,
+            icon: <i className="icon-pencil-square" style={{ fontSize: '2.2rem' }} />,
+            key: MenuItemKey.EditInfo,
           },
           {
-            label: (
-              <S.StyleDiv onClick={handlePreventClick}>
-                <span>{t('appbar.background_color')}</span>
-                <ThemeSwitch />
-              </S.StyleDiv>
-            ),
-            key: MenuItemKey.BackgroundColor,
+            label: `${t('appbar.change_password')}`,
+            icon: <i className="icon-input-password" style={{ fontSize: '2.2rem' }} />,
+            key: MenuItemKey.ChangePassword,
           },
-        ]
-      : []),
-    {
-      label: `${t('appbar.edit_info')}`,
-      icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
-      key: MenuItemKey.EditInfo,
-    },
-    {
-      label: `${t('appbar.change_password')}`,
-      icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
-      key: MenuItemKey.ChangePassword,
-    },
-    {
-      label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
-      icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
-      key: MenuItemKey.Logout,
-      danger: true,
-    },
-  ];
+          {
+            label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
+            icon: <i className="icon-sign-out" style={{ fontSize: '2.2rem' }} />,
+            key: MenuItemKey.Logout,
+            danger: true,
+          },
+        ];
+
+    return [...baseItems, ...devItems, ...authVariantItems];
+  };
+
+  const items: MenuProps['items'] = getMenuItems();
 
   return (
     <S.StyleDropDown
       menu={{ items }}
       trigger={['click']}
-      placement='bottomLeft'
+      placement="bottomLeft"
       overlayStyle={{ zIndex: `var(${cssVar.onAppbarZIndex})` }}
       dropdownRender={(node) => {
         return <S.Overlay>{node}</S.Overlay>;
@@ -99,16 +123,15 @@ export default function AppbarUserMenu({ userInfo, onLogout, isMobileOrTablet, l
     >
       {isMobileOrTablet ? (
         <Button
-          variant='text'
-          shape='circle'
-          color='primary'
+          variant="text"
+          shape="circle"
           icon={<S.StyleIcon className={'icon-three-dots-vertical'}></S.StyleIcon>}
         />
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
-          <i className='icon-person avatar-icon'/>
-          {loading ? <Loading size='small' /> : !userInfo ? '-' : userInfo?.userFullName}
-          <i className='icon-chev-down avatar-icon'/>
+          <Icons.UserProfile />
+          {loading ? <Loading size="small" /> : !userInfo ? '-' : `${userInfo?.name} ${userInfo?.family}`}
+          <Icons.ArrowDown />
         </S.StyleParagraph>
       )}
     </S.StyleDropDown>

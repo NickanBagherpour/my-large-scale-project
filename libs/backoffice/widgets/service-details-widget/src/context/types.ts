@@ -12,8 +12,13 @@ export type PaginationType = {
   page: number;
   rowsPerPage: number;
 };
-
+export type UpstreamData = {
+  isInitialized: boolean;
+  id: Nullable<number | string>;
+  cardId: Nullable<number | string>;
+};
 export type WidgetStateType = {
+  upstreamTab: UpstreamData;
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -26,6 +31,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
+    }
+  | {
+      type: 'UPDATE_UPSTREAM';
+      payload: UpstreamData;
     }
   | {
       type: 'UPDATE_FILTERS';

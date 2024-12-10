@@ -1,9 +1,9 @@
 export default {
   widget_name: 'ویرایش اطلاعات فنی سرویس',
-  subtitle: 'ویرایش اطلاعات فنی سرویس',
+  subtitle: 'ویرایش اطلاعات کلی',
   form: {
-    'en-name': 'نام لاتین سرویس',
-    'fa-name': 'نام فارسی سرویس',
+    'en-name': 'نام لاتین',
+    'fa-name': 'نام فارسی',
     method: 'اکشن/متود',
     protocol: 'پروتوکل',
     access: 'دسترسی',
@@ -34,5 +34,8 @@ export default {
   button: {
     cancel: 'انصراف',
     apply: 'ذخیره تغییرات',
+  },
+  alert: {
+    edit_success: 'ویرایش اطلاعات کلی با موفقیت اعمال شد.',
   },
 };

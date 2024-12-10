@@ -94,7 +94,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   thead > tr > th {
-    padding: 1.4rem !important;
+    padding: ${(p) => (p.variant === 'simple' ? '2.4rem 1.6rem' : '0.8rem')};
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
@@ -104,7 +104,7 @@ export const Table = styled(AntTable)<TableProps>`
     box-sizing: border-box !important;
     font-size: ${(p) => (p.variant === 'simple' ? '1.4rem' : '1.2rem')};
     font-weight: 700;
-    line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '2.2rem')};
+    line-height: ${(p) => (p.variant === 'simple' ? '2.2rem' : '1.8rem')};
   }
 
   tbody > tr > td {
@@ -169,19 +169,19 @@ export const Table = styled(AntTable)<TableProps>`
     .ant-select-selector {
       background-color: ${(p) => p.theme.primary.main};
       color: ${(p) => p.theme.onPrimary};
-      padding: 1.4rem 1.5rem;
+      /* padding: ${(p) => (p.size === 'small' ? ' 1rem 1rem' : 0)}; */
       min-width: 7rem;
     }
     .ant-select-selection-search {
-      padding-top: 0.2rem;
+      padding-top: 0rem;
     }
   }
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
-    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
   .ant-pagination .anticon-search {
-    margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)};
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
   .ant-pagination-item:not(.ant-pagination-disabled):hover,
   .ant-pagination-prev:not(.ant-pagination-disabled):hover,

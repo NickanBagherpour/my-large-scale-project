@@ -56,32 +56,32 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   }
 
   return (
-    <Protected>
-      <S.MainLayout>
-        <Appbar
-          onToggleDrawer={toggleDrawer}
-          onLogout={handleLogout}
-          config={config}
-          isMobileOrTablet={isMobileOrTablet}
+    // <Protected>
+    <S.MainLayout>
+      <Appbar
+        onToggleDrawer={toggleDrawer}
+        onLogout={handleLogout}
+        config={config}
+        isMobileOrTablet={isMobileOrTablet}
+      />
+
+      <Layout>
+        <Drawer
+          shouldDisplaySider={!isUndefined && !isMobile}
+          shouldDisplayDrawer={isMobile}
+          direction={config.direction}
+          openDrawer={openDrawer}
+          siderCollapsed={collapsed}
+          onBreakpoint={handleOnBreakpoint}
+          onClose={onClose}
         />
 
-        <Layout>
-          <Drawer
-            shouldDisplaySider={!isUndefined && !isMobile}
-            shouldDisplayDrawer={isMobile}
-            direction={config.direction}
-            openDrawer={openDrawer}
-            siderCollapsed={collapsed}
-            onBreakpoint={handleOnBreakpoint}
-            onClose={onClose}
-          />
-
-          <S.MainContentLayout>
-            <MainContent>{children}</MainContent>
-          </S.MainContentLayout>
-        </Layout>
-      </S.MainLayout>
-    </Protected>
+        <S.MainContentLayout>
+          <MainContent>{children}</MainContent>
+        </S.MainContentLayout>
+      </Layout>
+    </S.MainLayout>
+    // </Protected>
   );
 };
 

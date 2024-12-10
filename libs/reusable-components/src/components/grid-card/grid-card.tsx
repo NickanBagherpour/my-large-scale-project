@@ -67,17 +67,21 @@ type UpstreamCardProps = {
   name: string;
   activeServersCount: number;
   wordToHighlight: string;
+  isSetting?: boolean;
+  onClick?: () => void;
+  className?: string;
+  clickedCard?: string;
 };
 
 function UpstreamCard(props: UpstreamCardProps) {
-  const { name, href, activeServersCount, wordToHighlight } = props;
+  const { onClick, clickedCard, className, name, href, activeServersCount, wordToHighlight, isSetting = true } = props;
   const [t] = useTr();
   const theme = useTheme();
 
   const isUpstream = isUpstreamCard(props);
 
   return (
-    <S.Container href={href}>
+    <S.Container href={href} onClick={onClick} className={className} clickedCard={clickedCard}>
       <S.Header $isUpstream={isUpstream}>
         <S.Title
           text={name}
@@ -85,7 +89,7 @@ function UpstreamCard(props: UpstreamCardProps) {
           wordToHighlight={wordToHighlight}
           $isUpstream={isUpstream}
         />
-        <S.Settings className='icon-setting' $isUpstream={isUpstream} />
+        {isSetting && <S.Settings className='icon-setting' $isUpstream={isUpstream} />}
       </S.Header>
       <S.Footer $isUpstream={isUpstream}>
         <Status status={'active'} />

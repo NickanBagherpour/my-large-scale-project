@@ -2,20 +2,21 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
 import { IConfig, ThemeID } from '@oxygen/types';
-import { Button, Icons } from '@oxygen/ui-kit';
+import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
 import { useAsync, useAuth } from '@oxygen/hooks';
-import { ROUTES } from '@oxygen/utils';
+import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
-import { useTheme } from 'styled-components';
-import { Api } from '../../services';
+import { useGetUserInfo } from '../../services/use-get-user-info';
 
 import * as S from './appbar.style';
 
 export type AppBarProps = {
+  variant?: 'auth' | 'dashboard';
   isMobileOrTablet: boolean;
   config: IConfig;
   onToggleDrawer?: React.MouseEventHandler;
@@ -24,84 +25,76 @@ export type AppBarProps = {
 };
 
 const Appbar = (props: AppBarProps) => {
-  const { onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
+  const { variant = 'dashboard', onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
   const [t] = useTr();
   const { user, setUser } = useAuth();
   const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
   const theme = useTheme();
 
-  // console.log('test', 'user', user);
+  const { data: userData, isLoading, isError, error } = useGetUserInfo();
 
   useEffect(() => {
-    // console.log('test12', 'user', user);
-
-    if (!user) {
-      fetchUserProfile();
+    // If there’s no user info, set the fetched user profile
+    if (userData && userData?.success) {
+      setUser(userData?.data?.userInfo);
     }
-  }, []);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await executeUserProfile(async () => await Api.getUserProfile());
-      setUser(response);
-      return response;
-    } catch (error) {
-      return null;
-    }
-  };
+  }, [userData, setUser]);
 
   const getMobileAppbar = () => {
     return (
       <>
-        <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
-          <S.styleIcon className={'icon-hamburger-menu'} />
-          {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
-        </Button>
-
+        {variant === 'dashboard' && (
+          <Button shape={'circle'} variant="text" className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+            <S.styleIcon className={'icon-hamburger-menu'} />
+            {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
+          </Button>
+        )}
         <span className={'appbar-title-logo-date'}>
-          {theme.id !== ThemeID.DARK ? (
-            <Link href={ROUTES.BACKOFFICE.HOME}>
-              <Icons.OxygenLogo />
-            </Link>
-          ) : (
-            <Link href={ROUTES.BACKOFFICE.HOME}>
-              <Icons.OxygenDarkLogo />
-            </Link>
-          )}
+          <Link href={ROUTES.BACKOFFICE.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
+          </Link>
         </span>
         <AppbarUserMenu
+          variant={variant}
           userInfo={user}
           onLogout={onLogout}
           isMobileOrTablet={isMobileOrTablet}
-          loading={stateUserProfile.loading}
+          loading={isLoading}
         />
       </>
     );
   };
+
   const getDesktopAppbar = () => {
     return (
       <>
         <span className={'appbar-title-oxygen-logo'}>
-          {theme.id !== ThemeID.DARK ? (
-            <Link href={ROUTES.BACKOFFICE.HOME}>
-              <Icons.OxygenLogo />
-            </Link>
-          ) : (
-            <Link href={ROUTES.BACKOFFICE.HOME}>
-              <Icons.OxygenDarkLogo />
-            </Link>
-          )}
+          <Link href={ROUTES.BACKOFFICE.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
+          </Link>
         </span>
 
         <span style={{ flexGrow: 1 }} />
 
-        <AppbarUserMenu
-          userInfo={user}
-          onLogout={onLogout}
-          isMobileOrTablet={isMobileOrTablet}
-          loading={stateUserProfile.loading}
-        />
-        <S.Divider />
+        {variant === 'dashboard' ? (
+          <>
+            <AppbarUserMenu
+              userInfo={user}
+              onLogout={onLogout}
+              isMobileOrTablet={isMobileOrTablet}
+              loading={isLoading}
+            />
+            <S.Divider />
+          </>
+        ) : ENV_CONSTANTS.IS_DEV ? (
+          <>
+            <ThemeSwitch />
+            <S.Divider />
+          </>
+        ) : (
+          <></>
+        )}
+
         <span className={'appbar-title-bank-logo'}>
           <Icons.BankLogo />
         </span>

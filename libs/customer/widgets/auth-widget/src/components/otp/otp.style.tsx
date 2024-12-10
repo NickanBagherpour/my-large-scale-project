@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
+import { Button as KitButton, Divider as KitDivider, Input as KitInput } from '@oxygen/ui-kit';
 
 export const FormContainer = styled.div`
   /* background-color: ${(p) => p.theme.background._50}; */
@@ -39,15 +39,18 @@ export const FormInput = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
+
   .ant-form-item {
     margin: 0;
   }
+
   .ant-otp {
     width: 100%;
     flex-direction: row-reverse;
     margin: 2.4rem 0;
     justify-content: space-between;
   }
+
   .ant-input {
     height: 5.2rem;
     width: 5.2rem;
@@ -63,7 +66,7 @@ export const Button = styled(KitButton)`
   &&& {
     font-size: 1.6rem;
     width: 100%;
-    margin-top: 1.6;
+    margin-top: 1.2rem;
   }
 `;
 
