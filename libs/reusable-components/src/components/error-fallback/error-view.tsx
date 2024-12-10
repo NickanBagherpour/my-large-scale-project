@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { MAIN_HREF } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme, useAuth } from '@oxygen/hooks';
+import { Container } from '@oxygen/ui-kit';
 import LazyLottie from '../animation-loader/lazy-lottie';
 import * as S from './error-view.style';
-import { Container } from '@oxygen/ui-kit';
 
 type Props = {
   onRetry?: () => void;
