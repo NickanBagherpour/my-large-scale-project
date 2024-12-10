@@ -5,6 +5,7 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   font-family: inherit;
+  flex: 1;
 
   .popup:has(&) .ant-select-item-option {
     padding: 0.8rem 1.6rem;

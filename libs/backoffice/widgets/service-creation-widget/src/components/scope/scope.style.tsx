@@ -1,13 +1,13 @@
-import { Form as AntForm, Radio as AntRadio } from 'antd';
+import { Radio as AntRadio } from 'antd';
 import { Table as KitTable } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
-export const Form = styled(AntForm)`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-` as typeof AntForm;
+`;
 
 export const Radios = styled(AntRadio.Group)`
   margin-bottom: 2.4rem;

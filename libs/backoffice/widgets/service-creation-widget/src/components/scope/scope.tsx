@@ -1,37 +1,33 @@
-import { Form, RadioChangeEvent, type FormProps } from 'antd';
+import { Form, RadioChangeEvent } from 'antd';
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import ImportFromSso from '../import-from-sso/import-from-sso';
 import CreateScope from '../create-scope/create-scope';
-import type { ScopeFormType } from '../../types';
-import { updateScopeStep, nextStep, useAppDispatch, useAppState, updateScopeMode, previousStep } from '../../context';
+import type { CreateScopeFormType } from '../../types';
+import { useAppDispatch, useAppState, updateScopeMode, previousStep } from '../../context';
 import { type Scope } from '@oxygen/types';
 import { Button, type ColumnsType } from '@oxygen/ui-kit';
+import { useState } from 'react';
 
 export default function Scope() {
   const [t] = useTr();
-  const [form] = Form.useForm<ScopeFormType>();
-  const { scopeMode, scope: addScope } = useAppState();
+  const [form] = Form.useForm<CreateScopeFormType>();
+  const { scopeMode /* scope: addScope */ } = useAppState();
   const dispatch = useAppDispatch();
-  const existingSelectedScope = Form.useWatch('existingScopeName', form);
+  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
 
-  const selectScope = (scope: Scope) => {
-    form.setFieldValue('existingScopeName', scope);
+  const chooseScope = (scope: Scope) => {
+    setSelectedScope(scope);
   };
 
   const removeSelectedScope = () => {
-    form.setFieldValue('existingScopeName', null);
+    setSelectedScope(null);
   };
 
   const onChange = (e: RadioChangeEvent) => {
     updateScopeMode(dispatch, e.target.value);
-  };
-
-  const onFinish: FormProps<ScopeFormType>['onFinish'] = (values) => {
-    updateScopeStep(dispatch, values);
-    nextStep(dispatch);
   };
 
   const onReturn = () => {
@@ -67,25 +63,24 @@ export default function Scope() {
   ];
 
   return (
-    <S.Form layout='vertical' onFinish={onFinish} form={form} initialValues={addScope}>
+    <S.Container>
       <Box>
         <S.Radios onChange={onChange} value={scopeMode}>
           <S.Radio value={'importFromSso'}>{t('import_from_sso')}</S.Radio>
           <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
         </S.Radios>
-        {scopeMode === 'importFromSso' ? <ImportFromSso form={form} selectScope={selectScope} /> : <CreateScope />}
+        {scopeMode === 'importFromSso' ? (
+          <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
+        ) : (
+          <CreateScope selectedScope={selectedScope} chooseScope={chooseScope} />
+        )}
       </Box>
 
-      {existingSelectedScope && (
-        <S.Table
-          columns={desktopColumns}
-          dataSource={[existingSelectedScope]}
-          rowKey={(row) => row.idx}
-          pagination={false}
-        />
+      {selectedScope && (
+        <S.Table columns={desktopColumns} dataSource={[selectedScope]} rowKey={(row) => row.idx} pagination={false} />
       )}
 
       <Footer onRegister={() => form.submit()} onReturn={onReturn} />
-    </S.Form>
+    </S.Container>
   );
 }

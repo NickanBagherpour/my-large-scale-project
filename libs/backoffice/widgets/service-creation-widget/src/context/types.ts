@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-import { ScopeFormType, GeneralInfoValuesType, UploadDocsType } from '../types';
+import { CreateScopeFormType, GeneralInfoValuesType, UploadDocsType } from '../types';
 
 export type Step = 0 | 1 | 2;
 export type ScopeMode = 'importFromSso' | 'createScope';
@@ -9,7 +9,7 @@ export type WidgetStateType = {
   step: Step;
   scopeMode: ScopeMode;
   generalInfo: GeneralInfoValuesType;
-  scope: ScopeFormType;
+  scope: CreateScopeFormType;
   uploadDocs: UploadDocsType;
   message: Nullable<MessageType>;
 };
@@ -31,7 +31,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_SCOPE_STEP';
-      payload: ScopeFormType;
+      payload: CreateScopeFormType;
     }
   | {
       type: 'UPDATE_SCOPE_MODE';

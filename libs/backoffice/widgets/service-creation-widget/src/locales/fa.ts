@@ -38,4 +38,7 @@ export default {
   file_format: 'فرمت فایل ارسالی باید اکسل باشد',
   scope_english_name: 'نام لاتین اسکوپ',
   scope_persian_name: 'نام فارسی اسکوپ',
+  add_scope: 'افزودن اسکوپ',
+  submit_and_add: 'تایید و افزودن',
+  you_are_adding_scope: 'شما در حال افزودن اسکوپ {{scope}} در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
 };
