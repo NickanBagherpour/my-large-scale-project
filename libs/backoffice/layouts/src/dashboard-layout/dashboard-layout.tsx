@@ -5,7 +5,6 @@ import { Layout } from 'antd';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
-import { Protected } from '@oxygen/reusable-components';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
@@ -56,7 +55,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   }
 
   return (
-    // <Protected>
     <S.MainLayout>
       <Appbar
         onToggleDrawer={toggleDrawer}
@@ -81,7 +79,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </S.MainContentLayout>
       </Layout>
     </S.MainLayout>
-    // </Protected>
   );
 };
 
