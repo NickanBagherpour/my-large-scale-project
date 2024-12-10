@@ -3,7 +3,7 @@ import { useTr } from '@oxygen/translation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createScopeSchema, type CreateScopeFormType } from '../../types';
 import * as S from './create-scope.style';
-import { Form, type FormProps } from 'antd';
+import { Form } from 'antd';
 import { Scope } from '@oxygen/types';
 import { useToggle } from '@oxygen/hooks';
 import { CREATE_SCOPE_NAMES } from '../../utils/consts';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function CreateScope(props: Props) {
-  const { chooseScope /* selectedScope */ } = props;
+  const { chooseScope, selectedScope } = props;
   const [t] = useTr();
   const rule = createSchemaFieldRule(createScopeSchema(t));
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
@@ -39,7 +39,9 @@ export default function CreateScope(props: Props) {
             <Input />
           </S.FormItem>
         </S.Create>
-        <S.AddBtn htmlType='submit'>{t('add_scope')}</S.AddBtn>
+        <S.AddBtn htmlType='submit' color='secondary' disabled={!!selectedScope}>
+          {t('add_scope')}
+        </S.AddBtn>
       </Form>
 
       <Modal
