@@ -47,6 +47,8 @@ export default {
   scope_fa_name: 'نام فارسی اسکوپ',
   inspect_another: 'استعلام سرویس دیگر',
   allowed_Creation: 'مجاز به ثبت سرویس می‌باشید. سرویس با این مشخصات در سامانه ثبت نشده است.',
+  draft_delete_title: 'حذف پیش نویس',
+  draft_delete_confirm: 'آیا از حذف پیش نویس',
   complete_service_info:
     'مجاز به ثبت سرویس می‌باشید. سرویس مورد نظر تکمیل نشده است. لطفا نسبت به تکمیل فرایند ثبت سرویس اقدام نمایید. ',
   already_exists:
