@@ -35,8 +35,8 @@ const Appbar = (props: AppBarProps) => {
 
   useEffect(() => {
     // If there’s no user info, set the fetched user profile
-    if (userData) {
-      setUser(userData.userInfo?.userInfo);
+    if (userData && userData?.success) {
+      setUser(userData?.data?.userInfo);
     }
   }, [userData, setUser]);
 

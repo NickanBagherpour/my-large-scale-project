@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { PageProps } from '@oxygen/types';
 import { Button, Loading } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { useAuth } from '@oxygen/hooks';
+import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
+
 import { getSsoUrlAction } from '../../server-actions/get-sso-url.action';
 import { handleSSO } from '../../server-actions/handle-sso.action';
 
 import * as S from './app.style';
-import { useAuth } from '@oxygen/hooks';
-import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
-import { useTranslation } from 'react-i18next';
 
 type AuthWidgetType = PageProps & {
   parentProps?: any;
@@ -17,7 +18,7 @@ type AuthWidgetType = PageProps & {
 const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const [loading, setLoading] = useState(true);
   const { user, login } = useAuth();
-  const [t] = useTranslation();
+  const [t] = useTr();
 
   const [code, setCode] = useState<string | null>(props?.parentProps.searchParams['code'] ?? null);
   const ticket = props?.parentProps.searchParams['ticket'];
@@ -53,10 +54,10 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const handleLogin = async () => {
     setLoading(true);
 
-  /*  if (ENV_CONSTANTS.IS_DEV) {
+    if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
       setCode('develop');
       return;
-    }*/
+    }
 
     try {
       const ssoUrl = await getSsoUrlAction(); // Call the server action to get the SSO URL
