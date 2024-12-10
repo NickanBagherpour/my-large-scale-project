@@ -1,21 +1,19 @@
 import { ReactNode } from 'react';
-
 import { useTr } from '@oxygen/translation';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
-
 import GeneralInfo from '../general-info/general-info';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { Step } from '../../context/types';
 import Scope from '../scope/scope';
-
 import * as S from './app.style';
 import Route from '../route/route';
+import Upstream from '../upstream/upstream';
 
 const steps: Record<Step, ReactNode> = {
   0: <GeneralInfo />,
   1: <Scope />,
-  2: <div>hello</div>,
+  2: <Upstream />,
   3: <Route />,
 };
 
@@ -29,7 +27,7 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[{ title: t('general_info') }, { title: t('scope') }, { title: t('asdf') }, { title: t('route') }]}
+        items={[{ title: t('general_info') }, { title: t('scope') }, { title: t('upstream') }, { title: t('route') }]}
       />
       {steps[step]}
     </Container>

@@ -28,3 +28,9 @@ export const ROUTE_NAMES = {
   path: 'path',
   host: 'host',
 } as const;
+
+export const ADD_SERVER_NAMES = {
+  domainOrIpPort: 'domainOrIpPort',
+  weight: 'weight',
+  health: 'health',
+} as const;
