@@ -1,19 +1,18 @@
+import { useState } from 'react';
+import { useTheme } from 'styled-components';
+import { Modal } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { RQKEYS } from '@oxygen/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAppState } from '../../context';
 import { useGetServicesQuery } from '../../services';
 import Filters from '../filters/filters';
 import Services from '../services-list/services';
-import * as S from './app.style';
-import { Loading, Modal } from '@oxygen/ui-kit';
-import { useState } from 'react';
 
-import { useTr } from '@oxygen/translation';
-import { NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
 import { useGetDraftsQuery } from '../../services/get-drafts.api';
-import { useTheme } from 'styled-components';
-import { ParamsType, ServiceType, ServiceTypeQuery } from '../../types';
-import { useQueryClient } from '@tanstack/react-query';
-import { RQKEYS } from '@oxygen/utils';
+import { ParamsType, ServiceTypeQuery } from '../../types';
+import * as S from './app.style';
 
 const App = () => {
   const theme = useTheme();
