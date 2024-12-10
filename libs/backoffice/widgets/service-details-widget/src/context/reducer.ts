@@ -1,5 +1,5 @@
 import { FormFieldsType, initialActiveSelectType, initialFallbackSelectType } from './types';
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, RADIO_GROUP_NAME } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 import { t } from 'i18next';
 
@@ -17,8 +17,10 @@ const initialfallbackSelect: initialFallbackSelectType = {
   persianName: undefined,
   servers: fallBackServers,
 };
+
 export const initialStateValue: WidgetStateType = {
   upstreamTab: {
+    radioValue: RADIO_GROUP_NAME.SELECT,
     activeSelect: initialActiveSelect,
     fallbackSelect: initialfallbackSelect,
   },
@@ -40,13 +42,16 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.message = action.payload);
     }
 
+    case 'UPDATE_RADIO_VALUE': {
+      state.upstreamTab.radioValue = action.payload;
+      return;
+    }
     case 'UPDATE_ENGLISH_NAME': {
       state.upstreamTab.fallbackSelect.englishName = action.payload;
       return;
     }
 
     case 'UPDATE_FALLBACK_SERVERS': {
-      console.log('payload in reducer', action.payload);
       state.upstreamTab.fallbackSelect.servers = [...state.upstreamTab.fallbackSelect.servers, action.payload];
       return;
     }

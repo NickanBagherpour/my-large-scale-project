@@ -9,6 +9,9 @@ export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchTy
 export function updateFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
   dispatch({ type: 'UPDATE_FALLBACK_SERVERS', payload: servers });
 }
+export function updateRadioValueAction(dispatch: WidgetDispatchType, radioValue: Nullable<string>) {
+  dispatch({ type: 'UPDATE_RADIO_VALUE', payload: radioValue });
+}
 export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
   dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
 }
