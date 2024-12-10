@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { Button, Input, Modal, Select } from '@oxygen/ui-kit';
 
 import { addServerModalSchema } from '../../../../types';
-import { ADDSERVERMODAL_FORM_ITEM } from '../../../../utils/consts';
+import { ADD_SERVER_MODAL_FORM_ITEM, MAX_LENGTH_INPUT } from '../../../../utils/consts';
 
 import * as S from './add-server-modal.style';
 
@@ -41,15 +41,15 @@ export const AddServerModal: React.FC<AddServerModalPropsType> = (props) => {
         </S.SubmitBtn>,
       ]}
     >
-      <Form onFinish={handleSubmit} name={ADDSERVERMODAL_FORM_ITEM.ADD_SERVER} form={form}>
+      <Form onFinish={handleSubmit} name={ADD_SERVER_MODAL_FORM_ITEM.ADD_SERVER} form={form}>
         <S.FormContainer>
-          <Form.Item name={ADDSERVERMODAL_FORM_ITEM.IP_PORT} label={t('upstream_tab.modal.ip_port')} rules={[rule]}>
-            <Input />
+          <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.IP_PORT} label={t('upstream_tab.modal.ip_port')} rules={[rule]}>
+            <Input maxLength={MAX_LENGTH_INPUT} />
           </Form.Item>
-          <Form.Item name={ADDSERVERMODAL_FORM_ITEM.WEIGHT} label={t('upstream_tab.modal.weight')} rules={[rule]}>
-            <Input />
+          <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.WEIGHT} label={t('upstream_tab.modal.weight')} rules={[rule]}>
+            <Input maxLength={MAX_LENGTH_INPUT} />
           </Form.Item>
-          <Form.Item name={ADDSERVERMODAL_FORM_ITEM.HEALTH} label={t('upstream_tab.modal.health')}>
+          <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.HEALTH} label={t('upstream_tab.modal.health')}>
             <Select options={[]} />
           </Form.Item>
         </S.FormContainer>

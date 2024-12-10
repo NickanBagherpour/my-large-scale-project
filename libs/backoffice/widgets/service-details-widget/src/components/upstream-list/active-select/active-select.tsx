@@ -2,24 +2,24 @@ import { useState } from 'react';
 
 import { Button } from 'antd';
 
-import { InfoBox, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { InfoBox, Table } from '@oxygen/ui-kit';
 import { InfoItemType, PageProps } from '@oxygen/types';
 
 // import DetailsModal from './modals/info-service-modal/info-service-modal';
+import { Modal } from '../../scope-list/scope-list';
+import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
-import { Modal } from '../../scope-list/scope-list';
 
 import * as S from './active-select.style';
-import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 
 type ActiveSelectType = PageProps & {
   data?: any;
   loading?: boolean;
 };
 export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
-  const { data, loading } = props;
+  const { data, loading = false } = props;
   //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
@@ -80,7 +80,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         <InfoBox data={infoBoxData} minColumnCount={3} margin={0} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} loading={false} />
+          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} loading={loading} />
         </S.Table>
       </S.BorderBoxContainer>
       <RemoveServiceModal
