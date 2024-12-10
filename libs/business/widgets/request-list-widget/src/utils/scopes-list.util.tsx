@@ -59,6 +59,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       key: 'details',
       render: () => (
         <Button variant={'text'} href={'scope-information?id=test'} color={'primary'}>
+          <i className={'icon-document'} />
           {t('table.details')}
         </Button>
       ),
@@ -96,6 +97,7 @@ export function getMobileColumns(props: Props) {
             title: t('table.details'),
             value: (
               <Button className={'item__btn'} href={'scope-information?id=test'} variant={'text'} color={'primary'}>
+                <i className={'icon-document'} />
                 {t('table.details')}
               </Button>
             ),
