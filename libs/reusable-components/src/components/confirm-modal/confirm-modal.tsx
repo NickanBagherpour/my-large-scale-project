@@ -2,15 +2,15 @@ import { BasicComponentProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, ButtonProps, ModalProps } from '@oxygen/ui-kit';
 
-import { ReactElement, SyntheticEvent } from 'react';
+import { MouseEvent, MouseEventHandler, ReactElement, SyntheticEvent } from 'react';
 
 import * as S from './confirm-modal.style';
 
 type Props = BasicComponentProps &
   ModalProps & {
     title: string;
-    onCancel?: (e?: SyntheticEvent) => void;
-    onConfirm: (e?: SyntheticEvent) => void;
+    onCancel?: MouseEventHandler;
+    onConfirm?: MouseEventHandler;
     showConfirm?: boolean;
     showCancel?: boolean;
     confirmBtnProps?: ButtonProps;
@@ -38,14 +38,14 @@ const ConfirmModal: React.FC<Props> = ({
     if (showCancel) {
       footer.push(
         <Button onClick={onCancel} size='large' color='primary' variant='outlined' {...cancelBtnProps}>
-          {cancelBtnProps?.children??t('button.cancel')}
+          {cancelBtnProps?.children ?? t('button.cancel')}
         </Button>
       );
     }
     if (showConfirm) {
       footer.push(
         <S.ConfirmButton onClick={onConfirm} size='large' color='primary' {...confirmBtnProps}>
-          {confirmBtnProps?.children?? t('button.confirm')}
+          {confirmBtnProps?.children ?? t('button.confirm')}
         </S.ConfirmButton>
       );
     }
