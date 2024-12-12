@@ -7,6 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { MAIN_HREF } from '@oxygen/utils';
 
+import { ReactComponent as NotFound } from '../../assets/media/404-error.svg';
 import * as S from './404-error.style';
 
 const NotFoundError = () => {
