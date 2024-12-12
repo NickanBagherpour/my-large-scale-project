@@ -81,14 +81,11 @@ export default function Upstream() {
               {Array.from({ length: 10 }).map((_, idx) => (
                 <GridCard
                   key={idx}
-                  href={'#'}
-                  name={'API-SERVICES-UPSTREAM'}
-                  activeServersCount={5}
-                  wordToHighlight={''}
-                  isSetting={false}
-                  onClick={() => void 1}
-                  className={'card'}
-                  clickedCard={''}
+                  title={'API-SERVICES-UPSTREAM'}
+                  serversCount={5}
+                  hasSetting={false}
+                  isActive={false}
+                  isHeaderLtr={true}
                 />
               ))}
             </S.Grid>

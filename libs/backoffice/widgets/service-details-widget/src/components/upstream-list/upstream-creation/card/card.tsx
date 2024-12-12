@@ -38,16 +38,14 @@ export const Card = (props: CardProps) => {
         <S.CardContainer>
           {cardData?.map((data, index) => (
             <GridCard
-              activeServersCount={data.active_server}
+              serversCount={data.active_server}
               key={index}
-              name={data.upstream_latin_name}
+              title={data.upstream_latin_name}
               status={data.is_server_active ? 'active' : 'inactive'}
-              wordToHighlight=''
-              href='#'
-              isSetting={false}
-              clickedCard={clickedCard}
-              className={data.id}
+              hasSetting={false}
+              isActive={clickedCard === data.id}
               onClick={() => handleClick(data)}
+              isHeaderLtr={true}
             />
           ))}
         </S.CardContainer>
