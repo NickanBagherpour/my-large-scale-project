@@ -9,12 +9,14 @@ import Scope from '../scope/scope';
 import * as S from './app.style';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
+import ConfirmData from '../confirm-data/confirm-data';
 
 const steps: Record<Step, ReactNode> = {
   0: <GeneralInfo />,
   1: <Scope />,
   2: <Upstream />,
   3: <Route />,
+  4: <ConfirmData />,
 };
 
 const App = () => {
@@ -27,7 +29,13 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[{ title: t('general_info') }, { title: t('scope') }, { title: t('upstream') }, { title: t('route') }]}
+        items={[
+          { title: t('general_info') },
+          { title: t('scope') },
+          { title: t('upstream') },
+          { title: t('route') },
+          { title: t('confirm_data') },
+        ]}
       />
       {steps[step]}
     </Container>

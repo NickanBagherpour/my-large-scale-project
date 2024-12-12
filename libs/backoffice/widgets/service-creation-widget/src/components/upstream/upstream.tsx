@@ -10,15 +10,22 @@ import FormItem from '../form-item/form-item';
 import AddServerModal from '../add-server-modal/add-server-modal';
 import { useToggle } from '@oxygen/hooks';
 import RemoveServerModal from '../remove-server-modal/remove-server-modal';
+import Footer from '../footer/footer';
+import { previousStep, useAppDispatch } from '../../context';
 
 export default function Upstream() {
   const [t] = useTr();
+  const dispatch = useAppDispatch();
   const [upstreamMode, setUpstreamMode] = useState<'chooseUpstream' | 'createUpstream'>('chooseUpstream');
   const [isAddServerModalOpen, toggleAddServerModal] = useToggle(false);
   const [isRemoveServerModalOpen, toggleRemoveServerModal] = useToggle(false);
 
   const onChange = (e: RadioChangeEvent) => {
     setUpstreamMode(e.target.value);
+  };
+
+  const onReturn = () => {
+    previousStep(dispatch);
   };
 
   const desktopColumns: ColumnsType<UpstreamServer> = [
@@ -122,6 +129,8 @@ export default function Upstream() {
 
           <Table columns={desktopColumns} dataSource={data} rowKey={(row) => row.idx} pagination={false} />
         </Box>
+
+        <Footer onRegister={() => void 1} onReturn={onReturn} />
       </S.Container>
       <AddServerModal isOpen={isAddServerModalOpen} toggle={toggleAddServerModal} />
       <RemoveServerModal isOpen={isRemoveServerModalOpen} toggle={toggleRemoveServerModal} id={'samat-lc-gutr-del'} />

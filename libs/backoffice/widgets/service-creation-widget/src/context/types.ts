@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
 import { CreateScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
 
-export type Step = 0 | 1 | 2 | 3;
+export type Step = 0 | 1 | 2 | 3 | 4;
 export type ScopeMode = 'importFromSso' | 'createScope';
 
 export type WidgetStateType = {

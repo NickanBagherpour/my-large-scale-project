@@ -1,7 +1,7 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 2,
+  step: 4,
   scopeMode: 'importFromSso',
   generalInfo: {
     tag: null,

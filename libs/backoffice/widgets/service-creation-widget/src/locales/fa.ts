@@ -54,11 +54,12 @@ export default {
   remove_server: 'حذف سرور',
   remove: 'حذف',
 
-  //////////////
   action_or_method: 'اکشن/متود',
   protocole: 'پروتوکل',
   path: 'Path',
   host: 'Host',
   route: 'Route',
-  //////////////
+
+  service_general_info: 'اطلاعات کلی سرویس',
+  confirm_data: 'تایید اطلاعات',
 };
