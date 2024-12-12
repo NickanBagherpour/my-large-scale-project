@@ -1,7 +1,8 @@
-import { Badge, Empty, Input, Menu, MenuProps, Result } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import React, { useEffect, useMemo, useState } from 'react';
+
+import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
 
 import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
@@ -11,7 +12,6 @@ import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
-import UserSection from '../user-section/user-section';
 
 import * as S from './drawer.style';
 

@@ -1,9 +1,12 @@
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Button, Container, Loading } from '@oxygen/ui-kit';
+import { SecondaryTitle } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
+import { useApp } from '@oxygen/hooks';
 
 //import { useGetReportDataQuery } from '../../services';
 
@@ -12,9 +15,6 @@ import { Form } from 'antd';
 import EditService from '../edit-service/edit-service';
 
 import * as S from './app.style';
-import { SecondaryTitle } from '@oxygen/reusable-components';
-import { ROUTES } from '@oxygen/utils';
-import { useApp } from '@oxygen/hooks';
 
 type AppProps = PageProps & {
   //
@@ -27,9 +27,8 @@ const App: React.FC<AppProps> = (props) => {
   const { notification } = useApp();
   const id: Nullable<string> = searchParams.get('id');
 
-  const [title, setTitle] = useState(t('subtitle'));
-
   const { data: serviceInfo, isFetching } = useGetServiceInfoQuery({ id });
+  const title = serviceInfo?.[i18nBase.resolvedLanguage + 'Name'] ?? t('subtitle');
 
   if (!id || (!isFetching && !serviceInfo)) {
     notFound();
@@ -38,8 +37,9 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-  const handleSubmit = () => {
+  const handleSubmit = (formValues: any) => {
     form.submit();
+    console.log('formvalues', formValues);
     const success = true;
     //also hanlde errors
     if (success) {
@@ -51,11 +51,6 @@ const App: React.FC<AppProps> = (props) => {
       });
     }
   };
-  useEffect(() => {
-    if (serviceInfo && title === t('subtitle')) {
-      setTitle(serviceInfo?.[i18nBase.resolvedLanguage + 'Name']);
-    }
-  }, [serviceInfo, title]);
   const showLoadingSpinner = () => {
     return (
       <S.LoadingContainer>
@@ -76,7 +71,11 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <Container title={title} footer={footer}>
       <SecondaryTitle text={t('subtitle')} />
-      {isFetching ? showLoadingSpinner() : <EditService serviceInfo={serviceInfo} form={form} />}
+      {isFetching ? (
+        showLoadingSpinner()
+      ) : (
+        <EditService serviceInfo={serviceInfo} form={form} onSubmit={handleSubmit} />
+      )}
     </Container>
   );
 };
