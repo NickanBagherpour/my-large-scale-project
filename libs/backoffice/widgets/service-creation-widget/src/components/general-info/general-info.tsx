@@ -40,7 +40,7 @@ export default function GeneralInfo() {
         <Form layout={'vertical'} initialValues={state.generalInfo} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <FormItem name={FORM_ITEM_NAMES.englishName} className='span-2' label={t('english_name')} rules={[rule]}>
-              <Input placeholder={t('enter_english_name')} />
+              <Input disabled placeholder={t('enter_english_name')} />
             </FormItem>
             <FormItem name={FORM_ITEM_NAMES.persianName} className='span-2' label={t('persian_name')} rules={[rule]}>
               <Input placeholder={t('enter_persian_name')} />
