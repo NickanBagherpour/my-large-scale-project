@@ -4,7 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 
 import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
 
-import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
+import { useAsync, useConfig, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
@@ -22,7 +22,7 @@ function getItem(
   key?: React.Key | null,
   icon?: React.ReactNode,
   disabled?: boolean,
-  children?: MenuItem[]
+  children?: MenuItem[],
 ): MenuItem {
   return {
     label,
@@ -37,7 +37,6 @@ export type DrawerProps = {
   shouldDisplaySider: boolean;
   shouldDisplayDrawer: boolean;
   openDrawer: boolean;
-  direction: string;
   siderCollapsed: boolean;
   onToggleDrawer?: React.MouseEventHandler;
   children?: React.ReactNode;
@@ -47,7 +46,6 @@ export type DrawerProps = {
 
 const Drawer = (props: DrawerProps) => {
   const {
-    direction,
     shouldDisplaySider = false,
     shouldDisplayDrawer = false,
     siderCollapsed = false,
@@ -57,6 +55,7 @@ const Drawer = (props: DrawerProps) => {
   } = props;
 
   const { menu, setMenu } = useMenu();
+  const { config } = useConfig();
 
   const [t] = useTr();
   const [searchQuery, setSearchQuery] = useState('');
@@ -118,7 +117,7 @@ const Drawer = (props: DrawerProps) => {
         menuItem?.id?.toString(),
         menuItem.icon ? <i className={menuItem.icon} /> : undefined,
         !menuItem?.active,
-        menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
+        menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined,
       );
       items.push(item);
     });
@@ -155,7 +154,7 @@ const Drawer = (props: DrawerProps) => {
       <S.MenuWrapper>
         {stateMenu?.error ? (
           <Result
-            status='error'
+            status="error"
             icon={<i className={'ri-alert-fill ri-3x'} />}
             subTitle={t('layout.menu_error_message')}
             extra={[
@@ -178,14 +177,14 @@ const Drawer = (props: DrawerProps) => {
             {/*</div>*/}
 
             {stateMenu?.loading ? (
-              <div className='menu-spin-container'>
-                <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
+              <div className="menu-spin-container">
+                <Loading height="100%" containerProps={{ paddingTop: '4rem' }} />
               </div>
             ) : (
               <>
                 <Menu
                   // theme='dark'
-                  mode='inline'
+                  mode="inline"
                   openKeys={openKeys}
                   defaultSelectedKeys={menuSelectedKeys}
                   selectedKeys={menuSelectedKeys}
@@ -231,7 +230,7 @@ const Drawer = (props: DrawerProps) => {
       {shouldDisplayDrawer && (
         <S.Drawer
           // title='Basic Drawer'
-          placement={direction === Direction.RTL ? 'right' : 'left'}
+          placement={config?.direction === Direction.RTL ? 'right' : 'left'}
           closable={false}
           onClose={onClose}
           open={openDrawer}
