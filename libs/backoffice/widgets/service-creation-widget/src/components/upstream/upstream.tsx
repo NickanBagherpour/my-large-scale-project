@@ -11,7 +11,7 @@ import AddServerModal from '../add-server-modal/add-server-modal';
 import { useToggle } from '@oxygen/hooks';
 import RemoveServerModal from '../remove-server-modal/remove-server-modal';
 import Footer from '../footer/footer';
-import { previousStep, useAppDispatch } from '../../context';
+import { nextStep, previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 
 export default function Upstream() {
@@ -161,7 +161,7 @@ export default function Upstream() {
           />
         </Box>
 
-        <Footer onRegister={() => void 1} onReturn={onReturn} />
+        <Footer onRegister={() => nextStep(dispatch)} onReturn={onReturn} />
       </Container>
       <AddServerModal isOpen={isAddServerModalOpen} toggle={toggleAddServerModal} />
       <RemoveServerModal isOpen={isRemoveServerModalOpen} toggle={toggleRemoveServerModal} id={'samat-lc-gutr-del'} />
