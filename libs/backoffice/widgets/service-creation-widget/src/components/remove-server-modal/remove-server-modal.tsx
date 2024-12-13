@@ -21,6 +21,7 @@ export default function RemoveServerModal(props: Props) {
       open={isOpen}
       closable={true}
       onCancel={toggle}
+      destroyOnClose
       footer={[
         <Button onClick={toggle} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}

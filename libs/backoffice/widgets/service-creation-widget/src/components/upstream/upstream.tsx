@@ -4,7 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { useState } from 'react';
 import { Form, type RadioChangeEvent } from 'antd';
 import { GridCard } from '@oxygen/reusable-components';
-import { Button, ColumnsType, InfoBox, Input, SearchItemsContainer, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, InfoBox, Input, SearchItemsContainer, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import { UpstreamServer } from '@oxygen/types';
 import FormItem from '../form-item/form-item';
 import AddServerModal from '../add-server-modal/add-server-modal';
@@ -59,6 +59,33 @@ export default function Upstream() {
           },
         ]
       : []),
+  ];
+
+  const mobileColumns: ColumnsType<UpstreamServer> = [
+    {
+      title: null,
+      key: 'mobileColumn',
+      render: (record) => {
+        return (
+          <UiKitBox flexDirection='column'>
+            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={record.domain} />
+            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
+            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={record.healthStatus} />
+            {upstreamMode === 'createUpstream' && (
+              <Table.MobileColumn
+                minHeight={'40px'}
+                title={t('remove')}
+                value={
+                  <Button className='item__btn' variant='link' onClick={toggleRemoveServerModal}>
+                    <S.TrashIcon className='icon-trash' />
+                  </Button>
+                }
+              />
+            )}
+          </UiKitBox>
+        );
+      },
+    },
   ];
 
   const data: UpstreamServer[] = Array.from({ length: 4 }).map((_, idx) => ({
@@ -125,7 +152,13 @@ export default function Upstream() {
             )}
           </S.Header>
 
-          <Table columns={desktopColumns} dataSource={data} rowKey={(row) => row.idx} pagination={false} />
+          <Table
+            columns={desktopColumns}
+            mobileColumns={mobileColumns}
+            dataSource={data}
+            rowKey={(row) => row.idx}
+            pagination={false}
+          />
         </Box>
 
         <Footer onRegister={() => void 1} onReturn={onReturn} />

@@ -6,7 +6,6 @@ import { respondTo } from '@oxygen/utils';
 export const FormItem = styled(RawFormItem)`
   flex: 1;
   & label {
-    font-size: 1.2rem;
     height: 100% !important;
     width: 100%;
   }

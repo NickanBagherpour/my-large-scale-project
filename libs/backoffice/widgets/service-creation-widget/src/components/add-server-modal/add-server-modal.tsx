@@ -1,4 +1,4 @@
-import { Input, Modal, Select } from '@oxygen/ui-kit';
+import { Input, Select, Button } from '@oxygen/ui-kit';
 import * as S from './add-server-modal.style';
 import { Form, FormProps } from 'antd';
 import { useTr } from '@oxygen/translation';
@@ -24,31 +24,32 @@ export default function AddServerModal(props: Props) {
   const rule = createSchemaFieldRule(addServerSchema(t));
 
   const onFinish: FormProps<AddServerType>['onFinish'] = () => {
-    //
+    toggle();
   };
 
   return (
-    <Modal
+    <S.Modal
       centered
       title={t('add_server')}
       open={isOpen}
       onCancel={toggle}
       width={600}
-      footer={[<S.RegisterBtn onClick={form.submit}>{t('register_server')}</S.RegisterBtn>]}
+      destroyOnClose
+      footer={[<Button onClick={form.submit}>{t('register_server')}</Button>]}
     >
-      <Form form={form} onFinish={onFinish} colon>
+      <Form form={form} onFinish={onFinish} colon preserve={false}>
         <S.FormItem name={ADD_SERVER_NAMES.domainOrIpPort} rules={[rule]} label={t('domainOrIpPort')}>
-          <Input size='middle' />
+          <Input size='large' />
         </S.FormItem>
 
         <S.FormItem name={ADD_SERVER_NAMES.weight} rules={[rule]} label={t('weight')}>
-          <Input size='middle' />
+          <Input size='large' />
         </S.FormItem>
 
         <S.FormItem name={ADD_SERVER_NAMES.health} rules={[rule]} label={t('health')}>
-          <Select options={options} size='middle' />
+          <Select options={options} size='large' />
         </S.FormItem>
       </Form>
-    </Modal>
+    </S.Modal>
   );
 }
