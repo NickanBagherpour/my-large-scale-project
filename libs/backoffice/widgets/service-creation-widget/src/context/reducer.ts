@@ -1,7 +1,8 @@
+import { steps } from '../components/app/app';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 4,
+  step: 0,
   scopeMode: 'importFromSso',
   generalInfo: {
     tag: null,
@@ -9,7 +10,7 @@ export const initialStateValue: WidgetStateType = {
     version: '',
     access: null,
     category: null,
-    englishName: '',
+    englishName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
     persianName: '',
     throughout: null,
   },
@@ -29,7 +30,7 @@ export const initialStateValue: WidgetStateType = {
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
     case 'NEXT_STEP':
-      return state.step < 2 ? void state.step++ : undefined;
+      return state.step < steps.length ? void state.step++ : undefined;
 
     case 'PREVIOUS_STEP':
       return state.step > 0 ? void state.step-- : undefined;

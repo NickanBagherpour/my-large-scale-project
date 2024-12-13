@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
 import { CreateScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
+import { steps } from '../components/app/app';
 
-export type Step = 0 | 1 | 2 | 3 | 4;
+// Partial<T>["length"] gives a union of all possible lengths of the array when elements are optional.
+// T["length"] gives the exact length of the original array.
+// Exclude removes the exact length of the array from the union of possible lengths, leaving only values that represent valid indices for T
+type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
+
 export type ScopeMode = 'importFromSso' | 'createScope';
 
 export type WidgetStateType = {
-  step: Step;
+  step: Indices<typeof steps>;
   scopeMode: ScopeMode;
   generalInfo: GeneralInfoValuesType;
   scope: CreateScopeFormType;

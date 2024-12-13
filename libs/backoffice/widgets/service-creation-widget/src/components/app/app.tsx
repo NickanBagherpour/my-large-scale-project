@@ -1,23 +1,15 @@
-import { ReactNode } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
-import { Step } from '../../context/types';
 import Scope from '../scope/scope';
 import * as S from './app.style';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 
-const steps: Record<Step, ReactNode> = {
-  0: <GeneralInfo />,
-  1: <Scope />,
-  2: <Upstream />,
-  3: <Route />,
-  4: <ConfirmData />,
-};
+export const steps = [<GeneralInfo />, <Scope />, <Upstream />, <Route />, <ConfirmData />] as const;
 
 const App = () => {
   const [t] = useTr();
