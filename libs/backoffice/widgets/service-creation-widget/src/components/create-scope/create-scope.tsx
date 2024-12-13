@@ -19,11 +19,9 @@ export default function CreateScope(props: Props) {
   const rule = createSchemaFieldRule(createScopeSchema(t));
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
   const [form] = Form.useForm<CreateScopeFormType>();
-  const asdf = Form.useWatch(form);
 
   const addScope = () => {
     const { scopeName, persianScopeName } = form.getFieldsValue();
-    console.log(':)', 'scopeName', scopeName, 'asdf', asdf);
     chooseScope({ idx: 0, scopeName, persianName: persianScopeName });
     toggleIsModalOpen();
   };

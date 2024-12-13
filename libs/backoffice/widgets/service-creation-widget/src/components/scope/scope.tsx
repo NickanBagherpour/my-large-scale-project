@@ -1,12 +1,11 @@
-import { Form, RadioChangeEvent } from 'antd';
+import { RadioChangeEvent } from 'antd';
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import ImportFromSso from '../import-from-sso/import-from-sso';
 import CreateScope from '../create-scope/create-scope';
-import type { CreateScopeFormType } from '../../types';
-import { useAppDispatch, useAppState, updateScopeMode, previousStep } from '../../context';
+import { useAppDispatch, useAppState, updateScopeMode, previousStep, nextStep } from '../../context';
 import { type Scope } from '@oxygen/types';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
@@ -14,7 +13,6 @@ import { Container } from '../container/container.style';
 
 export default function Scope() {
   const [t] = useTr();
-  const [form] = Form.useForm<CreateScopeFormType>();
   const { scopeMode /* scope: addScope */ } = useAppState();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
@@ -112,7 +110,11 @@ export default function Scope() {
         />
       )}
 
-      <Footer onRegister={() => form.submit()} onReturn={onReturn} />
+      <Footer
+        registerButtonProps={{ disabled: !selectedScope }}
+        onRegister={() => nextStep(dispatch)}
+        onReturn={onReturn}
+      />
     </Container>
   );
 }
