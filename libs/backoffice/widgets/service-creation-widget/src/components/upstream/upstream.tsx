@@ -34,7 +34,6 @@ export default function Upstream() {
       title: t('domain'),
       dataIndex: 'domain',
       align: 'center',
-      render: (_val, _record, idx) => idx + 1,
     },
     {
       title: t('health_status'),
@@ -65,12 +64,13 @@ export default function Upstream() {
     {
       title: null,
       key: 'mobileColumn',
-      render: (record) => {
+      render: ({ domain, healthStatus, weight }: UpstreamServer) => {
         return (
           <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={record.domain} />
+            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={record.healthStatus} />
+            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={healthStatus} />
+            <Table.MobileColumn minHeight={'40px'} title={t('weight')} value={weight} />
             {upstreamMode === 'createUpstream' && (
               <Table.MobileColumn
                 minHeight={'40px'}
