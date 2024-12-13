@@ -3,13 +3,13 @@ import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
-import * as S from './general-info.style';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateGetInfoStep, nextStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
+import { Container } from '../container/container.style';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -35,7 +35,7 @@ export default function GeneralInfo() {
   };
 
   return (
-    <S.Container>
+    <Container>
       <Box>
         <Form layout={'vertical'} initialValues={state.generalInfo} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
@@ -68,6 +68,6 @@ export default function GeneralInfo() {
       </Box>
 
       <Footer onRegister={form.submit} onReturn={onReturn} />
-    </S.Container>
+    </Container>
   );
 }

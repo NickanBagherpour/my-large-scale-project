@@ -12,6 +12,7 @@ import { useToggle } from '@oxygen/hooks';
 import RemoveServerModal from '../remove-server-modal/remove-server-modal';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
+import { Container } from '../container/container.style';
 
 export default function Upstream() {
   const [t] = useTr();
@@ -69,7 +70,7 @@ export default function Upstream() {
 
   return (
     <>
-      <S.Container>
+      <Container>
         <Box>
           <S.Radios onChange={onChange} value={upstreamMode}>
             <S.Radio value={'chooseUpstream'}>{t('choose_upstream')}</S.Radio>
@@ -128,7 +129,7 @@ export default function Upstream() {
         </Box>
 
         <Footer onRegister={() => void 1} onReturn={onReturn} />
-      </S.Container>
+      </Container>
       <AddServerModal isOpen={isAddServerModalOpen} toggle={toggleAddServerModal} />
       <RemoveServerModal isOpen={isRemoveServerModalOpen} toggle={toggleRemoveServerModal} id={'samat-lc-gutr-del'} />
     </>

@@ -1,12 +1,6 @@
 import { Radio as AntRadio } from 'antd';
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
 export const Radios = styled(AntRadio.Group)`
   margin-bottom: 2.4rem;
 `;

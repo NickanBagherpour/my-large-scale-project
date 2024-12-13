@@ -8,7 +8,7 @@ import { updateGetInfoStep, nextStep, useAppDispatch, useAppState, previousStep,
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
-import * as S from './route.style';
+import { Container } from '../container/container.style';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -37,7 +37,7 @@ export default function Route() {
   };
 
   return (
-    <S.Container>
+    <Container>
       <Box>
         <Form layout={'vertical'} initialValues={state.route} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
@@ -61,6 +61,6 @@ export default function Route() {
       </Box>
 
       <Footer onRegister={onRegister} onReturn={onReturn} />
-    </S.Container>
+    </Container>
   );
 }

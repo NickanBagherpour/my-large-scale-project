@@ -10,6 +10,7 @@ import { useAppDispatch, useAppState, updateScopeMode, previousStep } from '../.
 import { type Scope } from '@oxygen/types';
 import { Button, type ColumnsType } from '@oxygen/ui-kit';
 import { useState } from 'react';
+import { Container } from '../container/container.style';
 
 export default function Scope() {
   const [t] = useTr();
@@ -63,7 +64,7 @@ export default function Scope() {
   ];
 
   return (
-    <S.Container>
+    <Container>
       <Box>
         <S.Radios onChange={onChange} value={scopeMode}>
           <S.Radio value={'importFromSso'}>{t('import_from_sso')}</S.Radio>
@@ -81,6 +82,6 @@ export default function Scope() {
       )}
 
       <Footer onRegister={() => form.submit()} onReturn={onReturn} />
-    </S.Container>
+    </Container>
   );
 }

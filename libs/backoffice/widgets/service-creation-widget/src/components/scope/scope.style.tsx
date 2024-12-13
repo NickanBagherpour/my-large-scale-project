@@ -2,12 +2,6 @@ import { Radio as AntRadio } from 'antd';
 import { Table as KitTable } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
-export const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
 export const Radios = styled(AntRadio.Group)`
   margin-bottom: 2.4rem;
 `;

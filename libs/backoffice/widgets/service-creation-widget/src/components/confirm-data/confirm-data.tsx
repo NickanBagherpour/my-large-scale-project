@@ -4,6 +4,7 @@ import { ColumnsType, InfoBox, Table } from '@oxygen/ui-kit';
 import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
+import { Container } from '../container/container.style';
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -68,7 +69,7 @@ export default function ConfirmData() {
   };
 
   return (
-    <>
+    <Container>
       <S.Section>
         <S.Title>{t('service_general_info')}</S.Title>
         <InfoBox data={generalInfoData} margin={0} />
@@ -91,6 +92,6 @@ export default function ConfirmData() {
       </S.Section>
 
       <Footer onRegister={() => void 1} onReturn={onReturn} />
-    </>
+    </Container>
   );
 }
