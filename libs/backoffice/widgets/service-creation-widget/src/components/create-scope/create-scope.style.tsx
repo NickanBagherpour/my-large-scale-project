@@ -1,11 +1,29 @@
 import styled from 'styled-components';
 import RawFormItem from '../form-item/form-item';
 import { Button } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const FormItem = styled(RawFormItem)`
   flex: 1;
   & label {
     font-size: 1.2rem;
+    height: 100% !important;
+    width: 100%;
+  }
+
+  & .ant-col:has(label) {
+    flex: 1;
+    min-width: 10rem;
+  }
+
+  & .ant-col:not(:has(label)) {
+    flex: 9;
+  }
+
+  ${respondTo.down('md')} {
+    & .ant-row {
+      flex-direction: column;
+    }
   }
 `;
 

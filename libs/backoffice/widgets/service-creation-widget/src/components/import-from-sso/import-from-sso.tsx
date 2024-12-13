@@ -19,7 +19,7 @@ export default function ImportFromSso(props: Props) {
   return (
     <>
       <S.Container>
-        <ScopeSelector style={{ flex: 1 }} onSelect={selectScope} />
+        <ScopeSelector style={{ flex: 1 }} onSelect={selectScope} disabled={!!selectedScope} />
         <Button color='secondary' onClick={toggleIsScopeLibraryOpen} disabled={!!selectedScope}>
           <S.PlusIcon className='icon-plus' />
           {t('scope_library')}

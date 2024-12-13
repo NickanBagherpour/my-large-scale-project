@@ -8,7 +8,7 @@ import CreateScope from '../create-scope/create-scope';
 import type { CreateScopeFormType } from '../../types';
 import { useAppDispatch, useAppState, updateScopeMode, previousStep } from '../../context';
 import { type Scope } from '@oxygen/types';
-import { Button, type ColumnsType } from '@oxygen/ui-kit';
+import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
 import { Container } from '../container/container.style';
 
@@ -63,10 +63,35 @@ export default function Scope() {
     },
   ];
 
+  const mobileColumns: ColumnsType<Scope> = [
+    {
+      title: null,
+      key: 'mobileColumn',
+      render: () => {
+        return (
+          <UiKitBox flexDirection='column'>
+            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.scopeName} />
+            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
+            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.persianName} />
+            <Table.MobileColumn
+              minHeight={'40px'}
+              title={t('remove')}
+              value={
+                <Button className='item__btn' variant='link' color='error' onClick={removeSelectedScope}>
+                  <S.TrashIcon className='icon-trash' />
+                </Button>
+              }
+            />
+          </UiKitBox>
+        );
+      },
+    },
+  ];
+
   return (
     <Container>
       <Box>
-        <S.Radios onChange={onChange} value={scopeMode}>
+        <S.Radios onChange={onChange} value={scopeMode} disabled={!!selectedScope}>
           <S.Radio value={'importFromSso'}>{t('import_from_sso')}</S.Radio>
           <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
         </S.Radios>
@@ -78,7 +103,13 @@ export default function Scope() {
       </Box>
 
       {selectedScope && (
-        <S.Table columns={desktopColumns} dataSource={[selectedScope]} rowKey={(row) => row.idx} pagination={false} />
+        <S.Table
+          columns={desktopColumns}
+          mobileColumns={mobileColumns}
+          dataSource={[selectedScope]}
+          rowKey={(row) => row.idx}
+          pagination={false}
+        />
       )}
 
       <Footer onRegister={() => form.submit()} onReturn={onReturn} />

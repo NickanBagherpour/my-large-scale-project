@@ -6,6 +6,13 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  ${respondTo.down('md')} {
+    flex-direction: column;
+    & > * {
+      width: 100%;
+    }
+  }
 `;
 
 export const PlusIcon = styled.i`

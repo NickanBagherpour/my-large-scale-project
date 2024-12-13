@@ -19,10 +19,11 @@ type Props = {
   id?: string;
   onClear?: () => void;
   onSelect?: (scope: Scope) => void;
+  disabled: boolean;
 };
 
 const ScopeSelector = (props: Props) => {
-  const { onSelect, onClear, id, className = '', style = {} } = props;
+  const { onSelect, onClear, id, className = '', style = {}, disabled } = props;
   const MAX_LENGTH = 75;
   const theme = useTheme();
   const [t] = useTr();
@@ -36,6 +37,7 @@ const ScopeSelector = (props: Props) => {
   return (
     <AntAutoComplete
       autoFocus
+      disabled={disabled}
       id={id}
       value={searchTerm}
       className={className}
