@@ -62,4 +62,12 @@ export default {
 
   service_general_info: 'اطلاعات کلی سرویس',
   confirm_data: 'تایید اطلاعات',
+  we_are_processing_please_wait: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+  service_managment: 'مدیریت سرویس‌ها',
+  register_request_was_submitted: 'درخواست ثبت سرویس با موفقیت ثبت شد. ',
+  couldnt_connect_try_again: 'ارتباط با سرور برقرار نشد. لطفا دوباره تلاش نمایید.  ',
+  edit_data: 'ویرایش اطلاعات',
+  save_in_draft: 'ذخیره در پیشنویس',
+  try_again: 'تلاش دوباره',
+  err: 'Error',
 };

@@ -5,10 +5,13 @@ import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
+import { useToggle } from '@oxygen/hooks';
+import ResultModal from '../result-modal/result-modal';
 
 export default function ConfirmData() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
+  const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
 
   const generalInfoData = [
     { key: 'english_name', value: 'ٰsvc-gfg-bhhj-ngdc-zxzxc-zxc' },
@@ -84,36 +87,40 @@ export default function ConfirmData() {
   };
 
   return (
-    <Container>
-      <div>
-        <S.Section>
-          <S.Title>{t('service_general_info')}</S.Title>
-          <InfoBox data={generalInfoData} margin={0} />
-        </S.Section>
+    <>
+      <Container>
+        <div>
+          <S.Section>
+            <S.Title>{t('service_general_info')}</S.Title>
+            <InfoBox data={generalInfoData} margin={0} />
+          </S.Section>
 
-        <S.Section>
-          <S.Title>{t('scope')}</S.Title>
-          <InfoBox data={scopeData} margin={0} minColumnCount={2} />
-        </S.Section>
+          <S.Section>
+            <S.Title>{t('scope')}</S.Title>
+            <InfoBox data={scopeData} margin={0} minColumnCount={2} />
+          </S.Section>
 
-        <S.Section>
-          <S.Title>{t('upstream')}</S.Title>
-          <InfoBox data={upstreamData} margin={'0 0 1.6rem 0'} minColumnCount={2} />
-          <Table
-            dataSource={data}
-            pagination={false}
-            columns={desktopColumns}
-            rowKey={(row) => row.idx}
-            mobileColumns={mobileColumns}
-          />
-        </S.Section>
+          <S.Section>
+            <S.Title>{t('upstream')}</S.Title>
+            <InfoBox data={upstreamData} margin={'0 0 1.6rem 0'} minColumnCount={2} />
+            <Table
+              dataSource={data}
+              pagination={false}
+              columns={desktopColumns}
+              rowKey={(row) => row.idx}
+              mobileColumns={mobileColumns}
+            />
+          </S.Section>
 
-        <S.Section>
-          <S.Title>{t('route')}</S.Title>
-          <InfoBox data={routeData} margin={0} minColumnCount={2} />
-        </S.Section>
-      </div>
-      <Footer onRegister={() => void 1} onReturn={onReturn} />
-    </Container>
+          <S.Section>
+            <S.Title>{t('route')}</S.Title>
+            <InfoBox data={routeData} margin={0} minColumnCount={2} />
+          </S.Section>
+        </div>
+        <Footer onRegister={toggleIsResultModalOpen} onReturn={onReturn} />
+      </Container>
+
+      <ResultModal isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+    </>
   );
 }
