@@ -4,7 +4,7 @@ import { ENV_CONSTANTS } from '@oxygen/utils';
 export async function POST(req: Request) {
   const { code } = await req.json();
 
-  if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
+  if (ENV_CONSTANTS.IS_DEMO /*ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO*/) {
     return createResponse({
       success: true,
       data: {

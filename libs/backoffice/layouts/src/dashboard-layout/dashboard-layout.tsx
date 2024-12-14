@@ -3,9 +3,8 @@
 import React, { ReactNode, useState } from 'react';
 import { Layout } from 'antd';
 
-import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
+import { useResponsive } from '@oxygen/hooks';
 
-import { Protected } from '@oxygen/reusable-components';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
@@ -17,11 +16,9 @@ type DashboardLayoutProps = {
 };
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-  const { config } = useConfig();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const { isMobile, isMobileOrTablet, isUndefined } = useResponsive();
-  const { logout } = useAuth();
 
   const toggleDrawer = () => {
     if (isMobile) {
@@ -42,13 +39,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setOpenDrawer(false);
   };
 
-  const handleLogout = () => {
-    // setOpenDrawer(false);
-    // console.log('logout clicked');
-
-    logout();
-  };
-
   function handleOnBreakpoint(broken: boolean) {
     if (broken && !collapsed) {
       setCollapsed(true);
@@ -56,20 +46,14 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   }
 
   return (
-    // <Protected>
     <S.MainLayout>
-      <Appbar
-        onToggleDrawer={toggleDrawer}
-        onLogout={handleLogout}
-        config={config}
-        isMobileOrTablet={isMobileOrTablet}
-      />
+      <Appbar onToggleDrawer={toggleDrawer} />
 
       <Layout>
         <Drawer
           shouldDisplaySider={!isUndefined && !isMobile}
           shouldDisplayDrawer={isMobile}
-          direction={config.direction}
+          // direction={config.direction}
           openDrawer={openDrawer}
           siderCollapsed={collapsed}
           onBreakpoint={handleOnBreakpoint}
@@ -81,7 +65,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         </S.MainContentLayout>
       </Layout>
     </S.MainLayout>
-    // </Protected>
   );
 };
 

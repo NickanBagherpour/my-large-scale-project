@@ -27,8 +27,8 @@ export default function Clients(props: Props) {
         {data.map(({ name, description, isActiveInTheService, date }, idx) => (
           <GridCard
             key={idx}
-            name={description}
-            englishName={name}
+            title={description}
+            subTitle={name}
             status={isActiveInTheService ? 'active' : 'inactive'}
             date={date}
             wordToHighlight={searchTerm}

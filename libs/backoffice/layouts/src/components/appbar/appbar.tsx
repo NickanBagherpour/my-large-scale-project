@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
-import { IConfig, ThemeID } from '@oxygen/types';
+import { ThemeID } from '@oxygen/types';
 import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
-import { useAsync, useAuth } from '@oxygen/hooks';
+import { useAuth, useResponsive } from '@oxygen/hooks';
 import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
@@ -17,19 +17,16 @@ import * as S from './appbar.style';
 
 export type AppBarProps = {
   variant?: 'auth' | 'dashboard';
-  isMobileOrTablet: boolean;
-  config: IConfig;
   onToggleDrawer?: React.MouseEventHandler;
-  onLogout?: any;
   children?: React.ReactNode;
 };
 
 const Appbar = (props: AppBarProps) => {
-  const { variant = 'dashboard', onToggleDrawer, isMobileOrTablet, config, onLogout } = props;
+  const { variant = 'dashboard', onToggleDrawer } = props;
   const [t] = useTr();
-  const { user, setUser } = useAuth();
-  const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
+  const { user, setUser, logout } = useAuth();
   const theme = useTheme();
+  const { isMobileOrTablet } = useResponsive();
 
   const { data: userData, isLoading, isError, error } = useGetUserInfo();
 
@@ -38,7 +35,12 @@ const Appbar = (props: AppBarProps) => {
     if (userData && userData?.success) {
       setUser(userData?.data?.userInfo);
     }
-  }, [userData, setUser]);
+  }, [userData]);
+
+  const handleLogout = () => {
+    // console.log('logout clicked');
+    logout();
+  };
 
   const getMobileAppbar = () => {
     return (
@@ -57,7 +59,7 @@ const Appbar = (props: AppBarProps) => {
         <AppbarUserMenu
           variant={variant}
           userInfo={user}
-          onLogout={onLogout}
+          onLogout={handleLogout}
           isMobileOrTablet={isMobileOrTablet}
           loading={isLoading}
         />
@@ -80,7 +82,7 @@ const Appbar = (props: AppBarProps) => {
           <>
             <AppbarUserMenu
               userInfo={user}
-              onLogout={onLogout}
+              onLogout={handleLogout}
               isMobileOrTablet={isMobileOrTablet}
               loading={isLoading}
             />

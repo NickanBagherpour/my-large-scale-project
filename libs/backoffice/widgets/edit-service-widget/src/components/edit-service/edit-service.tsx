@@ -1,24 +1,18 @@
+import { createSchemaFieldRule } from 'antd-zod';
 import { Form, FormInstance } from 'antd';
-import * as S from './edit-service.style';
-import {
-  accessOptions,
-  categoryOptions,
-  FORM_ITEM_NAMES,
-  protocolOptions,
-  tagOptions,
-  throughoutOptions,
-  upstreamOptions,
-} from '../../utils/consts';
 import { Input, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { createSchemaFieldRule } from 'antd-zod';
+import { categoryOptions, FORM_ITEM_NAMES, tagOptions } from '../../utils/consts';
 import { createFormSchema } from '../../types';
+import * as S from './edit-service.style';
+
 type Props = {
   serviceInfo: any;
   form: FormInstance<any>;
+  onSubmit: (values: SubmitEvent) => void;
 };
 
-const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
+const EditService: React.FC<Props> = ({ serviceInfo, form, onSubmit }) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createFormSchema(t));
 
@@ -37,11 +31,9 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
     [FORM_ITEM_NAMES.upstream]: serviceInfo.upstream,
     [FORM_ITEM_NAMES.version]: serviceInfo.version,
   };
-  const handleSubmit = (values: any) => {
-    console.log('submit', values);
-  };
+
   return (
-    <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
+    <Form layout={'vertical'} onFinish={onSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
         <S.LargeFormItem name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
           <Input placeholder={t('placeholder.en-name')} />
@@ -50,13 +42,13 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
           <Input placeholder={t('placeholder.fa-name')} />
         </S.LargeFormItem>
         <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
-          <Select size={'large'} placeholder={t('placeholder.access')} options={accessOptions}></Select>
+          <Input size={'large'} placeholder={t('placeholder.access')} readOnly></Input>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
           <Select size={'large'} placeholder={t('placeholder.category')} options={categoryOptions}></Select>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.throughout} rules={[rule]} label={t('form.throughout')}>
-          <Select size={'large'} placeholder={t('placeholder.throughout')} options={throughoutOptions}></Select>
+          <Input size={'large'} placeholder={t('placeholder.throughout')} readOnly></Input>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
