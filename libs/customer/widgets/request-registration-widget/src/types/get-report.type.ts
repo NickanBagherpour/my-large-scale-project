@@ -43,3 +43,21 @@ export type FetchParamsType = {
   filters?: FiltersType;
   pagination: PaginationType;
 };
+
+export type FirstStepParams = {
+  legal_person_name: string;
+  legal_person_type: string;
+  registration_number: string;
+  registration_date: string;
+  national_id: string;
+  economy_code: string;
+  activity_field: string;
+  postal_code: string;
+  phone: string;
+  last_registration_address: string;
+};
+
+export type RequestRegistration = {
+  organization: string;
+  submissionId: string;
+};

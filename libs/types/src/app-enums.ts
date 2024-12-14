@@ -5,6 +5,7 @@ export enum LocalStorageKey {
   CONFIG = 'configuration',
   USER_ORG = 'userOrganization',
   Accounts = 'accounts',
+  REQUEST_REGISTRATION = 'requestRegistration',
 }
 
 export enum CookieKey {

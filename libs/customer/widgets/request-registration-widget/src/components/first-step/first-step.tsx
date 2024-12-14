@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { LocalStorageKey } from '@oxygen/types';
+import { useLocalStorage } from '@oxygen/hooks';
+
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { dayjs } from '@oxygen/utils';
@@ -14,6 +17,7 @@ import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../ut
 import {
   useSelectDataQuery,
   useFirstStepRequestRegistrationMutationQuery,
+  useGetOrganizationDataMutationQuery,
 } from '../../services/first-step/first-step-data';
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 
@@ -32,9 +36,35 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
+  const [requestRegistration, setRequestRegistration, removeRequestRegistration] = useLocalStorage<any>(
+    LocalStorageKey.REQUEST_REGISTRATION
+  );
+
   const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
-  const { mutate, isPending } = useFirstStepRequestRegistrationMutationQuery();
+  const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
+
+  const { mutate: secondMutate, isPending: secondIsPending } = useGetOrganizationDataMutationQuery();
+
+  useEffect(() => {
+    const params = requestRegistration;
+    if (requestRegistration) {
+      secondMutate(params, {
+        onSuccess: (data) => {
+          console.log('get organization data:', data);
+          // setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
+
+          // updateFirstStepAction(dispatch, values);
+          // setCurrentStep((perv) => perv + 1);
+        },
+        onError: (error) => {
+          console.error('request registration first step  failed:', error);
+        },
+      });
+    }
+  }, []);
+
+  // debugger;
 
   const onFinish = (values) => {
     const params = {
@@ -50,11 +80,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       registeredAddress: values.last_registration_address,
     };
 
-    mutate(params, {
+    firstMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
+        debugger;
+        setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
+
         updateFirstStepAction(dispatch, values);
-        setCurrentStep((perv) => perv + 1);
+        // setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
         console.error('request registration first step  failed:', error);
@@ -127,11 +160,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         </Card>
       </Form>
       <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
+        <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
         {/* <Button htmlType={'submit'} onClick={form.submit}> */}
-        <Button htmlType={'submit'} onClick={handleSubmit}>
+        <Button loading={firstIsPending} htmlType={'submit'} onClick={handleSubmit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

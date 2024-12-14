@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
+import { RequestRegistration } from '../../types';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
@@ -36,3 +37,26 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
     },
   });
 };
+
+export const useGetOrganizationDataMutationQuery = () => {
+  const dispatch = useAppDispatch();
+  return useMutation({
+    mutationFn: (params: any) => Api.getOrganizationData(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+  });
+  // return useQuery({
+  //   queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
+  //   queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
+  // });
+};
+
+// export const useGetOrganizationDataQuery = (params: RequestRegistration) => {
+//   const dispatch = useAppDispatch();
+//   return useQuery({
+//     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
+//     queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
+//   });
+// };
