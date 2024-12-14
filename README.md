@@ -1,6 +1,6 @@
 # Oxygen Pro Portals
 
-![Oxygen Pro Logo](./libs/ui-kit/src/assets/media/oxygen-logo-dark-mode.svg)
+![Oxygen Pro Logo](./libs/ui-kit/src/assets/media/oxygen-text-logo.svg)
 
 Oxygen Pro is a scalable monorepo project built with [Nx](https://nx.dev/) and multiple [Next.js](https://nextjs.org/) applications. This setup enables efficient development, testing, and deployment of various portals, including backoffice and business portals.
 

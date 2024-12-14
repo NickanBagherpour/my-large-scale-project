@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import styled from 'styled-components';
+
 import { MarkText } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
@@ -18,11 +20,11 @@ export const Scope = styled(MarkText)`
   //
 `;
 
-export const Url = styled.a`
+export const Url = styled(Link)`
   color: ${(p) => p.theme.primary._500};
 `;
 
-export const Details = styled.a`
+export const Details = styled(Link)`
   color: ${(p) => p.theme.primary.main};
   font-size: 1.4rem;
 `;
