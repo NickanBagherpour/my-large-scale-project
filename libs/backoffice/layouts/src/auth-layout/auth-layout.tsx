@@ -9,10 +9,9 @@ type DashboardLayoutProps = {
 };
 
 export const AuthLayout = ({ children }: DashboardLayoutProps) => {
-
   return (
     <Layout>
-      <Appbar variant="auth" />
+      <Appbar variant='auth' />
       <Layout>
         <AuthContent>{children}</AuthContent>
       </Layout>

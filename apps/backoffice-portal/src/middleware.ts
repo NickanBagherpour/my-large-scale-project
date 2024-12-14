@@ -42,7 +42,6 @@ async function validateToken(token: string | undefined): Promise<boolean> {
 export default async function middleware(request: NextRequest) {
   // const session = await auth();
 
-
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
   // console.log('request inside middleware', token, request.ip, request.url, request.nextUrl);

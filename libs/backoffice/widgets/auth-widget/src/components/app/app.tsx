@@ -54,7 +54,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const handleLogin = async () => {
     setLoading(true);
 
-    if (ENV_CONSTANTS.IS_DEMO/*ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO*/) {
+    if (ENV_CONSTANTS.IS_DEMO /*ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO*/) {
       setCode('develop');
       return;
     }

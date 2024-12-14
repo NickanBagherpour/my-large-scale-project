@@ -23,7 +23,7 @@ export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if the user is trying to access a protected route
-  const isProtectedRoute = !publicPaths.some(path => pathname === path);
+  const isProtectedRoute = !publicPaths.some((path) => pathname === path);
 
   /*
     // Handle API routes
@@ -52,7 +52,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
-  if (session?.user && publicPaths.some(path => pathname === path)) {
+  if (session?.user && publicPaths.some((path) => pathname === path)) {
     return NextResponse.redirect(new URL(ROUTES.CUSTOMER.PROFILE, request.url));
   }
 

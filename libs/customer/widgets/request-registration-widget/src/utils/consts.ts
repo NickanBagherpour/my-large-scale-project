@@ -1,0 +1,70 @@
+import { MenuItemType } from '@oxygen/ui-kit';
+
+export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
+export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
+export const INITIAL_PAGE = 1;
+
+export const MAX_INPUTE_LENGTH = 75;
+export const MAX_MOBILE_NUMBER_LENGTH = 11;
+
+export const FORM_ITEM = {
+  //firstStep
+  legal_person_name: 'legal_person_name',
+  legal_person_type: 'legal_person_type',
+  registration_number: 'registration_number',
+  registration_date: 'registration_date',
+  national_id: 'national_id',
+  economy_code: 'economy_code',
+  activity_field: 'activity_field',
+  postal_code: 'postal_code',
+  phone: 'phone',
+  last_registration_address: 'last_registration_address',
+  //secondStep
+  persian_name: 'persianName',
+  mobile_number: 'mobile_number',
+  Phone_number: 'Phone_number',
+  technical_persian_name: 'technical_persianName',
+  technical_mobile_number: 'technical_mobile_number',
+  technical_Phone_number: 'technical_Phone_number',
+  clientKey: 'clientKey',
+
+  grant_tag: 'grant_tag',
+  add_tag: 'add_tag',
+  latin_name_client: 'latin_name_client',
+  persian_name_client: 'persian_name_client',
+  client_type: 'client_type',
+  client_id: 'client_id',
+  identity_auth: 'identity_auth',
+  website_url: 'website_url',
+  input_address: 'input_address',
+  return_address: 'return_address',
+  aggregator_status: 'aggregator_status',
+  aggregator: 'aggregator',
+  user_name: 'user_name',
+  national_code: 'national_code',
+  organization_name: 'organization_name',
+
+  telephone: 'telephone',
+  email: 'email',
+};
+
+export const dropdownOptions: MenuItemType[] = [
+  { label: 'Client Flow', key: 'option1' },
+  { label: 'Password Flow', key: 'option2' },
+  { label: 'Implicit Flow', key: 'option4' },
+  { label: 'Refresh Token', key: 'option5' },
+  { label: 'Client Flow', key: 'option6' },
+  { label: 'Password Flow', key: 'option7' },
+  { label: 'Authorization Code Flow', key: 'option8' },
+];
+export const selectLegalTypeOptions: any[] = [
+  { label: 'عام', value: '1' },
+  { label: 'خاص', value: '2' },
+];
+
+export const LIMITAION_FORM_NAME = {
+  serviceCallRate: 'serviceCallRate',
+  serviceCallRateOptions: 'serviceCallRateOptions',
+  totalCallLimit: 'totalCallLimit',
+  callLimitOptions: 'callLimitOptions',
+};

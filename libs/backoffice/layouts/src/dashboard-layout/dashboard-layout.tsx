@@ -47,9 +47,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <S.MainLayout>
-      <Appbar
-        onToggleDrawer={toggleDrawer}
-      />
+      <Appbar onToggleDrawer={toggleDrawer} />
 
       <Layout>
         <Drawer

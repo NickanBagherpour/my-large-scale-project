@@ -22,7 +22,7 @@ function getItem(
   key?: React.Key | null,
   icon?: React.ReactNode,
   disabled?: boolean,
-  children?: MenuItem[],
+  children?: MenuItem[]
 ): MenuItem {
   return {
     label,
@@ -117,7 +117,7 @@ const Drawer = (props: DrawerProps) => {
         menuItem?.id?.toString(),
         menuItem.icon ? <i className={menuItem.icon} /> : undefined,
         !menuItem?.active,
-        menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined,
+        menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
       items.push(item);
     });
@@ -154,7 +154,7 @@ const Drawer = (props: DrawerProps) => {
       <S.MenuWrapper>
         {stateMenu?.error ? (
           <Result
-            status="error"
+            status='error'
             icon={<i className={'ri-alert-fill ri-3x'} />}
             subTitle={t('layout.menu_error_message')}
             extra={[
@@ -177,14 +177,14 @@ const Drawer = (props: DrawerProps) => {
             {/*</div>*/}
 
             {stateMenu?.loading ? (
-              <div className="menu-spin-container">
-                <Loading height="100%" containerProps={{ paddingTop: '4rem' }} />
+              <div className='menu-spin-container'>
+                <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
               </div>
             ) : (
               <>
                 <Menu
                   // theme='dark'
-                  mode="inline"
+                  mode='inline'
                   openKeys={openKeys}
                   defaultSelectedKeys={menuSelectedKeys}
                   selectedKeys={menuSelectedKeys}

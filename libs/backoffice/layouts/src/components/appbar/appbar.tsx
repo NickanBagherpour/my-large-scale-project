@@ -24,7 +24,7 @@ export type AppBarProps = {
 const Appbar = (props: AppBarProps) => {
   const { variant = 'dashboard', onToggleDrawer } = props;
   const [t] = useTr();
-  const { user, setUser,logout } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const theme = useTheme();
   const { isMobileOrTablet } = useResponsive();
 
@@ -46,7 +46,7 @@ const Appbar = (props: AppBarProps) => {
     return (
       <>
         {variant === 'dashboard' && (
-          <Button shape={'circle'} variant="text" className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
+          <Button shape={'circle'} variant='text' className={'menu-toggle-wrapper'} onClick={onToggleDrawer}>
             <S.styleIcon className={'icon-hamburger-menu'} />
             {/*{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
           </Button>

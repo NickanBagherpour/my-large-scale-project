@@ -1,9 +1,13 @@
+import { headers } from 'next/headers';
+import { config } from './../../../../../apps/customer-portal/src/middleware';
 import { withErrorHandling } from '@oxygen/utils';
 import { useQuery } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
+import { client, portalUrl } from '@oxygen/client';
 
 type params = {
-  name: string;
+  name?: string;
+  query: string;
 };
 
 export type ClientService = {
@@ -21,7 +25,7 @@ const mockData: ClientService[] = [
   {
     title: 'دریافت کد‌های ملی متعلق به یک شمارهn موبایل',
     subTitle: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
-    serviceName: 'samat-lc-gutr-del',
+    serviceName: 'samat-lc-gutr-del222',
     persianName: 'دریافت کد‌های ملی متعلق به یک شماره موبایل',
     scope: 'svc-mgmt-iban-inq',
     url: 'http://localhost:3000/client-creation',
@@ -122,22 +126,34 @@ const mockData: ClientService[] = [
 ];
 
 const Api = {
-  getClientService: async (params: params) => {
-    return new Promise<{ data: ClientService[] }>((res) => {
-      const data = mockData.filter((item) => item.title.includes(params.name));
-      setTimeout(() => {
-        res({ data });
-      }, 1000);
-    });
+  getClientService: async (params: params, callServerAPI?: boolean) => {
+    const { query, ...restParams } = params;
+    if (!callServerAPI) {
+      return new Promise<{ data: ClientService[] }>((res) => {
+        const data = mockData.filter((item) => item.title.includes(params.query));
+        setTimeout(() => {
+          res({ data });
+        }, 1000);
+      });
+    } else {
+      console.log(client);
+      return client.get(
+        /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
+        // {},
+        {
+          headers: {},
+        }
+      );
+    }
   },
 };
 
-export const useGetClientService = (params: params) => {
+export const useGetClientService = (params: params, callServerAPI?: boolean) => {
   return useQuery({
-    enabled: !!params.name,
+    enabled: !!params.query,
     queryKey: [RQKEYS.REUSABLE_COMPONENTS.CLIENT_SERVICES, params],
     queryFn: withErrorHandling(
-      () => Api.getClientService(params),
+      () => Api.getClientService(params, callServerAPI),
       () => void 1
     ),
   });
