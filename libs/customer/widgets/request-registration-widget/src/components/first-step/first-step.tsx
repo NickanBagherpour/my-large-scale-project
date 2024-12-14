@@ -13,7 +13,7 @@ import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 import {
   useSelectDataQuery,
   useFirstStepRequestRegistrationMutationQuery,
@@ -40,7 +40,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     LocalStorageKey.REQUEST_REGISTRATION
   );
 
-  const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
+  // const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
 
@@ -52,6 +52,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       secondMutate(params, {
         onSuccess: (data) => {
           console.log('get organization data:', data);
+          // debugger;
           // setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
 
           // updateFirstStepAction(dispatch, values);
@@ -62,7 +63,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         },
       });
     }
-  }, []);
+  }, [requestRegistration]);
 
   // debugger;
 
@@ -83,7 +84,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     firstMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
-        debugger;
+        // debugger;
         setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
 
         updateFirstStepAction(dispatch, values);
@@ -116,8 +117,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <Form.Item name={FORM_ITEM.legal_person_type} label={t('form.legal_person_type')} rules={[rule]}>
               <Select
                 size={'large'}
-                options={selectData}
-                loading={selectFetching}
+                options={selectLegalTypeOptions}
+                // loading={selectFetching}
                 placeholder={`${t('placeholder.legal_person_type')}`}
               ></Select>
             </Form.Item>

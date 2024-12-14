@@ -59,9 +59,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_FIRST_STEP_FORM': {
-      debugger;
+      // debugger;
       state.firstStep = { ...action.payload } as FirstStepType;
-      debugger;
+      // debugger;
       return;
     }
     case 'UPDATE_SECOND_STEP_TABLE': {

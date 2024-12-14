@@ -28,15 +28,15 @@ const Api = {
   },
 
   getOrganizationData: async (params: RequestRegistration) => {
-    debugger;
+    // debugger;
     const { ...restParams } = params;
-    const res = Mockify.getRequestData();
-    return res;
-    // if (!params) {
-    //   return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, {
-    //     headers: {},
-    //   });
-    // } else return { data: '', isFetching: false };
+    // const res = Mockify.getRequestData();
+    // return res;
+    if (!params) {
+      return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, {
+        headers: {},
+      });
+    } else return { data: '', isFetching: false };
   },
 
   requestRegistrationFirstStep: async (params: FirstStepParams) => {
