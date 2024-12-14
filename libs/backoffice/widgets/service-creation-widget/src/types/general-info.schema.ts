@@ -4,7 +4,7 @@ import { TFunction } from 'i18next';
 
 const MAX_LENGTH = 30;
 
-export const createGetInfoSchema = (t: TFunction) =>
+export const createGeneralInfoSchema = (t: TFunction) =>
   z.object({
     [FORM_ITEM_NAMES.englishName]: z
       .string({ required_error: t('validation.required') })
@@ -23,17 +23,6 @@ export const createGetInfoSchema = (t: TFunction) =>
       .regex(/^[^a-zA-Z]*$/, {
         message: t('validation.persian_name_error'),
       }),
-
-    [FORM_ITEM_NAMES.actionOrMethod]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.protocole]: z
-      .string()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.access]: z
       .string()
@@ -66,23 +55,6 @@ export const createGetInfoSchema = (t: TFunction) =>
       .string()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
-
-    [FORM_ITEM_NAMES.path]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.host]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .min(1, { message: t('validation.required') }),
-
-    [FORM_ITEM_NAMES.upstream]: z
-      .string()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
   });
 
-export type GetInfoValuesType = z.infer<ReturnType<typeof createGetInfoSchema>>;
+export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;

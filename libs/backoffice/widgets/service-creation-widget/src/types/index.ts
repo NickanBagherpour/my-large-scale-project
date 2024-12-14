@@ -1,3 +1,3 @@
-export * from './get-info.schema';
-export * from './upload-docs.schema';
-export * from './add-scope.schema';
+export * from './general-info.schema';
+export * from './create-scope.schema';
+export * from './route.schema';

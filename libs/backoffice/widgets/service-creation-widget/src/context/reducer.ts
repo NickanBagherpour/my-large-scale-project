@@ -1,35 +1,36 @@
+import { steps } from '../components/app/app';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
   step: 0,
   scopeMode: 'importFromSso',
-  getInfo: {
-    host: '',
-    path: '',
+  generalInfo: {
     tag: null,
     owner: '',
     version: '',
     access: null,
     category: null,
-    upstream: null,
-    protocole: null,
-    englishName: '',
+    englishName: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
     persianName: '',
     throughout: null,
-    actionOrMethod: '',
   },
-  addScope: {
+  scope: {
     scopeName: '',
     persianScopeName: '',
   },
-  uploadDocs: {},
+  route: {
+    protocole: '',
+    host: '',
+    path: '',
+    actionOrMethod: '',
+  },
   message: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
     case 'NEXT_STEP':
-      return state.step < 2 ? void state.step++ : undefined;
+      return state.step < steps.length ? void state.step++ : undefined;
 
     case 'PREVIOUS_STEP':
       return state.step > 0 ? void state.step-- : undefined;
@@ -37,17 +38,17 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
 
-    case 'UPDATE_GET_INFO_STEP':
-      return void (state.getInfo = action.payload);
+    case 'UPDATE_GENERAL_INFO_STEP':
+      return void (state.generalInfo = action.payload);
 
-    case 'UPDATE_ADD_SCOPE_STEP':
-      return void (state.addScope = action.payload);
-
-    case 'UPDATE_UPLOAD_DOCS':
-      return void (state.uploadDocs = action.payload);
+    case 'UPDATE_SCOPE_STEP':
+      return void (state.scope = action.payload);
 
     case 'UPDATE_SCOPE_MODE':
       return void (state.scopeMode = action.payload);
+
+    case 'UPDATE_ROUTE_STEP':
+      return void (state.route = action.payload);
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);

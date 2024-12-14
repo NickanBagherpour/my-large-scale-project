@@ -29,10 +29,11 @@ export default function Upstreams(props: Props) {
         {data.map(({ name, activeServersCount, upstreamId }, idx) => (
           <GridCard
             key={idx}
-            name={name}
+            title={name}
             href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${upstreamId}&upstreamName=${name}`}
-            activeServersCount={activeServersCount}
+            serversCount={activeServersCount}
             wordToHighlight={searchTerm}
+            isHeaderLtr
           />
         ))}
       </S.Grid>

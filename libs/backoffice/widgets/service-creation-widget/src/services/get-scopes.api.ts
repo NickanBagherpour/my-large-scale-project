@@ -5,11 +5,11 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 import { Pagination } from '@oxygen/types';
 
-export const useGetScopes = (pagination: Pagination) => {
+export const useGetScopes = (params: { pagination: Pagination; name: string }) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.GET_SCOPES, pagination],
-    queryFn: withErrorHandling(() => Api.getScopes(pagination), dispatch),
+    queryKey: [RQKEYS.SERVICE_CREATION.GET_SCOPES, params],
+    queryFn: withErrorHandling(() => Api.getScopes(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };
