@@ -44,7 +44,7 @@ export const UpstreamCreationCard: Story = {
   args: {
     onClick: action('onClick'),
     title: 'API-SERVICES-UPSTREAM',
-    isActive: true,
+    isSelected: true,
     serversCount: 12,
     isHeaderLtr: true,
   },

@@ -43,7 +43,7 @@ export const Card = (props: CardProps) => {
               title={data.upstream_latin_name}
               status={data.is_server_active ? 'active' : 'inactive'}
               hasSetting={false}
-              isActive={clickedCard === data.id}
+              isSelected={clickedCard === data.id}
               onClick={() => handleClick(data)}
               isHeaderLtr={true}
             />

@@ -112,7 +112,7 @@ export default function Upstream() {
                   title={'API-SERVICES-UPSTREAM'}
                   serversCount={5}
                   hasSetting={false}
-                  isActive={false}
+                  isSelected={false}
                   isHeaderLtr={true}
                 />
               ))}

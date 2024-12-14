@@ -15,7 +15,7 @@ type CardProps = ButtonProps & {
   status?: StatusType;
   date?: string;
   wordToHighlight?: string;
-  isActive?: boolean;
+  isSelected?: boolean;
   serversCount?: number;
   href?: string;
   onClick?: () => void;
@@ -31,7 +31,7 @@ export default function GridCard(props: CardProps) {
     status = 'active',
     date,
     wordToHighlight = '',
-    isActive = false,
+    isSelected = false,
     serversCount,
     isHeaderLtr = false,
     ...restOfProps
@@ -46,7 +46,7 @@ export default function GridCard(props: CardProps) {
   };
 
   return (
-    <S.Button {...restOfProps} $isActive={isActive} variant='link' color='primary'>
+    <S.Button {...restOfProps} $isSelected={isSelected} variant='link' color='primary'>
       <S.Header $isHeaderLtr={isHeaderLtr}>
         <Tooltip title={title}>
           <S.Title text={title} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />

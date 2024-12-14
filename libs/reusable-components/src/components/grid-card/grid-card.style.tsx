@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
 import { looper } from '../../assets';
 
-export const Button = styled(UiKitButton)<{ $isActive: boolean }>`
+export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
   border-radius: 1.8rem;
   padding: 1.4rem 1.6rem 2.4rem;
   border: ${(p) => `1px solid ${p.theme.border._300}`};
@@ -20,7 +20,7 @@ export const Button = styled(UiKitButton)<{ $isActive: boolean }>`
   &&& {
     /* overridding ant buttons styles */
     border: 1px solid;
-    border-color: ${(p) => (p.$isActive ? p.theme.primary._400 : p.theme.border._300)};
+    border-color: ${(p) => (p.$isSelected ? p.theme.primary._400 : p.theme.border._300)};
     background-color: ${(p) => p.theme.background.main};
     filter: none;
     height: fit-content;
