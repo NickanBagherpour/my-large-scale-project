@@ -39,7 +39,6 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
 };
 
 export const useGetOrganizationDataMutationQuery = () => {
-  // debugger;
   const dispatch = useAppDispatch();
   return useMutation({
     mutationFn: (params: any) => Api.getOrganizationData(params),

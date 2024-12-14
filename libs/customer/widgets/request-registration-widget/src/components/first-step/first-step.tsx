@@ -52,7 +52,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       secondMutate(params, {
         onSuccess: (data) => {
           console.log('get organization data:', data);
-          // debugger;
           // setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
 
           // updateFirstStepAction(dispatch, values);
@@ -64,8 +63,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       });
     }
   }, [requestRegistration]);
-
-  // debugger;
 
   const onFinish = (values) => {
     const params = {
@@ -84,20 +81,15 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     firstMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
-        // debugger;
         setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
 
         updateFirstStepAction(dispatch, values);
-        // setCurrentStep((perv) => perv + 1);
+        setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
         console.error('request registration first step  failed:', error);
       },
     });
-  };
-
-  const handleSubmit = () => {
-    form.submit();
   };
 
   const handleReturn = () => {
@@ -164,8 +156,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        {/* <Button htmlType={'submit'} onClick={form.submit}> */}
-        <Button loading={firstIsPending} htmlType={'submit'} onClick={handleSubmit}>
+        <Button htmlType={'submit'} onClick={form.submit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

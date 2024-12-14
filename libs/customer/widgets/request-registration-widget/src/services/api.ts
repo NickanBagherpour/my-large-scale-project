@@ -28,7 +28,6 @@ const Api = {
   },
 
   getOrganizationData: async (params: RequestRegistration) => {
-    // debugger;
     const { ...restParams } = params;
     // const res = Mockify.getRequestData();
     // return res;

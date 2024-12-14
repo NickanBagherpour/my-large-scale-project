@@ -13,9 +13,6 @@ const Api = {
     }
   },
   getCaptcha: async () => {
-    // debugger;
-    const test = portalUrl;
-    // console.log(client.baseURL);
     const response = await client.get(`${portalUrl}/v1/captcha`, {
       responseType: 'blob', // Important for handling binary data
     });
