@@ -49,10 +49,17 @@ export type WidgetActionType =
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
     }
   | {
+      type: 'FILTERED_FALLBACK_SERVER';
+      payload: {
+        weight: string;
+        ip_port: string;
+      }[];
+    }
+  | {
       type: 'UPDATE_FALLBACK_SERVERS';
       payload: {
         weight: string;
-        ipPort: string;
+        ip_port: string;
       }[];
     }
   | {

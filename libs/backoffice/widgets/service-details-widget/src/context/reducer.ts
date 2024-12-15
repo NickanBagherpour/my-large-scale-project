@@ -50,7 +50,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.upstreamTab.fallbackSelect.englishName = action.payload;
       return;
     }
-
+    case 'FILTERED_FALLBACK_SERVER': {
+      state.upstreamTab.fallbackSelect.servers = action.payload;
+      return;
+    }
     case 'UPDATE_FALLBACK_SERVERS': {
       state.upstreamTab.fallbackSelect.servers = [...state.upstreamTab.fallbackSelect.servers, action.payload];
       return;

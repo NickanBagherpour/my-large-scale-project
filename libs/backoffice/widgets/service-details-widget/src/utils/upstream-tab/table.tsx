@@ -13,10 +13,11 @@ type Props = {
   t: TFunction;
   deletable?: boolean;
   toggleModal?: (modal: keyof UpstreamTabModalType) => void;
+  setToggleInfo?: any;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
-  const { t, deletable = false, toggleModal } = props;
+  const { t, deletable = false, toggleModal, setToggleInfo } = props;
 
   return [
     {
@@ -47,9 +48,17 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
         dataIndex: 'status',
         key: 'id',
         align: 'center',
-        render: (value) => {
+        render: (value, record, index) => {
           return (
-            <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal!('removeService')}>
+            <Button
+              className='item__btn'
+              variant='link'
+              color='error'
+              onClick={() => {
+                setToggleInfo(record);
+                toggleModal!('removeService');
+              }}
+            >
               <S.TrashIcon className='icon-trash' />
             </Button>
           );
