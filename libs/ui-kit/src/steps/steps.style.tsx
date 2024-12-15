@@ -25,6 +25,7 @@ export const StepsWrapper = styled.div`
   }
 
   .ant-steps-item-active,
+  .ant-steps-item-error,
   .ant-steps-item-finish.ant-steps-item-disabled {
     background-color: ${(p) => p.theme.secondary._50};
   }
@@ -48,6 +49,29 @@ export const StepsWrapper = styled.div`
   .ant-steps-item-process::before {
     background-color: ${(p) => p.theme.secondary.main};
   }
+
+  .ant-steps-item-error::before {
+    background-color: ${(p) => p.theme.error.main};
+  }
+
+  .ant-steps-item-error .ant-steps-item-title {
+    position: relative;
+    padding-inline-end: 3.6rem;
+    color: ${(p) => p.theme.text.primary};
+  }
+
+  .ant-steps-item-error .ant-steps-item-title::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    inset-inline-end: 0;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background-color: ${(p) => p.theme.error.main};
+  }
+
   .ant-steps-item-wait .ant-progress-circle-path,
   .ant-steps-item-wait .ant-progress-circle-trail {
     stroke: ${(p) => p.theme.border.main}!important;
