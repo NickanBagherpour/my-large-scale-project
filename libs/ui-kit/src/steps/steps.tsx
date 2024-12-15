@@ -34,6 +34,7 @@ export const Steps = (props: StepsProps) => {
                 </strong>
               }
               icon={<Progress percent={progressPercent} showInfo={false} strokeWidth={10} type='circle' size={20} />}
+              status={step.status}
             />
           );
         })}
