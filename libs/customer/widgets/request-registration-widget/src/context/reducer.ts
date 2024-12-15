@@ -8,6 +8,11 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  status: 'all',
+  searchTerm: '',
+  page: 1,
+  sort: 'newest',
+  requestMode: 'selectOrganization',
   firstStep: {
     // grant_tag: [],
     // add_tag: [],
@@ -66,6 +71,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.secondStep.table = [...state.secondStep.table, { ...action.payload }];
       return;
     }
+
+    case 'UPDATE_REQUEST_MODE':
+      return void (state.requestMode = action.payload);
 
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };

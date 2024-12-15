@@ -42,7 +42,14 @@ export type FirstStepType = {
   last_registration_address: string;
 };
 
+export type RequestMode = 'selectOrganization' | 'registerOrganization';
+
 export type WidgetStateType = {
+  searchTerm: string;
+  sort: 'newest' | 'oldest';
+  status: 'all' | 'active' | 'unActive';
+  page: number;
+  requestMode: RequestMode;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -63,6 +70,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_SECOND_STEP_TABLE';
       payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_REQUEST_MODE';
+      payload: RequestMode;
     }
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { RadioChangeEvent } from 'antd';
 
 import { LocalStorageKey } from '@oxygen/types';
 import { useLocalStorage } from '@oxygen/hooks';
@@ -10,16 +11,16 @@ import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 import {
-  useSelectDataQuery,
   useFirstStepRequestRegistrationMutationQuery,
   useGetOrganizationDataMutationQuery,
+  useGetOrganizationsQuery,
 } from '../../services/first-step/first-step-data';
-import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
+import { updateFirstStepAction, useAppDispatch, useAppState, updateRequestMode } from '../../context';
 
 import * as S from './first-step.style';
 
@@ -31,6 +32,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { setCurrentStep } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
+  const { ...fetchState } = useAppState();
   const [t] = useTr();
 
   const router = useRouter();
@@ -40,8 +42,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     LocalStorageKey.REQUEST_REGISTRATION
   );
 
-  // const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
+  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
+  const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
 
   const { mutate: secondMutate, isPending: secondIsPending } = useGetOrganizationDataMutationQuery();
@@ -92,66 +95,117 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const onChange = (e: RadioChangeEvent) => {
+    updateRequestMode(dispatch, e.target.value);
+  };
+
+  const handleOrganizationSelect = (id: string) => {
+    setIsSelected({
+      ...isSelected,
+      isSelected: true,
+      id: id,
+    });
+  };
+
   const handleReturn = () => {
     router.back();
   };
 
   return (
     <S.FirstStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
-        <S.TitleTxt className={'cards-title'}>{t('register_info')}</S.TitleTxt>
-        <Card>
-          <SearchItemsContainer $columnNumber='3'>
-            <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
-              <Input size='large' placeholder={`${t('placeholder.legal_person_name')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
+      <Card>
+        <S.Radios onChange={onChange} value={state.requestMode}>
+          <S.Radio value={'selectOrganization'}>{t('select_organization')}</S.Radio>
+          <S.Radio value={'registerOrganization'}>{t('register_organization')}</S.Radio>
+        </S.Radios>
+        {state.requestMode === 'selectOrganization' ? (
+          <S.Grid>
+            {isOrganizationsFetching ? (
+              <Loading spinning={isOrganizationsFetching} />
+            ) : organizations?.list.length ? (
+              organizations.list.slice(0, 4).map(({ name, id }, idx) => (
+                <S.Button
+                  $isSelected={id === isSelected.id ? true : false}
+                  color='primary'
+                  key={idx}
+                  onClick={() => handleOrganizationSelect(id)}
+                >
+                  <S.Header>{name}</S.Header>
 
-            <Form.Item name={FORM_ITEM.legal_person_type} label={t('form.legal_person_type')} rules={[rule]}>
-              <Select
-                size={'large'}
-                options={selectLegalTypeOptions}
-                // loading={selectFetching}
-                placeholder={`${t('placeholder.legal_person_type')}`}
-              ></Select>
-            </Form.Item>
+                  <S.Subtitle>
+                    <span className='nationalId'>{t('form.national_id')}: </span>
+                    {id}
+                  </S.Subtitle>
+                </S.Button>
+              ))
+            ) : (
+              <span>شرکتی وجود ندارد</span>
+            )}
+          </S.Grid>
+        ) : (
+          <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
+            <S.TitleTxt className={'cards-title'}>{t('register_info')}</S.TitleTxt>
+            <SearchItemsContainer $columnNumber='3'>
+              <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
+                <Input
+                  size='large'
+                  placeholder={`${t('placeholder.legal_person_name')}`}
+                  maxLength={MAX_INPUTE_LENGTH}
+                />
+              </Form.Item>
 
-            <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
-              <Input
-                placeholder={`${t('placeholder.registration_number')}`}
-                maxLength={MAX_INPUTE_LENGTH}
-                allow={'number'}
-              />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
-              {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
-              <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.economy_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.activity_field} label={t('form.activity_field')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.activity_field')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.postal_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
-            </Form.Item>
-            <Form.Item
-              className='full-width-3'
-              name={FORM_ITEM.last_registration_address}
-              label={t('form.last_registration_address')}
-              rules={[rule]}
-            >
-              <Input placeholder={`${t('placeholder.last_registration_address')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-          </SearchItemsContainer>
-        </Card>
-      </Form>
+              <Form.Item name={FORM_ITEM.legal_person_type} label={t('form.legal_person_type')} rules={[rule]}>
+                <Select
+                  size={'large'}
+                  options={selectLegalTypeOptions}
+                  // loading={selectFetching}
+                  placeholder={`${t('placeholder.legal_person_type')}`}
+                ></Select>
+              </Form.Item>
+
+              <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
+                <Input
+                  placeholder={`${t('placeholder.registration_number')}`}
+                  maxLength={MAX_INPUTE_LENGTH}
+                  allow={'number'}
+                />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
+                {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
+                <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
+                <Input placeholder={`${t('placeholder.national_id')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
+                <Input
+                  placeholder={`${t('placeholder.economy_code')}`}
+                  maxLength={MAX_INPUTE_LENGTH}
+                  allow={'number'}
+                />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.activity_field} label={t('form.activity_field')} rules={[rule]}>
+                <Input placeholder={`${t('placeholder.activity_field')}`} maxLength={MAX_INPUTE_LENGTH} />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
+                <Input placeholder={`${t('placeholder.postal_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
+                <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
+              </Form.Item>
+              <Form.Item
+                className='full-width-3'
+                name={FORM_ITEM.last_registration_address}
+                label={t('form.last_registration_address')}
+                rules={[rule]}
+              >
+                <Input placeholder={`${t('placeholder.last_registration_address')}`} maxLength={MAX_INPUTE_LENGTH} />
+              </Form.Item>
+            </SearchItemsContainer>
+          </Form>
+        )}
+      </Card>
+
       <S.Footer>
         <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
           {t('return')}

@@ -1,12 +1,76 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Radio as AntRadio } from 'antd';
 import { respondTo } from '@oxygen/utils';
 import { Dropdown } from '@oxygen/ui-kit';
+import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
+import { looper } from '../../../../../../reusable-components/src/assets/';
+import RawGrid from '../grid/grid.style';
+
+export const Radios = styled(AntRadio.Group)`
+  margin-bottom: 2.4rem;
+`;
+
+export const Radio = styled(AntRadio)`
+  font-size: 1.2rem;
+`;
+
+export const Grid = styled(RawGrid)`
+  margin-bottom: 1.6rem;
+`;
+
+export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
+  border-radius: 1.8rem;
+  padding: 1.6rem;
+  border: ${(p) => `1px solid ${p.theme.border._300}`};
+  text-decoration: none;
+  transition: all 200ms;
+  overflow: hidden;
+  display: block;
+  isolation: isolate;
+  background-image: url('${looper}');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+
+  &&& {
+    /* overridding ant buttons styles */
+    border: 1px solid;
+    border-color: ${(p) => (p.$isSelected ? p.theme.primary.main : p.theme.border._300)};
+    background-color: ${(p) => p.theme.background.main};
+    filter: none;
+    height: fit-content;
+
+    &:hover {
+      border-color: ${(p) => p.theme.primary._400};
+      opacity: 1;
+    }
+  }
+`;
+
+export const Header = styled.p`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  gap: 2rem;
+  color: ${(p) => p.theme.text.primary};
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+`;
+
+export const Subtitle = styled.p`
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: start;
+  color: ${(p) => p.theme.text.tertiary};
+  margin: 0.6rem 0 0;
+`;
 
 export const TitleTxt = styled.p`
   font-weight: bold;
   font-size: 1.6rem;
   margin: 0;
-  /* padding-top: 0.8rem; */
   margin: 3.2rem 0 1.6rem 0;
 `;
 
@@ -14,6 +78,7 @@ export const FirstStepContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 3.2rem;
   .label-switch {
     display: flex;
     align-items: end;

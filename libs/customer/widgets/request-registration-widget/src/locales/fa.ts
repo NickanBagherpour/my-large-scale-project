@@ -1,4 +1,6 @@
 export default {
+  select_organization: 'انتخاب شرکت',
+  register_organization: 'ثبت اطلاعات شرکت',
   //firstStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',

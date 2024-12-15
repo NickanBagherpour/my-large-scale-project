@@ -1,6 +1,7 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, ParamsType, FirstStepParams, RequestRegistration } from '../types';
+import { FetchParamsType, ReportResponseType, FirstStepParams, RequestRegistration } from '../types';
+import type { ParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 
 // type firstStepParams = {
@@ -24,6 +25,11 @@ const Api = {
 
   getRequestData: async () => {
     const res = Mockify.getRequestData();
+    return res;
+  },
+
+  getOrganizationsListData: async (params: ParamsType) => {
+    const res = Mockify.getClients(params);
     return res;
   },
 

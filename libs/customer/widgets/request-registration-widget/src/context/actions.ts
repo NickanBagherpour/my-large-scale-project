@@ -1,7 +1,7 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType, RequestMode } from './types';
 
 export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
@@ -9,6 +9,10 @@ export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: P
 
 export function updateSecondStepTableAction(dispatch: WidgetDispatchType, secondStepTable: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_SECOND_STEP_TABLE', payload: secondStepTable });
+}
+
+export function updateRequestMode(dispatch: WidgetDispatchType, payload: RequestMode) {
+  dispatch({ type: 'UPDATE_REQUEST_MODE', payload });
 }
 
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
