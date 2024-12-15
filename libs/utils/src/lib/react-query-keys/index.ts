@@ -1,4 +1,5 @@
 /*--import--*/
+import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
 import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/customer-auth.key';
 import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
@@ -29,9 +30,10 @@ import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-hist
 
 export const RQKEYS = {
   /*--export--*/
+  REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
   LANDING: LANDING_KEYS,
   BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,
-  CUSOMTER_AUTH: CUSTOMER_AUTH_KEYS,
+  CUSTOMER_AUTH: CUSTOMER_AUTH_KEYS,
   //CLIENTS
   CLIENTS_LIST: CLIENTS_LIST_KEYS,
   EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,

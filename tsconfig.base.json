@@ -100,6 +100,9 @@
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
             ],
+            "@oxygen/customer/widgets/request-registration-widget": [
+                "libs/customer/widgets/request-registration-widget/src/index.ts"
+            ],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
             "@oxygen/mockify": ["libs/mockify/src/index.ts"],
             "@oxygen/reusable-components": [

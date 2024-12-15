@@ -1,9 +1,10 @@
-import { Badge, Empty, Input, Menu, MenuProps, Result } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import React, { useEffect, useMemo, useState } from 'react';
 
-import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
+import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
+
+import { useAsync, useConfig, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
@@ -11,7 +12,6 @@ import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
-import UserSection from '../user-section/user-section';
 
 import * as S from './drawer.style';
 
@@ -37,7 +37,6 @@ export type DrawerProps = {
   shouldDisplaySider: boolean;
   shouldDisplayDrawer: boolean;
   openDrawer: boolean;
-  direction: string;
   siderCollapsed: boolean;
   onToggleDrawer?: React.MouseEventHandler;
   children?: React.ReactNode;
@@ -47,7 +46,6 @@ export type DrawerProps = {
 
 const Drawer = (props: DrawerProps) => {
   const {
-    direction,
     shouldDisplaySider = false,
     shouldDisplayDrawer = false,
     siderCollapsed = false,
@@ -57,6 +55,7 @@ const Drawer = (props: DrawerProps) => {
   } = props;
 
   const { menu, setMenu } = useMenu();
+  const { config } = useConfig();
 
   const [t] = useTr();
   const [searchQuery, setSearchQuery] = useState('');
@@ -231,7 +230,7 @@ const Drawer = (props: DrawerProps) => {
       {shouldDisplayDrawer && (
         <S.Drawer
           // title='Basic Drawer'
-          placement={direction === Direction.RTL ? 'right' : 'left'}
+          placement={config?.direction === Direction.RTL ? 'right' : 'left'}
           closable={false}
           onClose={onClose}
           open={openDrawer}

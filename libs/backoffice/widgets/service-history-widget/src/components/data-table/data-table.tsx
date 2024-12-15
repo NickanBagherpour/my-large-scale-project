@@ -1,6 +1,7 @@
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-
 import { TablePaginationConfig } from 'antd';
+
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Table } from '@oxygen/ui-kit';
@@ -12,7 +13,6 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useSearchParams } from 'next/navigation';
 
 type AppProps = PageProps & {
   //
@@ -170,7 +170,7 @@ const DataTable: React.FC<AppProps> = () => {
     return params;
   }
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
-    if (lastValidTotal) setLastTotal(lastValidTotal);
+    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
     const updatedPagination = { page: current, limit: pageSize };
     updatePagination(dispatch, updatedPagination);
   };

@@ -6,7 +6,7 @@ import { iransans } from '@oxygen/ui-kit';
 import { getInitialConfig } from './get-initial-config';
 
 export const metadata = {
-  title: 'Oxygen Plus',
+  title: 'Oxygen Pro',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

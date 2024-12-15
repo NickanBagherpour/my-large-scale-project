@@ -1,4 +1,7 @@
+'use client';
+
 import { ReactNode } from 'react';
+
 import * as S from './auth-content.style';
 
 type Props = {

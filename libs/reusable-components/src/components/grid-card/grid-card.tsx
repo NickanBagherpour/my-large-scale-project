@@ -1,36 +1,42 @@
-import { useTr } from '@oxygen/translation';
-import { looper, Calendar } from '../../assets';
+import { Calendar } from '../../assets';
 import { useTheme } from 'styled-components';
 import { Tooltip } from 'antd';
-import { Status } from '@oxygen/ui-kit';
+import { Status, type ButtonProps } from '@oxygen/ui-kit';
 
 import * as S from './grid-card.style';
-
-function isUpstreamCard(props: ClientCardProps | UpstreamCardProps): props is UpstreamCardProps {
-  return 'activeServersCount' in props;
-}
-
-export default function GridCard(props: ClientCardProps | UpstreamCardProps) {
-  if (isUpstreamCard(props)) {
-    return <UpstreamCard {...props} />;
-  }
-  return <ClientCard {...props} />;
-}
+import { useTr } from '@oxygen/translation';
 
 export type StatusType = 'active' | 'inactive';
 
-type ClientCardProps = {
-  name: string;
-  englishName: string;
-  status: StatusType;
-  date: string;
-  href: string;
-  wordToHighlight: string;
+type CardProps = ButtonProps & {
+  title: string;
+  subTitle?: string;
+  hasSetting?: boolean;
+  status?: StatusType;
+  date?: string;
+  wordToHighlight?: string;
+  isSelected?: boolean;
+  serversCount?: number;
+  href?: string;
+  onClick?: () => void;
   className?: string;
+  isHeaderLtr?: boolean;
 };
 
-function ClientCard(props: ClientCardProps) {
-  const { date, name, englishName, status, href, wordToHighlight, className = 'clientCard' } = props;
+export default function GridCard(props: CardProps) {
+  const {
+    title,
+    subTitle,
+    hasSetting = true,
+    status = 'active',
+    date,
+    wordToHighlight = '',
+    isSelected = false,
+    serversCount,
+    isHeaderLtr = false,
+    ...restOfProps
+  } = props;
+
   const [t] = useTr();
   const theme = useTheme();
 
@@ -40,73 +46,33 @@ function ClientCard(props: ClientCardProps) {
   };
 
   return (
-    <S.Container href={href} className={className}>
-      <S.Header>
-        <Tooltip title={name}>
-          <S.Title text={name} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
+    <S.Button {...restOfProps} $isSelected={isSelected} variant='link' color='primary'>
+      <S.Header $isHeaderLtr={isHeaderLtr}>
+        <Tooltip title={title}>
+          <S.Title text={title} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
         </Tooltip>
-        <S.Settings className='icon-setting' />
+
+        {hasSetting && <S.Settings />}
       </S.Header>
 
-      <S.EName>{englishName}</S.EName>
+      {subTitle && <S.Subtitle>{subTitle}</S.Subtitle>}
 
       <S.Footer>
         <Status status={status} />
-        <S.StatusTxt>{translation[status]}</S.StatusTxt>
 
-        <Calendar />
-        <S.Date>{date}</S.Date>
+        <S.StatusTxt>
+          {serversCount === undefined /* serversCount could be zero */
+            ? translation[status]
+            : t('grid_card.active_servers_count', { count: serversCount })}
+        </S.StatusTxt>
+
+        {date && (
+          <>
+            <Calendar />
+            <S.Date>{date}</S.Date>
+          </>
+        )}
       </S.Footer>
-
-      <S.Looper alt='' width={276} height={112} src={looper} priority />
-    </S.Container>
-  );
-}
-
-type UpstreamCardProps = {
-  href: string;
-  name: string;
-  activeServersCount: number;
-  wordToHighlight: string;
-  isSetting?: boolean;
-  onClick?: () => void;
-  className?: string;
-  clickedCard?: string;
-};
-
-function UpstreamCard(props: UpstreamCardProps) {
-  const {
-    onClick,
-    clickedCard,
-    className = 'upstreamCard',
-    name,
-    href,
-    activeServersCount,
-    wordToHighlight,
-    isSetting = true,
-  } = props;
-  const [t] = useTr();
-  const theme = useTheme();
-
-  const isUpstream = isUpstreamCard(props);
-
-  return (
-    <S.Container href={href} onClick={onClick} className={className} clickedCard={clickedCard}>
-      <S.Header $isUpstream={isUpstream}>
-        <S.Title
-          text={name}
-          highlightColor={theme.secondary.main}
-          wordToHighlight={wordToHighlight}
-          $isUpstream={isUpstream}
-        />
-        {isSetting && <S.Settings className='icon-setting' $isUpstream={isUpstream} />}
-      </S.Header>
-      <S.Footer $isUpstream={isUpstream}>
-        <Status status={'active'} />
-        <S.StatusTxt>{t('grid_card.active_servers_count', { count: activeServersCount })}</S.StatusTxt>
-      </S.Footer>
-
-      <S.Looper alt='' width={276} height={112} src={looper} priority />
-    </S.Container>
+    </S.Button>
   );
 }

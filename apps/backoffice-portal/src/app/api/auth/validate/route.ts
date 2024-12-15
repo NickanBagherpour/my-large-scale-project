@@ -28,7 +28,6 @@ export async function GET(req: Request) {
     }
 
     return createResponse({ success: true });
-
   } catch (error: any) {
     return createResponse({
       success: false,

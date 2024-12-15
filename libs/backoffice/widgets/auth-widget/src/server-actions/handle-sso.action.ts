@@ -17,7 +17,6 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
     body: JSON.stringify({ code }),
   });
 
-
   if (!response.ok) {
     throw new Error('Failed to sign in');
   }

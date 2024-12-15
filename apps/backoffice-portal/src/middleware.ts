@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 import { decrypt, ROUTES } from '@oxygen/utils';
-import { cookies } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
 
 // Function to check if a URL has the same origin as the request
@@ -43,7 +42,9 @@ async function validateToken(token: string | undefined): Promise<boolean> {
 export default async function middleware(request: NextRequest) {
   // const session = await auth();
 
-  const token = cookies().get(CookieKey.SESSION_ID)?.value ?? 'alireza';
+  const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
+
+  // console.log('request inside middleware', token, request.ip, request.url, request.nextUrl);
 
   const publicPaths = [ROUTES.BACKOFFICE.AUTH]; // Define public paths here
 
