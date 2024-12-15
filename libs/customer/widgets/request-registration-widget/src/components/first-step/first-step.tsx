@@ -11,7 +11,7 @@ import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Switch } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
@@ -26,10 +26,12 @@ import * as S from './first-step.style';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
+  data?: any;
+  loading?: boolean;
 };
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
-  const { setCurrentStep } = props;
+  const { setCurrentStep, data, loading } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const { ...fetchState } = useAppState();
@@ -45,6 +47,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
+  const [isSwitchSelected, setIsSwitchSelected] = useState(false);
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
 
   const { mutate: secondMutate, isPending: secondIsPending } = useGetOrganizationDataMutationQuery();
@@ -107,6 +110,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const handleSwitchChange = (checked) => {
+    setIsSwitchSelected(checked);
+    if (!checked) {
+      form.resetFields([FORM_ITEM.aggregator_value]);
+    }
+  };
+
   const handleReturn = () => {
     router.back();
   };
@@ -119,32 +129,94 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           <S.Radio value={'registerOrganization'}>{t('register_organization')}</S.Radio>
         </S.Radios>
         {state.requestMode === 'selectOrganization' ? (
-          <S.Grid>
-            {isOrganizationsFetching ? (
-              <Loading spinning={isOrganizationsFetching} />
-            ) : organizations?.list.length ? (
-              organizations.list.slice(0, 4).map(({ name, id }, idx) => (
-                <S.Button
-                  $isSelected={id === isSelected.id ? true : false}
-                  color='primary'
-                  key={idx}
-                  onClick={() => handleOrganizationSelect(id)}
-                >
-                  <S.Header>{name}</S.Header>
+          <S.OrganizationContainer>
+            <S.Grid>
+              {isOrganizationsFetching ? (
+                <Loading spinning={isOrganizationsFetching} />
+              ) : organizations?.list.length ? (
+                organizations.list.slice(0, 4).map(({ name, id }, idx) => (
+                  <S.Button
+                    $isSelected={id === isSelected.id ? true : false}
+                    color='primary'
+                    key={idx}
+                    onClick={() => handleOrganizationSelect(id)}
+                  >
+                    <S.Header>{name}</S.Header>
 
-                  <S.Subtitle>
-                    <span className='nationalId'>{t('form.national_id')}: </span>
-                    {id}
-                  </S.Subtitle>
-                </S.Button>
-              ))
-            ) : (
-              <span>شرکتی وجود ندارد</span>
+                    <S.Subtitle>
+                      <span className='nationalId'>{t('form.national_id')}: </span>
+                      {id}
+                    </S.Subtitle>
+                  </S.Button>
+                ))
+              ) : (
+                <span>شرکتی وجود ندارد</span>
+              )}
+            </S.Grid>
+            {isSelected.isSelected && (
+              <S.OrganizationContainer>
+                {loading ? (
+                  <Loading spinning={loading} />
+                ) : (
+                  <S.OrganizationContainer>
+                    <S.TitleTxt className={'cards-title'}>{t('representatives_info')}</S.TitleTxt>
+                    <Card>
+                      <SearchItemsContainer $columnNumber='3'>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('legal_name')}</span>
+                          <span>{data.list.legal_name}</span>
+                        </S.RepresentativesInfoItemContainer>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('form.mobile_number')}</span>
+                          <span>{data.list.mobile_number}</span>
+                        </S.RepresentativesInfoItemContainer>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('telephone')}</span>
+                          <span>{data.list.telephone}</span>
+                        </S.RepresentativesInfoItemContainer>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('technical_name')}</span>
+                          <span>{data.list.technical_name}</span>
+                        </S.RepresentativesInfoItemContainer>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('form.mobile_number')}</span>
+                          <span>{data.list.mobile_number}</span>
+                        </S.RepresentativesInfoItemContainer>
+                        <S.RepresentativesInfoItemContainer>
+                          <span>{t('telephone')}</span>
+                          <span>{data.list.telephone}</span>
+                        </S.RepresentativesInfoItemContainer>
+                      </SearchItemsContainer>
+                    </Card>
+                  </S.OrganizationContainer>
+                )}
+              </S.OrganizationContainer>
             )}
-          </S.Grid>
+          </S.OrganizationContainer>
         ) : (
           <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
             <S.TitleTxt className={'cards-title'}>{t('register_info')}</S.TitleTxt>
+            <SearchItemsContainer $columnNumber='3'>
+              <S.AggregatorContainer>
+                <Form.Item
+                  className={'label-switch'}
+                  layout={'horizontal'}
+                  name={FORM_ITEM.aggregator_status}
+                  label={t('form.aggregator')}
+                >
+                  <Switch onChange={handleSwitchChange} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator'>
+                  <Select
+                    size={'large'}
+                    options={selectLegalTypeOptions}
+                    // loading={selectFetching}
+                    placeholder={`${t('placeholder.do_select')}`}
+                    disabled={!isSwitchSelected}
+                  ></Select>
+                </Form.Item>
+              </S.AggregatorContainer>
+            </SearchItemsContainer>
             <SearchItemsContainer $columnNumber='3'>
               <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
                 <Input

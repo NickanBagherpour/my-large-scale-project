@@ -3,7 +3,7 @@ import { Radio as AntRadio } from 'antd';
 import { respondTo } from '@oxygen/utils';
 import { Dropdown } from '@oxygen/ui-kit';
 import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
-import { looper } from '../../../../../../reusable-components/src/assets/';
+import { LooperGroup } from '../../assets';
 import RawGrid from '../grid/grid.style';
 
 export const Radios = styled(AntRadio.Group)`
@@ -18,6 +18,33 @@ export const Grid = styled(RawGrid)`
   margin-bottom: 1.6rem;
 `;
 
+export const OrganizationContainer = styled.div`
+  & .ant-card {
+    background-color: ${(p) => p.theme.background._50};
+  }
+`;
+
+export const RepresentativesInfoItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.6rem 0;
+
+  span {
+    line-height: 2.2rem;
+    font-size: 1.4rem;
+  }
+
+  span:nth-child(1) {
+    color: ${(p) => p.theme.text.primary};
+    font-weight: 500;
+  }
+  span:nth-child(2) {
+    color: ${(p) => p.theme.text.secondary};
+    font-weight: 400;
+  }
+`;
+
 export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
   border-radius: 1.8rem;
   padding: 1.6rem;
@@ -27,10 +54,10 @@ export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
   overflow: hidden;
   display: block;
   isolation: isolate;
-  background-image: url('${looper}');
+  background-image: url('${LooperGroup}');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: left bottom;
+  background-position: right bottom;
 
   &&& {
     /* overridding ant buttons styles */
@@ -96,6 +123,18 @@ export const FirstStepContainer = styled.div`
 
   & .ant-form {
     flex: 1;
+  }
+`;
+
+export const AggregatorContainer = styled.div`
+  display: flex;
+
+  & .label-switch {
+    flex-grow: 1;
+  }
+
+  & .select-aggregator {
+    flex-grow: 2;
   }
 `;
 

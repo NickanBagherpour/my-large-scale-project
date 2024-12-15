@@ -1,6 +1,7 @@
 export default {
   select_organization: 'انتخاب شرکت',
   register_organization: 'ثبت اطلاعات شرکت',
+
   //firstStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',
@@ -45,6 +46,7 @@ export default {
   },
   form: {
     //firstStep
+    aggregator: 'اگریگیتور',
     legal_person_name: 'نام شخص حقوقی',
     legal_person_type: 'نوع شخص حقوقی',
     registration_number: 'شماره ثبت',
@@ -62,6 +64,7 @@ export default {
   },
   placeholder: {
     //firstStep
+    do_select: 'انتخاب کنید',
     legal_person_name: 'نام شخص حقوقی را وارد نمایید',
     legal_person_type: 'نوع شخص حقوقی را انتخاب نمایید',
     registration_number: 'شماره ثبت را وارد نمایید',
