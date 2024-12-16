@@ -2,6 +2,7 @@ import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
 import { CreateScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
 import { steps } from '../components/app/app';
+import { StepProps } from 'antd';
 
 // Partial<T>["length"] gives a union of all possible lengths of the array when elements are optional.
 // T["length"] gives the exact length of the original array.
@@ -9,9 +10,13 @@ import { steps } from '../components/app/app';
 type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
 
 export type ScopeMode = 'importFromSso' | 'createScope';
+export type StepNames = 'generalInfo' | 'scope' | 'upstream' | 'route' | 'confirmData';
+export type StepIndex = Indices<typeof steps>;
+export type Statuses = StepProps['status'];
 
 export type WidgetStateType = {
-  step: Indices<typeof steps>;
+  step: StepIndex;
+  stepStatuses: Array<{ name: StepNames; status: Statuses }>;
   scopeMode: ScopeMode;
   generalInfo: GeneralInfoValuesType;
   scope: CreateScopeFormType;
