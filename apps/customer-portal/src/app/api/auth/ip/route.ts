@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const headersList = request.headers;
 
-  const getIP = (): string => {
+  const getIP = async (): Promise<string> => {
     const forwarded = headersList.get('x-forwarded-for');
     let ip: string | null = null;
 
@@ -15,8 +15,9 @@ export async function GET(request: NextRequest) {
     }
 
     if (!ip) {
-      ip = headersList.get('x-real-ip') || request?.socket?.remoteAddress || null;
-      console.log('X-Real-IP or Remote Address:', ip);
+      // Fallback to X-Real-IP or request.ip if available
+      ip = headersList.get('x-real-ip') || request.ip || null;
+      console.log('X-Real-IP or Request IP:', ip);
     }
 
     if (!ip) {
@@ -27,9 +28,6 @@ export async function GET(request: NextRequest) {
     if (ip.startsWith('::ffff:')) {
       ip = ip.replace('::ffff:', '');
     }
-
-    // Optionally, handle other IPv6 prefixes or IPv4 addresses
-    // You can add more parsing logic here if needed
 
     return ip;
   };
@@ -47,8 +45,8 @@ export async function GET(request: NextRequest) {
     }
   };
 
-  const userIP = getIP();
-  // const userIP = await getIP2();
+  const clientIP = await getIP();
+  const serverIP = await getIP2();
 
-  return NextResponse.json({ ip: userIP });
+  return NextResponse.json({ ip: clientIP, ip2: serverIP });
 }
