@@ -11,9 +11,9 @@ import ConfirmData from '../confirm-data/confirm-data';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
+  { name: 'route', title: 'route', component: <Route /> },
   { name: 'scope', title: 'scope', component: <Scope /> },
   { name: 'upstream', title: 'upstream', component: <Upstream /> },
-  { name: 'route', title: 'route', component: <Route /> },
   { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
 ] as const;
 

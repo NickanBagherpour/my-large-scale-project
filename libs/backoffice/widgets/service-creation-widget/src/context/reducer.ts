@@ -4,11 +4,11 @@ import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   step: 0,
   stepStatuses: [
-    { name: 'generalInfo', status: 'error' },
-    { name: 'scope', status: 'finish' },
-    { name: 'upstream', status: 'error' },
-    { name: 'route', status: 'finish' },
-    { name: 'confirmData', status: 'finish' },
+    { name: 'generalInfo', status: 'process' },
+    { name: 'scope', status: 'wait' },
+    { name: 'upstream', status: 'wait' },
+    { name: 'route', status: 'wait' },
+    { name: 'confirmData', status: 'wait' },
   ],
   scopeMode: 'importFromSso',
   generalInfo: {
