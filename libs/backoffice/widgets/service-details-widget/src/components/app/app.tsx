@@ -11,7 +11,7 @@ import { ReturnButton } from '@oxygen/reusable-components';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
 import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
-import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
+import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
 import { RADIO_GROUP_NAME } from '../../utils/consts';
@@ -152,7 +152,6 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
-      {/* change the defaultActiveKey to 1  */}
       <Tabs defaultActiveKey='1' items={items} style={{ paddingTop: '3rem' }} />
     </S.AppContainer>
   );

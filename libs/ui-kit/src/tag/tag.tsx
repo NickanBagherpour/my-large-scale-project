@@ -2,16 +2,17 @@ import React from 'react';
 
 import * as S from './tag.style';
 import { TagProps } from 'antd';
-
+export type TypeValueType = 'default' | 'success' | 'processing' | 'error' | 'warning';
 export type TagType = TagProps & {
   text: string;
+  type?: TypeValueType;
 };
 
-export const Tag: React.FC<TagType> = (props) => {
-  const { text } = props;
+export const Tag = (props: TagType) => {
+  const { text, type, ...rest } = props;
   return (
-    <S.Tag>
-      <span>{text}</span>
+    <S.Tag type={type} {...rest}>
+      <S.TagText>{text}</S.TagText>
     </S.Tag>
   );
 };
