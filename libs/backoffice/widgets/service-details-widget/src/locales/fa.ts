@@ -71,4 +71,7 @@ export default {
   search: 'جستجو',
   persian_scope_name: 'نام فارسی اسکوپ',
   scope_english_name: 'نام لاتین اسکوپ',
+  you_are_adding_scope: 'شما در حال افزودن اسکوپ svc-mgmt-iban-inq در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
+  scope: 'اسکوپ',
+  submit_and_add: 'تایید و افزودن',
 };
