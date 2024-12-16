@@ -10,10 +10,11 @@ import ScopeList from '../scope-list/scope-list';
 import { ReturnButton } from '@oxygen/reusable-components';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { useAppDispatch, useAppState } from '../../context';
+import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
 import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
+import { RADIO_GROUP_NAME } from '../../utils/consts';
 
 type AppProps = PageProps & {
   //
@@ -38,11 +39,36 @@ const App: React.FC<AppProps> = (props) => {
   if (!id) {
     redirect('/not-found');
   }
-
+  const handleUpstreamCreation = () => {
+    updateUpstreamTabCreationSubmitAction(dispatch);
+  };
   const footerButton = (
-    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-      {t('button.return')}
-    </ReturnButton>
+    <>
+      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        {t('button.return')}
+      </ReturnButton>
+      {!state.upstreamTab.activeSelect.isInitialized &&
+        state.upstreamTab.radioValue === `${RADIO_GROUP_NAME.SELECT}` && (
+          <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
+            {t('save_changes')}
+          </Button>
+        )}
+      {!state.upstreamTab.activeSelect.isInitialized &&
+        state.upstreamTab.radioValue === `${RADIO_GROUP_NAME.CREATE}` && (
+          <Button
+            disabled={
+              !(
+                !!state.upstreamTab.fallbackSelect.englishName &&
+                !!state.upstreamTab.fallbackSelect.persianName &&
+                !!state.upstreamTab.fallbackSelect.servers.length
+              )
+            }
+            onClick={() => console.log(state.upstreamTab.fallbackSelect)}
+          >
+            {t('save_changes')}
+          </Button>
+        )}
+    </>
   );
 
   const items: TabsProps['items'] = [
@@ -125,11 +151,9 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer footer={footerButton}>
-      <Container title={t('widget_name')} style={{ minHeight: '100%' }}>
-        {/* change the defaultActiveKey to 0  */}
-        <Tabs defaultActiveKey='3' items={items} style={{ paddingTop: '3rem' }} />
-      </Container>
+    <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
+      {/* change the defaultActiveKey to 1  */}
+      <Tabs defaultActiveKey='3' items={items} style={{ paddingTop: '3rem' }} />
     </S.AppContainer>
   );
 };

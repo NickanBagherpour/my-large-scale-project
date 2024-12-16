@@ -17,9 +17,7 @@ export const BorderBoxContainer = styled.div`
   border-radius: var(${cssVar.radius});
   padding: 1.6rem;
 `;
-export const TrashIcon = styled.i`
-  font-size: 2rem;
-`;
+
 export const Table = styled.div`
   margin-top: 2.4rem;
 `;
@@ -68,4 +66,9 @@ export const Input = styled(KitInput)`
     max-width: 100%;
     font-size: 1.7rem;
   }
+`;
+
+export const BlueDivider = styled.div`
+  background-color: blue;
+  width: 100%;
 `;

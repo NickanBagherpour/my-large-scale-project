@@ -1,14 +1,32 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, UpstreamData, WidgetActionType, WidgetDispatchType } from './types';
+import { FiltersType, initialActiveSelectType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 
+export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
+}
+export function updateFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
+  dispatch({ type: 'UPDATE_FALLBACK_SERVERS', payload: servers });
+}
+export function filteredFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
+  dispatch({ type: 'FILTERED_FALLBACK_SERVER', payload: servers });
+}
+export function updateRadioValueAction(dispatch: WidgetDispatchType, radioValue: Nullable<string>) {
+  dispatch({ type: 'UPDATE_RADIO_VALUE', payload: radioValue });
+}
+export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
+  dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
+}
+export function updatepersianNameAction(dispatch: WidgetDispatchType, persianName: Nullable<number | string>) {
+  dispatch({ type: 'UPDATE_PERSIAN_NAME', payload: persianName });
+}
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }
 
-export function updateUpstreamAction(dispatch: WidgetDispatchType, upstream: UpstreamData) {
-  dispatch({ type: 'UPDATE_UPSTREAM', payload: upstream });
+export function updateUpstreamAction(dispatch: WidgetDispatchType, initialupstream: initialActiveSelectType) {
+  dispatch({ type: 'UPDATE_UPSTREAM', payload: initialupstream });
 }
 
 export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {

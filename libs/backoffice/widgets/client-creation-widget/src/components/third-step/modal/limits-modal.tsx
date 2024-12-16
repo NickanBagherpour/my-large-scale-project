@@ -1,11 +1,14 @@
+import { Form } from 'antd';
+import { FormProps } from 'antd/lib';
+import { createSchemaFieldRule } from 'antd-zod';
+
 import { useTr } from '@oxygen/translation';
 import { Input, Modal, Select } from '@oxygen/ui-kit';
-import * as S from './limits-modal.style';
-import { Form } from 'antd';
-import { limitationsSchema, LimitationsType } from '../../../types/limitation-form.schema';
-import { createSchemaFieldRule } from 'antd-zod';
-import { FormProps } from 'antd/lib';
+
 import { LIMITAION_FORM_NAME } from '../../../utils/consts';
+import { limitationsSchema, LimitationsType } from '../../../types/limitation-form.schema';
+
+import * as S from './limits-modal.style';
 
 type Props = {
   isOpen: boolean;
