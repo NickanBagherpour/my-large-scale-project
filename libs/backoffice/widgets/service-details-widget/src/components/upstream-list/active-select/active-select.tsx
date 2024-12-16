@@ -1,13 +1,11 @@
 import { useState } from 'react';
 
-import { Button } from 'antd';
-
+import { Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { InfoBox, Table } from '@oxygen/ui-kit';
-import { InfoItemType, PageProps } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 
-// import DetailsModal from './modals/info-service-modal/info-service-modal';
 import { Modal } from '../../scope-list/scope-list';
+import CustomInfobox from '../custom-infobox/custom-infobox';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
@@ -44,30 +42,6 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-  //Render
-  const infoBoxData: InfoItemType[] = [
-    {
-      key: 'upstream_tab.info_box_latinName',
-      value: `${data?.content.latinName}`,
-    },
-    {
-      key: 'upstream_tab.info_box_persianName',
-      value: 'آپ‌استریم سجام',
-    },
-    ...(state.upstreamTab.activeSelect.isInitialized
-      ? [
-          {
-            key: '',
-            value: (
-              <Button variant='outlined' color='danger' onClick={handleDeleteButton}>
-                <S.TrashIcon className='icon-trash' />
-                {t('upstream_tab.delete_button')}
-              </Button>
-            ),
-          },
-        ]
-      : []),
-  ];
 
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
@@ -76,7 +50,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     <S.UpstreamContainer>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBoxContainer>
-        <InfoBox data={infoBoxData} minColumnCount={3} margin={0} />
+        <CustomInfobox handleDeleteButton={handleDeleteButton} data={{ latinName: 'alireza', persianName: 'علیرضا' }} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
           <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} loading={loading} />
