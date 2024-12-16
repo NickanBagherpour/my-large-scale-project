@@ -1,7 +1,9 @@
 import React from 'react';
 
-import * as S from './tag.style';
 import { TagProps } from 'antd';
+
+import * as S from './tag.style';
+
 export type TypeValueType = 'default' | 'success' | 'processing' | 'error' | 'warning';
 export type TagType = TagProps & {
   text: string;
