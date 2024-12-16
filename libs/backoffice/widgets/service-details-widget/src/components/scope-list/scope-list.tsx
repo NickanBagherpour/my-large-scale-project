@@ -1,125 +1,120 @@
-import React, { useState } from 'react';
+import { RadioChangeEvent } from 'antd';
 import * as S from './scope-list.style';
-import type { Pagination, Service } from '@oxygen/types';
-import { v4 as uuid } from 'uuid'; // import uuid if needed
-import { TablePaginationConfig } from 'antd';
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import Footer from './footer/footer';
+import Box from './box/box';
+import ImportFromSso from './import-from-sso/import-from-sso';
+import CreateScope from './create-scope/create-scope';
+import { useAppDispatch, useAppState, updateScopeMode } from '../../context';
+import { type Scope } from '@oxygen/types';
+import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
+import { useState } from 'react';
+import { Container } from './container/container.style';
 
-import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Button, Loading, Table } from '@oxygen/ui-kit';
-import DetailsModal from './modals/info-service-modal/info-service-modal';
-import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
-import { useAppDispatch, useAppState } from '../../context';
-import { useGetServiceClientsListQuery } from '../../services';
-
-export type Modal = {
-  details: boolean;
-  removeService: boolean;
-};
-
-type Props = {
-  t: (key: string) => string; // Assuming 't' is a function for translations
-  filteredClients: Service[];
-  pagination: { page: number; rowsPerPage: number };
-  isClientsFetching: boolean;
-  handlePageChange: (pagination: TablePaginationConfig) => void;
-};
-
-type AppProps = PageProps & {
-  //
-};
-
-const ScopeList: React.FC<AppProps> = (props) => {
-  const { data: clientsList, isFetching: isClientsFetching } = useGetServiceClientsListQuery();
-  const clientsLists = Array.isArray(clientsList) ? clientsList : [];
-  console.log(clientsList, 'clientsList');
-  const state = useAppState();
-  const dispatch = useAppDispatch();
-
+export default function Scope() {
   const [t] = useTr();
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
+  const { scopeMode /* scope: addScope */ } = useAppState();
+  const dispatch = useAppDispatch();
+  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
 
-  const [modals, setModals] = useState<Modal>({
-    details: false,
-    removeService: false,
-  });
-
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  const chooseScope = (scope: Scope) => {
+    setSelectedScope(scope);
   };
 
-  const handlePageChange = (pagination: any) => {
-    setPagination({
-      page: pagination.current,
-      rowsPerPage: pagination.pageSize,
-    });
+  const removeSelectedScope = () => {
+    setSelectedScope(null);
   };
 
-  const desktopColumns = getDesktopColumns({ t, toggleModal });
-  const mobileColumns = getMobileColumns({ t, toggleModal });
+  const onChange = (e: RadioChangeEvent) => {
+    updateScopeMode(dispatch, e.target.value);
+  };
+
+  const onReturn = () => {
+    // previousStep(dispatch);
+  };
+
+  const desktopColumns: ColumnsType<Scope> = [
+    {
+      title: t('common.row_number'),
+      key: 'rowNumber',
+      align: 'center',
+      render: (_val, _record, idx) => idx + 1,
+    },
+    {
+      title: t('scope_english_name'),
+      dataIndex: 'scopeName',
+      align: 'center',
+    },
+    {
+      title: t('scope_persian_name'),
+      dataIndex: 'persianName',
+      align: 'center',
+    },
+    {
+      key: 'remove',
+      align: 'center',
+      render: () => (
+        <Button variant='link' color='error' onClick={removeSelectedScope}>
+          <S.TrashIcon className='icon-trash' />
+        </Button>
+      ),
+    },
+  ];
+
+  const mobileColumns: ColumnsType<Scope> = [
+    {
+      title: null,
+      key: 'mobileColumn',
+      render: () => {
+        return (
+          <UiKitBox flexDirection='column'>
+            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.scopeName} />
+            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
+            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.persianName} />
+            <Table.MobileColumn
+              minHeight={'40px'}
+              title={t('remove')}
+              value={
+                <Button className='item__btn' variant='link' color='error' onClick={removeSelectedScope}>
+                  <S.TrashIcon className='icon-trash' />
+                </Button>
+              }
+            />
+          </UiKitBox>
+        );
+      },
+    },
+  ];
 
   return (
-    <S.ItemsContainer className='clients-list'>
-      <h3>{t('scopes_list')}</h3>
-
-      <S.DataTableContainer>
-        <S.Buttons>
-          <S.Button href='/load-client' className='excel-icon' color='primary' variant='filled'>
-            <i className='icon-excel' />
-          </S.Button>
-          <S.Button href='/create-client' className='printer-icon' color='secondary' variant='filled'>
-            <i className='icon-printer' />
-          </S.Button>
-        </S.Buttons>
-      </S.DataTableContainer>
-
-      <div>
-        {isClientsFetching ? (
-          <Loading spinning={isClientsFetching} />
+    <Container>
+      <Box>
+        <S.Radios onChange={onChange} value={scopeMode} disabled={!!selectedScope}>
+          <S.Radio value={'importFromSso'}>{t('choose_scope')}</S.Radio>
+          <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
+        </S.Radios>
+        {scopeMode === 'importFromSso' ? (
+          <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
         ) : (
-          <Table
-            dataSource={clientsLists}
-            columns={desktopColumns}
-            mobileColumns={mobileColumns}
-            loading={isClientsFetching}
-            pagination={{
-              current: pagination.page,
-              pageSize: pagination.rowsPerPage,
-              total: clientsList.length,
-            }}
-            onChange={handlePageChange}
-            rowKey={(record) => record.id || uuid()}
-          />
+          <CreateScope selectedScope={selectedScope} chooseScope={chooseScope} />
         )}
-        {/* <>
-            {clientsLists?.content.length > 0 ? (
-              <Table
-                dataSource={clientsLists?.content} // Pass 'content' to the Table
-                columns={desktopColumns} // Define your columns elsewhere
-                mobileColumns={mobileColumns} // Define your mobile columns elsewhere
-                pagination={{
-                  current: pagination.page,
-                  pageSize: pagination.rowsPerPage,
-                  total: clientsLists.length,
-                }}
-                onChange={handlePageChange} // Define the pagination handler
-                rowKey={(record) => record.id || uuid()} // Use unique ID for row key
-              />
-            ) : (
-              <div>No clients found</div> // Handle the case where no data is available
-            )}
-          </> */}
+      </Box>
 
-        <RemoveServiceModal
-          isOpen={modals.removeService}
-          toggle={() => toggleModal('removeService')}
-          id='samat-lc-gutr-del'
+      {selectedScope && (
+        <S.Table
+          columns={desktopColumns}
+          mobileColumns={mobileColumns}
+          dataSource={[selectedScope]}
+          rowKey={(row) => row.idx}
+          pagination={false}
         />
-        <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} />
-      </div>
-    </S.ItemsContainer>
-  );
-};
+      )}
 
-export default ScopeList;
+      <Footer
+        registerButtonProps={{ disabled: !selectedScope }}
+        onRegister={() => console.log('hh')}
+        onReturn={onReturn}
+      />
+    </Container>
+  );
+}

@@ -9,6 +9,7 @@ import { ROUTES, uuid } from '@oxygen/utils';
 import ScopeList from '../scope-list/scope-list';
 import { ReturnButton } from '@oxygen/reusable-components';
 import { useGetServiceDetailsQuery } from '../../services';
+import Route from '../route/route';
 import { UpstreamList } from '../upstream-list/upstream-list';
 import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
 import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
@@ -118,35 +119,7 @@ const App: React.FC<AppProps> = (props) => {
     {
       key: '4',
       label: t('route'),
-      children: (
-        <>
-          <div className='service-technical-details'>
-            <h3>{t('service_technical_info')}</h3>
-            <div className='btn-group'>
-              <Button
-                type={'primary'}
-                color='primary'
-                variant='filled'
-                icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
-              >
-                {t('see_changes_history')}
-              </Button>
-              <Button
-                type={'primary'}
-                color='primary'
-                variant='solid'
-                icon={<i className='icon-edit' />}
-                onClick={() => router.push(`/edit-service?id=1111111`)}
-              >
-                {t('edit')}
-              </Button>
-            </div>
-          </div>
-
-          <InfoBox data={serviceDetails} margin={0} loading={isServiceFetching} />
-        </>
-      ),
+      children: <Route />,
     },
   ];
 

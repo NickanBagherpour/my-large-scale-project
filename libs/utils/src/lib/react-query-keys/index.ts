@@ -27,6 +27,8 @@ import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
 import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
 import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-history.key';
+import { KEYS as ROUTE_HISTORY_KEYS } from './widgets/route-history.key';
+import { KEYS as EDIT_ROUTE_KEYS } from './widgets/edit-route.key';
 
 export const RQKEYS = {
   /*--export--*/
@@ -63,4 +65,7 @@ export const RQKEYS = {
   EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
   DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,
+  // ROUTE
+  ROUTE_CHANGE_HISTORY: ROUTE_HISTORY_KEYS,
+  EDIT_ROUTE: EDIT_ROUTE_KEYS,
 };

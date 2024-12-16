@@ -1,9 +1,9 @@
 import * as React from 'react';
 // import { FormFieldsType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
-
+import { AddScopeType } from '../types';
 export type FiltersType = FormFieldsType;
-
+export type ScopeMode = 'importFromSso' | 'createScope';
 export type FormFieldsType = {
   name: Nullable<MessageType>;
 };
@@ -33,6 +33,8 @@ export type WidgetStateType = {
     pagination: PaginationType;
     submit: FiltersType;
   };
+  scopeMode: ScopeMode;
+  addScope: AddScopeType;
   message: Nullable<MessageType>;
 };
 
@@ -82,6 +84,7 @@ export type WidgetActionType =
       type: 'UPDATE_SUBMIT';
       payload: Partial<FiltersType>;
     }
+  | { type: 'UPDATE_SCOPE_MODE'; payload: ScopeMode }
   | {
       type: 'UPDATE_PAGINATION';
       payload: Partial<PaginationType>;

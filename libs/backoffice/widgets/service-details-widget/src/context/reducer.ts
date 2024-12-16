@@ -32,6 +32,8 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
+  scopeMode: 'importFromSso',
+  addScope: { scopeName: '', persianScopeName: '' },
   message: null,
 };
 
@@ -86,6 +88,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
     }
+
+    case 'UPDATE_SCOPE_MODE':
+      return void (state.scopeMode = action.payload);
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);
