@@ -9,7 +9,6 @@ import { StepProps } from 'antd';
 // Exclude removes the exact length of the array from the union of possible lengths, leaving only values that represent valid indices for T
 type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
 
-export type ScopeMode = 'importFromSso' | 'createScope';
 export type StepNames = 'generalInfo' | 'scope' | 'upstream' | 'route' | 'confirmData';
 export type StepIndex = Indices<typeof steps>;
 export type Statuses = StepProps['status'];
@@ -17,7 +16,6 @@ export type Statuses = StepProps['status'];
 export type WidgetStateType = {
   step: StepIndex;
   stepStatuses: Array<{ name: StepNames; status: Statuses }>;
-  scopeMode: ScopeMode;
   generalInfo: GeneralInfoValuesType;
   scope: CreateScopeFormType;
   route: RouteType;

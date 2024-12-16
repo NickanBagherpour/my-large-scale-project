@@ -1,11 +1,9 @@
-import { RadioChangeEvent } from 'antd';
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import ImportFromSso from '../import-from-sso/import-from-sso';
-import CreateScope from '../create-scope/create-scope';
-import { useAppDispatch, useAppState, updateScopeMode, previousStep, nextStep } from '../../context';
+import { useAppDispatch, previousStep, nextStep } from '../../context';
 import { type Scope } from '@oxygen/types';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
@@ -13,7 +11,6 @@ import { Container } from '../container/container.style';
 
 export default function Scope() {
   const [t] = useTr();
-  const { scopeMode /* scope: addScope */ } = useAppState();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
 
@@ -23,10 +20,6 @@ export default function Scope() {
 
   const removeSelectedScope = () => {
     setSelectedScope(null);
-  };
-
-  const onChange = (e: RadioChangeEvent) => {
-    updateScopeMode(dispatch, e.target.value);
   };
 
   const onReturn = () => {
@@ -89,15 +82,7 @@ export default function Scope() {
   return (
     <Container>
       <Box>
-        <S.Radios onChange={onChange} value={scopeMode} disabled={!!selectedScope}>
-          <S.Radio value={'importFromSso'}>{t('import_from_sso')}</S.Radio>
-          <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
-        </S.Radios>
-        {scopeMode === 'importFromSso' ? (
-          <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
-        ) : (
-          <CreateScope selectedScope={selectedScope} chooseScope={chooseScope} />
-        )}
+        <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
       </Box>
 
       {selectedScope && (

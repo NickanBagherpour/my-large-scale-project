@@ -13,11 +13,6 @@ export const UPLOAD_NAMES = {
   file: 'file',
 } as const;
 
-export const CREATE_SCOPE_NAMES = {
-  scopeName: 'scopeName',
-  persianScopeName: 'persianScopeName',
-} as const;
-
 export const IMPORT_FORM_SSO_NAMES = {
   existingScopeName: 'existingScopeName',
 } as const;

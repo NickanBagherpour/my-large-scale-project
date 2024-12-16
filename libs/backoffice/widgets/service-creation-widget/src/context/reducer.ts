@@ -2,15 +2,14 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 0,
+  step: 2,
   stepStatuses: [
-    { name: 'generalInfo', status: 'process' },
-    { name: 'scope', status: 'wait' },
+    { name: 'generalInfo', status: 'finish' },
+    { name: 'route', status: 'finish' },
+    { name: 'scope', status: 'process' },
     { name: 'upstream', status: 'wait' },
-    { name: 'route', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],
-  scopeMode: 'importFromSso',
   generalInfo: {
     tag: null,
     owner: '',
@@ -66,9 +65,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_SCOPE_STEP':
       return void (state.scope = action.payload);
-
-    case 'UPDATE_SCOPE_MODE':
-      return void (state.scopeMode = action.payload);
 
     case 'UPDATE_ROUTE_STEP':
       return void (state.route = action.payload);

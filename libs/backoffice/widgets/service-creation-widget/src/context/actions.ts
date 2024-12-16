@@ -1,5 +1,5 @@
 import type { MessageType, Nullable } from '@oxygen/types';
-import type { ScopeMode, WidgetDispatchType } from './types';
+import type { WidgetDispatchType } from './types';
 import type { CreateScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
@@ -12,10 +12,6 @@ export function nextStep(dispatch: WidgetDispatchType) {
 
 export function previousStep(dispatch: WidgetDispatchType) {
   dispatch({ type: 'PREVIOUS_STEP' });
-}
-
-export function updateScopeMode(dispatch: WidgetDispatchType, payload: ScopeMode) {
-  dispatch({ type: 'UPDATE_SCOPE_MODE', payload });
 }
 
 export function updateGetInfoStep(dispatch: WidgetDispatchType, payload: GeneralInfoValuesType) {
