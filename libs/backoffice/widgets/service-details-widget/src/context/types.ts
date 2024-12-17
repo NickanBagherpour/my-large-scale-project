@@ -12,13 +12,22 @@ export type PaginationType = {
   page: number;
   rowsPerPage: number;
 };
-export type UpstreamData = {
+export type initialActiveSelectType = {
   isInitialized: boolean;
   id: Nullable<number | string>;
   cardId: Nullable<number | string>;
 };
+export type initialFallbackSelectType = {
+  englishName: Nullable<number | string>;
+  persianName: Nullable<number | string>;
+  servers: any[];
+};
 export type WidgetStateType = {
-  upstreamTab: UpstreamData;
+  upstreamTab: {
+    radioValue: Nullable<number | string>;
+    activeSelect: initialActiveSelectType;
+    fallbackSelect: initialFallbackSelectType;
+  };
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -33,8 +42,37 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
+      type: 'UPDATE_RADIO_VALUE';
+      payload: Nullable<number | string>;
+    }
+  | {
+      type: 'UPDATE_UPSTREAM_TAB_CREATION';
+    }
+  | {
+      type: 'FILTERED_FALLBACK_SERVER';
+      payload: {
+        weight: string;
+        ip_port: string;
+      }[];
+    }
+  | {
+      type: 'UPDATE_FALLBACK_SERVERS';
+      payload: {
+        weight: string;
+        ip_port: string;
+      }[];
+    }
+  | {
+      type: 'UPDATE_PERSIAN_NAME';
+      payload: Nullable<number | string>;
+    }
+  | {
+      type: 'UPDATE_ENGLISH_NAME';
+      payload: Nullable<number | string>;
+    }
+  | {
       type: 'UPDATE_UPSTREAM';
-      payload: UpstreamData;
+      payload: Partial<initialActiveSelectType>;
     }
   | {
       type: 'UPDATE_FILTERS';

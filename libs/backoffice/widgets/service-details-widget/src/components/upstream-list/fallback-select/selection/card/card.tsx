@@ -5,7 +5,7 @@ import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../context';
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -28,7 +28,7 @@ export const Card = (props: CardProps) => {
 
   const handleClick = (data) => {
     setClickedCard(data.id);
-    updateUpstreamAction(dispatch, { ...state.upstreamTab, cardId: data.id });
+    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.id });
   };
   return (
     <>

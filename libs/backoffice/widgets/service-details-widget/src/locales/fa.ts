@@ -48,6 +48,16 @@ export default {
     },
     upstream_selection: 'انتخاب آپ‌استریم',
     create_upstream: 'ایجاد آپ‌استریم',
+    submit_server: 'ثبت سرور',
+    modal: {
+      ip_port: 'دامنه/IP PORT:',
+      weight: 'وزن:',
+      health: 'سلامت:',
+    },
   },
   remove: 'حذف ',
+  save_changes: 'ذخیره تغییرات',
+  english_name: 'نام انگلیسی',
+  persian_name: 'نام فارسی',
+  add_server: 'افزودن سرور',
 };
