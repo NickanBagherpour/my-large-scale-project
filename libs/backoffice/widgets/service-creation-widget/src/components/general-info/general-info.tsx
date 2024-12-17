@@ -4,14 +4,13 @@ import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { updateGetInfoStep, nextStep, useAppDispatch } from '../../context';
+import { updateGetInfoStep, nextStep, useAppDispatch, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
 import { useGetService } from '../../services';
-import { initialStateValue } from '../../context/reducer';
 import { usePostServiceMutation } from '../../services/post-service.api';
 
 const options = [
@@ -26,9 +25,7 @@ export default function GeneralInfo() {
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const serviceName = searchParams.get('service-name');
-  const { data, isFetching, is404Error } = useGetService({ name: serviceName });
+  const { data, isFetching, is404Error } = useGetService();
   const { mutateAsync: postService } = usePostServiceMutation();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {

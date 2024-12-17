@@ -1,7 +1,3 @@
-export type ServiceParams = {
-  name: string | null;
-};
-
 export type PostServiceParams = {
   name: string;
   persianName: string;
@@ -22,4 +18,11 @@ export type Service = {
   version: string;
   owner: string;
   tag: string;
+};
+
+export type Route = {
+  method: string;
+  protocol: string;
+  path: string;
+  host: string;
 };

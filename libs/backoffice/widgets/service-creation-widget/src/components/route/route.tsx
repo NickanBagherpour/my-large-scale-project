@@ -1,14 +1,15 @@
-import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createRouteSchema, GeneralInfoValuesType, RouteType } from '../../types';
+import { createRouteSchema, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { updateGetInfoStep, nextStep, useAppDispatch, useAppState, previousStep, updateRouteStep } from '../../context';
+import { nextStep, useAppDispatch, previousStep, updateRouteStep, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { Container } from '../container/container.style';
+import { useGetRoute } from '../../services/get-route.api';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -21,7 +22,7 @@ export default function Route() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
-  const state = useAppState();
+  const { data, is404Error, isFetching } = useGetRoute();
 
   const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
     nextStep(dispatch);
@@ -36,31 +37,51 @@ export default function Route() {
     previousStep(dispatch);
   };
 
-  return (
-    <Container>
-      <Box>
-        <Form layout={'vertical'} initialValues={state.route} onFinish={onFinish} form={form}>
-          <SearchItemsContainer>
-            <FormItem name={ROUTE_NAMES.actionOrMethod} className='span-2' label={t('action_or_method')} rules={[rule]}>
-              <Input />
-            </FormItem>
+  if (isFetching) {
+    return <Loading />;
+  }
 
-            <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
-              <Select size={'large'} options={options} />
-            </FormItem>
+  if (data || is404Error) {
+    let initialValues = initialStateValue['route'];
+    if (data) {
+      const { host, path, method, protocol } = data.data;
+      initialValues = { host, path, actionOrMethod: method, protocole: protocol };
+    }
 
-            <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
-              <Input />
-            </FormItem>
+    return (
+      <Container>
+        <Box>
+          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+            <SearchItemsContainer>
+              <FormItem
+                name={ROUTE_NAMES.actionOrMethod}
+                className='span-2'
+                label={t('action_or_method')}
+                rules={[rule]}
+              >
+                <Input />
+              </FormItem>
 
-            <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
-              <Input />
-            </FormItem>
-          </SearchItemsContainer>
-        </Form>
-      </Box>
+              <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
+                <Select size={'large'} options={options} />
+              </FormItem>
 
-      <Footer onRegister={onRegister} onReturn={onReturn} />
-    </Container>
-  );
+              <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
+                <Input />
+              </FormItem>
+
+              <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
+                <Input />
+              </FormItem>
+            </SearchItemsContainer>
+          </Form>
+        </Box>
+
+        <Footer onRegister={onRegister} onReturn={onReturn} />
+      </Container>
+    );
+  } else {
+    console.log(':)', 'unknown error');
+    return 'something went wrong';
+  }
 }
