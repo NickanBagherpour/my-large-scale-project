@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Container } from '../container/container.style';
 import { useGetService } from '../../services';
 import { initialStateValue } from '../../context/reducer';
+import { usePostServiceMutation } from '../../services/post-service.api';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -28,10 +29,19 @@ export default function GeneralInfo() {
   const searchParams = useSearchParams();
   const serviceName = searchParams.get('service-name');
   const { data, isFetching, is404Error } = useGetService({ name: serviceName });
+  const { mutateAsync: postService } = usePostServiceMutation();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
-    nextStep(dispatch);
-    updateGetInfoStep(dispatch, values);
+    const { throughout, category, tag, owner, access, version, englishName, persianName } = values;
+    try {
+      // @ts-expect-error this will be fixed by backend later
+      // prettier-ignore
+      await postService({ persianName, version, owner, tag, category, throughout, name: englishName, accessLevel: access });
+      nextStep(dispatch);
+      updateGetInfoStep(dispatch, values);
+    } catch {
+      //
+    }
   };
 
   const onReturn = () => {
