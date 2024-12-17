@@ -7,16 +7,24 @@ import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
+import { useGetUpstreams, useGetUpstreamWithTargets } from '../../services';
+import { useState } from 'react';
+import { UpstreamWithTargets } from '../../types';
+import { getValueOrDash } from '@oxygen/utils';
 
 export default function Upstream() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
+  const { data: upstreams, isFetching: isFetchingUpstreams } = useGetUpstreams();
+  const [selectedUpstreamId, setSelectedUpstreamId] = useState<number | null>(null);
+  const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
+    useGetUpstreamWithTargets(selectedUpstreamId);
 
   const onReturn = () => {
     previousStep(dispatch);
   };
 
-  const desktopColumns: ColumnsType<UpstreamServer> = [
+  const desktopColumns: ColumnsType<UpstreamWithTargets> = [
     {
       title: t('domain'),
       dataIndex: 'domain',
@@ -26,6 +34,7 @@ export default function Upstream() {
       title: t('health_status'),
       dataIndex: 'healthStatus',
       align: 'center',
+      render: (upstream) => getValueOrDash(upstream?.healthStatus),
     },
     {
       title: t('weight'),
@@ -43,7 +52,7 @@ export default function Upstream() {
           <UiKitBox flexDirection='column'>
             <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={healthStatus} />
+            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={getValueOrDash(healthStatus)} />
             <Table.MobileColumn minHeight={'40px'} title={t('weight')} value={weight} />
           </UiKitBox>
         );
@@ -51,25 +60,19 @@ export default function Upstream() {
     },
   ];
 
-  const data: UpstreamServer[] = Array.from({ length: 4 }).map((_, idx) => ({
-    idx,
-    weight: '100',
-    domain: '192.168.1.20',
-    healthStatus: 'سالم',
-  }));
-
   return (
     <Container>
       <Box>
         <S.Grid>
-          {Array.from({ length: 10 }).map((_, idx) => (
+          {upstreams?.content.map(({ name, id, activeServerCount }) => (
             <GridCard
-              key={idx}
-              title={'API-SERVICES-UPSTREAM'}
-              serversCount={5}
+              key={id}
+              title={name}
+              serversCount={activeServerCount}
               hasSetting={false}
-              isSelected={false}
+              isSelected={id === selectedUpstreamId}
               isHeaderLtr={true}
+              onClick={() => setSelectedUpstreamId(id)}
             />
           ))}
         </S.Grid>
@@ -80,8 +83,8 @@ export default function Upstream() {
           minColumnCount={2}
           margin={0}
           data={[
-            { key: t('upstream_english_name'), value: 'SEJAM-UPSTREAM' },
-            { key: t('upstream_description'), value: 'آپ‌استریم سجام' },
+            { key: t('upstream_english_name'), value: upstreamWithTargets?.name },
+            { key: t('upstream_description'), value: getValueOrDash(upstreamWithTargets?.description) },
           ]}
         />
 
@@ -90,7 +93,7 @@ export default function Upstream() {
         <Table
           columns={desktopColumns}
           mobileColumns={mobileColumns}
-          dataSource={data}
+          dataSource={upstreamWithTargets?.targets}
           rowKey={(row) => row.idx}
           pagination={false}
         />
