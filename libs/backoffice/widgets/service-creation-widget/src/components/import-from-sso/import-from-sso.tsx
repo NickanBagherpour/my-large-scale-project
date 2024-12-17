@@ -4,7 +4,8 @@ import { Button } from '@oxygen/ui-kit';
 import ScopeLibrary from '../scope-library/scope-library';
 import { useToggle } from '@oxygen/hooks';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { type Scope } from '@oxygen/types';
+import Box from '../box/box';
+import { type Scope } from '../../types';
 
 type Props = {
   chooseScope: (scope: Scope) => void;
@@ -17,7 +18,7 @@ export default function ImportFromSso(props: Props) {
   const [isScopeLibraryOpen, toggleIsScopeLibraryOpen] = useToggle(false);
 
   return (
-    <>
+    <Box>
       <S.Container>
         <ScopeSelector style={{ flex: 1 }} onSelect={selectScope} disabled={!!selectedScope} />
         <Button color='secondary' onClick={toggleIsScopeLibraryOpen} disabled={!!selectedScope}>
@@ -38,6 +39,6 @@ export default function ImportFromSso(props: Props) {
           <ScopeLibrary selectScope={selectScope} closeDrawer={toggleIsScopeLibraryOpen} />
         </S.Drawer>
       )}
-    </>
+    </Box>
   );
 }

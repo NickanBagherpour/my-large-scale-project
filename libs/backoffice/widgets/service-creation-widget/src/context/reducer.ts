@@ -2,11 +2,11 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 0,
+  step: 2,
   stepStatuses: [
-    { name: 'generalInfo', status: 'process' },
-    { name: 'route', status: 'wait' },
-    { name: 'scope', status: 'wait' },
+    { name: 'generalInfo', status: 'finish' },
+    { name: 'route', status: 'finish' },
+    { name: 'scope', status: 'process' },
     { name: 'upstream', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],

@@ -11,7 +11,7 @@ import { useDebouncedValue } from '@oxygen/hooks';
 
 import * as S from './scope-selector.style';
 import { useGetScopes } from '../../services';
-import { type Scope } from '@oxygen/types';
+import { Scope } from '../../types';
 
 type Props = {
   className?: string;
@@ -29,9 +29,11 @@ const ScopeSelector = (props: Props) => {
   const [t] = useTr();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
-  const { data, isLoading } = useGetScopes({
-    name: debouncedSearchTerm.trim(),
-    pagination: { page: 1, rowsPerPage: 10 },
+  const { data, isFetching } = useGetScopes({
+    'scope-name': debouncedSearchTerm.trim(),
+    page: 0,
+    size: 10,
+    sort: 'asc',
   });
 
   return (
@@ -43,7 +45,7 @@ const ScopeSelector = (props: Props) => {
       className={className}
       style={style}
       popupClassName={'popup'}
-      options={data?.items.map((item) => ({ value: item.scopeName, item }))}
+      options={data?.content.map((item) => ({ value: item.name, item }))}
       notFoundContent={t('message.empty')}
       maxLength={MAX_LENGTH}
       allowClear
@@ -56,13 +58,13 @@ const ScopeSelector = (props: Props) => {
       optionRender={({ value, data }) => (
         <S.Item>
           <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
-          <S.Subtitle>{data.item.persianName}</S.Subtitle>
+          <S.Subtitle>{data.item.description}</S.Subtitle>
         </S.Item>
       )}
     >
       <Input
         size='large'
-        prefix={isLoading ? <Loading /> : <i className='icon-search-normal' />}
+        prefix={isFetching ? <Loading /> : <i className='icon-search-normal' />}
         placeholder={t('scope_name_from_o2_or_scope')}
       />
     </AntAutoComplete>

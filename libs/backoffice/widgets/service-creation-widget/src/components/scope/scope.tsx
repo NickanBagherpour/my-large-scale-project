@@ -4,17 +4,18 @@ import Footer from '../footer/footer';
 import Box from '../box/box';
 import ImportFromSso from '../import-from-sso/import-from-sso';
 import { useAppDispatch, previousStep, nextStep } from '../../context';
-import { type Scope } from '@oxygen/types';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
 import { Container } from '../container/container.style';
+import { type Scope as ScopeType } from '../../types';
+import { getValueOrDash } from '@oxygen/utils';
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
+  const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
 
-  const chooseScope = (scope: Scope) => {
+  const chooseScope = (scope: ScopeType) => {
     setSelectedScope(scope);
   };
 
@@ -26,7 +27,7 @@ export default function Scope() {
     previousStep(dispatch);
   };
 
-  const desktopColumns: ColumnsType<Scope> = [
+  const desktopColumns: ColumnsType<ScopeType> = [
     {
       title: t('common.row_number'),
       key: 'rowNumber',
@@ -35,13 +36,14 @@ export default function Scope() {
     },
     {
       title: t('scope_english_name'),
-      dataIndex: 'scopeName',
+      dataIndex: 'name',
       align: 'center',
     },
     {
       title: t('scope_persian_name'),
-      dataIndex: 'persianName',
+      dataIndex: 'description',
       align: 'center',
+      render: (value) => getValueOrDash(value),
     },
     {
       key: 'remove',
@@ -54,16 +56,16 @@ export default function Scope() {
     },
   ];
 
-  const mobileColumns: ColumnsType<Scope> = [
+  const mobileColumns: ColumnsType<ScopeType> = [
     {
       title: null,
       key: 'mobileColumn',
       render: () => {
         return (
           <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.scopeName} />
+            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.name} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.persianName} />
+            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.description} />
             <Table.MobileColumn
               minHeight={'40px'}
               title={t('remove')}
