@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { Form } from 'antd';
-import { createSchemaFieldRule } from 'antd-zod';
 import { signIn } from 'next-auth/react';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAuth } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
@@ -49,11 +49,9 @@ export const OTP: React.FC<FormContainerProps> = () => {
   const handleSubmit = () => {
     OTPForm.submit();
   };
-
   const handleReturn = () => {
     updateOTPAction(dispatch, { ...state.OTP, isOpen: false });
   };
-
   const handleFinish = async (values: any) => {
     const params = {
       otpKey: state.OTP.key,
@@ -66,10 +64,8 @@ export const OTP: React.FC<FormContainerProps> = () => {
       } else {
         data = await mutateAsyncVerifyLogin(params);
       }
-      // console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbb', data);
       if (!data) return;
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
-      // console.log('ccccccccccccccccccccccccc', user);
       await signIn('credentials', { ...user, redirect: false });
       await login(user, ROUTES.CUSTOMER.REQUEST_REGISTRATION);
     } catch (e) {
@@ -119,9 +115,6 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
       <S.Box>
         <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
-        <Button variant='link' onClick={handleReturn}>
-          <S.BackParagraph>{t('change_mobile_number')}</S.BackParagraph>
-        </Button>
       </S.Box>
       <Form
         layout={'vertical'}
@@ -139,11 +132,11 @@ export const OTP: React.FC<FormContainerProps> = () => {
       <S.TimerBox>
         {isTimerFinish ? (
           <Button variant='link' onClick={handleResend}>
-            {<S.BackParagraph>{t('resend_otp_code')}</S.BackParagraph>}
+            {<S.TimeParagraph>{t('resend_otp_code')}</S.TimeParagraph>}
           </Button>
         ) : (
           <>
-            <S.BackParagraph>{t('time_left')}</S.BackParagraph>
+            <S.TimeParagraph>{t('time_left')}</S.TimeParagraph>
             <Timer initialSeconds={TIMER_INITIAL_SECONDS} onComplete={handleTimer} />
           </>
         )}
