@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Table } from '@oxygen/ui-kit';
+import { Loading, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
@@ -28,7 +28,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     details: false,
     removeService: false,
   });
-  const { data, isFetching, isError } = useUpstreamListQuery('ewallet-inquiry');
+  const { data, isFetching } = useUpstreamListQuery('ewallet-inquiry');
   //constants
   // const tableData=state.upstream.table
   const tableData = data?.targets ? [...data.targets] : undefined;
@@ -52,10 +52,16 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     <S.UpstreamContainer>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBoxContainer>
-        <CustomInfobox handleDeleteButton={handleDeleteButton} data={infoBoxData} />
+        <CustomInfobox handleDeleteButton={handleDeleteButton} data={infoBoxData} loading={isFetching} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
+          <Table
+            dataSource={tableData}
+            columns={desktopColumns}
+            mobileColumns={mobileColumns}
+            pagination={false}
+            loading={isFetching}
+          />
         </S.Table>
       </S.BorderBoxContainer>
       <RemoveServiceModal

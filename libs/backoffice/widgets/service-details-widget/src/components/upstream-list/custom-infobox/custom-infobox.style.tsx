@@ -36,3 +36,13 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
 `;
+export const Container = styled.div`
+  background-color: ${(p) => p.theme.background._50};
+  border: 1px solid ${(p) => p.theme.border._100};
+  border-radius: var(${cssVar.radius});
+  min-height: 10rem;
+  padding: 1.6rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+`;
