@@ -6,7 +6,7 @@ export const FORM_ITEM_NAMES = {
   throughout: 'throughout',
   version: 'version',
   owner: 'owner',
-  tag: 'tag',
+  tags: 'tags',
 } as const;
 
 export const UPLOAD_NAMES = {

@@ -17,7 +17,10 @@ export type Service = {
   throughout: number;
   version: string;
   owner: string;
-  tag: string;
+  tags: {
+    id: number;
+    title: string;
+  }[];
 };
 
 export type Route = {
@@ -26,3 +29,8 @@ export type Route = {
   path: string;
   host: string;
 };
+
+export type Tags = {
+  id: number;
+  title: string;
+}[];

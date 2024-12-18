@@ -51,8 +51,9 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
 
-    [FORM_ITEM_NAMES.tag]: z
-      .string()
+    [FORM_ITEM_NAMES.tags]: z
+      .object({ id: z.number(), title: z.string() })
+      .array()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
   });

@@ -2,16 +2,16 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 3,
+  step: 0,
   stepStatuses: [
-    { name: 'generalInfo', status: 'finish' },
-    { name: 'route', status: 'finish' },
-    { name: 'scope', status: 'finish' },
-    { name: 'upstream', status: 'process' },
+    { name: 'generalInfo', status: 'process' },
+    { name: 'route', status: 'wait' },
+    { name: 'scope', status: 'wait' },
+    { name: 'upstream', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],
   generalInfo: {
-    tag: null,
+    tags: [],
     owner: '',
     version: '',
     access: null,
@@ -20,10 +20,8 @@ export const initialStateValue: WidgetStateType = {
     persianName: '',
     throughout: null,
   },
-  scope: {
-    scopeName: '',
-    persianScopeName: '',
-  },
+  // @ts-expect-error fix this later
+  scope: undefined,
   route: {
     protocole: '',
     host: '',

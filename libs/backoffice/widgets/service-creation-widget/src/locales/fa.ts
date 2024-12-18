@@ -29,6 +29,7 @@ export default {
   persian_scope_name: 'نام فارسی اسکوپ',
   persian_or_english_name: 'نام فارسی یا انگلیسی اسکوپ',
   search: 'جستجو',
+  add_tags: ' اضافه‌کردن تگ‌ها ',
 
   scope_english_name: 'نام لاتین اسکوپ',
   scope_persian_name: 'نام فارسی اسکوپ',
