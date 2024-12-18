@@ -68,7 +68,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         isOpen={modals.removeService}
         deleteToggle={handleModalDeleteButton}
         cancelToggle={() => toggleModal('removeService')}
-        id='SEJAM-UPSTREAM'
+        id={data?.name}
       />
       {/* <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} /> */}
     </S.UpstreamContainer>
