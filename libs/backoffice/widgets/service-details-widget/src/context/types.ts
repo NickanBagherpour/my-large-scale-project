@@ -1,7 +1,6 @@
 import * as React from 'react';
 // import { FormFieldsType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
-import { AddScopeType } from '../types';
 export type FiltersType = FormFieldsType;
 export type ScopeMode = 'importFromSso' | 'createScope';
 export type FormFieldsType = {
@@ -34,7 +33,6 @@ export type WidgetStateType = {
     submit: FiltersType;
   };
   scopeMode: ScopeMode;
-  addScope: AddScopeType;
   message: Nullable<MessageType>;
 };
 

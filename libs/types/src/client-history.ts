@@ -29,13 +29,8 @@ export type scopeHistoryData = {
 export type routeHistoryData = {
   modify_date: string;
   admin_name: string;
-  english_name: string;
-  farsi_name: string;
-  clientType: string;
-  clientId: string;
-  verificationId: string;
-  aggregatorStatus: string;
-  aggregatorName: string;
-  address: string;
-  inputAddress: string;
+  action_method: string;
+  protocol: string;
+  path: string;
+  host: string;
 };

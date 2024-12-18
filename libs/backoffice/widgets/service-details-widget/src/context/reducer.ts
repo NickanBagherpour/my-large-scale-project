@@ -33,7 +33,6 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   scopeMode: 'importFromSso',
-  addScope: { scopeName: '', persianScopeName: '' },
   message: null,
 };
 
