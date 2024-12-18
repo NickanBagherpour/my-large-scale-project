@@ -19,9 +19,7 @@ export const FallbackSelect = () => {
   const [t] = useTr();
 
   const [value, setValue] = useState(RADIO_GROUP_NAME.SELECT);
-  // useEffect(() => {
-  //   updateRadioValueAction(dispatch, value);
-  // }, [value]);
+
   const { data, isFetching } = useUpstreamCardsDetailsQuery();
   // console.log('data', state);
   const onRadioChange = (e: RadioChangeEvent) => {
@@ -32,16 +30,11 @@ export const FallbackSelect = () => {
   return (
     <S.UpstreamCreationContainer>
       <S.BorderBox>
-        <Radio.Group onChange={onRadioChange} value={value}>
-          <Radio value={RADIO_GROUP_NAME.SELECT}>{t('upstream_tab.upstream_selection')}</Radio>
-          <Radio value={RADIO_GROUP_NAME.CREATE}>{t('upstream_tab.create_upstream')}</Radio>
-        </Radio.Group>
         <S.SelectContainer>
-          {value === RADIO_GROUP_NAME.SELECT ? <Card cardData={data?.content} loading={isFetching} /> : <NameInputs />}
+          <Card cardData={data?.content} loading={isFetching} />
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.activeSelect.cardId && value === RADIO_GROUP_NAME.SELECT && <CardDetail />}
-      {value === RADIO_GROUP_NAME.CREATE && <DataTable />}
+      {state.upstreamTab.activeSelect.cardId && <CardDetail />}
     </S.UpstreamCreationContainer>
   );
 };
