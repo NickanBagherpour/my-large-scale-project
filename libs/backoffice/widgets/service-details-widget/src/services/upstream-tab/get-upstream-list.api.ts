@@ -5,13 +5,13 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 
 import { useAppDispatch } from '../../context';
 
+import { UpstreamListData } from '../../types';
+
 import Api from '../api';
-// import { GrantType } from '../types';
 
 export const useUpstreamListQuery = (params: Nullable<string>) => {
   const dispatch = useAppDispatch();
-  console.log(params);
-  return useQuery<any>({
+  return useQuery<UpstreamListData>({
     queryKey: [RQKEYS.SERVICE_DETAILS.GET_UPSTREAM_LIST, params],
     queryFn: withErrorHandling(() => Api.getUpstreamList(params), dispatch),
   });

@@ -28,11 +28,11 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     details: false,
     removeService: false,
   });
-  const { data, isFetching } = useUpstreamListQuery('ewallet-inquiry');
+  const { data, isFetching } = useUpstreamListQuery(state.serviceName);
   //constants
   // const tableData=state.upstream.table
   const tableData = data?.targets ? [...data.targets] : undefined;
-  const infoBoxData = { latinName: data?.name, persianName: data?.disciption };
+  const infoBoxData = { latinName: data?.name, persianName: data?.description };
   //Handlers
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));

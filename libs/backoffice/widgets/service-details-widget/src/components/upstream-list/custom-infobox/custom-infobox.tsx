@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
 
@@ -9,7 +10,7 @@ import * as S from './custom-infobox.style';
 
 export type CustomInfoboxProps = {
   handleDeleteButton: () => void;
-  data: { latinName: string; persianName: string };
+  data: { latinName: Nullable<string>; persianName: Nullable<string> };
   loading: boolean;
 };
 function CustomInfobox(props: CustomInfoboxProps) {

@@ -32,6 +32,7 @@ export default {
     scope_persian_name: 'نام فارسی اسکوپ',
   },
   upstream_tab: {
+    healthy: 'سالم',
     tab_header: 'آپ‌استریم',
     info_box_latinName: 'نام لاتین آپ‌استریم',
     info_box_persianName: 'نام فارسی آپ‌استریم',
