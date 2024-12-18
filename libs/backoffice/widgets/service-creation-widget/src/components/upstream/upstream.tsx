@@ -63,7 +63,7 @@ export default function Upstream() {
   ];
 
   return (
-    <Container id='MY_CONTAINER_ASDF_1234'>
+    <Container>
       <Loading spinning={isFetching} style={{ minHeight: '40rem' }}>
         {upstreams?.content && (
           <>
