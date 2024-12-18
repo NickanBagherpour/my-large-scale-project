@@ -23,7 +23,7 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const authType = searchParams.get('type');
 
-  const isOTPOpen = true; /*state.OTP.isOpen*/
+  const isOTPOpen = state.OTP.isOpen;
 
   const { data, isFetching, isError, error } = useGetIpQuery({});
 

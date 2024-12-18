@@ -94,10 +94,10 @@ export const OTP: React.FC<FormContainerProps> = () => {
     }
   };
 
+  //Render
   const renderFooter = () => {
     const isLogin = state.OTP.type === 'login';
     const loading = isLogin ? loginLoading : registerLoading;
-
     return (
       <>
         <S.Button loading={loading} onClick={handleSubmit} color='primary'>
@@ -113,9 +113,11 @@ export const OTP: React.FC<FormContainerProps> = () => {
   return (
     <S.FormContainer>
       <S.FormTitle>{t('get_one_time_code')}</S.FormTitle>
+
       <S.Box>
         <S.Paragraph>{t('enter_confirmation_code_sent_to', { phoneNumber })}</S.Paragraph>
       </S.Box>
+
       <Form
         layout={'vertical'}
         style={{ width: '100%' }}
@@ -129,6 +131,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
           </Form.Item>
         </S.FormInput>
       </Form>
+
       <S.TimerBox>
         {isTimerFinish ? (
           <Button variant='link' onClick={handleResend}>
