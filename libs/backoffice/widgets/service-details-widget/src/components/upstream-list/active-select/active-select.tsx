@@ -55,7 +55,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         <CustomInfobox handleDeleteButton={handleDeleteButton} data={infoBoxData} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} />
+          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
         </S.Table>
       </S.BorderBoxContainer>
       <RemoveServiceModal
