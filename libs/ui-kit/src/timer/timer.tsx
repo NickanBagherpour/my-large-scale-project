@@ -18,7 +18,7 @@ export const Timer = (props: TimerProps) => {
     if (remainingTime <= 0) return; // Stop if time is up
 
     const myInterval = setInterval(() => {
-      setRemainingTime(prev => {
+      setRemainingTime((prev) => {
         if (prev <= 1) {
           clearInterval(myInterval);
           if (onComplete) onComplete();

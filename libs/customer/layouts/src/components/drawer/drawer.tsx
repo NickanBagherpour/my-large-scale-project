@@ -63,7 +63,7 @@ const Drawer = (props: DrawerProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const registerButtonHref = ROUTES.CUSTOMER.REQUEST_CREATION;
+  const registerButtonHref = ROUTES.CUSTOMER.REQUEST_REGISTRATION;
   const isCurrentRoute = pathname === registerButtonHref;
 
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);

@@ -1,5 +1,6 @@
-import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+
+import { cssVar, respondTo } from '@oxygen/utils';
 
 export const NotFoundWrapper = styled.div`
   width: 100%;

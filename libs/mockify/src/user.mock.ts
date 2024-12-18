@@ -1,28 +1,25 @@
-import {userProfile} from "./data/user.data";
+import { userProfile } from './data/user.data';
 
 export const getUserProfile = async (): Promise<any> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const response = {
-                data: userProfile
-            };
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const response = {
+        data: userProfile,
+      };
 
-            resolve(response);
+      resolve(response);
+    }, 1000);
+  });
+};
 
-        }, 1000);
-    });
-}
+export const getUserPhoto = async (): Promise<any> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const response = {
+        data: null,
+      };
 
-export const getUserPhoto = async () : Promise<any> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const response = {
-                data: null
-            };
-
-            resolve(response);
-
-        }, 2000);
-    });
-}
-
+      resolve(response);
+    }, 2000);
+  });
+};

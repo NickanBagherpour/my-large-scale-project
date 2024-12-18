@@ -3,8 +3,7 @@ import 'styled-components';
 import { ITheme } from './libs/types/src';
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends ITheme {
-  }
+  export interface DefaultTheme extends ITheme {}
 }
 
 declare global {
@@ -26,6 +25,7 @@ declare global {
       NEXT_PUBLIC_SSO_CLIENT_SECRET: string;
       NEXT_PUBLIC_SSO_SCOPE: string;
       NEXT_PUBLIC_DEV_WITH_SSO: string;
+      NEXT_PUBLIC_IS_DEMO: string;
     }
   }
 }

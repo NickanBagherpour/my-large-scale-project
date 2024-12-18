@@ -1,16 +1,21 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-import { AddScopeType, GetInfoValuesType, UploadDocsType } from '../types';
+import { CreateScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
+import { steps } from '../components/app/app';
 
-export type Step = 0 | 1 | 2;
+// Partial<T>["length"] gives a union of all possible lengths of the array when elements are optional.
+// T["length"] gives the exact length of the original array.
+// Exclude removes the exact length of the array from the union of possible lengths, leaving only values that represent valid indices for T
+type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
+
 export type ScopeMode = 'importFromSso' | 'createScope';
 
 export type WidgetStateType = {
-  step: Step;
+  step: Indices<typeof steps>;
   scopeMode: ScopeMode;
-  getInfo: GetInfoValuesType;
-  addScope: AddScopeType;
-  uploadDocs: UploadDocsType;
+  generalInfo: GeneralInfoValuesType;
+  scope: CreateScopeFormType;
+  route: RouteType;
   message: Nullable<MessageType>;
 };
 
@@ -26,20 +31,20 @@ export type WidgetActionType =
       type: 'PREVIOUS_STEP';
     }
   | {
-      type: 'UPDATE_GET_INFO_STEP';
-      payload: GetInfoValuesType;
+      type: 'UPDATE_GENERAL_INFO_STEP';
+      payload: GeneralInfoValuesType;
     }
   | {
-      type: 'UPDATE_ADD_SCOPE_STEP';
-      payload: AddScopeType;
+      type: 'UPDATE_SCOPE_STEP';
+      payload: CreateScopeFormType;
     }
   | {
       type: 'UPDATE_SCOPE_MODE';
       payload: ScopeMode;
     }
   | {
-      type: 'UPDATE_UPLOAD_DOCS';
-      payload: UploadDocsType;
+      type: 'UPDATE_ROUTE_STEP';
+      payload: RouteType;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

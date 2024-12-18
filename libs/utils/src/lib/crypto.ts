@@ -9,7 +9,6 @@ const DEFAULT_SALT = process.env.NEXT_PUBLIC_CRYPTO_HASH_KEY ?? 'THIS_IS_SECRET'
  * @returns {string} - The encrypted text (as a string).
  */
 export function encrypt(text, salt = DEFAULT_SALT) {
-
   if (ENV_CONSTANTS.IS_DEV) return text;
 
   let encrypted = '';

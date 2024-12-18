@@ -13,7 +13,6 @@ import {
 const baseUrl = '/';
 
 export const portalUrl = process.env.NEXT_PUBLIC_PORTAL_PREFIX;
-
 const client = axios.create({
   baseURL: baseUrl,
   timeout: 120000,

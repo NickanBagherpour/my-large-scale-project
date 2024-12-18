@@ -6,7 +6,7 @@ export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
   const token = req.headers.get('authorization');
 
-  if (ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO) {
+  if (ENV_CONSTANTS.IS_DEMO /*ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO*/) {
     return createResponse({
       success: true,
       data: (await Mockify.getUserProfile()).data,
@@ -27,7 +27,7 @@ export async function GET(req) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': token, // Passing the token in the authorization header
+        Authorization: token, // Passing the token in the authorization header
       },
     });
 
@@ -41,8 +41,7 @@ export async function GET(req) {
       success: true,
       data: data, // Response data for successful request
     });
-
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error during user info fetch:', error);
     return createResponse({
       success: false,

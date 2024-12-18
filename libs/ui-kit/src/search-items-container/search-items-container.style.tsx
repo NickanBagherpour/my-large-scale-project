@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 
-export const SearchItemsContainer = styled.div`
+// export const SearchItemsContainer = styled.div`
+export const SearchItemsContainer = styled.div<{ $columnNumber?: string }>`
   // user input values
   --grid-layout-gap: 1.4rem;
   --grid-column-count: 4; /* This gets overridden by an inline style. */
+  --grid-column-count: ${(props) => (props.$columnNumber ? props.$columnNumber : 4)};
   --grid-item--min-width: 12rem; /* This gets overridden by an inline style. */
 
   // calculated values
@@ -15,11 +17,13 @@ export const SearchItemsContainer = styled.div`
   display: grid;
   //grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr);
   grid-template-columns: repeat(var(--grid-column-count), 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
   grid-column-gap: var(--grid-layout-gap);
   grid-row-gap: var(--grid-layout-gap);
 
   ${respondTo.down('lg')} {
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: ${(props) => (props.$columnNumber ? `repeat(${props.$columnNumber}, 1fr)` : '1fr 1fr')};
   }
 
   ${respondTo.down('xs')} {
@@ -54,6 +58,19 @@ export const SearchItemsContainer = styled.div`
 
     ${respondTo.down('lg')} {
       grid-column-end: span 2;
+      //overflow: visible;
+    }
+
+    ${respondTo.down('xs')} {
+      grid-column-end: unset;
+    }
+  }
+
+  & .full-width-3 {
+    grid-column-end: span 3;
+
+    ${respondTo.down('lg')} {
+      grid-column-end: span 3;
       //overflow: visible;
     }
 
