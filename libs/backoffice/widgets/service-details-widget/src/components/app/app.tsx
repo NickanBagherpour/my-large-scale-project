@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
@@ -12,7 +12,12 @@ import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
+import {
+  updateServerNameAction,
+  updateUpstreamTabCreationSubmitAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 
 import * as S from './app.style';
 
@@ -34,8 +39,11 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-
+  //to do : change id to service name
   const id: Nullable<string> = searchParams.get('id');
+  useEffect(() => {
+    updateServerNameAction(dispatch, id);
+  }, [id]);
   if (!id) {
     redirect('/not-found');
   }

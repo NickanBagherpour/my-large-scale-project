@@ -28,13 +28,11 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     details: false,
     removeService: false,
   });
-
   const { data, isFetching, isError } = useUpstreamListQuery('ewallet-inquiry');
-  console.log(data);
   //constants
   // const tableData=state.upstream.table
-  const tableData = [];
-
+  const tableData = data?.targets ? [...data.targets] : undefined;
+  const infoBoxData = { latinName: data?.name, persianName: data?.disciption };
   //Handlers
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
@@ -54,7 +52,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     <S.UpstreamContainer>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBoxContainer>
-        <CustomInfobox handleDeleteButton={handleDeleteButton} data={{ latinName: 'alireza', persianName: 'علیرضا' }} />
+        <CustomInfobox handleDeleteButton={handleDeleteButton} data={infoBoxData} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
           <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} />

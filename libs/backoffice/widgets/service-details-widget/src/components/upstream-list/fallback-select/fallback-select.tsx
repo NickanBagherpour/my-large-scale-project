@@ -5,7 +5,7 @@ import { useTr } from '@oxygen/translation';
 
 import { Card } from './selection/card/card';
 import { RADIO_GROUP_NAME } from '../../../utils/consts';
-import { updateRadioValueAction, useAppDispatch, useAppState } from '../../../context';
+import { useAppDispatch, useAppState } from '../../../context';
 import { NameInputs } from './creation/name-inputs/name-inputs';
 import { CardDetail } from './selection/card-detail/card-detail';
 import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
@@ -18,14 +18,8 @@ export const FallbackSelect = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const [value, setValue] = useState(RADIO_GROUP_NAME.SELECT);
-
   const { data, isFetching } = useUpstreamCardsDetailsQuery();
   // console.log('data', state);
-  const onRadioChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
-    updateRadioValueAction(dispatch, e.target.value);
-  };
 
   return (
     <S.UpstreamCreationContainer>
