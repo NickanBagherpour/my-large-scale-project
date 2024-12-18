@@ -74,7 +74,7 @@ const App: React.FC<AppProps> = (props) => {
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: t('service_information'),
+      label: t('general_information'),
       children: (
         <>
           <div className='service-technical-details'>
@@ -107,16 +107,6 @@ const App: React.FC<AppProps> = (props) => {
     },
     {
       key: '2',
-      label: t('scopes'),
-      children: <ScopeList />,
-    },
-    {
-      key: '3',
-      label: t('upstream'),
-      children: <UpstreamList />,
-    },
-    {
-      key: '4',
       label: t('route'),
       children: (
         <>
@@ -147,6 +137,16 @@ const App: React.FC<AppProps> = (props) => {
           <InfoBox data={serviceDetails} margin={0} loading={isServiceFetching} />
         </>
       ),
+    },
+    {
+      key: '3',
+      label: t('scopes'),
+      children: <ScopeList />,
+    },
+    {
+      key: '4',
+      label: t('upstream'),
+      children: <UpstreamList />,
     },
   ];
 

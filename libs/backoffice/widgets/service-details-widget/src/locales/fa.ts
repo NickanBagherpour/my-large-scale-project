@@ -3,6 +3,7 @@ import { table } from 'console';
 export default {
   widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
   service_information: 'اطلاعات سرویس',
+  general_information: 'اطلاعات کلی',
   service_technical_info: 'اطلاعات فنی سرویس',
   see_changes_history: 'مشاهده تاریخچه تغییرات',
   edit: 'ویرایش',
