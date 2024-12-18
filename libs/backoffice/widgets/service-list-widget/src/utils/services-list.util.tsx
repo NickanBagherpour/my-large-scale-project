@@ -112,7 +112,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'details',
       align: 'center',
       width: 80,
-      render: (url) => <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
+      render: (url) => (
+        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=ewallet-inquiry`}>{t('detailed')}</S.Details>
+      ),
     },
     {
       title: '',
@@ -176,7 +178,11 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: '',
-            value: <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=1234`}>{t('detailed')}</S.Details>,
+            value: (
+              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=ewallet-inquiry`}>
+                {t('detailed')}
+              </S.Details>
+            ),
             colon: false,
           },
           {

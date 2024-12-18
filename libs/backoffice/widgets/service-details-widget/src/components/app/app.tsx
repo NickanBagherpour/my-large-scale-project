@@ -40,11 +40,13 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
   //to do : change id to service name
-  const id: Nullable<string> = searchParams.get('id');
+  const servicename: Nullable<string> = searchParams.get('servicename');
+
   useEffect(() => {
-    updateServerNameAction(dispatch, id);
-  }, [id]);
-  if (!id) {
+    updateServerNameAction(dispatch, servicename);
+  }, [servicename]);
+
+  if (!servicename) {
     redirect('/not-found');
   }
   const handleUpstreamCreation = () => {
@@ -77,7 +79,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -110,7 +112,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
