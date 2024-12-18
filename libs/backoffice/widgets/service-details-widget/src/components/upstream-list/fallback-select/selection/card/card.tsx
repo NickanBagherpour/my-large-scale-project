@@ -38,10 +38,10 @@ export const Card = (props: CardProps) => {
         <S.CardContainer>
           {cardData?.map((data, index) => (
             <GridCard
-              serversCount={data.active_server}
+              serversCount={data.activeServerCount}
               key={index}
-              title={data.upstream_latin_name}
-              status={data.is_server_active ? 'active' : 'inactive'}
+              title={data.name}
+              status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
               hasSetting={false}
               isSelected={clickedCard === data.id}
               onClick={() => handleClick(data)}

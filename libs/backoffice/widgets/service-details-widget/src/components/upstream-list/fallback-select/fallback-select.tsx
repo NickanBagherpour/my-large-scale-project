@@ -18,7 +18,12 @@ export const FallbackSelect = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const { data, isFetching } = useUpstreamCardsDetailsQuery();
+  const { data, isFetching } = useUpstreamCardsDetailsQuery({
+    page: 0,
+    size: 1,
+    sort: ['asc'],
+  });
+  // const { data, isFetching } = useUpstreamCardsDetailsQuery();
   // console.log('data', state);
 
   return (

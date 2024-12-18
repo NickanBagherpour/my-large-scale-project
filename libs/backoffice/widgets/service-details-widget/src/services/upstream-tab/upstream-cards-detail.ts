@@ -5,11 +5,11 @@ import { useAppDispatch } from '../../context';
 import Api from '../api';
 // import { GrantType } from '../types';
 
-export const useUpstreamCardsDetailsQuery = () => {
+export const useUpstreamCardsDetailsQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS],
-    queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(), dispatch),
+    queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
+    queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(params), dispatch),
   });
 };
