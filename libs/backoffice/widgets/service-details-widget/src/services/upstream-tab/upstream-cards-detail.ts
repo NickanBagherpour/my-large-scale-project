@@ -8,11 +8,11 @@ import { UpstreamCardsData } from '../../types';
 
 import Api from '../api';
 
-export const useUpstreamCardsDetailsQuery = (params) => {
+export const useUpstreamCardsDetailQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery<UpstreamCardsData>({
     queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
-    queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getUpstreamCardsDetail(params), dispatch),
   });
 };

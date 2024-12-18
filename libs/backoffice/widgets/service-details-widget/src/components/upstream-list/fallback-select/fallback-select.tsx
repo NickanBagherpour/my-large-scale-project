@@ -8,7 +8,7 @@ import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { useAppDispatch, useAppState } from '../../../context';
 import { NameInputs } from './creation/name-inputs/name-inputs';
 import { CardDetail } from './selection/card-detail/card-detail';
-import { useUpstreamCardsDetailsQuery } from '../../../services/upstream-tab/upstream-cards-detail';
+import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
 import * as S from './fallback-select.style';
 import { DataTable } from './creation/data-table/data-table';
@@ -18,7 +18,7 @@ export const FallbackSelect = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const { data, isFetching } = useUpstreamCardsDetailsQuery({
+  const { data, isFetching } = useUpstreamCardsDetailQuery({
     page: 0,
     size: 1,
     sort: ['asc'],

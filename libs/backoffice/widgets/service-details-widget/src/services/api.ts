@@ -8,6 +8,10 @@ const Api = {
     return client.get<UpstreamListData>(`${portalUrl}/v1/upstreams/service-name/${params}`);
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
+  getUpstreamCardsDetail: async (params) => {
+    return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, params);
+    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  },
   getUpstreamCardDetails: async (params) => {
     return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, params);
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
