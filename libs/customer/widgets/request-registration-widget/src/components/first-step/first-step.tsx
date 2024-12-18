@@ -110,12 +110,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
-  const handleSwitchChange = (checked) => {
-    setIsSwitchSelected(checked);
-    if (!checked) {
-      form.resetFields([FORM_ITEM.aggregator_value]);
-    }
-  };
+  // const handleSwitchChange = (checked) => {
+  //   setIsSwitchSelected(checked);
+  //   if (!checked) {
+  //     form.resetFields([FORM_ITEM.aggregator_value]);
+  //   }
+  // };
 
   const handleReturn = () => {
     router.back();
@@ -195,16 +195,16 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </S.OrganizationContainer>
         ) : (
           <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
-            <S.TitleTxt className={'cards-title'}>{t('register_info')}</S.TitleTxt>
+            <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
             <SearchItemsContainer $columnNumber='3'>
               <S.AggregatorContainer>
                 <Form.Item
                   className={'label-switch'}
                   layout={'horizontal'}
                   name={FORM_ITEM.aggregator_status}
-                  label={t('form.aggregator')}
+                  label={t('form.aggregator_specifications')}
                 >
-                  <Switch onChange={handleSwitchChange} />
+                  {/* <Switch onChange={handleSwitchChange} /> */}
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator'>
                   <Select
@@ -212,7 +212,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     options={selectLegalTypeOptions}
                     // loading={selectFetching}
                     placeholder={`${t('placeholder.do_select')}`}
-                    disabled={!isSwitchSelected}
+                    // disabled={!isSwitchSelected}
                   ></Select>
                 </Form.Item>
               </S.AggregatorContainer>

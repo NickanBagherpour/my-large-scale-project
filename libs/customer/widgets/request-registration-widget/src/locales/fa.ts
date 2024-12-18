@@ -5,6 +5,7 @@ export default {
   //firstStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',
+  company_specifications: 'مشخصات شرکت',
   return: 'بازگشت',
   submit_info: 'ثبت‌اطلاعات',
   //secondStep
@@ -47,6 +48,7 @@ export default {
   form: {
     //firstStep
     aggregator: 'اگریگیتور',
+    aggregator_specifications: 'مشخصات اگریگیتور',
     legal_person_name: 'نام شخص حقوقی',
     legal_person_type: 'نوع شخص حقوقی',
     registration_number: 'شماره ثبت',
