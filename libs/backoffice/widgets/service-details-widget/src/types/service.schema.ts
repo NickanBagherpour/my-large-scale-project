@@ -25,7 +25,7 @@ export type FormValues = z.infer<ReturnType<typeof FormSchema>>;
 
 export const addServerModalSchema = (t: (key: string) => string) =>
   z.object({
-    [ADD_SERVER_MODAL_FORM_ITEM.IP_PORT]: z
+    [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN]: z
       .string({ required_error: t('error.required') })
       .trim()
       .min(1, { message: t('error.required') }),
