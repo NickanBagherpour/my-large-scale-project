@@ -3,6 +3,10 @@ import { client, portalUrl } from '@oxygen/client';
 import Mockify from '@oxygen/mockify';
 
 const Api = {
+  getUpstreamList: async (params) => {
+    return client.get<any>(`${portalUrl}/v1/upstreams/service-name/ewallet-inquiry`, params);
+    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  },
   getUpstreamCardDetails: async () => {
     return Mockify.UpstreamCardDetails();
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);

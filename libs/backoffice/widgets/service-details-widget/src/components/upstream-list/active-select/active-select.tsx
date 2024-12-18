@@ -11,22 +11,26 @@ import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../cont
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 
 import * as S from './active-select.style';
+import { useUpstreamListQuery } from '../../../services';
 
 type ActiveSelectType = PageProps & {
   data?: any;
   loading?: boolean;
 };
 export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
-  const { data, loading = false } = props;
+  // const {  } = props;
   //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
+
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
 
+  const { data, isFetching, isError } = useUpstreamListQuery('ewallet-inquiry');
+  console.log(data);
   //constants
   // const tableData=state.upstream.table
   const tableData = [];
@@ -53,7 +57,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         <CustomInfobox handleDeleteButton={handleDeleteButton} data={{ latinName: 'alireza', persianName: 'علیرضا' }} />
         <S.Table>
           <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} loading={loading} />
+          <Table dataSource={tableData} columns={desktopColumns} mobileColumns={mobileColumns} />
         </S.Table>
       </S.BorderBoxContainer>
       <RemoveServiceModal
