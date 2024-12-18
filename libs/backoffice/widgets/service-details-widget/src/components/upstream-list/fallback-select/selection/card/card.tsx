@@ -6,6 +6,7 @@ import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
+import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -15,7 +16,7 @@ export type CardProps = PageProps & {
   idx?: number;
   searchTerm?: string;
   activeServer?: number;
-  cardData: any[];
+  cardData: UpstreamContentData[] | undefined;
   loading: boolean;
 };
 export const Card = (props: CardProps) => {
@@ -43,7 +44,7 @@ export const Card = (props: CardProps) => {
               title={data.name}
               status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
               hasSetting={false}
-              isSelected={clickedCard === data.id}
+              isSelected={+clickedCard === data.id}
               onClick={() => handleClick(data)}
               isHeaderLtr={true}
             />

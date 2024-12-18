@@ -1,7 +1,7 @@
 import { client, portalUrl } from '@oxygen/client';
 
 import Mockify from '@oxygen/mockify';
-import { UpstreamListData } from '../types';
+import { UpstreamCardsData, UpstreamListData } from '../types';
 
 const Api = {
   getUpstreamList: async (params) => {
@@ -9,7 +9,7 @@ const Api = {
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getUpstreamCardDetails: async (params) => {
-    return client.get<any>(`${portalUrl}/v1/upstreams`, params);
+    return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, params);
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getServiceDetails: async () => {
