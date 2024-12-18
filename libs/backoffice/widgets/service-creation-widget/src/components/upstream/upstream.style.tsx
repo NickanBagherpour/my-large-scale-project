@@ -23,5 +23,5 @@ export const Title = styled.h3`
   font-size: 1.6rem;
   font-weight: 600;
   color: ${(p) => p.theme.text.primary};
-  margin-block: 2.85rem 2.65rem;
+  margin-block: 0 1.6rem;
 `;

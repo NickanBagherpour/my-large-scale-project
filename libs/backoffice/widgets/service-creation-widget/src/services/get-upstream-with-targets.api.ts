@@ -6,7 +6,7 @@ import Api from './api';
 export const useGetUpstreamWithTargets = (id: number | null) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAM_WITH_ID],
+    queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAM_WITH_ID, id],
     queryFn: withErrorHandling(() => Api.getUpstreamWithTargets(id!), dispatch),
     enabled: !!id,
   });

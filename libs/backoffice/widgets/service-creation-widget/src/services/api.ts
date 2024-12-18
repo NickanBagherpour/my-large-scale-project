@@ -11,7 +11,7 @@ const Api = {
     client.get<Upstreams>(`${portalUrl}/v1/upstreams`, {
       params: {
         page: 0,
-        size: 100,
+        size: 5,
         sort: 'asc',
       },
     }),
