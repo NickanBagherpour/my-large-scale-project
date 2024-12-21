@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
@@ -6,15 +6,20 @@ import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ROUTES, uuid } from '@oxygen/utils';
-import ScopeList from '../scope-list/scope-list';
 import { ReturnButton } from '@oxygen/reusable-components';
-import { useGetServiceDetailsQuery } from '../../services';
-import { UpstreamList } from '../upstream-list/upstream-list';
-import { updateUpstreamTabCreationSubmitAction, useAppDispatch, useAppState } from '../../context';
 import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 
+import ScopeList from '../scope-list/scope-list';
+import { useGetServiceDetailsQuery } from '../../services';
+import { UpstreamList } from '../upstream-list/upstream-list';
+import {
+  updateServerNameAction,
+  updateUpstreamTabCreationSubmitAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
+
 import * as S from './app.style';
-import { RADIO_GROUP_NAME } from '../../utils/consts';
 
 type AppProps = PageProps & {
   //
@@ -34,9 +39,14 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+  //to do : change id to service name
+  const servicename: Nullable<string> = searchParams.get('servicename');
 
-  const id: Nullable<string> = searchParams.get('id');
-  if (!id) {
+  useEffect(() => {
+    updateServerNameAction(dispatch, servicename);
+  }, [servicename]);
+
+  if (!servicename) {
     redirect('/not-found');
   }
   const handleUpstreamCreation = () => {
@@ -47,34 +57,18 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-      {!state.upstreamTab.activeSelect.isInitialized &&
-        state.upstreamTab.radioValue === `${RADIO_GROUP_NAME.SELECT}` && (
-          <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
-            {t('save_changes')}
-          </Button>
-        )}
-      {!state.upstreamTab.activeSelect.isInitialized &&
-        state.upstreamTab.radioValue === `${RADIO_GROUP_NAME.CREATE}` && (
-          <Button
-            disabled={
-              !(
-                !!state.upstreamTab.fallbackSelect.englishName &&
-                !!state.upstreamTab.fallbackSelect.persianName &&
-                !!state.upstreamTab.fallbackSelect.servers.length
-              )
-            }
-            onClick={() => console.log(state.upstreamTab.fallbackSelect)}
-          >
-            {t('save_changes')}
-          </Button>
-        )}
+      {!state.upstreamTab.activeSelect.isInitialized && (
+        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
+          {t('save_changes')}
+        </Button>
+      )}
     </>
   );
 
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: t('service_information'),
+      label: t('general_information'),
       children: (
         <>
           <div className='service-technical-details'>
@@ -85,7 +79,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -107,16 +101,6 @@ const App: React.FC<AppProps> = (props) => {
     },
     {
       key: '2',
-      label: t('scopes'),
-      children: <ScopeList />,
-    },
-    {
-      key: '3',
-      label: t('upstream'),
-      children: <UpstreamList />,
-    },
-    {
-      key: '4',
       label: t('route'),
       children: (
         <>
@@ -128,7 +112,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -147,6 +131,16 @@ const App: React.FC<AppProps> = (props) => {
           <InfoBox data={serviceDetails} margin={0} loading={isServiceFetching} />
         </>
       ),
+    },
+    {
+      key: '3',
+      label: t('scopes'),
+      children: <ScopeList />,
+    },
+    {
+      key: '4',
+      label: t('upstream'),
+      children: <UpstreamList />,
     },
   ];
 
