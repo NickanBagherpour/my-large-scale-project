@@ -14,12 +14,14 @@ import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
   //
+  clientStatus: string;
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
   const { message, ...rest } = useAppState();
   const [t] = useTr();
+  const { clientStatus } = props;
 
   const [pagination, setPagination] = useState<Pagination>({ page: INITIAL_PAGE, rowsPerPage: INITIAL_ROW_PER_PAGE });
   const { page, rowsPerPage } = pagination;
@@ -36,7 +38,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     }
   };
 
-  const dataTableParams = { t, pagination };
+  const dataTableParams = { t, pagination, clientStatus };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
 

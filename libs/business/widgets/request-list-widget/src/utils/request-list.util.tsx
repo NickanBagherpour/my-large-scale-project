@@ -2,16 +2,19 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
+import { switchStatus } from './function.util';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
+  clientStatus: string;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
     t,
     pagination: { page, rowsPerPage },
+    clientStatus,
   } = props;
 
   return [
@@ -38,6 +41,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('table.status'),
       dataIndex: 'status',
       align: 'center',
+      render: (item) => switchStatus(item, clientStatus),
     },
     {
       title: t('table.registration_date'),
