@@ -19,5 +19,6 @@ const Api = {
   getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
+  getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
 };
 export default Api;

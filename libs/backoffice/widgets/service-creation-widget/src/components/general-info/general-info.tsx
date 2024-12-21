@@ -15,15 +15,10 @@ import {
   useGetService,
   useGetServiceAccess,
   useGetTags,
+  useGetThroughput,
   usePostServiceMutation,
 } from '../../services';
 import * as S from './general-info.style';
-
-const options = [
-  { label: 'گزینه اول', value: '1' },
-  { label: 'گزینه دوم', value: '2' },
-  { label: 'گزینه سوم', value: '3' },
-];
 
 function convertTags(tags?: Tags) {
   return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
@@ -45,6 +40,7 @@ export default function GeneralInfo() {
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
+  const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
@@ -104,15 +100,30 @@ export default function GeneralInfo() {
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
-                <Select size={'large'} placeholder={t('select_access')} options={convertCodeTitles(serviceAccesses)} />
+                <Select
+                  size={'large'}
+                  placeholder={t('select_access')}
+                  loading={isFetchingServiceAccesses}
+                  options={convertCodeTitles(serviceAccesses)}
+                />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
-                <Select size={'large'} placeholder={t('select_categroy')} options={convertCodeTitles(categories)} />
+                <Select
+                  size={'large'}
+                  loading={isFetchingCategories}
+                  placeholder={t('select_categroy')}
+                  options={convertCodeTitles(categories)}
+                />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
-                <Select size={'large'} placeholder={t('throughput')} options={options} />
+                <Select
+                  size={'large'}
+                  placeholder={t('throughput')}
+                  loading={isFetchingThroughput}
+                  options={convertCodeTitles(throughputs)}
+                />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
