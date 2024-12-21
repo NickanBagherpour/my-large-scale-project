@@ -10,16 +10,18 @@ import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
-import { useGetService, useGetTags } from '../../services';
-import { usePostServiceMutation } from '../../services/post-service.api';
+import { useGetService, useGetTags, usePostServiceMutation } from '../../services';
 import * as S from './general-info.style';
-import { use, useEffect, useState } from 'react';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
   { label: 'گزینه دوم', value: '2' },
   { label: 'گزینه سوم', value: '3' },
 ];
+
+function convertTags(tags?: Tags) {
+  return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
+}
 
 export default function GeneralInfo() {
   const [form] = Form.useForm<GeneralInfoValuesType>();
@@ -30,11 +32,7 @@ export default function GeneralInfo() {
   const { data, isFetching, is404Error } = useGetService();
   const { mutateAsync: postService } = usePostServiceMutation();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
-  const [selectedTags, setSelectedTags] = useState<Tags>([]);
-
-  useEffect(() => {
-    console.log(':)', 'useEffect', selectedTags);
-  }, [selectedTags]);
+  const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughout, category, tags, owner, access, version, englishName, persianName } = values;
@@ -53,6 +51,13 @@ export default function GeneralInfo() {
     router.back();
   };
 
+  const closeChip = (tag: { key: number; label: string; value: number }) => {
+    form.setFieldValue(
+      FORM_ITEM_NAMES.tags,
+      selectedTags?.filter((t) => t.value !== tag.value)
+    );
+  };
+
   if (isFetching) {
     return <Loading />;
   }
@@ -62,7 +67,7 @@ export default function GeneralInfo() {
     if (data) {
       const { name, tags, owner, version, category, throughout, accessLevel, persianName } = data.data;
       initialValues = {
-        tags,
+        tags: convertTags(tags),
         owner,
         version,
         access: String(accessLevel), // todo: backend will send strings for these values later
@@ -75,8 +80,8 @@ export default function GeneralInfo() {
 
     return (
       <Container>
-        <Box>
-          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+        <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+          <S.InputsBox>
             <SearchItemsContainer $columnNumber='3'>
               <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
                 <Input placeholder={t('enter_english_name')} />
@@ -106,49 +111,32 @@ export default function GeneralInfo() {
                 <Input placeholder={t('enter_owner')} />
               </FormItem>
             </SearchItemsContainer>
-          </Form>
-        </Box>
+          </S.InputsBox>
 
-        <Box>
-          <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.tags}>
-              <Dropdown.Select
-                loading={isFetchingTags}
-                multiSelect={true}
-                onChange={(tags: any) => {
-                  console.log(':)', 'tags', tags);
-                  setSelectedTags(tags);
-                }}
-                menu={tags?.map((item) => ({ key: item.id, label: item.title, value: item.id }))}
-                value={selectedTags as any} // you are not supposed to pass a value to this because Form.Item passes overrides the value, you must let Ant's Form.Item take care of the state, then watch the form value.
-              >
-                {t('add_tags')}
-              </Dropdown.Select>
-            </Form.Item>
+          <Box>
+            <S.TagPicker>
+              <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+                <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
+                  {t('add_tags')}
+                </Dropdown.Select>
+              </FormItem>
 
-            <div>
-              {selectedTags.map((item: any) => (
+              {selectedTags?.map((item) => (
                 <Chip
-                  key={item?.key}
-                  tooltipTitle={item?.label}
-                  ellipsis={true}
-                  tooltipOnEllipsis={true}
-                  type='active'
+                  ellipsis
                   closeIcon
-                  onClose={() =>
-                    setSelectedTags((prev) =>
-                      prev.some((tag) => tag.id === item.id)
-                        ? prev.filter((tag) => tag.id === item.id)
-                        : prev.concat(item)
-                    )
-                  }
+                  type='active'
+                  key={item.key}
+                  tooltipOnEllipsis
+                  tooltipTitle={item.label}
+                  onClose={() => closeChip(item)}
                 >
-                  <span>{item.label}</span>
+                  {item.label}
                 </Chip>
               ))}
-            </div>
-          </S.TagPicker>
-        </Box>
+            </S.TagPicker>
+          </Box>
+        </Form>
 
         <Footer onRegister={form.submit} onReturn={onReturn} />
       </Container>

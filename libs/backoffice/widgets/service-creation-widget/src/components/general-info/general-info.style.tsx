@@ -1,5 +1,10 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+import Box from '../box/box';
+
+export const InputsBox = styled(Box)`
+  margin-bottom: 1.6rem;
+`;
 
 export const TagPicker = styled.div`
   display: flex;
@@ -9,10 +14,10 @@ export const TagPicker = styled.div`
     flex-direction: column;
   }
 
-  .ant-form-item {
+  .ant-form-item-control-input {
     margin: 0;
     padding: 0 1.6rem 0 0;
-    border-right: 1px solid ${(p) => p.theme.border.main};
+    border-inline-end: 1px solid ${(p) => p.theme.border.main};
     width: min-content;
 
     ${respondTo.down('xs')} {

@@ -52,10 +52,8 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .min(1, { message: t('validation.required') }),
 
     [FORM_ITEM_NAMES.tags]: z
-      .object({ id: z.number(), title: z.string() })
-      .array()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
+      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }))
+      .min(1, { message: t('validation.choose_one_option') }),
   });
 
 export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;
