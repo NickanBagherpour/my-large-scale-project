@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ContentType } from './inspect-service';
+import { ContentType } from './inquiry-service';
 
 export const MainContainer = styled.div<{ $content: ContentType }>`
   display: flex;

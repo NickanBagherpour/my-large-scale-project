@@ -13,14 +13,14 @@ import ServiceExists from './service-exists';
 import ServiceCreationAllowed from './service-creation-allowed';
 import CompleteService from './complete-service';
 
-import * as S from './inspect-service.style';
+import * as S from './inquiry-service.style';
 
 type Props = {
   isOpen: boolean;
   toggle: () => void;
 };
 export type ContentType = 'searching' | 'addService' | 'completeService' | 'alreadyExists';
-const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
+const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
   const [form] = Form.useForm<SearchServiceType>();
   const inputRef = useRef<InputRef>(null);
@@ -60,4 +60,4 @@ const InspectService: React.FC<Props> = ({ isOpen, toggle }) => {
     </Modal>
   );
 };
-export default InspectService;
+export default InquiryService;

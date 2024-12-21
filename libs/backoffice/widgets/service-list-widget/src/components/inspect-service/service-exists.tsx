@@ -6,7 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 
 import { BoxSearch, ButtonLoading } from '../../assets';
-import { ContentType } from './inspect-service';
+import { ContentType } from './inquiry-service';
 import * as S from './service-exists.style';
 import { LottieRefCurrentProps } from 'lottie-react';
 
