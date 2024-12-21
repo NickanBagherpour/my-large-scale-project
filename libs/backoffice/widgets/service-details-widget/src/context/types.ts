@@ -23,8 +23,8 @@ export type initialFallbackSelectType = {
   servers: any[];
 };
 export type WidgetStateType = {
+  serviceName: Nullable<string>;
   upstreamTab: {
-    radioValue: Nullable<number | string>;
     activeSelect: initialActiveSelectType;
     fallbackSelect: initialFallbackSelectType;
   };
@@ -42,8 +42,8 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_RADIO_VALUE';
-      payload: Nullable<number | string>;
+      type: 'UPDATE_SERVICE_NAME';
+      payload: Nullable<string>;
     }
   | {
       type: 'UPDATE_UPSTREAM_TAB_CREATION';

@@ -12,8 +12,8 @@ export function updateFallbackServersAction(dispatch: WidgetDispatchType, server
 export function filteredFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
   dispatch({ type: 'FILTERED_FALLBACK_SERVER', payload: servers });
 }
-export function updateRadioValueAction(dispatch: WidgetDispatchType, radioValue: Nullable<string>) {
-  dispatch({ type: 'UPDATE_RADIO_VALUE', payload: radioValue });
+export function updateServerNameAction(dispatch: WidgetDispatchType, serviceName: Nullable<string>) {
+  dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });
 }
 export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
   dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
