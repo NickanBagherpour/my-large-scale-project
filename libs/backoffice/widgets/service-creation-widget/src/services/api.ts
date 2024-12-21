@@ -1,13 +1,9 @@
 import { client, portalUrl } from '@oxygen/client';
-import type { PostServiceParams, Route, Service, Tags, Upstreams, UpstreamWithTargets } from '../types';
+import type { Category, PostServiceParams, Route, Service, Tags, Upstreams, UpstreamWithTargets } from '../types';
 import type { ScopesData, ScopesParams } from '../types/scopes.type';
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
-  // getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
-  getTags: async () => ({
-    data: Array.from({ length: 10 }).map((_, idx) => ({ id: idx, title: 'asdf ' + idx })),
-  }),
   postService: async (params: PostServiceParams) => client.post<Service>(`${portalUrl}/v1/services`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
   getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/list`, { params }),
@@ -20,5 +16,7 @@ const Api = {
       },
     }),
   getUpstreamWithTargets: async (id: number) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${id}`),
+  getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
+  getCategories: async () => client.get<Category[]>(`${portalUrl}/v1/service-categories`),
 };
 export default Api;

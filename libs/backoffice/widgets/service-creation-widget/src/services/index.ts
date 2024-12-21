@@ -5,3 +5,4 @@ export { usePostServiceMutation } from './post-service.api';
 export { useGetUpstreams } from './get-upstreams.api';
 export { useGetUpstreamWithTargets } from './get-upstream-with-targets.api';
 export { useGetTags } from './get-tags.api';
+export { useGetCategories } from './get-categories.api';

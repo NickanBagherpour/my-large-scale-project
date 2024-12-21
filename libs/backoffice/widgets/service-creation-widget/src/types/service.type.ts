@@ -34,3 +34,8 @@ export type Tags = {
   id: number;
   title: string;
 }[];
+
+export type Category = {
+  code: number;
+  title: string;
+};

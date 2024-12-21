@@ -10,7 +10,7 @@ import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
-import { useGetService, useGetTags, usePostServiceMutation } from '../../services';
+import { useGetCategories, useGetService, useGetTags, usePostServiceMutation } from '../../services';
 import * as S from './general-info.style';
 
 const options = [
@@ -33,6 +33,7 @@ export default function GeneralInfo() {
   const { mutateAsync: postService } = usePostServiceMutation();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
+  const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughout, category, tags, owner, access, version, englishName, persianName } = values;
@@ -96,11 +97,15 @@ export default function GeneralInfo() {
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
-                <Select size={'large'} placeholder={t('select_categroy')} options={options}></Select>
+                <Select
+                  size={'large'}
+                  placeholder={t('select_categroy')}
+                  options={categories?.map((c) => ({ label: c.title, value: c.code }))}
+                />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.throughout} rules={[rule]} label={t('throughout')}>
-                <Select size={'large'} placeholder={t('throughout')} options={options}></Select>
+                <Select size={'large'} placeholder={t('throughout')} options={options} />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
