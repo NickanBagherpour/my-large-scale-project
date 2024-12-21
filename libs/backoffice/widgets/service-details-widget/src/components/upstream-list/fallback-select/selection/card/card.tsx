@@ -5,7 +5,8 @@ import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
 import * as S from './card.style';
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../context';
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
+import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -15,7 +16,7 @@ export type CardProps = PageProps & {
   idx?: number;
   searchTerm?: string;
   activeServer?: number;
-  cardData: any[];
+  cardData: UpstreamContentData[] | undefined;
   loading: boolean;
 };
 export const Card = (props: CardProps) => {
@@ -28,7 +29,7 @@ export const Card = (props: CardProps) => {
 
   const handleClick = (data) => {
     setClickedCard(data.id);
-    updateUpstreamAction(dispatch, { ...state.upstreamTab, cardId: data.id });
+    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.id });
   };
   return (
     <>
@@ -38,12 +39,12 @@ export const Card = (props: CardProps) => {
         <S.CardContainer>
           {cardData?.map((data, index) => (
             <GridCard
-              serversCount={data.active_server}
+              serversCount={data.activeServerCount}
               key={index}
-              title={data.upstream_latin_name}
-              status={data.is_server_active ? 'active' : 'inactive'}
+              title={data.name}
+              status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
               hasSetting={false}
-              isSelected={clickedCard === data.id}
+              isSelected={+clickedCard === data.id}
               onClick={() => handleClick(data)}
               isHeaderLtr={true}
             />

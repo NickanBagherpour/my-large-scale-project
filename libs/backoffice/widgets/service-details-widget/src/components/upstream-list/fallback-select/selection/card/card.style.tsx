@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import RawGrid from '../../../grid/grid.style';
+import RawGrid from '../../../../grid/grid.style';
 import { Button as antButton } from 'antd';
 // import { Button as kitButton } from '@oxygen/ui-kit';
 

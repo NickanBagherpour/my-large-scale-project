@@ -1,11 +1,14 @@
+import { useTheme } from 'styled-components';
+
+import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, Modal } from '@oxygen/ui-kit';
-import { useTheme } from 'styled-components';
+
 import * as S from './remove-service-modal.style';
 
 type Props = {
   isOpen: boolean;
-  id: string;
+  id: Nullable<string>;
   cancelToggle: () => void;
   deleteToggle: () => void;
 };
@@ -33,7 +36,7 @@ export default function RemoveServiceModal(props: Props) {
     >
       <S.MarkText
         text={t('upstream_tab.are_you_sure_to_remove', { id })}
-        wordToHighlight={id}
+        wordToHighlight={id ?? ''}
         highlightColor={theme.error.main}
       />
     </Modal>

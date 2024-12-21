@@ -14,7 +14,7 @@ import { useRegisterMutation } from '../../services';
 import { CAPTCHA_MAX_LENGTH, MOBILENUMBER_MAX_LENGTH, NATIONALCODE_MAX_LENGTH } from '../../utils/consts';
 
 import CaptchaInput from '../captcha-input/captcha-input';
-import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
+import { REGISTER_ITEM_NAMES } from '../../utils/form-items-name';
 import { authFormSchema } from '../../types/sample.schema';
 import { useGetCaptchaQuery } from '../../services/get-captcha.api';
 import { updateOTPAction, useAppDispatch, useAppState } from '../../context';
@@ -59,7 +59,7 @@ export const Register = ({ title }: FormContainerProps) => {
 
   const refreshCaptcha = () => {
     refetch(); // Fetch a new captcha
-    registerForm.setFieldsValue({ [FORM_ITEM_NAMES.captcha_code]: '' }); // Clear the captcha input
+    registerForm.setFieldsValue({ [REGISTER_ITEM_NAMES.captcha_code]: '' }); // Clear the captcha input
   };
 
   const handleSubmit = () => {
@@ -133,10 +133,10 @@ export const Register = ({ title }: FormContainerProps) => {
         }}
       >
         <S.FormInputs>
-          <Form.Item name={FORM_ITEM_NAMES.national_code} rules={[rule]}>
+          <Form.Item name={REGISTER_ITEM_NAMES.national_code} rules={[rule]}>
             <Input placeholder={t('national_code')} allow={'number'} autoFocus maxLength={NATIONALCODE_MAX_LENGTH} />
           </Form.Item>
-          <Form.Item name={FORM_ITEM_NAMES.mobile_number} rules={[rule]}>
+          <Form.Item name={REGISTER_ITEM_NAMES.mobile_number} rules={[rule]}>
             <Input placeholder={t('mobile_number')} allow={'number'} maxLength={MOBILENUMBER_MAX_LENGTH} />
           </Form.Item>
         </S.FormInputs>
@@ -144,7 +144,7 @@ export const Register = ({ title }: FormContainerProps) => {
         <S.Divider />
 
         <S.FormInput>
-          <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
+          <Form.Item name={REGISTER_ITEM_NAMES.captcha_code} rules={[rule]}>
             <CaptchaInput
               id='captcha_code'
               captchaMaxLength={CAPTCHA_MAX_LENGTH}

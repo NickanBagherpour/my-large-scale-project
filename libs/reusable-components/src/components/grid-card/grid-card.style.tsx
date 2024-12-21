@@ -26,7 +26,8 @@ export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
     height: fit-content;
 
     &:hover {
-      border-color: ${(p) => p.theme.primary._400};
+      /* border-color: ${(p) => p.theme.primary._400}; */
+      box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
       opacity: 1;
     }
   }
