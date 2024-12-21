@@ -26,17 +26,17 @@ export const createGeneralInfoSchema = (t: TFunction) =>
 
     [FORM_ITEM_NAMES.access]: z
       .number()
-      .nullable()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.category]: z
       .number()
-      .nullable()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.throughput]: z
       .number()
-      .nullable()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.version]: z

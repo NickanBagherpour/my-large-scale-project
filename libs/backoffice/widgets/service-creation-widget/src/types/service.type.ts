@@ -9,6 +9,17 @@ export type PostServiceParams = {
   tag: string;
 };
 
+export type GeneralInfoParams = {
+  latinName: string;
+  persianName: string;
+  accessLevel: string; // title
+  categoryCode: number; // code
+  version: string;
+  ownerName: string;
+  throughput: string; // title
+  tagsIds: number[]; // codes
+};
+
 export type Service = {
   name: string;
   persianName: string;

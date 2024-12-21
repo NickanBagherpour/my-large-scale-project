@@ -8,3 +8,4 @@ export { useGetTags } from './get-tags.api';
 export { useGetCategories } from './get-categories.api';
 export { useGetServiceAccess } from './get-service-access.api';
 export { useGetThroughput } from './get-throughput.api';
+export { usePostGeneralInfoMutation } from './post-general-info.api';

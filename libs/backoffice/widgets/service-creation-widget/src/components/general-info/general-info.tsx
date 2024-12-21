@@ -16,7 +16,7 @@ import {
   useGetServiceAccess,
   useGetTags,
   useGetThroughput,
-  usePostServiceMutation,
+  usePostGeneralInfoMutation,
 } from '../../services';
 import * as S from './general-info.style';
 
@@ -35,19 +35,35 @@ export default function GeneralInfo() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { data: service, isFetching: isFetchingService, is404Error } = useGetService();
-  const { mutateAsync: postService } = usePostServiceMutation();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
+  const { mutateAsync: postGeneralInfo } = usePostGeneralInfoMutation();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
+
+    if (!throughputs || !serviceAccesses) return;
+
+    const currentThroughputTitle = throughputs.find((t) => t.code === throughput)?.title;
+    const currentServiceAccess = serviceAccesses.find((s) => s.code === access)?.title;
+
+    if (!currentThroughputTitle || !currentServiceAccess) return;
+
     try {
-      // @ts-expect-error this will be fixed by backend later
-      // prettier-ignore
-      await postService({ persianName, version, owner, tags, category, throughput, name: englishName, accessLevel: access });
+      await postGeneralInfo({
+        persianName,
+        version,
+        ownerName: owner,
+        tagsIds: tags.map((t) => t.value),
+        // @ts-expect-error asdf asdf asdf
+        categoryCode: category,
+        throughput: currentThroughputTitle,
+        latinName: englishName,
+        accessLevel: currentServiceAccess,
+      });
       nextStep(dispatch);
       updateGetInfoStep(dispatch, values);
     } catch {
