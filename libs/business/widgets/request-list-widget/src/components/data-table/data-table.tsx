@@ -3,12 +3,11 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps, type Pagination } from '@oxygen/types';
-import { Table } from '@oxygen/ui-kit';
 
 import { useGetRequestListQuery } from '../../services';
 import { useAppDispatch, useAppState } from '../../context';
 
-import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
+import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
@@ -43,7 +42,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
 
   return (
     <S.DataTableContainer>
-      <Table
+      <S.Table
         loading={isFetching}
         current={page}
         total={requestList?.total}

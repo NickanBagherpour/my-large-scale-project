@@ -6,4 +6,5 @@ export type RequestListType = {
   registration_date: string;
   requested_service_count: string;
   companyRepresentativeName: string;
+  uploaded: boolean;
 };

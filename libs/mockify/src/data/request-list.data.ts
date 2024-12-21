@@ -7,6 +7,7 @@ export const requestListData = [
     registration_date: '1401/04/30',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: true,
   },
   {
     index: 2,
@@ -16,6 +17,7 @@ export const requestListData = [
     registration_date: '1401/04/29',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 3,
@@ -25,6 +27,7 @@ export const requestListData = [
     registration_date: '1401/04/28',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 4,
@@ -34,6 +37,7 @@ export const requestListData = [
     registration_date: '1401/04/27',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 5,
@@ -43,6 +47,7 @@ export const requestListData = [
     registration_date: '1401/04/26',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 6,
@@ -52,6 +57,7 @@ export const requestListData = [
     registration_date: '1401/04/25',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: true,
   },
   {
     index: 7,
@@ -61,6 +67,7 @@ export const requestListData = [
     registration_date: '1401/04/24',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 8,
@@ -70,6 +77,7 @@ export const requestListData = [
     registration_date: '1401/04/23',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: true,
   },
   {
     index: 9,
@@ -79,6 +87,7 @@ export const requestListData = [
     registration_date: '1401/04/22',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 10,
@@ -88,6 +97,7 @@ export const requestListData = [
     registration_date: '1401/04/21',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 11,
@@ -97,6 +107,7 @@ export const requestListData = [
     registration_date: '1401/04/20',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 12,
@@ -106,6 +117,7 @@ export const requestListData = [
     registration_date: '1401/04/19',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: true,
   },
   {
     index: 13,
@@ -115,6 +127,7 @@ export const requestListData = [
     registration_date: '1401/04/18',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 14,
@@ -124,6 +137,7 @@ export const requestListData = [
     registration_date: '1401/04/17',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
   {
     index: 15,
@@ -133,5 +147,6 @@ export const requestListData = [
     registration_date: '1401/04/16',
     requested_service_count: '15',
     companyRepresentativeName: 'سید محمد دلمزیار',
+    uploaded: false,
   },
 ];

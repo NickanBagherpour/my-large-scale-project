@@ -5,13 +5,18 @@ export const DataTableContainer = styled.div``;
 
 export const Table = styled(KitTable)`
   /* caption {
-    div {
-      padding-left: 0;
-    }
-  } */
+                                                                                                                                div {
+                                                                                                                                  padding-left: 0;
+                                                                                                                                }
+                                                                        } */
 
   & .ant-pagination-options {
     margin-inline-start: 1.6rem;
+  }
+
+  & tbody > tr:has(.ant-btn-color-secondary) > td {
+    border-bottom-color: ${(p) => p.theme.success.main};
+    background-color: ${(p) => p.theme.success._50};
   }
 `;
 

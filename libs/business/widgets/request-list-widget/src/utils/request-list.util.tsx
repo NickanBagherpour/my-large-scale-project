@@ -57,12 +57,15 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     {
       width: '11.8rem',
       key: 'details',
-      render: () => (
-        <Button variant={'text'} href={'scope-information?id=test'} color={'primary'}>
-          <i className={'icon-document'} />
-          {t('table.details')}
-        </Button>
-      ),
+      render: (item) => {
+        const colorButton = item.uploaded ? 'secondary' : 'primary';
+        return (
+          <Button variant={'text'} className={colorButton} href={'scope-information?id=test'} color={colorButton}>
+            <i className={'icon-document'} />
+            {t('table.details')}
+          </Button>
+        );
+      },
     },
   ];
 }
@@ -106,7 +109,7 @@ export function getMobileColumns(props: Props) {
         return (
           <S.TableRow>
             {data.map((item, idx) => (
-              <Table.MobileColumn key={idx} {...item} />
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
             ))}
           </S.TableRow>
         );

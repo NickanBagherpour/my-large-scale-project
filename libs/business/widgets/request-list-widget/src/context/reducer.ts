@@ -19,9 +19,16 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_SORT': {
-      state.pagination.page = initialStateValue['page'];
-      state.sort = action.payload;
-      return;
+      // state.pagination.page = initialStateValue['page'];
+      // state.sort = action.payload;
+      return {
+        ...state,
+        sort: action.payload,
+        pagination: {
+          ...state.pagination,
+          page: initialStateValue['page'],
+        },
+      };
     }
 
     case 'UPDATE_STATUS': {

@@ -18,6 +18,8 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
+  console.log(state);
+
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')} subtitle={'(213)'}>
       <Filters />
