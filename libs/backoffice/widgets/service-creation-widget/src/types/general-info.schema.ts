@@ -25,17 +25,17 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       }),
 
     [FORM_ITEM_NAMES.access]: z
-      .string()
+      .number()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.category]: z
-      .string()
+      .number()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.throughput]: z
-      .string()
+      .number()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
 
@@ -53,7 +53,7 @@ export const createGeneralInfoSchema = (t: TFunction) =>
 
     [FORM_ITEM_NAMES.tags]: z
       .array(z.object({ key: z.number(), value: z.number(), label: z.string() }))
-      .min(1, { message: t('validation.choose_one_option') }),
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
   });
 
 export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;
