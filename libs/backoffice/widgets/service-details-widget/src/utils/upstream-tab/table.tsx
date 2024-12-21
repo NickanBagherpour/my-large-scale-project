@@ -1,13 +1,16 @@
 import { TFunction } from 'i18next';
 
 import type { Service } from '@oxygen/types';
-import { Button, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { getValueOrDash } from '@oxygen/utils';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 
 import { UpstreamTabModalType } from '../../components/upstream-list/fallback-select/creation/data-table/data-table';
 
-import * as S from '../../components/upstream-list/upstream-list.style';
 import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
-import { getValueOrDash } from '@oxygen/utils';
+
+import { UpstreamListTarget } from '../../types';
+
+import * as S from '../../components/upstream-list/upstream-list.style';
 
 type Props = {
   t: TFunction;
@@ -22,7 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
   return [
     {
       title: t('upstream_tab.table.range'),
-      dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.IP_PORT],
+      dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN],
       align: 'center',
       render: (value, record) => {
         return getValueOrDash(value);
@@ -33,7 +36,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.HEALTH],
       align: 'center',
       render: (value, record) => {
-        return getValueOrDash(value);
+        return getValueOrDash(value ?? t('upstream_tab.healthy'));
       },
     },
     {
@@ -76,27 +79,11 @@ export function getMobileColumns(props: Props) {
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, url, version, persianName, serviceName }: Service) {
+      render({ domain, weight }: UpstreamListTarget) {
         const data: any = [
-          { title: t('step_two.service_name'), value: serviceName },
-          { title: t('step_two.persian_name'), value: persianName },
-          { title: t('step_two.scope'), value: scope },
-          { title: t('step_two.version'), value: version },
-          {
-            ...(deletable && {
-              title: '',
-              value: (
-                <Button
-                  className='item__btn'
-                  variant='link'
-                  color='error'
-                  onClick={() => toggleModal!('removeService')}
-                >
-                  <S.TrashIcon className='icon-trash' />
-                </Button>
-              ),
-            }),
-          },
+          { title: t('upstream_tab.table.range'), value: domain },
+          { title: t('upstream_tab.table.health_status'), value: t('upstream_tab.healthy') },
+          { title: t('upstream_tab.table.weight'), value: weight },
         ];
         return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
       },

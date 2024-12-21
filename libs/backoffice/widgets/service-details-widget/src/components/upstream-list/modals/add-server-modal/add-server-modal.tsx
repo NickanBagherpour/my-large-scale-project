@@ -48,7 +48,7 @@ export const AddServerModal: React.FC<AddServerModalPropsType> = (props) => {
     >
       <Form onFinish={onFinish} name={ADD_SERVER_MODAL_FORM_ITEM.ADD_SERVER} form={form}>
         <S.FormContainer>
-          <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.IP_PORT} label={t('upstream_tab.modal.ip_port')} rules={[rule]}>
+          <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.DOMAIN} label={t('upstream_tab.modal.ip_port')} rules={[rule]}>
             <Input maxLength={MAX_LENGTH_INPUT} />
           </Form.Item>
           <Form.Item name={ADD_SERVER_MODAL_FORM_ITEM.WEIGHT} label={t('upstream_tab.modal.weight')} rules={[rule]}>
