@@ -19,8 +19,8 @@ const initialfallbackSelect: initialFallbackSelectType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  serviceName: undefined,
   upstreamTab: {
-    radioValue: RADIO_GROUP_NAME.SELECT,
     activeSelect: initialActiveSelect,
     fallbackSelect: initialfallbackSelect,
   },
@@ -43,8 +43,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.message = action.payload);
     }
 
-    case 'UPDATE_RADIO_VALUE': {
-      state.upstreamTab.radioValue = action.payload;
+    case 'UPDATE_SERVICE_NAME': {
+      state.serviceName = action.payload;
       return;
     }
     case 'UPDATE_ENGLISH_NAME': {

@@ -15,7 +15,7 @@ export const UPSTREAM_TAB_NAMES_FORM_ITEM = {
 };
 
 export const ADD_SERVER_MODAL_FORM_ITEM = {
-  IP_PORT: 'ip_port',
+  DOMAIN: 'domain',
   WEIGHT: 'weight',
   HEALTH: 'health',
   ADD_SERVER: 'add_server',

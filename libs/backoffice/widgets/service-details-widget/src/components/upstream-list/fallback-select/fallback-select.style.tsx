@@ -9,4 +9,8 @@ export const BorderBox = styled.div`
   border-radius: var(${cssVar.radius});
   padding: 1.6rem;
 `;
-export const SelectContainer = styled.div``;
+export const SelectContainer = styled.div`
+  section {
+    margin: 0;
+  }
+`;
