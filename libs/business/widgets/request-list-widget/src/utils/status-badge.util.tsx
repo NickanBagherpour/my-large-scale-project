@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 import { InactiveBadge } from '../../../../../ui-kit/src/assets/icons';
+import { TFunction } from 'i18next';
 
-export const generateColor = (item) => {
-  switch (item) {
+type colorStatusType = 'info' | 'error' | 'success' | 'secondary';
+
+export const generateColor = (colorStatus: colorStatusType) => {
+  switch (colorStatus) {
     case 'info':
       return css`
         background-color: ${(p) => p.theme.info._50};
@@ -27,41 +30,7 @@ export const generateColor = (item) => {
   }
 };
 
-const switchBusiness = (status, clientStatus) => {
-  switch (status) {
-    case 'pending':
-      return (
-        <StyledContainer color={'info'}>
-          {clientStatus === 'bank' && <InactiveBadge />}
-          <span className={'label'}>در انتظار تایید</span>
-        </StyledContainer>
-      );
-    case 'rejected':
-      return (
-        <StyledContainer color={'error'}>
-          <span className={'label'}>رد شده</span>
-        </StyledContainer>
-      );
-    case 'confirmed':
-      return (
-        <StyledContainer color={'success'}>
-          {clientStatus === 'kasb' && <InactiveBadge />}
-          <span className={'label'}>تایید اولیه</span>
-        </StyledContainer>
-      );
-    case 'registered':
-      return (
-        <StyledContainer color={'secondary'}>
-          <span className={'label'}>
-            <i className={'icon-tick-circle-outlined'} />
-            تایید نهایی
-          </span>
-        </StyledContainer>
-      );
-  }
-};
-
-const StyledContainer = styled.span<{ color: 'info' | 'error' | 'success' | 'secondary' }>`
+const StyledContainer = styled.span<{ color: colorStatusType }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,15 +39,53 @@ const StyledContainer = styled.span<{ color: 'info' | 'error' | 'success' | 'sec
   .label {
     ${(p) => generateColor(p.color)};
     padding: 0 0.8rem;
-    height: 2rem;
+    min-height: 2.8rem;
     border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   i {
     margin: 0 0.4rem;
+    font-size: 20px;
   }
 `;
 
-export const switchStatus = (status: string, clientStatus: string) => {
-  return switchBusiness(status, clientStatus);
+const switchBusiness = (status: string, clientStatus: string, t: TFunction) => {
+  switch (status) {
+    case 'pending':
+      return (
+        <StyledContainer color={'info'}>
+          {clientStatus === 'bank' && <InactiveBadge />}
+          <span className={'label'}>{t('chips.pending')}</span>
+        </StyledContainer>
+      );
+    case 'rejected':
+      return (
+        <StyledContainer color={'error'}>
+          <span className={'label'}>{t('chips.rejected')}</span>
+        </StyledContainer>
+      );
+    case 'initial_approval':
+      return (
+        <StyledContainer color={'success'}>
+          {clientStatus === 'kasb' && <InactiveBadge />}
+          <span className={'label'}>{t('chips.initial_approval')}</span>
+        </StyledContainer>
+      );
+    case 'final_approval':
+      return (
+        <StyledContainer color={'secondary'}>
+          <span className={'label'}>
+            <i className={'icon-tick-circle-outlined'} />
+            {t('chips.final_approval')}
+          </span>
+        </StyledContainer>
+      );
+  }
+};
+
+export const switchStatus = (status: string, clientStatus: string, t: TFunction) => {
+  return switchBusiness(status, clientStatus, t);
 };

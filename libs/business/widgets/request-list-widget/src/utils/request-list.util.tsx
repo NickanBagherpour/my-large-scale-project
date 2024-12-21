@@ -2,7 +2,7 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
-import { switchStatus } from './function.util';
+import { switchStatus } from './status-badge.util';
 
 type Props = {
   t: TFunction;
@@ -41,7 +41,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('table.status'),
       dataIndex: 'status',
       align: 'center',
-      render: (item) => switchStatus(item, clientStatus),
+      render: (item) => switchStatus(item, clientStatus, t),
     },
     {
       title: t('table.registration_date'),
@@ -78,6 +78,7 @@ export function getMobileColumns(props: Props) {
   const {
     t,
     pagination: { page, rowsPerPage },
+    clientStatus,
   } = props;
   return [
     {
@@ -91,19 +92,25 @@ export function getMobileColumns(props: Props) {
         registration_date,
         requested_service_count,
         companyRepresentativeName,
+        uploaded,
       }) => {
         const data = [
           { title: t('table.index'), value: index },
           { title: t('table.organization_name'), value: organization_name },
           { title: t('table.client_name'), value: client_name },
-          { title: t('table.status'), value: status },
+          { title: t('table.status'), value: switchStatus(status, clientStatus, t) },
           { title: t('table.registration_date'), value: registration_date },
           { title: t('table.requested_service_count'), value: requested_service_count },
           { title: t('table.companyRepresentativeName'), value: companyRepresentativeName },
           {
             title: t('table.details'),
             value: (
-              <Button className={'item__btn'} href={'scope-information?id=test'} variant={'text'} color={'primary'}>
+              <Button
+                className={uploaded ? 'secondary' : 'primary'}
+                href={'scope-information?id=test'}
+                variant={'text'}
+                color={uploaded ? 'secondary' : 'primary'}
+              >
                 <i className={'icon-document'} />
                 {t('table.details')}
               </Button>

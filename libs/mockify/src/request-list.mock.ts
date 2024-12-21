@@ -26,8 +26,10 @@ export const getRequestList = async (params) => {
     switch (params.status) {
       case 'all':
         return searchMatches;
-      case 'confirmed':
-        return searchMatches && request.status === 'confirmed';
+      case 'initial_approval':
+        return searchMatches && request.status === 'initial_approval';
+      case 'final_approval':
+        return searchMatches && request.status === 'final_approval';
       case 'rejected':
         return searchMatches && request.status === 'rejected';
       case 'pending':

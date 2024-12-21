@@ -3,9 +3,10 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { useAppDispatch, useAppState } from '../../context';
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
+
+import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -18,7 +19,7 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const clientStatus = 'bank';
+  const clientStatus = 'bank'; //kasb;
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')} subtitle={'(213)'}>

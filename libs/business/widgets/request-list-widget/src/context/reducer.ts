@@ -19,32 +19,26 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_SORT': {
-      // state.pagination.page = initialStateValue['page'];
-      // state.sort = action.payload;
-      return {
-        ...state,
-        sort: action.payload,
-        pagination: {
-          ...state.pagination,
-          page: initialStateValue['page'],
-        },
-      };
+      state.sort = action.payload;
+      state.pagination.page = initialStateValue.pagination.page;
+      return;
     }
 
     case 'UPDATE_STATUS': {
-      state.pagination.page = initialStateValue['page'];
+      state.pagination.page = initialStateValue.pagination.page;
       state.status = action.payload;
       return;
     }
 
     case 'UPDATE_SEARCH_TERM': {
-      state.pagination.page = initialStateValue['page'];
+      state.pagination.page = initialStateValue.pagination.page;
       state.searchTerm = action.payload;
       return;
     }
 
     case 'UPDATE_PAGINATION': {
-      return void state.pagination.page++;
+      state.pagination = action.payload;
+      return;
     }
 
     default:

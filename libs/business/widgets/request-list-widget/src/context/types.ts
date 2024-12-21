@@ -4,7 +4,7 @@ import { MessageType, Nullable } from '@oxygen/types';
 export type WidgetStateType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
-  status: 'all' | 'confirmed' | 'rejected' | 'pending';
+  status: 'all' | 'initial_approval' | 'final_approval' | 'rejected' | 'pending';
   pagination: {
     page: number;
     rowsPerPage: number;
@@ -31,6 +31,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
+      payload: WidgetStateType['pagination'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

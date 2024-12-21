@@ -28,46 +28,50 @@ export default function Filters() {
   }, [value]);
 
   return (
-    <>
-      <S.Container>
-        <S.Actions>
-          <S.Input
-            value={value}
-            placeholder={t('search_by_name_or_id')}
-            prefix={<i className='icon-search-normal' />}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </S.Actions>
+    <S.Container>
+      <S.Actions>
+        <S.Input
+          value={value}
+          placeholder={t('search_by_name_or_id')}
+          prefix={<i className='icon-search-normal' />}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </S.Actions>
 
-        <S.Indicators>
-          <S.Chips>
-            <Chip {...getChipProps(status, 'all')} onClick={() => updateStatus(dispatch, 'all')}>
-              {t('chips.all_clients')}
-            </Chip>
+      <S.Indicators>
+        <S.Chips>
+          <Chip {...getChipProps(status, 'all')} onClick={() => updateStatus(dispatch, 'all')}>
+            {t('chips.all_clients')}
+          </Chip>
 
-            <S.Divider type='vertical' />
+          <S.Divider type='vertical' />
 
-            <Chip {...getChipProps(status, 'confirmed')} onClick={() => updateStatus(dispatch, 'confirmed')}>
-              {t('chips.confirmed')}
-            </Chip>
-            <Chip {...getChipProps(status, 'rejected')} onClick={() => updateStatus(dispatch, 'rejected')}>
-              {t('chips.rejected')}
-            </Chip>
-            <Chip {...getChipProps(status, 'pending')} onClick={() => updateStatus(dispatch, 'pending')}>
-              {t('chips.pending')}
-            </Chip>
-          </S.Chips>
+          <Chip {...getChipProps(status, 'final_approval')} onClick={() => updateStatus(dispatch, 'final_approval')}>
+            {t('chips.final_approval')}
+          </Chip>
+          <Chip
+            {...getChipProps(status, 'initial_approval')}
+            onClick={() => updateStatus(dispatch, 'initial_approval')}
+          >
+            {t('chips.initial_approval')}
+          </Chip>
+          <Chip {...getChipProps(status, 'rejected')} onClick={() => updateStatus(dispatch, 'rejected')}>
+            {t('chips.rejected')}
+          </Chip>
+          <Chip {...getChipProps(status, 'pending')} onClick={() => updateStatus(dispatch, 'pending')}>
+            {t('chips.pending')}
+          </Chip>
+        </S.Chips>
 
-          <S.FilterPopover
-            filters={[
-              { key: 'newest', title: t('newest'), icon: 'icon-arrow-ascending' },
-              { key: 'oldest', title: t('oldest'), icon: 'icon-arrow-descending' },
-            ]}
-            initialValue={sort}
-            onChange={(value) => updateSort(dispatch, value as Sort)}
-          />
-        </S.Indicators>
-      </S.Container>
-    </>
+        <S.FilterPopover
+          filters={[
+            { key: 'newest', title: t('newest'), icon: 'icon-arrow-ascending' },
+            { key: 'oldest', title: t('oldest'), icon: 'icon-arrow-descending' },
+          ]}
+          initialValue={sort}
+          onChange={(value) => updateSort(dispatch, value as Sort)}
+        />
+      </S.Indicators>
+    </S.Container>
   );
 }
