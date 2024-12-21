@@ -34,7 +34,7 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),
 
-    [FORM_ITEM_NAMES.throughout]: z
+    [FORM_ITEM_NAMES.throughput]: z
       .string()
       .nullable()
       .refine((val) => val, t('validation.choose_one_option')),

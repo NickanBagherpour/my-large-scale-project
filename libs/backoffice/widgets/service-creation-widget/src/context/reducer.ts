@@ -18,7 +18,7 @@ export const initialStateValue: WidgetStateType = {
     category: null,
     englishName: '',
     persianName: '',
-    throughout: null,
+    throughput: null,
   },
   // @ts-expect-error fix this later
   scope: undefined,

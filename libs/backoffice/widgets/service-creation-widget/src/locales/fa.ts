@@ -11,7 +11,7 @@ export default {
   select_access: 'دسترسی مورد نظر را انتخاب نمایید',
   category: 'دسته‌بندی',
   select_categroy: 'دسته‌بندی مورد نظر را انتخاب نماید',
-  throughout: 'Throughout',
+  throughput: 'Throughput',
   version: 'نسخه',
   enter_version: 'نسخه را وارد نمایید',
   owner: 'مالک',

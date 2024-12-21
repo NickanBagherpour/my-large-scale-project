@@ -39,7 +39,7 @@ export default function GeneralInfo() {
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { data, isFetching, is404Error } = useGetService();
+  const { data: service, isFetching: isFetchingService, is404Error } = useGetService();
   const { mutateAsync: postService } = usePostServiceMutation();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
@@ -47,11 +47,11 @@ export default function GeneralInfo() {
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
-    const { throughout, category, tags, owner, access, version, englishName, persianName } = values;
+    const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
     try {
       // @ts-expect-error this will be fixed by backend later
       // prettier-ignore
-      await postService({ persianName, version, owner, tags, category, throughout, name: englishName, accessLevel: access });
+      await postService({ persianName, version, owner, tags, category, throughput, name: englishName, accessLevel: access });
       nextStep(dispatch);
       updateGetInfoStep(dispatch, values);
     } catch {
@@ -70,21 +70,21 @@ export default function GeneralInfo() {
     );
   };
 
-  if (isFetching) {
+  if (isFetchingService) {
     return <Loading />;
   }
 
-  if (data || is404Error) {
+  if (service || is404Error) {
     let initialValues = initialStateValue['generalInfo'];
-    if (data) {
-      const { name, tags, owner, version, category, throughout, accessLevel, persianName } = data.data;
+    if (service) {
+      const { name, tags, owner, version, category, throughout, accessLevel, persianName } = service.data;
       initialValues = {
         tags: convertTags(tags),
         owner,
         version,
         access: String(accessLevel), // todo: backend will send strings for these values later
         category: String(category),
-        throughout: String(throughout),
+        throughput: String(throughout),
         englishName: name,
         persianName,
       };
@@ -111,8 +111,8 @@ export default function GeneralInfo() {
                 <Select size={'large'} placeholder={t('select_categroy')} options={convertCodeTitles(categories)} />
               </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughout')}>
-                <Select size={'large'} placeholder={t('throughout')} options={options} />
+              <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
+                <Select size={'large'} placeholder={t('throughput')} options={options} />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>

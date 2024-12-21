@@ -3,7 +3,7 @@ export const FORM_ITEM_NAMES = {
   persianName: 'persianName',
   access: 'access',
   category: 'category',
-  throughout: 'throughout',
+  throughput: 'throughput',
   version: 'version',
   owner: 'owner',
   tags: 'tags',
