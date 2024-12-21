@@ -73,14 +73,14 @@ export default function GeneralInfo() {
   if (service || is404Error) {
     let initialValues = initialStateValue['generalInfo'];
     if (service) {
-      const { name, tags, owner, version, category, throughout, accessLevel, persianName } = service.data;
+      const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service.data;
       initialValues = {
         tags: convertTags(tags),
         owner,
         version,
-        access: String(accessLevel), // todo: backend will send strings for these values later
-        category: String(category),
-        throughput: String(throughout),
+        access: accessLevel.code,
+        category: category.code,
+        throughput: throughput.code,
         englishName: name,
         persianName,
       };

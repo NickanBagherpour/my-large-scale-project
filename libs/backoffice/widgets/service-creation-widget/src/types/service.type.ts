@@ -12,15 +12,26 @@ export type PostServiceParams = {
 export type Service = {
   name: string;
   persianName: string;
-  accessLevel: number;
-  category: number;
-  throughout: number;
+  accessLevel: {
+    code: number;
+    title: string;
+  };
+  category: {
+    code: number;
+    title: string;
+  };
+  throughput: {
+    code: number;
+    title: string;
+  };
   version: string;
   owner: string;
-  tags: {
-    id: number;
-    title: string;
-  }[];
+  tags: [
+    {
+      id: number;
+      title: string;
+    }
+  ];
 };
 
 export type Route = {
