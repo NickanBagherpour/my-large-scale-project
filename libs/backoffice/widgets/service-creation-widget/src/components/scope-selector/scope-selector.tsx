@@ -3,7 +3,6 @@ import { CSSProperties, useState } from 'react';
 
 import { Input } from 'antd';
 import { useTheme } from 'styled-components';
-import { AutoComplete as AntAutoComplete } from 'antd';
 
 import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -20,10 +19,11 @@ type Props = {
   onClear?: () => void;
   onSelect?: (scope: Scope) => void;
   disabled: boolean;
+  isLoading: boolean;
 };
 
 const ScopeSelector = (props: Props) => {
-  const { onSelect, onClear, id, className = '', style = {}, disabled } = props;
+  const { onSelect, onClear, id, className = '', style = {}, disabled, isLoading } = props;
   const MAX_LENGTH = 75;
   const theme = useTheme();
   const [t] = useTr();
@@ -31,13 +31,10 @@ const ScopeSelector = (props: Props) => {
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
   const { data, isFetching } = useGetScopes({
     'scope-name': debouncedSearchTerm.trim(),
-    page: 0,
-    size: 10,
-    sort: 'asc',
   });
 
   return (
-    <AntAutoComplete
+    <S.AutoComplete
       autoFocus
       disabled={disabled}
       id={id}
@@ -45,7 +42,7 @@ const ScopeSelector = (props: Props) => {
       className={className}
       style={style}
       popupClassName={'popup'}
-      options={data?.content.map((item) => ({ value: item.name, item }))}
+      options={data?.map((item) => ({ value: item.name, item }))}
       notFoundContent={t('message.empty')}
       maxLength={MAX_LENGTH}
       allowClear
@@ -64,10 +61,10 @@ const ScopeSelector = (props: Props) => {
     >
       <Input
         size='large'
-        prefix={isFetching ? <Loading /> : <i className='icon-search-normal' />}
+        prefix={isFetching || isLoading ? <Loading /> : <i className='icon-search-normal' />}
         placeholder={t('scope_name_from_o2_or_scope')}
       />
-    </AntAutoComplete>
+    </S.AutoComplete>
   );
 };
 

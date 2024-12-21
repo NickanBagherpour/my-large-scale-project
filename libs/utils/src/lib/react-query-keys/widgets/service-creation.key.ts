@@ -11,4 +11,5 @@ export const KEYS = createQueryKeys(prefix, [
   'CATEGORIES',
   'SERVICE_ACCESS',
   'THROUGHPUT',
+  'SCOPE',
 ]);

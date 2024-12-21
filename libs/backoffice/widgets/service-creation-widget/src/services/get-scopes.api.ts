@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
@@ -9,6 +9,6 @@ export const useGetScopes = (params: ScopesParams) => {
   return useQuery({
     queryKey: [RQKEYS.SERVICE_CREATION.SCOPES, params],
     queryFn: withErrorHandling(() => Api.getScopes(params), dispatch),
-    placeholderData: keepPreviousData,
+    enabled: !!params['scope-name'],
   });
 };

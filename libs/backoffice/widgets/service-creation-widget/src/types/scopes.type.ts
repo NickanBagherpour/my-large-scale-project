@@ -1,12 +1,10 @@
-import { PaginatedData, ParamsWithPagination } from './shared.type';
-
-export type ScopesParams = ParamsWithPagination<{
+export type ScopesParams = {
   'scope-name': string;
-}>;
+};
 
 export type Scope = {
   name: string;
   description: string | null;
 };
 
-export type ScopesData = PaginatedData<Scope>;
+export type ScopesData = Scope[];

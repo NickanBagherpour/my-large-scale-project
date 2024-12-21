@@ -9,7 +9,7 @@ import type {
   Upstreams,
   UpstreamWithTargets,
 } from '../types';
-import type { ScopesData, ScopesParams } from '../types/scopes.type';
+import type { Scope, ScopesData, ScopesParams } from '../types/scopes.type';
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
@@ -17,7 +17,7 @@ const Api = {
   postGeneralInfo: async (params: GeneralInfoParams) =>
     client.post<unknown>(`${portalUrl}/v1/services/save-general-info`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
-  getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/list`, { params }),
+  getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/search`, { params }),
   getUpstreams: async () =>
     client.get<Upstreams>(`${portalUrl}/v1/upstreams`, {
       params: {
@@ -31,5 +31,6 @@ const Api = {
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
+  getScope: async (name: string) => client.get<Scope>(`${portalUrl}/v1/scope/service-name/${name}`),
 };
 export default Api;

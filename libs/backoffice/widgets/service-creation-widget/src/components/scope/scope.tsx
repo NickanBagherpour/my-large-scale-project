@@ -1,19 +1,24 @@
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
-import Box from '../box/box';
-import ImportFromSso from '../import-from-sso/import-from-sso';
 import { useAppDispatch, previousStep, nextStep } from '../../context';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
+import ScopeSelector from '../scope-selector/scope-selector';
+import { useGetScope } from '../../services/get-scope.api';
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
+  const { data: scope, isFetching: isFetchingScope } = useGetScope();
+
+  useEffect(() => {
+    if (scope?.data) setSelectedScope(scope.data);
+  }, [scope]);
 
   const chooseScope = (scope: ScopeType) => {
     setSelectedScope(scope);
@@ -83,19 +88,18 @@ export default function Scope() {
 
   return (
     <Container>
-      <Box>
-        <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
-      </Box>
+      <S.Label>
+        <S.Title>{t('choose_scope')}</S.Title>
+        <ScopeSelector isLoading={isFetchingScope} onSelect={chooseScope} disabled={!!selectedScope} />
+      </S.Label>
 
-      {selectedScope && (
-        <S.Table
-          columns={desktopColumns}
-          mobileColumns={mobileColumns}
-          dataSource={[selectedScope]}
-          rowKey={(row) => row.idx}
-          pagination={false}
-        />
-      )}
+      <S.Table
+        columns={desktopColumns}
+        mobileColumns={mobileColumns}
+        dataSource={selectedScope ? [selectedScope] : []}
+        rowKey={(row) => row.idx}
+        pagination={false}
+      />
 
       <Footer
         registerButtonProps={{ disabled: !selectedScope }}
