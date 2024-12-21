@@ -112,7 +112,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       ? ({
           type: 'active',
           iconProp: 'checked icon-checkmark',
-          error: aggregatorIsRequired ? true : undefined,
         } as const)
       : ({ type: 'unActive', error: aggregatorIsRequired ? true : undefined } as const);
 
