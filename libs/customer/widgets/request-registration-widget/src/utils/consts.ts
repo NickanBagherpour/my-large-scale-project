@@ -9,8 +9,8 @@ export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
   //firstStep
-  aggregator_value: 'aggregator_value',
   aggregator_status: 'aggregator_status',
+  aggregator_value: 'aggregator_value',
   legal_person_name: 'legal_person_name',
   legal_person_type: 'legal_person_type',
   registration_number: 'registration_number',

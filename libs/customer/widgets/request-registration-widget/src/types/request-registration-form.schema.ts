@@ -218,6 +218,8 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     }),
 
     // Required Fields
+    [FORM_ITEM.aggregator_status]: requiredString,
+    [FORM_ITEM.aggregator_value]: requiredString,
     [FORM_ITEM.legal_person_name]: requiredString,
     [FORM_ITEM.legal_person_type]: requiredString,
     [FORM_ITEM.registration_number]: requiredString,

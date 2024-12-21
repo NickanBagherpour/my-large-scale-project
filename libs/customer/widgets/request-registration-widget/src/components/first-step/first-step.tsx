@@ -11,16 +11,17 @@ import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Switch } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import { WidgetStateType } from '../../context/types';
 import {
   useFirstStepRequestRegistrationMutationQuery,
   useGetOrganizationDataMutationQuery,
   useGetOrganizationsQuery,
 } from '../../services/first-step/first-step-data';
-import { updateFirstStepAction, useAppDispatch, useAppState, updateRequestMode } from '../../context';
+import { updateFirstStepAction, useAppDispatch, useAppState, updateRequestMode, updateStatus } from '../../context';
 
 import * as S from './first-step.style';
 
@@ -47,10 +48,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
-  const [isSwitchSelected, setIsSwitchSelected] = useState(false);
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
 
   const { mutate: secondMutate, isPending: secondIsPending } = useGetOrganizationDataMutationQuery();
+  const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
+
+  type Status = WidgetStateType['status'];
 
   useEffect(() => {
     const params = requestRegistration;
@@ -71,32 +74,47 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   }, [requestRegistration]);
 
   const onFinish = (values) => {
-    const params = {
-      legalName: values.legal_person_name,
-      legalType: values.legal_person_type,
-      registerNo: values.registration_number,
-      registerDate: dayjs(values.registration_date).format('YYYY/MM/DD'),
-      organizationNationalId: values.national_id,
-      economicCode: values.economy_code,
-      activityIndustry: values.activity_field,
-      postalCode: values.postal_code,
-      phone: values.phone,
-      registeredAddress: values.last_registration_address,
-    };
+    if (!state.firstStep.aggregator_status) {
+      setAggregatorIsRequired(true);
+    } else {
+      const params = {
+        aggregator_status: state.firstStep.aggregator_status,
+        aggregator_value: values.aggregator_value,
+        legalName: values.legal_person_name,
+        legalType: values.legal_person_type,
+        registerNo: values.registration_number,
+        registerDate: dayjs(values.registration_date).format('YYYY/MM/DD'),
+        organizationNationalId: values.national_id,
+        economicCode: values.economy_code,
+        activityIndustry: values.activity_field,
+        postalCode: values.postal_code,
+        phone: values.phone,
+        registeredAddress: values.last_registration_address,
+      };
 
-    firstMutate(params, {
-      onSuccess: (data) => {
-        console.log('request registration first step successful:', data);
-        setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
+      firstMutate(params, {
+        onSuccess: (data) => {
+          console.log('request registration first step successful:', data);
+          setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
 
-        updateFirstStepAction(dispatch, values);
-        setCurrentStep((perv) => perv + 1);
-      },
-      onError: (error) => {
-        console.error('request registration first step  failed:', error);
-      },
-    });
+          updateFirstStepAction(dispatch, values);
+          setCurrentStep((perv) => perv + 1);
+        },
+        onError: (error) => {
+          console.error('request registration first step  failed:', error);
+        },
+      });
+    }
   };
+
+  const getChipProps = (currentStatus: Status, chipStatus: Status) =>
+    currentStatus === chipStatus
+      ? ({
+          type: 'active',
+          iconProp: 'checked icon-checkmark',
+          error: aggregatorIsRequired ? true : undefined,
+        } as const)
+      : ({ type: 'unActive', error: aggregatorIsRequired ? true : undefined } as const);
 
   const onChange = (e: RadioChangeEvent) => {
     updateRequestMode(dispatch, e.target.value);
@@ -110,12 +128,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
-  // const handleSwitchChange = (checked) => {
-  //   setIsSwitchSelected(checked);
-  //   if (!checked) {
-  //     form.resetFields([FORM_ITEM.aggregator_value]);
-  //   }
-  // };
+  const handleSubmit = () => {
+    if (!state.firstStep.aggregator_status) {
+      setAggregatorIsRequired(true);
+    }
+    form.submit();
+  };
 
   const handleReturn = () => {
     router.back();
@@ -196,27 +214,64 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         ) : (
           <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
             <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
-            <SearchItemsContainer $columnNumber='3'>
-              <S.AggregatorContainer>
-                <Form.Item
-                  className={'label-switch'}
-                  layout={'horizontal'}
-                  name={FORM_ITEM.aggregator_status}
-                  label={t('form.aggregator_specifications')}
-                >
-                  {/* <Switch onChange={handleSwitchChange} /> */}
-                </Form.Item>
-                <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator'>
-                  <Select
-                    size={'large'}
-                    options={selectLegalTypeOptions}
-                    // loading={selectFetching}
-                    placeholder={`${t('placeholder.do_select')}`}
-                    // disabled={!isSwitchSelected}
-                  ></Select>
-                </Form.Item>
-              </S.AggregatorContainer>
-            </SearchItemsContainer>
+            <S.CheckAggregator>
+              <SearchItemsContainer $columnNumber='3'>
+                <S.ChipsContainer>
+                  <S.Chips>
+                    <Chip
+                      {...getChipProps(state.firstStep.aggregator_status, 'isAggregator')}
+                      onClick={() => {
+                        updateStatus(dispatch, 'isAggregator');
+                        setAggregatorIsRequired(false);
+                      }}
+                    >
+                      {t('company_is_aggregator')}
+                    </Chip>
+                    <Chip
+                      {...getChipProps(state.firstStep.aggregator_status, 'hasAggregator')}
+                      onClick={() => {
+                        updateStatus(dispatch, 'hasAggregator');
+                        setAggregatorIsRequired(false);
+                      }}
+                    >
+                      {t('company_has_aggregator')}
+                    </Chip>
+                    <Chip
+                      {...getChipProps(state.firstStep.aggregator_status, 'nothing')}
+                      onClick={() => {
+                        updateStatus(dispatch, 'nothing');
+                        setAggregatorIsRequired(false);
+                      }}
+                    >
+                      {t('nothing')}
+                    </Chip>
+                  </S.Chips>
+                  {aggregatorIsRequired && (
+                    <S.AggregatorIsRequired>{t('select_aggregator_status')}</S.AggregatorIsRequired>
+                  )}
+                </S.ChipsContainer>
+              </SearchItemsContainer>
+              {(state.firstStep.aggregator_status === 'isAggregator' ||
+                state.firstStep.aggregator_status === 'hasAggregator') && (
+                <SearchItemsContainer $columnNumber='3'>
+                  <S.AggregatorContainer>
+                    <Form.Item
+                      className={'label-switch'}
+                      layout={'horizontal'}
+                      label={t('form.aggregator_specifications')}
+                    ></Form.Item>
+                    <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator' rules={[rule]}>
+                      <Select
+                        size={'large'}
+                        options={selectLegalTypeOptions}
+                        // loading={selectFetching}
+                        placeholder={`${t('placeholder.do_select')}`}
+                      ></Select>
+                    </Form.Item>
+                  </S.AggregatorContainer>
+                </SearchItemsContainer>
+              )}
+            </S.CheckAggregator>
             <SearchItemsContainer $columnNumber='3'>
               <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
                 <Input
@@ -282,7 +337,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={form.submit}>
+        <Button htmlType={'submit'} onClick={() => handleSubmit()}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

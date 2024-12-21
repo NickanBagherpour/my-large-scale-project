@@ -8,7 +8,7 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
-  status: 'all',
+  status: undefined,
   searchTerm: '',
   page: 1,
   sort: 'newest',
@@ -58,6 +58,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_REQUEST_MODE':
       return void (state.requestMode = action.payload);
+
+    case 'UPDATE_STATUS': {
+      state.firstStep.aggregator_status = action.payload;
+      return;
+    }
 
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };

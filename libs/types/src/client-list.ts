@@ -15,3 +15,10 @@ export type ClientType = {
   isActiveInTheService: boolean;
   date: string;
 };
+
+export type OrganizationParamsType = {
+  searchTerm: string;
+  sort: 'newest' | 'oldest';
+  status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
+  page: number;
+};

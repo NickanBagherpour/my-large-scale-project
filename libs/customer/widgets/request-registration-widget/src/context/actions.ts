@@ -1,5 +1,6 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
+import { WidgetStateType } from '../context/types';
 
 import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType, RequestMode } from './types';
 
@@ -13,6 +14,10 @@ export function updateSecondStepTableAction(dispatch: WidgetDispatchType, second
 
 export function updateRequestMode(dispatch: WidgetDispatchType, payload: RequestMode) {
   dispatch({ type: 'UPDATE_REQUEST_MODE', payload });
+}
+
+export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+  dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {

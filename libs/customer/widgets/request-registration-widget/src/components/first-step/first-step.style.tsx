@@ -126,6 +126,46 @@ export const FirstStepContainer = styled.div`
   }
 `;
 
+export const CheckAggregator = styled.div`
+  margin-bottom: 3.2rem;
+
+  & .chip_content {
+    width: 100%;
+  }
+
+  & .ant-form-item-control-input-content {
+    display: flex;
+  }
+`;
+
+export const ChipsContainer = styled.div``;
+
+export const Chips = styled.div`
+  margin-bottom: 1.6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-inline-end: auto;
+
+  & span {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  & span:last-child {
+    margin-right: 0;
+  }
+
+  ${respondTo.down('xs')} {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+`;
+
+export const AggregatorIsRequired = styled.div`
+  color: ${(p) => p.theme.error._500};
+`;
+
 export const AggregatorContainer = styled.div`
   display: flex;
 

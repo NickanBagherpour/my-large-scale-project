@@ -12,7 +12,7 @@ export type PaginationType = {
 };
 
 export type FirstStepType = {
-  aggregator_status?: boolean;
+  aggregator_status?: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   aggregator_value?: string;
   legal_person_name?: string;
   legal_person_type?: string;
@@ -31,7 +31,7 @@ export type RequestMode = 'selectOrganization' | 'registerOrganization';
 export type WidgetStateType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'unActive';
+  status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   page: number;
   requestMode: RequestMode;
   firstStep: FirstStepType;
@@ -58,6 +58,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_REQUEST_MODE';
       payload: RequestMode;
+    }
+  | {
+      type: 'UPDATE_STATUS';
+      payload: WidgetStateType['status'];
     }
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';

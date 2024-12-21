@@ -8,6 +8,10 @@ export default {
   company_specifications: 'مشخصات شرکت',
   return: 'بازگشت',
   submit_info: 'ثبت‌اطلاعات',
+  company_is_aggregator: 'شرکت اگریگیتور است',
+  company_has_aggregator: 'شرکت اگریگیتور دارد',
+  nothing: 'هیچ‌کدام',
+  select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
   //secondStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',

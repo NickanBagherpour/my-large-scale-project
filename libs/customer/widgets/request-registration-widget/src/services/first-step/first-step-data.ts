@@ -2,7 +2,7 @@ import { useQuery, useMutation, keepPreviousData } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
 import { RequestRegistration } from '../../types';
-import { ParamsType } from '@oxygen/types';
+import { ParamsType, OrganizationParamsType } from '@oxygen/types';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
@@ -62,7 +62,7 @@ export const useGetOrganizationDataMutationQuery = () => {
 //   });
 // };
 
-export const useGetOrganizationsQuery = (params: ParamsType) => {
+export const useGetOrganizationsQuery = (params: OrganizationParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
