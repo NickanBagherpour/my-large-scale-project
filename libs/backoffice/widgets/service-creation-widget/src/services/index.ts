@@ -6,3 +6,4 @@ export { useGetUpstreams } from './get-upstreams.api';
 export { useGetUpstreamWithTargets } from './get-upstream-with-targets.api';
 export { useGetTags } from './get-tags.api';
 export { useGetCategories } from './get-categories.api';
+export { useGetServiceAccess } from './get-service-access.api';

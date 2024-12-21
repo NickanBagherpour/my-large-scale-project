@@ -9,4 +9,5 @@ export const KEYS = createQueryKeys(prefix, [
   'UPSTREAM_WITH_ID',
   'TAGS',
   'CATEGORIES',
+  'SERVICE_ACCESS',
 ]);

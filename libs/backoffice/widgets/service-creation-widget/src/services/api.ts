@@ -1,5 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
-import type { Category, PostServiceParams, Route, Service, Tags, Upstreams, UpstreamWithTargets } from '../types';
+import type { CodeTitle, PostServiceParams, Route, Service, Tags, Upstreams, UpstreamWithTargets } from '../types';
 import type { ScopesData, ScopesParams } from '../types/scopes.type';
 
 const Api = {
@@ -17,6 +17,7 @@ const Api = {
     }),
   getUpstreamWithTargets: async (id: number) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${id}`),
   getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
-  getCategories: async () => client.get<Category[]>(`${portalUrl}/v1/service-categories`),
+  getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
+  getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
 };
 export default Api;

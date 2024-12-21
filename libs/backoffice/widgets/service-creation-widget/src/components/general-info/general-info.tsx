@@ -2,7 +2,7 @@ import { Input, Loading, SearchItemsContainer, Select, Chip, Dropdown } from '@o
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createGeneralInfoSchema, GeneralInfoValuesType, Tags } from '../../types';
+import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType, Tags } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { updateGetInfoStep, nextStep, useAppDispatch, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
@@ -10,7 +10,13 @@ import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
-import { useGetCategories, useGetService, useGetTags, usePostServiceMutation } from '../../services';
+import {
+  useGetCategories,
+  useGetService,
+  useGetServiceAccess,
+  useGetTags,
+  usePostServiceMutation,
+} from '../../services';
 import * as S from './general-info.style';
 
 const options = [
@@ -21,6 +27,10 @@ const options = [
 
 function convertTags(tags?: Tags) {
   return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
+}
+
+function convertCodeTitles(items?: CodeTitle[]) {
+  return items?.map(({ code, title }) => ({ label: title, value: code })) ?? [];
 }
 
 export default function GeneralInfo() {
@@ -34,6 +44,7 @@ export default function GeneralInfo() {
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
+  const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughout, category, tags, owner, access, version, englishName, persianName } = values;
@@ -93,18 +104,14 @@ export default function GeneralInfo() {
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
-                <Select size={'large'} placeholder={t('select_access')} options={options}></Select>
+                <Select size={'large'} placeholder={t('select_access')} options={convertCodeTitles(serviceAccesses)} />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
-                <Select
-                  size={'large'}
-                  placeholder={t('select_categroy')}
-                  options={categories?.map((c) => ({ label: c.title, value: c.code }))}
-                />
+                <Select size={'large'} placeholder={t('select_categroy')} options={convertCodeTitles(categories)} />
               </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.throughout} rules={[rule]} label={t('throughout')}>
+              <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughout')}>
                 <Select size={'large'} placeholder={t('throughout')} options={options} />
               </FormItem>
 

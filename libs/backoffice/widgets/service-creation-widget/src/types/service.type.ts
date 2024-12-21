@@ -35,7 +35,7 @@ export type Tags = {
   title: string;
 }[];
 
-export type Category = {
+export type CodeTitle = {
   code: number;
   title: string;
 };
