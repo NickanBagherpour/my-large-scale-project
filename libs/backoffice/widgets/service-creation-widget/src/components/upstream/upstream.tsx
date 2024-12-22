@@ -7,23 +7,43 @@ import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
-import { useGetUpstreams, useGetUpstreamWithTargets } from '../../services';
+import {
+  useGetUpstream,
+  useGetUpstreams,
+  useGetUpstreamWithTargets,
+  usePostAssignUpstreamToService,
+} from '../../services';
 import { useState } from 'react';
 import { UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
+import { useSearchParams } from 'next/navigation';
 
 export default function Upstream() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { data: upstreams, isFetching: isFetchingUpstreams } = useGetUpstreams();
   const [selectedUpstreamId, setSelectedUpstreamId] = useState<number | null>(null);
+  const { data: currentUpstream, isFetching: isFetchingCurrentUpstream } = useGetUpstream();
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
     useGetUpstreamWithTargets(selectedUpstreamId);
+  const { mutateAsync: assignUpstreamToService } = usePostAssignUpstreamToService();
+  const serviceName = useSearchParams().get('service-name');
 
-  const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets;
+  const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets || isFetchingCurrentUpstream;
+  const upstream = upstreamWithTargets || currentUpstream?.data;
 
   const onReturn = () => {
     previousStep(dispatch);
+  };
+
+  const onRegister = async () => {
+    try {
+      if (!selectedUpstreamId || !serviceName) return;
+      await assignUpstreamToService({ id: selectedUpstreamId, serviceName });
+      nextStep(dispatch);
+    } catch {
+      //
+    }
   };
 
   const desktopColumns: ColumnsType<UpstreamWithTargets> = [
@@ -87,14 +107,14 @@ export default function Upstream() {
         )}
       </Loading>
 
-      {upstreamWithTargets && (
+      {upstream && (
         <Box>
           <InfoBox
             minColumnCount={2}
             margin={'0 0 2.8rem'}
             data={[
-              { key: t('upstream_english_name'), value: upstreamWithTargets?.name },
-              { key: t('upstream_description'), value: getValueOrDash(upstreamWithTargets?.description) },
+              { key: t('upstream_english_name'), value: upstream?.name },
+              { key: t('upstream_description'), value: getValueOrDash(upstream?.description) },
             ]}
           />
 
@@ -103,14 +123,14 @@ export default function Upstream() {
           <Table
             columns={desktopColumns}
             mobileColumns={mobileColumns}
-            dataSource={upstreamWithTargets?.targets}
+            dataSource={upstream?.targets}
             rowKey={(row) => row.idx}
             pagination={false}
           />
         </Box>
       )}
 
-      {!isFetching && <Footer onRegister={() => nextStep(dispatch)} onReturn={onReturn} />}
+      {!isFetching && <Footer onRegister={onRegister} onReturn={onReturn} />}
     </Container>
   );
 }

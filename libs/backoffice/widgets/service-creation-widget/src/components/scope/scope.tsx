@@ -8,7 +8,7 @@ import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetScope } from '../../services/get-scope.api';
+import { useGetScope } from '../../services';
 
 export default function Scope() {
   const [t] = useTr();

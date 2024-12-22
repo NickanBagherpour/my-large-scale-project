@@ -12,4 +12,5 @@ export const KEYS = createQueryKeys(prefix, [
   'SERVICE_ACCESS',
   'THROUGHPUT',
   'SCOPE',
+  'UPSTREAM',
 ]);
