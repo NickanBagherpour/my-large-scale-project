@@ -48,5 +48,5 @@ export async function GET(request: NextRequest) {
   const clientIP = await getIP();
   const serverIP = await getIP2();
 
-  return NextResponse.json({ ip: clientIP, ip2: serverIP });
+  return NextResponse.json({ ip: serverIP, ip2: clientIP });
 }

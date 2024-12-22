@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { RadioChangeEvent } from 'antd';
+import { RadioChangeEvent, Typography } from 'antd';
 
 import { LocalStorageKey } from '@oxygen/types';
 import { useLocalStorage } from '@oxygen/hooks';
@@ -74,9 +74,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   }, [requestRegistration]);
 
   const onFinish = (values) => {
-    if (!state.firstStep.aggregator_status) {
-      setAggregatorIsRequired(true);
-    } else {
+    if (!aggregatorIsRequired) {
       const params = {
         aggregator_status: state.firstStep.aggregator_status,
         aggregator_value: values.aggregator_value,
@@ -246,7 +244,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     </Chip>
                   </S.Chips>
                   {aggregatorIsRequired && (
-                    <S.AggregatorIsRequired>{t('select_aggregator_status')}</S.AggregatorIsRequired>
+                    <Typography.Text type='danger'>{t('select_aggregator_status')}</Typography.Text>
                   )}
                 </S.ChipsContainer>
               </SearchItemsContainer>

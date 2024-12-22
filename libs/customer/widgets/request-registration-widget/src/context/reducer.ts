@@ -14,7 +14,7 @@ export const initialStateValue: WidgetStateType = {
   sort: 'newest',
   requestMode: 'selectOrganization',
   firstStep: {
-    aggregator_status: undefined,
+    aggregator_status: 'nothing',
     aggregator_value: undefined,
     legal_person_name: undefined,
     legal_person_type: undefined,
