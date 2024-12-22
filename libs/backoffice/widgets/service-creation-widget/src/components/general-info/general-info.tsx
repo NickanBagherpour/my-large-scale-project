@@ -8,7 +8,7 @@ import { updateGetInfoStep, nextStep, useAppDispatch, initialStateValue } from '
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Container } from '../container/container.style';
 import {
   useGetCategories,
@@ -34,6 +34,7 @@ export default function GeneralInfo() {
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const serviceName = useSearchParams().get('service-name');
   const { data: service, isFetching: isFetchingService, is404Error } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
@@ -87,7 +88,7 @@ export default function GeneralInfo() {
   }
 
   if (service || is404Error) {
-    let initialValues = initialStateValue['generalInfo'];
+    let initialValues = { ...initialStateValue['generalInfo'], englishName: serviceName };
     if (service) {
       const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service.data;
       initialValues = {
@@ -108,7 +109,7 @@ export default function GeneralInfo() {
           <S.InputsBox>
             <SearchItemsContainer $columnNumber='3'>
               <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
-                <Input placeholder={t('enter_english_name')} />
+                <Input disabled placeholder={t('enter_english_name')} />
               </FormItem>
 
               <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
