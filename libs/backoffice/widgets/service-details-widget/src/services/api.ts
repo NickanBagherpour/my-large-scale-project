@@ -6,11 +6,9 @@ import { UpstreamCardsData, UpstreamListData } from '../types';
 const Api = {
   getUpstreamList: async (params) => {
     return client.get<UpstreamListData>(`${portalUrl}/v1/upstreams/service-name/${params}`);
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getUpstreamCardsDetail: async (params) => {
-    return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, params);
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+    return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, { params });
   },
   getUpstreamCardDetails: async (params) => {
     return client.get<UpstreamCardsData>(`${portalUrl}/v1/upstreams`, params);

@@ -8,7 +8,7 @@ import Api from '../api';
 export const useUpstreamCardDetailsQuery = (params: any) => {
   const dispatch = useAppDispatch();
 
-  return useQuery<any>({
+  return useQuery({
     queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
     queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(params), dispatch),
   });
