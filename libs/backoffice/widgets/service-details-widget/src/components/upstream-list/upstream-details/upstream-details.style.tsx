@@ -1,22 +1,14 @@
 import { cssVar } from '@oxygen/utils';
 import styled from 'styled-components';
 
-export const UpstreamCreationContainer = styled.div`
-  gap: 2.4rem;
-`;
-export const BorderBox = styled.div`
+export const BorderBoxContainer = styled.div`
   border: 1px solid ${(p) => p.theme.border._100};
   border-radius: var(${cssVar.radius});
   padding: 1.6rem;
 `;
-export const SelectContainer = styled.div`
-  min-height: 26rem;
-  input {
-    margin-bottom: 2.4rem;
-  }
-  section {
-    margin: 0;
-  }
+
+export const Table = styled.div`
+  margin-top: 2.4rem;
 `;
 export const Title = styled.p`
   font-size: 1.6rem;

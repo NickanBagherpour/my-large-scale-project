@@ -34,6 +34,7 @@ export const FallbackSelect = () => {
 
   return (
     <S.UpstreamCreationContainer>
+      <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBox>
         <S.SelectContainer>
           <Input
