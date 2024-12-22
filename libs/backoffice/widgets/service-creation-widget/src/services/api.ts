@@ -3,6 +3,7 @@ import type {
   AssignUpstreamToServiceParams,
   CodeTitle,
   GeneralInfoParams,
+  RouteParams,
   PostServiceParams,
   Route,
   Service,
@@ -34,7 +35,11 @@ const Api = {
     client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`),
-  // postRoute: async ()
+  // /publisher/api/v1/routes/service-name/{service-name}
+  postRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
+    client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
+  putRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
+    client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
 };
 
 export default Api;

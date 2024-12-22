@@ -2,14 +2,15 @@ import { Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createRouteSchema, RouteType } from '../../types';
+import { createRouteSchema, RouteParams, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, previousStep, updateRouteStep, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { Container } from '../container/container.style';
-import { useGetRoute } from '../../services/get-route.api';
+import { useGetRoute, usePostRouteMutation, usePutRouteMutation } from '../../services';
+import { useSearchParams } from 'next/navigation';
 
 const options = [
   { label: 'گزینه اول', value: '1' },
@@ -22,11 +23,23 @@ export default function Route() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
+  const serviceName = useSearchParams().get('service-name');
   const { data, is404Error, isFetching } = useGetRoute();
+  const { mutateAsync: postRoute } = usePostRouteMutation();
+  const { mutateAsync: putRoute } = usePutRouteMutation();
 
   const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
-    nextStep(dispatch);
-    updateRouteStep(dispatch, values);
+    try {
+      if (is404Error && serviceName) {
+        const { host, path, protocole, actionOrMethod } = values;
+        const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
+        await (is404Error ? postRoute(params) : putRoute(params));
+        nextStep(dispatch);
+        updateRouteStep(dispatch, values);
+      }
+    } catch {
+      //
+    }
   };
 
   const onRegister = () => {

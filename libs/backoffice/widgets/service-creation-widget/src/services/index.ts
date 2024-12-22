@@ -12,3 +12,6 @@ export { usePostGeneralInfoMutation } from './post-general-info.api';
 export { useGetScope } from './get-scope.api';
 export { useGetUpstream } from './get-upstream.api';
 export { usePostAssignUpstreamToService } from './post-assign-upstream-to-service.api';
+export { usePutRouteMutation } from './put-route.api';
+export { usePostRouteMutation } from './post-route.api';
+export { useGetRoute } from './get-route.api';
