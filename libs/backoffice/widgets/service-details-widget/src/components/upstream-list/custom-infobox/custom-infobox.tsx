@@ -28,11 +28,11 @@ function CustomInfobox(props: CustomInfoboxProps) {
           <>
             <Box>
               <S.Lable>{t('upstream_tab.info_box_latinName')}</S.Lable>
-              <span>{data.latinName ? data.latinName : '-'}</span>
+              <span>{data?.latinName ? data.latinName : '-'}</span>
             </Box>
             <Box>
               <S.Lable>{t('upstream_tab.info_box_persianName')}</S.Lable>
-              <span>{data.persianName ? data.persianName : '-'}</span>
+              <span>{data?.persianName ? data.persianName : '-'}</span>
             </Box>
             {handleDeleteButton && (
               <S.ButtonContainer>

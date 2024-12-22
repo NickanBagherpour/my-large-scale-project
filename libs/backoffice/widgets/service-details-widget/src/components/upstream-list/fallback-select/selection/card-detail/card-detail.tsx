@@ -1,4 +1,4 @@
-import { ActiveSelect } from '../../../active-select/active-select';
+import { UpstreamDetails } from '../../../upstream-details/upstream-details';
 import { useUpstreamCardDetailsQuery } from '../../../../../services/upstream-tab/upstream-card-details';
 
 import * as S from './card-detail.style';
@@ -6,10 +6,16 @@ import * as S from './card-detail.style';
 export const CardDetail = () => {
   const params = {};
   const { data, isFetching } = useUpstreamCardDetailsQuery(params);
-
+  const tableData = data?.content;
+  const infoBoxData = data?.content;
   return (
     <S.DetailContainer>
-      <ActiveSelect data={data} loading={isFetching} />
+      <UpstreamDetails
+        tableLoading={isFetching}
+        tableData={tableData}
+        infoBoxData={infoBoxData}
+        infoBoxLoading={isFetching}
+      />
     </S.DetailContainer>
   );
 };

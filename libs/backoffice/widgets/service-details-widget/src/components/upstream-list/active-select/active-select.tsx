@@ -12,6 +12,7 @@ import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab
 
 import * as S from './active-select.style';
 import { useUpstreamListQuery } from '../../../services';
+import { UpstreamDetails } from '../upstream-details/upstream-details';
 
 type ActiveSelectType = PageProps & {
   data?: any;
@@ -51,19 +52,13 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   return (
     <S.UpstreamContainer>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
-      <S.BorderBoxContainer>
-        <CustomInfobox handleDeleteButton={handleDeleteButton} data={infoBoxData} loading={isFetching} />
-        <S.Table>
-          <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
-          <Table
-            dataSource={tableData}
-            columns={desktopColumns}
-            mobileColumns={mobileColumns}
-            pagination={false}
-            loading={isFetching}
-          />
-        </S.Table>
-      </S.BorderBoxContainer>
+      <UpstreamDetails
+        tableLoading={isFetching}
+        tableData={tableData}
+        handleDeleteButton={handleDeleteButton}
+        infoBoxData={infoBoxData}
+        infoBoxLoading={isFetching}
+      />
       <RemoveServiceModal
         isOpen={modals.removeService}
         deleteToggle={handleModalDeleteButton}
