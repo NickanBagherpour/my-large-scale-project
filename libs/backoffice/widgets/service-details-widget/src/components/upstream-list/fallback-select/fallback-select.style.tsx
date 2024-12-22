@@ -10,6 +10,10 @@ export const BorderBox = styled.div`
   padding: 1.6rem;
 `;
 export const SelectContainer = styled.div`
+  min-height: 26rem;
+  input {
+    margin-bottom: 2.4rem;
+  }
   section {
     margin: 0;
   }

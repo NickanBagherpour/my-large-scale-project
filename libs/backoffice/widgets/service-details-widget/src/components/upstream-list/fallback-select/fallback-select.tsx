@@ -8,6 +8,7 @@ import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/upst
 import * as S from './fallback-select.style';
 import { Input } from '@oxygen/ui-kit';
 import { useState } from 'react';
+import { NoResult } from '@oxygen/reusable-components';
 
 export const FallbackSelect = () => {
   const state = useAppState();
@@ -35,8 +36,17 @@ export const FallbackSelect = () => {
     <S.UpstreamCreationContainer>
       <S.BorderBox>
         <S.SelectContainer>
-          <Input value={searchValue} onChange={(e) => handleChange(e)} placeholder='alireza' />
-          <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+          <Input
+            value={searchValue}
+            onChange={(e) => handleChange(e)}
+            placeholder={t('upstream_tab.placeholder')}
+            autoFocus
+          />
+          {data?.content.length ? (
+            <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+          ) : (
+            <NoResult isLoading={isFetching} />
+          )}
         </S.SelectContainer>
       </S.BorderBox>
       {state.upstreamTab.activeSelect.cardId && <CardDetail />}
