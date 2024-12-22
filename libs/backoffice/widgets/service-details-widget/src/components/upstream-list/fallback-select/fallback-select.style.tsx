@@ -10,7 +10,7 @@ export const BorderBox = styled.div`
   padding: 1.6rem;
 `;
 export const SelectContainer = styled.div`
-  min-height: 26rem;
+  min-height: 32rem;
   input {
     margin-bottom: 2.4rem;
   }
@@ -23,4 +23,7 @@ export const Title = styled.p`
   font-style: normal;
   font-weight: 500;
   line-height: 2.5rem; /* 156.25% */
+`;
+export const PaginationBox = styled.div`
+  margin: 1.8rem 0 0.8rem 0;
 `;
