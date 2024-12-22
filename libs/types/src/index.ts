@@ -8,6 +8,7 @@ export * from './css-types';
 export * from './client-details';
 export * from './client-list';
 export * from './upstream-list';
+export * from './request-list';
 export * from './service-creation';
 export * from './client-history';
 export * from './applicant-history';
