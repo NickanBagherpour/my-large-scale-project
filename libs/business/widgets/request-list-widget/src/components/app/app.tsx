@@ -19,7 +19,7 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const clientStatus = 'bank'; //kasb;
+  const clientStatus = 'commercialBanking'; //Business;
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')} subtitle={'(213)'}>

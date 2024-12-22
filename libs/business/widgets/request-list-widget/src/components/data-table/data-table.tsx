@@ -22,7 +22,9 @@ const DataTable: React.FC<DataTableProps> = (props) => {
 
   const { clientStatus } = props;
 
-  const { data: requestList, isFetching: requestListFetching } = useGetRequestListQuery({ ...rest, pagination });
+  const requestListParams = { ...rest, pagination };
+
+  const { data: requestList, isFetching: requestListFetching } = useGetRequestListQuery(requestListParams);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
