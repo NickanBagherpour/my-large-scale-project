@@ -8,6 +8,7 @@ import type {
   Service,
   Tags,
   Upstreams,
+  UpstreamsParams,
   UpstreamWithTargets,
 } from '../types';
 import type { Scope, ScopesData, ScopesParams } from '../types/scopes.type';
@@ -19,13 +20,9 @@ const Api = {
     client.post<unknown>(`${portalUrl}/v1/services/save-general-info`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
   getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/search`, { params }),
-  getUpstreams: async () =>
+  getUpstreams: async (params: UpstreamsParams) =>
     client.get<Upstreams>(`${portalUrl}/v1/upstreams`, {
-      params: {
-        page: 0,
-        size: 5,
-        sort: 'asc',
-      },
+      params,
     }),
   getUpstreamWithTargets: async (id: number) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${id}`),
   getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
@@ -37,6 +34,7 @@ const Api = {
     client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`),
+  // postRoute: async ()
 };
 
 export default Api;

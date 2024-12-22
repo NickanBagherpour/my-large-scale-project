@@ -1,10 +1,16 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+import { Input as UiKitInput } from '@oxygen/ui-kit';
+
+export const Input = styled(UiKitInput)`
+  margin-bottom: 2.4rem;
+`;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.2rem 1.6rem;
+  margin-bottom: 3rem;
 
   ${respondTo.down('xxl')} {
     grid-template-columns: repeat(3, 1fr);

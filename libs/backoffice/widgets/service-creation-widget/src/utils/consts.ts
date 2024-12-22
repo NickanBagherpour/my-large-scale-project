@@ -1,3 +1,5 @@
+export const UPSTREAMS_PAGE_SIZE = 8;
+
 export const FORM_ITEM_NAMES = {
   englishName: 'englishName',
   persianName: 'persianName',

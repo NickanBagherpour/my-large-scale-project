@@ -2,7 +2,7 @@ import Box from '../box/box';
 import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
 import { GridCard } from '@oxygen/reusable-components';
-import { ColumnsType, InfoBox, Loading, Table, Box as UiKitBox } from '@oxygen/ui-kit';
+import { ColumnsType, InfoBox, Loading, Pagaintion, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch } from '../../context';
@@ -13,15 +13,25 @@ import {
   useGetUpstreamWithTargets,
   usePostAssignUpstreamToService,
 } from '../../services';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import { useSearchParams } from 'next/navigation';
+import { useDebouncedValue } from '@oxygen/hooks';
+import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
 
 export default function Upstream() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { data: upstreams, isFetching: isFetchingUpstreams } = useGetUpstreams();
+  const [query, setQuery] = useState({ page: 1, searchTerm: '' });
+  const { page, searchTerm } = query;
+  const [debouncedQuery] = useDebouncedValue(query, 500);
+  const { data: upstreams, isFetching: isFetchingUpstreams } = useGetUpstreams({
+    page: debouncedQuery.page - 1, // backend pages starts from zero
+    size: UPSTREAMS_PAGE_SIZE,
+    sort: '',
+    'search-field': debouncedQuery.searchTerm,
+  });
   const [selectedUpstreamId, setSelectedUpstreamId] = useState<number | null>(null);
   const { data: currentUpstream, isFetching: isFetchingCurrentUpstream } = useGetUpstream();
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
@@ -44,6 +54,17 @@ export default function Upstream() {
     } catch {
       //
     }
+  };
+
+  const changePage = (currentPage: number) => {
+    if (currentPage) {
+      setQuery((prev) => ({ ...prev, page: currentPage }));
+    }
+  };
+
+  const changeSearchTerm = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery({ page: 1, searchTerm: e.target.value });
+    setSelectedUpstreamId(null);
   };
 
   const desktopColumns: ColumnsType<UpstreamWithTargets> = [
@@ -89,6 +110,13 @@ export default function Upstream() {
           <>
             <S.Title>{t('choose_upstream')}</S.Title>
             <Box>
+              <S.Input
+                value={searchTerm}
+                placeholder={t('search_by_english_or_persian_name')}
+                prefix={<i className='icon-search-normal' />}
+                onChange={changeSearchTerm}
+              />
+
               <S.Grid>
                 {upstreams.content.map(({ name, id, activeServerCount }) => (
                   <GridCard
@@ -102,6 +130,15 @@ export default function Upstream() {
                   />
                 ))}
               </S.Grid>
+
+              <Pagaintion
+                current={page}
+                total={upstreams.totalElements}
+                pageSize={UPSTREAMS_PAGE_SIZE}
+                showSizeChanger={false}
+                align='center'
+                onChange={changePage}
+              />
             </Box>
           </>
         )}

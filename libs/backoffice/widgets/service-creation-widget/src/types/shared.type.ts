@@ -1,10 +1,7 @@
 export type Pagination = {
   page: number;
   size: number;
-  sort: 'asc' | 'desc';
 };
-
-export type ParamsWithPagination<T> = T & Pagination;
 
 export type PaginatedData<T> = {
   content: T[];

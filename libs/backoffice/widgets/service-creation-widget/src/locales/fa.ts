@@ -56,6 +56,7 @@ export default {
   are_you_sure_to_remove: 'آیا از حذف سرور {{id}} برای این آپ‌استریم اطمینان دارید؟',
   remove_server: 'حذف سرور',
   remove: 'حذف',
+  search_by_english_or_persian_name: 'جستجو براساس نام لاتین یا فارسی سرویس',
 
   action_or_method: 'اکشن/متود',
   protocole: 'پروتوکل',

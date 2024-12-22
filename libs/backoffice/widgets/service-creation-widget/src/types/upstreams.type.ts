@@ -1,5 +1,12 @@
 import { PaginatedData } from './shared.type';
 
+export type UpstreamsParams = {
+  page: number;
+  size: number;
+  sort: string;
+  'search-field': string;
+};
+
 export type Upstream = {
   id: number;
   name: string;
