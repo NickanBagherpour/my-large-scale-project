@@ -18,7 +18,7 @@ const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
   postService: async (params: PostServiceParams) => client.post<Service>(`${portalUrl}/v1/services`, params),
   postGeneralInfo: async (params: GeneralInfoParams) =>
-    client.post<unknown>(`${portalUrl}/v1/services/save-general-info`, params),
+    client.post<unknown>(`${portalUrl}/v1/services/register-general-info`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
   getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/search`, { params }),
   getUpstreams: async (params: UpstreamsParams) =>
