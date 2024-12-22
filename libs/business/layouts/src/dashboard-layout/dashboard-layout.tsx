@@ -2,8 +2,6 @@ import React, { ReactNode, useState } from 'react';
 import { Layout } from 'antd';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
-
-import { Protected } from '@oxygen/reusable-components';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
@@ -54,32 +52,32 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   }
 
   return (
-    <Protected>
+    // <Protected>
+    <Layout>
+      <Appbar
+        onToggleDrawer={toggleDrawer}
+        onLogout={handleLogout}
+        config={config}
+        isMobileOrTablet={isMobileOrTablet}
+      />
+
       <Layout>
-        <Appbar
-          onToggleDrawer={toggleDrawer}
-          onLogout={handleLogout}
-          config={config}
-          isMobileOrTablet={isMobileOrTablet}
+        <Drawer
+          shouldDisplaySider={!isUndefined && !isMobile}
+          shouldDisplayDrawer={isMobile}
+          direction={config.direction}
+          openDrawer={openDrawer}
+          siderCollapsed={collapsed}
+          onBreakpoint={handleOnBreakpoint}
+          onClose={onClose}
         />
 
-        <Layout>
-          <Drawer
-            shouldDisplaySider={!isUndefined && !isMobile}
-            shouldDisplayDrawer={isMobile}
-            direction={config.direction}
-            openDrawer={openDrawer}
-            siderCollapsed={collapsed}
-            onBreakpoint={handleOnBreakpoint}
-            onClose={onClose}
-          />
-
-          <S.MainContentLayout>
-            <MainContent>{children}</MainContent>
-          </S.MainContentLayout>
-        </Layout>
+        <S.MainContentLayout>
+          <MainContent>{children}</MainContent>
+        </S.MainContentLayout>
       </Layout>
-    </Protected>
+    </Layout>
+    // </Protected>
   );
 };
 
