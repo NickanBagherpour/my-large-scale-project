@@ -163,37 +163,30 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                       <SearchItemsContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.legal_person_name')}</span>
-                          {/* <span>{data.list.legal_person_name}</span> */}
                           <span>{organizations[isSelected.id].legalName}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.national_id')}</span>
-                          {/* <span>{data.list.national_id}</span> */}
                           <span>{organizations[isSelected.id].organizationNationalId}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.legal_person_type')}</span>
-                          {/* <span>{data.list.legal_person_type}</span> */}
                           <span>{organizations[isSelected.id].legalType}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.registration_number')}</span>
-                          {/* <span>{data.list.registration_number}</span> */}
                           <span>{organizations[isSelected.id].registerNo}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.registration_date')}</span>
-                          {/* <span>{data.list.registration_date}</span> */}
                           <span>{organizations[isSelected.id].registerDate}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.activity_field')}</span>
-                          {/* <span>{data.list.activity_field}</span> */}
                           <span>{organizations[isSelected.id].activityIndustry}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.economy_code')}</span>
-                          {/* <span>{data.list.economy_code}</span> */}
                           <span>{organizations[isSelected.id].economicCode}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
