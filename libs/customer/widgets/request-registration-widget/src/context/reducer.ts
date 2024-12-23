@@ -8,35 +8,26 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  status: undefined,
+  searchTerm: '',
+  page: 1,
+  sort: 'newest',
+  requestMode: 'selectOrganization',
+  organizationId: '',
+  submissionId: '',
   firstStep: {
-    // grant_tag: [],
-    // add_tag: [],
-    // latin_name_client: undefined,
-    // persian_name_client: undefined,
-    // client_type: undefined,
-    // client_id: undefined,
-    // identity_auth: undefined,
-    // website_url: undefined,
-    // input_address: undefined,
-    // return_address: undefined,
-    // aggregator_status: undefined,
-    // aggregator: undefined,
-    // user_uame: undefined,
-    // national_code: undefined,
-    // organization_name: undefined,
-    // mobile_number: undefined,
-    // telephone: undefined,
-    // email: undefined,
-    legal_person_name: '',
-    legal_person_type: '',
-    registration_number: '',
-    registration_date: '',
-    national_id: '',
-    economy_code: '',
-    activity_field: '',
-    postal_code: '',
-    phone: '',
-    last_registration_address: '',
+    aggregator_status: 'nothing',
+    aggregator_value: undefined,
+    legal_person_name: undefined,
+    legal_person_type: undefined,
+    registration_number: undefined,
+    registration_date: undefined,
+    national_id: undefined,
+    economy_code: undefined,
+    activity_field: undefined,
+    postal_code: undefined,
+    phone: undefined,
+    last_registration_address: undefined,
   },
   secondStep: { table: [] },
   table: {
@@ -62,8 +53,21 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.firstStep = { ...action.payload } as FirstStepType;
       return;
     }
+    case 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID': {
+      state.organizationId = action.payload.organization.id;
+      state.submissionId = action.payload.submissionId;
+      return;
+    }
     case 'UPDATE_SECOND_STEP_TABLE': {
       state.secondStep.table = [...state.secondStep.table, { ...action.payload }];
+      return;
+    }
+
+    case 'UPDATE_REQUEST_MODE':
+      return void (state.requestMode = action.payload);
+
+    case 'UPDATE_STATUS': {
+      state.firstStep.aggregator_status = action.payload;
       return;
     }
 

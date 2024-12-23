@@ -1,9 +1,17 @@
 export default {
+  select_organization: 'انتخاب شرکت',
+  register_organization: 'ثبت اطلاعات شرکت',
+
   //firstStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',
+  company_specifications: 'مشخصات شرکت',
   return: 'بازگشت',
   submit_info: 'ثبت‌اطلاعات',
+  company_is_aggregator: 'شرکت اگریگیتور است',
+  company_has_aggregator: 'شرکت اگریگیتور دارد',
+  nothing: 'هیچ‌کدام',
+  select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
   //secondStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',
@@ -43,6 +51,8 @@ export default {
   },
   form: {
     //firstStep
+    aggregator: 'اگریگیتور',
+    aggregator_specifications: 'مشخصات اگریگیتور',
     legal_person_name: 'نام شخص حقوقی',
     legal_person_type: 'نوع شخص حقوقی',
     registration_number: 'شماره ثبت',
@@ -53,6 +63,7 @@ export default {
     postal_code: 'کد پستی',
     phone: 'تلفن',
     last_registration_address: 'آخرین آدرس ثبتی',
+    aggregator_status: 'وضعیت اگریگیتور',
     //secondStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
@@ -60,6 +71,7 @@ export default {
   },
   placeholder: {
     //firstStep
+    do_select: 'انتخاب کنید',
     legal_person_name: 'نام شخص حقوقی را وارد نمایید',
     legal_person_type: 'نوع شخص حقوقی را انتخاب نمایید',
     registration_number: 'شماره ثبت را وارد نمایید',

@@ -62,7 +62,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.Phone_number} label={t('form.Phone_number')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.phone_number} label={t('form.Phone_number')} rules={[rule]}>
               <Input placeholder={`${t('placeholder.Phone_number')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>

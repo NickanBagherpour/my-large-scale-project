@@ -12,37 +12,30 @@ export type PaginationType = {
 };
 
 export type FirstStepType = {
-  // grant_tag?: any;
-  // add_tag?: any;
-  // latin_name_client?: string;
-  // persian_name_client?: string;
-  // client_type?: string;
-  // client_id?: string;
-  // identity_auth?: string;
-  // website_url?: string;
-  // input_address?: string;
-  // return_address?: string;
-  // aggregator_status?: boolean;
-  // aggregator?: string;
-  // user_uame?: string;
-  // national_code?: string;
-  // organization_name?: string;
-  // mobile_number?: string;
-  // telephone?: string;
-  // email?: string;
-  legal_person_name: string;
-  legal_person_type: string;
-  registration_number: string;
-  registration_date: string;
-  national_id: string;
-  economy_code: string;
-  activity_field: string;
-  postal_code: string;
-  phone: string;
-  last_registration_address: string;
+  aggregator_status?: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
+  aggregator_value?: string;
+  legal_person_name?: string;
+  legal_person_type?: string;
+  registration_number?: string;
+  registration_date?: string;
+  national_id?: string;
+  economy_code?: string;
+  activity_field?: string;
+  postal_code?: string;
+  phone?: string;
+  last_registration_address?: string;
 };
 
+export type RequestMode = 'selectOrganization' | 'registerOrganization';
+
 export type WidgetStateType = {
+  searchTerm: string;
+  sort: 'newest' | 'oldest';
+  status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
+  page: number;
+  requestMode: RequestMode;
+  organizationId: string;
+  submissionId: string;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -61,8 +54,20 @@ export type WidgetActionType =
       payload: Partial<FiltersType>;
     }
   | {
+      type: 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID';
+      payload: Partial<FiltersType>;
+    }
+  | {
       type: 'UPDATE_SECOND_STEP_TABLE';
       payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_REQUEST_MODE';
+      payload: RequestMode;
+    }
+  | {
+      type: 'UPDATE_STATUS';
+      payload: WidgetStateType['status'];
     }
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
