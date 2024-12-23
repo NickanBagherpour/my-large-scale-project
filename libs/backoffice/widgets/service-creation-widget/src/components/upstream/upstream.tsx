@@ -2,7 +2,7 @@ import Box from '../box/box';
 import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
 import { GridCard } from '@oxygen/reusable-components';
-import { ColumnsType, InfoBox, Loading, Pagaintion, Table, Box as UiKitBox } from '@oxygen/ui-kit';
+import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch } from '../../context';
@@ -132,7 +132,7 @@ export default function Upstream() {
                 ))}
               </S.Grid>
 
-              <Pagaintion
+              <Pagination
                 current={page}
                 total={upstreams.totalElements}
                 pageSize={UPSTREAMS_PAGE_SIZE}
