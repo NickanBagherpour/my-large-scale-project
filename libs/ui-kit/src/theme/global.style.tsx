@@ -144,10 +144,10 @@ const GlobalStyle = createGlobalStyle`
   .ant-notification,.ant-notification-stack-expanded {
      font-family: inherit !important;
      border-radius: 10px;
-     
+
      & .ant-notification-notice-wrapper {
        color: ${(p) => p.theme.onPrimary};
-       
+
        & .ant-notification-notice {
          border-radius: inherit;
          padding: 2rem 1.6rem;
@@ -198,9 +198,10 @@ const GlobalStyle = createGlobalStyle`
   }
 }
 
-
-
-
-
+  .tsqd-parent-container {
+    /* Force the TanStack Query DevTools to always display in Left-to-Right (LTR) layout */
+    /*! @noflip */ /* Prevent automatic direction flip for RTL languages */
+    direction: ltr;
+  }
 `;
 export default GlobalStyle;
