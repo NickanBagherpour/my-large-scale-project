@@ -1,52 +1,87 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
-import { ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import { UpstreamServer } from '@oxygen/types';
+import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
+import type { InfoItemType, UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
 import ResultModal from '../result-modal/result-modal';
+import { useGetScope, useGetService, useGetUpstream } from '../../services';
+import { useGetRoute } from '../../services/get-route.api';
+import { getValueOrDash } from '@oxygen/utils';
 
 export default function ConfirmData() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
+  const { data: service, isFetching: isFetchingService } = useGetService();
+  const { data: route, isFetching: isFetchingRoute } = useGetRoute();
+  const { data: scope, isFetching: isFetchingScope } = useGetScope();
+  const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
 
-  const generalInfoData = [
-    { key: 'english_name', value: 'ٰsvc-gfg-bhhj-ngdc-zxzxc-zxc' },
-    { key: 'persian_name', value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-    { key: 'access', value: 'ٰPUBLIC' },
-    { key: 'category', value: 'ACCOUNT' },
-    { key: 'Throughout', value: 'Unlimited' },
-    { key: 'version', value: 'v1' },
-    { key: 'owner', value: 'Sadad' },
-    { key: 'tag', value: 'CUSTOMER' },
-  ];
+  let generalInfoData: InfoItemType[] = [];
+  if (service?.data) {
+    const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service.data;
+    generalInfoData = [
+      { key: 'english_name', value: name },
+      { key: 'persian_name', value: persianName },
+      { key: 'access', value: accessLevel.title },
+      { key: 'category', value: category.title },
+      { key: 'Throughout', value: throughput.title },
+      { key: 'version', value: version },
+      { key: 'owner', value: owner },
+      {
+        key: 'tag',
+        fullwidth: true,
+        value: getValueOrDash(
+          tags.map(({ id, title }) => (
+            <Chip ellipsis closeIcon type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
+              {title}
+            </Chip>
+          ))
+        ),
+      },
+    ];
+  }
 
-  const scopeData = [
-    { key: 'english_name', value: 'ٰsvc-gfg-bhhj-ngdc-zxzxc-zxc' },
-    { key: 'persian_name', value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-  ];
+  let scopeData: InfoItemType[] = [];
+  if (scope?.data) {
+    const { description, name } = scope.data;
+    scopeData = [
+      { key: 'english_name', value: name },
+      { key: 'persian_name', value: getValueOrDash(description) },
+    ];
+  }
 
-  const upstreamData = [
-    { key: 'english_name', value: 'SEJAM-UPSTREAM' },
-    { key: 'description', value: 'آپ‌استریم سجام' },
-  ];
+  let upstreamData: InfoItemType[] = [];
+  let upstreamTargets: UpstreamServer[] = [];
 
-  const routeData = [
-    { key: 'action_or_method', value: 'Post' },
-    { key: 'protocole', value: 'HTTP' },
-    { key: 'Path', value: 'api/sapta/v1/bale/customer-info/' },
-    { key: 'host', value: 'Openapis.bmi.ir' },
-  ];
+  if (upstream?.data) {
+    const { description, name, targets } = upstream.data;
+    upstreamData = [
+      { key: 'english_name', value: name },
+      { key: 'description', value: getValueOrDash(description) },
+    ];
 
-  const data: UpstreamServer[] = Array.from({ length: 4 }).map((_, idx) => ({
-    idx,
-    weight: '100',
-    domain: '192.168.1.20',
-    healthStatus: 'سالم',
-  }));
+    upstreamTargets = targets.map(({ weight, domain }, idx) => ({
+      idx,
+      weight,
+      domain,
+      healthStatus: getValueOrDash(null),
+    }));
+  }
+
+  let routeData: InfoItemType[] = [];
+  if (route?.data) {
+    const { host, path, method, protocol } = route.data;
+    routeData = [
+      { key: 'action_or_method', value: method },
+      { key: 'protocole', value: protocol },
+      { key: 'Path', value: path },
+      { key: 'host', value: host },
+    ];
+  }
 
   const desktopColumns: ColumnsType<UpstreamServer> = [
     {
@@ -92,29 +127,30 @@ export default function ConfirmData() {
         <div>
           <S.Section>
             <S.Title>{t('service_general_info')}</S.Title>
-            <InfoBox data={generalInfoData} margin={0} />
+            <InfoBox loading={isFetchingService} data={generalInfoData} margin={0} />
+          </S.Section>
+
+          <S.Section>
+            <S.Title>{t('route')}</S.Title>
+            <InfoBox loading={isFetchingRoute} data={routeData} margin={0} minColumnCount={2} />
           </S.Section>
 
           <S.Section>
             <S.Title>{t('scope')}</S.Title>
-            <InfoBox data={scopeData} margin={0} minColumnCount={2} />
+            <InfoBox loading={isFetchingScope} data={scopeData} margin={0} minColumnCount={2} />
           </S.Section>
 
           <S.Section>
             <S.Title>{t('upstream')}</S.Title>
-            <InfoBox data={upstreamData} margin={'0 0 1.6rem 0'} minColumnCount={2} />
+            <InfoBox loading={isFetchingUpstream} data={upstreamData} margin={'0 0 1.6rem 0'} minColumnCount={2} />
             <Table
-              dataSource={data}
+              loading={isFetchingUpstream}
+              dataSource={upstreamTargets}
               pagination={false}
               columns={desktopColumns}
               rowKey={(row) => row.idx}
               mobileColumns={mobileColumns}
             />
-          </S.Section>
-
-          <S.Section>
-            <S.Title>{t('route')}</S.Title>
-            <InfoBox data={routeData} margin={0} minColumnCount={2} />
           </S.Section>
         </div>
         <Footer onRegister={toggleIsResultModalOpen} onReturn={onReturn} />

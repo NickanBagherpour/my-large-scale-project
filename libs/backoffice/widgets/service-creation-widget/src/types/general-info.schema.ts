@@ -25,18 +25,18 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       }),
 
     [FORM_ITEM_NAMES.access]: z
-      .string()
-      .nullable()
+      .number()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.category]: z
-      .string()
-      .nullable()
+      .number()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
-    [FORM_ITEM_NAMES.throughout]: z
-      .string()
-      .nullable()
+    [FORM_ITEM_NAMES.throughput]: z
+      .number()
+      .optional()
       .refine((val) => val, t('validation.choose_one_option')),
 
     [FORM_ITEM_NAMES.version]: z
@@ -51,10 +51,9 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
 
-    [FORM_ITEM_NAMES.tag]: z
-      .string()
-      .nullable()
-      .refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.tags]: z
+      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }))
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
   });
 
 export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;
