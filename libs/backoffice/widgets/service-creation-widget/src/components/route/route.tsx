@@ -11,8 +11,10 @@ import FormItem from '../form-item/form-item';
 import { Container } from '../container/container.style';
 import { useGetRoute, usePostRouteMutation, usePutRouteMutation } from '../../services';
 import { useSearchParams } from 'next/navigation';
+import { useToggle } from '@oxygen/hooks';
+import ConfirmModal from '../cofirm-modal/confirm-modal';
 
-const options = [
+const protocoleOptions = [
   { label: 'http', value: 'HTTP' },
   { label: 'https', value: 'HTTPS' },
 ];
@@ -26,6 +28,8 @@ export default function Route() {
   const { data, is404Error, isFetching } = useGetRoute();
   const { mutateAsync: postRoute } = usePostRouteMutation();
   const { mutateAsync: putRoute } = usePutRouteMutation();
+  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const isInSSO = false;
 
   const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
     try {
@@ -42,7 +46,8 @@ export default function Route() {
   };
 
   const onRegister = () => {
-    form.submit();
+    if (isInSSO) form.submit();
+    else toggleConfirmModal();
   };
 
   const onReturn = () => {
@@ -61,36 +66,45 @@ export default function Route() {
     }
 
     return (
-      <Container>
-        <Box>
-          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
-            <SearchItemsContainer>
-              <FormItem
-                name={ROUTE_NAMES.actionOrMethod}
-                className='span-2'
-                label={t('action_or_method')}
-                rules={[rule]}
-              >
-                <Input />
-              </FormItem>
+      <>
+        <Container>
+          <Box>
+            <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+              <SearchItemsContainer>
+                <FormItem
+                  name={ROUTE_NAMES.actionOrMethod}
+                  className='span-2'
+                  label={t('action_or_method')}
+                  rules={[rule]}
+                >
+                  <Input />
+                </FormItem>
 
-              <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
-                <Select size={'large'} options={options} />
-              </FormItem>
+                <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
+                  <Select size={'large'} options={protocoleOptions} />
+                </FormItem>
 
-              <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
-                <Input />
-              </FormItem>
+                <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
+                  <Input disabled={!!isInSSO} />
+                </FormItem>
 
-              <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
-                <Input />
-              </FormItem>
-            </SearchItemsContainer>
-          </Form>
-        </Box>
+                <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
+                  <Input />
+                </FormItem>
+              </SearchItemsContainer>
+            </Form>
+          </Box>
 
-        <Footer onRegister={onRegister} onReturn={onReturn} />
-      </Container>
+          <Footer onRegister={onRegister} onReturn={onReturn} />
+        </Container>
+
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          toggle={toggleConfirmModal}
+          onConfirm={() => form.submit()}
+          fieldName={t('path')}
+        />
+      </>
     );
   } else {
     console.log(':)', 'unknown error');

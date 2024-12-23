@@ -20,6 +20,10 @@ export default {
   enter_tag: 'تگ مورد نظر را نتخاب نمایید',
   register_info: 'ثبت اطلاعات',
 
+  attention: 'توجه',
+  proceed_notice: 'توجه داشته باشید در صورت ثبت اطلاعات و رفتن به مرحله بعد، {{name}} قابل تغییر و ویرایش نخواهد بود.',
+  service_name: 'نام سرویس',
+
   import_from_sso: 'ایمپورت از SSO',
   create_scope: 'ایجاد اسکوپ',
   choose_scope: 'انتخاب اسکوپ',
@@ -38,6 +42,8 @@ export default {
   add_scope: 'افزودن اسکوپ',
   submit_and_add: 'تایید و افزودن',
   you_are_adding_scope: 'شما در حال افزودن اسکوپ {{scope}} در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
+  cancel: 'انصراف',
+  continue: 'ادامه',
 
   upstream: 'آپ استریم',
   choose_upstream: 'انتخاب آپ‌استریم',
