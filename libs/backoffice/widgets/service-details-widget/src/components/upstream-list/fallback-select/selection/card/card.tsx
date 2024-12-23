@@ -20,7 +20,7 @@ export type CardProps = PageProps & {
   loading: boolean;
 };
 export const Card = (props: CardProps) => {
-  const { cardData, loading } = props;
+  const { cardData, loading, wordToHighlight } = props;
 
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -47,6 +47,7 @@ export const Card = (props: CardProps) => {
               isSelected={+clickedCard === data.id}
               onClick={() => handleClick(data)}
               isHeaderLtr={true}
+              wordToHighlight={wordToHighlight}
             />
           ))}
         </S.CardContainer>

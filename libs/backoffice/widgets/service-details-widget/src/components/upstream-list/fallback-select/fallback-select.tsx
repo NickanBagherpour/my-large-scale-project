@@ -1,39 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import { Radio, RadioChangeEvent } from 'antd';
+import { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
+import { Input, Pagination } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
 
 import { Card } from './selection/card/card';
-import { RADIO_GROUP_NAME } from '../../../utils/consts';
 import { useAppDispatch, useAppState } from '../../../context';
-import { NameInputs } from './creation/name-inputs/name-inputs';
+import { UPSTREAM_CARD_PAGE_SIZE } from '../../../utils/consts';
 import { CardDetail } from './selection/card-detail/card-detail';
 import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/upstream-cards-detail';
 
 import * as S from './fallback-select.style';
-import { DataTable } from './creation/data-table/data-table';
 
 export const FallbackSelect = () => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const { data, isFetching } = useUpstreamCardsDetailQuery({
-    page: 0,
-    size: 1,
-    sort: ['asc'],
-  });
-  // const { data, isFetching } = useUpstreamCardsDetailsQuery();
-  // console.log('data', state);
+  const [searchValue, setSearchValue] = useState('');
+  const [page, setPage] = useState(1);
+  const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
+
+  function queryParams() {
+    const params = {
+      page: page - 1,
+      size: UPSTREAM_CARD_PAGE_SIZE,
+      sort: [''],
+      'search-field': searchValue,
+    };
+    return params;
+  }
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+  const changePage = (currentPage) => {
+    setPage(currentPage);
+  };
 
   return (
     <S.UpstreamCreationContainer>
+      <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBox>
         <S.SelectContainer>
-          <Card cardData={data?.content} loading={isFetching} />
+          <Input
+            value={searchValue}
+            onChange={(e) => handleChange(e)}
+            placeholder={t('upstream_tab.placeholder')}
+            autoFocus
+          />
+          {data?.content.length ? (
+            <>
+              <S.DataSection>
+                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+              </S.DataSection>
+              <S.PaginationBox>
+                <Pagination
+                  current={page}
+                  total={data?.totalElements}
+                  pageSize={UPSTREAM_CARD_PAGE_SIZE}
+                  showSizeChanger={false}
+                  align='center'
+                  onChange={changePage}
+                />
+              </S.PaginationBox>
+            </>
+          ) : (
+            <NoResult isLoading={isFetching} />
+          )}
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.activeSelect.cardId && <CardDetail />}
+      {state.upstreamTab.activeSelect.cardId && <CardDetail id={state.upstreamTab.activeSelect.cardId} />}
     </S.UpstreamCreationContainer>
   );
 };

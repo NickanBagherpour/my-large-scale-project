@@ -20,3 +20,4 @@ export const ADD_SERVER_MODAL_FORM_ITEM = {
   HEALTH: 'health',
   ADD_SERVER: 'add_server',
 };
+export const UPSTREAM_CARD_PAGE_SIZE = 8;

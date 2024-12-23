@@ -43,6 +43,7 @@ export default {
     are_you_sure_to_remove: 'آیا از حذف آپ‌استریم {{id}} برای این سرویس اطمینان دارید؟',
     remove_upstream: 'حذف آپ‌استریم',
     upstream_servers: 'سرورهای آپ‌استریم',
+    placeholder: 'جستجو براساس نام لاتین یا فارسی سرویس',
     table: {
       range: 'دامنه',
       health_status: 'وضعیت سلامت',
