@@ -191,14 +191,14 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
 
   return z.object({
     // Name Fields
-    [FORM_ITEM.latin_name_client]: requiredString.superRefine((value, ctx) => {
-      if (value.trim() !== '' && !/^[A-Za-z\s]+$/.test(value)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: t('error.english_only'),
-        });
-      }
-    }),
+    // [FORM_ITEM.latin_name_client]: requiredString.superRefine((value, ctx) => {
+    //   if (value.trim() !== '' && !/^[A-Za-z\s]+$/.test(value)) {
+    //     ctx.addIssue({
+    //       code: z.ZodIssueCode.custom,
+    //       message: t('error.english_only'),
+    //     });
+    //   }
+    // }),
 
     [FORM_ITEM.persian_name]: requiredString.superRefine((value, ctx) => {
       if (value.trim() !== '' && !/^[\u0600-\u06FF\s]+$/.test(value)) {
@@ -218,6 +218,8 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     }),
 
     // Required Fields
+    [FORM_ITEM.aggregator_status]: requiredString,
+    [FORM_ITEM.aggregator_value]: requiredString,
     [FORM_ITEM.legal_person_name]: requiredString,
     [FORM_ITEM.legal_person_type]: requiredString,
     [FORM_ITEM.registration_number]: requiredString,
@@ -231,19 +233,19 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
 
     //mobile number
     [FORM_ITEM.mobile_number]: mobileNumber,
-    [FORM_ITEM.Phone_number]: mobileNumber,
+    [FORM_ITEM.phone_number]: mobileNumber,
     [FORM_ITEM.technical_mobile_number]: mobileNumber,
     [FORM_ITEM.technical_Phone_number]: mobileNumber,
 
     // optional URL Field
-    [FORM_ITEM.input_address]: optionalUrlString,
-    [FORM_ITEM.website_url]: optionalUrlString,
+    // [FORM_ITEM.input_address]: optionalUrlString,
+    // [FORM_ITEM.website_url]: optionalUrlString,
 
     //optional email validator
     [FORM_ITEM.email]: optionalEmailString,
 
     // URL Field
-    [FORM_ITEM.return_address]: urlString,
+    // [FORM_ITEM.return_address]: urlString,
   });
 };
 
