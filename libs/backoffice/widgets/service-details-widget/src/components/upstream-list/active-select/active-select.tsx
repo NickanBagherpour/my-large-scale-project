@@ -22,14 +22,14 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-
+  //States
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
+  //Queries
   const { data, isFetching } = useUpstreamListQuery(state.serviceName);
   //constants
-  // const tableData=state.upstream.table
   const tableData = data?.targets ? [...data.targets] : undefined;
   const infoBoxData = { latinName: data?.name, persianName: data?.description };
   //Handlers
@@ -62,7 +62,6 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         cancelToggle={() => toggleModal('removeService')}
         id={data?.name}
       />
-      {/* <DetailsModal isOpen={modals.details} toggle={() => toggleModal('details')} /> */}
     </S.UpstreamContainer>
   );
 };
