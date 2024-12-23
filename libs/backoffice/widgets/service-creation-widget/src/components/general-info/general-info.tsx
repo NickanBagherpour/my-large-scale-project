@@ -19,6 +19,8 @@ import {
   usePostGeneralInfoMutation,
 } from '../../services';
 import * as S from './general-info.style';
+import { useToggle } from '@oxygen/hooks';
+import ConfirmModal from '../cofirm-modal/confirm-modal';
 
 function convertTags(tags?: Tags) {
   return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
@@ -42,6 +44,8 @@ export default function GeneralInfo() {
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
   const { mutateAsync: postGeneralInfo } = usePostGeneralInfoMutation();
+  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const isInSSO = service?.data?.isInSSO;
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
     const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
@@ -76,6 +80,11 @@ export default function GeneralInfo() {
     router.back();
   };
 
+  const onRegister = () => {
+    if (isInSSO) form.submit();
+    else toggleConfirmModal();
+  };
+
   const closeChip = (tag: { key: number; label: string; value: number }) => {
     form.setFieldValue(
       FORM_ITEM_NAMES.tags,
@@ -104,82 +113,91 @@ export default function GeneralInfo() {
     }
 
     return (
-      <Container>
-        <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
-          <S.InputsBox>
-            <SearchItemsContainer $columnNumber='3'>
-              <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
-                <Input disabled placeholder={t('enter_english_name')} />
-              </FormItem>
+      <>
+        <Container>
+          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+            <S.InputsBox>
+              <SearchItemsContainer $columnNumber='3'>
+                <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
+                  <Input disabled={!!isInSSO} placeholder={t('enter_english_name')} />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
-                <Input placeholder={t('enter_persian_name')} />
-              </FormItem>
+                <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
+                  <Input placeholder={t('enter_persian_name')} />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
-                <Select
-                  size={'large'}
-                  placeholder={t('select_access')}
-                  loading={isFetchingServiceAccesses}
-                  options={convertCodeTitles(serviceAccesses)}
-                />
-              </FormItem>
+                <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
+                  <Select
+                    size={'large'}
+                    placeholder={t('select_access')}
+                    loading={isFetchingServiceAccesses}
+                    options={convertCodeTitles(serviceAccesses)}
+                  />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
-                <Select
-                  size={'large'}
-                  loading={isFetchingCategories}
-                  placeholder={t('select_categroy')}
-                  options={convertCodeTitles(categories)}
-                />
-              </FormItem>
+                <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
+                  <Select
+                    size={'large'}
+                    loading={isFetchingCategories}
+                    placeholder={t('select_categroy')}
+                    options={convertCodeTitles(categories)}
+                  />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
-                <Select
-                  size={'large'}
-                  placeholder={t('throughput')}
-                  loading={isFetchingThroughput}
-                  options={convertCodeTitles(throughputs)}
-                />
-              </FormItem>
+                <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
+                  <Select
+                    size={'large'}
+                    placeholder={t('throughput')}
+                    loading={isFetchingThroughput}
+                    options={convertCodeTitles(throughputs)}
+                  />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
-                <Input placeholder={t('enter_version')} />
-              </FormItem>
+                <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
+                  <Input placeholder={t('enter_version')} />
+                </FormItem>
 
-              <FormItem name={FORM_ITEM_NAMES.owner} label={t('owner')} rules={[rule]}>
-                <Input placeholder={t('enter_owner')} />
-              </FormItem>
-            </SearchItemsContainer>
-          </S.InputsBox>
+                <FormItem name={FORM_ITEM_NAMES.owner} label={t('owner')} rules={[rule]}>
+                  <Input placeholder={t('enter_owner')} />
+                </FormItem>
+              </SearchItemsContainer>
+            </S.InputsBox>
 
-          <Box>
-            <S.TagPicker>
-              <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
-                <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
-                  {t('add_tags')}
-                </Dropdown.Select>
-              </FormItem>
+            <Box>
+              <S.TagPicker>
+                <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+                  <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
+                    {t('add_tags')}
+                  </Dropdown.Select>
+                </FormItem>
 
-              {selectedTags?.map((item) => (
-                <Chip
-                  ellipsis
-                  closeIcon
-                  type='active'
-                  key={item.key}
-                  tooltipOnEllipsis
-                  tooltipTitle={item.label}
-                  onClose={() => closeChip(item)}
-                >
-                  {item.label}
-                </Chip>
-              ))}
-            </S.TagPicker>
-          </Box>
-        </Form>
+                {selectedTags?.map((item) => (
+                  <Chip
+                    ellipsis
+                    closeIcon
+                    type='active'
+                    key={item.key}
+                    tooltipOnEllipsis
+                    tooltipTitle={item.label}
+                    onClose={() => closeChip(item)}
+                  >
+                    {item.label}
+                  </Chip>
+                ))}
+              </S.TagPicker>
+            </Box>
+          </Form>
 
-        <Footer onRegister={form.submit} onReturn={onReturn} />
-      </Container>
+          <Footer onRegister={onRegister} onReturn={onReturn} />
+        </Container>
+
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          toggle={toggleConfirmModal}
+          onConfirm={() => form.submit()}
+          fieldName={t('service_name')}
+        />
+      </>
     );
   } else return 'something went wrong';
 }
