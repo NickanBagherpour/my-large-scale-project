@@ -8,6 +8,10 @@ export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: P
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
 }
 
+export function updateOrganizationIdAndSubmissionId(dispatch: WidgetDispatchType, orgAndSubId: Partial<FiltersType>) {
+  dispatch({ type: 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID', payload: orgAndSubId });
+}
+
 export function updateSecondStepTableAction(dispatch: WidgetDispatchType, secondStepTable: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_SECOND_STEP_TABLE', payload: secondStepTable });
 }

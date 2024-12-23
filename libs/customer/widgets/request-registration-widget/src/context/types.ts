@@ -34,6 +34,8 @@ export type WidgetStateType = {
   status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   page: number;
   requestMode: RequestMode;
+  organizationId: string;
+  submissionId: string;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -49,6 +51,10 @@ export type WidgetStateType = {
 export type WidgetActionType =
   | {
       type: 'UPDATE_FIRST_STEP_FORM';
+      payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID';
       payload: Partial<FiltersType>;
     }
   | {

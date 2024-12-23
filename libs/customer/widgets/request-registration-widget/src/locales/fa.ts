@@ -63,6 +63,7 @@ export default {
     postal_code: 'کد پستی',
     phone: 'تلفن',
     last_registration_address: 'آخرین آدرس ثبتی',
+    aggregator_status: 'وضعیت اگریگیتور',
     //secondStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',

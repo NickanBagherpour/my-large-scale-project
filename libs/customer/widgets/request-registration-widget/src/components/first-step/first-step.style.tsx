@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Radio as AntRadio } from 'antd';
 import { respondTo } from '@oxygen/utils';
-import { Dropdown } from '@oxygen/ui-kit';
+import { Dropdown, Divider as KitDivider } from '@oxygen/ui-kit';
 import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
 import { LooperGroup } from '../../assets';
 import RawGrid from '../grid/grid.style';
@@ -45,6 +45,36 @@ export const RepresentativesInfoItemContainer = styled.div`
   }
 `;
 
+export const Divider = styled(KitDivider)`
+  border-color: ${(p) => p.theme.background._200};
+  margin-top: 1.6rem;
+
+  ${respondTo.down('lg')} {
+    display: none;
+  }
+`;
+
+export const InfoItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.6rem 0;
+
+  span {
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+  }
+
+  span:nth-child(1) {
+    color: ${(p) => p.theme.text.tertiary};
+    font-weight: 400;
+  }
+  span:nth-child(2) {
+    color: ${(p) => p.theme.text.secondary};
+    font-weight: 500;
+  }
+`;
+
 export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
   border-radius: 1.8rem;
   padding: 1.6rem;
@@ -71,6 +101,10 @@ export const Button = styled(UiKitButton)<{ $isSelected: boolean }>`
       border-color: ${(p) => p.theme.primary._400};
       opacity: 1;
     }
+  }
+
+  & p {
+    margin-top: 0;
   }
 `;
 

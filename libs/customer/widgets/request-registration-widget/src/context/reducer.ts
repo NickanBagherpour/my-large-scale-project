@@ -13,6 +13,8 @@ export const initialStateValue: WidgetStateType = {
   page: 1,
   sort: 'newest',
   requestMode: 'selectOrganization',
+  organizationId: '',
+  submissionId: '',
   firstStep: {
     aggregator_status: 'nothing',
     aggregator_value: undefined,
@@ -49,6 +51,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload } as FirstStepType;
+      return;
+    }
+    case 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID': {
+      state.organizationId = action.payload.organization.id;
+      state.submissionId = action.payload.submissionId;
       return;
     }
     case 'UPDATE_SECOND_STEP_TABLE': {

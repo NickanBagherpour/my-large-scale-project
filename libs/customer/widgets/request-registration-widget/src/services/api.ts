@@ -28,9 +28,19 @@ const Api = {
     return res;
   },
 
-  getOrganizationsListData: async (params: OrganizationParamsType) => {
+  getOrganizationsListDataMock: async (params: OrganizationParamsType) => {
     const res = Mockify.getOrganizations(params);
     return res;
+  },
+
+  getOrganizationsListData: async (params: OrganizationParamsType) => {
+    try {
+      const res = await client.get(`${portalUrl}/v1/organizations`);
+      return res;
+    } catch (error) {
+      console.error('Error fetching organization list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
   },
 
   getOrganizationData: async (params: RequestRegistration) => {

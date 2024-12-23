@@ -21,7 +21,14 @@ import {
   useGetOrganizationDataMutationQuery,
   useGetOrganizationsQuery,
 } from '../../services/first-step/first-step-data';
-import { updateFirstStepAction, useAppDispatch, useAppState, updateRequestMode, updateStatus } from '../../context';
+import {
+  updateFirstStepAction,
+  updateOrganizationIdAndSubmissionId,
+  useAppDispatch,
+  useAppState,
+  updateRequestMode,
+  updateStatus,
+} from '../../context';
 
 import * as S from './first-step.style';
 
@@ -41,37 +48,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
-  const [requestRegistration, setRequestRegistration, removeRequestRegistration] = useLocalStorage<any>(
-    LocalStorageKey.REQUEST_REGISTRATION
-  );
-
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
-
-  const { mutate: secondMutate, isPending: secondIsPending } = useGetOrganizationDataMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
 
   type Status = WidgetStateType['status'];
-
-  useEffect(() => {
-    const params = requestRegistration;
-    if (requestRegistration) {
-      secondMutate(params, {
-        onSuccess: (data) => {
-          console.log('get organization data:', data);
-          // setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
-
-          // updateFirstStepAction(dispatch, values);
-          // setCurrentStep((perv) => perv + 1);
-        },
-        onError: (error) => {
-          console.error('request registration first step  failed:', error);
-        },
-      });
-    }
-  }, [requestRegistration]);
 
   const onFinish = (values) => {
     if (!aggregatorIsRequired) {
@@ -88,13 +71,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         postalCode: values.postal_code,
         phone: values.phone,
         registeredAddress: values.last_registration_address,
+        isAggregator: true,
+        aggregatorId: null,
       };
 
       firstMutate(params, {
         onSuccess: (data) => {
           console.log('request registration first step successful:', data);
-          setRequestRegistration({ organization: data.data.organization.id, submissionId: data.data.submissionId });
-
+          updateOrganizationIdAndSubmissionId(dispatch, data.data);
           updateFirstStepAction(dispatch, values);
           setCurrentStep((perv) => perv + 1);
         },
@@ -117,11 +101,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     updateRequestMode(dispatch, e.target.value);
   };
 
-  const handleOrganizationSelect = (id: string) => {
+  const handleOrganizationSelect = (idx: string) => {
     setIsSelected({
       ...isSelected,
       isSelected: true,
-      id: id,
+      id: idx,
     });
   };
 
@@ -148,19 +132,19 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <S.Grid>
               {isOrganizationsFetching ? (
                 <Loading spinning={isOrganizationsFetching} />
-              ) : organizations?.list.length ? (
-                organizations.list.slice(0, 4).map(({ name, id }, idx) => (
+              ) : organizations?.length && organizations?.length ? (
+                organizations.map(({ legalName, organizationNationalId }, idx) => (
                   <S.Button
-                    $isSelected={id === isSelected.id ? true : false}
+                    $isSelected={idx === isSelected.id ? true : false}
                     color='primary'
                     key={idx}
-                    onClick={() => handleOrganizationSelect(id)}
+                    onClick={() => handleOrganizationSelect(idx)}
                   >
-                    <S.Header>{name}</S.Header>
+                    <S.Header>{legalName}</S.Header>
 
                     <S.Subtitle>
                       <span className='nationalId'>{t('form.national_id')}: </span>
-                      {id}
+                      {organizationNationalId}
                     </S.Subtitle>
                   </S.Button>
                 ))
@@ -174,33 +158,68 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   <Loading spinning={loading} />
                 ) : (
                   <S.OrganizationContainer>
-                    <S.TitleTxt className={'cards-title'}>{t('representatives_info')}</S.TitleTxt>
+                    <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
                     <Card>
+                      <SearchItemsContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.legal_person_name')}</span>
+                          {/* <span>{data.list.legal_person_name}</span> */}
+                          <span>{organizations[isSelected.id].legalName}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.national_id')}</span>
+                          {/* <span>{data.list.national_id}</span> */}
+                          <span>{organizations[isSelected.id].organizationNationalId}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.legal_person_type')}</span>
+                          {/* <span>{data.list.legal_person_type}</span> */}
+                          <span>{organizations[isSelected.id].legalType}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.registration_number')}</span>
+                          {/* <span>{data.list.registration_number}</span> */}
+                          <span>{organizations[isSelected.id].registerNo}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.registration_date')}</span>
+                          {/* <span>{data.list.registration_date}</span> */}
+                          <span>{organizations[isSelected.id].registerDate}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.activity_field')}</span>
+                          {/* <span>{data.list.activity_field}</span> */}
+                          <span>{organizations[isSelected.id].activityIndustry}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.economy_code')}</span>
+                          {/* <span>{data.list.economy_code}</span> */}
+                          <span>{organizations[isSelected.id].economicCode}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.aggregator_status')}</span>
+                          <span>
+                            {organizations[isSelected.id].isAggregator}-{organizations[isSelected.id].id}
+                          </span>
+                        </S.InfoItemContainer>
+                      </SearchItemsContainer>
+                      <S.Divider orientation='center' />
                       <SearchItemsContainer $columnNumber='3'>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('legal_name')}</span>
-                          <span>{data.list.legal_name}</span>
-                        </S.RepresentativesInfoItemContainer>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('form.mobile_number')}</span>
-                          <span>{data.list.mobile_number}</span>
-                        </S.RepresentativesInfoItemContainer>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('telephone')}</span>
-                          <span>{data.list.telephone}</span>
-                        </S.RepresentativesInfoItemContainer>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('technical_name')}</span>
-                          <span>{data.list.technical_name}</span>
-                        </S.RepresentativesInfoItemContainer>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('form.mobile_number')}</span>
-                          <span>{data.list.mobile_number}</span>
-                        </S.RepresentativesInfoItemContainer>
-                        <S.RepresentativesInfoItemContainer>
-                          <span>{t('telephone')}</span>
-                          <span>{data.list.telephone}</span>
-                        </S.RepresentativesInfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.last_registration_address')}</span>
+                          {/* <span>{data.list.last_registration_address}</span> */}
+                          <span>{organizations[isSelected.id].registeredAddress}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.postal_code')}</span>
+                          {/* <span>{data.list.postal_code}</span> */}
+                          <span>{organizations[isSelected.id].postalCode}</span>
+                        </S.InfoItemContainer>
+                        <S.InfoItemContainer>
+                          <span>{t('form.phone')}</span>
+                          {/* <span>{data.list.phone}</span> */}
+                          <span>{organizations[isSelected.id].phone}</span>
+                        </S.InfoItemContainer>
                       </SearchItemsContainer>
                     </Card>
                   </S.OrganizationContainer>
