@@ -1,42 +1,53 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import type { Pagination, Service } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
+import { ScopeListDataType } from '@oxygen/types';
+
 import { TFunction } from 'i18next';
+
 import * as S from '../components/data-table/data-table.style';
-import styled from 'styled-components';
 
 type Props = {
   t: TFunction;
-  pagination: Pagination;
+  pagination: {
+    page: number;
+    pageSize: number;
+  };
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> {
   const {
     t,
-    pagination: { page, rowsPerPage },
+    pagination: { page, pageSize },
   } = props;
 
   return [
     {
       title: t('table.index'),
       align: 'center',
-      key: 'index',
+      key: 'id',
       width: '2.8rem',
       render: (_val, _record, index) => {
-        const start = (page - 1) * rowsPerPage + 1;
+        const start = (page - 1) * pageSize + 1;
         return start + index;
       },
     },
     {
       width: '43.9rem',
       title: t('table.latin_name_scope'),
-      dataIndex: 'latin_name_scope',
+      dataIndex: 'name',
       align: 'center',
+      render: (_val, _record, index) => {
+        return getValueOrDash(_record?.name);
+      },
     },
     {
       width: '43.9rem',
       title: t('table.persian_name_scope'),
-      dataIndex: 'persian_name_scope',
+      dataIndex: 'description',
       align: 'center',
+      render: (_val, _record, index) => {
+        return getValueOrDash(_record?.description);
+      },
     },
     {
       width: '11.8rem',
@@ -50,20 +61,16 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
   ];
 }
 
-export function getMobileColumns(props: Props) {
-  const {
-    t,
-    pagination: { page, rowsPerPage },
-  } = props;
+export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
+  const { t } = props;
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ index, latin_name_scope, persian_name_scope }) => {
+      render: ({ index, name, description }) => {
         const data = [
-          { title: t('table.index'), value: index },
-          { title: t('table.latin_name_scope'), value: latin_name_scope },
-          { title: t('table.persian_name_scope'), value: persian_name_scope },
+          { title: t('table.latin_name_scope'), value: getValueOrDash(name) },
+          { title: t('table.persian_name_scope'), value: getValueOrDash(description) },
           {
             title: t('table.details'),
             value: (
@@ -76,7 +83,7 @@ export function getMobileColumns(props: Props) {
         return (
           <S.TableRow>
             {data.map((item, idx) => (
-              <Table.MobileColumn key={idx} {...item} />
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
             ))}
           </S.TableRow>
         );
