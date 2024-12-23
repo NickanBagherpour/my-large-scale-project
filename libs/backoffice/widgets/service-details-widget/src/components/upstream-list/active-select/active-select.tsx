@@ -1,18 +1,16 @@
 import { useState } from 'react';
 
-import { Loading, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { Modal } from '../../scope-list/scope-list';
-import CustomInfobox from '../custom-infobox/custom-infobox';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
-import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 
-import * as S from './active-select.style';
 import { useUpstreamListQuery } from '../../../services';
 import { UpstreamDetails } from '../upstream-details/upstream-details';
+
+import * as S from './active-select.style';
 
 type ActiveSelectType = PageProps & {
   data?: any;
@@ -38,16 +36,15 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
   };
+
   const handleDeleteButton = () => {
     toggleModal('removeService');
   };
+
   const handleModalDeleteButton = () => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-
-  const desktopColumns = getDesktopColumns({ t });
-  const mobileColumns = getMobileColumns({ t });
 
   return (
     <S.UpstreamContainer>
