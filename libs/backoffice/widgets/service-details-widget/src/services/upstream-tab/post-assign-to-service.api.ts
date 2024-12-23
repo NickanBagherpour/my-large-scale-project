@@ -5,7 +5,8 @@ import { ApiUtil } from '@oxygen/utils';
 import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
-export type AssignUpstreamToServiceParams = { id: string | number; serviceName: string };
+import { Nullable } from '@oxygen/types';
+export type AssignUpstreamToServiceParams = { id: Nullable<string | number>; serviceName: Nullable<string> };
 export const useAssignToServiceMutation = () => {
   const dispatch = useAppDispatch();
   return useMutation({
