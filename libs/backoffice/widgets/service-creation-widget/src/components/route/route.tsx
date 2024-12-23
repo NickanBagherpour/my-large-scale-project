@@ -13,9 +13,8 @@ import { useGetRoute, usePostRouteMutation, usePutRouteMutation } from '../../se
 import { useSearchParams } from 'next/navigation';
 
 const options = [
-  { label: 'گزینه اول', value: '1' },
-  { label: 'گزینه دوم', value: '2' },
-  { label: 'گزینه سوم', value: '3' },
+  { label: 'http', value: 'HTTP' },
+  { label: 'https', value: 'HTTPS' },
 ];
 
 export default function Route() {
@@ -30,10 +29,10 @@ export default function Route() {
 
   const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
     try {
-      if (is404Error && serviceName) {
+      if (serviceName) {
         const { host, path, protocole, actionOrMethod } = values;
         const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
-        await (is404Error ? postRoute(params) : putRoute(params));
+        await (data?.data ? putRoute(params) : postRoute(params));
         nextStep(dispatch);
         updateRouteStep(dispatch, values);
       }
