@@ -30,3 +30,8 @@ export const Title = styled.p`
 export const PaginationBox = styled.div`
   margin: 1.8rem 0 0.8rem 0;
 `;
+export const DataSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;

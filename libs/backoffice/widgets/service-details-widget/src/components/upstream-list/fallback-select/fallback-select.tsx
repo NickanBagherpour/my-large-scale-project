@@ -50,7 +50,9 @@ export const FallbackSelect = () => {
           />
           {data?.content.length ? (
             <>
-              <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+              <S.DataSection>
+                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+              </S.DataSection>
               <S.PaginationBox>
                 <Pagination
                   current={page}
