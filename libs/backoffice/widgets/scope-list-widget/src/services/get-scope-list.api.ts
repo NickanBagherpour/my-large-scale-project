@@ -11,5 +11,6 @@ export const useGetScopeListQuery = (params: typeScopeListParams) => {
     queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST, params],
     queryFn: withErrorHandling(() => Api.getScopeList(params), dispatch),
     placeholderData: keepPreviousData,
+    networkMode: 'offlineFirst',
   });
 };
