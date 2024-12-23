@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
+import { Form as AntForm } from 'antd';
 import { Button as KitButton, Input as KitInput, Modal } from '@oxygen/ui-kit';
 
 export const FilterContainer = styled.section`
   margin-top: 2.4rem;
+`;
+
+export const Form = styled(AntForm)`
+  width: 100%;
+
+  div.ant-form-item {
+    margin-bottom: 0;
+  }
 `;
 
 export const Input = styled(KitInput)`
@@ -17,9 +26,7 @@ export const Input = styled(KitInput)`
 `;
 
 export const Button = styled(KitButton)`
-  &&& {
-    font-size: 1.4rem;
-  }
+  font-size: 1.4rem;
 `;
 
 export const Buttons = styled.div`
@@ -35,7 +42,6 @@ export const Buttons = styled.div`
 
 export const Actions = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 3.4rem;

@@ -8,7 +8,7 @@ import { Input } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import { useBounce } from '@oxygen/hooks';
 
-import { updateSearchTerm, useAppDispatch, useAppState } from '../../context';
+import { updateSearchTerm, useAppDispatch } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
@@ -23,17 +23,16 @@ type FilterProps = PageProps & {
 
 const Filter: React.FC<FilterProps> = (props) => {
   const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
   const [form] = Form.useForm();
   const [value, setValue] = useState('');
   const [stateModal, setStateModal] = useState<boolean>(false);
 
-  useBounce(() => {
-    updateSearchTerm(dispatch, value);
-  }, [value]);
-
   const rule = createSchemaFieldRule(createFormSchema(t));
+
+  useBounce(() => {
+    updateSearchTerm(dispatch, value.trim());
+  }, [value]);
 
   const handleChangeModal = () => {
     setStateModal(true);
@@ -51,14 +50,17 @@ const Filter: React.FC<FilterProps> = (props) => {
   return (
     <S.FilterContainer>
       <S.Actions>
-        <S.Input
-          name={FORM_ITEM_NAMES.scopesName}
-          value={value}
-          placeholder={t('placeholder.search_by_name_or_id')}
-          maxLength={MAX_LENGTH_INPUT}
-          prefix={<i className='icon-search-normal' />}
-          onChange={(e) => setValue(e.target.value)}
-        />
+        <S.Form form={form}>
+          <Form.Item name={FORM_ITEM_NAMES.scopesName} rules={[rule]}>
+            <S.Input
+              value={value}
+              placeholder={t('placeholder.search_by_name_or_id')}
+              maxLength={MAX_LENGTH_INPUT}
+              prefix={<i className='icon-search-normal' />}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </Form.Item>
+        </S.Form>
         <S.Buttons>
           <S.Button color='primary' variant='outlined' onClick={handleChangeModal}>
             {t('button.upload_scope')}
