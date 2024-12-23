@@ -6,8 +6,9 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Input } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
+import { useBounce } from '@oxygen/hooks';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { updateSearchTerm, useAppDispatch, useAppState } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
@@ -28,6 +29,10 @@ const Filter: React.FC<FilterProps> = (props) => {
   const [value, setValue] = useState('');
   const [stateModal, setStateModal] = useState<boolean>(false);
 
+  useBounce(() => {
+    updateSearchTerm(dispatch, value);
+  }, [value]);
+
   const rule = createSchemaFieldRule(createFormSchema(t));
 
   const handleChangeModal = () => {
@@ -40,7 +45,6 @@ const Filter: React.FC<FilterProps> = (props) => {
   }
 
   const onFinish = (value) => {
-    console.log(value);
     setStateModal(false);
   };
 
