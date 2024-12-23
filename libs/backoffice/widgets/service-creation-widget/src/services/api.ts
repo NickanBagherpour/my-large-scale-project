@@ -30,7 +30,7 @@ const Api = {
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
   getScope: async (name: string) => client.get<Scope>(`${portalUrl}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
-    client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/service-name/${name}`),
+    client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`),
   postRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
