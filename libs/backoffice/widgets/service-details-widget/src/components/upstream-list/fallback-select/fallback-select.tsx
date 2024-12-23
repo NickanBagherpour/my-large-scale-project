@@ -67,7 +67,7 @@ export const FallbackSelect = () => {
           )}
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.activeSelect.cardId && <CardDetail />}
+      {state.upstreamTab.activeSelect.cardId && <CardDetail id={state.upstreamTab.activeSelect.cardId} />}
     </S.UpstreamCreationContainer>
   );
 };
