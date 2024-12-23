@@ -31,6 +31,7 @@ import * as getScopeChangeHistory from './scope-change-history.mock';
 import * as UpstreamCardDetails from './upstream-card-details.mock';
 import * as RouteDetailsMock from './route-details.mock';
 import * as getRouteChangeHistory from './route-history.mock';
+import * as getRequestList from './request-list.mock';
 
 const Mockify = {
   ...UserMock,
@@ -66,6 +67,7 @@ const Mockify = {
   ...UpstreamCardDetails,
   ...RouteDetailsMock,
   ...getRouteChangeHistory,
+  ...getRequestList,
 };
 
 export default Mockify;

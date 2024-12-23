@@ -45,6 +45,10 @@ export const ROUTES = {
     REQUESTS_MANAGEMENT: '/requests-management',
     REQUEST_REGISTRATION: '/request-registration',
   },
+  BUSINESS: {
+    REQUEST_LIST: '/request-list',
+    REQUEST_ID: '/request-id',
+  },
 };
 export const CUSTOMER_ROUTE_GROUPS = [
   // [ROUTES.CUSTOMER.DASHBOARD],
