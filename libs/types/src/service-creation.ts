@@ -7,5 +7,5 @@ export type Scope = {
 export type UpstreamServer = {
   domain: string;
   healthStatus: string;
-  weight: string;
+  weight: number;
 };

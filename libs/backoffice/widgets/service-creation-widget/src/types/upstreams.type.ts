@@ -1,0 +1,30 @@
+import { PaginatedData } from './shared.type';
+
+export type UpstreamsParams = {
+  page: number;
+  size: number;
+  sort: string;
+  'search-field': string;
+};
+
+export type Upstream = {
+  id: number;
+  name: string;
+  activeServerCount: number;
+};
+
+export type UpstreamWithTargets = {
+  name: string;
+  description: string | null;
+  targets: {
+    domain: string;
+    weight: number;
+  }[];
+};
+
+export type Upstreams = PaginatedData<Upstream>;
+
+export type AssignUpstreamToServiceParams = {
+  id: number;
+  serviceName: string;
+};
