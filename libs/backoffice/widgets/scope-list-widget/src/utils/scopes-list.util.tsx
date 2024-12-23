@@ -2,7 +2,6 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Pagination, Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
-import styled from 'styled-components';
 
 type Props = {
   t: TFunction;
@@ -61,7 +60,6 @@ export function getMobileColumns(props: Props) {
       key: 'mobile-columns',
       render: ({ index, latin_name_scope, persian_name_scope }) => {
         const data = [
-          { title: t('table.index'), value: index },
           { title: t('table.latin_name_scope'), value: latin_name_scope },
           { title: t('table.persian_name_scope'), value: persian_name_scope },
           {
@@ -76,7 +74,7 @@ export function getMobileColumns(props: Props) {
         return (
           <S.TableRow>
             {data.map((item, idx) => (
-              <Table.MobileColumn key={idx} {...item} />
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
             ))}
           </S.TableRow>
         );

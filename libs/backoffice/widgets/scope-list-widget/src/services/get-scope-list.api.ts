@@ -7,6 +7,7 @@ import type { Pagination } from '@oxygen/types';
 
 export const useGetScopeListQuery = (params: Pagination) => {
   const dispatch = useAppDispatch();
+
   return useQuery({
     queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST, params],
     queryFn: withErrorHandling(() => Api.getScopeList(params), dispatch),

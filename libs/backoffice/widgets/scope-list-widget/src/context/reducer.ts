@@ -8,6 +8,7 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
+  searchTerm: '',
   message: null,
 };
 
@@ -21,6 +22,12 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
+      return;
+    }
+
+    case 'UPDATE_SEARCH_TERM': {
+      state.table.pagination.page = initialStateValue.table.pagination.page;
+      state.searchTerm = action.payload;
       return;
     }
 

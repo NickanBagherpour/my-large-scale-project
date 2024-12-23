@@ -1,7 +1,7 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
 export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
@@ -13,6 +13,10 @@ export function updateMessageAction(dispatch: WidgetDispatchType, message: Nulla
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
+}
+
+export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+  dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
