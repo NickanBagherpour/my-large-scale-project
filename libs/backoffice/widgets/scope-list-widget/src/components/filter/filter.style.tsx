@@ -42,6 +42,7 @@ export const Buttons = styled.div`
 
 export const Actions = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 3.4rem;
