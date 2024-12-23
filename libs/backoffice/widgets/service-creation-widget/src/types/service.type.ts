@@ -1,14 +1,3 @@
-export type PostServiceParams = {
-  name: string;
-  persianName: string;
-  accessLevel: number;
-  category: number;
-  throughout: number;
-  version: string;
-  owner: string;
-  tag: string;
-};
-
 export type GeneralInfoParams = {
   latinName: string;
   persianName: string;
@@ -21,6 +10,7 @@ export type GeneralInfoParams = {
 };
 
 export type Service = {
+  serviceInfoId: number;
   name: string;
   persianName: string;
   accessLevel: {
@@ -37,12 +27,26 @@ export type Service = {
   };
   version: string;
   owner: string;
-  tags: [
-    {
-      id: number;
-      title: string;
-    }
-  ];
+  serviceInfoStatusCode: {
+    code: number;
+    title: string;
+  };
+  statusProgressPercent: number;
+  serviceInfoDescription: string;
+  isInSSO: boolean;
+  isActive: boolean;
+  isDeleted: boolean;
+  tags: {
+    id: number;
+    title: string;
+  }[];
+  scopes:
+    | {
+        name: string;
+        description: string;
+        id: number;
+      }[]
+    | null;
 };
 
 export type Route = {

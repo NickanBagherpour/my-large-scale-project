@@ -1,7 +1,6 @@
 export { default as Api } from './api';
 export { useGetScopes } from './get-scopes.api';
 export { useGetService } from './get-service.api';
-export { usePostServiceMutation } from './post-service.api';
 export { useGetUpstreams } from './get-upstreams.api';
 export { useGetUpstreamWithTargets } from './get-upstream-with-targets.api';
 export { useGetTags } from './get-tags.api';

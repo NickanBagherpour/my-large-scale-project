@@ -33,7 +33,7 @@ export default function Upstream() {
     'search-field': debouncedQuery.searchTerm,
   });
   const [selectedUpstreamId, setSelectedUpstreamId] = useState<number | null>(null);
-  const { data: currentUpstream, isFetching: isFetchingCurrentUpstream } = useGetUpstream();
+  const { data: currentUpstream, isFetching: isFetchingCurrentUpstream, is404Error } = useGetUpstream();
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
     useGetUpstreamWithTargets(selectedUpstreamId);
   const { mutateAsync: assignUpstreamToService } = usePostAssignUpstreamToService();
@@ -127,6 +127,7 @@ export default function Upstream() {
                     isSelected={id === selectedUpstreamId}
                     isHeaderLtr={true}
                     onClick={() => setSelectedUpstreamId(id)}
+                    status={activeServerCount ? 'active' : 'inactive'}
                   />
                 ))}
               </S.Grid>
