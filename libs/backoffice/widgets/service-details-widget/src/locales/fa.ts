@@ -32,6 +32,7 @@ export default {
     scope_persian_name: 'نام فارسی اسکوپ',
   },
   upstream_tab: {
+    success_notif: 'ویرایش اطلاعات آپ‌استریم با موفقیت اعمال شد.',
     healthy: 'سالم',
     tab_header: 'آپ‌استریم',
     info_box_latinName: 'نام لاتین آپ‌استریم',
