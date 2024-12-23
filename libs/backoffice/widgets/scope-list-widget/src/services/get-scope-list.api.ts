@@ -1,11 +1,10 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { typeScopeListParams } from '@oxygen/types';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import type { Pagination } from '@oxygen/types';
 
-export const useGetScopeListQuery = (params: Pagination) => {
+export const useGetScopeListQuery = (params: typeScopeListParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

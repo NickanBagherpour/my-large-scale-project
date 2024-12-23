@@ -6,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Input } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
+import { useBounce } from '@oxygen/hooks';
 
 import { updateSearchTerm, useAppDispatch, useAppState } from '../../context';
 
@@ -15,7 +16,6 @@ import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { createFormSchema } from '../../types';
 
 import * as S from './filter.style';
-import { useBounce } from '@oxygen/hooks';
 
 type FilterProps = PageProps & {
   //

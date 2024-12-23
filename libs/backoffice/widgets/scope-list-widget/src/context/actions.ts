@@ -15,7 +15,7 @@ export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }
 
-export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchField']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
