@@ -10,11 +10,14 @@ export const BorderBox = styled.div`
   padding: 1.6rem;
 `;
 export const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   min-height: 32rem;
   input {
     margin-bottom: 2.4rem;
   }
   section {
+    flex-grow: 1;
     margin: 0;
   }
 `;

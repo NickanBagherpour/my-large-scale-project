@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Input, Pagination } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
 import { Card } from './selection/card/card';
