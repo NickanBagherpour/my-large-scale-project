@@ -8,3 +8,8 @@ export type Scope = {
 };
 
 export type ScopesData = Scope[];
+
+export type AssignScopeToServiceParams = {
+  scopeName: string;
+  serviceName: string;
+};

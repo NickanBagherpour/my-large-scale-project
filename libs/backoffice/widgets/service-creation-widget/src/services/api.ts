@@ -11,7 +11,7 @@ import type {
   UpstreamsParams,
   UpstreamWithTargets,
 } from '../types';
-import type { Scope, ScopesData, ScopesParams } from '../types/scopes.type';
+import type { AssignScopeToServiceParams, Scope, ScopesData, ScopesParams } from '../types/scopes.type';
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
@@ -33,11 +33,12 @@ const Api = {
     client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`),
-  // /publisher/api/v1/routes/service-name/{service-name}
   postRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
     client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
   putRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
     client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
+  postAssignScopeToService: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
+    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign-to-service/${serviceName}`),
 };
 
 export default Api;

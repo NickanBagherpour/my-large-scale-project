@@ -14,3 +14,4 @@ export { usePostAssignUpstreamToService } from './post-assign-upstream-to-servic
 export { usePutRouteMutation } from './put-route.api';
 export { usePostRouteMutation } from './post-route.api';
 export { useGetRoute } from './get-route.api';
+export { usePostAssignScopeToService } from './post-assign-scope-to-service.api';
