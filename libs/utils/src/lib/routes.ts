@@ -43,6 +43,11 @@ export const ROUTES = {
     REQUESTS_MANAGEMENT: '/requests-management',
     REQUEST_CREATION: '/request-creation',
   },
+  BUSINESS: {
+    REQUESTS_MANAGEMENT: '/requests-management',
+    REQUESTS_LIST: '/requests-list',
+    REQUEST_DETAILS: '/request-details',
+  },
 };
 export const CUSTOMER_ROUTE_GROUPS = [
   // [ROUTES.CUSTOMER.DASHBOARD],
@@ -77,4 +82,5 @@ export const BACKOFFICE_ROUTE_GROUPS = [
     ROUTES.BACKOFFICE.SCOPE_INFORMATION,
   ],
   [ROUTES.BACKOFFICE.UPSTREAM_LIST, ROUTES.BACKOFFICE.UPSTREAM_CREATION],
+  [ROUTES.BUSINESS.REQUESTS_LIST, ROUTES.BUSINESS.REQUEST_DETAILS],
 ];
