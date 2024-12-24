@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
@@ -17,24 +18,30 @@ export const FallbackSelect = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const [searchValue, setSearchValue] = useState('');
-  const [page, setPage] = useState(1);
+  const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
   const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
+
+  useBounce(() => {
+    setDebouncedSearchTerm(searchTerm);
+    setQuery((prev) => ({ ...prev, page: 1 }));
+  }, [searchTerm]);
 
   function queryParams() {
     const params = {
       page: page - 1,
       size: UPSTREAM_CARD_PAGE_SIZE,
       sort: [''],
-      'search-field': searchValue,
+      'search-field': debouncedSearchTerm,
     };
     return params;
   }
   const handleChange = (e) => {
-    setSearchValue(e.target.value);
+    setQuery((prev) => ({ ...prev, searchTerm: e.target.value }));
   };
   const changePage = (currentPage) => {
-    setPage(currentPage);
+    setQuery((prev) => ({ ...prev, page: currentPage }));
   };
 
   return (
@@ -43,7 +50,7 @@ export const FallbackSelect = () => {
       <S.BorderBox>
         <S.SelectContainer>
           <Input
-            value={searchValue}
+            value={searchTerm}
             onChange={(e) => handleChange(e)}
             placeholder={t('upstream_tab.placeholder')}
             autoFocus
@@ -51,7 +58,7 @@ export const FallbackSelect = () => {
           {data?.content.length ? (
             <>
               <S.DataSection>
-                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
               </S.DataSection>
               <S.PaginationBox>
                 <Pagination
