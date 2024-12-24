@@ -1,14 +1,16 @@
 import { FiltersType, PaginationType } from '../context/types';
 import { Nullable } from '@oxygen/types';
-import { TFunction } from 'i18next';
-import { CONFIRM_MODAL, CONFIRM_MODAL_NAMES } from '../utils/consts';
-import { z } from 'zod';
 
 export type ReportResponseType = {
   responseId: number;
   serviceTypeCode: number;
   items: ItemType[];
   paginationResult: PaginationResultType;
+};
+
+export type FetchParamsType = {
+  filters?: FiltersType;
+  pagination: PaginationType;
 };
 
 export type ItemType = {
