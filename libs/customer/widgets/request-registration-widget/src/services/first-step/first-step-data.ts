@@ -2,7 +2,7 @@ import { useQuery, useMutation, keepPreviousData } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
 import { RequestRegistration } from '../../types';
-import { ParamsType, OrganizationParamsType } from '@oxygen/types';
+import { ParamsType, OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
@@ -39,35 +39,22 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
   });
 };
 
-export const useGetOrganizationDataMutationQuery = () => {
-  const dispatch = useAppDispatch();
-  return useMutation({
-    mutationFn: (params: any) => Api.getOrganizationData(params),
-    onError: (e) => {
-      const err = ApiUtil.getErrorMessage(e);
-      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
-    },
-  });
-  // return useQuery({
-  //   queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-  //   queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
-  // });
-};
-
-// export const useGetOrganizationDataQuery = (params: RequestRegistration) => {
-//   const dispatch = useAppDispatch();
-//   return useQuery({
-//     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-//     queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
-//   });
-// };
-
-export const useGetOrganizationsQuery = (params: OrganizationParamsType) => {
+export const useGetOrganizationsQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-    queryFn: withErrorHandling(() => Api.getOrganizationsListData(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getOrganizationsListData(), dispatch),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetAggregatorsQuery = (params: AggregatorsParamsType) => {
+  const dispatch = useAppDispatch();
+
+  return useQuery({
+    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_AGGREGATOR_LIST],
+    queryFn: withErrorHandling(() => Api.getAggregatorsListData(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

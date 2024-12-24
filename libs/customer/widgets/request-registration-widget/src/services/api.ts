@@ -1,7 +1,7 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, FirstStepParams, RequestRegistration } from '../types';
-import type { ParamsType, OrganizationParamsType } from '@oxygen/types';
+import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, RequestRegistration } from '../types';
+import type { ParamsType, OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 
 // type firstStepParams = {
@@ -33,7 +33,7 @@ const Api = {
     return res;
   },
 
-  getOrganizationsListData: async (params: OrganizationParamsType) => {
+  getOrganizationsListData: async () => {
     try {
       const res = await client.get(`${portalUrl}/v1/organizations`);
       return res;
@@ -43,20 +43,46 @@ const Api = {
     }
   },
 
-  getOrganizationData: async (params: RequestRegistration) => {
-    const { ...restParams } = params;
-    // const res = Mockify.getRequestData();
-    // return res;
-    if (!params) {
-      return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, {
-        headers: {},
-      });
-    } else return { data: '', isFetching: false };
+  getAggregatorsListData: async (params: AggregatorsParamsType) => {
+    const { page, size, sort } = params;
+    const filteredParams = { page, size, sort: 'asc' };
+    try {
+      const res = await client.get(`${portalUrl}/v1/aggregators`, { params: filteredParams });
+      return res;
+    } catch (error) {
+      console.error('Error fetching aggregator list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
   },
 
   requestRegistrationFirstStep: async (params: FirstStepParams) => {
     const { ...restParams } = params;
     return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, restParams, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationSecondStep: async (params: SecondStepParams) => {
+    const apiPrams = {
+      submissionId: params.submissionId,
+      // submissionId: 20,
+      clientKey: params.clientKey,
+      representatives: [
+        {
+          nameAndLastName: params.persian_name,
+          mobileNumber: params.mobile_number,
+          fixedPhoneNumber: params.phone_number,
+          representativeType: 1,
+        },
+        {
+          nameAndLastName: params.technical_persian_name,
+          mobileNumber: params.technical_mobile_number,
+          fixedPhoneNumber: params.technical_Phone_number,
+          representativeType: 2,
+        },
+      ],
+    };
+    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/representative`, apiPrams, {
       headers: {},
     });
   },

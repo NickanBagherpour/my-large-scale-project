@@ -12,8 +12,12 @@ export function updateOrganizationIdAndSubmissionId(dispatch: WidgetDispatchType
   dispatch({ type: 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID', payload: orgAndSubId });
 }
 
-export function updateSecondStepTableAction(dispatch: WidgetDispatchType, secondStepTable: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SECOND_STEP_TABLE', payload: secondStepTable });
+export function updateSecondStepAction(dispatch: WidgetDispatchType, secondStep: Partial<FiltersType>) {
+  dispatch({ type: 'UPDATE_SECOND_STEP', payload: secondStep });
+}
+
+export function updateThirdStepTableAction(dispatch: WidgetDispatchType, thirdStepTable: Partial<FiltersType>) {
+  dispatch({ type: 'UPDATE_THIRD_STEP_TABLE', payload: thirdStepTable });
 }
 
 export function updateRequestMode(dispatch: WidgetDispatchType, payload: RequestMode) {

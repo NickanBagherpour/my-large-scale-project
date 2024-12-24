@@ -18,8 +18,8 @@ import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../util
 import { WidgetStateType } from '../../context/types';
 import {
   useFirstStepRequestRegistrationMutationQuery,
-  useGetOrganizationDataMutationQuery,
   useGetOrganizationsQuery,
+  useGetAggregatorsQuery,
 } from '../../services/first-step/first-step-data';
 import {
   updateFirstStepAction,
@@ -48,11 +48,21 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
-  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
+  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
+  const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
+  const [aggregatorSelectData, setAggregatorSelectData] = useState();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
+
+  useEffect(() => {
+    const transformedAggregators = aggregators?.content?.map((aggregator) => ({
+      label: aggregator.aggregatorName,
+      value: aggregator.aggregatorId.toString(),
+    }));
+    setAggregatorSelectData(transformedAggregators);
+  }, [aggregators]);
 
   type Status = WidgetStateType['status'];
 
@@ -71,8 +81,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         postalCode: values.postal_code,
         phone: values.phone,
         registeredAddress: values.last_registration_address,
-        isAggregator: true,
-        aggregatorId: null,
+        isAggregator:
+          state.firstStep.aggregator_status === 'isAggregator'
+            ? true
+            : state.firstStep.aggregator_status === 'hasAggregator'
+            ? false
+            : false,
+        aggregatorId: state.firstStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
       };
 
       firstMutate(params, {
@@ -191,9 +206,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.aggregator_status')}</span>
-                          <span>
-                            {organizations[isSelected.id].isAggregator}-{organizations[isSelected.id].id}
-                          </span>
+                          {organizations[isSelected.id].isAggregator && organizations[isSelected.id].aggregatorId && (
+                            <span>
+                              {t('company_has_aggregator')}-{organizations[isSelected.id].aggregatorId}
+                            </span>
+                          )}
+                          {organizations[isSelected.id].isAggregator &&
+                            organizations[isSelected.id].aggregatorId == null && (
+                              <span>{t('company_is_aggregator')}</span>
+                            )}
+                          {!organizations[isSelected.id].isAggregator && (
+                            <span>
+                              {t('company_is_not_aggregator')}-{t('company_has_not_aggregator')}
+                            </span>
+                          )}
                         </S.InfoItemContainer>
                       </SearchItemsContainer>
                       <S.Divider orientation='center' />
@@ -260,8 +286,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   )}
                 </S.ChipsContainer>
               </SearchItemsContainer>
-              {(state.firstStep.aggregator_status === 'isAggregator' ||
-                state.firstStep.aggregator_status === 'hasAggregator') && (
+              {state.firstStep.aggregator_status === 'hasAggregator' && (
+                // ||state.firstStep.aggregator_status === 'isAggregator'
                 <SearchItemsContainer $columnNumber='3'>
                   <S.AggregatorContainer>
                     <Form.Item
@@ -272,8 +298,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator' rules={[rule]}>
                       <Select
                         size={'large'}
-                        options={selectLegalTypeOptions}
-                        // loading={selectFetching}
+                        // options={selectLegalTypeOptions}
+                        options={aggregatorSelectData}
+                        loading={isAggregatorsFetching}
                         placeholder={`${t('placeholder.do_select')}`}
                       ></Select>
                     </Form.Item>
@@ -343,10 +370,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       </Card>
 
       <S.Footer>
-        <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
+        <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={() => handleSubmit()}>
+        <Button htmlType={'submit'} loading={firstIsPending} onClick={() => handleSubmit()}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

@@ -1,6 +1,6 @@
 import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
-import { WidgetActionType, WidgetStateType, FirstStepType } from './types';
+import { WidgetActionType, WidgetStateType, FirstStepType, SecondStepType } from './types';
 
 const initialFilters: FormFieldsType = {
   name: null,
@@ -10,7 +10,8 @@ const initialFilters: FormFieldsType = {
 export const initialStateValue: WidgetStateType = {
   status: undefined,
   searchTerm: '',
-  page: 1,
+  page: 0,
+  size: 100,
   sort: 'newest',
   requestMode: 'selectOrganization',
   organizationId: '',
@@ -29,7 +30,16 @@ export const initialStateValue: WidgetStateType = {
     phone: undefined,
     last_registration_address: undefined,
   },
-  secondStep: { table: [] },
+  secondStep: {
+    persian_name: undefined,
+    mobile_number: undefined,
+    phone_number: undefined,
+    technical_persian_name: undefined,
+    technical_mobile_number: undefined,
+    technical_Phone_number: undefined,
+    clientKey: undefined,
+  },
+  thirdStep: { table: [] },
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -58,8 +68,13 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.submissionId = action.payload.submissionId;
       return;
     }
-    case 'UPDATE_SECOND_STEP_TABLE': {
-      state.secondStep.table = [...state.secondStep.table, { ...action.payload }];
+    case 'UPDATE_SECOND_STEP': {
+      state.secondStep = { ...action.payload } as SecondStepType;
+      return;
+    }
+
+    case 'UPDATE_THIRD_STEP_TABLE': {
+      state.thirdStep.table = [...state.thirdStep.table, { ...action.payload }];
       return;
     }
 

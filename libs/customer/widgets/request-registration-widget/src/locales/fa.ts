@@ -10,6 +10,8 @@ export default {
   submit_info: 'ثبت‌اطلاعات',
   company_is_aggregator: 'شرکت اگریگیتور است',
   company_has_aggregator: 'شرکت اگریگیتور دارد',
+  company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+  company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   nothing: 'هیچ‌کدام',
   select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
   //secondStep

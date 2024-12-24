@@ -7,7 +7,7 @@ import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
-import { updateSecondStepTableAction, useAppDispatch, useAppState } from '../../context';
+import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/third-step-table-utils';
 
 import * as S from './third-step.style';
@@ -36,7 +36,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   };
 
   const handleSelect = (item) => {
-    updateSecondStepTableAction(dispatch, item);
+    updateThirdStepTableAction(dispatch, item);
   };
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
@@ -45,10 +45,10 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const handleSubmit = () => {
     setCurrentStep((perv) => perv + 1);
   };
-  const isDisable = state.secondStep.table.length ? false : true;
+  const isDisable = state.thirdStep.table.length ? false : true;
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const revertData = state.secondStep.table;
+  const revertData = state.thirdStep.table;
 
   return (
     <S.ThirdStepContainer>

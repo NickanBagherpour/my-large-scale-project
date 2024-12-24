@@ -57,6 +57,17 @@ export type FirstStepParams = {
   last_registration_address: string;
 };
 
+export type SecondStepParams = {
+  submissionId: string;
+  persian_name: string;
+  mobile_number: string;
+  phone_number: string;
+  technical_persian_name: string;
+  technical_mobile_number: string;
+  technical_Phone_number: string;
+  clientKey?: string;
+};
+
 export type RequestRegistration = {
   organization: string;
   submissionId: string;
