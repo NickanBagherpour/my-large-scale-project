@@ -25,6 +25,7 @@
         "src/**/*.jsx",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "../../../../type.d.ts"
+        "../../../../type.d.ts",
+        "src/components/service-inquiry"
     ]
 }

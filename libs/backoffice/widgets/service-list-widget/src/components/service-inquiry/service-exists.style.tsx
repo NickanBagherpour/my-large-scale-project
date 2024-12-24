@@ -17,6 +17,7 @@ export const Partition = styled.div`
 
 export const InfoTitle = styled.div`
   font-weight: 600;
+  word-wrap: nowrap;
 `;
 export const StyledDivider = styled(Divider)`
   height: 70px;
@@ -24,4 +25,7 @@ export const StyledDivider = styled(Divider)`
 `;
 export const StyledText = styled.p`
   color: ${(p) => p.theme.error.main};
+`;
+export const CenteredText = styled.p`
+  text-align: center;
 `;
