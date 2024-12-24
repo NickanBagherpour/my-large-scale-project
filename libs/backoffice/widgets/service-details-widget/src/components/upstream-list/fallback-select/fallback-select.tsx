@@ -5,7 +5,7 @@ import { useTr } from '@oxygen/translation';
 import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
-import { Card } from './selection/card/card';
+import { Cards } from './selection/cards/cards';
 import { useAppDispatch, useAppState } from '../../../context';
 import { UPSTREAM_CARD_PAGE_SIZE } from '../../../utils/consts';
 import { CardDetail } from './selection/card-detail/card-detail';
@@ -60,7 +60,7 @@ export const FallbackSelect = () => {
           {data?.content.length ? (
             <>
               <S.DataSection>
-                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
+                <Cards cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
               </S.DataSection>
               <S.PaginationBox>
                 <Pagination
