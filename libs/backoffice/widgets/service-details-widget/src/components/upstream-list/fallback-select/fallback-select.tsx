@@ -40,7 +40,7 @@ export const FallbackSelect = () => {
   }
   //Handlers
   const handleChange = (e) => {
-    setQuery((prev) => ({ ...prev, searchTerm: e.target.value.trim() }));
+    setQuery((prev) => ({ ...prev, searchTerm: e.target.value.trimStart() }));
   };
   const changePage = (currentPage: number) => {
     setQuery((prev) => ({ ...prev, page: currentPage }));
