@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
@@ -19,6 +19,11 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
 
   const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
 
+  const [{ editLoading, historyLoadign }, setLoading] = useState({
+    editLoading: false,
+    historyLoadign: false,
+  });
+
   const latinName = data?.name;
   const farsiName = data?.description;
 
@@ -32,6 +37,19 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
       value: getValueOrDash(farsiName),
     },
   ];
+
+  const handleEdit = () => {
+    setLoading((prev) => ({
+      ...prev,
+      editLoading: true,
+    }));
+  };
+  const handleHistory = () => {
+    setLoading((prev) => ({
+      ...prev,
+      historyLoadign: true,
+    }));
+  };
   return (
     <S.Firststep>
       <S.FirstStepHeader>
@@ -41,10 +59,17 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
             href={`${ROUTES.BACKOFFICE.SCOPE_HISTORY}?id=${id}`}
             variant='filled'
             icon={<S.Icon className={'icon-clock'}></S.Icon>}
+            onClick={handleHistory}
+            loading={historyLoadign}
           >
             {t('first_tab.view_history_changes')}
           </Button>
-          <Button href={`${ROUTES.BACKOFFICE.EDIT_SCOPE}?id=${id}`} icon={<S.Icon className={'icon-edit'}></S.Icon>}>
+          <Button
+            href={`${ROUTES.BACKOFFICE.EDIT_SCOPE}?id=${id}`}
+            icon={<S.Icon className={'icon-edit'} />}
+            onClick={handleEdit}
+            loading={editLoading}
+          >
             {t('first_tab.edit')}
           </Button>
         </S.ButtonContainer>
