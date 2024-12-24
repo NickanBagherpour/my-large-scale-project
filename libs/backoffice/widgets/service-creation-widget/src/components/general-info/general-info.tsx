@@ -117,7 +117,7 @@ export default function GeneralInfo() {
             <S.InputsBox>
               <SearchItemsContainer $columnNumber='3'>
                 <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
-                  <Input disabled={!!isInSSO} placeholder={t('enter_english_name')} />
+                  <Input disabled={true} placeholder={t('enter_english_name')} />
                 </FormItem>
 
                 <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
