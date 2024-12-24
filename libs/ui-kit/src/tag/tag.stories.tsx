@@ -1,12 +1,5 @@
 import { Meta, StoryFn } from '@storybook/react';
 import { Tag, TagType } from './tag';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  SyncOutlined,
-  WarningOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
 
 const types = ['default', 'FinalApproval', 'initialApproval', 'processing', 'error', 'warning'] as const;
 
@@ -48,19 +41,10 @@ Default.args = {
 
 // Bordered Tags with Icons
 export const BorderedWithIcons: StoryFn = () => {
-  const icons = {
-    default: <InfoCircleOutlined />,
-    FinalApproval: <CheckCircleOutlined />,
-    initialApproval: <SyncOutlined spin />,
-    processing: <SyncOutlined />,
-    error: <CloseCircleOutlined />,
-    warning: <WarningOutlined />,
-  };
-
   return (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
       {types.map((type) => (
-        <Tag key={type} type={type} bordered icon={<i className='icon-tick-circle-outlined' />}>
+        <Tag key={type} type={type} bordered={true} icon={<i className='icon-tick-circle-outlined' />}>
           {/* {icons[type]} <span style={{ marginLeft: 4 }}>{type}</span> */}
           tag with icon
         </Tag>
