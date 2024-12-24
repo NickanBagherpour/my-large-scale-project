@@ -4,7 +4,7 @@ import { withOpacity } from '@oxygen/utils';
 import { Box } from '@oxygen/ui-kit';
 
 export const StyledContainer = styled.div`
-  padding: 1.2rem 3.6rem;
+  padding: 1.2rem 3.2rem 3.2rem 3.2rem;
   background-color: ${(p) => p.theme.background._50};
   border: 1px solid ${(p) => p.theme.border._300};
   border-radius: 2.4rem;

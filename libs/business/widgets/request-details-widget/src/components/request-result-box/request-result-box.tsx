@@ -1,12 +1,14 @@
 import React from 'react';
+
 import { useTr } from '@oxygen/translation';
+import { Icons } from '@oxygen/ui-kit';
+
+import { useAppState } from '../../context';
 import { PanelType, RequestStatus } from '../../types';
 import ConfirmModal from '../confirm-modal/confirm-modal';
-import { Nullable } from '@oxygen/types';
-import { useAppState } from '../../context';
-import { Icons } from '@oxygen/ui-kit';
-import * as S from '../request-result-box/request-result-box.style';
 import RequestResultInfo from '../request-result-Info/request-result-info';
+
+import * as S from '../request-result-box/request-result-box.style';
 
 type Props = {
   requestData: any;
@@ -16,14 +18,14 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
   const { businessBankingStatus, businessUnitStatus } = requestData.requestStatus;
   const { organizationName, clientName } = requestData;
 
+  const [t] = useTr();
   const state = useAppState();
 
   const userRole = state?.userRole;
   const requestId = state?.requestId;
 
-  const [t] = useTr();
   const [openModal, setOpenModal] = React.useState(false);
-  const [isConfirm, setIsConfirm] = React.useState<Nullable<boolean>>(null);
+  const [isConfirm, setIsConfirm] = React.useState<boolean>();
 
   const handleConfirm = () => {
     setIsConfirm(true);
@@ -56,12 +58,12 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
         {bankingResultType !== RequestStatus.PROCESS && (
-          <RequestResultInfo section={'business-banking'} resultType={bankingResultType} />
+          <RequestResultInfo section={PanelType.BUSINESS_BANKING} resultType={bankingResultType} />
         )}
 
         <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
         {unitResultType !== RequestStatus.PROCESS && unitResultType !== RequestStatus.INITIAL_APPROVAL && (
-          <RequestResultInfo section={'business-unit'} resultType={unitResultType} />
+          <RequestResultInfo section={PanelType.BUSINESS} resultType={unitResultType} />
         )}
         {unitResultType === RequestStatus.INITIAL_APPROVAL && getConfirmButtons()}
       </S.StyledContainer>
@@ -74,7 +76,7 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
         {resultType !== RequestStatus.PROCESS && (
-          <RequestResultInfo section={'business-banking'} resultType={resultType} />
+          <RequestResultInfo section={PanelType.BUSINESS_BANKING} resultType={resultType} />
         )}
         {resultType === RequestStatus.INITIAL_APPROVAL && (
           <>
