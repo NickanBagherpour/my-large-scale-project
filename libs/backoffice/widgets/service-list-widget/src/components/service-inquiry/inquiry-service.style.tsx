@@ -10,5 +10,5 @@ export const MainContainer = styled.div<{ $content: ContentType }>`
   border: 1px solid ${(p) => p.theme.primary.main};
   width: 100%;
   padding: 1.2rem;
-  min-height: 33rem;
+  min-height: 30rem;
 `;

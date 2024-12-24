@@ -5,7 +5,7 @@ import { useBounce, useToggle } from '@oxygen/hooks';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
-import InquiryService from '../inspect-service/inquiry-service';
+import InquiryService from '../service-inquiry/inquiry-service';
 import * as S from './filters.sytle';
 
 type Status = WidgetStateType['status'];

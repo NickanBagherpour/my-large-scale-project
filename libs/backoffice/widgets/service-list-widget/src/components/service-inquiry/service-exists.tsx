@@ -1,14 +1,14 @@
-import { MutableRefObject, RefObject } from 'react';
+import { RefObject } from 'react';
 import { Flex, FormInstance, InputRef } from 'antd';
-import { Text } from 'libs/ui-kit/src/typography/typography.style';
 
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
+import { getValueOrDash } from '@oxygen/utils';
 
 import { BoxSearch, ButtonLoading } from '../../assets';
 import { ContentType } from './inquiry-service';
+import { InquiryInfo } from '../../types/get-Inquiry-info.type';
 import * as S from './service-exists.style';
-import { LottieRefCurrentProps } from 'lottie-react';
 
 type Props = {
   form: FormInstance<{
@@ -16,16 +16,16 @@ type Props = {
   }>;
   changeContent: (c: ContentType) => void;
   inputRef: RefObject<InputRef>;
-  loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
+  data?: InquiryInfo;
 };
 
-const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, loadingAnimationRef }) => {
+const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, data }) => {
   const [t] = useTr();
-
+  const info = data?.serviceGeneralInfo;
+  const scopeInfo = info?.scopes?.[0];
   const inspectAnother = () => {
     form.resetFields();
     changeContent('searching');
-    loadingAnimationRef.current?.play();
     inputRef.current?.focus();
   };
   return (
@@ -34,26 +34,26 @@ const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, loading
         <BoxSearch />
         <S.StyledText>{t('already_exists')}</S.StyledText>
       </S.TitleContainer>
-      <Flex gap={'1rem'}>
-        <S.Partition>
+      <Flex align='center' justify='center' gap={'1rem'} style={{ width: '100%' }}>
+        <S.Partition style={{ justifyContent: 'end' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <S.InfoTitle>{t('en_name')}</S.InfoTitle>
-            <Text>svc-gfg-bhhj-ngdc-zxzxc-zxc</Text>
+            <S.CenteredText>{getValueOrDash(info?.name)}</S.CenteredText>
           </div>
           <div>
             <S.InfoTitle>{t('desc')}</S.InfoTitle>
-            <Text> دریافت کد‌های ملی متعلق به یک شماره موبایل</Text>
+            <S.CenteredText> {getValueOrDash(info?.serviceInfoDescription)}</S.CenteredText>
           </div>
         </S.Partition>
         <S.StyledDivider orientation='center' type='vertical' variant='solid' />
         <S.Partition>
           <div>
             <S.InfoTitle>{t('scope_en_name')}</S.InfoTitle>
-            <Text>samat-lc-gutr-del</Text>
+            <S.CenteredText>{getValueOrDash(scopeInfo?.description)}</S.CenteredText>
           </div>
           <div>
             <S.InfoTitle>{t('scope_fa_name')}</S.InfoTitle>
-            <Text> سمات آی تی</Text>
+            <S.CenteredText> {getValueOrDash(scopeInfo?.name)}</S.CenteredText>
           </div>
         </S.Partition>
       </Flex>

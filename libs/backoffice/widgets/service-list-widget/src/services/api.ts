@@ -1,9 +1,8 @@
 import Mockify from '@oxygen/mockify';
 
 import { ParamsType } from '../types';
-import { client } from '@oxygen/client';
+import { client, portalUrl } from '@oxygen/client';
 import { InquiryInfo, InquiryParams } from '../types/get-Inquiry-info.type';
-
 const Api = {
   getServicesList: async (params: ParamsType) => {
     const res = Mockify.getServicesList(params);
@@ -14,7 +13,11 @@ const Api = {
     return Mockify.getServicesDrafts();
   },
   getInquiryInfo: async (params: InquiryParams) => {
-    return client.post<InquiryInfo>(`http://192.168.54.166:7007/publisher/api/v1/services/service-inquiry`, params);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return client.get<InquiryInfo>(`${portalUrl}/v1/services/service-inquiry-status`, { params });
+  },
+  uploadService: async (serviceName: string) => {
+    return client.post(`${portalUrl}v1/services/import-service`, { 'service-name': serviceName });
   },
 };
 export default Api;

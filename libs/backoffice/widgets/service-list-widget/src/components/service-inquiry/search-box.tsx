@@ -1,7 +1,7 @@
 import { LottieRefCurrentProps } from 'lottie-react';
 import { Flex, Form, FormInstance, InputRef } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
-import { MutableRefObject, RefObject, useState } from 'react';
+import { MutableRefObject, RefObject } from 'react';
 
 import { Button, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -10,8 +10,9 @@ import { SearchService } from '../../types';
 import { ContentType } from './inquiry-service';
 import { Search_SERVICE_NAMES } from '../../utils/consts';
 import { SearchInputIcon } from '../../assets';
+import { InquiryParams } from '../../types/get-Inquiry-info.type';
+
 import * as S from './search-box.style';
-import { useInquireService } from '../../services/get-inquiry.api';
 
 type Props = {
   form: FormInstance<{
@@ -20,27 +21,29 @@ type Props = {
   changeContent: (c: ContentType) => void;
   loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
   inputRef: RefObject<InputRef>;
-  isLoading?: boolean;
+  isLoading: boolean;
+  startLoading: () => void;
+  formSubmitted: () => void;
+  changeParams: (v: InquiryParams) => void;
 };
-const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, inputRef }) => {
+const SearchBox: React.FC<Props> = ({
+  loadingAnimationRef,
+  form,
+  inputRef,
+  startLoading,
+  changeContent,
+  formSubmitted,
+  changeParams,
+  isLoading,
+}) => {
   const [t] = useTr();
-  const mutation = useInquireService();
   const rule = createSchemaFieldRule(SearchService(t));
-  const [loading, setLoading] = useState(false); //later should be changed with a prop from api call
-  const onFinish = (values: any) => {
-    loadingAnimationRef.current?.play();
-    setLoading(true);
+  const onFinish = async (values: any) => {
+    startLoading();
     changeContent('searching');
-    //get data then stop animation
-    console.log('values', values);
-    mutation.mutate(values);
-    console.log('data', mutation);
-    setLoading(false);
-    // setTimeout(() => {
-    //   loadingAnimationRef.current?.pause();
-    //   changeContent('addService');
-    //   setLoading(false);
-    // }, 3000);
+    loadingAnimationRef.current?.play();
+    changeParams({ 'service-name': values?.serviceName });
+    formSubmitted();
   };
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
@@ -54,9 +57,7 @@ const SearchBox: React.FC<Props> = ({ loadingAnimationRef, form, changeContent, 
             allowClear
           />
         </S.FormItem>
-        <Button htmlType='submit' disabled={loading}>
-          {' '}
-          //add on click
+        <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
           {t('buttons.inspect')}
         </Button>
       </Flex>

@@ -5,16 +5,23 @@ import { Suspense, lazy } from 'react';
 
 const LazyLottieComponent = lazy(() => import('lottie-react'));
 
-interface LottieProps {
+type LottieProps = {
   id?: string;
-}
+};
 
-export default function LazyLottie({ id, ref, animationData, ...props }: LottieProps & LottieComponentProps) {
+export default function LazyLottie({
+  id,
+  ref,
+  animationData,
+  height = '100%',
+  width = '100%',
+  ...props
+}: LottieProps & LottieComponentProps) {
   return (
-    <Suspense
-      fallback={<Skeleton.Node active={true} style={{ height: props.height, width: props.width, marginTop: '8rem' }} />}
-    >
-      {LazyLottieComponent && <LazyLottieComponent animationData={animationData} {...props} />}
+    <Suspense fallback={<Skeleton.Node active={true} style={{ height: height, width: width }} />}>
+      {LazyLottieComponent && (
+        <LazyLottieComponent animationData={animationData} style={{ height: height, width: width }} {...props} />
+      )}
     </Suspense>
   );
 }

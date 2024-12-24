@@ -1,20 +1,47 @@
 export type InquiryParams = {
-  serviceName: string;
+  'service-name': string;
 };
 export type InquiryInfo = {
-  status: 'SERVICE_ALREADY_EXISTS' | 'SERVICE_IS_DRAFT' | 'SERVICE_NOT_FOUND';
-  serviceInquiryItem: {
-    latinName: string;
-    persianName: string;
-    statusCode: number;
-    statusProgressPercent: number;
+  serviceInquiryStatus: InquiryStatus;
+  serviceGeneralInfo: {
     serviceInfoId: number;
-    description: string;
-  };
-  scopes: [
-    {
-      id: number;
+    name: string;
+    persianName: string;
+    accessLevel: {
+      code: number;
+      title: 'PUBLIC';
+    };
+    category: {
+      code: number;
       title: string;
-    }
-  ];
+    };
+    throughput: {
+      code: number;
+      title: string;
+    };
+    version: string;
+    owner: string;
+    serviceInfoStatusCode: {
+      code: number;
+      title: string;
+    };
+    statusProgressPercent: number;
+    serviceInfoDescription: string;
+    isInSSO: boolean;
+    isActive: boolean;
+    isDeleted: boolean;
+    tags: [{ id: number; title: string }];
+    scopes: [
+      {
+        name: string;
+        description: string;
+        id: number;
+      }
+    ];
+  };
 };
+export type InquiryStatus =
+  | 'SERVICE_ALREADY_EXISTS'
+  | 'SERVICE_IS_DRAFT'
+  | 'SERVICE_NOT_FOUND'
+  | 'SERVICE_EXISTS_IN_BAAM';
