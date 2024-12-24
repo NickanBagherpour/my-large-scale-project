@@ -2,26 +2,46 @@ import React from 'react';
 import { Collapse, type CollapseProps } from 'antd';
 
 import { Divider, InfoBox, Loading } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
 import RequestResultBox from '../request-result-box/request-result-box';
-
-import * as S from './details-collapse.style';
-import { ROUTES } from '@oxygen/utils';
+import { useGetRequestInfoQuery } from '../../services';
 import { PanelType } from '../../types';
 import { useAppState } from '../../context';
 
+import * as S from './details-collapse.style';
+
 type Props = {
-  data: any;
+  //
 };
 
 const DetailsCollapse: React.FC<Props> = (props) => {
-  const { data } = props;
   const state = useAppState();
   const [t] = useTr();
   const userRole = state?.userRole;
+
+  const { data, isFetching, error } = useGetRequestInfoQuery(prepareParams());
+
+  function prepareParams() {
+    const params = {
+      requestId: state?.requestId,
+    };
+    return params;
+  }
+
+  if (error) return <NoResult isLoading={false} />;
+  if (!data) return <Loading spinning={isFetching} />;
+
   const { requestGeneralInfo, companyInfo, agentsInfo } = data;
+
+  const subtitle =
+    userRole === PanelType.BUSINESS_BANKING
+      ? requestGeneralInfo?.requestStatus?.businessBankingStatus?.title
+      : requestGeneralInfo?.requestStatus?.businessUnitStatus?.title;
+
   const requestInfoData = [
     {
       key: t('organization_name'),
@@ -124,7 +144,12 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   const items: CollapseProps['items'] = [
     {
       key: '1',
-      label: t('request_general_info'),
+      label: (
+        <S.CollapseTitle>
+          {t('request_general_info')}-{subtitle}
+          {/*//TODO use tag*/}
+        </S.CollapseTitle>
+      ),
       children: <InfoBox data={requestInfoData} />,
     },
     {
@@ -145,12 +170,14 @@ const DetailsCollapse: React.FC<Props> = (props) => {
         ) : (
           <S.TitleWrapper>
             {t('requested_services')}
-            <div>
-              <i className={'icon-edit'} href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT} />
-            </div>
+            <S.StyledButton
+              type='primary'
+              style={{ margin: 0 }}
+              icon={<i className={'icon-edit'} />}
+              href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
+            />
           </S.TitleWrapper>
         ),
-      // TODO update the href
       children: <RequestedServices />,
     },
   ];

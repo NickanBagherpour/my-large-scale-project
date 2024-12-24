@@ -1,8 +1,24 @@
 import styled from 'styled-components';
+import { Button } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.div`
   margin-bottom: 1.6rem;
   margin-top: 2.4rem;
+
+  & .ant-collapse-item:nth-of-type(3) .ant-collapse-content-box {
+    div {
+      grid-template-columns: repeat(3, 1fr);
+
+      ${respondTo.down('lg')} {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      ${respondTo.down('sm')} {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
 
   & .ant-collapse-borderless {
     background: transparent;
@@ -15,7 +31,7 @@ export const Container = styled.div`
   }
 
   & .ant-collapse-header-text {
-    padding: 1rem 0.8rem 0.8rem;
+    padding: 1rem 0 0.8rem 0.8rem;
     font-size: 1.6rem;
     color: ${(p) => p.theme.text.primary};
     font-weight: 700;
@@ -73,17 +89,17 @@ export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  & div {
-    background: ${(p) => p.theme.primary.main};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    padding: 0.8rem;
-  }
-
   i {
     font-size: 2.4rem;
     color: ${(p) => p.theme.background.main};
   }
+`;
+
+export const CollapseTitle = styled.span`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const StyledButton = styled(Button)`
+  border-radius: 50%;
 `;
