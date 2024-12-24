@@ -26,7 +26,9 @@ export const Input = styled(KitInput)`
 `;
 
 export const Button = styled(KitButton)`
-  font-size: 1.4rem;
+  &&& {
+    font-size: 1.4rem;
+  }
 `;
 
 export const Buttons = styled.div`
