@@ -1,6 +1,10 @@
-import { ColumnsType, PaginationType } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import React from 'react';
 import { TFunction } from 'i18next';
+
+import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { getValueOrDash } from '@oxygen/utils';
+
+import { PaginationType } from '../context/types';
 
 import * as S from '../components/requested-services/requested-services.style';
 
@@ -42,13 +46,50 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         return getValueOrDash(value);
       },
     },
+    // {
+    //   title: '',
+    //   dataIndex: '',
+    //   align: 'center',
+    //   width: 'min-content',
+    //   render: (value) => {
+    //     return <S.StyledButton variant={'text'}>{t('table.details')}</S.StyledButton>;
+    //   },
+    // },
+  ];
+}
+
+export function getMobileColumns(props: Props): ColumnsType<any> {
+  const {
+    t,
+    pagination: { page, rowsPerPage },
+  } = props;
+
+  return [
     {
       title: '',
       dataIndex: '',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return <S.Details>{t('table.details')}</S.Details>;
+      // align: 'center',
+      render: (value, record, index) => {
+        const columns: MobileColumnType[] = [
+          {
+            title: t('table.index'),
+            value: (page - 1) * rowsPerPage + 1 + index,
+          },
+          {
+            title: t('table.service_name'),
+            value: getValueOrDash(value?.serviceName),
+          },
+          {
+            title: t('table.persian_name'),
+            value: getValueOrDash(value?.persianName),
+          },
+          // {
+          //   title: '',
+          //   value: (<S.Details>{t('table.details')}</S.Details>),
+          //   colon: false,
+          // },
+        ];
+        return <Table.MobileColumns columns={columns} />;
       },
     },
   ];

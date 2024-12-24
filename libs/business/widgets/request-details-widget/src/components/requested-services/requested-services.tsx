@@ -1,18 +1,20 @@
 import React from 'react';
+
 import type { TablePaginationConfig } from 'antd';
+import { TFunction } from 'i18next';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { Table } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import * as S from './requested-services.style';
-import { Table } from '@oxygen/ui-kit';
-import { getDesktopColumns } from '../../utils/requested-services.util';
 import { useGetRequestedServicesQuery } from '../../services/get-requested-services';
-import { updatePagination } from '../../context';
-import { TFunction } from 'i18next';
+import { getDesktopColumns, getMobileColumns } from '../../utils/requested-services.util';
 import { PaginationType } from '../../context/types';
+import { updatePagination } from '../../context';
+
+import * as S from './requested-services.style';
 
 type DataTableProps = PageProps & {
   //
@@ -29,8 +31,8 @@ const RequestedServices: React.FC<DataTableProps> = (props) => {
   const { data, isFetching } = useGetRequestedServicesQuery(prepareParams());
   function prepareParams() {
     const params = {
-      requestId: state?.requestId,
-      pagination: state?.table?.pagination,
+      requestId: state.requestId,
+      pagination: state.table.pagination,
     };
 
     return params;
@@ -50,19 +52,18 @@ const RequestedServices: React.FC<DataTableProps> = (props) => {
 
   const dataTableParams: { t: TFunction; pagination: PaginationType } = { t, pagination };
   const desktopColumns = getDesktopColumns(dataTableParams);
-  // const mobileColumns = getMobileColumns(dataTableParams);
+  const mobileColumns = getMobileColumns(dataTableParams);
 
   return (
     <S.DataTableContainer>
       <Table
-        // title={t('table.title')}
         loading={isFetching}
         current={pagination.page}
         total={data?.total}
         dataSource={data?.content}
         pagination={{ pageSize: pagination.rowsPerPage }}
         columns={desktopColumns}
-        // mobileColumns={mobileColumns}
+        mobileColumns={mobileColumns}
         onChange={handlePageChange}
         rowKey={(row) => row.index}
       />
