@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import { respondTo } from '@oxygen/utils';
 import { Form as AntForm } from 'antd';
+import styled from 'styled-components';
+
+import { respondTo } from '@oxygen/utils';
 import { Button as KitButton, Input as KitInput, Modal } from '@oxygen/ui-kit';
 
 export const FilterContainer = styled.section`
@@ -9,6 +10,10 @@ export const FilterContainer = styled.section`
 
 export const Form = styled(AntForm)`
   width: 100%;
+
+  div.ant-form-item {
+    margin-bottom: 0;
+  }
 `;
 
 export const Input = styled(KitInput)`
