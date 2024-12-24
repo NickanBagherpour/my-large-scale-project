@@ -8,7 +8,7 @@ import Image from 'next/image';
 type Props = {
   openStatus: boolean;
   statusDate: string;
-  isConfirmStatus: boolean;
+  isConfirmStatus?: boolean;
   setOpenStatus: (boolean) => void;
   //
 };

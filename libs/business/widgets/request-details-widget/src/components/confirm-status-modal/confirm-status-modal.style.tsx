@@ -36,7 +36,7 @@ export const StatusBox = styled(Box)`
   height: 100%;
   max-height: 16rem;
 `;
-export const StyledIcon = styled.span<{ isConfirm: boolean }>`
+export const StyledIcon = styled.span<{ isConfirm?: boolean }>`
   max-height: 7.4rem;
   text-align: center;
 
