@@ -7,8 +7,13 @@ import { useAppDispatch } from '../../context';
 import { UpstreamCardsData } from '../../types';
 
 import Api from '../api';
-
-export const useUpstreamCardsDetailQuery = (params) => {
+export type CardsDetailParamsType = {
+  size: number;
+  page: number;
+  sort: string[];
+  'search-field'?: string;
+};
+export const useUpstreamCardsDetailQuery = (params: CardsDetailParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery<UpstreamCardsData>({

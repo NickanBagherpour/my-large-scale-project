@@ -54,8 +54,38 @@ export const InfoItemContainer = styled.div`
   gap: 0.4rem;
   margin: 1.6rem 0;
 
-  span:nth-child(2) {
+  span {
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+  }
+
+  span:nth-child(1) {
     color: ${(p) => p.theme.text.tertiary};
+    font-weight: 400;
+  }
+  span:nth-child(2) {
+    color: ${(p) => p.theme.text.secondary};
+    font-weight: 500;
+  }
+`;
+
+export const RepresentativesInfoItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.6rem 0;
+
+  span {
+    line-height: 2.2rem;
+    font-size: 1.4rem;
+  }
+
+  span:nth-child(1) {
+    color: ${(p) => p.theme.text.primary};
+    font-weight: 500;
+  }
+  span:nth-child(2) {
+    color: ${(p) => p.theme.text.secondary};
     font-weight: 400;
   }
 `;

@@ -8,5 +8,5 @@ export const MarkText = styled(KitMarkText)`
 `;
 
 export const RemoveBtn = styled(KitButton)`
-  margin-inline-start: 2rem;
+  /* margin-inline-start: 2rem; */
 `;

@@ -32,6 +32,7 @@ export default {
     scope_persian_name: 'نام فارسی اسکوپ',
   },
   upstream_tab: {
+    success_notif: 'ویرایش اطلاعات آپ‌استریم با موفقیت اعمال شد.',
     healthy: 'سالم',
     tab_header: 'آپ‌استریم',
     info_box_latinName: 'نام لاتین آپ‌استریم',
@@ -43,6 +44,7 @@ export default {
     are_you_sure_to_remove: 'آیا از حذف آپ‌استریم {{id}} برای این سرویس اطمینان دارید؟',
     remove_upstream: 'حذف آپ‌استریم',
     upstream_servers: 'سرورهای آپ‌استریم',
+    placeholder: 'جستجو براساس نام لاتین یا فارسی سرویس',
     table: {
       range: 'دامنه',
       health_status: 'وضعیت سلامت',

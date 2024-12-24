@@ -1,7 +1,7 @@
-import type { Pagination } from '@oxygen/types';
-import Mockify from '@oxygen/mockify';
+import { client, portalUrl } from '@oxygen/client';
+import { typeScopeListParams } from '@oxygen/types';
 
 const Api = {
-  getScopeList: async (params: Pagination) => Mockify.getScopesList(params),
+  getScopeList: async (params: typeScopeListParams) => client.get(`${portalUrl}/v1/scope`, { params }),
 };
 export default Api;

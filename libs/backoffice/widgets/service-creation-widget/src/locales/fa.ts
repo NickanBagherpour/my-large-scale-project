@@ -11,7 +11,7 @@ export default {
   select_access: 'دسترسی مورد نظر را انتخاب نمایید',
   category: 'دسته‌بندی',
   select_categroy: 'دسته‌بندی مورد نظر را انتخاب نماید',
-  throughout: 'Throughout',
+  throughput: 'Throughput',
   version: 'نسخه',
   enter_version: 'نسخه را وارد نمایید',
   owner: 'مالک',
@@ -19,8 +19,10 @@ export default {
   tag: 'تگ',
   enter_tag: 'تگ مورد نظر را نتخاب نمایید',
   register_info: 'ثبت اطلاعات',
+
   import_from_sso: 'ایمپورت از SSO',
   create_scope: 'ایجاد اسکوپ',
+  choose_scope: 'انتخاب اسکوپ',
   scope_name: 'نام اسکوپ',
   scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن',
   scope_library: 'کتابخانه اسکوپ',
@@ -29,6 +31,7 @@ export default {
   persian_scope_name: 'نام فارسی اسکوپ',
   persian_or_english_name: 'نام فارسی یا انگلیسی اسکوپ',
   search: 'جستجو',
+  add_tags: ' اضافه‌کردن تگ‌ها ',
 
   scope_english_name: 'نام لاتین اسکوپ',
   scope_persian_name: 'نام فارسی اسکوپ',
@@ -53,6 +56,7 @@ export default {
   are_you_sure_to_remove: 'آیا از حذف سرور {{id}} برای این آپ‌استریم اطمینان دارید؟',
   remove_server: 'حذف سرور',
   remove: 'حذف',
+  search_by_english_or_persian_name: 'جستجو براساس نام لاتین یا فارسی سرویس',
 
   action_or_method: 'اکشن/متود',
   protocole: 'پروتوکل',
