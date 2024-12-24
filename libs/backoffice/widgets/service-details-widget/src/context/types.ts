@@ -17,16 +17,11 @@ export type initialActiveSelectType = {
   id: Nullable<number | string>;
   cardId: Nullable<number | string>;
 };
-export type initialFallbackSelectType = {
-  englishName: Nullable<number | string>;
-  persianName: Nullable<number | string>;
-  servers: any[];
-};
+
 export type WidgetStateType = {
   serviceName: Nullable<string>;
   upstreamTab: {
     activeSelect: initialActiveSelectType;
-    fallbackSelect: initialFallbackSelectType;
   };
   table: {
     filters: FiltersType;
@@ -47,28 +42,6 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
-    }
-  | {
-      type: 'FILTERED_FALLBACK_SERVER';
-      payload: {
-        weight: string;
-        ip_port: string;
-      }[];
-    }
-  | {
-      type: 'UPDATE_FALLBACK_SERVERS';
-      payload: {
-        weight: string;
-        ip_port: string;
-      }[];
-    }
-  | {
-      type: 'UPDATE_PERSIAN_NAME';
-      payload: Nullable<number | string>;
-    }
-  | {
-      type: 'UPDATE_ENGLISH_NAME';
-      payload: Nullable<number | string>;
     }
   | {
       type: 'UPDATE_UPSTREAM';
