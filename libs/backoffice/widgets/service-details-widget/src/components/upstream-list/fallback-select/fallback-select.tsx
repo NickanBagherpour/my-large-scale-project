@@ -9,18 +9,19 @@ import { Card } from './selection/card/card';
 import { useAppDispatch, useAppState } from '../../../context';
 import { UPSTREAM_CARD_PAGE_SIZE } from '../../../utils/consts';
 import { CardDetail } from './selection/card-detail/card-detail';
-import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/upstream-cards-detail';
+import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/get-upstream-cards-detail';
 
 import * as S from './fallback-select.style';
 
 export const FallbackSelect = () => {
+  //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-
+  //States
   const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-
+  //Queries
   const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
 
   useBounce(() => {
@@ -37,6 +38,7 @@ export const FallbackSelect = () => {
     };
     return params;
   }
+  //Handlers
   const handleChange = (e) => {
     setQuery((prev) => ({ ...prev, searchTerm: e.target.value }));
   };
