@@ -1,15 +1,17 @@
-import { useGetRequestResultQuery } from '../../services/get-request-result';
-import { InfoBox, Loading } from '@oxygen/ui-kit';
 import React from 'react';
+
+import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
-import * as S from './request-result-info.style';
 import { useAppState } from '../../context';
 import { PanelType, RequestStatus } from '../../types';
+import { useGetRequestResultQuery } from '../../services/get-request-result';
+
+import * as S from './request-result-info.style';
 
 type Props = {
   resultType: string;
-  section: 'business-unit' | 'business-banking';
+  section: PanelType;
 };
 
 const RequestResultInfo: React.FC<Props> = (props: Props) => {
@@ -34,9 +36,8 @@ const RequestResultInfo: React.FC<Props> = (props: Props) => {
   const { businessUnit, businessBanking } = data;
   const isConfirmed = resultType === RequestStatus.INITIAL_APPROVAL || resultType === RequestStatus.FINAL_APPROVAL;
   const showFinalApproval =
-    resultType === RequestStatus.FINAL_APPROVAL && userRole === PanelType.BUSINESS && section === 'business-unit';
+    resultType === RequestStatus.FINAL_APPROVAL && userRole === PanelType.BUSINESS && section === PanelType.BUSINESS;
   // const showBusinessBankingResult = userRole === PanelType.BUSINESS_BANKING || userRole === PanelType.BUSINESS && section === 'business-banking';
-  console.log('showFinalApproval', resultType, userRole, section);
 
   const businessUnitResultInfo = [
     {
