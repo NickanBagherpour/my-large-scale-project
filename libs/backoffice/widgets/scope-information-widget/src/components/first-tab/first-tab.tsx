@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ROUTES } from '@oxygen/utils';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox } from '@oxygen/ui-kit';
@@ -16,18 +16,20 @@ type FirstTabType = PageProps & {
 const FirstTab: React.FC<FirstTabType> = (props) => {
   const { id } = props;
   const [t] = useTr();
-  const { data, isFetching } = useGetFirstTabReportDataQuery();
 
-  const latinName = data && data[0].label;
-  const farsiName = data && data[1].label;
+  const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
+
+  const latinName = data?.name;
+  const farsiName = data?.description;
+
   const item = [
     {
       key: t('first_tab.latin_scope_name'),
-      value: latinName,
+      value: getValueOrDash(latinName),
     },
     {
       key: t('first_tab.farsi_scope_name'),
-      value: farsiName,
+      value: getValueOrDash(farsiName),
     },
   ];
   return (

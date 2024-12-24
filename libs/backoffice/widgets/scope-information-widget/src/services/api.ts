@@ -4,7 +4,9 @@ import { FetchParamsType, ReportResponseType } from '../types';
 import Mockify from '@oxygen/mockify';
 
 const Api = {
-  getReportData: async () => Mockify.getSelectOptions(),
+  getReportData: async (params) => {
+    return client.get<any>(`${portalUrl}/v1/scope/${params}`);
+  },
   getServicesData: async (params) => Mockify.getServices(params),
   getExcel: async (params) => Mockify.getServices(params),
 };

@@ -1,15 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { FetchParamsType } from '../types';
+import { FetchParamsType, Service } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
-
-export const useGetFirstTabReportDataQuery = () => {
+export type useGetFirstTabReportDataQueryPropsType = {
+  id: string;
+};
+export const useGetFirstTabReportDataQuery = (props: useGetFirstTabReportDataQueryPropsType) => {
+  const { id } = props;
   const dispatch = useAppDispatch();
 
-  return useQuery({
-    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST],
-    queryFn: withErrorHandling(() => Api.getReportData(), dispatch),
+  return useQuery<Service>({
+    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST, id],
+    queryFn: withErrorHandling(() => Api.getReportData(id), dispatch),
   });
 };
