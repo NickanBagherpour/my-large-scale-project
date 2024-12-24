@@ -37,7 +37,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       dataIndex: 'name',
       align: 'center',
       render: (_val, _record, index) => {
-        return getValueOrDash(_record?.name);
+        const { name } = _record;
+        return getValueOrDash(name);
       },
     },
     {
@@ -46,14 +47,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       dataIndex: 'description',
       align: 'center',
       render: (_val, _record, index) => {
-        return getValueOrDash(_record?.description);
+        const { description } = _record;
+        return getValueOrDash(description);
       },
     },
     {
       width: '11.8rem',
       key: 'status',
-      render: () => (
-        <Button variant={'text'} href={'scope-information?id=test'} color={'primary'}>
+      render: (_val, _record, index) => (
+        <Button variant={'text'} href={`scope-information?id=${_record.id}`} color={'primary'}>
           {t('table.details')}
         </Button>
       ),
@@ -67,14 +69,14 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ index, name, description }) => {
+      render: ({ id, name, description }) => {
         const data = [
           { title: t('table.latin_name_scope'), value: getValueOrDash(name) },
           { title: t('table.persian_name_scope'), value: getValueOrDash(description) },
           {
             title: t('table.details'),
             value: (
-              <Button className={'item__btn'} href={'scope-information?id=test'} variant={'text'} color={'primary'}>
+              <Button className={'item__btn'} href={`scope-information?id=${id}`} variant={'text'} color={'primary'}>
                 {t('table.details')}
               </Button>
             ),
