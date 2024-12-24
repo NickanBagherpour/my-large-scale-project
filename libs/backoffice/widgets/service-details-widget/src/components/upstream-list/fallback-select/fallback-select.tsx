@@ -1,40 +1,49 @@
 import { useState } from 'react';
 
+import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
-import { Card } from './selection/card/card';
+import { Cards } from './selection/cards/cards';
 import { useAppDispatch, useAppState } from '../../../context';
 import { UPSTREAM_CARD_PAGE_SIZE } from '../../../utils/consts';
 import { CardDetail } from './selection/card-detail/card-detail';
-import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/upstream-cards-detail';
+import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/get-upstream-cards-detail';
 
 import * as S from './fallback-select.style';
 
 export const FallbackSelect = () => {
+  //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-
-  const [searchValue, setSearchValue] = useState('');
-  const [page, setPage] = useState(1);
+  //States
+  const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  //Queries
   const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
+
+  useBounce(() => {
+    setDebouncedSearchTerm(searchTerm);
+    setQuery((prev) => ({ ...prev, page: 1 }));
+  }, [searchTerm]);
 
   function queryParams() {
     const params = {
       page: page - 1,
       size: UPSTREAM_CARD_PAGE_SIZE,
       sort: [''],
-      'search-field': searchValue,
+      'search-field': debouncedSearchTerm,
     };
     return params;
   }
+  //Handlers
   const handleChange = (e) => {
-    setSearchValue(e.target.value);
+    setQuery((prev) => ({ ...prev, searchTerm: e.target.value.trimStart() }));
   };
-  const changePage = (currentPage) => {
-    setPage(currentPage);
+  const changePage = (currentPage: number) => {
+    setQuery((prev) => ({ ...prev, page: currentPage }));
   };
 
   return (
@@ -43,7 +52,7 @@ export const FallbackSelect = () => {
       <S.BorderBox>
         <S.SelectContainer>
           <Input
-            value={searchValue}
+            value={searchTerm}
             onChange={(e) => handleChange(e)}
             placeholder={t('upstream_tab.placeholder')}
             autoFocus
@@ -51,7 +60,7 @@ export const FallbackSelect = () => {
           {data?.content.length ? (
             <>
               <S.DataSection>
-                <Card cardData={data?.content} loading={isFetching} wordToHighlight={searchValue} />
+                <Cards cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
               </S.DataSection>
               <S.PaginationBox>
                 <Pagination

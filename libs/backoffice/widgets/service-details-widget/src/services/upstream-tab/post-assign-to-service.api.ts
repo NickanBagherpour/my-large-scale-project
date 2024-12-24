@@ -15,5 +15,6 @@ export const useAssignToServiceMutation = () => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
     },
+    networkMode: 'offlineFirst',
   });
 };

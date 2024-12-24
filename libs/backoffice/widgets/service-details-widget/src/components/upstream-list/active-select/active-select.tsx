@@ -30,7 +30,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   //Queries
   const { data, isFetching } = useUpstreamListQuery(state.serviceName);
   //constants
-  const tableData = data?.targets ? [...data.targets] : undefined;
+  const tableData = data?.targets;
   const infoBoxData = { latinName: data?.name, persianName: data?.description };
   //Handlers
   const toggleModal = (modal: keyof Modal) => {
@@ -47,7 +47,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   };
 
   return (
-    <S.UpstreamContainer>
+    <>
       <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <UpstreamDetails
         tableLoading={isFetching}
@@ -62,6 +62,6 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         cancelToggle={() => toggleModal('removeService')}
         id={data?.name}
       />
-    </S.UpstreamContainer>
+    </>
   );
 };
