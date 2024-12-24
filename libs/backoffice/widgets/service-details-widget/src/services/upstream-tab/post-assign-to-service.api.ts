@@ -1,18 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { ApiUtil } from '@oxygen/utils';
 
-import { useAppDispatch } from '../../context';
-
-import { UpstreamListData } from '../../types';
+import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
-
-export const useAssignToServiceQuery = (params: string | number) => {
+import { Nullable } from '@oxygen/types';
+export type AssignUpstreamToServiceParams = { id: Nullable<string | number>; serviceName: Nullable<string> };
+export const useAssignToServiceMutation = () => {
   const dispatch = useAppDispatch();
-
-  return useQuery<UpstreamListData>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
-    queryFn: withErrorHandling(() => Api.assignToService(params), dispatch),
+  return useMutation({
+    mutationFn: (params: AssignUpstreamToServiceParams) => Api.assignToService(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      updateMessageAction(dispatch, err);
+    },
   });
 };

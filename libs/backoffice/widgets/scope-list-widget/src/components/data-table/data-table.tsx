@@ -2,33 +2,24 @@ import React from 'react';
 import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps, typeScopeListParams } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 import { Table } from '@oxygen/ui-kit';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
-
-import { useGetScopeListQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
 
 import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
-  //
+  scopeListData: any;
+  scopeListLoading: boolean;
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
-  const { pagination, searchField } = useAppState();
+  const { pagination } = useAppState();
+  const { scopeListLoading, scopeListData } = props;
   const [t] = useTr();
-
-  const scopeListParams: typeScopeListParams = {
-    'search-field': searchField,
-    page: pagination.page,
-    size: pagination.pageSize,
-    sort: '',
-  };
-
-  const { data: scopeListData, isFetching: scopeListLoading } = useGetScopeListQuery(scopeListParams);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
