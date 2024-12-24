@@ -27,7 +27,7 @@ const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
         <S.StyledText>{t('allowed_creation_BAAM')}</S.StyledText>
       </Flex>
       <Button
-        href={ROUTES.BACKOFFICE.SERVICE_CREATION}
+        href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${serviceName}`}
         style={{ width: 'fit-content' }}
         block={false}
         color='primary'
