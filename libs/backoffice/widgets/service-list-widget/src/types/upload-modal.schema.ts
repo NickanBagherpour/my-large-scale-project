@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 
 import { REGEX_PATTERNS } from '@oxygen/utils';
 
-import { Search_SERVICE_NAMES, UPLOAD_SERVICE_NAMES } from '../utils/consts';
+import { SERVICE_NAME, UPLOAD_SERVICE_NAMES } from '../utils/consts';
 
 export const uploadService = (t: TFunction<'translation', undefined>) =>
   z.object({
@@ -16,9 +16,9 @@ export const uploadService = (t: TFunction<'translation', undefined>) =>
   });
 
 export type UploadServiceType = z.infer<ReturnType<typeof uploadService>>;
-export const SearchService = (t: TFunction<'translation', undefined>) =>
+export const ServiceName = (t: TFunction<'translation', undefined>) =>
   z.object({
-    [Search_SERVICE_NAMES.SearchService]: z
+    [SERVICE_NAME.ServiceName]: z
       .string({ required_error: t('error.required') })
       .trim()
       .min(1, t('error.required'))
@@ -26,4 +26,4 @@ export const SearchService = (t: TFunction<'translation', undefined>) =>
       .regex(REGEX_PATTERNS.isLatinText, t('error.english_validation_message')),
   });
 
-export type SearchServiceType = z.infer<ReturnType<typeof SearchService>>;
+export type ServiceNameType = z.infer<ReturnType<typeof ServiceName>>;
