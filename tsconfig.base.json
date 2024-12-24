@@ -94,6 +94,9 @@
             "@oxygen/business/widgets/request-details-widget": [
                 "libs/business/widgets/request-details-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/request-list-widget": [
+                "libs/business/widgets/request-list-widget/src/index.ts"
+            ],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/customer/auth": ["libs/customer/auth/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
@@ -102,6 +105,9 @@
             ],
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
+            ],
+            "@oxygen/customer/widgets/request-registration-widget": [
+                "libs/customer/widgets/request-registration-widget/src/index.ts"
             ],
             "@oxygen/hooks": ["libs/hooks/src/index.ts"],
             "@oxygen/mockify": ["libs/mockify/src/index.ts"],

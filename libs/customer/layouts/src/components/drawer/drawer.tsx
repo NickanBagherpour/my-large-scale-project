@@ -1,17 +1,16 @@
-import { Badge, Empty, Input, Menu, MenuProps, Result } from 'antd';
+import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
+import { useAsync, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
-import { Box, Button, Divider, Loading } from '@oxygen/ui-kit';
-import { cssVar, ROUTES, CUSTOMER_ROUTE_GROUPS } from '@oxygen/utils';
+import { Box, Button, Loading } from '@oxygen/ui-kit';
+import { cssVar, CUSTOMER_ROUTE_GROUPS, ROUTES } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
-import UserSection from '../user-section/user-section';
 
 import * as S from './drawer.style';
 
@@ -64,7 +63,7 @@ const Drawer = (props: DrawerProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const registerButtonHref = ROUTES.CUSTOMER.REQUEST_CREATION;
+  const registerButtonHref = ROUTES.CUSTOMER.REQUEST_REGISTRATION;
   const isCurrentRoute = pathname === registerButtonHref;
 
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
@@ -183,7 +182,7 @@ const Drawer = (props: DrawerProps) => {
             <S.RegisterButton
               type={'primary'}
               variant={'solid'}
-              icon={<i className={'icon-white_plus'} />}
+              icon={<i className={'icon-plus'} />}
               href={registerButtonHref}
               disabled={isCurrentRoute}
             >

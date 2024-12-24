@@ -10,6 +10,6 @@ export const useUpstreamCardDetailsQuery = (params: any) => {
 
   return useQuery<any>({
     queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
-    queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(), dispatch),
+    queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(params), dispatch),
   });
 };

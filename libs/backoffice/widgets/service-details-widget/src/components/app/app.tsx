@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
@@ -6,12 +6,18 @@ import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { ROUTES, uuid } from '@oxygen/utils';
-import ScopeList from '../scope-list/scope-list';
 import { ReturnButton } from '@oxygen/reusable-components';
+import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
+
+import ScopeList from '../scope-list/scope-list';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { useAppDispatch, useAppState } from '../../context';
-import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
+import {
+  updateServerNameAction,
+  updateUpstreamTabCreationSubmitAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 
 import * as S from './app.style';
 
@@ -33,22 +39,36 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+  //to do : change id to service name
+  const servicename: Nullable<string> = searchParams.get('servicename');
 
-  const id: Nullable<string> = searchParams.get('id');
-  if (!id) {
+  useEffect(() => {
+    updateServerNameAction(dispatch, servicename);
+  }, [servicename]);
+
+  if (!servicename) {
     redirect('/not-found');
   }
-
+  const handleUpstreamCreation = () => {
+    updateUpstreamTabCreationSubmitAction(dispatch);
+  };
   const footerButton = (
-    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-      {t('button.return')}
-    </ReturnButton>
+    <>
+      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        {t('button.return')}
+      </ReturnButton>
+      {!state.upstreamTab.activeSelect.isInitialized && (
+        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
+          {t('save_changes')}
+        </Button>
+      )}
+    </>
   );
 
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: t('service_information'),
+      label: t('general_information'),
       children: (
         <>
           <div className='service-technical-details'>
@@ -59,7 +79,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -81,16 +101,6 @@ const App: React.FC<AppProps> = (props) => {
     },
     {
       key: '2',
-      label: t('scopes'),
-      children: <ScopeList />,
-    },
-    {
-      key: '3',
-      label: t('upstream'),
-      children: <UpstreamList />,
-    },
-    {
-      key: '4',
       label: t('route'),
       children: (
         <>
@@ -102,7 +112,7 @@ const App: React.FC<AppProps> = (props) => {
                 color='primary'
                 variant='filled'
                 icon={<i className='icon-clock' />}
-                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${id}&type=service`)}
+                onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
               >
                 {t('see_changes_history')}
               </Button>
@@ -122,14 +132,21 @@ const App: React.FC<AppProps> = (props) => {
         </>
       ),
     },
+    {
+      key: '3',
+      label: t('scopes'),
+      children: <ScopeList />,
+    },
+    {
+      key: '4',
+      label: t('upstream'),
+      children: <UpstreamList />,
+    },
   ];
 
   return (
-    <S.AppContainer footer={footerButton}>
-      <Container title={t('widget_name')} style={{ minHeight: '100%' }}>
-        {/* change the defaultActiveKey to 0  */}
-        <Tabs defaultActiveKey='3' items={items} style={{ paddingTop: '3rem' }} />
-      </Container>
+    <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
+      <Tabs defaultActiveKey='1' items={items} style={{ paddingTop: '3rem' }} />
     </S.AppContainer>
   );
 };

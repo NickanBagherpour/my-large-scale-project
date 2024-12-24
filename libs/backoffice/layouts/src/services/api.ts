@@ -27,9 +27,7 @@ const Api = {
     return response.data;
   },
   getUserProfile: async () => {
-
     const response = await client.get(`api/auth/user-info`);
-
     return response.data;
   },
 };

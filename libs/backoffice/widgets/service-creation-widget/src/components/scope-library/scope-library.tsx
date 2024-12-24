@@ -8,15 +8,16 @@ import { type TablePaginationConfig } from 'antd';
 
 type Props = {
   closeDrawer: () => void;
+  selectScope: (scope: Scope) => void;
 };
 
 export default function ScopeLibrary(props: Props) {
-  const { closeDrawer } = props;
+  const { closeDrawer, selectScope } = props;
   const [t] = useTr();
-  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
-  const { data, isFetching } = useGetScopes(pagination);
+  const { data, isFetching } = useGetScopes({ pagination, name: '' });
+  const [selectedRow, setSelectedRow] = useState<null | Scope>(null);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -29,6 +30,9 @@ export default function ScopeLibrary(props: Props) {
   };
 
   const addScope = () => {
+    if (selectedRow) {
+      selectScope(selectedRow);
+    }
     closeDrawer();
   };
 
@@ -37,7 +41,7 @@ export default function ScopeLibrary(props: Props) {
       title: t('choose'),
       key: 'choose',
       align: 'center',
-      render: (scope) => <S.Radio checked={selectedScope?.idx === scope.idx} />,
+      render: (scope) => <S.Radio checked={selectedRow?.idx === scope.idx} />,
     },
     {
       title: t('scope_name'),
@@ -59,7 +63,7 @@ export default function ScopeLibrary(props: Props) {
         const { persianName, scopeName, idx } = scope;
         return (
           <Box flexDirection='column'>
-            <Table.MobileColumn title={t('choose')} value={<S.Radio checked={selectedScope?.idx === idx} />} />
+            <Table.MobileColumn title={t('choose')} value={<S.Radio checked={selectedRow?.idx === idx} />} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
             <Table.MobileColumn minHeight={'22px'} title={t('persian_name')} value={persianName} />
             <Table.MobileColumn minHeight={'22px'} title={t('scope_name')} value={scopeName} />
@@ -74,6 +78,7 @@ export default function ScopeLibrary(props: Props) {
       <S.FormItem label={t('search')} namnee='search'>
         <Input placeholder={t('persian_or_english_name')} prefix={<i className='icon-search-normal' />} />
       </S.FormItem>
+
       <S.Table
         dataSource={data?.items}
         loading={isFetching}
@@ -86,11 +91,11 @@ export default function ScopeLibrary(props: Props) {
         rowKey={(row) => row.idx}
         onRow={(scope) => ({
           onClick() {
-            setSelectedScope(scope);
+            setSelectedRow(scope);
           },
         })}
       />
-      <S.Button onClick={addScope} disabled={!selectedScope} color='primary'>
+      <S.Button onClick={addScope} disabled={!selectedRow} color='primary'>
         {t('add')}
       </S.Button>
     </S.Form>

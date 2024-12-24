@@ -41,7 +41,11 @@ export const ROUTES = {
     PROFILE: '/profile',
     DASHBOARD: '/dashboard',
     REQUESTS_MANAGEMENT: '/requests-management',
-    REQUEST_CREATION: '/request-creation',
+    REQUEST_REGISTRATION: '/request-registration',
+  },
+  BUSINESS: {
+    REQUEST_LIST: '/request-list',
+    REQUEST_ID: '/request-id',
   },
   BUSINESS: {
     REQUESTS_MANAGEMENT: '/requests-management',

@@ -13,6 +13,7 @@ export default {
   non_denial: 'عدم انکار',
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   new_request_validation: 'اعتبارسنجی درخواست جدید',
+  search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',

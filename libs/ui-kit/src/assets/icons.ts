@@ -19,6 +19,9 @@ export { ReactComponent as InactiveBadge } from './media/inactive-badge.svg';
 export { ReactComponent as SadadLogoLight } from './media/sadad-logo-light.svg';
 export { ReactComponent as Refresh } from './media/refresh.svg';
 export { ReactComponent as IconTimer } from './media/icon-timer.svg';
+export { ReactComponent as InfoCircle } from './media/info-circle.svg';
+export { ReactComponent as TickCircleOutline } from './media/tick-circle-outline.svg';
+export { ReactComponent as Calender } from './media/calendar.svg';
 
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';
 export * as bankLogo from './media/bank.png';

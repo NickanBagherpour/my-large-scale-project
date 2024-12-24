@@ -1,8 +1,8 @@
-# Oxygen Plus Portals
+# Oxygen Pro Portals
 
-![Oxygen Plus Logo](./libs/ui-kit/src/assets/media/oxygen-logo-dark-mode.svg)
+![Oxygen Pro Logo](./libs/ui-kit/src/assets/media/oxygen-text-logo.svg)
 
-Oxygen Plus is a scalable monorepo project built with [Nx](https://nx.dev/) and multiple [Next.js](https://nextjs.org/) applications. This setup enables efficient development, testing, and deployment of various portals, including backoffice and business portals.
+Oxygen Pro is a scalable monorepo project built with [Nx](https://nx.dev/) and multiple [Next.js](https://nextjs.org/) applications. This setup enables efficient development, testing, and deployment of various portals, including backoffice and business portals.
 
 
 ## Table of Contents
@@ -214,7 +214,7 @@ To interact with other portals, specify the project name in your Nx commands:
 The project follows a monorepo structure managed by Nx, allowing multiple applications and libraries to coexist efficiently.
 
 ```
-oxygen-plus-portals/
+oxygen-pro-portals/
 ├── apps/
 │   ├── backoffice-portal/
 │   │   ├── Dockerfile
