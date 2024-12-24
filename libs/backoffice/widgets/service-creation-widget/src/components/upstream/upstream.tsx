@@ -45,7 +45,7 @@ export default function Upstream() {
   const { data: currentUpstream, isFetching: isFetchingCurrentUpstream } = useGetUpstream();
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
     useGetUpstreamWithTargets(selectedUpstreamId);
-  const { mutateAsync: assignUpstreamToService } = usePostAssignUpstreamToService();
+  const { mutate: assignUpstreamToService } = usePostAssignUpstreamToService();
   const serviceName = useSearchParams().get('service-name');
 
   const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets || isFetchingCurrentUpstream;
@@ -55,14 +55,9 @@ export default function Upstream() {
     previousStep(dispatch);
   };
 
-  const onRegister = async () => {
-    try {
-      if (!selectedUpstreamId || !serviceName) return;
-      await assignUpstreamToService({ id: selectedUpstreamId, serviceName });
-      nextStep(dispatch);
-    } catch {
-      //
-    }
+  const onRegister = () => {
+    if (!selectedUpstreamId || !serviceName) return;
+    assignUpstreamToService({ id: selectedUpstreamId, serviceName }, { onSuccess: () => nextStep(dispatch) });
   };
 
   const changePage = (currentPage: number) => {

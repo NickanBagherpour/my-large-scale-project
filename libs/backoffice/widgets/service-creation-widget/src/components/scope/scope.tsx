@@ -19,7 +19,7 @@ export default function Scope() {
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
   const serviceName = useSearchParams().get('service-name');
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
-  const { mutateAsync: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
+  const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = false;
 
@@ -39,14 +39,13 @@ export default function Scope() {
     previousStep(dispatch);
   };
 
-  const assignToServiceAndProceed = async () => {
+  const assignToServiceAndProceed = () => {
     if (selectedScope && serviceName) {
-      await assignScopeToService({ scopeName: selectedScope.name, serviceName });
-      nextStep(dispatch);
+      assignScopeToService({ scopeName: selectedScope.name, serviceName }, { onSuccess: () => nextStep(dispatch) });
     }
   };
 
-  const onRegister = async () => {
+  const onRegister = () => {
     if (isInSSO) assignToServiceAndProceed();
     else toggleConfirmModal();
   };

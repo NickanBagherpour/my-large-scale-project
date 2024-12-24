@@ -26,22 +26,17 @@ export default function Route() {
   const dispatch = useAppDispatch();
   const serviceName = useSearchParams().get('service-name');
   const { data, is404Error, isFetching } = useGetRoute();
-  const { mutateAsync: postRoute } = usePostRouteMutation();
-  const { mutateAsync: putRoute } = usePutRouteMutation();
+  const { mutate: postRoute } = usePostRouteMutation();
+  const { mutate: putRoute } = usePutRouteMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = false;
 
-  const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
-    try {
-      if (serviceName) {
-        const { host, path, protocole, actionOrMethod } = values;
-        const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
-        await (data?.data ? putRoute(params) : postRoute(params));
-        nextStep(dispatch);
-        updateRouteStep(dispatch, values);
-      }
-    } catch {
-      //
+  const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
+    if (serviceName) {
+      const { host, path, protocole, actionOrMethod } = values;
+      const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
+      const mutateOptions = { onSuccess: () => nextStep(dispatch) };
+      data?.data ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
     }
   };
 

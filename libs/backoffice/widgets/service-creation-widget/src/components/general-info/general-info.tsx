@@ -43,37 +43,38 @@ export default function GeneralInfo() {
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
-  const { mutateAsync: postGeneralInfo } = usePostGeneralInfoMutation();
+  const { mutate: postGeneralInfo } = usePostGeneralInfoMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = service?.data?.isInSSO;
 
-  const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
+  const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = (values) => {
     const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
 
-    if (!throughputs || !serviceAccesses) return;
+    if (!throughputs || !serviceAccesses || !category) return;
 
     const currentThroughputTitle = throughputs.find((t) => t.code === throughput)?.title;
     const currentServiceAccess = serviceAccesses.find((s) => s.code === access)?.title;
 
     if (!currentThroughputTitle || !currentServiceAccess) return;
 
-    try {
-      await postGeneralInfo({
+    postGeneralInfo(
+      {
         persianName,
         version,
         ownerName: owner,
         tagsIds: tags.map((t) => t.value),
-        // @ts-expect-error asdf asdf asdf
         categoryCode: category,
         throughput: currentThroughputTitle,
         latinName: englishName,
         accessLevel: currentServiceAccess,
-      });
-      nextStep(dispatch);
-      updateGetInfoStep(dispatch, values);
-    } catch {
-      //
-    }
+      },
+      {
+        onSuccess: () => {
+          nextStep(dispatch);
+          updateGetInfoStep(dispatch, values);
+        },
+      }
+    );
   };
 
   const onReturn = () => {
