@@ -20,3 +20,7 @@ export const Percent = styled.p`
   width: 100%;
   margin-top: -0.2rem;
 `;
+export const TickIcon = styled.i`
+  color: ${(p) => p.theme.primary.main};
+  font-size: 3rem;
+`;
