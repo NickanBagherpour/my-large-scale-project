@@ -1,7 +1,6 @@
 /*--import--*/
 import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
-import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/customer-auth.key';
-import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as BACKOFFICE_AUTH_KEYS, KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
 import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './widgets/service-clients-list.key';
@@ -26,10 +25,12 @@ import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
 import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
 import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
 import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
+import { KEYS as REQUEST_LIST_KEYS } from './widgets/request-list.key';
 import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-history.key';
 
 export const RQKEYS = {
   /*--export--*/
+  REQUEST_LIST: REQUEST_LIST_KEYS,
   REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
   LANDING: LANDING_KEYS,
   BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,

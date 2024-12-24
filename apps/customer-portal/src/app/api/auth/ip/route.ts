@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
     if (forwarded) {
       // X-Forwarded-For may contain multiple IPs, take the first one
-      const ips = forwarded.split(',').map(ip => ip.trim());
+      const ips = forwarded.split(',').map((ip) => ip.trim());
       console.log('X-Forwarded-For IPs:', ips);
       ip = ips[0];
     }
