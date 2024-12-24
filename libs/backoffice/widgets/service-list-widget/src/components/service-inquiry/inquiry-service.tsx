@@ -21,6 +21,14 @@ type Props = {
   isOpen: boolean;
   toggle: () => void;
 };
+const defaultOptions = {
+  autoplay: false,
+  loop: true,
+  animationData: searchAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
 export type ContentType = 'searching' | InquiryStatus;
 const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
@@ -41,10 +49,10 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
     const fetchData = async () => {
       if (fromSubmission) {
         const res = await refetch(); // Refetch data based on form submission
-        if (res?.data?.serviceInquiryStatus) {
-          setContent('SERVICE_EXISTS_IN_BAAM');
+        const status = res?.data?.serviceInquiryStatus;
+        if (status) {
+          setContent(status);
         } else {
-          console.log('status not exist');
           setContent('searching');
         }
         lottieRef.current?.stop();
@@ -55,14 +63,6 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
     return () => setFormSubmission(false);
   }, [fromSubmission]);
 
-  const defaultOptions = {
-    autoplay: false,
-    loop: true,
-    animationData: searchAnimation,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
   const contentDictionary: { [key in ContentType]: ReactElement } = {
     SERVICE_NOT_FOUND: <ServiceCreationAllowed />,
     SERVICE_ALREADY_EXISTS: <ServiceExists data={data} form={form} inputRef={inputRef} changeContent={changeContent} />,
