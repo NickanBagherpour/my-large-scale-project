@@ -6,11 +6,11 @@ import { MutableRefObject, RefObject } from 'react';
 import { Button, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
-import { SearchService } from '../../types';
 import { ContentType } from './inquiry-service';
-import { Search_SERVICE_NAMES } from '../../utils/consts';
 import { SearchInputIcon } from '../../assets';
 import { InquiryParams } from '../../types/get-Inquiry-info.type';
+import { ServiceName } from '../../types';
+import { SERVICE_NAME } from '../../utils/consts';
 
 import * as S from './search-box.style';
 
@@ -37,7 +37,7 @@ const SearchBox: React.FC<Props> = ({
   isLoading,
 }) => {
   const [t] = useTr();
-  const rule = createSchemaFieldRule(SearchService(t));
+  const rule = createSchemaFieldRule(ServiceName(t));
   const onFinish = async (values: any) => {
     startLoading();
     changeContent('searching');
@@ -48,7 +48,7 @@ const SearchBox: React.FC<Props> = ({
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
       <Flex gap={'1rem'}>
-        <S.FormItem name={Search_SERVICE_NAMES.ServiceName} rules={[rule]}>
+        <S.FormItem name={SERVICE_NAME.ServiceName} rules={[rule]}>
           <Input
             autoFocus={true}
             ref={inputRef}

@@ -6,7 +6,6 @@ import LazyLottie from 'libs/reusable-components/src/components/animation-loader
 import { useTr } from '@oxygen/translation';
 import { Modal } from '@oxygen/ui-kit';
 
-import { SearchServiceType } from '../../types';
 import searchAnimation from '../../assets/media/searching-Services.json';
 import SearchBox from './search-box';
 import ServiceExists from './service-exists';
@@ -15,6 +14,7 @@ import CompleteService from './complete-service';
 import { InquiryParams, InquiryStatus } from '../../types/get-Inquiry-info.type';
 import ServiceExistsInBAAM from './service-exists-in-BAAM';
 import { useInquireService } from '../../services/get-inquiry.api';
+import { ServiceNameType } from '../../types';
 import * as S from './inquiry-service.style';
 
 type Props = {
@@ -32,7 +32,7 @@ const defaultOptions = {
 export type ContentType = 'searching' | InquiryStatus;
 const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
-  const [form] = Form.useForm<SearchServiceType>();
+  const [form] = Form.useForm<ServiceNameType>();
   const inputRef = useRef<InputRef>(null);
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const [content, setContent] = useState<ContentType>('searching');
