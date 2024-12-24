@@ -9,8 +9,6 @@ import { UpstreamTabModalType } from '../../components/upstream-list/upstream-li
 
 import { UpstreamListTarget } from '../../types';
 
-import * as S from './table.style';
-
 type Props = {
   t: TFunction;
   deletable?: boolean;
