@@ -2,17 +2,28 @@ import styled, { css } from 'styled-components';
 import { Tag as AntTag } from 'antd';
 import { TypeValueType } from './tag';
 
-export const Tag = styled(AntTag)<{ type?: TypeValueType }>`
+export const Tag = styled(AntTag)<{ type?: TypeValueType; bordered?: boolean }>`
   width: max-content;
   height: max-content;
+
+  display: flex;
+  align-items: center;
+
   ${(p) => {
     if (!p.type) return css``;
-    let backgroundColor, color;
+    let backgroundColor, color, border;
 
     switch (p.type) {
-      case 'success':
+      case 'initialApproval':
         backgroundColor = p.theme.success._50;
         color = p.theme.success.main;
+        break;
+      case 'FinalApproval':
+        backgroundColor = p.theme.secondary._50;
+        color = p.theme.secondary.main;
+        if (p.bordered) {
+          border = p.theme.secondary.main;
+        }
         break;
       case 'processing':
         backgroundColor = p.theme.primary._50;
@@ -35,6 +46,7 @@ export const Tag = styled(AntTag)<{ type?: TypeValueType }>`
     return css`
       background-color: ${backgroundColor};
       color: ${color};
+      border-color: ${border};
     `;
   }}
 `;
