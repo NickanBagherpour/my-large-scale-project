@@ -2,32 +2,14 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 3,
+  step: 0,
   stepStatuses: [
-    { name: 'generalInfo', status: 'finish' },
-    { name: 'route', status: 'finish' },
-    { name: 'scope', status: 'finish' },
-    { name: 'upstream', status: 'process' },
+    { name: 'generalInfo', status: 'process' },
+    { name: 'route', status: 'wait' },
+    { name: 'scope', status: 'wait' },
+    { name: 'upstream', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],
-  generalInfo: {
-    tags: [],
-    owner: '',
-    version: '',
-    access: undefined,
-    category: undefined,
-    englishName: '',
-    persianName: '',
-    throughput: undefined,
-  },
-  // @ts-expect-error fix this later
-  scope: undefined,
-  route: {
-    protocole: '',
-    host: '',
-    path: '',
-    actionOrMethod: '',
-  },
   message: null,
 };
 
@@ -57,15 +39,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
-
-    case 'UPDATE_GENERAL_INFO_STEP':
-      return void (state.generalInfo = action.payload);
-
-    case 'UPDATE_SCOPE_STEP':
-      return void (state.scope = action.payload);
-
-    case 'UPDATE_ROUTE_STEP':
-      return void (state.route = action.payload);
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);

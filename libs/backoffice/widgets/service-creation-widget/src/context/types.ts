@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-import { ScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
 import { steps } from '../components/app/app';
 import { StepProps } from 'antd';
 
@@ -16,9 +15,6 @@ export type Statuses = StepProps['status'];
 export type WidgetStateType = {
   step: StepIndex;
   stepStatuses: Array<{ name: StepNames; status: Statuses }>;
-  generalInfo: GeneralInfoValuesType;
-  scope: ScopeFormType;
-  route: RouteType;
   message: Nullable<MessageType>;
 };
 
@@ -32,18 +28,6 @@ export type WidgetActionType =
     }
   | {
       type: 'PREVIOUS_STEP';
-    }
-  | {
-      type: 'UPDATE_GENERAL_INFO_STEP';
-      payload: GeneralInfoValuesType;
-    }
-  | {
-      type: 'UPDATE_SCOPE_STEP';
-      payload: ScopeFormType;
-    }
-  | {
-      type: 'UPDATE_ROUTE_STEP';
-      payload: RouteType;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

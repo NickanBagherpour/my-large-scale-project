@@ -4,7 +4,7 @@ import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createRouteSchema, RouteParams, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { nextStep, useAppDispatch, previousStep, updateRouteStep, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch, previousStep, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';

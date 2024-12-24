@@ -4,7 +4,7 @@ import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType, Tags } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { updateGetInfoStep, nextStep, useAppDispatch, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
@@ -69,10 +69,7 @@ export default function GeneralInfo() {
         accessLevel: currentServiceAccess,
       },
       {
-        onSuccess: () => {
-          nextStep(dispatch);
-          updateGetInfoStep(dispatch, values);
-        },
+        onSuccess: () => nextStep(dispatch),
       }
     );
   };
