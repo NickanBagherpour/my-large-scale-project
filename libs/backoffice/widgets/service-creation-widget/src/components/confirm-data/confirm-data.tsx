@@ -34,13 +34,12 @@ export default function ConfirmData() {
       {
         key: 'tag',
         fullwidth: true,
-        value: getValueOrDash(
+        value:
           tags.map(({ id, title }) => (
             <Chip ellipsis closeIcon type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
               {title}
             </Chip>
-          ))
-        ),
+          )) ?? '-',
       },
     ];
   }
@@ -76,8 +75,8 @@ export default function ConfirmData() {
   if (route?.data) {
     const { host, path, method, protocol } = route.data;
     routeData = [
-      { key: 'action_or_method', value: method },
-      { key: 'protocol', value: protocol },
+      { key: 'action_or_method', value: method.title },
+      { key: 'protocol', value: protocol.title },
       { key: 'Path', value: path },
       { key: 'host', value: host },
     ];

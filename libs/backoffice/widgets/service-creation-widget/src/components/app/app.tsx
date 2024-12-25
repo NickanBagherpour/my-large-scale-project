@@ -8,6 +8,7 @@ import * as S from './app.style';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
+import { useUrlState } from '../../utils/use-url-state';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
@@ -22,7 +23,7 @@ const App = () => {
   const { message, stepStatuses, step } = useAppState();
   const dispatch = useAppDispatch();
   // using the step from url here, this could cause race condition
-  // const step = useUrlState();
+  useUrlState();
 
   return (
     <Container title={t('create_new_service')}>
