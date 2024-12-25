@@ -4,7 +4,7 @@ import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
-import * as S from './card.style';
+import * as S from './cards.style';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
 import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
 export type CardProps = PageProps & {
@@ -19,7 +19,7 @@ export type CardProps = PageProps & {
   cardData: UpstreamContentData[] | undefined;
   loading: boolean;
 };
-export const Card = (props: CardProps) => {
+export const Cards = (props: CardProps) => {
   const { cardData, loading, wordToHighlight } = props;
 
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import { UpstreamDetails } from '../../../upstream-details/upstream-details';
-import { useUpstreamCardDetailsQuery } from '../../../../../services/upstream-tab/upstream-card-details';
+import { useUpstreamCardDetailsQuery } from '../../../../../services/upstream-tab/get-upstream-card-details';
 
 import * as S from './card-detail.style';
 export type CardDetailPropsType = {
