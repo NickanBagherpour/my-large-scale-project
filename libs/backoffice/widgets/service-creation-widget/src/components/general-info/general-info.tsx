@@ -37,7 +37,7 @@ export default function GeneralInfo() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const serviceName = useSearchParams().get('service-name');
-  const { data: service, isFetching: isFetchingService, is404Error } = useGetService();
+  const { data: service, isPending: isPendingService, is404Error } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
@@ -90,7 +90,7 @@ export default function GeneralInfo() {
     );
   };
 
-  if (isFetchingService) {
+  if (isPendingService) {
     return <Loading />;
   }
 

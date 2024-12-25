@@ -3,6 +3,7 @@ import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
   step: 0,
+  serviceName: '',
   stepStatuses: [
     { name: 'generalInfo', status: 'process' },
     { name: 'route', status: 'wait' },
@@ -36,6 +37,24 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'PREVIOUS_STEP':
       return state.step > 0 ? void state.step-- : undefined;
+
+    case 'SYNC_WITH_URL': {
+      const {
+        payload: { step, serviceName },
+      } = action;
+      state.serviceName = serviceName;
+      state.step = step;
+      state.stepStatuses = state.stepStatuses.map((status, idx) => {
+        if (idx < step) {
+          return { ...status, status: 'finish' };
+        } else if (idx === step) {
+          return { ...status, status: 'process' };
+        } else {
+          return { ...status, status: 'wait' };
+        }
+      });
+      return;
+    }
 
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);

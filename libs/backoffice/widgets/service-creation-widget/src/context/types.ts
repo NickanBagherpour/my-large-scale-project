@@ -14,6 +14,7 @@ export type Statuses = StepProps['status'];
 
 export type WidgetStateType = {
   step: StepIndex;
+  serviceName: string;
   stepStatuses: Array<{ name: StepNames; status: Statuses }>;
   message: Nullable<MessageType>;
 };
@@ -28,6 +29,10 @@ export type WidgetActionType =
     }
   | {
       type: 'PREVIOUS_STEP';
+    }
+  | {
+      type: 'SYNC_WITH_URL';
+      payload: Pick<WidgetStateType, 'step' | 'serviceName'>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
