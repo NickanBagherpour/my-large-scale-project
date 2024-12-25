@@ -1,8 +1,8 @@
 import React from 'react';
-import { Collapse, type CollapseProps } from 'antd';
+import { type CollapseProps } from 'antd';
 
 import { Divider, InfoBox, Loading } from '@oxygen/ui-kit';
-import { NoResult } from '@oxygen/reusable-components';
+import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
@@ -36,7 +36,6 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   if (!data) return <Loading spinning={isFetching} />;
 
   const { requestGeneralInfo, companyInfo, agentsInfo } = data;
-
   const subtitle =
     userRole === PanelType.BUSINESS_BANKING
       ? requestGeneralInfo?.requestStatus?.businessBankingStatus?.title
@@ -183,22 +182,10 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   ];
 
   return (
-    <>
-      <S.Container>
-        <Collapse
-          items={items}
-          bordered={false}
-          expandIconPosition='end'
-          defaultActiveKey={['1']}
-          expandIcon={({ isActive }) => (
-            <S.Expand>
-              <S.ExpandIcon className='icon-arrow-up' rotate={!!isActive} />
-            </S.Expand>
-          )}
-        />
-      </S.Container>
+    <S.Container>
+      <Collapse items={items} />
       {requestGeneralInfo ? <RequestResultBox requestData={requestGeneralInfo} /> : <Loading />}
-    </>
+    </S.Container>
   );
 };
 

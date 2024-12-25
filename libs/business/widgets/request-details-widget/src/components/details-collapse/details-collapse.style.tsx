@@ -4,7 +4,7 @@ import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.div`
   margin-bottom: 1.6rem;
-  margin-top: 2.4rem;
+  margin-top: 1.6rem;
 
   & .ant-collapse-item:nth-of-type(3) .ant-collapse-content-box {
     div {
@@ -19,70 +19,40 @@ export const Container = styled.div`
       }
     }
   }
+}
 
-  & .ant-collapse-borderless {
-    background: transparent;
-  }
-
-  & .ant-collapse-item {
-    background: ${(p) => p.theme.background.main};
-    border-bottom: 0.1rem solid rgb(203, 213, 225);
-    padding: 1.6rem 0;
-  }
-
-  & .ant-collapse-header-text {
-    padding: 1rem 0 0.8rem 0.8rem;
-    font-size: 1.6rem;
-    color: ${(p) => p.theme.text.primary};
-    font-weight: 700;
-    line-height: 2.5rem;
-  }
-
-  & .ant-collapse-content-box {
-    font-size: 1.8rem;
-    font-weight: 400;
-    line-height: calc(28 / 18);
-    color: ${(p) => p.theme.text.primary};
-    padding: 1.6rem 0 0;
-    background-color: ${(p) => p.theme.background.secondary};
-
-    & div {
-      margin: 0;
-    }
-  }
-
-  & .ant-collapse-header {
-    padding: 0;
-    align-items: center;
-  }
-
-  & .ant-collapse-expand-icon {
+& .ant-collapse-content-box {
+  & > div {
     margin: 0;
+    border-radius: 1.2rem;
+
+    &[min_col] {
+      padding: 2.4rem;
+      border-color: ${(p) => p.theme.border._300};
+    }
+
+    .grid-item {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+      gap: 1.2rem;
+    }
+
+    .info-box__title {
+      font-weight: 400;
+      color: ${(p) => p.theme.text.tertiary};
+    }
+
+    .info-box__value {
+      font-weight: 500;
+      color: ${(p) => p.theme.text.secondary};
+    }
+
   }
+}
 
-  & .ant-divider {
-    border-color: ${(p) => p.theme.border._100};
-  }
-`;
-
-export const Expand = styled.div`
-  width: 4rem;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${(p) => p.theme.background.main};
-  border-radius: 50%;
-`;
-
-export const ExpandIcon = styled.i<{ rotate: boolean }>`
-  background-color: ${(p) => p.theme.primary._50};
-  border-radius: 100%;
-  padding: 0.8rem;
-  rotate: ${(p) => (p.rotate ? '180deg' : '0deg')};
-  transition: rotate 500ms;
-  font-size: 2.4rem;
-  color: ${(p) => p.theme.primary.main};
+& .ant-divider {
+  border-color: ${(p) => p.theme.border._100};
+}
 `;
 
 export const TitleWrapper = styled.div`
