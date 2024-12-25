@@ -4,10 +4,6 @@ export const INITIAL_PAGE = 1;
 export const MAX_LENGTH = 100;
 export const MAX_LENGTH_INPUT = 100;
 
-export const RADIO_GROUP_NAME = {
-  CREATE: 'create',
-  SELECT: 'select',
-};
 export const UPSTREAM_TAB_NAMES_FORM_ITEM = {
   FORM_NAME: 'upstream_names',
   ENGLISH_NAME: 'english_name',
@@ -49,3 +45,4 @@ export const CREATE_SCOPE_NAMES = {
 export const IMPORT_FORM_SSO_NAMES = {
   scopeName: 'scopeName',
 } as const;
+export const UPSTREAM_CARD_PAGE_SIZE = 8;

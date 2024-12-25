@@ -7,6 +7,7 @@ export default {
     initial_approval: 'تایید اولیه',
     rejected: 'رد شده',
     pending: 'در انتظار بررسی',
+    pend_bank: 'در انتظار بررسی بانکداری تجاری',
   },
   table: {
     index: 'ردیف',

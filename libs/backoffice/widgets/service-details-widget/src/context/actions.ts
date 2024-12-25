@@ -13,21 +13,11 @@ import {
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
-export function updateFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
-  dispatch({ type: 'UPDATE_FALLBACK_SERVERS', payload: servers });
-}
-export function filteredFallbackServersAction(dispatch: WidgetDispatchType, servers: any) {
-  dispatch({ type: 'FILTERED_FALLBACK_SERVER', payload: servers });
-}
+
 export function updateServerNameAction(dispatch: WidgetDispatchType, serviceName: Nullable<string>) {
   dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });
 }
-export function updateEnglishNameAction(dispatch: WidgetDispatchType, englishName: Nullable<number | string>) {
-  dispatch({ type: 'UPDATE_ENGLISH_NAME', payload: englishName });
-}
-export function updatepersianNameAction(dispatch: WidgetDispatchType, persianName: Nullable<number | string>) {
-  dispatch({ type: 'UPDATE_PERSIAN_NAME', payload: persianName });
-}
+
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FILTERS', payload: filters });
 }

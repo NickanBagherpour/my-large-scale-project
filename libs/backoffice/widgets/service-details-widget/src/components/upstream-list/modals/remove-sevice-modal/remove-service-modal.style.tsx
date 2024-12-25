@@ -6,7 +6,3 @@ export const MarkText = styled(KitMarkText)`
   color: ${(p) => p.theme.text.primary};
   font-size: 1.6rem;
 `;
-
-export const RemoveBtn = styled(KitButton)`
-  margin-inline-start: 2rem;
-`;

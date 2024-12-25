@@ -1,2 +1,16 @@
 export { default as Api } from './api';
 export { useGetScopes } from './get-scopes.api';
+export { useGetService } from './get-service.api';
+export { useGetUpstreams } from './get-upstreams.api';
+export { useGetUpstreamWithTargets } from './get-upstream-with-targets.api';
+export { useGetTags } from './get-tags.api';
+export { useGetCategories } from './get-categories.api';
+export { useGetServiceAccess } from './get-service-access.api';
+export { useGetThroughput } from './get-throughput.api';
+export { usePostGeneralInfoMutation } from './post-general-info.api';
+export { useGetScope } from './get-scope.api';
+export { useGetUpstream } from './get-upstream.api';
+export { usePostAssignUpstreamToService } from './post-assign-upstream-to-service.api';
+export { usePutRouteMutation } from './put-route.api';
+export { usePostRouteMutation } from './post-route.api';
+export { useGetRoute } from './get-route.api';

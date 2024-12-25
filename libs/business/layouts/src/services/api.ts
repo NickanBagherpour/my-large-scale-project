@@ -3,10 +3,10 @@ import mockify from '@oxygen/mockify';
 import { ENV_CONSTANTS } from '@oxygen/utils';
 
 const Api = {
-  getMenus: async () => {
+  getBusinessMenu: async () => {
     let response;
     if (ENV_CONSTANTS.IS_DEV) {
-      response = await mockify.getMenus();
+      response = await mockify.getBusinessMenu();
     } else {
       response = await client.get(`${portalUrl}/profile/menu`);
     }

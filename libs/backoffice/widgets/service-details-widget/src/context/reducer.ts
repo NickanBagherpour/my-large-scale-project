@@ -1,28 +1,21 @@
-import { FormFieldsType, initialActiveSelectType, initialFallbackSelectType } from './types';
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, RADIO_GROUP_NAME } from '../utils/consts';
+import { FormFieldsType, initialActiveSelectType } from './types';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
-import { t } from 'i18next';
 
 const initialFilters: FormFieldsType = {
   name: null,
 };
+
 const initialActiveSelect: initialActiveSelectType = {
   id: null,
   isInitialized: true,
   cardId: undefined,
-};
-const fallBackServers = [];
-const initialfallbackSelect: initialFallbackSelectType = {
-  englishName: undefined,
-  persianName: undefined,
-  servers: fallBackServers,
 };
 
 export const initialStateValue: WidgetStateType = {
   serviceName: undefined,
   upstreamTab: {
     activeSelect: initialActiveSelect,
-    fallbackSelect: initialfallbackSelect,
   },
   table: {
     filters: initialFilters,
@@ -42,28 +35,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_GLOBAL_MESSAGE': {
       return void (state.message = action.payload);
     }
-
     case 'UPDATE_SERVICE_NAME': {
       state.serviceName = action.payload;
       return;
     }
-    case 'UPDATE_ENGLISH_NAME': {
-      state.upstreamTab.fallbackSelect.englishName = action.payload;
-      return;
-    }
-    case 'FILTERED_FALLBACK_SERVER': {
-      state.upstreamTab.fallbackSelect.servers = action.payload;
-      return;
-    }
-    case 'UPDATE_FALLBACK_SERVERS': {
-      state.upstreamTab.fallbackSelect.servers = [...state.upstreamTab.fallbackSelect.servers, action.payload];
-      return;
-    }
-    case 'UPDATE_PERSIAN_NAME': {
-      state.upstreamTab.fallbackSelect.persianName = action.payload;
-      return;
-    }
-
     case 'UPDATE_UPSTREAM': {
       state.upstreamTab.activeSelect = { ...state.upstreamTab.activeSelect, ...action.payload };
       return;

@@ -1,17 +1,16 @@
-import { Badge, Empty, Input, Menu, MenuProps, Result } from 'antd';
+import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { useAsync, useAuth, useMenu } from '@oxygen/hooks';
+import { useAsync, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
-import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
+import { BACKOFFICE_ROUTE_GROUPS, cssVar } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
-import UserSection from '../user-section/user-section';
 
 import * as S from './drawer.style';
 
@@ -80,7 +79,7 @@ const Drawer = (props: DrawerProps) => {
 
   const fetchMenu = async () => {
     try {
-      const response = await executeMenu(async () => await Api.getMenus());
+      const response = await executeMenu(async () => await Api.getBusinessMenu());
 
       setMenu(response);
       return response;
