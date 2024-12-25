@@ -1,7 +1,7 @@
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
-import { useAppDispatch, previousStep, nextStep } from '../../context';
+import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useEffect, useState } from 'react';
 import { Container } from '../container/container.style';
@@ -11,16 +11,15 @@ import ScopeSelector from '../scope-selector/scope-selector';
 import { useGetScope, usePostAssignScopeToService } from '../../services';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
-import { useSearchParams } from 'next/navigation';
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
-  const serviceName = useSearchParams().get('service-name');
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const { serviceName } = useAppState();
   const isInSSO = scope?.data.isServiceInSso;
 
   useEffect(() => {

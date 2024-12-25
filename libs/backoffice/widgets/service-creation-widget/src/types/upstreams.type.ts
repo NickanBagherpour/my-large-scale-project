@@ -1,11 +1,8 @@
-import { PaginatedData } from './shared.type';
+import { PaginatedData, ParamsWithPagaination } from './shared.type';
 
-export type UpstreamsParams = {
-  page: number;
-  size: number;
-  sort: string;
+export type UpstreamsParams = ParamsWithPagaination<{
   'search-field': string;
-};
+}>;
 
 export type Upstream = {
   id: number;

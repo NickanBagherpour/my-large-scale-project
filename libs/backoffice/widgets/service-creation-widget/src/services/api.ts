@@ -18,7 +18,7 @@ const Api = {
   postGeneralInfo: async (params: GeneralInfoParams) =>
     client.post<unknown>(`${portalUrl}/v1/services/register-general-info`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
-  getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope/search`, { params }),
+  getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope`, { params }),
   getUpstreams: async (params: UpstreamsParams) =>
     client.get<Upstreams>(`${portalUrl}/v1/upstreams`, {
       params,
@@ -39,7 +39,7 @@ const Api = {
   putRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
     client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
   postAssignScopeToService: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign-to-service/${serviceName}`),
+    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign/${serviceName}`),
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
 };
