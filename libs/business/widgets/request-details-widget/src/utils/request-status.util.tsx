@@ -31,6 +31,7 @@ export function renderRequestStatus(t, requestStatus: CodeTitle) {
       type={type}
       bordered={requestStatus.code === RequestStatus.FINAL_APPROVAL}
       text={title ?? defaultTitle}
+      style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', height: '2.4rem' }}
     />
   );
 }

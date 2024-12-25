@@ -44,12 +44,8 @@ export const ROUTES = {
     REQUEST_REGISTRATION: '/request-registration',
   },
   BUSINESS: {
-    REQUEST_LIST: '/request-list',
-    REQUEST_ID: '/request-id',
-  },
-  BUSINESS: {
     REQUESTS_MANAGEMENT: '/requests-management',
-    REQUESTS_LIST: '/requests-list',
+    REQUEST_LIST: '/request-list',
     REQUEST_DETAILS: '/request-details',
   },
 };
@@ -86,5 +82,5 @@ export const BACKOFFICE_ROUTE_GROUPS = [
     ROUTES.BACKOFFICE.SCOPE_INFORMATION,
   ],
   [ROUTES.BACKOFFICE.UPSTREAM_LIST, ROUTES.BACKOFFICE.UPSTREAM_CREATION],
-  [ROUTES.BUSINESS.REQUESTS_LIST, ROUTES.BUSINESS.REQUEST_DETAILS],
+  [ROUTES.BUSINESS.REQUEST_LIST, ROUTES.BUSINESS.REQUEST_DETAILS],
 ];
