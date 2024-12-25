@@ -23,9 +23,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   return [
     {
       title: t('table.index'),
-      align: 'right',
+      align: 'center',
       key: 'index',
-      width: 100,
+      width: 70,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
