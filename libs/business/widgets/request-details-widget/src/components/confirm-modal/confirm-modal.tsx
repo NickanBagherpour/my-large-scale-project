@@ -45,7 +45,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
         }
       : { code: '04', title: 'رد درخواست' };
 
-    queryClient.setQueryData([RQKEYS.REQUEST_DETAILS.GET_REQUEST_INFO, { requestId }], (oldData) => {
+    queryClient.setQueryData([RQKEYS.REQUEST_DETAILS.GET_REQUEST_INFO, { requestId }], (oldData: any) => {
       if (!oldData) return;
 
       return {

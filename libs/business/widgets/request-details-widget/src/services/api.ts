@@ -7,11 +7,11 @@ import {
   ReportResponseType,
 } from '../types';
 import Mockify from '@oxygen/mockify';
-import { PaginationType } from '../context/types';
 
 const Api = {
   // getReportData: async (params: FetchParamsType) => {
-  //   return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+
   // },
   getRequestInfo: async (params: FetchRequestDetailParamsType) => {
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);

@@ -11,6 +11,7 @@ export const StyledContainer = styled.div`
   & h2:not(:first-child) {
     margin-top: 2.4rem;
   }
+  margin-top: 1.6rem;
 `;
 
 export const StyledBox = styled(Box)`

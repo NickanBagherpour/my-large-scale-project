@@ -52,6 +52,7 @@ export enum RequestStatus {
   INITIAL_APPROVAL = '02',
   FINAL_APPROVAL = '03',
   REJECTED = '04',
+  PROCESS_BUSINESS_BANKING = '05',
 }
 
 export type RequestConfirm = {
