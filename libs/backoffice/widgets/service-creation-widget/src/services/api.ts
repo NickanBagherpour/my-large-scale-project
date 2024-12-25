@@ -28,7 +28,8 @@ const Api = {
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
-  getScope: async (name: string) => client.get<Scope>(`${portalUrl}/v1/scope/service-name/${name}`),
+  getScope: async (name: string) =>
+    client.get<Scope & { isServiceInSso: boolean }>(`${portalUrl}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>

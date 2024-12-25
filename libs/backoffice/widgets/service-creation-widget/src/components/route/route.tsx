@@ -30,7 +30,7 @@ export default function Route() {
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
-  const isInSSO = false;
+  const isInSSO = data?.data.isServiceInSso;
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
 

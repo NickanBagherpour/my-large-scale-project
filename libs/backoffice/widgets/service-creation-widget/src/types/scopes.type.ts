@@ -5,6 +5,7 @@ export type ScopesParams = {
 export type Scope = {
   name: string;
   description: string | null;
+  id: number;
 };
 
 export type ScopesData = Scope[];

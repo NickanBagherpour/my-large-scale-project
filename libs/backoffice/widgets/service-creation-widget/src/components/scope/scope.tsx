@@ -21,7 +21,7 @@ export default function Scope() {
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
-  const isInSSO = false;
+  const isInSSO = scope?.data.isServiceInSso;
 
   useEffect(() => {
     if (scope?.data) setSelectedScope(scope.data);
