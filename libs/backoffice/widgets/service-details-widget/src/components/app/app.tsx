@@ -42,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-  //to do : change id to service name
+
   const servicename: Nullable<string> = searchParams.get('servicename');
 
   useEffect(() => {
@@ -52,8 +52,7 @@ const App: React.FC<AppProps> = (props) => {
   if (!servicename) {
     redirect('/not-found');
   }
-
-  const { mutate, isPending, isSuccess } = useAssignToServiceMutation();
+  const { mutate, isPending } = useAssignToServiceMutation();
   const handleUpstreamCreation = () => {
     const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
     mutate(params, {
@@ -70,7 +69,7 @@ const App: React.FC<AppProps> = (props) => {
       },
     });
   };
-
+  //to do : handle submit button globaly
   const footerButton = (
     <>
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>

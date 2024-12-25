@@ -26,12 +26,12 @@ export default function RemoveServiceModal(props: Props) {
       closable={true}
       onCancel={cancelToggle}
       footer={[
-        <Button onClick={cancelToggle} size='large' color='primary' variant='outlined'>
+        <Button onClick={cancelToggle} color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <S.RemoveBtn onClick={deleteToggle} size='large' color='error'>
+        <Button onClick={deleteToggle} color='error'>
           {t('remove')}
-        </S.RemoveBtn>,
+        </Button>,
       ]}
     >
       <S.MarkText
