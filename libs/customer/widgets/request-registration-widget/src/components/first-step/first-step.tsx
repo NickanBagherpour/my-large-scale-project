@@ -88,19 +88,29 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             ? false
             : false,
         aggregatorId: state.firstStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
+        organizationId: state.organizationId,
+        submissionId: state.submissionId,
       };
 
       firstMutate(params, {
         onSuccess: (data) => {
           console.log('request registration first step successful:', data);
-          updateOrganizationIdAndSubmissionId(dispatch, data.data);
-          updateFirstStepAction(dispatch, values);
+          if (state.submissionId.length === 0) {
+            updateOrganizationIdAndSubmissionId(dispatch, data.data);
+          }
+          const aggregator_status = state.firstStep.aggregator_status;
+          const updatedValues = { ...values, aggregator_status };
+          updateFirstStepAction(dispatch, updatedValues);
           setCurrentStep((perv) => perv + 1);
         },
         onError: (error) => {
           console.error('request registration first step  failed:', error);
         },
       });
+      // const aggregator_status = state.firstStep.aggregator_status;
+      // const updatedValues = { ...values, aggregator_status };
+      // updateFirstStepAction(dispatch, updatedValues);
+      // setCurrentStep((perv) => perv + 1);
     }
   };
 

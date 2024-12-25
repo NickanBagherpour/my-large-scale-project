@@ -55,6 +55,8 @@ export type FirstStepParams = {
   postal_code: string;
   phone: string;
   last_registration_address: string;
+  organizationId?: string;
+  submissionId?: string;
 };
 
 export type SecondStepParams = {
@@ -66,6 +68,11 @@ export type SecondStepParams = {
   technical_mobile_number: string;
   technical_Phone_number: string;
   clientKey?: string;
+};
+
+export type ThirdStepParams = {
+  requestId: string;
+  servicesIdSet: [number];
 };
 
 export type RequestRegistration = {

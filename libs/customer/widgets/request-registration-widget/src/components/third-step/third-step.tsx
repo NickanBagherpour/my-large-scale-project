@@ -9,6 +9,7 @@ import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
 import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/third-step-table-utils';
+import { useThirdStepRequestRegistrationMutationQuery } from '../../services/third-step/third-step-data';
 
 import * as S from './third-step.style';
 
@@ -26,6 +27,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
     removeService: false,
     serviceId: '',
   });
+  const { mutate: thirdMutate, isPending: ThirdIsPending } = useThirdStepRequestRegistrationMutationQuery();
 
   const toggleModal = (modal: keyof Modal, serviceId?: string) => {
     setModals((prev) => ({
@@ -43,7 +45,20 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   };
 
   const handleSubmit = () => {
-    setCurrentStep((perv) => perv + 1);
+    const params = {
+      requestId: 1,
+      servicesIdSet: [1, 2],
+    };
+    thirdMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        // updateThirdStepAction(dispatch, params);
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
   const isDisable = state.thirdStep.table.length ? false : true;
   const desktopColumns = getDesktopColumns({ t, toggleModal });
@@ -67,7 +82,7 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button disabled={isDisable} htmlType={'submit'} onClick={handleSubmit}>
+        <Button disabled={isDisable} loading={ThirdIsPending} htmlType={'submit'} onClick={handleSubmit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

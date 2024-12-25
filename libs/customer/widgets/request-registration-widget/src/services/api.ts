@@ -1,6 +1,13 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, RequestRegistration } from '../types';
+import {
+  FetchParamsType,
+  ReportResponseType,
+  FirstStepParams,
+  SecondStepParams,
+  ThirdStepParams,
+  RequestRegistration,
+} from '../types';
 import type { ParamsType, OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 
@@ -56,10 +63,20 @@ const Api = {
   },
 
   requestRegistrationFirstStep: async (params: FirstStepParams) => {
-    const { ...restParams } = params;
-    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, restParams, {
-      headers: {},
-    });
+    const { organizationId, submissionId, ...restParams } = params;
+    if (organizationId && submissionId) {
+      return client.put(
+        /*<ReportResponseType>*/ `${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`,
+        restParams,
+        {
+          headers: {},
+        }
+      );
+    } else {
+      return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, restParams, {
+        headers: {},
+      });
+    }
   },
 
   requestRegistrationSecondStep: async (params: SecondStepParams) => {
@@ -83,6 +100,16 @@ const Api = {
       ],
     };
     return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/representative`, apiPrams, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationThirdStep: async (params: ThirdStepParams) => {
+    const apiPrams = {
+      requestId: params.requestId,
+      servicesIdSet: params.servicesIdSet,
+    };
+    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/submissions/services`, apiPrams, {
       headers: {},
     });
   },
