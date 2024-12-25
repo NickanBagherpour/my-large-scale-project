@@ -1,58 +1,47 @@
 import styled from 'styled-components';
 import { Button } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.div`
   margin-bottom: 1.6rem;
   margin-top: 1.6rem;
 
-  & .ant-collapse-item:nth-of-type(3) .ant-collapse-content-box {
-    div {
-      grid-template-columns: repeat(3, 1fr);
+  & .ant-collapse-item.company-info-box .grid-item:nth-last-child(3) {
+    grid-column: span 2;
+  }
 
-      ${respondTo.down('lg')} {
-        grid-template-columns: repeat(2, 1fr);
+  & .ant-collapse-content-box {
+    & > div {
+      border-radius: 1.2rem;
+
+      &[min_col] {
+        padding: 2.4rem;
+        border-color: ${(p) => p.theme.border._300};
+        row-gap: 2rem;
+        column-gap: 2rem;
       }
 
-      ${respondTo.down('sm')} {
-        grid-template-columns: repeat(1, 1fr);
+      .grid-item {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        gap: 1.2rem;
+      }
+
+      .info-box__title {
+        font-weight: 400;
+        color: ${(p) => p.theme.text.tertiary};
+      }
+
+      .info-box__value {
+        font-weight: 500;
+        color: ${(p) => p.theme.text.secondary};
       }
     }
   }
-}
 
-& .ant-collapse-content-box {
-  & > div {
-    margin: 0;
-    border-radius: 1.2rem;
-
-    &[min_col] {
-      padding: 2.4rem;
-      border-color: ${(p) => p.theme.border._300};
-    }
-
-    .grid-item {
-      font-size: 1.2rem;
-      line-height: 1.8rem;
-      gap: 1.2rem;
-    }
-
-    .info-box__title {
-      font-weight: 400;
-      color: ${(p) => p.theme.text.tertiary};
-    }
-
-    .info-box__value {
-      font-weight: 500;
-      color: ${(p) => p.theme.text.secondary};
-    }
-
+  & .ant-divider {
+    border-color: ${(p) => p.theme.border._100};
+    margin: 0 0 0.4rem 0;
   }
-}
-
-& .ant-divider {
-  border-color: ${(p) => p.theme.border._100};
-}
 `;
 
 export const TitleWrapper = styled.div`
@@ -72,7 +61,6 @@ export const CollapseTitle = styled.span`
 
   & .status-icon {
     font-size: 2rem;
-    margin-inline-end: 0.4rem;
   }
 `;
 

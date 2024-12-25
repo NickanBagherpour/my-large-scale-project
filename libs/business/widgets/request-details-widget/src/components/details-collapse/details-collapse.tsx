@@ -150,17 +150,18 @@ const DetailsCollapse: React.FC<Props> = (props) => {
           {renderRequestStatus(t, status)}
         </S.CollapseTitle>
       ),
-      children: <InfoBox data={requestInfoData} />,
+      children: <InfoBox data={requestInfoData} margin={0} />,
     },
     {
       key: '2',
       label: t('company_info'),
-      children: <InfoBox data={companyInfoData} />,
+      children: <InfoBox data={companyInfoData} margin={0} />,
+      className: 'company-info-box',
     },
     {
       key: '3',
       label: t('agents_info'),
-      children: <InfoBox data={agentsInfoData} />,
+      children: <InfoBox data={agentsInfoData} minColumnCount={3} margin={0} />,
     },
     {
       key: '4',

@@ -4,8 +4,8 @@ import { CollapseProps as AntCollapseProps } from 'antd';
 
 import * as S from './collapse.style';
 
-export type CollapseProps = Omit<AntCollapseProps<any>, 'items'> & {
-  items: AntCollapseProps['items'];
+export type CollapseProps = AntCollapseProps & {
+  //
 };
 
 const Collapse = (props: CollapseProps) => {
