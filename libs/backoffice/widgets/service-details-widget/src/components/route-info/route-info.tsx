@@ -11,7 +11,7 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.
 import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
 import { useAppDispatch, useAppState } from '../../context';
 import { useGetRouteDetailsQuery } from '../../services';
-import * as S from './route.style';
+import * as S from './route-info.style';
 
 export type Modal = {
   details: boolean;
@@ -31,25 +31,49 @@ type AppProps = PageProps & {
 };
 
 const Route: React.FC<AppProps> = (props) => {
-  const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery();
+  const searchParams = useSearchParams();
+  const servicename: Nullable<string> = searchParams.get('servicename');
+  if (!servicename) {
+    redirect('/not-found');
+  }
+
+  const params = servicename;
+  const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery(params);
 
   const state = useAppState();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const [t] = useTr();
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
+
+  const transformServiceDetails = (routeDetails) => {
+    if (!routeDetails) return [];
+
+    return [
+      { key: 'method', value: routeDetails.method },
+      { key: 'protocol', value: routeDetails.protocol },
+      { key: 'path', value: routeDetails.path },
+      { key: 'host', value: routeDetails.host },
+      // {
+      //   key: 'tags',
+      //   value: serviceDetails.tags.length
+      //     ? serviceDetails.tags.map(
+      //         (tag, index) => `<Chip type='active'>
+      //         {tag}
+      //       </Chip>`
+      //       )
+      //     : '-',
+      // },
+    ];
+  };
+
+  const transformedData = transformServiceDetails(routeDetails);
 
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
-
-  const id: Nullable<string> = searchParams.get('id');
-  if (!id) {
-    redirect('/not-found');
-  }
 
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
@@ -75,7 +99,7 @@ const Route: React.FC<AppProps> = (props) => {
             color='primary'
             variant='filled'
             icon={<i className='icon-clock' />}
-            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?id=${id}`)}
+            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?servicename=${servicename}`)}
           >
             {t('see_changes_history')}
           </Button>
@@ -84,13 +108,13 @@ const Route: React.FC<AppProps> = (props) => {
             color='primary'
             variant='solid'
             icon={<i className='icon-edit' />}
-            onClick={() => router.push(`${ROUTES.BACKOFFICE.EDIT_ROUTE}?id=${id}`)}
+            onClick={() => router.push(`${ROUTES.BACKOFFICE.EDIT_ROUTE}?servicename=${servicename}`)}
           >
             {t('edit')}
           </Button>
         </div>
       </div>
-      <InfoBox data={routeDetails} margin={0} loading={isServiceFetching} />{' '}
+      <InfoBox data={transformedData} margin={0} loading={isServiceFetching} />{' '}
     </S.ItemsContainer>
   );
 };

@@ -4,7 +4,6 @@ import { useTr } from '@oxygen/translation';
 import Footer from './footer/footer';
 import Box from './box/box';
 import ImportFromSso from './import-from-sso/import-from-sso';
-import CreateScope from './create-scope/create-scope';
 import { useAppDispatch, useAppState, updateScopeMode } from '../../context';
 import { type Scope } from '@oxygen/types';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
@@ -88,17 +87,7 @@ export default function Scope() {
 
   return (
     <Container>
-      <Box>
-        <S.Radios onChange={onChange} value={scopeMode} disabled={!!selectedScope}>
-          <S.Radio value={'importFromSso'}>{t('choose_scope')}</S.Radio>
-          <S.Radio value={'createScope'}>{t('create_scope')}</S.Radio>
-        </S.Radios>
-        {scopeMode === 'importFromSso' ? (
-          <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
-        ) : (
-          <CreateScope selectedScope={selectedScope} chooseScope={chooseScope} />
-        )}
-      </Box>
+      <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
 
       {selectedScope && (
         <S.Table

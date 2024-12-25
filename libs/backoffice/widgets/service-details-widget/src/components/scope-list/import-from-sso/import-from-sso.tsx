@@ -20,13 +20,13 @@ export default function ImportFromSso(props: Props) {
     <>
       <S.Container>
         <ScopeSelector style={{ flex: 1 }} onSelect={selectScope} disabled={!!selectedScope} />
-        <Button color='secondary' onClick={toggleIsScopeLibraryOpen} disabled={!!selectedScope}>
+        {/* <Button color='secondary' onClick={toggleIsScopeLibraryOpen} disabled={!!selectedScope}>
           <S.PlusIcon className='icon-plus' />
           {t('scope_library')}
-        </Button>
+        </Button> */}
       </S.Container>
 
-      {isScopeLibraryOpen && (
+      {/* {isScopeLibraryOpen && (
         <S.Drawer
           title={t('scope_library')}
           placement={'left'}
@@ -37,7 +37,7 @@ export default function ImportFromSso(props: Props) {
         >
           <ScopeLibrary selectScope={selectScope} closeDrawer={toggleIsScopeLibraryOpen} />
         </S.Drawer>
-      )}
+      )} */}
     </>
   );
 }

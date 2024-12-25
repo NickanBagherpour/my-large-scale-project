@@ -28,7 +28,6 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
-  const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery();
   const { notification } = useApp();
 
   // const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
