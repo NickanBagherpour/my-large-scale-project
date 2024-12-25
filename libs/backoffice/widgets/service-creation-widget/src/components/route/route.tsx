@@ -14,7 +14,7 @@ import { useSearchParams } from 'next/navigation';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 
-const protocoleOptions = [
+const protocolOptions = [
   { label: 'http', value: 'HTTP' },
   { label: 'https', value: 'HTTPS' },
 ];
@@ -33,8 +33,8 @@ export default function Route() {
 
   const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
     if (serviceName) {
-      const { host, path, protocole, actionOrMethod } = values;
-      const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
+      const { host, path, protocol, actionOrMethod } = values;
+      const params: RouteParams = { host, path, protocol: protocol, method: actionOrMethod, serviceName };
       const mutateOptions = { onSuccess: () => nextStep(dispatch) };
       data?.data ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
     }
@@ -57,7 +57,7 @@ export default function Route() {
     let initialValues = initialStateValue['route'];
     if (data) {
       const { host, path, method, protocol } = data.data;
-      initialValues = { host, path, actionOrMethod: method, protocole: protocol };
+      initialValues = { host, path, actionOrMethod: method, protocol: protocol };
     }
 
     return (
@@ -75,8 +75,8 @@ export default function Route() {
                   <Input />
                 </FormItem>
 
-                <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
-                  <Select size={'large'} options={protocoleOptions} />
+                <FormItem name={ROUTE_NAMES.protocol} className='span-2' rules={[rule]} label={t('protocol')}>
+                  <Select size={'large'} options={protocolOptions} />
                 </FormItem>
 
                 <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>

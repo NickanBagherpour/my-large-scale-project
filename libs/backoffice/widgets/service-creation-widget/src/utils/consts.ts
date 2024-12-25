@@ -21,7 +21,7 @@ export const IMPORT_FORM_SSO_NAMES = {
 
 export const ROUTE_NAMES = {
   actionOrMethod: 'actionOrMethod',
-  protocole: 'protocole',
+  protocol: 'protocol',
   path: 'path',
   host: 'host',
 } as const;

@@ -65,7 +65,7 @@ export default {
   search_by_english_or_persian_name: 'جستجو براساس نام لاتین یا فارسی سرویس',
 
   action_or_method: 'اکشن/متود',
-  protocole: 'پروتوکل',
+  protocol: 'پروتوکل',
   path: 'Path',
   host: 'Host',
   route: 'Route',

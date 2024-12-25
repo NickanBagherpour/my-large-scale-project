@@ -12,7 +12,7 @@ export const createRouteSchema = (t: TFunction) =>
       .min(1, { message: t('validation.required') })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
 
-    [ROUTE_NAMES.protocole]: z
+    [ROUTE_NAMES.protocol]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })

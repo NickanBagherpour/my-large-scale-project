@@ -77,7 +77,7 @@ export default function ConfirmData() {
     const { host, path, method, protocol } = route.data;
     routeData = [
       { key: 'action_or_method', value: method },
-      { key: 'protocole', value: protocol },
+      { key: 'protocol', value: protocol },
       { key: 'Path', value: path },
       { key: 'host', value: host },
     ];
