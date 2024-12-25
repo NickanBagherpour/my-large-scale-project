@@ -22,25 +22,13 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .max(MAX_LENGTH, { message: t('validation.max_length') })
-      .regex(/^[^a-zA-Z]*$/, {
-        message: t('validation.persian_name_error'),
-      }),
+      .max(MAX_LENGTH, { message: t('validation.max_length') }),
 
-    [FORM_ITEM_NAMES.access]: z
-      .number()
-      .optional()
-      .refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.access]: z.number().refine((val) => val, t('validation.choose_one_option')),
 
-    [FORM_ITEM_NAMES.category]: z
-      .number()
-      .optional()
-      .refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
 
-    [FORM_ITEM_NAMES.throughput]: z
-      .number()
-      .optional()
-      .refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.throughput]: z.number({ required_error: t('validation.choose_one_option') }),
 
     [FORM_ITEM_NAMES.version]: z
       .string({ required_error: t('validation.required') })

@@ -1,12 +1,18 @@
 export type GeneralInfoParams = {
   latinName: string;
   persianName: string;
-  accessLevel: string; // title
-  categoryCode: number; // code
+  accessLevel: {
+    code: number;
+    title: string;
+  };
+  categoryCode: number;
   version: string;
   ownerName: string;
-  throughput: string; // title
-  tagsIds: number[]; // codes
+  throughput: {
+    code: number;
+    title: string;
+  };
+  tagsIds: number[];
 };
 
 export type Service = {

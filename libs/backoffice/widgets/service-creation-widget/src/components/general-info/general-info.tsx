@@ -2,7 +2,7 @@ import { Input, Loading, SearchItemsContainer, Select, Chip, Dropdown } from '@o
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
+import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
@@ -23,6 +23,8 @@ import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 
+const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
+
 export default function GeneralInfo() {
   const [form] = Form.useForm<GeneralInfoValuesType>();
   const [t] = useTr();
@@ -41,23 +43,24 @@ export default function GeneralInfo() {
   const isInSSO = service?.data?.isInSSO;
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = (values) => {
-    const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
+    const { throughput, category, tags: formTags, owner, access, version, englishName, persianName } = values;
 
-    if (!throughputs || !serviceAccesses || !category) return;
+    if (!throughputs || !serviceAccesses || !category || !tags || !categories) return;
 
-    const currentThroughputTitle = throughputs.find((t) => t.code === throughput)?.title;
-    const currentServiceAccess = serviceAccesses.find((s) => s.code === access)?.title;
+    const currentThroughput = findInList(throughputs, throughput);
+    const currentServiceAccess = findInList(serviceAccesses, access);
+    const currentCategory = findInList(categories, category);
 
-    if (!currentThroughputTitle || !currentServiceAccess) return;
+    if (!currentThroughput || !currentServiceAccess || !currentCategory) return;
 
     postGeneralInfo(
       {
         persianName,
         version,
         ownerName: owner,
-        tagsIds: tags.map((t) => t.value),
-        categoryCode: category,
-        throughput: currentThroughputTitle,
+        tagsIds: formTags.map((tag) => tag.value),
+        categoryCode: currentCategory.code,
+        throughput: currentThroughput,
         latinName: englishName,
         accessLevel: currentServiceAccess,
       },
