@@ -2,7 +2,7 @@ import { Input, Loading, SearchItemsContainer, Select, Chip, Dropdown } from '@o
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType, Tags } from '../../types';
+import { createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, initialStateValue } from '../../context';
 import Footer from '../footer/footer';
@@ -21,14 +21,7 @@ import {
 import * as S from './general-info.style';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
-
-function convertTags(tags?: Tags) {
-  return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
-}
-
-function convertCodeTitles(items?: CodeTitle[]) {
-  return items?.map(({ code, title }) => ({ label: title, value: code })) ?? [];
-}
+import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 
 export default function GeneralInfo() {
   const [form] = Form.useForm<GeneralInfoValuesType>();

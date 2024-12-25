@@ -13,4 +13,6 @@ export const KEYS = createQueryKeys(prefix, [
   'THROUGHPUT',
   'SCOPE',
   'UPSTREAM',
+  'SERVICE_HTTP_METHOD',
+  'SERVICE_PROTOCOL',
 ]);

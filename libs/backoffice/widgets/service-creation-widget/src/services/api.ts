@@ -39,6 +39,8 @@ const Api = {
     client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
   postAssignScopeToService: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign-to-service/${serviceName}`),
+  getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
+  getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
 };
 
 export default Api;

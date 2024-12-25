@@ -7,16 +7,14 @@ const MAX_LENGTH = 30;
 export const createRouteSchema = (t: TFunction) =>
   z.object({
     [ROUTE_NAMES.actionOrMethod]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') })
-      .max(MAX_LENGTH, { message: t('validation.max_length') }),
+      .number()
+      .optional()
+      .refine((val) => val, t('validation.choose_one_option')),
 
     [ROUTE_NAMES.protocol]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') })
-      .max(MAX_LENGTH, { message: t('validation.max_length') }),
+      .number()
+      .optional()
+      .refine((val) => val, t('validation.choose_one_option')),
 
     [ROUTE_NAMES.path]: z
       .string({ required_error: t('validation.required') })

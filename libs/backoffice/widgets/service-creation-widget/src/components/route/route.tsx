@@ -4,37 +4,44 @@ import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createRouteSchema, RouteParams, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { nextStep, useAppDispatch, previousStep, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch, previousStep, initialStateValue, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { Container } from '../container/container.style';
-import { useGetRoute, usePostRouteMutation, usePutRouteMutation } from '../../services';
-import { useSearchParams } from 'next/navigation';
+import {
+  useGetRoute,
+  useGetServiceHttpMethod,
+  useGetServiceProtocol,
+  usePostRouteMutation,
+  usePutRouteMutation,
+} from '../../services';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
-
-const protocolOptions = [
-  { label: 'http', value: 'HTTP' },
-  { label: 'https', value: 'HTTPS' },
-];
+import { convertCodeTitles } from '../../utils/convert-enums';
 
 export default function Route() {
   const [form] = Form.useForm<RouteType>();
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
-  const serviceName = useSearchParams().get('service-name');
+  const { serviceName } = useAppState();
   const { data, is404Error, isFetching } = useGetRoute();
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = false;
+  const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
+  const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
 
   const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
-    if (serviceName) {
+    if (serviceName && serviceHttpMethods && serviceProtocols) {
       const { host, path, protocol, actionOrMethod } = values;
-      const params: RouteParams = { host, path, protocol: protocol, method: actionOrMethod, serviceName };
+
+      const currentHttpMethod = serviceHttpMethods.find((s) => s.code === actionOrMethod);
+      const currentProtocole = serviceProtocols.find((s) => s.code === protocol);
+
+      const params: RouteParams = { host, path, protocol: currentProtocole!, method: currentHttpMethod!, serviceName };
       const mutateOptions = { onSuccess: () => nextStep(dispatch) };
       data?.data ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
     }
@@ -57,7 +64,7 @@ export default function Route() {
     let initialValues = initialStateValue['route'];
     if (data) {
       const { host, path, method, protocol } = data.data;
-      initialValues = { host, path, actionOrMethod: method, protocol: protocol };
+      initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
     }
 
     return (
@@ -72,11 +79,19 @@ export default function Route() {
                   label={t('action_or_method')}
                   rules={[rule]}
                 >
-                  <Input />
+                  <Select
+                    size={'large'}
+                    loading={isFetchingServiceHttpMethod}
+                    options={convertCodeTitles(serviceHttpMethods)}
+                  />
                 </FormItem>
 
                 <FormItem name={ROUTE_NAMES.protocol} className='span-2' rules={[rule]} label={t('protocol')}>
-                  <Select size={'large'} options={protocolOptions} />
+                  <Select
+                    size={'large'}
+                    loading={isFetchingServiceProtocol}
+                    options={convertCodeTitles(serviceProtocols)}
+                  />
                 </FormItem>
 
                 <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>

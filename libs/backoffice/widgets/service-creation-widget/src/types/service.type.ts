@@ -49,13 +49,6 @@ export type Service = {
     | null;
 };
 
-export type Route = {
-  method: string;
-  protocol: string;
-  path: string;
-  host: string;
-};
-
 export type Tags = {
   id: number;
   title: string;
