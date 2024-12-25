@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from '@oxygen/ui-kit';
 
 export const DataTableContainer = styled.div`
   .ant-table,
@@ -11,14 +10,19 @@ export const DataTableContainer = styled.div`
   .ant-table-tbody > tr:hover > td {
     background-color: ${(p) => p.theme.background._100};
   }
+
+  .ant-table-tbody > tr > td {
+    font-weight: 600;
+  }
 `;
 
-export const Details = styled.span`
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 2.2rem;
-  color: ${(p) => p.theme.primary._600};
+export const EllipsisContainer = styled.span<{ width: number }>`
+  display: inline-block;
+  max-width: ${(props) => props.width}px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ${(props) => props.theme.direction};
+  text-align: ${(props) => (props.theme.direction === 'rtl' ? 'right' : 'left')};
+  unicode-bidi: ${(props) => (props.theme.direction === 'rtl' ? 'plaintext' : 'normal')};
 `;
-
-export const StyledButton = styled(Button)``;

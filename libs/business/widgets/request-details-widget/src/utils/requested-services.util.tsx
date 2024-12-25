@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { TFunction } from 'i18next';
+import { Tooltip } from 'antd';
 
 import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
@@ -21,8 +23,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   return [
     {
       title: t('table.index'),
-      align: 'center',
+      align: 'right',
       key: 'index',
+      width: 100,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -32,29 +35,34 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t(`table.service_name`),
       dataIndex: 'serviceName',
       align: 'center',
-      width: 'min-content',
+      width: 200,
+      ellipsis: {
+        showTitle: false,
+      },
       render: (value) => {
-        return getValueOrDash(value);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(value)}>
+            {getValueOrDash(value)}
+          </Tooltip>
+        );
       },
     },
     {
       title: t(`table.persian_name`),
       dataIndex: 'persianName',
       align: 'center',
-      width: 'min-content',
+      width: 300,
+      ellipsis: {
+        showTitle: false,
+      },
       render: (value) => {
-        return getValueOrDash(value);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(value)}>
+            {getValueOrDash(value)}
+          </Tooltip>
+        );
       },
     },
-    // {
-    //   title: '',
-    //   dataIndex: '',
-    //   align: 'center',
-    //   width: 'min-content',
-    //   render: (value) => {
-    //     return <S.StyledButton variant={'text'}>{t('table.details')}</S.StyledButton>;
-    //   },
-    // },
   ];
 }
 
@@ -77,17 +85,20 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
           },
           {
             title: t('table.service_name'),
-            value: getValueOrDash(value?.serviceName),
+            value: (
+              <Tooltip title={getValueOrDash(value?.serviceName)} placement={'top'}>
+                <S.EllipsisContainer width={150}>{getValueOrDash(value?.serviceName)}</S.EllipsisContainer>
+              </Tooltip>
+            ),
           },
           {
             title: t('table.persian_name'),
-            value: getValueOrDash(value?.persianName),
+            value: (
+              <Tooltip title={getValueOrDash(value?.persianName)} placement={'top'}>
+                <S.EllipsisContainer width={150}>{getValueOrDash(value?.persianName)}</S.EllipsisContainer>
+              </Tooltip>
+            ),
           },
-          // {
-          //   title: '',
-          //   value: (<S.Details>{t('table.details')}</S.Details>),
-          //   colon: false,
-          // },
         ];
         return <Table.MobileColumns columns={columns} />;
       },
