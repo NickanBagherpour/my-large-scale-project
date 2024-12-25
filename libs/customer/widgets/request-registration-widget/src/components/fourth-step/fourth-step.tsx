@@ -115,31 +115,31 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
             </Card>
             <S.TitleTxt className={'cards-title'}>{t('representatives_info')}</S.TitleTxt>
             <Card>
-              <SearchItemsContainer $columnNumber='3'>
-                <S.InfoItemContainer>
+              <SearchItemsContainer className='representativeInfo' $columnNumber='3'>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('legal_name')}</span>
                   <span>{data.list.legal_name}</span>
-                </S.InfoItemContainer>
-                <S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('form.mobile_number')}</span>
                   <span>{data.list.mobile_number}</span>
-                </S.InfoItemContainer>
-                <S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('telephone')}</span>
                   <span>{data.list.telephone}</span>
-                </S.InfoItemContainer>
-                <S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('technical_name')}</span>
                   <span>{data.list.technical_name}</span>
-                </S.InfoItemContainer>
-                <S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('form.mobile_number')}</span>
                   <span>{data.list.mobile_number}</span>
-                </S.InfoItemContainer>
-                <S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
+                <S.RepresentativesInfoItemContainer>
                   <span>{t('telephone')}</span>
                   <span>{data.list.telephone}</span>
-                </S.InfoItemContainer>
+                </S.RepresentativesInfoItemContainer>
               </SearchItemsContainer>
             </Card>
             <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>

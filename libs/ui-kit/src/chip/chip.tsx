@@ -6,6 +6,7 @@ type BaseChipProps = AntChipProps & {
   type?: 'active' | 'unActive';
   iconProp?: string;
   ellipsis?: boolean;
+  error?: boolean;
 };
 
 type ChipPropsWithTooltip = BaseChipProps & { tooltipOnEllipsis: true; tooltipTitle: string };
@@ -21,6 +22,7 @@ export const Chip = (props: ChipProps) => {
     children,
     iconProp,
     type = 'unActive',
+    error,
     ...rest
   } = props;
 
@@ -28,7 +30,7 @@ export const Chip = (props: ChipProps) => {
 
   const renderChip = (_ellipsis = true) => {
     return (
-      <S.StyledChip $iconProp={iconProp} type={type} {...rest}>
+      <S.StyledChip $iconProp={iconProp} type={type} $error={error} {...rest}>
         {type === 'active' && iconProp && <i className={iconProp} />}
         <S.ChipContainer $ellipsis={String(_ellipsis)}>{children}</S.ChipContainer>
       </S.StyledChip>

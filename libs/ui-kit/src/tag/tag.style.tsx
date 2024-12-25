@@ -2,41 +2,66 @@ import styled, { css } from 'styled-components';
 import { Tag as AntTag } from 'antd';
 import { TypeValueType } from './tag';
 
-export const Tag = styled(AntTag)<{ type?: TypeValueType }>`
+// Helper function to determine styles based on `type`
+const getTagStyles = (type: TypeValueType, theme: any) => {
+  switch (type) {
+    case 'initialApproval':
+      return {
+        backgroundColor: theme.success._50,
+        color: theme.success.main,
+        border: 'transparent',
+      };
+    case 'FinalApproval':
+      return {
+        backgroundColor: theme.secondary._50,
+        color: theme.secondary.main,
+        border: theme.secondary.main,
+      };
+    case 'processing':
+      return {
+        backgroundColor: theme.primary._50,
+        color: theme.primary.main,
+        border: 'transparent',
+      };
+    case 'error':
+      return {
+        backgroundColor: theme.error._100,
+        color: theme.error.main,
+        border: 'transparent',
+      };
+    case 'warning':
+      return {
+        backgroundColor: theme.warning._100,
+        color: theme.warning.main,
+        border: 'transparent',
+      };
+    default:
+      return {
+        backgroundColor: theme.border._100,
+        color: theme.border.main,
+        border: 'transparent',
+      };
+  }
+};
+
+export const Tag = styled(AntTag)<{ type?: TypeValueType; bordered?: boolean }>`
   width: max-content;
   height: max-content;
-  ${(p) => {
-    if (!p.type) return css``;
-    let backgroundColor, color;
+  display: flex;
+  align-items: center;
 
-    switch (p.type) {
-      case 'success':
-        backgroundColor = p.theme.success._50;
-        color = p.theme.success.main;
-        break;
-      case 'processing':
-        backgroundColor = p.theme.primary._50;
-        color = p.theme.primary.main;
-        break;
-      case 'error':
-        backgroundColor = p.theme.error._100;
-        color = p.theme.error.main;
-        break;
-      case 'warning':
-        backgroundColor = p.theme.warning._100;
-        color = p.theme.warning.main;
-        break;
-      default:
-        backgroundColor = p.theme.border._100;
-        color = p.theme.border.main;
-        break;
-    }
-
-    return css`
-      background-color: ${backgroundColor};
-      color: ${color};
-    `;
-  }}
+  ${({ type, theme }) =>
+    type &&
+    css`
+      ${() => {
+        const { backgroundColor, color, border } = getTagStyles(type, theme);
+        return `
+          background-color: ${backgroundColor};
+          color: ${color};
+          border-color: ${border};
+        `;
+      }}
+    `}
 `;
 
 export const TagText = styled.span`

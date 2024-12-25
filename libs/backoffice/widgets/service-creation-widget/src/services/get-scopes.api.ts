@@ -1,15 +1,14 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-
+import { useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { Pagination } from '@oxygen/types';
+import { ScopesParams } from '../types/scopes.type';
 
-export const useGetScopes = (params: { pagination: Pagination; name: string }) => {
+export const useGetScopes = (params: ScopesParams) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.GET_SCOPES, params],
+    queryKey: [RQKEYS.SERVICE_CREATION.SCOPES, params],
     queryFn: withErrorHandling(() => Api.getScopes(params), dispatch),
-    placeholderData: keepPreviousData,
+    enabled: !!params['scope-name'],
   });
 };

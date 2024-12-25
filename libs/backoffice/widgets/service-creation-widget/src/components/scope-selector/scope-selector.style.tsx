@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
+import { AutoComplete as AntAutoComplete } from 'antd';
+
+export const AutoComplete = styled(AntAutoComplete)`
+  flex: 1;
+`;
 
 export const Item = styled.div`
   display: flex;

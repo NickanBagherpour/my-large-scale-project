@@ -1,6 +1,7 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, ParamsType, FirstStepParams, RequestRegistration } from '../types';
+import { FetchParamsType, ReportResponseType, FirstStepParams, RequestRegistration } from '../types';
+import type { ParamsType, OrganizationParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 
 // type firstStepParams = {
@@ -25,6 +26,21 @@ const Api = {
   getRequestData: async () => {
     const res = Mockify.getRequestData();
     return res;
+  },
+
+  getOrganizationsListDataMock: async (params: OrganizationParamsType) => {
+    const res = Mockify.getOrganizations(params);
+    return res;
+  },
+
+  getOrganizationsListData: async (params: OrganizationParamsType) => {
+    try {
+      const res = await client.get(`${portalUrl}/v1/organizations`);
+      return res;
+    } catch (error) {
+      console.error('Error fetching organization list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
   },
 
   getOrganizationData: async (params: RequestRegistration) => {

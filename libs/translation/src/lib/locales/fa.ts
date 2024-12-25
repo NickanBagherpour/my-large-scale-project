@@ -273,6 +273,7 @@ export default {
     website_url_error: 'آدرس وبسایت معتبر نیست',
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
+    choose_at_least_one_option: 'لطفاً حداقل یکی از گزینه‌ها را انتخاب کنید',
   },
   service_call: {
     service_call_rate: 'نرخ فراخوانی سرویس',

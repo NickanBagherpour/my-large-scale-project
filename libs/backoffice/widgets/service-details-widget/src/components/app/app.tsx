@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
+import { useApp } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
@@ -12,6 +13,7 @@ import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useGetServiceDetailsQuery } from '../../services';
 import { UpstreamList } from '../upstream-list/upstream-list';
+import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
 import {
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
@@ -27,6 +29,7 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery();
+  const { notification } = useApp();
 
   // const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const state = useAppState();
@@ -39,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
-  //to do : change id to service name
+
   const servicename: Nullable<string> = searchParams.get('servicename');
 
   useEffect(() => {
@@ -49,16 +52,31 @@ const App: React.FC<AppProps> = (props) => {
   if (!servicename) {
     redirect('/not-found');
   }
+  const { mutate, isPending } = useAssignToServiceMutation();
   const handleUpstreamCreation = () => {
-    updateUpstreamTabCreationSubmitAction(dispatch);
+    const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
+    mutate(params, {
+      onSuccess: () => {
+        notification.success({
+          message: t('upstream_tab.success_notif'),
+        });
+        updateUpstreamTabCreationSubmitAction(dispatch);
+      },
+      onError: (error) => {
+        notification.error({
+          message: t(`${error}`),
+        });
+      },
+    });
   };
+  //to do : handle submit button globaly
   const footerButton = (
     <>
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
       {!state.upstreamTab.activeSelect.isInitialized && (
-        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation}>
+        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation} loading={isPending}>
           {t('save_changes')}
         </Button>
       )}

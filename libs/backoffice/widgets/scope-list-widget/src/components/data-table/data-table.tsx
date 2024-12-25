@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps, type Pagination } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
+import { Table } from '@oxygen/ui-kit';
 
-import { useAppDispatch, useAppState } from '../../context';
-
-import { useGetScopeListQuery } from '../../services/get-scope-list.api';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
 
 import * as S from './data-table.style';
-import { Table } from '@oxygen/ui-kit';
 
 type DataTableProps = PageProps & {
-  //
+  scopeListData: any;
+  scopeListLoading: boolean;
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
-  const state = useAppState();
+  const { pagination } = useAppState();
+  const { scopeListLoading, scopeListData } = props;
   const [t] = useTr();
-
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
-  const { page, rowsPerPage } = pagination;
-
-  const { data, isFetching } = useGetScopeListQuery(pagination);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
-      setPagination({
-        page: pageSize === rowsPerPage ? current : 1,
-        rowsPerPage: pageSize,
+      updatePagination(dispatch, {
+        page: pageSize === pagination.pageSize ? current : 1,
+        pageSize: pageSize,
       });
     }
   };
@@ -44,11 +39,11 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     <S.DataTableContainer>
       <Table
         title={t('table.title')}
-        loading={isFetching}
-        current={page}
-        total={data?.total}
-        dataSource={data?.list}
-        pagination={{ pageSize: rowsPerPage }}
+        loading={scopeListLoading}
+        current={pagination.page}
+        total={scopeListData?.totalElements}
+        dataSource={scopeListData?.content}
+        pagination={{ pageSize: pagination.pageSize }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}

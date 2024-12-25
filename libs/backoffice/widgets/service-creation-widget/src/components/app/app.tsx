@@ -9,11 +9,17 @@ import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 
-export const steps = [<GeneralInfo />, <Scope />, <Upstream />, <Route />, <ConfirmData />] as const;
+export const steps = [
+  { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
+  { name: 'route', title: 'route', component: <Route /> },
+  { name: 'scope', title: 'scope', component: <Scope /> },
+  { name: 'upstream', title: 'upstream', component: <Upstream /> },
+  { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
+] as const;
 
 const App = () => {
   const [t] = useTr();
-  const { step, message } = useAppState();
+  const { step, message, stepStatuses } = useAppState();
   const dispatch = useAppDispatch();
 
   return (
@@ -21,15 +27,12 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <S.Steps
         current={step}
-        items={[
-          { title: t('general_info') },
-          { title: t('scope') },
-          { title: t('upstream') },
-          { title: t('route') },
-          { title: t('confirm_data') },
-        ]}
+        items={steps.map(({ title }, idx) => ({
+          title: t(title),
+          status: stepStatuses[idx].status,
+        }))}
       />
-      {steps[step]}
+      {steps[step].component}
     </Container>
   );
 };

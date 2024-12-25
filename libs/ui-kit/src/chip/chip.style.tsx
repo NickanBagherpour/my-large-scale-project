@@ -7,6 +7,7 @@ export const StyledChip = styled<any>(AntChip)<{ $iconProp?: string }>`
     background-color: ${(p) => (p.type === 'unActive' ? p.theme.background.main : p.theme.primary._50)};
     color: ${(props) => (props.$iconProp ? props.theme.primary.main : 'inherit')};
     cursor: ${(p) => (p.onClick && !p.$iconProp ? 'pointer' : 'inherit')};
+    border-color: ${(props) => (props.$error ? props.theme.error._300 : 'inherit')};
     padding: 0.6rem 1.6rem 0.6rem 1.6rem;
     height: 3.4rem;
     margin: 0;

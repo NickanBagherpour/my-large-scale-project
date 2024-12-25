@@ -4,13 +4,10 @@ import type { Service } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 
-import { UpstreamTabModalType } from '../../components/upstream-list/fallback-select/creation/data-table/data-table';
-
 import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
+import { UpstreamTabModalType } from '../../components/upstream-list/upstream-list';
 
 import { UpstreamListTarget } from '../../types';
-
-import * as S from '../../components/upstream-list/upstream-list.style';
 
 type Props = {
   t: TFunction;
@@ -62,7 +59,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
                 toggleModal!('removeService');
               }}
             >
-              <S.TrashIcon className='icon-trash' />
+              <i className='icon-trash' style={{ fontSize: '2rem' }} />
             </Button>
           );
           // disabled={disabled} defaultChecked={defaultChecked}

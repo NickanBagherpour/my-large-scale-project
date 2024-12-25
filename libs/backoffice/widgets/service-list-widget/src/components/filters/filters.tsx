@@ -1,13 +1,12 @@
+import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
-import * as S from './filters.sytle';
+import { useBounce, useToggle } from '@oxygen/hooks';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
-import { useState } from 'react';
-import { useBounce, useToggle } from '@oxygen/hooks';
-import { ROUTES } from '@oxygen/utils';
 import UploadService from '../upload-service/upload-service';
-import InspectService from '../inspect-service/inspect-service';
+import InquiryService from '../service-inquiry/inquiry-service';
+import * as S from './filters.sytle';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -22,7 +21,7 @@ export default function Filters() {
   const { status, sort } = useAppState();
   const [value, setValue] = useState('');
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
-  const [isInspectioModalOpen, toggleInspectionModal] = useToggle(false);
+  const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
   useBounce(() => {
     updateSearchTerm(dispatch, value);
@@ -43,7 +42,7 @@ export default function Filters() {
             <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
               {t('upload_service')}
             </S.Button>
-            <S.Button onClick={toggleInspectionModal} color='primary' variant='solid'>
+            <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
               {t('create_new_service')}
             </S.Button>
           </S.Buttons>
@@ -89,7 +88,7 @@ export default function Filters() {
         </S.Indicators>
       </S.Container>
       {isUploadModalOpen && <UploadService toggle={toggleUploadModal} isOpen={isUploadModalOpen} />}
-      {isInspectioModalOpen && <InspectService toggle={toggleInspectionModal} isOpen={isInspectioModalOpen} />}
+      {isInquiryModalOpen && <InquiryService toggle={toggleInquiryModal} isOpen={isInquiryModalOpen} />}
     </>
   );
 }
