@@ -1,11 +1,7 @@
-import axios, { type AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { updateMessageAction, useAppDispatch } from '../context';
 import { ApiUtil } from '@oxygen/utils';
-
-function isAxiosError(error: Error | null): error is AxiosError {
-  return axios.isAxiosError(error);
-}
+import { isAxiosError } from './error-util';
 
 export function useIs404(error: Error | null) {
   const dispatch = useAppDispatch();

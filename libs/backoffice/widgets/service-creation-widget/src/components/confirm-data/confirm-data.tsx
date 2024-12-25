@@ -7,7 +7,7 @@ import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
 import ResultModal from '../result-modal/result-modal';
-import { useGetScope, useGetService, useGetUpstream } from '../../services';
+import { useGetScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
 
@@ -19,6 +19,7 @@ export default function ConfirmData() {
   const { data: route, isFetching: isFetchingRoute } = useGetRoute();
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
+  const { mutate: confirmData, status, error } = usePostConfirmData();
 
   let generalInfoData: InfoItemType[] = [];
   if (service?.data) {
@@ -152,10 +153,16 @@ export default function ConfirmData() {
             />
           </S.Section>
         </div>
-        <Footer onRegister={toggleIsResultModalOpen} onReturn={onReturn} />
+        <Footer
+          onRegister={() => {
+            confirmData();
+            toggleIsResultModalOpen();
+          }}
+          onReturn={onReturn}
+        />
       </Container>
 
-      <ResultModal isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+      <ResultModal status={status} error={error} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
     </>
   );
 }

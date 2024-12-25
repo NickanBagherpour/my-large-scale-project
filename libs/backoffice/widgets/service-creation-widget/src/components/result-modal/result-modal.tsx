@@ -6,10 +6,13 @@ import processingAnimationData from '../../assets/media/processing.json';
 import successAnimationData from '../../assets/media/success.json';
 import failureAnimationData from '../../assets/media/failure.json';
 import { ROUTES } from '@oxygen/utils';
+import { MutationStatus } from '@tanstack/react-query';
 
 type Props = {
   isOpen: boolean;
   toggle: () => void;
+  error: Error | null;
+  status: MutationStatus;
 };
 
 const lottieStyle = {
@@ -18,7 +21,7 @@ const lottieStyle = {
 };
 
 export default function RemoveServerModal(props: Props) {
-  const { isOpen, toggle } = props;
+  const { isOpen, toggle, status /* , error */ } = props;
   return (
     <Modal
       centered
@@ -28,9 +31,9 @@ export default function RemoveServerModal(props: Props) {
       headerDivider={false}
       destroyOnClose
       footer={false}
-      // maskClosable={false}
+      maskClosable={false}
     >
-      <Processing />
+      {status === 'success' ? <Success /> : status === 'error' ? <BadRequestErorr /> : <Processing />}
     </Modal>
   );
 }

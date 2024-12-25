@@ -42,6 +42,7 @@ const Api = {
     client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign/${serviceName}`),
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
+  postCofirmData: async (serviceName: string) => client.post(`${portalUrl}/v1/services/confirm-info/${serviceName}`),
 };
 
 export default Api;

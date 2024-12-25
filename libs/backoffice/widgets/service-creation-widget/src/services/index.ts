@@ -17,3 +17,4 @@ export { useGetRoute } from './get-route.api';
 export { usePostAssignScopeToService } from './post-assign-scope-to-service.api';
 export { useGetServiceHttpMethod } from './get-service-http-method.api';
 export { useGetServiceProtocol } from './get-service-protocol.api';
+export { usePostConfirmData } from './post-confirm-data.api';
