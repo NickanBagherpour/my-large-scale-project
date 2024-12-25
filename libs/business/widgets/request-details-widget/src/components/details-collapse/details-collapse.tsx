@@ -11,6 +11,7 @@ import RequestResultBox from '../request-result-box/request-result-box';
 import { useGetRequestInfoQuery } from '../../services';
 import { PanelType } from '../../types';
 import { useAppState } from '../../context';
+import { renderRequestStatus } from '../../utils/request-status.util';
 
 import * as S from './details-collapse.style';
 
@@ -36,10 +37,10 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   if (!data) return <Loading spinning={isFetching} />;
 
   const { requestGeneralInfo, companyInfo, agentsInfo } = data;
-  const subtitle =
+  const status =
     userRole === PanelType.BUSINESS_BANKING
-      ? requestGeneralInfo?.requestStatus?.businessBankingStatus?.title
-      : requestGeneralInfo?.requestStatus?.businessUnitStatus?.title;
+      ? requestGeneralInfo?.requestStatus?.businessBankingStatus
+      : requestGeneralInfo?.requestStatus?.businessUnitStatus;
 
   const requestInfoData = [
     {
@@ -145,8 +146,8 @@ const DetailsCollapse: React.FC<Props> = (props) => {
       key: '1',
       label: (
         <S.CollapseTitle>
-          {t('request_general_info')}-{subtitle}
-          {/*//TODO use tag*/}
+          {t('request_general_info')}
+          {renderRequestStatus(t, status)}
         </S.CollapseTitle>
       ),
       children: <InfoBox data={requestInfoData} />,

@@ -68,6 +68,12 @@ export const TitleWrapper = styled.div`
 export const CollapseTitle = styled.span`
   display: flex;
   justify-content: flex-start;
+  gap: 1.6rem;
+
+  & .status-icon {
+    font-size: 2rem;
+    margin-inline-end: 0.4rem;
+  }
 `;
 
 export const StyledButton = styled(Button)`
