@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import { Layout } from 'antd';
 
-import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
+import { useConfig, useResponsive } from '@oxygen/hooks';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
@@ -17,7 +17,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const { isMobile, isMobileOrTablet, isUndefined } = useResponsive();
-  const { logout } = useAuth();
 
   const toggleDrawer = () => {
     if (isMobile) {
@@ -38,13 +37,6 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setOpenDrawer(false);
   };
 
-  const handleLogout = () => {
-    // setOpenDrawer(false);
-    // console.log('logout clicked');
-
-    logout();
-  };
-
   function handleOnBreakpoint(broken: boolean) {
     if (broken && !collapsed) {
       setCollapsed(true);
@@ -54,12 +46,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     // <Protected>
     <Layout>
-      <Appbar
-        onToggleDrawer={toggleDrawer}
-        onLogout={handleLogout}
-        config={config}
-        isMobileOrTablet={isMobileOrTablet}
-      />
+      <Appbar onToggleDrawer={toggleDrawer} />
 
       <Layout>
         <Drawer
