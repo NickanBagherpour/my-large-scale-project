@@ -10,6 +10,7 @@ import type {
   Upstreams,
   UpstreamsParams,
   UpstreamWithTargets,
+  ServiceInquiry,
 } from '../types';
 import type { AssignScopeToServiceParams, Scope, ScopesData, ScopesParams } from '../types/scopes.type';
 
@@ -43,6 +44,10 @@ const Api = {
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
   postCofirmData: async (serviceName: string) => client.post(`${portalUrl}/v1/services/confirm-info/${serviceName}`),
+  getServiceInquiryStatus: async (serviceName: string) =>
+    client.get<ServiceInquiry>(`${portalUrl}/v1/services/service-inquiry-status`, {
+      params: { 'service-name': serviceName },
+    }),
 };
 
 export default Api;

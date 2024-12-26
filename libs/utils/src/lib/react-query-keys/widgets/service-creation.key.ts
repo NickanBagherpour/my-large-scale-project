@@ -15,4 +15,5 @@ export const KEYS = createQueryKeys(prefix, [
   'UPSTREAM',
   'SERVICE_HTTP_METHOD',
   'SERVICE_PROTOCOL',
+  'SERVICE_INQUIRY_STATUS',
 ]);

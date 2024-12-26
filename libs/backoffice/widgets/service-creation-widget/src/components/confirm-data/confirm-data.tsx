@@ -117,9 +117,7 @@ export default function ConfirmData() {
     },
   ];
 
-  const onReturn = () => {
-    previousStep(dispatch);
-  };
+  const onReturn = () => previousStep(dispatch);
 
   return (
     <>

@@ -13,8 +13,12 @@ export function previousStep(dispatch: WidgetDispatchType) {
   dispatch({ type: 'PREVIOUS_STEP' });
 }
 
-export function syncStateWithUrl(dispatch: WidgetDispatchType, payload: Pick<WidgetStateType, 'step' | 'serviceName'>) {
-  dispatch({ type: 'SYNC_WITH_URL', payload });
+export function addInitialStep(dispatch: WidgetDispatchType, payload: WidgetStateType['step']) {
+  dispatch({ type: 'ADD_INITIAL_STEP', payload });
+}
+
+export function addServiceName(dispatch: WidgetDispatchType, payload: WidgetStateType['serviceName']) {
+  dispatch({ type: 'ADD_SERVICE_NAME', payload });
 }
 
 export function resetMessageAction(dispatch: WidgetDispatchType) {

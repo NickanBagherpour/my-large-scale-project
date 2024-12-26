@@ -1,3 +1,5 @@
+import { SERVICE_INQUIRY_STATUS } from '../utils/consts';
+
 export type GeneralInfoParams = {
   latinName: string;
   persianName: string;
@@ -63,4 +65,21 @@ export type Tags = {
 export type CodeTitle = {
   code: number;
   title: string;
+};
+
+export type ServiceInquiry = {
+  serviceName: string;
+  servicePersianName: string;
+  serviceProgress?: {
+    statusCode: number;
+    statusTitle: string;
+    percent: number;
+    step: 1 | 2 | 3 | 4 | 5;
+  };
+  serviceInquiryStatus: { code: number; title: string };
+  scope: {
+    name: string;
+    description: string;
+    id: number;
+  };
 };

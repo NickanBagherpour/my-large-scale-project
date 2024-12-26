@@ -31,8 +31,12 @@ export type WidgetActionType =
       type: 'PREVIOUS_STEP';
     }
   | {
-      type: 'SYNC_WITH_URL';
-      payload: Pick<WidgetStateType, 'step' | 'serviceName'>;
+      type: 'ADD_SERVICE_NAME';
+      payload: WidgetStateType['serviceName'];
+    }
+  | {
+      type: 'ADD_INITIAL_STEP';
+      payload: WidgetStateType['step'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

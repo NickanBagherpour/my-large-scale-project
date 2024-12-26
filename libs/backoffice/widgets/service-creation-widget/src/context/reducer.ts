@@ -38,11 +38,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'PREVIOUS_STEP':
       return state.step > 0 ? void state.step-- : undefined;
 
-    case 'SYNC_WITH_URL': {
-      const {
-        payload: { step, serviceName },
-      } = action;
-      state.serviceName = serviceName;
+    case 'ADD_INITIAL_STEP': {
+      const step = action.payload;
       state.step = step;
       state.stepStatuses = state.stepStatuses.map((status, idx) => {
         if (idx < step) {
@@ -55,6 +52,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       });
       return;
     }
+
+    case 'ADD_SERVICE_NAME':
+      return void (state.serviceName = action.payload);
 
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
