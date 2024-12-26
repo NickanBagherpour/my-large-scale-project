@@ -31,7 +31,8 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
   const [modals, setModals] = useState<Modal>({
     confirm: false,
     removeService: false,
-    serviceId: '',
+    serviceId: undefined,
+    serviceName: '',
   });
 
   const theme = useTheme();
