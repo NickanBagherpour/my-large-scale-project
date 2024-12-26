@@ -27,11 +27,11 @@ export default function ConfirmData() {
     generalInfoData = [
       { key: 'english_name', value: name },
       { key: 'persian_name', value: persianName },
-      { key: 'access', value: accessLevel.title },
-      { key: 'category', value: category.title },
-      { key: 'Throughout', value: throughput.title },
-      { key: 'version', value: version },
-      { key: 'owner', value: owner },
+      { key: 'access', value: getValueOrDash(accessLevel?.title) },
+      { key: 'category', value: getValueOrDash(category?.title) },
+      { key: 'Throughout', value: getValueOrDash(throughput?.title) },
+      { key: 'version', value: getValueOrDash(version) },
+      { key: 'owner', value: getValueOrDash(owner) },
       {
         key: 'tag',
         fullwidth: true,
@@ -76,8 +76,8 @@ export default function ConfirmData() {
   if (route?.data) {
     const { host, path, method, protocol } = route.data;
     routeData = [
-      { key: 'action_or_method', value: method.title },
-      { key: 'protocol', value: protocol.title },
+      { key: 'action_or_method', value: getValueOrDash(method?.title) },
+      { key: 'protocol', value: getValueOrDash(protocol?.title) },
       { key: 'Path', value: path },
       { key: 'host', value: host },
     ];
