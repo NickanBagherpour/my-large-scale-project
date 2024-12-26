@@ -1,3 +1,4 @@
+import { LocalStorageKey } from '@oxygen/types';
 import { storage } from './storage';
 
 export const RE_DIGIT = new RegExp(/^\d+$/);
@@ -172,6 +173,24 @@ export function setCookie(name: string, value: string, minutes?: number): void {
   }
   document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/`;
 }
+
+export const getUserFullNameFromStorage = (): string | null => {
+  if (typeof window !== 'undefined') {
+
+    const userDataString = storage.getItem(LocalStorageKey.USER);
+    const userData = userDataString ? JSON.parse(userDataString as string) : null;
+
+    if (userData) {
+      const name = userData.name ? userData.name.trim() : '';
+      const family = userData.family ? userData.family.trim() : '';
+      return `${name} ${family}`.trim();
+    }
+
+    return null;
+  } else {
+    return null;
+  }
+};
 
 export const debounceFn = (callback, delay) => {
   let timer;
