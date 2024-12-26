@@ -1,5 +1,3 @@
-import { SERVICE_INQUIRY_STATUS } from '../utils/consts';
-
 export type GeneralInfoParams = {
   latinName: string;
   persianName: string;
