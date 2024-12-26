@@ -24,7 +24,7 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .min(1, { message: t('validation.required') })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
 
-    [FORM_ITEM_NAMES.access]: z.number().refine((val) => val, t('validation.choose_one_option')),
+    [FORM_ITEM_NAMES.access]: z.number({ required_error: t('validation.choose_one_option') }),
 
     [FORM_ITEM_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
 
