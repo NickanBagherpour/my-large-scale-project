@@ -1,43 +1,29 @@
 export type InquiryParams = {
   'service-name': string;
 };
-export type InquiryInfo = {
-  serviceInquiryStatus: InquiryStatus;
-  serviceGeneralInfo: {
-    serviceInfoId: number;
-    name: string;
-    persianName: string;
-    accessLevel: {
-      code: number;
-      title: 'PUBLIC';
-    };
-    category: {
-      code: number;
-      title: string;
-    };
-    throughput: {
-      code: number;
-      title: string;
-    };
-    version: string;
-    owner: string;
-    serviceInfoStatusCode: {
-      code: number;
-      title: string;
-    };
-    statusProgressPercent: number;
-    serviceInfoDescription: string;
-    isInSSO: boolean;
-    isActive: boolean;
-    isDeleted: boolean;
-    tags: [{ id: number; title: string }];
-    scopes: [
-      {
-        name: string;
-        description: string;
-        id: number;
-      }
-    ];
+export type InquiryDto = {
+  serviceName?: string;
+  servicePersianName?: string;
+  serviceProgress?: {
+    statusCode?: number;
+    statusTitle?: string;
+    percent?: number;
+    step?: number;
+  };
+  serviceInquiryStatus: {
+    code: 1 | 2 | 3 | 4;
+    title: string;
+  };
+  scope: {
+    name?: string;
+    description?: string;
+    id?: number;
+  };
+};
+export type InquiryInfo = Omit<InquiryDto, 'serviceInquiryStatus'> & {
+  serviceInquiryStatus: {
+    code: InquiryStatus;
+    title?: string;
   };
 };
 export type InquiryStatus =
