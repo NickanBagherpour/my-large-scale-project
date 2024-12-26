@@ -19,7 +19,7 @@ export default function ConfirmData() {
   const { data: route, isFetching: isFetchingRoute } = useGetRoute();
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
-  const { mutate: confirmData, status, error } = usePostConfirmData();
+  const { mutate: confirmData, status } = usePostConfirmData();
 
   let generalInfoData: InfoItemType[] = [];
   if (service?.data) {
@@ -37,7 +37,7 @@ export default function ConfirmData() {
         fullwidth: true,
         value:
           tags.map(({ id, title }) => (
-            <Chip ellipsis closeIcon type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
+            <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
               {title}
             </Chip>
           )) ?? '-',
@@ -160,7 +160,7 @@ export default function ConfirmData() {
         />
       </Container>
 
-      <ResultModal status={status} error={error} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+      <ResultModal status={status} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
     </>
   );
 }

@@ -7,11 +7,12 @@ import successAnimationData from '../../assets/media/success.json';
 import failureAnimationData from '../../assets/media/failure.json';
 import { ROUTES } from '@oxygen/utils';
 import { MutationStatus } from '@tanstack/react-query';
+import { goToFirstError, useAppDispatch, useAppState } from '../../context';
+import { ReactNode } from 'react';
 
 type Props = {
   isOpen: boolean;
   toggle: () => void;
-  error: Error | null;
   status: MutationStatus;
 };
 
@@ -21,7 +22,14 @@ const lottieStyle = {
 };
 
 export default function RemoveServerModal(props: Props) {
-  const { isOpen, toggle, status /* , error */ } = props;
+  const { isOpen, toggle, status } = props;
+  const content: Record<MutationStatus, ReactNode> = {
+    success: <Success />,
+    pending: <Processing />,
+    idle: <Processing />,
+    error: <BadRequestErorr />,
+  };
+
   return (
     <Modal
       centered
@@ -33,7 +41,7 @@ export default function RemoveServerModal(props: Props) {
       footer={false}
       maskClosable={false}
     >
-      {status === 'success' ? <Success /> : status === 'error' ? <BadRequestErorr /> : <Processing />}
+      {content[status]}
     </Modal>
   );
 }
@@ -47,7 +55,7 @@ const Processing = () => {
         <S.ProcessingMsg>{t('we_are_processing_please_wait')}</S.ProcessingMsg>
       </S.Container>
       <Button block variant='outlined' color='primary' disabled>
-        <i className='icon-home' />
+        <i className='icon-home-empty' />
         {t('service_managment')}
       </Button>
     </>
@@ -63,7 +71,7 @@ const Success = () => {
         <S.SuccessMsg>{t('register_request_was_submitted')}</S.SuccessMsg>
       </S.Container>
       <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
-        <i className='icon-home' />
+        <i className='icon-home-empty' />
         {t('service_managment')}
       </Button>
     </>
@@ -72,11 +80,10 @@ const Success = () => {
 
 const BadRequestErorr = () => {
   const [t] = useTr();
-  const errors = [
-    { message: 'مقدار پروتوکل اشتباه وارد شده است. ', code: 123 },
-    { message: 'مقدار دسترسی اشتباه وارد شده است. ', code: 123 },
-    { message: 'مقدار دسته‌بندی با مقادیر دیگر همخوانی ندارد.', code: 123 },
-  ];
+  const state = useAppState();
+  const dispatch = useAppDispatch();
+  const errors = Object.values(state.stepErrors).map((value) => ({ message: value, code: null }));
+
   return (
     <>
       <S.Container>
@@ -86,16 +93,16 @@ const BadRequestErorr = () => {
             <S.RequestError key={idx}>
               <S.ErrIcon className='icon-warning' />
               <S.ErrMsg>{message}</S.ErrMsg>
-              <S.ErrCode>{`(${t('err')} ${code})`}</S.ErrCode>
+              {code && <S.ErrCode>{`(${t('err')} ${code})`}</S.ErrCode>}
             </S.RequestError>
           ))}
         </S.ErrorsList>
       </S.Container>
-      <S.TopBtn block>
+      <S.TopBtn block onClick={() => goToFirstError(dispatch)}>
         <i className='icon-edit' />
         {t('edit_data')}
       </S.TopBtn>
-      <Button block variant='outlined' color='primary'>
+      <Button href={ROUTES.BACKOFFICE.SERVICE_LIST} block variant='outlined' color='primary'>
         {t('save_in_draft')}
       </Button>
     </>

@@ -4,7 +4,7 @@ import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { nextStep, useAppDispatch, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
@@ -91,7 +91,7 @@ export default function GeneralInfo() {
   }
 
   if (service || is404Error) {
-    let initialValues = { ...initialStateValue['generalInfo'], englishName: serviceName };
+    let initialValues: Partial<GeneralInfoValuesType> = { englishName: serviceName! };
     if (service) {
       const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service.data;
       initialValues = {
@@ -116,7 +116,12 @@ export default function GeneralInfo() {
                   <Input disabled={true} placeholder={t('enter_english_name')} />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
+                <FormItem
+                  name={FORM_ITEM_NAMES.persianName}
+                  label={t('persian_name')}
+                  rules={[rule]}
+                  validateStatus='error'
+                >
                   <Input placeholder={t('enter_persian_name')} />
                 </FormItem>
 

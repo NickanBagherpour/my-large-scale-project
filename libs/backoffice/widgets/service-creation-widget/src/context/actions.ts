@@ -21,6 +21,14 @@ export function addServiceName(dispatch: WidgetDispatchType, payload: WidgetStat
   dispatch({ type: 'ADD_SERVICE_NAME', payload });
 }
 
+export function addStepErrors(dispatch: WidgetDispatchType, payload: WidgetStateType['stepErrors']) {
+  dispatch({ type: 'ADD_STEP_ERRORS', payload });
+}
+
+export function goToFirstError(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'GO_TO_FIRST_ERROR' });
+}
+
 export function resetMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }

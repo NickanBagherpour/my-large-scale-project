@@ -8,7 +8,6 @@ import * as S from './app.style';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
-import { useUrlState } from '../../utils/use-url-state';
 import { notFound, redirect, useSearchParams } from 'next/navigation';
 import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
 import { useServiceInquiryStatus } from '../../services';

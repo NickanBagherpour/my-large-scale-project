@@ -12,10 +12,6 @@ export const FORM_ITEM_NAMES = {
   tags: 'tags',
 } as const;
 
-export const UPLOAD_NAMES = {
-  file: 'file',
-} as const;
-
 export const IMPORT_FORM_SSO_NAMES = {
   existingScopeName: 'existingScopeName',
 } as const;
