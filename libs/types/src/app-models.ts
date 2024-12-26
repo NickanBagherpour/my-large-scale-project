@@ -21,10 +21,3 @@ export type MenuItemModel = {
   userType?: string;
   subMenus?: MenuItemModel[];
 };
-
-export type RouteModel = {
-  path?: string;
-  component?: ReactNode;
-  exact?: boolean;
-  protected?: boolean;
-};

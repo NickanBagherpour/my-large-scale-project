@@ -1,6 +1,6 @@
 import { createResponse } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-import { ENV_CONSTANTS } from '@oxygen/utils';
+import { decodeJWT, ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
@@ -36,6 +36,10 @@ export async function GET(req) {
     }
 
     const data = await response.json();
+
+    const decodedToken = decodeJWT(token);
+
+    data.userInfo.role = decodedToken?.role;
 
     return createResponse({
       success: true,
