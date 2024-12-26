@@ -25,16 +25,25 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const [modals, setModals] = useState<Modal>({
     confirm: false,
     removeService: false,
-    serviceId: '',
+    serviceId: undefined,
+    serviceName: '',
   });
   const { mutate: thirdMutate, isPending: ThirdIsPending } = useThirdStepRequestRegistrationMutationQuery();
 
-  const toggleModal = (modal: keyof Modal, serviceId?: string) => {
+  const toggleModal = (modal: keyof Modal, serviceName?: string, serviceId?: number) => {
     setModals((prev) => ({
       ...prev,
-      serviceId: serviceId || '',
+      serviceId: serviceId || undefined,
+      serviceName: serviceName || '',
       [modal]: !prev[modal],
     }));
+  };
+
+  const handleDeleteModal = (serviceId?: number) => {
+    if (serviceId) {
+      updateThirdStepTableAction(dispatch, { serviceId });
+      toggleModal('removeService');
+    }
   };
 
   const handleSelect = (item) => {
@@ -52,7 +61,6 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
     thirdMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
-        // updateThirdStepAction(dispatch, params);
         setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
@@ -87,7 +95,13 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-      <RemoveModal isOpen={modals['removeService']} toggle={() => toggleModal('removeService')} id={modals.serviceId} />
+      <RemoveModal
+        isOpen={modals['removeService']}
+        toggle={() => toggleModal('removeService')}
+        onDelete={(id: number | undefined) => handleDeleteModal(id)}
+        id={modals.serviceId}
+        name={modals.serviceName}
+      />
     </S.ThirdStepContainer>
   );
 };

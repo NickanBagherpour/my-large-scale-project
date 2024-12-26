@@ -16,8 +16,15 @@ export function updateSecondStepAction(dispatch: WidgetDispatchType, secondStep:
   dispatch({ type: 'UPDATE_SECOND_STEP', payload: secondStep });
 }
 
-export function updateThirdStepTableAction(dispatch: WidgetDispatchType, thirdStepTable: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_THIRD_STEP_TABLE', payload: thirdStepTable });
+export function updateThirdStepTableAction(
+  dispatch: WidgetDispatchType,
+  thirdStepTable: Partial<FiltersType> | { serviceId: number }
+) {
+  if ('serviceId' in thirdStepTable) {
+    dispatch({ type: 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE', payload: { service: thirdStepTable } });
+  } else {
+    dispatch({ type: 'UPDATE_THIRD_STEP_TABLE', payload: thirdStepTable });
+  }
 }
 
 export function updateRequestMode(dispatch: WidgetDispatchType, payload: RequestMode) {

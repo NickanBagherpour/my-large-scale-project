@@ -31,7 +31,7 @@ export default {
   remove_modal: {
     remove_service: 'حذف سرویس',
     remove: 'حذف',
-    are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
+    are_you_sure_to_remove: 'آیا از حذف سرویس {{name}} برای این اسکوپ اطمینان دارید؟',
   },
   //fourthStep
   company_info: 'اطلاعات شرکت',

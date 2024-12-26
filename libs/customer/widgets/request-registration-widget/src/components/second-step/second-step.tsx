@@ -64,7 +64,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
 
   return (
     <S.SecondStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
+      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.secondStep}>
         <S.TitleTxt className={'cards-title'}>
           {t('representative_info')}
           <S.TooltipContainer>

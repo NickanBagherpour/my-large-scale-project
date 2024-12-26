@@ -74,8 +74,35 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_THIRD_STEP_TABLE': {
-      state.thirdStep.table = [...state.thirdStep.table, { ...action.payload }];
-      return;
+      // Check if the id exists in the table
+      const exists = state.thirdStep.table.some((item) => item.id === action.payload.id);
+
+      // If it doesn't exist, add the new item
+      if (!exists) {
+        return {
+          ...state,
+          thirdStep: {
+            ...state.thirdStep,
+            table: [...state.thirdStep.table, { ...action.payload }],
+          },
+        };
+      }
+
+      // If it exists, return the state unchanged
+      return state;
+    }
+
+    case 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE': {
+      const updatedTable = state.thirdStep.table.filter((item) => {
+        return item.id !== action.payload.service.serviceId;
+      });
+      return {
+        ...state,
+        thirdStep: {
+          ...state.thirdStep,
+          table: updatedTable, // Update the table with the filtered array
+        },
+      };
     }
 
     case 'UPDATE_REQUEST_MODE':

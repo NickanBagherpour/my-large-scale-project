@@ -1,15 +1,15 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import * as S from '../components/third-step/third-step.style';
-import type { Service } from '@oxygen/types';
+import type { ServiceRequest } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
 import { Modal } from '../types/modal.type';
 type Props = {
   t: TFunction;
-  toggleModal: (modal: keyof Modal, serviceId?: string) => void;
+  toggleModal: (modal: keyof Modal, serviceName?: string, serviceId?: number) => void;
 };
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: Props): ColumnsType<ServiceRequest> {
   const { t, toggleModal } = props;
 
   return [
@@ -25,9 +25,9 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('table_header.name'),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
-      render: (serviceName) => getValueOrDash(serviceName),
+      render: (name) => getValueOrDash(name),
     },
     {
       title: t('table_header.persian_name'),
@@ -39,7 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '7rem',
       key: 'remove',
       render: (p, service) => (
-        <Button variant='link' color='error' onClick={() => toggleModal('removeService', service.serviceName)}>
+        <Button variant='link' color='error' onClick={() => toggleModal('removeService', service.name, service.id)}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -54,9 +54,9 @@ export function getMobileColumns(props) {
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, url, version, persianName, serviceName }: Service) {
+      render({ persianName, name }: ServiceRequest) {
         const data = [
-          { title: t('table_header.name'), value: serviceName, render: (serviceName) => getValueOrDash(serviceName) },
+          { title: t('table_header.name'), value: name, render: (name) => getValueOrDash(name) },
           {
             title: t('table_header.persian_name'),
             value: persianName,

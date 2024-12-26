@@ -78,6 +78,10 @@ export type WidgetActionType =
       payload: Partial<FiltersType>;
     }
   | {
+      type: 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE';
+      payload: Partial<FiltersType>;
+    }
+  | {
       type: 'UPDATE_REQUEST_MODE';
       payload: RequestMode;
     }
