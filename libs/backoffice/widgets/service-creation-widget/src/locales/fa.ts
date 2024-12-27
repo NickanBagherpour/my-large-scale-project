@@ -28,7 +28,7 @@ export default {
   create_scope: 'ایجاد اسکوپ',
   choose_scope: 'انتخاب اسکوپ',
   scope_name: 'نام اسکوپ',
-  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن',
+  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن (برای شروع جستجو حداقل سه حرف وارد کنید)',
   scope_library: 'کتابخانه اسکوپ',
   choose: 'انتخاب',
   add: 'افزودن',
