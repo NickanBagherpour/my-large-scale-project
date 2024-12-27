@@ -13,7 +13,7 @@ import {
   useGetUpstreamWithTargets,
   usePostAssignUpstreamToService,
 } from '../../services';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import { useSearchParams } from 'next/navigation';
@@ -50,6 +50,12 @@ export default function Upstream() {
 
   const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets || isFetchingCurrentUpstream;
   const upstream = upstreamWithTargets || currentUpstream?.data;
+
+  useEffect(() => {
+    if (currentUpstream?.data) {
+      setSelectedUpstreamId(currentUpstream.data.id);
+    }
+  }, [currentUpstream]);
 
   const onReturn = () => {
     previousStep(dispatch);
@@ -177,7 +183,7 @@ export default function Upstream() {
         </Box>
       )}
 
-      <Footer onRegister={onRegister} onReturn={onReturn} />
+      <Footer registerButtonProps={{ disabled: !selectedUpstreamId }} onRegister={onRegister} onReturn={onReturn} />
     </Container>
   );
 }
