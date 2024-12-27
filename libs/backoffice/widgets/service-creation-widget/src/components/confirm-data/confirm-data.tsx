@@ -22,8 +22,8 @@ export default function ConfirmData() {
   const { mutate: confirmData, status } = usePostConfirmData();
 
   let generalInfoData: InfoItemType[] = [];
-  if (service?.data) {
-    const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service.data;
+  if (service) {
+    const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service;
     generalInfoData = [
       { key: 'english_name', value: name },
       { key: 'persian_name', value: persianName },
@@ -46,8 +46,8 @@ export default function ConfirmData() {
   }
 
   let scopeData: InfoItemType[] = [];
-  if (scope?.data) {
-    const { description, name } = scope.data;
+  if (scope) {
+    const { description, name } = scope;
     scopeData = [
       { key: 'english_name', value: name },
       { key: 'persian_name', value: getValueOrDash(description) },
@@ -57,8 +57,8 @@ export default function ConfirmData() {
   let upstreamData: InfoItemType[] = [];
   let upstreamTargets: UpstreamServer[] = [];
 
-  if (upstream?.data) {
-    const { description, name, targets } = upstream.data;
+  if (upstream) {
+    const { description, name, targets } = upstream;
     upstreamData = [
       { key: 'english_name', value: name },
       { key: 'description', value: getValueOrDash(description) },
@@ -73,8 +73,8 @@ export default function ConfirmData() {
   }
 
   let routeData: InfoItemType[] = [];
-  if (route?.data) {
-    const { host, path, method, protocol } = route.data;
+  if (route) {
+    const { host, path, method, protocol } = route;
     routeData = [
       { key: 'action_or_method', value: getValueOrDash(method?.title) },
       { key: 'protocol', value: getValueOrDash(protocol?.title) },

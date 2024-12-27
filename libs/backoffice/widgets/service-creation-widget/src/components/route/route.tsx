@@ -27,11 +27,11 @@ export default function Route() {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const { serviceName } = useAppState();
-  const { data, isFetching } = useGetRoute();
+  const { data: route, isFetching } = useGetRoute();
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
-  const isInSSO = data?.data.isServiceInSso;
+  const isInSSO = route?.isServiceInSso;
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
 
@@ -44,7 +44,7 @@ export default function Route() {
 
       const params: RouteParams = { host, path, protocol: currentProtocole!, method: currentHttpMethod!, serviceName };
       const mutateOptions = { onSuccess: () => nextStep(dispatch) };
-      data?.data ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
+      route ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
     }
   };
 
@@ -62,8 +62,8 @@ export default function Route() {
   }
 
   let initialValues = initialStateValue['route'];
-  if (data) {
-    const { host, path, method, protocol } = data.data;
+  if (route) {
+    const { host, path, method, protocol } = route;
     initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
   }
 

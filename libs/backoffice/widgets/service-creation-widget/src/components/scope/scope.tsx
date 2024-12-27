@@ -20,10 +20,10 @@ export default function Scope() {
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const { serviceName } = useAppState();
-  const isInSSO = scope?.data.isServiceInSso;
+  const isInSSO = scope?.isServiceInSso;
 
   useEffect(() => {
-    if (scope?.data) setSelectedScope(scope.data);
+    if (scope) setSelectedScope(scope);
   }, [scope]);
 
   const chooseScope = (scope: ScopeType) => {

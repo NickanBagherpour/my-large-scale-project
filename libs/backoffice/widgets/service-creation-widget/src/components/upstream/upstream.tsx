@@ -49,11 +49,11 @@ export default function Upstream() {
   const serviceName = useSearchParams().get('service-name');
 
   const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets || isFetchingCurrentUpstream;
-  const upstream = upstreamWithTargets || currentUpstream?.data;
+  const upstream = upstreamWithTargets || currentUpstream;
 
   useEffect(() => {
-    if (currentUpstream?.data) {
-      setSelectedUpstreamId(currentUpstream.data.id);
+    if (currentUpstream) {
+      setSelectedUpstreamId(currentUpstream.id);
     }
   }, [currentUpstream]);
 

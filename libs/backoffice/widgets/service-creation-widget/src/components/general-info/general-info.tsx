@@ -41,7 +41,7 @@ export default function GeneralInfo() {
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
   const { mutate: postGeneralInfo } = usePostGeneralInfoMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
-  const isInSSO = service?.data?.isInSSO;
+  const isInSSO = service?.isInSSO;
 
   const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = (values) => {
     const { throughput, category, tags: formTags, owner, access, version, englishName, persianName } = values;
@@ -93,7 +93,7 @@ export default function GeneralInfo() {
 
   let initialValues: Partial<GeneralInfoValuesType> = { englishName: serviceName! };
   if (service) {
-    const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service.data;
+    const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service;
     initialValues = {
       tags: convertTags(tags),
       owner,

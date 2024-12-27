@@ -6,11 +6,11 @@ import { useAppState } from '../context';
 
 export const useGetScope = () => {
   const { serviceName } = useAppState();
-  const { error, ...rest } = useQuery({
+  const { error, data, ...rest } = useQuery({
     queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
     enabled: !!serviceName,
     queryFn: () => Api.getScope(serviceName),
   });
   const is404Error = useIs404(error);
-  return { ...rest, error, is404Error };
+  return { ...rest, error, is404Error, data: data?.data };
 };
