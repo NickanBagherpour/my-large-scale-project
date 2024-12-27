@@ -21,7 +21,7 @@ export async function GET(req) {
     });
   }
 
-  const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity-user-manager/userInfo`;
+  const url = `${process.env.SSO_URL}/identity-user-manager/userInfo`;
 
   try {
     const response = await fetch(url, {
@@ -58,7 +58,7 @@ export async function GET(req) {
 
 function getRole(decodedToken: JwtPayload | null): string | null {
   if (decodedToken?.role) {
-    return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
+    return decodedToken.role?.replace(`${process.env.SSO_CLIENT_KEY}-`, '');
   }
 
   return null;
