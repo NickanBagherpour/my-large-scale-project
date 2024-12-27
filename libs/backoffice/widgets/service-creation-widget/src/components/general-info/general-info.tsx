@@ -8,7 +8,7 @@ import { nextStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
 import {
   useGetCategories,
@@ -32,7 +32,6 @@ export default function GeneralInfo() {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const router = useRouter();
-  const serviceName = useSearchParams().get('service-name');
   const { data: service, isPending: isPendingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
@@ -98,7 +97,7 @@ export default function GeneralInfo() {
     return <Loading />;
   }
 
-  let initialValues: Partial<GeneralInfoValuesType> = { englishName: serviceName! };
+  let initialValues: Partial<GeneralInfoValuesType> = { englishName: state.serviceName };
   if (service) {
     const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service;
     initialValues = {
