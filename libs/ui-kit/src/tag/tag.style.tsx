@@ -19,8 +19,8 @@ const getTagStyles = (type: TypeValueType, theme: any) => {
       };
     case 'processing':
       return {
-        backgroundColor: theme.primary._50,
-        color: theme.primary.main,
+        backgroundColor: theme.info._50,
+        color: theme.info.main,
         border: 'transparent',
       };
     case 'error':
