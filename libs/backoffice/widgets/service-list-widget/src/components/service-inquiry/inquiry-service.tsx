@@ -11,10 +11,11 @@ import SearchBox from './search-box';
 import ServiceExists from './service-exists';
 import ServiceCreationAllowed from './service-creation-allowed';
 import CompleteService from './complete-service';
-import { InquiryParams, InquiryStatus } from '../../types/get-Inquiry-info.type';
+import { InquiryInfo, InquiryParams, InquiryStatus } from '../../types/get-Inquiry-info.type';
 import ServiceExistsInBAAM from './service-exists-in-BAAM';
 import { useInquireService } from '../../services/get-inquiry.api';
 import { ServiceNameType } from '../../types';
+import { INQUIRY_STATUS } from '../../utils/consts';
 import * as S from './inquiry-service.style';
 
 type Props = {
@@ -45,13 +46,22 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const changeContent = (c: ContentType) => setContent(c);
   const changeParams = (v: InquiryParams) => setParams(v);
   const { data, refetch } = useInquireService(params);
+  let mappedData: InquiryInfo | undefined;
+  const code = data?.serviceInquiryStatus.code;
+  if (code) {
+    mappedData = {
+      ...data,
+      serviceInquiryStatus: { ...data?.serviceInquiryStatus, code: INQUIRY_STATUS[code] },
+    };
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       if (fromSubmission) {
         const res = await refetch(); // Refetch data based on form submission
-        const status = res?.data?.serviceInquiryStatus;
+        const status = res?.data?.serviceInquiryStatus?.code;
         if (status) {
-          setContent(status);
+          setContent(INQUIRY_STATUS[status]);
         } else {
           setContent('searching');
         }
@@ -65,9 +75,11 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
 
   const contentDictionary: { [key in ContentType]: ReactElement } = {
     SERVICE_NOT_FOUND: <ServiceCreationAllowed />,
-    SERVICE_ALREADY_EXISTS: <ServiceExists data={data} form={form} inputRef={inputRef} changeContent={changeContent} />,
-    SERVICE_IS_DRAFT: <CompleteService data={data} />,
-    SERVICE_EXISTS_IN_BAAM: <ServiceExistsInBAAM serviceName={data?.serviceGeneralInfo?.name} />,
+    SERVICE_ALREADY_EXISTS: (
+      <ServiceExists data={mappedData} form={form} inputRef={inputRef} changeContent={changeContent} />
+    ),
+    SERVICE_IS_DRAFT: <CompleteService data={mappedData} />,
+    SERVICE_EXISTS_IN_BAAM: <ServiceExistsInBAAM serviceName={mappedData?.serviceName} />,
     searching: <></>,
   };
   return (

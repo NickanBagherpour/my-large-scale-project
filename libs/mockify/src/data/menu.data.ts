@@ -1,6 +1,6 @@
 import { ROUTES } from '@oxygen/utils';
 
-export const menus = [
+export const backofficeMenus = [
   {
     id: 1,
     title: 'مدیریت کلاینت‌',
@@ -113,3 +113,29 @@ export const menus = [
   //   ],
   // },
 ];
+
+export const businessMenus = [
+  {
+    id: 1,
+    title: 'داشبورد',
+    order: 1,
+    href: ROUTES.BUSINESS.DASHBOARD,
+    icon: 'icon-grid',
+    active: true,
+    description: null,
+    parentId: null,
+    children: [],
+  },
+  {
+    id: 2,
+    title: 'مدیریت درخواست ها',
+    order: 2,
+    href: ROUTES.BUSINESS.REQUEST_LIST,
+    icon: 'icon-cloud-2',
+    active: true,
+    description: null,
+    parentId: null,
+    children: [],
+  },
+];
+

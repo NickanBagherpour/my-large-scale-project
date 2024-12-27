@@ -1,6 +1,6 @@
-import { createResponse } from '@oxygen/types';
+import { createResponse, JwtPayload } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-import { ENV_CONSTANTS } from '@oxygen/utils';
+import { decodeJWT, ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
@@ -37,6 +37,10 @@ export async function GET(req) {
 
     const data = await response.json();
 
+    const decodedToken = decodeJWT(token);
+
+    data.userInfo.role = decodedToken?.role;
+
     return createResponse({
       success: true,
       data: data, // Response data for successful request
@@ -50,4 +54,13 @@ export async function GET(req) {
       statusCode: 500, // Internal Server Error
     });
   }
+}
+
+
+function getRole(decodedToken: JwtPayload | null): string | null {
+  if (decodedToken?.role) {
+    return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
+  }
+
+  return null;
 }
