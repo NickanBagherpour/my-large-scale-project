@@ -38,7 +38,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'PREVIOUS_STEP': {
       if (state.step > 0) {
         const currentStatus = state.stepStatuses[state.step].status;
-        state.stepStatuses[state.step].status = currentStatus === 'finish' ? 'wait' : currentStatus; // if status is error, don't change it
+        state.stepStatuses[state.step].status = currentStatus !== 'error' ? 'wait' : currentStatus; // if status is error, don't change it
         state.step--;
       }
       return;
