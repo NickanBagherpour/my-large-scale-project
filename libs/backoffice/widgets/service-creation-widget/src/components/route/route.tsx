@@ -48,9 +48,16 @@ export default function Route() {
     }
   };
 
-  const onRegister = () => {
+  const onRegister = async () => {
     if (isInSSO) form.submit();
-    else toggleConfirmModal();
+    else {
+      try {
+        await form.validateFields();
+        toggleConfirmModal();
+      } catch {
+        //
+      }
+    }
   };
 
   const onReturn = () => {

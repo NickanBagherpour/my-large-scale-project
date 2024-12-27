@@ -75,9 +75,16 @@ export default function GeneralInfo() {
     router.back();
   };
 
-  const onRegister = () => {
+  const onRegister = async () => {
     if (isInSSO) form.submit();
-    else toggleConfirmModal();
+    else {
+      try {
+        await form.validateFields();
+        toggleConfirmModal();
+      } catch {
+        //
+      }
+    }
   };
 
   const closeChip = (tag: { key: number; label: string; value: number }) => {
