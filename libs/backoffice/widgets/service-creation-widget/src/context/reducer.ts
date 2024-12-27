@@ -35,8 +35,14 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return undefined;
     }
 
-    case 'PREVIOUS_STEP':
-      return state.step > 0 ? void state.step-- : undefined;
+    case 'PREVIOUS_STEP': {
+      if (state.step > 0) {
+        const currentStatus = state.stepStatuses[state.step].status;
+        state.stepStatuses[state.step].status = currentStatus === 'finish' ? 'wait' : currentStatus; // if status is error, don't change it
+        state.step--;
+      }
+      return;
+    }
 
     case 'ADD_INITIAL_STEP': {
       const step = action.payload;
