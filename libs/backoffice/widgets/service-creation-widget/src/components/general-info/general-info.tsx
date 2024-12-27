@@ -4,7 +4,7 @@ import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { nextStep, useAppDispatch } from '../../context';
+import { nextStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
@@ -30,6 +30,7 @@ export default function GeneralInfo() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
+  const state = useAppState();
   const router = useRouter();
   const serviceName = useSearchParams().get('service-name');
   const { data: service, isPending: isPendingService, is404Error } = useGetService();
@@ -99,12 +100,15 @@ export default function GeneralInfo() {
         owner,
         version,
         access: accessLevel.code,
-        category: category.code,
+        category: category?.code,
         throughput: throughput.code,
         englishName: name,
         persianName,
       };
     }
+
+    const inputErrors = state.stepStatuses.find((i) => i.name === 'generalInfo')?.error;
+    const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
 
     return (
       <>
@@ -112,7 +116,12 @@ export default function GeneralInfo() {
           <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
             <S.InputsBox>
               <SearchItemsContainer $columnNumber='3'>
-                <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
+                <FormItem
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.englishName)}
+                  name={FORM_ITEM_NAMES.englishName}
+                  label={t('english_name')}
+                  rules={[rule]}
+                >
                   <Input disabled={true} placeholder={t('enter_english_name')} />
                 </FormItem>
 
@@ -120,12 +129,17 @@ export default function GeneralInfo() {
                   name={FORM_ITEM_NAMES.persianName}
                   label={t('persian_name')}
                   rules={[rule]}
-                  validateStatus='error'
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.persianName)}
                 >
                   <Input placeholder={t('enter_persian_name')} />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
+                <FormItem
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.access)}
+                  name={FORM_ITEM_NAMES.access}
+                  rules={[rule]}
+                  label={t('access')}
+                >
                   <Select
                     size={'large'}
                     placeholder={t('select_access')}
@@ -134,7 +148,12 @@ export default function GeneralInfo() {
                   />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
+                <FormItem
+                  name={FORM_ITEM_NAMES.category}
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.category)}
+                  rules={[rule]}
+                  label={t('category')}
+                >
                   <Select
                     size={'large'}
                     loading={isFetchingCategories}
@@ -143,7 +162,12 @@ export default function GeneralInfo() {
                   />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
+                <FormItem
+                  name={FORM_ITEM_NAMES.throughput}
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.throughput)}
+                  rules={[rule]}
+                  label={t('throughput')}
+                >
                   <Select
                     size={'large'}
                     placeholder={t('throughput')}
@@ -152,11 +176,21 @@ export default function GeneralInfo() {
                   />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
+                <FormItem
+                  name={FORM_ITEM_NAMES.version}
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.version)}
+                  label={t('version')}
+                  rules={[rule]}
+                >
                   <Input placeholder={t('enter_version')} />
                 </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.owner} label={t('owner')} rules={[rule]}>
+                <FormItem
+                  name={FORM_ITEM_NAMES.owner}
+                  validateStatus={getValidateStatus(FORM_ITEM_NAMES.owner)}
+                  label={t('owner')}
+                  rules={[rule]}
+                >
                   <Input placeholder={t('enter_owner')} />
                 </FormItem>
               </SearchItemsContainer>

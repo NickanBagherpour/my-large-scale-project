@@ -1,5 +1,5 @@
 import type { MessageType, Nullable } from '@oxygen/types';
-import type { WidgetDispatchType, WidgetStateType } from './types';
+import type { ErrorPayload, WidgetDispatchType, WidgetStateType } from './types';
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
@@ -21,7 +21,7 @@ export function addServiceName(dispatch: WidgetDispatchType, payload: WidgetStat
   dispatch({ type: 'ADD_SERVICE_NAME', payload });
 }
 
-export function addStepErrors(dispatch: WidgetDispatchType, payload: WidgetStateType['stepErrors']) {
+export function addStepErrors(dispatch: WidgetDispatchType, payload: ErrorPayload) {
   dispatch({ type: 'ADD_STEP_ERRORS', payload });
 }
 

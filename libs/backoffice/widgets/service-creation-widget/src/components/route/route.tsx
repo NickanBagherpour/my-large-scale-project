@@ -25,6 +25,7 @@ export default function Route() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
+  const state = useAppState();
   const { serviceName } = useAppState();
   const { data, is404Error, isFetching } = useGetRoute();
   const { mutate: postRoute } = usePostRouteMutation();
@@ -67,6 +68,9 @@ export default function Route() {
       initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
     }
 
+    const inputErrors = state.stepStatuses.find((i) => i.name === 'route')?.error;
+    const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
+
     return (
       <>
         <Container>
@@ -75,6 +79,7 @@ export default function Route() {
               <SearchItemsContainer>
                 <FormItem
                   name={ROUTE_NAMES.actionOrMethod}
+                  validateStatus={getValidateStatus(ROUTE_NAMES.actionOrMethod)}
                   className='span-2'
                   label={t('action_or_method')}
                   rules={[rule]}
@@ -86,7 +91,13 @@ export default function Route() {
                   />
                 </FormItem>
 
-                <FormItem name={ROUTE_NAMES.protocol} className='span-2' rules={[rule]} label={t('protocol')}>
+                <FormItem
+                  name={ROUTE_NAMES.protocol}
+                  validateStatus={getValidateStatus(ROUTE_NAMES.protocol)}
+                  className='span-2'
+                  rules={[rule]}
+                  label={t('protocol')}
+                >
                   <Select
                     size={'large'}
                     loading={isFetchingServiceProtocol}
@@ -94,11 +105,23 @@ export default function Route() {
                   />
                 </FormItem>
 
-                <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
+                <FormItem
+                  name={ROUTE_NAMES.path}
+                  validateStatus={getValidateStatus(ROUTE_NAMES.path)}
+                  className='span-2'
+                  label={t('path')}
+                  rules={[rule]}
+                >
                   <Input disabled={!!isInSSO} />
                 </FormItem>
 
-                <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
+                <FormItem
+                  name={ROUTE_NAMES.host}
+                  validateStatus={getValidateStatus(ROUTE_NAMES.host)}
+                  className='span-2'
+                  label={t('host')}
+                  rules={[rule]}
+                >
                   <Input />
                 </FormItem>
               </SearchItemsContainer>

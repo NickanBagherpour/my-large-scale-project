@@ -82,7 +82,14 @@ const BadRequestErorr = () => {
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();
-  const errors = Object.values(state.stepErrors).map((value) => ({ message: value, code: null }));
+
+  const errors = state.stepStatuses.reduce((acc, step) => {
+    if (step.error) {
+      const newErrors = Object.values(step.error).map((value) => ({ code: null, message: value }));
+      return [...acc, ...newErrors];
+    }
+    return acc;
+  }, [] as Array<{ code: string | null; message: string }>);
 
   return (
     <>

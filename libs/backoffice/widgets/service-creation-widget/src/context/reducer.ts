@@ -1,5 +1,4 @@
 import { steps } from '../components/app/app';
-import { FORM_ITEM_NAMES, ROUTE_NAMES } from '../utils/consts';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
@@ -12,7 +11,6 @@ export const initialStateValue: WidgetStateType = {
     { name: 'upstream', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],
-  stepErrors: {},
   message: null,
 };
 
@@ -62,20 +60,21 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.message = action.payload);
 
     case 'ADD_STEP_ERRORS': {
-      return void (state.stepErrors = action.payload);
+      state.stepStatuses.forEach((item) => {
+        item.error = action.payload[item.name];
+      });
+      return;
     }
 
     case 'GO_TO_FIRST_ERROR': {
-      const payload = state.stepErrors;
-      const generalInfoHasErorr = Object.keys(payload).some((key) => !!FORM_ITEM_NAMES[key]);
-      const routeHasErorr = Object.keys(payload).some((key) => !!ROUTE_NAMES[key]);
-      state.stepErrors = payload;
-      state.step = generalInfoHasErorr ? 0 : 1;
-      state.stepStatuses.forEach((step) => {
-        if (step.name === 'route' && routeHasErorr) {
-          step.status = 'error';
-        } else if (step.name === 'generalInfo' && generalInfoHasErorr) {
-          step.status = 'error';
+      let foundFirstStep = false;
+      state.stepStatuses.forEach((stepStatus, idx) => {
+        if (stepStatus.error) {
+          stepStatus.status = 'error';
+          if (!foundFirstStep) {
+            foundFirstStep = true;
+            state.step = idx as StepIndex;
+          }
         }
       });
       return;

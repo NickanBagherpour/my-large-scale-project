@@ -1,21 +1,29 @@
 import { useMutation } from '@tanstack/react-query';
-import { addStepErrors, updateMessageAction, useAppDispatch, useAppState, WidgetStateType } from '../context';
+import {
+  addStepErrors,
+  ErrorPayload,
+  StepNames,
+  updateMessageAction,
+  useAppDispatch,
+  useAppState,
+  WidgetStateType,
+} from '../context';
 import Api from './api';
 import { ApiUtil } from '@oxygen/utils';
-import { GeneralInfoValuesType, RouteType } from '../types';
 import { type AxiosError } from 'axios';
 import { isAxiosError } from '../utils/error-util';
+import { GeneralInfoValuesType, RouteType } from '../types';
 
 const errorsMap = {
-  'service.name': 'englishName',
-  'service.throughput': 'throughput',
-  'service.version': 'version',
-  'service.owner': 'owner',
-  'route.method': 'actionOrMethod',
-  'route.protocol': 'protocol',
-  'route.path': 'path',
-  'route.host': 'host',
-} satisfies Record<string, keyof GeneralInfoValuesType | keyof RouteType>;
+  'service.name': { stepName: 'generalInfo', inputName: 'englishName' },
+  'service.throughput': { stepName: 'generalInfo', inputName: 'throughput' },
+  'service.version': { stepName: 'generalInfo', inputName: 'version' },
+  'service.owner': { stepName: 'generalInfo', inputName: 'owner' },
+  'route.method': { stepName: 'route', inputName: 'actionOrMethod' },
+  'route.protocol': { stepName: 'route', inputName: 'protocol' },
+  'route.path': { stepName: 'route', inputName: 'path' },
+  'route.host': { stepName: 'route', inputName: 'host' },
+} satisfies Record<string, { stepName: StepNames; inputName: string }>;
 
 type Keys = keyof typeof errorsMap;
 
@@ -42,14 +50,20 @@ export const usePostConfirmData = () => {
       if (isAxiosError(e) && isPublisherError(e)) {
         // const errorsObj: PublisherErrorResponse['errors'] = {
         // 	'service.name': 'serviceName error',
+        // 	'service.version': 'verion has some thing errory',
         // 	'route.host': 'host error',
+        // 	'route.path': 'PATH',
         // };
         const errorsObj = e?.response?.data?.errors;
         if (errorsObj) {
           const stepErrors = Object.entries(errorsObj).reduce(
-            (acc, [key, value]) => ({ ...acc, [errorsMap[key]]: value }),
-            {} as WidgetStateType['stepErrors']
+            (acc, [key, value]) => ({
+              ...acc,
+              [errorsMap[key].stepName]: { ...acc[errorsMap[key].stepName], [errorsMap[key].inputName]: value },
+            }),
+            {} as ErrorPayload
           );
+
           addStepErrors(dispatch, stepErrors);
         }
       }
