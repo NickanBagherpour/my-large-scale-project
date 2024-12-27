@@ -1,4 +1,5 @@
 import { table } from 'console';
+import { access } from 'fs/promises';
 
 export default {
   widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
@@ -61,7 +62,6 @@ export default {
   remove: 'حذف ',
   save_changes: 'ذخیره تغییرات',
   english_name: 'نام انگلیسی',
-  persian_name: 'نام فارسی',
   add_server: 'افزودن سرور',
   create_scope: 'ایجاد اسکوپ',
   choose_scope: 'انتخاب اسکوپ',
@@ -78,4 +78,16 @@ export default {
   you_are_adding_scope: 'شما در حال افزودن اسکوپ svc-mgmt-iban-inq در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
   scope: 'اسکوپ',
   submit_and_add: 'تایید و افزودن',
+  action_method: 'اکشن/متود',
+  protocol: 'پروتوکل',
+  path: 'Path',
+  host: 'Host',
+  persian_name: 'نام فارسی',
+  latin_name: 'نام لاتین',
+  access: 'دسترسی',
+  category: 'دسته‌بندی',
+  throughput: 'Throughput',
+  version: 'نسخه',
+  owner: 'مالک',
+  tags: 'تگ ها',
 };

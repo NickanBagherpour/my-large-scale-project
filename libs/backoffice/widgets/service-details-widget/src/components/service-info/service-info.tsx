@@ -4,7 +4,7 @@ import type { Pagination, Service } from '@oxygen/types';
 import { TablePaginationConfig } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { ROUTES } from '@oxygen/utils';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 import { useGetServiceDetailsQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
@@ -55,15 +55,15 @@ const Route: React.FC<AppProps> = (props) => {
     if (!serviceDetails) return [];
 
     return [
-      { key: 'name', value: serviceDetails.name },
-      { key: 'persianName', value: serviceDetails.persianName },
-      { key: 'accessLevel', value: serviceDetails.accessLevel.title },
-      { key: 'category', value: serviceDetails.category.title },
-      { key: 'throughput', value: serviceDetails.throughput.title },
-      { key: 'version', value: serviceDetails.version },
-      { key: 'owner', value: serviceDetails.owner },
+      { key: t('latin_name'), value: getValueOrDash(serviceDetails.name) },
+      { key: t('persian_name'), value: getValueOrDash(serviceDetails.persianName) },
+      { key: t('access'), value: getValueOrDash(serviceDetails.accessLevel.title) },
+      { key: t('category'), value: getValueOrDash(serviceDetails.category.title) },
+      { key: t('throughput'), value: getValueOrDash(serviceDetails.throughput.title) },
+      { key: t('version'), value: getValueOrDash(serviceDetails.version) },
+      { key: t('owner'), value: getValueOrDash(serviceDetails.owner) },
       // {
-      //   key: 'tags',
+      //   key: t('tags'),
       //   value: serviceDetails.tags.length
       //     ? serviceDetails.tags.map(
       //         (tag, index) => `<Chip type='active'>
@@ -117,7 +117,7 @@ const Route: React.FC<AppProps> = (props) => {
         </div>
       </div>
 
-      {console.log(serviceDetails, 'service details')}
+      {/* {console.log(serviceDetails, 'service details')} */}
 
       <InfoBox data={transformedData} margin={0} loading={isServiceFetching} />
     </>

@@ -6,7 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
-
+import { getValueOrDash } from '@oxygen/utils';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
 import { useAppDispatch, useAppState } from '../../context';
@@ -51,10 +51,10 @@ const Route: React.FC<AppProps> = (props) => {
     if (!routeDetails) return [];
 
     return [
-      { key: 'method', value: routeDetails.method },
-      { key: 'protocol', value: routeDetails.protocol },
-      { key: 'path', value: routeDetails.path },
-      { key: 'host', value: routeDetails.host },
+      { key: t('action_method'), value: getValueOrDash(routeDetails.method) },
+      { key: t('protocol'), value: getValueOrDash(routeDetails.protocol) },
+      { key: t('path'), value: getValueOrDash(routeDetails.path) },
+      { key: t('host'), value: getValueOrDash(routeDetails.host) },
       // {
       //   key: 'tags',
       //   value: serviceDetails.tags.length

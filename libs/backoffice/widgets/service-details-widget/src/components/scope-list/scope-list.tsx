@@ -10,7 +10,7 @@ import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit
 import { useState } from 'react';
 import { Container } from './container/container.style';
 
-export default function Scope() {
+export default function Scope({ updateData }) {
   const [t] = useTr();
   const { scopeMode /* scope: addScope */ } = useAppState();
   const dispatch = useAppDispatch();
@@ -18,6 +18,11 @@ export default function Scope() {
 
   const chooseScope = (scope: Scope) => {
     setSelectedScope(scope);
+  };
+
+  const handleInputChange = (e) => {
+    const formData = { [e.target.name]: e.target.value };
+    updateData(formData);
   };
 
   const removeSelectedScope = () => {
@@ -31,6 +36,13 @@ export default function Scope() {
   const onReturn = () => {
     // previousStep(dispatch);
   };
+
+  // const handleSubmit = () => {
+  //   const formData = { scopeName: 'Example Scope' }; // Gather data
+  //   if (onSubmit) {
+  //     onSubmit(formData); // Pass data to parent
+  //   }
+  // };
 
   const desktopColumns: ColumnsType<Scope> = [
     {
@@ -89,6 +101,8 @@ export default function Scope() {
     <Container>
       <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
 
+      {/* <button onClick={handleSubmit}>Submit Scope</button> */}
+
       {selectedScope && (
         <S.Table
           columns={desktopColumns}
@@ -99,11 +113,13 @@ export default function Scope() {
         />
       )}
 
+      {/* <input type='text' name='scopeName' placeholder='Enter Scope Name' onChange={handleInputChange} /> */}
+      {/* 
       <Footer
         registerButtonProps={{ disabled: !selectedScope }}
         onRegister={() => console.log('hh')}
         onReturn={onReturn}
-      />
+      /> */}
     </Container>
   );
 }

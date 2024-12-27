@@ -42,6 +42,9 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
+  const [activeTabKey, setActiveTabKey] = useState('1');
+  const [scopeData, setScopeData] = useState(null);
+
   const servicename: Nullable<string> = searchParams.get('servicename');
 
   useEffect(() => {
@@ -69,20 +72,20 @@ const App: React.FC<AppProps> = (props) => {
     });
   };
   //to do : handle submit button globaly
-  const footerButton = (
-    <>
-      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-        {t('button.return')}
-      </ReturnButton>
-      {!state.upstreamTab.activeSelect.isInitialized && (
-        <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation} loading={isPending}>
-          {t('save_changes')}
-        </Button>
-      )}
-    </>
-  );
+  // const footerButton = (
+  //   <>
+  //     <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+  //       {t('button.return')}
+  //     </ReturnButton>
+  //     {!state.upstreamTab.activeSelect.isInitialized && (
+  //       <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation} loading={isPending}>
+  //         {t('save_changes')}
+  //       </Button>
+  //     )}
+  //   </>
+  // );
 
-  const items: TabsProps['items'] = [
+  const items = [
     {
       key: '1',
       label: t('general_information'),
@@ -96,18 +99,55 @@ const App: React.FC<AppProps> = (props) => {
     {
       key: '3',
       label: t('scopes'),
-      children: <ScopeList />,
+      children: (
+        <ScopeList
+          updateData={(data) => {
+            setScopeData(data);
+          }}
+        />
+      ),
+      onSubmit: () => {
+        console.log('Submitting Scopes from App footer:', scopeData);
+      },
     },
     {
       key: '4',
       label: t('upstream'),
       children: <UpstreamList />,
+      onSubmit: () => {
+        console.log('Submitting Upstream');
+      },
     },
   ];
 
+  const footerButton = (
+    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        {t('button.return')}
+      </ReturnButton>
+      {items.find((item) => item.key === activeTabKey)?.onSubmit && (
+        <Button
+          loading={isPending}
+          onClick={() => {
+            const currentTab = items.find((item) => item.key === activeTabKey);
+            currentTab?.onSubmit?.();
+          }}
+          disabled={false}
+        >
+          {t('save_changes')}
+        </Button>
+      )}
+    </div>
+  );
+
   return (
     <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
-      <Tabs defaultActiveKey='1' items={items} style={{ paddingTop: '3rem' }} />
+      <Tabs
+        defaultActiveKey='1'
+        items={items}
+        style={{ paddingTop: '3rem' }}
+        onChange={(key) => setActiveTabKey(key)}
+      />
     </S.AppContainer>
   );
 };
