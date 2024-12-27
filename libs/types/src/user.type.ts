@@ -43,3 +43,8 @@ export interface JwtPayload {
 
   scopes: string[];
 }
+
+export enum BusinessUserRole {
+  COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
+  BUSINESS_ADMIN = 'business-admin',
+};

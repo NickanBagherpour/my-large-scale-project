@@ -5,6 +5,8 @@ import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
 import { Button, Icons, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
 import * as S from './appbar-user-menu.style';
+import { ReactNode } from 'react';
+import { BusinessUserRole, Nullable } from '@oxygen/types';
 
 enum MenuItemKey {
   ChangeLanguage = 'changeLanguage',
@@ -49,7 +51,7 @@ export default function AppbarUserMenu({
                   ) : (
                     <div className='menu-header'>
                       <p className='menu-p'>{`${userInfo.name} ${userInfo.family}`}</p>
-                      <span className='menu-span'>{`-` /*userInfo.jobName*/}</span>
+                      <span className='menu-span'>{getUserRole(userInfo.role)}</span>
                     </div>
                   )}
                 </S.StyleSpan>
@@ -106,6 +108,17 @@ export default function AppbarUserMenu({
 
     return [...baseItems, ...devItems, ...authVariantItems];
   };
+
+  function getUserRole(role?: Nullable<string>): ReactNode {
+    switch (role) {
+      case BusinessUserRole.COMMERCIAL_BANKING_ADMIN:
+        return t('common.user_role.commercial_banking_admin');
+      case BusinessUserRole.BUSINESS_ADMIN:
+        return t('common.user_role.business_admin');
+      default:
+        return '-';
+    }
+  }
 
   const items: MenuProps['items'] = getMenuItems();
 

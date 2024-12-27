@@ -1,4 +1,4 @@
-import { createResponse } from '@oxygen/types';
+import { createResponse, JwtPayload } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 import { decodeJWT, ENV_CONSTANTS } from '@oxygen/utils';
 
@@ -54,4 +54,13 @@ export async function GET(req) {
       statusCode: 500, // Internal Server Error
     });
   }
+}
+
+
+function getRole(decodedToken: JwtPayload | null): string | null {
+  if (decodedToken?.role) {
+    return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
+  }
+
+  return null;
 }
