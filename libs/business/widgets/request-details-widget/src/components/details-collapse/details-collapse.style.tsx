@@ -36,6 +36,10 @@ export const Container = styled.div`
         color: ${(p) => p.theme.text.secondary};
       }
     }
+
+    &:not(last-of-type) {
+      background-color: transparent;
+    }
   }
 
   & .ant-divider {

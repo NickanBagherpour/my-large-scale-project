@@ -5,11 +5,11 @@ import { useTheme } from 'styled-components';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
-import { dateLocale, getTodayDate, getValueOrDash } from '@oxygen/utils';
+import { getValueOrDash } from '@oxygen/utils';
 import { useApp } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 
-import { ExpertOpinionStatus, PanelType, type RequestConfirmType, requestConfirmType, SubmissionId } from '../../types';
+import { ExpertOpinionStatus, UserRole, type RequestConfirmType, requestConfirmType, SubmissionId } from '../../types';
 import ConfirmStatusResultModal from '../confirm-status-result-modal/confirm-status-result-modal';
 import { CONFIRM_MODAL_NAMES } from '../../utils/consts';
 import { useAppState } from '../../context';
@@ -36,8 +36,6 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 
-  const { notification } = useApp();
-
   const { mutate, isPending } = usePostSubmissionResultMutation();
 
   const handleSubmissionConfirm = () => {
@@ -49,7 +47,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
 
     mutate(params, {
       onSuccess: () => {
-        if (userRole === PanelType.COMMERCIAL) {
+        if (userRole === UserRole.COMMERCIAL_BANKING_ADMIN) {
           setOpenStatusResult(true);
         }
       },
@@ -67,7 +65,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
     form.submit();
     handleSubmissionConfirm();
 
-    if (userRole === PanelType.BUSINESS && isConfirm) {
+    if (userRole === UserRole.BUSINESS_ADMIN && isConfirm) {
       setOpenModal(false);
     }
   };
@@ -81,7 +79,8 @@ const ConfirmModal: React.FC<Props> = (props) => {
     setOpenModal(false);
   };
 
-  const showForm = userRole === PanelType.COMMERCIAL || (userRole === PanelType.BUSINESS && !isConfirm);
+  const showForm =
+    userRole === UserRole.COMMERCIAL_BANKING_ADMIN || (userRole === UserRole.BUSINESS_ADMIN && !isConfirm);
 
   const ModalForm = ({ form, onFinish, rule, t, isConfirm }) => (
     <Form form={form} onFinish={onFinish}>
@@ -151,7 +150,6 @@ const ConfirmModal: React.FC<Props> = (props) => {
       </S.StyledModal>
       <ConfirmStatusResultModal
         openStatus={openStatusResult}
-        statusDate={getTodayDate()}
         isConfirmStatus={isConfirm}
         setOpenStatus={setOpenStatusResult}
       />

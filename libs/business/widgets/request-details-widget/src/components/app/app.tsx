@@ -19,11 +19,11 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
-  const { user } = useAuth();
-  const userRole: Nullable<string> = user?.userInfo?.role;
-
   const state = useAppState();
   const [t] = useTr();
+
+  const { user } = useAuth();
+  const userRole: Nullable<string> = user?.userInfo?.role;
 
   const { message, ...fetchState } = state;
 

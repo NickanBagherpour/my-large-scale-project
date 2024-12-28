@@ -6,23 +6,20 @@ import { useTr } from '@oxygen/translation';
 import { dateLocale, ROUTES } from '@oxygen/utils';
 
 import * as S from './confirm-status-result-modal.style';
-import { Dayjs } from 'dayjs';
 
 type Props = {
   openStatus: boolean;
-  statusDate: Dayjs;
   isConfirmStatus?: boolean;
   setOpenStatus: (boolean) => void;
   //
 };
 const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
-  const { openStatus, statusDate, isConfirmStatus, setOpenStatus } = props;
+  const { openStatus, isConfirmStatus, setOpenStatus } = props;
   const handleCancel = () => {
     setOpenStatus(false);
   };
   const [t] = useTr();
 
-  const date = dateLocale(statusDate['$d']);
   return (
     <>
       <S.StyledModal
@@ -44,7 +41,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             </S.StyledIcon>
             <S.StyledDescription>
               {t(isConfirmStatus ? 'status_confirm_description' : 'status_reject_description', {
-                statusDate: date,
+                statusDate: dateLocale(),
               })}
             </S.StyledDescription>
           </S.StatusBox>

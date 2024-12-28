@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { PanelType } from '../../types';
+import { UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import RequestResultBox from '../request-result-box/request-result-box';
@@ -35,8 +35,8 @@ const DetailsCollapse: React.FC<Props> = (props) => {
 
   if (error) return <NoResult isLoading={false} />;
   if (!data) return <Loading spinning={isFetching} />;
-
-  data.submissionStatus = {
+  const newData = { ...data };
+  newData.submissionStatus = {
     commercial: {
       code: 2,
       title: 'درحال بررسی توسط بانکداری تجاری',
@@ -47,9 +47,10 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   };
 
-  const { submissionInfoDto, organization, representativeSet, services, submissionStatus } = data;
+  const { submissionInfoDto, organization, representativeSet, services, submissionStatus } = newData;
 
-  const status = userRole === PanelType.COMMERCIAL ? submissionStatus.commercial : submissionStatus.business;
+  const status =
+    userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? submissionStatus.commercial : submissionStatus.business;
 
   const submissionInfo = [
     {
@@ -175,7 +176,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     {
       key: '4',
       label:
-        userRole === PanelType.COMMERCIAL ? (
+        userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? (
           t('requested_services')
         ) : (
           <S.TitleWrapper>
@@ -192,10 +193,11 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   ];
 
+  console.log('data', data);
   return (
     <S.Container>
       <Collapse items={items} />
-      {data ? <RequestResultBox data={data} /> : <Loading />}
+      {newData ? <RequestResultBox data={newData} /> : <Loading />}
     </S.Container>
   );
 };
