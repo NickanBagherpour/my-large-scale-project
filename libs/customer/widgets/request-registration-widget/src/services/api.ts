@@ -1,21 +1,8 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, FirstStepParams, RequestRegistration } from '../types';
-import type { ParamsType, OrganizationParamsType } from '@oxygen/types';
+import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, ThirdStepParams } from '../types';
+import type { OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-
-// type firstStepParams = {
-//   legal_person_name: string;
-//   legal_person_type: string;
-//   registration_number: string;
-//   registration_date: string;
-//   national_id: string;
-//   economy_code: string;
-//   activity_field: string;
-//   postal_code: string;
-//   phone: string;
-//   last_registration_address: string;
-// };
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
@@ -33,7 +20,7 @@ const Api = {
     return res;
   },
 
-  getOrganizationsListData: async (params: OrganizationParamsType) => {
+  getOrganizationsListData: async () => {
     try {
       const res = await client.get(`${portalUrl}/v1/organizations`);
       return res;
@@ -43,20 +30,86 @@ const Api = {
     }
   },
 
-  getOrganizationData: async (params: RequestRegistration) => {
-    const { ...restParams } = params;
-    // const res = Mockify.getRequestData();
-    // return res;
-    if (!params) {
-      return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, {
-        headers: {},
-      });
-    } else return { data: '', isFetching: false };
+  geRequestData: async (submissionId: string) => {
+    try {
+      const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
+      return res;
+    } catch (error) {
+      console.error('Error fetching organization list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  },
+
+  getAggregatorsListData: async (params: AggregatorsParamsType) => {
+    const { page, size, sort } = params;
+    const filteredParams = { page, size, sort: 'asc' };
+    try {
+      const res = await client.get(`${portalUrl}/v1/aggregators`, { params: filteredParams });
+      return res;
+    } catch (error) {
+      console.error('Error fetching aggregator list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
   },
 
   requestRegistrationFirstStep: async (params: FirstStepParams) => {
-    const { ...restParams } = params;
-    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, restParams, {
+    const { organizationId, submissionId, ...restParams } = params;
+    if (organizationId && submissionId) {
+      return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
+        headers: {},
+      });
+    } else {
+      return client.post(`${portalUrl}/v1/organizations`, restParams, {
+        headers: {},
+      });
+    }
+  },
+
+  requestRegistrationFirstStepWithSelectedOrganization: async (params: { organizationId: number }) => {
+    const { organizationId } = params;
+
+    return client.post(`${portalUrl}/v1/submissions/organizations/${organizationId}`, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationSecondStep: async (params: SecondStepParams) => {
+    const apiPrams = {
+      submissionId: params.submissionId,
+      clientKey: params.clientKey,
+      representatives: [
+        {
+          nameAndLastName: params.persian_name,
+          mobileNumber: params.mobile_number,
+          fixedPhoneNumber: params.phone_number,
+          representativeType: 1,
+        },
+        {
+          nameAndLastName: params.technical_persian_name,
+          mobileNumber: params.technical_mobile_number,
+          fixedPhoneNumber: params.technical_Phone_number,
+          representativeType: 2,
+        },
+      ],
+    };
+    return client.post(`${portalUrl}/v1/representative`, apiPrams, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationThirdStep: async (params: ThirdStepParams) => {
+    const apiPrams = {
+      requestId: params.requestId,
+      servicesIdSet: params.servicesIdSet,
+    };
+    return client.post(`${portalUrl}/v1/submissions/services`, apiPrams, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationFourthStepWithSelectedOrganization: async (params: { submissionId: number }) => {
+    const { submissionId } = params;
+    return client.post(`${portalUrl}/v1/submissions/${submissionId}`, {
       headers: {},
     });
   },

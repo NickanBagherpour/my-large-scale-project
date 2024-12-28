@@ -10,8 +10,12 @@ export default {
   submit_info: 'ثبت‌اطلاعات',
   company_is_aggregator: 'شرکت اگریگیتور است',
   company_has_aggregator: 'شرکت اگریگیتور دارد',
+  company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+  company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   nothing: 'هیچ‌کدام',
   select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
+  public: 'عام',
+  private: 'خاص',
   //secondStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',
@@ -29,7 +33,7 @@ export default {
   remove_modal: {
     remove_service: 'حذف سرویس',
     remove: 'حذف',
-    are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
+    are_you_sure_to_remove: 'آیا از حذف سرویس {{name}} برای این اسکوپ اطمینان دارید؟',
   },
   //fourthStep
   company_info: 'اطلاعات شرکت',
@@ -95,6 +99,7 @@ export default {
     invalid_mobile_length: 'شماره موبایل باید11رقم باشد',
     min_length: '11رقم نیاز است',
     ten_digits_needed: 'حداقل 10 رقم نیاز است',
-    twelve_digits_needed: 'حداقل 12 رقم نیاز است',
+    eleven_digits_needed: ' 11 رقم نیاز است',
+    twelve_digits_needed: ' 12 رقم نیاز است',
   },
 };

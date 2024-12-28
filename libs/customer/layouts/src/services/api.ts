@@ -3,15 +3,15 @@ import mockify from '@oxygen/mockify';
 import { ENV_CONSTANTS } from '@oxygen/utils';
 
 const Api = {
-  getMenus: async () => {
-    let response;
-    if (ENV_CONSTANTS.IS_DEV) {
-      response = await mockify.getMenus();
-    } else {
-      response = await client.get(`${portalUrl}/profile/menu`);
-    }
-    return response.data;
-  },
+  // getMenus: async () => {
+  //   let response;
+  //   if (ENV_CONSTANTS.IS_DEV) {
+  //     response = await mockify.getMenus();
+  //   } else {
+  //     response = await client.get(`${portalUrl}/profile/menu`);
+  //   }
+  //   return response.data;
+  // },
   getCustomerMenu: async () => {
     let response;
     if (ENV_CONSTANTS.IS_DEV) {
