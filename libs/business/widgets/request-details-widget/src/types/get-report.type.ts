@@ -66,9 +66,9 @@ export type RequestConfirm = {
   description: string;
 };
 
-export enum PanelType {
-  BUSINESS = 'BUSINESS',
-  COMMERCIAL = 'COMMERCIAL',
+export enum UserRole {
+  COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
+  BUSINESS_ADMIN = 'business-admin',
 }
 
 export enum ExpertOpinionStatus {

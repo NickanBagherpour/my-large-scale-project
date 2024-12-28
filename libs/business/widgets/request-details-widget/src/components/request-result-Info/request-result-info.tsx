@@ -5,14 +5,14 @@ import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import { useAppState } from '../../context';
-import { PanelType, RequestStatus } from '../../types';
+import { RequestStatus, UserRole } from '../../types';
 import { useGetRequestResultQuery } from '../../services/get-request-result';
 
 import * as S from './request-result-info.style';
 
 type Props = {
   resultType: number;
-  section: PanelType;
+  section: UserRole;
 };
 
 const RequestResultInfo: React.FC<Props> = (props: Props) => {
@@ -40,9 +40,9 @@ const RequestResultInfo: React.FC<Props> = (props: Props) => {
     resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK || resultType === RequestStatus.APPROVED_BY_BUSINESS_UNIT;
   const showFinalApproval =
     resultType === RequestStatus.APPROVED_BY_BUSINESS_UNIT &&
-    userRole === PanelType.BUSINESS &&
-    section === PanelType.BUSINESS;
-  // const showBusinessBankingResult = userRole === PanelType.COMMERCIAL || userRole === PanelType.BUSINESS && section === 'business-banking';
+    userRole === UserRole.BUSINESS_ADMIN &&
+    section === UserRole.BUSINESS_ADMIN;
+  // const showBusinessBankingResult = userRole === UserRole.COMMERCIAL || userRole === UserRole.BUSINESS && section === 'business-banking';
 
   const businessResultInfo = [
     {
