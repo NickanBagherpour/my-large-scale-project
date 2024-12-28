@@ -21,6 +21,7 @@ type Props = {
   loading: boolean;
   isLastPage: boolean;
   loadMore: () => void;
+  onChange: (value: string) => void;
 };
 
 const AdvanceSelector = (props: Props) => {
@@ -35,6 +36,7 @@ const AdvanceSelector = (props: Props) => {
     placeholder,
     isLastPage,
     loadMore,
+    onChange,
   } = props;
 
   const MAX_LENGTH = 75;
@@ -58,6 +60,7 @@ const AdvanceSelector = (props: Props) => {
         notFoundContent={t('message.empty')}
         maxLength={MAX_LENGTH}
         allowClear
+        onChange={onChange}
         onClear={onClear}
         onSearch={(value) => setSearchTerm(value)}
         onSelect={(_, option) => {
@@ -67,7 +70,7 @@ const AdvanceSelector = (props: Props) => {
         dropdownRender={(menu) => (
           <>
             {menu}
-            {!isLastPage && (
+            {!isLastPage && data && (
               <S.BtnContainer>
                 <Button variant='link' color='secondary' onClick={loadMore} loading={loading}>
                   {t('button.display_more_items')} <i className='icon-chev-down' />
