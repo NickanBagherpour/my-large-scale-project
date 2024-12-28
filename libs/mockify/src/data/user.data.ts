@@ -10,6 +10,7 @@ export const userProfile = {
     branch_code: '-1',
     job_code: '-1',
     job_status_code: '1',
-    role: 'BUSINESS_BANKING',
+    role: 'commercial-banking-admin',
+    // role: 'business-admin',
   },
 };

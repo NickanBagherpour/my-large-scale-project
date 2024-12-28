@@ -22,6 +22,8 @@ export { ReactComponent as IconTimer } from './media/icon-timer.svg';
 export { ReactComponent as InfoCircle } from './media/info-circle.svg';
 export { ReactComponent as TickCircleOutline } from './media/tick-circle-outline.svg';
 export { ReactComponent as Calender } from './media/calendar.svg';
+export { ReactComponent as CardCover } from './media/card-cover.svg';
+export { ReactComponent as AuthLooper } from './media/auth-looper.svg';
 
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';
 export * as bankLogo from './media/bank.png';

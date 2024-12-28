@@ -7,7 +7,9 @@ import {
   decrypt,
   encrypt,
   getCookie,
+  getUserFullNameFromStorage,
   ROUTES,
+  storage,
 } from '@oxygen/utils';
 
 const baseUrl = '/';
@@ -33,16 +35,16 @@ const client = axios.create({
 client.interceptors.request.use(async (config) => {
   const sessionId = decrypt(getCookie(CookieKey.SESSION_ID));
 
-  /* const session = await auth();
-
- // const userDataString = localStorage.getItem(LocalStorageKey.USER);
-
- // const userData = userDataString ? JSON.parse(userDataString) : null;
- // const branchCode = userData?.branchCode || '';
-*/
   if (sessionId) {
     // config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;
     config.headers['Authorization'] = `Bearer ${sessionId}`;
+  }
+
+  const userFullName = getUserFullNameFromStorage();
+
+  //todo for business portal
+  if (sessionId && userFullName) {
+    config.headers['App-User'] = encodeURIComponent(userFullName);
   }
 
   return config;

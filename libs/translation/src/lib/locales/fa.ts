@@ -32,13 +32,18 @@ export default {
     error: 'خطا',
     warning: 'هشدار',
     dashboard: 'داشبورد',
-    unknown: 'نامشخص',
+    user_role: {
+      commercial_banking_admin: 'واحد بانکداری تجاری',
+      business_admin: 'واحد کسب و کار',
+    },
   },
+
   app: {
     app_name: '',
     team_name: 'فناوی محصولات',
     motto: 'شریک کاری شما',
   },
+
   appbar: {
     title: '',
     logout: 'خروج از حساب کاربری',
@@ -49,6 +54,7 @@ export default {
     change_password: 'تغییر رمز عبور',
     edit_info: 'ویرایش مشخصات ',
   },
+
   uikit: {
     error_count: 'تعداد خطاها',
     dragger_title: 'برای بارگذاری می‌توانید فایل خود را در این قسمت رها کنید.',
@@ -61,6 +67,7 @@ export default {
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
   },
+
   button: {
     register: 'ثبت',
     login: 'ورود',
@@ -127,6 +134,7 @@ export default {
     register_new_request: 'ثبت درخواست جدید',
     display_more_items: 'بیشتر',
   },
+
   field: {
     customer: 'مشتری',
     national_code: 'کد ملی',
@@ -177,6 +185,7 @@ export default {
     organization_info: 'اطلاعات شرکت',
     withdrawal_amount: 'مبلغ قابل برداشت',
   },
+
   placeholder: {
     account_number: 'شماره حساب را وارد کنید',
     amount: 'مبلغ',
@@ -191,6 +200,7 @@ export default {
     input_national_id: 'شناسه ملی شرکت را وارد کنید',
     enter_filed: '{{field}} را وارد کنید',
   },
+
   error: {
     unknown_error: 'عملیات با خطا مواجه شد، لطفا مجددا تلاش نمایید.',
     not_found: 'صفحه مورد نظر یافت نشد',
@@ -219,16 +229,20 @@ export default {
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
   },
+
   message: {
     empty: 'آیتمی جهت نمایش وجود ندارد',
     inquiry_infobox_warning: 'كاربر گرامی ، آيا از تاييد اطلاعات فوق مطمئن مي باشيد؟',
     no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
   },
+
   nav: {},
+
   locale: {
     en: 'En',
     fa: 'فا',
   },
+
   layout: {
     copy_right: 'Bank Melli Iran - Copyright ©2023  .تمامی حقوق متعلق به این سایت برای بانک ملی ایران محفوظ است ',
     bank_site_link: 'سایت بانک ملی',
@@ -243,6 +257,7 @@ export default {
     menu_error_message:
       'سامانه با خطا مواجه شده است. \nلطفا بعد از مدت زمانی دوباره تلاش کنید.\nدرصورت عدم رفع مشکل با واحد پشتیبانی\n تماس بگیرید.\n',
   },
+
   no_result: {
     there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
   },
@@ -276,6 +291,7 @@ export default {
     persian_name_error: 'نام فارسی معتبر نیست',
     choose_at_least_one_option: 'لطفاً حداقل یکی از گزینه‌ها را انتخاب کنید',
   },
+
   service_call: {
     service_call_rate: 'نرخ فراخوانی سرویس',
     register_data: 'ثبت اطلاعات',

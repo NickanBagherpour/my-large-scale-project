@@ -4,14 +4,14 @@ import { useRouter, usePathname } from 'next/navigation';
 
 import { Badge, Empty, Menu, MenuProps, Result } from 'antd';
 
-import { useAsync, useConfig, useMenu } from '@oxygen/hooks';
+import { useConfig, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
 import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
 
-import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
+import { useGetMenu } from '../../services/use-get-menu';
 
 import * as S from './drawer.style';
 
@@ -60,7 +60,6 @@ const Drawer = (props: DrawerProps) => {
   const [t] = useTr();
   const [searchQuery, setSearchQuery] = useState('');
   const [openKeys, setOpenKeys] = useState<string[]>();
-  const router = useRouter();
   const pathname = usePathname();
 
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
@@ -68,25 +67,17 @@ const Drawer = (props: DrawerProps) => {
   const menuSelectedKeys = useMemo(() => getDefaultSelectedKeys(), [menu, pathname]);
   // console.log('defaultOpenKeys', pathname, filteredItems.parentIds, filteredItems, menuSelectedKeys);
 
-  const { asyncState: stateMenu, execute: executeMenu } = useAsync();
+  const { data: menuData, refetch, isLoading: isMenuLoading, isError: isMenuError } = useGetMenu();
 
   useEffect(() => {
-    if (!menu && !stateMenu?.data) {
-      fetchMenu();
-    }
     getActiveParentKeys();
   }, [menu]);
 
-  const fetchMenu = async () => {
-    try {
-      const response = await executeMenu(async () => await Api.getMenus());
-
-      setMenu(response);
-      return response;
-    } catch (error) {
-      return null;
+  useEffect(() => {
+    if (menuData) {
+      setMenu(menuData);
     }
-  };
+  }, [menuData]);
 
   function getMenuLabelNode(menuItem) {
     const badgeCount = 0; // Replace with your non-zero value
@@ -130,7 +121,7 @@ const Drawer = (props: DrawerProps) => {
   }
 
   function handleMenuTryAgain(e) {
-    fetchMenu();
+    refetch();
   }
 
   function getDefaultSelectedKeys() {
@@ -152,7 +143,7 @@ const Drawer = (props: DrawerProps) => {
   function getMenu() {
     return (
       <S.MenuWrapper>
-        {stateMenu?.error ? (
+        {isMenuError ? (
           <Result
             status='error'
             icon={<i className={'ri-alert-fill ri-3x'} />}
@@ -176,7 +167,7 @@ const Drawer = (props: DrawerProps) => {
             {/*  />*/}
             {/*</div>*/}
 
-            {stateMenu?.loading ? (
+            {isMenuLoading ? (
               <div className='menu-spin-container'>
                 <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
               </div>

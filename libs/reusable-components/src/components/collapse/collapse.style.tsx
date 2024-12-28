@@ -29,7 +29,7 @@ export const StyledCollapse = styled(AntCollapse)`
     line-height: calc(28 / 18);
     color: ${(p) => p.theme.text.primary};
     padding: 1.8rem 0 0;
-    background-color: ${(p) => p.theme.background.secondary};
+    background-color: ${(p) => p.theme.background._50};
   }
 
   & .ant-collapse-header {
