@@ -21,8 +21,7 @@ type Props = {
 
 const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, data }) => {
   const [t] = useTr();
-  const info = data?.serviceGeneralInfo;
-  const scopeInfo = info?.scopes?.[0];
+  const scopeInfo = data?.scope;
   const inspectAnother = () => {
     form.resetFields();
     changeContent('searching');
@@ -38,22 +37,22 @@ const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, data })
         <S.Partition style={{ justifyContent: 'end' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <S.InfoTitle>{t('en_name')}</S.InfoTitle>
-            <S.CenteredText>{getValueOrDash(info?.name)}</S.CenteredText>
+            <S.CenteredText>{getValueOrDash(data?.serviceName)}</S.CenteredText>
           </div>
           <div>
             <S.InfoTitle>{t('desc')}</S.InfoTitle>
-            <S.CenteredText> {getValueOrDash(info?.serviceInfoDescription)}</S.CenteredText>
+            <S.CenteredText> {getValueOrDash(data?.servicePersianName)}</S.CenteredText>
           </div>
         </S.Partition>
         <S.StyledDivider orientation='center' type='vertical' variant='solid' />
         <S.Partition>
           <div>
             <S.InfoTitle>{t('scope_en_name')}</S.InfoTitle>
-            <S.CenteredText>{getValueOrDash(scopeInfo?.description)}</S.CenteredText>
+            <S.CenteredText>{getValueOrDash(scopeInfo?.name)}</S.CenteredText>
           </div>
           <div>
             <S.InfoTitle>{t('scope_fa_name')}</S.InfoTitle>
-            <S.CenteredText> {getValueOrDash(scopeInfo?.name)}</S.CenteredText>
+            <S.CenteredText> {getValueOrDash(scopeInfo?.description)}</S.CenteredText>
           </div>
         </S.Partition>
       </Flex>
