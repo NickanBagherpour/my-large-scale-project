@@ -1,24 +1,28 @@
-import { Icons, Modal } from '@oxygen/ui-kit';
-import * as S from './confirm-status-modal.style';
-import { useTr } from '@oxygen/translation';
-import { ROUTES } from '@oxygen/utils';
 import React from 'react';
 import Image from 'next/image';
 
+import { Icons } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { dateLocale, ROUTES } from '@oxygen/utils';
+
+import * as S from './confirm-status-result-modal.style';
+import { Dayjs } from 'dayjs';
+
 type Props = {
   openStatus: boolean;
-  statusDate: string;
+  statusDate: Dayjs;
   isConfirmStatus?: boolean;
   setOpenStatus: (boolean) => void;
   //
 };
-const ConfirmStatusModal: React.FC<Props> = (props: Props) => {
+const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
   const { openStatus, statusDate, isConfirmStatus, setOpenStatus } = props;
   const handleCancel = () => {
     setOpenStatus(false);
   };
   const [t] = useTr();
 
+  const date = dateLocale(statusDate['$d']);
   return (
     <>
       <S.StyledModal
@@ -40,7 +44,7 @@ const ConfirmStatusModal: React.FC<Props> = (props: Props) => {
             </S.StyledIcon>
             <S.StyledDescription>
               {t(isConfirmStatus ? 'status_confirm_description' : 'status_reject_description', {
-                statusDate: statusDate,
+                statusDate: date,
               })}
             </S.StyledDescription>
           </S.StatusBox>
@@ -58,4 +62,4 @@ const ConfirmStatusModal: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default ConfirmStatusModal;
+export default ConfirmStatusResultModal;

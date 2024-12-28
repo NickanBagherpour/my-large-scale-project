@@ -4,62 +4,57 @@ import { Form } from 'antd';
 import { useTheme } from 'styled-components';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { RQKEYS } from '@oxygen/utils';
-import { queryClient } from '@oxygen/client';
+import { dateLocale, getTodayDate, getValueOrDash } from '@oxygen/utils';
+import { useApp } from '@oxygen/hooks';
+import { Nullable } from '@oxygen/types';
 
-import { PanelType, type RequestConfirmType, requestConfirmType, RequestId } from '../../types';
-import ConfirmStatusModal from '../confirm-status-modal/confirm-status-modal';
+import { ExpertOpinionStatus, PanelType, type RequestConfirmType, requestConfirmType, SubmissionId } from '../../types';
+import ConfirmStatusResultModal from '../confirm-status-result-modal/confirm-status-result-modal';
 import { CONFIRM_MODAL_NAMES } from '../../utils/consts';
 import { useAppState } from '../../context';
+
+import { usePostSubmissionResultMutation } from '../../services';
 
 import * as S from './confirm-modal.style';
 
 type Props = {
   openModal: boolean;
-  requestId: RequestId;
-  confirmLoading: boolean;
+  submissionId: SubmissionId;
   clientName: string;
-  organizationName: string;
+  organizationName: Nullable<string>;
   isConfirm?: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
 };
 const ConfirmModal: React.FC<Props> = (props) => {
-  const { openModal, setOpenModal, requestId, clientName, organizationName, isConfirm } = props;
+  const { openModal, setOpenModal, submissionId, clientName, organizationName, isConfirm } = props;
   const state = useAppState();
-  const [confirmLoading, setConfirmLoading] = useState(false);
   const [t] = useTr();
   const theme = useTheme();
   const [form] = Form.useForm<RequestConfirmType>();
   const rule = createSchemaFieldRule(requestConfirmType(t));
-  const [openStatus, setOpenStatus] = useState(false);
+  const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 
-  const updateCachedResult = (requestId) => {
-    const statusKey = userRole === PanelType.BUSINESS_BANKING ? 'businessBankingStatus' : 'businessUnitStatus';
-    const statusUpdate = isConfirm
-      ? {
-          code: userRole === PanelType.BUSINESS_BANKING ? '02' : '03',
-          title: userRole === PanelType.BUSINESS_BANKING ? 'تایید اولیه' : 'تایید نهایی',
+  const { notification } = useApp();
+
+  const { mutate, isPending } = usePostSubmissionResultMutation();
+
+  const handleSubmissionConfirm = () => {
+    const params = {
+      submissionId: state?.submissionId,
+      expertOpinion: isConfirm ? ExpertOpinionStatus.CONFIRMED : ExpertOpinionStatus.REJECTED,
+      description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription),
+    };
+
+    mutate(params, {
+      onSuccess: () => {
+        if (userRole === PanelType.COMMERCIAL) {
+          setOpenStatusResult(true);
         }
-      : { code: '04', title: 'رد درخواست' };
-
-    queryClient.setQueryData([RQKEYS.REQUEST_DETAILS.GET_REQUEST_INFO, { requestId }], (oldData: any) => {
-      if (!oldData) return;
-
-      return {
-        ...oldData,
-        requestGeneralInfo: {
-          requestStatus: {
-            ...oldData.requestGeneralInfo.requestStatus,
-            [statusKey]: statusUpdate,
-          },
-        },
-      };
+      },
     });
   };
-
   const clientNameRef = useRef(clientName);
   const organizationNameRef = useRef(organizationName);
 
@@ -68,15 +63,12 @@ const ConfirmModal: React.FC<Props> = (props) => {
     organizationNameRef.current = organizationName;
   }, [clientName, organizationName]);
 
-  const handleOk = (requestId) => {
-    setConfirmLoading(true);
+  const handleOk = (submissionId) => {
     form.submit();
-    updateCachedResult(requestId);
+    handleSubmissionConfirm();
+
     if (userRole === PanelType.BUSINESS && isConfirm) {
-      setTimeout(() => {
-        setOpenModal(false);
-        setConfirmLoading(false);
-      }, 1500);
+      setOpenModal(false);
     }
   };
   const handleCancel = () => {
@@ -85,21 +77,15 @@ const ConfirmModal: React.FC<Props> = (props) => {
   };
 
   const handleFinish = (values) => {
-    setTimeout(() => {
-      form.resetFields();
-      setOpenModal(false);
-      if (userRole === PanelType.BUSINESS_BANKING) {
-        setOpenStatus(true);
-      }
-      setConfirmLoading(false);
-    }, 1500);
+    form.resetFields();
+    setOpenModal(false);
   };
 
-  const showForm = userRole === PanelType.BUSINESS_BANKING || (userRole === PanelType.BUSINESS && !isConfirm);
+  const showForm = userRole === PanelType.COMMERCIAL || (userRole === PanelType.BUSINESS && !isConfirm);
 
   const ModalForm = ({ form, onFinish, rule, t, isConfirm }) => (
     <Form form={form} onFinish={onFinish}>
-      <Form.Item name={CONFIRM_MODAL_NAMES.confirmDescription} rules={[rule]}>
+      <Form.Item name={CONFIRM_MODAL_NAMES.expertDescription} rules={[rule]}>
         <S.StyledTextarea
           showCount={{
             formatter: ({ count, maxLength }) => (
@@ -114,7 +100,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
               </span>
             ),
           }}
-          rows={6}
+          rows={8}
           maxLength={150}
           placeholder={t(isConfirm ? 'description' : 'reject_reason')}
         />
@@ -126,7 +112,9 @@ const ConfirmModal: React.FC<Props> = (props) => {
     <S.ModalMessage>
       {t('confirm_question_first')}
       <S.ClientName>{` "${clientName}" `}</S.ClientName>
-      {t(isConfirm ? 'confirm_question_second' : 'reject_question_second', { organizationName: organizationName })}
+      {t(isConfirm ? 'confirm_question_second' : 'reject_question_second', {
+        organizationName: getValueOrDash(organizationName),
+      })}
     </S.ModalMessage>
   );
 
@@ -135,8 +123,8 @@ const ConfirmModal: React.FC<Props> = (props) => {
       <S.StyledModal
         title={t(isConfirm ? 'confirm_request' : 'reject_request')}
         open={openModal}
-        onOk={() => handleOk(requestId)}
-        confirmLoading={confirmLoading}
+        onOk={() => handleOk(submissionId)}
+        confirmLoading={isPending}
         onCancel={handleCancel}
         headerDivider={true}
         centered
@@ -161,11 +149,11 @@ const ConfirmModal: React.FC<Props> = (props) => {
           )}
         </S.ModalContent>
       </S.StyledModal>
-      <ConfirmStatusModal
-        openStatus={openStatus}
-        statusDate={'1403/04/11'}
+      <ConfirmStatusResultModal
+        openStatus={openStatusResult}
+        statusDate={getTodayDate()}
         isConfirmStatus={isConfirm}
-        setOpenStatus={setOpenStatus}
+        setOpenStatus={setOpenStatusResult}
       />
     </>
   );
