@@ -32,6 +32,7 @@ export default {
     error: 'خطا',
     warning: 'هشدار',
     dashboard: 'داشبورد',
+    unknown: 'نامشخص',
   },
   app: {
     app_name: '',

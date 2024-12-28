@@ -3,5 +3,5 @@ export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
 export const CONFIRM_MODAL_NAMES = {
-  confirmDescription: 'confirm_description',
+  expertDescription: 'expert_description',
 };

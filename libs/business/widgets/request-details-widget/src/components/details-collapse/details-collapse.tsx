@@ -4,14 +4,14 @@ import { type CollapseProps } from 'antd';
 import { Divider, InfoBox, Loading } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ROUTES } from '@oxygen/utils';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import RequestResultBox from '../request-result-box/request-result-box';
-import { useGetRequestInfoQuery } from '../../services';
 import { PanelType } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
+import RequestResultBox from '../request-result-box/request-result-box';
+import { useGetSubmissionDetailQuery } from '../../services';
 
 import * as S from './details-collapse.style';
 
@@ -24,11 +24,11 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   const [t] = useTr();
   const userRole = state?.userRole;
 
-  const { data, isFetching, error } = useGetRequestInfoQuery(prepareParams());
+  const { data, isFetching, error } = useGetSubmissionDetailQuery(prepareParams());
 
   function prepareParams() {
     const params = {
-      requestId: state?.requestId,
+      submissionId: state?.submissionId,
     };
     return params;
   }
@@ -36,59 +36,68 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   if (error) return <NoResult isLoading={false} />;
   if (!data) return <Loading spinning={isFetching} />;
 
-  const { requestGeneralInfo, companyInfo, agentsInfo } = data;
-  const status =
-    userRole === PanelType.BUSINESS_BANKING
-      ? requestGeneralInfo?.requestStatus?.businessBankingStatus
-      : requestGeneralInfo?.requestStatus?.businessUnitStatus;
+  data.submissionStatus = {
+    commercial: {
+      code: 2,
+      title: 'درحال بررسی توسط بانکداری تجاری',
+    },
+    business: {
+      code: 2,
+      title: 'درحال بررسی توسط بانکداری تجاری',
+    },
+  };
 
-  const requestInfoData = [
+  const { submissionInfoDto, organization, representativeSet, services, submissionStatus } = data;
+
+  const status = userRole === PanelType.COMMERCIAL ? submissionStatus.commercial : submissionStatus.business;
+
+  const submissionInfo = [
     {
       key: t('organization_name'),
-      value: requestGeneralInfo?.organizationName,
+      value: getValueOrDash(submissionInfoDto?.organizationName),
     },
     {
       key: t('client_name'),
-      value: requestGeneralInfo?.clientName,
+      value: getValueOrDash(submissionInfoDto?.clientName),
     },
     {
       key: t('register_date'),
-      value: requestGeneralInfo?.registerDate,
+      value: getValueOrDash(submissionInfoDto?.createDate),
     },
     {
-      key: t('company_agent_name'),
-      value: requestGeneralInfo?.companyAgentName,
+      key: t('representative_name'),
+      value: getValueOrDash(submissionInfoDto?.representativeName),
     },
   ];
 
-  const companyInfoData = [
+  const organizationInfo = [
     {
-      key: t('legal_person_name'),
-      value: companyInfo?.legalPersonName,
+      key: t('legal_name'),
+      value: getValueOrDash(organization?.legalName),
     },
     {
       key: t('national_id'),
-      value: companyInfo?.nationalId,
+      value: getValueOrDash(organization?.organizationNationalId),
     },
     {
-      key: t('legal_person_type'),
-      value: companyInfo?.legalPersonType,
+      key: t('legal_type'),
+      value: getValueOrDash(organization?.legalType.title),
     },
     {
-      key: t('register_number'),
-      value: companyInfo?.registerNumber,
+      key: t('register_no'),
+      value: getValueOrDash(organization?.registerNo),
     },
     {
       key: t('register_date'),
-      value: companyInfo?.registerDate,
+      value: getValueOrDash(organization?.registerDate),
     },
     {
-      key: t('activity_field'),
-      value: companyInfo?.activityField,
+      key: t('activity_industry'),
+      value: getValueOrDash(organization?.activityIndustry),
     },
     {
       key: t('economic_code'),
-      value: companyInfo?.economicCode,
+      value: getValueOrDash(organization?.economicCode),
     },
     {
       fullwidth: true,
@@ -96,31 +105,31 @@ const DetailsCollapse: React.FC<Props> = (props) => {
       value: <Divider />,
     },
     {
-      key: t('last_registered_address'),
-      value: companyInfo?.lastRegisteredAddress,
+      key: t('registered_address'),
+      value: getValueOrDash(organization?.registeredAddress),
     },
     {
       key: t('postal_code'),
-      value: companyInfo?.postalCode,
+      value: getValueOrDash(organization?.postalCode),
     },
     {
       key: t('phone'),
-      value: companyInfo?.phone,
+      value: getValueOrDash(organization?.phone),
     },
   ];
 
-  const agentsInfoData = [
+  const representativeInfo = [
     {
-      key: t('agent_full_name'),
-      value: agentsInfo?.agentFullName,
+      key: t('representative_name'),
+      value: getValueOrDash(representativeSet[0]?.name),
     },
     {
       key: t('mobile_number'),
-      value: agentsInfo?.mobile,
+      value: getValueOrDash(representativeSet[0]?.mobileNumber),
     },
     {
-      key: t('phone_number'),
-      value: agentsInfo?.phone,
+      key: t('fixed_phone'),
+      value: getValueOrDash(representativeSet[0]?.fixedPhone),
     },
     {
       fullwidth: true,
@@ -128,16 +137,16 @@ const DetailsCollapse: React.FC<Props> = (props) => {
       value: '',
     },
     {
-      key: t('technical_agent_full_name'),
-      value: agentsInfo?.technicalAgentFullName,
+      key: t('technical_representative_name'),
+      value: getValueOrDash(representativeSet[1]?.name),
     },
     {
       key: t('mobile_number'),
-      value: agentsInfo?.technicalAgentMobile,
+      value: getValueOrDash(representativeSet[1]?.mobileNumber),
     },
     {
-      key: t('phone_number'),
-      value: agentsInfo?.technicalAgentPhone,
+      key: t('fixed_phone'),
+      value: getValueOrDash(representativeSet[1]?.fixedPhone),
     },
   ];
 
@@ -146,27 +155,27 @@ const DetailsCollapse: React.FC<Props> = (props) => {
       key: '1',
       label: (
         <S.CollapseTitle>
-          {t('request_general_info')}
+          {t('submission_info')}
           {renderRequestStatus(t, status)}
         </S.CollapseTitle>
       ),
-      children: <InfoBox data={requestInfoData} margin={0} />,
+      children: <InfoBox data={submissionInfo} margin={0} />,
     },
     {
       key: '2',
-      label: t('company_info'),
-      children: <InfoBox data={companyInfoData} margin={0} />,
-      className: 'company-info-box',
+      label: t('organization_info'),
+      children: <InfoBox data={organizationInfo} margin={0} />,
+      className: 'organization-info-box',
     },
     {
       key: '3',
-      label: t('agents_info'),
-      children: <InfoBox data={agentsInfoData} minColumnCount={3} margin={0} />,
+      label: t('representative_info'),
+      children: <InfoBox data={representativeInfo} minColumnCount={3} margin={0} />,
     },
     {
       key: '4',
       label:
-        userRole === PanelType.BUSINESS_BANKING ? (
+        userRole === PanelType.COMMERCIAL ? (
           t('requested_services')
         ) : (
           <S.TitleWrapper>
@@ -179,14 +188,14 @@ const DetailsCollapse: React.FC<Props> = (props) => {
             />
           </S.TitleWrapper>
         ),
-      children: <RequestedServices />,
+      children: <RequestedServices data={services} isLoading={isFetching} />,
     },
   ];
 
   return (
     <S.Container>
       <Collapse items={items} />
-      {requestGeneralInfo ? <RequestResultBox requestData={requestGeneralInfo} /> : <Loading />}
+      {data ? <RequestResultBox data={data} /> : <Loading />}
     </S.Container>
   );
 };

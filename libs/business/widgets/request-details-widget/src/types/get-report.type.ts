@@ -31,28 +31,35 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
-export type FetchRequestDetailParamsType = {
-  requestId: RequestId;
+export type FetchSubmissionDetailParamsType = {
+  submissionId: SubmissionId;
 };
 export type FetchRequestedServicesParamsType = {
   // filters?: FiltersType;
-  requestId: RequestId;
+  submissionId: SubmissionId;
   pagination: PaginationType;
 };
 
-export type RequestId = Nullable<string>;
+export type PostSubmissionReviewParamsType = {
+  submissionId: SubmissionId;
+  expertOpinion: number;
+  description: string;
+};
+
+export type SubmissionId = Nullable<string>;
 
 export type CodeTitle = {
-  code: string;
+  code: number;
   title: string;
 };
 
 export enum RequestStatus {
-  PROCESS = '01',
-  INITIAL_APPROVAL = '02',
-  FINAL_APPROVAL = '03',
-  REJECTED = '04',
-  PROCESS_BUSINESS_BANKING = '05',
+  UNDER_REVIEW_COMMERCIAL_BANK = 2,
+  REJECTED_BY_COMMERCIAL_BANK,
+  APPROVED_BY_COMMERCIAL_BANK,
+  UNDER_REVIEW_BUSINESS_UNIT,
+  REJECTED_BY_BUSINESS_UNIT,
+  APPROVED_BY_BUSINESS_UNIT,
 }
 
 export type RequestConfirm = {
@@ -61,5 +68,57 @@ export type RequestConfirm = {
 
 export enum PanelType {
   BUSINESS = 'BUSINESS',
-  BUSINESS_BANKING = 'BUSINESS_BANKING',
+  COMMERCIAL = 'COMMERCIAL',
+}
+
+export enum ExpertOpinionStatus {
+  CONFIRMED = 1,
+  REJECTED,
+}
+
+interface SubmissionInfoDto {
+  requestId: number;
+  clientName: string;
+  organizationName: Nullable<string>;
+  createDate: string;
+  representativeName: string;
+}
+
+interface Organization {
+  id: number;
+  legalName: string;
+  legalType: CodeTitle;
+  registerNo: string;
+  registerDate: string;
+  organizationNationalId: string;
+  economicCode: string;
+  activityIndustry: string;
+  postalCode: string;
+  phone: string;
+  registeredAddress: string;
+  isAggregator: boolean;
+  aggregatorId: Nullable<number>;
+  aggregatorName: Nullable<string>;
+}
+
+interface Representative {
+  name: string;
+  mobileNumber: string;
+  fixedPhone: string;
+  type: number;
+}
+
+interface Service {
+  id: number;
+  name: string;
+  persianName: string;
+  fee: number;
+  version: string;
+}
+
+export interface SubmissionDetailType {
+  submissionInfoDto: SubmissionInfoDto;
+  organization: Organization;
+  representativeSet: Representative[];
+  services: Service[];
 }

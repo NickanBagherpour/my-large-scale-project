@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormFieldsType, RequestId } from '../types';
+import { FormFieldsType, RequestId, SubmissionId } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
@@ -16,7 +16,7 @@ export type WidgetStateType = {
     pagination: PaginationType;
   };
   message: Nullable<MessageType>;
-  requestId: RequestId;
+  submissionId: SubmissionId;
   userRole: Nullable<string>;
 };
 
@@ -38,8 +38,8 @@ export type WidgetActionType =
       payload: Partial<PaginationType>;
     }
   | {
-      type: 'UPDATE_REQUEST_ID';
-      payload: RequestId;
+      type: 'UPDATE_SUBMISSION_ID';
+      payload: SubmissionId;
     }
   | {
       type: 'UPDATE_USER_ROLE';

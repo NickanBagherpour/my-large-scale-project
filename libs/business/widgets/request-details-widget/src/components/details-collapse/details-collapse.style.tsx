@@ -5,7 +5,7 @@ export const Container = styled.div`
   margin-bottom: 1.6rem;
   margin-top: 1.6rem;
 
-  & .ant-collapse-item.company-info-box .grid-item:nth-last-child(3) {
+  & .ant-collapse-item.organization-info-box .grid-item:nth-last-child(3) {
     grid-column: span 2;
   }
 

@@ -6,10 +6,10 @@ import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 
-import { updateRequestIdAction, useAppDispatch, useAppState } from '../../context';
+import { updateSubmissionIdAction, useAppDispatch, useAppState } from '../../context';
 import { resetMessageAction, updateUserRoleAction } from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
-import { RequestId } from '../../types';
+import { SubmissionId } from '../../types';
 
 import * as S from './app.style';
 
@@ -28,11 +28,11 @@ const App: React.FC<AppProps> = (props) => {
   const { message, ...fetchState } = state;
 
   const searchParams = useSearchParams();
-  const requestId: RequestId = searchParams.get('requestId');
+  const submissionId: SubmissionId = searchParams.get('requestId');
 
   useEffect(() => {
-    updateRequestIdAction(dispatch, requestId);
-  }, [requestId]);
+    updateSubmissionIdAction(dispatch, submissionId);
+  }, [submissionId]);
 
   useEffect(() => {
     updateUserRoleAction(dispatch, userRole);
@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = (props) => {
           resetMessageAction(dispatch);
         }}
       />
-      {requestId ? <DetailsCollapse /> : <NoResult isLoading={false} />}
+      {submissionId ? <DetailsCollapse /> : <NoResult isLoading={false} />}
     </S.AppContainer>
   );
 };

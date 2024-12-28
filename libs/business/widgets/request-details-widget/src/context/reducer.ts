@@ -9,7 +9,7 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
-  requestId: null,
+  submissionId: null,
   userRole: null,
 };
 
@@ -26,8 +26,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
-    case 'UPDATE_REQUEST_ID': {
-      state.requestId = action.payload;
+    case 'UPDATE_SUBMISSION_ID': {
+      state.submissionId = action.payload;
       return;
     }
 
