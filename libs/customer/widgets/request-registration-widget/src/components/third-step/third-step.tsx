@@ -55,8 +55,8 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
 
   const handleSubmit = () => {
     const params = {
-      requestId: 1,
-      servicesIdSet: [1, 2],
+      requestId: 30, // change this to state.organizationId
+      servicesIdSet: state.thirdStep.table.map((item) => item.id),
     };
     thirdMutate(params, {
       onSuccess: (data) => {

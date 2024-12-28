@@ -50,6 +50,16 @@ const Api = {
     }
   },
 
+  geRequestData: async (submissionId: number) => {
+    try {
+      const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
+      return res;
+    } catch (error) {
+      console.error('Error fetching organization list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  },
+
   getAggregatorsListData: async (params: AggregatorsParamsType) => {
     const { page, size, sort } = params;
     const filteredParams = { page, size, sort: 'asc' };

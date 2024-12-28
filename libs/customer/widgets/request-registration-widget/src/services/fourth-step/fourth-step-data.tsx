@@ -13,3 +13,13 @@ export const useGetRequestQuery = () => {
     placeholderData: keepPreviousData,
   });
 };
+
+export const useGetRequestDataQuery = (submissionId: number) => {
+  const dispatch = useAppDispatch();
+
+  return useQuery({
+    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_REQUEST_DATA],
+    queryFn: withErrorHandling(() => Api.geRequestData(submissionId), dispatch),
+    placeholderData: keepPreviousData,
+  });
+};
