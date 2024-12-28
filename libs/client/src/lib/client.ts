@@ -33,7 +33,10 @@ const client = axios.create({
 // Add a request interceptor
 
 client.interceptors.request.use(async (config) => {
-  const sessionId = decrypt(getCookie(CookieKey.SESSION_ID));
+
+  const isAuthRelated = config.url?.startsWith('api/auth');
+
+  const sessionId = decrypt(isAuthRelated ? getCookie(CookieKey.SESSION_ID) : getCookie(CookieKey.S_SESSION_ID));
 
   if (sessionId) {
     // config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;

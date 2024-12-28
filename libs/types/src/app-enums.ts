@@ -11,6 +11,7 @@ export enum LocalStorageKey {
 export enum CookieKey {
   SESSION_ID = 'session-id',
   SESSION_TICKET = 'session-ticket',
+  S_SESSION_ID = 's-session-id',
   CONFIG = 'configuration',
 }
 

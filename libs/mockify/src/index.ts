@@ -60,7 +60,6 @@ const Mockify = {
   ...UpstreamListMock,
   ...getUpstreamDetailsMock,
   ...ServiceCreation,
-  ...CustomerMenuMock,
   ...RequestData,
   ...getScopeChangeHistory,
   ...UpstreamCardDetails,

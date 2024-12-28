@@ -16,10 +16,10 @@ export async function POST(req: Request) {
     });
   }
 
-  const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/token`;
+  const url = `${process.env.SSO_URL}/identity/oauth2/auth/token`;
 
   const basicToken = Buffer.from(
-    `${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}:${process.env.NEXT_PUBLIC_SSO_CLIENT_SECRET}`
+    `${process.env.SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`
   ).toString('base64');
 
   const headers = {
@@ -29,8 +29,8 @@ export async function POST(req: Request) {
 
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
-    redirect_uri: process.env.NEXT_PUBLIC_SSO_REDIRECT_URL ?? '',
-    code: code ?? '',
+    redirect_uri: process.env.SSO_REDIRECT_URL ?? '',
+    code : code ?? '',
   });
 
   try {
