@@ -45,3 +45,4 @@ export type { MenuItemType } from './dropdown/dropdown-select/dropdown-select';
 export type { MobileColumnType } from './table/mobile-columns';
 export * from './tag/tag';
 export * from './pagination/pagination';
+export * from './advance-selector/advance-selector';
