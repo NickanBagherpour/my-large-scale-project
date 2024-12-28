@@ -3,7 +3,6 @@ import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
 import { GridCard, NoResult } from '@oxygen/reusable-components';
 import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
@@ -14,9 +13,8 @@ import {
   usePostAssignUpstreamToService,
 } from '../../services';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { UpstreamWithTargets } from '../../types';
+import { UpstreamTarget, UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
-import { useSearchParams } from 'next/navigation';
 import { useBounce } from '@oxygen/hooks';
 import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
 import CenteredLoading from '../centered-loading/centered-loading';
@@ -95,11 +93,11 @@ export default function Upstream() {
     },
   ];
 
-  const mobileColumns: ColumnsType<UpstreamServer> = [
+  const mobileColumns: ColumnsType<UpstreamTarget> = [
     {
       title: null,
       key: 'mobileColumn',
-      render: ({ domain, healthStatus, weight }: UpstreamServer) => {
+      render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
         return (
           <UiKitBox flexDirection='column'>
             <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />

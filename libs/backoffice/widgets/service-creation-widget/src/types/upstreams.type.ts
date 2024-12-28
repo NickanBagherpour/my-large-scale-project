@@ -10,13 +10,16 @@ export type Upstream = {
   activeServerCount: number;
 };
 
+export type UpstreamTarget = {
+  domain: string;
+  weight: number;
+  healthStatus: string;
+};
+
 export type UpstreamWithTargets = {
   name: string;
   description: string | null;
-  targets: {
-    domain: string;
-    weight: number;
-  }[];
+  targets: UpstreamTarget[];
 };
 
 export type Upstreams = PaginatedData<Upstream>;

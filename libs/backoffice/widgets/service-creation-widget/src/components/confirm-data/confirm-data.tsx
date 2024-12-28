@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
 import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import type { InfoItemType, UpstreamServer } from '@oxygen/types';
+import type { InfoItemType } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
@@ -10,6 +10,7 @@ import ResultModal from '../result-modal/result-modal';
 import { useGetScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
+import { UpstreamTarget } from '../../types';
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -55,7 +56,7 @@ export default function ConfirmData() {
   }
 
   let upstreamData: InfoItemType[] = [];
-  let upstreamTargets: UpstreamServer[] = [];
+  let upstreamTargets: UpstreamTarget[] = [];
 
   if (upstream) {
     const { description, name, targets } = upstream;
@@ -83,7 +84,7 @@ export default function ConfirmData() {
     ];
   }
 
-  const desktopColumns: ColumnsType<UpstreamServer> = [
+  const desktopColumns: ColumnsType<UpstreamTarget> = [
     {
       title: t('domain'),
       dataIndex: 'domain',
@@ -101,10 +102,10 @@ export default function ConfirmData() {
     },
   ];
 
-  const mobileColumns: ColumnsType<UpstreamServer> = [
+  const mobileColumns: ColumnsType<UpstreamTarget> = [
     {
       key: 'mobileColumn',
-      render: ({ domain, healthStatus, weight }: UpstreamServer) => {
+      render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
         return (
           <UiKitBox flexDirection='column'>
             <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
