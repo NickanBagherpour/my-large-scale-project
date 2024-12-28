@@ -25,7 +25,7 @@ const App: React.FC<AppProps> = (props) => {
   const { user } = useAuth();
   const userRole: Nullable<string> = user?.userInfo?.role;
 
-  const { message, ...fetchState } = state;
+  const { message } = state;
 
   const searchParams = useSearchParams();
   const submissionId: SubmissionId = searchParams.get('requestId');
@@ -43,11 +43,7 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
-  const footerButton = (
-    <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-      {t('button.return')}
-    </ReturnButton>
-  );
+  const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 
   return (
     <S.AppContainer title={t('request_details')} footer={footerButton}>
