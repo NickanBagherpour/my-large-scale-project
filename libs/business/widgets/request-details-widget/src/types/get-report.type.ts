@@ -116,9 +116,23 @@ interface Service {
   version: string;
 }
 
+type ExpertOpinion = {
+  code: number;
+  title: string;
+};
+
+type ExpertDto = {
+  fullName: string;
+  expertOpinion: ExpertOpinion;
+  description: string;
+  opinionDate: string;
+};
+
 export interface SubmissionDetailType {
   submissionInfoDto: SubmissionInfoDto;
   organization: Organization;
   representativeSet: Representative[];
   services: Service[];
+  commercialExpertDto: ExpertDto;
+  businessExpertDto: ExpertDto;
 }

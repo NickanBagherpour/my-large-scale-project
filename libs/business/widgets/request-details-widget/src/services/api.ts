@@ -1,13 +1,6 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import {
-  FetchParamsType,
-  FetchRequestedServicesParamsType,
-  FetchSubmissionDetailParamsType,
-  PostSubmissionReviewParamsType,
-  ReportResponseType,
-  SubmissionDetailType,
-} from '../types';
+import { FetchSubmissionDetailParamsType, PostSubmissionReviewParamsType, SubmissionDetailType } from '../types';
 import Mockify from '@oxygen/mockify';
 
 const Api = {
@@ -17,10 +10,6 @@ const Api = {
   getRequestResult: async (params: FetchSubmissionDetailParamsType) => {
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
     return Mockify.getRequestResult(params);
-  },
-  getRequestedServices: async (params: FetchRequestedServicesParamsType) => {
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
-    return Mockify.getRequestedServices(params);
   },
   postSubmissionReview: async (params: PostSubmissionReviewParamsType) => {
     const { submissionId, ...rest } = params;

@@ -2,21 +2,20 @@ import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
-import { useApp } from '@oxygen/hooks';
 
 import { useAppState } from '../../context';
-import { UserRole, RequestStatus } from '../../types';
+import { UserRole, RequestStatus, SubmissionDetailType } from '../../types';
 import ConfirmModal from '../confirm-modal/confirm-modal';
 import RequestResultInfo from '../request-result-Info/request-result-info';
 
 import * as S from '../request-result-box/request-result-box.style';
 
 type Props = {
-  data: any;
+  data: SubmissionDetailType;
 };
 
 const RequestResultBox: React.FC<Props> = ({ data }) => {
-  const { commercial, business } = data.submissionStatus;
+  const { commercialExpertDto, businessExpertDto } = data;
   const { organizationName, clientName } = data.submissionInfoDto;
 
   const state = useAppState();
@@ -52,8 +51,8 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
   };
 
   const renderBusinessPanel = () => {
-    const commercialResultType = commercial?.code;
-    const businessResultType = business?.code;
+    const commercialResultType = commercialExpertDto.expertOpinion.code;
+    const businessResultType = businessExpertDto.expertOpinion.code;
 
     const showCommercialResult =
       commercialResultType !== RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK &&
@@ -77,8 +76,8 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
     );
   };
 
-  const renderBusinessBankingPanel = () => {
-    const resultType = commercial?.code;
+  const renderCommercialPanel = () => {
+    const resultType = commercialExpertDto.expertOpinion.code;
 
     return (
       <S.StyledContainer>
@@ -105,7 +104,7 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
       case UserRole.BUSINESS_ADMIN:
         return renderBusinessPanel();
       case UserRole.COMMERCIAL_BANKING_ADMIN:
-        return renderBusinessBankingPanel();
+        return renderCommercialPanel();
       default:
         return undefined;
     }

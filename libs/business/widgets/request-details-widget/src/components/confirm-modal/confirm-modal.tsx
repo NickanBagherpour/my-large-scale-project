@@ -9,7 +9,14 @@ import { getValueOrDash } from '@oxygen/utils';
 import { useApp } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 
-import { ExpertOpinionStatus, UserRole, type RequestConfirmType, requestConfirmType, SubmissionId } from '../../types';
+import {
+  ExpertOpinionStatus,
+  UserRole,
+  type RequestConfirmType,
+  requestConfirmType,
+  SubmissionId,
+  PostSubmissionReviewParamsType,
+} from '../../types';
 import ConfirmStatusResultModal from '../confirm-status-result-modal/confirm-status-result-modal';
 import { CONFIRM_MODAL_NAMES } from '../../utils/consts';
 import { useAppState } from '../../context';
@@ -39,7 +46,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const { mutate, isPending } = usePostSubmissionResultMutation();
 
   const handleSubmissionConfirm = () => {
-    const params = {
+    const params: PostSubmissionReviewParamsType = {
       submissionId: state?.submissionId,
       expertOpinion: isConfirm ? ExpertOpinionStatus.CONFIRMED : ExpertOpinionStatus.REJECTED,
       description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription),

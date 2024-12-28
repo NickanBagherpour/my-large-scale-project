@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { UserRole } from '../../types';
+import { SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import RequestResultBox from '../request-result-box/request-result-box';
@@ -35,22 +35,14 @@ const DetailsCollapse: React.FC<Props> = (props) => {
 
   if (error) return <NoResult isLoading={false} />;
   if (!data) return <Loading spinning={isFetching} />;
-  const newData = { ...data };
-  newData.submissionStatus = {
-    commercial: {
-      code: 2,
-      title: 'درحال بررسی توسط بانکداری تجاری',
-    },
-    business: {
-      code: 2,
-      title: 'درحال بررسی توسط بانکداری تجاری',
-    },
-  };
 
-  const { submissionInfoDto, organization, representativeSet, services, submissionStatus } = newData;
+  const { submissionInfoDto, organization, commercialExpertDto, businessExpertDto, representativeSet, services } =
+    data as SubmissionDetailType;
 
   const status =
-    userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? submissionStatus.commercial : submissionStatus.business;
+    userRole === UserRole.COMMERCIAL_BANKING_ADMIN
+      ? commercialExpertDto.expertOpinion
+      : businessExpertDto.expertOpinion;
 
   const submissionInfo = [
     {
@@ -193,11 +185,10 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   ];
 
-  console.log('data', data);
   return (
     <S.Container>
       <Collapse items={items} />
-      {newData ? <RequestResultBox data={newData} /> : <Loading />}
+      {data ? <RequestResultBox data={data} /> : <Loading />}
     </S.Container>
   );
 };

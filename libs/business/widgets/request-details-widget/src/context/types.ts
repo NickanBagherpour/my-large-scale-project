@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormFieldsType, RequestId, SubmissionId } from '../types';
+import { FormFieldsType, SubmissionId } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;

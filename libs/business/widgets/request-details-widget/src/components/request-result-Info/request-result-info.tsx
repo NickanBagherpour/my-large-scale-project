@@ -33,7 +33,7 @@ const RequestResultInfo: React.FC<Props> = (props: Props) => {
   }
 
   if (isFetching) return <Loading />;
-  if (!data) return <NoResult loading={false} />;
+  if (!data) return <NoResult isLoading={false} />;
 
   const { business, commercial } = data;
   const isConfirmed =
