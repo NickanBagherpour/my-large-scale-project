@@ -1,18 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import {
-  addStepErrors,
-  ErrorPayload,
-  StepNames,
-  updateMessageAction,
-  useAppDispatch,
-  useAppState,
-  WidgetStateType,
-} from '../context';
+import { addStepErrors, ErrorPayload, StepNames, updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
-import { ApiUtil } from '@oxygen/utils';
+import { ApiUtil, isAxiosError } from '@oxygen/utils';
 import { type AxiosError } from 'axios';
-import { isAxiosError } from '../utils/error-util';
-import { GeneralInfoValuesType, RouteType } from '../types';
 
 const errorsMap = {
   'service.name': { stepName: 'generalInfo', inputName: 'englishName' },
