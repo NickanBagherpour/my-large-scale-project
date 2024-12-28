@@ -1,6 +1,6 @@
 import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
-import { WidgetActionType, WidgetStateType, FirstStepType } from './types';
+import { WidgetActionType, WidgetStateType, FirstStepType, SecondStepType } from './types';
 
 const initialFilters: FormFieldsType = {
   name: null,
@@ -10,7 +10,8 @@ const initialFilters: FormFieldsType = {
 export const initialStateValue: WidgetStateType = {
   status: undefined,
   searchTerm: '',
-  page: 1,
+  page: 0,
+  size: 100,
   sort: 'newest',
   requestMode: 'selectOrganization',
   organizationId: '',
@@ -29,7 +30,16 @@ export const initialStateValue: WidgetStateType = {
     phone: undefined,
     last_registration_address: undefined,
   },
-  secondStep: { table: [] },
+  secondStep: {
+    persian_name: undefined,
+    mobile_number: undefined,
+    phone_number: undefined,
+    technical_persian_name: undefined,
+    technical_mobile_number: undefined,
+    technical_Phone_number: undefined,
+    clientKey: undefined,
+  },
+  thirdStep: { table: [] },
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -42,7 +52,6 @@ export const initialStateValue: WidgetStateType = {
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  //console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
@@ -58,9 +67,41 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.submissionId = action.payload.submissionId;
       return;
     }
-    case 'UPDATE_SECOND_STEP_TABLE': {
-      state.secondStep.table = [...state.secondStep.table, { ...action.payload }];
+    case 'UPDATE_SECOND_STEP': {
+      state.secondStep = { ...action.payload } as SecondStepType;
       return;
+    }
+
+    case 'UPDATE_THIRD_STEP_TABLE': {
+      // Check if the id exists in the table
+      const exists = state.thirdStep.table.some((item) => item.id === action.payload.id);
+
+      // If it doesn't exist, add the new item
+      if (!exists) {
+        return {
+          ...state,
+          thirdStep: {
+            ...state.thirdStep,
+            table: [...state.thirdStep.table, { ...action.payload }],
+          },
+        };
+      }
+
+      // If it exists, return the state unchanged
+      return state;
+    }
+
+    case 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE': {
+      const updatedTable = state.thirdStep.table.filter((item) => {
+        return item.id !== action.payload.service.serviceId;
+      });
+      return {
+        ...state,
+        thirdStep: {
+          ...state.thirdStep,
+          table: updatedTable, // Update the table with the filtered array
+        },
+      };
     }
 
     case 'UPDATE_REQUEST_MODE':

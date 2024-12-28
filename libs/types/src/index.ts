@@ -15,3 +15,4 @@ export * from './applicant-history';
 export * from './user.type';
 export * from './api-response';
 export * from './scope-list';
+export * from './request-registration';

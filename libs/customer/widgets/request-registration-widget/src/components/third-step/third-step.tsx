@@ -7,8 +7,9 @@ import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import { Modal } from '../../types/modal.type';
 import RemoveModal from './modal-remove/modal-remove';
-import { updateSecondStepTableAction, useAppDispatch, useAppState } from '../../context';
+import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/third-step-table-utils';
+import { useThirdStepRequestRegistrationMutationQuery } from '../../services/third-step/third-step-data';
 
 import * as S from './third-step.style';
 
@@ -24,31 +25,53 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const [modals, setModals] = useState<Modal>({
     confirm: false,
     removeService: false,
-    serviceId: '',
+    serviceId: undefined,
+    serviceName: '',
   });
+  const { mutate: thirdMutate, isPending: ThirdIsPending } = useThirdStepRequestRegistrationMutationQuery();
 
-  const toggleModal = (modal: keyof Modal, serviceId?: string) => {
+  const toggleModal = (modal: keyof Modal, serviceName?: string, serviceId?: number) => {
     setModals((prev) => ({
       ...prev,
-      serviceId: serviceId || '',
+      serviceId: serviceId || undefined,
+      serviceName: serviceName || '',
       [modal]: !prev[modal],
     }));
   };
 
+  const handleDeleteModal = (serviceId?: number) => {
+    if (serviceId) {
+      updateThirdStepTableAction(dispatch, { serviceId });
+      toggleModal('removeService');
+    }
+  };
+
   const handleSelect = (item) => {
-    updateSecondStepTableAction(dispatch, item);
+    updateThirdStepTableAction(dispatch, item);
   };
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
   };
 
   const handleSubmit = () => {
-    setCurrentStep((perv) => perv + 1);
+    const params = {
+      requestId: state.submissionId,
+      servicesIdSet: state.thirdStep.table.map((item) => item.id),
+    };
+    thirdMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
-  const isDisable = state.secondStep.table.length ? false : true;
+  const isDisable = state.thirdStep.table.length ? false : true;
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const revertData = state.secondStep.table;
+  const revertData = state.thirdStep.table;
 
   return (
     <S.ThirdStepContainer>
@@ -67,12 +90,18 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button disabled={isDisable} htmlType={'submit'} onClick={handleSubmit}>
+        <Button disabled={isDisable} loading={ThirdIsPending} htmlType={'submit'} onClick={handleSubmit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-      <RemoveModal isOpen={modals['removeService']} toggle={() => toggleModal('removeService')} id={modals.serviceId} />
+      <RemoveModal
+        isOpen={modals['removeService']}
+        toggle={() => toggleModal('removeService')}
+        onDelete={(id: number | undefined) => handleDeleteModal(id)}
+        id={modals.serviceId}
+        name={modals.serviceName}
+      />
     </S.ThirdStepContainer>
   );
 };
