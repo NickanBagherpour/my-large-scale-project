@@ -4,12 +4,7 @@ import Mockify from '@oxygen/mockify';
 
 const Api = {
   getMenus: async () => {
-    let response;
-    // if (ENV_CONSTANTS.IS_DEV) {
-      response = await Mockify.getBakofficeMenu();
-    //  } else {
-    //   response = await client.get(`${portalUrl}/profile/menu`);
-    // } 
+    const response = await Mockify.getBakofficeMenu();
     return response.data;
   },
   getUserPhoto: async () => {
