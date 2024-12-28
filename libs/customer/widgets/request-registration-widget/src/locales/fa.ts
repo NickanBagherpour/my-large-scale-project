@@ -14,6 +14,8 @@ export default {
   company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   nothing: 'هیچ‌کدام',
   select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
+  public: 'عام',
+  private: 'خاص',
   //secondStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',
@@ -97,6 +99,7 @@ export default {
     invalid_mobile_length: 'شماره موبایل باید11رقم باشد',
     min_length: '11رقم نیاز است',
     ten_digits_needed: 'حداقل 10 رقم نیاز است',
-    twelve_digits_needed: 'حداقل 12 رقم نیاز است',
+    eleven_digits_needed: ' 11 رقم نیاز است',
+    twelve_digits_needed: ' 12 رقم نیاز است',
   },
 };

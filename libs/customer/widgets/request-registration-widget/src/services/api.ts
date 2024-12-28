@@ -1,28 +1,8 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import {
-  FetchParamsType,
-  ReportResponseType,
-  FirstStepParams,
-  SecondStepParams,
-  ThirdStepParams,
-  RequestRegistration,
-} from '../types';
-import type { ParamsType, OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
+import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, ThirdStepParams } from '../types';
+import type { OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-
-// type firstStepParams = {
-//   legal_person_name: string;
-//   legal_person_type: string;
-//   registration_number: string;
-//   registration_date: string;
-//   national_id: string;
-//   economy_code: string;
-//   activity_field: string;
-//   postal_code: string;
-//   phone: string;
-//   last_registration_address: string;
-// };
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
@@ -50,7 +30,7 @@ const Api = {
     }
   },
 
-  geRequestData: async (submissionId: number) => {
+  geRequestData: async (submissionId: string) => {
     try {
       const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
       return res;
@@ -75,24 +55,27 @@ const Api = {
   requestRegistrationFirstStep: async (params: FirstStepParams) => {
     const { organizationId, submissionId, ...restParams } = params;
     if (organizationId && submissionId) {
-      return client.put(
-        /*<ReportResponseType>*/ `${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`,
-        restParams,
-        {
-          headers: {},
-        }
-      );
+      return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
+        headers: {},
+      });
     } else {
-      return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/organizations`, restParams, {
+      return client.post(`${portalUrl}/v1/organizations`, restParams, {
         headers: {},
       });
     }
   },
 
+  requestRegistrationFirstStepWithSelectedOrganization: async (params: { organizationId: number }) => {
+    const { organizationId } = params;
+
+    return client.post(`${portalUrl}/v1/submissions/organizations/${organizationId}`, {
+      headers: {},
+    });
+  },
+
   requestRegistrationSecondStep: async (params: SecondStepParams) => {
     const apiPrams = {
       submissionId: params.submissionId,
-      // submissionId: 20,
       clientKey: params.clientKey,
       representatives: [
         {
@@ -109,7 +92,7 @@ const Api = {
         },
       ],
     };
-    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/representative`, apiPrams, {
+    return client.post(`${portalUrl}/v1/representative`, apiPrams, {
       headers: {},
     });
   },
@@ -119,7 +102,14 @@ const Api = {
       requestId: params.requestId,
       servicesIdSet: params.servicesIdSet,
     };
-    return client.post(/*<ReportResponseType>*/ `${portalUrl}/v1/submissions/services`, apiPrams, {
+    return client.post(`${portalUrl}/v1/submissions/services`, apiPrams, {
+      headers: {},
+    });
+  },
+
+  requestRegistrationFourthStepWithSelectedOrganization: async (params: { submissionId: number }) => {
+    const { submissionId } = params;
+    return client.post(`${portalUrl}/v1/submissions/${submissionId}`, {
       headers: {},
     });
   },

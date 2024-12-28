@@ -1,6 +1,6 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
@@ -14,12 +14,24 @@ export const useGetRequestQuery = () => {
   });
 };
 
-export const useGetRequestDataQuery = (submissionId: number) => {
+export const useGetRequestDataQuery = (submissionId: string) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_REQUEST_DATA],
     queryFn: withErrorHandling(() => Api.geRequestData(submissionId), dispatch),
     placeholderData: keepPreviousData,
+  });
+};
+
+export const useFourthStepRequestRegistrationMutationQuery = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: any) => Api.requestRegistrationFourthStepWithSelectedOrganization(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
   });
 };

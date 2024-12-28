@@ -1,8 +1,7 @@
 import { useQuery, useMutation, keepPreviousData } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
-import { RequestRegistration } from '../../types';
-import { ParamsType, OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
+import { ApiUtil } from '@oxygen/utils';
+
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 

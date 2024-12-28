@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RadioChangeEvent, Typography } from 'antd';
 
-import { LocalStorageKey } from '@oxygen/types';
-import { useLocalStorage } from '@oxygen/hooks';
-
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { dayjs } from '@oxygen/utils';
@@ -18,6 +15,7 @@ import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../util
 import { WidgetStateType } from '../../context/types';
 import {
   useFirstStepRequestRegistrationMutationQuery,
+  useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery,
   useGetOrganizationsQuery,
   useGetAggregatorsQuery,
 } from '../../services/first-step/first-step-data';
@@ -54,6 +52,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
+  const { mutate: secondMutate, isPending: secondIsPending } =
+    useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
 
   useEffect(() => {
@@ -107,11 +107,27 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           console.error('request registration first step  failed:', error);
         },
       });
-      // const aggregator_status = state.firstStep.aggregator_status;
-      // const updatedValues = { ...values, aggregator_status };
-      // updateFirstStepAction(dispatch, updatedValues);
-      // setCurrentStep((perv) => perv + 1);
     }
+  };
+
+  const handleContinue = () => {
+    const params = { organizationId: isSelected.id };
+    secondMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        const submissionId = data.headers['submission-id'];
+        if (state.submissionId.length === 0) {
+          updateOrganizationIdAndSubmissionId(dispatch, {
+            organization: { id: isSelected.id },
+            submissionId: submissionId,
+          });
+        }
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
 
   const getChipProps = (currentStatus: Status, chipStatus: Status) =>
@@ -138,7 +154,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     if (!state.firstStep.aggregator_status) {
       setAggregatorIsRequired(true);
     }
-    form.submit();
+    if (state.requestMode === 'selectOrganization') {
+      handleContinue();
+    } else {
+      form.submit();
+    }
   };
 
   const handleReturn = () => {
@@ -196,7 +216,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.legal_person_type')}</span>
-                          <span>{organizations[isSelected.id].legalType}</span>
+                          <span>
+                            {organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private')}
+                          </span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.registration_number')}</span>
@@ -236,17 +258,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                       <SearchItemsContainer $columnNumber='3'>
                         <S.InfoItemContainer>
                           <span>{t('form.last_registration_address')}</span>
-                          {/* <span>{data.list.last_registration_address}</span> */}
                           <span>{organizations[isSelected.id].registeredAddress}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.postal_code')}</span>
-                          {/* <span>{data.list.postal_code}</span> */}
                           <span>{organizations[isSelected.id].postalCode}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.phone')}</span>
-                          {/* <span>{data.list.phone}</span> */}
                           <span>{organizations[isSelected.id].phone}</span>
                         </S.InfoItemContainer>
                       </SearchItemsContainer>
@@ -308,7 +327,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator' rules={[rule]}>
                       <Select
                         size={'large'}
-                        // options={selectLegalTypeOptions}
                         options={aggregatorSelectData}
                         loading={isAggregatorsFetching}
                         placeholder={`${t('placeholder.do_select')}`}
@@ -344,7 +362,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 />
               </Form.Item>
               <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
-                {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
                 <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
               </Form.Item>
               <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
@@ -383,7 +400,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} loading={firstIsPending} onClick={() => handleSubmit()}>
+        <Button
+          htmlType={'submit'}
+          loading={firstIsPending || secondIsPending}
+          onClick={() => handleSubmit()}
+          disabled={state.requestMode === 'selectOrganization' && !isSelected.isSelected}
+        >
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

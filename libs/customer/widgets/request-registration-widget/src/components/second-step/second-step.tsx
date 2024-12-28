@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 
@@ -11,7 +11,7 @@ import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
 import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
 
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './second-step.style';
@@ -28,7 +28,6 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
 
   const theme = useTheme();
 
-  const router = useRouter();
   const [form] = Form.useForm();
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
