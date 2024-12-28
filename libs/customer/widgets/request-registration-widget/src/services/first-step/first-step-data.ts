@@ -1,23 +1,9 @@
 import { useQuery, useMutation, keepPreviousData } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
-import { RequestRegistration } from '../../types';
-import { ParamsType, OrganizationParamsType } from '@oxygen/types';
+import { AggregatorsParamsType } from '@oxygen/types';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
-
-// type firstStepParams = {
-//   legal_person_name: string;
-//   legal_person_type: string;
-//   registration_number: string;
-//   registration_date: string;
-//   national_id: string;
-//   economy_code: string;
-//   activity_field: string;
-//   postal_code: string;
-//   phone: string;
-//   last_registration_address: string;
-// };
 
 export const useSelectDataQuery = () => {
   const dispatch = useAppDispatch();
@@ -39,35 +25,34 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
   });
 };
 
-export const useGetOrganizationDataMutationQuery = () => {
+export const useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery = () => {
   const dispatch = useAppDispatch();
+
   return useMutation({
-    mutationFn: (params: any) => Api.getOrganizationData(params),
+    mutationFn: (params: any) => Api.requestRegistrationFirstStepWithSelectedOrganization(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
   });
-  // return useQuery({
-  //   queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-  //   queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
-  // });
 };
 
-// export const useGetOrganizationDataQuery = (params: RequestRegistration) => {
-//   const dispatch = useAppDispatch();
-//   return useQuery({
-//     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-//     queryFn: withErrorHandling(() => Api.getOrganizationData(params), dispatch),
-//   });
-// };
-
-export const useGetOrganizationsQuery = (params: OrganizationParamsType) => {
+export const useGetOrganizationsQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
-    queryFn: withErrorHandling(() => Api.getOrganizationsListData(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getOrganizationsListData(), dispatch),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetAggregatorsQuery = (params: AggregatorsParamsType) => {
+  const dispatch = useAppDispatch();
+
+  return useQuery({
+    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_AGGREGATOR_LIST],
+    queryFn: withErrorHandling(() => Api.getAggregatorsListData(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { ROUTES } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
-import { useTheme } from 'styled-components';
 import { Icons } from '@oxygen/ui-kit';
 import * as S from './modal-confirm.style';
 import { Card } from 'antd';
@@ -9,12 +8,12 @@ import { Card } from 'antd';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
+  trackCode: string;
 };
 
 export default function ConfirmModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle } = props;
-  const theme = useTheme();
+  const { isOpen, toggle, trackCode } = props;
 
   return (
     <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
@@ -25,7 +24,9 @@ export default function ConfirmModal(props: Props) {
           </S.IconWrapper>
           <span>{t('registered_request_successfully')}</span>
         </S.Info>
-        <S.FollowCode>{t('follow_code')} 4561234789</S.FollowCode>
+        <S.FollowCode>
+          {t('follow_code')} {trackCode}
+        </S.FollowCode>
       </Card>
       <S.ReturnToRequest>
         <i className='icon-home' />

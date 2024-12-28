@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'styled-components';
 
@@ -8,10 +8,11 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
+import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
 
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
-import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
+import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './second-step.style';
 
@@ -27,14 +28,33 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
 
   const theme = useTheme();
 
-  const router = useRouter();
   const [form] = Form.useForm();
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
 
+  const { mutate: secondMutate, isPending: SecondIsPending } = useSecondStepRequestRegistrationMutationQuery();
+
   const onFinish = (values) => {
-    updateFirstStepAction(dispatch, values);
-    setCurrentStep((perv) => perv + 1);
+    const params = {
+      persian_name: values.persian_name,
+      mobile_number: values.mobile_number,
+      phone_number: values.phone_number,
+      technical_persian_name: values.technical_persian_name,
+      technical_mobile_number: values.technical_mobile_number,
+      technical_Phone_number: values.technical_Phone_number,
+      clientKey: values.clientKey,
+      submissionId: state.submissionId,
+    };
+    secondMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        updateSecondStepAction(dispatch, values);
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
 
   const handleReturn = () => {
@@ -43,7 +63,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
 
   return (
     <S.SecondStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
+      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.secondStep}>
         <S.TitleTxt className={'cards-title'}>
           {t('representative_info')}
           <S.TooltipContainer>
@@ -104,7 +124,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={form.submit}>
+        <Button htmlType={'submit'} loading={SecondIsPending} onClick={form.submit}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

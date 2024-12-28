@@ -22,10 +22,10 @@ export const FORM_ITEM = {
   phone: 'phone',
   last_registration_address: 'last_registration_address',
   //secondStep
-  persian_name: 'persianName',
+  persian_name: 'persian_name',
   mobile_number: 'mobile_number',
   phone_number: 'phone_number',
-  technical_persian_name: 'technical_persianName',
+  technical_persian_name: 'technical_persian_name',
   technical_mobile_number: 'technical_mobile_number',
   technical_Phone_number: 'technical_Phone_number',
   clientKey: 'clientKey',

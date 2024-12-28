@@ -5,13 +5,15 @@ import * as S from './modal-remove.style';
 
 type Props = {
   isOpen: boolean;
-  id: string;
+  id: number | undefined;
+  name: string;
   toggle: () => void;
+  onDelete: (id?: number) => void;
 };
 
 export default function RemoveModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle, id } = props;
+  const { isOpen, toggle, id, name, onDelete } = props;
   const theme = useTheme();
 
   return (
@@ -20,19 +22,25 @@ export default function RemoveModal(props: Props) {
       title={t('remove_modal.remove_service')}
       open={isOpen}
       closable={true}
-      onCancel={toggle}
+      onCancel={() => toggle()}
       footer={[
-        <Button onClick={toggle} size='large' color='primary' variant='outlined'>
+        <Button onClick={() => toggle()} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <S.RemoveBtn onClick={toggle} size='large' color='error'>
+        <S.RemoveBtn
+          onClick={() => {
+            onDelete(id);
+          }}
+          size='large'
+          color='error'
+        >
           {t('remove_modal.remove')}
         </S.RemoveBtn>,
       ]}
     >
       <S.MarkText
-        text={t('remove_modal.are_you_sure_to_remove', { id })}
-        wordToHighlight={id}
+        text={t('remove_modal.are_you_sure_to_remove', { name })}
+        wordToHighlight={name}
         highlightColor={theme.error.main}
       />
     </Modal>

@@ -187,6 +187,32 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
       }
     });
 
+  const nationalId = z
+    .string({ required_error: t('error.required') })
+    .trim()
+    .superRefine((value, ctx) => {
+      if (value.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('error.required'),
+        });
+        return;
+      }
+
+      if (value.length !== 11) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 11,
+          inclusive: true,
+          message: t('error.eleven_digits_needed'),
+        });
+      }
+    });
+
   // .min(11, { message: t('error.min_length') });
 
   return z.object({
@@ -224,7 +250,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     [FORM_ITEM.legal_person_type]: requiredString,
     [FORM_ITEM.registration_number]: requiredString,
     [FORM_ITEM.registration_date]: datePickerString,
-    [FORM_ITEM.national_id]: requiredString,
+    [FORM_ITEM.national_id]: nationalId,
     [FORM_ITEM.economy_code]: economyCode,
     [FORM_ITEM.activity_field]: requiredString,
     [FORM_ITEM.postal_code]: postalCode,
