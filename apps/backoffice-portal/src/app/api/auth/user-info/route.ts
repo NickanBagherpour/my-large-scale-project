@@ -39,7 +39,7 @@ export async function GET(req) {
 
     const decodedToken = decodeJWT(token);
 
-    data.userInfo.role = decodedToken?.role;
+    data.userInfo.role = decodedToken?.payload?.role;
 
     return createResponse({
       success: true,

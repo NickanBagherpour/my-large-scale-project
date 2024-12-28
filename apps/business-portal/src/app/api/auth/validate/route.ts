@@ -17,6 +17,8 @@ export async function GET(req: Request) {
       },
     });
 
+    // console.log('🚀 ~ GET ~ response:', url, response.status, token ,response);
+
     if (!response.ok) {
       const errorData = await response.json();
       return createResponse({

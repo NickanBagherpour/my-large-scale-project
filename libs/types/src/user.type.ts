@@ -44,6 +44,26 @@ export interface JwtPayload {
   scopes: string[];
 }
 
+/**
+ * Interface representing the header of a JWT.
+ */
+export interface JwtHeader {
+  alg: string;
+
+  typ: string;
+}
+
+/**
+ * Interface representing the header of a JWT.
+ */
+export interface JwtType {
+  header: JwtHeader;
+
+  payload: JwtPayload;  
+}
+
+
+
 export enum BusinessUserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
   BUSINESS_ADMIN = 'business-admin',
