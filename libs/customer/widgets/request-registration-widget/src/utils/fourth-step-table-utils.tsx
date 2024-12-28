@@ -1,13 +1,13 @@
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import * as S from '../components/fourth-step/fourth-step.style';
-import type { Service } from '@oxygen/types';
+import type { ServiceRequest } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
 type Props = {
   t: TFunction;
 };
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: Props): ColumnsType<ServiceRequest> {
   const { t } = props;
 
   return [
@@ -23,9 +23,9 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('table_header.name'),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
-      render: (serviceName) => getValueOrDash(serviceName),
+      render: (name) => getValueOrDash(name),
     },
     {
       title: t('table_header.persian_name'),
@@ -33,12 +33,12 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       align: 'center',
       render: (persianName) => getValueOrDash(persianName),
     },
-    {
-      title: '',
-      dataIndex: 'details',
-      key: 'details',
-      render: (url) => <S.Details href=''>{t('detailed')}</S.Details>,
-    },
+    // {
+    //   title: '',
+    //   dataIndex: 'details',
+    //   key: 'details',
+    //   render: (url) => <S.Details href=''>{t('detailed')}</S.Details>,
+    // },
   ];
 }
 
@@ -49,9 +49,9 @@ export function getMobileColumns(props) {
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, url, version, persianName, serviceName }: Service) {
+      render({ persianName, name }: ServiceRequest) {
         const data = [
-          { title: t('table_header.name'), value: serviceName, render: (serviceName) => getValueOrDash(serviceName) },
+          { title: t('table_header.name'), value: name, render: (serviceName) => getValueOrDash(serviceName) },
           {
             title: t('table_header.persian_name'),
             value: persianName,

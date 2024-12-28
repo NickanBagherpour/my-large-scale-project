@@ -22,3 +22,9 @@ export type OrganizationParamsType = {
   status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   page: number;
 };
+
+export type AggregatorsParamsType = {
+  page: number;
+  size: number;
+  sort: 'newest' | 'oldest';
+};
