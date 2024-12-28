@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
+import { useApp } from '@oxygen/hooks';
 
 import { useAppState } from '../../context';
 import { PanelType, RequestStatus } from '../../types';
@@ -11,18 +12,18 @@ import RequestResultInfo from '../request-result-Info/request-result-info';
 import * as S from '../request-result-box/request-result-box.style';
 
 type Props = {
-  requestData: any;
+  data: any;
 };
 
-const RequestResultBox: React.FC<Props> = ({ requestData }) => {
-  const { businessBankingStatus, businessUnitStatus } = requestData.requestStatus;
-  const { organizationName, clientName } = requestData;
-
+const RequestResultBox: React.FC<Props> = ({ data }) => {
+  const { commercial, business } = data.submissionStatus;
+  const { organizationName, clientName } = data.submissionInfoDto;
+  const { notification } = useApp();
   const [t] = useTr();
   const state = useAppState();
 
   const userRole = state?.userRole;
-  const requestId = state?.requestId;
+  const submissionId = state?.submissionId;
 
   const [openModal, setOpenModal] = React.useState(false);
   const [isConfirm, setIsConfirm] = React.useState<boolean>();
@@ -51,34 +52,36 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
   };
 
   const renderBusinessPanel = () => {
-    const bankingResultType = businessBankingStatus?.code;
-    const unitResultType = businessUnitStatus?.code;
-
+    const commercialResultType = commercial?.code;
+    const businessResultType = business?.code;
+    const showCommercialResult =
+      commercialResultType !== RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK &&
+      commercialResultType !== RequestStatus.UNDER_REVIEW_BUSINESS_UNIT;
+    const showBusinessResult =
+      businessResultType !== RequestStatus.UNDER_REVIEW_BUSINESS_UNIT &&
+      businessResultType !== RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK &&
+      businessResultType !== RequestStatus.APPROVED_BY_COMMERCIAL_BANK;
     return (
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
-        {bankingResultType !== RequestStatus.PROCESS && (
-          <RequestResultInfo section={PanelType.BUSINESS_BANKING} resultType={bankingResultType} />
-        )}
-
-        <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
-        {unitResultType !== RequestStatus.PROCESS && unitResultType !== RequestStatus.INITIAL_APPROVAL && (
-          <RequestResultInfo section={PanelType.BUSINESS} resultType={unitResultType} />
-        )}
-        {unitResultType === RequestStatus.INITIAL_APPROVAL && getConfirmButtons()}
+        {showCommercialResult && <RequestResultInfo section={PanelType.COMMERCIAL} resultType={commercialResultType} />}
+        <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>;
+        {showBusinessResult && <RequestResultInfo section={PanelType.BUSINESS} resultType={businessResultType} />}
+        {businessResultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && getConfirmButtons()}
       </S.StyledContainer>
     );
   };
 
   const renderBusinessBankingPanel = () => {
-    const resultType = businessBankingStatus?.code;
+    const resultType = commercial?.code;
+
     return (
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
-        {resultType !== RequestStatus.PROCESS && (
-          <RequestResultInfo section={PanelType.BUSINESS_BANKING} resultType={resultType} />
+        {resultType !== RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && (
+          <RequestResultInfo section={PanelType.COMMERCIAL} resultType={resultType} />
         )}
-        {resultType === RequestStatus.INITIAL_APPROVAL && (
+        {resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && (
           <>
             <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
             <S.StyledBox>
@@ -87,7 +90,7 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
             </S.StyledBox>
           </>
         )}
-        {resultType === RequestStatus.PROCESS && getConfirmButtons()}
+        {resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && getConfirmButtons()}
       </S.StyledContainer>
     );
   };
@@ -96,7 +99,7 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
     switch (userRole) {
       case PanelType.BUSINESS:
         return renderBusinessPanel();
-      case PanelType.BUSINESS_BANKING:
+      case PanelType.COMMERCIAL:
         return renderBusinessBankingPanel();
       default:
         return undefined;
@@ -111,9 +114,8 @@ const RequestResultBox: React.FC<Props> = ({ requestData }) => {
         openModal={openModal}
         isConfirm={isConfirm}
         organizationName={organizationName}
-        confirmLoading={false}
         clientName={clientName}
-        requestId={requestId}
+        submissionId={submissionId}
       />
     </>
   );

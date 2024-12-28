@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { NoResult } from '@oxygen/reusable-components';
 import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
@@ -10,7 +11,7 @@ import { useGetRequestResultQuery } from '../../services/get-request-result';
 import * as S from './request-result-info.style';
 
 type Props = {
-  resultType: string;
+  resultType: number;
   section: PanelType;
 };
 
@@ -18,55 +19,59 @@ const RequestResultInfo: React.FC<Props> = (props: Props) => {
   const { resultType, section } = props;
 
   const state = useAppState();
-  const { userRole, requestId } = state;
+  const { userRole, submissionId } = state;
 
   const [t] = useTr();
   const { data, isFetching } = useGetRequestResultQuery(prepareParams());
 
   function prepareParams() {
     const params = {
-      requestId: requestId,
+      submissionId: submissionId,
     };
 
     return params;
   }
 
   if (isFetching) return <Loading />;
+  if (!data) return <NoResult loading={false} />;
 
-  const { businessUnit, businessBanking } = data;
-  const isConfirmed = resultType === RequestStatus.INITIAL_APPROVAL || resultType === RequestStatus.FINAL_APPROVAL;
+  const { business, commercial } = data;
+  const isConfirmed =
+    resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK || resultType === RequestStatus.APPROVED_BY_BUSINESS_UNIT;
   const showFinalApproval =
-    resultType === RequestStatus.FINAL_APPROVAL && userRole === PanelType.BUSINESS && section === PanelType.BUSINESS;
-  // const showBusinessBankingResult = userRole === PanelType.BUSINESS_BANKING || userRole === PanelType.BUSINESS && section === 'business-banking';
+    resultType === RequestStatus.APPROVED_BY_BUSINESS_UNIT &&
+    userRole === PanelType.BUSINESS &&
+    section === PanelType.BUSINESS;
+  // const showBusinessBankingResult = userRole === PanelType.COMMERCIAL || userRole === PanelType.BUSINESS && section === 'business-banking';
 
-  const businessUnitResultInfo = [
+  const businessResultInfo = [
     {
       key: t('contract_date'),
-      value: businessUnit?.contractDate,
+      value: business?.contractDate,
     },
     {
       key: t('description'),
-      value: businessUnit?.contractDescription,
+      value: business?.contractDescription,
     },
   ];
 
-  const businessBankingResultInfo = [
+  const commercialResultInfo = [
     {
       key: t('expert_name'),
-      value: businessBanking?.expertName,
+      value: commercial?.expertName,
     },
     {
       key: t(isConfirmed ? 'result_confirm_reason' : 'result_reject_reason'),
-      value: businessBanking?.resultReason,
+      value: commercial?.resultReason,
     },
     {
       key: t(isConfirmed ? 'result_confirm_date' : 'result_reject_date'),
-      value: businessBanking?.resultDate,
+      value: commercial?.resultDate,
     },
   ];
   return (
     <S.InfoBoxContainer isConfirmed={isConfirmed}>
-      {showFinalApproval ? <InfoBox data={businessUnitResultInfo} /> : <InfoBox data={businessBankingResultInfo} />}
+      {showFinalApproval ? <InfoBox data={businessResultInfo} /> : <InfoBox data={commercialResultInfo} />}
     </S.InfoBoxContainer>
   );
 };

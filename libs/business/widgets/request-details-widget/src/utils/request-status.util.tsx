@@ -4,18 +4,20 @@ import React from 'react';
 
 export function renderRequestStatus(t, requestStatus: CodeTitle) {
   const { code, title } = requestStatus;
+
   let type;
   const defaultTitle = t('common.unknown');
   switch (code) {
-    case RequestStatus.PROCESS:
-    case RequestStatus.PROCESS_BUSINESS_BANKING:
+    case RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK:
+    case RequestStatus.UNDER_REVIEW_BUSINESS_UNIT:
       type = 'processing';
       break;
-    case RequestStatus.INITIAL_APPROVAL:
-    case RequestStatus.FINAL_APPROVAL:
+    case RequestStatus.APPROVED_BY_COMMERCIAL_BANK:
+    case RequestStatus.APPROVED_BY_BUSINESS_UNIT:
       type = 'success';
       break;
-    case RequestStatus.REJECTED:
+    case RequestStatus.REJECTED_BY_COMMERCIAL_BANK:
+    case RequestStatus.REJECTED_BY_BUSINESS_UNIT:
       type = 'error';
       break;
     default:
@@ -23,15 +25,20 @@ export function renderRequestStatus(t, requestStatus: CodeTitle) {
       break;
   }
   const statusIcon: React.ReactNode =
-    code === RequestStatus.FINAL_APPROVAL ? <i className={'icon-tick-circle-outlined status-icon'} /> : <></>;
+    code === RequestStatus.APPROVED_BY_BUSINESS_UNIT ? (
+      <i className={'icon-tick-circle-outlined status-icon'} />
+    ) : (
+      <></>
+    );
 
   return (
     <Tag
       icon={statusIcon}
       type={type}
-      bordered={requestStatus.code === RequestStatus.FINAL_APPROVAL}
-      text={title ?? defaultTitle}
+      bordered={requestStatus.code === RequestStatus.APPROVED_BY_BUSINESS_UNIT}
       style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', height: '2.4rem' }}
-    />
+    >
+      {title ?? defaultTitle}
+    </Tag>
   );
 }
