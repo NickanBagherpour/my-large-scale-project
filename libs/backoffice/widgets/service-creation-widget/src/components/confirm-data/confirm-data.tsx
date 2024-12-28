@@ -119,6 +119,11 @@ export default function ConfirmData() {
 
   const onReturn = () => previousStep(dispatch);
 
+  const onRegister = () => {
+    confirmData();
+    toggleIsResultModalOpen();
+  };
+
   return (
     <>
       <Container>
@@ -151,13 +156,7 @@ export default function ConfirmData() {
             />
           </S.Section>
         </div>
-        <Footer
-          onRegister={() => {
-            confirmData();
-            toggleIsResultModalOpen();
-          }}
-          onReturn={onReturn}
-        />
+        <Footer onRegister={onRegister} onReturn={onReturn} />
       </Container>
 
       <ResultModal status={status} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />

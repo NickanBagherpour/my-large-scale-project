@@ -1,4 +1,4 @@
-import { Input, Loading, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
+import { Input, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
@@ -22,6 +22,7 @@ import * as S from './general-info.style';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
+import CenteredLoading from '../centered-loading/centered-loading';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 
@@ -94,7 +95,7 @@ export default function GeneralInfo() {
   };
 
   if (isPendingService) {
-    return <Loading />;
+    return <CenteredLoading />;
   }
 
   let initialValues: Partial<GeneralInfoValuesType> = { englishName: state.serviceName };

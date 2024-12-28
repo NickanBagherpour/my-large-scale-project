@@ -1,4 +1,4 @@
-import { Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
@@ -19,6 +19,7 @@ import {
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 import { convertCodeTitles } from '../../utils/convert-enums';
+import CenteredLoading from '../centered-loading/centered-loading';
 
 export default function Route() {
   const [form] = Form.useForm<RouteType>();
@@ -65,7 +66,7 @@ export default function Route() {
   };
 
   if (isFetching) {
-    return <Loading />;
+    return <CenteredLoading />;
   }
 
   let initialValues = initialStateValue['route'];

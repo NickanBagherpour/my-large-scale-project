@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import { Container, Loading } from '@oxygen/ui-kit';
+import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import { addInitialStep, addServiceName, resetMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -13,6 +13,7 @@ import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
 import { useServiceInquiryStatus } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
+import CenteredLoading from '../centered-loading/centered-loading';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
@@ -51,7 +52,7 @@ const App = () => {
     <Container title={t('create_new_service')}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       {isFetching ? (
-        <Loading />
+        <CenteredLoading />
       ) : (
         <>
           <S.Steps

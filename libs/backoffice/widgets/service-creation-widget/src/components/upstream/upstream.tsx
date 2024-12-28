@@ -5,7 +5,7 @@ import { GridCard, NoResult } from '@oxygen/reusable-components';
 import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import { UpstreamServer } from '@oxygen/types';
 import Footer from '../footer/footer';
-import { nextStep, previousStep, useAppDispatch } from '../../context';
+import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import {
   useGetUpstream,
@@ -19,22 +19,21 @@ import { getValueOrDash } from '@oxygen/utils';
 import { useSearchParams } from 'next/navigation';
 import { useBounce } from '@oxygen/hooks';
 import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
+import CenteredLoading from '../centered-loading/centered-loading';
 
 export default function Upstream() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-
   useBounce(() => {
     setDebouncedSearchTerm(searchTerm);
     setQuery((prev) => ({ ...prev, page: 1 }));
   }, [searchTerm]);
-
   const {
     data: upstreams,
     isFetching: isFetchingUpstreams,
-    isLoading,
+    isLoading: isLoadingUpstreams,
   } = useGetUpstreams({
     page: page - 1, // backend pages starts from zero
     size: UPSTREAMS_PAGE_SIZE,
@@ -46,7 +45,7 @@ export default function Upstream() {
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
     useGetUpstreamWithTargets(selectedUpstreamId);
   const { mutate: assignUpstreamToService } = usePostAssignUpstreamToService();
-  const serviceName = useSearchParams().get('service-name');
+  const { serviceName } = useAppState();
 
   const isFetching = isFetchingUpstreams || isFetchingUpstreamWithTargets || isFetchingCurrentUpstream;
   const upstream = upstreamWithTargets || currentUpstream;
@@ -113,13 +112,13 @@ export default function Upstream() {
     },
   ];
 
-  if (isLoading) {
-    return <Loading />;
+  if (isLoadingUpstreams) {
+    return <CenteredLoading />;
   }
 
   return (
     <Container>
-      <Loading spinning={isFetching} style={{ minHeight: '40rem' }}>
+      <Loading spinning={isFetching}>
         <S.Title>{t('choose_upstream')}</S.Title>
         <Box>
           <S.Input
@@ -170,9 +169,7 @@ export default function Upstream() {
               { key: t('upstream_description'), value: getValueOrDash(upstream?.description) },
             ]}
           />
-
           <S.Title>{t('upstream_servers')}</S.Title>
-
           <Table
             columns={desktopColumns}
             mobileColumns={mobileColumns}
@@ -183,7 +180,9 @@ export default function Upstream() {
         </Box>
       )}
 
-      <Footer registerButtonProps={{ disabled: !selectedUpstreamId }} onRegister={onRegister} onReturn={onReturn} />
+      {!isFetching && (
+        <Footer registerButtonProps={{ disabled: !selectedUpstreamId }} onRegister={onRegister} onReturn={onReturn} />
+      )}
     </Container>
   );
 }

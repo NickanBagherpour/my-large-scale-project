@@ -123,6 +123,7 @@ export default function Scope() {
           rowKey={(row: ScopeType) => row.name}
           mobileColumns={mobileColumns}
           dataSource={selectedScope ? [selectedScope] : []}
+          loading={isFetchingScope}
         />
 
         <Footer
