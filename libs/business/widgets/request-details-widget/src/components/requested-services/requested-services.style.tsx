@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const DataTableContainer = styled.div`
-  .ant-table,
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
     background-color: ${(p) => p.theme.background._50};

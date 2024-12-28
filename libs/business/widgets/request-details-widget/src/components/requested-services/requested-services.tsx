@@ -9,34 +9,26 @@ import { Table } from '@oxygen/ui-kit';
 
 import { useAppDispatch, useAppState } from '../../context';
 
-import { useGetRequestedServicesQuery } from '../../services/get-requested-services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/requested-services.util';
 import { PaginationType } from '../../context/types';
 import { updatePagination } from '../../context';
+import { SubmissionDetailType } from '../../types';
 
 import * as S from './requested-services.style';
 
 type DataTableProps = PageProps & {
-  //
+  data: SubmissionDetailType['services'];
+  isLoading: boolean;
 };
 
 const RequestedServices: React.FC<DataTableProps> = (props) => {
+  const { data, isLoading } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
   const {
     table: { pagination = { page: 1, rowsPerPage: 5 } } = { pagination: { page: 1, rowsPerPage: 10 } }, // Fallback for pagination
   } = state || {};
-
-  const { data, isFetching } = useGetRequestedServicesQuery(prepareParams());
-  function prepareParams() {
-    const params = {
-      requestId: state.requestId,
-      pagination: state.table.pagination,
-    };
-
-    return params;
-  }
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -57,15 +49,16 @@ const RequestedServices: React.FC<DataTableProps> = (props) => {
   return (
     <S.DataTableContainer>
       <Table
-        loading={isFetching}
+        loading={isLoading}
         current={pagination.page}
-        total={data?.total}
-        dataSource={data?.content}
-        pagination={{ pageSize: pagination.rowsPerPage }}
+        total={data.length}
+        dataSource={data}
+        // pagination={{ pageSize: pagination.rowsPerPage }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={handlePageChange}
         rowKey={(row) => row.index}
+        pagination={false}
       />
     </S.DataTableContainer>
   );

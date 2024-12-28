@@ -3,8 +3,8 @@ export const requestInfoData = [
     requestId: '123',
     requestGeneralInfo: {
       requestStatus: {
-        businessBankingStatus: { code: '01', title: 'در انتظار بررسی' },
-        businessUnitStatus: { code: '02', title: 'تایید اولیه' },
+        commercial: { code: '01', title: 'در انتظار بررسی' },
+        business: { code: '02', title: 'تایید اولیه' },
         // requestStatus: { code: "03" , title: 'تایید نهایی' },
         // requestStatus: { code: "04" , title: 'رد شده' },
         // { code: '02', title: 'تایید اولیه' }
@@ -40,8 +40,8 @@ export const requestInfoData = [
     requestId: '456',
     requestGeneralInfo: {
       requestStatus: {
-        businessBankingStatus: { code: '01', title: 'در انتظار بررسی' },
-        businessUnitStatus: { code: '02', title: 'تایید اولیه' },
+        commercial: { code: '01', title: 'در انتظار بررسی' },
+        business: { code: '02', title: 'تایید اولیه' },
         // requestStatus: { code: "03" , title: 'تایید نهایی' },
         // requestStatus: { code: "04" , title: 'رد شده' },
         // { code: '02', title: 'تایید اولیه' }
@@ -83,14 +83,14 @@ export const requestedServicesData = Array.from({ length: 8 }).map(() => ({
 
 export const requestResultData = [
   {
-    requestId: '123',
-    businessBanking: {
+    submissionId: '13',
+    commercial: {
       resultDate: '1403/04/11',
       expertName: 'ابراهیم سبحانی',
       resultReason:
         'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد.',
     },
-    businessUnit: {
+    business: {
       contractDate: '1403/04/11',
       contractDescription:
         'قرارداد بین شرکت و واحد کسب و کار شرکت داده ورزی سداد در تاریخ مذکور برای سرویس‌های درخواست شده منعقد گردید.',

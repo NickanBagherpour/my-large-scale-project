@@ -22,10 +22,10 @@ export const getRequestedServices = async ({ requestId, pagination: { page, rows
   });
 };
 
-export const getRequestResult = async ({ requestId }): Promise<any> => {
+export const getRequestResult = async ({ submissionId }): Promise<any> => {
   return await new Promise((resolve, reject) => {
     setTimeout(() => {
-      const filteredData = requestResultData.filter((requestInfo) => requestInfo.requestId === requestId);
+      const filteredData = requestResultData.filter((requestInfo) => requestInfo.submissionId === submissionId);
       const response = {
         data: filteredData[0],
       };

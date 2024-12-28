@@ -33,7 +33,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: t(`table.service_name`),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
       width: 200,
       ellipsis: {
