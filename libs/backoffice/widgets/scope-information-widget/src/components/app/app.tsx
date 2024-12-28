@@ -49,8 +49,10 @@ const App: React.FC<AppProps> = (props) => {
   //__________________________________=======================================================______________________________________
 
   const selectorData = [
-    { label: 'alireza', value: 'alireza' },
-    { label: 'alireza', value: 'alireza' }, // for testing
+    { title: 'alireza', subTitle: 'alireza' },
+    { title: 'alireza1', subTitle: 'alireza' },
+    { title: 'alireza2', subTitle: 'alireza' },
+    { title: 'alireza3', subTitle: 'alireza' },
   ];
   //__________________________________=======================================================______________________________________
 
@@ -68,8 +70,10 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <AdvanceSelector
-        onSelect={() => {
-          console.log('alireza');
+        loadMore={() => console.log('alirezasdfsdfsdf ')}
+        isLastPage={false}
+        onSelect={(item) => {
+          console.log('item', item);
         }}
         data={selectorData}
         loading={false}

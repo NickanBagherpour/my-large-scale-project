@@ -57,3 +57,8 @@ export const Icon = styled.i`
   margin-inline-end: 1.5rem;
   visibility: hidden;
 `;
+export const BtnContainer = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+`;

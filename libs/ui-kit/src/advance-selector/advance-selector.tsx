@@ -5,9 +5,8 @@ import { Input } from 'antd';
 import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
-import { Loading } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useDebouncedValue } from '@oxygen/hooks';
 
 import * as S from './advance-selector.style';
 
@@ -20,10 +19,23 @@ type Props = {
   placeholder?: string;
   data: any[];
   loading: boolean;
+  isLastPage: boolean;
+  loadMore: () => void;
 };
 
 const AdvanceSelector = (props: Props) => {
-  const { data, loading, onSelect, onClear, className = '', style = {}, label, placeholder } = props;
+  const {
+    data,
+    loading,
+    onSelect,
+    onClear,
+    className = '',
+    style = {},
+    label,
+    placeholder,
+    isLastPage,
+    loadMore,
+  } = props;
 
   const MAX_LENGTH = 75;
 
@@ -32,9 +44,6 @@ const AdvanceSelector = (props: Props) => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
-
-  //   const { data, isLoading } = useGetClientService({ query: debouncedSearchTerm.trim() }, callServerAPI);
   return (
     <>
       <S.SelectLabel htmlFor='autocomplete'>{label}</S.SelectLabel>
@@ -55,6 +64,18 @@ const AdvanceSelector = (props: Props) => {
           onSelect(option.item);
           setSearchTerm('');
         }}
+        dropdownRender={(menu) => (
+          <>
+            {menu}
+            {!isLastPage && (
+              <S.BtnContainer>
+                <Button variant='link' color='secondary' onClick={loadMore} loading={loading}>
+                  {t('button.display_more_items')} <i className='icon-chev-down' />
+                </Button>
+              </S.BtnContainer>
+            )}
+          </>
+        )}
         optionRender={({ value, data }) => (
           <S.Item>
             <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
