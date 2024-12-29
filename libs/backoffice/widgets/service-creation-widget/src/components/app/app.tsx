@@ -10,7 +10,7 @@ import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 import { notFound, redirect, useSearchParams } from 'next/navigation';
 import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
-import { useServiceInquiryStatus } from '../../services';
+import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
@@ -29,7 +29,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const maybeServiceName = useSearchParams().get('service-name');
   const serviceName = getServiceNameFromUrl(maybeServiceName);
-  const { data, isFetching, isSuccess } = useServiceInquiryStatus(serviceName);
+  const { data, isFetching, isSuccess } = useServiceInquiry(serviceName);
 
   useEffect(() => {
     if (!serviceName) notFound();
