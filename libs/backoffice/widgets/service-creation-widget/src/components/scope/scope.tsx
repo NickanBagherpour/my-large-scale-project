@@ -8,7 +8,7 @@ import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetScope, usePostAssignScopeToService } from '../../services';
+import { useGetServiceScope, usePostAssignScopeToService } from '../../services';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 
@@ -16,7 +16,7 @@ export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
-  const { data: scope, isFetching: isFetchingScope } = useGetScope();
+  const { data: scope, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const { serviceName } = useAppState();
@@ -112,10 +112,7 @@ export default function Scope() {
   return (
     <>
       <Container>
-        <S.Label>
-          <S.Title>{t('choose_scope')}</S.Title>
-          <ScopeSelector isLoading={isFetchingScope} onSelect={chooseScope} disabled={!!selectedScope} />
-        </S.Label>
+        <ScopeSelector onSelect={chooseScope} disabled={!!selectedScope} />
 
         <S.Table
           pagination={false}
@@ -123,7 +120,7 @@ export default function Scope() {
           rowKey={(row: ScopeType) => row.name}
           mobileColumns={mobileColumns}
           dataSource={selectedScope ? [selectedScope] : []}
-          loading={isFetchingScope}
+          loading={isFetchingServiceScope}
         />
 
         <Footer

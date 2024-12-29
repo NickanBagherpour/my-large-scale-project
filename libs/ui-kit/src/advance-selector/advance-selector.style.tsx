@@ -8,10 +8,13 @@ export const Container = styled.div`
   align-items: center;
   gap: 1.6rem;
   & .ant-select {
-    width: 100%;
+    flex: 1;
   }
   ${respondTo.down('md')} {
     display: block;
+    & .ant-select {
+      width: 100%;
+    }
   }
 `;
 

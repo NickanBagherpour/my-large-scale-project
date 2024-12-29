@@ -10,15 +10,13 @@ import { Scope } from '../../types';
 import { SCOPE_PAGE_SIZE } from '../../utils/consts';
 
 type Props = {
-  id?: string;
   onClear?: () => void;
   onSelect: (scope: Scope) => void;
   disabled: boolean;
-  isLoading: boolean;
 };
 
 const ScopeSelector = (props: Props) => {
-  const { onSelect, id, disabled, isLoading } = props;
+  const { onSelect, disabled } = props;
   const [t] = useTr();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
@@ -34,17 +32,21 @@ const ScopeSelector = (props: Props) => {
 
   return (
     <AdvanceSelector
-      style={{ flex: 1 }}
-      data={data?.content.map(({ name: title, description: subTitle, id }) => ({ title, subTitle, id })) ?? []}
-      onSelect={({ id, subTitle: description, title: name }) => onSelect({ name, description, id })}
+      data={
+        data?.content.map((scope) => ({
+          title: scope.name,
+          subTitle: scope.description ?? '',
+          scope /* Passes the full 'scope' object to ensure it can be retrieved via 'onSelect' and used directly in the parent component. */,
+        })) ?? []
+      }
+      onSelect={({ scope }) => onSelect(scope)}
       onChange={(value) => setSearchTerm(value)}
       loading={isFetching}
       isLastPage={data?.last ?? true}
       loadMore={loadMore}
       placeholder={t('scope_name_from_o2_or_scope')}
       disabled={disabled}
-      isLoading={isLoading}
-      id={id}
+      label={t('choose_scope')}
     />
   );
 };
