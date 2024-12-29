@@ -26,8 +26,7 @@ export default function Route() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
-  const state = useAppState();
-  const { serviceName } = useAppState();
+  const { serviceName, stepStatuses } = useAppState();
   const { data: route, isFetching } = useGetRoute();
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
@@ -75,7 +74,7 @@ export default function Route() {
     initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
   }
 
-  const inputErrors = state.stepStatuses.find((i) => i.name === 'route')?.error;
+  const inputErrors = stepStatuses.find((i) => i.name === 'route')?.error;
   const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
 
   return (

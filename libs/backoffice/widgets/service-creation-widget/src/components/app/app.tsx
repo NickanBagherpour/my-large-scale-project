@@ -27,8 +27,7 @@ const App = () => {
   const [t] = useTr();
   const { message, stepStatuses, step } = useAppState();
   const dispatch = useAppDispatch();
-  const searchParams = useSearchParams();
-  const maybeServiceName = searchParams.get('service-name')?.toString();
+  const maybeServiceName = useSearchParams().get('service-name');
   const serviceName = getServiceNameFromUrl(maybeServiceName);
   const { data, isFetching, isSuccess } = useServiceInquiryStatus(serviceName);
 
