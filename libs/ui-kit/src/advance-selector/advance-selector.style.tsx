@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
+
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  & .ant-select {
+    width: 100%;
+  }
+  ${respondTo.down('md')} {
+    display: block;
+  }
+`;
 
 export const Item = styled.div`
   display: flex;
@@ -21,12 +35,11 @@ export const Item = styled.div`
 `;
 
 export const SelectLabel = styled.label`
-  text-align: center;
   font-size: 1.6rem;
   font-style: normal;
   font-weight: 500;
   line-height: 2.5rem;
-  min-width: fit-content;
+  max-width: 15rem;
   margin: 0;
 `;
 
