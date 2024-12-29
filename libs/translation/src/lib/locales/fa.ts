@@ -35,7 +35,7 @@ export default {
     user_role: {
       commercial_banking_admin: 'واحد بانکداری تجاری',
       business_admin: 'واحد کسب و کار',
-    }
+    },
   },
 
   app: {
@@ -133,6 +133,7 @@ export default {
     print_receipt: 'چاپ رسید',
     register_new_request: 'ثبت درخواست جدید',
     display_more_items: 'بیشتر',
+    view_request: 'مشاهده درخواست',
   },
 
   field: {
