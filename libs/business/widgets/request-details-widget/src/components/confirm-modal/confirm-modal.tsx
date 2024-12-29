@@ -3,11 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form } from 'antd';
 import { useTheme } from 'styled-components';
 import { createSchemaFieldRule } from 'antd-zod';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash } from '@oxygen/utils';
-import { useApp } from '@oxygen/hooks';
-import { Nullable } from '@oxygen/types';
+import { getValueOrDash, RQKEYS } from '@oxygen/utils';
 
 import {
   ExpertOpinionStatus,
@@ -16,6 +15,7 @@ import {
   requestConfirmType,
   SubmissionId,
   PostSubmissionReviewParamsType,
+  SubmissionDetailType,
 } from '../../types';
 import ConfirmStatusResultModal from '../confirm-status-result-modal/confirm-status-result-modal';
 import { CONFIRM_MODAL_NAMES } from '../../utils/consts';
@@ -28,13 +28,13 @@ import * as S from './confirm-modal.style';
 type Props = {
   openModal: boolean;
   submissionId: SubmissionId;
-  clientName: string;
-  organizationName: Nullable<string>;
-  isConfirm: boolean;
+  data: SubmissionDetailType['submissionInfoDto'];
+  isConfirm?: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
 };
 const ConfirmModal: React.FC<Props> = (props) => {
-  const { openModal, setOpenModal, submissionId, clientName, organizationName, isConfirm } = props;
+  const { openModal, setOpenModal, submissionId, isConfirm, data } = props;
+  const { organizationName, clientName } = data;
   const state = useAppState();
 
   const [t] = useTr();
@@ -47,6 +47,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const userRole = state?.userRole;
 
   const { mutate, isPending } = usePostSubmissionResultMutation();
+  const queryClient = useQueryClient();
 
   const handleSubmissionConfirm = () => {
     const params: PostSubmissionReviewParamsType = {
@@ -59,6 +60,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
       onSuccess: () => {
         if (userRole === UserRole.COMMERCIAL_BANKING_ADMIN) {
           setOpenStatusResult(true);
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL, submissionId] });
         }
       },
     });
@@ -98,15 +100,10 @@ const ConfirmModal: React.FC<Props> = (props) => {
         <S.StyledTextarea
           showCount={{
             formatter: ({ count, maxLength }) => (
-              <span
-                style={{
-                  position: 'absolute',
-                  bottom: 35,
-                  [t.direction === 'rtl' ? 'left' : 'right']: t.direction === 'rtl' ? 5 : -50,
-                }}
-              >
+              <S.StyledCount>
+                {' '}
                 {count}/{maxLength}
-              </span>
+              </S.StyledCount>
             ),
           }}
           rows={8}

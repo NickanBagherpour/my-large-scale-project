@@ -19,7 +19,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
     setOpenStatus(false);
   };
   const [t] = useTr();
-
+  const statusDate = dateLocale(undefined, undefined, true);
   return (
     <>
       <S.StyledModal
@@ -41,7 +41,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             </S.StyledIcon>
             <S.StyledDescription>
               {t(isConfirmStatus ? 'status_confirm_description' : 'status_reject_description', {
-                statusDate: dateLocale(),
+                statusDate: statusDate,
               })}
             </S.StyledDescription>
           </S.StatusBox>
@@ -49,7 +49,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
             size={'large'}
             variant={'outlined'}
-            icon={<i className={'icon-home'} />}
+            icon={<i className={'icon-home-empty'} />}
           >
             {t('requests_management')}
           </S.StyledButton>

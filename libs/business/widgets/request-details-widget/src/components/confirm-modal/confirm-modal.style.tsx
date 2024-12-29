@@ -45,3 +45,9 @@ export const StyledTextarea = styled(Input.TextArea)`
   font-weight: 500;
   line-height: 2.2rem;
 `;
+
+export const StyledCount = styled.span`
+  position: absolute;
+  bottom: 35px;
+  ${(p) => (p.theme.direction === 'rtl' ? 'right' : 'left')}:${(p) => (p.theme.direction === 'rtl' ? '10px' : '-50px')};
+`;
