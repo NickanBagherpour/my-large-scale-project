@@ -30,7 +30,7 @@ export default function ConfirmModal(props: Props) {
       </Card>
       <S.ReturnToRequest>
         <i className='icon-home' />
-        <Link href={ROUTES.CUSTOMER.REQUESTS_MANAGEMENT} target={'_blank'}>
+        <Link href={ROUTES.CUSTOMER.REQUEST_MANAGEMENT} target={'_blank'}>
           {t('return_to_request')}
         </Link>
       </S.ReturnToRequest>

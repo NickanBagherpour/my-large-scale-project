@@ -1,12 +1,18 @@
 export type GeneralInfoParams = {
   latinName: string;
   persianName: string;
-  accessLevel: string; // title
-  categoryCode: number; // code
+  accessLevel: {
+    code: number;
+    title: string;
+  };
+  categoryCode: number;
   version: string;
   ownerName: string;
-  throughput: string; // title
-  tagsIds: number[]; // codes
+  throughput: {
+    code: number;
+    title: string;
+  };
+  tagsIds: number[];
 };
 
 export type Service = {
@@ -49,13 +55,6 @@ export type Service = {
     | null;
 };
 
-export type Route = {
-  method: string;
-  protocol: string;
-  path: string;
-  host: string;
-};
-
 export type Tags = {
   id: number;
   title: string;
@@ -64,4 +63,21 @@ export type Tags = {
 export type CodeTitle = {
   code: number;
   title: string;
+};
+
+export type ServiceInquiry = {
+  serviceName: string;
+  servicePersianName: string;
+  serviceProgress?: {
+    statusCode: number;
+    statusTitle: string;
+    percent: number;
+    step: 1 | 2 | 3 | 4 | 5;
+  };
+  serviceInquiryStatus: { code: number; title: string };
+  scope: {
+    name: string;
+    description: string;
+    id: number;
+  };
 };

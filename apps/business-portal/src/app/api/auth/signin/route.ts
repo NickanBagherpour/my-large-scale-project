@@ -18,9 +18,7 @@ export async function POST(req: Request) {
 
   const url = `${process.env.SSO_URL}/identity/oauth2/auth/token`;
 
-  const basicToken = Buffer.from(
-    `${process.env.SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`
-  ).toString('base64');
+  const basicToken = Buffer.from(`${process.env.SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`).toString('base64');
 
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -30,7 +28,7 @@ export async function POST(req: Request) {
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
     redirect_uri: process.env.SSO_REDIRECT_URL ?? '',
-    code : code ?? '',
+    code: code ?? '',
   });
 
   try {

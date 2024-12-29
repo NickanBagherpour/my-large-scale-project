@@ -1,48 +1,64 @@
-import { Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createRouteSchema, RouteParams, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { nextStep, useAppDispatch, previousStep, updateRouteStep, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch, previousStep, initialStateValue, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { Container } from '../container/container.style';
-import { useGetRoute, usePostRouteMutation, usePutRouteMutation } from '../../services';
-import { useSearchParams } from 'next/navigation';
-
-const options = [
-  { label: 'http', value: 'HTTP' },
-  { label: 'https', value: 'HTTPS' },
-];
+import {
+  useGetRoute,
+  useGetServiceHttpMethod,
+  useGetServiceProtocol,
+  usePostRouteMutation,
+  usePutRouteMutation,
+} from '../../services';
+import { useToggle } from '@oxygen/hooks';
+import ConfirmModal from '../cofirm-modal/confirm-modal';
+import { convertCodeTitles } from '../../utils/convert-enums';
+import CenteredLoading from '../centered-loading/centered-loading';
 
 export default function Route() {
   const [form] = Form.useForm<RouteType>();
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const dispatch = useAppDispatch();
-  const serviceName = useSearchParams().get('service-name');
-  const { data, is404Error, isFetching } = useGetRoute();
-  const { mutateAsync: postRoute } = usePostRouteMutation();
-  const { mutateAsync: putRoute } = usePutRouteMutation();
+  const state = useAppState();
+  const { serviceName } = useAppState();
+  const { data: route, isFetching } = useGetRoute();
+  const { mutate: postRoute } = usePostRouteMutation();
+  const { mutate: putRoute } = usePutRouteMutation();
+  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const isInSSO = route?.isServiceInSso;
+  const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
+  const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
 
-  const onFinish: FormProps<RouteType>['onFinish'] = async (values) => {
-    try {
-      if (serviceName) {
-        const { host, path, protocole, actionOrMethod } = values;
-        const params: RouteParams = { host, path, protocol: protocole, method: actionOrMethod, serviceName };
-        await (data?.data ? putRoute(params) : postRoute(params));
-        nextStep(dispatch);
-        updateRouteStep(dispatch, values);
-      }
-    } catch {
-      //
+  const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
+    if (serviceName && serviceHttpMethods && serviceProtocols) {
+      const { host, path, protocol, actionOrMethod } = values;
+
+      const currentHttpMethod = serviceHttpMethods.find((s) => s.code === actionOrMethod);
+      const currentProtocole = serviceProtocols.find((s) => s.code === protocol);
+
+      const params: RouteParams = { host, path, protocol: currentProtocole!, method: currentHttpMethod!, serviceName };
+      const mutateOptions = { onSuccess: () => nextStep(dispatch) };
+      route ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
     }
   };
 
-  const onRegister = () => {
-    form.submit();
+  const onRegister = async () => {
+    if (isInSSO) form.submit();
+    else {
+      try {
+        await form.validateFields();
+        toggleConfirmModal();
+      } catch {
+        //
+      }
+    }
   };
 
   const onReturn = () => {
@@ -50,39 +66,69 @@ export default function Route() {
   };
 
   if (isFetching) {
-    return <Loading />;
+    return <CenteredLoading />;
   }
 
-  if (data || is404Error) {
-    let initialValues = initialStateValue['route'];
-    if (data) {
-      const { host, path, method, protocol } = data.data;
-      initialValues = { host, path, actionOrMethod: method, protocole: protocol };
-    }
+  let initialValues = initialStateValue['route'];
+  if (route) {
+    const { host, path, method, protocol } = route;
+    initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
+  }
 
-    return (
+  const inputErrors = state.stepStatuses.find((i) => i.name === 'route')?.error;
+  const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
+
+  return (
+    <>
       <Container>
         <Box>
           <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
             <SearchItemsContainer>
               <FormItem
                 name={ROUTE_NAMES.actionOrMethod}
+                validateStatus={getValidateStatus(ROUTE_NAMES.actionOrMethod)}
                 className='span-2'
                 label={t('action_or_method')}
                 rules={[rule]}
               >
-                <Input />
+                <Select
+                  size={'large'}
+                  loading={isFetchingServiceHttpMethod}
+                  options={convertCodeTitles(serviceHttpMethods)}
+                />
               </FormItem>
 
-              <FormItem name={ROUTE_NAMES.protocole} className='span-2' rules={[rule]} label={t('protocole')}>
-                <Select size={'large'} options={options} />
+              <FormItem
+                name={ROUTE_NAMES.protocol}
+                validateStatus={getValidateStatus(ROUTE_NAMES.protocol)}
+                className='span-2'
+                rules={[rule]}
+                label={t('protocol')}
+              >
+                <Select
+                  size={'large'}
+                  loading={isFetchingServiceProtocol}
+                  options={convertCodeTitles(serviceProtocols)}
+                />
               </FormItem>
 
-              <FormItem name={ROUTE_NAMES.path} className='span-2' label={t('path')} rules={[rule]}>
-                <Input />
+              <FormItem
+                name={ROUTE_NAMES.path}
+                validateStatus={getValidateStatus(ROUTE_NAMES.path)}
+                className='span-2'
+                label={t('path')}
+                rules={[rule]}
+              >
+                <Input disabled={!!isInSSO} />
               </FormItem>
 
-              <FormItem name={ROUTE_NAMES.host} className='span-2' label={t('host')} rules={[rule]}>
+              <FormItem
+                name={ROUTE_NAMES.host}
+                validateStatus={getValidateStatus(ROUTE_NAMES.host)}
+                className='span-2'
+                label={t('host')}
+                rules={[rule]}
+              >
                 <Input />
               </FormItem>
             </SearchItemsContainer>
@@ -91,9 +137,13 @@ export default function Route() {
 
         <Footer onRegister={onRegister} onReturn={onReturn} />
       </Container>
-    );
-  } else {
-    console.log(':)', 'unknown error');
-    return 'something went wrong';
-  }
+
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        toggle={toggleConfirmModal}
+        onConfirm={() => form.submit()}
+        fieldName={t('path')}
+      />
+    </>
+  );
 }

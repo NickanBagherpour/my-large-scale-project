@@ -2,32 +2,15 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 3,
+  step: 0,
+  serviceName: '',
   stepStatuses: [
-    { name: 'generalInfo', status: 'finish' },
-    { name: 'route', status: 'finish' },
-    { name: 'scope', status: 'finish' },
-    { name: 'upstream', status: 'process' },
+    { name: 'generalInfo', status: 'process' },
+    { name: 'route', status: 'wait' },
+    { name: 'scope', status: 'wait' },
+    { name: 'upstream', status: 'wait' },
     { name: 'confirmData', status: 'wait' },
   ],
-  generalInfo: {
-    tags: [],
-    owner: '',
-    version: '',
-    access: undefined,
-    category: undefined,
-    englishName: '',
-    persianName: '',
-    throughput: undefined,
-  },
-  // @ts-expect-error fix this later
-  scope: undefined,
-  route: {
-    protocole: '',
-    host: '',
-    path: '',
-    actionOrMethod: '',
-  },
   message: null,
 };
 
@@ -52,20 +35,56 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return undefined;
     }
 
-    case 'PREVIOUS_STEP':
-      return state.step > 0 ? void state.step-- : undefined;
+    case 'PREVIOUS_STEP': {
+      if (state.step > 0) {
+        const currentStatus = state.stepStatuses[state.step].status;
+        state.stepStatuses[state.step].status = currentStatus !== 'error' ? 'wait' : currentStatus; // if status is error, don't change it
+        state.step--;
+      }
+      return;
+    }
+
+    case 'ADD_INITIAL_STEP': {
+      const step = action.payload;
+      state.step = step;
+      state.stepStatuses = state.stepStatuses.map((status, idx) => {
+        if (idx < step) {
+          return { ...status, status: 'finish' };
+        } else if (idx === step) {
+          return { ...status, status: 'process' };
+        } else {
+          return { ...status, status: 'wait' };
+        }
+      });
+      return;
+    }
+
+    case 'ADD_SERVICE_NAME':
+      return void (state.serviceName = action.payload);
 
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
 
-    case 'UPDATE_GENERAL_INFO_STEP':
-      return void (state.generalInfo = action.payload);
+    case 'ADD_STEP_ERRORS': {
+      state.stepStatuses.forEach((item) => {
+        item.error = action.payload[item.name];
+      });
+      return;
+    }
 
-    case 'UPDATE_SCOPE_STEP':
-      return void (state.scope = action.payload);
-
-    case 'UPDATE_ROUTE_STEP':
-      return void (state.route = action.payload);
+    case 'GO_TO_FIRST_ERROR': {
+      let foundFirstStep = false;
+      state.stepStatuses.forEach((stepStatus, idx) => {
+        if (stepStatus.error) {
+          stepStatus.status = 'error';
+          if (!foundFirstStep) {
+            foundFirstStep = true;
+            state.step = idx as StepIndex;
+          }
+        }
+      });
+      return;
+    }
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
@@ -9,5 +9,6 @@ export const useGetUpstreams = (params: UpstreamsParams) => {
   return useQuery({
     queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAMS, params],
     queryFn: withErrorHandling(() => Api.getUpstreams(params), dispatch),
+    placeholderData: keepPreviousData,
   });
 };

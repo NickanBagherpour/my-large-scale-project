@@ -20,11 +20,15 @@ export default {
   enter_tag: 'تگ مورد نظر را نتخاب نمایید',
   register_info: 'ثبت اطلاعات',
 
+  attention: 'توجه',
+  proceed_notice: 'توجه داشته باشید در صورت ثبت اطلاعات و رفتن به مرحله بعد، {{name}} قابل تغییر و ویرایش نخواهد بود.',
+  service_name: 'نام سرویس',
+
   import_from_sso: 'ایمپورت از SSO',
   create_scope: 'ایجاد اسکوپ',
   choose_scope: 'انتخاب اسکوپ',
   scope_name: 'نام اسکوپ',
-  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن',
+  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن (برای شروع جستجو حداقل سه حرف وارد کنید)',
   scope_library: 'کتابخانه اسکوپ',
   choose: 'انتخاب',
   add: 'افزودن',
@@ -38,6 +42,8 @@ export default {
   add_scope: 'افزودن اسکوپ',
   submit_and_add: 'تایید و افزودن',
   you_are_adding_scope: 'شما در حال افزودن اسکوپ {{scope}} در سامانه اکسیژن هستید، آیا اطمینان دارید؟',
+  cancel: 'انصراف',
+  continue: 'ادامه',
 
   upstream: 'آپ استریم',
   choose_upstream: 'انتخاب آپ‌استریم',
@@ -59,7 +65,7 @@ export default {
   search_by_english_or_persian_name: 'جستجو براساس نام لاتین یا فارسی سرویس',
 
   action_or_method: 'اکشن/متود',
-  protocole: 'پروتوکل',
+  protocol: 'پروتوکل',
   path: 'Path',
   host: 'Host',
   route: 'Route',

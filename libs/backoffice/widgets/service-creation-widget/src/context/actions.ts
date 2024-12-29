@@ -1,6 +1,5 @@
 import type { MessageType, Nullable } from '@oxygen/types';
-import type { WidgetDispatchType } from './types';
-import type { GeneralInfoValuesType, RouteType } from '../types';
+import type { ErrorPayload, WidgetDispatchType, WidgetStateType } from './types';
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
@@ -14,12 +13,20 @@ export function previousStep(dispatch: WidgetDispatchType) {
   dispatch({ type: 'PREVIOUS_STEP' });
 }
 
-export function updateGetInfoStep(dispatch: WidgetDispatchType, payload: GeneralInfoValuesType) {
-  dispatch({ type: 'UPDATE_GENERAL_INFO_STEP', payload });
+export function addInitialStep(dispatch: WidgetDispatchType, payload: WidgetStateType['step']) {
+  dispatch({ type: 'ADD_INITIAL_STEP', payload });
 }
 
-export function updateRouteStep(dispatch: WidgetDispatchType, payload: RouteType) {
-  dispatch({ type: 'UPDATE_ROUTE_STEP', payload });
+export function addServiceName(dispatch: WidgetDispatchType, payload: WidgetStateType['serviceName']) {
+  dispatch({ type: 'ADD_SERVICE_NAME', payload });
+}
+
+export function addStepErrors(dispatch: WidgetDispatchType, payload: ErrorPayload) {
+  dispatch({ type: 'ADD_STEP_ERRORS', payload });
+}
+
+export function goToFirstError(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'GO_TO_FIRST_ERROR' });
 }
 
 export function resetMessageAction(dispatch: WidgetDispatchType) {
