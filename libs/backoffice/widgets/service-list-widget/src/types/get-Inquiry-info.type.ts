@@ -1,9 +1,9 @@
 import { InquiryStatus } from '../utils/consts';
 
-export type InquiryParams = {
+export interface InquiryParams {
   'service-name': string;
-};
-export type InquiryDto = {
+}
+export interface InquiryDto {
   serviceName?: string;
   servicePersianName?: string;
   serviceProgress?: {
@@ -21,10 +21,20 @@ export type InquiryDto = {
     description?: string;
     id?: number;
   };
-};
-export type InquiryInfo = Omit<InquiryDto, 'serviceInquiryStatus'> & {
+}
+export interface InquiryInfo extends Omit<InquiryDto, 'serviceInquiryStatus'> {
   serviceInquiryStatus: {
     code: keyof typeof InquiryStatus;
     title?: string;
   };
-};
+}
+export interface DraftDto {
+  serviceInfoId: number;
+  serviceName: string;
+  serviceProgress: {
+    statusCode: number;
+    statusTitle: string;
+    percent: number;
+    step: 1 | 2 | 3 | 4;
+  };
+}

@@ -116,14 +116,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=ewallet-inquiry`}>{t('detailed')}</S.Details>
       ),
     },
-    {
-      title: '',
-      dataIndex: 'name',
-      key: 'name',
-      align: 'center',
-      width: 70,
-      render: (name, status) => <S.Trash className='icon-trash' onClick={() => deleteService(name, status)} />,
-    },
+    // {
+    //   title: '',
+    //   dataIndex: 'name',
+    //   key: 'name',
+    //   align: 'center',
+    //   width: 70,
+    //   render: (name, status) => <S.Trash className='icon-trash' onClick={() => deleteService(name, status)} />,
+    // },
   ];
 }
 
@@ -185,11 +185,11 @@ export function getMobileColumns(props: Props): any {
             ),
             colon: false,
           },
-          {
-            title: '',
-            value: <S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />,
-            colon: false,
-          },
+          // {
+          //   title: '',
+          //   value: <S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />,
+          //   colon: false,
+          // },
         ];
         return <Table.MobileColumns columns={columns} />;
       },

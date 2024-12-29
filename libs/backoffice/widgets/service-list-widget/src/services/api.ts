@@ -2,7 +2,7 @@ import Mockify from '@oxygen/mockify';
 import { client, portalUrl } from '@oxygen/client';
 
 import { ParamsType } from '../types';
-import { InquiryDto, InquiryParams } from '../types/get-Inquiry-info.type';
+import { DraftDto, InquiryDto, InquiryParams } from '../types/get-Inquiry-info.type';
 const Api = {
   getServicesList: async (params: ParamsType) => {
     const res = Mockify.getServicesList(params);
@@ -10,7 +10,7 @@ const Api = {
   },
 
   getDraftsData: async () => {
-    return Mockify.getServicesDrafts();
+    return client.get<DraftDto[]>(`${portalUrl}/v1/services/draft`);
   },
   getInquiryInfo: async (params: InquiryParams) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
