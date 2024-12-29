@@ -1,7 +1,7 @@
 'use client';
 import { CSSProperties, useState } from 'react';
 
-import { AutoCompleteProps, Input } from 'antd';
+import { AutoCompleteProps } from 'antd';
 import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
@@ -28,7 +28,7 @@ type Props = AutoCompleteProps & {
   onChange: (value: string) => void;
 };
 
-const AdvanceSelector = (props: Props) => {
+export const AdvanceSelector = (props: Props) => {
   const {
     data,
     loading,
@@ -99,5 +99,3 @@ const AdvanceSelector = (props: Props) => {
     </S.Container>
   );
 };
-
-export default AdvanceSelector;
