@@ -47,7 +47,7 @@ export default {
   status_confirm_description: 'درخواست در تاریخ {{statusDate}} تایید شد.',
   status_reject_description: 'درخواست در تاریخ {{statusDate}} رد شد.',
   requests_management: 'مدیریت درخواست‌ها',
-  business_banking_result: 'نتیجه بررسی بانکداری تجاری',
+  commercial_banking_result: 'نتیجه بررسی بانکداری تجاری',
   business_unit_result: 'نتیجه بررسی واحد کسب و کار',
   checking_request: 'در حال بررسی درخواست...',
   contract_date: 'تاریخ انعقاد قرارداد',

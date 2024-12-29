@@ -10,9 +10,9 @@ import RequestedServices from '../requested-services/requested-services';
 import { SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
-import RequestResultBox from '../request-result-box/request-result-box';
 import { useGetSubmissionDetailQuery } from '../../services';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
+import RequestResultBox from '../request-result-box/request-result-box';
 
 import * as S from './details-collapse.style';
 
@@ -37,12 +37,9 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   if (error) return <NoResult isLoading={false} />;
   if (!data) return <Loading spinning={isFetching} />;
 
-  const { submissionInfoDto, organization, commercialExpertDto, businessExpertDto, representativeSet, services } = data;
+  const { submissionInfoDto, organization, representativeSet, services } = data;
 
-  const status =
-    userRole === UserRole.COMMERCIAL_BANKING_ADMIN
-      ? commercialExpertDto?.expertOpinion
-      : businessExpertDto?.expertOpinion;
+  const status = submissionInfoDto?.submissionStatus;
 
   const items: CollapseProps['items'] = [
     {
@@ -88,7 +85,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   return (
     <S.Container>
       <Collapse items={items} />
-      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading />}
+      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={isFetching} />}
     </S.Container>
   );
 };
