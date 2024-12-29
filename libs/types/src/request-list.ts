@@ -1,10 +1,15 @@
+export type SubmissionStatusType = {
+  code: number;
+  title: string;
+};
+
 export type RequestListType = {
   index: number;
-  organization_name: string;
-  client_name: string;
-  status: string;
-  registration_date: string;
-  requested_service_count: string;
-  companyRepresentativeName: string;
+  organizationName: string;
+  clientName: string;
+  submissionStatus: SubmissionStatusType;
+  createDate: string;
+  serviceCount: string;
+  representative: string;
   uploaded: boolean;
 };

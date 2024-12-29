@@ -1,10 +1,10 @@
 import { WidgetActionType, WidgetStateType } from './types';
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, SORT_ORDER } from '../utils/consts';
 
 export const initialStateValue: WidgetStateType = {
-  status: 'all',
+  status: null,
   searchTerm: '',
-  sort: 'newest',
+  sort: SORT_ORDER.ASCENDING,
   pagination: {
     page: INITIAL_PAGE,
     rowsPerPage: INITIAL_ROW_PER_PAGE,

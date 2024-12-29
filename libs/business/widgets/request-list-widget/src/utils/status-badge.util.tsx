@@ -2,38 +2,45 @@ import { InactiveBadge } from '../../../../../ui-kit/src/assets/icons';
 import { TFunction } from 'i18next';
 import { Tag } from '@oxygen/ui-kit';
 import * as S from '../components/data-table/data-table.style';
+import { BUSINESS_STATUS_LIST, BusinessUserRole, COMMERCIAL_STATUS_LIST } from './consts';
 
-export const statusBadgeRenderer = (status: string, clientStatus: string, t: TFunction) => {
-  const isCommercialBanking = clientStatus === 'commercialBanking';
+export const statusBadgeRenderer = (status: { code: number; title: string }, clientStatus: string, t: TFunction) => {
+  const isCommercialBanking = clientStatus === BusinessUserRole.BUSINESS_ADMIN;
 
-  switch (status) {
-    case 'pending':
+  const statusCode = status?.code;
+  const statusTitle = status?.title;
+
+  switch (statusCode) {
+    case BUSINESS_STATUS_LIST.UNDER_REVIEW:
+    case COMMERCIAL_STATUS_LIST.UNDER_REVIEW:
       return (
         <S.StyledContainer>
           {isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
-          <Tag type={'processing'}>{isCommercialBanking ? t('chips.pending') : t('chips.pend_bank')}</Tag>
+          <Tag type={'processing'}>{statusTitle}</Tag>
         </S.StyledContainer>
       );
-    case 'rejected':
+    case BUSINESS_STATUS_LIST.REJECTED:
+    case COMMERCIAL_STATUS_LIST.REJECTED:
       return (
         <S.StyledContainer>
-          <Tag type={'error'}>{t('chips.rejected')}</Tag>
+          <Tag type={'error'}>{statusTitle}</Tag>
         </S.StyledContainer>
       );
-    case 'initial_approval':
+    case BUSINESS_STATUS_LIST.APPROVED:
+    case COMMERCIAL_STATUS_LIST.APPROVED:
       return (
         <S.StyledContainer>
           {!isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
-          <Tag type={'initialApproval'}>{t('chips.initial_approval')}</Tag>
+          <Tag type={'initialApproval'}>{statusTitle}</Tag>
         </S.StyledContainer>
       );
-    case 'final_approval':
-      return (
-        <S.StyledContainer>
-          <Tag type={'FinalApproval'} icon={<i className={'icon-tick-circle-outlined'} />}>
-            {t('chips.final_approval')}
-          </Tag>
-        </S.StyledContainer>
-      );
+    // case SEARCH_STATUS_LIST.FINAL_APPROVAL:
+    //   return (
+    //     <S.StyledContainer>
+    //       <Tag type={'FinalApproval'} icon={<i className={'icon-tick-circle-outlined'} />}>
+    //         {statusTitle}
+    //       </Tag>
+    //     </S.StyledContainer>
+    //   );
   }
 };

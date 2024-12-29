@@ -10,6 +10,7 @@ export const useGetRequestListQuery = (params) => {
   return useQuery({
     queryKey: [RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT, params],
     queryFn: withErrorHandling(() => Api.getRequestList(params), dispatch),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
+    networkMode: 'offlineFirst',
   });
 };

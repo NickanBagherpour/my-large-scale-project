@@ -4,7 +4,6 @@ import type { TablePaginationConfig } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { useGetRequestListQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -12,7 +11,9 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
-  clientStatus: string;
+  userRole: string;
+  requestListFetching: boolean;
+  requestList: any;
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
@@ -20,11 +21,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const { message, pagination, ...rest } = useAppState();
   const [t] = useTr();
 
-  const { clientStatus } = props;
-
-  const requestListParams = { ...rest, pagination };
-
-  const { data: requestList, isFetching: requestListFetching } = useGetRequestListQuery(requestListParams);
+  const { userRole, requestList, requestListFetching } = props;
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -36,7 +33,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     }
   };
 
-  const dataTableParams = { t, pagination, clientStatus };
+  const dataTableParams = { t, pagination, userRole };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
 
@@ -45,8 +42,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       <S.Table
         loading={requestListFetching}
         current={pagination.page}
-        total={requestList?.total}
-        dataSource={requestList?.list}
+        total={requestList?.page?.totalElements}
+        dataSource={requestList?.content}
         pagination={{ pageSize: pagination.rowsPerPage }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}

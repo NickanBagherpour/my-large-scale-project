@@ -1,6 +1,6 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import type { Pagination, Service } from '@oxygen/types';
-import { ROUTES } from '@oxygen/utils';
+import { Pagination, RequestListType } from '@oxygen/types';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
 import { statusBadgeRenderer } from './status-badge.util';
@@ -8,14 +8,14 @@ import { statusBadgeRenderer } from './status-badge.util';
 type Props = {
   t: TFunction;
   pagination: Pagination;
-  clientStatus: string;
+  userRole: string;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
   const {
     t,
     pagination: { page, rowsPerPage },
-    clientStatus,
+    userRole,
   } = props;
 
   return [
@@ -30,34 +30,51 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('table.organization_name'),
-      dataIndex: 'organization_name',
+      dataIndex: 'organizationName',
       align: 'center',
+      render: (_val, record) => {
+        return getValueOrDash(record?.organizationName);
+      },
     },
     {
       title: t('table.client_name'),
-      dataIndex: 'client_name',
+      dataIndex: 'clientName',
       align: 'center',
+      render: (_val, record) => {
+        return getValueOrDash(record?.clientName);
+      },
     },
     {
       title: t('table.status'),
-      dataIndex: 'status',
+      dataIndex: 'submissionStatus',
       align: 'center',
-      render: (item) => statusBadgeRenderer(item, clientStatus, t),
+      render: (_val, record) => {
+        return statusBadgeRenderer(record?.submissionStatus, userRole, t);
+      },
     },
     {
       title: t('table.registration_date'),
-      dataIndex: 'registration_date',
+      dataIndex: 'createDate',
       align: 'center',
+      render: (_val, record) => {
+        return getValueOrDash(record?.createDate);
+      },
     },
     {
       title: t('table.requested_service_count'),
-      dataIndex: 'requested_service_count',
+      dataIndex: 'serviceCount',
       align: 'center',
+      render: (_val, record) => {
+        return getValueOrDash(record?.serviceCount);
+      },
     },
     {
       title: t('table.companyRepresentativeName'),
-      dataIndex: 'companyRepresentativeName',
+      dataIndex: 'representative',
       align: 'center',
+      render: (_val, record) => {
+        return getValueOrDash(record?.representative);
+      },
     },
     {
       width: '11.8rem',
@@ -76,14 +93,14 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t, clientStatus } = props;
+  const { t, userRole } = props;
   return [
     {
       title: '',
       key: 'mobile-columns',
       render: ({
         organization_name,
-        client_name,
+        clientName,
         status,
         registration_date,
         requested_service_count,
@@ -92,8 +109,8 @@ export function getMobileColumns(props: Props) {
       }) => {
         const data = [
           { title: t('table.organization_name'), value: organization_name },
-          { title: t('table.client_name'), value: client_name },
-          { title: t('table.status'), value: statusBadgeRenderer(status, clientStatus, t) },
+          { title: t('table.clientName'), value: clientName },
+          { title: t('table.status'), value: statusBadgeRenderer(status, userRole, t) },
           { title: t('table.registration_date'), value: registration_date },
           { title: t('table.requested_service_count'), value: requested_service_count },
           { title: t('table.companyRepresentativeName'), value: companyRepresentativeName },
