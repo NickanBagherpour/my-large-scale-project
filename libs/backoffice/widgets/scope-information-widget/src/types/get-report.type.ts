@@ -1,3 +1,4 @@
+import { Nullable } from '@oxygen/types';
 import { FiltersType, PaginationType } from '../context/types';
 
 export type ReportResponseType = {
@@ -27,4 +28,10 @@ export type PaginationResultType = {
 
 export type FetchParamsType = {
   filters?: FiltersType;
+};
+
+export type Service = {
+  name: Nullable<string>;
+  description: Nullable<string>;
+  id: Nullable<number>;
 };

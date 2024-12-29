@@ -5,11 +5,6 @@ import { ENV_CONSTANTS } from '@oxygen/utils';
 const Api = {
   getMenu: async () => {
     const response = await Mockify.getCustomerMenu();
-    /*  if (ENV_CONSTANTS.IS_DEV) {
-      response = await Mockify.getCustomerMenu();
-    } else {
-      // response = await client.get(`${portalUrl}/profile/menu`);
-    }*/
     return response.data;
   },
   getUserPhoto: async () => {

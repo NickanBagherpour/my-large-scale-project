@@ -22,8 +22,8 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const [t] = useTr();
 
   const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
-    page: 1,
-    rowsPerPage: 5,
+    page: 0,
+    pageSize: 5,
     id: id,
   });
   const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
