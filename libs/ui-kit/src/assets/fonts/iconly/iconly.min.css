@@ -6,10 +6,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url(./iconly.eot?1734959343648);
-  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1734959343648) format('woff2'),
-    url(./iconly.woff?1734959343648) format('woff'), url(./iconly.ttf?1734959343648) format('truetype'),
-    url(./iconly.svg?1734959343648#Iconly) format('svg');
+  src: url(./iconly.eot?1735208522223);
+  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1735208522223) format('woff2'),
+    url(./iconly.woff?1735208522223) format('woff'), url(./iconly.ttf?1735208522223) format('truetype'),
+    url(./iconly.svg?1735208522223#Iconly) format('svg');
 }
 [class*=' icon-'],
 [class='icon'],
@@ -197,4 +197,7 @@
 }
 .icon-tick-circle-outlined:before {
   content: '\e039';
+}
+.icon-home-empty:before {
+  content: '\e03a';
 }

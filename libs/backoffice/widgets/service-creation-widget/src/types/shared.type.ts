@@ -3,6 +3,12 @@ export type Pagination = {
   size: number;
 };
 
+export type ParamsWithPagaination<T extends object> = T & {
+  page: number;
+  size: number;
+  sort: string;
+};
+
 export type PaginatedData<T> = {
   content: T[];
   pageable: {

@@ -1,5 +1,6 @@
 import { LocalStorageKey } from '@oxygen/types';
 import { storage } from './storage';
+import axios, { type AxiosError } from 'axios';
 
 export const RE_DIGIT = new RegExp(/^\d+$/);
 
@@ -176,7 +177,6 @@ export function setCookie(name: string, value: string, minutes?: number): void {
 
 export const getUserFullNameFromStorage = (): string | null => {
   if (typeof window !== 'undefined') {
-
     const userDataString = storage.getItem(LocalStorageKey.USER);
     const userData = userDataString ? JSON.parse(userDataString as string) : null;
 
@@ -258,4 +258,8 @@ export function normalizePhoneNumber(phone) {
   } else {
     return '-';
   }
+}
+
+export function isAxiosError(error: any): error is AxiosError {
+  return axios.isAxiosError(error);
 }

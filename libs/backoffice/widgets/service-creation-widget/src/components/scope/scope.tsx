@@ -1,23 +1,29 @@
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
-import { useAppDispatch, previousStep, nextStep } from '../../context';
+import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useEffect, useState } from 'react';
 import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetScope } from '../../services';
+import { useGetScope, usePostAssignScopeToService } from '../../services';
+import { useToggle } from '@oxygen/hooks';
+import ConfirmModal from '../cofirm-modal/confirm-modal';
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
+  const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
+  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const { serviceName } = useAppState();
+  const isInSSO = scope?.isServiceInSso;
 
   useEffect(() => {
-    if (scope?.data) setSelectedScope(scope.data);
+    if (scope) setSelectedScope(scope);
   }, [scope]);
 
   const chooseScope = (scope: ScopeType) => {
@@ -30,6 +36,17 @@ export default function Scope() {
 
   const onReturn = () => {
     previousStep(dispatch);
+  };
+
+  const assignToServiceAndProceed = () => {
+    if (selectedScope && serviceName) {
+      assignScopeToService({ scopeName: selectedScope.name, serviceName }, { onSuccess: () => nextStep(dispatch) });
+    }
+  };
+
+  const onRegister = () => {
+    if (isInSSO) assignToServiceAndProceed();
+    else toggleConfirmModal();
   };
 
   const desktopColumns: ColumnsType<ScopeType> = [
@@ -54,7 +71,7 @@ export default function Scope() {
       key: 'remove',
       align: 'center',
       render: () => (
-        <Button variant='link' color='error' onClick={removeSelectedScope}>
+        <Button variant='link' color='error' onClick={removeSelectedScope} disabled={isInSSO}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -75,7 +92,13 @@ export default function Scope() {
               minHeight={'40px'}
               title={t('remove')}
               value={
-                <Button className='item__btn' variant='link' color='error' onClick={removeSelectedScope}>
+                <Button
+                  className='item__btn'
+                  variant='link'
+                  color='error'
+                  onClick={removeSelectedScope}
+                  disabled={isInSSO}
+                >
                   <S.TrashIcon className='icon-trash' />
                 </Button>
               }
@@ -87,25 +110,35 @@ export default function Scope() {
   ];
 
   return (
-    <Container>
-      <S.Label>
-        <S.Title>{t('choose_scope')}</S.Title>
-        <ScopeSelector isLoading={isFetchingScope} onSelect={chooseScope} disabled={!!selectedScope} />
-      </S.Label>
+    <>
+      <Container>
+        <S.Label>
+          <S.Title>{t('choose_scope')}</S.Title>
+          <ScopeSelector isLoading={isFetchingScope} onSelect={chooseScope} disabled={!!selectedScope} />
+        </S.Label>
 
-      <S.Table
-        columns={desktopColumns}
-        mobileColumns={mobileColumns}
-        dataSource={selectedScope ? [selectedScope] : []}
-        rowKey={(row) => row.idx}
-        pagination={false}
-      />
+        <S.Table
+          pagination={false}
+          columns={desktopColumns}
+          rowKey={(row: ScopeType) => row.name}
+          mobileColumns={mobileColumns}
+          dataSource={selectedScope ? [selectedScope] : []}
+          loading={isFetchingScope}
+        />
 
-      <Footer
-        registerButtonProps={{ disabled: !selectedScope }}
-        onRegister={() => nextStep(dispatch)}
-        onReturn={onReturn}
+        <Footer
+          registerButtonProps={{ disabled: !selectedScope, loading: isAssigningScopeToService }}
+          onRegister={onRegister}
+          onReturn={onReturn}
+        />
+      </Container>
+
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        toggle={toggleConfirmModal}
+        onConfirm={assignToServiceAndProceed}
+        fieldName={t('scope_name')}
       />
-    </Container>
+    </>
   );
 }
