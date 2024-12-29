@@ -36,6 +36,7 @@ export default {
       commercial_banking_admin: 'واحد بانکداری تجاری',
       business_admin: 'واحد کسب و کار',
     },
+    unknown: 'نامشخص',
   },
 
   app: {

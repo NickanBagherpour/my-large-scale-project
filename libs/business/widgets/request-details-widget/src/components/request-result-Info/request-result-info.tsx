@@ -5,7 +5,7 @@ import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import { useAppState } from '../../context';
-import { RequestStatus, UserRole } from '../../types';
+import { RequestStatus, SubmissionDetailType, UserRole } from '../../types';
 import { useGetRequestResultQuery } from '../../services/get-request-result';
 
 import * as S from './request-result-info.style';
@@ -13,10 +13,11 @@ import * as S from './request-result-info.style';
 type Props = {
   resultType: number;
   section: UserRole;
+  result: SubmissionDetailType['commercialExpertDto'] | SubmissionDetailType['businessExpertDto'];
 };
 
 const RequestResultInfo: React.FC<Props> = (props: Props) => {
-  const { resultType, section } = props;
+  const { resultType, section, result } = props;
 
   const state = useAppState();
   const { userRole, submissionId } = state;

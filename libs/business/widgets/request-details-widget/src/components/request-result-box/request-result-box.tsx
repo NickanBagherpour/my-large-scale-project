@@ -4,9 +4,9 @@ import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
 
 import { useAppState } from '../../context';
-import { UserRole, RequestStatus, SubmissionDetailType } from '../../types';
 import ConfirmModal from '../confirm-modal/confirm-modal';
 import RequestResultInfo from '../request-result-Info/request-result-info';
+import { UserRole, RequestStatus, SubmissionDetailType } from '../../types';
 
 import * as S from '../request-result-box/request-result-box.style';
 
@@ -67,10 +67,20 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
         {showCommercialResult && (
-          <RequestResultInfo section={UserRole.COMMERCIAL_BANKING_ADMIN} resultType={commercialResultType} />
+          <RequestResultInfo
+            section={UserRole.COMMERCIAL_BANKING_ADMIN}
+            resultType={commercialResultType}
+            result={commercialExpertDto}
+          />
         )}
         <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>;
-        {showBusinessResult && <RequestResultInfo section={UserRole.BUSINESS_ADMIN} resultType={businessResultType} />}
+        {showBusinessResult && (
+          <RequestResultInfo
+            section={UserRole.BUSINESS_ADMIN}
+            resultType={businessResultType}
+            result={businessExpertDto}
+          />
+        )}
         {businessResultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && getConfirmButtons()}
       </S.StyledContainer>
     );
@@ -83,7 +93,11 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
       <S.StyledContainer>
         <S.StyledTitle>{t('business_banking_result')}</S.StyledTitle>
         {resultType !== RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && (
-          <RequestResultInfo section={UserRole.COMMERCIAL_BANKING_ADMIN} resultType={resultType} />
+          <RequestResultInfo
+            section={UserRole.COMMERCIAL_BANKING_ADMIN}
+            resultType={resultType}
+            result={commercialExpertDto}
+          />
         )}
         {resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && (
           <>
@@ -91,6 +105,7 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
             <S.StyledBox>
               <Icons.IconTimer />
               {t('checking_request')}
+              {/*//TODO inam az expertDto baayad begiram?*/}
             </S.StyledBox>
           </>
         )}
@@ -113,14 +128,16 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
   return (
     <>
       {renderContent()}
-      <ConfirmModal
-        setOpenModal={setOpenModal}
-        openModal={openModal}
-        isConfirm={isConfirm}
-        organizationName={organizationName}
-        clientName={clientName}
-        submissionId={submissionId}
-      />
+      {isConfirm && (
+        <ConfirmModal
+          setOpenModal={setOpenModal}
+          openModal={openModal}
+          isConfirm={isConfirm}
+          organizationName={organizationName}
+          clientName={clientName}
+          submissionId={submissionId}
+        />
+      )}
     </>
   );
 };
