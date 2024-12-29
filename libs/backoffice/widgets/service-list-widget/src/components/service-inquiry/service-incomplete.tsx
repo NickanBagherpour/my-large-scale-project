@@ -3,12 +3,12 @@ import { useTr } from '@oxygen/translation';
 import { Button, Progress } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import { InquiryInfo } from '../../types/get-Inquiry-info.type';
-import * as S from './complete-service.style';
+import * as S from './service-incomplete.style';
 
 type Props = {
   data?: InquiryInfo;
 };
-const CompleteService: React.FC<Props> = ({ data }) => {
+const ServiceIncomplete: React.FC<Props> = ({ data }) => {
   const [t] = useTr();
   const progress = data?.serviceProgress?.percent || 0;
   return (
@@ -34,4 +34,4 @@ const CompleteService: React.FC<Props> = ({ data }) => {
     </Flex>
   );
 };
-export default CompleteService;
+export default ServiceIncomplete;

@@ -1,3 +1,5 @@
+import { InquiryStatus } from '../utils/consts';
+
 export type InquiryParams = {
   'service-name': string;
 };
@@ -22,12 +24,7 @@ export type InquiryDto = {
 };
 export type InquiryInfo = Omit<InquiryDto, 'serviceInquiryStatus'> & {
   serviceInquiryStatus: {
-    code: InquiryStatus;
+    code: keyof typeof InquiryStatus;
     title?: string;
   };
 };
-export type InquiryStatus =
-  | 'SERVICE_ALREADY_EXISTS'
-  | 'SERVICE_IS_DRAFT'
-  | 'SERVICE_NOT_FOUND'
-  | 'SERVICE_EXISTS_IN_BAAM';

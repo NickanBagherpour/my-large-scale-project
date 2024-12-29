@@ -3,9 +3,9 @@ import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
-import * as S from './service-creation-allowed.style';
+import * as S from './service-not-found.style';
 
-const ServiceCreationAllowed: React.FC = () => {
+const ServiceNotFound: React.FC = () => {
   const [t] = useTr();
   const [loading, setLoading] = useState(false);
   return (
@@ -28,4 +28,4 @@ const ServiceCreationAllowed: React.FC = () => {
     </Flex>
   );
 };
-export default ServiceCreationAllowed;
+export default ServiceNotFound;

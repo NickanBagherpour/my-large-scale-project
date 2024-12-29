@@ -39,9 +39,9 @@ export default function Filters() {
           />
 
           <S.Buttons>
-            <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
+            {/* <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
               {t('upload_service')}
-            </S.Button>
+            </S.Button> */}
             <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
               {t('create_new_service')}
             </S.Button>
