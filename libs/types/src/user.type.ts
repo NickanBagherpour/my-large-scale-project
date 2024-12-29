@@ -58,10 +58,8 @@ export interface JwtHeader {
 export interface JwtType {
   header: JwtHeader;
 
-  payload: JwtPayload;  
+  payload: JwtPayload;
 }
-
-
 
 export enum BusinessUserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',

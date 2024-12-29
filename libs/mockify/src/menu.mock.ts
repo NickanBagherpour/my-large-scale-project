@@ -21,7 +21,6 @@ export const getBusinessMenu = async (): Promise<any> => {
       };
 
       resolve(response);
-
     }, 400);
   });
 };

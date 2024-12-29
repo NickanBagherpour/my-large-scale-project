@@ -109,6 +109,9 @@
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
             ],
+            "@oxygen/customer/widgets/request-management-widget": [
+                "libs/customer/widgets/request-management-widget/src/index.ts"
+            ],
             "@oxygen/customer/widgets/request-registration-widget": [
                 "libs/customer/widgets/request-registration-widget/src/index.ts"
             ],
