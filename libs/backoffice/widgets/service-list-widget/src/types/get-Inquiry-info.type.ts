@@ -1,7 +1,9 @@
-export type InquiryParams = {
+import { InquiryStatus } from '../utils/consts';
+
+export interface InquiryParams {
   'service-name': string;
-};
-export type InquiryDto = {
+}
+export interface InquiryDto {
   serviceName?: string;
   servicePersianName?: string;
   serviceProgress?: {
@@ -19,15 +21,20 @@ export type InquiryDto = {
     description?: string;
     id?: number;
   };
-};
-export type InquiryInfo = Omit<InquiryDto, 'serviceInquiryStatus'> & {
+}
+export interface InquiryInfo extends Omit<InquiryDto, 'serviceInquiryStatus'> {
   serviceInquiryStatus: {
-    code: InquiryStatus;
+    code: keyof typeof InquiryStatus;
     title?: string;
   };
-};
-export type InquiryStatus =
-  | 'SERVICE_ALREADY_EXISTS'
-  | 'SERVICE_IS_DRAFT'
-  | 'SERVICE_NOT_FOUND'
-  | 'SERVICE_EXISTS_IN_BAAM';
+}
+export interface DraftDto {
+  serviceInfoId: number;
+  serviceName: string;
+  serviceProgress: {
+    statusCode: number;
+    statusTitle: string;
+    percent: number;
+    step: 1 | 2 | 3 | 4;
+  };
+}
