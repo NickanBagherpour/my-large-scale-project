@@ -33,9 +33,9 @@ const client = axios.create({
 // Add a request interceptor
 
 client.interceptors.request.use(async (config) => {
-  const isAuthRelated = config.url?.startsWith('api/auth');
+  const isAuthRelated = config.url?.startsWith('api/auth') ?? false;
 
-  const sessionId = decrypt(isAuthRelated ? getCookie(CookieKey.SESSION_ID) : getCookie(CookieKey.S_SESSION_ID));
+  const sessionId = getRelatedSessionIdWithDecryption(isAuthRelated);
 
   if (sessionId) {
     // config.headers['Authorization'] = `Bearer ${await decrypt(sessionId)}`;
@@ -81,3 +81,20 @@ client.interceptors.response.use(
 );
 
 export default client;
+
+function getRelatedSessionIdWithDecryption(isAuthRelated: boolean): string | null {
+  let sessionId: string | null = null;
+
+  if (isAuthRelated) {
+    sessionId = getCookie(CookieKey.SESSION_ID);
+  } else {
+    const signedSessionId = getCookie(CookieKey.S_SESSION_ID);
+    if (signedSessionId && signedSessionId.trim().length > 0) {
+      sessionId = signedSessionId;
+    } else {
+      sessionId = getCookie(CookieKey.SESSION_ID);
+    }
+  }
+
+  return decrypt(sessionId);
+}
