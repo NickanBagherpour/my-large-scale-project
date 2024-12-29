@@ -26,6 +26,16 @@ export type FirstStepType = {
   last_registration_address?: string;
 };
 
+export type SecondStepType = {
+  persian_name?: string;
+  mobile_number?: string;
+  phone_number?: string;
+  technical_persian_name?: string;
+  technical_mobile_number?: string;
+  technical_Phone_number?: string;
+  clientKey?: string;
+};
+
 export type RequestMode = 'selectOrganization' | 'registerOrganization';
 
 export type WidgetStateType = {
@@ -33,11 +43,13 @@ export type WidgetStateType = {
   sort: 'newest' | 'oldest';
   status: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   page: number;
+  size: number;
   requestMode: RequestMode;
   organizationId: string;
   submissionId: string;
   firstStep: FirstStepType;
-  secondStep: {
+  secondStep: SecondStepType;
+  thirdStep: {
     table: FiltersType;
   };
   table: {
@@ -58,7 +70,15 @@ export type WidgetActionType =
       payload: Partial<FiltersType>;
     }
   | {
-      type: 'UPDATE_SECOND_STEP_TABLE';
+      type: 'UPDATE_SECOND_STEP';
+      payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_THIRD_STEP_TABLE';
+      payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE';
       payload: Partial<FiltersType>;
     }
   | {

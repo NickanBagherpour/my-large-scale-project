@@ -5,7 +5,7 @@ import { decrypt } from '@oxygen/utils';
 export async function GET(req: Request) {
   const sessionTicket = decrypt(cookies().get(CookieKey.SESSION_TICKET)?.value);
   const token = decrypt(cookies().get(CookieKey.SESSION_ID)?.value);
-  const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/session/signout?sessionTicket=${sessionTicket}`;
+  const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/signout?sessionTicket=${sessionTicket}`;
 
   try {
     const response = await fetch(url, {
