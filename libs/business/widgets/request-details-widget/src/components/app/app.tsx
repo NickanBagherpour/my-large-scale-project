@@ -23,7 +23,7 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const { user } = useAuth();
-  const userRole: Nullable<string> = user?.userInfo?.role;
+  const userRole: Nullable<string> = user?.role;
 
   const { message } = state;
 
@@ -53,7 +53,7 @@ const App: React.FC<AppProps> = (props) => {
           resetMessageAction(dispatch);
         }}
       />
-      {submissionId ? <DetailsCollapse /> : <NoResult isLoading={false} />}
+      {submissionId && userRole ? <DetailsCollapse /> : <NoResult isLoading={false} />}
     </S.AppContainer>
   );
 };

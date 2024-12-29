@@ -30,16 +30,19 @@ type Props = {
   submissionId: SubmissionId;
   clientName: string;
   organizationName: Nullable<string>;
-  isConfirm?: boolean;
+  isConfirm: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
 };
 const ConfirmModal: React.FC<Props> = (props) => {
   const { openModal, setOpenModal, submissionId, clientName, organizationName, isConfirm } = props;
   const state = useAppState();
+
   const [t] = useTr();
   const theme = useTheme();
+
   const [form] = Form.useForm<RequestConfirmType>();
   const rule = createSchemaFieldRule(requestConfirmType(t));
+
   const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 

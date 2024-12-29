@@ -41,8 +41,8 @@ const DetailsCollapse: React.FC<Props> = (props) => {
 
   const status =
     userRole === UserRole.COMMERCIAL_BANKING_ADMIN
-      ? commercialExpertDto.expertOpinion
-      : businessExpertDto.expertOpinion;
+      ? commercialExpertDto?.expertOpinion
+      : businessExpertDto?.expertOpinion;
 
   const items: CollapseProps['items'] = [
     {
@@ -68,20 +68,19 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
     {
       key: '4',
-      label:
-        userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? (
-          t('requested_services')
-        ) : (
-          <S.TitleWrapper>
-            {t('requested_services')}
+      label: (
+        <S.TitleWrapper>
+          {t('requested_services')}
+          {userRole !== UserRole.COMMERCIAL_BANKING_ADMIN && (
             <S.StyledButton
               type='primary'
               style={{ margin: 0 }}
-              icon={<i className={'icon-edit'} />}
+              icon={<i className='icon-edit' />}
               href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
             />
-          </S.TitleWrapper>
-        ),
+          )}
+        </S.TitleWrapper>
+      ),
       children: <RequestedServices data={services} isLoading={isFetching} />,
     },
   ];
