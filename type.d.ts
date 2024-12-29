@@ -18,12 +18,13 @@ declare global {
       NEXT_PUBLIC_TOKEN: string;
       API_BASE_URL: string;
       AUTH_SECRET: string;
-      NEXT_PUBLIC_SSO_URL: string;
-      NEXT_PUBLIC_SSO_REDIRECT_URL: string;
+      SSO_URL: string;
+      SSO_REDIRECT_URL: string;
       // NEXT_PUBLIC_SSO_TOKEN_URL: string;
-      NEXT_PUBLIC_SSO_CLIENT_KEY: string;
-      NEXT_PUBLIC_SSO_CLIENT_SECRET: string;
-      NEXT_PUBLIC_SSO_SCOPE: string;
+      SSO_CLIENT_KEY: string;
+      SSO_CLIENT_SECRET: string;
+      SSO_SCOPE: string;
+      JWT_SIGNITURE_SECRET: string;
       NEXT_PUBLIC_IS_DEMO: string;
     }
   }
