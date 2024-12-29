@@ -1,5 +1,5 @@
-import { NextResponse,NextRequest } from 'next/server';
-import type {  } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import type {} from 'next/server';
 import { headers } from 'next/headers';
 
 import { decrypt, ROUTES } from '@oxygen/utils';
@@ -17,13 +17,10 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 
 // Function to call the custom /api/auth/validate route
 async function validateToken(token: string | undefined): Promise<boolean> {
+  const host = headers().get('host');
+  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
+  const baseUrl = `${protocol}://${host}`;
 
-    const host = headers().get('host');
-    const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
-    const baseUrl = `${protocol}://${host}`;
-
-
-    
   if (!token) {
     return false; // Token is missing, consider it invalid
   }
@@ -38,7 +35,6 @@ async function validateToken(token: string | undefined): Promise<boolean> {
     });
 
     const result = await response.json();
-
 
     // Return true if token is valid, false otherwise
     return result.success === true;

@@ -18,7 +18,6 @@ export interface UserToken {
 
 export type UserSession = UserToken; //change interface to type becuse lint error
 
-
 /**
  * Interface representing the payload of a JWT.
  */
@@ -59,12 +58,10 @@ export interface JwtHeader {
 export interface JwtType {
   header: JwtHeader;
 
-  payload: JwtPayload;  
+  payload: JwtPayload;
 }
-
-
 
 export enum BusinessUserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
   BUSINESS_ADMIN = 'business-admin',
-};
+}

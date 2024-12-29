@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import Api from './api';
-import { useSearchParams } from 'next/navigation';
-import { useIs404 } from '../utils/use-is-404';
-import { RQKEYS } from '@oxygen/utils';
+import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { useAppDispatch, useAppState } from '../context';
 
 export const useGetScope = () => {
-  const serviceName = useSearchParams().get('service-name');
-  const { error, ...rest } = useQuery({
+  const { serviceName } = useAppState();
+  const dispatch = useAppDispatch();
+
+  return useQuery({
     queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
     enabled: !!serviceName,
-    queryFn: () => Api.getScope(serviceName!),
+    queryFn: withErrorHandling(() => Api.getScope(serviceName), dispatch, { ignore404Errors: true }),
   });
-  const is404Error = useIs404(error);
-  return { ...rest, error, is404Error };
 };

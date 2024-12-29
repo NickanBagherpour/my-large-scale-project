@@ -11,6 +11,7 @@ import { useDebouncedValue } from '@oxygen/hooks';
 import * as S from './scope-selector.style';
 import { useGetScopes } from '../../services';
 import { Scope } from '../../types';
+import { SCOPE_PAGE_SIZE } from '../../utils/consts';
 
 type Props = {
   className?: string;
@@ -31,6 +32,9 @@ const ScopeSelector = (props: Props) => {
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
   const { data, isFetching } = useGetScopes({
     'scope-name': debouncedSearchTerm.trim(),
+    page: 0,
+    size: SCOPE_PAGE_SIZE,
+    sort: '',
   });
 
   return (
@@ -42,7 +46,7 @@ const ScopeSelector = (props: Props) => {
       className={className}
       style={style}
       popupClassName={'popup'}
-      options={data?.map((item) => ({ value: item.name, item }))}
+      options={data?.content.map((item) => ({ value: item.name, item }))}
       notFoundContent={t('message.empty')}
       maxLength={MAX_LENGTH}
       allowClear
