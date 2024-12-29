@@ -1,46 +1,43 @@
 import styled from 'styled-components';
-import { looperGroup } from '../../assets';
-import { respondTo } from '@oxygen/utils';
+import { looperGroup, looper } from '../../assets';
+import { cssVar, respondTo } from '@oxygen/utils';
 import { Button as UiKitButton } from '@oxygen/ui-kit';
 
 export const Container = styled.div`
   border-radius: 1.8rem;
   padding: 3rem 4rem;
   border: ${(p) => `1px solid ${p.theme.border._300}`};
-  text-decoration: none;
+
   transition: all 200ms;
   overflow: hidden;
-  display: block;
-  isolation: isolate;
   background-image: url('${looperGroup}');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   /*! @noflip */
-  background-position: left bottom;
-
-  &&& {
-    /* overridding ant buttons styles */
-    border: 1px solid;
-    border-color: ${(p) => p.theme.border._300};
-    background-color: ${(p) => p.theme.background.main};
-    filter: none;
-    height: fit-content;
-
-    &:hover {
-      /* border-color: ${(p) => p.theme.primary._400}; */
-      box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-      opacity: 1;
-    }
-  }
+  background-position: right bottom;
 `;
 
 export const Button = styled(UiKitButton)`
   width: 100%;
 `;
-export const Discription = styled.div`
-  width: 100%;
-  background-color: red;
+export const Discription = styled.div<{ color?: 'warning' | 'error' | 'success' | 'default' }>`
+  margin-bottom: 3rem;
+
+  span {
+    color: inherit;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  color: ${(p) =>
+    ({
+      warning: p.theme.warning.main,
+      error: p.theme.error.main,
+      success: p.theme.success.main,
+      default: p.theme.text.tertiary,
+    }[p.color || 'default'] || 'black')};
 `;
+
 export const Status = styled.div`
   width: 100%;
   background-color: green;
