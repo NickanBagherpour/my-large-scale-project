@@ -1,10 +1,4 @@
 import { createQueryKeys } from '../create-query-keys';
 
 const prefix = 'REQUEST_DETAILS';
-export const KEYS = createQueryKeys(prefix, [
-  'GET_REQUEST_INFO',
-  'GET_REQUESTED_SERVICES',
-  'GET_REQUEST_RESULT',
-  'GET_LIST',
-  'SEARCH',
-]);
+export const KEYS = createQueryKeys(prefix, ['GET_REQUEST_DETAIL']);

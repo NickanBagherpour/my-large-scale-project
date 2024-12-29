@@ -1,24 +1,5 @@
-import { FiltersType, PaginationType } from '../context/types';
+import { PaginationType } from '../context/types';
 import { Nullable } from '@oxygen/types';
-
-export type ReportResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
-
-export type FetchParamsType = {
-  filters?: FiltersType;
-  pagination: PaginationType;
-};
-
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
 
 export type OperationStatusType = {
   title: string;
@@ -62,10 +43,6 @@ export enum RequestStatus {
   APPROVED_BY_BUSINESS_UNIT,
 }
 
-export type RequestConfirm = {
-  description: string;
-};
-
 export enum UserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
   BUSINESS_ADMIN = 'business-admin',
@@ -75,6 +52,9 @@ export enum ExpertOpinionStatus {
   CONFIRMED = 1,
   REJECTED,
 }
+export type RequestConfirm = {
+  description: string;
+};
 
 interface SubmissionInfoDto {
   requestId: number;
@@ -82,6 +62,7 @@ interface SubmissionInfoDto {
   organizationName: Nullable<string>;
   createDate: string;
   representativeName: string;
+  submissionStatus: CodeTitle;
 }
 
 interface Organization {
