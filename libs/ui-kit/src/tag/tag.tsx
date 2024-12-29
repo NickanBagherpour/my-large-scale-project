@@ -4,7 +4,7 @@ import { TagProps } from 'antd';
 
 import * as S from './tag.style';
 
-export type TypeValueType = 'default' | 'FinalApproval' | 'initialApproval' | 'processing' | 'error' | 'warning';
+export type TypeValueType = 'default' | 'success' | 'processing' | 'error' | 'warning';
 export type TagType = TagProps & {
   children: string;
   type?: TypeValueType;

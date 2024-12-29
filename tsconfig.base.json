@@ -94,6 +94,9 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/request-details-widget": [
+                "libs/business/widgets/request-details-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/request-list-widget": [
                 "libs/business/widgets/request-list-widget/src/index.ts"
             ],

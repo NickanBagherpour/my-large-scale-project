@@ -65,7 +65,12 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       render: (item) => {
         const colorButton = item.uploaded ? 'secondary' : 'primary';
         return (
-          <Button variant={'text'} className={colorButton} href={ROUTES.BUSINESS.REQUEST_ID} color={colorButton}>
+          <Button
+            variant={'text'}
+            className={colorButton}
+            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
+            color={colorButton}
+          >
             <i className={'icon-document'} />
             {t('table.details')}
           </Button>
@@ -102,7 +107,7 @@ export function getMobileColumns(props: Props) {
             value: (
               <Button
                 className={uploaded ? 'secondary' : 'primary'}
-                href={ROUTES.BUSINESS.REQUEST_ID}
+                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
                 variant={'text'}
                 color={uploaded ? 'secondary' : 'primary'}
               >
