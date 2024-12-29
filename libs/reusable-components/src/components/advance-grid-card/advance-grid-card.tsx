@@ -114,7 +114,12 @@ export const AdvanceGridCard = (props: AdvanceGridCardPropsType) => {
   return (
     <S.Container>
       <S.Divider>
-        <S.Details>alireza</S.Details>
+        <S.Details>
+          <S.Title>{data.clientName}</S.Title>
+          <S.SubTitle>{data.aggregatorName}</S.SubTitle>
+          <S.Date>{data.createDate}</S.Date>
+          <S.ServiceCount>{`${data.serviceCount}${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
+        </S.Details>
         <S.Status>ghaffar</S.Status>
       </S.Divider>
       <S.Discription color={textColor}>

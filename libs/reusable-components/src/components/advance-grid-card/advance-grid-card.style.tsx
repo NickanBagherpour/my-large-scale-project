@@ -22,6 +22,7 @@ export const Button = styled(UiKitButton)`
 `;
 export const Discription = styled.div<{ color?: 'warning' | 'error' | 'success' | 'default' }>`
   margin-bottom: 3rem;
+  padding: 0 1.2rem;
 
   span {
     color: inherit;
@@ -44,14 +45,46 @@ export const Status = styled.div`
 `;
 export const Details = styled.div`
   width: 100%;
-  background-color: blue;
+  align-items: flex-end;
 `;
 export const Divider = styled.div`
   width: 100%;
-  background-color: #720563;
   display: flex;
   flex-direction: row;
   ${respondTo.down('sm')} {
     flex-direction: column;
   }
+`;
+
+export const Title = styled.p`
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.5rem;
+  margin: 0;
+`;
+export const SubTitle = styled.p`
+  color: ${(p) => p.theme.text.tertiary};
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.2rem;
+  min-height: 2.2rem;
+  margin: 0.6rem 0 2rem 0;
+`;
+export const Date = styled.p`
+  color: ${(p) => p.theme.text.tertiary};
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.8rem;
+  margin: 0;
+`;
+export const ServiceCount = styled.p`
+  color: ${(p) => p.theme.text.tertiary};
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.8rem;
+  margin: 1.2rem 0;
 `;
