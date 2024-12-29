@@ -14,6 +14,8 @@ export const useVerifyLoginMutation = () => {
     mutationFn: (params: any) => Api.postVerifyLoginOTP(params),
     onSuccess: async (data) => {
       const sessionId = data?.headers['authorization'];
+
+      console.log('ssssssssssssssssssssssssse', sessionId, data.headers);
       setCookie(CookieKey.SESSION_ID, encrypt(sessionId), AUTH_SESSION_DURATION);
       return data;
     },

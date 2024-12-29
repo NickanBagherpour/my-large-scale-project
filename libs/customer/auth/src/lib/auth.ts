@@ -34,8 +34,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error('No ID provided');
         }
 
-        console.log('hoooooooooooooooooooooooy', credentials);
-
         // Simulate fetching user data (replace with actual logic)
         const user = {
           name: credentials.name || '', // Ensure name is a string
