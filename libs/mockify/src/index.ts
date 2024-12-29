@@ -24,7 +24,6 @@ import * as ServiceDetailsMock from './service-details.mock';
 import * as getScopesList from './list-scopes.mock';
 import * as UpstreamListMock from './upstream-list.mock';
 import * as getUpstreamDetailsMock from './upstream-details.mock';
-import * as CustomerMenuMock from './customer-menu.mock';
 import * as RequestData from './request-data.mock';
 import * as getScopeChangeHistory from './scope-change-history.mock';
 import * as UpstreamCardDetails from './upstream-card-details.mock';
@@ -57,7 +56,6 @@ const Mockify = {
   ...getScopesList,
   ...UpstreamListMock,
   ...getUpstreamDetailsMock,
-  ...CustomerMenuMock,
   ...RequestData,
   ...getScopeChangeHistory,
   ...UpstreamCardDetails,
