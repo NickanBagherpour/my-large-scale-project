@@ -14,11 +14,14 @@ export const AdvanceGridCard = (props: AdvanceGridCardPropsType) => {
   const [t] = useTr();
   return (
     <S.Container>
-      <div>AdvanceGridCard</div>
-      <div>{children}</div>
-      <Button variant='outlined' onClick={btnHandleClick}>
-        {t('see_more')}
-      </Button>
+      <S.Divider>
+        <S.Details>alireza</S.Details>
+        <S.Status>ghaffar</S.Status>
+      </S.Divider>
+      <S.Discription>its me</S.Discription>
+      <S.Button variant='outlined' onClick={btnHandleClick}>
+        {t('button.view_request')}
+      </S.Button>
     </S.Container>
   );
 };
