@@ -1,74 +1,53 @@
 'use client';
-import { CSSProperties, useState } from 'react';
+import { useState } from 'react';
 
-import { Input } from 'antd';
-import { useTheme } from 'styled-components';
-
-import { Loading } from '@oxygen/ui-kit';
+import { AdvanceSelector } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useDebouncedValue } from '@oxygen/hooks';
 
-import * as S from './scope-selector.style';
 import { useGetScopes } from '../../services';
 import { Scope } from '../../types';
 import { SCOPE_PAGE_SIZE } from '../../utils/consts';
 
 type Props = {
-  className?: string;
-  style?: CSSProperties;
-  id?: string;
   onClear?: () => void;
-  onSelect?: (scope: Scope) => void;
+  onSelect: (scope: Scope) => void;
   disabled: boolean;
-  isLoading: boolean;
 };
 
 const ScopeSelector = (props: Props) => {
-  const { onSelect, onClear, id, className = '', style = {}, disabled, isLoading } = props;
-  const MAX_LENGTH = 75;
-  const theme = useTheme();
+  const { onSelect, disabled } = props;
   const [t] = useTr();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
+  const [page, setPage] = useState(0);
   const { data, isFetching } = useGetScopes({
     'scope-name': debouncedSearchTerm.trim(),
-    page: 0,
+    page,
     size: SCOPE_PAGE_SIZE,
     sort: '',
   });
 
+  const loadMore = () => setPage((prev) => prev + 1);
+
   return (
-    <S.AutoComplete
-      autoFocus
+    <AdvanceSelector
+      data={
+        data?.content.map((scope) => ({
+          title: scope.name,
+          subTitle: scope.description ?? '',
+          scope /* Passes the full 'scope' object to ensure it can be retrieved via 'onSelect' and used directly in the parent component. */,
+        })) ?? []
+      }
+      onSelect={({ scope }) => onSelect(scope)}
+      onChange={(value) => setSearchTerm(value)}
+      loading={isFetching}
+      isLastPage={data?.last ?? true}
+      loadMore={loadMore}
+      placeholder={t('scope_name_from_o2_or_scope')}
       disabled={disabled}
-      id={id}
-      value={searchTerm}
-      className={className}
-      style={style}
-      popupClassName={'popup'}
-      options={data?.content.map((item) => ({ value: item.name, item }))}
-      notFoundContent={t('message.empty')}
-      maxLength={MAX_LENGTH}
-      allowClear
-      onClear={onClear}
-      onSearch={(value) => setSearchTerm(value)}
-      onSelect={(_, record) => {
-        onSelect?.(record.item);
-        setSearchTerm('');
-      }}
-      optionRender={({ value, data }) => (
-        <S.Item>
-          <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
-          <S.Subtitle>{data.item.description}</S.Subtitle>
-        </S.Item>
-      )}
-    >
-      <Input
-        size='large'
-        prefix={isFetching || isLoading ? <Loading /> : <i className='icon-search-normal' />}
-        placeholder={t('scope_name_from_o2_or_scope')}
-      />
-    </S.AutoComplete>
+      label={t('choose_scope')}
+    />
   );
 };
 

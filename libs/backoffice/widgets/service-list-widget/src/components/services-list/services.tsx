@@ -7,14 +7,14 @@ import { uuid } from '@oxygen/utils';
 import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 
-import { ServiceType, ParamsType } from '../../types';
+import { ParamsType, ServiceDto } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-list.util';
 
 import * as S from './services.style';
 
 type ServicesProps = PageProps & {
-  data?: ServiceType[];
+  data?: ServiceDto[];
   isFetching: boolean;
   total?: number;
   searchTerm: string;

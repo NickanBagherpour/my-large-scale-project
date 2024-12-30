@@ -2,10 +2,10 @@ import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  status: 'all',
+  status: null,
   searchTerm: '',
   page: 1,
-  sort: 'newest',
+  sort: 'ascending',
   table: {
     filters: {},
     submit: {},

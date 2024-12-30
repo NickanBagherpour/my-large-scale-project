@@ -2,7 +2,7 @@
 
 import { cookies, headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
-import { encrypt, ROUTES } from '@oxygen/utils';
+import { encrypt, processAndSignToken, ROUTES } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
@@ -28,6 +28,7 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   }
 
   const token = tokenData.data.access_token;
+  const signedToken = processAndSignToken(tokenData.data.access_token);
   const expiresIn = tokenData.data.expires_in;
 
   // Set the cookie directly in the server action
@@ -45,6 +46,16 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   cookieStore.set({
     name: CookieKey.SESSION_TICKET,
     value: encrypt(ticket),
+    path: '/',
+    maxAge: expiresIn, // Token expiration in seconds
+    // httpOnly: true, // Prevent JavaScript access
+    // secure: process.env.NODE_ENV === 'production', // Only secure in production
+    // sameSite: 'strict', // CSRF protection
+  });
+
+  cookieStore.set({
+    name: CookieKey.S_SESSION_ID,
+    value: encrypt(signedToken),
     path: '/',
     maxAge: expiresIn, // Token expiration in seconds
     // httpOnly: true, // Prevent JavaScript access

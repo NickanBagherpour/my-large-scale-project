@@ -39,9 +39,9 @@ export default function Filters() {
           />
 
           <S.Buttons>
-            <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
+            {/* <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
               {t('upload_service')}
-            </S.Button>
+            </S.Button> */}
             <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
               {t('create_new_service')}
             </S.Button>
@@ -51,9 +51,9 @@ export default function Filters() {
         <S.Indicators>
           <S.Chips>
             <Chip
-              iconProp={status === 'all' ? 'checked icon-checkmark' : undefined}
-              type={getChipType(status, 'all')}
-              onClick={() => updateStatus(dispatch, 'all')}
+              iconProp={status == null ? 'checked icon-checkmark' : undefined}
+              type={getChipType(status, null)}
+              onClick={() => updateStatus(dispatch, null)}
             >
               {t('all_services')}
             </Chip>
@@ -61,17 +61,17 @@ export default function Filters() {
             <S.Divider type='vertical' />
 
             <Chip
-              iconProp={status === 'active' ? 'checked icon-checkmark' : undefined}
-              type={getChipType(status, 'active')}
-              onClick={() => updateStatus(dispatch, 'active')}
+              iconProp={status === true ? 'checked icon-checkmark' : undefined}
+              type={getChipType(status, true)}
+              onClick={() => updateStatus(dispatch, true)}
             >
               {t('operational_services')}
             </Chip>
 
             <Chip
-              iconProp={status === 'inactive' ? 'checked icon-checkmark' : undefined}
-              type={getChipType(status, 'inactive')}
-              onClick={() => updateStatus(dispatch, 'inactive')}
+              iconProp={status === false ? 'checked icon-checkmark' : undefined}
+              type={getChipType(status, false)}
+              onClick={() => updateStatus(dispatch, false)}
             >
               {t('stopped_services')}
             </Chip>
@@ -79,8 +79,8 @@ export default function Filters() {
 
           <S.FilterPopover
             filters={[
-              { key: 'newest', title: t('ascending'), icon: 'icon-arrow-ascending' },
-              { key: 'oldest', title: t('descending'), icon: 'icon-arrow-descending' },
+              { key: 'ascending', title: t('ascending'), icon: 'icon-arrow-ascending' },
+              { key: 'descending', title: t('descending'), icon: 'icon-arrow-descending' },
             ]}
             initialValue={sort}
             onChange={(value) => updateSort(dispatch, value as Sort)}
