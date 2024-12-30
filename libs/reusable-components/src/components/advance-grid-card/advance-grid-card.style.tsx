@@ -1,10 +1,36 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { looperGroup, looper } from '../../assets';
 import { cssVar, respondTo } from '@oxygen/utils';
 import { Button as UiKitButton } from '@oxygen/ui-kit';
 
+// Helper to generate dynamic color styles
+const colorStyles = (color: ColorType | undefined, theme: any) =>
+  ({
+    warning: theme.warning.main,
+    error: theme.error.main,
+    success: theme.success.main,
+    default: theme.text.tertiary,
+  }[color || 'default'] || 'black');
+
+// Shared Icon Styles
+const IconStyles = css`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rem;
+  height: 4rem;
+  width: 4rem;
+
+  i {
+    color: ${(p) => p.theme.onPrimary};
+    font-size: 2.4rem;
+    z-index: 100;
+  }
+`;
+
 //Type
-type ColorType = 'warning' | 'error' | 'success' | 'default';
+export type ColorType = 'warning' | 'error' | 'success' | 'default';
 
 export const Container = styled.div`
   display: flex;
@@ -25,27 +51,23 @@ export const Container = styled.div`
 export const Button = styled(UiKitButton)`
   width: 100%;
 `;
+
 export const Discription = styled.div<{ color?: ColorType }>`
   margin: 2rem 0 3rem 0;
   padding: 0 1.2rem;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.2rem;
+  color: ${(p) => colorStyles(p.color || 'default', p.theme)};
+
   span {
     color: inherit;
     font-size: 1.4rem;
     font-weight: 700;
   }
-
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2.2rem;
-  color: ${(p) =>
-    ({
-      warning: p.theme.warning.main,
-      error: p.theme.error.main,
-      success: p.theme.success.main,
-      default: p.theme.text.tertiary,
-    }[p.color || 'default'] || 'black')};
 `;
+
 export const Div = styled.div`
   width: 100%;
   display: flex;
@@ -86,11 +108,11 @@ export const SubTitle = styled.p`
 export const Date = styled.p`
   color: ${(p) => p.theme.text.tertiary};
   font-size: 1.2rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 1.8rem;
   margin: 0;
 `;
+
 export const ServiceCount = styled.p`
   color: ${(p) => p.theme.text.tertiary};
   font-size: 1.2rem;
@@ -99,7 +121,7 @@ export const ServiceCount = styled.p`
   line-height: 1.8rem;
   margin: 1.2rem 0;
 `;
-export const IconTop = styled.div<{ color: ColorType }>`
+export const IconTop1 = styled.div<{ color: ColorType }>`
   position: absolute;
   top: 0;
   display: flex;
@@ -121,7 +143,21 @@ export const IconTop = styled.div<{ color: ColorType }>`
     z-index: 100;
   }
 `;
-export const IconButtom = styled.div<{ color: ColorType }>`
+
+// Status Icons
+export const IconTop = styled.div<{ color?: ColorType }>`
+  background-color: ${(p) => colorStyles(p.color, p.theme)};
+  ${IconStyles}
+  top: 0;
+`;
+
+export const IconButtom = styled.div<{ color?: ColorType }>`
+  background-color: ${(p) => colorStyles(p.color, p.theme)};
+  ${IconStyles}
+  bottom: 0;
+`;
+
+export const IconButtom1 = styled.div<{ color: ColorType }>`
   position: absolute;
   bottom: 0;
   display: flex;
@@ -143,34 +179,25 @@ export const IconButtom = styled.div<{ color: ColorType }>`
     z-index: 100;
   }
 `;
+
 export const LineUp = styled.div<{ color: ColorType }>`
   position: absolute;
   top: 0;
   margin-left: 1.9rem;
-  background-color: ${(p) =>
-    ({
-      warning: p.theme.warning.main,
-      error: p.theme.error.main,
-      success: p.theme.success.main,
-      default: p.theme.text.tertiary,
-    }[p.color || 'default'] || 'black')};
+  background-color: ${(p) => colorStyles(p.color, p.theme)};
   width: 2px;
   height: 50%;
 `;
+
 export const LineDown = styled.div<{ color: ColorType }>`
   position: absolute;
   bottom: 0;
   margin-left: 1.9rem;
-  background-color: ${(p) =>
-    ({
-      warning: p.theme.warning.main,
-      error: p.theme.error.main,
-      success: p.theme.success.main,
-      default: p.theme.text.tertiary,
-    }[p.color || 'default'] || 'black')};
+  background-color: ${(p) => colorStyles(p.color, p.theme)};
   width: 2px;
   height: 50%;
 `;
+
 export const Paragraph = styled.p`
   color: ${(p) => p.theme.text.tertiary};
   text-align: left;
