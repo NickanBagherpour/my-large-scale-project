@@ -2,7 +2,7 @@ import { client, portalUrl } from '@oxygen/client';
 import type {
   AssignUpstreamToServiceParams,
   CodeTitle,
-  GeneralInfoParams,
+  PostServiceParams,
   RouteParams,
   Route,
   Service,
@@ -16,8 +16,7 @@ import type { AssignScopeToServiceParams, Scope, ScopesData, ScopesParams } from
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
-  postGeneralInfo: async (params: GeneralInfoParams) =>
-    client.post<unknown>(`${portalUrl}/v1/services/register-general-info`, params),
+  postService: async (params: PostServiceParams) => client.post<unknown>(`${portalUrl}/v1/services`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
   getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope`, { params }),
   getUpstreams: async (params: UpstreamsParams) =>

@@ -16,7 +16,7 @@ import {
   useGetServiceAccess,
   useGetTags,
   useGetThroughput,
-  usePostGeneralInfoMutation,
+  usePostService,
 } from '../../services';
 import * as S from './general-info.style';
 import { useToggle } from '@oxygen/hooks';
@@ -39,7 +39,7 @@ export default function GeneralInfo() {
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
-  const { mutate: postGeneralInfo } = usePostGeneralInfoMutation();
+  const { mutate: postService } = usePostService();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = service?.isInSSO;
 
@@ -54,7 +54,7 @@ export default function GeneralInfo() {
 
     if (!currentThroughput || !currentServiceAccess || !currentCategory) return;
 
-    postGeneralInfo(
+    postService(
       {
         persianName,
         version,

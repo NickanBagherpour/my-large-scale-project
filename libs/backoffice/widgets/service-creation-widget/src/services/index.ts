@@ -7,7 +7,7 @@ export { useGetTags } from './get-tags.api';
 export { useGetCategories } from './get-categories.api';
 export { useGetServiceAccess } from './get-service-access.api';
 export { useGetThroughput } from './get-throughput.api';
-export { usePostGeneralInfoMutation } from './post-general-info.api';
+export { usePostService } from './post-service.api';
 export { useGetServiceScope } from './get-service-scope.api';
 export { useGetUpstream } from './get-upstream.api';
 export { usePostAssignUpstreamToService } from './post-assign-upstream-to-service.api';
