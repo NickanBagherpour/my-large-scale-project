@@ -9,11 +9,12 @@ import * as S from './draft-card.style';
 type DraftCardType = {
   id: number;
   name: string;
-  level: 1 | 2 | 3 | 4;
+  level?: 1 | 2 | 3 | 4;
+  progressPercentage: number;
 };
 
 export default function DraftCard(props: DraftCardType) {
-  const { name, level, id } = props;
+  const { name, level = 1, id, progressPercentage } = props;
   const queryClient = useQueryClient();
   const [t] = useTr();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -32,23 +33,21 @@ export default function DraftCard(props: DraftCardType) {
     });
   };
 
-  const levelsMap: Record<DraftCardType['level'], string> = {
+  const levelsMap: Record<1 | 2 | 3 | 4, string> = {
     1: t('service_name'),
     2: t('service_info'),
     3: t('add_documents'),
     4: t('operational'),
   };
 
-  const progressPercentage = level * 20;
-
   return (
     <>
       <S.Container href={ROUTES.BACKOFFICE.CLIENT_CREATION}>
         <S.Header>
           <S.Name>{name}</S.Name>
-          <Button onClick={openConfirmModal} color='primary' variant='text' size='small'>
+          {/* <Button onClick={openConfirmModal} color='primary' variant='text' size='small'>
             <S.Trash className='icon-trash' />
-          </Button>
+          </Button> */}
         </S.Header>
 
         <Progress percent={progressPercentage} showInfo={false} isPrimary />
@@ -63,7 +62,7 @@ export default function DraftCard(props: DraftCardType) {
           </span>
         </S.Footer>
       </S.Container>
-      <ConfirmModal
+      {/* <ConfirmModal
         title={t('draft_delete_title')}
         onConfirm={remove}
         open={showConfirmModal}
@@ -71,7 +70,7 @@ export default function DraftCard(props: DraftCardType) {
         onClose={closeConfirmModal}
       >
         {t('draft_delete_confirm') + ` ${name} ` + t('are_you_sure')}
-      </ConfirmModal>
+      </ConfirmModal> */}
     </>
   );
 }

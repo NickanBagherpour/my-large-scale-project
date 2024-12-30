@@ -155,7 +155,7 @@ export const customerMenu = [
     id: 2,
     title: 'مدیریت درخواست ها',
     order: 2,
-    href: ROUTES.CUSTOMER.REQUESTS_MANAGEMENT,
+    href: ROUTES.CUSTOMER.REQUEST_MANAGEMENT,
     icon: 'icon-grid',
     active: true,
     description: null,

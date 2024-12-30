@@ -49,7 +49,7 @@ export default async function middleware(request: NextRequest) {
 
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
-  console.log('request inside middleware', token);
+  // console.log('request inside middleware', token);
 
   const publicPaths = [ROUTES.BUSINESS.AUTH]; // Define public paths here
   const apiPrefixes = ['/api/', '/commercial/api/', '/business/api/'];

@@ -1,5 +1,5 @@
 import { useTheme } from 'styled-components';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useQueryClient } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import { ParamsType, ServiceTypeQuery } from '../../types';
 import * as S from './app.style';
 
+const DRAFT_LIST_LIMIIT = 4;
 const App = () => {
   const theme = useTheme();
   const { message, ...fetchState } = useAppState();
@@ -30,7 +31,7 @@ const App = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [selectedServiceName, setSelectedServiceName] = useState('');
   const [operationalStatus, setOperationalStatus] = useState(false);
-
+  const [showLoadMore, setShowLoadMore] = useState(true);
   const queryClient = useQueryClient();
 
   const changeStatusHandler = (status: boolean, name: string) => {
@@ -48,7 +49,6 @@ const App = () => {
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setOpenStatusModal(false);
   };
 
@@ -74,9 +74,12 @@ const App = () => {
   };
 
   const handleDeleteCancel = () => {
-    console.log('Clicked cancel button');
     setOpenDeleteModal(false);
   };
+  const draftList = useMemo(
+    () => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIIT) : drafts),
+    [showLoadMore, drafts]
+  );
 
   return (
     <>
@@ -103,7 +106,7 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
 
-      {openDeleteModal && (
+      {/* {openDeleteModal && (
         <Modal
           title={t('delete_service')}
           open={openDeleteModal}
@@ -127,14 +130,26 @@ const App = () => {
             {t('are_you_sure')}
           </S.ModalMessage>
         </Modal>
-      )}
+      )} */}
       {hasDrafts && (
         <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
-            {drafts?.map((item) => (
-              <DraftCard key={item.id} {...item} />
+            {draftList?.map((item) => (
+              <DraftCard
+                id={item?.serviceInfoId}
+                level={item?.serviceProgress?.step}
+                key={item?.serviceInfoId}
+                name={item?.serviceName}
+                progressPercentage={item?.serviceProgress?.percent}
+              />
             ))}
           </S.Grid>
+          {showLoadMore && (
+            <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(false)}>
+              <span>{t('show_all')}</span>
+              <i className='icon-chev-down' />
+            </S.Button>
+          )}
         </S.DraftsContainer>
       )}
 
