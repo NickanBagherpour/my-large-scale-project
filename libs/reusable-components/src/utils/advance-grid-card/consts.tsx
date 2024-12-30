@@ -18,6 +18,7 @@ export interface StatusConfig {
   businessColor: string;
   businessIcon: React.ReactNode;
   descriptionText: string;
+  isBlack?: boolean;
 }
 
 export type StatusConfigMap = {
@@ -34,6 +35,7 @@ export const statusConfig: StatusConfigMap = {
     businessColor: 'default',
     businessIcon: <i className='icon-info-hint' />,
     descriptionText: 'advance_grid_card.two',
+    isBlack: true,
   },
   [SubmissionStatusCode.Rejected]: {
     textColor: 'error',
@@ -42,6 +44,7 @@ export const statusConfig: StatusConfigMap = {
     businessColor: 'default',
     businessIcon: <i className='icon-info-hint' />,
     descriptionText: 'advance_grid_card.three',
+    isBlack: true,
   },
   [SubmissionStatusCode.InProgress]: {
     textColor: 'warning',

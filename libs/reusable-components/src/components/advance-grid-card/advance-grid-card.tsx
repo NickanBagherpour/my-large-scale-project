@@ -10,7 +10,8 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
   const { code } = data.submissionStatus;
 
   // Get the status configuration based on the code
-  const { textColor, bankColor, bankIcon, businessColor, businessIcon, descriptionText } = getStatusConfig(code);
+  const { textColor, bankColor, bankIcon, businessColor, businessIcon, descriptionText, isBlack } =
+    getStatusConfig(code);
 
   return (
     <S.Container>
@@ -18,8 +19,14 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
         <S.Details>
           <S.Title>{data.clientName}</S.Title>
           <S.SubTitle>{data.aggregatorName}</S.SubTitle>
-          <S.Date>{data.createDate}</S.Date>
-          <S.ServiceCount>{`${data.serviceCount} ${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
+          <S.IconTextWrapper>
+            <i className='icon-calendar' />
+            <S.Date>{data.createDate}</S.Date>
+          </S.IconTextWrapper>
+          <S.IconTextWrapper>
+            <i className='icon-convertshape' />
+            <S.ServiceCount>{`${data.serviceCount} ${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
+          </S.IconTextWrapper>
         </S.Details>
         <S.Status>
           <S.StatusContainer>
@@ -31,7 +38,9 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
             <S.LineDown color={businessColor as S.ColorType} />
           </Box>
           <S.StatusContainer>
-            <S.IconButtom color={businessColor as S.ColorType}>{businessIcon}</S.IconButtom>
+            <S.IconButtom color={businessColor as S.ColorType} isBlack={isBlack}>
+              {businessIcon}
+            </S.IconButtom>
             <S.Paragraph>{t('advance_grid_card.business_unit')}</S.Paragraph>
           </S.StatusContainer>
         </S.Status>
