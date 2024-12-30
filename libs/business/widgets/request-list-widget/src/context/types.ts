@@ -3,8 +3,8 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 export type WidgetStateType = {
   searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'initial_approval' | 'final_approval' | 'rejected' | 'pending';
+  sort: string;
+  status: any;
   pagination: {
     page: number;
     rowsPerPage: number;

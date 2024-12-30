@@ -1,6 +1,6 @@
 export default {
   widget_name: 'Request Management',
-  search_by_name_or_id: 'Search by company name or national ID',
+  search_by_client_name: 'Search by client name',
   chips: {
     all_clients: 'All Requests',
     final_approval: 'Final Approval',
