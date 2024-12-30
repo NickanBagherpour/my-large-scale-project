@@ -5,11 +5,11 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 // import { GrantType } from '../types';
 
-export const useGetServiceDetailsQuery = () => {
+export const useGetServiceDetailsQuery = (params: any) => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.GET_LIST],
-    queryFn: withErrorHandling(() => Api.getServiceDetails(), dispatch),
+    queryKey: [RQKEYS.SERVICE_DETAILS.GET_LIST, params],
+    queryFn: withErrorHandling(() => Api.getServiceDetails(params), dispatch),
   });
 };

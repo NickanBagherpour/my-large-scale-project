@@ -1,38 +1,47 @@
-import { InactiveBadge } from '../../../../../ui-kit/src/assets/icons';
 import { TFunction } from 'i18next';
-import { Tag } from '@oxygen/ui-kit';
+
+import { InactiveBadge } from '../../../../../ui-kit/src/assets/icons';
+import { BusinessStatusBadge, BusinessUserRole } from './consts';
+
 import * as S from '../components/data-table/data-table.style';
 
-export const statusBadgeRenderer = (status: string, clientStatus: string, t: TFunction) => {
-  const isCommercialBanking = clientStatus === 'commercialBanking';
+export const statusBadgeRenderer = (status: { code: number; title: string }, clientStatus: string, t: TFunction) => {
+  const isCommercialBanking = clientStatus === BusinessUserRole.BUSINESS_ADMIN;
 
-  switch (status) {
-    case 'pending':
-      return (
-        <S.StyledContainer>
-          {isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
-          <Tag type={'processing'}>{isCommercialBanking ? t('chips.pending') : t('chips.pend_bank')}</Tag>
-        </S.StyledContainer>
-      );
-    case 'rejected':
-      return (
-        <S.StyledContainer>
-          <Tag type={'error'}>{t('chips.rejected')}</Tag>
-        </S.StyledContainer>
-      );
-    case 'initial_approval':
+  const statusCode = status?.code;
+  const statusTitle = status?.title;
+
+  switch (statusCode) {
+    case BusinessStatusBadge.UNDER_REVIEW_COMMERCIAL_BANK:
+    case BusinessStatusBadge.UNDER_REVIEW_BUSINESS_UNIT:
       return (
         <S.StyledContainer>
           {!isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
-          <Tag type={'initialApproval'}>{t('chips.initial_approval')}</Tag>
+          <S.Tag type={'processing'}>{statusTitle}</S.Tag>
         </S.StyledContainer>
       );
-    case 'final_approval':
+    case BusinessStatusBadge.REJECTED_BY_BUSINESS_UNIT:
+    case BusinessStatusBadge.REJECTED_BY_COMMERCIAL_BANK:
       return (
         <S.StyledContainer>
-          <Tag type={'FinalApproval'} icon={<i className={'icon-tick-circle-outlined'} />}>
-            {t('chips.final_approval')}
-          </Tag>
+          <S.Tag type={'error'}>{statusTitle}</S.Tag>
+        </S.StyledContainer>
+      );
+    case BusinessStatusBadge.APPROVED_BY_COMMERCIAL_BANK:
+      return (
+        <S.StyledContainer>
+          {isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
+          <S.Tag type={'initialApproval'} bordered={true}>
+            {statusTitle}
+          </S.Tag>
+        </S.StyledContainer>
+      );
+    case BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT:
+      return (
+        <S.StyledContainer>
+          <S.Tag type={'finalApproval'} icon={<i className={'icon-tick-circle-outlined'} />}>
+            {statusTitle}
+          </S.Tag>
         </S.StyledContainer>
       );
   }

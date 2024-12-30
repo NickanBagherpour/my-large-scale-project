@@ -1,7 +1,14 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, initialActiveSelectType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import {
+  FiltersType,
+  PaginationType,
+  ScopeMode,
+  initialActiveSelectType,
+  WidgetActionType,
+  WidgetDispatchType,
+} from './types';
 
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
@@ -33,6 +40,10 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateErrorMessageAction(dispatch, null);
+}
+
+export function updateScopeMode(dispatch: WidgetDispatchType, payload: ScopeMode) {
+  dispatch({ type: 'UPDATE_SCOPE_MODE', payload });
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {

@@ -37,7 +37,7 @@ export async function GET(req) {
 
     const data = await response.json();
 
-    const decodedToken = decodeJWT(token);
+    const decodedToken = decodeJWT(token?.replace('Bearer ', '')?.trim());
     // const decodedToken = decodeToken(token);
 
     data.userInfo.role = getRole(decodedToken?.payload);

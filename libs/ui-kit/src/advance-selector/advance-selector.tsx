@@ -1,7 +1,7 @@
 'use client';
 import { CSSProperties, useState } from 'react';
 
-import { Input } from 'antd';
+import { AutoCompleteProps } from 'antd';
 import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
@@ -9,22 +9,25 @@ import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import * as S from './advance-selector.style';
-
-type Props = {
+export type dataType = {
+  id?: string | number;
+  title: string;
+  subTitle?: string;
+};
+type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {
   className?: string;
   style?: CSSProperties;
   onClear?: () => void;
-  onSelect: (item) => void;
+  onSelect: (item: T) => void;
   label?: string;
   placeholder?: string;
-  data: any[];
+  data: T[];
   loading: boolean;
   isLastPage: boolean;
   loadMore: () => void;
-  onChange: (value: string) => void;
 };
 
-const AdvanceSelector = (props: Props) => {
+export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
   const {
     data,
     loading,
@@ -37,6 +40,8 @@ const AdvanceSelector = (props: Props) => {
     isLastPage,
     loadMore,
     onChange,
+    id,
+    ...rest
   } = props;
 
   const MAX_LENGTH = 75;
@@ -47,14 +52,17 @@ const AdvanceSelector = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <>
-      <S.SelectLabel htmlFor='autocomplete'>{label}</S.SelectLabel>
+    <S.Container>
+      <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel>
       <AntAutoComplete
-        id='autocomplete'
+        prefix={loading ? <Loading /> : <i className='icon-search-normal' />}
+        placeholder={placeholder}
+        size='large'
+        id={id ?? 'autocomplete'}
         autoFocus
         value={searchTerm}
         className={className}
-        style={style}
+        style={{ height: 40, ...style }}
         popupClassName={'popup'}
         options={data?.map((item) => ({ value: item.title, item }))}
         notFoundContent={t('message.empty')}
@@ -86,15 +94,8 @@ const AdvanceSelector = (props: Props) => {
             <S.Icon className='icon-plus' />
           </S.Item>
         )}
-      >
-        <Input
-          size='large'
-          prefix={loading ? <Loading /> : <i className='icon-search-normal' />}
-          placeholder={placeholder}
-        />
-      </AntAutoComplete>
-    </>
+        {...rest}
+      />
+    </S.Container>
   );
 };
-
-export default AdvanceSelector;

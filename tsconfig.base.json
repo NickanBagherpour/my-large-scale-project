@@ -48,11 +48,17 @@
             "@oxygen/backoffice/widgets/edit-client-info-widget": [
                 "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/edit-route-widget": [
+                "libs/backoffice/widgets/edit-route-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/edit-scope-widget": [
                 "libs/backoffice/widgets/edit-scope-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/edit-service-widget": [
                 "libs/backoffice/widgets/edit-service-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/route-history-widget": [
+                "libs/backoffice/widgets/route-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/scope-creation-widget": [
                 "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
@@ -94,6 +100,9 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/request-details-widget": [
+                "libs/business/widgets/request-details-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/request-list-widget": [
                 "libs/business/widgets/request-list-widget/src/index.ts"
             ],
@@ -105,6 +114,9 @@
             ],
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
+            ],
+            "@oxygen/customer/widgets/request-management-widget": [
+                "libs/customer/widgets/request-management-widget/src/index.ts"
             ],
             "@oxygen/customer/widgets/request-registration-widget": [
                 "libs/customer/widgets/request-registration-widget/src/index.ts"

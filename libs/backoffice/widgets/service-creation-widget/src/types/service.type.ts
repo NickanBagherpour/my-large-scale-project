@@ -1,4 +1,4 @@
-export type GeneralInfoParams = {
+export type PostServiceParams = {
   latinName: string;
   persianName: string;
   accessLevel: {

@@ -11,7 +11,7 @@ const getTagStyles = (type: TypeValueType, theme: any) => {
         color: theme.success.main,
         border: 'transparent',
       };
-    case 'FinalApproval':
+    case 'finalApproval':
       return {
         backgroundColor: theme.secondary._50,
         color: theme.secondary.main,
@@ -19,8 +19,8 @@ const getTagStyles = (type: TypeValueType, theme: any) => {
       };
     case 'processing':
       return {
-        backgroundColor: theme.primary._50,
-        color: theme.primary.main,
+        backgroundColor: theme.info._50,
+        color: theme.info.main,
         border: 'transparent',
       };
     case 'error':
