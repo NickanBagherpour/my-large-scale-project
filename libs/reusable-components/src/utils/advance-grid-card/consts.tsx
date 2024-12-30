@@ -30,9 +30,9 @@ export const statusConfig: StatusConfigMap = {
   [SubmissionStatusCode.Pending]: {
     textColor: 'warning',
     bankColor: 'warning',
-    bankIcon: <i className='icon-close' />,
+    bankIcon: <i className='icon-warning-2' />,
     businessColor: 'default',
-    businessIcon: <i className='icon-close' />,
+    businessIcon: <i className='icon-info-hint' />,
     descriptionText: 'advance_grid_card.two',
   },
   [SubmissionStatusCode.Rejected]: {
@@ -40,7 +40,7 @@ export const statusConfig: StatusConfigMap = {
     bankColor: 'error',
     bankIcon: <i className='icon-close' />,
     businessColor: 'default',
-    businessIcon: <i className='icon-close' />,
+    businessIcon: <i className='icon-info-hint' />,
     descriptionText: 'advance_grid_card.three',
   },
   [SubmissionStatusCode.InProgress]: {
@@ -48,7 +48,7 @@ export const statusConfig: StatusConfigMap = {
     bankColor: 'success',
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'warning',
-    businessIcon: <i className='icon-close' />,
+    businessIcon: <i className='icon-warning-2' />,
     descriptionText: 'advance_grid_card.four',
   },
   [SubmissionStatusCode.Completed]: {
@@ -56,7 +56,7 @@ export const statusConfig: StatusConfigMap = {
     bankColor: 'success',
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'warning',
-    businessIcon: <i className='icon-close' />,
+    businessIcon: <i className='icon-warning-2' />,
     descriptionText: 'advance_grid_card.five',
   },
   [SubmissionStatusCode.Failed]: {

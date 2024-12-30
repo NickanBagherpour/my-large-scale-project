@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { looperGroup, looper } from '../../assets';
-import { cssVar, respondTo } from '@oxygen/utils';
+import { looperGroup } from '../../assets';
+import { respondTo } from '@oxygen/utils';
 import { Button as UiKitButton } from '@oxygen/ui-kit';
 
 // Helper to generate dynamic color styles
