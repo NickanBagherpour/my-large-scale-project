@@ -70,8 +70,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: 'url',
-      dataIndex: 'url',
-      key: 'url',
+      dataIndex: 'path',
+      key: 'path',
       align: 'center',
       width: 150,
       ellipsis: {
@@ -93,14 +93,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: `${t('status')}`,
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'isActive',
+      key: 'isActive',
       width: 150,
-      render: (status, name) => (
+      render: (isActive, name) => (
         <S.SwitchContainer>
           {t('stopped')}
           <span style={{ margin: '0 1.2rem' }}>
-            <Switch checked={status} onClick={() => changeStatus(status, name.name)} />
+            <Switch disabled={true} checked={isActive} />
           </span>
           {t('operational')}
         </S.SwitchContainer>
@@ -112,8 +112,10 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'details',
       align: 'center',
       width: 80,
-      render: (url) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=ewallet-inquiry`}>{t('detailed')}</S.Details>
+      render: (value, record) => (
+        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+          {t('detailed')}
+        </S.Details>
       ),
     },
     // {
@@ -162,7 +164,7 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('url'),
-            value: <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(value?.url)}</S.Url>,
+            value: <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(value?.path)}</S.Url>,
           },
           {
             title: t('status'),
@@ -170,7 +172,7 @@ export function getMobileColumns(props: Props): any {
               <span>
                 {t('stopped')}
                 <span style={{ margin: '0 1.2rem' }}>
-                  <Switch checked={value?.status} onClick={() => changeStatus(value?.status, value?.name)} />
+                  <Switch checked={value?.status} disabled={true} />
                 </span>
                 {t('operational')}
               </span>
@@ -179,7 +181,7 @@ export function getMobileColumns(props: Props): any {
           {
             title: '',
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=ewallet-inquiry`}>
+              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
                 {t('detailed')}
               </S.Details>
             ),

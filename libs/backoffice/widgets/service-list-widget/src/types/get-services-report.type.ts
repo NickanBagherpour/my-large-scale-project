@@ -1,32 +1,56 @@
-import { FiltersType, PaginationType } from '../context/types';
-
-export type ParamsType = {
-  searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'inactive';
-  table: {
-    filters: FiltersType;
-    pagination: PaginationType;
-    submit: FiltersType;
-  };
+export interface ParamsType {
+  isActive: boolean | null;
+  'search-field'?: string;
+  'scope-id'?: string;
   page: number;
-};
-
-export type ServiceType = {
+  size: number;
+  sort: string;
+}
+export type ServiceDto = {
+  id: number;
   name: string;
   persianName: string;
   scope: string;
-  url: string;
-  status: boolean;
+  version: string;
+  path: string;
+  isActive: boolean;
 };
+// export type ServiceTypeQuery = {
+//   list: ServiceType[];
+//   total: number;
+// };
 
-export type ServiceTypeQuery = {
-  list: ServiceType[];
-  total: number;
-};
+// export type PaginationResultType = {
+//   pageNumber: number;
+//   pageSize: number;
+//   totalNumberOfEntries: number;
+// };
+export interface ServicesDto {
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  last: boolean;
+  size: number;
+  content: ServiceDto[];
 
-export type PaginationResultType = {
-  pageNumber: number;
-  pageSize: number;
-  totalNumberOfEntries: number;
-};
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  pageable: {
+    offset: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  empty: boolean;
+}

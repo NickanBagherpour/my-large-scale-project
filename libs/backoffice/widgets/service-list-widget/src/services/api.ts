@@ -1,14 +1,13 @@
-import Mockify from '@oxygen/mockify';
 import { client, portalUrl } from '@oxygen/client';
 
-import { ParamsType } from '../types';
-import { DraftDto, InquiryDto, InquiryParams } from '../types/get-Inquiry-info.type';
+import { ParamsType, ServicesDto } from '../types';
+import { InquiryDto, InquiryParams } from '../types/get-Inquiry-info.type';
+import { DraftDto } from '../types/get-drafts-info.type';
+
 const Api = {
   getServicesList: async (params: ParamsType) => {
-    const res = Mockify.getServicesList(params);
-    return res;
+    return client.get<ServicesDto>(`${portalUrl}/v1/services`, { params });
   },
-
   getDraftsData: async () => {
     return client.get<DraftDto[]>(`${portalUrl}/v1/services/draft`);
   },
