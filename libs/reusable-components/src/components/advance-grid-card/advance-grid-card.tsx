@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as S from './advance-grid-card.style';
-import { Button } from '@oxygen/ui-kit';
+import { Box, Button } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { text } from 'stream/consumers';
 
@@ -85,7 +85,7 @@ export const AdvanceGridCard = (props: AdvanceGridCardPropsType) => {
       textColor = 'error';
       bankColor = 'success';
       bankIcone = <i className='icon-checkmark' />;
-      businessColor = 'warning';
+      businessColor = 'error';
       businessIcone = <i className='icon-close' />;
       discriptionText = 'advance_grid_card.6';
       break;
@@ -120,7 +120,18 @@ export const AdvanceGridCard = (props: AdvanceGridCardPropsType) => {
           <S.Date>{data.createDate}</S.Date>
           <S.ServiceCount>{`${data.serviceCount}${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
         </S.Details>
-        <S.Status>ghaffar</S.Status>
+        <S.Status>
+          <S.StatusContainer>
+            <S.Icon color={bankColor}>{bankIcone}</S.Icon>
+            <S.Paragraph>{t('advance_grid_card.validation_commercial_banking')}</S.Paragraph>
+          </S.StatusContainer>
+          <S.Line color={bankColor}></S.Line>
+          <S.Line color={businessColor}></S.Line>
+          <S.StatusContainer>
+            <S.Icon color={businessColor}>{businessIcone}</S.Icon>
+            <S.Paragraph>{t('advance_grid_card.business_unit')}</S.Paragraph>
+          </S.StatusContainer>
+        </S.Status>
       </S.Divider>
       <S.Discription color={textColor}>
         <span>{t('advance_grid_card.discription')}</span>

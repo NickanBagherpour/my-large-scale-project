@@ -3,6 +3,9 @@ import { looperGroup, looper } from '../../assets';
 import { cssVar, respondTo } from '@oxygen/utils';
 import { Button as UiKitButton } from '@oxygen/ui-kit';
 
+//Type
+type ColorType = 'warning' | 'error' | 'success' | 'default';
+
 export const Container = styled.div`
   border-radius: 1.8rem;
   padding: 3rem 4rem;
@@ -20,7 +23,7 @@ export const Container = styled.div`
 export const Button = styled(UiKitButton)`
   width: 100%;
 `;
-export const Discription = styled.div<{ color?: 'warning' | 'error' | 'success' | 'default' }>`
+export const Discription = styled.div<{ color?: ColorType }>`
   margin-bottom: 3rem;
   padding: 0 1.2rem;
 
@@ -41,7 +44,6 @@ export const Discription = styled.div<{ color?: 'warning' | 'error' | 'success' 
 
 export const Status = styled.div`
   width: 100%;
-  background-color: green;
 `;
 export const Details = styled.div`
   width: 100%;
@@ -87,4 +89,51 @@ export const ServiceCount = styled.p`
   font-weight: 400;
   line-height: 1.8rem;
   margin: 1.2rem 0;
+`;
+export const Icon = styled.div<{ color: ColorType }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(p) =>
+    ({
+      warning: p.theme.warning.main,
+      error: p.theme.error.main,
+      success: p.theme.success.main,
+      default: p.theme.text.tertiary,
+    }[p.color || 'default'] || 'black')};
+  border-radius: 10rem;
+  height: 4rem;
+  width: 4rem;
+  i {
+    color: ${(p) => p.theme.onPrimary};
+    font-size: 2.4rem;
+  }
+`;
+export const Line = styled.div<{ color: ColorType }>`
+  margin-left: 1.8rem;
+  background-color: ${(p) =>
+    ({
+      warning: p.theme.warning.main,
+      error: p.theme.error.main,
+      success: p.theme.success.main,
+      default: p.theme.text.tertiary,
+    }[p.color || 'default'] || 'black')};
+  width: 2px;
+  height: 2.5rem;
+`;
+export const Paragraph = styled.p`
+  color: ${(p) => p.theme.text.tertiary};
+  text-align: left;
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.2rem;
+  margin: 0;
+`;
+export const StatusContainer = styled.p`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 `;
