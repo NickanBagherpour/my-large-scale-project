@@ -3,6 +3,7 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { UserRoleType } from '../../types/common-types';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
 
@@ -11,7 +12,7 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
-  userRole: string;
+  userRole: UserRoleType;
   requestListFetching: boolean;
   requestList: any;
 };

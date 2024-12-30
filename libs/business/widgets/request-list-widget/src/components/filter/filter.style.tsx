@@ -24,37 +24,22 @@ export const Chips = styled.div`
   display: flex;
   align-items: center;
   margin-inline-end: auto;
+  flex-wrap: wrap;
+  row-gap: 1rem;
 
-  ${respondTo.down('xs')} {
+  ${respondTo.down('sm')} {
     flex-direction: column;
     gap: 1.5rem;
   }
 `;
 
-export const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-
-  ${respondTo.down('lg')} {
-    width: 100%;
-    justify-content: space-between;
-  }
-`;
-
 export const Button = styled(KitButton)`
-  &&& {
-    font-size: 1.4rem;
-  }
+  font-size: 1.4rem;
 `;
 
 export const Indicators = styled.div`
   display: flex;
   align-items: center;
-
-  ${respondTo.between('lg', 'md')} {
-    flex-direction: column;
-  }
 `;
 
 export const Input = styled(KitInput)`

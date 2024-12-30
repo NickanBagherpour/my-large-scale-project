@@ -4,7 +4,7 @@ import { MessageType, Nullable } from '@oxygen/types';
 export type WidgetStateType = {
   searchTerm: string;
   sort: string;
-  status: number | null;
+  status: any;
   pagination: {
     page: number;
     rowsPerPage: number;

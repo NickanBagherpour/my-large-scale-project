@@ -1,23 +1,38 @@
+// constants.ts
 export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
-export const ALL_STATUS_LIST = 1;
-export const COMMERCIAL_STATUS_LIST = {
-  UNDER_REVIEW: 2,
-  REJECTED: 3,
-  APPROVED: 4,
-  INITIAL_APPROVED: 4,
-};
-export const BUSINESS_STATUS_LIST = {
-  UNDER_REVIEW: 1,
-  REJECTED: 2,
-  APPROVED: 3,
-};
+export const ALL_STATUS_LIST = null;
 export const SORT_ORDER = {
   ASCENDING: 'desc',
   DESCENDING: 'createDate',
 };
-export const BusinessUserRole = {
-  COMMERCIAL_BANKING_ADMIN: 'commercial-banking-admin',
-  BUSINESS_ADMIN: 'business-admin',
-};
+
+// status-enums
+export const COMMERCIAL_STATUS_LIST = {
+  FINAL_APPROVED: 1,
+  INITIAL_APPROVED: 2,
+  REJECTED: [3, 4] as const,
+  UNDER_REVIEW: [5, 6] as const,
+} as const;
+
+export enum BUSINESS_STATUS_LIST {
+  UNDER_REVIEW = 1,
+  REJECTED = 2,
+  APPROVED = 3,
+}
+
+// roles-enums
+export enum BusinessUserRole {
+  COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
+  BUSINESS_ADMIN = 'business-admin',
+}
+
+export enum BusinessStatusBadge {
+  UNDER_REVIEW_COMMERCIAL_BANK = 2,
+  REJECTED_BY_COMMERCIAL_BANK = 3,
+  APPROVED_BY_COMMERCIAL_BANK = 4,
+  UNDER_REVIEW_BUSINESS_UNIT = 5,
+  REJECTED_BY_BUSINESS_UNIT = 6,
+  APPROVED_BY_BUSINESS_UNIT = 7,
+}

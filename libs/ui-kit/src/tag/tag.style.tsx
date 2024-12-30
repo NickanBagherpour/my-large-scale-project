@@ -5,7 +5,13 @@ import { TypeValueType } from './tag';
 // Helper function to determine styles based on `type`
 const getTagStyles = (type: TypeValueType, theme: any) => {
   switch (type) {
-    case 'success':
+    case 'initialApproval':
+      return {
+        backgroundColor: theme.success._50,
+        color: theme.success.main,
+        border: 'transparent',
+      };
+    case 'finalApproval':
       return {
         backgroundColor: theme.secondary._50,
         color: theme.secondary.main,

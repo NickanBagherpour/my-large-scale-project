@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { getValueOrDash } from '@oxygen/utils';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
 import { useGetRequestListQuery } from '../../services';
-import { prepareRequestListParams } from '../../utils/utility-functions';
+import { handleUserRoleRedirect, prepareRequestListParams } from '../../utils/utility-functions';
+import { UserRoleType } from '../../types/common-types';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import * as S from './app.style';
+import { BusinessUserRole } from '../../utils/consts';
 
 const App: React.FC = () => {
   const {
@@ -22,10 +24,15 @@ const App: React.FC = () => {
     sort,
     message,
   } = useAppState();
+
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const { user } = useAuth();
-  const userRole = user?.role;
+  const userRole: UserRoleType = user?.role;
+
+  useEffect(() => {
+    handleUserRoleRedirect(userRole);
+  }, [userRole]);
 
   const requestListParams = {
     searchTerm,
@@ -36,7 +43,7 @@ const App: React.FC = () => {
   };
 
   const { data: requestList, isFetching: requestListFetching } = useGetRequestListQuery(
-    prepareRequestListParams(requestListParams)
+    prepareRequestListParams(requestListParams, userRole)
   );
 
   return (

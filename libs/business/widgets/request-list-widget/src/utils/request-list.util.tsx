@@ -1,9 +1,11 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { Pagination, RequestListType } from '@oxygen/types';
+import { Pagination } from '@oxygen/types';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
 import { statusBadgeRenderer } from './status-badge.util';
+import { BusinessStatusBadge, BusinessUserRole } from './consts';
+import { RequestListType } from '../types/common-types';
 
 type Props = {
   t: TFunction;
@@ -79,8 +81,9 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
     {
       width: '11.8rem',
       key: 'details',
-      render: (item) => {
-        const colorButton = item.uploaded ? 'secondary' : 'primary';
+      render: (item, record) => {
+        const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
+        const colorButton = isApproved ? 'secondary' : 'primary';
         return (
           <Button
             variant={'text'}
@@ -99,34 +102,30 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
 
 export function getMobileColumns(props: Props) {
   const { t, userRole } = props;
+
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render: ({
-        organization_name,
-        clientName,
-        status,
-        registration_date,
-        requested_service_count,
-        companyRepresentativeName,
-        uploaded,
-      }) => {
+      render: ({ organizationName, clientName, submissionStatus, createDate, serviceCount, representative }) => {
+        const isApproved = submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
+        const colorButton = isApproved ? 'secondary' : 'primary';
+
         const data = [
-          { title: t('table.organization_name'), value: organization_name },
-          { title: t('table.clientName'), value: clientName },
-          { title: t('table.status'), value: statusBadgeRenderer(status, userRole, t) },
-          { title: t('table.registration_date'), value: registration_date },
-          { title: t('table.requested_service_count'), value: requested_service_count },
-          { title: t('table.companyRepresentativeName'), value: companyRepresentativeName },
+          { title: t('table.organization_name'), value: getValueOrDash(organizationName) },
+          { title: t('table.client_name'), value: getValueOrDash(clientName) },
+          { title: t('table.status'), value: statusBadgeRenderer(submissionStatus, userRole, t) },
+          { title: t('table.registration_date'), value: getValueOrDash(createDate) },
+          { title: t('table.requested_service_count'), value: getValueOrDash(serviceCount) },
+          { title: t('table.companyRepresentativeName'), value: getValueOrDash(representative) },
           {
             title: t('table.details'),
             value: (
               <Button
-                className={uploaded ? 'secondary' : 'primary'}
+                className={colorButton ? 'secondary' : 'primary'}
                 href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
                 variant={'text'}
-                color={uploaded ? 'secondary' : 'primary'}
+                color={colorButton ? 'secondary' : 'primary'}
               >
                 <i className={'icon-document'} />
                 {t('table.details')}

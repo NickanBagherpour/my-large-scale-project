@@ -1,3 +1,5 @@
+import { WidgetStateType } from '../context/types';
+
 export type SubmissionStatusType = {
   code: number;
   title: string;
@@ -13,3 +15,7 @@ export type RequestListType = {
   representative: string;
   uploaded: boolean;
 };
+
+export type Sort = WidgetStateType['sort'];
+export type Status = WidgetStateType['status'];
+export type UserRoleType = string;
