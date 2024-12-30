@@ -27,6 +27,8 @@ import * as getUpstreamDetailsMock from './upstream-details.mock';
 import * as RequestData from './request-data.mock';
 import * as getScopeChangeHistory from './scope-change-history.mock';
 import * as UpstreamCardDetails from './upstream-card-details.mock';
+import * as RouteDetailsMock from './route-details.mock';
+import * as getRouteChangeHistory from './route-history.mock';
 import * as RequestDetails from './request-details.mock';
 import * as getRequestList from './request-list.mock';
 
@@ -60,6 +62,8 @@ const Mockify = {
   ...RequestData,
   ...getScopeChangeHistory,
   ...UpstreamCardDetails,
+  ...RouteDetailsMock,
+  ...getRouteChangeHistory,
   ...RequestDetails,
   ...getRequestList,
 };
