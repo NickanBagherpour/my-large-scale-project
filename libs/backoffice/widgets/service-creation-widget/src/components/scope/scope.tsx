@@ -130,12 +130,7 @@ export default function Scope() {
         />
       </Container>
 
-      <ConfirmModal
-        isOpen={isConfirmModalOpen}
-        toggle={toggleConfirmModal}
-        onConfirm={assignToServiceAndProceed}
-        fieldName={t('scope_name')}
-      />
+      <ConfirmModal isOpen={isConfirmModalOpen} toggle={toggleConfirmModal} onConfirm={assignToServiceAndProceed} />
     </>
   );
 }

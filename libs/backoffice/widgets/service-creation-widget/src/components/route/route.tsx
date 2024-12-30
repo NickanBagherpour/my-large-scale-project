@@ -16,8 +16,6 @@ import {
   usePostRouteMutation,
   usePutRouteMutation,
 } from '../../services';
-import { useToggle } from '@oxygen/hooks';
-import ConfirmModal from '../cofirm-modal/confirm-modal';
 import { convertCodeTitles } from '../../utils/convert-enums';
 import CenteredLoading from '../centered-loading/centered-loading';
 
@@ -30,7 +28,6 @@ export default function Route() {
   const { data: route, isFetching } = useGetRoute();
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
-  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const isInSSO = route?.isServiceInSso;
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
@@ -48,21 +45,9 @@ export default function Route() {
     }
   };
 
-  const onRegister = async () => {
-    if (isInSSO) form.submit();
-    else {
-      try {
-        await form.validateFields();
-        toggleConfirmModal();
-      } catch {
-        //
-      }
-    }
-  };
+  const onRegister = () => form.submit();
 
-  const onReturn = () => {
-    previousStep(dispatch);
-  };
+  const onReturn = () => previousStep(dispatch);
 
   if (isFetching) {
     return <CenteredLoading />;
@@ -78,71 +63,62 @@ export default function Route() {
   const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
 
   return (
-    <>
-      <Container>
-        <Box>
-          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
-            <SearchItemsContainer>
-              <FormItem
-                name={ROUTE_NAMES.actionOrMethod}
-                validateStatus={getValidateStatus(ROUTE_NAMES.actionOrMethod)}
-                className='span-2'
-                label={t('action_or_method')}
-                rules={[rule]}
-              >
-                <Select
-                  size={'large'}
-                  loading={isFetchingServiceHttpMethod}
-                  options={convertCodeTitles(serviceHttpMethods)}
-                />
-              </FormItem>
+    <Container>
+      <Box>
+        <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+          <SearchItemsContainer>
+            <FormItem
+              name={ROUTE_NAMES.actionOrMethod}
+              validateStatus={getValidateStatus(ROUTE_NAMES.actionOrMethod)}
+              className='span-2'
+              label={t('action_or_method')}
+              rules={[rule]}
+            >
+              <Select
+                size={'large'}
+                loading={isFetchingServiceHttpMethod}
+                options={convertCodeTitles(serviceHttpMethods)}
+              />
+            </FormItem>
 
-              <FormItem
-                name={ROUTE_NAMES.protocol}
-                validateStatus={getValidateStatus(ROUTE_NAMES.protocol)}
-                className='span-2'
-                rules={[rule]}
-                label={t('protocol')}
-              >
-                <Select
-                  size={'large'}
-                  loading={isFetchingServiceProtocol}
-                  options={convertCodeTitles(serviceProtocols)}
-                />
-              </FormItem>
+            <FormItem
+              name={ROUTE_NAMES.protocol}
+              validateStatus={getValidateStatus(ROUTE_NAMES.protocol)}
+              className='span-2'
+              rules={[rule]}
+              label={t('protocol')}
+            >
+              <Select
+                size={'large'}
+                loading={isFetchingServiceProtocol}
+                options={convertCodeTitles(serviceProtocols)}
+              />
+            </FormItem>
 
-              <FormItem
-                name={ROUTE_NAMES.path}
-                validateStatus={getValidateStatus(ROUTE_NAMES.path)}
-                className='span-2'
-                label={t('path')}
-                rules={[rule]}
-              >
-                <Input disabled={!!isInSSO} />
-              </FormItem>
+            <FormItem
+              name={ROUTE_NAMES.path}
+              validateStatus={getValidateStatus(ROUTE_NAMES.path)}
+              className='span-2'
+              label={t('path')}
+              rules={[rule]}
+            >
+              <Input disabled={!!isInSSO} />
+            </FormItem>
 
-              <FormItem
-                name={ROUTE_NAMES.host}
-                validateStatus={getValidateStatus(ROUTE_NAMES.host)}
-                className='span-2'
-                label={t('host')}
-                rules={[rule]}
-              >
-                <Input />
-              </FormItem>
-            </SearchItemsContainer>
-          </Form>
-        </Box>
+            <FormItem
+              name={ROUTE_NAMES.host}
+              validateStatus={getValidateStatus(ROUTE_NAMES.host)}
+              className='span-2'
+              label={t('host')}
+              rules={[rule]}
+            >
+              <Input />
+            </FormItem>
+          </SearchItemsContainer>
+        </Form>
+      </Box>
 
-        <Footer onRegister={onRegister} onReturn={onReturn} />
-      </Container>
-
-      <ConfirmModal
-        isOpen={isConfirmModalOpen}
-        toggle={toggleConfirmModal}
-        onConfirm={() => form.submit()}
-        fieldName={t('path')}
-      />
-    </>
+      <Footer onRegister={onRegister} onReturn={onReturn} />
+    </Container>
   );
 }
