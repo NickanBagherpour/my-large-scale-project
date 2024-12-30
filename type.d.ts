@@ -21,7 +21,7 @@ declare global {
       SSO_URL: string;
       SSO_REDIRECT_URL: string;
       // NEXT_PUBLIC_SSO_TOKEN_URL: string;
-      SSO_CLIENT_KEY: string;
+      NEXT_PUBLIC_SSO_CLIENT_KEY: string;
       SSO_CLIENT_SECRET: string;
       SSO_SCOPE: string;
       JWT_SIGNITURE_SECRET: string;

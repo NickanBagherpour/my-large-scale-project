@@ -1,10 +1,13 @@
 # Declare portalName as a global build argument
 ARG portalName="backoffice"
+ARG ENVIRONMENT="test"
 
 FROM node:20-alpine AS base
 
 ARG portalName
+ARG ENVIRONMENT
 ENV portalName=${portalName}
+ENV ENVIRONMENT=${ENVIRONMENT}
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -25,6 +28,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 #COPY ./apps/${portalName}-portal ./apps/${portalName}-portal
+
+
+ENV NODE_ENV=${ENVIRONMENT}
 
 # Build the Next.js app
 RUN npm run build-${portalName}

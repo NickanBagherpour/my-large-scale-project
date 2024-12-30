@@ -2,13 +2,13 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
 import { ThemeID } from '@oxygen/types';
 import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
-import { useAuth, useResponsive } from '@oxygen/hooks';
-import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
+import { useAppTheme, useAuth, useResponsive } from '@oxygen/hooks';
+import { ENV_CONSTANTS, ROUTES, RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 
 import AppbarUserMenu from './appbar-user-menu';
 import { useGetUserInfo } from '../../services/use-get-user-info';
@@ -25,10 +25,12 @@ const Appbar = (props: AppBarProps) => {
   const { variant = 'dashboard', onToggleDrawer } = props;
   const [t] = useTr();
   const { user, setUser, logout } = useAuth();
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { isMobileOrTablet } = useResponsive();
 
   const { data: userData, isLoading, isError, error } = useGetUserInfo();
+
+  // console.log('userData', queryClient.getQueryData([RQKEYS.BUSINESS_AUTH.USER_INFO]));
 
   useEffect(() => {
     // If there’s no user info, set the fetched user profile

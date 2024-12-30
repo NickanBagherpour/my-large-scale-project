@@ -1,6 +1,6 @@
 import { createResponse, JwtPayload } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-import { decodeJWT, ENV_CONSTANTS } from '@oxygen/utils';
+import { decodeJWT, ENV_CONSTANTS, getRole } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
@@ -13,7 +13,7 @@ export async function GET(req) {
     });
   }
 
-  if (!token || !token.startsWith('Bearer ')) {
+  if (!token || !token.startsWith('Bearer')) {
     return createResponse({
       success: false,
       error: 'Authorization token is missing or invalid',
@@ -37,8 +37,10 @@ export async function GET(req) {
 
     const data = await response.json();
 
-    const decodedToken = decodeJWT(token);
+    const decodedToken = decodeJWT(token.replace('Bearer', '').trim());
     // const decodedToken = decodeToken(token);
+
+    // console.log('decodedToken in user-info -----------------------------------------------', decodedToken);
 
     data.userInfo.role = getRole(decodedToken?.payload);
 
@@ -55,12 +57,4 @@ export async function GET(req) {
       statusCode: 500, // Internal Server Error
     });
   }
-}
-
-function getRole(decodedToken: JwtPayload | undefined): string | null {
-  if (decodedToken?.role) {
-    return decodedToken.role?.replace(`${process.env.SSO_CLIENT_KEY}-`, '');
-  }
-
-  return null;
 }
