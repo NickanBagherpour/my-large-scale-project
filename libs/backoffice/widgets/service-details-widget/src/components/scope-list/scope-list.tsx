@@ -1,23 +1,48 @@
+import { useState, useEffect } from 'react';
 import { RadioChangeEvent } from 'antd';
 import * as S from './scope-list.style';
 import { useTr } from '@oxygen/translation';
-import Footer from './footer/footer';
-import Box from './box/box';
-import ImportFromSso from './import-from-sso/import-from-sso';
+import { useSearchParams } from 'next/navigation';
+// import Footer from './footer/footer';
+// import Box from './box/box';
+// import ImportFromSso from './import-from-sso/import-from-sso';
 import { useAppDispatch, useAppState, updateScopeMode } from '../../context';
 import { type Scope } from '@oxygen/types';
+import { Nullable } from '@oxygen/types';
+
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
-import { useState } from 'react';
-import { Container } from './container/container.style';
+import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
+// import { Container } from './container/container.style';
+import { useGetServiceScope } from '../../services';
+
+import ScopeSelector from './scope-selector/scope-selector';
+import { Modal } from '../../utils/services-table.util';
 
 export default function Scope({ updateData }) {
   const [t] = useTr();
   const { scopeMode /* scope: addScope */ } = useAppState();
   const dispatch = useAppDispatch();
   const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
+  const searchParams = useSearchParams();
+  const servicename: Nullable<string> = searchParams.get('servicename');
 
+  const params = servicename;
+  const { data: serviceScope, isFetching: isFetching } = useGetServiceScope(params);
+  useEffect(() => {
+    setSelectedScope(serviceScope);
+  }, [serviceScope]);
   const chooseScope = (scope: Scope) => {
     setSelectedScope(scope);
+  };
+
+  const [modals, setModals] = useState<Modal>({
+    details: false,
+    removeService: false,
+  });
+
+  const toggleModal = (modal: keyof Modal) => {
+    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+    setSelectedScope(null);
   };
 
   const handleInputChange = (e) => {
@@ -53,19 +78,19 @@ export default function Scope({ updateData }) {
     },
     {
       title: t('scope_english_name'),
-      dataIndex: 'scopeName',
+      dataIndex: 'name',
       align: 'center',
     },
     {
       title: t('scope_persian_name'),
-      dataIndex: 'persianName',
+      dataIndex: 'description',
       align: 'center',
     },
     {
       key: 'remove',
       align: 'center',
       render: () => (
-        <Button variant='link' color='error' onClick={removeSelectedScope}>
+        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -86,7 +111,7 @@ export default function Scope({ updateData }) {
               minHeight={'40px'}
               title={t('remove')}
               value={
-                <Button className='item__btn' variant='link' color='error' onClick={removeSelectedScope}>
+                <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
                   <S.TrashIcon className='icon-trash' />
                 </Button>
               }
@@ -98,28 +123,29 @@ export default function Scope({ updateData }) {
   ];
 
   return (
-    <Container>
-      <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} />
-
+    // <Container>
+    <>
+      {/* <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} /> */}
+      <ScopeSelector style={{ flex: 1 }} onSelect={chooseScope} disabled={!!selectedScope} />
       {/* <button onClick={handleSubmit}>Submit Scope</button> */}
+      {console.log(serviceScope, 'serviceScope')}
+      <S.Table
+        columns={desktopColumns}
+        mobileColumns={mobileColumns}
+        dataSource={[selectedScope]}
+        rowKey={(row) => row?.idx || 'defaultKey'}
+        // rowKey={(row) => {
+        //   console.log('Row in Table:', row); // Debugging
+        //   return row?.id || 'defaultKey';
+        // }}
+        pagination={false}
+      />
 
-      {selectedScope && (
-        <S.Table
-          columns={desktopColumns}
-          mobileColumns={mobileColumns}
-          dataSource={[selectedScope]}
-          rowKey={(row) => row.idx}
-          pagination={false}
-        />
-      )}
-
-      {/* <input type='text' name='scopeName' placeholder='Enter Scope Name' onChange={handleInputChange} /> */}
-      {/* 
-      <Footer
-        registerButtonProps={{ disabled: !selectedScope }}
-        onRegister={() => console.log('hh')}
-        onReturn={onReturn}
-      /> */}
-    </Container>
+      <RemoveServiceModal
+        isOpen={modals['removeService']}
+        toggle={() => toggleModal('removeService')}
+        id={'samat-lc-gutr-del'}
+      />
+    </>
   );
 }

@@ -26,13 +26,37 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/routes/service-name/${params}`);
     return Mockify.RouteDetails();
   },
+  getServiceScope: async (params) => {
+    return client.get<any>(`${portalUrl}/v1/scope/service-name/${params}`);
+    return Mockify.RouteDetails();
+  },
   getServiceClientsList: async () => {
     return Mockify.ServiceClientsList();
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getScopeListBySearch: async (params) => {
-    return client.get<any>(`${portalUrl}/v1/scope/search/${params}`);
+    //   return client.get<any>(`${portalUrl}/v1/scope/service-name/${params}`);
+    //   // return Mockify.getScopes;
+    // },
+    // getScopeListBy: async (params) => {
+    const queryString = new URLSearchParams(params).toString();
+    return client.get<any>(`${portalUrl}/v1/scope?${queryString}`);
     // return Mockify.getScopes;
   },
+  // getScopeListBySearch: async (params) => {
+  //   const queryString = new URLSearchParams(params).toString();
+  //   try {
+  //     const response = await client.get<any>(`${portalUrl}/v1/scope?${queryString}`);
+  //     return response;
+  //   } catch (error) {
+  //     const axiosError = error as any;
+  //     if (axiosError.response?.status === 500) {
+  //       console.error('Received 500 error. Returning mock data.');
+  //       return Mockify.getScopes;
+  //     } else {
+  //       throw error;
+  //     }
+  //   }
+  // },
 };
 export default Api;

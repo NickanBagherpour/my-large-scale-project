@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
 
+export const ScopeContainer = styled.div`
+  .ant-select {
+    width: 100%;
+  }
+`;
+
 export const Item = styled.div`
   display: flex;
   align-items: center;

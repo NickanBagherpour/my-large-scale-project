@@ -59,6 +59,11 @@ export default {
       health: 'سلامت:',
     },
   },
+  remove_modal: {
+    remove_service: 'حذف سرویس',
+    remove: 'حذف',
+    are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این اسکوپ اطمینان دارید؟',
+  },
   remove: 'حذف ',
   save_changes: 'ذخیره تغییرات',
   english_name: 'نام انگلیسی',
