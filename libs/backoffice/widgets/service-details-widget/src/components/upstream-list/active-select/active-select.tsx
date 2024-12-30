@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { Modal } from '../../scope-list/scope-list';
+import { Modal } from '@oxygen/ui-kit';
+import CustomInfobox from '../custom-infobox/custom-infobox';
+// import { Modal } from '../../scope-list/scope-list';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 
@@ -16,6 +18,12 @@ type ActiveSelectType = PageProps & {
   data?: any;
   loading?: boolean;
 };
+
+export type Modal = {
+  details: boolean;
+  removeService: boolean;
+};
+
 export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   // const {  } = props;
   //Hooks

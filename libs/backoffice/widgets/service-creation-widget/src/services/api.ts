@@ -2,7 +2,7 @@ import { client, portalUrl } from '@oxygen/client';
 import type {
   AssignUpstreamToServiceParams,
   CodeTitle,
-  GeneralInfoParams,
+  PostServiceParams,
   RouteParams,
   Route,
   Service,
@@ -16,8 +16,7 @@ import type { AssignScopeToServiceParams, Scope, ScopesData, ScopesParams } from
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
-  postGeneralInfo: async (params: GeneralInfoParams) =>
-    client.post<unknown>(`${portalUrl}/v1/services/register-general-info`, params),
+  postService: async (params: PostServiceParams) => client.post<unknown>(`${portalUrl}/v1/services`, params),
   getRoute: async (name: string) => client.get<Route>(`${portalUrl}/v1/routes/service-name/${name}`),
   getScopes: async (params: ScopesParams) => client.get<ScopesData>(`${portalUrl}/v1/scope`, { params }),
   getUpstreams: async (params: UpstreamsParams) =>
@@ -29,7 +28,7 @@ const Api = {
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
-  getScope: async (name: string) =>
+  getServiceScope: async (name: string) =>
     client.get<Scope & { isServiceInSso: boolean }>(`${portalUrl}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
@@ -44,10 +43,12 @@ const Api = {
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
   postCofirmData: async (serviceName: string) => client.post(`${portalUrl}/v1/services/confirm-info/${serviceName}`),
-  getServiceInquiryStatus: async (serviceName: string) =>
-    client.get<ServiceInquiry>(`${portalUrl}/v1/services/service-inquiry-status`, {
+  getServiceInquiry: async (serviceName: string) =>
+    client.get<ServiceInquiry>(`${portalUrl}/v1/services/service-inquiry`, {
       params: { 'service-name': serviceName },
     }),
+  postRegisterToBaam: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
+    client.post<unknown>(`${portalUrl}/v1/services/${serviceName}/register-to-bam/${scopeName}`),
 };
 
 export default Api;
