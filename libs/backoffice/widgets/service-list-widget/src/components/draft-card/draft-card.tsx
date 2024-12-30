@@ -9,7 +9,7 @@ import * as S from './draft-card.style';
 type DraftCardType = {
   id: number;
   name: string;
-  level?: 1 | 2 | 3 | 4;
+  level?: 1 | 2 | 3 | 4 | 5;
   progressPercentage: number;
 };
 
@@ -33,16 +33,17 @@ export default function DraftCard(props: DraftCardType) {
     });
   };
 
-  const levelsMap: Record<1 | 2 | 3 | 4, string> = {
-    1: t('service_name'),
-    2: t('service_info'),
-    3: t('add_documents'),
-    4: t('operational'),
+  const levelsMap: Record<1 | 2 | 3 | 4 | 5, string> = {
+    1: t('general_info'),
+    2: t('route'),
+    3: t('scope'),
+    4: t('upstream'),
+    5: t('info_display'),
   };
 
   return (
     <>
-      <S.Container href={ROUTES.BACKOFFICE.CLIENT_CREATION}>
+      <S.Container href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${name}`}>
         <S.Header>
           <S.Name>{name}</S.Name>
           {/* <Button onClick={openConfirmModal} color='primary' variant='text' size='small'>

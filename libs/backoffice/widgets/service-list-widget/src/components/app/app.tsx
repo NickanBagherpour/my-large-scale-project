@@ -1,30 +1,38 @@
 import { useTheme } from 'styled-components';
 import { useMemo, useState } from 'react';
+
 import { Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useQueryClient } from '@tanstack/react-query';
-import { RQKEYS } from '@oxygen/utils';
+
 import { useAppState } from '../../context';
 import { useGetServicesQuery } from '../../services';
 import Filters from '../filters/filters';
 import Services from '../services-list/services';
-
 import DraftCard from '../draft-card/draft-card';
 import { useGetDraftsQuery } from '../../services/get-drafts.api';
-import { ParamsType, ServiceTypeQuery } from '../../types';
+import { ParamsType } from '../../types';
+
 import * as S from './app.style';
 
 const DRAFT_LIST_LIMIIT = 4;
 const App = () => {
   const theme = useTheme();
-  const { message, ...fetchState } = useAppState();
-
-  const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(fetchState);
+  const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
+  const prepareParams = () => {
+    return {
+      isActive: status,
+      'search-field': searchTerm,
+      page: table.pagination.page,
+      size: table.pagination.rowsPerPage,
+      sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
+    };
+  };
+  const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(prepareParams());
   const { data: drafts } = useGetDraftsQuery();
 
   const [t] = useTr();
   const hasDrafts = !!drafts?.length;
-  const clientsSubTitle = services?.list?.length ? `(${services?.list?.length ?? 0})` : '';
+  const clientsSubTitle = services?.totalElements ? `(${services?.totalElements ?? 0})` : '';
   const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
   const [openStatusModal, setOpenStatusModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -32,7 +40,7 @@ const App = () => {
   const [selectedServiceName, setSelectedServiceName] = useState('');
   const [operationalStatus, setOperationalStatus] = useState(false);
   const [showLoadMore, setShowLoadMore] = useState(true);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const changeStatusHandler = (status: boolean, name: string) => {
     setOpenStatusModal(true);
@@ -57,25 +65,25 @@ const App = () => {
     setSelectedServiceName(name);
   };
 
-  const handleDeleteOk = (name: string) => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      queryClient.setQueryData([RQKEYS.SERVICES_LIST.GET_LIST, fetchState], (oldData: ServiceTypeQuery) => {
-        if (!oldData) return;
-        return {
-          ...oldData,
-          list: oldData.list.filter((item) => item.name !== name),
-        };
-      });
+  // const handleDeleteOk = (name: string) => {
+  //   setConfirmLoading(true);
+  //   setTimeout(() => {
+  //     queryClient.setQueryData([RQKEYS.SERVICES_LIST.GET_LIST, fetchState], (oldData: any) => {
+  //       if (!oldData) return;
+  //       return {
+  //         ...oldData,
+  //         list: oldData.list.filter((item) => item.name !== name),
+  //       };
+  //     });
 
-      setOpenDeleteModal(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
+  //     setOpenDeleteModal(false);
+  //     setConfirmLoading(false);
+  //   }, 2000);
+  // };
 
-  const handleDeleteCancel = () => {
-    setOpenDeleteModal(false);
-  };
+  // const handleDeleteCancel = () => {
+  //   setOpenDeleteModal(false);
+  // };
   const draftList = useMemo(
     () => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIIT) : drafts),
     [showLoadMore, drafts]
@@ -157,11 +165,11 @@ const App = () => {
         <Filters />
         <Services
           isFetching={isClientsFetching}
-          data={services?.list}
-          total={services?.list?.length}
-          searchTerm={fetchState.searchTerm}
+          data={services?.content}
+          total={services?.totalElements}
+          searchTerm={searchTerm}
           isLoading={isClientsFetching}
-          wordToHighlight={fetchState.searchTerm}
+          wordToHighlight={searchTerm}
           changeStatus={(status, name) => changeStatusHandler(status, name)}
           deleteService={(name, status) => deleteHandler(name, status)}
         />
