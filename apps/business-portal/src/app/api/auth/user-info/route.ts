@@ -21,7 +21,7 @@ export async function GET(req) {
     });
   }
 
-  const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity-user-manager/userInfo`;
+  const url = `${process.env.SSO_URL}/identity-user-manager/userInfo`;
 
   try {
     const response = await fetch(url, {
@@ -37,9 +37,10 @@ export async function GET(req) {
 
     const data = await response.json();
 
-    const decodedToken = decodeJWT(token);
+    const decodedToken = decodeJWT(token?.replace('Bearer ', '')?.trim());
+    // const decodedToken = decodeToken(token);
 
-    data.userInfo.role = getRole(decodedToken);
+    data.userInfo.role = getRole(decodedToken?.payload);
 
     return createResponse({
       success: true,
@@ -56,9 +57,9 @@ export async function GET(req) {
   }
 }
 
-function getRole(decodedToken: JwtPayload | null): string | null {
+function getRole(decodedToken: JwtPayload | undefined): string | null {
   if (decodedToken?.role) {
-    return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
+    return decodedToken.role?.replace(`${process.env.SSO_CLIENT_KEY}-`, '');
   }
 
   return null;

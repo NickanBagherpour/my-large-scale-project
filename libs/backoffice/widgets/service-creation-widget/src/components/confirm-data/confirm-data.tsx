@@ -1,15 +1,16 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
 import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import type { InfoItemType, UpstreamServer } from '@oxygen/types';
+import type { InfoItemType } from '@oxygen/types';
 import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
 import ResultModal from '../result-modal/result-modal';
-import { useGetScope, useGetService, useGetUpstream } from '../../services';
+import { useGetScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
+import { UpstreamTarget } from '../../types';
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -19,35 +20,35 @@ export default function ConfirmData() {
   const { data: route, isFetching: isFetchingRoute } = useGetRoute();
   const { data: scope, isFetching: isFetchingScope } = useGetScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
+  const { mutate: confirmData, status } = usePostConfirmData();
 
   let generalInfoData: InfoItemType[] = [];
-  if (service?.data) {
-    const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service.data;
+  if (service) {
+    const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service;
     generalInfoData = [
       { key: 'english_name', value: name },
       { key: 'persian_name', value: persianName },
-      { key: 'access', value: accessLevel.title },
-      { key: 'category', value: category.title },
-      { key: 'Throughout', value: throughput.title },
-      { key: 'version', value: version },
-      { key: 'owner', value: owner },
+      { key: 'access', value: getValueOrDash(accessLevel?.title) },
+      { key: 'category', value: getValueOrDash(category?.title) },
+      { key: 'Throughout', value: getValueOrDash(throughput?.title) },
+      { key: 'version', value: getValueOrDash(version) },
+      { key: 'owner', value: getValueOrDash(owner) },
       {
         key: 'tag',
         fullwidth: true,
-        value: getValueOrDash(
+        value:
           tags.map(({ id, title }) => (
-            <Chip ellipsis closeIcon type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
+            <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
               {title}
             </Chip>
-          ))
-        ),
+          )) ?? '-',
       },
     ];
   }
 
   let scopeData: InfoItemType[] = [];
-  if (scope?.data) {
-    const { description, name } = scope.data;
+  if (scope) {
+    const { description, name } = scope;
     scopeData = [
       { key: 'english_name', value: name },
       { key: 'persian_name', value: getValueOrDash(description) },
@@ -55,10 +56,10 @@ export default function ConfirmData() {
   }
 
   let upstreamData: InfoItemType[] = [];
-  let upstreamTargets: UpstreamServer[] = [];
+  let upstreamTargets: UpstreamTarget[] = [];
 
-  if (upstream?.data) {
-    const { description, name, targets } = upstream.data;
+  if (upstream) {
+    const { description, name, targets } = upstream;
     upstreamData = [
       { key: 'english_name', value: name },
       { key: 'description', value: getValueOrDash(description) },
@@ -73,17 +74,17 @@ export default function ConfirmData() {
   }
 
   let routeData: InfoItemType[] = [];
-  if (route?.data) {
-    const { host, path, method, protocol } = route.data;
+  if (route) {
+    const { host, path, method, protocol } = route;
     routeData = [
-      { key: 'action_or_method', value: method },
-      { key: 'protocole', value: protocol },
+      { key: 'action_or_method', value: getValueOrDash(method?.title) },
+      { key: 'protocol', value: getValueOrDash(protocol?.title) },
       { key: 'Path', value: path },
       { key: 'host', value: host },
     ];
   }
 
-  const desktopColumns: ColumnsType<UpstreamServer> = [
+  const desktopColumns: ColumnsType<UpstreamTarget> = [
     {
       title: t('domain'),
       dataIndex: 'domain',
@@ -101,10 +102,10 @@ export default function ConfirmData() {
     },
   ];
 
-  const mobileColumns: ColumnsType<UpstreamServer> = [
+  const mobileColumns: ColumnsType<UpstreamTarget> = [
     {
       key: 'mobileColumn',
-      render: ({ domain, healthStatus, weight }: UpstreamServer) => {
+      render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
         return (
           <UiKitBox flexDirection='column'>
             <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
@@ -117,8 +118,11 @@ export default function ConfirmData() {
     },
   ];
 
-  const onReturn = () => {
-    previousStep(dispatch);
+  const onReturn = () => previousStep(dispatch);
+
+  const onRegister = () => {
+    confirmData();
+    toggleIsResultModalOpen();
   };
 
   return (
@@ -153,10 +157,10 @@ export default function ConfirmData() {
             />
           </S.Section>
         </div>
-        <Footer onRegister={toggleIsResultModalOpen} onReturn={onReturn} />
+        <Footer onRegister={onRegister} onReturn={onReturn} />
       </Container>
 
-      <ResultModal isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+      <ResultModal status={status} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
     </>
   );
 }

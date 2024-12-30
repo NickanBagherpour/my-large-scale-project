@@ -42,20 +42,22 @@ export const ROUTES = {
     AUTH: '/auth',
     PROFILE: '/profile',
     DASHBOARD: '/dashboard',
-    REQUESTS_MANAGEMENT: '/requests-management',
+    REQUEST_MANAGEMENT: '/request-management',
     REQUEST_REGISTRATION: '/request-registration',
   },
   BUSINESS: {
     AUTH: '/auth',
     DASHBOARD: '/dashboard',
+    PROFILE: '/profile',
+    REQUESTS_MANAGEMENT: '/requests-management',
     REQUEST_LIST: '/request-list',
-    REQUEST_ID: '/request-id',
+    REQUEST_DETAILS: '/request-details',
   },
 };
 export const CUSTOMER_ROUTE_GROUPS = [
   // [ROUTES.CUSTOMER.DASHBOARD],
   [
-    ROUTES.CUSTOMER.REQUESTS_MANAGEMENT,
+    ROUTES.CUSTOMER.REQUEST_MANAGEMENT,
     // , ROUTES.CUSTOMER.REQUEST_CREATION
   ],
 ];
@@ -86,4 +88,5 @@ export const BACKOFFICE_ROUTE_GROUPS = [
   ],
   [ROUTES.BACKOFFICE.EDIT_ROUTE, ROUTES.BACKOFFICE.ROUTE_HISTORY],
   [ROUTES.BACKOFFICE.UPSTREAM_LIST, ROUTES.BACKOFFICE.UPSTREAM_CREATION],
+  [ROUTES.BUSINESS.REQUEST_LIST, ROUTES.BUSINESS.REQUEST_DETAILS],
 ];

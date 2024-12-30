@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-import { ScopeFormType, GeneralInfoValuesType, RouteType } from '../types';
 import { steps } from '../components/app/app';
 import { StepProps } from 'antd';
 
@@ -15,12 +14,17 @@ export type Statuses = StepProps['status'];
 
 export type WidgetStateType = {
   step: StepIndex;
-  stepStatuses: Array<{ name: StepNames; status: Statuses }>;
-  generalInfo: GeneralInfoValuesType;
-  scope: ScopeFormType;
-  route: RouteType;
+  serviceName: string;
+  stepStatuses: Array<{
+    name: StepNames;
+    status: Statuses;
+    error?: Record<string /* TODO: change this type to each step input names */, string>;
+  }>;
   message: Nullable<MessageType>;
 };
+
+// TODO: extract this type from WidgetStateType
+export type ErrorPayload = { [K in StepNames]: Record<string, string> };
 
 export type WidgetActionType =
   | {
@@ -34,16 +38,19 @@ export type WidgetActionType =
       type: 'PREVIOUS_STEP';
     }
   | {
-      type: 'UPDATE_GENERAL_INFO_STEP';
-      payload: GeneralInfoValuesType;
+      type: 'ADD_SERVICE_NAME';
+      payload: WidgetStateType['serviceName'];
     }
   | {
-      type: 'UPDATE_SCOPE_STEP';
-      payload: ScopeFormType;
+      type: 'ADD_INITIAL_STEP';
+      payload: WidgetStateType['step'];
     }
   | {
-      type: 'UPDATE_ROUTE_STEP';
-      payload: RouteType;
+      type: 'ADD_STEP_ERRORS';
+      payload: ErrorPayload;
+    }
+  | {
+      type: 'GO_TO_FIRST_ERROR';
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

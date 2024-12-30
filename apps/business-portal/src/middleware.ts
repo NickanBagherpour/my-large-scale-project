@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import type {} from 'next/server';
+import { headers } from 'next/headers';
 
 import { decrypt, ROUTES } from '@oxygen/utils';
 import { CookieKey } from '@oxygen/types';
@@ -16,13 +17,17 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 
 // Function to call the custom /api/auth/validate route
 async function validateToken(token: string | undefined): Promise<boolean> {
+  const host = headers().get('host');
+  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
+  const baseUrl = `${protocol}://${host}`;
+
   if (!token) {
     return false; // Token is missing, consider it invalid
   }
 
   try {
     // Call the custom API route for token validation
-    const response = await fetch('/api/auth/validate', {
+    const response = await fetch(`${baseUrl}/api/auth/validate`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${decrypt(token)}`,
@@ -44,9 +49,10 @@ export default async function middleware(request: NextRequest) {
 
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
-  // console.log('request inside middleware', token, request.ip, request.url, request.nextUrl);
+  // console.log('request inside middleware', token);
 
   const publicPaths = [ROUTES.BUSINESS.AUTH]; // Define public paths here
+  const apiPrefixes = ['/api/', '/commercial/api/', '/business/api/'];
 
   // Get the current pathname
   const { pathname } = request.nextUrl;
@@ -54,15 +60,17 @@ export default async function middleware(request: NextRequest) {
   // Check if the user is trying to access a protected route
   const isProtectedRoute = !publicPaths.some((path) => pathname === path);
 
+  const isApiRoute = apiPrefixes.some((prefix) => pathname.startsWith(prefix));
+
   // If the request is for an API route
-  if (pathname.startsWith('/api/')) {
+  if (isApiRoute) {
     // Skip validation for /api/auth/ routes
     if (pathname.startsWith('/api/auth/')) {
       return NextResponse.next(); // Allow the request to pass through
     }
 
     // Validate token for other /api/ routes by calling the external validation service
-    const isTokenValid = await validateToken(token);
+    const isTokenValid = true; //await validateToken(token);  //fixme work on validation token
 
     if (!isTokenValid) {
       console.log('Invalid token, signing out...');

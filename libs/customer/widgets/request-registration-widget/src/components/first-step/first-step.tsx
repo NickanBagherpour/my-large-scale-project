@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RadioChangeEvent, Typography } from 'antd';
 
-import { LocalStorageKey } from '@oxygen/types';
-import { useLocalStorage } from '@oxygen/hooks';
-
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { dayjs } from '@oxygen/utils';
@@ -18,8 +15,9 @@ import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../util
 import { WidgetStateType } from '../../context/types';
 import {
   useFirstStepRequestRegistrationMutationQuery,
-  useGetOrganizationDataMutationQuery,
+  useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery,
   useGetOrganizationsQuery,
+  useGetAggregatorsQuery,
 } from '../../services/first-step/first-step-data';
 import {
   updateFirstStepAction,
@@ -48,11 +46,23 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
-  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery(fetchState);
+  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
+  const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
+  const [aggregatorSelectData, setAggregatorSelectData] = useState();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
+  const { mutate: secondMutate, isPending: secondIsPending } =
+    useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
+
+  useEffect(() => {
+    const transformedAggregators = aggregators?.content?.map((aggregator) => ({
+      label: aggregator.aggregatorName,
+      value: aggregator.aggregatorId.toString(),
+    }));
+    setAggregatorSelectData(transformedAggregators);
+  }, [aggregators]);
 
   type Status = WidgetStateType['status'];
 
@@ -71,15 +81,26 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         postalCode: values.postal_code,
         phone: values.phone,
         registeredAddress: values.last_registration_address,
-        isAggregator: true,
-        aggregatorId: null,
+        isAggregator:
+          state.firstStep.aggregator_status === 'isAggregator'
+            ? true
+            : state.firstStep.aggregator_status === 'hasAggregator'
+            ? false
+            : false,
+        aggregatorId: state.firstStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
+        organizationId: state.organizationId,
+        submissionId: state.submissionId,
       };
 
       firstMutate(params, {
         onSuccess: (data) => {
           console.log('request registration first step successful:', data);
-          updateOrganizationIdAndSubmissionId(dispatch, data.data);
-          updateFirstStepAction(dispatch, values);
+          if (state.submissionId.length === 0) {
+            updateOrganizationIdAndSubmissionId(dispatch, data.data);
+          }
+          const aggregator_status = state.firstStep.aggregator_status;
+          const updatedValues = { ...values, aggregator_status };
+          updateFirstStepAction(dispatch, updatedValues);
           setCurrentStep((perv) => perv + 1);
         },
         onError: (error) => {
@@ -87,6 +108,26 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         },
       });
     }
+  };
+
+  const handleContinue = () => {
+    const params = { organizationId: isSelected.id };
+    secondMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration first step successful:', data);
+        const submissionId = data.headers['submission-id'];
+        if (state.submissionId.length === 0) {
+          updateOrganizationIdAndSubmissionId(dispatch, {
+            organization: { id: isSelected.id },
+            submissionId: submissionId,
+          });
+        }
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
 
   const getChipProps = (currentStatus: Status, chipStatus: Status) =>
@@ -113,7 +154,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     if (!state.firstStep.aggregator_status) {
       setAggregatorIsRequired(true);
     }
-    form.submit();
+    if (state.requestMode === 'selectOrganization') {
+      handleContinue();
+    } else {
+      form.submit();
+    }
   };
 
   const handleReturn = () => {
@@ -163,61 +208,64 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                       <SearchItemsContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.legal_person_name')}</span>
-                          {/* <span>{data.list.legal_person_name}</span> */}
                           <span>{organizations[isSelected.id].legalName}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.national_id')}</span>
-                          {/* <span>{data.list.national_id}</span> */}
                           <span>{organizations[isSelected.id].organizationNationalId}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.legal_person_type')}</span>
-                          {/* <span>{data.list.legal_person_type}</span> */}
-                          <span>{organizations[isSelected.id].legalType}</span>
+                          <span>
+                            {organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private')}
+                          </span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.registration_number')}</span>
-                          {/* <span>{data.list.registration_number}</span> */}
                           <span>{organizations[isSelected.id].registerNo}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.registration_date')}</span>
-                          {/* <span>{data.list.registration_date}</span> */}
                           <span>{organizations[isSelected.id].registerDate}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.activity_field')}</span>
-                          {/* <span>{data.list.activity_field}</span> */}
                           <span>{organizations[isSelected.id].activityIndustry}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.economy_code')}</span>
-                          {/* <span>{data.list.economy_code}</span> */}
                           <span>{organizations[isSelected.id].economicCode}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.aggregator_status')}</span>
-                          <span>
-                            {organizations[isSelected.id].isAggregator}-{organizations[isSelected.id].id}
-                          </span>
+                          {organizations[isSelected.id].isAggregator && organizations[isSelected.id].aggregatorId && (
+                            <span>
+                              {t('company_has_aggregator')}-{organizations[isSelected.id].aggregatorId}
+                            </span>
+                          )}
+                          {organizations[isSelected.id].isAggregator &&
+                            organizations[isSelected.id].aggregatorId == null && (
+                              <span>{t('company_is_aggregator')}</span>
+                            )}
+                          {!organizations[isSelected.id].isAggregator && (
+                            <span>
+                              {t('company_is_not_aggregator')}-{t('company_has_not_aggregator')}
+                            </span>
+                          )}
                         </S.InfoItemContainer>
                       </SearchItemsContainer>
                       <S.Divider orientation='center' />
                       <SearchItemsContainer $columnNumber='3'>
                         <S.InfoItemContainer>
                           <span>{t('form.last_registration_address')}</span>
-                          {/* <span>{data.list.last_registration_address}</span> */}
                           <span>{organizations[isSelected.id].registeredAddress}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.postal_code')}</span>
-                          {/* <span>{data.list.postal_code}</span> */}
                           <span>{organizations[isSelected.id].postalCode}</span>
                         </S.InfoItemContainer>
                         <S.InfoItemContainer>
                           <span>{t('form.phone')}</span>
-                          {/* <span>{data.list.phone}</span> */}
                           <span>{organizations[isSelected.id].phone}</span>
                         </S.InfoItemContainer>
                       </SearchItemsContainer>
@@ -267,8 +315,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   )}
                 </S.ChipsContainer>
               </SearchItemsContainer>
-              {(state.firstStep.aggregator_status === 'isAggregator' ||
-                state.firstStep.aggregator_status === 'hasAggregator') && (
+              {state.firstStep.aggregator_status === 'hasAggregator' && (
+                // ||state.firstStep.aggregator_status === 'isAggregator'
                 <SearchItemsContainer $columnNumber='3'>
                   <S.AggregatorContainer>
                     <Form.Item
@@ -279,8 +327,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator' rules={[rule]}>
                       <Select
                         size={'large'}
-                        options={selectLegalTypeOptions}
-                        // loading={selectFetching}
+                        options={aggregatorSelectData}
+                        loading={isAggregatorsFetching}
                         placeholder={`${t('placeholder.do_select')}`}
                       ></Select>
                     </Form.Item>
@@ -314,7 +362,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 />
               </Form.Item>
               <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
-                {/* <DatePicker placeholder={`${t('placeholder.registration_date')}`} /> */}
                 <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
               </Form.Item>
               <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
@@ -350,10 +397,15 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       </Card>
 
       <S.Footer>
-        <Button loading={firstIsPending} variant={'outlined'} onClick={handleReturn}>
+        <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={() => handleSubmit()}>
+        <Button
+          htmlType={'submit'}
+          loading={firstIsPending || secondIsPending}
+          onClick={() => handleSubmit()}
+          disabled={state.requestMode === 'selectOrganization' && !isSelected.isSelected}
+        >
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

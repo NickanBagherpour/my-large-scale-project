@@ -9,13 +9,13 @@ import { Modal } from '@oxygen/ui-kit';
 import searchAnimation from '../../assets/media/searching-Services.json';
 import SearchBox from './search-box';
 import ServiceExists from './service-exists';
-import ServiceCreationAllowed from './service-creation-allowed';
-import CompleteService from './complete-service';
-import { InquiryInfo, InquiryParams, InquiryStatus } from '../../types/get-Inquiry-info.type';
+import { InquiryInfo, InquiryParams } from '../../types/get-Inquiry-info.type';
 import ServiceExistsInBAAM from './service-exists-in-BAAM';
 import { useInquireService } from '../../services/get-inquiry.api';
 import { ServiceNameType } from '../../types';
-import { INQUIRY_STATUS } from '../../utils/consts';
+import { InquiryStatus } from '../../utils/consts';
+import ServiceIncomplete from './service-incomplete';
+import ServiceNotFound from './service-not-found';
 import * as S from './inquiry-service.style';
 
 type Props = {
@@ -30,7 +30,7 @@ const defaultOptions = {
     preserveAspectRatio: 'xMidYMid slice',
   },
 };
-export type ContentType = 'searching' | InquiryStatus;
+export type ContentType = 'searching' | keyof typeof InquiryStatus;
 const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
   const [form] = Form.useForm<ServiceNameType>();
@@ -51,7 +51,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   if (code) {
     mappedData = {
       ...data,
-      serviceInquiryStatus: { ...data?.serviceInquiryStatus, code: INQUIRY_STATUS[code] },
+      serviceInquiryStatus: { ...data?.serviceInquiryStatus, code: InquiryStatus[code] as keyof typeof InquiryStatus },
     };
   }
 
@@ -61,7 +61,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
         const res = await refetch(); // Refetch data based on form submission
         const status = res?.data?.serviceInquiryStatus?.code;
         if (status) {
-          setContent(INQUIRY_STATUS[status]);
+          setContent(InquiryStatus[status] as ContentType);
         } else {
           setContent('searching');
         }
@@ -74,11 +74,11 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   }, [fromSubmission]);
 
   const contentDictionary: { [key in ContentType]: ReactElement } = {
-    SERVICE_NOT_FOUND: <ServiceCreationAllowed />,
+    SERVICE_NOT_FOUND: <ServiceNotFound />,
     SERVICE_ALREADY_EXISTS: (
       <ServiceExists data={mappedData} form={form} inputRef={inputRef} changeContent={changeContent} />
     ),
-    SERVICE_IS_DRAFT: <CompleteService data={mappedData} />,
+    SERVICE_IS_DRAFT: <ServiceIncomplete data={mappedData} />,
     SERVICE_EXISTS_IN_BAAM: <ServiceExistsInBAAM serviceName={mappedData?.serviceName} />,
     searching: <></>,
   };

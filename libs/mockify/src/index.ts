@@ -16,7 +16,7 @@ import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
 import * as ServiceHistoryMock from './service-history.mock';
 import * as ClientHistoryMock from './client-history.mock';
-import * as clientCreationFirstStep from './client-creation-first-step';
+import * as ClientCreationFirstStep from './client-creation-first-step';
 import * as ApplicantHistoryMock from './applicant-history.mock';
 import * as ServiceInfoMock from './service-info.mock';
 import * as ServiceClientsListMock from './service-clients-list.mock';
@@ -24,13 +24,12 @@ import * as ServiceDetailsMock from './service-details.mock';
 import * as getScopesList from './list-scopes.mock';
 import * as UpstreamListMock from './upstream-list.mock';
 import * as getUpstreamDetailsMock from './upstream-details.mock';
-import * as ServiceCreation from './service-creation.mock';
-import * as CustomerMenuMock from './customer-menu.mock';
 import * as RequestData from './request-data.mock';
 import * as getScopeChangeHistory from './scope-change-history.mock';
 import * as UpstreamCardDetails from './upstream-card-details.mock';
 import * as RouteDetailsMock from './route-details.mock';
 import * as getRouteChangeHistory from './route-history.mock';
+import * as RequestDetails from './request-details.mock';
 import * as getRequestList from './request-list.mock';
 
 const Mockify = {
@@ -55,18 +54,17 @@ const Mockify = {
   ...ClientHistoryMock,
   ...ClientInfo,
   ...ApplicantInfo,
-  ...clientCreationFirstStep,
+  ...ClientCreationFirstStep,
   ...ApplicantHistoryMock,
   ...getScopesList,
   ...UpstreamListMock,
   ...getUpstreamDetailsMock,
-  ...ServiceCreation,
-  ...CustomerMenuMock,
   ...RequestData,
   ...getScopeChangeHistory,
   ...UpstreamCardDetails,
   ...RouteDetailsMock,
   ...getRouteChangeHistory,
+  ...RequestDetails,
   ...getRequestList,
 };
 

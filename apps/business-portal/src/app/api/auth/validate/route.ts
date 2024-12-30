@@ -3,7 +3,7 @@ import { createResponse } from '@oxygen/types';
 export async function GET(req: Request) {
   const token = req.headers.get('Authorization');
   // const token = cookies().get(CookieKey.SESSION_ID)?.value;
-  const url = `${process.env.NEXT_PUBLIC_SSO_URL}/identity/oauth2/auth/session/validate`;
+  const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/validate`;
 
   if (!token) {
     return createResponse({ success: false, error: 'Token is missing', statusCode: 401 });
@@ -16,6 +16,8 @@ export async function GET(req: Request) {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // console.log('🚀 ~ GET ~ response:', url, response.status, token ,response);
 
     if (!response.ok) {
       const errorData = await response.json();

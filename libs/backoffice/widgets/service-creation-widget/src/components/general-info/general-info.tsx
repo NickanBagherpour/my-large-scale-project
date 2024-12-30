@@ -1,14 +1,14 @@
-import { Input, Loading, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
+import { Input, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType, Tags } from '../../types';
+import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
-import { updateGetInfoStep, nextStep, useAppDispatch, initialStateValue } from '../../context';
+import { nextStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import Box from '../box/box';
 import FormItem from '../form-item/form-item';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
 import {
   useGetCategories,
@@ -21,68 +21,70 @@ import {
 import * as S from './general-info.style';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
+import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
+import CenteredLoading from '../centered-loading/centered-loading';
 
-function convertTags(tags?: Tags) {
-  return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
-}
-
-function convertCodeTitles(items?: CodeTitle[]) {
-  return items?.map(({ code, title }) => ({ label: title, value: code })) ?? [];
-}
+const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 
 export default function GeneralInfo() {
   const [form] = Form.useForm<GeneralInfoValuesType>();
   const [t] = useTr();
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
   const dispatch = useAppDispatch();
+  const state = useAppState();
   const router = useRouter();
-  const serviceName = useSearchParams().get('service-name');
-  const { data: service, isFetching: isFetchingService, is404Error } = useGetService();
+  const { data: service, isPending: isPendingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
-  const { mutateAsync: postGeneralInfo } = usePostGeneralInfoMutation();
+  const { mutate: postGeneralInfo } = usePostGeneralInfoMutation();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
-  const isInSSO = service?.data?.isInSSO;
+  const isInSSO = service?.isInSSO;
 
-  const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = async (values) => {
-    const { throughput, category, tags, owner, access, version, englishName, persianName } = values;
+  const onFinish: FormProps<GeneralInfoValuesType>['onFinish'] = (values) => {
+    const { throughput, category, tags: formTags, owner, access, version, englishName, persianName } = values;
 
-    if (!throughputs || !serviceAccesses) return;
+    if (!throughputs || !serviceAccesses || !category || !tags || !categories) return;
 
-    const currentThroughputTitle = throughputs.find((t) => t.code === throughput)?.title;
-    const currentServiceAccess = serviceAccesses.find((s) => s.code === access)?.title;
+    const currentThroughput = findInList(throughputs, throughput);
+    const currentServiceAccess = findInList(serviceAccesses, access);
+    const currentCategory = findInList(categories, category);
 
-    if (!currentThroughputTitle || !currentServiceAccess) return;
+    if (!currentThroughput || !currentServiceAccess || !currentCategory) return;
 
-    try {
-      await postGeneralInfo({
+    postGeneralInfo(
+      {
         persianName,
         version,
         ownerName: owner,
-        tagsIds: tags.map((t) => t.value),
-        // @ts-expect-error asdf asdf asdf
-        categoryCode: category,
-        throughput: currentThroughputTitle,
+        tagsIds: formTags.map((tag) => tag.value),
+        categoryCode: currentCategory.code,
+        throughput: currentThroughput,
         latinName: englishName,
         accessLevel: currentServiceAccess,
-      });
-      nextStep(dispatch);
-      updateGetInfoStep(dispatch, values);
-    } catch {
-      //
-    }
+      },
+      {
+        onSuccess: () => nextStep(dispatch),
+      }
+    );
   };
 
   const onReturn = () => {
     router.back();
   };
 
-  const onRegister = () => {
+  const onRegister = async () => {
     if (isInSSO) form.submit();
-    else toggleConfirmModal();
+    else {
+      try {
+        await form.validateFields();
+        toggleConfirmModal();
+      } catch {
+        //
+      }
+    }
   };
 
   const closeChip = (tag: { key: number; label: string; value: number }) => {
@@ -92,112 +94,148 @@ export default function GeneralInfo() {
     );
   };
 
-  if (isFetchingService) {
-    return <Loading />;
+  if (isPendingService) {
+    return <CenteredLoading />;
   }
 
-  if (service || is404Error) {
-    let initialValues = { ...initialStateValue['generalInfo'], englishName: serviceName };
-    if (service) {
-      const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service.data;
-      initialValues = {
-        tags: convertTags(tags),
-        owner,
-        version,
-        access: accessLevel.code,
-        category: category.code,
-        throughput: throughput.code,
-        englishName: name,
-        persianName,
-      };
-    }
+  let initialValues: Partial<GeneralInfoValuesType> = { englishName: state.serviceName };
+  if (service) {
+    const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service;
+    initialValues = {
+      tags: convertTags(tags),
+      owner,
+      version,
+      access: accessLevel.code,
+      category: category?.code,
+      throughput: throughput.code,
+      englishName: name,
+      persianName,
+    };
+  }
 
-    return (
-      <>
-        <Container>
-          <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
-            <S.InputsBox>
-              <SearchItemsContainer $columnNumber='3'>
-                <FormItem name={FORM_ITEM_NAMES.englishName} label={t('english_name')} rules={[rule]}>
-                  <Input disabled={!!isInSSO} placeholder={t('enter_english_name')} />
-                </FormItem>
+  const inputErrors = state.stepStatuses.find((i) => i.name === 'generalInfo')?.error;
+  const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
 
-                <FormItem name={FORM_ITEM_NAMES.persianName} label={t('persian_name')} rules={[rule]}>
-                  <Input placeholder={t('enter_persian_name')} />
-                </FormItem>
+  return (
+    <>
+      <Container>
+        <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+          <S.InputsBox>
+            <SearchItemsContainer $columnNumber='3'>
+              <FormItem
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.englishName)}
+                name={FORM_ITEM_NAMES.englishName}
+                label={t('english_name')}
+                rules={[rule]}
+              >
+                <Input disabled={true} placeholder={t('enter_english_name')} />
+              </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('access')}>
-                  <Select
-                    size={'large'}
-                    placeholder={t('select_access')}
-                    loading={isFetchingServiceAccesses}
-                    options={convertCodeTitles(serviceAccesses)}
-                  />
-                </FormItem>
+              <FormItem
+                name={FORM_ITEM_NAMES.persianName}
+                label={t('persian_name')}
+                rules={[rule]}
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.persianName)}
+              >
+                <Input placeholder={t('enter_persian_name')} />
+              </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('category')}>
-                  <Select
-                    size={'large'}
-                    loading={isFetchingCategories}
-                    placeholder={t('select_categroy')}
-                    options={convertCodeTitles(categories)}
-                  />
-                </FormItem>
+              <FormItem
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.access)}
+                name={FORM_ITEM_NAMES.access}
+                rules={[rule]}
+                label={t('access')}
+              >
+                <Select
+                  size={'large'}
+                  placeholder={t('select_access')}
+                  loading={isFetchingServiceAccesses}
+                  options={convertCodeTitles(serviceAccesses)}
+                />
+              </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('throughput')}>
-                  <Select
-                    size={'large'}
-                    placeholder={t('throughput')}
-                    loading={isFetchingThroughput}
-                    options={convertCodeTitles(throughputs)}
-                  />
-                </FormItem>
+              <FormItem
+                name={FORM_ITEM_NAMES.category}
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.category)}
+                rules={[rule]}
+                label={t('category')}
+              >
+                <Select
+                  size={'large'}
+                  loading={isFetchingCategories}
+                  placeholder={t('select_categroy')}
+                  options={convertCodeTitles(categories)}
+                />
+              </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.version} label={t('version')} rules={[rule]}>
-                  <Input placeholder={t('enter_version')} />
-                </FormItem>
+              <FormItem
+                name={FORM_ITEM_NAMES.throughput}
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.throughput)}
+                rules={[rule]}
+                label={t('throughput')}
+              >
+                <Select
+                  size={'large'}
+                  placeholder={t('throughput')}
+                  loading={isFetchingThroughput}
+                  options={convertCodeTitles(throughputs)}
+                />
+              </FormItem>
 
-                <FormItem name={FORM_ITEM_NAMES.owner} label={t('owner')} rules={[rule]}>
-                  <Input placeholder={t('enter_owner')} />
-                </FormItem>
-              </SearchItemsContainer>
-            </S.InputsBox>
+              <FormItem
+                name={FORM_ITEM_NAMES.version}
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.version)}
+                label={t('version')}
+                rules={[rule]}
+              >
+                <Input placeholder={t('enter_version')} />
+              </FormItem>
 
-            <Box>
-              <S.TagPicker>
-                <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
-                  <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
-                    {t('add_tags')}
-                  </Dropdown.Select>
-                </FormItem>
+              <FormItem
+                name={FORM_ITEM_NAMES.owner}
+                validateStatus={getValidateStatus(FORM_ITEM_NAMES.owner)}
+                label={t('owner')}
+                rules={[rule]}
+              >
+                <Input placeholder={t('enter_owner')} />
+              </FormItem>
+            </SearchItemsContainer>
+          </S.InputsBox>
 
-                {selectedTags?.map((item) => (
-                  <Chip
-                    ellipsis
-                    closeIcon
-                    type='active'
-                    key={item.key}
-                    tooltipOnEllipsis
-                    tooltipTitle={item.label}
-                    onClose={() => closeChip(item)}
-                  >
-                    {item.label}
-                  </Chip>
-                ))}
-              </S.TagPicker>
-            </Box>
-          </Form>
+          <Box>
+            <S.TagPicker>
+              <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+                <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
+                  {t('add_tags')}
+                </Dropdown.Select>
+              </FormItem>
 
-          <Footer onRegister={onRegister} onReturn={onReturn} />
-        </Container>
+              {selectedTags?.map((item) => (
+                <Chip
+                  ellipsis
+                  closeIcon
+                  type='active'
+                  key={item.key}
+                  tooltipOnEllipsis
+                  tooltipTitle={item.label}
+                  onClose={() => closeChip(item)}
+                >
+                  {item.label}
+                </Chip>
+              ))}
+            </S.TagPicker>
+          </Box>
+        </Form>
 
-        <ConfirmModal
-          isOpen={isConfirmModalOpen}
-          toggle={toggleConfirmModal}
-          onConfirm={() => form.submit()}
-          fieldName={t('service_name')}
-        />
-      </>
-    );
-  } else return 'something went wrong';
+        <Footer onRegister={onRegister} onReturn={onReturn} />
+      </Container>
+
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        toggle={toggleConfirmModal}
+        onConfirm={() => form.submit()}
+        fieldName={t('service_name')}
+      />
+    </>
+  );
 }
