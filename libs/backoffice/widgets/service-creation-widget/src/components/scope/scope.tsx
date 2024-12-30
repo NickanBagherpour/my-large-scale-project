@@ -8,7 +8,7 @@ import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetServiceScope, usePostAssignScopeToService } from '../../services';
+import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToBaam } from '../../services';
 import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 
@@ -18,6 +18,7 @@ export default function Scope() {
   const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
   const { data: scope, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
+  const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToBaam();
   const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
   const { serviceName } = useAppState();
   const isInSSO = scope?.isServiceInSso;
@@ -26,8 +27,8 @@ export default function Scope() {
     if (scope) setSelectedScope(scope);
   }, [scope]);
 
-  const chooseScope = (scope: ScopeType) => {
-    setSelectedScope(scope);
+  const chooseScope = async (scope: ScopeType) => {
+    assignScopeToService({ serviceName, scopeName: scope.name });
   };
 
   const removeSelectedScope = () => {
@@ -38,14 +39,14 @@ export default function Scope() {
     previousStep(dispatch);
   };
 
-  const assignToServiceAndProceed = () => {
+  const registerAndProceed = () => {
     if (selectedScope && serviceName) {
-      assignScopeToService({ scopeName: selectedScope.name, serviceName }, { onSuccess: () => nextStep(dispatch) });
+      registerToBaam({ scopeName: selectedScope.name, serviceName }, { onSuccess: () => nextStep(dispatch) });
     }
   };
 
   const onRegister = () => {
-    if (isInSSO) assignToServiceAndProceed();
+    if (isInSSO) nextStep(dispatch);
     else toggleConfirmModal();
   };
 
@@ -124,13 +125,13 @@ export default function Scope() {
         />
 
         <Footer
-          registerButtonProps={{ disabled: !selectedScope, loading: isAssigningScopeToService }}
+          registerButtonProps={{ disabled: !selectedScope, loading: isRegiseteringToBaam || isAssigningScopeToService }}
           onRegister={onRegister}
           onReturn={onReturn}
         />
       </Container>
 
-      <ConfirmModal isOpen={isConfirmModalOpen} toggle={toggleConfirmModal} onConfirm={assignToServiceAndProceed} />
+      <ConfirmModal isOpen={isConfirmModalOpen} toggle={toggleConfirmModal} onConfirm={registerAndProceed} />
     </>
   );
 }

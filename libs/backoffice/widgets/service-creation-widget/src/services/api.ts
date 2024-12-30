@@ -47,6 +47,8 @@ const Api = {
     client.get<ServiceInquiry>(`${portalUrl}/v1/services/service-inquiry`, {
       params: { 'service-name': serviceName },
     }),
+  postRegisterToBaam: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
+    client.post<unknown>(`${portalUrl}/v1/services/${serviceName}/register-to-bam/${scopeName}`),
 };
 
 export default Api;
