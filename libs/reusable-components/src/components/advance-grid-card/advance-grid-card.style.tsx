@@ -23,8 +23,7 @@ const IconStyles = css`
   width: 4rem;
 
   i {
-    color: ${(p) => p.theme.onPrimary};
-    font-size: 2.4rem;
+    font-size: 2rem;
     z-index: 100;
   }
 `;
@@ -121,63 +120,20 @@ export const ServiceCount = styled.p`
   line-height: 1.8rem;
   margin: 1.2rem 0;
 `;
-export const IconTop1 = styled.div<{ color: ColorType }>`
-  position: absolute;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(p) =>
-    ({
-      warning: p.theme.warning.main,
-      error: p.theme.error.main,
-      success: p.theme.success.main,
-      default: p.theme.text.tertiary,
-    }[p.color || 'default'] || 'black')};
-  border-radius: 10rem;
-  height: 4rem;
-  width: 4rem;
-  i {
-    color: ${(p) => p.theme.onPrimary};
-    font-size: 2.4rem;
-    z-index: 100;
-  }
-`;
 
 // Status Icons
 export const IconTop = styled.div<{ color?: ColorType }>`
   background-color: ${(p) => colorStyles(p.color, p.theme)};
+  color: ${(p) => p.theme.onPrimary};
   ${IconStyles}
   top: 0;
 `;
 
-export const IconButtom = styled.div<{ color?: ColorType }>`
+export const IconButtom = styled.div<{ color?: ColorType; isBlack?: boolean }>`
   background-color: ${(p) => colorStyles(p.color, p.theme)};
+  color: ${(p) => (p.isBlack ? p.theme.text.primary : p.theme.onPrimary)};
   ${IconStyles}
   bottom: 0;
-`;
-
-export const IconButtom1 = styled.div<{ color: ColorType }>`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(p) =>
-    ({
-      warning: p.theme.warning.main,
-      error: p.theme.error.main,
-      success: p.theme.success.main,
-      default: p.theme.text.tertiary,
-    }[p.color || 'default'] || 'black')};
-  border-radius: 10rem;
-  height: 4rem;
-  width: 4rem;
-  i {
-    color: ${(p) => p.theme.onPrimary};
-    font-size: 2.4rem;
-    z-index: 100;
-  }
 `;
 
 export const LineUp = styled.div<{ color: ColorType }>`
@@ -212,4 +168,13 @@ export const StatusContainer = styled.div`
   margin: 0;
   padding: 0;
   display: flex;
+`;
+export const IconTextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  i {
+    color: ${(p) => p.theme.secondary.main};
+  }
 `;
