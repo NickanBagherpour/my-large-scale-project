@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'antd';
 import { withOpacity } from '@oxygen/utils';
-import { Box } from '@oxygen/ui-kit';
 
 export const StyledContainer = styled.div`
   padding: 1.2rem 3.2rem 3.2rem 3.2rem;
@@ -12,23 +11,6 @@ export const StyledContainer = styled.div`
     margin-top: 2.4rem;
   }
   margin-top: 1.6rem;
-`;
-
-export const StyledBox = styled(Box)`
-  display: flex;
-  gap: 0.8rem;
-  justify-content: flex-start;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 18px;
-  color: ${(p) => p.theme.text.secondary};
-  align-items: center;
-  margin-bottom: 2.4rem;
-
-  & svg {
-    width: auto;
-  }
 `;
 
 export const StyledTitle = styled.h2`
