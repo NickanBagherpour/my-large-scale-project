@@ -9,7 +9,7 @@ const colorStyles = (color: ColorType | undefined, theme: any) =>
     warning: theme.warning.main,
     error: theme.error.main,
     success: theme.success.main,
-    default: theme.text.tertiary,
+    default: theme.border._300,
   }[color || 'default'] || 'black');
 
 // Shared Icon Styles
