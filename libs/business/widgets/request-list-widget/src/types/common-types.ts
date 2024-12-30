@@ -13,7 +13,7 @@ export type RequestListType = {
   createDate: string;
   serviceCount: string;
   representative: string;
-  uploaded: boolean;
+  requestId: number;
 };
 
 export type Sort = WidgetStateType['sort'];

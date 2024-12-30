@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button as KitButton, Divider as KitDivider, Input as KitInput } from '@oxygen/ui-kit';
+import { Button as KitButton, Divider as KitDivider, Input as KitInput, Chip as kitChip } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
@@ -30,6 +30,12 @@ export const Chips = styled.div`
   ${respondTo.down('sm')} {
     flex-direction: column;
     gap: 1.5rem;
+  }
+`;
+
+export const Chip = styled(kitChip)`
+  &.ant-tag {
+    cursor: pointer;
   }
 `;
 

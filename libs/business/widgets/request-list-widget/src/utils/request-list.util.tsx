@@ -4,7 +4,7 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
 import * as S from '../components/data-table/data-table.style';
 import { statusBadgeRenderer } from './status-badge.util';
-import { BusinessStatusBadge, BusinessUserRole } from './consts';
+import { BusinessStatusBadge } from './consts';
 import { RequestListType } from '../types/common-types';
 
 type Props = {
@@ -88,7 +88,7 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
           <Button
             variant={'text'}
             className={colorButton}
-            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
+            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${record?.requestId}`}
             color={colorButton}
           >
             <i className={'icon-document'} />
@@ -122,10 +122,10 @@ export function getMobileColumns(props: Props) {
             title: t('table.details'),
             value: (
               <Button
-                className={colorButton ? 'secondary' : 'primary'}
+                className={isApproved ? 'secondary' : 'primary'}
                 href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
                 variant={'text'}
-                color={colorButton ? 'secondary' : 'primary'}
+                color={colorButton}
               >
                 <i className={'icon-document'} />
                 {t('table.details')}

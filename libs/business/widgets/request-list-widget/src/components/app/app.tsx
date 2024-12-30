@@ -14,7 +14,6 @@ import { UserRoleType } from '../../types/common-types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { BusinessUserRole } from '../../utils/consts';
 
 const App: React.FC = () => {
   const {
