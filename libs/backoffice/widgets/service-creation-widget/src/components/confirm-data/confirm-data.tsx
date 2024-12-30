@@ -7,7 +7,7 @@ import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
 import ResultModal from '../result-modal/result-modal';
-import { useGetScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
+import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
 import { UpstreamTarget } from '../../types';
@@ -18,7 +18,7 @@ export default function ConfirmData() {
   const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
   const { data: service, isFetching: isFetchingService } = useGetService();
   const { data: route, isFetching: isFetchingRoute } = useGetRoute();
-  const { data: scope, isFetching: isFetchingScope } = useGetScope();
+  const { data: scope, isFetching: isFetchingScope } = useGetServiceScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
   const { mutate: confirmData, status } = usePostConfirmData();
 
