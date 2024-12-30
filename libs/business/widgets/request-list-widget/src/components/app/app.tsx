@@ -14,8 +14,13 @@ import { UserRoleType } from '../../types/common-types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import { PageProps } from '@oxygen/types';
 
-const App: React.FC = () => {
+type AppProps = PageProps & {
+  //
+};
+
+const App: React.FC<AppProps> = (props) => {
   const {
     searchTerm,
     pagination: { page, rowsPerPage },
