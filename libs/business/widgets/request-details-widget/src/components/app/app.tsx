@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const { user } = useAuth();
-  const userRole: Nullable<UserRole> = UserRole.BUSINESS_ADMIN; //user?.role;
+  const userRole: Nullable<UserRole> = user?.role;
 
   const { message } = state;
 
