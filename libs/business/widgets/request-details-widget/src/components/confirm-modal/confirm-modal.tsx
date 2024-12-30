@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Form } from 'antd';
 import { useTheme } from 'styled-components';
@@ -46,7 +46,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 
-  const { mutate, isPending } = usePostSubmissionResultMutation();
+  const { mutate, isPending, data: reviewData } = usePostSubmissionResultMutation();
   const queryClient = useQueryClient();
 
   const handleSubmissionConfirm = () => {
@@ -57,20 +57,29 @@ const ConfirmModal: React.FC<Props> = (props) => {
     };
 
     mutate(params, {
-      onSuccess: () => {
+      onSuccess: async () => {
         if (userRole === UserRole.COMMERCIAL_BANKING_ADMIN) {
-          setOpenStatusResult(true);
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL, submissionId] });
+          await queryClient.invalidateQueries({
+            queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL, RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT],
+          });
         }
+        await queryClient.refetchQueries({ queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL] });
+        setOpenStatusResult(true);
       },
+      // onError: async () => {
+      //   await queryClient.invalidateQueries({
+      //     queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL, RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT],
+      //   });
+      //   await queryClient.refetchQueries(  {queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL]});
+      // },
     });
   };
-  const clientNameRef = useRef(clientName);
-  const organizationNameRef = useRef(organizationName);
+  const [clientNameState, setClientNameState] = useState(clientName);
+  const [organizationNameState, setOrganizationNameState] = useState(organizationName);
 
   useEffect(() => {
-    clientNameRef.current = clientName;
-    organizationNameRef.current = organizationName;
+    setClientNameState(clientName);
+    setOrganizationNameState(organizationName);
   }, [clientName, organizationName]);
 
   const handleOk = (submissionId) => {
@@ -123,7 +132,6 @@ const ConfirmModal: React.FC<Props> = (props) => {
       })}
     </S.ModalMessage>
   );
-
   return (
     <>
       <S.StyledModal
@@ -145,19 +153,20 @@ const ConfirmModal: React.FC<Props> = (props) => {
               <ModalMessage
                 t={t}
                 isConfirm={isConfirm}
-                clientName={clientNameRef.current}
-                organizationName={organizationNameRef.current}
+                clientName={clientNameState}
+                organizationName={organizationNameState}
               />
               <ModalForm form={form} onFinish={handleFinish} rule={rule} t={t} isConfirm={isConfirm} />
             </>
           ) : (
-            <S.ModalMessage>{t('confirm_question_business', { clientName })}</S.ModalMessage>
+            <S.ModalMessage>{t('confirm_question_business', { clientNameState })}</S.ModalMessage>
           )}
         </S.ModalContent>
       </S.StyledModal>
       <ConfirmStatusResultModal
         openStatus={openStatusResult}
         isConfirmStatus={isConfirm}
+        reviewDate={reviewData?.data}
         setOpenStatus={setOpenStatusResult}
       />
     </>

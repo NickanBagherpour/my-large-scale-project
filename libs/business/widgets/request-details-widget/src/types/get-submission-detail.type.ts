@@ -96,24 +96,24 @@ interface Service {
   fee: number;
   version: string;
 }
+export enum ExpertType {
+  COMMERCIAL = 1,
+  BUSINESS,
+}
 
-type ExpertOpinion = {
-  code: number;
-  title: string;
-};
-
-type ExpertDto = {
-  fullName: string;
-  expertOpinion: ExpertOpinion;
-  description: string;
-  opinionDate: string;
-};
-
+export interface Review {
+  expertId: string;
+  expertName: string;
+  viewDate: string;
+  expertDescription: string;
+  expertOpinion: CodeTitle;
+  expertType: ExpertType;
+}
 export interface SubmissionDetailType {
   submissionInfoDto: SubmissionInfoDto;
   organization: Organization;
   representativeSet: Representative[];
   services: Service[];
-  commercialExpertDto: ExpertDto;
-  businessExpertDto: ExpertDto;
+  reviews: Review[];
+  isReviewed: boolean;
 }

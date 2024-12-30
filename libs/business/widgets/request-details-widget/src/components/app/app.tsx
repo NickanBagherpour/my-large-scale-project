@@ -7,8 +7,13 @@ import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { Loading } from '@oxygen/ui-kit';
 
-import { updateSubmissionIdAction, useAppDispatch, useAppState } from '../../context';
-import { resetMessageAction, updateUserRoleAction } from '../../context';
+import {
+  resetMessageAction,
+  updateSubmissionIdAction,
+  updateUserRoleAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
 import { SubmissionId, UserRole } from '../../types';
 
