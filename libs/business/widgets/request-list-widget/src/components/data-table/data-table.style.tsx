@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Table as KitTable } from '@oxygen/ui-kit';
+import { Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const DataTableContainer = styled.div``;
 
@@ -35,5 +36,11 @@ export const StyledContainer = styled.span`
   i.icon-tick-circle-outlined {
     margin: 0.3rem 0.4rem;
     font-size: 20px;
+  }
+`;
+
+export const Tag = styled(KitTag)`
+  ${respondTo.down('md')} {
+    margin-inline: 0;
   }
 `;
