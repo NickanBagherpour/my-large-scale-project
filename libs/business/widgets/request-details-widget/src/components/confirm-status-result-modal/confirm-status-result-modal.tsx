@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { Icons } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { dateLocale, ROUTES } from '@oxygen/utils';
+import { ROUTES } from '@oxygen/utils';
 
 import * as S from './confirm-status-result-modal.style';
 
@@ -11,15 +11,15 @@ type Props = {
   openStatus: boolean;
   isConfirmStatus?: boolean;
   setOpenStatus: (boolean) => void;
-  //
+  reviewDate: string;
 };
 const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
-  const { openStatus, isConfirmStatus, setOpenStatus } = props;
+  const { openStatus, isConfirmStatus, setOpenStatus, reviewDate } = props;
   const handleCancel = () => {
     setOpenStatus(false);
   };
   const [t] = useTr();
-  const statusDate = dateLocale(undefined, undefined, true);
+
   return (
     <>
       <S.StyledModal
@@ -41,7 +41,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             </S.StyledIcon>
             <S.StyledDescription>
               {t(isConfirmStatus ? 'status_confirm_description' : 'status_reject_description', {
-                statusDate: statusDate,
+                statusDate: reviewDate,
               })}
             </S.StyledDescription>
           </S.StatusBox>

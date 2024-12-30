@@ -7,8 +7,13 @@ import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { Loading } from '@oxygen/ui-kit';
 
-import { updateSubmissionIdAction, useAppDispatch, useAppState } from '../../context';
-import { resetMessageAction, updateUserRoleAction } from '../../context';
+import {
+  resetMessageAction,
+  updateSubmissionIdAction,
+  updateUserRoleAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
 import { SubmissionId, UserRole } from '../../types';
 
@@ -24,7 +29,7 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
 
   const { user } = useAuth();
-  const userRole: Nullable<UserRole> = user?.role;
+  const userRole: Nullable<UserRole> = UserRole.BUSINESS_ADMIN; //user?.role;
 
   const { message } = state;
 

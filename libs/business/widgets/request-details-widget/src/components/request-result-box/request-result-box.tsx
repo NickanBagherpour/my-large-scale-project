@@ -66,13 +66,13 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
   return (
     <>
       <S.StyledContainer>
+        {reviews.length > 0 && reviews.map((review) => renderReviewComponent(review))}
         {!data?.isReviewed && (
           <>
             <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
             {getConfirmButtons()}
           </>
         )}
-        {reviews.length > 0 && reviews.map((review) => renderReviewComponent(review))}
       </S.StyledContainer>
       <ConfirmModal
         setOpenModal={setOpenModal}
