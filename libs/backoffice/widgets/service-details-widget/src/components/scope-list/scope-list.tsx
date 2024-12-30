@@ -104,9 +104,9 @@ export default function Scope({ updateData }) {
       render: () => {
         return (
           <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.scopeName} />
+            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.name} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.persianName} />
+            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.description} />
             <Table.MobileColumn
               minHeight={'40px'}
               title={t('remove')}
