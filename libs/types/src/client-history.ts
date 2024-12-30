@@ -25,3 +25,12 @@ export type scopeHistoryData = {
   address: string;
   inputAddress: string;
 };
+
+export type routeHistoryData = {
+  modify_date: string;
+  admin_name: string;
+  action_method: string;
+  protocol: string;
+  path: string;
+  host: string;
+};

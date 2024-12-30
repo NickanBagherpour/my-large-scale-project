@@ -5,11 +5,10 @@ type Props = {
   isOpen: boolean;
   toggle: () => void;
   onConfirm: () => void;
-  fieldName: string;
 };
 
 export default function ConfirmModal(props: Props) {
-  const { isOpen, toggle, onConfirm, fieldName } = props;
+  const { isOpen, toggle, onConfirm } = props;
   const [t] = useTr();
 
   const onOk = () => {
@@ -32,7 +31,7 @@ export default function ConfirmModal(props: Props) {
       okButtonProps={{ className: 'ok-button' }}
       cancelButtonProps={{ className: 'cancel-button' }}
     >
-      <S.Txt>{t('proceed_notice', { name: fieldName })}</S.Txt>
+      <S.Txt>{t('proceed_notice')}</S.Txt>
     </S.Modal>
   );
 }

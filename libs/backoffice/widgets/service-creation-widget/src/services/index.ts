@@ -7,8 +7,8 @@ export { useGetTags } from './get-tags.api';
 export { useGetCategories } from './get-categories.api';
 export { useGetServiceAccess } from './get-service-access.api';
 export { useGetThroughput } from './get-throughput.api';
-export { usePostGeneralInfoMutation } from './post-general-info.api';
-export { useGetScope } from './get-scope.api';
+export { usePostService } from './post-service.api';
+export { useGetServiceScope } from './get-service-scope.api';
 export { useGetUpstream } from './get-upstream.api';
 export { usePostAssignUpstreamToService } from './post-assign-upstream-to-service.api';
 export { usePutRouteMutation } from './put-route.api';
@@ -18,4 +18,5 @@ export { usePostAssignScopeToService } from './post-assign-scope-to-service.api'
 export { useGetServiceHttpMethod } from './get-service-http-method.api';
 export { useGetServiceProtocol } from './get-service-protocol.api';
 export { usePostConfirmData } from './post-confirm-data.api';
-export { useServiceInquiryStatus } from './get-service-inquiry-status.api';
+export { useServiceInquiry } from './get-service-inquiry-status.api';
+export { usePostRegisterToBaam } from './post-register-to-baam.api';

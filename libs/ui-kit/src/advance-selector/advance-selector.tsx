@@ -1,7 +1,7 @@
 'use client';
 import { CSSProperties, useState } from 'react';
 
-import { AutoCompleteProps, Input } from 'antd';
+import { AutoCompleteProps } from 'antd';
 import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
@@ -10,25 +10,24 @@ import { useTr } from '@oxygen/translation';
 
 import * as S from './advance-selector.style';
 export type dataType = {
-  id?: string;
+  id?: string | number;
   title: string;
   subTitle?: string;
 };
-type Props = AutoCompleteProps & {
+type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {
   className?: string;
   style?: CSSProperties;
   onClear?: () => void;
-  onSelect: (item: dataType) => void;
+  onSelect: (item: T) => void;
   label?: string;
   placeholder?: string;
-  data: dataType[];
+  data: T[];
   loading: boolean;
   isLastPage: boolean;
   loadMore: () => void;
-  onChange: (value: string) => void;
 };
 
-const AdvanceSelector = (props: Props) => {
+export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
   const {
     data,
     loading,
@@ -41,6 +40,7 @@ const AdvanceSelector = (props: Props) => {
     isLastPage,
     loadMore,
     onChange,
+    id,
     ...rest
   } = props;
 
@@ -53,12 +53,12 @@ const AdvanceSelector = (props: Props) => {
 
   return (
     <S.Container>
-      <S.SelectLabel htmlFor='autocomplete'>{label}</S.SelectLabel>
+      <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel>
       <AntAutoComplete
         prefix={loading ? <Loading /> : <i className='icon-search-normal' />}
         placeholder={placeholder}
         size='large'
-        id='autocomplete'
+        id={id ?? 'autocomplete'}
         autoFocus
         value={searchTerm}
         className={className}
@@ -99,5 +99,3 @@ const AdvanceSelector = (props: Props) => {
     </S.Container>
   );
 };
-
-export default AdvanceSelector;
