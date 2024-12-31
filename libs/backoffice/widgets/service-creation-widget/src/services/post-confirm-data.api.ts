@@ -37,26 +37,20 @@ export const usePostConfirmData = () => {
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
-      if (isAxiosError(e) && isPublisherError(e)) {
-        // const errorsObj: PublisherErrorResponse['errors'] = {
-        // 	'service.name': 'serviceName error',
-        // 	'service.version': 'verion has some thing errory',
-        // 	'route.host': 'host error',
-        // 	'route.path': 'PATH',
-        // };
-        const errorsObj = e?.response?.data?.errors;
-        if (errorsObj) {
-          const stepErrors = Object.entries(errorsObj).reduce(
-            (acc, [key, value]) => ({
-              ...acc,
-              [errorsMap[key].stepName]: { ...acc[errorsMap[key].stepName], [errorsMap[key].inputName]: value },
-            }),
-            {} as ErrorPayload
-          );
-
-          addStepErrors(dispatch, stepErrors);
-        }
-      }
+      // if (isAxiosError(e) && isPublisherError(e)) {
+      //   const errorsObj = e?.response?.data?.errors;
+      //   if (errorsObj) {
+      //     const stepErrors = Object.entries(errorsObj).reduce(
+      //       (acc, [key, value]) => ({
+      //         ...acc,
+      //         [errorsMap[key].stepName]: { ...acc[errorsMap[key].stepName], [errorsMap[key].inputName]: value },
+      //       }),
+      //       {} as ErrorPayload
+      //     );
+      //
+      //     addStepErrors(dispatch, stepErrors);
+      //   }
+      // }
     },
   });
 };

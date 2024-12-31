@@ -2,7 +2,7 @@ import z from 'zod';
 import { ROUTE_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
 
-const MAX_LENGTH = 30;
+const MAX_LENGTH = 200;
 
 export const createRouteSchema = (t: TFunction) =>
   z.object({
