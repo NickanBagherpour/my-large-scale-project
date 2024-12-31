@@ -43,17 +43,8 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-
-      <AdvanceGridCard
-        btnHandleClick={() => {
-          console.log('click');
-        }}
-      >
-        alireza
-      </AdvanceGridCard>
-
-      {/* <Filter />
-      <DataTable scopeListData={scopeListData} scopeListLoading={scopeListLoading} /> */}
+      <Filter />
+      <DataTable scopeListData={scopeListData} scopeListLoading={scopeListLoading} />
     </S.AppContainer>
   );
 };

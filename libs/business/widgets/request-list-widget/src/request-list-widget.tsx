@@ -8,14 +8,9 @@ import App from './components/app/app';
 import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
-import { useAuth } from '@oxygen/hooks';
 
 const RequestListWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
-
-  const { user } = useAuth();
-
-  console.log('user-->', user);
 
   return (
     <WidgetWrapper>

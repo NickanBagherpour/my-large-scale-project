@@ -5,7 +5,7 @@ import { useBounce } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 
 import { renderChips } from '../../utils/utility-functions';
-import { SORT_ORDER } from '../../utils/consts';
+import { MAX_LENGTH, SORT_ORDER } from '../../utils/consts';
 import { Sort, UserRoleType } from '../../types/common-types';
 
 import { updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
@@ -32,9 +32,12 @@ const Filters: React.FC<FilterProps> = (props) => {
       <S.Actions>
         <S.Input
           value={value}
-          placeholder={t('search_by_client_name')}
+          placeholder={t('search_by_company_name')}
           prefix={<i className='icon-search-normal' />}
           onChange={(e) => setValue(e.target.value)}
+          allow={'letter'}
+          type='text'
+          maxLength={MAX_LENGTH}
         />
       </S.Actions>
 
