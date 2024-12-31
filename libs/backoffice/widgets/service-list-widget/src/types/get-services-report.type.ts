@@ -1,6 +1,6 @@
 export interface ParamsType {
   isActive: boolean | null;
-  'search-field'?: string;
+  'search-field'?: string | null;
   'scope-id'?: string;
   page: number;
   size: number;

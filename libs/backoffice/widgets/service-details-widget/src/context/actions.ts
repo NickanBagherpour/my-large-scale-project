@@ -13,9 +13,19 @@ import {
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
+export function updateScopeTabCreationSubmitAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'UPDATE_SCOPE_TAB_CREATION' });
+}
 
 export function updateServerNameAction(dispatch: WidgetDispatchType, serviceName: Nullable<string>) {
   dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });
+}
+
+export function updateScopeAction(dispatch: WidgetDispatchType, scopeName: Nullable<string>) {
+  dispatch({ type: 'UPDATE_SCOPE_NAME', payload: scopeName });
+}
+export function clearScopeAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'CLEAR_SCOPE' });
 }
 
 export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {

@@ -18,6 +18,10 @@ const Api = {
     const { id, serviceName } = params;
     return client.post<any>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`);
   },
+  assignToServiceScope: async (params) => {
+    const { id, serviceName } = params;
+    return client.post<any>(`${portalUrl}/v1/scope/${id}/assign/${serviceName}`);
+  },
   getServiceDetails: async (params) => {
     return client.get<any>(`${portalUrl}/v1/services/service-name/${params}`);
     return Mockify.ServiceDetails();

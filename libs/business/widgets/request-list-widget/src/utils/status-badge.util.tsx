@@ -44,5 +44,11 @@ export const statusBadgeRenderer = (status: { code: number; title: string }, cli
           </S.Tag>
         </S.StyledContainer>
       );
+    default:
+      return (
+        <S.StyledContainer>
+          <S.Tag type={'default'}>{t('chips.unknown')}</S.Tag>
+        </S.StyledContainer>
+      );
   }
 };

@@ -107,7 +107,15 @@ export function getMobileColumns(props: Props) {
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ organizationName, clientName, submissionStatus, createDate, serviceCount, representative }) => {
+      render: ({
+        organizationName,
+        clientName,
+        submissionStatus,
+        createDate,
+        requestId,
+        serviceCount,
+        representative,
+      }) => {
         const isApproved = submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
         const colorButton = isApproved ? 'secondary' : 'primary';
 
@@ -123,7 +131,7 @@ export function getMobileColumns(props: Props) {
             value: (
               <Button
                 className={isApproved ? 'secondary' : 'primary'}
-                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=123`}
+                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${requestId}`}
                 variant={'text'}
                 color={colorButton}
               >
