@@ -73,14 +73,20 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
+
+  const renderButton =
+    !data?.isReviewed &&
+    resultType !== RequestStatus.DRAFT &&
+    !(resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole?.BUSINESS_ADMIN);
+  const renderContainer = reviews.length > 0 || renderButton;
   return (
     <>
-      {(reviews.length > 0 ||
-        (!data?.isReviewed && submissionInfoDto?.submissionStatus?.code !== RequestStatus.DRAFT)) && (
+      {renderContainer && (
         <S.StyledContainer>
           {reviews.length > 0 &&
             reviews.sort((a, b) => a.expertType - b.expertType).map((review) => renderReviewComponent(review))}
-          {!data?.isReviewed && submissionInfoDto?.submissionStatus?.code !== RequestStatus.DRAFT && (
+
+          {renderButton && (
             <>
               <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
               {getConfirmButtons()}

@@ -80,6 +80,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
           <NoResult isLoading={false} />
         </S.StyledContainer>
       ),
+      className: 'representative-info-box',
     },
     {
       key: '4',
