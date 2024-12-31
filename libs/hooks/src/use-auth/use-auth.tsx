@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useMemo } from 'react';
 
 import { CookieKey, LocalStorageKey, User } from '@oxygen/types';
-import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey, getCookie } from '@oxygen/utils';
+import { clearAllCookiesExceptForKey, clearLocalStorageExceptForKey, getCookie } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';

@@ -28,6 +28,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
 
   function prepareParams() {
     const params = {
+      role: userRole,
       submissionId: state?.submissionId,
     };
     return params;

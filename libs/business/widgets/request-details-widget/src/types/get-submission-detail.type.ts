@@ -1,5 +1,5 @@
-import { PaginationType } from '../context/types';
 import { Nullable } from '@oxygen/types';
+import { PaginationType } from '../context/types';
 
 export type OperationStatusType = {
   title: string;
@@ -13,15 +13,18 @@ export type PaginationResultType = {
 };
 
 export type FetchSubmissionDetailParamsType = {
+  role: Nullable<string>;
   submissionId: SubmissionId;
 };
 export type FetchRequestedServicesParamsType = {
   // filters?: FiltersType;
+  role: Nullable<string>;
   submissionId: SubmissionId;
   pagination: PaginationType;
 };
 
 export type PostSubmissionReviewParamsType = {
+  role: Nullable<string>;
   submissionId: SubmissionId;
   expertOpinion: number;
   description: string;

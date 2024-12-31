@@ -51,6 +51,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
 
   const handleSubmissionConfirm = () => {
     const params: PostSubmissionReviewParamsType = {
+      role: userRole,
       submissionId: state?.submissionId,
       expertOpinion: isConfirm ? ExpertOpinionStatus.CONFIRMED : ExpertOpinionStatus.REJECTED,
       description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription),

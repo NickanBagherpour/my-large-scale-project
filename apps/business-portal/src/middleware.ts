@@ -52,7 +52,7 @@ export default async function middleware(request: NextRequest) {
   // console.log('request inside middleware', token);
 
   const publicPaths = [ROUTES.BUSINESS.AUTH]; // Define public paths here
-  const apiPrefixes = ['/api/', '/commercial/api/', '/business/api/'];
+  const apiPrefixes = ['/api/', '/commercial/api/', '/business/api/','/back-api/'];
 
   // Get the current pathname
   const { pathname } = request.nextUrl;
