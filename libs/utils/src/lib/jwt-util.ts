@@ -1,4 +1,4 @@
-import { JwtHeader, JwtPayload } from '@oxygen/types';
+import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 // Ensure that the JWT signature secret is available
@@ -16,7 +16,7 @@ const DEFAULT_ALGORITHM = 'HS256';
 }
  */
 
-export function decodeJWT(token: string): { header: JwtHeader; payload: JwtPayload } | null {
+export function decodeJWT2(token: string): { header: JwtHeader; payload: JwtPayload } | null {
   if (!token) {
     console.error('No token provided to decode.');
     return null;
@@ -109,3 +109,62 @@ export const processAndSignToken = (ssoToken: string, options?: SignOptions): st
 
   return newToken;
 };
+
+export function decodeJWT(token: Nullable<string>): { header: JwtHeader; payload: JwtPayload } | null {
+  if (!token) {
+    console.error('No token provided to decode.');
+    return null;
+  }
+
+  // console.log('token in decodeJWT -----------------------------------------------', token);
+
+  const parts = token.split('.');
+
+  if (parts.length !== 3) {
+    console.error('Invalid JWT format. Expected three parts separated by dots.');
+    return null;
+  }
+
+  const [header, payload] = parts;
+
+  try {
+    const decodedHeader = decodeBase64Url(header);
+    const decodedPayload = decodeBase64Url(payload);
+
+    return {
+      header: JSON.parse(decodedHeader),
+      payload: JSON.parse(decodedPayload),
+    };
+  } catch (error) {
+    console.error('Failed to decode JWT:', error);
+    return null;
+  }
+}
+
+function decodeBase64Url(input: string): string {
+  let base64 = input.replace(/-/g, '+').replace(/_/g, '/');
+  const pad = 4 - (base64.length % 4);
+  if (pad !== 4) {
+    base64 += '='.repeat(pad);
+  }
+
+  if (typeof window !== 'undefined' && typeof window.atob === 'function') {
+    return decodeURIComponent(
+      Array.prototype.map
+        .call(window.atob(base64), (c: string) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+  } else if (typeof Buffer !== 'undefined') {
+    return Buffer.from(base64, 'base64').toString('utf-8');
+  } else {
+    throw new Error('No base64 decoding method available');
+  }
+}
+
+export function getRole(decodedToken: JwtPayload | undefined): string | null {
+  if (decodedToken?.role) {
+    return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
+  }
+
+  return null;
+}

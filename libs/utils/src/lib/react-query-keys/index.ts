@@ -2,7 +2,9 @@
 import { KEYS as REQUEST_DETAILS_KEYS } from './widgets/request-details.key';
 import { KEYS as REQUEST_MANAGEMENT_KEYS } from './widgets/request-management.key';
 import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
-import { KEYS as BACKOFFICE_AUTH_KEYS, KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/backoffice-auth.key';
+import { KEYS as BUSINESS_AUTH_KEYS } from './widgets/business-auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
 import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './widgets/service-clients-list.key';
@@ -29,6 +31,10 @@ import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
 import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
 import { KEYS as REQUEST_LIST_KEYS } from './widgets/request-list.key';
 import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-history.key';
+import { KEYS as ROUTE_HISTORY_KEYS } from './widgets/route-history.key';
+import { KEYS as EDIT_ROUTE_KEYS } from './widgets/edit-route.key';
+import { KEYS as GET_SCOPE } from './widgets/get-scope.key';
+import { KEYS as ROUTE_DETAILS_KEYS } from './widgets/route-details.key';
 
 export const RQKEYS = {
   /*--export--*/
@@ -38,6 +44,7 @@ export const RQKEYS = {
   REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
   LANDING: LANDING_KEYS,
   BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,
+  BUSINESS_AUTH: BUSINESS_AUTH_KEYS,
   CUSTOMER_AUTH: CUSTOMER_AUTH_KEYS,
   //CLIENTS
   CLIENTS_LIST: CLIENTS_LIST_KEYS,
@@ -64,9 +71,14 @@ export const RQKEYS = {
   SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
   SCOPE_INFORMATION: SCOPE_INFORMATION_KEYS,
   SCOPE_CHANGE_HISTORY: SCOPE_CHANGE_HISTORY_KEYS,
+  GET_SCOPE: GET_SCOPE,
   //ETC
   APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
   EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
   DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,
+  // ROUTE
+  ROUTE_CHANGE_HISTORY: ROUTE_HISTORY_KEYS,
+  EDIT_ROUTE: EDIT_ROUTE_KEYS,
+  ROUTE_DETAILS: ROUTE_DETAILS_KEYS,
 };

@@ -1,54 +1,25 @@
-import { respondTo } from '@oxygen/utils';
+import { Radio as AntRadio } from 'antd';
+import { Table as KitTable } from '@oxygen/ui-kit';
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
-import { Container } from '@oxygen/ui-kit';
 
-export const ItemsContainer = styled(Container)`
-  height: 100%;
-
-  /* .ant-pagination {
-    margin: 2rem 3rem;
-  } */
+export const Radios = styled(AntRadio.Group)`
+  margin-bottom: 2.4rem;
 `;
 
-export const DataTableContainer = styled.div`
-  display: flex;
-  margin-bottom: 2rem;
-  justify-content: space-between;
-  align-items: flex-start;
+export const Radio = styled(AntRadio)`
+  font-size: 1.2rem;
 `;
 
-export const Buttons = styled.div`
+export const Footer = styled.footer`
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-
-  ${respondTo.down('lg')} {
-    /* width: 100%; */
-    justify-content: end;
-    padding-left: 2rem;
-  }
+  justify-content: flex-end;
 `;
 
-export const Button = styled(KitButton)`
-  width: 40px;
-  height: 40px;
-  padding: 0 !important;
-  &&& {
-    font-size: 1.4rem;
-  }
+export const Table = styled(KitTable)`
+  margin-top: 4rem;
 `;
 
 export const TrashIcon = styled.i`
   font-size: 2.4rem;
-`;
-
-export const Input = styled(KitInput)`
-  max-width: 50.4rem;
-  margin-inline-end: auto;
-
-  ${respondTo.down('lg')} {
-    max-width: 100%;
-    font-size: 1.7rem;
-  }
 `;

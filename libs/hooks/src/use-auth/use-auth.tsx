@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useMemo } from 'react';
 
 import { CookieKey, LocalStorageKey, User } from '@oxygen/types';
-import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey } from '@oxygen/utils';
+import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey, getCookie } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
 
@@ -31,7 +32,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const login = async (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
     // const res = await signIn('credentials', { ...data, redirect: false });
-    setUser(data);
+    setUser({...data});
     /*    if (props.login) {
            props.login();
          }*/
@@ -55,6 +56,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
       clearAllCookiesExceptForKey(CookieKey.CONFIG);
 
+      queryClient?.clear();
+
       // /*   if (props.logout) {
       //      props.logout();
       //    }*/
@@ -67,7 +70,13 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   function isAuth(): boolean {
-    return !!user; //&& isTokenValid();
+    const token = getCookie(CookieKey.SESSION_ID);
+    return !!token;
+    // return !!user; //&& isTokenValid();
+  }
+
+  function isUserExist(): boolean {
+    return user && (user?.name || user?.family);
   }
 
   /* const isTokenValid = () => {
@@ -86,6 +95,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       logout,
       setUser,
       isAuth: isAuth(),
+      isUserExist: isUserExist(),
       userPhoto,
       setUserPhoto,
       removeUserPhoto,

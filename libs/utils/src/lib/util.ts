@@ -152,17 +152,17 @@ export const clearAllCookiesExceptForKey = (keyToKeep: string): void => {
   }
 };
 
-export const getCookie = (key: string) => {
-  if (typeof window !== 'undefined') {
-    const cookieValue =
-      document.cookie
-        .split('; ')
-        .find((row) => row.startsWith(key))
-        ?.split('=')[1] || '';
-    return cookieValue ? decodeURIComponent(cookieValue) : '';
-  } else {
+export const getCookie = (key: string) : string | null => {
+  if (typeof window === 'undefined') {
     return null;
   }
+
+  // Create a regular expression to match the exact key
+  const regex = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)');
+  const match = document.cookie.match(regex);
+  
+  // If a match is found, decode and return the value
+  return match ? decodeURIComponent(match[1]) : null;
 };
 
 export function setCookie(name: string, value: string, minutes?: number): void {

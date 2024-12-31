@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button as KitButton, Divider as KitDivider, Input as KitInput } from '@oxygen/ui-kit';
+import { Button as KitButton, Divider as KitDivider, Input as KitInput, Chip as KitChip } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
@@ -24,37 +24,28 @@ export const Chips = styled.div`
   display: flex;
   align-items: center;
   margin-inline-end: auto;
+  flex-wrap: wrap;
+  row-gap: 1rem;
 
-  ${respondTo.down('xs')} {
+  ${respondTo.down('sm')} {
     flex-direction: column;
     gap: 1.5rem;
   }
 `;
 
-export const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-
-  ${respondTo.down('lg')} {
-    width: 100%;
-    justify-content: space-between;
+export const Chip = styled(KitChip)`
+  &.ant-tag {
+    cursor: pointer;
   }
 `;
 
 export const Button = styled(KitButton)`
-  &&& {
-    font-size: 1.4rem;
-  }
+  font-size: 1.4rem;
 `;
 
 export const Indicators = styled.div`
   display: flex;
   align-items: center;
-
-  ${respondTo.between('lg', 'md')} {
-    flex-direction: column;
-  }
 `;
 
 export const Input = styled(KitInput)`

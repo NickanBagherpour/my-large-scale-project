@@ -10,3 +10,9 @@ export type typeScopeListParams = {
   size: number;
   sort: string;
 };
+
+export type Scope = {
+  id: number;
+  name: string;
+  description: string;
+};

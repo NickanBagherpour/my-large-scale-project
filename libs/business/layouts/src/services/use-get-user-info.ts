@@ -8,6 +8,8 @@ import Api from './api';
 export const useGetUserInfo = () => {
   const { user } = useAuth();
 
+  console.log('user in useGetUserInfo', user);
+
   return useQuery({
     queryKey: [RQKEYS.BACKOFFICE_AUTH.USER_INFO],
     queryFn: Api.getUserProfile,

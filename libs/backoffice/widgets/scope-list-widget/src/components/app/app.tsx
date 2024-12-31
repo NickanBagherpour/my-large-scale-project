@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps, typeScopeListParams } from '@oxygen/types';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { AdvanceGridCard, GlobalMessageContainer } from '@oxygen/reusable-components';
 import { getValueOrDash } from '@oxygen/utils';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -43,8 +43,17 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <Filter />
-      <DataTable scopeListData={scopeListData} scopeListLoading={scopeListLoading} />
+
+      <AdvanceGridCard
+        btnHandleClick={() => {
+          console.log('click');
+        }}
+      >
+        alireza
+      </AdvanceGridCard>
+
+      {/* <Filter />
+      <DataTable scopeListData={scopeListData} scopeListLoading={scopeListLoading} /> */}
     </S.AppContainer>
   );
 };

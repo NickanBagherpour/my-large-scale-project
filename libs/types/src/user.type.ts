@@ -41,6 +41,8 @@ export interface JwtPayload {
   client_id: string;
 
   scopes: string[];
+
+  [key: string]: any;
 }
 
 /**
@@ -48,8 +50,8 @@ export interface JwtPayload {
  */
 export interface JwtHeader {
   alg: string;
-
   typ: string;
+  [key: string]: any;
 }
 
 /**

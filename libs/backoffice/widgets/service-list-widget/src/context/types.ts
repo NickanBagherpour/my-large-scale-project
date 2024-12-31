@@ -13,8 +13,8 @@ export type PaginationType = {
 
 export type WidgetStateType = {
   searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'inactive';
+  sort: 'ascending' | 'descending';
+  status: boolean | null;
   page: number;
   table: {
     filters: FiltersType;

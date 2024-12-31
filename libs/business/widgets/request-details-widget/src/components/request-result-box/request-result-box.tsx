@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { NoResult } from '@oxygen/reusable-components';
 
 import CommercialResultBox from '../commercial-result-box/commercial-result-box';
 import BusinessResultBox from '../business-result-box/business-result-box';
-import { UserRole, SubmissionDetailType } from '../../types';
+import { ExpertType, Review, SubmissionDetailType, UserRole } from '../../types';
 import ConfirmModal from '../confirm-modal/confirm-modal';
 import { useAppState } from '../../context';
 
@@ -16,10 +15,10 @@ type Props = {
 };
 
 const RequestResultBox: React.FC<Props> = ({ data }) => {
-  const { commercialExpertDto, businessExpertDto, submissionInfoDto } = data;
+  const { reviews, submissionInfoDto } = data;
 
   const state = useAppState();
-  const { userRole, submissionId } = state;
+  const { submissionId } = state;
 
   const [t] = useTr();
 
@@ -36,31 +35,45 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
     setOpenModal(true);
   };
 
-  const getConfirmButtons = (
-    <S.ButtonContainer>
-      <S.RejectButton size={'large'} variant={'outlined'} onClick={handleReject}>
-        {t('button.reject_request')}
-      </S.RejectButton>
-      <S.ConfirmButton size={'large'} variant={'outlined'} onClick={handleConfirm}>
-        {t('button.confirm_request')}
-      </S.ConfirmButton>
-    </S.ButtonContainer>
-  );
+  const getConfirmButtons = () => {
+    return (
+      <S.ButtonContainer>
+        <S.RejectButton size={'large'} variant={'outlined'} onClick={handleReject}>
+          {t('button.reject_request')}
+        </S.RejectButton>
+        <S.ConfirmButton size={'large'} variant={'outlined'} onClick={handleConfirm}>
+          {t('button.confirm_request')}
+        </S.ConfirmButton>
+      </S.ButtonContainer>
+    );
+  };
 
-  const renderContent = () => {
-    switch (userRole) {
-      case UserRole.COMMERCIAL_BANKING_ADMIN:
-        return <CommercialResultBox data={data} getConfirmButtons={getConfirmButtons} />;
-      case UserRole.BUSINESS_ADMIN:
-        return <BusinessResultBox data={data} getConfirmButtons={getConfirmButtons} />;
+  const resultType = submissionInfoDto?.submissionStatus?.code;
+
+  const renderReviewComponent = (review: Review) => {
+    switch (review?.expertType) {
+      case ExpertType.COMMERCIAL:
+        return <CommercialResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
+      case ExpertType.BUSINESS:
+        return <BusinessResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
       default:
-        return undefined;
+        return <></>;
     }
   };
+  const resultTitle =
+    state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
 
   return (
     <>
-      {renderContent()}
+      <S.StyledContainer>
+        {reviews.length > 0 && reviews.map((review) => renderReviewComponent(review))}
+        {!data?.isReviewed && (
+          <>
+            <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
+            {getConfirmButtons()}
+          </>
+        )}
+      </S.StyledContainer>
       <ConfirmModal
         setOpenModal={setOpenModal}
         openModal={openModal}

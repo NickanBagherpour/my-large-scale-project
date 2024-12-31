@@ -15,8 +15,10 @@ export function renderRequestStatus(t, requestStatus: CodeTitle) {
       type = 'processing';
       break;
     case RequestStatus.APPROVED_BY_COMMERCIAL_BANK:
+      type = 'initialApproval';
+      break;
     case RequestStatus.APPROVED_BY_BUSINESS_UNIT:
-      type = 'success';
+      type = 'finalApproval';
       break;
     case RequestStatus.REJECTED_BY_COMMERCIAL_BANK:
     case RequestStatus.REJECTED_BY_BUSINESS_UNIT:
@@ -37,7 +39,7 @@ export function renderRequestStatus(t, requestStatus: CodeTitle) {
     <Tag
       icon={statusIcon}
       type={type}
-      bordered={requestStatus.code === RequestStatus.APPROVED_BY_BUSINESS_UNIT}
+      bordered={requestStatus?.code === RequestStatus.APPROVED_BY_BUSINESS_UNIT}
       style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', height: '2.4rem' }}
     >
       {title ?? defaultTitle}
