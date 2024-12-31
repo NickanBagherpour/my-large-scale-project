@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { PageProps } from '@oxygen/types';
+import { CookieKey, PageProps } from '@oxygen/types';
 import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
-import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
+import { decodeJWT, decrypt, ENV_CONSTANTS, getCookie, getRole, ROUTES } from '@oxygen/utils';
 
 import { getSsoUrlAction } from '../../server-actions/get-sso-url.action';
 import { handleSSO } from '../../server-actions/handle-sso.action';
@@ -15,6 +15,7 @@ import * as S from './app.style';
 type AuthWidgetType = PageProps & {
   parentProps?: any;
 };
+
 const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const [loading, setLoading] = useState(true);
   const { user, login } = useAuth();
@@ -33,7 +34,9 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
       setCode(null);
       if (code) {
         await handleSSO(code, ticket);
-        login(null, ROUTES.BUSINESS.REQUEST_LIST);
+        const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
+        // console.log('SSO success', );
+        login({role}, ROUTES.BUSINESS.REQUEST_LIST);
       }
       // Clear query parameters from the URL
     } catch (error) {

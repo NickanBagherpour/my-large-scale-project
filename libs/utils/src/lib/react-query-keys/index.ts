@@ -2,7 +2,9 @@
 import { KEYS as REQUEST_DETAILS_KEYS } from './widgets/request-details.key';
 import { KEYS as REQUEST_MANAGEMENT_KEYS } from './widgets/request-management.key';
 import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
-import { KEYS as BACKOFFICE_AUTH_KEYS, KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
+import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/backoffice-auth.key';
+import { KEYS as BUSINESS_AUTH_KEYS } from './widgets/business-auth.key';
 import { KEYS as LANDING_KEYS } from './widgets/landing.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
 import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './widgets/service-clients-list.key';
@@ -42,6 +44,7 @@ export const RQKEYS = {
   REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
   LANDING: LANDING_KEYS,
   BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,
+  BUSINESS_AUTH: BUSINESS_AUTH_KEYS,
   CUSTOMER_AUTH: CUSTOMER_AUTH_KEYS,
   //CLIENTS
   CLIENTS_LIST: CLIENTS_LIST_KEYS,

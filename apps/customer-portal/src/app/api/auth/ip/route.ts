@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const DEFAULT_IP = '0.0.0.0';
+
 export async function GET(request: NextRequest) {
   const headersList = request.headers;
 
@@ -29,8 +31,12 @@ export async function GET(request: NextRequest) {
       ip = ip.replace('::ffff:', '');
     }
 
-    return ip;
-  };
+    if (isValidIPv4(ip)) {
+      return ip;
+    }
+
+    return DEFAULT_IP;
+    };
 
   // Function to fetch server's public IP from ipify
   const getIP2 = async (): Promise<string> => {
@@ -46,7 +52,14 @@ export async function GET(request: NextRequest) {
   };
 
   const clientIP = await getIP();
-  const serverIP = await getIP2();
+  // const serverIP = await getIP2();
 
-  return NextResponse.json({ ip: serverIP, ip2: clientIP });
+  return NextResponse.json({ ip: clientIP });
+  // return NextResponse.json({ ip: clientIP, ip2: serverIP });
 }
+
+
+const isValidIPv4 = (ip: string): boolean => {
+  const ipv4Regex = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
+  return ipv4Regex.test(ip);
+};

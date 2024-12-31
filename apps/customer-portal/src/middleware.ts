@@ -65,6 +65,6 @@ export const config = {
      * Match all request paths including API routes.
      * This will apply this middleware to all routes.
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|back-api|_next/static|_next/image|favicon.ico).*)',
   ],
 };

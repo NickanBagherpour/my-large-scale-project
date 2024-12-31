@@ -11,6 +11,10 @@ const DEFAULT_SALT = process.env.NEXT_PUBLIC_CRYPTO_HASH_KEY ?? 'THIS_IS_SECRET'
 export function encrypt(text, salt = DEFAULT_SALT) {
   if (ENV_CONSTANTS.IS_DEV) return text;
 
+  if (text === null || text === undefined) {
+    return text;
+  }
+
   let encrypted = '';
   for (let i = 0; i < text.length; i++) {
     // XOR each character with the corresponding character of the salt (looping over salt if necessary)
@@ -27,6 +31,10 @@ export function encrypt(text, salt = DEFAULT_SALT) {
  */
 export function decrypt(encryptedText, salt = DEFAULT_SALT) {
   if (ENV_CONSTANTS.IS_DEV) return encryptedText;
+
+  if (encryptedText === null || encryptedText === undefined) {
+    return encryptedText;
+  }
 
   let decrypted = '';
   for (let i = 0; i < encryptedText.length; i++) {
