@@ -17,6 +17,7 @@ export const initialStateValue: WidgetStateType = {
   upstreamTab: {
     activeSelect: initialActiveSelect,
   },
+  scopeName: undefined,
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -35,6 +36,16 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_GLOBAL_MESSAGE': {
       return void (state.message = action.payload);
     }
+    case 'UPDATE_SCOPE_NAME':
+      return {
+        ...state,
+        scopeName: action.payload,
+      };
+    case 'CLEAR_SCOPE':
+      return {
+        ...state,
+        scopeName: null, // Or `undefined` depending on your preference
+      };
     case 'UPDATE_SERVICE_NAME': {
       state.serviceName = action.payload;
       return;

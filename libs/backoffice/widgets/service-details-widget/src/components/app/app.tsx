@@ -55,35 +55,6 @@ const App: React.FC<AppProps> = (props) => {
     redirect('/not-found');
   }
   const { mutate, isPending } = useAssignToServiceMutation();
-  const handleUpstreamCreation = () => {
-    const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
-    mutate(params, {
-      onSuccess: () => {
-        notification.success({
-          message: t('upstream_tab.success_notif'),
-        });
-        updateUpstreamTabCreationSubmitAction(dispatch);
-      },
-      onError: (error) => {
-        notification.error({
-          message: t(`${error}`),
-        });
-      },
-    });
-  };
-  //to do : handle submit button globaly
-  // const footerButton = (
-  //   <>
-  //     <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-  //       {t('button.return')}
-  //     </ReturnButton>
-  //     {!state.upstreamTab.activeSelect.isInitialized && (
-  //       <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation} loading={isPending}>
-  //         {t('save_changes')}
-  //       </Button>
-  //     )}
-  //   </>
-  // );
 
   const items = [
     {
@@ -107,7 +78,20 @@ const App: React.FC<AppProps> = (props) => {
         />
       ),
       onSubmit: () => {
-        console.log('Submitting Scopes from App footer:', scopeData);
+        const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
+        mutate(params, {
+          onSuccess: () => {
+            notification.success({
+              message: t('upstream_tab.success_notif'),
+            });
+            updateUpstreamTabCreationSubmitAction(dispatch);
+          },
+          onError: (error) => {
+            notification.error({
+              message: t(`${error}`),
+            });
+          },
+        });
       },
     },
     {
@@ -115,7 +99,20 @@ const App: React.FC<AppProps> = (props) => {
       label: t('upstream'),
       children: <UpstreamList />,
       onSubmit: () => {
-        console.log('Submitting Upstream');
+        const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
+        mutate(params, {
+          onSuccess: () => {
+            notification.success({
+              message: t('upstream_tab.success_notif'),
+            });
+            updateUpstreamTabCreationSubmitAction(dispatch);
+          },
+          onError: (error) => {
+            notification.error({
+              message: t(`${error}`),
+            });
+          },
+        });
       },
     },
   ];
