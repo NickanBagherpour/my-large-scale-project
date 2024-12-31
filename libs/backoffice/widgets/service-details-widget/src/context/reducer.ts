@@ -17,6 +17,9 @@ export const initialStateValue: WidgetStateType = {
   upstreamTab: {
     activeSelect: initialActiveSelect,
   },
+  scopeTab: {
+    activeSelect: initialActiveSelect,
+  },
   scopeName: undefined,
   table: {
     filters: initialFilters,
@@ -58,6 +61,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void ((state.upstreamTab.activeSelect.isInitialized = true),
       (state.upstreamTab.activeSelect.id = state.upstreamTab.activeSelect.cardId),
       (state.upstreamTab.activeSelect.cardId = undefined));
+    }
+    case 'UPDATE_SCOPE_TAB_CREATION': {
+      return void ((state.scopeTab.activeSelect.isInitialized = true),
+      (state.scopeTab.activeSelect.id = state.scopeTab.activeSelect.cardId),
+      (state.scopeTab.activeSelect.cardId = undefined));
     }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };

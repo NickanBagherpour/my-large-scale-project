@@ -23,6 +23,9 @@ export type WidgetStateType = {
   upstreamTab: {
     activeSelect: initialActiveSelectType;
   };
+  scopeTab: {
+    activeSelect: initialActiveSelectType;
+  };
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -43,6 +46,9 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
+    }
+  | {
+      type: 'UPDATE_SCOPE_TAB_CREATION';
     }
   | {
       type: 'UPDATE_UPSTREAM';

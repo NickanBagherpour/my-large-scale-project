@@ -13,6 +13,9 @@ import {
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
+export function updateScopeTabCreationSubmitAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'UPDATE_SCOPE_TAB_CREATION' });
+}
 
 export function updateServerNameAction(dispatch: WidgetDispatchType, serviceName: Nullable<string>) {
   dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });

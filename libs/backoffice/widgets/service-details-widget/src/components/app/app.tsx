@@ -14,9 +14,11 @@ import { UpstreamList } from '../upstream-list/upstream-list';
 import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
+import { useAssignToServiceScopeMutation } from '../../services/upstream-tab/post-assign-to-service-scope.api';
 import {
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
+  updateScopeTabCreationSubmitAction,
   useAppDispatch,
   useAppState,
 } from '../../context';
@@ -42,6 +44,15 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
+  const isButtonDisabled = () => {
+    if (activeTabKey === '3') {
+      return !state.scopeName; // Disable if scopeName is empty for "scopes" tab
+    } else if (activeTabKey === '4') {
+      return !state.upstreamTab.activeSelect.cardId; // Disable if upstreamTab cardId is empty for "upstream" tab
+    }
+    return false; // Default: button enabled
+  };
+
   const [activeTabKey, setActiveTabKey] = useState('1');
   const [scopeData, setScopeData] = useState(null);
 
@@ -55,6 +66,7 @@ const App: React.FC<AppProps> = (props) => {
     redirect('/not-found');
   }
   const { mutate, isPending } = useAssignToServiceMutation();
+  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
 
   const items = [
     {
@@ -67,6 +79,7 @@ const App: React.FC<AppProps> = (props) => {
       label: t('route'),
       children: <Route />,
     },
+
     {
       key: '3',
       label: t('scopes'),
@@ -78,13 +91,13 @@ const App: React.FC<AppProps> = (props) => {
         />
       ),
       onSubmit: () => {
-        const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
-        mutate(params, {
+        const params = { id: state.scopeName, serviceName: state.serviceName };
+        mutateScope(params, {
           onSuccess: () => {
             notification.success({
               message: t('upstream_tab.success_notif'),
             });
-            updateUpstreamTabCreationSubmitAction(dispatch);
+            updateScopeTabCreationSubmitAction(dispatch);
           },
           onError: (error) => {
             notification.error({
@@ -129,7 +142,7 @@ const App: React.FC<AppProps> = (props) => {
             const currentTab = items.find((item) => item.key === activeTabKey);
             currentTab?.onSubmit?.();
           }}
-          disabled={false}
+          disabled={isButtonDisabled()}
         >
           {t('save_changes')}
         </Button>
