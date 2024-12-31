@@ -56,7 +56,7 @@ export default function Route() {
   let initialValues = initialStateValue['route'];
   if (route) {
     const { host, path, method, protocol } = route;
-    initialValues = { host, path, actionOrMethod: method.code, protocol: protocol.code };
+    initialValues = { host, path, actionOrMethod: method?.code, protocol: protocol?.code };
   }
 
   const inputErrors = stepStatuses.find((i) => i.name === 'route')?.error;

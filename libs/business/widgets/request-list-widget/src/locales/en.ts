@@ -1,6 +1,6 @@
 export default {
   widget_name: 'Request Management',
-  search_by_client_name: 'Search by client name',
+  search_by_company_name: 'Search by company name',
   chips: {
     all_clients: 'All Requests',
     final_approval: 'Final Approval',
@@ -8,6 +8,7 @@ export default {
     rejected: 'Rejected',
     pending: 'Pending Review',
     pend_bank: 'Pending Commercial Banking Review',
+    unknown: 'unknown',
   },
   table: {
     index: 'Row',

@@ -3,6 +3,13 @@ export const SCOPE_PAGE_SIZE = 10; // Value confirmed by the analysis team.
 
 export const DRAFT_STATUS_CODE = 2;
 
+export enum InquiryStatus {
+  'SERVICE_ALREADY_EXISTS' = 1,
+  'SERVICE_IS_DRAFT' = 2,
+  'SERVICE_NOT_FOUND' = 3,
+  'SERVICE_EXISTS_IN_BAAM' = 4,
+}
+
 export const FORM_ITEM_NAMES = {
   englishName: 'englishName',
   persianName: 'persianName',
