@@ -37,7 +37,7 @@ const SearchBox: React.FC<Props> = ({
   isLoading,
 }) => {
   const [t] = useTr();
-  const rule = createSchemaFieldRule(ServiceName(t));
+  // const rule = createSchemaFieldRule(ServiceName(t));
   const onFinish = async (values: any) => {
     startLoading();
     changeContent('searching');
@@ -48,7 +48,7 @@ const SearchBox: React.FC<Props> = ({
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
       <Flex gap={'1rem'}>
-        <S.FormItem name={SERVICE_NAME.ServiceName} rules={[rule]}>
+        <S.FormItem name={SERVICE_NAME.ServiceName}>
           <Input
             autoFocus={true}
             ref={inputRef}
