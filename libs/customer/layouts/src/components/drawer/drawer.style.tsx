@@ -128,35 +128,10 @@ export const SiderItemsWrapper = styled.div`
   }
 `;
 
-export const StyledDivider = styled(Divider)`
-  margin: 0 0 1.2rem 0;
-`;
-
 export const MenuButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1.6rem;
-`;
-export const RegisterButton = styled(Button)<{ disabled?: boolean }>`
-  width: 100%;
-  margin-bottom: 1.6rem;
-  padding-top: 2.8rem;
-  padding-bottom: 2.8rem;
-  max-height: 5.8rem;
-
-  &&& span {
-    font-size: 1.6rem;
-    font-weight: 500;
-  }
-
-  ${(props) =>
-    props.disabled &&
-    `
-  cursor: not-allowed;
-    border-color: #d9d9d9;
-    color: rgba(0, 0, 0, 0.25);
-    background: rgba(0, 0, 0, 0.04);
-    box-shadow: none;`}
 `;
