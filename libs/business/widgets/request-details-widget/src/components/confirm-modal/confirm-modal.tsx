@@ -159,7 +159,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
               <ModalForm form={form} onFinish={handleFinish} rule={rule} t={t} isConfirm={isConfirm} />
             </>
           ) : (
-            <S.ModalMessage>{t('confirm_question_business', { clientNameState })}</S.ModalMessage>
+            <S.ModalMessage>{t('confirm_question_business', { clientName: clientNameState })}</S.ModalMessage>
           )}
         </S.ModalContent>
       </S.StyledModal>

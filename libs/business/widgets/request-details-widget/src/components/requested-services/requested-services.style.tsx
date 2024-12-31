@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const DataTableContainer = styled.div`
+  & div.ant-table {
+    min-height: fit-content;
+  }
+
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
     background-color: ${(p) => p.theme.background._50};

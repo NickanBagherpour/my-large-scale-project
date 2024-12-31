@@ -4,7 +4,7 @@ import { useTr } from '@oxygen/translation';
 
 import CommercialResultBox from '../commercial-result-box/commercial-result-box';
 import BusinessResultBox from '../business-result-box/business-result-box';
-import { ExpertType, Review, SubmissionDetailType, UserRole } from '../../types';
+import { ExpertType, RequestStatus, Review, SubmissionDetailType, UserRole } from '../../types';
 import ConfirmModal from '../confirm-modal/confirm-modal';
 import { useAppState } from '../../context';
 
@@ -51,29 +51,49 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
   const resultType = submissionInfoDto?.submissionStatus?.code;
 
   const renderReviewComponent = (review: Review) => {
-    switch (review?.expertType) {
-      case ExpertType.COMMERCIAL:
-        return <CommercialResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
-      case ExpertType.BUSINESS:
-        return <BusinessResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
-      default:
-        return <></>;
+    // First check for ExpertType.COMMERCIAL
+    if (review?.expertType === ExpertType.COMMERCIAL) {
+      return (
+        <CommercialResultBox
+          isReviewed={data?.isReviewed}
+          resultType={resultType}
+          review={review}
+          allReviews={reviews}
+        />
+      );
     }
+
+    // Then check for ExpertType.BUSINESS
+    if (review?.expertType === ExpertType.BUSINESS) {
+      return <BusinessResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
+    }
+
+    return <></>;
   };
+
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
 
+  const renderButton =
+    !data?.isReviewed &&
+    resultType !== RequestStatus.DRAFT &&
+    !(resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole?.BUSINESS_ADMIN);
+  const renderContainer = reviews.length > 0 || renderButton;
   return (
     <>
-      <S.StyledContainer>
-        {reviews.length > 0 && reviews.map((review) => renderReviewComponent(review))}
-        {!data?.isReviewed && (
-          <>
-            <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
-            {getConfirmButtons()}
-          </>
-        )}
-      </S.StyledContainer>
+      {renderContainer && (
+        <S.StyledContainer>
+          {reviews.length > 0 &&
+            reviews.sort((a, b) => a.expertType - b.expertType).map((review) => renderReviewComponent(review))}
+
+          {renderButton && (
+            <>
+              <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
+              {getConfirmButtons()}
+            </>
+          )}
+        </S.StyledContainer>
+      )}
       <ConfirmModal
         setOpenModal={setOpenModal}
         openModal={openModal}
