@@ -14,9 +14,11 @@ import { UpstreamList } from '../upstream-list/upstream-list';
 import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
+import { useAssignToServiceScopeMutation } from '../../services/upstream-tab/post-assign-to-service-scope.api';
 import {
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
+  updateScopeTabCreationSubmitAction,
   useAppDispatch,
   useAppState,
 } from '../../context';
@@ -42,6 +44,15 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
+  const isButtonDisabled = () => {
+    if (activeTabKey === '3') {
+      return !state.scopeName; // Disable if scopeName is empty for "scopes" tab
+    } else if (activeTabKey === '4') {
+      return !state.upstreamTab.activeSelect.cardId; // Disable if upstreamTab cardId is empty for "upstream" tab
+    }
+    return false; // Default: button enabled
+  };
+
   const [activeTabKey, setActiveTabKey] = useState('1');
   const [scopeData, setScopeData] = useState(null);
 
@@ -55,35 +66,7 @@ const App: React.FC<AppProps> = (props) => {
     redirect('/not-found');
   }
   const { mutate, isPending } = useAssignToServiceMutation();
-  const handleUpstreamCreation = () => {
-    const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
-    mutate(params, {
-      onSuccess: () => {
-        notification.success({
-          message: t('upstream_tab.success_notif'),
-        });
-        updateUpstreamTabCreationSubmitAction(dispatch);
-      },
-      onError: (error) => {
-        notification.error({
-          message: t(`${error}`),
-        });
-      },
-    });
-  };
-  //to do : handle submit button globaly
-  // const footerButton = (
-  //   <>
-  //     <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-  //       {t('button.return')}
-  //     </ReturnButton>
-  //     {!state.upstreamTab.activeSelect.isInitialized && (
-  //       <Button disabled={!state.upstreamTab.activeSelect.cardId} onClick={handleUpstreamCreation} loading={isPending}>
-  //         {t('save_changes')}
-  //       </Button>
-  //     )}
-  //   </>
-  // );
+  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
 
   const items = [
     {
@@ -96,6 +79,7 @@ const App: React.FC<AppProps> = (props) => {
       label: t('route'),
       children: <Route />,
     },
+
     {
       key: '3',
       label: t('scopes'),
@@ -107,7 +91,20 @@ const App: React.FC<AppProps> = (props) => {
         />
       ),
       onSubmit: () => {
-        console.log('Submitting Scopes from App footer:', scopeData);
+        const params = { id: state.scopeName, serviceName: state.serviceName };
+        mutateScope(params, {
+          onSuccess: () => {
+            notification.success({
+              message: t('upstream_tab.success_notif'),
+            });
+            updateScopeTabCreationSubmitAction(dispatch);
+          },
+          onError: (error) => {
+            notification.error({
+              message: t(`${error}`),
+            });
+          },
+        });
       },
     },
     {
@@ -115,7 +112,20 @@ const App: React.FC<AppProps> = (props) => {
       label: t('upstream'),
       children: <UpstreamList />,
       onSubmit: () => {
-        console.log('Submitting Upstream');
+        const params = { id: state.upstreamTab.activeSelect.cardId, serviceName: state.serviceName };
+        mutate(params, {
+          onSuccess: () => {
+            notification.success({
+              message: t('upstream_tab.success_notif'),
+            });
+            updateUpstreamTabCreationSubmitAction(dispatch);
+          },
+          onError: (error) => {
+            notification.error({
+              message: t(`${error}`),
+            });
+          },
+        });
       },
     },
   ];
@@ -132,7 +142,7 @@ const App: React.FC<AppProps> = (props) => {
             const currentTab = items.find((item) => item.key === activeTabKey);
             currentTab?.onSubmit?.();
           }}
-          disabled={false}
+          disabled={isButtonDisabled()}
         >
           {t('save_changes')}
         </Button>
