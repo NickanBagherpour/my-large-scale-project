@@ -8,6 +8,7 @@ export default {
     rejected: 'Rejected',
     pending: 'Pending Review',
     pend_bank: 'Pending Commercial Banking Review',
+    unknown: 'unknown',
   },
   table: {
     index: 'Row',
