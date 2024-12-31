@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 import { Flex } from 'antd';
-import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
@@ -12,11 +11,9 @@ type Props = {
 };
 const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
   const [t] = useTr();
-  const [loading, setLoading] = useState(false);
-  const { mutateAsync: uploadService, isSuccess } = useUploadServiceMutation();
+  const { mutateAsync: uploadService, isSuccess, isPending } = useUploadServiceMutation();
   const router = useRouter();
   const handleClick = async () => {
-    setLoading(true);
     await uploadService(serviceName ?? '');
     if (isSuccess) router.push(ROUTES.BACKOFFICE.SERVICE_CREATION);
   };
@@ -27,14 +24,13 @@ const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
         <S.StyledText>{t('allowed_creation_BAAM')}</S.StyledText>
       </Flex>
       <Button
-        href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${serviceName}`}
         style={{ width: 'fit-content' }}
         block={false}
         color='primary'
         icon={<i className='icon-arrow-left' />}
         iconPosition='end'
         onClick={handleClick}
-        loading={loading}
+        loading={isPending}
       >
         {t('create_new_service')}
       </Button>
