@@ -1,10 +1,9 @@
 import React from 'react';
-import { type CollapseProps } from 'antd';
+import { type CollapseProps, Tooltip } from 'antd';
 
 import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
 import { SubmissionDetailType, UserRole } from '../../types';
@@ -88,12 +87,14 @@ const DetailsCollapse: React.FC<Props> = (props) => {
         <S.TitleWrapper>
           {t('requested_services')}
           {userRole !== UserRole.COMMERCIAL_BANKING_ADMIN && (
-            <S.StyledButton
-              type='primary'
-              style={{ margin: 0 }}
-              icon={<i className='icon-edit' />}
-              href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
-            />
+            <Tooltip title={t('edit_requested_services')}>
+              <S.StyledButton
+                type='primary'
+                style={{ margin: 0 }}
+                icon={<i className='icon-edit' />}
+                // href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
+              />
+            </Tooltip>
           )}
         </S.TitleWrapper>
       ),
@@ -109,7 +110,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
 
   return (
     <S.Container>
-      <Collapse items={items} />
+      <Collapse items={items} collapsible={'icon'} />
       {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={isFetching} />}
     </S.Container>
   );

@@ -50,20 +50,17 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultType = submissionInfoDto?.submissionStatus?.code;
 
-  // const renderReviewComponent = (review: Review) => {
-  // switch (review?.expertType) {
-  //   case ExpertType.COMMERCIAL:
-  //     return <CommercialResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
-  //   case ExpertType.BUSINESS:
-  //     return <BusinessResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
-  //   default:
-  //     return <></>;
-  // }
-  // };
   const renderReviewComponent = (review: Review) => {
     // First check for ExpertType.COMMERCIAL
     if (review?.expertType === ExpertType.COMMERCIAL) {
-      return <CommercialResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
+      return (
+        <CommercialResultBox
+          isReviewed={data?.isReviewed}
+          resultType={resultType}
+          review={review}
+          allReviews={reviews}
+        />
+      );
     }
 
     // Then check for ExpertType.BUSINESS
@@ -76,7 +73,6 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
-  console.log('state.userRole, resultTitle', state.userRole, resultTitle);
   return (
     <>
       {(reviews.length > 0 ||
@@ -84,14 +80,12 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
         <S.StyledContainer>
           {reviews.length > 0 &&
             reviews.sort((a, b) => a.expertType - b.expertType).map((review) => renderReviewComponent(review))}
-          {!data?.isReviewed &&
-            submissionInfoDto?.submissionStatus?.code !== RequestStatus.DRAFT &&
-            state?.userRole === resultTitle && (
-              <>
-                <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
-                {getConfirmButtons()}
-              </>
-            )}
+          {!data?.isReviewed && submissionInfoDto?.submissionStatus?.code !== RequestStatus.DRAFT && (
+            <>
+              <S.StyledTitle>{t(resultTitle)}</S.StyledTitle>
+              {getConfirmButtons()}
+            </>
+          )}
         </S.StyledContainer>
       )}
       <ConfirmModal
