@@ -9,6 +9,7 @@ import { ROUTES } from '@oxygen/utils';
 import { MutationStatus } from '@tanstack/react-query';
 import { goToFirstError, useAppDispatch, useAppState } from '../../context';
 import { ReactNode } from 'react';
+import GeneralInfo from '../general-info/general-info';
 
 type Props = {
   isOpen: boolean;
@@ -27,7 +28,7 @@ export default function RemoveServerModal(props: Props) {
     success: <Success />,
     pending: <Processing />,
     idle: <Processing />,
-    error: <BadRequestErorr />,
+    error: <GeneralError closeModal={toggle} />,
   };
 
   return (
@@ -116,21 +117,24 @@ const BadRequestErorr = () => {
   );
 };
 
-const ConnectionError = () => {
+const GeneralError = ({ closeModal }: { closeModal: () => void }) => {
   const [t] = useTr();
   return (
     <>
       <S.Container>
         <LazyLottie loop={false} animationData={failureAnimationData} style={lottieStyle} />
-        <S.ConnectionErrMsg>{t('couldnt_connect_try_again')}</S.ConnectionErrMsg>
+        {t('date_wasnt_registered')}
+        <S.ConnectionErrMsg>{}</S.ConnectionErrMsg>
       </S.Container>
-      <S.TopBtn block>
-        <i className='icon-refresh' />
-        {t('try_again')}
+      <S.TopBtn block onClick={closeModal}>
+        {/* <i className='icon-refresh' /> */}
+        {t('button.confirm')}
       </S.TopBtn>
-      <Button block variant='outlined' color='primary'>
-        {t('save_in_draft')}
-      </Button>
+      {/*
+			<Button block variant='outlined' color='primary'>
+				{t('save_in_draft')}
+			</Button>
+      */}
     </>
   );
 };

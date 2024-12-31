@@ -24,7 +24,7 @@ export const SuccessMsg = styled.p`
 `;
 
 export const TopBtn = styled(Button)`
-  margin-bottom: 0.8rem;
+  /* margin-bottom: 0.8rem; */
 `;
 
 export const ErrorsList = styled.ul`
