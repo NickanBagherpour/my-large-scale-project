@@ -45,6 +45,7 @@ export default async function middleware(request: NextRequest) {
 
   // Handle non-API routes
   if (isProtectedRoute) {
+    console.log('>>>>>>', session);
     // If there is no session user, redirect to the login page
     if (!session?.user) {
       return NextResponse.redirect(new URL(ROUTES.CUSTOMER.AUTH, request.url));
@@ -53,7 +54,7 @@ export default async function middleware(request: NextRequest) {
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
   if (session?.user && publicPaths.some((path) => pathname === path)) {
-    return NextResponse.redirect(new URL(ROUTES.CUSTOMER.PROFILE, request.url));
+    return NextResponse.redirect(new URL(ROUTES.CUSTOMER.REQUEST_MANAGEMENT, request.url));
   }
 
   return NextResponse.next(); // Proceed with the original request for non-protected routes
