@@ -15,9 +15,7 @@ const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
   const router = useRouter();
   const handleClick = async () => {
     await uploadService(serviceName ?? '');
-    if (isSuccess) {
-      router.push(ROUTES.BACKOFFICE.SERVICE_CREATION);
-    }
+    if (isSuccess) router.push(ROUTES.BACKOFFICE.SERVICE_CREATION);
   };
   return (
     <Flex vertical gap={'2rem'} justify='center' align='center'>
