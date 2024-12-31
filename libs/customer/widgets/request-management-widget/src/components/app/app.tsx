@@ -44,20 +44,20 @@ const App: React.FC<AppProps> = (props) => {
       <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
         <Filters />
         <Loading spinning={isRequestsFetching}>
-          <SearchItemsContainer $columnNumber='2'>
-            {requests?.length ? (
-              requests.map((request, index) => (
+          {requests?.length ? (
+            <SearchItemsContainer $columnNumber='2'>
+              {requests.map((request: any, index: number) => (
                 <AdvanceGridCard
                   key={index}
                   btnHandleClick={handleClick}
                   btnLoading={isRequestsFetching}
                   data={request}
                 />
-              ))
-            ) : (
-              <NoResult isLoading={false} />
-            )}
-          </SearchItemsContainer>
+              ))}
+            </SearchItemsContainer>
+          ) : (
+            <NoResult isLoading={false} />
+          )}
         </Loading>
       </S.RequestsContainer>
     </>
