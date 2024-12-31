@@ -179,16 +179,6 @@ const Drawer = (props: DrawerProps) => {
             {/*  />*/}
             {/*</div>*/}
 
-            <S.RegisterButton
-              type={'primary'}
-              variant={'solid'}
-              icon={<i className={'icon-plus'} />}
-              href={registerButtonHref}
-              disabled={isCurrentRoute}
-            >
-              {t('button.register_new_request')}
-            </S.RegisterButton>
-            <S.StyledDivider />
             {stateMenu?.loading ? (
               <div className='menu-spin-container'>
                 <Loading height='100%' containerProps={{ paddingTop: '4rem' }} />
