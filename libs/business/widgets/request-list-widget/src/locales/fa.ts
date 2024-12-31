@@ -1,6 +1,6 @@
 export default {
   widget_name: 'مدیریت درخواست‌ها',
-  search_by_client_name: 'جستجو براساس نام کلاینت',
+  search_by_company_name: 'جستجو براساس نام شرکت',
   chips: {
     all_clients: 'همه درخواست‌ها',
     final_approval: 'تایید نهایی',
@@ -8,6 +8,7 @@ export default {
     rejected: 'رد شده',
     pending: 'در انتظار بررسی',
     pend_bank: 'در انتظار بررسی بانکداری تجاری',
+    unknown: 'نامشخص',
   },
   table: {
     index: 'ردیف',

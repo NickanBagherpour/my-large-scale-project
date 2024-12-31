@@ -7,6 +7,7 @@ export const SORT_ORDER = {
   ASCENDING: 'desc',
   DESCENDING: 'createDate',
 };
+export const MAX_LENGTH = 100;
 
 // status-enums
 export const COMMERCIAL_STATUS_LIST = {

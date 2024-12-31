@@ -4,6 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { getValueOrDash } from '@oxygen/utils';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { PageProps } from '@oxygen/types';
 
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
@@ -14,7 +15,6 @@ import { UserRoleType } from '../../types/common-types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { PageProps } from '@oxygen/types';
 
 type AppProps = PageProps & {
   //
