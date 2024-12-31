@@ -15,13 +15,13 @@ import * as S from './app.style';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
-import { notFound, redirect, useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
 import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
-import { DRAFT_STATUS_CODE } from '../../utils/consts';
+import { DRAFT_STATUS_CODE, InquiryStatus } from '../../utils/consts';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
@@ -48,12 +48,16 @@ const App = () => {
   useEffect(() => {
     if (isSuccess) {
       const { serviceInquiryStatus, serviceProgress } = data;
-      const step = serviceProgress?.step ?? 0; // If `serviceProgress` is undefined (e.g., the service does not exist), default to step 0, indicating that the process should start from the first step.
-      const isDraft = serviceInquiryStatus.code === DRAFT_STATUS_CODE;
+      const step = serviceProgress?.step ?? 1; // If `serviceProgress` is undefined (e.g., the service does not exist), default to step 0, indicating that the process should start from the first step.
+      const statusCode = serviceInquiryStatus.code;
+      const isDraft = statusCode === InquiryStatus.SERVICE_IS_DRAFT;
+      const isNew = statusCode === InquiryStatus.SERVICE_NOT_FOUND;
 
-      if (!isDraft) return void router.replace(ROUTES.BACKOFFICE.SERVICE_LIST);
-
-      addInitialStep(dispatch, step as StepIndex);
+      if (isDraft || isNew) {
+        addInitialStep(dispatch, (step - 1) as StepIndex);
+      } else {
+        router.replace(ROUTES.BACKOFFICE.SERVICE_LIST);
+      }
     }
   }, [isSuccess, dispatch, data, router]);
 

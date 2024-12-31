@@ -2,14 +2,16 @@ import z from 'zod';
 import { FORM_ITEM_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
 
-const MAX_LENGTH = 30;
+const MAX_LENGTH = 200;
 
 export const serviceNameSchema = (t: TFunction) =>
   z
     .string({ required_error: t('validation.required') })
     .trim()
     .min(1, { message: t('validation.required') })
-    .max(MAX_LENGTH, { message: t('validation.max_length') })
+    .max(MAX_LENGTH /* Some services have long names, so this value needs to be set high to accommodate them */, {
+      message: t('validation.max_length'),
+    })
     .regex(/^[^\u0600-\u06FF]*$/, {
       message: t('validation.english_name_error'),
     });
