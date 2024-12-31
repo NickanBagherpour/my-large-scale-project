@@ -3,8 +3,9 @@ import React from 'react';
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 
-import { Review } from '../../types';
+import { RequestStatus, Review } from '../../types';
 import CommercialResultInfo from '../commercial-result-info/commercial-result-info';
+import { Icons } from '@oxygen/ui-kit';
 
 import * as S from '../commercial-result-box/commercial-result-box.style';
 
@@ -26,11 +27,19 @@ const CommercialResultBox: React.FC<Props> = (props) => {
         <NoResult isLoading={false} />
       </>
     );
-
   return (
     <>
       <S.StyledTitle>{t('commercial_banking_result')}</S.StyledTitle>
       {review?.expertOpinion ? <CommercialResultInfo result={review} /> : <NoResult isLoading={false} />}
+      {resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && (
+        <>
+          <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
+          <S.StyledBox>
+            <Icons.IconTimer />
+            {t('checking_request')}
+          </S.StyledBox>
+        </>
+      )}
     </>
   );
 };

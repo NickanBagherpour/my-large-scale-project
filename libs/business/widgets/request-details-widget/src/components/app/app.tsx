@@ -59,7 +59,13 @@ const App: React.FC<AppProps> = (props) => {
           resetMessageAction(dispatch);
         }}
       />
-      {submissionId && userRole ? <DetailsCollapse /> : <Loading spinning={true} />}
+      {submissionId && userRole ? (
+        <DetailsCollapse />
+      ) : (
+        <S.LoadingContainer>
+          <Loading spinning={true} />
+        </S.LoadingContainer>
+      )}
     </S.AppContainer>
   );
 };

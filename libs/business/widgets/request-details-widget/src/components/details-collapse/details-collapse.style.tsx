@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import { Button } from '@oxygen/ui-kit';
 
+export const StyledContainer = styled.div`
+  padding: 1.2rem 3.2rem 3.2rem 3.2rem;
+  background-color: ${(p) => p.theme.background._50};
+  border: 1px solid ${(p) => p.theme.border._300};
+  border-radius: 2.4rem;
+  & h2:not(:first-child) {
+    margin-top: 2.4rem;
+  }
+  margin-top: 1.6rem;
+`;
+
 export const Container = styled.div`
   margin-bottom: 1.6rem;
   margin-top: 1.6rem;
@@ -63,7 +74,8 @@ export const CollapseTitle = styled.span`
   justify-content: flex-start;
   gap: 1.6rem;
 
-  & .status-icon {
+  i.status-icon {
+    margin: 0.3rem 0.2rem;
     font-size: 2rem;
   }
 `;

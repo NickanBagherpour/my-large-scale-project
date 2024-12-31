@@ -50,18 +50,37 @@ const DetailsCollapse: React.FC<Props> = (props) => {
           {renderRequestStatus(t, status)}
         </S.CollapseTitle>
       ),
-      children: <InfoBox data={getSubmissionInfo(submissionInfoDto, t)} margin={0} />,
+      children: submissionInfoDto ? (
+        <InfoBox data={getSubmissionInfo(submissionInfoDto, t)} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          {' '}
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
     },
     {
       key: '2',
       label: t('organization_info'),
-      children: <InfoBox data={getOrganizationInfo(organization, t)} margin={0} />,
+      children: organization ? (
+        <InfoBox data={getOrganizationInfo(organization, t)} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
       className: 'organization-info-box',
     },
     {
       key: '3',
       label: t('representative_info'),
-      children: <InfoBox data={getRepresentativeInfo(representativeSet, t)} minColumnCount={3} margin={0} />,
+      children: representativeSet ? (
+        <InfoBox data={getRepresentativeInfo(representativeSet, t)} minColumnCount={3} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
     },
     {
       key: '4',
@@ -78,7 +97,13 @@ const DetailsCollapse: React.FC<Props> = (props) => {
           )}
         </S.TitleWrapper>
       ),
-      children: <RequestedServices data={services} isLoading={isFetching} />,
+      children: services ? (
+        <RequestedServices data={services} isLoading={isFetching} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
     },
   ];
 

@@ -35,6 +35,7 @@ export type CodeTitle = {
 };
 
 export enum RequestStatus {
+  DRAFT = 1,
   UNDER_REVIEW_COMMERCIAL_BANK = 2,
   REJECTED_BY_COMMERCIAL_BANK,
   APPROVED_BY_COMMERCIAL_BANK,

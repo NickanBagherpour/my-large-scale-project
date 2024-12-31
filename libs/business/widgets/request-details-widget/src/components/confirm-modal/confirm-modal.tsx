@@ -116,7 +116,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
             ),
           }}
           rows={8}
-          maxLength={150}
+          // maxLength={150}
           placeholder={t(isConfirm ? 'description' : 'reject_reason')}
         />
       </Form.Item>
