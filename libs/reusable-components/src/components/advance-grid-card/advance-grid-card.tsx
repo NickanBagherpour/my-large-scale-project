@@ -8,7 +8,6 @@ import * as S from './advance-grid-card.style';
 export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGridCardPropsType) => {
   const [t] = useTr();
   const { code } = data.submissionStatus;
-
   // Get the status configuration based on the code
   const { textColor, bankColor, bankIcon, businessColor, businessIcon, descriptionText, isBlack } =
     getStatusConfig(code);
