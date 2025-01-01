@@ -40,7 +40,6 @@ export const ROUTES = {
   CUSTOMER: {
     LANDING: '/',
     AUTH: '/auth',
-    PROFILE: '/profile',
     DASHBOARD: '/dashboard',
     REQUEST_MANAGEMENT: '/request-management',
     REQUEST_REGISTRATION: '/request-registration',
@@ -56,10 +55,7 @@ export const ROUTES = {
 };
 export const CUSTOMER_ROUTE_GROUPS = [
   // [ROUTES.CUSTOMER.DASHBOARD],
-  [
-    ROUTES.CUSTOMER.REQUEST_MANAGEMENT,
-    // , ROUTES.CUSTOMER.REQUEST_CREATION
-  ],
+  [ROUTES.CUSTOMER.REQUEST_MANAGEMENT, ROUTES.CUSTOMER.REQUEST_REGISTRATION],
 ];
 
 export const BACKOFFICE_ROUTE_GROUPS = [

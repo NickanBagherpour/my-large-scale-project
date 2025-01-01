@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, useContext, useMemo } from 'react';
 
 import { CookieKey, LocalStorageKey, User } from '@oxygen/types';
-import { clearAllCookies, clearAllCookiesExceptForKey, clearLocalStorageExceptForKey, getCookie } from '@oxygen/utils';
+import { clearAllCookiesExceptForKey, clearLocalStorageExceptForKey, getCookie } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 
 import useLocalStorage from '../use-local-storage/use-local-storage';
@@ -32,7 +32,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const login = async (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
     // const res = await signIn('credentials', { ...data, redirect: false });
-    setUser({...data});
+    setUser({ ...data });
     /*    if (props.login) {
            props.login();
          }*/

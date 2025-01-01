@@ -21,3 +21,8 @@ export enum UserType {
   OPERATION_OFFICE_USER = 'OPERATION_OFFICE_USER',
   NONE = 'NONE',
 }
+
+export enum UserRole {
+  COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
+  BUSINESS_ADMIN = 'business-admin',
+}

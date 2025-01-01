@@ -72,7 +72,7 @@ export const Login = ({ title }: FormContainerProps) => {
 
     mutate(params, {
       onSuccess: (data) => {
-        console.log('Login successful:', data.headers['key'], data);
+        // console.log('Login successful:', data.headers['key'], data);
 
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined, key: otpKey });

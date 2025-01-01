@@ -2,6 +2,8 @@ import { getValueOrDash } from '@oxygen/utils';
 
 import { SubmissionDetailType } from '../types';
 
+import * as S from '../components/details-collapse/details-collapse.style';
+
 export const getSubmissionInfo = (submissionInfoDto: SubmissionDetailType['submissionInfoDto'], t) => {
   return [
     {
@@ -56,7 +58,7 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
     {
       fullwidth: true,
       key: '',
-      value: '',
+      value: <S.StyledDivider />,
     },
     {
       key: t('registered_address'),
@@ -75,7 +77,6 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
 
 export const getRepresentativeInfo = (representativeSet: SubmissionDetailType['representativeSet'], t) => {
   if (!representativeSet || representativeSet.length < 2) {
-    // Handle case where there may not be enough representatives
     return [];
   }
 

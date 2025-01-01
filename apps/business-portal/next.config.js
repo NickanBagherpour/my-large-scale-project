@@ -3,18 +3,18 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
 
-const base_url = process.env.API_BASE_URL;
+const api_base_url = process.env.API_BASE_URL;
 const auth_prefix = process.env.NEXT_PUBLIC_AUTH_PREFIX || 'api2';
 const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
 
 const rewritesConfig = [
   {
     source: `/${auth_prefix}/:path*`,
-    destination: `${base_url}/${auth_prefix}/:path*`,
+    destination: `${api_base_url}/${auth_prefix}/:path*`,
   },
   {
     source: `/${portal_prefix}/:path*`,
-    destination: `${base_url}/${portal_prefix}/:path*`,
+    destination: `${api_base_url}/${portal_prefix}/:path*`,
   },
 ];
 
@@ -43,7 +43,7 @@ const nextConfig = {
     unoptimized: true,
   },
   staticPageGenerationTimeout: 180,
-  basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
+  // basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
   rewrites: async () => {
     return rewritesConfig;
   },
