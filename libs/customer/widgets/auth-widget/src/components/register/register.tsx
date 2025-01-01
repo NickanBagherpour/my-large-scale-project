@@ -32,7 +32,7 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   //Queries
-  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { data, isLoading, refetch } = useGetCaptchaQuery();
   const { mutate, isPending } = useRegisterMutation();
 
   //Form
@@ -160,7 +160,7 @@ export const Register = ({ title }: FormContainerProps) => {
       <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
-      <S.Button loading={isPending} href={'/'} color='primary' variant={'outlined'}>
+      <S.Button disabled={isPending} href={'/'} color='primary' variant={'outlined'}>
         {t('home_return')}
       </S.Button>
       <S.Divider />
