@@ -20,6 +20,35 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     }
   });
 
+  const requiredJustString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+    // Check for empty or whitespace-only strings
+    if (value.trim().length === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: t('error.required'),
+      });
+    }
+
+    // Check for minimum length
+    if (value.length < 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.too_small,
+        type: 'string',
+        minimum: 1,
+        inclusive: true,
+        message: t('error.required'),
+      });
+    }
+
+    // Check if the string contains numbers
+    if (/\d/.test(value)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: t('error.no_numbers_allowed'), // Update to appropriate error message key
+      });
+    }
+  });
+
   const datePickerString = z
     .preprocess((input) => {
       // Ensure we are dealing with a string
@@ -246,7 +275,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     // Required Fields
     [FORM_ITEM.aggregator_status]: requiredString,
     [FORM_ITEM.aggregator_value]: requiredString,
-    [FORM_ITEM.legal_person_name]: requiredString,
+    [FORM_ITEM.legal_person_name]: requiredJustString,
     [FORM_ITEM.legal_person_type]: requiredString,
     [FORM_ITEM.registration_number]: requiredString,
     [FORM_ITEM.registration_date]: datePickerString,

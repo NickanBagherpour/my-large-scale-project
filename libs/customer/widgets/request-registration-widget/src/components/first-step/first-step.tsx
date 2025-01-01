@@ -64,6 +64,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     }));
     setAggregatorSelectData(transformedAggregators);
   }, [aggregators]);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  const checkFields = (_, allFields) => {
+    const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+    setIsSubmitDisabled(hasErrors);
+  };
 
   type Status = WidgetStateType['status'];
 
@@ -278,7 +284,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               )}
             </S.OrganizationContainer>
           ) : (
-            <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
+            <Form
+              layout={'vertical'}
+              onFinish={onFinish}
+              form={form}
+              initialValues={state.firstStep}
+              onFieldsChange={checkFields}
+            >
               <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
               <S.CheckAggregator>
                 <SearchItemsContainer $columnNumber='3'>
@@ -364,7 +376,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
-                  <DatePicker placeholder={`${t('placeholder.registration_date')}`} suffixIcon={<Icons.Calender />} />
+                  <DatePicker
+                    placeholder={`${t('placeholder.registration_date')}`}
+                    suffixIcon={<Icons.Calender />}
+                    disableFuture={true}
+                  />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
                   <Input
@@ -415,7 +431,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           htmlType={'submit'}
           loading={firstIsPending || secondIsPending}
           onClick={() => handleSubmit()}
-          disabled={state.requestMode === 'selectOrganization' && !isSelected.isSelected}
+          disabled={
+            (state.requestMode === 'selectOrganization' && !isSelected.isSelected) ||
+            (state.requestMode === 'registerOrganization' && isSubmitDisabled)
+          }
         >
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
