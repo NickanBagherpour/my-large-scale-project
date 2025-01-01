@@ -10,6 +10,7 @@ export const useGetCaptchaQuery = () => {
   return useQuery({
     queryKey: [RQKEYS.CUSTOMER_AUTH.CAPTCHA],
     queryFn: () => Api.getCaptcha(),
+    staleTime: 0,
     select: (res) => {
       return {
         captchaImage: res.data,
