@@ -26,6 +26,8 @@ export const prepareRequestListParams = (item, userRole) => {
 
   const reqObj: any = {};
 
+  reqObj.role = userRole;
+
   if (searchTerm) {
     reqObj.orgName = searchTerm;
   }

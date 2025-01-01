@@ -12,7 +12,7 @@ import { useDebouncedValue } from '@oxygen/hooks';
 import * as S from './scope-selector.style';
 import { useGetScopes } from '../../../services';
 import { type Scope } from '@oxygen/types';
-import { useAppState } from '../../../context';
+import { useAppState, useAppDispatch, updateScopeAction } from '../../../context';
 import { pages } from 'next/dist/build/templates/app-page';
 
 type Props = {
@@ -30,6 +30,7 @@ const ScopeSelector = (props: Props) => {
   const theme = useTheme();
   const [t] = useTr();
   const state = useAppState();
+  const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
 
@@ -61,11 +62,12 @@ const ScopeSelector = (props: Props) => {
         onSelect={(_, record) => {
           onSelect?.(record.item);
           setSearchTerm('');
+          // updateScopeAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: record.item });
         }}
         optionRender={({ value, data }) => (
           <S.Item>
             <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
-            <S.Subtitle>{data.item.description}test</S.Subtitle>
+            <S.Subtitle>{data.item.description}</S.Subtitle>
           </S.Item>
         )}
       >

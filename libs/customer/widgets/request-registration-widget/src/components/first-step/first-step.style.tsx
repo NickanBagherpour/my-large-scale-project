@@ -160,6 +160,10 @@ export const FirstStepContainer = styled.div`
   }
 `;
 
+export const ContainerContent = styled.div`
+  flex: 1;
+`;
+
 export const CheckAggregator = styled.div`
   margin-bottom: 3.2rem;
 

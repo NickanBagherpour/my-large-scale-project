@@ -1,3 +1,4 @@
+import { Nullable, UserRole } from '@oxygen/types';
 import { getCookie } from './util';
 
 export const ApiUtil = {
@@ -129,5 +130,11 @@ export const ApiUtil = {
     }
 
     return message;
+  },
+  getApiPrefix: (role: Nullable<string>) => {
+    if (!role) {
+      return '';
+    }
+    return role === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial/api' : 'business/api';
   },
 };

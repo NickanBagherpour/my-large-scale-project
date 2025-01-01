@@ -19,7 +19,11 @@ export type initialActiveSelectType = {
 
 export type WidgetStateType = {
   serviceName: Nullable<string>;
+  scopeName: Nullable<string>;
   upstreamTab: {
+    activeSelect: initialActiveSelectType;
+  };
+  scopeTab: {
     activeSelect: initialActiveSelectType;
   };
   table: {
@@ -44,9 +48,14 @@ export type WidgetActionType =
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
     }
   | {
+      type: 'UPDATE_SCOPE_TAB_CREATION';
+    }
+  | {
       type: 'UPDATE_UPSTREAM';
       payload: Partial<initialActiveSelectType>;
     }
+  | { type: 'UPDATE_SCOPE_NAME'; payload: Nullable<string> }
+  | { type: 'CLEAR_SCOPE'; payload?: undefined }
   | {
       type: 'UPDATE_FILTERS';
       payload: Partial<FiltersType>;

@@ -12,11 +12,10 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
-  table: {
-    filters: FiltersType;
-    pagination: PaginationType;
-    submit: FiltersType;
-  };
+  searchTerm: string;
+  sort: 'newest' | 'oldest';
+  status: 'all' | 'confirmed' | 'reviewed' | 'rejected';
+  page: number;
   message: Nullable<MessageType>;
 };
 
@@ -24,6 +23,18 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
+    }
+  | {
+      type: 'UPDATE_SEARCH_TERM';
+      payload: WidgetStateType['searchTerm'];
+    }
+  | {
+      type: 'UPDATE_SORT';
+      payload: WidgetStateType['sort'];
+    }
+  | {
+      type: 'UPDATE_STATUS';
+      payload: WidgetStateType['status'];
     }
   | {
       type: 'UPDATE_FILTERS';

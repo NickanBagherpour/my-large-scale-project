@@ -21,8 +21,8 @@ const App = () => {
   const prepareParams = () => {
     return {
       isActive: status,
-      'search-field': searchTerm,
-      page: table.pagination.page,
+      'search-field': searchTerm ? searchTerm : null,
+      page: table.pagination.page - 1,
       size: table.pagination.rowsPerPage,
       sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
     };
@@ -169,7 +169,7 @@ const App = () => {
           total={services?.totalElements}
           searchTerm={searchTerm}
           isLoading={isClientsFetching}
-          wordToHighlight={searchTerm}
+          wordToHighlight={searchTerm ?? ''}
           changeStatus={(status, name) => changeStatusHandler(status, name)}
           deleteService={(name, status) => deleteHandler(name, status)}
         />

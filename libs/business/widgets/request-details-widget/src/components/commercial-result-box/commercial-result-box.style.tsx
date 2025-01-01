@@ -11,7 +11,7 @@ export const StyledBox = styled(Box)`
   line-height: 18px;
   color: ${(p) => p.theme.text.secondary};
   align-items: center;
-  margin-bottom: 2.4rem;
+  //margin-bottom: 2.4rem;
 
   & svg {
     width: auto;

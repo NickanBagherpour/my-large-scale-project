@@ -17,6 +17,10 @@ export const initialStateValue: WidgetStateType = {
   upstreamTab: {
     activeSelect: initialActiveSelect,
   },
+  scopeTab: {
+    activeSelect: initialActiveSelect,
+  },
+  scopeName: undefined,
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -35,6 +39,16 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_GLOBAL_MESSAGE': {
       return void (state.message = action.payload);
     }
+    case 'UPDATE_SCOPE_NAME':
+      return {
+        ...state,
+        scopeName: action.payload,
+      };
+    case 'CLEAR_SCOPE':
+      return {
+        ...state,
+        scopeName: null, // Or `undefined` depending on your preference
+      };
     case 'UPDATE_SERVICE_NAME': {
       state.serviceName = action.payload;
       return;
@@ -47,6 +61,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void ((state.upstreamTab.activeSelect.isInitialized = true),
       (state.upstreamTab.activeSelect.id = state.upstreamTab.activeSelect.cardId),
       (state.upstreamTab.activeSelect.cardId = undefined));
+    }
+    case 'UPDATE_SCOPE_TAB_CREATION': {
+      return void ((state.scopeTab.activeSelect.isInitialized = true),
+      (state.scopeTab.activeSelect.id = state.scopeTab.activeSelect.cardId),
+      (state.scopeTab.activeSelect.cardId = undefined));
     }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };

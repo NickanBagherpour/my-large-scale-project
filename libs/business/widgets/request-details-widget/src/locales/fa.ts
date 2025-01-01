@@ -2,6 +2,7 @@ export default {
   widget_name: 'request-details-widget',
   request_details: 'جزئیات درخواست',
   requested_services: 'سرویس‌های درخواستی',
+  edit_requested_services: 'ویرایش سرویس‌های درخواستی',
   button: {
     register_info: 'ثبت اطلاعات',
     reject_request: 'رد درخواست',
