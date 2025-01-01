@@ -47,6 +47,7 @@ export type WidgetStateType = {
   requestMode: RequestMode;
   organizationId: string;
   submissionId: string;
+  firstStepDisabledSubmit: boolean;
   firstStep: FirstStepType;
   secondStep: SecondStepType;
   thirdStep: {

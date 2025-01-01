@@ -64,7 +64,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     }));
     setAggregatorSelectData(transformedAggregators);
   }, [aggregators]);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
 
   const checkFields = (_, allFields) => {
     const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);

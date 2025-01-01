@@ -16,6 +16,7 @@ export const initialStateValue: WidgetStateType = {
   requestMode: 'selectOrganization',
   organizationId: '',
   submissionId: '',
+  firstStepDisabledSubmit: true,
   firstStep: {
     aggregator_status: 'nothing',
     aggregator_value: undefined,
@@ -60,6 +61,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload } as FirstStepType;
+      state.firstStepDisabledSubmit = false;
       return;
     }
     case 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID': {
