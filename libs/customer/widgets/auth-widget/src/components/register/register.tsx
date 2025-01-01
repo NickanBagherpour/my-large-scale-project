@@ -33,7 +33,7 @@ export const Register = ({ title }: FormContainerProps) => {
 
   //Queries
   const { data, isLoading, refetch } = useGetCaptchaQuery();
-  const { mutate, isPending } = useRegisterMutation();
+  const { mutate, isPending, isError } = useRegisterMutation();
 
   //Form
   const [registerForm] = Form.useForm();
@@ -81,12 +81,14 @@ export const Register = ({ title }: FormContainerProps) => {
 
     mutate(params, {
       onSuccess: (data) => {
-        console.log('Registration successful:', data.headers['key'], data);
+        // console.log('Registration successful:', data.headers['key'], data);
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
       },
       onError: (error) => {
         console.error('Registration failed:', error);
+        refetch(); // Fetch a new captcha
+        registerForm.setFieldsValue({ [REGISTER_ITEM_NAMES.captcha_code]: '' });
       },
     });
   };
