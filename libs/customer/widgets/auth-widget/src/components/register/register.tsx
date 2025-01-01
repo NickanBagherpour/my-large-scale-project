@@ -86,9 +86,7 @@ export const Register = ({ title }: FormContainerProps) => {
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
       },
       onError: (error) => {
-        console.error('Registration failed:', error);
-        refetch(); // Fetch a new captcha
-        registerForm.setFieldsValue({ [REGISTER_ITEM_NAMES.captcha_code]: '' });
+        refreshCaptcha();
       },
     });
   };

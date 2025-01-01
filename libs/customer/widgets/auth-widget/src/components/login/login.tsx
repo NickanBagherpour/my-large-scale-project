@@ -78,6 +78,7 @@ export const Login = ({ title }: FormContainerProps) => {
         updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined, key: otpKey });
       },
       onError: (error) => {
+        refreshCaptcha();
         // console.error('Login failed:', error);
       },
     });
