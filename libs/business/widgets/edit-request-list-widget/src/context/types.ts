@@ -4,19 +4,18 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
 
+export type SearchType = string;
+
 export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
+  rowsPerPage: number;
 };
 
 export type WidgetStateType = {
-  table: {
-    filters: FiltersType;
-    pagination: PaginationType;
-    submit: FiltersType;
-  };
+  searchTerm: SearchType;
+  pagination: PaginationType;
   message: Nullable<MessageType>;
 };
 
@@ -26,16 +25,12 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_FILTERS';
-      payload: Partial<FiltersType>;
-    }
-  | {
-      type: 'UPDATE_SUBMIT';
-      payload: Partial<FiltersType>;
-    }
-  | {
       type: 'UPDATE_PAGINATION';
       payload: Partial<PaginationType>;
+    }
+  | {
+      type: 'UPDATE_SEARCH_TERM';
+      payload: WidgetStateType['searchTerm'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
