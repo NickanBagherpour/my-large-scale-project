@@ -1,8 +1,6 @@
 export const UPSTREAMS_PAGE_SIZE = 8; // Defined based on UI design requirements.
 export const SCOPE_PAGE_SIZE = 10; // Value confirmed by the analysis team.
 
-export const DRAFT_STATUS_CODE = 2;
-
 export enum InquiryStatus {
   'SERVICE_ALREADY_EXISTS' = 1,
   'SERVICE_IS_DRAFT' = 2,

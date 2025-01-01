@@ -6,7 +6,7 @@ import Api from './api';
 export const useServiceInquiry = (serviceName: string) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE_INQUIRY_STATUS],
+    queryKey: [RQKEYS.SERVICES_LIST.DRAFTS, serviceName],
     queryFn: withErrorHandling(() => Api.getServiceInquiry(serviceName), dispatch),
     enabled: Boolean(serviceName),
   });
