@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import { loadTr } from '@oxygen/translation';
@@ -11,7 +13,7 @@ import fa from './locales/fa';
 
 const RequestListWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
-
+  
   return (
     <WidgetWrapper>
       <AppProvider>

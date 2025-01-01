@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { useAuth } from '@oxygen/hooks';
 import { Loading } from '@oxygen/ui-kit';
 
 import {
@@ -15,21 +14,23 @@ import {
   useAppState,
 } from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
-import { SubmissionId, UserRole } from '../../types';
+import { SubmissionId } from '../../types';
 
 import * as S from './app.style';
 
 type AppProps = PageProps & {
-  //
+  role?: Nullable<string>;
 };
 
 const App: React.FC<AppProps> = (props) => {
+
+  const role  = props.parentProps?.role as Nullable<string>;
+
+
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
 
-  const { user } = useAuth();
-  const userRole: Nullable<UserRole> = user?.role;
 
   const { message } = state;
 
@@ -41,8 +42,8 @@ const App: React.FC<AppProps> = (props) => {
   }, [submissionId]);
 
   useEffect(() => {
-    updateUserRoleAction(dispatch, userRole);
-  }, [userRole]);
+    updateUserRoleAction(dispatch, role);
+  }, [role]);
 
   const router = useRouter();
   const handleReturn = () => {
@@ -53,13 +54,15 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('request_details')} footer={footerButton}>
+     
       <GlobalMessageContainer
         message={message}
         onClose={() => {
           resetMessageAction(dispatch);
         }}
       />
-      {submissionId && userRole ? (
+     
+      {submissionId && role ? (
         <DetailsCollapse />
       ) : (
         <S.LoadingContainer>

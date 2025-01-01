@@ -136,7 +136,6 @@ const Api = {
         }, 1000);
       });
     } else {
-      console.log(client);
       return client.get(
         /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
         // {},

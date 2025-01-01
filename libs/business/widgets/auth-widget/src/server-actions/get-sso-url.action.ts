@@ -1,5 +1,7 @@
 'use server';
 
+import { cookies } from "next/headers";
+
 export async function getSsoUrlAction(): Promise<string> {
   const baseUrl = process.env.SSO_URL;
   const clientId = process.env.NEXT_PUBLIC_SSO_CLIENT_KEY;

@@ -28,7 +28,9 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
     setLoading(true);
 
     try {
+      
       const url = new URL(window.location.href);
+            
       url.search = ''; // Remove all query parameters
       window.history.replaceState({}, document.title, url.toString());
       setCode(null);

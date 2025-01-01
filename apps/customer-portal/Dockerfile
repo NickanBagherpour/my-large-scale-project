@@ -1,4 +1,3 @@
-# Declare portalName as a global build argument
 ARG portalName="customer"
 
 FROM node:20-alpine AS base

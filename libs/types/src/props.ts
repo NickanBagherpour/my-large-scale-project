@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode } from 'react';
+import { Obj } from './common';
 
 export type BasicComponentProps = {
   className?: string;
@@ -7,7 +8,7 @@ export type BasicComponentProps = {
 };
 
 export type PageProps = {
-  parentProps?: unknown;
+  parentProps?: Obj;
   children?: ReactNode | ReactNode[] | JSX.Element | JSX.Element[];
   updateHeaderTitle?: (newTitles: string[] | string) => void;
 };

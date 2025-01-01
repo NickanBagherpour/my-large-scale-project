@@ -1,4 +1,3 @@
-# Declare portalName as a global build argument
 ARG portalName="backoffice"
 ARG ENVIRONMENT="test"
 
