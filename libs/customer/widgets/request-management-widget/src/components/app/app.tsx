@@ -42,8 +42,8 @@ const App: React.FC<AppProps> = (props) => {
       )} */}
 
       <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
-        <Filters />
         <Loading spinning={isRequestsFetching}>
+          <Filters />
           {requests?.length ? (
             <SearchItemsContainer $columnNumber='2'>
               {requests.map((request: any, index: number) => (

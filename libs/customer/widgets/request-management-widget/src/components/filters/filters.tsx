@@ -43,7 +43,7 @@ export default function Filters() {
         </S.Buttons>
       </S.Actions>
 
-      {/* <S.Indicators>
+      <S.Indicators>
         <S.Chips>
           <Chip {...getChipProps(status, 'all')} onClick={() => updateStatus(dispatch, 'all')}>
             {t('all_request')}
@@ -70,7 +70,7 @@ export default function Filters() {
           initialValue={sort}
           onChange={(value) => updateSort(dispatch, value as Sort)}
         />
-      </S.Indicators> */}
+      </S.Indicators>
     </S.Container>
   );
 }
