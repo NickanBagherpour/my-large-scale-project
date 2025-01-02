@@ -35,7 +35,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
         await handleSSO(code, ticket);
       }
       // Clear query parameters from the URL
-      login({}, ROUTES.BACKOFFICE.CLIENT_LIST);
+      login(null, ROUTES.BACKOFFICE.CLIENT_LIST);
     } catch (error) {
       console.error('Failed to handle SSO:', error);
     }
