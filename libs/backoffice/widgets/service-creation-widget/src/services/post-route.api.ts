@@ -17,6 +17,7 @@ export const usePostRouteMutation = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName] });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS] });
     },
   });
 };

@@ -17,6 +17,7 @@ export const usePostService = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICE_CREATION.SERVICE, serviceName] });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS] });
     },
   });
 };
