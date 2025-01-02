@@ -31,7 +31,7 @@ export const Login = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   //Queries
-  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
+  const { data, isLoading, refetch } = useGetCaptchaQuery();
   const { mutate, isPending } = useLoginMutation();
 
   //States
@@ -78,7 +78,8 @@ export const Login = ({ title }: FormContainerProps) => {
         updateOTPAction(dispatch, { ...values, type: 'login', isOpen: true, captchaCode: undefined, key: otpKey });
       },
       onError: (error) => {
-        console.error('Login failed:', error);
+        refreshCaptcha();
+        // console.error('Login failed:', error);
       },
     });
   };
@@ -123,7 +124,7 @@ export const Login = ({ title }: FormContainerProps) => {
       <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
-      <S.Button loading={isPending} href={'/'} color='primary' variant={'outlined'}>
+      <S.Button disabled={isPending} href={'/'} color='primary' variant={'outlined'}>
         {t('home_return')}
       </S.Button>
       <S.Divider />

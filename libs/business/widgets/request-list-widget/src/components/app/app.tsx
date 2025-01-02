@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
 import { getValueOrDash } from '@oxygen/utils';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
@@ -17,10 +17,13 @@ import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../cont
 import * as S from './app.style';
 
 type AppProps = PageProps & {
-  //
+  role?: UserRoleType;
 };
 
 const App: React.FC<AppProps> = (props) => {
+  
+  const role  = props.parentProps?.role;
+
   const {
     searchTerm,
     pagination: { page, rowsPerPage },
@@ -31,12 +34,18 @@ const App: React.FC<AppProps> = (props) => {
 
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const { user } = useAuth();
-  const userRole: UserRoleType = user?.role;
+  // const { user } = useAuth();
+
+  console.log('request list role', props);
 
   useEffect(() => {
-    handleUserRoleRedirect(userRole);
-  }, [userRole]);
+    handleUserRoleRedirect(role as UserRoleType);
+  }, [role]);
+
+  useLayoutEffect(() => {   
+
+    console.log('request list role in layout', role);
+  }, []);
 
   const requestListParams = {
     searchTerm,
@@ -47,7 +56,7 @@ const App: React.FC<AppProps> = (props) => {
   };
 
   const { data: requestList, isFetching: requestListFetching } = useGetRequestListQuery(
-    prepareRequestListParams(requestListParams, userRole)
+    prepareRequestListParams(requestListParams, role)
   );
 
   return (
@@ -62,8 +71,8 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <Filters userRole={userRole} />
-      <DataTable requestList={requestList} requestListFetching={requestListFetching} userRole={userRole} />
+      <Filters userRole={role as UserRoleType} />
+      <DataTable requestList={requestList} requestListFetching={requestListFetching} userRole={role as UserRoleType} />
     </S.AppContainer>
   );
 };

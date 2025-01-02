@@ -9,7 +9,7 @@ export const getBakofficeMenu = async (): Promise<any> => {
 
       resolve(response);
       // reject(Error('Mock error'));
-    }, 400);
+    }, 0);
   });
 };
 
@@ -21,7 +21,7 @@ export const getBusinessMenu = async (): Promise<any> => {
       };
 
       resolve(response);
-    }, 400);
+    }, 0);
   });
 };
 
@@ -33,6 +33,6 @@ export const getCustomerMenu = async (): Promise<any> => {
       };
 
       resolve(response);
-    }, 400);
+    }, 0);
   });
 };
