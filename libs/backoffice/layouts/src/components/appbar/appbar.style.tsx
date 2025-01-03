@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { Layout, Switch as AntSwitch, Dropdown as AntDropdown, Dropdown } from 'antd';
+import styled from 'styled-components';
+import { Layout } from 'antd';
 import { cssVar, respondTo } from '@oxygen/utils';
 
 const { Header } = Layout;

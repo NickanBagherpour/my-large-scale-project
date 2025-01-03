@@ -1,10 +1,11 @@
-import { Calendar } from '../../assets';
-import { useTheme } from 'styled-components';
 import { Tooltip } from 'antd';
 import { Status, type ButtonProps } from '@oxygen/ui-kit';
 
-import * as S from './grid-card.style';
+import { useAppTheme } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
+
+import { Calendar } from '../../assets';
+import * as S from './grid-card.style';
 
 export type StatusType = 'active' | 'inactive';
 
@@ -38,7 +39,7 @@ export default function GridCard(props: CardProps) {
   } = props;
 
   const [t] = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const translation: Record<StatusType, string> = {
     active: t('common.active'),

@@ -30,7 +30,7 @@ export const StyleParagraph = styled.div`
   }
 `;
 
-export const StyleSpan = styled('span')`
+export const StyleSpan = styled.span`
   margin: 0 auto;
 
   .menu-header {
@@ -58,7 +58,7 @@ export const StyleSpan = styled('span')`
   }
 `;
 
-export const StyleDiv = styled('div')`
+export const StyleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

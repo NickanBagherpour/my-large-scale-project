@@ -1,8 +1,8 @@
-import { useTheme } from 'styled-components';
 import { useMemo, useState } from 'react';
 
 import { Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { useAppTheme } from '@oxygen/hooks';
 
 import { useAppState } from '../../context';
 import { useGetServicesQuery } from '../../services';
@@ -16,7 +16,7 @@ import * as S from './app.style';
 
 const DRAFT_LIST_LIMIIT = 4;
 const App = () => {
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
   const prepareParams = () => {
     return {

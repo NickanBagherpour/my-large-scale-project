@@ -1,6 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import { Button, Modal } from '@oxygen/ui-kit';
-import { useTheme } from 'styled-components';
+import { useAppTheme } from '@oxygen/hooks';
+
 import * as S from './modal-remove.style';
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 export default function RemoveModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, id, name, onDelete } = props;
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   return (
     <Modal

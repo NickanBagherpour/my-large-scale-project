@@ -2,18 +2,17 @@
 import { CSSProperties, useState } from 'react';
 
 import { Input } from 'antd';
-import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
 import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useDebouncedValue } from '@oxygen/hooks';
-
-import * as S from './scope-selector.style';
-import { useGetScopes } from '../../../services';
+import { useAppTheme, useDebouncedValue } from '@oxygen/hooks';
 import { type Scope } from '@oxygen/types';
+
 import { useAppState, useAppDispatch, updateScopeAction } from '../../../context';
-import { pages } from 'next/dist/build/templates/app-page';
+import { useGetScopes } from '../../../services';
+import * as S from './scope-selector.style';
+
 
 type Props = {
   className?: string;
@@ -27,7 +26,7 @@ type Props = {
 const ScopeSelector = (props: Props) => {
   const { onSelect, onClear, id, className = '', style = {}, disabled } = props;
   const MAX_LENGTH = 75;
-  const theme = useTheme();
+  const theme = useAppTheme();
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();

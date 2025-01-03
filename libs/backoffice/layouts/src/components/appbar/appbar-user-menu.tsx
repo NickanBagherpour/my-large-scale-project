@@ -5,7 +5,6 @@ import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
 import { Button, Icons, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
 import * as S from './appbar-user-menu.style';
-import { get } from 'http';
 import { getUserFullname } from '../../utils/helper';
 
 enum MenuItemKey {

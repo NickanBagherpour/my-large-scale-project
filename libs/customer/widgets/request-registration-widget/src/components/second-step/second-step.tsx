@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useTheme } from 'styled-components';
 
 import { Card, Form, Tooltip } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useAppTheme } from '@oxygen/hooks';
 import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
-import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
 
+import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
@@ -26,7 +25,7 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const [form] = Form.useForm();
 
