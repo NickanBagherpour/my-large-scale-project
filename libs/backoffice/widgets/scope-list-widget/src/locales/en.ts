@@ -1,6 +1,7 @@
 export default {
   widget_name: 'Scope Management',
   add_scope: 'Add Scope',
+  search: 'Search',
   table: {
     index: 'Row',
     persian_name_scope: 'Persian Name of Scope',
@@ -9,7 +10,7 @@ export default {
     title: 'Scope Service List',
   },
   placeholder: {
-    search_by_name_or_id: 'Search by Name or ID',
+    search_by_name: 'Search by Name',
   },
   error: {
     english_character: 'Please enter values in English',

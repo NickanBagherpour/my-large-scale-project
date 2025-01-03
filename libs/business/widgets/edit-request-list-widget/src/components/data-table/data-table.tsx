@@ -1,8 +1,10 @@
 import React from 'react';
 import type { TablePaginationConfig } from 'antd';
+import { useRouter } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
@@ -21,6 +23,11 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const [t] = useTr();
 
   const { requestList, requestListFetching } = props;
+
+  const router = useRouter();
+  const handleReturn = () => {
+    router.back();
+  };
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -49,6 +56,11 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         onChange={changePage}
         rowKey={(row) => row.index}
       />
+      <FooterContainer>
+        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+          {t('button.return')}
+        </ReturnButton>
+      </FooterContainer>
     </S.DataTableContainer>
   );
 };
