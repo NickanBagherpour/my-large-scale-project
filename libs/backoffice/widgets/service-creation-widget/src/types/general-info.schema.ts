@@ -45,7 +45,9 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .min(1, { message: t('validation.required') }),
 
     [FORM_ITEM_NAMES.tags]: z
-      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }))
+      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }), {
+        message: t('validation.choose_at_least_one_option'),
+      })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
   });
 
