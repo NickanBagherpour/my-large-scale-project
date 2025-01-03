@@ -21,8 +21,7 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
-  
-  const role  = props.parentProps?.role;
+  const role = props.parentProps?.role;
 
   const {
     searchTerm,
@@ -34,18 +33,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  // const { user } = useAuth();
-
-  console.log('request list role', props);
 
   useEffect(() => {
     handleUserRoleRedirect(role as UserRoleType);
   }, [role]);
-
-  useLayoutEffect(() => {   
-
-    console.log('request list role in layout', role);
-  }, []);
 
   const requestListParams = {
     searchTerm,

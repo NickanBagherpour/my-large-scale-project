@@ -3,10 +3,12 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
-import * as S from './data-table.style';
 import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
+
+import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
