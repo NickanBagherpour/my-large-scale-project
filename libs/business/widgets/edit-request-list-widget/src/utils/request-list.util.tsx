@@ -1,7 +1,9 @@
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { Pagination } from '@oxygen/types';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
+
+import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { Pagination } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
+
 import * as S from '../components/data-table/data-table.style';
 
 type Props = {
@@ -32,24 +34,17 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: t('table.persian_name'),
-      dataIndex: 'clientName',
+      dataIndex: 'persianName',
       align: 'center',
     },
     {
       width: '11.8rem',
       key: 'details',
-      render: (item, record) => {
-        // const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
-        // const colorButton = isApproved ? 'secondary' : 'primary';
+      render: () => {
         return (
-          <Button
-            variant={'text'}
-            // className={colorButton}
-            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${record?.requestId}`}
-            // color={colorButton}
-          >
-            asdflkj
-          </Button>
+          <S.Button variant={'link'} color={'error'} className={'table_button'}>
+            <i className={'icon-trash icon-remove'}></i>
+          </S.Button>
         );
       },
     },
@@ -63,33 +58,16 @@ export function getMobileColumns(props: Props) {
     {
       title: '',
       key: 'mobile-columns',
-      render: ({
-        organizationName,
-        clientName,
-        submissionStatus,
-        createDate,
-        requestId,
-        serviceCount,
-        representative,
-      }) => {
-        // const isApproved = submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
-        // const colorButton = isApproved ? 'secondary' : 'primary';
-
+      render: ({ serviceName, persianName }) => {
         const data = [
-          { title: t('table.service_name'), value: getValueOrDash(organizationName) },
-          { title: t('table.persian_name'), value: getValueOrDash(clientName) },
+          { title: t('table.service_name'), value: getValueOrDash(serviceName) },
+          { title: t('table.persian_name'), value: getValueOrDash(persianName) },
           {
-            title: t('table.details'),
+            title: t('table.delete_service'),
             value: (
-              <Button
-                // className={isApproved ? 'secondary' : 'primary'}
-                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${requestId}`}
-                variant={'text'}
-                // color={colorButton}
-              >
-                <i className={'icon-document'} />
-                {t('table.details')}
-              </Button>
+              <S.Button variant={'link'} color={'error'}>
+                <i className={'icon-trash icon-remove'}></i>
+              </S.Button>
             ),
           },
         ];
