@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { Table as KitTable, Button as KitButton } from '@oxygen/ui-kit';
 
-export const DataTableContainer = styled.div``;
+export const DataTableContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export const Table = styled(KitTable)`
   & .ant-pagination-options {
