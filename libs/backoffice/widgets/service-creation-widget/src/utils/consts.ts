@@ -8,7 +8,7 @@ export enum InquiryStatus {
   'SERVICE_EXISTS_IN_BAAM' = 4,
 }
 
-export const FORM_ITEM_NAMES = {
+export const SERVICE_NAMES = {
   englishName: 'englishName',
   persianName: 'persianName',
   access: 'access',
