@@ -1,7 +1,7 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
+import { PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 import { WidgetStateType } from '../../../request-list-widget/src/context/types';
 
 export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {

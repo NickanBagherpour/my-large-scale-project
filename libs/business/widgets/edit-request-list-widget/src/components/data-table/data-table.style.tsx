@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
+import { Table as KitTable, Button as KitButton } from '@oxygen/ui-kit';
 
 export const DataTableContainer = styled.div``;
 
@@ -27,20 +26,8 @@ export const TableRow = styled.div`
   }
 `;
 
-export const StyledContainer = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-
-  i.icon-tick-circle-outlined {
-    margin: 0.3rem 0.4rem;
-    font-size: 20px;
-  }
-`;
-
-export const Tag = styled(KitTag)`
-  ${respondTo.down('md')} {
-    margin-inline: 0;
+export const Button = styled(KitButton)`
+  i.icon-remove {
+    font-size: 2rem;
   }
 `;
