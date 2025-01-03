@@ -65,5 +65,5 @@ export default {
   general_info: 'اطلاعات کلی',
   route: 'Route',
   upstream: 'آپ استریم',
-  info_display: 'نمایش اطلاعات',
+  info_confirm: 'تایید اطلاعات',
 };
