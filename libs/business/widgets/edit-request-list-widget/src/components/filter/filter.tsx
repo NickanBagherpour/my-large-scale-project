@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
-import { PageProps } from '@oxygen/types';
 
 import { MAX_LENGTH } from '../../utils/consts';
 
@@ -10,11 +9,7 @@ import { updateSearchTerm, useAppDispatch } from '../../context';
 
 import * as S from './filter.style';
 
-type FilterProps = PageProps & {
-  //
-};
-
-const Filter: React.FC<FilterProps> = (props) => {
+const Filter: React.FC = () => {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('');

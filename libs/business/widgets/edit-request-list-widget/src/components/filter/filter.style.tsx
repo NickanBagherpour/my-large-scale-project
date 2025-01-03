@@ -3,7 +3,7 @@ import { Input as KitInput } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
-  margin: 2.8rem 0 4rem;
+  margin: 2.5rem 0;
 `;
 
 export const Actions = styled.div`
@@ -11,7 +11,6 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-bottom: 2.3rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;
@@ -22,7 +21,7 @@ export const Actions = styled.div`
 export const Title = styled.span``;
 
 export const Input = styled(KitInput)`
-  max-width: 50.4rem;
+  max-width: 74.3rem;
   margin-inline-end: auto;
 
   ${respondTo.down('lg')} {

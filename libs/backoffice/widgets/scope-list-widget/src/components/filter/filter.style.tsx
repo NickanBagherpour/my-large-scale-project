@@ -11,6 +11,10 @@ export const FilterContainer = styled.section`
 export const Form = styled(AntForm)`
   width: 100%;
 
+  label {
+    margin-inline-start: 1.6rem;
+  }
+
   div.ant-form-item {
     margin-bottom: 0;
   }
@@ -39,13 +43,13 @@ export const Buttons = styled.div`
 
   ${respondTo.down('lg')} {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 `;
 
 export const Actions = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 3.4rem;

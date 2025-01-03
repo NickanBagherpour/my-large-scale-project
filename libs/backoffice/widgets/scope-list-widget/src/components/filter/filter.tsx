@@ -50,11 +50,11 @@ const Filter: React.FC<FilterProps> = (props) => {
   return (
     <S.FilterContainer>
       <S.Actions>
-        <S.Form form={form}>
-          <Form.Item name={FORM_ITEM_NAMES.scopesName} rules={[rule]}>
+        <S.Form layout={'vertical'} form={form}>
+          <Form.Item name={FORM_ITEM_NAMES.scopesName} rules={[rule]} label={t('search')}>
             <S.Input
               value={value}
-              placeholder={t('placeholder.search_by_name_or_id')}
+              placeholder={t('placeholder.search_by_name')}
               maxLength={MAX_LENGTH_INPUT}
               prefix={<i className='icon-search-normal' />}
               onChange={(e) => setValue(e.target.value)}
@@ -62,9 +62,6 @@ const Filter: React.FC<FilterProps> = (props) => {
           </Form.Item>
         </S.Form>
         <S.Buttons>
-          <S.Button color='primary' variant='outlined' onClick={handleChangeModal}>
-            {t('button.upload_scope')}
-          </S.Button>
           <S.Button href={ROUTES.BACKOFFICE.SCOPE_CREATION} color='primary' variant='solid'>
             {t('button.create_new_scope')}
           </S.Button>
