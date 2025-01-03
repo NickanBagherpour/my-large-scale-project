@@ -37,7 +37,7 @@ export const usePostConfirmData = () => {
     mutationFn: () => Api.postCofirmData(serviceName),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.GET_LIST] });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS] });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
