@@ -4,8 +4,10 @@ import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import * as S from './service-not-found.style';
-
-const ServiceNotFound: React.FC = () => {
+type Props = {
+  serviceName: string;
+};
+const ServiceNotFound: React.FC<Props> = ({ serviceName }) => {
   const [t] = useTr();
   const [loading, setLoading] = useState(false);
   return (
@@ -15,7 +17,7 @@ const ServiceNotFound: React.FC = () => {
         <S.StyledText>{t('allowed_creation')}</S.StyledText>
       </Flex>
       <Button
-        href={ROUTES.BACKOFFICE.SERVICE_CREATION}
+        href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${serviceName}`}
         style={{ width: 'fit-content' }}
         block={false}
         color='secondary'
