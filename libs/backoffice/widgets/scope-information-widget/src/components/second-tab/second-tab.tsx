@@ -90,7 +90,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
       /> */}
-      <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} id={serviceId} />
+      {serviceId && <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} id={serviceId} />}
     </>
   );
 };

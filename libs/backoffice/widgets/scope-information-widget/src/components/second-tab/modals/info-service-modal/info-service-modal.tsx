@@ -11,25 +11,28 @@ type Props = {
 };
 
 export default function DetailsModal(props: Props) {
+  //Hooks
   const { isOpen, toggle, id } = props;
   const [t] = useTr();
+  //Query
   const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(id);
-
+  //Constats
+  const tags = modalDataQuery?.tags.map((tag) => tag.title).join(', ');
   const infoBoxData = [
     { key: t('modal.english_name'), value: modalDataQuery?.serviceLatinName ?? '-' },
     { key: t('modal.persian_name'), value: modalDataQuery?.servicePersianName ?? '-' },
     { key: t('modal.action'), value: modalDataQuery?.routeMethod ?? '-' },
     { key: t('modal.protocole'), value: modalDataQuery?.routeProtocol ?? '-' },
-    { key: t('modal.access'), value: modalDataQuery?.routeHosts ?? '-' },
-    { key: t('modal.category'), value: modalDataQuery?.routeHosts ?? '-' },
-    { key: t('modal.throughput'), value: modalDataQuery?.routeHosts ?? '-' },
+    { key: t('modal.access'), value: modalDataQuery?.authenticationType.title ?? '-' },
+    { key: t('modal.category'), value: modalDataQuery?.serviceCategoryTitle ?? '-' },
+    { key: t('modal.throughput'), value: modalDataQuery?.throughput?.title ?? '-' },
     { key: t('modal.version'), value: modalDataQuery?.serviceVersion ?? '-' },
     { key: t('modal.owner'), value: modalDataQuery?.ownerName ?? '-' },
-    { key: t('modal.tag'), value: modalDataQuery?.routeHosts ?? '-' },
+    { key: t('modal.tag'), value: tags?.length ? tags : '-' },
     { key: t('modal.path'), value: modalDataQuery?.routePath ?? '-' },
     { key: t('modal.host'), value: modalDataQuery?.routeHosts ?? '-' },
     { key: t('modal.upstream'), value: modalDataQuery?.upstreamTitle ?? '-' },
-    { key: t('modal.service_definition_status'), value: modalDataQuery?.routeHosts ?? '-' },
+    { key: t('modal.service_definition_status'), value: 'its not ready' },
   ];
 
   return (
