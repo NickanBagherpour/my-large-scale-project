@@ -73,6 +73,7 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
+  console.log('dfgfdfgdfg');
   const renderButton =
     !data?.isReviewed &&
     resultType !== RequestStatus.DRAFT &&
