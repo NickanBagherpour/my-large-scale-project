@@ -5,7 +5,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import DetailsModal from './modals/info-service-modal/info-service-modal';
-import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
+// import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
 import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
 import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
@@ -23,7 +23,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
 
   const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
     page: 0,
-    pageSize: 5,
+    size: 10,
     id: id,
   });
   const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
@@ -46,7 +46,8 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
 
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const tableData = tableDataQuery?.list;
+
+  const tableData = tableDataQuery?.content;
   return (
     <>
       <S.SecondTabHeader>
@@ -80,11 +81,12 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         mobileColumns={mobileColumns}
         pagination={false}
       />
-      <RemoveServiceModal
+      {/* uncomment when remove service is needed */}
+      {/* <RemoveServiceModal
         isOpen={modals['removeService']}
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
-      />
+      /> */}
       <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
     </>
   );

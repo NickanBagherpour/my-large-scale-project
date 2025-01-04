@@ -8,8 +8,8 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/scope/${params}`);
   },
   getServicesData: async (params) => {
-    const { page, pageSize, id } = params;
-    return client.get<any>(`${portalUrl}/v1/services?scope-id=${id}`, { params: { page, pageSize } });
+    const { page, size, id } = params;
+    return client.get<any>(`${portalUrl}/v1/services?scope-id=${id}`, { params: { page, size } });
   },
   getExcel: async (params) => Mockify.getServices(params),
 };
