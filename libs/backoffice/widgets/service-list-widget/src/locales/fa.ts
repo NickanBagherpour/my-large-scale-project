@@ -7,6 +7,7 @@ export default {
   operational_services: 'سرویس‌های عملیاتی',
   stopped_services: 'سرویس‌های متوقف شده',
   show_all: 'نمایش همه',
+  show_less: 'نمایش کمتر',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
   draft: 'پیش‌نویس‌',
