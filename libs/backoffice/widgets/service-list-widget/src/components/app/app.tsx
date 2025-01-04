@@ -4,7 +4,7 @@ import { Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
 
-import { useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useGetServicesQuery } from '../../services';
 import Filters from '../filters/filters';
 import Services from '../services-list/services';
@@ -13,6 +13,7 @@ import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import { ParamsType } from '../../types';
 
 import * as S from './app.style';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 const DRAFT_LIST_LIMIIT = 4;
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
   };
   const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(prepareParams());
   const { data: drafts } = useGetDraftsQuery();
-
+  const dispatch = useAppDispatch();
   const [t] = useTr();
   const hasDrafts = !!drafts?.length;
   const clientsSubTitle = services?.totalElements ? `(${services?.totalElements ?? 0})` : '';
@@ -91,6 +92,7 @@ const App = () => {
 
   return (
     <>
+      <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
       <Modal
         title={operationalStatus ? t('stop_service') : t('operationalization')}
         open={openStatusModal}
