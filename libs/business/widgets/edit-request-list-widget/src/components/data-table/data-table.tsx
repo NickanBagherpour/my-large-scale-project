@@ -21,12 +21,15 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
   const { message, pagination, ...rest } = useAppState();
   const [t] = useTr();
-
   const { requestList, requestListFetching } = props;
 
   const router = useRouter();
   const handleReturn = () => {
     router.back();
+  };
+
+  const handleApi = (params) => {
+    console.log(params);
   };
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
@@ -39,7 +42,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     }
   };
 
-  const dataTableParams = { t, pagination };
+  const dataTableParams = { t, pagination, handleApi };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
 

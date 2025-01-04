@@ -1,12 +1,14 @@
-import Mockify from '@oxygen/mockify';
+import { client, portalUrl } from '@oxygen/client';
 
 const Api = {
-  // getReportData: async (params: FetchParamsType) => {
-  //   return Mockify.editRequestListMock();
-  // },
+  updateServiceDetails: async (params) => {
+    const { submissionId, ...rest } = params;
+    return client.get(`${portalUrl}/business/api/v1/services/${submissionId}`, { params: { ...rest } });
+  },
 
-  updateServiceDetails: async () => {
-    return Mockify.editRequestListMock();
+  deleteService: async (params) => {
+    const { serviceId } = params;
+    return client.delete(`${portalUrl}/business/api/v1/services/${serviceId}`);
   },
 };
 export default Api;

@@ -9,12 +9,14 @@ import * as S from '../components/data-table/data-table.style';
 type Props = {
   t: TFunction;
   pagination: Pagination;
+  handleApi: (params: any) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
   const {
     t,
     pagination: { page, rowsPerPage },
+    handleApi,
   } = props;
 
   return [
@@ -29,7 +31,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: t('table.service_name'),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
     },
     {
@@ -40,9 +42,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     {
       width: '11.8rem',
       key: 'details',
-      render: () => {
+      render: (_val, _record, index) => {
         return (
-          <S.Button variant={'link'} color={'error'} className={'table_button'}>
+          <S.Button variant={'link'} color={'error'} className={'table_button'} onClick={() => handleApi(_record.id)}>
             <i className={'icon-trash icon-remove'}></i>
           </S.Button>
         );
@@ -58,9 +60,9 @@ export function getMobileColumns(props: Props) {
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ serviceName, persianName }) => {
+      render: ({ name, persianName }) => {
         const data = [
-          { title: t('table.service_name'), value: getValueOrDash(serviceName) },
+          { title: t('table.service_name'), value: getValueOrDash(name) },
           { title: t('table.persian_name'), value: getValueOrDash(persianName) },
           {
             title: t('table.delete_service'),
