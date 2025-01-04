@@ -44,6 +44,8 @@ export const StyledTextarea = styled(Input.TextArea)`
   font-size: 14px;
   font-weight: 500;
   line-height: 2.2rem;
+
+  resize: none;
 `;
 
 export const StyledCount = styled.span`
