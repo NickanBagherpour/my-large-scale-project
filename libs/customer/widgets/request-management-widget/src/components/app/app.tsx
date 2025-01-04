@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -6,9 +6,14 @@ import Filters from '../filters/filters';
 import Requests from '../requests/requests';
 
 import { useAppDispatch, useAppState } from '../../context';
-import { useGetRequestsQuery } from '../../services';
+import {
+  useGetRequestsQuery,
+  useGetRequestsDraftsQuery,
+  useDeleteSelectedRequestsDraftsMutationQuery,
+} from '../../services';
 import { Container, Loading, SearchItemsContainer } from '@oxygen/ui-kit';
 import { AdvanceGridCard, NoResult } from '@oxygen/reusable-components';
+import DraftCard from '../draft-card/draft-card';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
@@ -22,6 +27,15 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const { message, ...fetchState } = useAppState();
   const { data: requests, isFetching: isRequestsFetching } = useGetRequestsQuery(fetchState);
+  const { data: drafts } = useGetRequestsDraftsQuery();
+  const { mutate: deleteMutate, isPending: deleteIsPending } = useDeleteSelectedRequestsDraftsMutationQuery();
+
+  const [localDrafts, setLocalDrafts] = useState(drafts); // Local state for drafts
+
+  useEffect(() => {
+    setLocalDrafts(drafts); // Sync local state with fetched drafts
+  }, [drafts]);
+
   const [t] = useTr();
 
   const requestsSubTitle = requests?.length ? `(${requests?.length ?? 0})` : '';
@@ -29,17 +43,34 @@ const App: React.FC<AppProps> = (props) => {
     console.log('handle click');
   };
 
+  const handleDeleteDraft = (submissionId: number) => {
+    console.log(submissionId);
+    deleteMutate(submissionId, {
+      onSuccess: (data) => {
+        console.log('deleted selected  request :', data);
+        let filteredDrafts = localDrafts;
+        filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId != submissionId);
+        setLocalDrafts(filteredDrafts);
+      },
+      onError: (error) => {
+        console.error('request registration first step  failed:', error);
+      },
+    });
+  };
+
+  const hasDrafts = !!drafts?.length;
+
   return (
     <>
-      {/* {hasDrafts && (
+      {hasDrafts && (
         <Container title={t('draft')} fillContainer={false}>
           <S.Grid>
-            {drafts?.map((item) => (
-              <DraftCard key={item.id} {...item} />
+            {localDrafts?.map((item) => (
+              <DraftCard key={item.id} {...item} deleteDraft={(submissionId) => handleDeleteDraft(submissionId)} />
             ))}
           </S.Grid>
         </Container>
-      )} */}
+      )}
 
       <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
         <Loading spinning={isRequestsFetching}>

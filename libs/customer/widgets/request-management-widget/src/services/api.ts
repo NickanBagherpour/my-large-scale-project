@@ -44,7 +44,30 @@ const Api = {
       // const res = await client.get(`${portalUrl}/v1/submissions/search?${queryString}`);
       return res;
     } catch (error) {
-      console.error('Error fetching organization list:', error);
+      console.error('Error fetching request list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  },
+
+  getRequestDraftListData: async () => {
+    // debugger;
+
+    try {
+      const res = await client.get(`${portalUrl}/v1/submissions/drafts`);
+      // debugger;
+      return res;
+    } catch (error) {
+      console.error('Error fetching requests drafts list:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  },
+
+  deleteSelectedRequest: async (submissionId: number) => {
+    try {
+      const res = await client.delete(`${portalUrl}/v1/submissions/${submissionId}`);
+      return res;
+    } catch (error) {
+      console.error('Error fetching request list:', error);
       throw error; // Rethrow the error to be handled by the caller
     }
   },
