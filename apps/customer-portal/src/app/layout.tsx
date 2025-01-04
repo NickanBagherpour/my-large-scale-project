@@ -6,14 +6,14 @@ import { auth } from '@oxygen/customer/auth';
 import { iransans } from '@oxygen/ui-kit';
 
 import { StyledComponentsRegistry } from './registry';
-import { getInitialConfig } from './get-initial-config';
+import { getInitialConfig } from '@oxygen/utils';
 
 export const metadata = {
   title: 'Oxygen Pro',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const validConfig = getInitialConfig();
+  const validConfig = await getInitialConfig();
   const session = await auth();
 
   return (
