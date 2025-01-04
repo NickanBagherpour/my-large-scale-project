@@ -23,14 +23,11 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
-
-  const role  = props.parentProps?.role as Nullable<string>;
-
+  const role = props.parentProps?.role as Nullable<string>;
 
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
 
   const { message } = state;
 
@@ -54,14 +51,13 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('request_details')} footer={footerButton}>
-     
       <GlobalMessageContainer
         message={message}
         onClose={() => {
           resetMessageAction(dispatch);
         }}
       />
-     
+
       {submissionId && role ? (
         <DetailsCollapse />
       ) : (

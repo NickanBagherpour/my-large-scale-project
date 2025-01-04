@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 
 import { ColumnsType } from '@oxygen/ui-kit';
-import { ClientHistoryData,ITheme } from '@oxygen/types';
+import { ClientHistoryData, ITheme } from '@oxygen/types';
 
 type Props = {
   t: TFunction;

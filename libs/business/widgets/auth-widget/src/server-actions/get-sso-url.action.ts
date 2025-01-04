@@ -1,6 +1,6 @@
 'use server';
 
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 
 export async function getSsoUrlAction(): Promise<string> {
   const baseUrl = process.env.SSO_URL;
