@@ -8,12 +8,12 @@ interface Props {
   children: ReactNode;
 }
 
+const cache = createCache();
+
 // adding the `layer` prop so the style of antd will always be lower than the default CSS selector priority
 // see: https://ant.design/docs/react/compatible-style#layer
 export default function AntStyleProvider(props: Props) {
   const { children } = props;
-
-  const cache = createCache();
 
   useServerInsertedHTML(() => {
     return <style id='antd' dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />;
