@@ -21,6 +21,8 @@ export const useGetRequestDataQuery = (submissionId: string) => {
     queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_REQUEST_DATA],
     queryFn: withErrorHandling(() => Api.geRequestData(submissionId), dispatch),
     placeholderData: keepPreviousData,
+    refetchOnMount: true,
+    staleTime: 0,
   });
 };
 
