@@ -11,7 +11,6 @@ import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-downl
 import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
 
 import * as S from './second-tab.style';
-import { useModalInfoQuery } from '../../services/second-tab/get-modal-data.api';
 
 type SecondTabTypes = PageProps & {
   id: string;
@@ -21,7 +20,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const { id } = props;
 
   const [t] = useTr();
-  const [serviceId, setServiceId] = useState(null);
+  const [serviceId, setServiceId] = useState(undefined);
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
@@ -31,7 +30,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
     size: 10,
     id: id,
   });
-  const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(serviceId);
+
   const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
 
   const updateId = (id) => {
@@ -91,12 +90,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
       /> */}
-      <DetailsModal
-        isOpen={modals['details']}
-        toggle={() => toggleModal('details')}
-        data={modalDataQuery}
-        loading={modalIsFetching}
-      />
+      <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} id={serviceId} />
     </>
   );
 };
