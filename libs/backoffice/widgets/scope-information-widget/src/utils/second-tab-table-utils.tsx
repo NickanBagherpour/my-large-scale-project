@@ -15,9 +15,10 @@ export type Modal = {
 type Props = {
   t: TFunction;
   toggleModal: (modal: keyof Modal) => void;
+  updateId: (id: number) => void;
 };
 export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
-  const { t, toggleModal } = props;
+  const { t, toggleModal, updateId } = props;
 
   return [
     {
@@ -79,8 +80,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
     {
       width: '7rem',
       key: 'status',
-      render: () => (
-        <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
+      render: (value) => (
+        <S.DetailsBtn
+          variant='link'
+          color='primary'
+          onClick={() => {
+            updateId(value?.id);
+            toggleModal('details');
+          }}
+        >
           {t('details')}
         </S.DetailsBtn>
       ),

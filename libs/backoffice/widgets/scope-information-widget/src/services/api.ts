@@ -1,13 +1,16 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType } from '../types';
+import { FetchParamsType, ModalDataType, ReportResponseType } from '../types';
 import Mockify from '@oxygen/mockify';
 
 const Api = {
-  getReportData: async (params) => {
+  getScopeInfo: async (params) => {
     return client.get<any>(`${portalUrl}/v1/scope/${params}`);
   },
-  getServicesData: async (params) => {
+  getModalData: async (params) => {
+    return client.get<ModalDataType>(`${portalUrl}/v1/services/${params}`);
+  },
+  getScopeServicesData: async (params) => {
     const { page, size, id } = params;
     return client.get<any>(`${portalUrl}/v1/services?scope-id=${id}`, { params: { page, size } });
   },

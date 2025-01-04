@@ -4,27 +4,29 @@ import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
+  data: any;
+  loading: boolean;
 };
 
 export default function DetailsModal(props: Props) {
-  const { isOpen, toggle } = props;
+  const { isOpen, toggle, data, loading } = props;
   const [t] = useTr();
 
-  const data = [
-    { key: t('modal.english_name'), value: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
-    { key: t('modal.persian_name'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-    { key: t('modal.action'), value: 'Post' },
-    { key: t('modal.protocole'), value: 'HTTP' },
-    { key: t('modal.access'), value: 'PUBLIC' },
-    { key: t('modal.category'), value: 'ACCOUNT' },
-    { key: t('modal.throughput'), value: 'Throughout' },
-    { key: t('modal.version'), value: 'V1' },
-    { key: t('modal.owner'), value: 'Sadad' },
-    { key: t('modal.tag'), value: 'CUSOTMER' },
-    { key: t('modal.path'), value: 'api/sapta/v1/bale/customer-info/' },
-    { key: t('modal.host'), value: 'Openapis.bmi.ir' },
-    { key: t('modal.upstream'), value: 'ICMS -XzxcZ' },
-    { key: t('modal.service_definition_status'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
+  const infoBoxData = [
+    { key: t('modal.english_name'), value: data?.serviceLatinName ?? '-' },
+    { key: t('modal.persian_name'), value: data?.servicePersianName ?? '-' },
+    { key: t('modal.action'), value: data?.action ?? '-' },
+    { key: t('modal.protocole'), value: data?.routeProtocol ?? '-' },
+    { key: t('modal.access'), value: data?.routeHosts ?? '-' },
+    { key: t('modal.category'), value: data?.routeHosts ?? '-' },
+    { key: t('modal.throughput'), value: data?.routeHosts ?? '-' },
+    { key: t('modal.version'), value: data?.serviceVersion ?? '-' },
+    { key: t('modal.owner'), value: data?.ownerName ?? '-' },
+    { key: t('modal.tag'), value: data?.routeHosts ?? '-' },
+    { key: t('modal.path'), value: data?.routePath ?? '-' },
+    { key: t('modal.host'), value: data?.routeHosts ?? '-' },
+    { key: t('modal.upstream'), value: data?.upstreamTitle ?? '-' },
+    { key: t('modal.service_definition_status'), value: data?.routeHosts ?? '-' },
   ];
 
   return (
@@ -40,7 +42,7 @@ export default function DetailsModal(props: Props) {
         </Button>,
       ]}
     >
-      <InfoBox margin={0} data={data} />
+      <InfoBox margin={0} data={infoBoxData} loading={loading} />
     </Modal>
   );
 }
