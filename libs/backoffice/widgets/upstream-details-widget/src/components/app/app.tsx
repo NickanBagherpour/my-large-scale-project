@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
-import { useTheme } from 'styled-components';
 import { Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
@@ -10,6 +9,7 @@ import { Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
 import { NoResult, FooterContainer, ReturnButton, GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Nullable } from '@oxygen/types';
 import { RQKEYS } from '@oxygen/utils';
+import { useAppTheme } from '@oxygen/hooks';
 
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
 import { useGetUpstreamDetailsQuery } from '../../services';
@@ -22,7 +22,7 @@ import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 import * as S from './app.style';
 
 const App = () => {
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { errorMessage, ...fetchState } = useAppState();
   const dispatch = useAppDispatch();
   const state = useAppState();

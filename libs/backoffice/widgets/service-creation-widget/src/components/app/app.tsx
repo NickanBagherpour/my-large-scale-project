@@ -21,7 +21,7 @@ import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
-import { DRAFT_STATUS_CODE, InquiryStatus } from '../../utils/consts';
+import { InquiryStatus } from '../../utils/consts';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },

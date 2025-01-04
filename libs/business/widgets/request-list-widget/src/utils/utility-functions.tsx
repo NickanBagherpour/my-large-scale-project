@@ -1,4 +1,3 @@
-import React from 'react';
 import { notFound } from 'next/navigation';
 
 import { ALL_STATUS_LIST, BUSINESS_STATUS_LIST, BusinessUserRole, COMMERCIAL_STATUS_LIST } from './consts';
@@ -8,7 +7,6 @@ import { Status, UserRoleType } from '../types/common-types';
 import * as S from '../components/filter/filter.style';
 import { updateStatus } from '../context';
 
-//handleUserRoleRedirect
 export const handleUserRoleRedirect = (userRole: UserRoleType) => {
   const isUserRoleMissing = !userRole;
 
@@ -25,6 +23,8 @@ export const prepareRequestListParams = (item, userRole) => {
   const isCommercialBanking = userRole === BusinessUserRole.BUSINESS_ADMIN;
 
   const reqObj: any = {};
+
+  reqObj.role = userRole;
 
   if (searchTerm) {
     reqObj.orgName = searchTerm;

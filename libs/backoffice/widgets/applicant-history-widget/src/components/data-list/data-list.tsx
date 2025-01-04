@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { TablePaginationConfig } from 'antd';
-import { useTheme } from 'styled-components';
 
+import { useAppTheme } from '@oxygen/hooks';
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -23,7 +23,7 @@ const DataList: React.FC<dataListProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const {
     table: { pagination = { page: 1, rowsPerPage: 10 } } = { pagination: { page: 1, rowsPerPage: 10 } }, // Fallback for pagination

@@ -3,9 +3,9 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { ParamsType } from '@oxygen/types';
+import { RequestParamsType } from '@oxygen/types';
 
-export const useGetRequestsQuery = (params: ParamsType) => {
+export const useGetRequestsQuery = (params: RequestParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

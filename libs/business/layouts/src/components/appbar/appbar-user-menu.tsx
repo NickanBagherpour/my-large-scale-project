@@ -1,12 +1,13 @@
+import { ReactNode } from 'react';
 import { MenuProps } from 'antd';
-import { useTr } from '@oxygen/translation';
 
+import { useTr } from '@oxygen/translation';
+import { BusinessUserRole, Nullable } from '@oxygen/types';
 import { cssVar, ENV_CONSTANTS } from '@oxygen/utils';
 import { Button, Icons, Loading, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 
+import { getUserFullname } from '../../utils/helper';
 import * as S from './appbar-user-menu.style';
-import { ReactNode } from 'react';
-import { BusinessUserRole, Nullable } from '@oxygen/types';
 
 enum MenuItemKey {
   ChangeLanguage = 'changeLanguage',
@@ -50,7 +51,7 @@ export default function AppbarUserMenu({
                     '-'
                   ) : (
                     <div className='menu-header'>
-                      <p className='menu-p'>{`${userInfo.name} ${userInfo.family}`}</p>
+                      <p className='menu-p'>{getUserFullname(userInfo)}</p>
                       <span className='menu-span'>{getUserRole(userInfo.role)}</span>
                     </div>
                   )}
@@ -141,7 +142,7 @@ export default function AppbarUserMenu({
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
-          {loading ? <Loading size='small' /> : !userInfo ? '-' : `${userInfo?.name} ${userInfo?.family}`}
+          {loading ? <Loading size='small' /> : getUserFullname(userInfo)}
           <Icons.ArrowDown />
         </S.StyleParagraph>
       )}

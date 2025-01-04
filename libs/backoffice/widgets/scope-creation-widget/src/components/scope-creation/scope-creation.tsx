@@ -1,36 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { useRouter } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
-
-import { useAppDispatch, useAppState } from '../../context';
+import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
+import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 
 import * as S from './scope-creation.style';
-import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
-import { useRouter } from 'next/navigation';
 
 type EditScopeProps = PageProps & {
   //
 };
 
 const ScopeCreation: React.FC<EditScopeProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm();
 
   const rule = createSchemaFieldRule(FormSchema(t));
 
-  const submitClick = () => form.submit();
+  const submitClick = async () => {
+    try {
+      await form.submit();
+      setIsOpen(false);
+    } catch (error) {
+      return;
+    }
+  };
 
-  const router = useRouter();
+  const showModal = async () => {
+    try {
+      await form.validateFields();
+      setIsOpen(true);
+    } catch (error) {
+      return;
+    }
+  };
+
+  const onCancel = () => setIsOpen(false);
+
   const handleReturn = () => {
     router.back();
   };
@@ -39,9 +54,26 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
     // console.log('formValue', values);
   };
 
+  const SubmitModal = () => {
+    return (
+      <Modal
+        open={isOpen}
+        centered={true}
+        title={t('create_scope')}
+        onCancel={onCancel}
+        cancelText={t('button.cancel')}
+        okText={t('buttons.confirm')}
+        onOk={submitClick}
+      >
+        <p>{t('modal_text', { scope_name: form.getFieldValue(FORM_ITEM_NAMES.latinNameScope) })}</p>
+      </Modal>
+    );
+  };
+
   return (
     <S.ScopeCreationContainer>
       <div className={'form-wrapper'}>
+        {SubmitModal()}
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <Form.Item
@@ -67,7 +99,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('button.cancel')}
         </ReturnButton>
-        <Button htmlType={'submit'} onClick={submitClick}>
+        <Button htmlType={'submit'} onClick={showModal}>
           {t('buttons.register_scope')}
         </Button>
       </FooterContainer>

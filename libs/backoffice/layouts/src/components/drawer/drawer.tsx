@@ -10,7 +10,7 @@ import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
 import { cssVar, BACKOFFICE_ROUTE_GROUPS } from '@oxygen/utils';
 
-import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/utils';
+import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/menu-utils';
 import { useGetMenu } from '../../services/use-get-menu';
 
 import * as S from './drawer.style';

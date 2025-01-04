@@ -2,12 +2,11 @@
 import { CSSProperties, useState } from 'react';
 
 import { Input } from 'antd';
-import { useTheme } from 'styled-components';
 import { AutoComplete as AntAutoComplete } from 'antd';
 
 import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useDebouncedValue } from '@oxygen/hooks';
+import { useDebouncedValue, useAppTheme } from '@oxygen/hooks';
 
 import { useGetClientService, type ClientService } from './use-get-client-services';
 
@@ -28,7 +27,7 @@ const AdvanceSelector = (props: Props) => {
 
   const MAX_LENGTH = 75;
 
-  const theme = useTheme();
+  const theme = useAppTheme();
   const [t] = useTr();
 
   const [searchTerm, setSearchTerm] = useState('');

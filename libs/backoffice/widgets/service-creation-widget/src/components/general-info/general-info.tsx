@@ -1,6 +1,6 @@
 import { Input, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
-import { FORM_ITEM_NAMES } from '../../utils/consts';
+import { SERVICE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -33,7 +33,7 @@ export default function GeneralInfo() {
   const router = useRouter();
   const { data: service, isPending: isPendingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
-  const selectedTags = Form.useWatch(FORM_ITEM_NAMES.tags, form);
+  const selectedTags = Form.useWatch(SERVICE_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
@@ -73,7 +73,7 @@ export default function GeneralInfo() {
 
   const closeChip = (tag: { key: number; label: string; value: number }) => {
     form.setFieldValue(
-      FORM_ITEM_NAMES.tags,
+      SERVICE_NAMES.tags,
       selectedTags?.filter((t) => t.value !== tag.value)
     );
   };
@@ -106,8 +106,8 @@ export default function GeneralInfo() {
         <S.InputsBox>
           <SearchItemsContainer $columnNumber='3'>
             <FormItem
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.englishName)}
-              name={FORM_ITEM_NAMES.englishName}
+              validateStatus={getValidateStatus(SERVICE_NAMES.englishName)}
+              name={SERVICE_NAMES.englishName}
               label={t('english_name')}
               rules={[rule]}
             >
@@ -115,17 +115,17 @@ export default function GeneralInfo() {
             </FormItem>
 
             <FormItem
-              name={FORM_ITEM_NAMES.persianName}
+              name={SERVICE_NAMES.persianName}
               label={t('persian_name')}
               rules={[rule]}
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.persianName)}
+              validateStatus={getValidateStatus(SERVICE_NAMES.persianName)}
             >
               <Input placeholder={t('enter_persian_name')} />
             </FormItem>
 
             <FormItem
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.access)}
-              name={FORM_ITEM_NAMES.access}
+              validateStatus={getValidateStatus(SERVICE_NAMES.access)}
+              name={SERVICE_NAMES.access}
               rules={[rule]}
               label={t('access')}
             >
@@ -138,8 +138,8 @@ export default function GeneralInfo() {
             </FormItem>
 
             <FormItem
-              name={FORM_ITEM_NAMES.category}
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.category)}
+              name={SERVICE_NAMES.category}
+              validateStatus={getValidateStatus(SERVICE_NAMES.category)}
               rules={[rule]}
               label={t('category')}
             >
@@ -152,8 +152,8 @@ export default function GeneralInfo() {
             </FormItem>
 
             <FormItem
-              name={FORM_ITEM_NAMES.throughput}
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.throughput)}
+              name={SERVICE_NAMES.throughput}
+              validateStatus={getValidateStatus(SERVICE_NAMES.throughput)}
               rules={[rule]}
               label={t('throughput')}
             >
@@ -166,8 +166,8 @@ export default function GeneralInfo() {
             </FormItem>
 
             <FormItem
-              name={FORM_ITEM_NAMES.version}
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.version)}
+              name={SERVICE_NAMES.version}
+              validateStatus={getValidateStatus(SERVICE_NAMES.version)}
               label={t('version')}
               rules={[rule]}
             >
@@ -175,8 +175,8 @@ export default function GeneralInfo() {
             </FormItem>
 
             <FormItem
-              name={FORM_ITEM_NAMES.owner}
-              validateStatus={getValidateStatus(FORM_ITEM_NAMES.owner)}
+              name={SERVICE_NAMES.owner}
+              validateStatus={getValidateStatus(SERVICE_NAMES.owner)}
               label={t('owner')}
               rules={[rule]}
             >
@@ -187,7 +187,7 @@ export default function GeneralInfo() {
 
         <Box>
           <S.TagPicker>
-            <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+            <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
               <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
                 {t('add_tags')}
               </Dropdown.Select>

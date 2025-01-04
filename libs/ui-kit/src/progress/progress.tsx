@@ -1,9 +1,11 @@
 import React from 'react';
 
+import styled from 'styled-components';
 import { Progress as AntProgress, ProgressProps as AntProgressProps } from 'antd';
 
+import { useAppTheme } from '@oxygen/hooks';
+
 import * as S from './progress.style';
-import styled, { useTheme } from 'styled-components';
 
 export type ProgressProps = AntProgressProps & {
   isPrimary?: boolean;
@@ -29,7 +31,7 @@ export const StyledProgress = styled(AntProgress)`
 `;
 
 export const Progress = (props: ProgressProps) => {
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { isPrimary, height, size, ...rest } = props;
 
   let _size = {};

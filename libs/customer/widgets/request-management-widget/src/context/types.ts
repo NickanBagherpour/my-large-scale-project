@@ -14,7 +14,7 @@ export type PaginationType = {
 export type WidgetStateType = {
   searchTerm: string;
   sort: 'newest' | 'oldest';
-  status: 'all' | 'active' | 'unActive';
+  status: 'all' | 'confirmed' | 'reviewed' | 'rejected';
   page: number;
   message: Nullable<MessageType>;
 };

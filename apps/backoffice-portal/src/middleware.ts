@@ -86,7 +86,7 @@ export default async function middleware(request: NextRequest) {
   if (isProtectedRoute) {
     // If there is no session user, redirect to the login page
     if (!token) {
-      // return NextResponse.redirect(new URL(ROUTES.BACKOFFICE.AUTH, request.url));
+      return NextResponse.redirect(new URL(ROUTES.BACKOFFICE.AUTH, request.url));
     }
   }
 

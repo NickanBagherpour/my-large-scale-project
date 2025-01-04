@@ -46,7 +46,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             </S.StyledDescription>
           </S.StatusBox>
           <S.StyledButton
-            href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
+            href={ROUTES.BUSINESS.REQUEST_LIST}
             size={'large'}
             variant={'outlined'}
             icon={<i className={'icon-home-empty'} />}

@@ -43,7 +43,7 @@ const nextConfig = {
     unoptimized: true,
   },
   staticPageGenerationTimeout: 180,
-  basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
+  // basePath: process.env.NODE_ENV === 'development' ? '' : base_url,
   rewrites: async () => {
     return rewritesConfig;
   },

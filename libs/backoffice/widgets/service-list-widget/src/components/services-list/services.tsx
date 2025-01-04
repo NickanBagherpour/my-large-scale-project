@@ -1,11 +1,11 @@
 import React from 'react';
 import { TablePaginationConfig } from 'antd';
-import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
+import { useAppTheme } from '@oxygen/hooks';
 
 import { ParamsType, ServiceDto } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -29,7 +29,7 @@ const Services: React.FC<ServicesProps> = (props) => {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const {
     table: { pagination },

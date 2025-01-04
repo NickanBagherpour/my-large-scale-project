@@ -1,14 +1,18 @@
 import { client, portalUrl } from '@oxygen/client';
 
 import { FetchSubmissionDetailParamsType, PostSubmissionReviewParamsType, SubmissionDetailType } from '../types';
+import { ApiUtil } from '@oxygen/utils';
 
 const Api = {
   getSubmissionDetail: async (params: FetchSubmissionDetailParamsType) => {
-    return client.get<SubmissionDetailType>(`${portalUrl}/v1/submissions/detail/${params.submissionId}`);
+    const { role, submissionId, ...restParams } = params;
+    const rolePrefix = ApiUtil.getApiPrefix(role);
+    return client.get<SubmissionDetailType>(`${portalUrl}/${rolePrefix}/v1/submissions/detail/${submissionId}`);
   },
   postSubmissionReview: async (params: PostSubmissionReviewParamsType) => {
-    const { submissionId, ...rest } = params;
-    return client.post(`${portalUrl}/v1/submissions/review/${submissionId}`, { ...rest });
+    const { role, submissionId, ...restParams } = params;
+    const rolePrefix = ApiUtil.getApiPrefix(role);
+    return client.post(`${portalUrl}/${rolePrefix}/v1/submissions/review/${submissionId}`, { ...restParams });
   },
 };
 export default Api;

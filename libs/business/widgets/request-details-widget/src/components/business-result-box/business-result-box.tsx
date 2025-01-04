@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
-import { Icons } from '@oxygen/ui-kit';
 
 import { RequestStatus, Review } from '../../types';
 import BusinessResultInfo from '../business-result-info/business-result-info';
@@ -34,12 +33,6 @@ const BusinessResultBox: React.FC<Props> = (props) => {
     return (
       <>
         <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
-        {resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK && (
-          <S.StyledBox>
-            <Icons.IconTimer />
-            {t('checking_request')}
-          </S.StyledBox>
-        )}
 
         {showBusinessResultInfo ? <BusinessResultInfo result={review} /> : <NoResult isLoading={false} />}
       </>

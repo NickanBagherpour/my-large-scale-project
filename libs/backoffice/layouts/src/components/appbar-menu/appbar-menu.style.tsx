@@ -1,5 +1,6 @@
 import { Dropdown } from 'antd';
 import styled from 'styled-components';
+
 import { withOpacity } from '@oxygen/utils';
 
 export const AppBarMenuContainer = styled<any>(Dropdown)`

@@ -32,8 +32,8 @@ export const Register = ({ title }: FormContainerProps) => {
   const [t] = useTr();
 
   //Queries
-  const { data, isLoading, isError, refetch } = useGetCaptchaQuery();
-  const { mutate, isPending } = useRegisterMutation();
+  const { data, isLoading, refetch } = useGetCaptchaQuery();
+  const { mutate, isPending, isError } = useRegisterMutation();
 
   //Form
   const [registerForm] = Form.useForm();
@@ -81,12 +81,12 @@ export const Register = ({ title }: FormContainerProps) => {
 
     mutate(params, {
       onSuccess: (data) => {
-        console.log('Registration successful:', data.headers['key'], data);
+        // console.log('Registration successful:', data.headers['key'], data);
         const otpKey = data.headers['key'];
         updateOTPAction(dispatch, { ...values, type: 'register', isOpen: true, captchaCode: undefined, key: otpKey });
       },
       onError: (error) => {
-        console.error('Registration failed:', error);
+        refreshCaptcha();
       },
     });
   };
@@ -160,7 +160,7 @@ export const Register = ({ title }: FormContainerProps) => {
       <S.Button loading={isPending} onClick={handleSubmit} color='primary'>
         {t('confirm_and_continue')}
       </S.Button>
-      <S.Button loading={isPending} href={'/'} color='primary' variant={'outlined'}>
+      <S.Button disabled={isPending} href={'/'} color='primary' variant={'outlined'}>
         {t('home_return')}
       </S.Button>
       <S.Divider />
