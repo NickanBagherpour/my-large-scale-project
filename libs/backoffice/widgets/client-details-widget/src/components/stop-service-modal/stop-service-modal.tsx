@@ -1,6 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import { Button, Modal } from '@oxygen/ui-kit';
-import { useTheme } from 'styled-components';
+import { useAppTheme } from '@oxygen/hooks';
+
 import * as S from './stop-service-modal.style';
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 export default function StopServiceModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, id } = props;
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   return (
     <Modal

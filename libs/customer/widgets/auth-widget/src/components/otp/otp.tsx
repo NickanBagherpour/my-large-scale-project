@@ -103,7 +103,7 @@ export const OTP: React.FC<FormContainerProps> = () => {
         <S.Button loading={loading} onClick={handleSubmit} color='primary'>
           {isLogin ? t('enter') : t('submit')}
         </S.Button>
-        <S.Button loading={loading} onClick={handleReturn} color='primary' variant={'outlined'}>
+        <S.Button disabled={loading} onClick={handleReturn} color='primary' variant={'outlined'}>
           {t('button.return')}
         </S.Button>
       </>

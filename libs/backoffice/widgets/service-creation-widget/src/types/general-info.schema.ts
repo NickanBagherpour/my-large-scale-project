@@ -1,5 +1,5 @@
 import z from 'zod';
-import { FORM_ITEM_NAMES } from '../utils/consts';
+import { SERVICE_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
 
 const MAX_LENGTH = 200;
@@ -18,34 +18,36 @@ export const serviceNameSchema = (t: TFunction) =>
 
 export const createGeneralInfoSchema = (t: TFunction) =>
   z.object({
-    [FORM_ITEM_NAMES.englishName]: serviceNameSchema(t),
+    [SERVICE_NAMES.englishName]: serviceNameSchema(t),
 
-    [FORM_ITEM_NAMES.persianName]: z
+    [SERVICE_NAMES.persianName]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
 
-    [FORM_ITEM_NAMES.access]: z.number({ required_error: t('validation.choose_one_option') }),
+    [SERVICE_NAMES.access]: z.number({ required_error: t('validation.choose_one_option') }),
 
-    [FORM_ITEM_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
+    [SERVICE_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
 
-    [FORM_ITEM_NAMES.throughput]: z.number({ required_error: t('validation.choose_one_option') }),
+    [SERVICE_NAMES.throughput]: z.number({ required_error: t('validation.choose_one_option') }),
 
-    [FORM_ITEM_NAMES.version]: z
+    [SERVICE_NAMES.version]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
 
-    [FORM_ITEM_NAMES.owner]: z
+    [SERVICE_NAMES.owner]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
 
-    [FORM_ITEM_NAMES.tags]: z
-      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }))
+    [SERVICE_NAMES.tags]: z
+      .array(z.object({ key: z.number(), value: z.number(), label: z.string() }), {
+        message: t('validation.choose_at_least_one_option'),
+      })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
   });
 

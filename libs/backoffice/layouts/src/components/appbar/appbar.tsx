@@ -2,12 +2,11 @@
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
 import { ThemeID } from '@oxygen/types';
 import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
-import { useAuth, useResponsive } from '@oxygen/hooks';
+import { useAuth, useResponsive, useAppTheme } from '@oxygen/hooks';
 import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
@@ -25,7 +24,7 @@ const Appbar = (props: AppBarProps) => {
   const { variant = 'dashboard', onToggleDrawer } = props;
   const [t] = useTr();
   const { user, setUser, logout } = useAuth();
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { isMobileOrTablet } = useResponsive();
 
   const { data: userData, isLoading, isError, error } = useGetUserInfo();

@@ -1,12 +1,12 @@
 import React from 'react';
 import { TablePaginationConfig } from 'antd';
-import { useTheme } from 'styled-components';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 import { NoResult } from '@oxygen/reusable-components';
 import { Table } from '@oxygen/ui-kit';
+import { useAppTheme } from '@oxygen/hooks';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns } from '../../utils/data-list.util';
@@ -22,7 +22,7 @@ const DataList: React.FC<dataListProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const {
     table: { pagination },

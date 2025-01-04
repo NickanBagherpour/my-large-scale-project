@@ -9,7 +9,6 @@ import { ROUTES } from '@oxygen/utils';
 import { MutationStatus } from '@tanstack/react-query';
 import { goToFirstError, useAppDispatch, useAppState } from '../../context';
 import { ReactNode } from 'react';
-import GeneralInfo from '../general-info/general-info';
 
 type Props = {
   isOpen: boolean;

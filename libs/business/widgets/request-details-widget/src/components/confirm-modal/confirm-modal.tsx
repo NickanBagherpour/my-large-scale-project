@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import { Form } from 'antd';
-import { useTheme } from 'styled-components';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { useAppTheme } from '@oxygen/hooks';
 
 import {
   ExpertOpinionStatus,
@@ -38,7 +38,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const state = useAppState();
 
   const [t] = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const [form] = Form.useForm<RequestConfirmType>();
   const rule = createSchemaFieldRule(requestConfirmType(t));

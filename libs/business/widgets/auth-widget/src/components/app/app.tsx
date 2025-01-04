@@ -29,6 +29,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
 
     try {
       const url = new URL(window.location.href);
+
       url.search = ''; // Remove all query parameters
       window.history.replaceState({}, document.title, url.toString());
       setCode(null);
@@ -36,7 +37,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
         await handleSSO(code, ticket);
         const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
         // console.log('SSO success', );
-        login({role}, ROUTES.BUSINESS.REQUEST_LIST);
+        login({ role }, ROUTES.BUSINESS.REQUEST_LIST);
       }
       // Clear query parameters from the URL
     } catch (error) {

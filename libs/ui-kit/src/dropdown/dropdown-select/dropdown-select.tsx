@@ -1,10 +1,10 @@
 'use client';
 
 import React, { forwardRef } from 'react';
-import { useTheme } from 'styled-components';
 import { Checkbox, Dropdown, DropdownProps, Form } from 'antd';
 import { ItemType } from 'antd/lib/menu/interface';
 
+import { useAppTheme } from '@oxygen/hooks';
 import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
@@ -42,7 +42,7 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
 
   const { errors } = Form.Item.useStatus();
   const { t } = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const [open, setOpen] = React.useState<boolean>(false);
 

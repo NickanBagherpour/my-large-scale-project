@@ -2,7 +2,7 @@
 
 import { cookies, headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
-import { encrypt, processAndSignToken, ROUTES } from '@oxygen/utils';
+import { decodeJWT, encrypt, getRole, processAndSignToken, ROUTES } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
@@ -61,6 +61,16 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
     // httpOnly: true, // Prevent JavaScript access
     // secure: process.env.NODE_ENV === 'production', // Only secure in production
     // sameSite: 'strict', // CSRF protection
+  });
+
+  cookieStore.set({
+    name: CookieKey.INFO,
+    value: encrypt(getRole(decodeJWT(token)?.payload) ?? ''),
+    path: '/',
+    maxAge: expiresIn, // Token expiration in seconds
+    // httpOnly: true, // Prevent JavaScript access
+    // secure: process.env.NODE_ENV === 'production', // Only secure in production
+    sameSite: 'strict', // CSRF protection
   });
 
   return true;

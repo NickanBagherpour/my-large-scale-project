@@ -74,7 +74,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   }, [fromSubmission]);
 
   const contentDictionary: { [key in ContentType]: ReactElement } = {
-    SERVICE_NOT_FOUND: <ServiceNotFound />,
+    SERVICE_NOT_FOUND: <ServiceNotFound form={form} />,
     SERVICE_ALREADY_EXISTS: (
       <ServiceExists data={mappedData} form={form} inputRef={inputRef} changeContent={changeContent} />
     ),

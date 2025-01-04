@@ -1,7 +1,6 @@
-# Declare portalName as a global build argument
 ARG portalName="business"
 
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 ARG portalName
 ENV portalName=${portalName}
@@ -60,4 +59,4 @@ ENV PORT 3200
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/outputs
-CMD node .next/apps/${portalName}-portal/server.js
+CMD HOSTNAME="0.0.0.0" node .next/apps/${portalName}-portal/server.js
