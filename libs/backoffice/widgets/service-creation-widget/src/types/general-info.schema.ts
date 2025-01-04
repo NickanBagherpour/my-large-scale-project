@@ -6,7 +6,7 @@ const MAX_LENGTH = 200;
 
 export const serviceNameSchema = (t: TFunction) =>
   z
-    .string({ required_error: t('validation.required') })
+    .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
     .trim()
     .min(1, { message: t('validation.required') })
     .max(MAX_LENGTH /* Some services have long names, so this value needs to be set high to accommodate them */, {
@@ -21,7 +21,10 @@ export const createGeneralInfoSchema = (t: TFunction) =>
     [SERVICE_NAMES.englishName]: serviceNameSchema(t),
 
     [SERVICE_NAMES.persianName]: z
-      .string({ required_error: t('validation.required') })
+      .string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required') /* if value is null */,
+      })
       .trim()
       .min(1, { message: t('validation.required') })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
@@ -33,13 +36,13 @@ export const createGeneralInfoSchema = (t: TFunction) =>
     [SERVICE_NAMES.throughput]: z.number({ required_error: t('validation.choose_one_option') }),
 
     [SERVICE_NAMES.version]: z
-      .string({ required_error: t('validation.required') })
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
 
     [SERVICE_NAMES.owner]: z
-      .string({ required_error: t('validation.required') })
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
