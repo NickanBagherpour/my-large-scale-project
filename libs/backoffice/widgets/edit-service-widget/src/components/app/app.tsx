@@ -1,18 +1,19 @@
+import { Form } from 'antd';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Button, Container, Loading } from '@oxygen/ui-kit';
-import { SecondaryTitle } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, SecondaryTitle } from '@oxygen/reusable-components';
 import { ROUTES } from '@oxygen/utils';
 import { useApp } from '@oxygen/hooks';
 
 //import { useGetReportDataQuery } from '../../services';
 
 import { useGetServiceInfoQuery } from '../../services/edit-service.api';
-import { Form } from 'antd';
 import EditService from '../edit-service/edit-service';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -22,6 +23,8 @@ type AppProps = PageProps & {
 const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { message } = useAppState();
   const searchParams = useSearchParams();
   const [form] = Form.useForm();
   const { notification } = useApp();
@@ -30,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   const { data: serviceInfo, isFetching } = useGetServiceInfoQuery({ id });
   const title = serviceInfo?.[i18nBase.resolvedLanguage + 'Name'] ?? t('subtitle');
 
-  if (!id || (!isFetching && !serviceInfo)) {
+  if (!id) {
     notFound();
   }
 
@@ -69,14 +72,17 @@ const App: React.FC<AppProps> = (props) => {
     </>
   );
   return (
-    <Container title={title} footer={footer}>
-      <SecondaryTitle text={t('subtitle')} />
-      {isFetching ? (
-        showLoadingSpinner()
-      ) : (
-        <EditService serviceInfo={serviceInfo} form={form} onSubmit={handleSubmit} />
-      )}
-    </Container>
+    <>
+      <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
+      <Container title={title} footer={footer}>
+        <SecondaryTitle text={t('subtitle')} />
+        {isFetching ? (
+          showLoadingSpinner()
+        ) : (
+          <EditService serviceInfo={serviceInfo} form={form} onSubmit={handleSubmit} />
+        )}
+      </Container>{' '}
+    </>
   );
 };
 
