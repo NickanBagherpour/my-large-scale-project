@@ -1,8 +1,12 @@
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import * as S from './second-tab-table-util.style';
-import type { Service } from '@oxygen/types';
+import { ColumnsType, Table } from '@oxygen/ui-kit';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
+
+import { getValueOrDash } from '@oxygen/utils';
+import { ScopeInformationService } from '@oxygen/types';
+
+import * as S from './second-tab-table-util.style';
+
 export type Modal = {
   details: boolean;
   removeService: boolean;
@@ -12,7 +16,7 @@ type Props = {
   t: TFunction;
   toggleModal: (modal: keyof Modal) => void;
 };
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
   const { t, toggleModal } = props;
 
   return [
@@ -28,34 +32,49 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('second_tab.service_name'),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
+      render: (value) => {
+        return getValueOrDash(value);
+      },
     },
     {
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
+      render: (value) => {
+        return getValueOrDash(value);
+      },
     },
     {
       title: t('second_tab.scope'),
       dataIndex: 'scope',
       align: 'center',
+      render: (value) => {
+        return getValueOrDash(value);
+      },
     },
     {
       title: t('second_tab.url'),
-      dataIndex: 'url',
+      dataIndex: 'path',
       align: 'center',
-      render: (url) => (
-        <Link href={url} target='_blank' rel='noopener noreferrer'>
-          {url}
-        </Link>
-      ),
+      render: (value) =>
+        value ? (
+          <Link href={value} target='_blank' rel='noopener noreferrer'>
+            {value}
+          </Link>
+        ) : (
+          '-'
+        ),
     },
     {
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
       width: '7rem',
+      render: (value) => {
+        return getValueOrDash(value);
+      },
     },
     {
       width: '7rem',
@@ -66,15 +85,17 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
         </S.DetailsBtn>
       ),
     },
-    {
-      width: '7rem',
-      key: 'remove',
-      render: (p) => (
-        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
-          <S.TrashIcon className='icon-trash' />
-        </Button>
-      ),
-    },
+    //uncomment when remove service is needed
+
+    // {
+    //   width: '7rem',
+    //   key: 'remove',
+    //   render: (p) => (
+    //     <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+    //       <S.TrashIcon className='icon-trash' />
+    //     </Button>
+    //   ),
+    // },
   ];
 }
 
@@ -85,20 +106,22 @@ export function getMobileColumns(props) {
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, url, version, persianName, serviceName }: Service) {
+      render({ scope, path, version, persianName, name }: ScopeInformationService) {
         const data = [
-          { title: t('second_tab.service_name'), value: serviceName },
-          { title: t('second_tab.persian_name'), value: persianName },
-          { title: t('second_tab.scope'), value: scope },
+          { title: t('second_tab.service_name'), value: getValueOrDash(name) },
+          { title: t('second_tab.persian_name'), value: getValueOrDash(persianName) },
+          { title: t('second_tab.scope'), value: getValueOrDash(scope) },
           {
             title: t('second_tab.url'),
-            value: (
-              <Link href={url} target='_blank' rel='noopener noreferrer'>
-                {url}
+            value: path ? (
+              <Link href={path} target='_blank' rel='noopener noreferrer'>
+                {path}
               </Link>
+            ) : (
+              '-'
             ),
           },
-          { title: t('second_tab.version'), value: version },
+          { title: t('second_tab.version'), value: getValueOrDash(version) },
           {
             title: t('details'),
             value: (
@@ -107,14 +130,16 @@ export function getMobileColumns(props) {
               </S.DetailsBtn>
             ),
           },
-          {
-            title: t('remove'),
-            value: (
-              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
-                <S.TrashIcon className='icon-trash' />
-              </Button>
-            ),
-          },
+          //uncomment when remove service is needed
+
+          // {
+          //   title: t('remove'),
+          //   value: (
+          //     <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
+          //       <S.TrashIcon className='icon-trash' />
+          //     </Button>
+          //   ),
+          // },
         ];
 
         return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
