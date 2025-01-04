@@ -86,11 +86,15 @@ interface Organization {
   aggregatorName: Nullable<string>;
 }
 
-interface Representative {
+export enum RepresentativeType {
+  TECHNICAL = 1,
+  STANDARD,
+}
+export interface Representative {
   name: string;
   mobileNumber: string;
   fixedPhone: string;
-  type: number;
+  type: RepresentativeType;
 }
 
 interface Service {

@@ -4,41 +4,31 @@ import { type CollapseProps, Tooltip } from 'antd';
 import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
 import { SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
-import { useGetSubmissionDetailQuery } from '../../services';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
 import RequestResultBox from '../request-result-box/request-result-box';
 
 import * as S from './details-collapse.style';
 
 type Props = {
-  //
+  data: SubmissionDetailType;
 };
 
 const DetailsCollapse: React.FC<Props> = (props) => {
+  const { data } = props;
   const state = useAppState();
   const [t] = useTr();
   const userRole = state?.userRole;
 
-  const { data, isFetching, error } = useGetSubmissionDetailQuery(prepareParams());
-
-  function prepareParams() {
-    const params = {
-      role: userRole,
-      submissionId: state?.submissionId,
-    };
-    return params;
-  }
-
-  if (error) return <NoResult isLoading={false} />;
-  if (!data) return <Loading spinning={isFetching} />;
+  if (!data) return <NoResult isLoading={false} />;
 
   const { submissionInfoDto, organization, representativeSet, services } = data;
-
+  const representativeName = (representativeSet && representativeSet.find((rep) => rep?.type === 1)?.name) ?? '';
   const status = submissionInfoDto?.submissionStatus;
 
   const items: CollapseProps['items'] = [
@@ -51,7 +41,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
         </S.CollapseTitle>
       ),
       children: submissionInfoDto ? (
-        <InfoBox data={getSubmissionInfo(submissionInfoDto, t)} margin={0} />
+        <InfoBox data={getSubmissionInfo(submissionInfoDto, representativeName, t)} margin={0} />
       ) : (
         <S.StyledContainer>
           {' '}
@@ -94,14 +84,14 @@ const DetailsCollapse: React.FC<Props> = (props) => {
                 type='primary'
                 style={{ margin: 0 }}
                 icon={<i className='icon-edit' />}
-                // href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
+                // href={`${ROUTES.BUSINESS.REQUESTS_MANAGEMENT}?submissionId=${state?.submissionId}`}
               />
             </Tooltip>
           )}
         </S.TitleWrapper>
       ),
       children: services ? (
-        <RequestedServices data={services} isLoading={isFetching} />
+        <RequestedServices data={services} isLoading={false} />
       ) : (
         <S.StyledContainer>
           <NoResult isLoading={false} />
@@ -113,7 +103,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   return (
     <S.Container>
       <Collapse items={items} collapsible={'icon'} />
-      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={isFetching} />}
+      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={true} />}
     </S.Container>
   );
 };
