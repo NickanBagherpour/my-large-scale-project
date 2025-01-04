@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
+import { decrypt } from '@oxygen/utils';
 
 export async function handleSignOut() {
   const host = headers().get('host'); // Get the current host (domain)
@@ -9,7 +10,7 @@ export async function handleSignOut() {
   const baseUrl = `${protocol}://${host}`;
 
   // Assuming the session ticket is stored in a cookie or comes from some other source
-  const sessionTicket = headers().get(CookieKey.SESSION_TICKET); // Example, replace with the correct header or method to fetch session ticket
+  const sessionTicket = decrypt(headers().get(CookieKey.SESSION_TICKET)); // Example, replace with the correct header or method to fetch session ticket
 
   if (!sessionTicket) {
     throw new Error('No session ticket found');

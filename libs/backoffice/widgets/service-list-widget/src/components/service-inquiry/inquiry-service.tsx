@@ -9,7 +9,7 @@ import { Modal } from '@oxygen/ui-kit';
 import searchAnimation from '../../assets/media/searching-Services.json';
 import SearchBox from './search-box';
 import ServiceExists from './service-exists';
-import { InquiryInfo, InquiryParams } from '../../types/get-Inquiry-info.type';
+import { InquiryInfo } from '../../types/get-Inquiry-info.type';
 import ServiceExistsInBAAM from './service-exists-in-BAAM';
 import { useInquireService } from '../../services/get-inquiry.api';
 import { ServiceNameType } from '../../types';
@@ -38,14 +38,10 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const [content, setContent] = useState<ContentType>('searching');
   const [fromSubmission, setFormSubmission] = useState(false);
-  const [params, setParams] = useState<InquiryParams>({ 'service-name': '' });
+  const [serviceName, setServiceName] = useState<string>('');
   const [loading, setLoading] = useState(false);
-
-  const formSubmitted = () => setFormSubmission(true);
-  const startLoading = () => setLoading(true);
   const changeContent = (c: ContentType) => setContent(c);
-  const changeParams = (v: InquiryParams) => setParams(v);
-  const { data, refetch } = useInquireService(params);
+  const { data, refetch } = useInquireService({ 'service-name': serviceName });
   let mappedData: InquiryInfo | undefined;
   const code = data?.serviceInquiryStatus.code;
   if (code) {
@@ -54,7 +50,13 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
       serviceInquiryStatus: { ...data?.serviceInquiryStatus, code: InquiryStatus[code] as keyof typeof InquiryStatus },
     };
   }
-
+  const handleFormSubmit = async (values: any) => {
+    setLoading(true);
+    setContent('searching');
+    lottieRef.current?.play();
+    setServiceName(values?.serviceName);
+    setFormSubmission(true);
+  };
   useEffect(() => {
     const fetchData = async () => {
       if (fromSubmission) {
@@ -74,12 +76,12 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   }, [fromSubmission]);
 
   const contentDictionary: { [key in ContentType]: ReactElement } = {
-    SERVICE_NOT_FOUND: <ServiceNotFound form={form} />,
+    SERVICE_NOT_FOUND: <ServiceNotFound serviceName={serviceName} />,
     SERVICE_ALREADY_EXISTS: (
       <ServiceExists data={mappedData} form={form} inputRef={inputRef} changeContent={changeContent} />
     ),
     SERVICE_IS_DRAFT: <ServiceIncomplete data={mappedData} />,
-    SERVICE_EXISTS_IN_BAAM: <ServiceExistsInBAAM serviceName={mappedData?.serviceName} />,
+    SERVICE_EXISTS_IN_BAAM: <ServiceExistsInBAAM serviceName={mappedData?.serviceName ?? serviceName} />,
     searching: <></>,
   };
   return (
@@ -92,16 +94,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
       onClose={toggle}
       onCancel={toggle}
     >
-      <SearchBox
-        changeContent={changeContent}
-        changeParams={changeParams}
-        form={form}
-        isLoading={loading}
-        formSubmitted={formSubmitted}
-        startLoading={startLoading}
-        loadingAnimationRef={lottieRef}
-        inputRef={inputRef}
-      />
+      <SearchBox form={form} isLoading={loading} inputRef={inputRef} onFinish={handleFormSubmit} />
       <S.MainContainer $content={content}>
         <div style={{ display: content === 'searching' ? '' : 'none' }}>
           <LazyLottie lottieRef={lottieRef} height={'20rem'} width={'18rem'} {...defaultOptions} />

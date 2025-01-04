@@ -1,7 +1,9 @@
+'use server';
+
 import { configSchema, CookieKey } from '@oxygen/types';
 import { cookies } from 'next/headers';
 
-export const getInitialConfig = () => {
+export const getInitialConfig = async () => {
   const maybeConfig = cookies().get(CookieKey.CONFIG)?.value;
   if (!maybeConfig) return null;
 

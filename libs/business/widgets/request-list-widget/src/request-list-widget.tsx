@@ -13,7 +13,7 @@ import fa from './locales/fa';
 
 const RequestListWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
-  
+
   return (
     <WidgetWrapper>
       <AppProvider>

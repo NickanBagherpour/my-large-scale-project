@@ -32,7 +32,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const login = async (data: any, path?: string) => {
     clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
     // const res = await signIn('credentials', { ...data, redirect: false });
-    setUser({...data});
+    setUser({ ...data });
     /*    if (props.login) {
            props.login();
          }*/

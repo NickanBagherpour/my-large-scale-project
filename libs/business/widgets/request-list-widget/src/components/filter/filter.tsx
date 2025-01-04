@@ -18,7 +18,7 @@ type FilterProps = PageProps & {
 
 const Filters: React.FC<FilterProps> = (props) => {
   const { userRole } = props;
-  
+
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();

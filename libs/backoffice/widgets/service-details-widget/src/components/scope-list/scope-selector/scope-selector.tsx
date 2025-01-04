@@ -13,7 +13,6 @@ import { useAppState, useAppDispatch, updateScopeAction } from '../../../context
 import { useGetScopes } from '../../../services';
 import * as S from './scope-selector.style';
 
-
 type Props = {
   className?: string;
   style?: CSSProperties;

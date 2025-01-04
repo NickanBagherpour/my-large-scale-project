@@ -9,7 +9,6 @@ import { useTr } from '@oxygen/translation';
 import { ContentType } from './inquiry-service';
 import { SearchInputIcon } from '../../assets';
 import { InquiryParams } from '../../types/get-Inquiry-info.type';
-import { ServiceName } from '../../types';
 import { SERVICE_NAME } from '../../utils/consts';
 
 import * as S from './search-box.style';
@@ -18,33 +17,14 @@ type Props = {
   form: FormInstance<{
     [x: string]: string;
   }>;
-  changeContent: (c: ContentType) => void;
-  loadingAnimationRef: MutableRefObject<LottieRefCurrentProps | null>;
+  onFinish: ((values: { [x: string]: string }) => void) | undefined;
   inputRef: RefObject<InputRef>;
   isLoading: boolean;
-  startLoading: () => void;
-  formSubmitted: () => void;
-  changeParams: (v: InquiryParams) => void;
 };
-const SearchBox: React.FC<Props> = ({
-  loadingAnimationRef,
-  form,
-  inputRef,
-  startLoading,
-  changeContent,
-  formSubmitted,
-  changeParams,
-  isLoading,
-}) => {
+const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading }) => {
   const [t] = useTr();
   // const rule = createSchemaFieldRule(ServiceName(t));
-  const onFinish = async (values: any) => {
-    startLoading();
-    changeContent('searching');
-    loadingAnimationRef.current?.play();
-    changeParams({ 'service-name': values?.serviceName });
-    formSubmitted();
-  };
+
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
       <Flex gap={'1rem'}>

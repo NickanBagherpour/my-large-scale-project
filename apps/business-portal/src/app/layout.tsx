@@ -4,14 +4,14 @@ import { StyledComponentsRegistry } from './registry';
 import 'normalize.css';
 import { iransans } from './fonts';
 import '../../public/assets/fonts/iconly/iconly.css';
-import { getInitialConfig } from './initial-config';
+import { getInitialConfig } from '@oxygen/utils';
 
 export const metadata = {
   title: 'Oxygen Pro',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const validConfig = getInitialConfig();
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const validConfig = await getInitialConfig();
   return (
     <html lang='fa' className={iransans.variable}>
       <body>

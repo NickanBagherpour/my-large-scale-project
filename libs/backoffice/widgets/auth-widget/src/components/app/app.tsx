@@ -34,8 +34,8 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
       if (code) {
         await handleSSO(code, ticket);
       }
-        const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
-      login({role}, ROUTES.BACKOFFICE.HOME);
+      const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
+      login({ role }, ROUTES.BACKOFFICE.HOME);
     } catch (error) {
       console.error('Failed to handle SSO:', error);
     }
