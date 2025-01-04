@@ -160,6 +160,12 @@ const App = () => {
               <i className='icon-chev-down' />
             </S.Button>
           )}
+          {!showLoadMore && (
+            <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(true)}>
+              <span>{t('show_less')}</span>
+              <i className='icon-arrow-up' />
+            </S.Button>
+          )}
         </S.DraftsContainer>
       )}
 
