@@ -1,6 +1,8 @@
+import { client, portalUrl } from '@oxygen/client';
+
 const Api = {
-  // getReportData: async (params: FetchParamsType) => {
-  //   return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
-  // },
+  createScope: async (params: any) => {
+    return client.post(`${portalUrl}/v1/scope`, params);
+  },
 };
 export default Api;

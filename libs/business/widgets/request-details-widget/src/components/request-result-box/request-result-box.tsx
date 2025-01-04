@@ -73,11 +73,12 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
-
   const renderButton =
     !data?.isReviewed &&
     resultType !== RequestStatus.DRAFT &&
-    !(resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole?.BUSINESS_ADMIN);
+    !(resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole?.BUSINESS_ADMIN) &&
+    state.userRole === UserRole?.BUSINESS_ADMIN &&
+    resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK;
   const renderContainer = reviews.length > 0 || renderButton;
   return (
     <>
