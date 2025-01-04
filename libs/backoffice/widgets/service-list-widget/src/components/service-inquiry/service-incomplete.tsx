@@ -23,7 +23,7 @@ const ServiceIncomplete: React.FC<Props> = ({ data }) => {
         <S.Percent>{progress + '%'}</S.Percent>
       </S.ServiceCompletenessBox>
       <Button
-        href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${data?.serviceName}`}
+        href={ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${data?.serviceName ?? ''}`}
         color='primary'
         style={{ width: 'fit-content', marginBottom: '2rem' }}
         icon={<i className='icon-arrowLeft' />}

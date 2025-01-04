@@ -11,11 +11,11 @@ type Props = {
 };
 const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
   const [t] = useTr();
-  const { mutateAsync: uploadService, isSuccess, isPending } = useUploadServiceMutation();
+  const { mutateAsync: uploadService, isPending } = useUploadServiceMutation();
   const router = useRouter();
   const handleClick = async () => {
     await uploadService(serviceName ?? '');
-    if (isSuccess) router.push(ROUTES.BACKOFFICE.SERVICE_CREATION);
+    router.push(ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${serviceName}`);
   };
   return (
     <Flex vertical gap={'2rem'} justify='center' align='center'>
