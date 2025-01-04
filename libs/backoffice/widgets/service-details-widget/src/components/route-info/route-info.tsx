@@ -51,8 +51,8 @@ const Route: React.FC<AppProps> = (props) => {
     if (!routeDetails) return [];
 
     return [
-      { key: t('action_method'), value: getValueOrDash(routeDetails.method) },
-      { key: t('protocol'), value: getValueOrDash(routeDetails.protocol) },
+      { key: t('action_method'), value: getValueOrDash(routeDetails.method?.title) },
+      { key: t('protocol'), value: getValueOrDash(routeDetails.protocol?.title) },
       { key: t('path'), value: getValueOrDash(routeDetails.path) },
       { key: t('host'), value: getValueOrDash(routeDetails.host) },
       // {
@@ -92,7 +92,7 @@ const Route: React.FC<AppProps> = (props) => {
   return (
     <S.ItemsContainer className='clients-list'>
       <div className='service-technical-details'>
-        <h3>{t('service_technical_info')}</h3>
+        <h3>{t('route')}</h3>
         <div className='btn-group'>
           <Button
             type={'primary'}
