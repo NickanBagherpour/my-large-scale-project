@@ -100,7 +100,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         loading={tabelIsFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
-        rowKey={(row) => row.index}
+        rowKey={(row) => row.id}
         {...(hasPagination
           ? {
               pagination: { pageSize: rowsPerPage },
