@@ -2,7 +2,7 @@
 ARG portalName="backoffice"
 ARG ENVIRONMENT="test"
 
-FROM repo.sadad.ir/node:20-alpine AS base
+FROM node:20-alpine AS base
 
 ARG portalName
 ARG ENVIRONMENT
