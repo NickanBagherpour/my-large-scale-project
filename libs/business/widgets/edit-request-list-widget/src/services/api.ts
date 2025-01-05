@@ -7,8 +7,7 @@ const Api = {
   },
 
   deleteService: async (params) => {
-    const { serviceId } = params;
-    return client.delete(`${portalUrl}/business/api/v1/services/${serviceId}`);
+    return client.delete(`${portalUrl}/business/api/v1/services/${params}`);
   },
 };
 export default Api;

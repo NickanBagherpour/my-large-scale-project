@@ -54,20 +54,20 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t } = props;
+  const { t, handleApi } = props;
 
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ name, persianName }) => {
+      render: ({ id, name, persianName }) => {
         const data = [
           { title: t('table.service_name'), value: getValueOrDash(name) },
           { title: t('table.persian_name'), value: getValueOrDash(persianName) },
           {
             title: t('table.delete_service'),
             value: (
-              <S.Button variant={'link'} color={'error'}>
+              <S.Button variant={'link'} color={'error'} onClick={() => handleApi(id)}>
                 <i className={'icon-trash icon-remove'}></i>
               </S.Button>
             ),

@@ -51,6 +51,7 @@ export const ROUTES = {
     REQUESTS_MANAGEMENT: '/requests-management',
     REQUEST_LIST: '/request-list',
     REQUEST_DETAILS: '/request-details',
+    EDIT_REQUEST_LIST: '/edit-request-list',
   },
 };
 export const CUSTOMER_ROUTE_GROUPS = [
