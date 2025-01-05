@@ -5,7 +5,7 @@ variables:
   VERSION: 1.0.0
 
 
-build_backoffice-portal:
+build:
   stage: build
   tags:
     - shared
@@ -17,7 +17,7 @@ build_backoffice-portal:
   only:
     - deploy
 
-deploy_backoffice-portal:
+deploy:
   stage: deploy
   tags:
     - shared
