@@ -15,6 +15,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
+COPY .npmrc ./
 COPY package.json package-lock.json* ./
 RUN npm ci --force --loglevel=verbose
 # RUN npm install --omit=optional --force
