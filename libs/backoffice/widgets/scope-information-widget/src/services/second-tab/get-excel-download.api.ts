@@ -9,7 +9,7 @@ type ExcelDownloadParamsType = {
 };
 export const useExcelDownloadQuery = (params: ExcelDownloadParamsType) => {
   const dispatch = useAppDispatch();
-  console.log(params);
+
   return useQuery({
     queryKey: [RQKEYS.SCOPE_INFORMATION.GET_EXCEL, params],
     queryFn: withErrorHandling(() => Api.getExcel(params), dispatch),

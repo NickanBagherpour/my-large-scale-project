@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
-import { Button, Table } from '@oxygen/ui-kit';
+import { TablePaginationConfig } from 'antd';
+
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { Button, Table } from '@oxygen/ui-kit';
 
 import DetailsModal from './modals/info-service-modal/info-service-modal';
-import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
+// import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
 import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
 import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
@@ -18,21 +20,30 @@ type SecondTabTypes = PageProps & {
 
 const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const { id } = props;
-
+  //Hooks
   const [t] = useTr();
-
-  const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
-    page: 0,
-    pageSize: 5,
-    id: id,
-  });
-  const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
-
+  //States
+  const [serviceId, setServiceId] = useState(undefined);
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
+  const [{ page, rowsPerPage }, setPagination] = useState({
+    page: 0,
+    rowsPerPage: 5,
+  });
 
+  //Queries
+  const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
+    page: page,
+    size: rowsPerPage,
+    id: id,
+  });
+  const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
+  //Handlers
+  const updateId = (id) => {
+    setServiceId(id);
+  };
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
   };
@@ -43,10 +54,20 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const handleExcleDownload = () => {
     refetch();
   };
-
-  const desktopColumns = getDesktopColumns({ t, toggleModal });
-  const mobileColumns = getMobileColumns({ t, toggleModal });
-  const tableData = tableDataQuery?.list;
+  const changePage = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+    if (pageSize && current) {
+      setPagination({
+        page: pageSize === rowsPerPage ? current - 1 : 0,
+        rowsPerPage: pageSize,
+      });
+    }
+  };
+  //Constants
+  const hasPagination = tableDataQuery?.totalElements > 5;
+  const desktopColumns = getDesktopColumns({ t, toggleModal, updateId });
+  const mobileColumns = getMobileColumns({ t, toggleModal, updateId });
+  const tableData = tableDataQuery?.content;
   return (
     <>
       <S.SecondTabHeader>
@@ -78,14 +99,22 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         loading={tabelIsFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
-        pagination={false}
+        {...(hasPagination
+          ? {
+              pagination: { pageSize: rowsPerPage },
+              onChange: changePage,
+              current: page + 1,
+              total: tableDataQuery?.totalElements,
+            }
+          : { pagination: false })}
       />
-      <RemoveServiceModal
+      {/* uncomment when remove service is needed */}
+      {/* <RemoveServiceModal
         isOpen={modals['removeService']}
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
-      />
-      <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
+      /> */}
+      {serviceId && <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} id={serviceId} />}
     </>
   );
 };
