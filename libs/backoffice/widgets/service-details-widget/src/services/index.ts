@@ -4,3 +4,5 @@ export { useGetRouteDetailsQuery } from './get-route-details.api';
 export { useGetServiceDetailsQuery } from './get-service-details.api';
 export { useGetScopes, useGetServiceScope } from './get-scopes.api';
 export { useUpstreamListQuery } from './upstream-tab/get-upstream-list.api';
+export { useAddServiceScope } from './add-scope';
+export { useDeleteServiceScope } from './delete-scope';

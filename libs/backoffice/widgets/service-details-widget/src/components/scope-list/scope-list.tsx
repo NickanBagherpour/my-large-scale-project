@@ -1,80 +1,84 @@
 import { useState, useEffect } from 'react';
-import { RadioChangeEvent } from 'antd';
 import * as S from './scope-list.style';
 import { useTr } from '@oxygen/translation';
 import { useSearchParams } from 'next/navigation';
-// import Footer from './footer/footer';
-// import Box from './box/box';
-// import ImportFromSso from './import-from-sso/import-from-sso';
-import {
-  useAppDispatch,
-  useAppState,
-  updateScopeMode,
-  updateUpstreamAction,
-  updateScopeAction,
-  clearScopeAction,
-} from '../../context';
+import { useAppDispatch, clearScopeAction } from '../../context';
 import { type Scope } from '@oxygen/types';
 import { Nullable } from '@oxygen/types';
-
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
-// import { Container } from './container/container.style';
-import { useGetServiceScope } from '../../services';
+import { useGetServiceScope, useDeleteServiceScope, useAddServiceScope } from '../../services';
 
 import ScopeSelector from './scope-selector/scope-selector';
-import { Modal } from '@oxygen/ui-kit';
 import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 
-export type Modal = {
-  details: boolean;
-  removeService: boolean;
-};
-
-export default function Scope({ updateData }) {
+export default function Scope() {
   const [t] = useTr();
-  const state = useAppState();
   const dispatch = useAppDispatch();
-  const { scopeName } = useAppState();
-
-  useEffect(() => {
-    console.log('Global scope name updated:', scopeName);
-  }, [scopeName]);
-  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
-  const [tableData, setTableData] = useState<Scope[]>([]);
   const searchParams = useSearchParams();
   const servicename: Nullable<string> = searchParams.get('servicename');
 
-  const params = servicename;
-  const { data: serviceScope, isFetching: isFetching } = useGetServiceScope(params);
-  useEffect(() => {
-    const data = Array.isArray(serviceScope?.data) ? serviceScope.data : [];
-    setTableData(data);
-  }, [serviceScope]);
+  // Fetch service scope data
+  const { data: serviceScope, isFetching } = useGetServiceScope(servicename);
 
-  const [modals, setModals] = useState<Modal>({
-    details: false,
+  // Delete and Add APIs
+  const { mutate: deleteScope } = useDeleteServiceScope();
+  const { mutate: addScope } = useAddServiceScope();
+
+  const [tableData, setTableData] = useState<Scope[]>([]);
+  const [modals, setModals] = useState({
     removeService: false,
   });
+  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
 
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  // Set table data when serviceScope changes
+  useEffect(() => {
+    if (serviceScope) {
+      const formattedData = Array.isArray(serviceScope.data) ? serviceScope.data : [serviceScope]; // Ensure it's an array
+      setTableData(formattedData);
+    }
+  }, [serviceScope]);
+
+  const toggleModal = () => {
+    setModals((prev) => ({ ...prev, removeService: !prev.removeService }));
   };
 
-  const handleDeleteButton = () => {
-    toggleModal('removeService');
+  const chooseScope = (scopeId: Scope) => {
+    if (!servicename) {
+      console.error('Service name is required.');
+      return;
+    }
+
+    addScope(
+      { servicename, scopeId },
+      {
+        onSuccess: () => {
+          setTableData((prev) => [...prev, scopeId]);
+        },
+        onError: (error) => {
+          console.error('Error adding scope:', error);
+        },
+      }
+    );
   };
 
-  const chooseScope = (scope: Scope) => {
-    setSelectedScope(scope); // Update selected scope
-    setTableData([scope]); // Update table data
-    updateScopeAction(dispatch, scope?.name); // Update global context
-  };
-
-  const handleModalDeleteButton = () => {
-    setSelectedScope(null); // Clear the selected scope
-    clearScopeAction(dispatch); // Update global context
-    setTableData([]); // Clear the table data
-    toggleModal('removeService');
+  const handleDeleteScope = (scopeId: string | number) => {
+    if (!servicename) {
+      console.error('Service name is required.');
+      return;
+    }
+    deleteScope(
+      { servicename, scopeId },
+      {
+        onSuccess: () => {
+          setTableData((prev) => prev.filter((item) => item.id !== scopeId));
+          clearScopeAction(dispatch);
+          setSelectedScope(null);
+        },
+        onError: (error) => {
+          console.error('Error deleting scope:', error);
+        },
+      }
+    );
   };
 
   const desktopColumns: ColumnsType<Scope> = [
@@ -93,12 +97,20 @@ export default function Scope({ updateData }) {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
+      render: (description) => (description ? description : '-'), // Show placeholder if description is null
     },
     {
       key: 'remove',
       align: 'center',
-      render: () => (
-        <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+      render: (scope: Scope) => (
+        <Button
+          variant='link'
+          color='error'
+          onClick={() => {
+            setSelectedScope(scope);
+            toggleModal();
+          }}
+        >
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -109,46 +121,58 @@ export default function Scope({ updateData }) {
     {
       title: null,
       key: 'mobileColumn',
-      render: () => {
-        return (
-          <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.name} />
-            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.description} />
-            <Table.MobileColumn
-              minHeight={'40px'}
-              title={t('remove')}
-              value={
-                <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
-                  <S.TrashIcon className='icon-trash' />
-                </Button>
-              }
-            />
-          </UiKitBox>
-        );
-      },
+      render: (scope: Scope) => (
+        <UiKitBox flexDirection='column'>
+          <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={scope?.name} />
+          <Table.MobileColumn
+            minHeight={'40px'}
+            title={t('scope_persian_name')}
+            value={scope?.description || '-'} // Placeholder for null description
+          />
+          <Table.MobileColumn
+            minHeight={'40px'}
+            title={t('remove')}
+            value={
+              <Button
+                className='item__btn'
+                variant='link'
+                color='error'
+                onClick={() => {
+                  setSelectedScope(scope);
+                  toggleModal();
+                }}
+              >
+                <S.TrashIcon className='icon-trash' />
+              </Button>
+            }
+          />
+        </UiKitBox>
+      ),
     },
   ];
 
   return (
-    // <Container>
     <>
-      {/* <ImportFromSso selectedScope={selectedScope} chooseScope={chooseScope} /> */}
-      <ScopeSelector style={{ flex: 1 }} onSelect={chooseScope} disabled={!!selectedScope} />
-      {/* <button onClick={handleSubmit}>Submit Scope</button> */}
-      {console.log(serviceScope, 'serviceScope')}
+      <h3>{t('scope')}</h3>
+
+      <ScopeSelector style={{ flex: 1 }} onSelect={chooseScope} disabled={false} />
+
       <S.Table
         columns={desktopColumns}
         mobileColumns={mobileColumns}
-        dataSource={Array.isArray(tableData) ? tableData : []} // Ensure dataSource is an array
-        rowKey={(row) => row?.idx || 'defaultKey'}
+        dataSource={tableData.length > 0 ? tableData : [{ name: 'No Data', description: null, id: 0 }]} // Placeholder row for empty table
+        rowKey={(row) => row?.id || 'defaultKey'}
         pagination={false}
       />
 
       <RemoveServiceModal
         isOpen={modals.removeService}
-        deleteToggle={handleModalDeleteButton}
-        cancelToggle={() => toggleModal('removeService')}
+        deleteToggle={() => {
+          if (selectedScope?.id) {
+            handleDeleteScope(selectedScope.id);
+          }
+        }}
+        cancelToggle={toggleModal}
         id={selectedScope?.name || ''}
       />
     </>
