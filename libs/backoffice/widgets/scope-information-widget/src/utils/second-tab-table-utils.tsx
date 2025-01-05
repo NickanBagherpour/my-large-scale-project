@@ -16,9 +16,11 @@ type Props = {
   t: TFunction;
   toggleModal: (modal: keyof Modal) => void;
   updateId: (id: number) => void;
+  page: number;
+  rowsPerPage: number;
 };
 export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
-  const { t, toggleModal, updateId } = props;
+  const { t, toggleModal, updateId, page, rowsPerPage } = props;
 
   return [
     {
@@ -27,7 +29,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       key: 'index',
       width: '5rem',
       render: (_val, _record, index) => {
-        const start = 1;
+        const start = page * rowsPerPage + 1;
         return start + index;
       },
     },
