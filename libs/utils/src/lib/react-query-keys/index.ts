@@ -1,4 +1,5 @@
 /*--import--*/
+import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './widgets/request-details-info.key';
 import { KEYS as EDIT_REQUEST_LIST_KEYS } from './widgets/edit-request-list.key';
 import { KEYS as REQUEST_DETAILS_KEYS } from './widgets/request-details.key';
 import { KEYS as REQUEST_MANAGEMENT_KEYS } from './widgets/request-management.key';
@@ -39,6 +40,7 @@ import { KEYS as ROUTE_DETAILS_KEYS } from './widgets/route-details.key';
 
 export const RQKEYS = {
   /*--export--*/
+  REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
   EDIT_REQUEST_LIST: EDIT_REQUEST_LIST_KEYS,
   REQUEST_DETAILS: REQUEST_DETAILS_KEYS,
   REQUEST_MANAGEMENT: REQUEST_MANAGEMENT_KEYS,

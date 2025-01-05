@@ -6,7 +6,7 @@ export interface SubmissionStatus {
 }
 
 export interface CardPropsType {
-  requestId: number;
+  submissionId: number;
   createDate: string; // Use 'string' if storing as text, or consider Date if parsed.
   creator: number;
   modifier: number;
@@ -21,7 +21,7 @@ export interface CardPropsType {
 }
 
 export type AdvanceGridCardPropsType = {
-  btnHandleClick: () => void;
+  btnHandleClick: (submissionId: number) => void;
   btnLoading: boolean;
   data: CardPropsType;
 };
