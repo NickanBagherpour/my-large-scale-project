@@ -65,9 +65,10 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   };
   //Constants
   const hasPagination = tableDataQuery?.totalElements > 5;
-  const desktopColumns = getDesktopColumns({ t, toggleModal, updateId });
-  const mobileColumns = getMobileColumns({ t, toggleModal, updateId });
   const tableData = tableDataQuery?.content;
+  const tabelParams = { t, toggleModal, updateId, page, rowsPerPage };
+  const desktopColumns = getDesktopColumns(tabelParams);
+  const mobileColumns = getMobileColumns(tabelParams);
   return (
     <>
       <S.SecondTabHeader>
@@ -99,6 +100,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         loading={tabelIsFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
+        rowKey={(row) => row.index}
         {...(hasPagination
           ? {
               pagination: { pageSize: rowsPerPage },
