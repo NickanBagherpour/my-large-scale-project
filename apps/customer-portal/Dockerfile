@@ -11,8 +11,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+COPY .npmrc ./
 # Install dependencies based on the preferred package manager
-COPY package.json package-lock.json* ./
+COPY package*.json ./
 RUN npm ci --force --loglevel=verbose
 # RUN npm install --omit=optional --force
 # RUN npm install --only=production --force --loglevel=verbose
