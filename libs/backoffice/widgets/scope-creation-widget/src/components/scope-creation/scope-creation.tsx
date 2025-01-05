@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { FormSchema } from '../../types';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
+import { useCreateScope } from '../../services/create-scope.api';
 
 import * as S from './scope-creation.style';
 
@@ -23,25 +26,18 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm();
+  const { mutate, isPending } = useCreateScope();
+  const queryClient = useQueryClient();
 
   const rule = createSchemaFieldRule(FormSchema(t));
 
-  const submitClick = async () => {
-    try {
-      await form.submit();
-      setIsOpen(false);
-    } catch (error) {
-      return;
-    }
+  const submitClick = () => {
+    form.submit();
   };
 
   const showModal = async () => {
-    try {
-      await form.validateFields();
-      setIsOpen(true);
-    } catch (error) {
-      return;
-    }
+    await form.validateFields();
+    setIsOpen(true);
   };
 
   const onCancel = () => setIsOpen(false);
@@ -50,8 +46,33 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
     router.back();
   };
 
-  const onFinish = async (values) => {
-    // console.log('formValue', values);
+  const onFinish = async (values: any) => {
+    const { latinNameScope, persianNameScope } = values;
+    const params: any = {
+      name: latinNameScope,
+      description: persianNameScope,
+    };
+
+    mutate(params, {
+      onSuccess: async () => {
+        try {
+          await queryClient.invalidateQueries({
+            queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
+          });
+          await queryClient.refetchQueries({
+            queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
+          });
+
+          onCancel();
+          router.push(ROUTES.BACKOFFICE.SCOPE_LIST);
+        } catch (error) {
+          onCancel();
+        }
+      },
+      onError: (error) => {
+        onCancel();
+      },
+    });
   };
 
   const SubmitModal = () => {
@@ -61,6 +82,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         centered={true}
         title={t('create_scope')}
         onCancel={onCancel}
+        confirmLoading={isPending}
         cancelText={t('button.cancel')}
         okText={t('buttons.confirm')}
         onOk={submitClick}
