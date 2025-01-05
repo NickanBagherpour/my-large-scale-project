@@ -31,7 +31,7 @@ build:
       - $BUILD_DIR
     expire_in: 1 week
   only:
-    - deploy
+    - develop
 
 deploy:
   stage: deploy
@@ -48,4 +48,4 @@ deploy:
     - kubectl set image deployment/$KUBERNETES_DEPLOYMENT $KUBERNETES_DEPLOYMENT=$IMAGE_PATH:$VERSION -n $KUBERNETES_NAMESPACE
     - kubectl rollout restart deployment/$KUBERNETES_DEPLOYMENT -n $KUBERNETES_NAMESPACE
   only:
-    - deploy
+    - develop
