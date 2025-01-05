@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
-import { Button, Table } from '@oxygen/ui-kit';
+import { TablePaginationConfig } from 'antd';
+
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { Button, Table } from '@oxygen/ui-kit';
 
 import DetailsModal from './modals/info-service-modal/info-service-modal';
 // import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
@@ -18,21 +20,27 @@ type SecondTabTypes = PageProps & {
 
 const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const { id } = props;
-
+  //Hooks
   const [t] = useTr();
+  //States
   const [serviceId, setServiceId] = useState(undefined);
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
   });
-  const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
+  const [{ page, rowsPerPage }, setPagination] = useState({
     page: 0,
-    size: 10,
-    id: id,
+    rowsPerPage: 5,
   });
 
+  //Queries
+  const { data: tableDataQuery, isFetching: tabelIsFetching } = useGetServicesQuery({
+    page: page,
+    size: rowsPerPage,
+    id: id,
+  });
   const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
-
+  //Handlers
   const updateId = (id) => {
     setServiceId(id);
   };
@@ -46,10 +54,19 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const handleExcleDownload = () => {
     refetch();
   };
-
+  const changePage = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+    if (pageSize && current) {
+      setPagination({
+        page: pageSize === rowsPerPage ? current - 1 : 0,
+        rowsPerPage: pageSize,
+      });
+    }
+  };
+  //Constants
+  const hasPagination = tableDataQuery?.totalElements > 5;
   const desktopColumns = getDesktopColumns({ t, toggleModal, updateId });
   const mobileColumns = getMobileColumns({ t, toggleModal, updateId });
-
   const tableData = tableDataQuery?.content;
   return (
     <>
@@ -82,7 +99,14 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         loading={tabelIsFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
-        pagination={false}
+        {...(hasPagination
+          ? {
+              pagination: { pageSize: rowsPerPage },
+              onChange: changePage,
+              current: page + 1,
+              total: tableDataQuery?.totalElements,
+            }
+          : { pagination: false })}
       />
       {/* uncomment when remove service is needed */}
       {/* <RemoveServiceModal
