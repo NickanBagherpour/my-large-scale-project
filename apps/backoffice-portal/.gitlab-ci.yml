@@ -10,6 +10,7 @@ default:
 variables:
   KUBERNETES_NAMESPACE: "oxygen-plus"
   KUBERNETES_DEPLOYMENT: "back-office-web"
+  NODE_MODULES_DIR: 'node_modules'
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/back-office-web
   VERSION: 1.0.0
 
@@ -23,6 +24,10 @@ build:
     - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/backoffice-portal/Dockerfile . 
     - echo "Pushing Back Office Portal Web Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
+  artifacts:
+    paths:
+      - $NODE_MODULES_DIR
+    expire_in: 1 week
   only:
     - deploy
 
