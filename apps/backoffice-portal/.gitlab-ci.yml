@@ -10,7 +10,7 @@ default:
 variables:
   KUBERNETES_NAMESPACE: "oxygen-plus"
   KUBERNETES_DEPLOYMENT: "back-office-web"
-  NODE_MODULES_DIR: 'node_modules'
+  NODE_MODULES_DIR: './node_modules'
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/back-office-web
   VERSION: 1.0.0
 
