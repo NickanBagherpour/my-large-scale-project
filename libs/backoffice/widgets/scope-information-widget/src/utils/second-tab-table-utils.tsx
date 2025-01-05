@@ -107,14 +107,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
   ];
 }
 
-export function getMobileColumns(props) {
-  const { t, toggleModal } = props;
+export function getMobileColumns(props: Props): ColumnsType<ScopeInformationService> {
+  const { t, toggleModal, updateId } = props;
 
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, path, version, persianName, name }: ScopeInformationService) {
+      render({ id, scope, path, version, persianName, name }: ScopeInformationService) {
         const data = [
           { title: t('second_tab.service_name'), value: getValueOrDash(name) },
           { title: t('second_tab.persian_name'), value: getValueOrDash(persianName) },
@@ -133,7 +133,15 @@ export function getMobileColumns(props) {
           {
             title: t('details'),
             value: (
-              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
+              <S.DetailsBtn
+                className='item__btn'
+                variant='link'
+                color='primary'
+                onClick={() => {
+                  updateId(id);
+                  toggleModal('details');
+                }}
+              >
                 {t('details')}
               </S.DetailsBtn>
             ),
