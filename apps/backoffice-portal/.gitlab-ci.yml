@@ -20,7 +20,7 @@ build:
     - shared
   script:
     - echo "Building Back Office Portal Web Docker image..."
-    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION .
+    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION ./apps/backoffice-portal/
     - echo "Pushing Back Office Portal Web Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
   only:
