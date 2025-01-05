@@ -9,7 +9,6 @@ const Api = {
   },
 
   getRequestsListData: async (params: RequestParamsType) => {
-    // debugger;
     const sort = params.sort === 'newest' ? 'asc' : 'desc';
     // Initialize filteredParams with the searchTerm
     const filteredParams: { [key: string]: string | number | string[] | number[] } = {
@@ -50,11 +49,8 @@ const Api = {
   },
 
   getRequestDraftListData: async () => {
-    // debugger;
-
     try {
       const res = await client.get(`${portalUrl}/v1/submissions/drafts`);
-      // debugger;
       return res;
     } catch (error) {
       console.error('Error fetching requests drafts list:', error);

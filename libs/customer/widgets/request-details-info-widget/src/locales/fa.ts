@@ -1,0 +1,47 @@
+export default {
+  widget_name: 'جزئیات درخواست کلاینت',
+  details_info: 'اطلاعات کلی درخواست',
+  company_info: 'اطلاعات شرکت',
+  representatives_info: 'اطلاعات نمایندگان',
+  requested_services: 'سرویس‌های درخواستی',
+
+  legal_name: 'نام و نام خانوادگی نماینده',
+  technical_name: 'نام و نام خانوادگی نماینده فنی',
+  telephone: 'تلفن ثابت',
+  detailed: 'جزئیات',
+  registered_request_successfully: 'درخواست با موفقیت ثبت شد.',
+  follow_code: 'کد پیگیری درخواست :',
+  return_to_request: 'بازگشت به مدیریت درخواست‌ها',
+  public: 'عام',
+  private: 'خاص',
+  return: 'بازگشت',
+
+  form: {
+    //firstStep
+    org_name: 'نام سازمان',
+    client_name: 'نام کلاینت',
+    company_representative_name: 'نام نماینده شرکت',
+    aggregator: 'اگریگیتور',
+    aggregator_specifications: 'مشخصات اگریگیتور',
+    legal_person_name: 'نام شخص حقوقی',
+    legal_person_type: 'نوع شخص حقوقی',
+    registration_number: 'شماره ثبت',
+    registration_date: 'تاریخ ثبت',
+    national_id: 'شناسه ملی',
+    economy_code: 'کد اقتصادی',
+    activity_field: 'زمینه فعالیت',
+    postal_code: 'کد پستی',
+    phone: 'تلفن',
+    last_registration_address: 'آخرین آدرس ثبتی',
+    aggregator_status: 'وضعیت اگریگیتور',
+    //secondStep
+    persian_name: 'نام و نام‌خانوادگی',
+    mobile_number: 'شماره موبایل',
+    Phone_number: 'شماره تلفن ثابت',
+  },
+  table_header: {
+    row: 'ردیف',
+    name: 'نام سرویس',
+    persian_name: 'نام فارسی',
+  },
+};

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@oxygen/utils';
 import Filters from '../filters/filters';
 import Requests from '../requests/requests';
 
@@ -37,10 +39,11 @@ const App: React.FC<AppProps> = (props) => {
   }, [drafts]);
 
   const [t] = useTr();
+  const router = useRouter();
 
   const requestsSubTitle = requests?.length ? `(${requests?.length ?? 0})` : '';
-  const handleClick = () => {
-    console.log('handle click');
+  const handleClick = (submissionId: number) => {
+    router.replace(`${ROUTES.CUSTOMER.REQUEST_DETAILS_INFO}?submissionId=${submissionId}`);
   };
 
   const handleDeleteDraft = (submissionId: number) => {
@@ -80,7 +83,7 @@ const App: React.FC<AppProps> = (props) => {
               {requests.map((request: any, index: number) => (
                 <AdvanceGridCard
                   key={index}
-                  btnHandleClick={handleClick}
+                  btnHandleClick={(submissionId) => handleClick(submissionId)}
                   btnLoading={isRequestsFetching}
                   data={request}
                 />

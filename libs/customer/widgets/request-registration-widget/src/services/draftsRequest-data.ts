@@ -27,19 +27,6 @@ export const useGetRequestDataQuery = (submissionId: string) => {
   });
 };
 
-// export const useGetRequestDataFromDraftsMutationQuery = () => {
-//   debugger;
-//   const dispatch = useAppDispatch();
-
-//   return useMutation({
-//     mutationFn: (submissionId: number) => Api.geRequestData(submissionId),
-//     onError: (e) => {
-//       const err = ApiUtil.getErrorMessage(e);
-//       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
-//     },
-//   });
-// };
-
 export const useGetRequestDataFromDraftsMutationQuery = () => {
   const dispatch = useAppDispatch();
 
