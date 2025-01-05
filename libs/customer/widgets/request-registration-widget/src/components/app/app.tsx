@@ -47,11 +47,11 @@ const App: React.FC<AppProps> = (props) => {
   let stepValue: StepsItemKey = StepsItemKey.FirstStep;
   if (stepName) {
     if (stepName === 'تعریف سازمان') {
-      stepValue = StepsItemKey.FirstStep;
-    } else if (stepName === 'تعریف نمایندگان') {
       stepValue = StepsItemKey.SecondStep;
-    } else if (stepName === 'انتخاب سرویس') {
+    } else if (stepName === 'تعریف نمایندگان') {
       stepValue = StepsItemKey.ThirdStep;
+    } else if (stepName === 'انتخاب سرویس') {
+      stepValue = StepsItemKey.FourthStep;
     }
   }
 
@@ -60,10 +60,8 @@ const App: React.FC<AppProps> = (props) => {
     if (submissionId && stepName) {
       draftsMutate(submissionId, {
         onSuccess: (data) => {
-          debugger;
+          console.log('get data from drafts successful:', data);
           updateAllStateFromDraftsAction(dispatch, data.data);
-          console.log('Request registration first step successful:', data);
-          // Additional success logic
         },
         onError: (error) => {
           console.error('Request registration first step failed:', error);
@@ -77,7 +75,14 @@ const App: React.FC<AppProps> = (props) => {
   const stepsItem = [
     {
       title: t('progress_bar.first_step'),
-      Content: <FirstStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
+      Content: (
+        <FirstStep
+          setCurrentStep={setCurrentStep}
+          data={requestData}
+          loading={isFetching}
+          draft={stepName ? true : false}
+        />
+      ),
     },
     { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.third_step'), Content: <ThirdStep setCurrentStep={setCurrentStep} /> },

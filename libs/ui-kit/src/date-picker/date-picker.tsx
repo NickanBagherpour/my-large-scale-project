@@ -23,7 +23,6 @@ export const DatePicker = (props: DatePickerProps) => {
     disabledDate,
     ...rest
   } = props;
-  debugger;
   const defVal = defaultValue ?? (defaultValueStr ? dayjs(defaultValueStr) : null);
 
   const handleDisableDate = (current) => {

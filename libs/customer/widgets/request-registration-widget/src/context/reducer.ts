@@ -111,16 +111,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_ALL_STATE_FROM_DRAFTS': {
-      // debugger;
-      // console.log(action.payload);
-      // const jalaliDate = '1403/10/20'; // Jalali date in YYYY/MM/DD format
-
-      // // Parse the Jalali date and convert it to a Day.js object
-      // const parsedDate = dayjs(jalaliDate, { format: 'YYYY/MM/DD' });
-
-      // console.log(parsedDate.toISOString()); // ISO string format
-      // console.log(parsedDate.toDate()); // JavaScript Date object
-
       state.firstStep.aggregator_status = action.payload.isAggregator
         ? 'isAggregator'
         : action.payload.aggregatorId
@@ -130,9 +120,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.firstStep.legal_person_name = action.payload.organization.legalName;
       state.firstStep.legal_person_type = action.payload.organization.legalType === 'PUBLIC' ? '1' : '2';
       state.firstStep.registration_number = action.payload.organization.registerNo;
-      state.firstStep.registration_date = dayjs(action.payload.organization.registerDate, { format: 'YYYY/MM/DD' });
+      state.firstStep.registration_date = dayjs(action.payload.organization.registerDate).calendar('gregory');
+
       state.firstStep.national_id = action.payload.organization.organizationNationalId;
       state.firstStep.economy_code = action.payload.organization.economicCode;
+      state.firstStep.activity_field = action.payload.organization.activityIndustry;
       state.firstStep.postal_code = action.payload.organization.postalCode;
       state.firstStep.phone = action.payload.organization.phone;
       state.firstStep.last_registration_address = action.payload.organization.registeredAddress;
@@ -140,23 +132,13 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.submissionId = action.payload.submissionInfoDto.submissionId;
       state.requestMode = 'registerOrganization';
       state.firstStepDisabledSubmit = false;
-
-      // {
-      //   aggregator_status: 'nothing',
-      //   aggregator_value: undefined,
-      //   legal_person_name: undefined,
-      //   legal_person_type: undefined,
-      //   registration_number: undefined,
-      //   registration_date: undefined,
-      //   national_id: undefined,
-      //   economy_code: undefined,
-      //   activity_field: undefined,
-      //   postal_code: undefined,
-      //   phone: undefined,
-      //   last_registration_address: undefined,
-      // },
-      // state.submissionId = action.payload.submissionId;
-
+      state.secondStep.persian_name = action.payload.representativeSet[0]?.nameAndLastName;
+      state.secondStep.mobile_number = action.payload.representativeSet[0]?.mobileNumber;
+      state.secondStep.phone_number = action.payload.representativeSet[0]?.fixedPhoneNumber;
+      state.secondStep.technical_persian_name = action.payload.representativeSet[1]?.nameAndLastName;
+      state.secondStep.technical_mobile_number = action.payload.representativeSet[1]?.mobileNumber;
+      state.secondStep.technical_Phone_number = action.payload.representativeSet[1]?.fixedPhoneNumber;
+      state.thirdStep.table = action.payload.services;
       return;
     }
 

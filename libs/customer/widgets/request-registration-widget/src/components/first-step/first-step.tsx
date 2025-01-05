@@ -35,10 +35,11 @@ type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
   data?: any;
   loading?: boolean;
+  draft?: boolean;
 };
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
-  const { setCurrentStep, data, loading } = props;
+  const { setCurrentStep, data, loading, draft } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const { ...fetchState } = useAppState();
@@ -68,13 +69,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const checkFields = (_, allFields) => {
     const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
-    setIsSubmitDisabled(hasErrors);
+    if (!draft) {
+      setIsSubmitDisabled(hasErrors);
+    }
   };
 
   type Status = WidgetStateType['status'];
 
   const onFinish = (values) => {
-    debugger;
     if (!aggregatorIsRequired) {
       const params = {
         aggregator_status: state.firstStep.aggregator_status,
