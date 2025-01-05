@@ -25,9 +25,11 @@ build:
     - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/backoffice-portal/Dockerfile . 
     - echo "Pushing Back Office Portal Web Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
+  cache:
+    paths:
+    - $NODE_MODULES_DIR
   artifacts:
     paths:
-      - $NODE_MODULES_DIR
       - $BUILD_DIR
     expire_in: 1 week
   only:
