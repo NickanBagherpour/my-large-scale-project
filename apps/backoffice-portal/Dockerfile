@@ -68,3 +68,4 @@ ENV PORT 3200
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/outputs
 CMD HOSTNAME="0.0.0.0" node .next/apps/${portalName}-portal/server.js
+
