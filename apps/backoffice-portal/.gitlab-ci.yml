@@ -5,7 +5,7 @@ stages:
 default:
   image: repo.sadad.ir/docker:dind
   before_script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
+    - docker login -u $REGISTRY_USER -p $REGISTRY_Password $REGISTRY
 
 variables:
   KUBERNETES_NAMESPACE: "oxygen-plus"
