@@ -23,7 +23,7 @@ build:
     - shared
   script:
     - echo "Building Business Portal Web Docker image..."
-    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/business-portal/Dockerfile . 
+    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/business-portal/Dockerfile . --no-cache
     - echo "Pushing Business Portal Web Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
   cache:
