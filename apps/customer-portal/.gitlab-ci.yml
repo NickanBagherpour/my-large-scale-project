@@ -9,7 +9,7 @@ default:
 
 variables:
   KUBERNETES_NAMESPACE: "oxygen-plus"
-  KUBERNETES_DEPLOYMENT: "client-portal-web"
+  KUBERNETES_DEPLOYMENT: "customer-portal-web"
   NODE_MODULES_DIR: 'node_modules/'
   BUILD_DIR: 'dist/'
   BUILD_CACHE_KEY: build-cache
