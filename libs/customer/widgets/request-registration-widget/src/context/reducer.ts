@@ -111,15 +111,15 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_ALL_STATE_FROM_DRAFTS': {
-      debugger;
-      console.log(action.payload);
-      const jalaliDate = '1403/10/20'; // Jalali date in YYYY/MM/DD format
+      // debugger;
+      // console.log(action.payload);
+      // const jalaliDate = '1403/10/20'; // Jalali date in YYYY/MM/DD format
 
-      // Parse the Jalali date and convert it to a Day.js object
-      const parsedDate = dayjs(jalaliDate, { format: 'YYYY/MM/DD' });
+      // // Parse the Jalali date and convert it to a Day.js object
+      // const parsedDate = dayjs(jalaliDate, { format: 'YYYY/MM/DD' });
 
-      console.log(parsedDate.toISOString()); // ISO string format
-      console.log(parsedDate.toDate()); // JavaScript Date object
+      // console.log(parsedDate.toISOString()); // ISO string format
+      // console.log(parsedDate.toDate()); // JavaScript Date object
 
       state.firstStep.aggregator_status = action.payload.isAggregator
         ? 'isAggregator'
