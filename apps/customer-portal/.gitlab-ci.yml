@@ -9,9 +9,9 @@ default:
 
 variables:
   KUBERNETES_NAMESPACE: "oxygen-plus"
-  KUBERNETES_DEPLOYMENT: "customer-portal-web"
-  NODE_MODULES_DIR: 'node_modules/'
-  BUILD_DIR: 'dist/'
+  KUBERNETES_DEPLOYMENT: "client-portal-web"
+  NODE_MODULES_DIR: "node_modules"
+  BUILD_DIR: "dist"
   BUILD_CACHE_KEY: build-cache
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/customer-portal-web
   VERSION: 1.0.0
