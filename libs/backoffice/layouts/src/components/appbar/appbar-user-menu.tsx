@@ -11,10 +11,10 @@ enum MenuItemKey {
   ChangeLanguage = 'changeLanguage',
   BackgroundColor = 'backgroundColor',
   Divider = 'divider',
-  ChangePassword = 'changePassword',
   Username = 'username',
   Logout = 'logout',
-  EditInfo = 'editInfo',
+  // ChangePassword = 'changePassword',
+  // EditInfo = 'editInfo',
 }
 
 export default function AppbarUserMenu({
@@ -87,16 +87,16 @@ export default function AppbarUserMenu({
       variant === 'auth'
         ? []
         : [
-            {
-              label: `${t('appbar.edit_info')}`,
-              icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
-              key: MenuItemKey.EditInfo,
-            },
-            {
-              label: `${t('appbar.change_password')}`,
-              icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
-              key: MenuItemKey.ChangePassword,
-            },
+            // {
+            //   label: `${t('appbar.edit_info')}`,
+            //   icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
+            //   key: MenuItemKey.EditInfo,
+            // },
+            // {
+            //   label: `${t('appbar.change_password')}`,
+            //   icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
+            //   key: MenuItemKey.ChangePassword,
+            // },
             {
               label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
               icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
