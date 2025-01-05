@@ -1,17 +1,29 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AssignScopeToServiceParams } from '../types';
-import { updateMessageAction, useAppDispatch } from '../context';
+import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
-import { ApiUtil } from '@oxygen/utils';
+import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
 export const usePostRegisterToBaam = () => {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const { serviceName } = useAppState();
 
   return useMutation({
     mutationFn: (params: AssignScopeToServiceParams) => Api.postRegisterToBaam(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
+    },
+    async onSuccess() {
+      await queryClient.invalidateQueries({
+        queryKey: [RQKEYS.SERVICE_CREATION.SERVICE, serviceName],
+      });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName] });
+      await queryClient.invalidateQueries({
+        queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
+        refetchType: 'none',
+      });
     },
   });
 };

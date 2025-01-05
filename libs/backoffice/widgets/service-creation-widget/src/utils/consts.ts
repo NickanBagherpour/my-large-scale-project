@@ -1,8 +1,6 @@
 export const UPSTREAMS_PAGE_SIZE = 8; // Defined based on UI design requirements.
 export const SCOPE_PAGE_SIZE = 10; // Value confirmed by the analysis team.
 
-export const DRAFT_STATUS_CODE = 2;
-
 export enum InquiryStatus {
   'SERVICE_ALREADY_EXISTS' = 1,
   'SERVICE_IS_DRAFT' = 2,
@@ -10,7 +8,7 @@ export enum InquiryStatus {
   'SERVICE_EXISTS_IN_BAAM' = 4,
 }
 
-export const FORM_ITEM_NAMES = {
+export const SERVICE_NAMES = {
   englishName: 'englishName',
   persianName: 'persianName',
   access: 'access',
@@ -21,19 +19,9 @@ export const FORM_ITEM_NAMES = {
   tags: 'tags',
 } as const;
 
-export const IMPORT_FORM_SSO_NAMES = {
-  existingScopeName: 'existingScopeName',
-} as const;
-
 export const ROUTE_NAMES = {
   actionOrMethod: 'actionOrMethod',
   protocol: 'protocol',
   path: 'path',
   host: 'host',
-} as const;
-
-export const ADD_SERVER_NAMES = {
-  domainOrIpPort: 'domainOrIpPort',
-  weight: 'weight',
-  health: 'health',
 } as const;

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Tag } from '@oxygen/ui-kit';
-
 import { CodeTitle, RequestStatus } from '../types';
+
+import * as S from '../components/details-collapse/details-collapse.style';
+import { Tag } from '@oxygen/ui-kit';
 
 export function renderRequestStatus(t, requestStatus: CodeTitle) {
   const { code, title } = requestStatus;
@@ -40,7 +41,7 @@ export function renderRequestStatus(t, requestStatus: CodeTitle) {
       icon={statusIcon}
       type={type}
       bordered={requestStatus?.code === RequestStatus.APPROVED_BY_BUSINESS_UNIT}
-      style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', height: '2.4rem' }}
+      style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
     >
       {title ?? defaultTitle}
     </Tag>

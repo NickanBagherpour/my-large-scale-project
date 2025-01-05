@@ -1,19 +1,20 @@
 'use client';
 import { CSSProperties, useState } from 'react';
 
-import { AutoCompleteProps } from 'antd';
-import { useTheme } from 'styled-components';
-import { AutoComplete as AntAutoComplete } from 'antd';
+import { AutoComplete as AntAutoComplete, AutoCompleteProps } from 'antd';
 
+import { useAppTheme } from '@oxygen/hooks';
 import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import * as S from './advance-selector.style';
+
 export type dataType = {
   id?: string | number;
   title: string;
   subTitle?: string;
 };
+
 type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {
   className?: string;
   style?: CSSProperties;
@@ -46,7 +47,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
 
   const MAX_LENGTH = 75;
 
-  const theme = useTheme();
+  const theme = useAppTheme();
   const [t] = useTr();
 
   const [searchTerm, setSearchTerm] = useState('');

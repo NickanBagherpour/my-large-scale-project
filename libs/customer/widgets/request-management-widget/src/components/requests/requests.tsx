@@ -37,7 +37,7 @@ export default function Clients(props: Props) {
         ))}
       </S.Grid>
 
-      {showLoadMore && (
+      {/* {showLoadMore && (
         <S.Button
           loading={isLoading}
           variant='link'
@@ -48,7 +48,7 @@ export default function Clients(props: Props) {
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
         </S.Button>
-      )}
+      )} */}
     </>
   );
 }

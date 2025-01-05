@@ -1,5 +1,5 @@
-import { PaginationType } from '../context/types';
 import { Nullable } from '@oxygen/types';
+import { PaginationType } from '../context/types';
 
 export type OperationStatusType = {
   title: string;
@@ -13,15 +13,18 @@ export type PaginationResultType = {
 };
 
 export type FetchSubmissionDetailParamsType = {
+  role: Nullable<string>;
   submissionId: SubmissionId;
 };
 export type FetchRequestedServicesParamsType = {
   // filters?: FiltersType;
+  role: Nullable<string>;
   submissionId: SubmissionId;
   pagination: PaginationType;
 };
 
 export type PostSubmissionReviewParamsType = {
+  role: Nullable<string>;
   submissionId: SubmissionId;
   expertOpinion: number;
   description: string;
@@ -35,6 +38,7 @@ export type CodeTitle = {
 };
 
 export enum RequestStatus {
+  DRAFT = 1,
   UNDER_REVIEW_COMMERCIAL_BANK = 2,
   REJECTED_BY_COMMERCIAL_BANK,
   APPROVED_BY_COMMERCIAL_BANK,
@@ -82,11 +86,15 @@ interface Organization {
   aggregatorName: Nullable<string>;
 }
 
-interface Representative {
+export enum RepresentativeType {
+  TECHNICAL = 1,
+  STANDARD,
+}
+export interface Representative {
   name: string;
   mobileNumber: string;
   fixedPhone: string;
-  type: number;
+  type: RepresentativeType;
 }
 
 interface Service {

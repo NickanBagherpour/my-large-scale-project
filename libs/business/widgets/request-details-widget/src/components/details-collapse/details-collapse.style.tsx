@@ -1,5 +1,18 @@
 import styled from 'styled-components';
-import { Button } from '@oxygen/ui-kit';
+import { Button, Divider } from '@oxygen/ui-kit';
+
+export const StyledContainer = styled.div`
+  padding: 1.2rem 3.2rem 3.2rem 3.2rem;
+  background-color: ${(p) => p.theme.background._50};
+  border: 1px solid ${(p) => p.theme.border._300};
+  border-radius: 2.4rem;
+
+  & h2:not(:first-child) {
+    margin-top: 2.4rem;
+  }
+
+  margin-top: 1.6rem;
+`;
 
 export const Container = styled.div`
   margin-bottom: 1.6rem;
@@ -7,6 +20,21 @@ export const Container = styled.div`
 
   & .ant-collapse-item.organization-info-box .grid-item:nth-last-child(3) {
     grid-column: span 2;
+  }
+
+  & .ant-collapse-item.representative-info-box {
+    & .grid-item {
+      gap: 0;
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+    .info-box__title {
+      font-weight: 600;
+    }
+
+    .info-box__value {
+      font-weight: 400;
+    }
   }
 
   & .ant-collapse-content-box {
@@ -63,11 +91,15 @@ export const CollapseTitle = styled.span`
   justify-content: flex-start;
   gap: 1.6rem;
 
-  & .status-icon {
+  i.status-icon {
+    margin: 0.3rem 0.2rem;
     font-size: 2rem;
   }
 `;
 
 export const StyledButton = styled(Button)`
   border-radius: 50%;
+`;
+export const StyledDivider = styled(Divider)`
+  border-color: ${(p) => p.theme.border.main};
 `;

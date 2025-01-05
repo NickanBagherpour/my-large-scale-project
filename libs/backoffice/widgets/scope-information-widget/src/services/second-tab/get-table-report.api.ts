@@ -9,7 +9,7 @@ export const useGetServicesQuery = (params) => {
   const dispatch = useAppDispatch();
   return useQuery({
     queryKey: [RQKEYS.CLIENT_DETAILS.SERVICES, params],
-    queryFn: withErrorHandling(() => Api.getServicesData(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getScopeServicesData(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

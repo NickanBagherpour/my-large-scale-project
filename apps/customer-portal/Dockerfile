@@ -1,10 +1,9 @@
-# Declare PORTAL_NAME as a global build argument
-ARG PORTAL_NAME="customer"
+ARG portalName="customer"
 
 FROM node:20-alpine AS base
 
-ARG PORTAL_NAME
-ENV PORTAL_NAME=${PORTAL_NAME}
+ARG portalName
+ENV portalName=${portalName}
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -21,18 +20,18 @@ RUN npm ci --force --loglevel=verbose
 
 # Rebuild the source code only when needed
 FROM base AS builder
-#ARG PORTAL_NAME # Re-declare PORTAL_NAME to use in subsequent stages
+#ARG portalName # Re-declare portalName to use in subsequent stages
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-#COPY ./apps/${PORTAL_NAME}-portal ./apps/${PORTAL_NAME}-portal
+#COPY ./apps/${portalName}-portal ./apps/${portalName}-portal
 
 # Build the Next.js app
-RUN npm run build-${PORTAL_NAME}
+RUN npm run build-${portalName}
 
 # Production image, copy all the files and run next
 FROM base AS runner
-#ARG PORTAL_NAME # Re-declare PORTAL_NAME to use in subsequent stages
+#ARG portalName # Re-declare portalName to use in subsequent stages
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -47,9 +46,9 @@ RUN chown nextjs:nodejs .next
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 # COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/portal/.next/ ./.next
-COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/${PORTAL_NAME}-portal/.next/standalone ./.next
-COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/${PORTAL_NAME}-portal/.next/static ./.next/dist/apps/${PORTAL_NAME}-portal/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/${PORTAL_NAME}-portal/public .next/apps/${PORTAL_NAME}-portal/public
+COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/${portalName}-portal/.next/standalone ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/${portalName}-portal/.next/static ./.next/dist/apps/${portalName}-portal/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/${portalName}-portal/public .next/apps/${portalName}-portal/public
 
 # COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 

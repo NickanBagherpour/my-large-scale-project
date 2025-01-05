@@ -9,10 +9,11 @@ export enum LocalStorageKey {
 }
 
 export enum CookieKey {
+  CONFIG = 'configuration',
   SESSION_ID = 'session-id',
   SESSION_TICKET = 'session-ticket',
   S_SESSION_ID = 's-session-id',
-  CONFIG = 'configuration',
+  INFO = 'info',
 }
 
 export enum UserType {
@@ -20,4 +21,9 @@ export enum UserType {
   BRANCH_SUPERVISOR = 'BRANCH_SUPERVISOR',
   OPERATION_OFFICE_USER = 'OPERATION_OFFICE_USER',
   NONE = 'NONE',
+}
+
+export enum UserRole {
+  COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
+  BUSINESS_ADMIN = 'business-admin',
 }

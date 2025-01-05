@@ -1,7 +1,9 @@
-import { Meta, StoryFn } from '@storybook/react';
-import { Table, TableProps, PaginationType, ColumnsType } from './table';
 import { TFunction } from 'i18next';
-import { DefaultTheme } from 'styled-components/dist/types';
+import { Meta, StoryFn } from '@storybook/react';
+
+import { ITheme } from '@oxygen/types';
+
+import { Table, TableProps, PaginationType, ColumnsType } from './table';
 import { MobileColumnType } from './mobile-columns';
 
 export function getMobileColumns(props?: Props): ColumnsType<any> {
@@ -209,5 +211,5 @@ AllVariants.parameters = {
 };
 type Props = {
   t?: TFunction;
-  theme?: DefaultTheme;
+  theme?: ITheme;
 };

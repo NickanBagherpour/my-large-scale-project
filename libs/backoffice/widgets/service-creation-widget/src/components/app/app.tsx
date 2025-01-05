@@ -21,7 +21,7 @@ import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
-import { DRAFT_STATUS_CODE, InquiryStatus } from '../../utils/consts';
+import { InquiryStatus } from '../../utils/consts';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
@@ -50,13 +50,12 @@ const App = () => {
       const { serviceInquiryStatus, serviceProgress } = data;
       const step = serviceProgress?.step ?? 1; // If `serviceProgress` is undefined (e.g., the service does not exist), default to step 0, indicating that the process should start from the first step.
       const statusCode = serviceInquiryStatus.code;
-      const isDraft = statusCode === InquiryStatus.SERVICE_IS_DRAFT;
-      const isNew = statusCode === InquiryStatus.SERVICE_NOT_FOUND;
+      const serviceExists = statusCode === InquiryStatus.SERVICE_ALREADY_EXISTS;
 
-      if (isDraft || isNew) {
-        addInitialStep(dispatch, (step - 1) as StepIndex);
-      } else {
+      if (serviceExists) {
         router.replace(ROUTES.BACKOFFICE.SERVICE_LIST);
+      } else {
+        addInitialStep(dispatch, (step - 1) as StepIndex);
       }
     }
   }, [isSuccess, dispatch, data, router]);

@@ -16,7 +16,7 @@ const Api = {
     return client.get<InquiryDto>(`${portalUrl}/v1/services/service-inquiry`, { params });
   },
   uploadService: async (serviceName: string) => {
-    return client.post(`${portalUrl}v1/services/import-service`, { 'service-name': serviceName });
+    return client.post(`${portalUrl}/v1/services/import-service?service-name=${serviceName}`);
   },
 };
 export default Api;

@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { auth } from '@oxygen/customer/auth';
 import { ROUTES } from '@oxygen/utils';
+import { CookieKey } from '@oxygen/types';
 
 // Function to check if a URL has the same origin as the request
 function isSameOrigin(request: NextRequest, url: string | null): boolean {
@@ -15,7 +16,8 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 }
 
 export default async function middleware(request: NextRequest) {
-  const session = await auth();
+  // const session = await auth();
+  const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
   const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH]; // Define public paths here
 
@@ -46,13 +48,13 @@ export default async function middleware(request: NextRequest) {
   // Handle non-API routes
   if (isProtectedRoute) {
     // If there is no session user, redirect to the login page
-    if (!session?.user) {
+    if (!token) {
       return NextResponse.redirect(new URL(ROUTES.CUSTOMER.AUTH, request.url));
     }
   }
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
-  if (session?.user && publicPaths.some((path) => pathname === path)) {
+  if (token && publicPaths.some((path) => pathname === path)) {
     return NextResponse.redirect(new URL(ROUTES.CUSTOMER.REQUEST_MANAGEMENT, request.url));
   }
 

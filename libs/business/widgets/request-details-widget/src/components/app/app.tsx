@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 
-import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { useAuth } from '@oxygen/hooks';
 import { Loading } from '@oxygen/ui-kit';
 
 import {
@@ -15,21 +14,21 @@ import {
   useAppState,
 } from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
-import { SubmissionId, UserRole } from '../../types';
+import { SubmissionId } from '../../types';
+import { useGetSubmissionDetailQuery } from '../../services';
 
 import * as S from './app.style';
 
 type AppProps = PageProps & {
-  //
+  role?: Nullable<string>;
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const role = props.parentProps?.role as Nullable<string>;
+
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
-  const { user } = useAuth();
-  const userRole: Nullable<UserRole> = user?.role;
 
   const { message } = state;
 
@@ -37,29 +36,55 @@ const App: React.FC<AppProps> = (props) => {
   const submissionId: SubmissionId = searchParams.get('requestId');
 
   useEffect(() => {
+    if (!submissionId) notFound();
     updateSubmissionIdAction(dispatch, submissionId);
   }, [submissionId]);
 
   useEffect(() => {
-    updateUserRoleAction(dispatch, userRole);
-  }, [userRole]);
+    if (!role) notFound();
+    updateUserRoleAction(dispatch, role);
+  }, [role]);
 
   const router = useRouter();
   const handleReturn = () => {
     router.back();
   };
+  const { data: submissionData, isFetching, error } = useGetSubmissionDetailQuery(prepareParams());
+
+  function prepareParams() {
+    const params = {
+      role: role,
+      submissionId: submissionId,
+    };
+    return params;
+  }
+
+  if (error) return <NoResult isLoading={false} />;
+  if (!submissionData) return <Loading spinning={isFetching} />;
 
   const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 
+  const clientName = submissionData?.submissionInfoDto?.clientName;
+
   return (
-    <S.AppContainer title={t('request_details')} footer={footerButton}>
+    <S.AppContainer
+      title={clientName ? t('request_details_client', { clientName: clientName }) : t('request_details')}
+      footer={footerButton}
+    >
       <GlobalMessageContainer
         message={message}
         onClose={() => {
           resetMessageAction(dispatch);
         }}
       />
-      {submissionId && userRole ? <DetailsCollapse /> : <Loading spinning={true} />}
+
+      {submissionData ? (
+        <DetailsCollapse data={submissionData} />
+      ) : (
+        <S.LoadingContainer>
+          <Loading spinning={true} />
+        </S.LoadingContainer>
+      )}
     </S.AppContainer>
   );
 };

@@ -6,11 +6,10 @@ import Link from 'next/link';
 import { useTr } from '@oxygen/translation';
 import { IConfig, ThemeID } from '@oxygen/types';
 import { Button, Icons, ThemeSwitch } from '@oxygen/ui-kit';
-import { useAuth } from '@oxygen/hooks';
+import { useAuth, useAppTheme } from '@oxygen/hooks';
 import { ENV_CONSTANTS, ROUTES } from '@oxygen/utils';
 
 import AppbarUserMenu from './appbar-user-menu';
-import { useTheme } from 'styled-components';
 
 import * as S from './appbar.style';
 
@@ -28,7 +27,7 @@ const Appbar = (props: AppBarProps) => {
   const [t] = useTr();
   const { user, setUser } = useAuth();
   // const { asyncState: stateUserProfile, execute: executeUserProfile } = useAsync();
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   // console.log('test', 'user', user);
 

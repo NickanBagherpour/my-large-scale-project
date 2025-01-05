@@ -1,15 +1,16 @@
 export default {
   widget_name: 'مدیریت اسکوپ ',
   add_scope: 'افزودن اسکوپ',
+  search: 'جستجو',
   table: {
     index: 'ردیف',
     persian_name_scope: 'نام فارسی اسکوپ',
     latin_name_scope: 'نام لاتین اسکوپ',
     details: 'جزئیات',
-    title: 'لیست سرویس های اسکوپ',
+    title: 'لیست اسکوپ‌ها',
   },
   placeholder: {
-    search_by_name_or_id: 'جستجو بر اساس نام و یا ID',
+    search_by_name: 'جستجو بر اساس نام',
   },
   error: {
     english_character: 'لطفا مقادیر را به انگلیسی وارد کنید',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { type CollapseProps } from 'antd';
+import { type CollapseProps, Tooltip } from 'antd';
 
 import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
@@ -10,35 +10,25 @@ import RequestedServices from '../requested-services/requested-services';
 import { SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
-import { useGetSubmissionDetailQuery } from '../../services';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
 import RequestResultBox from '../request-result-box/request-result-box';
 
 import * as S from './details-collapse.style';
 
 type Props = {
-  //
+  data: SubmissionDetailType;
 };
 
 const DetailsCollapse: React.FC<Props> = (props) => {
+  const { data } = props;
   const state = useAppState();
   const [t] = useTr();
   const userRole = state?.userRole;
 
-  const { data, isFetching, error } = useGetSubmissionDetailQuery(prepareParams());
-
-  function prepareParams() {
-    const params = {
-      submissionId: state?.submissionId,
-    };
-    return params;
-  }
-
-  if (error) return <NoResult isLoading={false} />;
-  if (!data) return <Loading spinning={isFetching} />;
+  if (!data) return <NoResult isLoading={false} />;
 
   const { submissionInfoDto, organization, representativeSet, services } = data;
-
+  const representativeName = (representativeSet && representativeSet.find((rep) => rep?.type === 1)?.name) ?? '';
   const status = submissionInfoDto?.submissionStatus;
 
   const items: CollapseProps['items'] = [
@@ -50,18 +40,38 @@ const DetailsCollapse: React.FC<Props> = (props) => {
           {renderRequestStatus(t, status)}
         </S.CollapseTitle>
       ),
-      children: <InfoBox data={getSubmissionInfo(submissionInfoDto, t)} margin={0} />,
+      children: submissionInfoDto ? (
+        <InfoBox data={getSubmissionInfo(submissionInfoDto, representativeName, t)} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          {' '}
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
     },
     {
       key: '2',
       label: t('organization_info'),
-      children: <InfoBox data={getOrganizationInfo(organization, t)} margin={0} />,
+      children: organization ? (
+        <InfoBox data={getOrganizationInfo(organization, t)} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
       className: 'organization-info-box',
     },
     {
       key: '3',
       label: t('representative_info'),
-      children: <InfoBox data={getRepresentativeInfo(representativeSet, t)} minColumnCount={3} margin={0} />,
+      children: representativeSet ? (
+        <InfoBox data={getRepresentativeInfo(representativeSet, t)} minColumnCount={3} margin={0} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
+      className: 'representative-info-box',
     },
     {
       key: '4',
@@ -69,23 +79,31 @@ const DetailsCollapse: React.FC<Props> = (props) => {
         <S.TitleWrapper>
           {t('requested_services')}
           {userRole !== UserRole.COMMERCIAL_BANKING_ADMIN && (
-            <S.StyledButton
-              type='primary'
-              style={{ margin: 0 }}
-              icon={<i className='icon-edit' />}
-              href={ROUTES.BUSINESS.REQUESTS_MANAGEMENT}
-            />
+            <Tooltip title={t('edit_requested_services')}>
+              <S.StyledButton
+                type='primary'
+                style={{ margin: 0 }}
+                icon={<i className='icon-edit' />}
+                // href={`${ROUTES.BUSINESS.REQUESTS_MANAGEMENT}?submissionId=${state?.submissionId}`}
+              />
+            </Tooltip>
           )}
         </S.TitleWrapper>
       ),
-      children: <RequestedServices data={services} isLoading={isFetching} />,
+      children: services ? (
+        <RequestedServices data={services} isLoading={false} />
+      ) : (
+        <S.StyledContainer>
+          <NoResult isLoading={false} />
+        </S.StyledContainer>
+      ),
     },
   ];
 
   return (
     <S.Container>
-      <Collapse items={items} />
-      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={isFetching} />}
+      <Collapse items={items} collapsible={'icon'} />
+      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={true} />}
     </S.Container>
   );
 };

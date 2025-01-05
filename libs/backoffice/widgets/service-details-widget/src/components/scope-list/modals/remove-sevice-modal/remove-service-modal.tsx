@@ -1,6 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import { Button, Modal } from '@oxygen/ui-kit';
-import { useTheme } from 'styled-components';
+import { useAppTheme } from '@oxygen/hooks';
+
 import * as S from './remove-service-modal.style';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 export default function RemoveServiceModal(props: Props) {
   const [t] = useTr();
   const { isOpen, cancelToggle, deleteToggle, id } = props;
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   return (
     <Modal

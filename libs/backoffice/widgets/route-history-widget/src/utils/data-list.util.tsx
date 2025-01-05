@@ -1,13 +1,11 @@
 import { TFunction } from 'i18next';
-import { DefaultTheme } from 'styled-components';
 
 import { ColumnsType } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
-import { ClientHistoryData } from '@oxygen/types';
+import { ClientHistoryData, ITheme } from '@oxygen/types';
 
 type Props = {
   t: TFunction;
-  theme: DefaultTheme;
+  theme: ITheme;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> {

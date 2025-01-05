@@ -1,0 +1,84 @@
+import { TFunction } from 'i18next';
+
+import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { Pagination } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
+
+import * as S from '../components/data-table/data-table.style';
+
+type Props = {
+  t: TFunction;
+  pagination: Pagination;
+};
+
+export function getDesktopColumns(props: Props): ColumnsType<any> {
+  const {
+    t,
+    pagination: { page, rowsPerPage },
+  } = props;
+
+  return [
+    {
+      title: t('table.index'),
+      align: 'center',
+      key: 'index',
+      render: (_val, _record, index) => {
+        const start = (page - 1) * rowsPerPage + 1;
+        return start + index;
+      },
+    },
+    {
+      title: t('table.service_name'),
+      dataIndex: 'serviceName',
+      align: 'center',
+    },
+    {
+      title: t('table.persian_name'),
+      dataIndex: 'persianName',
+      align: 'center',
+    },
+    {
+      width: '11.8rem',
+      key: 'details',
+      render: () => {
+        return (
+          <S.Button variant={'link'} color={'error'} className={'table_button'}>
+            <i className={'icon-trash icon-remove'}></i>
+          </S.Button>
+        );
+      },
+    },
+  ];
+}
+
+export function getMobileColumns(props: Props) {
+  const { t } = props;
+
+  return [
+    {
+      title: '',
+      key: 'mobile-columns',
+      render: ({ serviceName, persianName }) => {
+        const data = [
+          { title: t('table.service_name'), value: getValueOrDash(serviceName) },
+          { title: t('table.persian_name'), value: getValueOrDash(persianName) },
+          {
+            title: t('table.delete_service'),
+            value: (
+              <S.Button variant={'link'} color={'error'}>
+                <i className={'icon-trash icon-remove'}></i>
+              </S.Button>
+            ),
+          },
+        ];
+        return (
+          <S.TableRow>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
+            ))}
+          </S.TableRow>
+        );
+      },
+    },
+  ];
+}

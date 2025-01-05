@@ -13,6 +13,6 @@ export const useGetFirstTabReportDataQuery = (props: useGetFirstTabReportDataQue
 
   return useQuery<Service>({
     queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST, id],
-    queryFn: withErrorHandling(() => Api.getReportData(id), dispatch),
+    queryFn: withErrorHandling(() => Api.getScopeInfo(id), dispatch),
   });
 };

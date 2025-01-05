@@ -1,19 +1,16 @@
-import React from 'react';
-
 import { TFunction } from 'i18next';
-import { DefaultTheme } from 'styled-components';
 import { Badge } from 'antd';
 
 import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { convertShamsiDateFormat, getValueOrDash, normalizePhoneNumber } from '@oxygen/utils';
 
-import { ApplicantHistoryData } from '@oxygen/types';
+import { ApplicantHistoryData, ITheme } from '@oxygen/types';
 
 import * as S from '../components/data-list/data-list.style';
 
 type Props = {
   t: TFunction;
-  theme: DefaultTheme;
+  theme: ITheme;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<ApplicantHistoryData> {

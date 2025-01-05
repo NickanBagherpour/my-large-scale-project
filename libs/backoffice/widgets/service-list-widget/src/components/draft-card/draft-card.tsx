@@ -38,7 +38,7 @@ export default function DraftCard(props: DraftCardType) {
     2: t('route'),
     3: t('scope'),
     4: t('upstream'),
-    5: t('info_display'),
+    5: t('info_confirm'),
   };
 
   return (
@@ -59,7 +59,7 @@ export default function DraftCard(props: DraftCardType) {
           <span>
             {t('next_level')}
             {':\u00A0\u00A0'}
-            {levelsMap[level + 1]}
+            {levelsMap[level]}
           </span>
         </S.Footer>
       </S.Container>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { TFunction } from 'i18next';
-import { DefaultTheme } from 'styled-components';
 
 import { Tooltip } from 'antd';
 import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { ITheme } from '@oxygen/types';
 
 import { ParamsType } from '../types';
 
@@ -14,7 +14,7 @@ type Props = {
   t: TFunction;
   changeStatus: (status: boolean, name: string) => void;
   deleteService: (name: string, status: ParamsType) => void;
-  theme: DefaultTheme;
+  theme: ITheme;
   wordToHighlight: string;
 };
 
