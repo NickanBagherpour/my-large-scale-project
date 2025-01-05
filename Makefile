@@ -20,10 +20,10 @@ build-backoffice-portal:
 	docker build -t backoffice-portal -f ./apps/backoffice-portal/Dockerfile . --no-cache --add-host repo.sadad.ir:172.29.235.93
 
 build-business-portal:
-	docker build -t backoffice-portal -f ./apps/business-portal/Dockerfile . --no-cache --add-host repo.sadad.ir:172.29.235.93
+	docker build -t business-portal -f ./apps/business-portal/Dockerfile . --no-cache --add-host repo.sadad.ir:172.29.235.93
 
 build-customer-portal:
 	docker build -t customer-portal -f ./apps/customer-portal/Dockerfile . --no-cache --add-host repo.sadad.ir:172.29.235.93
 
-up:
-	docker-compose -f ./apps/backoffice-portal/docker-compose.yml up
+up: build-backoffice-portal build-business-portal build-customer-portal
+	docker compose up
