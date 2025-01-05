@@ -1,16 +1,3 @@
-stages:
-  - release
-  - build
-  - deploy
-
-default:
-  image: repo.sadad.ir/docker:dind
-  before_script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
-
-variables:
-  KUBERNETES_NAMESPACE: "oxygen-plus"
-
 backoffice-portal:
   trigger:
     include: apps/backoffice-portal/.gitlab-ci.yml

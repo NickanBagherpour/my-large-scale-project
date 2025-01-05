@@ -1,5 +1,14 @@
+stages:
+  - build
+  - deploy
+
+default:
+  image: repo.sadad.ir/docker:dind
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
+
 variables:
-  # KUBERNETES_NAMESPACE: "oxygen-plus"
+  KUBERNETES_NAMESPACE: "oxygen-plus"
   KUBERNETES_DEPLOYMENT: "back-office-web"
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/back-office-web
   VERSION: 1.0.0
