@@ -33,6 +33,7 @@ const Api = {
   geRequestData: async (submissionId: string) => {
     try {
       const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
+      debugger;
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);
