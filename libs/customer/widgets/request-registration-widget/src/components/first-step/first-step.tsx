@@ -74,6 +74,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   type Status = WidgetStateType['status'];
 
   const onFinish = (values) => {
+    debugger;
     if (!aggregatorIsRequired) {
       const params = {
         aggregator_status: state.firstStep.aggregator_status,

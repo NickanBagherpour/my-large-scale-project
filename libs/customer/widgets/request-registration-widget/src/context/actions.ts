@@ -27,6 +27,10 @@ export function updateThirdStepTableAction(
   }
 }
 
+export function updateAllStateFromDraftsAction(dispatch: WidgetDispatchType, allState: Partial<FiltersType>) {
+  dispatch({ type: 'UPDATE_ALL_STATE_FROM_DRAFTS', payload: allState });
+}
+
 export function updateRequestMode(dispatch: WidgetDispatchType, payload: RequestMode) {
   dispatch({ type: 'UPDATE_REQUEST_MODE', payload });
 }

@@ -1,6 +1,10 @@
 import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType, FirstStepType, SecondStepType } from './types';
+import { dayjs } from '@oxygen/utils';
+import jalaliday from 'jalaliday';
+
+dayjs.extend(jalaliday);
 
 const initialFilters: FormFieldsType = {
   name: null,
@@ -104,6 +108,56 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
           table: updatedTable, // Update the table with the filtered array
         },
       };
+    }
+
+    case 'UPDATE_ALL_STATE_FROM_DRAFTS': {
+      debugger;
+      console.log(action.payload);
+      const jalaliDate = '1403/10/20'; // Jalali date in YYYY/MM/DD format
+
+      // Parse the Jalali date and convert it to a Day.js object
+      const parsedDate = dayjs(jalaliDate, { format: 'YYYY/MM/DD' });
+
+      console.log(parsedDate.toISOString()); // ISO string format
+      console.log(parsedDate.toDate()); // JavaScript Date object
+
+      state.firstStep.aggregator_status = action.payload.isAggregator
+        ? 'isAggregator'
+        : action.payload.aggregatorId
+        ? 'hasAggregator'
+        : 'nothing';
+      state.firstStep.aggregator_value = action.payload.organization.aggregatorId;
+      state.firstStep.legal_person_name = action.payload.organization.legalName;
+      state.firstStep.legal_person_type = action.payload.organization.legalType === 'PUBLIC' ? '1' : '2';
+      state.firstStep.registration_number = action.payload.organization.registerNo;
+      state.firstStep.registration_date = dayjs(action.payload.organization.registerDate, { format: 'YYYY/MM/DD' });
+      state.firstStep.national_id = action.payload.organization.organizationNationalId;
+      state.firstStep.economy_code = action.payload.organization.economicCode;
+      state.firstStep.postal_code = action.payload.organization.postalCode;
+      state.firstStep.phone = action.payload.organization.phone;
+      state.firstStep.last_registration_address = action.payload.organization.registeredAddress;
+      state.organizationId = action.payload.organization.id;
+      state.submissionId = action.payload.submissionInfoDto.submissionId;
+      state.requestMode = 'registerOrganization';
+      state.firstStepDisabledSubmit = false;
+
+      // {
+      //   aggregator_status: 'nothing',
+      //   aggregator_value: undefined,
+      //   legal_person_name: undefined,
+      //   legal_person_type: undefined,
+      //   registration_number: undefined,
+      //   registration_date: undefined,
+      //   national_id: undefined,
+      //   economy_code: undefined,
+      //   activity_field: undefined,
+      //   postal_code: undefined,
+      //   phone: undefined,
+      //   last_registration_address: undefined,
+      // },
+      // state.submissionId = action.payload.submissionId;
+
+      return;
     }
 
     case 'UPDATE_REQUEST_MODE':
