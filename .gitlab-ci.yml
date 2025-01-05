@@ -1,4 +1,8 @@
+stages:
+  - trigger
+
 backoffice-portal:
+  stage: trigger
   trigger:
     include: apps/backoffice-portal/.gitlab-ci.yml
     strategy: depend
@@ -6,6 +10,7 @@ backoffice-portal:
     - changes: [apps/backoffice-portal/*]
 
 business-portal:
+  stage: trigger
   trigger:
     include: apps/business-portal/.gitlab-ci.yml
     strategy: depend
@@ -13,6 +18,7 @@ business-portal:
     - changes: [apps/business-portal/*]
 
 customer-portal:
+  stage: trigger
   trigger:
     include: apps/customer-portal/.gitlab-ci.yml
     strategy: depend
