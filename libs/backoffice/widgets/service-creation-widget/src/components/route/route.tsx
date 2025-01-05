@@ -102,7 +102,7 @@ export default function Route() {
               label={t('path')}
               rules={[rule]}
             >
-              <Input disabled={!!isInSSO && !!route.path} />
+              <Input disabled={!!isInSSO} />
             </FormItem>
 
             <FormItem
