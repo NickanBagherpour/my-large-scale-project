@@ -7,23 +7,23 @@ import { Nullable } from '@oxygen/types';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
-  id: Nullable<string | number>;
+  name: Nullable<string>;
 };
 
 export default function DetailsModal(props: Props) {
   //Hooks
-  const { isOpen, toggle, id } = props;
+  const { isOpen, toggle, name } = props;
   const [t] = useTr();
   //Query
-  const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(id);
+  const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(name);
   //Constats
-  const tags = modalDataQuery?.tags.map((tag) => tag.title).join(', ');
+  const tags = modalDataQuery?.tags ? modalDataQuery?.tags.map((tag) => tag.title).join(', ') : [];
   const infoBoxData = [
     { key: t('modal.english_name'), value: modalDataQuery?.serviceLatinName ?? '-' },
     { key: t('modal.persian_name'), value: modalDataQuery?.servicePersianName ?? '-' },
     { key: t('modal.action'), value: modalDataQuery?.routeMethod ?? '-' },
     { key: t('modal.protocole'), value: modalDataQuery?.routeProtocol ?? '-' },
-    { key: t('modal.access'), value: modalDataQuery?.authenticationType.title ?? '-' },
+    { key: t('modal.access'), value: modalDataQuery?.authenticationType?.title ?? '-' },
     { key: t('modal.category'), value: modalDataQuery?.serviceCategoryTitle ?? '-' },
     { key: t('modal.throughput'), value: modalDataQuery?.throughput?.title ?? '-' },
     { key: t('modal.version'), value: modalDataQuery?.serviceVersion ?? '-' },
