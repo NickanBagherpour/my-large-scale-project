@@ -84,7 +84,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
                 type='primary'
                 style={{ margin: 0 }}
                 icon={<i className='icon-edit' />}
-                // href={`${ROUTES.BUSINESS.REQUESTS_MANAGEMENT}?submissionId=${state?.submissionId}`}
+                href={`${ROUTES.BUSINESS.EDIT_REQUEST_LIST}?submissionId=${state?.submissionId}`}
               />
             </Tooltip>
           )}

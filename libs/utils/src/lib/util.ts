@@ -12,6 +12,17 @@ export function addThousandSeparator(value: number | string) {
     ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+export const arrayToQueryString = (params: (string | number)[], paramName: string): string => {
+  let store = '';
+  params.map((item) => {
+    if (item) {
+      store += `&${paramName}=${item}`;
+    }
+  });
+
+  return store;
+};
+
 export function removeLettersFromNumber(value: string) {
   return value.replace(/\D/g, '');
 }
@@ -152,7 +163,7 @@ export const clearAllCookiesExceptForKey = (keyToKeep: string): void => {
   }
 };
 
-export const getCookie = (key: string) : string | null => {
+export const getCookie = (key: string): string | null => {
   if (typeof window === 'undefined') {
     return null;
   }
@@ -160,7 +171,7 @@ export const getCookie = (key: string) : string | null => {
   // Create a regular expression to match the exact key
   const regex = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)');
   const match = document.cookie.match(regex);
-  
+
   // If a match is found, decode and return the value
   return match ? decodeURIComponent(match[1]) : null;
 };
