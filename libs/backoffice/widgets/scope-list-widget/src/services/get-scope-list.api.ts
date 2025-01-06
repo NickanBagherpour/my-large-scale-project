@@ -1,10 +1,12 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { typeScopeListParams } from '@oxygen/types';
+
 import { useAppDispatch } from '../context';
+
+import { ScopeRequestParams } from '../types';
 import Api from './api';
 
-export const useGetScopeListQuery = (params: typeScopeListParams) => {
+export const useGetScopeListQuery = (params: ScopeRequestParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
