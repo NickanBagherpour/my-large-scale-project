@@ -23,7 +23,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   //Hooks
   const [t] = useTr();
   //States
-  const [serviceId, setServiceId] = useState(undefined);
+  const [serviceName, setServiceName] = useState(undefined);
   const [modals, setModals] = useState<Modal>({
     details: false,
     removeService: false,
@@ -41,8 +41,8 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   });
   const { isFetching: excelIsFetching, refetch } = useExcelDownloadQuery({ id: id });
   //Handlers
-  const updateId = (id) => {
-    setServiceId(id);
+  const updateServiceName = (name) => {
+    setServiceName(name);
   };
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
@@ -66,7 +66,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   //Constants
   const hasPagination = tableDataQuery?.totalElements > 5;
   const tableData = tableDataQuery?.content;
-  const tabelParams = { t, toggleModal, updateId, page, rowsPerPage };
+  const tabelParams = { t, toggleModal, updateServiceName, page, rowsPerPage };
   const desktopColumns = getDesktopColumns(tabelParams);
   const mobileColumns = getMobileColumns(tabelParams);
   return (
@@ -116,7 +116,9 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
       /> */}
-      {serviceId && <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} id={serviceId} />}
+      {serviceName && (
+        <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} name={serviceName} />
+      )}
     </>
   );
 };

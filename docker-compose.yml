@@ -29,7 +29,6 @@ services:
     networks:
       - customer-portal-net
 
-
   # nginx:
   #   image: nginx:stable-alpine
   #   volumes:
