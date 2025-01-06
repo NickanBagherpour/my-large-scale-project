@@ -25,9 +25,11 @@ const NoResult = (props: Props) => {
         <S.BoxContainer>
           <S.Empty description={displayTitle} />
           {link && (
-            <S.ReturnButton size={'middle'} variant={'outlined'} color={'primary'} href={link}>
-              {t('button.return')}
-            </S.ReturnButton>
+            <S.ButtonContainer>
+              <S.ReturnButton size={'middle'} variant={'outlined'} color={'primary'} href={link}>
+                {t('button.return')}
+              </S.ReturnButton>
+            </S.ButtonContainer>
           )}
         </S.BoxContainer>
       )}

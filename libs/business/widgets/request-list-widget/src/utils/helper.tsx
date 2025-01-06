@@ -38,10 +38,16 @@ export const prepareRequestListParams = (item, userRole) => {
     reqObj.size = rowsPerPage;
   }
 
-  if (status && isCommercialBanking) {
-    reqObj.submissionStatusCodeList = status.join(',');
-  } else {
-    reqObj.searchStatusList = status.join(',');
+  if (status) {
+    const filteredStatus = status.filter((item) => item !== null);
+
+    if (filteredStatus.length) {
+      if (isCommercialBanking) {
+        reqObj.submissionStatusCodeList = filteredStatus.join(',');
+      } else {
+        reqObj.searchStatusList = filteredStatus.join(',');
+      }
+    }
   }
 
   if (sort) {
