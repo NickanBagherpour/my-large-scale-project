@@ -35,8 +35,13 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     details: false,
     removeService: false,
   });
+
+  const params = {
+    serviceName: state.serviceName,
+    id: state.upstreamTab.activeSelect.id,
+  };
   //Queries
-  const { data, isFetching } = useUpstreamListQuery(state.serviceName);
+  const { data, isFetching } = useUpstreamListQuery(params);
   //constants
   const tableData = data?.targets;
   const infoBoxData = { latinName: data?.name, persianName: data?.description };
