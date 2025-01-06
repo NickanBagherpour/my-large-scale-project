@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { SubmissionDetailType, UserRole } from '../../types';
+import { RepresentativeType, SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
