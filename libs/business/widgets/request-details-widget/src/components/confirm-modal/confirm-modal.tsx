@@ -65,6 +65,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
           });
         }
         await queryClient.refetchQueries({ queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL] });
+        await queryClient.refetchQueries({ queryKey: [RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT] });
         setOpenStatusResult(true);
       },
       // onError: async () => {

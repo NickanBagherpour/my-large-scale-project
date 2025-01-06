@@ -51,10 +51,11 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
   const resultType = submissionInfoDto?.submissionStatus?.code;
 
   const renderReviewComponent = (review: Review) => {
-    // First check for ExpertType.COMMERCIAL
+    const key = review?.expertId;
     if (review?.expertType === ExpertType.COMMERCIAL) {
       return (
         <CommercialResultBox
+          key={key}
           isReviewed={data?.isReviewed}
           resultType={resultType}
           review={review}
@@ -65,7 +66,7 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
     // Then check for ExpertType.BUSINESS
     if (review?.expertType === ExpertType.BUSINESS) {
-      return <BusinessResultBox isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
+      return <BusinessResultBox key={key} isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
     }
 
     return <></>;
@@ -73,12 +74,28 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
+  // const renderButton =
+  //   !data?.isReviewed &&
+  //   resultType !== RequestStatus.DRAFT &&
+  //   ((resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN)||
+  //   (state?.userRole === UserRole.BUSINESS_ADMIN &&
+  //     (resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK || resultType===RequestStatus.UNDER_REVIEW_BUSINESS_UNIT)));
+  const isReviewed = data?.isReviewed;
+  const isDraft = resultType === RequestStatus.DRAFT;
+
+  const isUnderReviewCommercialBank = resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK;
+  const isCommercialBankingAdmin = state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN;
+
+  const isBusinessAdmin = state?.userRole === UserRole.BUSINESS_ADMIN;
+  const isApprovedByCommercialBank = resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK;
+  const isUnderReviewBusinessUnit = resultType === RequestStatus.UNDER_REVIEW_BUSINESS_UNIT;
+
   const renderButton =
-    !data?.isReviewed &&
-    resultType !== RequestStatus.DRAFT &&
-    !(resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole?.BUSINESS_ADMIN) &&
-    state.userRole === UserRole?.BUSINESS_ADMIN &&
-    resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK;
+    !isReviewed &&
+    !isDraft &&
+    ((isUnderReviewCommercialBank && isCommercialBankingAdmin) ||
+      (isBusinessAdmin && (isApprovedByCommercialBank || isUnderReviewBusinessUnit)));
+
   const renderContainer = reviews.length > 0 || renderButton;
   return (
     <>
