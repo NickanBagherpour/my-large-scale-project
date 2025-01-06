@@ -6,12 +6,16 @@ FROM node:20-alpine AS base
 
 ARG portalName
 ARG ENVIRONMENT
+ARG TIME_INCREMENT=5
+
 ENV portalName=${portalName}
 ENV ENVIRONMENT=${ENVIRONMENT}
+ENV TIME_INCREMENT=${TIME_INCREMENT}
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat coreutils
+
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -38,6 +42,10 @@ RUN npm run build-${portalName}
 
 # Production image, copy all the files and run next
 FROM base AS runner
+
+# Command to increment the system time by the specified value and display it
+RUN date -s "$(date -u -d "@$(( $(date +%s) + $TIME_INCREMENT ))" "+%Y-%m-%d %H:%M:%S")"
+
 #ARG portalName # Re-declare portalName to use in subsequent stages
 WORKDIR /app
 
