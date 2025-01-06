@@ -1,6 +1,6 @@
-import { dateLocale, getValueOrDash } from '@oxygen/utils';
+import { getValueOrDash } from '@oxygen/utils';
 
-import { Representative, RepresentativeType, SubmissionDetailType } from '../types';
+import { RepresentativeType, SubmissionDetailType } from '../types';
 
 import * as S from '../components/details-collapse/details-collapse.style';
 
@@ -30,6 +30,9 @@ export const getSubmissionInfo = (
 };
 
 export const getOrganizationInfo = (organization: SubmissionDetailType['organization'], t) => {
+  const isAggregator = organization?.isAggregator;
+  const aggregatorName = organization?.aggregatorName;
+  const showAggregatorName = isAggregator && aggregatorName;
   return [
     {
       key: t('legal_name'),
@@ -62,9 +65,9 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
     {
       key: t('aggregator_status'),
       value: getValueOrDash(
-        `${t(organization?.isAggregator ? 'has_aggregator' : 'dont_have_aggregator')}${
-          organization?.aggregatorName ? '-' : ''
-        }${organization?.aggregatorName ? getValueOrDash(organization?.aggregatorName) : ''}`
+        `${t(isAggregator ? 'has_aggregator' : 'dont_have_aggregator')}${
+          showAggregatorName ? ` - ${getValueOrDash(aggregatorName)}` : ''
+        }`
       ),
     },
     {
