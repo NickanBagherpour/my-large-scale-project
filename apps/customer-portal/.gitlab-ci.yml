@@ -8,13 +8,19 @@ default:
     - docker login -u $REGISTRY_USER -p $REGISTRY_Password $REGISTRY
 
 variables:
-  KUBERNETES_NAMESPACE: "oxygen-plus"
-  KUBERNETES_DEPLOYMENT: "client-portal-web"
-  NODE_MODULES_DIR: "node_modules"
-  BUILD_DIR: "dist"
-  BUILD_CACHE_KEY: build-cache
+  KUBERNETES_NAMESPACE: 'oxygen-plus'
+  KUBERNETES_DEPLOYMENT: 'client-portal-web'
+  CACHE_KEY: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
+  NODE_MODULES_CACHE: "node_modules"
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/customer-portal-web
-  VERSION: 1.0.0
+  VERSION: $CI_COMMIT_SHORT_SHA
+
+
+.cache_base:
+  cache:
+    key: $CACHE_KEY
+    paths:
+      - $NODE_MODULES_CACHE
 
 
 build:
@@ -26,10 +32,6 @@ build:
     - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/customer-portal/Dockerfile .
     - echo "Pushing Client Portal Web (Customer Portal Web) Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
-  cache:
-    key: $BUILD_CACHE_KEY
-    paths:
-    - $NODE_MODULES_DIR
   artifacts:
     paths:
       - $BUILD_DIR
@@ -43,7 +45,7 @@ deploy:
     - shared
   image:
     name: bitnami/kubectl:latest
-    entrypoint: [""]
+    entrypoint: ['']
   inherit:
     default: false
   script:
