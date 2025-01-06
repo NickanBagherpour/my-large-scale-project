@@ -109,7 +109,7 @@ const Api = {
 
   requestRegistrationThirdStep: async (params: ThirdStepParams) => {
     const apiPrams = {
-      requestId: params.requestId,
+      submissionId: params.submissionId,
       servicesIdSet: params.servicesIdSet,
     };
     return client.post(`${portalUrl}/v1/submissions/services`, apiPrams, {
