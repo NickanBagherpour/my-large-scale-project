@@ -4,7 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 
-import { renderChips } from '../../utils/utility-functions';
+import { renderChips } from '../../utils/helper';
 import { MAX_LENGTH, SORT_ORDER } from '../../utils/consts';
 import { Sort, UserRoleType } from '../../types/common-types';
 

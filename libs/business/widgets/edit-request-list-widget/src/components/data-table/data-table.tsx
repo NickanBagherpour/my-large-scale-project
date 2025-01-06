@@ -6,11 +6,14 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
-import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { updateMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
 
 import * as S from './data-table.style';
+import { useDeleteService } from '../../services/delete-service.api';
+import { queryClient } from '@oxygen/client';
+import { RQKEYS } from '@oxygen/utils';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
@@ -22,6 +25,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const { message, pagination, ...rest } = useAppState();
   const [t] = useTr();
 
+  const { mutate, isPending } = useDeleteService();
+
   const { requestList, requestListFetching } = props;
 
   const router = useRouter();
@@ -29,17 +34,34 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     router.back();
   };
 
+  const handleApi = (params) => {
+    mutate(params, {
+      onSuccess: async () => {
+        try {
+          await queryClient.invalidateQueries({
+            queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE],
+          });
+        } catch (error) {
+          //
+        }
+      },
+      onError: (error) => {
+        //
+      },
+    });
+  };
+
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
       updatePagination(dispatch, {
-        page: pageSize === pagination.rowsPerPage ? current : 1,
+        page: current,
         rowsPerPage: pageSize,
       });
     }
   };
 
-  const dataTableParams = { t, pagination };
+  const dataTableParams = { t, pagination, handleApi };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
 

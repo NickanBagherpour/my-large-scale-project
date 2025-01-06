@@ -4,11 +4,11 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useUpdateServiceDetails = () => {
+export const useUpdateServiceDetails = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE],
-    queryFn: withErrorHandling(() => Api.updateServiceDetails(), dispatch),
+    queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE, params],
+    queryFn: withErrorHandling(() => Api.updateServiceDetails(params), dispatch),
   });
 };

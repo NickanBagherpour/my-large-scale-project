@@ -4,9 +4,10 @@ import { type CollapseProps, Tooltip } from 'antd';
 import { InfoBox, Loading } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { RepresentativeType, SubmissionDetailType, UserRole } from '../../types';
+import { SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
@@ -84,7 +85,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
                 type='primary'
                 style={{ margin: 0 }}
                 icon={<i className='icon-edit' />}
-                // href={`${ROUTES.BUSINESS.EDIT_REQUEST_LIST}?submissionId=${state?.submissionId}`}
+                href={`${ROUTES.BUSINESS.EDIT_REQUEST_LIST}?submissionId=${state?.submissionId}`}
               />
             </Tooltip>
           )}
@@ -103,7 +104,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   return (
     <S.Container>
       <Collapse items={items} collapsible={'icon'} />
-      <RequestResultBox data={data as SubmissionDetailType} />
+      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={true} />}
     </S.Container>
   );
 };
