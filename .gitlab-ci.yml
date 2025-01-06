@@ -24,7 +24,3 @@ customer-portal:
     strategy: depend
   rules:
     - changes: [apps/customer-portal/project.json]
-
-
-
-

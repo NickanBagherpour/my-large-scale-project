@@ -26,7 +26,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm();
-  const { mutate, isPending } = useCreateScope();
+  const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
 
   const rule = createSchemaFieldRule(FormSchema(t));
@@ -49,11 +49,11 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const onFinish = async (values: any) => {
     const { latinNameScope, persianNameScope } = values;
     const params: any = {
-      name: latinNameScope,
-      description: persianNameScope,
+      name: latinNameScope.trim(),
+      description: persianNameScope.trim(),
     };
 
-    mutate(params, {
+    createScope(params, {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
@@ -82,7 +82,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         centered={true}
         title={t('create_scope')}
         onCancel={onCancel}
-        confirmLoading={isPending}
+        confirmLoading={loadingCreateScope}
         cancelText={t('button.cancel')}
         okText={t('buttons.confirm')}
         onOk={submitClick}

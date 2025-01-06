@@ -1,14 +1,14 @@
 import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 
-import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
-import { Button } from '@oxygen/ui-kit';
+import { useGetsServiceHistoryDataQuery } from '../../services';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import DataTable from '../data-table/data-table';
 
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import DataList from '../data-list/data-list';
-import { ScopeId } from '../../types';
+import { i18nBase, useTr } from '@oxygen/translation';
+import { Nullable, PageProps } from '@oxygen/types';
+import { Container } from '@oxygen/ui-kit';
+import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import * as S from './app.style';
 
@@ -16,33 +16,41 @@ type AppProps = PageProps & {
   //
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
+  const { message, table } = useAppState();
   const dispatch = useAppDispatch();
-  const state = useAppState();
+  const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const searchParams = useSearchParams();
-  const scopeId: ScopeId = searchParams.get('id');
+  const servicename: Nullable<string> = searchParams.get('servicename');
+  if (!servicename) {
+    notFound();
+  }
+  const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
+  const items = history?.items;
+  const title = items?.[0]?.[i18nBase.resolvedLanguage + 'Name'] ?? t('subtitle');
 
-  const router = useRouter();
-  const handleReturn = () => {
-    router.back();
-  };
-  const footerButton = (
-    <Button className={'return-button'} size={'large'} variant={'outlined'} onClick={handleReturn}>
-      {t('button.return')}
-    </Button>
-  );
+  function prepareParams() {
+    const params = {
+      pagination: table.pagination,
+      servicename: servicename!,
+    };
+    return params;
+  }
   return (
-    <S.AppContainer title={t('widget_name')} footer={footerButton}>
+    <Container title={title} footer={<ReturnButton />}>
       <GlobalMessageContainer
-        message={state.message}
+        containerProps={{ margin: '1.6rem 0' }}
+        message={message}
         onClose={() => {
-          resetErrorMessageAction(dispatch);
+          resetMessageAction(dispatch);
         }}
       />
-      <S.StyledBox>{scopeId ? <DataList /> : <NoResult isLoading={false} />}</S.StyledBox>
-    </S.AppContainer>
+      {/* <SecondaryTitle text={t('subtitle')} /> */}
+      <S.TableContainer>
+        <DataTable />
+      </S.TableContainer>
+    </Container>
   );
 };
 

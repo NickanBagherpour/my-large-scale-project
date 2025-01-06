@@ -12,6 +12,12 @@ type Tag = {
   id: number;
   title: string;
 };
+export type ProgressEvent = {
+  statusCode: number;
+  statusTitle: string;
+  percent: number;
+  step: number;
+};
 
 export type ModalDataType = {
   scopeName: string;
@@ -36,4 +42,5 @@ export type ModalDataType = {
   authenticationType: AuthenticationType;
   ownerName: string;
   tags: Tag[];
+  serviceProgress: ProgressEvent;
 };
