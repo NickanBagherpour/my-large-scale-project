@@ -98,11 +98,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       width: 150,
       render: (isActive, name) => (
         <S.SwitchContainer>
-          {t('stopped')}
+          {t('operational')}
           <span style={{ margin: '0 1.2rem' }}>
             <Switch disabled={true} checked={isActive} />
           </span>
-          {t('operational')}
+          {t('stopped')}
         </S.SwitchContainer>
       ),
     },
@@ -170,11 +170,11 @@ export function getMobileColumns(props: Props): any {
             title: t('status'),
             value: (
               <span>
-                {t('stopped')}
-                <span style={{ margin: '0 1.2rem' }}>
-                  <Switch checked={value?.status} disabled={true} />
-                </span>
                 {t('operational')}
+                <span style={{ margin: '0 1.2rem' }}>
+                  <Switch checked={value?.isActive} disabled={true} />
+                </span>
+                {t('stopped')}
               </span>
             ),
           },
