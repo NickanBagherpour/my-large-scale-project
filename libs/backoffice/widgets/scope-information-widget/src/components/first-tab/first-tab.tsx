@@ -19,10 +19,10 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
 
   const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
 
-  const [{ editLoading, historyLoadign }, setLoading] = useState({
-    editLoading: false,
-    historyLoadign: false,
-  });
+  // const [{ editLoading, historyLoadign }, setLoading] = useState({
+  //   editLoading: false,
+  //   historyLoadign: false,
+  // });
 
   const latinName = data?.name;
   const farsiName = data?.description;
@@ -38,23 +38,23 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
     },
   ];
 
-  const handleEdit = () => {
-    setLoading((prev) => ({
-      ...prev,
-      editLoading: true,
-    }));
-  };
-  const handleHistory = () => {
-    setLoading((prev) => ({
-      ...prev,
-      historyLoadign: true,
-    }));
-  };
+  // const handleEdit = () => {
+  //   setLoading((prev) => ({
+  //     ...prev,
+  //     editLoading: true,
+  //   }));
+  // };
+  // const handleHistory = () => {
+  //   setLoading((prev) => ({
+  //     ...prev,
+  //     historyLoadign: true,
+  //   }));
+  // };
   return (
     <S.Firststep>
       <S.FirstStepHeader>
         <S.FirstStepTitle>{t('first_tab.title')}</S.FirstStepTitle>
-        <S.ButtonContainer>
+        {/* <S.ButtonContainer>
           <Button
             href={`${ROUTES.BACKOFFICE.SCOPE_HISTORY}?id=${id}`}
             variant='filled'
@@ -72,7 +72,7 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
           >
             {t('first_tab.edit')}
           </Button>
-        </S.ButtonContainer>
+        </S.ButtonContainer> */}
       </S.FirstStepHeader>
       <InfoBox loading={isFetching} data={item} margin={'1.6rem 0 0 0'} minColumnCount={2} />
     </S.Firststep>

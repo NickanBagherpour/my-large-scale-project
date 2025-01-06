@@ -7,6 +7,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, SearchItemsContainer, Box, Table, Loading } from '@oxygen/ui-kit';
+import { useQueryParams } from '@oxygen/hooks';
 
 import { requestRegistrationFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
@@ -30,13 +31,18 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
+  const queryParams = useQueryParams();
+  const submissionId = queryParams.get('submissionId');
+
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [confirmModal, setConfirmModal] = useState(false);
   const [trackCode, setTrackCode] = useState('');
-  const { data: requestData, isFetching: isRequestDataFetching } = useGetRequestDataQuery(state.submissionId);
+  const { data: requestData, isFetching: isRequestDataFetching } = useGetRequestDataQuery(
+    submissionId ? submissionId : state.submissionId
+  );
   const { mutate: fourthMutate, isPending: fourthIsPending } = useFourthStepRequestRegistrationMutationQuery();
 
   const toggleModal = () => {

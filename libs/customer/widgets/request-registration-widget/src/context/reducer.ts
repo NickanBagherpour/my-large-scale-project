@@ -1,6 +1,10 @@
 import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType, FirstStepType, SecondStepType } from './types';
+import { dayjs } from '@oxygen/utils';
+import jalaliday from 'jalaliday';
+
+dayjs.extend(jalaliday);
 
 const initialFilters: FormFieldsType = {
   name: null,
@@ -16,6 +20,7 @@ export const initialStateValue: WidgetStateType = {
   requestMode: 'selectOrganization',
   organizationId: '',
   submissionId: '',
+  firstStepDisabledSubmit: true,
   firstStep: {
     aggregator_status: 'nothing',
     aggregator_value: undefined,
@@ -60,6 +65,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload } as FirstStepType;
+      state.firstStepDisabledSubmit = false;
       return;
     }
     case 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID': {
@@ -102,6 +108,38 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
           table: updatedTable, // Update the table with the filtered array
         },
       };
+    }
+
+    case 'UPDATE_ALL_STATE_FROM_DRAFTS': {
+      state.firstStep.aggregator_status = action.payload.isAggregator
+        ? 'isAggregator'
+        : action.payload.aggregatorId
+        ? 'hasAggregator'
+        : 'nothing';
+      state.firstStep.aggregator_value = action.payload.organization.aggregatorId;
+      state.firstStep.legal_person_name = action.payload.organization.legalName;
+      state.firstStep.legal_person_type = action.payload.organization.legalType === 'PUBLIC' ? '1' : '2';
+      state.firstStep.registration_number = action.payload.organization.registerNo;
+      state.firstStep.registration_date = dayjs(action.payload.organization.registerDate).calendar('gregory');
+
+      state.firstStep.national_id = action.payload.organization.organizationNationalId;
+      state.firstStep.economy_code = action.payload.organization.economicCode;
+      state.firstStep.activity_field = action.payload.organization.activityIndustry;
+      state.firstStep.postal_code = action.payload.organization.postalCode;
+      state.firstStep.phone = action.payload.organization.phone;
+      state.firstStep.last_registration_address = action.payload.organization.registeredAddress;
+      state.organizationId = action.payload.organization.id;
+      state.submissionId = action.payload.submissionInfoDto.submissionId;
+      state.requestMode = 'registerOrganization';
+      state.firstStepDisabledSubmit = false;
+      state.secondStep.persian_name = action.payload.representativeSet[0]?.nameAndLastName;
+      state.secondStep.mobile_number = action.payload.representativeSet[0]?.mobileNumber;
+      state.secondStep.phone_number = action.payload.representativeSet[0]?.fixedPhoneNumber;
+      state.secondStep.technical_persian_name = action.payload.representativeSet[1]?.nameAndLastName;
+      state.secondStep.technical_mobile_number = action.payload.representativeSet[1]?.mobileNumber;
+      state.secondStep.technical_Phone_number = action.payload.representativeSet[1]?.fixedPhoneNumber;
+      state.thirdStep.table = action.payload.services;
+      return;
     }
 
     case 'UPDATE_REQUEST_MODE':

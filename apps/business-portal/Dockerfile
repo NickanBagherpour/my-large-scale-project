@@ -1,9 +1,13 @@
+# Declare portalName as a global build argument
 ARG portalName="business"
+ARG ENVIRONMENT="production"
 
-FROM node:22-alpine AS base
+FROM node:20-alpine AS base
 
 ARG portalName
+ARG ENVIRONMENT
 ENV portalName=${portalName}
+ENV ENVIRONMENT=${ENVIRONMENT}
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -11,7 +15,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json package-lock.json* ./
+COPY .npmrc ./
+COPY package*.json ./
 RUN npm ci --force --loglevel=verbose
 # RUN npm install --omit=optional --force
 # RUN npm install --only=production --force --loglevel=verbose
@@ -24,6 +29,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 #COPY ./apps/${portalName}-portal ./apps/${portalName}-portal
+
+
+ENV NODE_ENV=${ENVIRONMENT}
 
 # Build the Next.js app
 RUN npm run build-${portalName}

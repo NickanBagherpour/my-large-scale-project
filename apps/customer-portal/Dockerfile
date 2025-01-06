@@ -1,9 +1,13 @@
+# Declare portalName as a global build argument
 ARG portalName="customer"
+ARG ENVIRONMENT="production"
 
 FROM node:20-alpine AS base
 
 ARG portalName
+ARG ENVIRONMENT
 ENV portalName=${portalName}
+ENV ENVIRONMENT=${ENVIRONMENT}
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -11,7 +15,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json package-lock.json* ./
+COPY .npmrc ./
+COPY package*.json ./
 RUN npm ci --force --loglevel=verbose
 # RUN npm install --omit=optional --force
 # RUN npm install --only=production --force --loglevel=verbose
@@ -59,4 +64,4 @@ ENV PORT 3200
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/outputs
-CMD node .next/apps/${portalName}-portal/server.js
+CMD HOSTNAME="0.0.0.0" node .next/apps/${PORTAL_NAME}-portal/server.js
