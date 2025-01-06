@@ -23,7 +23,7 @@ build:
     - shared
   script:
     - echo "Building Client Portal Web (Customer Portal Web) Docker image..."
-    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/customer-portal/Dockerfile . --no-cache
+    - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/customer-portal/Dockerfile .
     - echo "Pushing Client Portal Web (Customer Portal Web) Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
   cache:
