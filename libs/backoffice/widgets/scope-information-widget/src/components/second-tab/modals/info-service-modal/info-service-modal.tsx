@@ -4,6 +4,8 @@ import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
 import { useModalInfoQuery } from '../../../../services/second-tab/get-modal-data.api';
 import { Nullable } from '@oxygen/types';
 
+import * as S from './info-service-modal.style';
+
 type Props = {
   isOpen: boolean;
   toggle: () => void;
@@ -18,6 +20,14 @@ export default function DetailsModal(props: Props) {
   const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(name);
   //Constats
   const tags = modalDataQuery?.tags ? modalDataQuery?.tags.map((tag) => tag.title).join(', ') : [];
+  const progressPercent = modalDataQuery?.serviceProgress?.percent ?? '-';
+  //to do : do it with enum instead of solid number
+  const isOperational = modalDataQuery?.serviceProgress?.statusCode === 9;
+  const serviceProgress = modalDataQuery?.serviceProgress?.statusCode
+    ? isOperational
+      ? t('modal.operational')
+      : t(`modal.draft`, { progressPercent })
+    : '-';
   const infoBoxData = [
     { key: t('modal.english_name'), value: modalDataQuery?.serviceLatinName ?? '-' },
     { key: t('modal.persian_name'), value: modalDataQuery?.servicePersianName ?? '-' },
@@ -32,7 +42,10 @@ export default function DetailsModal(props: Props) {
     { key: t('modal.path'), value: modalDataQuery?.routePath ?? '-' },
     { key: t('modal.host'), value: modalDataQuery?.routeHosts ?? '-' },
     { key: t('modal.upstream'), value: modalDataQuery?.upstreamTitle ?? '-' },
-    { key: t('modal.service_definition_status'), value: 'its not ready' },
+    {
+      key: t('modal.service_definition_status'),
+      value: <S.StyledSpan isOperational={isOperational}>{serviceProgress}</S.StyledSpan>,
+    },
   ];
 
   return (
