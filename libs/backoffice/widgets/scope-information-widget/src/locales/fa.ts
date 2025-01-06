@@ -40,5 +40,7 @@ export default {
     host: 'Host',
     upstream: 'Upstream',
     service_definition_status: 'وضعیت تعریف سرویس',
+    operational: 'عملیاتی',
+    draft: 'پیش‌نویس - {{progressPercent}}%',
   },
 };
