@@ -12,7 +12,7 @@ export const initialStateValue: WidgetStateType = {
     filters: initialFilters,
     submit: initialFilters,
     pagination: {
-      rowsPerPage: INITIAL_ROW_PER_PAGE,
+      limit: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
