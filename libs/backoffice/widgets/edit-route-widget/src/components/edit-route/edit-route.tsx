@@ -138,7 +138,11 @@ const EditRoute: React.FC<EditScopeProps> = () => {
             </Form.Item>
 
             <Form.Item name={FORM_ITEM_NAMES.path} className={'span-2'} label={t('path')} rules={[rule]}>
-              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.path')} />
+              <Input
+                maxLength={MAX_LENGTH_INPUT}
+                disabled={routeDetails?.isServiceInSso}
+                placeholder={t('placeholders.path')}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.host} className={'span-2'} label={t('host')} rules={[rule]}>
               <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.host')} />

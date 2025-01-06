@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { FetchParamsType } from '../types';
@@ -11,5 +11,6 @@ export const useGetRouteHistoryQuery = (params: FetchParamsType) => {
   return useQuery({
     queryKey: [RQKEYS.ROUTE_CHANGE_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getRouteChangeHistoryData(params), dispatch),
+    placeholderData: keepPreviousData,
   });
 };
