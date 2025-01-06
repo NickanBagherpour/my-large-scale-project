@@ -61,6 +61,7 @@ const Appbar = (props: AppBarProps) => {
           onLogout={handleLogout}
           isMobileOrTablet={isMobileOrTablet}
           loading={isLoading}
+          isError={isError}
         />
       </>
     );
@@ -84,6 +85,7 @@ const Appbar = (props: AppBarProps) => {
               onLogout={handleLogout}
               isMobileOrTablet={isMobileOrTablet}
               loading={isLoading}
+              isError={isError}
             />
             <S.Divider />
           </>
