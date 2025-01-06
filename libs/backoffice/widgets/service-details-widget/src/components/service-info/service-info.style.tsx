@@ -18,6 +18,15 @@ export const DataTableContainer = styled.div`
   align-items: flex-start;
 `;
 
+export const TagsContainer = styled.div`
+  .infobox-tags {
+    padding: 0.4rem 1rem;
+    font-size: 1.1rem;
+    min-height: auto;
+    height: auto;
+  }
+`;
+
 export const Buttons = styled.div`
   display: flex;
   align-items: center;

@@ -15,12 +15,12 @@ export type Modal = {
 type Props = {
   t: TFunction;
   toggleModal: (modal: keyof Modal) => void;
-  updateId: (id: number) => void;
+  updateServiceName: (serviceName: string) => void;
   page: number;
   rowsPerPage: number;
 };
 export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
-  const { t, toggleModal, updateId, page, rowsPerPage } = props;
+  const { t, toggleModal, updateServiceName, page, rowsPerPage } = props;
 
   return [
     {
@@ -87,7 +87,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
           variant='link'
           color='primary'
           onClick={() => {
-            updateId(value?.id);
+            updateServiceName(value?.name);
             toggleModal('details');
           }}
         >
@@ -110,7 +110,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
 }
 
 export function getMobileColumns(props: Props): ColumnsType<ScopeInformationService> {
-  const { t, toggleModal, updateId } = props;
+  const { t, toggleModal, updateServiceName } = props;
 
   return [
     {
@@ -140,7 +140,7 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
                 variant='link'
                 color='primary'
                 onClick={() => {
-                  updateId(id);
+                  updateServiceName(name);
                   toggleModal('details');
                 }}
               >

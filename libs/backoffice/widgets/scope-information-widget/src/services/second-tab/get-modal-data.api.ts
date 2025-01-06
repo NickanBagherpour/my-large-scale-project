@@ -8,7 +8,7 @@ import { Nullable } from '@oxygen/types';
 // type ModalParamsType = {
 //   id: string;
 // };
-export const useModalInfoQuery = (params: Nullable<string | number>) => {
+export const useModalInfoQuery = (params: Nullable<string>) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

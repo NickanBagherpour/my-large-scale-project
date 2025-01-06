@@ -34,6 +34,7 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/scope/service-name/${params}`);
     return Mockify.RouteDetails();
   },
+  getScopes: async (params: any) => client.get<any>(`${portalUrl}/v1/scope`, { params }),
   getServiceClientsList: async () => {
     return Mockify.ServiceClientsList();
     // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
@@ -53,6 +54,8 @@ const Api = {
   addServiceScope: async ({ servicename, scopeId }: { servicename: string; scopeId: string | number }) => {
     return client.post<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
   },
+  postAssignScopeToService: async ({ scopeName, serviceName }: any) =>
+    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign/${serviceName}`),
   // deleteServiceScope: (async = (params) => {
   //   const { servicename, scopeId } = params;
 

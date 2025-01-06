@@ -6,7 +6,7 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 import { Pagination } from '@oxygen/types';
 
-export const useGetScopes = (params: any) => {
+export const useGetScopesBySearch = (params: any) => {
   const dispatch = useAppDispatch();
   return useQuery<any>({
     queryKey: [RQKEYS.GET_SCOPE.SEARCH, params],
@@ -20,6 +20,16 @@ export const useGetServiceScope = (params: any) => {
   return useQuery<any>({
     queryKey: [RQKEYS.GET_SCOPE.SERVICE_SCOPE, params],
     queryFn: withErrorHandling(() => Api.getServiceScope(params), dispatch),
-    // placeholderData: keepPreviousData,
+    // enabled: params['scope-name'].length >= 3,
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetScopes = (params: any) => {
+  const dispatch = useAppDispatch();
+  return useQuery({
+    queryKey: [RQKEYS.SERVICE_CREATION.SCOPES, params],
+    queryFn: withErrorHandling(() => Api.getScopes(params), dispatch),
+    // enabled: params['scope-name'].length >= 3,
   });
 };

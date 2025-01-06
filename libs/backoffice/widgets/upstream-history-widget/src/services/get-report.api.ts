@@ -5,11 +5,11 @@ import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetRouteHistoryQuery = (params: FetchParamsType) => {
+export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.ROUTE_CHANGE_HISTORY.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getRouteChangeHistoryData(params), dispatch),
+    queryKey: [RQKEYS.UPSTREAM_HISTORY.GET_LIST, params],
+    queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
   });
 };
