@@ -15,8 +15,6 @@ import { UserRoleType } from '../../../../request-list-widget/src/types/common-t
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { ROUTES } from '@oxygen/utils';
-import EditClient from '../../../../../../backoffice/widgets/edit-client-info-widget/src/components/edit-client/edit-client';
 
 type AppProps = PageProps & {
   role?: UserRoleType;
@@ -33,6 +31,8 @@ const App: React.FC<AppProps> = (props) => {
 
   const role = props.parentProps?.role;
 
+  const router = useRouter();
+
   const searchParams = useSearchParams();
 
   const submissionId: Nullable<string> = searchParams.get(REQUEST_ID_KEY);
@@ -43,7 +43,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const checkParams = (data, requestId, isLoading) => {
     if (!requestId || !data) {
-      return <NoResult isLoading={isLoading} />;
+      return <NoResult isLoading={isLoading} handleClick={() => router.back()} />;
     }
     return (
       <S.AppContainer title={t('widget_name')}>
