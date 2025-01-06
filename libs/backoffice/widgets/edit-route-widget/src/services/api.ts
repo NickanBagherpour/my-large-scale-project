@@ -15,7 +15,7 @@ const Api = {
   editRoute: async (params) => {
     const { serviceName, ...rest } = params; // Extract `id` and `serviceName`
 
-    return client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, rest);
+    return client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, rest);
   },
 };
 export default Api;
