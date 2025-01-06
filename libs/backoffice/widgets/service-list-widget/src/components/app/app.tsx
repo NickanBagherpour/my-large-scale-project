@@ -22,8 +22,9 @@ const App = () => {
   const prepareParams = () => {
     return {
       isActive: status,
-      'search-field': searchTerm ? searchTerm : null,
+      // 'search-field': searchTerm ? searchTerm : null,
       page: table.pagination.page - 1,
+      ...(searchTerm && { 'search-field': searchTerm }),
       size: table.pagination.rowsPerPage,
       sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
     };

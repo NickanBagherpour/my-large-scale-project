@@ -47,6 +47,18 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/scope?${queryString}`);
     // return Mockify.getScopes;
   },
+  deleteServiceScope: async ({ servicename, scopeId }: { servicename: string; scopeId: string | number }) => {
+    return client.delete<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
+  },
+  addServiceScope: async ({ servicename, scopeId }: { servicename: string; scopeId: string | number }) => {
+    return client.post<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
+  },
+  // deleteServiceScope: (async = (params) => {
+  //   const { servicename, scopeId } = params;
+
+  //   return client.delete(`/services/${servicename}/scopes/${scopeId}`);
+  // }),
+
   // getScopeListBySearch: async (params) => {
   //   const queryString = new URLSearchParams(params).toString();
   //   try {

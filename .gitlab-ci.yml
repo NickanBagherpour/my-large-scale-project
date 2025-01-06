@@ -1,0 +1,30 @@
+stages:
+  - modules
+
+backoffice-portal:
+  stage: modules
+  trigger:
+    include: apps/backoffice-portal/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [apps/backoffice-portal/project.json]
+
+business-portal:
+  stage: modules
+  trigger:
+    include: apps/business-portal/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [apps/business-portal/project.json]
+
+customer-portal:
+  stage: modules
+  trigger:
+    include: apps/customer-portal/.gitlab-ci.yml
+    strategy: depend
+  rules:
+    - changes: [apps/customer-portal/project.json]
+
+
+
+

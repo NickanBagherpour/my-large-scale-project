@@ -48,7 +48,7 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
         <span>{t('advance_grid_card.discription')}</span>
         {t(descriptionText)}
       </S.Discription>
-      <S.Button variant='outlined' loading={btnLoading} onClick={btnHandleClick}>
+      <S.Button variant='outlined' loading={btnLoading} onClick={() => btnHandleClick(data.submissionId)}>
         {t('button.view_request')}
       </S.Button>
     </S.Container>

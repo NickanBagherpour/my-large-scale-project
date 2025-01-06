@@ -55,23 +55,33 @@ const Route: React.FC<AppProps> = (props) => {
     if (!serviceDetails) return [];
 
     return [
-      { key: t('latin_name'), value: getValueOrDash(serviceDetails.name) },
-      { key: t('persian_name'), value: getValueOrDash(serviceDetails.persianName) },
-      { key: t('access'), value: getValueOrDash(serviceDetails.accessLevel.title) },
-      { key: t('category'), value: getValueOrDash(serviceDetails.category.title) },
-      { key: t('throughput'), value: getValueOrDash(serviceDetails.throughput.title) },
-      { key: t('version'), value: getValueOrDash(serviceDetails.version) },
-      { key: t('owner'), value: getValueOrDash(serviceDetails.owner) },
-      // {
-      //   key: t('tags'),
-      //   value: serviceDetails.tags.length
-      //     ? serviceDetails.tags.map(
-      //         (tag, index) => `<Chip type='active'>
-      //         {tag}
-      //       </Chip>`
-      //       )
-      //     : '-',
-      // },
+      { key: t('latin_name'), value: getValueOrDash(serviceDetails?.name) },
+      { key: t('persian_name'), value: getValueOrDash(serviceDetails?.persianName) },
+      { key: t('access'), value: getValueOrDash(serviceDetails?.accessLevel?.title) },
+      { key: t('category'), value: getValueOrDash(serviceDetails?.category?.title) },
+      { key: t('throughput'), value: getValueOrDash(serviceDetails?.throughput?.title) },
+      { key: t('version'), value: getValueOrDash(serviceDetails?.version) },
+      { key: t('owner'), value: getValueOrDash(serviceDetails?.owner) },
+      {
+        key: t('tags'),
+        fullwidth: true,
+        value: serviceDetails.tags.length ? (
+          <div>
+            {serviceDetails.tags.map((tag) => (
+              <Chip
+                type='active'
+                key={tag.id}
+                // color='blue' // Optional: Customize color or remove for default styling
+                // style={{ marginBottom: 8 }}
+              >
+                {tag.title}
+              </Chip>
+            ))}
+          </div>
+        ) : (
+          '-'
+        ),
+      },
     ];
   };
 
@@ -94,7 +104,7 @@ const Route: React.FC<AppProps> = (props) => {
   return (
     <>
       <div className='service-technical-details'>
-        <h3>{t('service_technical_info')}</h3>
+        <h3>{t('general_information')}</h3>
         <div className='btn-group'>
           <Button
             type={'primary'}

@@ -85,27 +85,27 @@ const App: React.FC<AppProps> = (props) => {
       label: t('scopes'),
       children: (
         <ScopeList
-          updateData={(data) => {
-            setScopeData(data);
-          }}
+        // updateData={(data) => {
+        //   setScopeData(data);
+        // }}
         />
       ),
-      onSubmit: () => {
-        const params = { id: state.scopeName, serviceName: state.serviceName };
-        mutateScope(params, {
-          onSuccess: () => {
-            notification.success({
-              message: t('upstream_tab.success_notif'),
-            });
-            updateScopeTabCreationSubmitAction(dispatch);
-          },
-          onError: (error) => {
-            notification.error({
-              message: t(`${error}`),
-            });
-          },
-        });
-      },
+      // onSubmit: () => {
+      //   const params = { id: state.scopeName, serviceName: state.serviceName };
+      //   mutateScope(params, {
+      //     onSuccess: () => {
+      //       notification.success({
+      //         message: t('upstream_tab.success_notif'),
+      //       });
+      //       updateScopeTabCreationSubmitAction(dispatch);
+      //     },
+      //     onError: (error) => {
+      //       notification.error({
+      //         message: t(`${error}`),
+      //       });
+      //     },
+      //   });
+      // },
     },
     {
       key: '4',
