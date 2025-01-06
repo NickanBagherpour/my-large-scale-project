@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { SubmissionDetailType, UserRole } from '../../types';
+import { RepresentativeType, SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
@@ -28,7 +28,8 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   if (!data) return <NoResult isLoading={false} />;
 
   const { submissionInfoDto, organization, representativeSet, services } = data;
-  const representativeName = (representativeSet && representativeSet.find((rep) => rep?.type === 1)?.name) ?? '';
+  const representativeName =
+    (representativeSet && representativeSet.find((rep) => rep?.type === RepresentativeType.STANDARD)?.name) ?? '';
   const status = submissionInfoDto?.submissionStatus;
 
   const items: CollapseProps['items'] = [
@@ -84,7 +85,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
                 type='primary'
                 style={{ margin: 0 }}
                 icon={<i className='icon-edit' />}
-                // href={`${ROUTES.BUSINESS.REQUESTS_MANAGEMENT}?submissionId=${state?.submissionId}`}
+                href={`${ROUTES.BUSINESS.EDIT_REQUEST_LIST}?submissionId=${state?.submissionId}`}
               />
             </Tooltip>
           )}
