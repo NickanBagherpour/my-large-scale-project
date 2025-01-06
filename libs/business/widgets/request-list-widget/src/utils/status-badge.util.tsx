@@ -6,7 +6,7 @@ import { BusinessStatusBadge, BusinessUserRole } from './consts';
 import * as S from '../components/data-table/data-table.style';
 
 export const statusBadgeRenderer = (status: { code: number; title: string }, clientStatus: string, t: TFunction) => {
-  const isCommercialBanking = clientStatus === BusinessUserRole.BUSINESS_ADMIN;
+  const isBUSINESS_ADMIN = clientStatus === BusinessUserRole.BUSINESS_ADMIN;
 
   const statusCode = status?.code;
   const statusTitle = status?.title;
@@ -16,7 +16,7 @@ export const statusBadgeRenderer = (status: { code: number; title: string }, cli
     case BusinessStatusBadge.UNDER_REVIEW_BUSINESS_UNIT:
       return (
         <S.StyledContainer>
-          {!isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
+          {!isBUSINESS_ADMIN && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
           <S.Tag type={'processing'}>{statusTitle}</S.Tag>
         </S.StyledContainer>
       );
@@ -30,7 +30,7 @@ export const statusBadgeRenderer = (status: { code: number; title: string }, cli
     case BusinessStatusBadge.APPROVED_BY_COMMERCIAL_BANK:
       return (
         <S.StyledContainer>
-          {isCommercialBanking && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
+          {isBUSINESS_ADMIN && <InactiveBadge width={'1.2rem'} height={'1.2rem'} />}
           <S.Tag type={'initialApproval'} bordered={true}>
             {statusTitle}
           </S.Tag>
