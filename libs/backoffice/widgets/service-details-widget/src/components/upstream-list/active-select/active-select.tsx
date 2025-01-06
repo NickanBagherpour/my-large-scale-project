@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
+import { ROUTES } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { Modal } from '@oxygen/ui-kit';
+import { Button, Modal } from '@oxygen/ui-kit';
 import CustomInfobox from '../custom-infobox/custom-infobox';
 // import { Modal } from '../../scope-list/scope-list';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
@@ -30,6 +32,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
+  const router = useRouter();
   //States
   const [modals, setModals] = useState<Modal>({
     details: false,
@@ -58,10 +61,16 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-
+  //please add correct route instead of ROUTES.BACKOFFICE.UPSTREAM_LIST
+  const handleHistoryBtn = () => router.push(`${ROUTES.BACKOFFICE.UPSTREAM_LIST}?id=${state.serviceName}&type=service`);
   return (
     <>
-      <S.Title>{t('upstream_tab.tab_header')}</S.Title>
+      <S.Header>
+        <S.Title>{t('upstream_tab.tab_header')}</S.Title>
+        <Button variant='filled' icon={<S.Icon className='icon-clock' />} onClick={handleHistoryBtn}>
+          {t('see_changes_history')}
+        </Button>
+      </S.Header>
       <UpstreamDetails
         tableLoading={isFetching}
         tableData={tableData}
