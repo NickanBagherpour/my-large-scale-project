@@ -71,7 +71,7 @@ export type SecondStepParams = {
 };
 
 export type ThirdStepParams = {
-  requestId: string;
+  submissionId: string;
   servicesIdSet: [number];
 };
 

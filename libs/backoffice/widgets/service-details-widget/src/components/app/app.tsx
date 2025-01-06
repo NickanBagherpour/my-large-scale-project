@@ -135,7 +135,7 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-      {items.find((item) => item.key === activeTabKey)?.onSubmit && (
+      {items.find((item) => item.key === '4') && !state.upstreamTab.activeSelect.isInitialized && (
         <Button
           loading={isPending}
           onClick={() => {

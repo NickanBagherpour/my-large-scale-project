@@ -88,7 +88,7 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
           <Button
             variant={'text'}
             className={colorButton}
-            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${record?.requestId}`}
+            href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
             color={colorButton}
           >
             <i className={'icon-document'} />
@@ -112,7 +112,7 @@ export function getMobileColumns(props: Props) {
         clientName,
         submissionStatus,
         createDate,
-        requestId,
+        submissionId,
         serviceCount,
         representative,
       }) => {
@@ -131,7 +131,7 @@ export function getMobileColumns(props: Props) {
             value: (
               <Button
                 className={isApproved ? 'secondary' : 'primary'}
-                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?requestId=${requestId}`}
+                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${submissionId}`}
                 variant={'text'}
                 color={colorButton}
               >

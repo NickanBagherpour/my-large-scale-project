@@ -9,7 +9,7 @@ import { Nullable, PageProps } from '@oxygen/types';
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
 import { useGetRequestListQuery } from '../../services';
-import { handleUserRoleRedirect, prepareRequestListParams } from '../../utils/utility-functions';
+import { handleUserRoleRedirect, prepareRequestListParams } from '../../utils/helper';
 import { UserRoleType } from '../../types/common-types';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';

@@ -14,8 +14,8 @@ import {
   useAppState,
 } from '../../context';
 import DetailsCollapse from '../details-collapse/details-collapse';
-import { SubmissionId } from '../../types';
 import { useGetSubmissionDetailQuery } from '../../services';
+import { SubmissionId } from '../../types';
 
 import * as S from './app.style';
 
@@ -33,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   const { message } = state;
 
   const searchParams = useSearchParams();
-  const submissionId: SubmissionId = searchParams.get('requestId');
+  const submissionId: SubmissionId = searchParams.get('submissionId');
 
   useEffect(() => {
     if (!submissionId) notFound();
@@ -60,7 +60,6 @@ const App: React.FC<AppProps> = (props) => {
   }
 
   if (error) return <NoResult isLoading={false} />;
-  if (!submissionData) return <Loading spinning={isFetching} />;
 
   const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 
@@ -82,7 +81,7 @@ const App: React.FC<AppProps> = (props) => {
         <DetailsCollapse data={submissionData} />
       ) : (
         <S.LoadingContainer>
-          <Loading spinning={true} />
+          <Loading spinning={isFetching} />
         </S.LoadingContainer>
       )}
     </S.AppContainer>

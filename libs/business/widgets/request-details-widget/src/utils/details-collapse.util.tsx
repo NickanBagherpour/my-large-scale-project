@@ -1,6 +1,6 @@
-import { getValueOrDash } from '@oxygen/utils';
+import { dateLocale, getValueOrDash } from '@oxygen/utils';
 
-import { Representative, SubmissionDetailType } from '../types';
+import { Representative, RepresentativeType, SubmissionDetailType } from '../types';
 
 import * as S from '../components/details-collapse/details-collapse.style';
 
@@ -20,7 +20,7 @@ export const getSubmissionInfo = (
     },
     {
       key: t('register_date'),
-      value: getValueOrDash(submissionInfoDto?.createDate),
+      value: getValueOrDash(submissionInfoDto?.persianCreateDate),
     },
     {
       key: t('organization_representative_name'),
@@ -63,8 +63,8 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
       key: t('aggregator_status'),
       value: getValueOrDash(
         `${t(organization?.isAggregator ? 'has_aggregator' : 'dont_have_aggregator')}${
-          organization?.aggregatorName ? getValueOrDash(organization?.aggregatorName) : ''
-        }`
+          organization?.aggregatorName ? '-' : ''
+        }${organization?.aggregatorName ? getValueOrDash(organization?.aggregatorName) : ''}`
       ),
     },
     {
@@ -87,44 +87,6 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
   ];
 };
 
-// export const getRepresentativeInfo = (representativeSet: SubmissionDetailType['representativeSet'], t) => {
-//   if (!representativeSet || representativeSet.length ===0) {
-//     return [];
-//   }
-//
-//   return [
-//     {
-//       key: t('representative_name'),
-//       value: getValueOrDash(representativeSet[0]?.name),
-//     },
-//     {
-//       key: t('mobile_number'),
-//       value: getValueOrDash(representativeSet[0]?.mobileNumber),
-//     },
-//     {
-//       key: t('fixed_phone'),
-//       value: getValueOrDash(representativeSet[0]?.fixedPhone),
-//     },
-//     {
-//       fullwidth: true,
-//       key: '',
-//       value: '',
-//     },
-//     {
-//       key: t('technical_representative_name'),
-//       value: getValueOrDash(representativeSet[1]?.name),
-//     },
-//     {
-//       key: t('mobile_number'),
-//       value: getValueOrDash(representativeSet[1]?.mobileNumber),
-//     },
-//     {
-//       key: t('fixed_phone'),
-//       value: getValueOrDash(representativeSet[1]?.fixedPhone),
-//     },
-//   ];
-// };
-
 export const getRepresentativeInfo = (representativeSet, t) => {
   if (!representativeSet || representativeSet.length === 0) {
     return [];
@@ -138,7 +100,7 @@ export const getRepresentativeInfo = (representativeSet, t) => {
     .map((rep, index) => {
       const details: any = [
         {
-          key: t(rep.type === 2 ? 'technical_representative_name' : 'representative_name'),
+          key: t(rep.type === RepresentativeType.TECHNICAL ? 'technical_representative_name' : 'representative_name'),
           value: getValueOrDash(rep.name),
         },
         {
