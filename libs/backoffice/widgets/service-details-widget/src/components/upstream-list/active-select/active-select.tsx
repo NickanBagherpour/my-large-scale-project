@@ -63,7 +63,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   };
   //please add correct route instead of ROUTES.BACKOFFICE.UPSTREAM_LIST
   const handleHistoryBtn = () =>
-    router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?serviceName=${state.serviceName}&type=service`);
+    router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=${state.serviceName}&type=service`);
   return (
     <>
       <S.Header>
