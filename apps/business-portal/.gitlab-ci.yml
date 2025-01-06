@@ -8,14 +8,13 @@ default:
     - docker login -u $REGISTRY_USER -p $REGISTRY_Password $REGISTRY
 
 variables:
-  KUBERNETES_NAMESPACE: "oxygen-plus"
-  KUBERNETES_DEPLOYMENT: "business-portal-web"
-  NODE_MODULES_DIR: "node_modules"
-  BUILD_DIR: "dist"
+  KUBERNETES_NAMESPACE: 'oxygen-plus'
+  KUBERNETES_DEPLOYMENT: 'business-portal-web'
+  NODE_MODULES_DIR: 'node_modules'
+  BUILD_DIR: 'dist'
   BUILD_CACHE_KEY: build-cache
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/business-portal-web
   VERSION: 1.0.0
-
 
 build:
   stage: build
@@ -29,7 +28,7 @@ build:
   cache:
     key: $BUILD_CACHE_KEY
     paths:
-    - $NODE_MODULES_DIR
+      - $NODE_MODULES_DIR
   artifacts:
     paths:
       - $BUILD_DIR
@@ -43,7 +42,7 @@ deploy:
     - shared
   image:
     name: bitnami/kubectl:latest
-    entrypoint: [""]
+    entrypoint: ['']
   inherit:
     default: false
   script:
