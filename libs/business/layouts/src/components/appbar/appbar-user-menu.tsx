@@ -25,6 +25,7 @@ export default function AppbarUserMenu({
   onLogout,
   isMobileOrTablet,
   loading = false,
+  isError,
 }) {
   const [t] = useTr();
 
@@ -89,16 +90,16 @@ export default function AppbarUserMenu({
       variant === 'auth'
         ? []
         : [
-            {
-              label: `${t('appbar.edit_info')}`,
-              icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
-              key: MenuItemKey.EditInfo,
-            },
-            {
-              label: `${t('appbar.change_password')}`,
-              icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
-              key: MenuItemKey.ChangePassword,
-            },
+            // {
+            //   label: `${t('appbar.edit_info')}`,
+            //   icon: <i className='icon-pencil-square' style={{ fontSize: '2.2rem' }} />,
+            //   key: MenuItemKey.EditInfo,
+            // },
+            // {
+            //   label: `${t('appbar.change_password')}`,
+            //   icon: <i className='icon-input-password' style={{ fontSize: '2.2rem' }} />,
+            //   key: MenuItemKey.ChangePassword,
+            // },
             {
               label: <span onClick={handleClose}>{t('appbar.logout')}</span>,
               icon: <i className='icon-sign-out' style={{ fontSize: '2.2rem' }} />,
@@ -142,7 +143,7 @@ export default function AppbarUserMenu({
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
-          {loading ? <Loading size='small' /> : getUserFullname(userInfo)}
+          {userInfo ? getUserFullname(userInfo) : isError ? '-' : <Loading size='small' />}
           <Icons.ArrowDown />
         </S.StyleParagraph>
       )}

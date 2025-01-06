@@ -8,4 +8,5 @@ export default {
   rejected_request: 'رد شده',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
+  draft: 'پیش‌نویس‌',
 };

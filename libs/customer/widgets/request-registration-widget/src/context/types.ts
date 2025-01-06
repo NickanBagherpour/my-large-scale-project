@@ -17,7 +17,7 @@ export type FirstStepType = {
   legal_person_name?: string;
   legal_person_type?: string;
   registration_number?: string;
-  registration_date?: string;
+  registration_date?: string | any;
   national_id?: string;
   economy_code?: string;
   activity_field?: string;
@@ -47,6 +47,7 @@ export type WidgetStateType = {
   requestMode: RequestMode;
   organizationId: string;
   submissionId: string;
+  firstStepDisabledSubmit: boolean;
   firstStep: FirstStepType;
   secondStep: SecondStepType;
   thirdStep: {
@@ -92,6 +93,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
+    }
+  | {
+      type: 'UPDATE_ALL_STATE_FROM_DRAFTS';
+      payload: Partial<FiltersType>;
     }
   | {
       type: 'UPDATE_FILTERS';

@@ -12,6 +12,7 @@ export const SecondTabHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
+  margin-bottom: 2rem;
   @media print {
     display: none;
   }

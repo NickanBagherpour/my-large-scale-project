@@ -1,15 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetReportDataQuery = (params: FetchParamsType) => {
+export const useGetServiceHttpMethod = () => {
   const dispatch = useAppDispatch();
-
   return useQuery({
-    queryKey: [RQKEYS.EDIT_ROUTE.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
+    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE_HTTP_METHOD],
+    queryFn: withErrorHandling(() => Api.getServiceHttpMethod(), dispatch),
   });
 };

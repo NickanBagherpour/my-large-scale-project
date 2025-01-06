@@ -51,13 +51,13 @@ const EditService: React.FC<Props> = ({ serviceInfo, form, onSubmit }) => {
           <Input placeholder={t('placeholder.fa-name')} />
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
-          <Input size={'large'} placeholder={t('placeholder.access')} readOnly></Input>
+          <Input disabled={true} size={'large'} placeholder={t('placeholder.access')} readOnly></Input>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
           <Select size={'large'} placeholder={t('placeholder.category')} options={categoryOptions}></Select>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.throughout} rules={[rule]} label={t('form.throughput')}>
-          <Input size={'large'} placeholder={t('placeholder.throughput')} readOnly></Input>
+          <Input disabled={true} size={'large'} placeholder={t('placeholder.throughput')} readOnly></Input>
         </S.FormItem>
         <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />

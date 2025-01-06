@@ -2,7 +2,7 @@ import { respondTo } from '@oxygen/utils';
 import { Form } from 'antd';
 import styled from 'styled-components';
 
-const formGap = '1.5rem';
+const formGap = '1.6rem';
 export const FormItemsContainer = styled.div`
   width: 100%;
   display: flex;

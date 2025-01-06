@@ -1,0 +1,44 @@
+services:
+  backoffice-portal:
+    container_name: backoffice-portal-web
+    image: backoffice-portal
+    volumes:
+      - ./.npmrc:/apps/backoffice-portal/
+    ports:
+      - '3201:3200'
+    networks:
+      - backoffice-portal-net
+
+  business-portal:
+    container_name: business-portal-web
+    image: business-portal
+    volumes:
+      - ./.npmrc:/apps/business-portal/
+    ports:
+      - '3202:3200'
+    networks:
+      - business-portal-net
+
+  customer-portal:
+    container_name: customer-portal-web
+    image: customer-portal
+    volumes:
+      - ./.npmrc:/apps/customer-portal/
+    ports:
+      - '3203:3200'
+    networks:
+      - customer-portal-net
+
+  # nginx:
+  #   image: nginx:stable-alpine
+  #   volumes:
+  #     - ./apps/backoffice-portal/nginx.conf:/etc/nginx/nginx.conf:ro
+  #   ports:
+  #     - '81:80'
+  #   networks:
+  #     - backoffice-portal-net
+
+networks:
+  backoffice-portal-net:
+  business-portal-net:
+  customer-portal-net:
