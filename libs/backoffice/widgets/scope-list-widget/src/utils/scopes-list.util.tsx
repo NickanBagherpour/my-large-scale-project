@@ -1,8 +1,7 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-import { ScopeListDataType } from '@oxygen/types';
-
 import { TFunction } from 'i18next';
+import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 
 import * as S from '../components/data-table/data-table.style';
 
@@ -93,3 +92,25 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
     },
   ];
 }
+
+export const prepareScopeListParams = (item: TypeScopeListParams) => {
+  const { searchField, page, pageSize, ...restParams } = item;
+
+  const reqObj: Partial<ScopeRequestParams> = {};
+
+  if (searchField) {
+    reqObj['search-field'] = searchField;
+  }
+
+  if (page) {
+    reqObj.page = page - 1;
+  }
+
+  if (pageSize) {
+    reqObj.size = pageSize;
+  }
+
+  reqObj.sort = '';
+
+  return reqObj;
+};
