@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
+import { RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 
-import { updateMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.util';
+import { useDeleteService } from '../../services/delete-service.api';
 
 import * as S from './data-table.style';
-import { useDeleteService } from '../../services/delete-service.api';
-import { queryClient } from '@oxygen/client';
-import { RQKEYS } from '@oxygen/utils';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
