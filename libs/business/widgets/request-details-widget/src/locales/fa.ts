@@ -24,7 +24,7 @@ export default {
   register_no: 'شماره ثبت',
   activity_industry: 'زمینه فعالیت',
   aggregator_status: 'وضعیت اگریگیتور',
-  has_aggregator: 'شرکت اگریگیتور دارد-',
+  has_aggregator: 'شرکت اگریگیتور دارد',
   dont_have_aggregator: 'شرکت اگریگیتور ندارد',
   phone: 'تلفن',
   technical_representative_name: 'نام و نام خانوادگی نماینده فنی',

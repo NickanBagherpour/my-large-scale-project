@@ -56,15 +56,17 @@ export enum ExpertOpinionStatus {
   CONFIRMED = 1,
   REJECTED,
 }
+
 export type RequestConfirm = {
   description: string;
 };
 
 interface SubmissionInfoDto {
-  requestId: number;
+  submissionId: number;
   clientName: string;
   organizationName: Nullable<string>;
   createDate: string;
+  persianCreateDate: string;
   representativeName: string;
   submissionStatus: CodeTitle;
 }
@@ -87,9 +89,10 @@ interface Organization {
 }
 
 export enum RepresentativeType {
-  TECHNICAL = 1,
-  STANDARD,
+  STANDARD = 1,
+  TECHNICAL,
 }
+
 export interface Representative {
   name: string;
   mobileNumber: string;
@@ -104,6 +107,17 @@ interface Service {
   fee: number;
   version: string;
 }
+
+export enum ExpertOpinionCode {
+  APPROVED = 1,
+  REJECTED,
+}
+
+export type ExpertOpinion = {
+  code: ExpertOpinionCode;
+  title: string;
+};
+
 export enum ExpertType {
   COMMERCIAL = 1,
   BUSINESS,
@@ -114,9 +128,10 @@ export interface Review {
   expertName: string;
   viewDate: string;
   expertDescription: string;
-  expertOpinion: CodeTitle;
+  expertOpinion: ExpertOpinion;
   expertType: ExpertType;
 }
+
 export interface SubmissionDetailType {
   submissionInfoDto: SubmissionInfoDto;
   organization: Organization;

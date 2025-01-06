@@ -33,7 +33,7 @@ const CommercialResultInfo: React.FC<Props> = (props: Props) => {
     },
   ];
   return (
-    <S.InfoBoxContainer isConfirmed={isConfirmed}>
+    <S.InfoBoxContainer $isConfirmed={isConfirmed}>
       <InfoBox data={commercialResultInfo} />
     </S.InfoBoxContainer>
   );

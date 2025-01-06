@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 
-export const InfoBoxContainer = styled.div<{ isConfirmed: boolean }>`
+export const InfoBoxContainer = styled.div<{ $isConfirmed: boolean }>`
   & > div:first-of-type {
     //margin: 1.6rem 0;
     border: 0;
@@ -18,14 +18,14 @@ export const InfoBoxContainer = styled.div<{ isConfirmed: boolean }>`
       font-weight: 700;
       line-height: 1.8rem;
 
-      color: ${(p) => (p.isConfirmed ? p.theme.secondary._800 : '#991B1B')};
+      color: ${(p) => (p.$isConfirmed ? p.theme.secondary._800 : '#991B1B')};
     }
 
     .grid-item .info-box__value {
       font-size: 1.2rem;
       font-weight: 400;
       line-height: 1.8rem;
-      color: ${(p) => (p.isConfirmed ? p.theme.secondary.main : p.theme.error._600)};
+      color: ${(p) => (p.$isConfirmed ? p.theme.secondary.main : p.theme.error._600)};
     }
 
     .grid-item:nth-child(2) {

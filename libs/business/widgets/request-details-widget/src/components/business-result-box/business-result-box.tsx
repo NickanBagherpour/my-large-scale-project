@@ -33,8 +33,8 @@ const BusinessResultBox: React.FC<Props> = (props) => {
     return (
       <>
         <S.StyledTitle>{t('business_unit_result')}</S.StyledTitle>
-
-        {showBusinessResultInfo ? <BusinessResultInfo result={review} /> : <NoResult isLoading={false} />}
+        <BusinessResultInfo result={review} />
+        {/*{showBusinessResultInfo ? <BusinessResultInfo result={review} /> : <NoResult isLoading={false} />}*/}
       </>
     );
   };
