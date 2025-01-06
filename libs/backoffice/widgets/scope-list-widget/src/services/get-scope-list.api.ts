@@ -3,10 +3,10 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 
 import { useAppDispatch } from '../context';
 
-import { TypeScopeListParams } from '../types';
+import { ScopeRequestParams } from '../types';
 import Api from './api';
 
-export const useGetScopeListQuery = (params: TypeScopeListParams) => {
+export const useGetScopeListQuery = (params: ScopeRequestParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

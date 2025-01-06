@@ -17,8 +17,8 @@ export type Scope = {
 };
 
 export type ScopeRequestParams = {
-  'search-field': string;
-  page: number;
-  size: number;
-  sort: string;
+  'search-field'?: string;
+  page?: number;
+  size?: number;
+  sort?: string;
 };

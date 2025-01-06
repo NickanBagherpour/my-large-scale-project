@@ -93,10 +93,10 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
   ];
 }
 
-export const prepareScopeListParams = (item: TypeScopeListParams) => {
+export const prepareScopeListParams = (item: TypeScopeListParams): ScopeRequestParams => {
   const { searchField, page, pageSize, ...restParams } = item;
 
-  const reqObj: Partial<ScopeRequestParams> = {};
+  const reqObj: ScopeRequestParams = {};
 
   if (searchField) {
     reqObj['search-field'] = searchField;
