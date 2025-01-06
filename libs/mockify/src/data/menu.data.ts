@@ -121,7 +121,7 @@ export const businessMenu = [
     order: 1,
     href: ROUTES.BUSINESS.DASHBOARD,
     icon: 'icon-grid',
-    active: true,
+    active: false,
     description: null,
     parentId: null,
     children: [],
