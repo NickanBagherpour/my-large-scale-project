@@ -115,23 +115,23 @@ export default function Scope() {
       align: 'center',
       render: (description) => (description ? description : '-'), // Show placeholder if description is null
     },
-    {
-      key: 'remove',
-      align: 'center',
-      render: (scope: Scope) => (
-        <Button
-          variant='link'
-          color='error'
-          disabled={serviceScope?.isServiceInSso}
-          onClick={() => {
-            setSelectedScope(scope);
-            toggleModal();
-          }}
-        >
-          <S.TrashIcon className='icon-trash' />
-        </Button>
-      ),
-    },
+    // {
+    //   key: 'remove',
+    //   align: 'center',
+    //   render: (scope: Scope) => (
+    //     <Button
+    //       variant='link'
+    //       color='error'
+    //       disabled={serviceScope?.isServiceInSso}
+    //       onClick={() => {
+    //         setSelectedScope(scope);
+    //         toggleModal();
+    //       }}
+    //     >
+    //       <S.TrashIcon className='icon-trash' />
+    //     </Button>
+    //   ),
+    // },
   ];
 
   const mobileColumns: ColumnsType<Scope> = [
@@ -146,7 +146,7 @@ export default function Scope() {
             title={t('scope_persian_name')}
             value={scope?.description || '-'} // Placeholder for null description
           />
-          <Table.MobileColumn
+          {/* <Table.MobileColumn
             minHeight={'40px'}
             title={t('remove')}
             value={
@@ -162,7 +162,7 @@ export default function Scope() {
                 <S.TrashIcon className='icon-trash' />
               </Button>
             }
-          />
+          /> */}
         </UiKitBox>
       ),
     },
@@ -172,12 +172,12 @@ export default function Scope() {
     <>
       <h3>{t('scope')}</h3>
 
-      <ScopeSelector onSelect={chooseScope} disabled={!!selectedScope || !!tableData} />
+      {/* <ScopeSelector onSelect={chooseScope} disabled={!!selectedScope || !!tableData} /> */}
 
       <S.Table
         columns={desktopColumns}
         mobileColumns={mobileColumns}
-        dataSource={tableData.length > 0 ? tableData : [{ name: 'No Data', description: null, id: 0 }]} // Placeholder row for empty table
+        dataSource={tableData} // Placeholder row for empty table
         rowKey={(row) => row?.id || 'defaultKey'}
         pagination={false}
       />

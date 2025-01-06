@@ -1,5 +1,5 @@
 export const FORM_ITEM_NAMES = {
-  action: 'action',
+  method: 'method',
   protocol: 'protocol',
   path: 'path',
   host: 'host',

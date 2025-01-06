@@ -56,7 +56,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
 
   return (
     <>
-      <S.Title>{t('upstream_tab.tab_header')}</S.Title>
+      {/* <S.Title>{t('upstream_tab.tab_header')}</S.Title> */}
       <UpstreamDetails
         tableLoading={isFetching}
         tableData={tableData}

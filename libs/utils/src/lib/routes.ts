@@ -36,6 +36,7 @@ export const ROUTES = {
     SCOPE_INFORMATION: '/scope-information',
     EDIT_ROUTE: '/edit-route',
     ROUTE_HISTORY: '/route-history',
+    UPSTREAM_HISTORY: '/upstream-history',
   },
   CUSTOMER: {
     LANDING: '/',

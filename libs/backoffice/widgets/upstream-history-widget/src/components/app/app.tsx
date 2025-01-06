@@ -22,8 +22,8 @@ const App: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const servicename: Nullable<string> = searchParams.get('servicename');
-  if (!servicename) {
+  const id: Nullable<string> = searchParams.get('id');
+  if (!id) {
     notFound();
   }
   const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
@@ -33,7 +33,7 @@ const App: React.FC<AppProps> = () => {
   function prepareParams() {
     const params = {
       pagination: table.pagination,
-      servicename: servicename!,
+      id: id!,
     };
     return params;
   }
