@@ -5,12 +5,11 @@ import { FetchParamsType } from '../types';
 import Api from './api';
 import { useAppDispatch } from '../context';
 
-export const useGetServiceInfoQuery = (params: FetchParamsType) => {
+export const useGetServiceInfoQuery = (id: number) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.EDIT_SERVICE.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getServiceInfo(params.id!), dispatch),
-    enabled: Boolean(params.id),
+    queryKey: [RQKEYS.EDIT_SERVICE.GET_DETAIL, id],
+    queryFn: withErrorHandling(() => Api.getServiceInfo(id), dispatch),
   });
 };

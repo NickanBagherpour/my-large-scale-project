@@ -26,5 +26,5 @@ export type PaginationResultType = {
 };
 
 export type FetchParamsType = {
-  id?: string | null;
+  serviceName: string;
 };

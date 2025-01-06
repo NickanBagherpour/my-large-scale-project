@@ -1,4 +1,5 @@
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
+import { Form } from 'antd';
 import React from 'react';
 
 import { i18nBase, useTr } from '@oxygen/translation';
@@ -8,10 +9,7 @@ import { SecondaryTitle } from '@oxygen/reusable-components';
 import { ROUTES } from '@oxygen/utils';
 import { useApp } from '@oxygen/hooks';
 
-//import { useGetReportDataQuery } from '../../services';
-
 import { useGetServiceInfoQuery } from '../../services/edit-service.api';
-import { Form } from 'antd';
 import EditService from '../edit-service/edit-service';
 
 import * as S from './app.style';
@@ -25,14 +23,13 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const [form] = Form.useForm();
   const { notification } = useApp();
-  const id: Nullable<string> = searchParams.get('id');
-
-  const { data: serviceInfo, isFetching } = useGetServiceInfoQuery({ id });
-  const title = serviceInfo?.[i18nBase.resolvedLanguage + 'Name'] ?? t('subtitle');
-
-  if (!id || (!isFetching && !serviceInfo)) {
+  const id = searchParams.get('id');
+  if (!id) {
     notFound();
   }
+  const { data: serviceInfo, isFetching } = useGetServiceInfoQuery(Number(id));
+  const title =
+    i18nBase.resolvedLanguage == 'en' ? serviceInfo?.serviceLatinName : serviceInfo?.servicePersianName ?? '';
 
   const handleReturn = () => {
     router.back();
@@ -42,14 +39,12 @@ const App: React.FC<AppProps> = (props) => {
     console.log('formvalues', formValues);
     const success = true;
     //also hanlde errors
-    if (success) {
-      router.push(
-        `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=${id}` // Replace 123 with your item ID
-      );
-      notification.success({
-        message: t('alert.edit_success'),
-      });
-    }
+    router.push(
+      `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?id=${id}` // Replace 123 with your item ID
+    );
+    notification.success({
+      message: t('alert.edit_success'),
+    });
   };
   const showLoadingSpinner = () => {
     return (

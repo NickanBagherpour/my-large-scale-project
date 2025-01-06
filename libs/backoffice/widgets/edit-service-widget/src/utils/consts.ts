@@ -1,22 +1,24 @@
+import { ServiceInfoDto } from '../types/get-service.type';
+
 export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const FORM_ITEM_NAMES = {
-  id: 'id',
-  enName: 'enName',
-  faName: 'faName',
-  tag: 'tag',
-  method: 'method',
-  protocol: 'protocol',
-  access: 'access',
-  category: 'category',
-  throughout: 'throughout',
-  version: 'version',
-  owner: 'owner',
-  path: 'path',
-  host: 'host',
-  upstream: 'upstream',
+export const FORM_ITEM_NAMES: Record<string, keyof ServiceInfoDto> = {
+  id: 'serviceInfoId',
+  enName: 'serviceLatinName',
+  faName: 'servicePersianName',
+  tag: 'tags',
+  method: 'routeMethod',
+  protocol: 'serviceProtocol',
+  // access: acces,
+  category: 'serviceCategoryTitle',
+  throughput: 'throughput',
+  version: 'serviceVersion',
+  owner: 'ownerName',
+  path: 'routePath',
+  host: 'routeHosts',
+  upstream: 'upstreamTitle',
 };
 export const protocolOptions = [
   { value: '1', label: 'Post' },
