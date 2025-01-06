@@ -4,8 +4,9 @@ import { ALL_STATUS_LIST, BUSINESS_STATUS_LIST, BusinessUserRole, COMMERCIAL_STA
 
 import { Status, UserRoleType } from '../types/common-types';
 
-import * as S from '../components/filter/filter.style';
 import { updateStatus } from '../context';
+
+import * as S from '../components/filter/filter.style';
 
 export const handleUserRoleRedirect = (userRole: UserRoleType) => {
   const isUserRoleMissing = !userRole;
@@ -13,11 +14,10 @@ export const handleUserRoleRedirect = (userRole: UserRoleType) => {
   const isValidUserRole = Object.entries(BusinessUserRole).findIndex(([key, value]) => value === userRole) !== -1;
 
   if (isUserRoleMissing || !isValidUserRole) {
-    notFound();
+    return notFound();
   }
 };
 
-//prepareRequestListParams
 export const prepareRequestListParams = (item, userRole) => {
   const { searchTerm, page, rowsPerPage, status, sort } = item;
   const isCommercialBanking = userRole === BusinessUserRole.BUSINESS_ADMIN;
@@ -39,9 +39,9 @@ export const prepareRequestListParams = (item, userRole) => {
   }
 
   if (status && isCommercialBanking) {
-    reqObj.submissionStatusCodeList = status;
+    reqObj.submissionStatusCodeList = status.join(',');
   } else {
-    reqObj.searchStatusList = status;
+    reqObj.searchStatusList = status.join(',');
   }
 
   if (sort) {
@@ -51,7 +51,6 @@ export const prepareRequestListParams = (item, userRole) => {
   return reqObj;
 };
 
-//getChipProps
 export const getChipProps = (statusArray: Status[], chipStatus: Status | Status[]) => {
   const isActive = Array.isArray(chipStatus)
     ? chipStatus.every((status) => statusArray.includes(status))
@@ -59,7 +58,6 @@ export const getChipProps = (statusArray: Status[], chipStatus: Status | Status[
   return isActive ? ({ type: 'active', iconProp: 'checked icon-checkmark' } as const) : ({ type: 'unActive' } as const);
 };
 
-//renderChips
 export const renderChips = (userRole: string, status: Status, dispatch: any, t: any) => {
   const isCommercialAdmin = userRole === BusinessUserRole.BUSINESS_ADMIN;
 
