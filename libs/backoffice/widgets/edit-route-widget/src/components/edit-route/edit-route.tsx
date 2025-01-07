@@ -50,7 +50,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
     // Ensure routeDetails and select options are available before setting form values
     if (routeDetails && serviceHttpMethods && serviceProtocols) {
       form.setFieldsValue({
-        [FORM_ITEM_NAMES.action]: routeDetails?.action?.code,
+        [FORM_ITEM_NAMES.method]: routeDetails?.method?.code,
         [FORM_ITEM_NAMES.protocol]: routeDetails?.protocol?.code,
         [FORM_ITEM_NAMES.path]: routeDetails.path,
         [FORM_ITEM_NAMES.host]: routeDetails.host,
@@ -70,7 +70,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
   }));
 
   const onFinish = async (values) => {
-    const selectedMethod = methodsSelectOptions.find((option) => option.value === values[FORM_ITEM_NAMES.action]);
+    const selectedMethod = methodsSelectOptions.find((option) => option.value === values[FORM_ITEM_NAMES.method]);
     const selectedProtocol = protocolsSelectOptions.find((option) => option.value === values[FORM_ITEM_NAMES.protocol]);
 
     // Dynamically build the payload
@@ -92,19 +92,23 @@ const EditRoute: React.FC<EditScopeProps> = () => {
       ...(values[FORM_ITEM_NAMES.host] && { host: values[FORM_ITEM_NAMES.host] }), // Include host only if filled
     };
 
-    console.log('Payload to send:', payload);
-
     try {
       mutate(payload, {
         onSuccess: () => {
           notification.success({
-            message: t('edit_route.success_notif'),
+            message: t('success_notif'),
           });
           router.back();
         },
-        onError: (error) => {
+        onError: (error: any) => {
+          console.log('Error object:', error);
+
+          // Extract the error message from the response if available
+          const errorMessage = error.response?.data?.message || t('unexpected_error');
+
+          // Show the error message in the notification
           notification.error({
-            message: t(`Error: ${error}`),
+            message: t(errorMessage),
           });
         },
       });
@@ -122,15 +126,15 @@ const EditRoute: React.FC<EditScopeProps> = () => {
           onFinish={onFinish}
           form={form}
           initialValues={{
-            [FORM_ITEM_NAMES.action]: routeDetails?.action?.code,
+            [FORM_ITEM_NAMES.method]: routeDetails?.method?.code,
             [FORM_ITEM_NAMES.protocol]: routeDetails?.protocol?.code,
             [FORM_ITEM_NAMES.path]: routeDetails?.path,
             [FORM_ITEM_NAMES.host]: routeDetails?.host,
           }}
         >
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM_NAMES.action} className={'span-2'} label={t('action')} rules={[rule]}>
-              <Select options={methodsSelectOptions} placeholder={t('placeholders.action')} size='large' />
+            <Form.Item name={FORM_ITEM_NAMES.method} className={'span-2'} label={t('method')} rules={[rule]}>
+              <Select options={methodsSelectOptions} placeholder={t('placeholders.method')} size='large' />
             </Form.Item>
 
             <Form.Item name={FORM_ITEM_NAMES.protocol} className={'span-2'} label={t('protocol')} rules={[rule]}>
@@ -138,7 +142,11 @@ const EditRoute: React.FC<EditScopeProps> = () => {
             </Form.Item>
 
             <Form.Item name={FORM_ITEM_NAMES.path} className={'span-2'} label={t('path')} rules={[rule]}>
-              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.path')} />
+              <Input
+                maxLength={MAX_LENGTH_INPUT}
+                disabled={routeDetails?.isServiceInSso}
+                placeholder={t('placeholders.path')}
+              />
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.host} className={'span-2'} label={t('host')} rules={[rule]}>
               <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.host')} />

@@ -1,10 +1,9 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { useAuth } from '@oxygen/hooks';
 import { getValueOrDash } from '@oxygen/utils';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { Nullable, PageProps } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
@@ -21,6 +20,8 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const [t] = useTr();
   const role = props.parentProps?.role;
 
   const {
@@ -30,9 +31,6 @@ const App: React.FC<AppProps> = (props) => {
     sort,
     message,
   } = useAppState();
-
-  const dispatch = useAppDispatch();
-  const [t] = useTr();
 
   useEffect(() => {
     handleUserRoleRedirect(role as UserRoleType);

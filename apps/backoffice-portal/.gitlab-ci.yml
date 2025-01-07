@@ -10,9 +10,9 @@ default:
 variables:
   KUBERNETES_NAMESPACE: 'oxygen-plus'
   KUBERNETES_DEPLOYMENT: 'back-office-web'
-  CACHE_KEY: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
-  NODE_MODULES_CACHE_DIR: "node_modules/"
-  BUILD_DIR: "dist/"
+  CACHE_KEY: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+  NODE_MODULES_CACHE_DIR: 'node_modules/'
+  BUILD_DIR: 'dist/'
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/backoffice-portal-web
   VERSION: $CI_COMMIT_SHORT_SHA
 
@@ -21,7 +21,6 @@ variables:
     key: $CACHE_KEY
     paths:
       - $NODE_MODULES_CACHE_DIR
-
 
 build:
   stage: build

@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { Container } from '@oxygen/ui-kit';
+import { Container as KitContainer } from '@oxygen/ui-kit';
 
-export const AppContainer = styled(Container)`
-  //
-`;
+export const AppContainer = styled(KitContainer)``;
