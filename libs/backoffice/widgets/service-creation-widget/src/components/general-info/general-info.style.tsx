@@ -9,6 +9,8 @@ export const InputsBox = styled(Box)`
 export const TagPicker = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
 
   ${respondTo.down('xs')} {
     flex-direction: column;
@@ -35,7 +37,13 @@ export const TagPicker = styled.div`
   }
 
   .ant-tag {
-    margin: 0.5rem 0 0.5rem 1.6rem;
+    ${respondTo.down('xs')} {
+      justify-content: space-between;
+    }
+  }
+
+  .ant-tag {
+    margin: 0;
   }
 `;
 
