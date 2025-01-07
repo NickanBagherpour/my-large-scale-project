@@ -107,6 +107,16 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
                       <span>{t('form.economy_code')}</span>
                       <span>{requestData?.organization.economicCode}</span>
                     </S.InfoItemContainer>
+                    <S.InfoItemContainer>
+                      <span>{t('form.aggregator_status')}</span>
+                      <span>
+                        {requestData?.organization.isAggregator
+                          ? t('company_is_aggregator')
+                          : requestData?.organization.aggregatorId
+                          ? `${t('company_has_aggregator')} - ${requestData?.organization.aggregatorName}`
+                          : t('company_is_not_aggregator')}
+                      </span>
+                    </S.InfoItemContainer>
                   </SearchItemsContainer>
                   <S.Divider orientation='center' />
                   <SearchItemsContainer $columnNumber='3'>

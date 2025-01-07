@@ -48,11 +48,21 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
+  type SelectedState = {
+    isSelected: boolean;
+    id: string;
+    submissionId: null | number;
+  };
+
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
   const [aggregatorSelectData, setAggregatorSelectData] = useState();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
-  const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
+  const [isSelected, setIsSelected] = useState<SelectedState>({
+    isSelected: false,
+    id: '',
+    submissionId: null,
+  });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
   const { mutate: secondMutate, isPending: secondIsPending } =
     useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
@@ -121,7 +131,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const handleContinue = () => {
-    const params = { organizationId: isSelected.id };
+    // debugger;
+    const params = { organizationId: isSelected.submissionId };
     secondMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
@@ -152,11 +163,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     updateRequestMode(dispatch, e.target.value);
   };
 
-  const handleOrganizationSelect = (idx: string) => {
+  const handleOrganizationSelect = (idx: string, submissionId: null | number) => {
     setIsSelected({
       ...isSelected,
       isSelected: true,
       id: idx,
+      submissionId: submissionId,
     });
   };
 
@@ -189,12 +201,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 {isOrganizationsFetching ? (
                   <Loading spinning={isOrganizationsFetching} />
                 ) : organizations?.length && organizations?.length ? (
-                  organizations.map(({ legalName, organizationNationalId }, idx) => (
+                  organizations.map(({ legalName, organizationNationalId, id }, idx) => (
                     <S.Button
                       $isSelected={idx === isSelected.id ? true : false}
                       color='primary'
                       key={idx}
-                      onClick={() => handleOrganizationSelect(idx)}
+                      onClick={() => handleOrganizationSelect(idx, id)}
                     >
                       <S.Header>{legalName}</S.Header>
 

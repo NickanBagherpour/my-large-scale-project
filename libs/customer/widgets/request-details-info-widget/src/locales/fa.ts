@@ -4,6 +4,10 @@ export default {
   company_info: 'اطلاعات شرکت',
   representatives_info: 'اطلاعات نمایندگان',
   requested_services: 'سرویس‌های درخواستی',
+  company_is_aggregator: 'شرکت اگریگیتور است',
+  company_has_aggregator: 'شرکت اگریگیتور دارد',
+  company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+  company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
 
   legal_name: 'نام و نام خانوادگی نماینده',
   technical_name: 'نام و نام خانوادگی نماینده فنی',

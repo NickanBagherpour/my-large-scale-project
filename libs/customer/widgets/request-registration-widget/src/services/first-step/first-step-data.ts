@@ -26,6 +26,7 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
 };
 
 export const useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery = () => {
+  debugger;
   const dispatch = useAppDispatch();
 
   return useMutation({
