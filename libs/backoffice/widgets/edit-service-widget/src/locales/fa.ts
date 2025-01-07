@@ -2,13 +2,13 @@ export default {
   widget_name: 'ویرایش اطلاعات فنی سرویس',
   subtitle: 'ویرایش اطلاعات کلی',
   form: {
-    'en-name': 'نام لاتین',
+    'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
     method: 'اکشن/متود',
     protocol: 'پروتوکل',
     access: 'دسترسی',
     category: 'دسته‌بندی',
-    throughput: 'Throughput',
+    throughput: 'throughput',
     version: 'نسخه',
     owner: 'مالک',
     path: 'Path',
@@ -17,19 +17,19 @@ export default {
     tag: 'تگ',
   },
   placeholder: {
-    'en-name': 'نام سرویس',
+    'en-name': 'نام انگلیسی سرویس را وارد نمایید',
     'fa-name': 'نام فارسی سرویس را وارد نمایید',
     method: '-Post',
     protocol: 'HTTP-',
     access: 'PUBLIC',
     category: 'دسته‌بندی مورد نظر را انتخاب نمایید',
     throughput: 'Unlimited',
-    version: 'v1-',
+    version: '0.0',
     owner: 'مالک را وارد نمایید',
     path: '-api/sapta/v1/bale/customer-info/',
     host: '-Openapis.bmi.ir',
     upstream: '-IAMS -XzxcZ',
-    tag: '-CUSTOMER',
+    tag: ' اضافه‌کردن تگ‌ها ',
   },
   button: {
     cancel: 'انصراف',
@@ -37,5 +37,8 @@ export default {
   },
   alert: {
     edit_success: 'ویرایش اطلاعات کلی با موفقیت اعمال شد.',
+  },
+  validation: {
+    required: 'hi',
   },
 };

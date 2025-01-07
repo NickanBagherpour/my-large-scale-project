@@ -18,9 +18,9 @@ import {
   useGetThroughput,
   usePostService,
 } from '../../services';
-import * as S from './general-info.style';
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 import CenteredLoading from '../centered-loading/centered-loading';
+import * as S from './general-info.style';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 

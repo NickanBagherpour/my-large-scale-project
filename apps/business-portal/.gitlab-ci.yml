@@ -13,7 +13,6 @@ variables:
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/business-portal-web
   VERSION: $CI_COMMIT_SHORT_SHA
 
-
 build:
   stage: build
   tags:
