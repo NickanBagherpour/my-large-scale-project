@@ -10,7 +10,7 @@ import Api from '../api';
 export type CardsDetailParamsType = {
   size: number;
   page: number;
-  sort: string[];
+  // sort: string[];
   'search-field'?: string;
 };
 export const useUpstreamCardsDetailQuery = (params: CardsDetailParamsType) => {
