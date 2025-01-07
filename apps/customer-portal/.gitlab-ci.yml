@@ -10,9 +10,9 @@ default:
 variables:
   KUBERNETES_NAMESPACE: 'oxygen-plus'
   KUBERNETES_DEPLOYMENT: 'client-portal-web'
-  CACHE_KEY: "$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG"
-  NODE_MODULES_CACHE_DIR: "node_modules/"
-  BUILD_DIR: "./app/dist/"
+  CACHE_KEY: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
+  NODE_MODULES_CACHE_DIR: 'node_modules/'
+  BUILD_DIR: './app/dist/'
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/customer-portal-web
   VERSION: $CI_COMMIT_SHORT_SHA
 
