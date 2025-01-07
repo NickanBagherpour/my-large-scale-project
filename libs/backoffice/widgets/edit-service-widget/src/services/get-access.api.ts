@@ -1,0 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
+import { useAppDispatch } from '../context';
+import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import Api from './api';
+
+export const useGetServiceAccess = () => {
+  const dispatch = useAppDispatch();
+  return useQuery({
+    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE_ACCESS],
+    queryFn: withErrorHandling(() => Api.getServiceAccess(), dispatch),
+  });
+};

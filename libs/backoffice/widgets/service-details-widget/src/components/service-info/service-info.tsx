@@ -121,7 +121,7 @@ const Route: React.FC<AppProps> = (props) => {
             color='primary'
             variant='solid'
             icon={<i className='icon-edit' />}
-            onClick={() => router.push(`/edit-service?id=1111111`)}
+            onClick={() => router.push(ROUTES.BACKOFFICE.EDIT_SERVICE + `?service-name=${serviceDetails.name}`)}
           >
             {t('edit')}
           </Button>

@@ -30,7 +30,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
     // if (!isSameDomain()) {
     //   router.back();
     // } else {
-    router.push(MAIN_HREF.LANDING);
+    router.back();
     // }
   }
   // function isSameDomain() {

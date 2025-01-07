@@ -1,5 +1,5 @@
-import z from 'zod';
-import { SERVICE_NAMES } from '../utils/consts';
+import { z } from 'zod';
+import { FORM_ITEM_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
 
 const MAX_LENGTH = 200;
@@ -16,10 +16,11 @@ export const serviceNameSchema = (t: TFunction) =>
       message: t('validation.english_name_error'),
     });
 
-export const createGeneralInfoSchema = (t: TFunction) =>
-  z.object({
-    [SERVICE_NAMES.englishName]: serviceNameSchema(t),
-    [SERVICE_NAMES.persianName]: z
+export const createEditServiceFormSchema = (t: TFunction) => {
+  console.log('t', t.toString());
+  return z.object({
+    [FORM_ITEM_NAMES.enName]: serviceNameSchema(t),
+    [FORM_ITEM_NAMES.faName]: z
       .string({
         required_error: t('validation.required'),
         invalid_type_error: t('validation.required') /* if value is null */,
@@ -27,29 +28,35 @@ export const createGeneralInfoSchema = (t: TFunction) =>
       .trim()
       .min(1, { message: t('validation.required') })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
-    [SERVICE_NAMES.access]: z.number({ required_error: t('validation.choose_one_option') }),
+    // [FORM_ITEM_NAMES.method]: z
+    //   .string({ required_error: t('validation.required') })
+    //   .trim()
+    //   .max(MAX_LENGTH, { message: t('validation.max_length') })
+    //   .min(1, { message: t('validation.required') }),
 
-    [SERVICE_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
-
-    [SERVICE_NAMES.throughput]: z.number({ required_error: t('validation.choose_one_option') }),
-
-    [SERVICE_NAMES.version]: z
-      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+    // [FORM_ITEM_NAMES.protocol]: z.number({ required_error: t('validation.choose_one_option') }),
+    [FORM_ITEM_NAMES.access]: z.object({
+      label: z.string(),
+      value: z.number({ required_error: t('validation.choose_one_option') }),
+      key: z.number(),
+    }),
+    [FORM_ITEM_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
+    // [FORM_ITEM_NAMES.throughout]: z.string({ required_error: t('error.required') }),
+    [FORM_ITEM_NAMES.version]: z
+      .string({ required_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
-
-    [SERVICE_NAMES.owner]: z
-      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+    [FORM_ITEM_NAMES.owner]: z
+      .string({ required_error: t('validation.required') })
       .trim()
       .max(MAX_LENGTH, { message: t('validation.max_length') })
       .min(1, { message: t('validation.required') }),
-
-    [SERVICE_NAMES.tags]: z
+    [FORM_ITEM_NAMES.tags]: z
       .array(z.object({ key: z.number(), value: z.number(), label: z.string() }), {
         message: t('validation.choose_at_least_one_option'),
       })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
   });
-
-export type GeneralInfoValuesType = z.infer<ReturnType<typeof createGeneralInfoSchema>>;
+};
+export type EditServiceFormFieldsType = z.infer<ReturnType<typeof createEditServiceFormSchema>>;
