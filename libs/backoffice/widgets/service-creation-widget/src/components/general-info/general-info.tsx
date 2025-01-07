@@ -104,7 +104,7 @@ export default function GeneralInfo() {
     <Container>
       <Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
         <S.InputsBox>
-          <SearchItemsContainer $columnNumber='3'>
+          <S.Grid>
             <FormItem
               validateStatus={getValidateStatus(SERVICE_NAMES.englishName)}
               name={SERVICE_NAMES.englishName}
@@ -182,7 +182,7 @@ export default function GeneralInfo() {
             >
               <Input placeholder={t('enter_owner')} />
             </FormItem>
-          </SearchItemsContainer>
+          </S.Grid>
         </S.InputsBox>
 
         <Box>
