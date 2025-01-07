@@ -38,8 +38,8 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
         const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
         // console.log('SSO success', );
         // setTimeout(() => {
-          // console.log('hey')
-          login({ role }, ROUTES.BUSINESS.REQUEST_LIST);          
+        // console.log('hey')
+        login({ role }, ROUTES.BUSINESS.REQUEST_LIST);
         // }, 700);
       }
       // Clear query parameters from the URL
