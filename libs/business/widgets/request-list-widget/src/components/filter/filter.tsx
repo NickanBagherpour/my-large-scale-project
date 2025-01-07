@@ -33,7 +33,7 @@ const Filters: React.FC<FilterProps> = (props) => {
       <S.Actions>
         <S.Input
           value={value}
-          placeholder={t('search_by_company_name')}
+          placeholder={t('search_by_client_name')}
           prefix={<i className='icon-search-normal' />}
           onChange={(e) => setValue(e.target.value)}
           allow={'letter'}

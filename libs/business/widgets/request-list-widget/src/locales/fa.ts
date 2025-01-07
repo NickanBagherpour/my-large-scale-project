@@ -1,6 +1,6 @@
 export default {
   widget_name: 'مدیریت درخواست‌ها',
-  search_by_company_name: 'جستجو براساس نام شرکت',
+  search_by_client_name: 'جستجو براساس نام کلاینت',
   chips: {
     all_clients: 'همه درخواست‌ها',
     final_approval: 'تایید نهایی',
