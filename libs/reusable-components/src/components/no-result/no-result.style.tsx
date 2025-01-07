@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Empty as AntEmpty } from 'antd';
-import { Box, Button } from '@oxygen/ui-kit';
+import { Box, Button as KitButton } from '@oxygen/ui-kit';
 
 export const NoResult = styled.div`
   width: 100%;
@@ -23,6 +23,11 @@ export const Empty = styled(AntEmpty)`
   margin-bottom: 2.4rem;
 `;
 
-export const ReturnButton = styled(Button)`
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const ReturnButton = styled(KitButton)`
   width: 50%;
 `;

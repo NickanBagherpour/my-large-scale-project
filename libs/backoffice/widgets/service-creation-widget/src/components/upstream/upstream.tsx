@@ -38,10 +38,10 @@ export default function Upstream() {
     sort: '',
     'search-field': debouncedSearchTerm,
   });
-  const [selectedUpstreamId, setSelectedUpstreamId] = useState<number | null>(null);
+  const [selectedUpstreamName, setSelectedUpstreamName] = useState<string | null>(null);
   const { data: currentUpstream, isFetching: isFetchingCurrentUpstream } = useGetUpstream();
   const { data: upstreamWithTargets, isFetching: isFetchingUpstreamWithTargets } =
-    useGetUpstreamWithTargets(selectedUpstreamId);
+    useGetUpstreamWithTargets(selectedUpstreamName);
   const { mutate: assignUpstreamToService } = usePostAssignUpstreamToService();
   const { serviceName } = useAppState();
 
@@ -50,7 +50,7 @@ export default function Upstream() {
 
   useEffect(() => {
     if (currentUpstream) {
-      setSelectedUpstreamId(currentUpstream.id);
+      setSelectedUpstreamName(currentUpstream.name);
     }
   }, [currentUpstream]);
 
@@ -59,8 +59,11 @@ export default function Upstream() {
   };
 
   const onRegister = () => {
-    if (!selectedUpstreamId || !serviceName) return;
-    assignUpstreamToService({ id: selectedUpstreamId, serviceName }, { onSuccess: () => nextStep(dispatch) });
+    if (!selectedUpstreamName || !serviceName) return;
+    assignUpstreamToService(
+      { upstreamName: selectedUpstreamName, serviceName },
+      { onSuccess: () => nextStep(dispatch) }
+    );
   };
 
   const changePage = (currentPage: number) => {
@@ -71,7 +74,7 @@ export default function Upstream() {
 
   const changeSearchTerm = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery((prev) => ({ ...prev, searchTerm: e.target.value }));
-    setSelectedUpstreamId(null);
+    setSelectedUpstreamName(null);
   };
 
   const desktopColumns: ColumnsType<UpstreamWithTargets> = [
@@ -135,9 +138,9 @@ export default function Upstream() {
                     title={name}
                     serversCount={activeServerCount}
                     hasSetting={false}
-                    isSelected={id === selectedUpstreamId}
+                    isSelected={name === selectedUpstreamName}
                     isHeaderLtr={true}
-                    onClick={() => setSelectedUpstreamId(id)}
+                    onClick={() => setSelectedUpstreamName(name)}
                     status={activeServerCount ? 'active' : 'inactive'}
                   />
                 ))}
@@ -179,7 +182,7 @@ export default function Upstream() {
       )}
 
       {!isFetching && (
-        <Footer registerButtonProps={{ disabled: !selectedUpstreamId }} onRegister={onRegister} onReturn={onReturn} />
+        <Footer registerButtonProps={{ disabled: !selectedUpstreamName }} onRegister={onRegister} onReturn={onReturn} />
       )}
     </Container>
   );

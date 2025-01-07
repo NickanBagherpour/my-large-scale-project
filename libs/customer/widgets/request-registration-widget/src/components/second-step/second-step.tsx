@@ -10,7 +10,7 @@ import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
 
 import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
 import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './second-step.style';
@@ -79,10 +79,10 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
               <Input size='large' placeholder={`${t('placeholder.persian_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.phone_number} label={t('form.Phone_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.Phone_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.Phone_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </Card>
@@ -102,10 +102,10 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
               <Input size='large' placeholder={`${t('placeholder.persian_name')}`} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.technical_mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.mobile_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.technical_Phone_number} label={t('form.Phone_number')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.Phone_number')}`} maxLength={MAX_INPUTE_LENGTH} />
+              <Input placeholder={`${t('placeholder.Phone_number')}`} maxLength={MAX_MOBILE_NUMBER_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </Card>

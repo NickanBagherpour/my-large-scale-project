@@ -10,16 +10,8 @@ default:
 variables:
   KUBERNETES_NAMESPACE: 'oxygen-plus'
   KUBERNETES_DEPLOYMENT: 'back-office-web'
-  CACHE_KEY: '$CI_PROJECT_ID-$CI_COMMIT_REF_SLUG'
-  NODE_MODULES_CACHE: 'node_modules'
   IMAGE_PATH: repo.sadad.ir/repository/oxygen-docker-group/backoffice-portal-web
   VERSION: $CI_COMMIT_SHORT_SHA
-
-.cache_base:
-  cache:
-    key: $CACHE_KEY
-    paths:
-      - $NODE_MODULES_CACHE
 
 build:
   stage: build
@@ -30,14 +22,7 @@ build:
     - docker build --add-host repo.sadad.ir:172.29.235.93 -t ${IMAGE_PATH}:$VERSION -f ./apps/backoffice-portal/Dockerfile .
     - echo "Pushing Back Office Portal Web Docker image to registry..."
     - docker push ${IMAGE_PATH}:$VERSION
-  cache:
-    key: $BUILD_CACHE_KEY
-    paths:
-      - $NODE_MODULES_DIR
-  artifacts:
-    paths:
-      - $BUILD_DIR
-    expire_in: 1 week
+
   only:
     - develop
 

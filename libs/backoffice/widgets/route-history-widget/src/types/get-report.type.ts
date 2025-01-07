@@ -1,5 +1,4 @@
-import { Nullable } from '@oxygen/types';
-import { PaginationType } from '../context/types';
+import { FiltersType, PaginationType } from '../context/types';
 
 export type ReportResponseType = {
   responseId: number;
@@ -26,6 +25,7 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
-export type ScopeId = Nullable<string>;
-
-export type FetchParamsType = PaginationType;
+export type FetchParamsType = {
+  filters?: FiltersType;
+  pagination: PaginationType;
+};

@@ -8,11 +8,15 @@ import { useAppDispatch } from '../../context';
 import { UpstreamListData } from '../../types';
 
 import Api from '../api';
-
-export const useUpstreamListQuery = (params: Nullable<string>) => {
+export type UseUpstreamListQueryParamsType = {
+  serviceName: Nullable<string>;
+  id: Nullable<string | number>;
+};
+export const useUpstreamListQuery = (params: UseUpstreamListQueryParamsType) => {
+  const { serviceName, id } = params;
   const dispatch = useAppDispatch();
   return useQuery<UpstreamListData>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.GET_UPSTREAM_LIST, params],
-    queryFn: withErrorHandling(() => Api.getUpstreamList(params), dispatch),
+    queryKey: [RQKEYS.SERVICE_DETAILS.GET_UPSTREAM_LIST, serviceName, id],
+    queryFn: withErrorHandling(() => Api.getUpstreamList(serviceName), dispatch),
   });
 };

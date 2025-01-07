@@ -6,7 +6,7 @@ export const KEYS = createQueryKeys(prefix, [
   'SERVICE',
   'ROUTE',
   'UPSTREAMS',
-  'UPSTREAM_WITH_ID',
+  'UPSTREAM_WITH_NAME',
   'TAGS',
   'CATEGORIES',
   'SERVICE_ACCESS',

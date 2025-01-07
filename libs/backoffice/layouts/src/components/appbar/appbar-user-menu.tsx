@@ -23,6 +23,7 @@ export default function AppbarUserMenu({
   onLogout,
   isMobileOrTablet,
   loading = false,
+  isError,
 }) {
   const [t] = useTr();
 
@@ -129,7 +130,7 @@ export default function AppbarUserMenu({
       ) : (
         <S.StyleParagraph onClick={(e) => e.preventDefault()}>
           <Icons.UserProfile />
-          {loading ? <Loading size='small' /> : getUserFullname(userInfo)}
+          {userInfo ? getUserFullname(userInfo) : isError ? '-' : <Loading size='small' />}
           <Icons.ArrowDown />
         </S.StyleParagraph>
       )}

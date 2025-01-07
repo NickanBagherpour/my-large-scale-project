@@ -9,7 +9,7 @@ export const Hero = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center bottom;
-  min-height: 100vh;
+  min-height: min(1000px, 100vh);
   width: 100%;
   margin-bottom: 3.3rem;
   position: relative;

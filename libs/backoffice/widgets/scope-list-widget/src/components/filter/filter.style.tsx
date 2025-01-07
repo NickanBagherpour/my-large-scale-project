@@ -56,6 +56,7 @@ export const Actions = styled.div`
 
   ${respondTo.down('lg')} {
     flex-direction: column;
+    align-items: flex-start;
     gap: 2rem;
   }
 `;

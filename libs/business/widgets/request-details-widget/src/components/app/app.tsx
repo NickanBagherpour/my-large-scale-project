@@ -59,7 +59,7 @@ const App: React.FC<AppProps> = (props) => {
     return params;
   }
 
-  if (error) return <NoResult isLoading={false} />;
+  if (error) return <NoResult isLoading={false} handleClick={handleReturn} />;
 
   const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 

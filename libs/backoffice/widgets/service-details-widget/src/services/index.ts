@@ -6,3 +6,4 @@ export { useGetScopes, useGetServiceScope } from './get-scopes.api';
 export { useUpstreamListQuery } from './upstream-tab/get-upstream-list.api';
 export { useAddServiceScope } from './add-scope';
 export { useDeleteServiceScope } from './delete-scope';
+export { usePostAssignScopeToService } from './post-assign-scope-to-service.api';

@@ -42,6 +42,7 @@ module.exports = {
         'security',
         'changeset',
         'conflict',
+        'deploy',
       ],
     ],
   },

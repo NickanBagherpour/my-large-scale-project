@@ -24,7 +24,7 @@ export default function Filters() {
   const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
   useBounce(() => {
-    updateSearchTerm(dispatch, value.trim());
+    updateSearchTerm(dispatch, value?.trim());
   }, [value]);
 
   return (

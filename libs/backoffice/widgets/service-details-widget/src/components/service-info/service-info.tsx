@@ -66,9 +66,10 @@ const Route: React.FC<AppProps> = (props) => {
         key: t('tags'),
         fullwidth: true,
         value: serviceDetails.tags.length ? (
-          <div>
+          <S.TagsContainer>
             {serviceDetails.tags.map((tag) => (
               <Chip
+                className='infobox-tags'
                 type='active'
                 key={tag.id}
                 // color='blue' // Optional: Customize color or remove for default styling
@@ -77,7 +78,7 @@ const Route: React.FC<AppProps> = (props) => {
                 {tag.title}
               </Chip>
             ))}
-          </div>
+          </S.TagsContainer>
         ) : (
           '-'
         ),
