@@ -1,5 +1,25 @@
 stages:
+  - build
   - modules
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+# Install dependencies and cache node_modules
+build:
+  stage: build
+  image: node:20-alpine
+  script:
+    - echo "Installing dependencies..."
+    - npm install
+    - echo "Dependencies installed."
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 week
+
 
 backoffice-portal:
   stage: modules
