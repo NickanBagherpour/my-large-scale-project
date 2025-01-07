@@ -76,7 +76,6 @@ const Api = {
   },
 
   requestRegistrationFirstStepWithSelectedOrganization: async (params: { organizationId: number }) => {
-    debugger;
     const { organizationId } = params;
 
     return client.post(`${portalUrl}/v1/submissions/organizations/${organizationId}`, {
