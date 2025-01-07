@@ -10,5 +10,6 @@ export const useUpdateServiceDetails = (params) => {
   return useQuery({
     queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE, params],
     queryFn: withErrorHandling(() => Api.updateServiceDetails(params), dispatch),
+    networkMode: 'offlineFirst',
   });
 };
