@@ -62,7 +62,8 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     toggleModal('removeService');
   };
   //please add correct route instead of ROUTES.BACKOFFICE.UPSTREAM_LIST
-  const handleHistoryBtn = () => router.push(`${ROUTES.BACKOFFICE.UPSTREAM_LIST}?id=${state.serviceName}&type=service`);
+  const handleHistoryBtn = () =>
+    router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=${state.serviceName}&type=service`);
   return (
     <>
       <S.Header>

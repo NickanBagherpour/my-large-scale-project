@@ -3,7 +3,6 @@ import * as S from './scope-list.style';
 import { useTr } from '@oxygen/translation';
 import { useSearchParams } from 'next/navigation';
 import { useAppDispatch, clearScopeAction, useAppState } from '../../context';
-import { type Scope } from '@oxygen/types';
 import { Nullable } from '@oxygen/types';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import {
@@ -35,7 +34,7 @@ export default function Scope() {
   const [modals, setModals] = useState({
     removeService: false,
   });
-  const [selectedScope, setSelectedScope] = useState<Scope | null>(null);
+  const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
 
   // Set table data when serviceScope changes
   useEffect(() => {
@@ -97,7 +96,7 @@ export default function Scope() {
     );
   };
 
-  const desktopColumns: ColumnsType<Scope> = [
+  const desktopColumns: ColumnsType<ScopeType> = [
     {
       title: t('common.row_number'),
       key: 'rowNumber',
@@ -134,11 +133,11 @@ export default function Scope() {
     // },
   ];
 
-  const mobileColumns: ColumnsType<Scope> = [
+  const mobileColumns: ColumnsType<ScopeType> = [
     {
       title: null,
       key: 'mobileColumn',
-      render: (scope: Scope) => (
+      render: (scope: ScopeType) => (
         <UiKitBox flexDirection='column'>
           <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={scope?.name} />
           <Table.MobileColumn

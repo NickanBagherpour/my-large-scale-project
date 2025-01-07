@@ -43,7 +43,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const requestsSubTitle = requests?.length ? `(${requests?.length ?? 0})` : '';
   const handleClick = (submissionId: number) => {
-    router.replace(`${ROUTES.CUSTOMER.REQUEST_DETAILS_INFO}?submissionId=${submissionId}`);
+    router.push(`${ROUTES.CUSTOMER.REQUEST_DETAILS_INFO}?submissionId=${submissionId}`);
   };
 
   const handleDeleteDraft = (submissionId: number) => {

@@ -36,7 +36,7 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
 
   return (
     <>
-      <div className='service-technical-details'>
+      {/* <div className='service-technical-details'>
         <h3>{t('upstream')}</h3>
         <div className='btn-group'>
           <Button
@@ -49,7 +49,7 @@ export const UpstreamList: React.FC<UpstreamListType> = (props) => {
             {t('see_changes_history')}
           </Button>
         </div>
-      </div>
+      </div> */}
 
       {isInitialized ? <ActiveSelect /> : <FallbackSelect />}
     </>

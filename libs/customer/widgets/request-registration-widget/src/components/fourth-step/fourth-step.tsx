@@ -66,6 +66,14 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     setCurrentStep((perv) => perv - 1);
   };
 
+  const isAggregator = requestData?.organization?.isAggregator;
+  const aggregatorName = requestData?.organization?.aggregatorName;
+  const aggregatorStatus = isAggregator
+    ? t('company_is_aggregator')
+    : aggregatorName
+    ? t(`company_has_aggregator_with_name`, { aggregatorName })
+    : t('company_has_not_aggregator');
+
   return (
     <Loading spinning={loading}>
       {!loading && (
