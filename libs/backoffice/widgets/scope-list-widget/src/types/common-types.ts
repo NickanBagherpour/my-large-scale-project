@@ -4,15 +4,21 @@ export type ScopeListDataType = {
   name: null | string;
 };
 
-export type typeScopeListParams = {
-  'search-field': string;
+export type TypeScopeListParams = {
+  searchField: string;
   page: number;
-  size: number;
-  sort: string;
+  pageSize: number;
 };
 
 export type Scope = {
   id: number;
   name: string;
   description: string;
+};
+
+export type ScopeRequestParams = {
+  'search-field'?: string;
+  page?: number;
+  size?: number;
+  sort?: string;
 };

@@ -4,7 +4,6 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Input } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import { useBounce } from '@oxygen/hooks';
 
@@ -12,7 +11,6 @@ import { updateSearchTerm, useAppDispatch } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
-
 import { createFormSchema } from '../../types';
 
 import * as S from './filter.style';
@@ -26,26 +24,12 @@ const Filter: React.FC<FilterProps> = (props) => {
   const [t] = useTr();
   const [form] = Form.useForm();
   const [value, setValue] = useState('');
-  const [stateModal, setStateModal] = useState<boolean>(false);
 
   const rule = createSchemaFieldRule(createFormSchema(t));
 
   useBounce(() => {
     updateSearchTerm(dispatch, value.trim());
   }, [value]);
-
-  const handleChangeModal = () => {
-    setStateModal(true);
-  };
-
-  function handleCancel() {
-    setStateModal(false);
-    form.resetFields();
-  }
-
-  const onFinish = (value) => {
-    setStateModal(false);
-  };
 
   return (
     <S.FilterContainer>
@@ -67,21 +51,6 @@ const Filter: React.FC<FilterProps> = (props) => {
           </S.Button>
         </S.Buttons>
       </S.Actions>
-      <S.UploadModal
-        open={stateModal}
-        centered={true}
-        title={t('add_scope')}
-        onCancel={handleCancel}
-        cancelText={t('button.cancel')}
-        okText={t('button.register_info')}
-        onOk={() => form.submit()}
-      >
-        <Form layout={'vertical'} onFinish={onFinish} form={form}>
-          <Form.Item name={'latinNameClient'} label={t('table.latin_name_scope')} rules={[rule]}>
-            <Input maxLength={MAX_LENGTH_INPUT} />
-          </Form.Item>
-        </Form>
-      </S.UploadModal>
     </S.FilterContainer>
   );
 };

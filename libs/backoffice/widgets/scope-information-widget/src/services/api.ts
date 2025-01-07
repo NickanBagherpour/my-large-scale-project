@@ -8,7 +8,7 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/scope/${params}`);
   },
   getModalData: async (params) => {
-    return client.get<ModalDataType>(`${portalUrl}/v1/services/${params}`);
+    return client.get<ModalDataType>(`${portalUrl}/v1/services/service-with-details/${params}`);
   },
   getScopeServicesData: async (params) => {
     const { page, size, id } = params;
