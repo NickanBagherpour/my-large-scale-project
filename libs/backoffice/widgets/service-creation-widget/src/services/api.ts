@@ -23,7 +23,7 @@ const Api = {
     client.get<Upstreams>(`${portalUrl}/v1/upstreams`, {
       params,
     }),
-  getUpstreamWithTargets: async (id: number) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${id}`),
+  getUpstreamWithTargets: async (name: string) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${name}`),
   getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
@@ -32,8 +32,8 @@ const Api = {
     client.get<Scope & { isServiceInSso: boolean }>(`${portalUrl}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
-  postAssignUpstreamToService: async ({ id, serviceName }: AssignUpstreamToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/upstreams/${id}/assign-to-service/${serviceName}`),
+  postAssignUpstreamToService: async ({ upstreamName, serviceName }: AssignUpstreamToServiceParams) =>
+    client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/assign-to-service/${serviceName}`),
   postRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
     client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
   putRoute: async ({ serviceName, ...otherParams }: RouteParams) =>
