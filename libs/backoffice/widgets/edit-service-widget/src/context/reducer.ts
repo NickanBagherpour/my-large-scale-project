@@ -16,6 +16,7 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
+  serviceName: '',
   message: null,
 };
 
@@ -36,7 +37,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     //   state.table.filters = { ...state.table.filters, ...action.payload };
     //   return;
     // }
-
+    case 'UPDATE_SERVICE_NAME': {
+      state.serviceName = action.payload;
+      return;
+    }
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;

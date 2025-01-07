@@ -6,10 +6,9 @@ export type SelectProps = AntSelectProps & {
   // children?: React.ReactNode;
 };
 
-export const Select = (props: SelectProps) => {
-  const { loading = false, disabled = false, suffixIcon = null, ...rest } = props;
+export const Select = (props: AntSelectProps) => {
+  const { loading = false, disabled = false, suffixIcon = null, defaultValue, ...rest } = props;
   const [isOpen, setIsOpen] = useState(false);
-
   const handleDropdownVisibleChange = (open) => {
     setIsOpen(open);
   };

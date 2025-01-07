@@ -17,6 +17,7 @@ export type WidgetStateType = {
     pagination: PaginationType;
     submit: FiltersType;
   };
+  serviceName?: string;
   message: Nullable<MessageType>;
 };
 
@@ -32,6 +33,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_SUBMIT';
       payload: Partial<FiltersType>;
+    }
+  | {
+      type: 'UPDATE_SERVICE_NAME';
+      payload: string;
     }
   | {
       type: 'UPDATE_PAGINATION';
