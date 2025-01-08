@@ -4,13 +4,13 @@ import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { Loading, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 import { uuid } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 
+import { useGetUpstreamServicesQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-list.util';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
-import { useGetUpstreamTargetQuery } from '../../services/get-upstream-targets.api';
 import ConfirmDeleteModal from '../confirm-delete-modal/confirm-delete-modal';
 import { UpstreamItemType } from '../../types';
 
@@ -46,7 +46,7 @@ export default function Upstreams(props: Props) {
     }
   };
 
-  const { data: targetData, isFetching } = useGetUpstreamTargetQuery(upstreamName);
+  const { data: services, isFetching } = useGetUpstreamServicesQuery(upstreamName);
 
   const deleteUpstream = (record: UpstreamItemType) => {
     setUpstreamName(record?.name);
@@ -79,15 +79,14 @@ export default function Upstreams(props: Props) {
           <NoResult isLoading={isLoading} />
         )}
       </S.TableContainer>
-      {targetData?.targets && openModal ? (
+      {services && openModal && (
         <ConfirmDeleteModal
           openModal={openModal}
           setOpenModal={setOpenModal}
-          data={targetData}
+          services={services}
           upstreamName={upstreamName}
+          isFetching={isFetching}
         />
-      ) : (
-        <Loading spinning={isFetching} />
       )}
     </>
   );

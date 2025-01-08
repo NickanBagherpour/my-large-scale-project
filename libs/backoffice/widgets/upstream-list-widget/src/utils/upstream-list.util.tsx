@@ -1,20 +1,17 @@
+import React from 'react';
 import { TFunction } from 'i18next';
 
 import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
-
+import { UpstreamItemType } from '../types';
 import { PaginationType } from '../context/types';
 
 import * as S from '../components/upstreams/upstreams.style';
-import { UpstreamType } from '@oxygen/types';
-import React from 'react';
-import { UpstreamItemType } from '../types';
 
 type Props = {
   t: TFunction;
   pagination: Omit<PaginationType, 'sort'>;
   deleteUpstream: any;
-  //(record:UpstreamType) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
@@ -66,7 +63,9 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       align: 'center',
       width: 'min-content',
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?id=${record.id}`}>{t('table.details')}</S.Details>
+        <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${record.id}&upstreamName=${record.name}`}>
+          {t('table.details')}
+        </S.Details>
       ),
     },
     {
@@ -78,7 +77,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
         <S.Trash
           className='icon-trash'
           onClick={() => {
-            // console.log('trash desktop',record);
             deleteUpstream(record);
           }}
         />
