@@ -33,7 +33,7 @@ export default function Filters() {
         <S.Actions>
           <S.Input
             value={value}
-            placeholder={t('search_by_name_or_scope')}
+            placeholder={t('search_by_english_or_persian_name')}
             prefix={<i className='icon-search-normal' />}
             onChange={(e) => setValue(e.target.value)}
           />
