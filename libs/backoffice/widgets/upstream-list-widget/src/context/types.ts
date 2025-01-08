@@ -4,10 +4,19 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 export type FiltersType = FormFieldsType;
 
-export type WidgetStateType = {
-  searchTerm: string;
+export type PaginationType = {
   page: number;
+  // size: number;
+  rowsPerPage: number;
+  sort: Nullable<string>;
+};
+
+export type WidgetStateType = {
+  table: {
+    pagination: PaginationType;
+  };
   message: Nullable<MessageType>;
+  searchField: string;
 };
 
 export type WidgetActionType =
@@ -21,6 +30,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
+      payload: PaginationType;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
