@@ -1,4 +1,4 @@
-import { FiltersType, PaginationType } from '../context/types';
+import { PaginationType } from '../context/types';
 
 export type ReportResponseType = {
   responseId: number;
