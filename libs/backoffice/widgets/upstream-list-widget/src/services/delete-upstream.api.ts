@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 import { updateMessageAction, useAppDispatch } from '../context';
 import Api from './api';
-import { queryClient } from '@oxygen/client';
 
 export const useDeleteUpstream = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export const useDeleteUpstream = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST],
+        queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST, RQKEYS.UPSTREAM_LIST.GET_UPSTREAM_SERVICES],
       });
     },
     networkMode: 'offlineFirst',

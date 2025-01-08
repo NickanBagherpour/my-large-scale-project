@@ -4,21 +4,23 @@ import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 
-import { useDeleteUpstream } from '../../services/delete-upstream.api';
+import { GetUpstreamServiceResponseType } from '../../types';
+import { useDeleteUpstream } from '../../services';
 
 import * as S from './confirm-delete-modal.style';
+import { Loading } from '@oxygen/ui-kit';
 
 type Props = {
   openModal: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  data: any;
+  services: GetUpstreamServiceResponseType;
   upstreamName: Nullable<string>;
+  isFetching: boolean;
 };
 const ConfirmDeleteModal: React.FC<Props> = (props) => {
-  const { openModal, setOpenModal, data, upstreamName } = props;
+  const { openModal, setOpenModal, services, upstreamName, isFetching } = props;
   const [t] = useTr();
   const theme = useAppTheme();
-  const { targets } = data;
 
   const { mutate, isPending } = useDeleteUpstream();
   const handleDeleteUpstream = async (params) => {
@@ -49,16 +51,24 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       okButtonProps={{ style: { backgroundColor: theme.error.main } }}
       cancelButtonProps={{ style: { color: theme.primary.main } }}
     >
-      <S.ModalContent>
-        <S.ModalMessage>
-          {t('confirm_question_first')}
-          <S.ServiceCount>{` ${targets?.length} ${t('service')}`}</S.ServiceCount>
-          {t('confirm_question_last')}
-        </S.ModalMessage>
-        <S.TargetContainer>
-          {targets?.length > 0 && targets.map((target) => <span key={target?.id}>{target?.domain}</span>)}
-        </S.TargetContainer>
-      </S.ModalContent>
+      {isFetching ? (
+        <Loading spinning={isFetching} style={{ margin: '2rem 0' }} />
+      ) : (
+        <S.ModalContent>
+          {services?.length > 0 ? (
+            <S.ModalMessage>
+              {t('confirm_question_first')}
+              <S.ServiceCount>{` ${services?.length} ${t('service')}`}</S.ServiceCount>
+              {t('confirm_question_last')}
+            </S.ModalMessage>
+          ) : (
+            <S.ModalMessage>{t('no_service_question')}</S.ModalMessage>
+          )}
+          <S.ServicesContainer>
+            {services?.length > 0 && services.map((service, index) => <span key={index}>{service}</span>)}
+          </S.ServicesContainer>
+        </S.ModalContent>
+      )}
     </S.StyledModal>
   );
 };

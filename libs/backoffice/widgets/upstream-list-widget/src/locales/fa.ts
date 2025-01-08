@@ -17,5 +17,6 @@ export default {
   warning: 'هشدار!',
   confirm_question_first: 'این آپ‌استریم به ',
   confirm_question_last: ' متصل است. آیا از حذف آن اطمینان دارید؟',
+  no_service_question: 'آیا از حذف آپ استریم مطمئن هستید؟',
   service: 'سرویس',
 };

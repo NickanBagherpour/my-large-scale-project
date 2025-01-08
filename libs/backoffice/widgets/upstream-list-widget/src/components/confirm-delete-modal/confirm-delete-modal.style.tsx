@@ -2,18 +2,23 @@ import styled from 'styled-components';
 import { Modal } from '@oxygen/ui-kit';
 
 export const StyledModal = styled(Modal)`
-  //& .ant-modal-content {
-  //  padding: 1.6rem;
-  //
-  //  .ant-divider {
-  //    margin: 1.6rem 0;
-  //  }
-  //}
+  .ant-divider {
+    margin-bottom: 1.6rem;
+  }
+
+  button {
+    padding: 1rem 3rem;
+    height: 4.8rem;
+    max-width: 9.2rem;
+    font-weight: 500;
+  }
 `;
+
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1rem;
+  padding: 1rem;
 
   & .ant-form-item {
     margin: 0;
@@ -26,7 +31,6 @@ export const ModalMessage = styled.p`
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.5rem;
-  padding: 1rem;
   margin: 0;
 `;
 
@@ -38,11 +42,12 @@ export const ServiceCount = styled.span`
   line-height: 2.5rem;
 `;
 
-export const TargetContainer = styled.div`
+export const ServicesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 2.5rem;
+  color: ${(p) => p.theme.text.primary};
 `;
