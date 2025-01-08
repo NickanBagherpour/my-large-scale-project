@@ -51,7 +51,7 @@ export const backofficeMenu = [
     order: 5,
     href: '/reports',
     icon: 'icon-presention-chart-2',
-    active: true,
+    active: false,
     description: null,
     parentId: null,
     children: [],
