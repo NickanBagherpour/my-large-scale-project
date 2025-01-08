@@ -1,6 +1,6 @@
 export default {
   widget_name: 'لیست سرویس‌ها',
-  search_by_name_or_scope: 'جستجو براساس نام سرویس یا نام اسکوپ',
+  search_by_english_name: 'جستجو براساس نام انگلیسی سرویس',
   upload_service: 'بارگذاری سرویس',
   create_new_service: 'ایجاد سرویس جدید',
   all_services: 'همه سرویس‌ها',

@@ -7,6 +7,7 @@ import { ROUTES } from '@oxygen/utils';
 import { updateSearchTermAction, useAppDispatch } from '../../context';
 
 import * as S from './filters.style';
+import { Typography } from '@oxygen/ui-kit';
 
 export default function Filters() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export default function Filters() {
 
   return (
     <S.Container>
+      <S.StyledText>{t('search')}</S.StyledText>
       <S.Actions>
         <S.StyledInput
           value={value}

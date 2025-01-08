@@ -79,7 +79,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
       render: (url) => (
         <Tooltip placement='top' title={getValueOrDash(url)} arrow={true}>
-          <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(url)}</S.Url>
+          <S.Url>{getValueOrDash(url)}</S.Url>
         </Tooltip>
       ),
     },
@@ -164,7 +164,7 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('url'),
-            value: <S.Url href={ROUTES.BACKOFFICE.SERVICE_CREATION}>{getValueOrDash(value?.path)}</S.Url>,
+            value: <S.Url>{getValueOrDash(value?.path)}</S.Url>,
           },
           {
             title: t('status'),

@@ -1,10 +1,10 @@
 export type UpstreamParamsType = {
   searchTerm: string;
-  page: number;
 };
 
 export type UpstreamType = {
+  id: number;
   name: string;
-  activeServersCount: number;
-  upstreamId: string;
+  description: string;
+  activeServers: number;
 };
