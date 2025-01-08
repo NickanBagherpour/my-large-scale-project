@@ -6,10 +6,9 @@ import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
-
+import { useGetUpstreamListQuery } from '../../services/get-upstream-list.api';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
-import { useGetUpstreamQuery } from '../../services';
 
 import * as S from './app.style';
 
@@ -19,11 +18,24 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
-  const { message, ...fetchState } = useAppState();
+  const state = useAppState();
   const [t] = useTr();
+  const {
+    table: { pagination },
+    message,
+    searchField,
+  } = state;
 
-  const { data: upstreams, isFetching } = useGetUpstreamQuery(fetchState);
+  const { data: upstreams, isFetching } = useGetUpstreamListQuery(prepareParams());
 
+  function prepareParams() {
+    const params = {
+      ...pagination,
+      size: pagination.rowsPerPage,
+      ['search-field']: searchField,
+    };
+    return params;
+  }
   const upstreamSubTitle = upstreams?.total ? `(${upstreams?.total ?? 0})` : '';
 
   return (
@@ -36,13 +48,8 @@ const App: React.FC<AppProps> = (props) => {
       />
       <Filters />
       <Loading spinning={isFetching} size='default'>
-        {upstreams?.list.length ? (
-          <Upstreams
-            data={upstreams.list}
-            total={upstreams.total}
-            searchTerm={fetchState.searchTerm}
-            isLoading={isFetching}
-          />
+        {upstreams?.content?.length ? (
+          <Upstreams data={upstreams.content} total={upstreams.totalElements} isLoading={isFetching} />
         ) : (
           <NoResult isLoading={false} />
         )}

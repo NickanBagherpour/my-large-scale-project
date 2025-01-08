@@ -1,53 +1,92 @@
-import { GridCard } from '@oxygen/reusable-components';
-import { useTr } from '@oxygen/translation';
-import Mockify from '@oxygen/mockify';
-import { UpstreamType } from '@oxygen/types';
-import { ROUTES } from '@oxygen/utils';
+import React, { useState } from 'react';
 
-import { updatePaginationAction, useAppDispatch, useAppState } from '../../context';
+import { TablePaginationConfig } from 'antd';
+
+import { NoResult } from '@oxygen/reusable-components';
+import { useTr } from '@oxygen/translation';
+import { Loading, Table } from '@oxygen/ui-kit';
+import { uuid } from '@oxygen/utils';
+
+import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-list.util';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { useGetUpstreamTargetQuery } from '../../services/get-upstream-targets.api';
+import ConfirmDeleteModal from '../confirm-delete-modal/confirm-delete-modal';
+import { UpstreamItemType } from '../../types';
 
 import * as S from './upstreams.style';
 
 type Props = {
-  data: UpstreamType[];
+  data: UpstreamItemType[];
   total?: number;
-  searchTerm: string;
   isLoading: boolean;
 };
 
 export default function Upstreams(props: Props) {
-  const { data, total, searchTerm, isLoading } = props;
+  const { data, total, isLoading } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { page } = useAppState();
+  const state = useAppState();
+  const [upstreamName, setUpstreamName] = useState();
+  const [openModal, setOpenModal] = useState(false);
 
-  const showLoadMore = page * Mockify.UPSTREAM_LIST_LIMIT <= (total ?? 0) && data.length >= Mockify.UPSTREAM_LIST_LIMIT;
+  const {
+    table: { pagination = { page: 1, rowsPerPage: 5 } } = { pagination: { page: 1, rowsPerPage: 5 } }, // Fallback for pagination
+  } = state || {};
+
+  const handlePageChange = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+
+    if (pageSize && current) {
+      const updatedPagination = {
+        page: pageSize === pagination.rowsPerPage ? current : 1,
+        rowsPerPage: pageSize,
+      };
+      updatePagination(dispatch, updatedPagination);
+    }
+  };
+
+  const { data: targetData, isFetching } = useGetUpstreamTargetQuery(upstreamName);
+
+  const deleteUpstream = (record: UpstreamItemType) => {
+    setUpstreamName(record?.name);
+    setOpenModal(true);
+  };
+
+  const getColumnsParams = { t, pagination, deleteUpstream };
+  const desktopColumns = getDesktopColumns(getColumnsParams);
+  const mobileColumns = getMobileColumns(getColumnsParams);
 
   return (
     <>
-      <S.Grid>
-        {data.map(({ name, activeServersCount, upstreamId }, idx) => (
-          <GridCard
-            key={idx}
-            title={name}
-            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${upstreamId}&upstreamName=${name}`}
-            serversCount={activeServersCount}
-            wordToHighlight={searchTerm}
-            isHeaderLtr
+      <S.TableContainer>
+        {data?.length > 0 ? (
+          <Table
+            loading={isLoading}
+            current={pagination.page}
+            total={total}
+            dataSource={data}
+            pagination={{ pageSize: pagination.rowsPerPage }}
+            columns={desktopColumns}
+            mobileColumns={mobileColumns}
+            variant={'simple'}
+            title={t('table.upstreams_list')}
+            onChange={handlePageChange}
+            rowKey={() => uuid()}
+            size={'small'}
           />
-        ))}
-      </S.Grid>
-
-      {showLoadMore && (
-        <S.StyledButton
-          variant='text'
-          color='primary'
-          disabled={isLoading}
-          onClick={() => updatePaginationAction(dispatch)}
-        >
-          <span>{t('show_all')}</span>
-          <i className='icon-chev-down' />
-        </S.StyledButton>
+        ) : (
+          <NoResult isLoading={isLoading} />
+        )}
+      </S.TableContainer>
+      {targetData?.targets && openModal ? (
+        <ConfirmDeleteModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          data={targetData}
+          upstreamName={upstreamName}
+        />
+      ) : (
+        <Loading spinning={isFetching} />
       )}
     </>
   );
