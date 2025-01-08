@@ -1,5 +1,3 @@
-import { PaginationType } from '../context/types';
-
 export type ReportResponseType = {
   responseId: number;
   serviceTypeCode: number;

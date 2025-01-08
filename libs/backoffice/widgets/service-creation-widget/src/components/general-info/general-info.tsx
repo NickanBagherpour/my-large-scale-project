@@ -1,4 +1,4 @@
-import { Input, SearchItemsContainer, Select, Chip, Dropdown } from '@oxygen/ui-kit';
+import { Input, Select, Chip, Dropdown } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { SERVICE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
