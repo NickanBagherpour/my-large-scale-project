@@ -36,12 +36,13 @@ export default function ConfirmData() {
       {
         key: 'tag',
         fullwidth: true,
-        value:
-          tags.map(({ id, title }) => (
-            <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
-              {title}
-            </Chip>
-          )) ?? '-',
+        value: tags.length
+          ? tags.map(({ id, title }) => (
+              <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
+                {title}
+              </Chip>
+            ))
+          : '-',
       },
     ];
   }
