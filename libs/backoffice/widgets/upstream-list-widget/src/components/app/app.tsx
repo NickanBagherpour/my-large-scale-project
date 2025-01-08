@@ -6,7 +6,7 @@ import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
-import { useGetUpstreamListQuery } from '../../services/get-upstream-list.api';
+import { useGetUpstreamListQuery } from '../../services';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
 
