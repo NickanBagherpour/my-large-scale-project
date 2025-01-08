@@ -25,6 +25,6 @@ export type UpstreamWithTargets = {
 export type Upstreams = PaginatedData<Upstream>;
 
 export type AssignUpstreamToServiceParams = {
-  id: number;
+  upstreamName: string;
   serviceName: string;
 };

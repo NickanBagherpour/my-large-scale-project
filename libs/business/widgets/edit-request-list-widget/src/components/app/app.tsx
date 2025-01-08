@@ -41,8 +41,8 @@ const App: React.FC<AppProps> = (props) => {
     handleUserRoleRedirect(role as UserRoleType);
   }, [role]);
 
-  const checkParams = (data, requestId, isLoading) => {
-    if (!requestId || !data) {
+  const checkParams = (requestId, isLoading) => {
+    if (!requestId) {
       return <NoResult isLoading={isLoading} handleClick={() => router.back()} />;
     }
     return (
@@ -68,7 +68,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data: updateService, isFetching: updateServiceLoading } = useUpdateServiceDetails(params);
 
-  return checkParams(updateService, submissionId, updateServiceLoading);
+  return checkParams(submissionId, updateServiceLoading);
 };
 
 export default App;

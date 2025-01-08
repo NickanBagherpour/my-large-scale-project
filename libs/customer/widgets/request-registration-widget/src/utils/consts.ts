@@ -6,6 +6,9 @@ export const INITIAL_PAGE = 1;
 
 export const MAX_INPUTE_LENGTH = 75;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
+export const MAX_POSTAL_CODE_NUMBER_LENGTH = 10;
+export const MAX_NATIONAL_ID_NUMBER_LENGTH = 11;
+export const MAX_ECONOMY_CODE_NUMBER_LENGTH = 12;
 
 export const FORM_ITEM = {
   //firstStep

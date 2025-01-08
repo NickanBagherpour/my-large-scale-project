@@ -117,7 +117,13 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
                     </S.InfoItemContainer>
                     <S.InfoItemContainer>
                       <span>{t('form.aggregator_status')}</span>
-                      <span>{aggregatorStatus}</span>
+                      <span>
+                        {requestData?.organization.isAggregator
+                          ? t('company_is_aggregator')
+                          : requestData?.organization.aggregatorId
+                          ? `${t('company_has_aggregator')} - ${requestData?.organization.aggregatorName}`
+                          : t('company_is_not_aggregator')}
+                      </span>
                     </S.InfoItemContainer>
                   </SearchItemsContainer>
                   <S.Divider orientation='center' />

@@ -11,7 +11,15 @@ import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import {
+  FORM_ITEM,
+  MAX_INPUTE_LENGTH,
+  MAX_POSTAL_CODE_NUMBER_LENGTH,
+  MAX_NATIONAL_ID_NUMBER_LENGTH,
+  MAX_ECONOMY_CODE_NUMBER_LENGTH,
+  MAX_MOBILE_NUMBER_LENGTH,
+  selectLegalTypeOptions,
+} from '../../utils/consts';
 import { WidgetStateType } from '../../context/types';
 import {
   useFirstStepRequestRegistrationMutationQuery,
@@ -48,11 +56,21 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
+  type SelectedState = {
+    isSelected: boolean;
+    id: string;
+    submissionId: null | number;
+  };
+
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
   const [aggregatorSelectData, setAggregatorSelectData] = useState();
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
-  const [isSelected, setIsSelected] = useState({ isSelected: false, id: '' });
+  const [isSelected, setIsSelected] = useState<SelectedState>({
+    isSelected: false,
+    id: '',
+    submissionId: null,
+  });
   const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
   const { mutate: secondMutate, isPending: secondIsPending } =
     useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
@@ -121,7 +139,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const handleContinue = () => {
-    const params = { organizationId: isSelected.id };
+    const params = { organizationId: isSelected.submissionId };
     secondMutate(params, {
       onSuccess: (data) => {
         console.log('request registration first step successful:', data);
@@ -152,11 +170,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     updateRequestMode(dispatch, e.target.value);
   };
 
-  const handleOrganizationSelect = (idx: string) => {
+  const handleOrganizationSelect = (idx: string, submissionId: null | number) => {
     setIsSelected({
       ...isSelected,
       isSelected: true,
       id: idx,
+      submissionId: submissionId,
     });
   };
 
@@ -189,12 +208,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 {isOrganizationsFetching ? (
                   <Loading spinning={isOrganizationsFetching} />
                 ) : organizations?.length && organizations?.length ? (
-                  organizations.map(({ legalName, organizationNationalId }, idx) => (
+                  organizations.map(({ legalName, organizationNationalId, id }, idx) => (
                     <S.Button
                       $isSelected={idx === isSelected.id ? true : false}
                       color='primary'
                       key={idx}
-                      onClick={() => handleOrganizationSelect(idx)}
+                      onClick={() => handleOrganizationSelect(idx, id)}
                     >
                       <S.Header>{legalName}</S.Header>
 
@@ -249,20 +268,13 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                           </S.InfoItemContainer>
                           <S.InfoItemContainer>
                             <span>{t('form.aggregator_status')}</span>
-                            {organizations[isSelected.id].isAggregator && organizations[isSelected.id].aggregatorId && (
-                              <span>
-                                {t('company_has_aggregator')}-{organizations[isSelected.id].aggregatorId}
-                              </span>
-                            )}
-                            {organizations[isSelected.id].isAggregator &&
-                              organizations[isSelected.id].aggregatorId == null && (
-                                <span>{t('company_is_aggregator')}</span>
-                              )}
-                            {!organizations[isSelected.id].isAggregator && (
-                              <span>
-                                {t('company_is_not_aggregator')}-{t('company_has_not_aggregator')}
-                              </span>
-                            )}
+                            <span>
+                              {organizations[isSelected.id]?.isAggregator
+                                ? t('company_is_aggregator')
+                                : organizations[isSelected.id]?.aggregatorId
+                                ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+                                : t('company_is_not_aggregator')}
+                            </span>
                           </S.InfoItemContainer>
                         </SearchItemsContainer>
                         <S.Divider orientation='center' />
@@ -388,14 +400,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
                   <Input
                     placeholder={`${t('placeholder.national_id')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_NATIONAL_ID_NUMBER_LENGTH}
                     allow={'number'}
                   />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
                   <Input
                     placeholder={`${t('placeholder.economy_code')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_ECONOMY_CODE_NUMBER_LENGTH}
                     allow={'number'}
                   />
                 </Form.Item>
@@ -405,12 +417,16 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
                   <Input
                     placeholder={`${t('placeholder.postal_code')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_POSTAL_CODE_NUMBER_LENGTH}
                     allow={'number'}
                   />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
-                  <Input placeholder={`${t('placeholder.phone')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
+                  <Input
+                    placeholder={`${t('placeholder.phone')}`}
+                    maxLength={MAX_MOBILE_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
                 </Form.Item>
                 <Form.Item
                   className='full-width-3'

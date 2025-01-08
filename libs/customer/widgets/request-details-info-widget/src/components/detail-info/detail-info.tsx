@@ -91,6 +91,16 @@ const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
               <span>{t('form.economy_code')}</span>
               <span>{data?.organization.economicCode}</span>
             </S.InfoItemContainer>
+            <S.InfoItemContainer>
+              <span>{t('form.aggregator_status')}</span>
+              <span>
+                {data?.organization.isAggregator
+                  ? t('company_is_aggregator')
+                  : data?.organization.aggregatorId
+                  ? `${t('company_has_aggregator')} - ${data?.organization.aggregatorName}`
+                  : t('company_is_not_aggregator')}
+              </span>
+            </S.InfoItemContainer>
           </SearchItemsContainer>
           <S.Divider orientation='center' />
           <SearchItemsContainer $columnNumber='3'>
