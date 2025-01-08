@@ -20,7 +20,7 @@ export const Scope = styled(MarkText)`
   //
 `;
 
-export const Url = styled(Link)`
+export const Url = styled.p`
   color: ${(p) => p.theme.primary._500};
 `;
 

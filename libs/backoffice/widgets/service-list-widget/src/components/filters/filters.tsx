@@ -1,3 +1,5 @@
+import { createSchemaFieldRule } from 'antd-zod';
+import { Form } from 'antd';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
@@ -6,6 +8,8 @@ import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState
 import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
 import InquiryService from '../service-inquiry/inquiry-service';
+import { SERVICE_NAME } from '../../utils/consts';
+import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
 import * as S from './filters.sytle';
 
 type Status = WidgetStateType['status'];
@@ -17,36 +21,47 @@ function getChipType(currentStatus: Status, chipStatus: Status) {
 
 export default function Filters() {
   const [t] = useTr();
+  const rule = createSchemaFieldRule(CreateServiceNameSchema(t));
+  const [form] = Form.useForm<ServiceNameType>();
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();
   const [value, setValue] = useState('');
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
   const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
-  useBounce(() => {
-    updateSearchTerm(dispatch, value?.trim());
+  useBounce(async () => {
+    try {
+      await form.validateFields();
+      updateSearchTerm(dispatch, value?.trim());
+    } catch {
+      console.log('search input validation failed');
+    }
   }, [value]);
 
   return (
     <>
       <S.Container>
-        <S.Actions>
-          <S.Input
-            value={value}
-            placeholder={t('search_by_english_or_persian_name')}
-            prefix={<i className='icon-search-normal' />}
-            onChange={(e) => setValue(e.target.value)}
-          />
+        <Form form={form}>
+          <S.Actions>
+            <Form.Item name={SERVICE_NAME.ServiceName} rules={[rule]} style={{ width: '100%' }}>
+              <S.Input
+                value={value}
+                placeholder={t('search_by_english_name')}
+                prefix={<i className='icon-search-normal' />}
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </Form.Item>
 
-          <S.Buttons>
-            {/* <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
+            <S.Buttons>
+              {/* <S.Button onClick={toggleUploadModal} color='primary' variant='outlined'>
               {t('upload_service')}
             </S.Button> */}
-            <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
-              {t('create_new_service')}
-            </S.Button>
-          </S.Buttons>
-        </S.Actions>
+              <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
+                {t('create_new_service')}
+              </S.Button>
+            </S.Buttons>
+          </S.Actions>
+        </Form>
 
         <S.Indicators>
           <S.Chips>
