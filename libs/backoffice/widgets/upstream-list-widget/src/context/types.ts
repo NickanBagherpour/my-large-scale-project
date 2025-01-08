@@ -6,9 +6,7 @@ export type FiltersType = FormFieldsType;
 
 export type PaginationType = {
   page: number;
-  // size: number;
   rowsPerPage: number;
-  sort: Nullable<string>;
 };
 
 export type WidgetStateType = {
@@ -17,6 +15,7 @@ export type WidgetStateType = {
   };
   message: Nullable<MessageType>;
   searchField: string;
+  sort: Nullable<string>;
 };
 
 export type WidgetActionType =
@@ -26,7 +25,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_SEARCH_TERM';
-      payload: WidgetStateType['searchTerm'];
+      payload: WidgetStateType['searchField'];
     }
   | {
       type: 'UPDATE_PAGINATION';

@@ -1,6 +1,6 @@
-export type FetchUpstreamTargetParamsType = {
-  upstreamName: string;
-};
+import { Nullable } from '@oxygen/types';
+
+export type FetchUpstreamTargetParamsType = Nullable<string>;
 
 type Target = {
   id: number;

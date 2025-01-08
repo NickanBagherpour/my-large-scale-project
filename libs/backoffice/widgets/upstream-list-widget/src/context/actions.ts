@@ -1,10 +1,9 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
-import { PaginationType } from '../../../applicant-history-widget/src/context/types';
+import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchField']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 

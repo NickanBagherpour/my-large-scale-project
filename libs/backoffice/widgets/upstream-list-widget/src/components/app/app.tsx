@@ -36,7 +36,7 @@ const App: React.FC<AppProps> = (props) => {
     };
     return params;
   }
-  const upstreamSubTitle = upstreams?.total ? `(${upstreams?.total ?? 0})` : '';
+  const upstreamSubTitle = upstreams?.totalElements ? `(${upstreams?.totalElements ?? 0})` : '';
 
   return (
     <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle}>

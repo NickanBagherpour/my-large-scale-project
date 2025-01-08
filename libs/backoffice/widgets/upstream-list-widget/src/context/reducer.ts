@@ -5,13 +5,12 @@ export const initialStateValue: WidgetStateType = {
   table: {
     pagination: {
       rowsPerPage: INITIAL_ROW_PER_PAGE,
-      // size: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
-      sort: null,
     },
   },
   message: null,
   searchField: '',
+  sort: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {

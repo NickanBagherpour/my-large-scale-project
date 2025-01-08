@@ -6,6 +6,7 @@ import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { Loading, Table } from '@oxygen/ui-kit';
 import { uuid } from '@oxygen/utils';
+import { Nullable } from '@oxygen/types';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-list.util';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -26,7 +27,7 @@ export default function Upstreams(props: Props) {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
-  const [upstreamName, setUpstreamName] = useState();
+  const [upstreamName, setUpstreamName] = useState<Nullable<string>>();
   const [openModal, setOpenModal] = useState(false);
 
   const {

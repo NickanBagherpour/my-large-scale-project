@@ -1,7 +1,8 @@
 import React from 'react';
-import { useTheme } from 'styled-components';
 
 import { useTr } from '@oxygen/translation';
+import { useAppTheme } from '@oxygen/hooks';
+import { Nullable } from '@oxygen/types';
 
 import { useDeleteUpstream } from '../../services/delete-upstream.api';
 
@@ -11,12 +12,12 @@ type Props = {
   openModal: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
   data: any;
-  upstreamName: string;
+  upstreamName: Nullable<string>;
 };
 const ConfirmDeleteModal: React.FC<Props> = (props) => {
   const { openModal, setOpenModal, data, upstreamName } = props;
   const [t] = useTr();
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { targets } = data;
 
   const { mutate, isPending } = useDeleteUpstream();
