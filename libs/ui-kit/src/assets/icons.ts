@@ -25,6 +25,8 @@ export { ReactComponent as Calender } from './media/calendar.svg';
 export { ReactComponent as CardCover } from './media/card-cover.svg';
 export { ReactComponent as AuthLooper } from './media/auth-looper.svg';
 export { ReactComponent as ReverseInfoHint } from './media/reverse-info-hint.svg';
+export { ReactComponent as Setting } from './media/setting.svg';
+export { ReactComponent as SuccessTick } from './media/success_tick.svg';
 
 // export {ReactComponent as AuthBG} from './media/auth-bg.svg';
 export * as bankLogo from './media/bank.png';

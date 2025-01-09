@@ -2,36 +2,33 @@ import Link from 'next/link';
 import { ROUTES } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
-import * as S from './modal-error.style';
+import * as S from './modal-success.style';
 import { Card } from 'antd';
 import { Button } from '@oxygen/ui-kit';
 
 type Props = {
   isOpen: boolean;
   toggle: () => void;
-  trackCode: string;
 };
 
-export default function ErrorModal(props: Props) {
+export default function SuccessModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle, trackCode } = props;
+  const { isOpen, toggle } = props;
 
   return (
     <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
       <Card>
         <S.Info>
           <S.IconWrapper>
-            <Icons.ReverseInfoHint />
+            <Icons.SuccessTick />
           </S.IconWrapper>
           {/* <span>{t('registered_request_successfully')}</span> */}
         </S.Info>
-        <S.FollowCode>
-          {t('kong_error_msg')} {trackCode}
-        </S.FollowCode>
+        <S.FollowCode>{t('success_msg')}</S.FollowCode>
       </Card>
 
       <S.ButtonContainer>
-        <Button
+        {/* <Button
           className={'register-button'}
           color={'primary'}
           size={'large'}
@@ -41,7 +38,7 @@ export default function ErrorModal(props: Props) {
           // loading={firstIsPending}
         >
           {t('try_again')}
-        </Button>
+        </Button> */}
         <Button
           className={'register-button'}
           // color={'primary'}

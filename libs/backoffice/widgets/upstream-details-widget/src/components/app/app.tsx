@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -16,11 +16,14 @@ import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../cont
 import { useGetUpstreamDetailsQuery } from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
 import UpstreamInfo from '../upstream-info/upstream-info';
-import { ParamsType, UpstreamDetailsTypeQuery } from '../../types';
+import { ParamsType, UpstreamDetailsTypeQuery, UpstreamDetailsType } from '../../types';
 import { ModalFormSchema } from '../../types/setting.schema';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 
 import UpstreamDetailsInfo from '../upstream-details-info/upstream-details-info';
+import ServerDeleteModal from '../modal-delete-server/modal-delete-server';
+import WaitingModal from '../modal-waiting/modal-waiting';
+import SuccessModal from '../modal-success/modal-success';
 
 import * as S from './app.style';
 
@@ -35,7 +38,7 @@ const App = () => {
   const upstreamId: Nullable<string> = searchParams.get('upstreamId');
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
 
-  const { data: upstreamDetails, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(fetchState);
+  const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: { name: '', persianName: '', serverList: [] },
   });
@@ -46,17 +49,32 @@ const App = () => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [selectedServerName, setSelectedServerName] = useState('');
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
-  type ServerInfoType = {
-    domain: string;
-    healthStatus: string;
-    weight: string;
-  };
-  const [serverInfo, setServerInfo] = useState<ServerInfoType | undefined>(undefined);
+
+  // type ServerInfoType = {
+  //   domain: string;
+  //   healthStatus: string;
+  //   weight: string;
+  // };
+  const [serverInfo, setServerInfo] = useState<UpstreamDetailsType | undefined>(undefined);
+  const [waitingModal, setWaitingModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(true);
 
   const upstreamDetailsTitle = upstreamName ? upstreamName : 'widget_name_details';
   const queryClient = useQueryClient();
   const rule = createSchemaFieldRule(ModalFormSchema(t));
   const [modalForm] = Form.useForm();
+
+  useEffect(() => {
+    if (upstreamDetailsInfo?.targets) {
+      setUpstreamServer((prev) => ({
+        ...prev,
+        list: {
+          ...prev.list,
+          serverList: upstreamDetailsInfo.targets, // Update serverList with targets
+        },
+      }));
+    }
+  }, [upstreamDetailsInfo]);
 
   const handleSubmit = () => {
     setTriggerRegisterAction(true);
@@ -70,6 +88,8 @@ const App = () => {
     debugger;
     setOpenDeleteModal(true);
     setSelectedServerName(domain);
+    const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
+    setServerInfo(record);
   };
 
   const editHandler = (domain: string) => {
@@ -163,82 +183,107 @@ const App = () => {
     setRegisterLoading((prev) => !prev);
   };
 
+  const toggleWaitingModal = () => {
+    setWaitingModal(false);
+  };
+
+  const toggleSuccessModal = () => {
+    setSuccessModal(false);
+  };
+
   enum StepsItemKey {
     FirstStep = 0,
     SecondStep = 1,
   }
   const stepValue: StepsItemKey = StepsItemKey.FirstStep;
 
-  const [currentStep, setCurrentStep] = useState(stepValue);
+  // const [currentStep, setCurrentStep] = useState(stepValue);
 
-  const stepsItem = [
-    {
-      title: t('progress_bar.first_step'),
-      Content: (
-        // <FirstStep
-        //   setCurrentStep={setCurrentStep}
-        //   data={requestData}
-        //   loading={isFetching}
-        //   draft={stepName ? true : false}
-        // />
-        // <span>first</span>
-        <UpstreamInfo
-          setCurrentStep={setCurrentStep}
-          // addServer={registerHandler}
-          name={upstreamId ? upstreamDetails?.list.name : ''}
-          persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
-          triggerRegisterAction={triggerRegisterAction}
-          toggleLoading={handleToggleRegisterLoading}
-          resetTriggerRegisterAction={handleResetTriggerRegisterAction}
-        />
-      ),
-    },
-    {
-      title: t('progress_bar.second_step'),
-      Content: (
-        <S.UpstreamDetailsContent>
-          {upstreamId && (
-            <Box className={'table-container'}>
-              {upstreamDetails?.list?.serverList.length ? (
-                <UpstreamDetails
-                  setCurrentStep={setCurrentStep}
-                  addServer={registerHandler}
-                  isFetching={isUpstreamFetching}
-                  data={upstreamDetails?.list?.serverList}
-                  total={upstreamDetails?.list?.serverList.length}
-                  isLoading={isUpstreamFetching}
-                  deleteUpstream={(domain) => deleteHandler(domain)}
-                  editUpstream={(domain) => editHandler(domain)}
-                />
-              ) : (
-                <NoResult isLoading={isUpstreamFetching} />
-              )}
-            </Box>
-          )}
-          {!upstreamId && (
-            <Box className={'table-container'}>
-              {
-                <UpstreamDetails
-                  setCurrentStep={setCurrentStep}
-                  addServer={registerHandler}
-                  isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
-                  data={upstreamServer?.list?.serverList}
-                  total={upstreamServer?.list?.serverList.length}
-                  isLoading={isUpstreamFetching}
-                  deleteUpstream={(domain) => deleteHandler(domain)}
-                  editUpstream={(domain) => editHandler(domain)}
-                />
-              }
-            </Box>
-          )}
-        </S.UpstreamDetailsContent>
-      ),
-    },
-  ];
+  // const stepsItem = [
+  //   {
+  //     title: t('progress_bar.first_step'),
+  //     Content: (
+  //       // <FirstStep
+  //       //   setCurrentStep={setCurrentStep}
+  //       //   data={requestData}
+  //       //   loading={isFetching}
+  //       //   draft={stepName ? true : false}
+  //       // />
+  //       // <span>first</span>
+  //       <UpstreamInfo
+  //         setCurrentStep={setCurrentStep}
+  //         // addServer={registerHandler}
+  //         name={upstreamId ? upstreamDetails?.list.name : ''}
+  //         persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
+  //         triggerRegisterAction={triggerRegisterAction}
+  //         toggleLoading={handleToggleRegisterLoading}
+  //         resetTriggerRegisterAction={handleResetTriggerRegisterAction}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     title: t('progress_bar.second_step'),
+  //     Content: (
+  //       <S.UpstreamDetailsContent>
+  //         {upstreamId && (
+  //           <Box className={'table-container'}>
+  //             {upstreamDetails?.list?.serverList.length ? (
+  //               <UpstreamDetails
+  //                 setCurrentStep={setCurrentStep}
+  //                 addServer={registerHandler}
+  //                 isFetching={isUpstreamFetching}
+  //                 data={upstreamDetails?.list?.serverList}
+  //                 total={upstreamDetails?.list?.serverList.length}
+  //                 isLoading={isUpstreamFetching}
+  //                 deleteUpstream={(domain) => deleteHandler(domain)}
+  //                 editUpstream={(domain) => editHandler(domain)}
+  //               />
+  //             ) : (
+  //               <NoResult isLoading={isUpstreamFetching} />
+  //             )}
+  //           </Box>
+  //         )}
+  //         {!upstreamId && (
+  //           <Box className={'table-container'}>
+  //             {
+  //               <UpstreamDetails
+  //                 setCurrentStep={setCurrentStep}
+  //                 addServer={registerHandler}
+  //                 isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
+  //                 data={upstreamServer?.list?.serverList}
+  //                 total={upstreamServer?.list?.serverList.length}
+  //                 isLoading={isUpstreamFetching}
+  //                 deleteUpstream={(domain) => deleteHandler(domain)}
+  //                 editUpstream={(domain) => editHandler(domain)}
+  //               />
+  //             }
+  //           </Box>
+  //         )}
+  //       </S.UpstreamDetailsContent>
+  //     ),
+  //   },
+  // ];
 
   return (
     <>
-      <Modal
+      <ServerDeleteModal
+        title={t('delete_server')}
+        open={openDeleteModal}
+        onOk={() => handleDeleteOk(selectedServerName)}
+        confirmLoading={confirmLoading}
+        onCancel={handleDeleteCancel}
+        headerDivider={false}
+        centered
+        cancelText={t('button.cancel')}
+        okText={t('button.delete')}
+        okButtonProps={{ style: { backgroundColor: theme.error.main } }}
+        cancelButtonProps={{ style: { color: theme.primary.main } }}
+        // selectedServerName={selectedServerName}
+        data={serverInfo ? [serverInfo] : undefined}
+      />
+      <WaitingModal isOpen={waitingModal} toggle={() => toggleWaitingModal()} />
+      <SuccessModal isOpen={successModal} toggle={() => toggleSuccessModal()} />
+      {/* <Modal
         title={t('delete_server')}
         open={openDeleteModal}
         onOk={() => handleDeleteOk(selectedServerName)}
@@ -260,7 +305,7 @@ const App = () => {
           />
           {t('are_you_sure')}
         </S.ModalMessage>
-      </Modal>
+      </Modal> */}
       <Modal
         title={t('add_server')}
         open={openServerRegisterModal}
@@ -309,17 +354,22 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
 
-      <S.UpstreamDetailsContainer title={upstreamId ? t(upstreamDetailsTitle) : t('widget_name_creation')}>
-        <GlobalMessageContainer
-          containerProps={{ marginBottom: '2.4rem' }}
-          message={state.errorMessage}
-          onClose={() => {
-            resetErrorMessageAction(dispatch);
-          }}
-        />
-        <UpstreamDetailsInfo />
+      <Loading spinning={isUpstreamFetching}>
+        <S.WidgetContainer>
+          <S.UpstreamDetailsContainer title={upstreamName ? t(upstreamName) : t('widget_name_creation')}>
+            <GlobalMessageContainer
+              containerProps={{ marginBottom: '2.4rem' }}
+              message={state.errorMessage}
+              onClose={() => {
+                resetErrorMessageAction(dispatch);
+              }}
+            />
+            <UpstreamDetailsInfo
+              loading={isUpstreamFetching}
+              infoData={{ name: upstreamDetailsInfo?.name, description: upstreamDetailsInfo?.description }}
+            />
 
-        {/* <Box className={'table-container'}>
+            {/* <Box className={'table-container'}>
             {upstreamDetails?.list?.serverList.length ? (
               <UpstreamDetails
                 isFetching={isUpstreamFetching}
@@ -332,13 +382,13 @@ const App = () => {
               <NoResult isLoading={isUpstreamFetching} />
             )}
           </Box> */}
-        {/* <Loading spinning={isUpstreamFetching}>
+            {/* <Loading spinning={isUpstreamFetching}>
           {!isUpstreamFetching && <S.Steps items={stepsItem} current={currentStep} />}
         </Loading> */}
-        {/* <S.Steps items={stepsItem} current={currentStep} />
+            {/* <S.Steps items={stepsItem} current={currentStep} />
         {stepsItem[currentStep].Content} */}
 
-        {/* {upstreamId && (
+            {/* {upstreamId && (
           <Box className={'table-container'}>
             {upstreamDetails?.list?.serverList.length ? (
               <UpstreamDetails
@@ -367,7 +417,7 @@ const App = () => {
           </Box>
         )} */}
 
-        {/* <FooterContainer>
+            {/* <FooterContainer>
           <ReturnButton />
           {!upstreamId && (
             <Button
@@ -381,21 +431,27 @@ const App = () => {
             </Button>
           )}
         </FooterContainer> */}
-      </S.UpstreamDetailsContainer>
-      <S.BoxContainer>
-        {
-          <UpstreamDetails
-            setCurrentStep={setCurrentStep}
-            addServer={registerHandler}
-            isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
-            data={upstreamServer?.list?.serverList}
-            total={upstreamServer?.list?.serverList.length}
-            isLoading={isUpstreamFetching}
-            deleteUpstream={(domain) => deleteHandler(domain)}
-            editUpstream={(domain) => editHandler(domain)}
-          />
-        }
-      </S.BoxContainer>
+          </S.UpstreamDetailsContainer>
+          <S.BoxContainer className={'table-container'}>
+            {
+              <UpstreamDetails
+                // setCurrentStep={setCurrentStep}
+                addServer={registerHandler}
+                isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
+                data={upstreamServer?.list?.serverList}
+                total={upstreamServer?.list?.serverList.length}
+                // isLoading={isUpstreamFetching}
+                // isFetching={isUpstreamFetching}
+                // data={upstreamDetailsInfo?.targets}
+                // total={upstreamDetailsInfo?.targets.length}
+                // isLoading={isUpstreamFetching}
+                deleteUpstream={(domain) => deleteHandler(domain)}
+                editUpstream={(domain) => editHandler(domain)}
+              />
+            }
+          </S.BoxContainer>
+        </S.WidgetContainer>
+      </Loading>
     </>
   );
 };

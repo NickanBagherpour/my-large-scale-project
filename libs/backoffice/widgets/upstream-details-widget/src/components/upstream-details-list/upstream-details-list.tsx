@@ -18,15 +18,16 @@ type UpstreamDetailsProps = PageProps & {
   data: UpstreamDetailsType[];
   isFetching: boolean;
   total?: number;
-  isLoading: boolean;
+  // isLoading: boolean;
   deleteUpstream: (domain: string) => void;
   editUpstream: (domain: string) => void;
   addServer: () => void;
-  setCurrentStep: (prev) => void;
+  // setCurrentStep: (prev) => void;
 };
 
 const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
-  const { data, isFetching, total, deleteUpstream, editUpstream, addServer, setCurrentStep } = props;
+  const { data, isFetching, total, deleteUpstream, editUpstream, addServer } = props;
+  // debugger;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -50,7 +51,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
   };
 
   const handleReturn = () => {
-    setCurrentStep((perv) => perv - 1);
+    // setCurrentStep((perv) => perv - 1);
   };
 
   const handleAddServer = () => {
@@ -84,7 +85,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
   const desktopColumns = getDesktopColumns({ t, deleteUpstream, editUpstream });
   const mobileColumns = getMobileColumns({ t, deleteUpstream, editUpstream });
 
-  const tableData = data.map((item, index) => ({ ...item, index: index + 1 }));
+  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
   return (
     <S.ServerContainer>

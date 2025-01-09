@@ -9,6 +9,7 @@ export const ServerContainer = styled.div`
   background-color: ${(props) => props.theme.onPrimary};
   padding: 1.6rem;
   border-radius: 1.6rem;
+  min-height: 55rem;
 `;
 
 export const ServerContent = styled.div`

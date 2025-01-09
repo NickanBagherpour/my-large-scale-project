@@ -13,6 +13,10 @@ type Props = {
   editUpstream: (name: string) => void;
 };
 
+type ServerDeleteModalProps = {
+  t: TFunction;
+};
+
 const renderHealthStatus = (t, value) => {
   switch (value) {
     case '0':
@@ -89,6 +93,59 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
             title: '',
             value: <S.Trash className='icon-trash' onClick={() => deleteUpstream(value.domain)} />,
             colon: false,
+          },
+        ];
+        return <Table.MobileColumns columns={columns} />;
+      },
+    },
+  ];
+}
+
+export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps): ColumnsType<UpstreamDetailsType> {
+  const { t } = props;
+  return [
+    {
+      title: `${t('domain')}`,
+      dataIndex: 'domain',
+      key: 'domain',
+      render: (domain) => getValueOrDash(domain),
+    },
+    {
+      title: `${t('health_status')}`,
+      dataIndex: 'healthStatus',
+      key: 'health_status',
+      render: (value) => {
+        return getValueOrDash(renderHealthStatus(t, value));
+      },
+    },
+    {
+      title: `${t('weight')}`,
+      dataIndex: 'weight',
+      key: 'weight',
+      render: (weight) => getValueOrDash(weight),
+    },
+  ];
+}
+
+export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps): ColumnsType<UpstreamDetailsType> {
+  const { t } = props;
+  return [
+    {
+      title: '',
+      dataIndex: '',
+      render: (value, record, index) => {
+        const columns: MobileColumnType[] = [
+          {
+            title: t('domain'),
+            value: getValueOrDash(value?.domain),
+          },
+          {
+            title: t('health_status'),
+            value: getValueOrDash(renderHealthStatus(t, value?.healthStatus)),
+          },
+          {
+            title: t('weight'),
+            value: getValueOrDash(value?.weight),
           },
         ];
         return <Table.MobileColumns columns={columns} />;

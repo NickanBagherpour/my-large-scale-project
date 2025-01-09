@@ -5,12 +5,13 @@ import { ParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetUpstreamDetailsQuery = (params: ParamsType) => {
+export const useGetUpstreamDetailsQuery = (upstreamName: string | null) => {
+  // debugger;
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(params), dispatch),
+    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, upstreamName],
+    queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(upstreamName), dispatch),
     placeholderData: keepPreviousData,
   });
 };

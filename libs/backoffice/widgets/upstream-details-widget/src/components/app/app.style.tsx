@@ -7,6 +7,10 @@ export const DraftsContainer = styled(Container)`
   margin-bottom: 1.6rem;
 `;
 
+export const WidgetContainer = styled.div`
+  height: 100%;
+`;
+
 export const UpstreamDetailsContainer = styled(Container)`
   max-height: fit-content;
   /* height: 100%; */

@@ -12,7 +12,7 @@ type Props = {
   trackCode: string;
 };
 
-export default function ErrorModal(props: Props) {
+export default function ConfirmModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, trackCode } = props;
 
