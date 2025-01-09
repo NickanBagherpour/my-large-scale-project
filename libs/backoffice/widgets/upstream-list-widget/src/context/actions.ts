@@ -1,14 +1,14 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
+import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchField']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updatePaginationAction(dispatch: WidgetDispatchType) {
-  dispatch({ type: 'UPDATE_PAGINATION' });
+export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
+  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {

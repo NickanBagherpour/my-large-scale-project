@@ -15,7 +15,7 @@ type Props = {
 };
 
 const RequestResultBox: React.FC<Props> = ({ data }) => {
-  const { reviews, submissionInfoDto } = data;
+  const { reviews, submissionInfoDto, organization } = data;
 
   const state = useAppState();
   const { submissionId } = state;
@@ -64,7 +64,6 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
       );
     }
 
-    // Then check for ExpertType.BUSINESS
     if (review?.expertType === ExpertType.BUSINESS) {
       return <BusinessResultBox key={key} isReviewed={data?.isReviewed} resultType={resultType} review={review} />;
     }
@@ -74,12 +73,7 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
 
   const resultTitle =
     state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial_banking_result' : 'business_unit_result';
-  // const renderButton =
-  //   !data?.isReviewed &&
-  //   resultType !== RequestStatus.DRAFT &&
-  //   ((resultType === RequestStatus.UNDER_REVIEW_COMMERCIAL_BANK && state?.userRole === UserRole.COMMERCIAL_BANKING_ADMIN)||
-  //   (state?.userRole === UserRole.BUSINESS_ADMIN &&
-  //     (resultType === RequestStatus.APPROVED_BY_COMMERCIAL_BANK || resultType===RequestStatus.UNDER_REVIEW_BUSINESS_UNIT)));
+
   const isReviewed = data?.isReviewed;
   const isDraft = resultType === RequestStatus.DRAFT;
 
@@ -116,7 +110,8 @@ const RequestResultBox: React.FC<Props> = ({ data }) => {
         setOpenModal={setOpenModal}
         openModal={openModal}
         isConfirm={isConfirm}
-        data={submissionInfoDto}
+        clientName={submissionInfoDto?.clientName}
+        aggregatorName={organization?.aggregatorName}
         submissionId={submissionId}
       />
     </>

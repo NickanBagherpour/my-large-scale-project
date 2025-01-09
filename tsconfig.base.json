@@ -99,6 +99,9 @@
             "@oxygen/backoffice/widgets/upstream-list-widget": [
                 "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/upstream-service-history-widget": [
+                "libs/backoffice/widgets/upstream-service-history-widget/src/index.ts"
+            ],
             "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
