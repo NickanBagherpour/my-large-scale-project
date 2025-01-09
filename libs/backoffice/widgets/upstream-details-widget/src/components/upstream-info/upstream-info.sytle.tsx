@@ -6,6 +6,9 @@ import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 export const UpstreamInfoContainer = styled.section`
   /* margin: 2.8rem 0 4rem 0; */
   margin-top: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const InfoItemsContainer = styled.div`

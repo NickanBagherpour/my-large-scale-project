@@ -10,6 +10,7 @@ import * as S from '../components/upstream-details-list/upstream-details-list.st
 type Props = {
   t: TFunction;
   deleteUpstream: (name: string) => void;
+  editUpstream: (name: string) => void;
 };
 
 const renderHealthStatus = (t, value) => {
@@ -22,7 +23,7 @@ const renderHealthStatus = (t, value) => {
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType> {
-  const { t, deleteUpstream } = props;
+  const { t, deleteUpstream, editUpstream } = props;
   return [
     {
       title: `${t('domain')}`,
@@ -44,6 +45,12 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       key: 'weight',
       render: (weight) => getValueOrDash(weight),
     },
+    {
+      title: '',
+      dataIndex: 'domain',
+      key: 'domain,',
+      render: (domain, record) => <S.Edit onClick={() => editUpstream(domain)}> {t('edit')}</S.Edit>,
+    },
 
     {
       title: '',
@@ -55,7 +62,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
 }
 
 export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType> {
-  const { t, deleteUpstream } = props;
+  const { t, deleteUpstream, editUpstream } = props;
   return [
     {
       title: '',
@@ -73,6 +80,10 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
           {
             title: t('weight'),
             value: getValueOrDash(value?.weight),
+          },
+          {
+            title: t('edit'),
+            value: <S.Edit onClick={() => editUpstream(value.domain)} />,
           },
           {
             title: '',

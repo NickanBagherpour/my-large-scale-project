@@ -42,12 +42,20 @@ export default {
   // descending: 'نزولی',
   delete_server: 'حذف سرور',
   register_server: 'ثبت سرور',
+  try_again: 'تلاش دوباره',
+  return: 'بازگشت',
+  edit: 'ویرایش',
   // service_question: 'آیا سرویس',
   // done_stopped: 'شود؟',
   delete_server_question: 'آیا از حذف سرور',
   are_you_sure: 'اطمینان دارید؟',
+  kong_error_msg: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
   form: {
     name: 'نام انگلیسی',
     persianName: 'نام فارسی',
+  },
+  progress_bar: {
+    first_step: 'اطلاعات کلی',
+    second_step: 'سرورها',
   },
 };

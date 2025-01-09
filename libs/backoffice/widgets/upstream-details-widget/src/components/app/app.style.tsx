@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Container, MarkText } from '@oxygen/ui-kit';
+import { Container, MarkText, Steps as OxegenSteps } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const DraftsContainer = styled(Container)`
@@ -10,7 +10,17 @@ export const DraftsContainer = styled(Container)`
 export const UpstreamDetailsContainer = styled(Container)`
   & .table-container {
     flex: 1;
+    height: 100%;
   }
+`;
+
+export const UpstreamDetailsContent = styled.div`
+  height: 100%;
+  margin-top: 2.4rem;
+`;
+
+export const Steps = styled(OxegenSteps)`
+  margin-top: 2.4rem;
 `;
 
 export const ModalMessage = styled.div`

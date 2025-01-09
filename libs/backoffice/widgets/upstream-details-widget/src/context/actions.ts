@@ -11,6 +11,10 @@ export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateTy
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
+export function updateUpstreamInfo(dispatch: WidgetDispatchType, upstreamInfo: WidgetStateType['upstreamInfo']) {
+  dispatch({ type: 'UPDATE_UPSTREAM_INFO', payload: upstreamInfo });
+}
+
 export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }

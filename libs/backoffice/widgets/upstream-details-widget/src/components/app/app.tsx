@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
+import { Loading } from '@oxygen/ui-kit';
 
 import { useTr } from '@oxygen/translation';
 import { Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
@@ -43,6 +44,12 @@ const App = () => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [selectedServerName, setSelectedServerName] = useState('');
   const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
+  type ServerInfoType = {
+    domain: string;
+    healthStatus: string;
+    weight: string;
+  };
+  const [serverInfo, setServerInfo] = useState<ServerInfoType | undefined>(undefined);
 
   const upstreamDetailsTitle = upstreamName ? upstreamName : 'widget_name_details';
   const queryClient = useQueryClient();
@@ -58,8 +65,21 @@ const App = () => {
   };
 
   const deleteHandler = (domain: string) => {
+    debugger;
     setOpenDeleteModal(true);
     setSelectedServerName(domain);
+  };
+
+  const editHandler = (domain: string) => {
+    debugger;
+    console.log(upstreamServer.list.serverList);
+    const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
+    setServerInfo(record);
+    registerHandler();
+    modalForm.setFieldsValue({
+      [FORM_ITEM_NAMES.domain]: record?.domain,
+      [FORM_ITEM_NAMES.weight]: record?.weight,
+    });
   };
 
   const handleDeleteOk = (domain: string) => {
@@ -140,6 +160,79 @@ const App = () => {
   const handleToggleRegisterLoading = () => {
     setRegisterLoading((prev) => !prev);
   };
+
+  enum StepsItemKey {
+    FirstStep = 0,
+    SecondStep = 1,
+  }
+  const stepValue: StepsItemKey = StepsItemKey.FirstStep;
+
+  const [currentStep, setCurrentStep] = useState(stepValue);
+
+  const stepsItem = [
+    {
+      title: t('progress_bar.first_step'),
+      Content: (
+        // <FirstStep
+        //   setCurrentStep={setCurrentStep}
+        //   data={requestData}
+        //   loading={isFetching}
+        //   draft={stepName ? true : false}
+        // />
+        // <span>first</span>
+        <UpstreamInfo
+          setCurrentStep={setCurrentStep}
+          // addServer={registerHandler}
+          name={upstreamId ? upstreamDetails?.list.name : ''}
+          persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
+          triggerRegisterAction={triggerRegisterAction}
+          toggleLoading={handleToggleRegisterLoading}
+          resetTriggerRegisterAction={handleResetTriggerRegisterAction}
+        />
+      ),
+    },
+    {
+      title: t('progress_bar.second_step'),
+      Content: (
+        <S.UpstreamDetailsContent>
+          {upstreamId && (
+            <Box className={'table-container'}>
+              {upstreamDetails?.list?.serverList.length ? (
+                <UpstreamDetails
+                  setCurrentStep={setCurrentStep}
+                  addServer={registerHandler}
+                  isFetching={isUpstreamFetching}
+                  data={upstreamDetails?.list?.serverList}
+                  total={upstreamDetails?.list?.serverList.length}
+                  isLoading={isUpstreamFetching}
+                  deleteUpstream={(domain) => deleteHandler(domain)}
+                  editUpstream={(domain) => editHandler(domain)}
+                />
+              ) : (
+                <NoResult isLoading={isUpstreamFetching} />
+              )}
+            </Box>
+          )}
+          {!upstreamId && (
+            <Box className={'table-container'}>
+              {
+                <UpstreamDetails
+                  setCurrentStep={setCurrentStep}
+                  addServer={registerHandler}
+                  isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
+                  data={upstreamServer?.list?.serverList}
+                  total={upstreamServer?.list?.serverList.length}
+                  isLoading={isUpstreamFetching}
+                  deleteUpstream={(domain) => deleteHandler(domain)}
+                  editUpstream={(domain) => editHandler(domain)}
+                />
+              }
+            </Box>
+          )}
+        </S.UpstreamDetailsContent>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -222,15 +315,13 @@ const App = () => {
             resetErrorMessageAction(dispatch);
           }}
         />
-        <UpstreamInfo
-          name={upstreamId ? upstreamDetails?.list.name : ''}
-          persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
-          addServer={registerHandler}
-          triggerRegisterAction={triggerRegisterAction}
-          toggleLoading={handleToggleRegisterLoading}
-          resetTriggerRegisterAction={handleResetTriggerRegisterAction}
-        />
-        {upstreamId && (
+        {/* <Loading spinning={isUpstreamFetching}>
+          {!isUpstreamFetching && <S.Steps items={stepsItem} current={currentStep} />}
+        </Loading> */}
+        <S.Steps items={stepsItem} current={currentStep} />
+        {stepsItem[currentStep].Content}
+
+        {/* {upstreamId && (
           <Box className={'table-container'}>
             {upstreamDetails?.list?.serverList.length ? (
               <UpstreamDetails
@@ -257,9 +348,9 @@ const App = () => {
               />
             }
           </Box>
-        )}
+        )} */}
 
-        <FooterContainer>
+        {/* <FooterContainer>
           <ReturnButton />
           {!upstreamId && (
             <Button
@@ -272,7 +363,7 @@ const App = () => {
               {t('button.register')}
             </Button>
           )}
-        </FooterContainer>
+        </FooterContainer> */}
       </S.UpstreamDetailsContainer>
     </>
   );
