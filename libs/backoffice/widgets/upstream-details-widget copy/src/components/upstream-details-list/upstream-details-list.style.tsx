@@ -5,10 +5,6 @@ export const ServerContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin-top: 1rem;
-  background-color: ${(props) => props.theme.onPrimary};
-  padding: 1.6rem;
-  border-radius: 1.6rem;
 `;
 
 export const ServerContent = styled.div`

@@ -58,7 +58,4 @@ export default {
     first_step: 'اطلاعات کلی',
     second_step: 'سرورها',
   },
-
-  upstream_global_info: 'اطلاعات کلی آپ‌استریم',
-  display_change_history: 'مشاهده تاریخچه تغییرات',
 };

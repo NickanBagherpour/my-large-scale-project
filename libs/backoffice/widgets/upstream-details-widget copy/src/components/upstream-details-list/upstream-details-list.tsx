@@ -117,7 +117,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        {/* {
+        {
           <Button
             className={'register-button'}
             color={'primary'}
@@ -129,7 +129,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
           >
             {t('button.register')}
           </Button>
-        } */}
+        }
       </FooterContainer>
     </S.ServerContainer>
   );

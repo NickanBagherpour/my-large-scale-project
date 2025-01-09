@@ -20,8 +20,6 @@ import { ParamsType, UpstreamDetailsTypeQuery } from '../../types';
 import { ModalFormSchema } from '../../types/setting.schema';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
 
-import UpstreamDetailsInfo from '../upstream-details-info/upstream-details-info';
-
 import * as S from './app.style';
 
 const App = () => {
@@ -317,26 +315,11 @@ const App = () => {
             resetErrorMessageAction(dispatch);
           }}
         />
-        <UpstreamDetailsInfo />
-
-        {/* <Box className={'table-container'}>
-            {upstreamDetails?.list?.serverList.length ? (
-              <UpstreamDetails
-                isFetching={isUpstreamFetching}
-                data={upstreamDetails?.list?.serverList}
-                total={upstreamDetails?.list?.serverList.length}
-                isLoading={isUpstreamFetching}
-                deleteUpstream={(domain) => deleteHandler(domain)}
-              />
-            ) : (
-              <NoResult isLoading={isUpstreamFetching} />
-            )}
-          </Box> */}
         {/* <Loading spinning={isUpstreamFetching}>
           {!isUpstreamFetching && <S.Steps items={stepsItem} current={currentStep} />}
         </Loading> */}
-        {/* <S.Steps items={stepsItem} current={currentStep} />
-        {stepsItem[currentStep].Content} */}
+        <S.Steps items={stepsItem} current={currentStep} />
+        {stepsItem[currentStep].Content}
 
         {/* {upstreamId && (
           <Box className={'table-container'}>
@@ -382,20 +365,6 @@ const App = () => {
           )}
         </FooterContainer> */}
       </S.UpstreamDetailsContainer>
-      <S.BoxContainer>
-        {
-          <UpstreamDetails
-            setCurrentStep={setCurrentStep}
-            addServer={registerHandler}
-            isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
-            data={upstreamServer?.list?.serverList}
-            total={upstreamServer?.list?.serverList.length}
-            isLoading={isUpstreamFetching}
-            deleteUpstream={(domain) => deleteHandler(domain)}
-            editUpstream={(domain) => editHandler(domain)}
-          />
-        }
-      </S.BoxContainer>
     </>
   );
 };

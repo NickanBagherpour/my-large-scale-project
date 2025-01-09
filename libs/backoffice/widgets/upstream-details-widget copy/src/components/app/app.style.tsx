@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Container, MarkText, Steps as OxegenSteps, Box } from '@oxygen/ui-kit';
+import { Container, MarkText, Steps as OxegenSteps } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const DraftsContainer = styled(Container)`
@@ -8,17 +8,10 @@ export const DraftsContainer = styled(Container)`
 `;
 
 export const UpstreamDetailsContainer = styled(Container)`
-  max-height: fit-content;
-  /* height: 100%; */
-  && .table-container {
+  & .table-container {
     flex: 1;
     height: 100%;
-    background-color: red;
   }
-`;
-
-export const BoxContainer = styled(Box)`
-  height: 100%;
 `;
 
 export const UpstreamDetailsContent = styled.div`
