@@ -43,7 +43,7 @@ const Api = {
       domain: 'test',
     };
     return client.post(
-      `${portalUrl}/v1/targets/upstream-name/firstUpstream`,
+      `${portalUrl}/v1/targets/upstream-name/mohsen2`,
 
       updatedParams,
       // { name, description: persian_name },

@@ -77,29 +77,29 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
       description: values.persianName,
     };
     // setConfirmModal(true);
-    setCurrentStep((perv) => perv + 1);
-    updateUpstreamInfo(dispatch, values);
+    // setCurrentStep((perv) => perv + 1);
+    // updateUpstreamInfo(dispatch, values);
 
-    // firstMutate(params, {
-    //   onSuccess: (data) => {
-    //     debugger;
-    //     console.log('request registration first step successful:', data);
-    //     setCurrentStep((perv) => perv + 1);
-    //     // updateUpstreamInfo(dispatch, values);
-    //     // if (state.submissionId.length === 0) {
-    //     //   updateOrganizationIdAndSubmissionId(dispatch, data.data);
-    //     // }
-    //     // const aggregator_status = state.firstStep.aggregator_status;
-    //     // const updatedValues = { ...values, aggregator_status };
-    //     // updateFirstStepAction(dispatch, updatedValues);
-    //     // setCurrentStep((perv) => perv + 1);
-    //   },
-    //   onError: (error) => {
-    //     debugger;
-    //     setConfirmModal(true);
-    //     console.error('request registration first step  failed:', error);
-    //   },
-    // });
+    firstMutate(params, {
+      onSuccess: (data) => {
+        debugger;
+        console.log('request registration first step successful:', data);
+        setCurrentStep((perv) => perv + 1);
+        // updateUpstreamInfo(dispatch, values);
+        // if (state.submissionId.length === 0) {
+        //   updateOrganizationIdAndSubmissionId(dispatch, data.data);
+        // }
+        // const aggregator_status = state.firstStep.aggregator_status;
+        // const updatedValues = { ...values, aggregator_status };
+        // updateFirstStepAction(dispatch, updatedValues);
+        // setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        debugger;
+        setConfirmModal(true);
+        console.error('request registration first step  failed:', error);
+      },
+    });
     // toggleLoading();
     // setTimeout(() => {
     //   toggleLoading();
