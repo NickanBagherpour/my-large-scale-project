@@ -66,8 +66,13 @@ export const DropdownContainer = styled.div`
     box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
   }
 
-  & .ant-dropdown-menu-item {
+  .ant-checkbox-wrapper {
     padding: 1.2rem 1.6rem 1.2rem 2.4rem;
+    width: 100%;
+  }
+
+  & .ant-dropdown-menu-item {
+    padding: 0;
     border-radius: 0.8rem;
 
     &:not(:last-child):not(:first-child) {
