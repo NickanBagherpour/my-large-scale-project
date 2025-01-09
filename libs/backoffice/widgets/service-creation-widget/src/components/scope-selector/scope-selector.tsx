@@ -22,10 +22,9 @@ const ScopeSelector = (props: Props) => {
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
   const [page, setPage] = useState(0);
   const { data, isFetching } = useGetScopes({
-    'scope-name': debouncedSearchTerm.trim(),
+    'search-field': debouncedSearchTerm.trim(),
     page,
     size: SCOPE_PAGE_SIZE,
-    sort: '',
   });
 
   const loadMore = () => setPage((prev) => prev + 1);
