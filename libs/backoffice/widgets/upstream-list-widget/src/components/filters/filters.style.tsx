@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Input, Button, Typography } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
-import { Paragraph } from '../../../../../../ui-kit/src/typography/typography.style';
+import { Form } from 'antd';
 
 export const Container = styled.section`
   margin: 2.4rem 0;
@@ -56,3 +56,14 @@ export const StyledText = styled(Typography.Paragraph)`
   line-height: 20px;
   margin: 0 1.6rem;
 `;
+
+export const StyledForm = styled(Form)`
+  padding: 0 2.6rem;
+
+  .ant-form-item:not(:last-of-type) {
+    margin-bottom: 3rem;
+  }
+  .ant-form-item:last-of-type {
+    margin-bottom: 4rem;
+  }
+` as typeof Form;

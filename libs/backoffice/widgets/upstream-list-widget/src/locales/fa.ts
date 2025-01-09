@@ -2,6 +2,7 @@ export default {
   widget_name: 'مدیریت آپ‌استریم‌',
   search_by_name: 'جستجو براساس نام',
   create_new_upstream: 'ایجاد آپ‌ستریم',
+  register_information: 'ثبت اطلاعات',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
   show_all: 'نمایش همه',
@@ -19,4 +20,11 @@ export default {
   confirm_question_last: ' متصل است. آیا از حذف آن اطمینان دارید؟',
   no_service_question: 'آیا از حذف آپ استریم مطمئن هستید؟',
   service: 'سرویس',
+  upstream_english_name: 'نام انگلیسی آپ‌استریم:',
+  upstream_persian_name: 'نام فارسی آپ‌استریم:',
+  validation: {
+    min_len: 'مقدار این فیلد نباید کمتر از {{val}} کاراکتر باشد.',
+    max_len: 'مقدار این فیلد نباید بیشتر از {{val}} کاراکتر باشد.',
+  },
+  create_upstream_success: 'آپ استریم با موفقیت ایجاد شد.',
 };
