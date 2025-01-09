@@ -1,22 +1,17 @@
 import { useState } from 'react';
 
-import { useTr } from '@oxygen/translation';
-import { useBounce } from '@oxygen/hooks';
-
-import { updateMessageAction, updateSearchTermAction, useAppDispatch } from '../../context';
-
-import { Input } from '@oxygen/ui-kit';
-import { CreateModal } from '@oxygen/reusable-components';
-import { Form } from 'antd';
-
-import * as S from './filters.style';
-import { FORM_ITEM_NAMES } from '../../utils/consts';
-import { createSchemaFieldRule } from 'antd-zod';
-import { CreateUpstreamType, createUpstreamType } from '../../types/create-upstream-modal.schema';
-import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
 import { useRouter } from 'next/navigation';
+
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
+import { useTr } from '@oxygen/translation';
+import { useBounce } from '@oxygen/hooks';
+import { AddUpstreamModal } from '@oxygen/reusable-components';
+
+import { updateMessageAction, updateSearchTermAction, useAppDispatch } from '../../context';
+import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
+
+import * as S from './filters.style';
 
 export default function Filters() {
   const dispatch = useAppDispatch();
@@ -26,8 +21,6 @@ export default function Filters() {
   const [openModal, setOpenModal] = useState(false);
   const [openErrorModal, setOpenErrorModal] = useState(false);
   const router = useRouter();
-  const [form] = Form.useForm<CreateUpstreamType>();
-  const rule = createSchemaFieldRule(createUpstreamType(t));
 
   useBounce(() => {
     updateSearchTermAction(dispatch, value);
@@ -35,10 +28,8 @@ export default function Filters() {
 
   const { mutate, isPending } = useCreateUpstreamMutation();
 
-  const handleCreateUpstream = async () => {
+  const handleCreateUpstream = async (values) => {
     try {
-      const values = await form.validateFields();
-
       const params = {
         name: values.name,
         description: values.description,
@@ -47,7 +38,6 @@ export default function Filters() {
       await mutate(params, {
         onSettled: () => {
           setOpenModal(false);
-          form.resetFields();
         },
         onSuccess: () => {
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
@@ -69,16 +59,6 @@ export default function Filters() {
 
   const handleCancel = () => {
     setOpenModal(false);
-    form.resetFields();
-  };
-
-  const handleOk = () => {
-    form.submit();
-    handleCreateUpstream();
-  };
-
-  const handleFinish = (values) => {
-    // console.log('handle finish');
   };
 
   return (
@@ -100,35 +80,13 @@ export default function Filters() {
           </S.Buttons>
         </S.Actions>
       </S.Container>
-      {openModal && (
-        <CreateModal
-          title={t('create_new_upstream')}
-          open={openModal}
-          onCancel={handleCancel}
-          onConfirm={handleOk}
-          confirmLoading={isPending}
-          okText={t('register_information')}
-          showConfirm={true}
-          okButtonProps={{ disabled: isPending }}
-        >
-          <S.StyledForm
-            layout={'horizontal'}
-            labelAlign={'left'}
-            labelCol={{ span: 8 }}
-            style={{ width: '100%' }}
-            form={form}
-            onFinish={handleFinish}
-          >
-            <Form.Item name={FORM_ITEM_NAMES.name} label={t('upstream_english_name')} rules={[rule]}>
-              <Input allow={'letter'} />
-            </Form.Item>
-
-            <Form.Item name={FORM_ITEM_NAMES.description} label={t('upstream_persian_name')} rules={[rule]}>
-              <Input allow={'letter'} />
-            </Form.Item>
-          </S.StyledForm>
-        </CreateModal>
-      )}
+      <AddUpstreamModal
+        title={t('create_new_upstream')}
+        open={openModal}
+        confirmLoading={isPending}
+        onCancel={handleCancel}
+        onConfirm={handleCreateUpstream}
+      />
     </>
   );
 }

@@ -14,7 +14,7 @@ const Api = {
     return res;
   },
   postCreateUpstream: async (params: CreateUpstreamParamsType) => {
-    return client.post(`${portalUrl}/v1/upstreams`, { params });
+    return client.post(`${portalUrl}/v1/upstreams`, { ...params });
   },
 };
 export default Api;

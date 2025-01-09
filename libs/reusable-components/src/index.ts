@@ -28,3 +28,5 @@ export { default as ServiceCallLimit } from './components/service-call-limit/ser
 export { default as EmptyState } from './components/empty-state/empty-state';
 export * from './components/advance-grid-card/advance-grid-card';
 export { default as Collapse } from './components/collapse/collapse';
+export { default as AddUpstreamModal } from './components/add-upstream-modal/add-upstream-modal';
+export * from './components/add-upstream-modal/add-upstream-modal.schema';

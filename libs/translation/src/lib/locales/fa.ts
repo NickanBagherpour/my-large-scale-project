@@ -284,7 +284,7 @@ export default {
   validation: {
     required: 'این فیلد اجباریست',
     incorrect: 'خطا',
-    // max_length: 'حداکثر طول مجاز {{length}} کاراکتر می باشد',
+    max_len: 'حداکثر طول مجاز {{val}} کاراکتر می باشد',
     max_length: 'حداکثر طول مجاز رعایت نشده است',
     min_length: 'حداقل طول مجاز رعایت نشده است',
     choose_one_option: 'یکی از گزینه‌ها را انتخاب کنید',
