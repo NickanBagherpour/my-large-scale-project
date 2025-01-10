@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Container } from '@oxygen/ui-kit';
-import { AnimatedStatus, GlobalMessageContainer, StatusModal } from '@oxygen/reusable-components';
+import { Container } from '@oxygen/ui-kit';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import {
   addInitialStep,
