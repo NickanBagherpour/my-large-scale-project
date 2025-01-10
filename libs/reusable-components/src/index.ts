@@ -29,3 +29,4 @@ export { default as EmptyState } from './components/empty-state/empty-state';
 export * from './components/advance-grid-card/advance-grid-card';
 export { default as Collapse } from './components/collapse/collapse';
 export { default as AnimatedStatus } from './components/animated-status/animated-status';
+export { default as StatusModal } from './components/status-modal/status-modal';
