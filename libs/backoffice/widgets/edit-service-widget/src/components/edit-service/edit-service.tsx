@@ -1,8 +1,13 @@
+import { useRouter } from 'next/navigation';
 import FormItem from 'antd/lib/form/FormItem';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form, FormInstance } from 'antd';
+
 import { Chip, Dropdown, Input, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { ROUTES } from '@oxygen/utils';
+import { useApp } from '@oxygen/hooks';
+
 import { FORM_ITEM_NAMES } from '../../utils/consts';
 import { createEditServiceFormSchema, EditServiceFormFieldsType } from '../../types';
 import { useGetServiceAccess } from '../../services/get-access.api';
@@ -17,7 +22,7 @@ import {
 } from '../../utils/select-helper';
 import { ServiceInfoDto } from '../../types/edit-service.type';
 import { useEditServiceMutation } from '../../services/post-edit-service.api';
-import { useApp } from '@oxygen/hooks';
+
 import * as S from './edit-service.style';
 
 type Props = {
@@ -36,7 +41,16 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   const tagOptions = convertTags(tagList);
   const selectedTags: SelectOptionType[] = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { notification } = useApp();
-  const { mutate: editService } = useEditServiceMutation();
+  const router = useRouter();
+  const handleSuccess = (serviceName?: string) => {
+    router.push(
+      `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${serviceName ?? ''}` // Replace 123 with your item ID
+    );
+    notification.success({
+      message: t('alert.edit_success'),
+    });
+  };
+  const { mutate: editService } = useEditServiceMutation(handleSuccess);
 
   const defaultValues = {
     [FORM_ITEM_NAMES.faName]: serviceInfo?.persianName,
@@ -69,13 +83,6 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       ownerName: values[FORM_ITEM_NAMES.owner],
       tagsIds: values[FORM_ITEM_NAMES.tags].map((t) => t.value),
     });
-
-    // router.push(
-    //   `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?service-name=${serviceName}` // Replace 123 with your item ID
-    // );
-    // notification.success({
-    //   message: t('alert.edit_success'),
-    // });
   };
   return (
     <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
