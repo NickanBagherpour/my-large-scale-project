@@ -18,14 +18,16 @@ interface IUseApp {
   notification: typeof notification;
   modal: CustomModalFunctions;
 }
+
 const useApp = (): IUseApp => {
   const [modalInstance, contextHolder] = Modal.useModal();
   const { config } = useConfig();
 
   notification.config({
-    placement: config.direction === Direction.RTL ? 'topRight' : 'topLeft',
+    placement: config.direction === Direction.RTL ? 'topLeft' : 'topRight',
     top: 85,
     duration: 5,
+    showProgress: true,
     rtl: config.direction === Direction.RTL,
   });
 
