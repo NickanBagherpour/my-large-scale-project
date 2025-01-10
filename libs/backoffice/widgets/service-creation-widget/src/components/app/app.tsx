@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
-import { Container } from '@oxygen/ui-kit';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { Button, Container } from '@oxygen/ui-kit';
+import { AnimatedStatus, GlobalMessageContainer, StatusModal } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import {
   addInitialStep,
@@ -62,6 +62,49 @@ const App = () => {
 
   return (
     <Container title={t('create_new_service')}>
+      {/*
+      <AnimatedStatus title='سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.' status='loading' />
+      <br />
+      <AnimatedStatus title='درخواست ثبت سرویس با موفقیت ثبت شد.' status='success' />
+      <br />
+      <AnimatedStatus title='ارتباط با سرور برقرار نشد. لطفا دوباره تلاش نمایید.' status='error' />
+
+      <StatusModal
+        isOpen
+        status='error'
+        loadingProps={{
+          title: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+          footer: (
+            <Button block variant='outlined' color='primary' disabled>
+              <i className='icon-home-empty' />
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        successProps={{
+          title: 'درخواست ثبت سرویس با موفقیت ثبت شد.',
+          footer: (
+            <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              <i className='icon-home-empty' />
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        errorProps={{
+          title: 'ارتباط با سرور برقرار نشد. لطفا دوباره تلاش نمایید.  ',
+          footer: [
+            <Button block href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              <i className='icon-home-empty' />
+              {t('service_managment')}
+            </Button>,
+            <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              {t('save_in_draft')}
+            </Button>,
+          ],
+        }}
+      />
+      */}
+
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       {step === null ? (
         <CenteredLoading />
