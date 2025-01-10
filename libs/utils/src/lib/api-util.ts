@@ -1,8 +1,8 @@
-import { Nullable, UserRole } from '@oxygen/types';
+import { MessageType, Nullable, UserRole } from '@oxygen/types';
 import { getCookie } from './util';
 
 export const ApiUtil = {
-  downloadFile: function (data, type, extension, preferredName?) {
+  downloadFile: function(data, type, extension, preferredName?) {
     const blob = new Blob([data], { type: type });
     const downloadUrl = URL.createObjectURL(blob);
 
@@ -26,7 +26,7 @@ export const ApiUtil = {
 
     return false;
   },
-  getFile: function (serviceURL: string, params?: any, options?: any) {
+  getFile: function(serviceURL: string, params?: any, options?: any) {
     const { method = 'GET', encodeQuery = true, contentType = 'application/octet-stream' } = options ?? {};
 
     const xsrfTokenKey = 'XSRF-TOKEN';
@@ -37,7 +37,7 @@ export const ApiUtil = {
       serviceURL = serviceURL + '?' + this.encodeQueryData(params);
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       xhr.open(method, serviceURL, true);
       xhr.responseType = 'blob';
       xhr.setRequestHeader('Content-type', contentType);
@@ -50,7 +50,7 @@ export const ApiUtil = {
         xhr.send();
       }
 
-      xhr.onload = function (e) {
+      xhr.onload = function(e) {
         try {
           if (xhr.readyState === 4 && xhr.status === 200) {
             resolve(xhr.response);
@@ -67,7 +67,7 @@ export const ApiUtil = {
       };
     });
   },
-  encodeQueryData: function (data) {
+  encodeQueryData: function(data) {
     const ret: any[] = [];
     for (const d in data) {
       if (encodeURIComponent(data[d]) !== 'null') {
@@ -76,50 +76,59 @@ export const ApiUtil = {
     }
     return ret.join('&');
   },
-  getErrorMessage: function (reason) {
+  getErrorMessage: function(reason: any): MessageType | null {
     if (!reason) {
       return null;
     }
 
-    let message: any = {};
-
-    //fixme remove unused conditions
+    let message: MessageType | null = null;
 
     try {
-      if (reason.response.data.subErrors && reason.response.data.subErrors.length !== 0) {
-        message = {
-          description: reason.response.data.subErrors[0].localizedMessage,
-          type: 'error',
-          shouldTranslate: false,
-        };
-      } else if (reason.response.data.localizedMessage) {
-        message = {
-          description: reason.response.data.localizedMessage,
-          type: 'error',
-          shouldTranslate: false,
-        };
-      } else if (reason.response.data.localMessage) {
-        message = {
-          description: reason.response.data.localMessage,
-          type: 'error',
-          shouldTranslate: false,
-        };
-      } else if (reason.response.data.message) {
-        message = {
-          description: reason.response.data.message,
-          type: 'error',
-          shouldTranslate: false,
-        };
-      } /*else {
-            message = {
-                txt: "unknown-error", type: 'error',
-                shouldTranslate: true,
-            };
+      const data = reason.response?.data;
+
+      if (data?.message) {
+        const hasDetails = !!data.details;
+        const hasErrors = data.errors && typeof data.errors === 'object';
+
+        // Set title and description based on the presence of details
+    /*    if (hasDetails) {
+          message = {
+            title: data.message,
+            description: data.details,
+            type: 'error',
+            shouldTranslate: false,
+          };
+        } else {
+          message = {
+            description: data.message,
+            type: 'error',
+            shouldTranslate: false,
+          };
         }*/
+
+        message = {
+          title: data.message,
+          description: '',
+          fields:  data.errors,
+          type: 'error',
+          shouldTranslate: false,
+        };
+
+        // If errors exist, append their messages to description and set fields
+        if (hasErrors) {
+          const errorMessages = Object.values(data.errors).join('\n');
+          if (message.description) {
+            message.description += `\n${errorMessages}`;
+          } else {
+            message.description = errorMessages;
+          }
+        }
+      }
     } catch (e) {
-      //
+      console.error('Error processing getErrorMessage:', e);
     } finally {
-      if (!message?.txt && !message?.type) {
+      // Fallback to a generic error message if none was set
+      if (!message?.description && !message?.type) {
         message = {
           title: 'common.error',
           description: 'error.unknown_error',
