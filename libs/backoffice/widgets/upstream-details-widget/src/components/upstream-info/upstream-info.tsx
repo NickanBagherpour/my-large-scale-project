@@ -21,7 +21,7 @@ type UpstreamInfoProps = PageProps & {
   triggerRegisterAction: boolean;
   toggleLoading: () => void;
   resetTriggerRegisterAction: () => void;
-  setCurrentStep: (prev) => void;
+  // setCurrentStep: (prev) => void;
 };
 const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
   const {
@@ -31,7 +31,7 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
     triggerRegisterAction,
     toggleLoading,
     resetTriggerRegisterAction,
-    setCurrentStep,
+    // setCurrentStep,
   } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
@@ -84,7 +84,7 @@ const UpstreamInfo: React.FC<UpstreamInfoProps> = (props) => {
       onSuccess: (data) => {
         debugger;
         console.log('request registration first step successful:', data);
-        setCurrentStep((perv) => perv + 1);
+        // setCurrentStep((perv) => perv + 1);
         // updateUpstreamInfo(dispatch, values);
         // if (state.submissionId.length === 0) {
         //   updateOrganizationIdAndSubmissionId(dispatch, data.data);

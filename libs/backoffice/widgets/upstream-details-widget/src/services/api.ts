@@ -47,6 +47,61 @@ const Api = {
     // }
   },
 
+  addServerToUpstream: async (params: { upstreamName: string; domain: string; weight: number; id?: number }) => {
+    debugger;
+    const { upstreamName, id, ...restParams } = params;
+    const editParams = { id: id, domain: restParams.domain, weight: restParams.weight };
+    // const updatedParams = {
+    //   name: name,
+    //   description: persian_name,
+    // };
+    if (id) {
+      return client.put(
+        `${portalUrl}/v1/targets`,
+        editParams,
+        // { name, description: persian_name },
+        {
+          headers: {},
+        }
+      );
+    } else {
+      return client.post(
+        `${portalUrl}/v1/targets/upstream-name/${upstreamName}`,
+        restParams,
+        // { name, description: persian_name },
+        {
+          headers: {},
+        }
+      );
+    }
+
+    // if (organizationId && submissionId) {
+    //   return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
+    //     headers: {},
+    //   });
+    // } else {
+    //   return client.post(`${portalUrl}/v1/organizations`, restParams, {
+    //     headers: {},
+    //   });
+    // }
+  },
+
+  deleteServerFromUpstream: async (id: number) => {
+    debugger;
+
+    return client.delete(`${portalUrl}/v1/targets/${id}`);
+
+    // if (organizationId && submissionId) {
+    //   return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
+    //     headers: {},
+    //   });
+    // } else {
+    //   return client.post(`${portalUrl}/v1/organizations`, restParams, {
+    //     headers: {},
+    //   });
+    // }
+  },
+
   addServer: async (params: FirstStepParams) => {
     debugger;
     // const { name, persian_name } = params;

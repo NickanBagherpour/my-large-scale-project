@@ -9,11 +9,12 @@ import { Button } from '@oxygen/ui-kit';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
+  id?: number | null;
 };
 
 export default function SuccessModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle } = props;
+  const { isOpen, toggle, id } = props;
 
   return (
     <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
@@ -24,7 +25,7 @@ export default function SuccessModal(props: Props) {
           </S.IconWrapper>
           {/* <span>{t('registered_request_successfully')}</span> */}
         </S.Info>
-        <S.FollowCode>{t('success_msg')}</S.FollowCode>
+        <S.FollowCode>{id ? t('edit_msg') : t('success_msg')}</S.FollowCode>
       </Card>
 
       <S.ButtonContainer>

@@ -13,7 +13,6 @@ export const WidgetContainer = styled.div`
 
 export const UpstreamDetailsContainer = styled(Container)`
   max-height: fit-content;
-  /* height: 100%; */
   && .table-container {
     flex: 1;
     height: 100%;

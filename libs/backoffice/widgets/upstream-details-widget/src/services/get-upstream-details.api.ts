@@ -28,6 +28,30 @@ export const useFirstStepUpstreamInfoRegistrationMutationQuery = () => {
   });
 };
 
+export const useAddServerToUpstreamMutationQuery = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: any) => Api.addServerToUpstream(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+  });
+};
+
+export const useDeleteServerFromUpstreamMutationQuery = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: any) => Api.deleteServerFromUpstream(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+  });
+};
+
 export const useAddServerMutationQuery = () => {
   const dispatch = useAppDispatch();
 

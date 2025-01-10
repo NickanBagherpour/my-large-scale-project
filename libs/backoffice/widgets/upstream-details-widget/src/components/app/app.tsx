@@ -12,8 +12,13 @@ import { Nullable } from '@oxygen/types';
 import { RQKEYS } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 
+// import { useAddServerToUpstreamMutationQuery } from '../../services/get-upstream-details.api';
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
-import { useGetUpstreamDetailsQuery } from '../../services';
+import {
+  useGetUpstreamDetailsQuery,
+  useAddServerToUpstreamMutationQuery,
+  useDeleteServerFromUpstreamMutationQuery,
+} from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
 import UpstreamInfo from '../upstream-info/upstream-info';
 import { ParamsType, UpstreamDetailsTypeQuery, UpstreamDetailsType } from '../../types';
@@ -24,6 +29,7 @@ import UpstreamDetailsInfo from '../upstream-details-info/upstream-details-info'
 import ServerDeleteModal from '../modal-delete-server/modal-delete-server';
 import WaitingModal from '../modal-waiting/modal-waiting';
 import SuccessModal from '../modal-success/modal-success';
+import ErrorModal from '../modal-error/modal-error';
 
 import * as S from './app.style';
 
@@ -38,11 +44,18 @@ const App = () => {
   const upstreamId: Nullable<string> = searchParams.get('upstreamId');
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
 
-  const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
+  const {
+    data: upstreamDetailsInfo,
+    isFetching: isUpstreamFetching,
+    refetch,
+  } = useGetUpstreamDetailsQuery(upstreamName);
+  const { mutate: addServerMutate, isPending: addServerIsPending } = useAddServerToUpstreamMutationQuery();
+  const { mutate: deleteServerMutate, isPending: deleteServerIsPending } = useDeleteServerFromUpstreamMutationQuery();
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: { name: '', persianName: '', serverList: [] },
   });
 
+  const [selectedServerId, setSelectedServerId] = useState<number | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openServerRegisterModal, setOpenServerRegisterModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -57,12 +70,14 @@ const App = () => {
   // };
   const [serverInfo, setServerInfo] = useState<UpstreamDetailsType | undefined>(undefined);
   const [waitingModal, setWaitingModal] = useState(false);
-  const [successModal, setSuccessModal] = useState(true);
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  // const [serverInfo, setServerInfo] = useState(undefined);
 
   const upstreamDetailsTitle = upstreamName ? upstreamName : 'widget_name_details';
   const queryClient = useQueryClient();
   const rule = createSchemaFieldRule(ModalFormSchema(t));
-  const [modalForm] = Form.useForm();
+  const [addServerModalForm] = Form.useForm();
 
   useEffect(() => {
     if (upstreamDetailsInfo?.targets) {
@@ -84,51 +99,84 @@ const App = () => {
     setTriggerRegisterAction(false);
   };
 
-  const deleteHandler = (domain: string) => {
+  const deleteHandler = (id: number, domain: string, weight: string, healthStatus: string) => {
     debugger;
     setOpenDeleteModal(true);
-    setSelectedServerName(domain);
-    const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
-    setServerInfo(record);
+    // setSelectedServerName(domain);
+    // const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
+    setServerInfo({ domain: domain, healthStatus: healthStatus, weight: weight });
+    setSelectedServerId(id);
   };
 
-  const editHandler = (domain: string) => {
+  const editHandler = (id: number, domain: string, weight: string, healthStatus: string) => {
     debugger;
     console.log(upstreamServer.list.serverList);
-    const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
-    setServerInfo(record);
+    // const record = upstreamServer.list.serverList.find((item) => item.domain === domain);
+    // setServerInfo(record);
+
     registerHandler();
-    modalForm.setFieldsValue({
-      [FORM_ITEM_NAMES.domain]: record?.domain,
-      [FORM_ITEM_NAMES.weight]: record?.weight,
+    setSelectedServerId(id);
+    addServerModalForm.setFieldsValue({
+      [FORM_ITEM_NAMES.domain]: domain,
+      [FORM_ITEM_NAMES.weight]: weight,
     });
   };
 
-  const handleDeleteOk = (domain: string) => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setUpstreamServer((prevState) => ({
-        ...prevState,
-        list: {
-          ...prevState.list,
-          serverList: prevState.list.serverList.filter((item) => item.domain !== domain),
-        },
-      }));
-      queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
-        if (!oldData) return;
-        return {
-          ...oldData,
-          list: {
-            name: oldData.list.name,
-            persianName: oldData.list.persianName,
-            serverList: oldData.list.serverList.filter((item) => item.domain !== domain),
-          },
-        };
-      });
+  const handleDeleteOk = () => {
+    debugger;
+    deleteServerMutate(selectedServerId, {
+      onSuccess: (data) => {
+        debugger;
+        setOpenDeleteModal(false);
+        refetch();
+        console.log('request registration first step successful:', data);
+        // setSuccessModal(true);
+        // setWaitingModal(false);
+        // setCurrentStep((perv) => perv + 1);
+        // updateUpstreamInfo(dispatch, values);
+        // if (state.submissionId.length === 0) {
+        //   updateOrganizationIdAndSubmissionId(dispatch, data.data);
+        // }
+        // const aggregator_status = state.firstStep.aggregator_status;
+        // const updatedValues = { ...values, aggregator_status };
+        // updateFirstStepAction(dispatch, updatedValues);
+        // setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        debugger;
+        setOpenDeleteModal(false);
+        // setWaitingModal(false);
+        // setErrorModal(true);
+        // setServerInfo(values);
+        // setConfirmModal(true);
+        console.error('request registration first step  failed:', error);
+      },
+    });
+    // setConfirmLoading(true);
 
-      setOpenDeleteModal(false);
-      setConfirmLoading(false);
-    }, 2000);
+    // setTimeout(() => {
+    //   setUpstreamServer((prevState) => ({
+    //     ...prevState,
+    //     list: {
+    //       ...prevState.list,
+    //       serverList: prevState.list.serverList.filter((item) => item.domain !== domain),
+    //     },
+    //   }));
+    //   queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
+    //     if (!oldData) return;
+    //     return {
+    //       ...oldData,
+    //       list: {
+    //         name: oldData.list.name,
+    //         persianName: oldData.list.persianName,
+    //         serverList: oldData.list.serverList.filter((item) => item.domain !== domain),
+    //       },
+    //     };
+    //   });
+
+    //   setOpenDeleteModal(false);
+    //   setConfirmLoading(false);
+    // }, 2000);
   };
 
   const handleDeleteCancel = () => {
@@ -137,7 +185,9 @@ const App = () => {
   };
 
   const registerHandler = () => {
-    modalForm.resetFields();
+    debugger;
+    setSelectedServerId(null);
+    addServerModalForm.resetFields();
     setOpenServerRegisterModal(true);
   };
 
@@ -146,43 +196,89 @@ const App = () => {
     setOpenServerRegisterModal(false);
   };
 
+  const handleTryAgain = () => {
+    debugger;
+    handleFinish(serverInfo);
+  };
+
   const handleFinish = (values: any) => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpenServerRegisterModal(false);
-      setConfirmLoading(false);
-      setUpstreamServer((prevState) => ({
-        ...prevState,
-        list: {
-          ...prevState.list,
-          serverList: [...prevState.list.serverList, values],
-        },
-      }));
-      queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
-        if (!oldData) return;
+    debugger;
+    console.log('handleFinish');
+    setWaitingModal(true);
+    setErrorModal(false);
+    setSuccessModal(false);
+    // setConfirmLoading(true);
 
-        // Create a Set of existing domain names for quick lookup
-        const existingDomains = new Set(oldData.list.serverList.map((item) => item.domain));
+    // setTimeout(() => {
+    //   setOpenServerRegisterModal(false);
+    //   setConfirmLoading(false);
+    //   setUpstreamServer((prevState) => ({
+    //     ...prevState,
+    //     list: {
+    //       ...prevState.list,
+    //       serverList: [...prevState.list.serverList, values],
+    //     },
+    //   }));
+    //   queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
+    //     if (!oldData) return;
 
-        // Filter new servers to only include those with domains not already in existingDomains
-        const newServers = (upstreamServer?.list?.serverList || []).filter((item) => !existingDomains.has(item.domain));
+    //     // Create a Set of existing domain names for quick lookup
+    //     const existingDomains = new Set(oldData.list.serverList.map((item) => item.domain));
 
-        return {
-          ...oldData,
-          list: {
-            name: oldData.list.name,
-            persianName: oldData.list.persianName,
-            serverList: [...oldData.list.serverList, ...newServers, values],
-          },
-        };
-      });
-    }, 2000);
+    //     // Filter new servers to only include those with domains not already in existingDomains
+    //     const newServers = (upstreamServer?.list?.serverList || []).filter((item) => !existingDomains.has(item.domain));
+
+    //     return {
+    //       ...oldData,
+    //       list: {
+    //         name: oldData.list.name,
+    //         persianName: oldData.list.persianName,
+    //         serverList: [...oldData.list.serverList, ...newServers, values],
+    //       },
+    //     };
+    //   });
+    // }, 2000);
+    const params = {
+      upstreamName: upstreamName,
+      domain: values.domain,
+      weight: parseInt(values.weight),
+      id: selectedServerId ? selectedServerId : null,
+    };
+    addServerMutate(params, {
+      onSuccess: (data) => {
+        debugger;
+        refetch();
+        console.log('request registration first step successful:', data);
+        setSuccessModal(true);
+        setWaitingModal(false);
+        // setCurrentStep((perv) => perv + 1);
+        // updateUpstreamInfo(dispatch, values);
+        // if (state.submissionId.length === 0) {
+        //   updateOrganizationIdAndSubmissionId(dispatch, data.data);
+        // }
+        // const aggregator_status = state.firstStep.aggregator_status;
+        // const updatedValues = { ...values, aggregator_status };
+        // updateFirstStepAction(dispatch, updatedValues);
+        // setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        debugger;
+        setWaitingModal(false);
+        setErrorModal(true);
+        setServerInfo(values);
+        // setConfirmModal(true);
+        console.error('request registration first step  failed:', error);
+      },
+    });
   };
 
   const handleToggleRegisterLoading = () => {
     setRegisterLoading((prev) => !prev);
   };
 
+  const toggleErrorModal = () => {
+    setErrorModal(false);
+  };
   const toggleWaitingModal = () => {
     setWaitingModal(false);
   };
@@ -269,8 +365,8 @@ const App = () => {
       <ServerDeleteModal
         title={t('delete_server')}
         open={openDeleteModal}
-        onOk={() => handleDeleteOk(selectedServerName)}
-        confirmLoading={confirmLoading}
+        onOk={() => handleDeleteOk()}
+        confirmLoading={deleteServerIsPending}
         onCancel={handleDeleteCancel}
         headerDivider={false}
         centered
@@ -281,8 +377,9 @@ const App = () => {
         // selectedServerName={selectedServerName}
         data={serverInfo ? [serverInfo] : undefined}
       />
+      <ErrorModal isOpen={errorModal} toggle={() => toggleErrorModal()} tryAgain={() => handleTryAgain()} />
       <WaitingModal isOpen={waitingModal} toggle={() => toggleWaitingModal()} />
-      <SuccessModal isOpen={successModal} toggle={() => toggleSuccessModal()} />
+      <SuccessModal isOpen={successModal} toggle={() => toggleSuccessModal()} id={selectedServerId} />
       {/* <Modal
         title={t('delete_server')}
         open={openDeleteModal}
@@ -317,15 +414,16 @@ const App = () => {
           <Button
             type='primary'
             style={{ width: '100%', margin: 0 }}
-            onClick={() => modalForm.submit()}
-            loading={confirmLoading}
+            onClick={() => addServerModalForm.submit()}
+            // loading={confirmLoading}
+            loading={addServerIsPending}
           >
             {t('register_server')}
           </Button>,
         ]}
       >
         <S.ModalMessage>
-          <Form layout={'vertical'} style={{ width: '100%' }} form={modalForm} onFinish={handleFinish}>
+          <Form layout={'vertical'} style={{ width: '100%' }} form={addServerModalForm} onFinish={handleFinish}>
             <S.InfoItemsContainer>
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('domain')} / IP PORT</span>
@@ -343,7 +441,7 @@ const App = () => {
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('health_status')}</span>
                 <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]} initialValue={'1'}>
-                  <Select size={'large'}>
+                  <Select size={'large'} disabled={true}>
                     <Select.Option value='1'>{t('health')}</Select.Option>
                     <Select.Option value='0'>{t('unHealth')}</Select.Option>
                   </Select>
@@ -356,6 +454,15 @@ const App = () => {
 
       <Loading spinning={isUpstreamFetching}>
         <S.WidgetContainer>
+          {/* <UpstreamInfo
+            // setCurrentStep={setCurrentStep}
+            // addServer={registerHandler}
+            name={'sadad'}
+            persianName={'test-nickan'}
+            triggerRegisterAction={triggerRegisterAction}
+            toggleLoading={handleToggleRegisterLoading}
+            resetTriggerRegisterAction={handleResetTriggerRegisterAction}
+          /> */}
           <S.UpstreamDetailsContainer title={upstreamName ? t(upstreamName) : t('widget_name_creation')}>
             <GlobalMessageContainer
               containerProps={{ marginBottom: '2.4rem' }}
@@ -445,8 +552,8 @@ const App = () => {
                 // data={upstreamDetailsInfo?.targets}
                 // total={upstreamDetailsInfo?.targets.length}
                 // isLoading={isUpstreamFetching}
-                deleteUpstream={(domain) => deleteHandler(domain)}
-                editUpstream={(domain) => editHandler(domain)}
+                deleteUpstream={(id, domain, weight, healthStatus) => deleteHandler(id, domain, weight, healthStatus)}
+                editUpstream={(id, domain, weight, healthStatu) => editHandler(id, domain, weight, healthStatu)}
               />
             }
           </S.BoxContainer>

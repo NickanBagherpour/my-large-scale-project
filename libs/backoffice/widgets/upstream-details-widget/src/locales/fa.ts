@@ -66,5 +66,6 @@ export default {
   are_you_sure_delete_server_question: 'آیا از حذف سرویس زیر اطمینان دارید؟',
   waiting_msg: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
   success_msg: 'سرور با موفقیت افزوده شد.',
+  edit_msg: 'سرور با موفقیت ویرایش شد.',
   cancel: 'لغو',
 };

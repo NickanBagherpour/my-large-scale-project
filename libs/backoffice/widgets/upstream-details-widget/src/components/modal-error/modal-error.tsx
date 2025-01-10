@@ -9,12 +9,13 @@ import { Button } from '@oxygen/ui-kit';
 type Props = {
   isOpen: boolean;
   toggle: () => void;
-  trackCode: string;
+  tryAgain: () => void;
+  // trackCode: string;
 };
 
-export default function ConfirmModal(props: Props) {
+export default function ErrorModal(props: Props) {
   const [t] = useTr();
-  const { isOpen, toggle, trackCode } = props;
+  const { isOpen, toggle, tryAgain } = props;
 
   return (
     <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
@@ -25,9 +26,7 @@ export default function ConfirmModal(props: Props) {
           </S.IconWrapper>
           {/* <span>{t('registered_request_successfully')}</span> */}
         </S.Info>
-        <S.FollowCode>
-          {t('kong_error_msg')} {trackCode}
-        </S.FollowCode>
+        <S.FollowCode>{t('kong_error_msg')}</S.FollowCode>
       </Card>
 
       <S.ButtonContainer>
@@ -37,7 +36,7 @@ export default function ConfirmModal(props: Props) {
           size={'large'}
           icon={<i className='icon-refresh' />}
           // disabled={isSubmitDisabled}
-          // onClick={submitForm}
+          onClick={tryAgain}
           // loading={firstIsPending}
         >
           {t('try_again')}

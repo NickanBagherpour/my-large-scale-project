@@ -19,8 +19,8 @@ type UpstreamDetailsProps = PageProps & {
   isFetching: boolean;
   total?: number;
   // isLoading: boolean;
-  deleteUpstream: (domain: string) => void;
-  editUpstream: (domain: string) => void;
+  deleteUpstream: (id: number, domain: string, weight: string, healthStatus: string) => void;
+  editUpstream: (id: number, domain: string, weight: string, healthStatus: string) => void;
   addServer: () => void;
   // setCurrentStep: (prev) => void;
 };
@@ -86,7 +86,7 @@ const UpstreamDetails: React.FC<UpstreamDetailsProps> = (props) => {
   const mobileColumns = getMobileColumns({ t, deleteUpstream, editUpstream });
 
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
-
+  // debugger;
   return (
     <S.ServerContainer>
       <S.ServerContent>
