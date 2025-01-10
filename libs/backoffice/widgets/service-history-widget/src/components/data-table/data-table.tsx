@@ -12,8 +12,6 @@ import { useGetsServiceHistoryDataQuery } from '../../services';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
-import * as S from './data-table.style';
-
 type AppProps = PageProps & {
   //
 };
@@ -178,26 +176,25 @@ const DataTable: React.FC<AppProps> = () => {
   return (
     <>
       {displayTable ? (
-        <S.TableContainer>
-          <Table
-            rowKey={'id'}
-            title={t('subtitle')}
-            size='small'
-            variant='complex'
-            columns={columns}
-            dataSource={dataSource}
-            loading={isFetching}
-            pagination={{
-              ...table?.pagination,
-              total: data?.paginationResult.total || lastTotal,
-              pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-              pageSize: table?.pagination?.limit,
-              current: table?.pagination?.page,
-              hideOnSinglePage: false,
-            }}
-            onChange={handlePageChange}
-          />
-        </S.TableContainer>
+        <Table
+          rowKey={'id'}
+          title={t('subtitle')}
+          scroll={{ x: 1600 }}
+          size='small'
+          variant='complex'
+          columns={columns}
+          dataSource={dataSource}
+          loading={isFetching}
+          pagination={{
+            ...table?.pagination,
+            total: data?.paginationResult.total || lastTotal,
+            pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+            pageSize: table?.pagination?.limit,
+            current: table?.pagination?.page,
+            hideOnSinglePage: false,
+          }}
+          onChange={handlePageChange}
+        />
       ) : (
         <NoResult isLoading={isFetching} />
       )}
