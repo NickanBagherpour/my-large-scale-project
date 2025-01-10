@@ -7,8 +7,11 @@ type Status = 'success' | 'error' | 'loading';
 
 export type StatusProps = {
   status: Status;
-  description: string;
-  children?: ReactNode;
+} & {
+  [K in Status as `${K}Props`]: {
+    description: string;
+    children?: ReactNode;
+  };
 };
 
 const map: Record<Status, { json: object; loop: boolean }> = {
@@ -18,7 +21,9 @@ const map: Record<Status, { json: object; loop: boolean }> = {
 };
 
 export default function AnimatedStatus(props: StatusProps) {
-  const { status, description, children = null } = props;
+  const { status } = props;
+  const { description, children } = props[`${status}Props`];
+
   return (
     <S.Container>
       <LazyLottie
