@@ -9,7 +9,6 @@ import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
 import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToBaam } from '../../services';
-import { useToggle } from '@oxygen/hooks';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 
 export default function Scope() {
@@ -19,7 +18,7 @@ export default function Scope() {
   const { data: scope, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToBaam();
-  const [isConfirmModalOpen, toggleConfirmModal] = useToggle(false);
+  const [isConfirmModalOpen, setIsCofirmModalOpen] = useState(false);
   const { serviceName } = useAppState();
   const isInSSO = scope?.isServiceInSso;
 
@@ -47,7 +46,7 @@ export default function Scope() {
 
   const onRegister = () => {
     if (isInSSO) nextStep(dispatch);
-    else toggleConfirmModal();
+    else setIsCofirmModalOpen(true);
   };
 
   const desktopColumns: ColumnsType<ScopeType> = [
@@ -131,7 +130,11 @@ export default function Scope() {
         />
       </Container>
 
-      <ConfirmModal isOpen={isConfirmModalOpen} toggle={toggleConfirmModal} onConfirm={registerAndProceed} />
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        close={() => setIsCofirmModalOpen(false)}
+        onConfirm={registerAndProceed}
+      />
     </>
   );
 }

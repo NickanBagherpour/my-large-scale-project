@@ -10,3 +10,13 @@ export const Title = styled.h2`
 export const Section = styled.div`
   margin-bottom: 3rem;
 `;
+
+export const Chips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  .ant-tag {
+    margin: 0;
+  }
+`;

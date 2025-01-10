@@ -36,7 +36,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   const tagOptions = convertTags(tagList);
   const selectedTags: SelectOptionType[] = Form.useWatch(FORM_ITEM_NAMES.tags, form);
   const { notification } = useApp();
-  const { mutateAsync: editService } = useEditServiceMutation();
+  const { mutate: editService } = useEditServiceMutation();
 
   const defaultValues = {
     [FORM_ITEM_NAMES.faName]: serviceInfo?.persianName,
@@ -59,18 +59,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   };
   const handleSubmit = async (values: EditServiceFormFieldsType) => {
     // form.submit();
-    console.log('formvalues', values);
-    console.log('res formvalues', {
-      latinName: values[FORM_ITEM_NAMES.enName],
-      persianName: values[FORM_ITEM_NAMES.faName],
-      accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access]),
-      categoryCode: values[FORM_ITEM_NAMES.category],
-      throughput: convertToCodeTitle(values[FORM_ITEM_NAMES.throughput]),
-      version: values[FORM_ITEM_NAMES.version],
-      ownerName: values[FORM_ITEM_NAMES.owner],
-      tagsIds: values[FORM_ITEM_NAMES.tags].map((t) => t.value),
-    });
-    await editService({
+    editService({
       latinName: values[FORM_ITEM_NAMES.enName],
       persianName: values[FORM_ITEM_NAMES.faName],
       accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access]),

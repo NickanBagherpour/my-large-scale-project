@@ -13,7 +13,7 @@ export function previousStep(dispatch: WidgetDispatchType) {
   dispatch({ type: 'PREVIOUS_STEP' });
 }
 
-export function addInitialStep(dispatch: WidgetDispatchType, payload: WidgetStateType['step']) {
+export function addInitialStep(dispatch: WidgetDispatchType, payload: NonNullable<WidgetStateType['step']>) {
   dispatch({ type: 'ADD_INITIAL_STEP', payload });
 }
 
