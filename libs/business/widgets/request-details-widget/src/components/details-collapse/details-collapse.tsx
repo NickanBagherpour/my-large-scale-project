@@ -1,7 +1,8 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { type CollapseProps, Tooltip } from 'antd';
 
-import { InfoBox, Loading } from '@oxygen/ui-kit';
+import { InfoBox } from '@oxygen/ui-kit';
 import { Collapse, NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
@@ -11,7 +12,6 @@ import { RepresentativeType, SubmissionDetailType, UserRole } from '../../types'
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
-import RequestResultBox from '../request-result-box/request-result-box';
 
 import * as S from './details-collapse.style';
 
@@ -101,12 +101,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   ];
 
-  return (
-    <S.Container>
-      <Collapse items={items} collapsible={'icon'} />
-      {data ? <RequestResultBox data={data as SubmissionDetailType} /> : <Loading spinning={true} />}
-    </S.Container>
-  );
+  return <Collapse items={items} collapsible={'icon'} />;
 };
 
 export default DetailsCollapse;

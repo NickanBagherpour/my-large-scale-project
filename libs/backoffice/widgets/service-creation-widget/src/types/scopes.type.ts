@@ -1,7 +1,7 @@
 import { PaginatedData, ParamsWithPagaination } from './shared.type';
 
 export type ScopesParams = ParamsWithPagaination<{
-  'scope-name': string;
+  'search-field': string;
 }>;
 
 export type Scope = {

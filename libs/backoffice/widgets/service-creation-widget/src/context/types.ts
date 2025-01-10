@@ -13,7 +13,7 @@ export type StepIndex = Indices<typeof steps>;
 export type Statuses = StepProps['status'];
 
 export type WidgetStateType = {
-  step: StepIndex;
+  step: StepIndex | null;
   serviceName: string;
   stepStatuses: Array<{
     name: StepNames;
@@ -43,7 +43,7 @@ export type WidgetActionType =
     }
   | {
       type: 'ADD_INITIAL_STEP';
-      payload: WidgetStateType['step'];
+      payload: NonNullable<WidgetStateType['step']>;
     }
   | {
       type: 'ADD_STEP_ERRORS';

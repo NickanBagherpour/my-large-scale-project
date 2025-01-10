@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
@@ -13,6 +13,7 @@ import {
   useAppDispatch,
   useAppState,
 } from '../../context';
+import RequestResultBox from '../request-result-box/request-result-box';
 import DetailsCollapse from '../details-collapse/details-collapse';
 import { useGetSubmissionDetailQuery } from '../../services';
 import { SubmissionId } from '../../types';
@@ -36,12 +37,10 @@ const App: React.FC<AppProps> = (props) => {
   const submissionId: SubmissionId = searchParams.get('submissionId');
 
   useEffect(() => {
-    if (!submissionId) notFound();
     updateSubmissionIdAction(dispatch, submissionId);
   }, [submissionId]);
 
   useEffect(() => {
-    if (!role) notFound();
     updateUserRoleAction(dispatch, role);
   }, [role]);
 
@@ -59,11 +58,15 @@ const App: React.FC<AppProps> = (props) => {
     return params;
   }
 
-  if (error) return <NoResult isLoading={false} handleClick={handleReturn} />;
+  if (error) return <NoResult isLoading={false} handleClick={() => router.back()} />;
 
   const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 
   const clientName = submissionData?.submissionInfoDto?.clientName;
+
+  if (!submissionId || !role) {
+    return <NoResult isLoading={isFetching} handleClick={() => router.back()} />;
+  }
 
   return (
     <S.AppContainer
@@ -78,7 +81,10 @@ const App: React.FC<AppProps> = (props) => {
       />
 
       {submissionData ? (
-        <DetailsCollapse data={submissionData} />
+        <S.Container>
+          <DetailsCollapse data={submissionData} />
+          <RequestResultBox data={submissionData} />
+        </S.Container>
       ) : (
         <S.LoadingContainer>
           <Loading spinning={isFetching} />

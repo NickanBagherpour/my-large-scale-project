@@ -3,17 +3,17 @@ import * as S from './confirm-modal.style';
 
 type Props = {
   isOpen: boolean;
-  toggle: () => void;
+  close: () => void;
   onConfirm: () => void;
 };
 
 export default function ConfirmModal(props: Props) {
-  const { isOpen, toggle, onConfirm } = props;
+  const { isOpen, close, onConfirm } = props;
   const [t] = useTr();
 
   const onOk = () => {
     onConfirm();
-    toggle();
+    close();
   };
 
   return (
@@ -21,7 +21,7 @@ export default function ConfirmModal(props: Props) {
       centered
       open={isOpen}
       closable={true}
-      onCancel={toggle}
+      onCancel={close}
       headerDivider={true}
       destroyOnClose
       title={t('attention')}

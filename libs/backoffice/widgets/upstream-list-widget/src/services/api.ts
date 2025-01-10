@@ -1,13 +1,17 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { ReportResponseType } from '../types';
-import Mockify from '@oxygen/mockify';
-import { UpstreamParamsType } from '@oxygen/types';
+import { GetUpstreamListResponseType, GetUpstreamServiceResponseType } from '../types';
 
 const Api = {
-  getUpstreamData: async (params: UpstreamParamsType) => {
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
-    return Mockify.getUpstreams(params);
+  getUpstreamData: async (params) => {
+    return client.get<GetUpstreamListResponseType>(`${portalUrl}/v1/upstreams`, { params: params });
+  },
+  getUpstreamServices: async (params) => {
+    return client.get<GetUpstreamServiceResponseType>(`${portalUrl}/v1/upstreams/services/${params}`);
+  },
+  deleteUpstream: async (params) => {
+    const res = await client.delete(`${portalUrl}/v1/upstreams/${params}`);
+    return res;
   },
 };
 export default Api;

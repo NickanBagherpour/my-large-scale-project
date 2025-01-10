@@ -25,7 +25,7 @@ export default function Upstream() {
   const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   useBounce(() => {
-    setDebouncedSearchTerm(searchTerm);
+    setDebouncedSearchTerm(searchTerm.trim());
     setQuery((prev) => ({ ...prev, page: 1 }));
   }, [searchTerm]);
   const {

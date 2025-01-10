@@ -1,2 +1,3 @@
 export * from './sample.schema';
-export * from './get-report.type';
+export * from './get-upstream-list.type';
+export * from './get-upstream-services.type';

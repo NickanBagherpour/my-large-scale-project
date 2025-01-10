@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-import { Input, Button } from '@oxygen/ui-kit';
+import { Input, Button, Typography } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { Paragraph } from '../../../../../../ui-kit/src/typography/typography.style';
 
 export const Container = styled.section`
   margin: 2.4rem 0;
@@ -49,4 +50,9 @@ export const StyledInput = styled(Input)`
     max-width: 100%;
     font-size: 1.7rem;
   }
+`;
+
+export const StyledText = styled(Typography.Paragraph)`
+  line-height: 20px;
+  margin: 0 1.6rem;
 `;
