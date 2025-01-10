@@ -28,8 +28,7 @@ export default function ResultModal(props: Props) {
       loadingProps={{
         description: t('we_are_processing_please_wait'),
         footer: (
-          <Button block variant='outlined' color='primary' disabled>
-            <i className='icon-home-empty' />
+          <Button icon={<i className='icon-home-empty' />} variant='outlined' color='primary' disabled>
             {t('service_managment')}
           </Button>
         ),
@@ -37,7 +36,7 @@ export default function ResultModal(props: Props) {
       successProps={{
         description: t('register_request_was_submitted'),
         footer: (
-          <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+          <Button variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
             <i className='icon-home-empty' />
             {t('service_managment')}
           </Button>
@@ -46,8 +45,7 @@ export default function ResultModal(props: Props) {
       errorProps={{
         description: t('date_wasnt_registered'),
         footer: [
-          <Button block href={ROUTES.BACKOFFICE.SERVICE_LIST}>
-            <i className='icon-home-empty' />
+          <Button icon={<i className='icon-home-empty' />} href={ROUTES.BACKOFFICE.SERVICE_LIST}>
             {t('service_managment')}
           </Button>,
           <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
