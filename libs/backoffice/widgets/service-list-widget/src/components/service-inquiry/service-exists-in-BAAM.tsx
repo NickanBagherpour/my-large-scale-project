@@ -1,21 +1,25 @@
 import { useRouter } from 'next/navigation';
 import { Flex } from 'antd';
+
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
+
 import { useUploadServiceMutation } from '../../services/upload-service.api';
+
 import * as S from './service-exists-in-BAAM.style';
 
 type Props = {
-  serviceName?: string;
+  serviceName: string;
 };
 const ServiceExistsInBAAM: React.FC<Props> = ({ serviceName }) => {
   const [t] = useTr();
-  const { mutateAsync: uploadService, isPending } = useUploadServiceMutation();
   const router = useRouter();
-  const handleClick = async () => {
-    await uploadService(serviceName ?? '');
+  const navigateToServiceCreation = () =>
     router.push(ROUTES.BACKOFFICE.SERVICE_CREATION + `?service-name=${serviceName}`);
+  const { mutate: uploadService, isPending } = useUploadServiceMutation(navigateToServiceCreation);
+  const handleClick = async () => {
+    uploadService(serviceName);
   };
   return (
     <Flex vertical gap={'2rem'} justify='center' align='center'>

@@ -1,15 +1,13 @@
-import { LottieRefCurrentProps } from 'lottie-react';
-import { Flex, Form, FormInstance, InputRef } from 'antd';
+import { Form, FormInstance, InputRef } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
-import { MutableRefObject, RefObject } from 'react';
+import { RefObject } from 'react';
 
 import { Button, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
-import { ContentType } from './inquiry-service';
 import { SearchInputIcon } from '../../assets';
-import { InquiryParams } from '../../types/get-Inquiry-info.type';
 import { SERVICE_NAME } from '../../utils/consts';
+import { CreateServiceInquirySchema } from '../../types/inquire-service.schema';
 
 import * as S from './search-box.style';
 
@@ -23,12 +21,12 @@ type Props = {
 };
 const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading }) => {
   const [t] = useTr();
-  // const rule = createSchemaFieldRule(ServiceName(t));
+  const rule = createSchemaFieldRule(CreateServiceInquirySchema(t));
 
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
-      <Flex gap={'1rem'}>
-        <S.FormItem name={SERVICE_NAME.ServiceName}>
+      <S.Container>
+        <S.FormItem rules={[rule]} name={SERVICE_NAME.ServiceName}>
           <Input
             autoFocus={true}
             ref={inputRef}
@@ -40,7 +38,7 @@ const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading }) => 
         <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
           {t('buttons.inspect')}
         </Button>
-      </Flex>
+      </S.Container>
     </Form>
   );
 };
