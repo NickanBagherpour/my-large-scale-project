@@ -23,10 +23,8 @@ export const useEditRouteMutation = () => {
   return useMutation({
     mutationFn: (params: EditRouteParams) => Api.editRoute(params),
     onError: (e) => {
-      console.log('Error received in onError:', e);
       const err = ApiUtil.getErrorMessage(e);
-      console.log('Processed error message:', err.description);
-      updateMessageAction(dispatch, err.description);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
 
     networkMode: 'offlineFirst',
