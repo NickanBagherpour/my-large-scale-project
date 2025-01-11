@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { FORM_ITEM_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
+import { REGEX_PATTERNS } from '@oxygen/utils';
 
 const MAX_LENGTH = 200;
 
@@ -17,7 +18,6 @@ export const serviceNameSchema = (t: TFunction) =>
     });
 
 export const createEditServiceFormSchema = (t: TFunction) => {
-  console.log('t', t.toString());
   return z.object({
     [FORM_ITEM_NAMES.enName]: serviceNameSchema(t),
     [FORM_ITEM_NAMES.faName]: z
@@ -27,6 +27,9 @@ export const createEditServiceFormSchema = (t: TFunction) => {
       })
       .trim()
       .min(1, { message: t('validation.required') })
+      .regex(REGEX_PATTERNS.isPersianText, {
+        message: t('error.persian_validation_message'),
+      })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
     // [FORM_ITEM_NAMES.method]: z
     //   .string({ required_error: t('validation.required') })
