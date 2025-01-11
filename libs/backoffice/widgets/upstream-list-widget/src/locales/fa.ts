@@ -20,8 +20,6 @@ export default {
   confirm_question_last: ' متصل است. آیا از حذف آن اطمینان دارید؟',
   no_service_question: 'آیا از حذف آپ استریم مطمئن هستید؟',
   service: 'سرویس',
-  upstream_english_name: 'نام انگلیسی آپ‌استریم:',
-  upstream_persian_name: 'نام فارسی آپ‌استریم:',
   validation: {
     min_len: 'مقدار این فیلد نباید کمتر از {{val}} کاراکتر باشد.',
     max_len: 'مقدار این فیلد نباید بیشتر از {{val}} کاراکتر باشد.',

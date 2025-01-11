@@ -135,6 +135,7 @@ export default {
     register_new_request: 'ثبت درخواست جدید',
     display_more_items: 'بیشتر',
     view_request: 'مشاهده درخواست',
+    try_again: 'تلاش دوباره',
   },
 
   field: {
@@ -316,5 +317,13 @@ export default {
     on_demand_service: ' سرویس درخواستی',
     validation_commercial_banking: 'اعتبارسنجی بانکداری‌تجاری',
     business_unit: 'واحد کسب و کار',
+  },
+  add_upstream: {
+    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+    error_description: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
+    add_upstream: 'ایجاد آپ‌استریم',
+    register_information: 'ثبت اطلاعات',
+    upstream_english_name: 'نام انگلیسی آپ‌استریم',
+    upstream_persian_name: 'نام فارسی آپ‌استریم',
   },
 };

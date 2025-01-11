@@ -19,14 +19,13 @@ export default function Filters() {
 
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
-  const [openErrorModal, setOpenErrorModal] = useState(false);
   const router = useRouter();
 
   useBounce(() => {
     updateSearchTermAction(dispatch, value);
   }, [value]);
 
-  const { mutate, isPending } = useCreateUpstreamMutation();
+  const { mutate, status } = useCreateUpstreamMutation();
 
   const handleCreateUpstream = async (values) => {
     try {
@@ -36,9 +35,6 @@ export default function Filters() {
       };
 
       await mutate(params, {
-        onSettled: () => {
-          setOpenModal(false);
-        },
         onSuccess: () => {
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
           updateMessageAction(dispatch, {
@@ -48,17 +44,10 @@ export default function Filters() {
           });
           queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST] });
         },
-        onError: (error) => {
-          setOpenErrorModal(true);
-        },
       });
     } catch (error) {
-      console.error('Validation failed:', error);
+      // console.error('Validation failed:', error);
     }
-  };
-
-  const handleCancel = () => {
-    setOpenModal(false);
   };
 
   return (
@@ -83,9 +72,9 @@ export default function Filters() {
       <AddUpstreamModal
         title={t('create_new_upstream')}
         open={openModal}
-        confirmLoading={isPending}
-        onCancel={handleCancel}
+        setOpen={setOpenModal}
         onConfirm={handleCreateUpstream}
+        status={status}
       />
     </>
   );

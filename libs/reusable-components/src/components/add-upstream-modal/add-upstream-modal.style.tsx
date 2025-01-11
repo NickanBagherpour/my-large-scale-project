@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import { Box, Modal as UikitModal } from '@oxygen/ui-kit';
+import { Box, Button, Modal as UikitModal } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 
 export const StyledModal = styled(UikitModal)`
+  .ant-modal-body {
+    margin: 0;
+    padding: 0;
+  }
   .ant-modal-content {
-    padding: 2.4rem 1.6rem 4.8rem 1.6rem;
+    padding: 2.4rem 1.6rem 3.2rem 1.6rem;
     border-radius: 2.7rem;
   }
 
@@ -33,16 +37,44 @@ export const StyledModal = styled(UikitModal)`
 export const StyledHeader = styled(Box)`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 0 2.4rem;
 `;
 
-export const StyledForm = styled(Form)`
-  padding: 0 2.6rem;
+export const StyledTitle = styled('span')`
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 3rem;
+`;
+export const StyledCloseIcon = styled('i')`
+  font-size: 2.4rem;
+  //padding:0.5rem;
+  color: ${(p) => p.theme.iconPrimary};
+  width: fit-content;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
+export const StyledContainer = styled('div')`
+  padding: 0 2.6rem;
+`;
+export const StyledForm = styled(Form)`
   .ant-form-item:not(:last-of-type) {
     margin-bottom: 3rem;
   }
   .ant-form-item:last-of-type {
     margin-bottom: 4rem;
   }
+
+  .ant-form-item-row {
+    align-items: center;
+  }
 ` as typeof Form;
+
+export const StyledButton = styled(Button)`
+  width: 100%;
+
+  &:not(:last-of-type) {
+    margin-bottom: 0.8rem;
+  }
+`;
