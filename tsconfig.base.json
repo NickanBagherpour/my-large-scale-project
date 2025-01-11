@@ -121,6 +121,9 @@
             "@oxygen/customer/widgets/auth-widget": [
                 "libs/customer/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/customer/widgets/data-analytics-widget": [
+                "libs/customer/widgets/data-analytics-widget/src/index.ts"
+            ],
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
             ],
