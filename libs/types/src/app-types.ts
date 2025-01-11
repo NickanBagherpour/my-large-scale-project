@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Direction, Locale, ThemeID } from './enums';
 import { z } from 'zod';
+import { Obj } from './common';
 
 const ThemeIDSchema = z.nativeEnum(ThemeID);
 const LocaleSchema = z.nativeEnum(Locale);
@@ -78,6 +79,8 @@ export interface WidgetHeaderType {
 export type MessageType = {
   title?: string;
   description: string;
+  detail?: string;
+  fields?: Obj;
   type: 'error' | 'success' | 'info' | 'warning';
   shouldTranslate: boolean;
 };

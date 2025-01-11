@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { ConfirmModal } from '@oxygen/reusable-components';
+import { Box, Modal as UikitModal } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 
-export const StyledModal = styled(ConfirmModal)`
+export const StyledModal = styled(UikitModal)`
   .ant-modal-content {
     padding: 2.4rem 1.6rem 4.8rem 1.6rem;
     border-radius: 2.7rem;
@@ -28,6 +28,12 @@ export const StyledModal = styled(ConfirmModal)`
     width: 100%;
     min-height: 5.6rem;
   }
+`;
+
+export const StyledHeader = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const StyledForm = styled(Form)`

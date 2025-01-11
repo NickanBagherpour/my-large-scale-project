@@ -1,4 +1,4 @@
-import React, { Fragment, forwardRef } from 'react';
+import React, { Fragment } from 'react';
 
 import * as S from './mark-text.style';
 
@@ -16,12 +16,12 @@ const escapeRegExp = (string: string) => {
 };
 
 export const MarkText = React.forwardRef<HTMLSpanElement, PropsType>(
-  ({ text, wordToHighlight, highlightColor, ...rest }) => {
+  ({ text, wordToHighlight, highlightColor, ...rest }, ref) => {
     const escapedWord = escapeRegExp(wordToHighlight);
     const parts = text.split(new RegExp(`(${escapedWord})`, 'gi'));
 
     return (
-      <span {...rest}>
+      <span ref={ref} {...rest}>
         {parts.map((part, index) =>
           part.toLowerCase() === wordToHighlight.toLowerCase() ? (
             <S.StyledSpan $customStyle={highlightColor} key={index}>

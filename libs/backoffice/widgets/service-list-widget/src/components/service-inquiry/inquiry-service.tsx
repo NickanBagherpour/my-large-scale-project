@@ -4,7 +4,6 @@ import { LottieRefCurrentProps } from 'lottie-react';
 import LazyLottie from 'libs/reusable-components/src/components/animation-loader/lazy-lottie';
 
 import { useTr } from '@oxygen/translation';
-import { Modal } from '@oxygen/ui-kit';
 
 import searchAnimation from '../../assets/media/searching-Services.json';
 import SearchBox from './search-box';
@@ -18,10 +17,6 @@ import ServiceIncomplete from './service-incomplete';
 import ServiceNotFound from './service-not-found';
 import * as S from './inquiry-service.style';
 
-type Props = {
-  isOpen: boolean;
-  toggle: () => void;
-};
 const defaultOptions = {
   autoplay: false,
   loop: true,
@@ -31,6 +26,11 @@ const defaultOptions = {
   },
 };
 export type ContentType = 'searching' | keyof typeof InquiryStatus;
+type Props = {
+  isOpen: boolean;
+  toggle: () => void;
+};
+
 const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
   const [t] = useTr();
   const [form] = Form.useForm<ServiceNameType>();
@@ -50,11 +50,12 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
       serviceInquiryStatus: { ...data?.serviceInquiryStatus, code: InquiryStatus[code] as keyof typeof InquiryStatus },
     };
   }
+  // coz i cant send parameters to refetch
   const handleFormSubmit = async (values: any) => {
     setLoading(true);
     setContent('searching');
     lottieRef.current?.play();
-    setServiceName(values?.serviceName);
+    setServiceName(values?.serviceName.trim());
     setFormSubmission(true);
   };
   useEffect(() => {
@@ -85,7 +86,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
     searching: <></>,
   };
   return (
-    <Modal
+    <S.ResponsiveModal
       width={'42vw'}
       open={isOpen}
       centered={true}
@@ -101,7 +102,7 @@ const InquiryService: React.FC<Props> = ({ isOpen, toggle }) => {
         </div>
         {contentDictionary[content]}
       </S.MainContainer>
-    </Modal>
+    </S.ResponsiveModal>
   );
 };
 export default InquiryService;

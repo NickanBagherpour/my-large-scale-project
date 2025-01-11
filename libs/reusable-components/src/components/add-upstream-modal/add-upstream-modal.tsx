@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'antd';
 
-import { Input } from '@oxygen/ui-kit';
+import { Divider, Input, Typography } from '@oxygen/ui-kit';
 
 import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from './add-upstream-modal.schema';
 
@@ -20,6 +20,8 @@ interface ReusableFormModalProps {
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
   const { title, open, confirmLoading, onCancel, onConfirm } = props;
 
+  const [modalState, setModalState] = useState<'create' | 'error'>('create');
+
   const [t] = useTr();
   const rule = createSchemaFieldRule(createUpstreamType(t));
   const [form] = Form.useForm<CreateUpstreamType>();
@@ -27,35 +29,47 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
   const handleFinish = (values: CreateUpstreamType) => {
     onConfirm(values);
   };
+  const renderModalContent = () => {
+    if (modalState === 'create') {
+      return (
+        <>
+          <S.StyledHeader>
+            <Typography.Title>{t('create_upstream')}</Typography.Title>
+          </S.StyledHeader>
+          <Divider />
+          <S.StyledForm
+            layout='horizontal'
+            labelAlign='left'
+            labelCol={{ span: 8 }}
+            style={{ width: '100%' }}
+            form={form}
+            onFinish={handleFinish}
+          >
+            <Form.Item name={FORM_ITEM_NAMES.name} label={t('upstream_english_name')} rules={[rule]}>
+              <Input allow='letter' />
+            </Form.Item>
 
+            <Form.Item name={FORM_ITEM_NAMES.description} label={t('upstream_persian_name')} rules={[rule]}>
+              <Input allow='letter' />
+            </Form.Item>
+          </S.StyledForm>
+        </>
+      );
+    } else if (modalState === 'error') {
+      return <span>errrrrrrrrrror</span>;
+    }
+  };
   return (
     <S.StyledModal
-      title={title}
       open={open}
       onCancel={onCancel}
       confirmLoading={confirmLoading}
-      okText={t('register_information')}
-      showConfirm={true}
-      showCancel={false}
+      // okText={t('register_information')}
       onConfirm={() => form.submit()}
       destroyOnClose={true}
     >
-      <S.StyledForm
-        layout='horizontal'
-        labelAlign='left'
-        labelCol={{ span: 8 }}
-        style={{ width: '100%' }}
-        form={form}
-        onFinish={handleFinish}
-      >
-        <Form.Item name={FORM_ITEM_NAMES.name} label={t('upstream_english_name')} rules={[rule]}>
-          <Input allow='letter' />
-        </Form.Item>
-
-        <Form.Item name={FORM_ITEM_NAMES.description} label={t('upstream_persian_name')} rules={[rule]}>
-          <Input allow='letter' />
-        </Form.Item>
-      </S.StyledForm>
+      //TODO add header(title,close button and divider)
+      {renderModalContent()}
     </S.StyledModal>
   );
 };

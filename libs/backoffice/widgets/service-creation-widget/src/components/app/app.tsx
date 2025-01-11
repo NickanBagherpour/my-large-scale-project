@@ -10,8 +10,8 @@ import {
   useAppDispatch,
   useAppState,
 } from '../../context';
-import Scope from '../scope/scope';
 import * as S from './app.style';
+import Scope from '../scope/scope';
 import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
@@ -38,7 +38,7 @@ const App = () => {
   const router = useRouter();
   const maybeServiceName = useSearchParams().get('service-name');
   const serviceName = getServiceNameFromUrl(maybeServiceName);
-  const { data, isFetching, isSuccess } = useServiceInquiry(serviceName);
+  const { data, isSuccess } = useServiceInquiry(serviceName);
 
   useEffect(() => {
     if (!serviceName) notFound();
@@ -63,7 +63,7 @@ const App = () => {
   return (
     <Container title={t('create_new_service')}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
-      {isFetching ? (
+      {step === null ? (
         <CenteredLoading />
       ) : (
         <>

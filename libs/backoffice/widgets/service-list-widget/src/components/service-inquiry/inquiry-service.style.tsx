@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ContentType } from './inquiry-service';
+import { Modal } from '@oxygen/ui-kit';
 
 export const MainContainer = styled.div<{ $content: ContentType }>`
   display: flex;
@@ -11,4 +12,7 @@ export const MainContainer = styled.div<{ $content: ContentType }>`
   width: 100%;
   padding: 1.2rem;
   min-height: 30rem;
+`;
+export const ResponsiveModal = styled(Modal)`
+  min-width: 290px;
 `;

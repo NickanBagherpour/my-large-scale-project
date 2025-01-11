@@ -1,11 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { queryClient } from '@oxygen/client';
+import { ApiUtil, RQKEYS } from '@oxygen/utils';
+import { useMutation } from '@tanstack/react-query';
 import { useAppDispatch, useAppState } from '../context';
 import Api from './api';
-import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { EditServiceRequest } from '../types/edit-service.type';
-import { queryClient } from '@oxygen/client';
 
-export const useEditServiceMutation = () => {
+export const useEditServiceMutation = (onSuccess: (v?: string) => void) => {
   const dispatch = useAppDispatch();
   const { serviceName } = useAppState();
   return useMutation({
@@ -20,6 +20,10 @@ export const useEditServiceMutation = () => {
         refetchType: 'none',
       });
       await queryClient.invalidateQueries({
+        queryKey: [RQKEYS.SERVICE_DETAILS.GET_LIST, serviceName],
+        refetchType: 'none',
+      });
+      await queryClient.invalidateQueries({
         queryKey: [RQKEYS.SERVICES_LIST.GET_LIST],
         // Prevent immediate refetch to avoid potential conflicts between React context state and query cache state.
         // This can occur if useServiceInquiry is triggered again in the app component while the user is navigating
@@ -27,6 +31,7 @@ export const useEditServiceMutation = () => {
         // For more details, refer to: https://tanstack.com/query/latest/docs/reference/QueryClient#queryclientinvalidatequeries
         refetchType: 'none',
       });
+      onSuccess(serviceName);
     },
   });
 };
