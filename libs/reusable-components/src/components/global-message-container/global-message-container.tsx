@@ -30,7 +30,7 @@ const GlobalMessageContainer: React.FC<GlobalMessageContainerProps> = ({
         message: message.shouldTranslate ? t(message.title || '') : message.title,
         description: message.shouldTranslate ? t(message.description) : message.description,
         type: message.type || 'error',
-        duration: message.fields ? 10 : 5 ,
+        duration: message.fields ? 10 : 5,
         onClose: onClose,
       });
     }

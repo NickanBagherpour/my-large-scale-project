@@ -29,11 +29,11 @@ export const MarkText = React.forwardRef<HTMLSpanElement, PropsType>(
             </S.StyledSpan>
           ) : (
             <Fragment key={index}>{part}</Fragment>
-          ),
+          )
         )}
       </span>
     );
-  },
+  }
 );
 
 MarkText.displayName = 'MarkText';

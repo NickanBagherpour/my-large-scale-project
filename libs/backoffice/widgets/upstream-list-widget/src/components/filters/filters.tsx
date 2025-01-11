@@ -1,41 +1,81 @@
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
-import { ROUTES } from '@oxygen/utils';
+import { AddUpstreamModal } from '@oxygen/reusable-components';
 
-import { updateSearchTermAction, useAppDispatch } from '../../context';
+import { updateMessageAction, updateSearchTermAction, useAppDispatch } from '../../context';
+import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
 
 import * as S from './filters.style';
-import { Typography } from '@oxygen/ui-kit';
 
 export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
   const [value, setValue] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const router = useRouter();
 
   useBounce(() => {
     updateSearchTermAction(dispatch, value);
   }, [value]);
 
-  return (
-    <S.Container>
-      <S.StyledText>{t('search')}</S.StyledText>
-      <S.Actions>
-        <S.StyledInput
-          value={value}
-          placeholder={t('search_by_name')}
-          prefix={<i className='icon-search-normal' />}
-          onChange={(e) => setValue(e.target.value)}
-        />
+  const { mutate, status } = useCreateUpstreamMutation();
 
-        <S.Buttons>
-          <S.StyledButton href={ROUTES.BACKOFFICE.UPSTREAM_DETAILS} color='primary' variant='solid'>
-            {t('create_new_upstream')}
-          </S.StyledButton>
-        </S.Buttons>
-      </S.Actions>
-    </S.Container>
+  const handleCreateUpstream = async (values) => {
+    try {
+      const params = {
+        name: values.name,
+        description: values.description,
+      };
+
+      await mutate(params, {
+        onSuccess: () => {
+          router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
+          updateMessageAction(dispatch, {
+            description: t('create_upstream_success'),
+            type: 'success',
+            shouldTranslate: false,
+          });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST] });
+        },
+      });
+    } catch (error) {
+      // console.error('Validation failed:', error);
+    }
+  };
+
+  return (
+    <>
+      <S.Container>
+        <S.StyledText>{t('search')}</S.StyledText>
+        <S.Actions>
+          <S.StyledInput
+            value={value}
+            placeholder={t('search_by_name')}
+            prefix={<i className='icon-search-normal' />}
+            onChange={(e) => setValue(e.target.value)}
+          />
+
+          <S.Buttons>
+            <S.StyledButton onClick={() => setOpenModal(!openModal)} color='primary' variant='solid'>
+              {t('create_new_upstream')}
+            </S.StyledButton>
+          </S.Buttons>
+        </S.Actions>
+      </S.Container>
+      <AddUpstreamModal
+        title={t('create_new_upstream')}
+        open={openModal}
+        setOpen={setOpenModal}
+        onConfirm={handleCreateUpstream}
+        status={status}
+      />
+    </>
   );
 }

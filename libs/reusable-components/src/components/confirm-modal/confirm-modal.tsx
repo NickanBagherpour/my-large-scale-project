@@ -18,6 +18,7 @@ type Props = BasicComponentProps &
     modalProps?: ModalProps;
     isOpen?: boolean;
     footer?: ReactElement;
+    okText?: string;
   };
 const ConfirmModal: React.FC<Props> = ({
   onCancel,
@@ -28,6 +29,7 @@ const ConfirmModal: React.FC<Props> = ({
   cancelBtnProps,
   showConfirm = true,
   showCancel = true,
+  okText,
   footer: inputFooter,
   children,
   ...rest
@@ -45,7 +47,7 @@ const ConfirmModal: React.FC<Props> = ({
     if (showConfirm) {
       footer.push(
         <S.ConfirmButton onClick={onConfirm} size='large' color='primary' {...confirmBtnProps}>
-          {confirmBtnProps?.children ?? t('button.confirm')}
+          {confirmBtnProps?.children ?? t(`${okText ? okText : 'button.confirm'}`)}
         </S.ConfirmButton>
       );
     }
