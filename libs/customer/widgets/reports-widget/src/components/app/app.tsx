@@ -59,8 +59,8 @@ const App: React.FC<AppProps> = (props) => {
       case 2:
         return `${reportUrlList[2]}${urlPostfix}`;
       default: {
-        const _exhaustiveCheck: never = id; // Properly scoped within a block
-        return _exhaustiveCheck; // This will never execute
+        const _exhaustiveCheck: never = id;
+        return _exhaustiveCheck;
       }
     }
   }
