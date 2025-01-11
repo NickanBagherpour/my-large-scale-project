@@ -25,6 +25,8 @@ export async function POST(req: Request) {
     Authorization: `Basic ${basicToken}`,
   };
 
+  console.log('sso headers', headers);
+
   const body = new URLSearchParams({
     grant_type: 'authorization_code',
     redirect_uri: process.env.SSO_REDIRECT_URL,
