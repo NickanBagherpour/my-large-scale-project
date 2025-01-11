@@ -1,19 +1,25 @@
 {
-    "name": "backoffice-portal",
-    "version": "0.0.8",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/backoffice-portal",
-    "projectType": "application",
-    "tags": ["type:portal", "scope:core"],
-    "targets": {
-        "build": {
-            "executor": "@nx/next:build",
-            "outputs": ["{options.outputPath}"],
-            "defaultConfiguration": "production",
-            "options": {
-                "root": "apps/backoffice-portal",
-                "outputPath": "dist/apps/backoffice-portal"
-            }
-        }
+  "name": "backoffice-portal",
+  "version": "0.0.9",
+  "tryCount": "2",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/backoffice-portal",
+  "projectType": "application",
+  "tags": [
+    "type:portal",
+    "scope:core"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/backoffice-portal",
+        "outputPath": "dist/apps/backoffice-portal"
+      }
     }
+  }
 }

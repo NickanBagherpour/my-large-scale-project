@@ -6,11 +6,20 @@ import Footer from '../footer/footer';
 import { previousStep, useAppDispatch } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
-import ResultModal from '../result-modal/result-modal';
 import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
 import { UpstreamTarget } from '../../types';
+import { Button } from '@oxygen/ui-kit';
+import { ROUTES } from '@oxygen/utils';
+import { StatusModal } from '@oxygen/reusable-components';
+
+const mapStatuses = {
+  success: 'success',
+  pending: 'loading',
+  idle: 'loading',
+  error: 'error',
+} as const;
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -164,8 +173,38 @@ export default function ConfirmData() {
         </div>
         <Footer onRegister={onRegister} onReturn={onReturn} />
       </Container>
-
-      <ResultModal status={status} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+      <StatusModal
+        isOpen={isResultModalOpen}
+        status={mapStatuses[status]}
+        loadingProps={{
+          description: t('we_are_processing_please_wait'),
+          footer: (
+            <Button icon={<i className='icon-home-empty' />} variant='outlined' color='primary' disabled>
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        successProps={{
+          description: t('register_request_was_submitted'),
+          footer: (
+            <Button variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              <i className='icon-home-empty' />
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        errorProps={{
+          description: t('date_wasnt_registered'),
+          footer: [
+            <Button icon={<i className='icon-home-empty' />} href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              {t('service_managment')}
+            </Button>,
+            <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              {t('save_in_draft')}
+            </Button>,
+          ],
+        }}
+      />
     </>
   );
 }
