@@ -45,9 +45,20 @@ export const ServiceCount = styled.span`
 export const ServicesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.5rem;
   color: ${(p) => p.theme.text.primary};
+  max-height: 7.5rem;
+  overflow-y: auto;
+
+  & span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-width: 80%;
+    flex-shrink: 0;
+  }
 `;
