@@ -9,7 +9,7 @@ export type StatusProps = {
   status: Status;
 } & {
   [K in Status as `${K}Props`]: {
-    description: string;
+    description?: string;
     children?: ReactNode;
   };
 };
@@ -34,7 +34,7 @@ export default function AnimatedStatus(props: StatusProps) {
           height: '10rem',
         }}
       />
-      <S.Description status={status}>{description}</S.Description>
+      {description && <S.Description status={status}>{description}</S.Description>}
       {children}
     </S.Container>
   );
