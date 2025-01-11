@@ -1,5 +1,5 @@
 /*--import--*/
-import { KEYS as DATA_ANALYTICS_KEYS } from './widgets/data-analytics.key';
+import { KEYS as REPORTS_KEYS } from './widgets/reports.key';
 import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './widgets/upstream-service-history.key';
 import { KEYS as UPSTREAM_HISTORY_KEYS } from './widgets/upstream-history.key';
 import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './widgets/request-details-info.key';
@@ -43,7 +43,7 @@ import { KEYS as ROUTE_DETAILS_KEYS } from './widgets/route-details.key';
 
 export const RQKEYS = {
   /*--export--*/
-  DATA_ANALYTICS: DATA_ANALYTICS_KEYS,
+  REPORTS_KEYS: REPORTS_KEYS,
   UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
   UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
   REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,

@@ -9,7 +9,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const DataAnalyticsWidget: React.FC<PageProps> = (props) => {
+const ReportsWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
 
   return (
@@ -21,4 +21,4 @@ const DataAnalyticsWidget: React.FC<PageProps> = (props) => {
   );
 };
 
-export default DataAnalyticsWidget;
+export default ReportsWidget;

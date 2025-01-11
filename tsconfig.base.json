@@ -121,11 +121,11 @@
             "@oxygen/customer/widgets/auth-widget": [
                 "libs/customer/widgets/auth-widget/src/index.ts"
             ],
-            "@oxygen/customer/widgets/data-analytics-widget": [
-                "libs/customer/widgets/data-analytics-widget/src/index.ts"
-            ],
             "@oxygen/customer/widgets/landing-widget": [
                 "libs/customer/widgets/landing-widget/src/index.ts"
+            ],
+            "@oxygen/customer/widgets/reports-widget": [
+                "libs/customer/widgets/reports-widget/src/index.ts"
             ],
             "@oxygen/customer/widgets/request-details-info-widget": [
                 "libs/customer/widgets/request-details-info-widget/src/index.ts"
