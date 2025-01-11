@@ -1,6 +1,6 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { GetUpstreamListResponseType, GetUpstreamServiceResponseType } from '../types';
+import { CreateUpstreamParamsType, GetUpstreamListResponseType, GetUpstreamServiceResponseType } from '../types';
 
 const Api = {
   getUpstreamData: async (params) => {
@@ -12,6 +12,9 @@ const Api = {
   deleteUpstream: async (params) => {
     const res = await client.delete(`${portalUrl}/v1/upstreams/${params}`);
     return res;
+  },
+  postCreateUpstream: async (params: CreateUpstreamParamsType) => {
+    return client.post(`${portalUrl}/v1/upstreams`, { ...params });
   },
 };
 export default Api;
