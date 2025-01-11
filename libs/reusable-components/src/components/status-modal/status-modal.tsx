@@ -1,4 +1,3 @@
-import { Modal } from '@oxygen/ui-kit';
 import AnimatedStatus, { StatusProps } from '../animated-status/animated-status';
 import { ReactNode } from 'react';
 import * as S from './status-modal.style';
@@ -19,7 +18,7 @@ export default function StatusModal(props: Props) {
   const currentFooter = props[`${status}Props`].footer;
 
   return (
-    <Modal
+    <S.Modal
       centered
       open={isOpen}
       closable={false}
@@ -27,9 +26,10 @@ export default function StatusModal(props: Props) {
       destroyOnClose
       maskClosable={false}
       footer={false}
+      width='49.4rem'
     >
       <AnimatedStatus status={status} loadingProps={loadingProps} errorProps={errorProps} successProps={successProps} />
       <S.Container>{currentFooter}</S.Container>
-    </Modal>
+    </S.Modal>
   );
 }

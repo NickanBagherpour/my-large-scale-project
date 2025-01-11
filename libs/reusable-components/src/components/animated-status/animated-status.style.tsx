@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { Button } from '@oxygen/ui-kit';
-import { cssVar } from '@oxygen/utils';
 import { StatusProps } from './animated-status';
 
 export const Container = styled.div`
@@ -10,10 +9,9 @@ export const Container = styled.div`
   background: ${(p) => p.theme.background._50};
   margin-bottom: 2.4rem;
   gap: 2.4rem;
-
   padding: 1.6rem;
   border: ${(p) => `1px solid ${p.theme.border._300}`};
-  border-radius: var(${cssVar.radius});
+  border-radius: 1.2rem;
 `;
 
 export const Description = styled.p<{ status: StatusProps['status'] }>`
