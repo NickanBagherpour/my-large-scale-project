@@ -69,6 +69,6 @@ export default {
   edit_data: 'ویرایش اطلاعات',
   save_in_draft: 'ذخیره در پیشنویس',
   try_again: 'تلاش دوباره',
-  date_wasnt_registered: 'اطلاعات ثبت نشد',
+  data_wasnt_registered: 'اطلاعات ثبت نشد',
   err: 'Error',
 };

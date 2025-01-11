@@ -99,6 +99,7 @@ export default function GeneralInfo() {
 
   const inputErrors = state.stepStatuses.find((i) => i.name === 'generalInfo')?.error;
   const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
+  const getErrorMsg = (name: string) => inputErrors?.[name] ?? undefined;
 
   return (
     <Container>
@@ -107,6 +108,7 @@ export default function GeneralInfo() {
           <S.Grid>
             <FormItem
               validateStatus={getValidateStatus(SERVICE_NAMES.englishName)}
+              help={getErrorMsg(SERVICE_NAMES.englishName)}
               name={SERVICE_NAMES.englishName}
               label={t('english_name')}
               rules={[rule]}
@@ -119,12 +121,14 @@ export default function GeneralInfo() {
               label={t('persian_name')}
               rules={[rule]}
               validateStatus={getValidateStatus(SERVICE_NAMES.persianName)}
+              help={getErrorMsg(SERVICE_NAMES.persianName)}
             >
               <Input placeholder={t('enter_persian_name')} />
             </FormItem>
 
             <FormItem
               validateStatus={getValidateStatus(SERVICE_NAMES.access)}
+              help={getErrorMsg(SERVICE_NAMES.access)}
               name={SERVICE_NAMES.access}
               rules={[rule]}
               label={t('access')}
@@ -140,6 +144,7 @@ export default function GeneralInfo() {
             <FormItem
               name={SERVICE_NAMES.category}
               validateStatus={getValidateStatus(SERVICE_NAMES.category)}
+              help={getErrorMsg(SERVICE_NAMES.category)}
               rules={[rule]}
               label={t('category')}
             >
@@ -154,6 +159,7 @@ export default function GeneralInfo() {
             <FormItem
               name={SERVICE_NAMES.throughput}
               validateStatus={getValidateStatus(SERVICE_NAMES.throughput)}
+              help={getErrorMsg(SERVICE_NAMES.throughput)}
               rules={[rule]}
               label={t('throughput')}
             >
@@ -168,6 +174,7 @@ export default function GeneralInfo() {
             <FormItem
               name={SERVICE_NAMES.version}
               validateStatus={getValidateStatus(SERVICE_NAMES.version)}
+              help={getErrorMsg(SERVICE_NAMES.version)}
               label={t('version')}
               rules={[rule]}
             >
@@ -177,6 +184,7 @@ export default function GeneralInfo() {
             <FormItem
               name={SERVICE_NAMES.owner}
               validateStatus={getValidateStatus(SERVICE_NAMES.owner)}
+              help={getErrorMsg(SERVICE_NAMES.owner)}
               label={t('owner')}
               rules={[rule]}
             >
