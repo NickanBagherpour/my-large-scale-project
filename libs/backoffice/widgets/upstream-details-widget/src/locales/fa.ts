@@ -26,7 +26,7 @@ export default {
     first_step: 'اطلاعات کلی',
     second_step: 'سرورها',
   },
-
+  edit_upstream: 'ویرایش آپ‌استریم',
   upstream_global_info: 'اطلاعات کلی آپ‌استریم',
   display_change_history: 'مشاهده تاریخچه تغییرات',
   english_upstream_name: 'نام انگلیسی',
@@ -36,4 +36,6 @@ export default {
   success_msg: 'سرور با موفقیت افزوده شد.',
   edit_msg: 'سرور با موفقیت ویرایش شد.',
   cancel: 'لغو',
+  edit_upstream_success: 'ویرایش آپ‌استریم با موفقیت انجام شد',
+  edit_upstream_successfully: 'ویرایش آپ‌استریم با موفقیت انجام شد',
 };

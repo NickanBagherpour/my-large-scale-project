@@ -140,11 +140,13 @@ const App = () => {
         console.log('request add server successful:', data);
         setSuccessModal(true);
         setWaitingModal(false);
+        setOpenServerRegisterModal(false);
       },
       onError: (error) => {
         setWaitingModal(false);
         setErrorModal(true);
         setServerInfo(values);
+        setOpenServerRegisterModal(false);
         console.error('request add server  failed:', error);
       },
     });

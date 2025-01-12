@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
@@ -17,10 +17,12 @@ interface ReusableFormModalProps {
   setOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
   onConfirm: (values: CreateUpstreamType) => void;
   status: MutationStatus;
+  initialData: CreateUpstreamType;
+  successMsg: string;
 }
 
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title = 'add-upstream.create_upstream', open, setOpen, onConfirm, status } = props;
+  const { title = 'add-upstream.create_upstream', open, setOpen, onConfirm, status, initialData, successMsg } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -34,6 +36,13 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
     idle: 'loading',
     error: 'error',
   } as const;
+
+  useEffect(() => {
+    if (open) {
+      // Update form fields whenever the modal is opened and `initialData` changes
+      form.setFieldsValue(initialData);
+    }
+  }, [open, initialData, form]);
 
   const handleFinish = (values: CreateUpstreamType) => {
     setIsCreateMode(false);
@@ -71,9 +80,10 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               form={form}
               onFinish={handleFinish}
               colon={true}
+              initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.name} label={t('add_upstream.upstream_english_name')} rules={[rule]}>
-                <Input allow='letter' />
+                <Input allow='letter' disabled={!!initialData} />
               </Form.Item>
 
               <Form.Item
@@ -102,11 +112,13 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             status={createStatus[status]}
             errorProps={{ description: t('add_upstream.error_description') }}
             loadingProps={{ description: t('add_upstream.loading_description') }}
-            successProps={{ description: '' }}
+            successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
-          <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
-            {t('button.try_again')}
-          </S.StyledButton>
+          {!initialData && (
+            <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
+              {t('button.try_again')}
+            </S.StyledButton>
+          )}
           <S.StyledButton color={'primary'} variant={'outlined'} onClick={resetModal}>
             {t('button.return')}
           </S.StyledButton>

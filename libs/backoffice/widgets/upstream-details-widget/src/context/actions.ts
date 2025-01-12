@@ -27,6 +27,10 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: errorMessage });
 }
 
+export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
+}
+
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateErrorMessageAction(dispatch, null);
 }

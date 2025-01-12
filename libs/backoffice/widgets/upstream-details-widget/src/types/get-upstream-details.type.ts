@@ -42,3 +42,8 @@ export type PaginationResultType = {
   pageSize: number;
   totalNumberOfEntries: number;
 };
+
+export type EditUpstreamParamsType = {
+  name: string;
+  description: string;
+};

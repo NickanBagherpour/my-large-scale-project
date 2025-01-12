@@ -1,4 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
+import { EditUpstreamParamsType } from '../types';
 
 const Api = {
   getUpstreamDetailsList: async (upstreamName: string | null) => {
@@ -28,6 +29,10 @@ const Api = {
 
   deleteServerFromUpstream: async (id: number) => {
     return client.delete(`${portalUrl}/v1/targets/${id}`);
+  },
+
+  putEditUpstream: async (params: EditUpstreamParamsType) => {
+    return client.put(`${portalUrl}/v1/upstreams`, { ...params });
   },
 };
 export default Api;

@@ -3,4 +3,5 @@ export {
   useGetUpstreamDetailsQuery,
   useAddServerToUpstreamMutationQuery,
   useDeleteServerFromUpstreamMutationQuery,
+  useEditUpstreamMutation,
 } from './get-upstream-details.api';

@@ -4,7 +4,11 @@ import { useTr } from '@oxygen/translation';
 import * as S from './upstream-details-info.style';
 import { PageProps } from '@oxygen/types';
 import { Button, InfoBox } from '@oxygen/ui-kit';
-import { ROUTES } from '@oxygen/utils';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
+import { AddUpstreamModal } from '@oxygen/reusable-components';
+import { useEditUpstreamMutation } from '../../services/get-upstream-details.api';
+import { updateMessageAction, useAppDispatch } from '../../context';
 
 type UpstreamDetailsInfoProps = PageProps & {
   infoData?: { name: string; description: string };
@@ -18,9 +22,46 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
     { key: t('english_upstream_name'), value: infoData?.name },
     { key: t('persian_upstream_name'), value: infoData?.description },
   ];
+  const [openEditModal, setOpenEditModal] = useState(false);
 
+  const { mutate, status } = useEditUpstreamMutation();
+  const dispatch = useAppDispatch();
+
+  const handleEditUpstream = async (values) => {
+    try {
+      const params = {
+        name: values.name,
+        description: values.description,
+      };
+
+      await mutate(params, {
+        onSuccess: () => {
+          updateMessageAction(dispatch, {
+            description: t('edit_upstream_success'),
+            type: 'success',
+            shouldTranslate: false,
+          });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST] });
+        },
+      });
+    } catch (error) {
+      // console.error('Validation failed:', error);
+    }
+  };
   return (
     <S.Container>
+      <AddUpstreamModal
+        title={t('edit_upstream')}
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+        onConfirm={handleEditUpstream}
+        status={status}
+        initialData={{
+          name: infoData?.name || '',
+          description: infoData?.description || '',
+        }}
+        successMsg='edit_upstream_successfully'
+      />
       <section>
         <S.Header>
           <S.TabName>{t('upstream_global_info')}</S.TabName>
@@ -33,7 +74,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
               <S.Icon className='icon-clock' />
               {t('display_change_history')}
             </Button>
-            <Button href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`} color='primary' variant='solid'>
+            <Button onClick={() => setOpenEditModal(!openEditModal)} color='primary' variant='solid'>
               <S.Icon className='icon-edit' />
               {t('edit')}
             </Button>
