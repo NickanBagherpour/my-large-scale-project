@@ -1,17 +1,13 @@
-import Link from 'next/link';
-import { ROUTES } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
-import { Icons } from '@oxygen/ui-kit';
 import * as S from './modal-delete-server.style';
 import { useAppTheme } from '@oxygen/hooks';
-import { Card } from 'antd';
-import { Button, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 import { uuid } from '@oxygen/utils';
 import {
   getDesktopColumnsDeleteServerModal,
   getMobileColumnsDeleteServerModal,
 } from '../../utils/upstream-details-list-util';
-import { UpstreamDetailsType, ParamsType } from '../../types';
+import { UpstreamDetailsType } from '../../types';
 
 type Props = {
   title: string;
@@ -25,11 +21,7 @@ type Props = {
   okText: string;
   okButtonProps: any;
   cancelButtonProps: any;
-  // selectedServerName: string;
   data?: UpstreamDetailsType[];
-  // isOpen: boolean;
-  // toggle: () => void;
-  // trackCode: string;
 };
 
 export default function ServerDeleteModal(props: Props) {
@@ -47,11 +39,8 @@ export default function ServerDeleteModal(props: Props) {
     okText,
     okButtonProps,
     cancelButtonProps,
-    // selectedServerName,
     data,
   } = props;
-  // debugger;
-
   const desktopColumns = getDesktopColumnsDeleteServerModal({ t });
   const mobileColumns = getMobileColumnsDeleteServerModal({ t });
 

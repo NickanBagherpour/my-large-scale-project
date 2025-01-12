@@ -2,8 +2,6 @@ import { Modal } from '@oxygen/ui-kit';
 import styled from 'styled-components';
 
 export const ModalContainer = styled(Modal)`
-  /* display: flex;
-  justify-content: center; */
   & .ant-divider-horizontal {
     margin: 0;
     border: 0;
@@ -35,13 +33,11 @@ export const ModalContainer = styled(Modal)`
 export const IconWrapper = styled.span`
   display: inline-flex;
   align-items: center;
-  /* color: ${(p) => p.theme.border.main}; */
 
   svg {
     width: 7.5;
     height: 7.5;
     fill: none;
-    /* stroke: ${(p) => p.theme.border.main}; */
   }
 `;
 
@@ -52,7 +48,6 @@ export const Info = styled.div`
     font-size: 1.6rem;
     line-height: 2.5rem;
     font-weight: 500;
-    /* margin-left: 0.8rem; */
   }
 `;
 
@@ -62,28 +57,6 @@ export const FollowCode = styled.div`
   font-weight: 500;
   color: ${(p) => p.theme.success.main};
   margin-top: 2.4rem;
-`;
-
-export const ReturnToRequest = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${(p) => p.theme.primary._600};
-  margin-top: 3.8rem;
-  span {
-    font-size: 1.6rem;
-    line-height: 2.5rem;
-    font-weight: 500;
-    margin-left: 0.8rem;
-  }
-  .icon-home {
-    font-size: 1.8rem;
-  }
-
-  a {
-    color: ${(p) => p.theme.primary._600} !important;
-    margin-left: 0.6rem;
-  }
 `;
 
 export const ButtonContainer = styled.div`

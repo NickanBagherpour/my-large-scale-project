@@ -1,31 +1,6 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
-import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
-export const UpstreamDetailsInfoContainer = styled.section`
-  /* margin: 2.8rem 0 4rem 0; */
-  margin-top: 2.4rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-// export const InfoHeader = styled.div`
-//   background-color: red;
-//   padding: 0.4rem 0.8rem;
-// `;
-// export const InfoContent = styled.div`
-//   background-color: ${(props) => props.theme.border._100};
-//   padding: 02.4rem;
-//   border-radius: 0.8rem;
-// `;
-
-// export const Title = styled.span`
-//   font-size: 1.6rem;
-//   font-weight: 500;
-//   line-height: 2.5rem;
-// `;
 export const Container = styled.div`
   margin-top: 2.4rem;
   display: flex;

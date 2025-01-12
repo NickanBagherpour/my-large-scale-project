@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { createSchemaFieldRule } from 'antd-zod';
+import React, { useState } from 'react';
 import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import * as S from './upstream-details-info.style';
 import { PageProps } from '@oxygen/types';
-import { Button, InfoBox, Loading } from '@oxygen/ui-kit';
+import { Button, InfoBox } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
-import { useAppDispatch, useAppState } from '../../context';
 
-// export default function UpstreamInfo() {
 type UpstreamDetailsInfoProps = PageProps & {
-  //
   infoData?: { name: string; description: string };
   loading?: boolean;
 };
 const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
-  const { loading, infoData } = props;
+  const { infoData } = props;
   const [t] = useTr();
-  const dispatch = useAppDispatch();
-  const state = useAppState();
-  const [value, setValue] = useState('');
-  const [form] = Form.useForm();
 
   const upstreamInfoData = [
     { key: t('english_upstream_name'), value: infoData?.name },
@@ -28,7 +20,6 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
   ];
 
   return (
-    // <Loading spinning={loading}>
     <S.Container>
       <section>
         <S.Header>
@@ -52,7 +43,6 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
         <InfoBox margin={0} data={upstreamInfoData} minColumnCount={2} />
       </section>
     </S.Container>
-    // </Loading>
   );
 };
 

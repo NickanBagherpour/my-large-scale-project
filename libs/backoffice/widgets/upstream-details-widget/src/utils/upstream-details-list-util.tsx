@@ -49,24 +49,29 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       key: 'weight',
       render: (weight) => getValueOrDash(weight),
     },
-    {
-      title: '',
-      dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
-      key: 'edit',
-      render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>{t('edit')}</S.Edit>
-      ),
-    },
+    // {
+    //   title: '',
+    //   dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
+    //   key: 'edit',
+    //   render: (id: number, record: UpstreamDetailsType, index: number) => (
+    //     <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>{t('edit')}</S.Edit>
+    //   ),
+    // },
 
     {
       title: '',
       dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
       key: 'delete',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <S.Trash
-          className='icon-trash'
-          onClick={() => deleteUpstream(id, record.domain, record.weight, record.healthStatus)}
-        />
+        <S.BtnContainer>
+          <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>
+            {t('edit')}
+          </S.Edit>
+          <S.Trash
+            className='icon-trash'
+            onClick={() => deleteUpstream(id, record.domain, record.weight, record.healthStatus)}
+          />
+        </S.BtnContainer>
       ),
     },
   ];
@@ -79,7 +84,6 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
       title: '',
       dataIndex: '',
       render: (value, record, index) => {
-        debugger;
         const columns: MobileColumnType[] = [
           {
             title: t('domain'),
@@ -95,21 +99,26 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
             title: t('weight'),
             value: getValueOrDash(value?.weight),
           },
-          {
-            title: t('edit'),
-            value: (
-              <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
-                {t('edit')}
-              </S.Edit>
-            ),
-          },
+          // {
+          //   title: t('edit'),
+          //   value: (
+          //     <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
+          //       {t('edit')}
+          //     </S.Edit>
+          //   ),
+          // },
           {
             title: '',
             value: (
-              <S.Trash
-                className='icon-trash'
-                onClick={() => deleteUpstream(value.id, value.domain, value.weight, value.healthStatus)}
-              />
+              <S.BtnContainer>
+                <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
+                  {t('edit')}
+                </S.Edit>
+                <S.Trash
+                  className='icon-trash'
+                  onClick={() => deleteUpstream(value.id, value.domain, value.weight, value.healthStatus)}
+                />
+              </S.BtnContainer>
             ),
             colon: false,
           },

@@ -36,6 +36,14 @@ export const Details = styled.a`
   color: ${(p) => p.theme.primary.main};
 `;
 
+export const BtnContainer = styled.span`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  column-gap: 8rem;
+`;
+
 export const Trash = styled.i`
   font-size: 2.4rem;
   color: ${(p) => p.theme.error.main};
