@@ -9,7 +9,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const ReportsWidget: React.FC<PageProps> = (props) => {
+const DashboardWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
 
   return (
@@ -21,4 +21,4 @@ const ReportsWidget: React.FC<PageProps> = (props) => {
   );
 };
 
-export default ReportsWidget;
+export default DashboardWidget;
