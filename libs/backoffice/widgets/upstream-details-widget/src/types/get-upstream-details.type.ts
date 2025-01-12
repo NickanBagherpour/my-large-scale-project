@@ -12,6 +12,11 @@ export type ParamsType = {
   page: number;
 };
 
+export type FirstStepParams = {
+  name: string;
+  persian_name: string;
+};
+
 export type UpstreamDetailsType = {
   domain: string;
   healthStatus: string;
@@ -36,4 +41,9 @@ export type PaginationResultType = {
   pageNumber: number;
   pageSize: number;
   totalNumberOfEntries: number;
+};
+
+export type EditUpstreamParamsType = {
+  name: string;
+  description: string;
 };

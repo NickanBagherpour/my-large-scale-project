@@ -1,16 +1,47 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, useMutation } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { ParamsType } from '../types';
+import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
+import { EditUpstreamParamsType } from '../types';
 
-export const useGetUpstreamDetailsQuery = (params: ParamsType) => {
+export const useGetUpstreamDetailsQuery = (upstreamName: string | null) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(params), dispatch),
+    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, upstreamName],
+    queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(upstreamName), dispatch),
     placeholderData: keepPreviousData,
+  });
+};
+
+export const useAddServerToUpstreamMutationQuery = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: any) => Api.addServerToUpstream(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+  });
+};
+
+export const useDeleteServerFromUpstreamMutationQuery = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: any) => Api.deleteServerFromUpstream(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+  });
+};
+
+export const useEditUpstreamMutation = () => {
+  return useMutation({
+    mutationFn: (params: EditUpstreamParamsType) => Api.putEditUpstream(params),
+    networkMode: 'offlineFirst',
   });
 };

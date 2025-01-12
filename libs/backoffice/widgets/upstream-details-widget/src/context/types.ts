@@ -21,6 +21,11 @@ export type WidgetStateType = {
     pagination: PaginationType;
     submit: FiltersType;
   };
+  firstStepDisabledSubmit: boolean;
+  upstreamInfo: {
+    name: string;
+    persianName: string;
+  };
   errorMessage: Nullable<MessageType>;
 };
 
@@ -40,6 +45,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_STATUS';
       payload: WidgetStateType['status'];
+    }
+  | {
+      type: 'UPDATE_UPSTREAM_INFO';
+      payload: WidgetStateType['upstreamInfo'];
     }
   | {
       type: 'UPDATE_PAGINATION';

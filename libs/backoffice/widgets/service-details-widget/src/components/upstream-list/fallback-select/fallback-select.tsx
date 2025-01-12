@@ -33,7 +33,7 @@ export const FallbackSelect = () => {
     const params = {
       page: page - 1,
       size: UPSTREAM_CARD_PAGE_SIZE,
-      sort: [''],
+      // sort: [''],
       'search-field': debouncedSearchTerm,
     };
     return params;

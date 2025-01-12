@@ -29,7 +29,7 @@ export const Cards = (props: CardProps) => {
 
   const handleClick = (data) => {
     setClickedCard(data.id);
-    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.id });
+    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.name });
   };
   return (
     <>

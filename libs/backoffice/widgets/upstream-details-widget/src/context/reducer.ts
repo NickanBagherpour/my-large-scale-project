@@ -14,6 +14,11 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
   },
+  firstStepDisabledSubmit: true,
+  upstreamInfo: {
+    name: '',
+    persianName: '',
+  },
   errorMessage: null,
 };
 
@@ -32,6 +37,12 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_STATUS': {
       state.table.pagination.page = initialStateValue['page'];
       state.status = action.payload;
+      return;
+    }
+    case 'UPDATE_UPSTREAM_INFO': {
+      state.upstreamInfo.name = action.payload.name;
+      state.upstreamInfo.persianName = action.payload.persianName;
+      state.firstStepDisabledSubmit = false;
       return;
     }
 

@@ -1,23 +1,31 @@
-import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
+import { Loading } from '@oxygen/ui-kit';
 
 import { useTr } from '@oxygen/translation';
-import { Modal, Box, Button, Input, Select } from '@oxygen/ui-kit';
-import { NoResult, FooterContainer, ReturnButton, GlobalMessageContainer } from '@oxygen/reusable-components';
+import { Modal, Button, Input, Select } from '@oxygen/ui-kit';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Nullable } from '@oxygen/types';
-import { RQKEYS } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 
 import { useAppState, resetErrorMessageAction, useAppDispatch } from '../../context';
-import { useGetUpstreamDetailsQuery } from '../../services';
+import {
+  useGetUpstreamDetailsQuery,
+  useAddServerToUpstreamMutationQuery,
+  useDeleteServerFromUpstreamMutationQuery,
+} from '../../services';
 import UpstreamDetails from '../upstream-details-list/upstream-details-list';
-import UpstreamInfo from '../upstream-info/upstream-info';
-import { ParamsType, UpstreamDetailsTypeQuery } from '../../types';
+import { UpstreamDetailsTypeQuery, UpstreamDetailsType } from '../../types';
 import { ModalFormSchema } from '../../types/setting.schema';
 import { FORM_ITEM_NAMES } from '../../utils/form-items-name';
+
+import UpstreamDetailsInfo from '../upstream-details-info/upstream-details-info';
+import ServerDeleteModal from '../modal-delete-server/modal-delete-server';
+import WaitingModal from '../modal-waiting/modal-waiting';
+import SuccessModal from '../modal-success/modal-success';
+import ErrorModal from '../modal-error/modal-error';
 
 import * as S from './app.style';
 
@@ -29,64 +37,70 @@ const App = () => {
   const [t] = useTr();
 
   const searchParams = useSearchParams();
-  const upstreamId: Nullable<string> = searchParams.get('upstreamId');
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
 
-  const { data: upstreamDetails, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(fetchState);
+  const {
+    data: upstreamDetailsInfo,
+    isFetching: isUpstreamFetching,
+    refetch,
+  } = useGetUpstreamDetailsQuery(upstreamName);
+  const { mutate: addServerMutate, isPending: addServerIsPending } = useAddServerToUpstreamMutationQuery();
+  const { mutate: deleteServerMutate, isPending: deleteServerIsPending } = useDeleteServerFromUpstreamMutationQuery();
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: { name: '', persianName: '', serverList: [] },
   });
 
+  const [selectedServerId, setSelectedServerId] = useState<number | null>(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openServerRegisterModal, setOpenServerRegisterModal] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [registerLoading, setRegisterLoading] = useState(false);
-  const [selectedServerName, setSelectedServerName] = useState('');
-  const [triggerRegisterAction, setTriggerRegisterAction] = useState(false);
 
-  const upstreamDetailsTitle = upstreamName ? upstreamName : 'widget_name_details';
-  const queryClient = useQueryClient();
+  const [serverInfo, setServerInfo] = useState<UpstreamDetailsType | undefined>(undefined);
+  const [waitingModal, setWaitingModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+
   const rule = createSchemaFieldRule(ModalFormSchema(t));
-  const [modalForm] = Form.useForm();
+  const [addServerModalForm] = Form.useForm();
 
-  const handleSubmit = () => {
-    setTriggerRegisterAction(true);
-  };
-
-  const handleResetTriggerRegisterAction = () => {
-    setTriggerRegisterAction(false);
-  };
-
-  const deleteHandler = (domain: string) => {
-    setOpenDeleteModal(true);
-    setSelectedServerName(domain);
-  };
-
-  const handleDeleteOk = (domain: string) => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setUpstreamServer((prevState) => ({
-        ...prevState,
+  useEffect(() => {
+    if (upstreamDetailsInfo?.targets) {
+      setUpstreamServer((prev) => ({
+        ...prev,
         list: {
-          ...prevState.list,
-          serverList: prevState.list.serverList.filter((item) => item.domain !== domain),
+          ...prev.list,
+          serverList: upstreamDetailsInfo.targets, // Update serverList with targets
         },
       }));
-      queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
-        if (!oldData) return;
-        return {
-          ...oldData,
-          list: {
-            name: oldData.list.name,
-            persianName: oldData.list.persianName,
-            serverList: oldData.list.serverList.filter((item) => item.domain !== domain),
-          },
-        };
-      });
+    }
+  }, [upstreamDetailsInfo]);
 
-      setOpenDeleteModal(false);
-      setConfirmLoading(false);
-    }, 2000);
+  const deleteHandler = (id: number, domain: string, weight: string, healthStatus: string) => {
+    setOpenDeleteModal(true);
+    setServerInfo({ domain: domain, healthStatus: healthStatus, weight: weight });
+    setSelectedServerId(id);
+  };
+
+  const editHandler = (id: number, domain: string, weight: string, healthStatus: string) => {
+    registerHandler();
+    setSelectedServerId(id);
+    addServerModalForm.setFieldsValue({
+      [FORM_ITEM_NAMES.domain]: domain,
+      [FORM_ITEM_NAMES.weight]: weight,
+    });
+  };
+
+  const handleDeleteOk = () => {
+    deleteServerMutate(selectedServerId, {
+      onSuccess: (data) => {
+        setOpenDeleteModal(false);
+        refetch();
+        console.log('request delete server successful:', data);
+      },
+      onError: (error) => {
+        setOpenDeleteModal(false);
+        console.error('request delete server  failed:', error);
+      },
+    });
   };
 
   const handleDeleteCancel = () => {
@@ -95,77 +109,79 @@ const App = () => {
   };
 
   const registerHandler = () => {
-    modalForm.resetFields();
+    setSelectedServerId(null);
+    addServerModalForm.resetFields();
     setOpenServerRegisterModal(true);
   };
 
   const handleServerRegisterCancel = () => {
-    console.log('Clicked cancel button');
     setOpenServerRegisterModal(false);
   };
 
-  const handleFinish = (values: any) => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpenServerRegisterModal(false);
-      setConfirmLoading(false);
-      setUpstreamServer((prevState) => ({
-        ...prevState,
-        list: {
-          ...prevState.list,
-          serverList: [...prevState.list.serverList, values],
-        },
-      }));
-      queryClient.setQueryData([RQKEYS.UPSTREAM_DETAILS.GET_LIST, fetchState], (oldData: UpstreamDetailsTypeQuery) => {
-        if (!oldData) return;
-
-        // Create a Set of existing domain names for quick lookup
-        const existingDomains = new Set(oldData.list.serverList.map((item) => item.domain));
-
-        // Filter new servers to only include those with domains not already in existingDomains
-        const newServers = (upstreamServer?.list?.serverList || []).filter((item) => !existingDomains.has(item.domain));
-
-        return {
-          ...oldData,
-          list: {
-            name: oldData.list.name,
-            persianName: oldData.list.persianName,
-            serverList: [...oldData.list.serverList, ...newServers, values],
-          },
-        };
-      });
-    }, 2000);
+  const handleTryAgain = () => {
+    handleFinish(serverInfo);
   };
 
-  const handleToggleRegisterLoading = () => {
-    setRegisterLoading((prev) => !prev);
+  const handleFinish = (values: any) => {
+    console.log('handleFinish');
+    setWaitingModal(true);
+    setErrorModal(false);
+    setSuccessModal(false);
+
+    const params = {
+      upstreamName: upstreamName,
+      domain: values.domain,
+      weight: parseInt(values.weight),
+      id: selectedServerId ? selectedServerId : null,
+    };
+    addServerMutate(params, {
+      onSuccess: (data) => {
+        refetch();
+        console.log('request add server successful:', data);
+        setSuccessModal(true);
+        setWaitingModal(false);
+        setOpenServerRegisterModal(false);
+      },
+      onError: (error) => {
+        setWaitingModal(false);
+        setErrorModal(true);
+        setServerInfo(values);
+        setOpenServerRegisterModal(false);
+        console.error('request add server  failed:', error);
+      },
+    });
+  };
+
+  const toggleErrorModal = () => {
+    setErrorModal(false);
+  };
+  const toggleWaitingModal = () => {
+    setWaitingModal(false);
+  };
+
+  const toggleSuccessModal = () => {
+    setSuccessModal(false);
   };
 
   return (
     <>
-      <Modal
+      <ServerDeleteModal
         title={t('delete_server')}
         open={openDeleteModal}
-        onOk={() => handleDeleteOk(selectedServerName)}
-        confirmLoading={confirmLoading}
+        onOk={() => handleDeleteOk()}
+        confirmLoading={deleteServerIsPending}
         onCancel={handleDeleteCancel}
-        headerDivider={true}
+        headerDivider={false}
         centered
         cancelText={t('button.cancel')}
         okText={t('button.delete')}
         okButtonProps={{ style: { backgroundColor: theme.error.main } }}
         cancelButtonProps={{ style: { color: theme.primary.main } }}
-      >
-        <S.ModalMessage>
-          {t('delete_server_question')}
-          <S.ServiceName
-            text={selectedServerName}
-            highlightColor={theme.error.main}
-            wordToHighlight={selectedServerName}
-          />
-          {t('are_you_sure')}
-        </S.ModalMessage>
-      </Modal>
+        data={serverInfo ? [serverInfo] : undefined}
+      />
+      <ErrorModal isOpen={errorModal} toggle={() => toggleErrorModal()} tryAgain={() => handleTryAgain()} />
+      <WaitingModal isOpen={waitingModal} toggle={() => toggleWaitingModal()} />
+      <SuccessModal isOpen={successModal} toggle={() => toggleSuccessModal()} id={selectedServerId} />
       <Modal
         title={t('add_server')}
         open={openServerRegisterModal}
@@ -177,15 +193,15 @@ const App = () => {
           <Button
             type='primary'
             style={{ width: '100%', margin: 0 }}
-            onClick={() => modalForm.submit()}
-            loading={confirmLoading}
+            onClick={() => addServerModalForm.submit()}
+            loading={addServerIsPending}
           >
             {t('register_server')}
           </Button>,
         ]}
       >
         <S.ModalMessage>
-          <Form layout={'vertical'} style={{ width: '100%' }} form={modalForm} onFinish={handleFinish}>
+          <Form layout={'vertical'} style={{ width: '100%' }} form={addServerModalForm} onFinish={handleFinish}>
             <S.InfoItemsContainer>
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('domain')} / IP PORT</span>
@@ -203,7 +219,7 @@ const App = () => {
               <S.InfoItemsRow>
                 <span className='info-items-title'>{t('health_status')}</span>
                 <Form.Item name={FORM_ITEM_NAMES.health_status} rules={[rule]} initialValue={'1'}>
-                  <Select size={'large'}>
+                  <Select size={'large'} disabled={true}>
                     <Select.Option value='1'>{t('health')}</Select.Option>
                     <Select.Option value='0'>{t('unHealth')}</Select.Option>
                   </Select>
@@ -214,66 +230,35 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
 
-      <S.UpstreamDetailsContainer title={upstreamId ? t(upstreamDetailsTitle) : t('widget_name_creation')}>
-        <GlobalMessageContainer
-          containerProps={{ marginBottom: '2.4rem' }}
-          message={state.errorMessage}
-          onClose={() => {
-            resetErrorMessageAction(dispatch);
-          }}
-        />
-        <UpstreamInfo
-          name={upstreamId ? upstreamDetails?.list.name : ''}
-          persianName={upstreamId ? upstreamDetails?.list.persianName : ''}
-          addServer={registerHandler}
-          triggerRegisterAction={triggerRegisterAction}
-          toggleLoading={handleToggleRegisterLoading}
-          resetTriggerRegisterAction={handleResetTriggerRegisterAction}
-        />
-        {upstreamId && (
-          <Box className={'table-container'}>
-            {upstreamDetails?.list?.serverList.length ? (
-              <UpstreamDetails
-                isFetching={isUpstreamFetching}
-                data={upstreamDetails?.list?.serverList}
-                total={upstreamDetails?.list?.serverList.length}
-                isLoading={isUpstreamFetching}
-                deleteUpstream={(domain) => deleteHandler(domain)}
-              />
-            ) : (
-              <NoResult isLoading={isUpstreamFetching} />
-            )}
-          </Box>
-        )}
-        {!upstreamId && (
-          <Box className={'table-container'}>
+      <Loading spinning={isUpstreamFetching}>
+        <S.WidgetContainer>
+          <S.UpstreamDetailsContainer title={upstreamName ? t(upstreamName) : t('widget_name_creation')}>
+            <GlobalMessageContainer
+              containerProps={{ marginBottom: '2.4rem' }}
+              message={state.errorMessage}
+              onClose={() => {
+                resetErrorMessageAction(dispatch);
+              }}
+            />
+            <UpstreamDetailsInfo
+              loading={isUpstreamFetching}
+              infoData={{ name: upstreamDetailsInfo?.name, description: upstreamDetailsInfo?.description }}
+            />
+          </S.UpstreamDetailsContainer>
+          <S.BoxContainer className={'table-container'}>
             {
               <UpstreamDetails
+                addServer={registerHandler}
                 isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
                 data={upstreamServer?.list?.serverList}
                 total={upstreamServer?.list?.serverList.length}
-                isLoading={isUpstreamFetching}
-                deleteUpstream={(domain) => deleteHandler(domain)}
+                deleteUpstream={(id, domain, weight, healthStatus) => deleteHandler(id, domain, weight, healthStatus)}
+                editUpstream={(id, domain, weight, healthStatu) => editHandler(id, domain, weight, healthStatu)}
               />
             }
-          </Box>
-        )}
-
-        <FooterContainer>
-          <ReturnButton />
-          {!upstreamId && (
-            <Button
-              className={'register-button'}
-              color={'primary'}
-              size={'large'}
-              onClick={handleSubmit}
-              loading={registerLoading}
-            >
-              {t('button.register')}
-            </Button>
-          )}
-        </FooterContainer>
-      </S.UpstreamDetailsContainer>
+          </S.BoxContainer>
+        </S.WidgetContainer>
+      </Loading>
     </>
   );
 };

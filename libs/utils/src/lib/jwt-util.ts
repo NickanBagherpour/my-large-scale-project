@@ -102,7 +102,6 @@ export const processAndSignToken = (ssoToken: string, options?: SignOptions): st
 
   const decodedPayload = decodeJWT(ssoToken);
 
-
   if (!decodedPayload?.payload) {
     throw new Error('Invalid decoded payload: payload is undefined.');
   }
@@ -161,7 +160,7 @@ function decodeBase64Url(input: string): string {
     return decodeURIComponent(
       Array.prototype.map
         .call(window.atob(base64), (c: string) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join(''),
+        .join('')
     );
   } else if (typeof Buffer !== 'undefined') {
     return Buffer.from(base64, 'base64').toString('utf-8');
