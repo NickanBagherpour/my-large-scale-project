@@ -6,12 +6,10 @@ import { PageProps } from '@oxygen/types';
 import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { Loading } from '@oxygen/ui-kit';
 import { reportUrlList } from '../../utils/consts';
 
-import * as S from './app.style';
-import { changeIframeElementStyle } from '../../utils/change-dom-style';
 type AppProps = PageProps & {
   //
 };
@@ -23,38 +21,31 @@ const Container = styled.section`
 
 const StyledIframe = styled.iframe`
   width: 100%;
-  height: 100%;
+  min-height: 1400px;
   border: none;
 `;
 const App: React.FC<AppProps> = (props) => {
-  // const [reportUrl,setReportUrl]  = useState();
-  const id = Number(props?.parentProps?.params?.['id']) as keyof typeof reportUrlList;
-  const reportUrl = getReportUrl(id);
+  // const id = Number(props?.parentProps?.params?.['id']) as keyof typeof reportUrlList;
+  // const reportUrl = getReportUrl(id);
 
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
   const [loading, setLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const theme = useTheme();
+  console.log('theme', theme);
+  const reportUrl = getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  // useEffect(() => {
+  //   if (!loading) changeIframeElementStyle(iframeRef.current, 'iframe footer', 'display:none');
+  // }, [loading]);
 
-     return params;
-   }
- */
   useEffect(() => {
-    if (!loading) changeIframeElementStyle(iframeRef.current, 'iframe footer', 'display:none');
-  }, [loading]);
+    setLoading(true);
+  }, [theme.id]);
 
-  function getReportUrl(id: keyof typeof reportUrlList) {
-    const theme = 'light';
+  function getReportUrl(id: keyof typeof reportUrlList, theme = 'light') {
     const urlPostfix = `#theme=${theme}&bordered=false&titled=false`;
 
     switch (id) {

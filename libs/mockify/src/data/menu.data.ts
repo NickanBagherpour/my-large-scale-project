@@ -90,7 +90,7 @@ export const customerMenu = [
     order: 1,
     href: ROUTES.CUSTOMER.DASHBOARD,
     icon: 'icon-home-empty',
-    active: false,
+    active: true,
     description: null,
     parentId: null,
     children: [],
