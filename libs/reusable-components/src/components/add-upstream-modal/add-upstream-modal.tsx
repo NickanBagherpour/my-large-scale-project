@@ -17,8 +17,8 @@ interface ReusableFormModalProps {
   setOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
   onConfirm: (values: CreateUpstreamType) => void;
   status: MutationStatus;
-  initialData: CreateUpstreamType;
-  successMsg: string;
+  initialData?: CreateUpstreamType;
+  successMsg?: string;
 }
 
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
@@ -38,7 +38,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
   } as const;
 
   useEffect(() => {
-    if (open) {
+    if (initialData && open) {
       // Update form fields whenever the modal is opened and `initialData` changes
       form.setFieldsValue(initialData);
     }
