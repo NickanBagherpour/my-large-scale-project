@@ -82,7 +82,9 @@ export default function GeneralInfo() {
     return <CenteredLoading />;
   }
 
-  let initialValues: Partial<GeneralInfoValuesType> = { englishName: state.serviceName };
+  // Disabled the "throughput" and "access" selects as per the request of the analytics team.
+  // Set their values to 1 by default. This behavior might change later.
+  let initialValues: Partial<GeneralInfoValuesType> = { englishName: state.serviceName, throughput: 1, access: 1 };
   if (service) {
     const { name, tags, owner, version, category, throughput, accessLevel, persianName } = service;
     initialValues = {
@@ -134,6 +136,7 @@ export default function GeneralInfo() {
               label={t('access')}
             >
               <Select
+                disabled
                 size={'large'}
                 placeholder={t('select_access')}
                 loading={isFetchingServiceAccesses}
@@ -164,6 +167,7 @@ export default function GeneralInfo() {
               label={t('throughput')}
             >
               <Select
+                disabled
                 size={'large'}
                 placeholder={t('throughput')}
                 loading={isFetchingThroughput}
