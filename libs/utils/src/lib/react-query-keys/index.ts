@@ -1,5 +1,6 @@
 /*--import--*/
-import { KEYS as DASHBOARD_KEYS } from './widgets/dashboard.key';
+import { KEYS as BUSINESS_DASHBOARD_KEYS } from './widgets/business-dashboard.key';
+import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './widgets/customer-dashboard.key';
 import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './widgets/upstream-service-history.key';
 import { KEYS as UPSTREAM_HISTORY_KEYS } from './widgets/upstream-history.key';
 import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './widgets/request-details-info.key';
@@ -43,7 +44,8 @@ import { KEYS as ROUTE_DETAILS_KEYS } from './widgets/route-details.key';
 
 export const RQKEYS = {
   /*--export--*/
-  DASHBOARD_KEYS: DASHBOARD_KEYS,
+  BUSINESS_DASHBOARD: BUSINESS_DASHBOARD_KEYS,
+  CUSTOMER_DASHBOARD: CUSTOMER_DASHBOARD_KEYS,
   UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
   UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
   REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
