@@ -216,15 +216,12 @@ export default function ConfirmData() {
             </S.ErrorsList>
           ),
           footer: [
-            stepErrors?.length ? (
-              <Button icon={<i className='icon-edit' />} onClick={() => goToFirstError(dispatch)}>
-                {t('edit_data')}
-              </Button>
-            ) : (
-              <Button icon={<i className='icon-home-empty' />} href={ROUTES.BACKOFFICE.SERVICE_LIST}>
-                {t('service_managment')}
-              </Button>
-            ),
+            <Button
+              icon={<i className='icon-edit' />}
+              onClick={() => (stepErrors?.length ? goToFirstError(dispatch) : toggleIsResultModalOpen())}
+            >
+              {t('edit_data')}
+            </Button>,
             <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
               {t('save_in_draft')}
             </Button>,
