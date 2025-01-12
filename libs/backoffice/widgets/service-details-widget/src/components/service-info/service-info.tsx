@@ -71,7 +71,10 @@ const Route: React.FC<AppProps> = (props) => {
               <Chip
                 className='infobox-tags'
                 type='active'
+                ellipsis={true}
                 key={tag.id}
+                tooltipTitle={tag.title}
+                tooltipOnEllipsis={true}
                 // color='blue' // Optional: Customize color or remove for default styling
                 // style={{ marginBottom: 8 }}
               >
