@@ -39,7 +39,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
         // console.log('SSO success', );
         // setTimeout(() => {
         // console.log('hey')
-        login({ role }, ROUTES.BUSINESS.REQUEST_LIST);
+        login({ role }, ROUTES.BUSINESS.DASHBOARD);
         // }, 700);
       }
       // Clear query parameters from the URL

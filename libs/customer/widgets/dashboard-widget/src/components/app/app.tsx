@@ -50,9 +50,9 @@ const App: React.FC<AppProps> = (props) => {
 
     switch (id) {
       case 1:
-        return `${reportUrlList[1]}${urlPostfix}`;
+        return `${reportUrlList[id]}${urlPostfix}`;
       case 2:
-        return `${reportUrlList[2]}${urlPostfix}`;
+        return `${reportUrlList[id]}${urlPostfix}`;
       default: {
         const _exhaustiveCheck: never = id;
         return _exhaustiveCheck;
@@ -66,7 +66,10 @@ const App: React.FC<AppProps> = (props) => {
       <StyledIframe
         ref={iframeRef}
         src={reportUrl}
-        onLoad={() => setLoading(false)}
+        onLoad={() => {
+          console.log('loaded');
+          setLoading(false);
+        }}
         style={{ display: loading ? 'none' : 'block' }}
       />
     </>

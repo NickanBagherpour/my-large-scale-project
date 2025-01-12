@@ -1,5 +1,5 @@
 {
-    "name": "customer-dashboard-widget",
+    "name": "business-dashboard-widget",
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/widgets/dashboard-widget/src",
     "projectType": "library",

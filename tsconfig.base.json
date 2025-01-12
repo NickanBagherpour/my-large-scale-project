@@ -106,6 +106,9 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/dashboard-widget": [
+                "libs/business/widgets/dashboard-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
             ],
