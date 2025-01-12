@@ -10,8 +10,6 @@ import styled, { useTheme } from 'styled-components';
 import { Loading } from '@oxygen/ui-kit';
 import { reportUrlList } from '../../utils/consts';
 
-import * as S from './app.style';
-import { changeIframeElementStyle } from '../../utils/change-dom-style';
 type AppProps = PageProps & {
   //
 };
@@ -38,19 +36,7 @@ const App: React.FC<AppProps> = (props) => {
   const theme = useTheme();
   console.log('theme', theme);
   const reportUrl = getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
   // useEffect(() => {
   //   if (!loading) changeIframeElementStyle(iframeRef.current, 'iframe footer', 'display:none');
   // }, [loading]);
