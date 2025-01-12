@@ -1,8 +1,8 @@
 import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
-import jwt, { SignOptions, Algorithm } from 'jsonwebtoken';
+import jwt, { SignOptions, Algorithm, verify } from 'jsonwebtoken';
 
 // Ensure that the JWT signature secret is available
-const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET;
+const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET as string;
 // const SSO_JWT_SECRET = process.env.SSO_JWT_SECRET; // SSO's secret or public key
 
 const DEFAULT_ALGORITHM = 'HS256';
@@ -62,9 +62,9 @@ export function decodeJWT2(token: string): { header: JwtHeader; payload: JwtPayl
  * @returns The decoded SSO payload if valid.
  * @throws Will throw an error if the token is invalid or verification fails.
  */
-export const verifySSOToken = (token: string): JwtPayload => {
+export const verifySSOToken = (token: string) => {
   try {
-    const decoded = jwt.verify(token, JWT_SIGNATURE_SECRET, { algorithms: [DEFAULT_ALGORITHM] }) as JwtPayload;
+    const decoded = verify(token, JWT_SIGNATURE_SECRET, { algorithms: [DEFAULT_ALGORITHM] });
     return decoded;
   } catch (error) {
     throw new Error('Invalid SSO token');
