@@ -11,6 +11,10 @@ export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateTy
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
+export function updateUpstreamInfo(dispatch: WidgetDispatchType, upstreamInfo: WidgetStateType['upstreamInfo']) {
+  dispatch({ type: 'UPDATE_UPSTREAM_INFO', payload: upstreamInfo });
+}
+
 export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
@@ -21,6 +25,10 @@ export function updatePagination(dispatch: WidgetDispatchType, pagination: Pagin
 
 export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: errorMessage });
+}
+
+export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
