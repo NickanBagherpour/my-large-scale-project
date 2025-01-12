@@ -26,11 +26,11 @@ function CustomInfobox(props: CustomInfoboxProps) {
       ) : (
         <S.InfoboxContainer>
           <>
-            <Box>
+            <Box className='upstream-box'>
               <S.Lable>{t('upstream_tab.info_box_latinName')}</S.Lable>
               <span>{data?.latinName ? data.latinName : '-'}</span>
             </Box>
-            <Box>
+            <Box className='upstream-box'>
               <S.Lable>{t('upstream_tab.info_box_persianName')}</S.Lable>
               <span>{data?.persianName ? data.persianName : '-'}</span>
             </Box>

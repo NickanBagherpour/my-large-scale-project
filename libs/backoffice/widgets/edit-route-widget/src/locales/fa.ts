@@ -13,6 +13,7 @@ export default {
     path: 'api/sapta/v1/bale/customer-info/',
     host: 'Openapis.bmi.ir',
   },
+  host_validation_error: 'نام هاست وارد شده معتبر نیست.',
   unexpected_error: 'خطایی رخ داده است',
   success_notif: 'با موفقیت انجام شد',
   buttons: {
