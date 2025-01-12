@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { AdvanceSelector } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useDebouncedValue } from '@oxygen/hooks';
+import { useBounce } from '@oxygen/hooks';
 
 import { useGetScopes } from '../../services';
 import { Scope } from '../../types';
@@ -19,14 +19,18 @@ const ScopeSelector = (props: Props) => {
   const { onSelect, disabled } = props;
   const [t] = useTr();
   const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm] = useDebouncedValue(searchTerm, 500);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [page, setPage] = useState(0);
   const { data, isFetching } = useGetScopes({
-    'scope-name': debouncedSearchTerm.trim(),
+    'search-field': debouncedSearchTerm.trim(),
     page,
     size: SCOPE_PAGE_SIZE,
-    sort: '',
   });
+
+  useBounce(() => {
+    setDebouncedSearchTerm(searchTerm);
+    setPage(0);
+  }, [searchTerm]);
 
   const loadMore = () => setPage((prev) => prev + 1);
 

@@ -27,11 +27,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
       router.push(MAIN_HREF.AUTH);
       return;
     }
-    // if (!isSameDomain()) {
-    //   router.back();
-    // } else {
     router.back();
-    // }
   }
   // function isSameDomain() {
   //   const previousUrl = document.referrer;

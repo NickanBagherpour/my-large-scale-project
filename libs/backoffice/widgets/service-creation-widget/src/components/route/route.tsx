@@ -61,6 +61,7 @@ export default function Route() {
 
   const inputErrors = stepStatuses.find((i) => i.name === 'route')?.error;
   const getValidateStatus = (name: string) => (inputErrors?.[name] ? 'error' : undefined);
+  const getErrorMsg = (name: string) => inputErrors?.[name] ?? undefined;
 
   return (
     <Container>
@@ -84,6 +85,7 @@ export default function Route() {
             <FormItem
               name={ROUTE_NAMES.protocol}
               validateStatus={getValidateStatus(ROUTE_NAMES.protocol)}
+              help={getValidateStatus(ROUTE_NAMES.protocol)}
               className='span-2'
               rules={[rule]}
               label={t('protocol')}
@@ -98,6 +100,7 @@ export default function Route() {
             <FormItem
               name={ROUTE_NAMES.path}
               validateStatus={getValidateStatus(ROUTE_NAMES.path)}
+              help={getErrorMsg(ROUTE_NAMES.path)}
               className='span-2'
               label={t('path')}
               rules={[rule]}
@@ -108,6 +111,7 @@ export default function Route() {
             <FormItem
               name={ROUTE_NAMES.host}
               validateStatus={getValidateStatus(ROUTE_NAMES.host)}
+              help={getErrorMsg(ROUTE_NAMES.host)}
               className='span-2'
               label={t('host')}
               rules={[rule]}

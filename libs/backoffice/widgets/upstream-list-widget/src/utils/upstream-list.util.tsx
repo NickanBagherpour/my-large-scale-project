@@ -63,7 +63,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       align: 'center',
       width: 'min-content',
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamId=${record.id}&upstreamName=${record.name}`}>
+        <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
           {t('table.details')}
         </S.Details>
       ),
@@ -117,7 +117,9 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
           {
             title: '',
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?id=${record.id}`}>{t('table.details')}</S.Details>
+              <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
+                {t('table.details')}
+              </S.Details>
             ),
             colon: false,
           },

@@ -1,5 +1,5 @@
 import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt, { SignOptions, Algorithm } from 'jsonwebtoken';
 
 // Ensure that the JWT signature secret is available
 const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET;
@@ -11,6 +11,7 @@ const DEFAULT_ALGORITHM = 'HS256';
   throw new Error('JWT_SIGNITURE_SECRET is not defined in environment variables');
 }
  */
+
 /* if (!SSO_JWT_SECRET) {
   throw new Error('SSO_JWT_SECRET is not defined in environment variables');
 }
@@ -77,7 +78,7 @@ export const verifySSOToken = (token: string): JwtPayload => {
  * @param options - Optional signing options (e.g., expiresIn, issuer).
  * @returns The signed JWT as a string.
  */
-export const signToken = (payload: any /* JwtPayload */, options?: SignOptions): string => {
+export const signToken = (payload: JwtPayload, options?: SignOptions): string => {
   // Define default signing options if not provided
   const signOptions: SignOptions = {
     // expiresIn: '1h', // Token expires in 1 hour
@@ -101,11 +102,18 @@ export const processAndSignToken = (ssoToken: string, options?: SignOptions): st
 
   const decodedPayload = decodeJWT(ssoToken);
 
+  if (!decodedPayload?.payload) {
+    throw new Error('Invalid decoded payload: payload is undefined.');
+  }
+
   // Optionally, you can manipulate the payload here if needed
   // For example, remove sensitive information or add additional claims
 
   // Sign a new token with the decoded payload
-  const newToken = signToken(decodedPayload?.payload, { ...options, algorithm: decodedPayload?.header?.alg });
+  const newToken = signToken(decodedPayload?.payload, {
+    ...options,
+    algorithm: decodedPayload?.header?.alg as Algorithm,
+  });
 
   return newToken;
 };

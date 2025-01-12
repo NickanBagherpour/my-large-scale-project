@@ -18,12 +18,16 @@ export async function POST(req: Request) {
 
   const url = `${process.env.SSO_URL}/identity/oauth2/auth/token`;
 
-  const basicToken = Buffer.from(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`).toString('base64');
+  const basicToken = Buffer.from(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`).toString(
+    'base64'
+  );
 
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     Authorization: `Basic ${basicToken}`,
   };
+
+  console.log('sso headers', headers);
 
   const body = new URLSearchParams({
     grant_type: 'authorization_code',

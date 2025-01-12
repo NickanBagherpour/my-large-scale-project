@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Input, Button, Typography } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
-import { Paragraph } from '../../../../../../ui-kit/src/typography/typography.style';
 
 export const Container = styled.section`
   margin: 2.4rem 0;

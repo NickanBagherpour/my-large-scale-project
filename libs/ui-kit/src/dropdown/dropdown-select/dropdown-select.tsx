@@ -163,7 +163,6 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
 
   const menuProps = {
     items,
-    onClick: handleMenuClick,
   };
 
   const uniqueId = uuid();

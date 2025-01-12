@@ -2,7 +2,7 @@ import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  step: 0,
+  step: null,
   serviceName: '',
   stepStatuses: [
     { name: 'generalInfo', status: 'process' },
@@ -17,7 +17,7 @@ export const initialStateValue: WidgetStateType = {
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
     case 'NEXT_STEP': {
-      if (state.step < steps.length - 1) {
+      if (state.step !== null && state.step < steps.length - 1) {
         state.stepStatuses[state.step].status = 'finish';
 
         const maybeNextStepIndex = state.stepStatuses.findIndex(
@@ -32,11 +32,12 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
           state.stepStatuses[maybeNextStepIndex].status = 'process';
         }
       }
+
       return undefined;
     }
 
     case 'PREVIOUS_STEP': {
-      if (state.step > 0) {
+      if (state.step !== null && state.step > 0) {
         const currentStatus = state.stepStatuses[state.step].status;
         state.stepStatuses[state.step].status = currentStatus !== 'error' ? 'wait' : currentStatus; // if status is error, don't change it
         state.step--;

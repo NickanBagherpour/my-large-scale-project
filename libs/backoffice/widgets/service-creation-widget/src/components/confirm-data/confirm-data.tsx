@@ -3,18 +3,28 @@ import * as S from './confirm-data.style';
 import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import type { InfoItemType } from '@oxygen/types';
 import Footer from '../footer/footer';
-import { previousStep, useAppDispatch } from '../../context';
+import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
-import ResultModal from '../result-modal/result-modal';
 import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
 import { UpstreamTarget } from '../../types';
+import { Button } from '@oxygen/ui-kit';
+import { ROUTES } from '@oxygen/utils';
+import { StatusModal } from '@oxygen/reusable-components';
+
+const mapStatuses = {
+  success: 'success',
+  pending: 'loading',
+  idle: 'loading',
+  error: 'error',
+} as const;
 
 export default function ConfirmData() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
+  const state = useAppState();
   const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
   const { data: service, isFetching: isFetchingService } = useGetService();
   const { data: route, isFetching: isFetchingRoute } = useGetRoute();
@@ -36,12 +46,17 @@ export default function ConfirmData() {
       {
         key: 'tag',
         fullwidth: true,
-        value:
-          tags.map(({ id, title }) => (
-            <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
-              {title}
-            </Chip>
-          )) ?? '-',
+        value: tags.length ? (
+          <S.Chips>
+            {tags.map(({ id, title }) => (
+              <Chip ellipsis type='active' key={id} tooltipOnEllipsis tooltipTitle={title}>
+                {title}
+              </Chip>
+            ))}
+          </S.Chips>
+        ) : (
+          '-'
+        ),
       },
     ];
   }
@@ -125,6 +140,14 @@ export default function ConfirmData() {
     toggleIsResultModalOpen();
   };
 
+  const stepErrors = state.stepStatuses.reduce((acc, step) => {
+    if (step.error) {
+      const newErrors = Object.values(step.error).map((value) => ({ code: null, message: value }));
+      return [...acc, ...newErrors];
+    }
+    return acc;
+  }, [] as Array<{ code: string | null; message: string }>);
+
   return (
     <>
       <Container>
@@ -159,8 +182,55 @@ export default function ConfirmData() {
         </div>
         <Footer onRegister={onRegister} onReturn={onReturn} />
       </Container>
-
-      <ResultModal status={status} isOpen={isResultModalOpen} toggle={toggleIsResultModalOpen} />
+      <StatusModal
+        isOpen={isResultModalOpen}
+        status={mapStatuses[status]}
+        loadingProps={{
+          description: t('we_are_processing_please_wait'),
+          footer: (
+            <Button icon={<i className='icon-home-empty' />} variant='outlined' color='primary' disabled>
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        successProps={{
+          description: t('register_request_was_submitted'),
+          footer: (
+            <Button variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              <i className='icon-home-empty' />
+              {t('service_managment')}
+            </Button>
+          ),
+        }}
+        errorProps={{
+          description: stepErrors?.length ? undefined : t('data_wasnt_registered'),
+          children: (
+            <S.ErrorsList>
+              {stepErrors.map(({ message, code }, idx) => (
+                <S.RequestError key={idx}>
+                  <S.ErrIcon className='icon-warning' />
+                  <S.ErrMsg>{message}</S.ErrMsg>
+                  {code && <S.ErrCode>{`(${t('err')} ${code})`}</S.ErrCode>}
+                </S.RequestError>
+              ))}
+            </S.ErrorsList>
+          ),
+          footer: [
+            stepErrors?.length ? (
+              <Button icon={<i className='icon-edit' />} onClick={() => goToFirstError(dispatch)}>
+                {t('edit_data')}
+              </Button>
+            ) : (
+              <Button icon={<i className='icon-home-empty' />} href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+                {t('service_managment')}
+              </Button>
+            ),
+            <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+              {t('save_in_draft')}
+            </Button>,
+          ],
+        }}
+      />
     </>
   );
 }
