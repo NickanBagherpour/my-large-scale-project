@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -11,6 +11,7 @@ import { Loading } from '@oxygen/ui-kit';
 import { reportUrlList } from '../../utils/consts';
 
 import * as S from './app.style';
+import { changeIframeElementStyle } from '../../utils/change-dom-style';
 type AppProps = PageProps & {
   //
 };
@@ -34,6 +35,7 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
   const [loading, setLoading] = useState(true);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   /* Sample Query Usage
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 
@@ -47,7 +49,9 @@ const App: React.FC<AppProps> = (props) => {
      return params;
    }
  */
-  console.log('reportUrl', props);
+  useEffect(() => {
+    if (!loading) changeIframeElementStyle(iframeRef.current, 'iframe footer', 'display:none');
+  }, [loading]);
 
   function getReportUrl(id: keyof typeof reportUrlList) {
     const theme = 'light';
@@ -68,7 +72,12 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <>
       {loading && <Loading containerProps={{ display: 'flex', height: '100%' }} />}
-      <StyledIframe src={reportUrl} onLoad={() => setLoading(false)} style={{ display: loading ? 'none' : 'block' }} />
+      <StyledIframe
+        ref={iframeRef}
+        src={reportUrl}
+        onLoad={() => setLoading(false)}
+        style={{ display: loading ? 'none' : 'block' }}
+      />
     </>
   );
 };

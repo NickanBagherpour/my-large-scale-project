@@ -16,6 +16,10 @@ export const InfoboxContainer = styled.div`
   ${respondTo.down('sm')} {
     grid-template-columns: repeat(1, 1fr);
   }
+
+  .upstream-box {
+    height: 100%;
+  }
 `;
 export const TrashIcon = styled.i`
   font-size: 2rem;

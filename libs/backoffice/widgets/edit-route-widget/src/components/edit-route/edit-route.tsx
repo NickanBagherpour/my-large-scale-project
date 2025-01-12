@@ -133,11 +133,31 @@ const EditRoute: React.FC<EditScopeProps> = () => {
           }}
         >
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM_NAMES.method} className={'span-2'} label={t('method')} rules={[rule]}>
+            <Form.Item
+              name={FORM_ITEM_NAMES.method}
+              className={'span-2'}
+              label={t('method')}
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.required'),
+                },
+              ]}
+            >
               <Select options={methodsSelectOptions} placeholder={t('placeholders.method')} size='large' />
             </Form.Item>
 
-            <Form.Item name={FORM_ITEM_NAMES.protocol} className={'span-2'} label={t('protocol')} rules={[rule]}>
+            <Form.Item
+              name={FORM_ITEM_NAMES.protocol}
+              className={'span-2'}
+              label={t('protocol')}
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.required'),
+                },
+              ]}
+            >
               <Select options={protocolsSelectOptions} placeholder={t('placeholders.protocol')} size='large' />
             </Form.Item>
 
@@ -148,7 +168,22 @@ const EditRoute: React.FC<EditScopeProps> = () => {
                 placeholder={t('placeholders.path')}
               />
             </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.host} className={'span-2'} label={t('host')} rules={[rule]}>
+
+            <Form.Item
+              name={FORM_ITEM_NAMES.host}
+              className={'span-2'}
+              label={t('host')}
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.required'),
+                },
+                // {
+                //   pattern: /^[A-Za-z][A-Za-z0-9_-]*$/,
+                //   message: t('host_validation_error'),
+                // },
+              ]}
+            >
               <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.host')} />
             </Form.Item>
           </SearchItemsContainer>

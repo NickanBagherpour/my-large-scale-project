@@ -24,6 +24,11 @@ export const TagsContainer = styled.div`
     font-size: 1.1rem;
     min-height: auto;
     height: auto;
+    margin-top: 1rem;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 

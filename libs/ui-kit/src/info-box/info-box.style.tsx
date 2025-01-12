@@ -68,6 +68,7 @@ export const InfoBoxWrapper = styled.div<{ min_col: number; margin?: string | nu
         font-size: 1.4rem;
         font-weight: normal;
         color: ${(p) => p.theme.text.secondary};
+        word-wrap: anywhere;
         // text-align: left;
         unicode-bidi: plaintext;
         // direction: ltr;
