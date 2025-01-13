@@ -1,20 +1,25 @@
 {
-    "name": "business-portal",
-    "version": "0.0.17",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/business-portal",
-    "projectType": "application",
-    "tags": ["type:portal"],
-    "// targets": "to see all targets run: nx show project business-portal --web",
-    "targets": {
-        "build": {
-            "executor": "@nx/next:build",
-            "outputs": ["{options.outputPath}"],
-            "defaultConfiguration": "production",
-            "options": {
-                "root": "apps/business-portal",
-                "outputPath": "dist/apps/business-portal"
-            }
-        }
+  "name": "business-portal",
+  "version": "0.0.18",
+  "tryCount": "1",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/business-portal",
+  "projectType": "application",
+  "tags": [
+    "type:portal"
+  ],
+  "// targets": "to see all targets run: nx show project business-portal --web",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/business-portal",
+        "outputPath": "dist/apps/business-portal"
+      }
     }
+  }
 }

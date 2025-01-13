@@ -1,8 +1,4 @@
-import { Loading as UiKitLoading } from '@oxygen/ui-kit';
+import { Loading as UikitLoading } from '@oxygen/ui-kit';
 export default function Loading() {
-  return (
-    <div>
-      <UiKitLoading />
-    </div>
-  );
+  return <UikitLoading containerProps={{ display: 'flex', alignItems: 'center', height: '100vh' }} />;
 }

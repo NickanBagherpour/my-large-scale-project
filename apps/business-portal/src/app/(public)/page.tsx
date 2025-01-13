@@ -8,7 +8,7 @@ export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace(ROUTES.BUSINESS.REQUEST_LIST);
+    router.replace(ROUTES.BUSINESS.DASHBOARD);
   }, [router]);
 
   return null;
