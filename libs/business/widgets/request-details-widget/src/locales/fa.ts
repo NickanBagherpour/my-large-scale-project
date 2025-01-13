@@ -62,4 +62,8 @@ export default {
   confirm_question_business:
     'تایید درخواست کلاینت {{clientName}} به منزله انعقاد قرارداد می‌باشد. آیا درخواست را تایید می‌نمایید؟',
   reject_reason: 'دلیل رد درخواست...',
+  company_is_aggregator: 'شرکت اگریگیتور است',
+  company_has_aggregator: 'شرکت اگریگیتور دارد',
+  company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+  company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
 };
