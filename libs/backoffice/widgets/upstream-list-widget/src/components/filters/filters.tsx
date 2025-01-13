@@ -36,6 +36,7 @@ export default function Filters() {
 
       await mutate(params, {
         onSuccess: () => {
+          setOpenModal(false);
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
           updateMessageAction(dispatch, {
             description: t('create_upstream_success'),
