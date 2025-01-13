@@ -6,7 +6,6 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { RQKEYS } from '@oxygen/utils';
-import { queryClient } from '@oxygen/client';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
@@ -14,6 +13,7 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.ut
 import { useDeleteService } from '../../services/delete-service.api';
 
 import * as S from './data-table.style';
+import { useQueryClient } from '@tanstack/react-query';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
@@ -24,6 +24,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
   const { message, pagination, ...rest } = useAppState();
   const [t] = useTr();
+  const queryClient = useQueryClient();
 
   const { mutate, isPending } = useDeleteService();
 
