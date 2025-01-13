@@ -26,12 +26,12 @@ export const TagContainer = styled.div`
 `;
 
 export const FormItem = styled(Form.Item)`
-  flex: 0 1 calc(33% - ${formGap} / 3);
+  flex: 0 1 calc(33% - ${formGap});
   ${respondTo.down('sm')} {
     flex-basis: 100%;
   }
   ${respondTo.between('sm', 'lg')} {
-    flex-basis: calc(50% - ${formGap} / 2);
+    flex-basis: calc(50% - ${formGap});
   }
 `;
 export const TagPicker = styled.div`
