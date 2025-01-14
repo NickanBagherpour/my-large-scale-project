@@ -1,4 +1,3 @@
-import { SubmissionId } from './../../../../../business/widgets/request-details-widget/src/types/get-submission-detail.type';
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
@@ -9,7 +8,7 @@ export const useGetRequestQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICES_LIST.GET_LIST],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_REGISTRATION.REQUEST],
     queryFn: withErrorHandling(() => Api.getRequestData(), dispatch),
     placeholderData: keepPreviousData,
   });
@@ -19,7 +18,7 @@ export const useGetRequestDataQuery = (submissionId: string) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_REQUEST_DATA],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_REGISTRATION.GET_REQUEST_DATA],
     queryFn: withErrorHandling(() => Api.geRequestData(submissionId), dispatch),
     placeholderData: keepPreviousData,
     refetchOnMount: true,

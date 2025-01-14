@@ -17,10 +17,10 @@ export const usePostAssignScopeToService = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
         refetchType: 'active',
       });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
   });
 };

@@ -6,7 +6,7 @@ import { useAppDispatch } from '../context';
 export const useGetServiceTags = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.TAGS],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.TAGS],
     queryFn: withErrorHandling(() => Api.getTags(), dispatch),
   });
 };

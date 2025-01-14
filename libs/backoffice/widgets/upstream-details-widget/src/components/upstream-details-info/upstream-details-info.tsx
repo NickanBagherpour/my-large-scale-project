@@ -34,14 +34,14 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
         description: values.description,
       };
 
-      await mutate(params, {
+      mutate(params, {
         onSuccess: () => {
           updateMessageAction(dispatch, {
             description: t('edit_upstream_success'),
             type: 'success',
             shouldTranslate: false,
           });
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST] });
         },
       });
     } catch (error) {

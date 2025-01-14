@@ -12,7 +12,7 @@ export const useUpstreamCardDetailsQuery = (params: string | number) => {
   const dispatch = useAppDispatch();
 
   return useQuery<UpstreamListData>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
     queryFn: withErrorHandling(() => Api.getUpstreamCardDetails(params), dispatch),
   });
 };

@@ -17,11 +17,11 @@ export const usePostRegisterToBaam = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.SERVICE, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SERVICE, serviceName],
       });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName] });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.ROUTE, serviceName] });
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
         refetchType: 'none',
       });
     },

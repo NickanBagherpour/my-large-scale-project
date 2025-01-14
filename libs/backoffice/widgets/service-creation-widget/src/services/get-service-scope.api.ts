@@ -8,7 +8,7 @@ export const useGetServiceScope = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
     enabled: !!serviceName,
     queryFn: withErrorHandling(() => Api.getServiceScope(serviceName), dispatch, { ignore404Errors: true }),
   });

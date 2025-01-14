@@ -10,7 +10,7 @@ export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_HISTORY.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',
