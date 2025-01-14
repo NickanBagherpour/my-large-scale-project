@@ -18,6 +18,10 @@ export const useDeleteUpstream = () => {
       await queryClient.invalidateQueries({
         queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST, RQKEYS.UPSTREAM_LIST.GET_UPSTREAM_SERVICES],
       });
+
+      await queryClient.refetchQueries({
+        queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST],
+      });
     },
     networkMode: 'offlineFirst',
   });
