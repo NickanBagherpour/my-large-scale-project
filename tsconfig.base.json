@@ -119,7 +119,6 @@
                 "libs/business/widgets/request-list-widget/src/index.ts"
             ],
             "@oxygen/client": ["libs/client/src/index.ts"],
-            "@oxygen/customer/auth": ["libs/customer/auth/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
             "@oxygen/customer/widgets/auth-widget": [
                 "libs/customer/widgets/auth-widget/src/index.ts"
