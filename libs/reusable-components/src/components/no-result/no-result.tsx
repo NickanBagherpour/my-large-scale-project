@@ -10,12 +10,12 @@ type Props = {
   isLoading: boolean;
   link?: string;
   title?: string;
-  handleClick?: boolean;
+  hasReturnButton?: boolean;
   children?: ReactNode;
 } & React.ComponentProps<'div'>;
 
 const NoResult = (props: Props) => {
-  const { isLoading, title, link, handleClick, children, ...restOfProps } = props;
+  const { isLoading, title, link, hasReturnButton, children, ...restOfProps } = props;
   const [t] = useTr();
   const router = useRouter();
 
@@ -33,7 +33,7 @@ const NoResult = (props: Props) => {
         <S.BoxContainer>
           <S.Empty description={displayTitle} />
           {link ||
-            (handleClick && (
+            (hasReturnButton && (
               <S.ButtonContainer>
                 <S.ReturnButton
                   size={'middle'}

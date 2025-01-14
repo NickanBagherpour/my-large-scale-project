@@ -65,7 +65,7 @@ const App: React.FC<AppProps> = (props) => {
   }, [servicename]);
 
   if (!servicename) {
-    return <NoResult isLoading={false} handleClick={true} />;
+    return <NoResult isLoading={false} hasReturnButton={true} />;
   }
 
   const items = [
