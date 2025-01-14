@@ -9,7 +9,7 @@ export const useGetRequestsQuery = (params: RequestParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CLIENTS_LIST.GET_LIST, params],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_MANAGEMENT.REQUESTS, params],
     queryFn: withErrorHandling(() => Api.getRequestsListData(params), dispatch),
     placeholderData: keepPreviousData,
   });
@@ -19,7 +19,7 @@ export const useGetRequestsDraftsQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.CLIENTS_LIST.GET_LIST],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_MANAGEMENT.DRAFTS],
     queryFn: withErrorHandling(() => Api.getRequestDraftListData(), dispatch),
     placeholderData: keepPreviousData,
   });

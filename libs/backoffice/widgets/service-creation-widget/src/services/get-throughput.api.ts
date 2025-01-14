@@ -6,7 +6,7 @@ import Api from './api';
 export const useGetThroughput = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.THROUGHPUT],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.THROUGHPUT],
     queryFn: withErrorHandling(() => Api.getThroughput(), dispatch),
   });
 };

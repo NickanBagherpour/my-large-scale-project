@@ -9,7 +9,7 @@ export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_HISTORY.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getServiceHistoryData(params), dispatch),
     placeholderData: keepPreviousData,
   });

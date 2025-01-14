@@ -8,7 +8,7 @@ export const useGetRequestListQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT, params],
+    queryKey: [RQKEYS.BUSINESS.REQUEST_LIST.REQUEST_MANAGEMENT, params],
     queryFn: withErrorHandling(() => Api.getRequestList(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',

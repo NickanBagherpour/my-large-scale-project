@@ -34,7 +34,7 @@ export default function Filters() {
         description: values.description,
       };
 
-      await mutate(params, {
+      mutate(params, {
         onSuccess: () => {
           setOpenModal(false);
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
@@ -43,7 +43,7 @@ export default function Filters() {
             type: 'success',
             shouldTranslate: false,
           });
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_LIST] });
         },
       });
     } catch (error) {

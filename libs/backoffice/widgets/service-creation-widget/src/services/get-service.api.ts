@@ -8,7 +8,7 @@ export const useGetService = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE, serviceName],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SERVICE, serviceName],
     enabled: !!serviceName,
     queryFn: withErrorHandling(() => Api.getService(serviceName), dispatch, { ignore404Errors: true }),
   });

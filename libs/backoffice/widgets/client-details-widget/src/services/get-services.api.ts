@@ -8,7 +8,7 @@ import type { Pagination } from '@oxygen/types';
 export const useGetServicesQuery = (params: Pagination) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_DETAILS.SERVICES, params],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_DETAILS.SERVICES, params],
     queryFn: withErrorHandling(() => Api.getServicesData(params), dispatch),
     placeholderData: keepPreviousData,
   });

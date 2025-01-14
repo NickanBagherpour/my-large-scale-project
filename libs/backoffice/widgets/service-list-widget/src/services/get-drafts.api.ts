@@ -7,7 +7,7 @@ import Api from './api';
 export const useGetDraftsQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICES_LIST.DRAFTS],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS],
     queryFn: withErrorHandling(() => Api.getDraftsData(), dispatch),
     placeholderData: keepPreviousData,
   });

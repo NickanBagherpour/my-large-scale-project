@@ -9,7 +9,7 @@ export const useGetUpstreamDetailsQuery = (upstreamName: string | null) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, upstreamName],
+    queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST, upstreamName],
     queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(upstreamName), dispatch),
     placeholderData: keepPreviousData,
   });

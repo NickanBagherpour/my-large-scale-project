@@ -17,7 +17,7 @@ export const useUpstreamCardsDetailQuery = (params: CardsDetailParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery<UpstreamCardsData>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
     queryFn: withErrorHandling(() => Api.getUpstreamCardsDetail(params), dispatch),
   });
 };
