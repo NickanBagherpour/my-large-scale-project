@@ -8,7 +8,7 @@ import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
 
-import { updateMessageAction, updateSearchTermAction, useAppDispatch } from '../../context';
+import { updateMessageAction, updatePagination, updateSearchTermAction, useAppDispatch } from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
 
 import * as S from './filters.style';
@@ -23,6 +23,7 @@ export default function Filters() {
 
   useBounce(() => {
     updateSearchTermAction(dispatch, value);
+    updatePagination(dispatch, { page: 1 });
   }, [value]);
 
   const { mutate, status } = useCreateUpstreamMutation();
@@ -37,7 +38,6 @@ export default function Filters() {
       mutate(params, {
         onSuccess: () => {
           setOpenModal(false);
-          router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
           updateMessageAction(dispatch, {
             description: t('create_upstream_success'),
             type: 'success',
