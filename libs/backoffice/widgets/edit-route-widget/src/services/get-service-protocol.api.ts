@@ -6,7 +6,7 @@ import Api from './api';
 export const useGetServiceProtocol = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE_PROTOCOL],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SERVICE_PROTOCOL],
     queryFn: withErrorHandling(() => Api.getServiceProtocol(), dispatch),
   });
 };

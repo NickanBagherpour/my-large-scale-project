@@ -8,7 +8,7 @@ import Api from '../api';
 export const useSelectDataQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_CREATION.SELECT_OPTIONS],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_REGISTRATION.SELECT_OPTIONS],
     queryFn: withErrorHandling(() => Api.getSelectData(), dispatch),
   });
 };
@@ -41,7 +41,7 @@ export const useGetOrganizationsQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_LIST],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_REGISTRATION.GET_LIST],
     queryFn: withErrorHandling(() => Api.getOrganizationsListData(), dispatch),
     placeholderData: keepPreviousData,
   });
@@ -51,7 +51,7 @@ export const useGetAggregatorsQuery = (params: AggregatorsParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.REQUEST_REGISTRATION.GET_AGGREGATOR_LIST],
+    queryKey: [RQKEYS.CUSTOMER.REQUEST_REGISTRATION.GET_AGGREGATOR_LIST],
     queryFn: withErrorHandling(() => Api.getAggregatorsListData(params), dispatch),
     placeholderData: keepPreviousData,
   });

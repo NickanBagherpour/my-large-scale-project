@@ -40,7 +40,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE],
+            queryKey: [RQKEYS.BUSINESS.EDIT_REQUEST_LIST.UPDATE],
           });
         } catch (error) {
           //

@@ -10,7 +10,7 @@ export const useGetUpstreamListQuery = (params: FetchUpstreamListParamsType) => 
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getUpstreamData(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',

@@ -9,7 +9,7 @@ export const useGetTags = () => {
   const dispatch = useAppDispatch();
 
   return useQuery<TagsType>({
-    queryKey: [RQKEYS.EDIT_CLIENT_KEYS.TAGS],
+    queryKey: [RQKEYS.BACKOFFICE.EDIT_CLIENT_KEYS.TAGS],
     queryFn: withErrorHandling(() => Api.getTagsInfo(), dispatch),
   });
 };

@@ -29,10 +29,9 @@ export default function Upstreams(props: Props) {
   const state = useAppState();
   const [upstreamName, setUpstreamName] = useState<Nullable<string>>();
   const [openModal, setOpenModal] = useState(false);
-
   const {
-    table: { pagination = { page: 1, rowsPerPage: 5 } } = { pagination: { page: 1, rowsPerPage: 5 } }, // Fallback for pagination
-  } = state || {};
+    table: { pagination },
+  } = state;
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;

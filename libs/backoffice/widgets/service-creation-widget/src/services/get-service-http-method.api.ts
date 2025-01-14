@@ -6,7 +6,7 @@ import Api from './api';
 export const useGetServiceHttpMethod = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.SERVICE_HTTP_METHOD],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SERVICE_HTTP_METHOD],
     queryFn: withErrorHandling(() => Api.getServiceHttpMethod(), dispatch),
   });
 };

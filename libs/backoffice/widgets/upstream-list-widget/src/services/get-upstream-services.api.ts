@@ -8,7 +8,7 @@ import { useAppDispatch } from '../context';
 export const useGetUpstreamServicesQuery = (params: FetchUpstreamServiceParamsType) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_LIST.GET_UPSTREAM_SERVICES, params],
+    queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_UPSTREAM_SERVICES, params],
     queryFn: withErrorHandling(() => Api.getUpstreamServices(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',

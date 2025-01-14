@@ -1,14 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { useAppDispatch } from '../context';
+import { RQKEYS } from '@oxygen/utils';
 import Api from './api';
 
 export const useGetCaptchaQuery = () => {
-  const dispatch = useAppDispatch();
-
   return useQuery({
-    queryKey: [RQKEYS.CUSTOMER_AUTH.CAPTCHA],
+    queryKey: [RQKEYS.CUSTOMER.AUTH.CAPTCHA],
     queryFn: () => Api.getCaptcha(),
     staleTime: 0,
     select: (res) => {

@@ -9,7 +9,7 @@ export const useGetScopeHistoryQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SCOPE_CHANGE_HISTORY.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.SCOPE_CHANGE_HISTORY.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getScopeChangeHistoryData(params), dispatch),
   });
 };

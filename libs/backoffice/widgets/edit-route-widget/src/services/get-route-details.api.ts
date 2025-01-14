@@ -9,7 +9,7 @@ export const useGetRouteDetailsQuery = (params: any) => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.ROUTE_DETAILS.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.ROUTE_DETAILS.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getRouteDetails(params), dispatch),
   });
 };
