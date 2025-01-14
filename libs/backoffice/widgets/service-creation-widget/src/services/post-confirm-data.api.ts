@@ -30,6 +30,8 @@ function isPublisherError(err: AxiosError<unknown>): err is AxiosError<Publisher
   return !!errorData && typeof errorData === 'object' && 'errors' in errorData && typeof errorData.errors === 'object';
 }
 
+const { SERVICES_LIST, SERVICE } = RQKEYS.BACKOFFICE;
+
 export const usePostConfirmData = () => {
   const dispatch = useAppDispatch();
   const { serviceName } = useAppState();
@@ -38,8 +40,8 @@ export const usePostConfirmData = () => {
   return useMutation({
     mutationFn: () => Api.postCofirmData(serviceName),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.GET_LIST] });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE] });
+      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
     onError: (e) => {
       if (isAxiosError(e) && isPublisherError(e)) {

@@ -4,10 +4,12 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 import { UpstreamsParams } from '../types';
 
+const { UPSTREAM, SERVICE_CREATION } = RQKEYS.BACKOFFICE;
+
 export const useGetUpstreams = (params: UpstreamsParams) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.UPSTREAMS, params],
+    queryKey: [UPSTREAM, SERVICE_CREATION.UPSTREAMS, params],
     queryFn: withErrorHandling(() => Api.getUpstreams(params), dispatch),
     placeholderData: keepPreviousData,
   });
