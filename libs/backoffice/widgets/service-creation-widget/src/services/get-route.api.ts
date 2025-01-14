@@ -8,7 +8,7 @@ export const useGetRoute = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.ROUTE, serviceName],
     enabled: !!serviceName,
     queryFn: withErrorHandling(() => Api.getRoute(serviceName), dispatch, { ignore404Errors: true }),
   });

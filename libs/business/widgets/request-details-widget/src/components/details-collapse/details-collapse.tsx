@@ -85,6 +85,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
                 type='primary'
                 style={{ margin: 0 }}
                 icon={<i className='icon-edit' />}
+                onClick={(e) => e.stopPropagation()}
                 href={`${ROUTES.BUSINESS.EDIT_REQUEST_LIST}?submissionId=${state?.submissionId}`}
               />
             </Tooltip>
@@ -101,7 +102,12 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   ];
 
-  return <Collapse items={items} collapsible={'icon'} />;
+  return (
+    <Collapse
+      items={items}
+      // collapsible={'icon'}
+    />
+  );
 };
 
 export default DetailsCollapse;

@@ -9,7 +9,7 @@ export const useGetServiceClientsListQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.SERVICE_CLIENTS_LIST.GET_LIST],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CLIENTS_LIST.GET_LIST],
     queryFn: withErrorHandling(() => Api.getServiceClientsList(), dispatch),
   });
 };

@@ -7,7 +7,7 @@ import Api from './api';
 export const useGetPluginsQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_DETAILS.PLUGINS],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_DETAILS.PLUGINS],
     queryFn: withErrorHandling(() => Api.getPluginsData(), dispatch),
     placeholderData: keepPreviousData,
   });

@@ -16,7 +16,7 @@ export const useUpstreamListQuery = (params: UseUpstreamListQueryParamsType) => 
   const { serviceName, id } = params;
   const dispatch = useAppDispatch();
   return useQuery<UpstreamListData>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.GET_UPSTREAM_LIST, serviceName, id],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST, serviceName, id],
     queryFn: withErrorHandling(() => Api.getUpstreamList(serviceName), dispatch),
   });
 };

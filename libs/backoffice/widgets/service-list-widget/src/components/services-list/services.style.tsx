@@ -21,7 +21,7 @@ export const Scope = styled(MarkText)`
 `;
 
 export const Url = styled.p`
-  color: ${(p) => p.theme.primary._500};
+  unicode-bidi: plaintext;
 `;
 
 export const Details = styled(Link)`

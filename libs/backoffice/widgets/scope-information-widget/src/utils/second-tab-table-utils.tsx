@@ -1,9 +1,9 @@
-import { ColumnsType, Table } from '@oxygen/ui-kit';
-import Link from 'next/link';
+import React from 'react';
 import { TFunction } from 'i18next';
 
-import { getValueOrDash } from '@oxygen/utils';
+import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
 
 import * as S from './second-tab-table-util.style';
 
@@ -14,7 +14,7 @@ export type Modal = {
 
 type Props = {
   t: TFunction;
-  toggleModal: (modal: keyof Modal) => void;
+  toggleModal: (modal: keyof Modal, item: boolean) => void;
   updateServiceName: (serviceName: string) => void;
   page: number;
   rowsPerPage: number;
@@ -61,14 +61,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.url'),
       dataIndex: 'path',
       align: 'center',
-      render: (value) =>
-        value ? (
-          <Link href={value} target='_blank' rel='noopener noreferrer'>
-            {value}
-          </Link>
-        ) : (
-          '-'
-        ),
+      render: (value) => <S.Url>{getValueOrDash(value)}</S.Url>,
     },
     {
       title: t('second_tab.version'),
@@ -88,7 +81,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
           color='primary'
           onClick={() => {
             updateServiceName(value?.name);
-            toggleModal('details');
+            toggleModal('details', true);
           }}
         >
           {t('details')}
@@ -123,13 +116,7 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
           { title: t('second_tab.scope'), value: getValueOrDash(scope) },
           {
             title: t('second_tab.url'),
-            value: path ? (
-              <Link href={path} target='_blank' rel='noopener noreferrer'>
-                {path}
-              </Link>
-            ) : (
-              '-'
-            ),
+            value: <S.Url>{getValueOrDash(path)}</S.Url>,
           },
           { title: t('second_tab.version'), value: getValueOrDash(version) },
           {
@@ -141,7 +128,7 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
                 color='primary'
                 onClick={() => {
                   updateServiceName(name);
-                  toggleModal('details');
+                  toggleModal('details', true);
                 }}
               >
                 {t('details')}

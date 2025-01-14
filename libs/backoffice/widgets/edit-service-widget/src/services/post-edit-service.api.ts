@@ -16,15 +16,15 @@ export const useEditServiceMutation = (onSuccess: (v?: string) => void) => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.EDIT_SERVICE.GET_DETAIL, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.EDIT_SERVICE.GET_DETAIL, serviceName],
         refetchType: 'none',
       });
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_DETAILS.GET_LIST, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_LIST, serviceName],
         refetchType: 'none',
       });
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICES_LIST.GET_LIST],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.GET_LIST],
         // Prevent immediate refetch to avoid potential conflicts between React context state and query cache state.
         // This can occur if useServiceInquiry is triggered again in the app component while the user is navigating
         // back to previous steps and editing them, especially when the initial step is greater than zero.
