@@ -57,16 +57,12 @@ const ConfirmModal: React.FC<Props> = (props) => {
 
     mutate(params, {
       onSuccess: async () => {
-        if (userRole === UserRole.COMMERCIAL_BANKING_ADMIN) {
-          await queryClient.invalidateQueries({
-            queryKey: [
-              RQKEYS.BUSINESS.REQUEST_DETAILS.GET_REQUEST_DETAIL,
-              RQKEYS.BUSINESS.REQUEST_LIST.REQUEST_MANAGEMENT,
-            ],
-          });
-        }
-        await queryClient.refetchQueries({ queryKey: [RQKEYS.BUSINESS.REQUEST_DETAILS.GET_REQUEST_DETAIL] });
-        await queryClient.refetchQueries({ queryKey: [RQKEYS.BUSINESS.REQUEST_LIST.REQUEST_MANAGEMENT] });
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BUSINESS.REQUEST_DETAILS.GET_REQUEST_DETAIL],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BUSINESS.REQUEST_LIST.REQUEST_MANAGEMENT],
+        });
       },
       onSettled: () => {
         setOpenModal(false);
