@@ -7,7 +7,7 @@ import Api from '../api';
 export const useGetnameTagDataQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_CREATION.NAME_TAG],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.NAME_TAG],
     queryFn: withErrorHandling(() => Api.getNameTagData(), dispatch),
   });
 };

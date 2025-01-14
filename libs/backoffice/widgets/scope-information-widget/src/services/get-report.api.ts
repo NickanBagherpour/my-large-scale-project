@@ -12,7 +12,7 @@ export const useGetFirstTabReportDataQuery = (props: useGetFirstTabReportDataQue
   const dispatch = useAppDispatch();
 
   return useQuery<Service>({
-    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_LIST, id],
+    queryKey: [RQKEYS.BACKOFFICE.SCOPE_INFORMATION.GET_LIST, id],
     queryFn: withErrorHandling(() => Api.getScopeInfo(id), dispatch),
   });
 };

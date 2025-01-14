@@ -1,4 +1,11 @@
 import { createQueryKeys } from '../create-query-keys';
 
 const prefix = 'REQUEST_REGISTRATION';
-export const KEYS = createQueryKeys(prefix, ['GET_LIST', 'GET_AGGREGATOR_LIST', 'GET_REQUEST_DATA', 'SEARCH']);
+export const KEYS = createQueryKeys(prefix, [
+  'GET_LIST',
+  'GET_AGGREGATOR_LIST',
+  'GET_REQUEST_DATA',
+  'SEARCH',
+  'SELECT_OPTIONS',
+  'REQUEST',
+]);

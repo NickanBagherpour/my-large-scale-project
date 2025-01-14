@@ -7,7 +7,7 @@ import Api from '../api';
 export const useSelectDataQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_CREATION.SELECT_OPTIONS],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.SELECT_OPTIONS],
     queryFn: withErrorHandling(() => Api.getSelectData(), dispatch),
   });
 };

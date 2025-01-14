@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppDispatch } from '../context';
@@ -15,7 +14,7 @@ export const useUploadServiceMutation = (onSuccess: () => void) => {
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
       onSuccess();
     },
   });

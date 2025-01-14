@@ -29,7 +29,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
-      payload: PaginationType;
+      payload: Partial<PaginationType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

@@ -17,10 +17,10 @@ export const usePostAssignUpstreamToService = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAM, serviceName],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.UPSTREAM, serviceName],
         refetchType: 'none',
       });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
   });
 };

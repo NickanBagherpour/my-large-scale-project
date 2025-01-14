@@ -7,7 +7,7 @@ import { UpstreamsParams } from '../types';
 export const useGetUpstreams = (params: UpstreamsParams) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAMS, params],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.UPSTREAMS, params],
     queryFn: withErrorHandling(() => Api.getUpstreams(params), dispatch),
     placeholderData: keepPreviousData,
   });

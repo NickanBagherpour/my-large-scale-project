@@ -8,7 +8,7 @@ export const useGetUpstream = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAM, serviceName],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.UPSTREAM, serviceName],
     enabled: !!serviceName,
     queryFn: withErrorHandling(() => Api.getUpstream(serviceName), dispatch, { ignore404Errors: true }),
   });

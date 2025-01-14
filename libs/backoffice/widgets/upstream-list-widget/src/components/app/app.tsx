@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
 import { useGetUpstreamListQuery } from '../../services';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
@@ -28,14 +28,22 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data: upstreams, isFetching } = useGetUpstreamListQuery(prepareParams());
 
+  useEffect(() => {
+    if (upstreams?.empty === true && upstreams?.totalElements !== 0) {
+      updatePagination(dispatch, { page: pagination.page - 1 });
+    }
+  }, [upstreams]);
+
   function prepareParams() {
     const params = {
-      ...pagination,
+      page: pagination.page - 1,
       size: pagination.rowsPerPage,
       ['search-field']: searchField,
+      // sort:state.sort,
     };
     return params;
   }
+
   const upstreamSubTitle = upstreams?.totalElements ? `(${upstreams?.totalElements ?? 0})` : '';
 
   return (

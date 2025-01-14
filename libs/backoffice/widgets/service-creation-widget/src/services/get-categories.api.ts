@@ -6,7 +6,7 @@ import Api from './api';
 export const useGetCategories = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.CATEGORIES],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.CATEGORIES],
     queryFn: withErrorHandling(() => Api.getCategories(), dispatch),
   });
 };

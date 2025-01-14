@@ -8,7 +8,7 @@ export const useGetServiceInfoQuery = (serviceName: string) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.EDIT_SERVICE.GET_DETAIL, serviceName],
+    queryKey: [RQKEYS.BACKOFFICE.EDIT_SERVICE.GET_DETAIL, serviceName],
     queryFn: withErrorHandling(() => Api.getServiceInfo(serviceName), dispatch),
   });
 };

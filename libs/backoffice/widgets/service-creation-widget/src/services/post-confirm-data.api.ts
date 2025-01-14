@@ -38,8 +38,8 @@ export const usePostConfirmData = () => {
   return useMutation({
     mutationFn: () => Api.postCofirmData(serviceName),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.GET_LIST] });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.GET_LIST] });
+      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
     onError: (e) => {
       if (isAxiosError(e) && isPublisherError(e)) {
