@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Loading } from '@oxygen/ui-kit';
@@ -9,14 +10,20 @@ type Props = {
   isLoading: boolean;
   link?: string;
   title?: string;
-  handleClick?: () => any;
+  handleClick?: boolean;
+  children?: ReactNode;
 } & React.ComponentProps<'div'>;
 
 const NoResult = (props: Props) => {
-  const { isLoading, title, link, handleClick, ...restOfProps } = props;
+  const { isLoading, title, link, handleClick, children, ...restOfProps } = props;
   const [t] = useTr();
+  const router = useRouter();
 
   const displayTitle = title || t('no_result.there_is_no_data_to_show');
+
+  const handleReturn = () => {
+    router.back();
+  };
 
   return (
     <S.NoResult {...restOfProps}>
@@ -33,12 +40,13 @@ const NoResult = (props: Props) => {
                   variant={'outlined'}
                   color={'primary'}
                   href={link}
-                  onClick={handleClick}
+                  onClick={handleReturn}
                 >
                   {t('button.return')}
                 </S.ReturnButton>
               </S.ButtonContainer>
             ))}
+          {children}
         </S.BoxContainer>
       )}
     </S.NoResult>

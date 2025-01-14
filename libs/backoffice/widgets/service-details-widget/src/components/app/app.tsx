@@ -6,8 +6,7 @@ import { useApp } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { ROUTES, uuid } from '@oxygen/utils';
-import { ReturnButton } from '@oxygen/reusable-components';
+import { NoResult, ReturnButton } from '@oxygen/reusable-components';
 import Route from '../route-info/route-info';
 import ServiceInfo from '../service-info/service-info';
 import { UpstreamList } from '../upstream-list/upstream-list';
@@ -58,15 +57,16 @@ const App: React.FC<AppProps> = (props) => {
 
   const servicename: Nullable<string> = searchParams.get('servicename');
 
+  const { mutate, isPending } = useAssignToServiceMutation();
+  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
+
   useEffect(() => {
     updateServerNameAction(dispatch, servicename);
   }, [servicename]);
 
   if (!servicename) {
-    redirect('/not-found');
+    return <NoResult isLoading={false} handleClick={true} />;
   }
-  const { mutate, isPending } = useAssignToServiceMutation();
-  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
 
   const items = [
     {

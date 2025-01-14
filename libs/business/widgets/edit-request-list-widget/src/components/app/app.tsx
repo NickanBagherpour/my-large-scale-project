@@ -43,7 +43,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const checkParams = (requestId, isLoading) => {
     if (!requestId) {
-      return <NoResult isLoading={isLoading} handleClick={() => router.back()} />;
+      return <NoResult isLoading={isLoading} handleClick={true} />;
     }
     return (
       <S.AppContainer title={t('widget_name')}>
