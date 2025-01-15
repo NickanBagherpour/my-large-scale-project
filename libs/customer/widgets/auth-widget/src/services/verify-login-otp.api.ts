@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { ApiUtil, encrypt, setCookie } from '@oxygen/utils';
+import { CookieKey } from '@oxygen/types';
 
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { CookieKey } from '@oxygen/types';
 import { AUTH_SESSION_DURATION } from '../utils/consts';
 
 export const useVerifyLoginMutation = () => {

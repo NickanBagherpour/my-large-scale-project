@@ -44,7 +44,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const handleLogout = async () => {
     // setOpenDrawer(false);
     // console.log('logout clicked');
-    await signOut({ redirect: false });
+    // await signOut({ redirect: false });
     logout();
   };
 

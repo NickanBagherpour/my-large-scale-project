@@ -1,5 +1,5 @@
 import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
-import jwt, { SignOptions, Algorithm, verify } from 'jsonwebtoken';
+import jwt, { Algorithm, SignOptions, verify } from 'jsonwebtoken';
 
 // Ensure that the JWT signature secret is available
 const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET as string;
@@ -118,6 +118,39 @@ export const processAndSignToken = (ssoToken: string, options?: SignOptions): st
   return newToken;
 };
 
+/**
+ * Processes an incoming SSO token by verifying it and re-signing with your secret.
+ *
+ * @param ssoToken - The incoming SSO JWT token string.
+ * @param options - Optional signing options for the new token.
+ * @param scopes - Optional signing options for the new scopes.
+ * @returns The newly signed JWT token string.
+ */
+export const processAndSignTokenWithScopes = (ssoToken: string, scopes?: string, options?: SignOptions): string => {
+  // Verify and decode the SSO token
+
+  const decodedPayload = decodeJWT(ssoToken);
+
+  if (!decodedPayload?.payload) {
+    throw new Error('Invalid decoded payload: payload is undefined.');
+  }
+
+  if (decodedPayload.payload?.scopes) {
+    decodedPayload.payload.scopes = scopes?.split('+') ?? [];
+  }
+
+  console.log('new scopes =>', decodedPayload.payload?.scopes);
+
+  // Optionally, you can manipulate the payload here if needed
+  // For example, remove sensitive information or add additional claims
+
+  // Sign a new token with the decoded payload
+  return signToken(decodedPayload?.payload, {
+    ...options,
+    algorithm: decodedPayload?.header?.alg as Algorithm,
+  });
+};
+
 export function decodeJWT(token: Nullable<string>): { header: JwtHeader; payload: JwtPayload } | null {
   if (!token) {
     console.error('No token provided to decode.');
@@ -160,7 +193,7 @@ function decodeBase64Url(input: string): string {
     return decodeURIComponent(
       Array.prototype.map
         .call(window.atob(base64), (c: string) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
+        .join(''),
     );
   } else if (typeof Buffer !== 'undefined') {
     return Buffer.from(base64, 'base64').toString('utf-8');

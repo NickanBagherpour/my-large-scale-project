@@ -73,7 +73,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         break;
       case MenuItemKey.Logout:
         if (isAuth) {
-          await signOut({ redirect: false });
+          // await signOut({ redirect: false });
           logout();
         }
         break;

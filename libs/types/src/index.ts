@@ -11,6 +11,5 @@ export * from './upstream-list';
 export * from './client-history';
 export * from './applicant-history';
 export * from './user.type';
-export * from './api-response';
 export * from './request-registration';
 export * from './scope-information';
