@@ -6,7 +6,7 @@
         "dev": "nx dev",
         "dev-backoffice": "nx dev backoffice-portal",
         "dev-business": "nx dev business-portal",
-        "dev-customer": "nx dev customer-pornexttal",
+        "dev-customer": "nx dev customer-portal",
         "start": "nx start",
         "start-prod": "nx serve portal --prod",
         "build": "nx build",
