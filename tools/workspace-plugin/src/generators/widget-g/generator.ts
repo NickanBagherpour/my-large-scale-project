@@ -61,7 +61,7 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
       constantName: names(schema.name).constantName.replace(/_widget$/i, ''),
       pageName: schema.pageName.replace(/_widget$/i, ''),
       tmpl: '',
-    } // config object to replace variable in file templates
+    }, // config object to replace variable in file templates
   );
   await formatFiles(tree);
 
@@ -76,7 +76,7 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
       ...schema,
       ...names(schema.name),
       tmpl: '',
-    } // config object to replace variable in file templates
+    }, // config object to replace variable in file templates
   );
 
   const utilsLibRQKPath = `libs/utils/src/lib/react-query-keys`;
@@ -85,14 +85,14 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
     tree, // the virtual file system
     joinPathFragments(__dirname, './utils-rqk-files/widgets'), // path to the file templates
     // joinPathFragments('libs/'), // destination path of the files
-    `${utilsLibRQKPath}/widgets`, // destination path of the files
+    `${utilsLibRQKPath}/portals/${schema.shortPortalName}`, // destination path of the files
     {
       ...schema,
       ...names(schema.name),
       constantName: names(schema.name).constantName.replace(/_widget$/i, ''),
       pageName: schema.pageName.replace(/_widget$/i, ''),
       tmpl: '',
-    } // config object to replace variable in file templates
+    }, // config object to replace variable in file templates
   );
 
   appendToUtilIndexFile(tree, utilsLibRQKPath, schema);

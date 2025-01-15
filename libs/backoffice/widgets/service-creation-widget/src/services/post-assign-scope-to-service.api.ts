@@ -4,6 +4,8 @@ import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
+const { SERVICE, SERVICE_CREATION, SCOPE, SERVICES_LIST } = RQKEYS.BACKOFFICE;
+
 export const usePostAssignScopeToService = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -17,10 +19,12 @@ export const usePostAssignScopeToService = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
+        queryKey: [SCOPE, SERVICE_CREATION.SCOPE, serviceName],
         refetchType: 'active',
       });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SCOPE], refetchType: 'none' });
     },
   });
 };
