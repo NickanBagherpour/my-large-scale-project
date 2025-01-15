@@ -1,0 +1,19 @@
+import { createQueryKeys } from '../../create-query-keys';
+
+const prefix = 'SERVICE_CREATION';
+export const KEYS = createQueryKeys(prefix, [
+  'SCOPES',
+  'SERVICE',
+  'ROUTE',
+  'UPSTREAMS',
+  'UPSTREAM_WITH_NAME',
+  'TAGS',
+  'CATEGORIES',
+  'SERVICE_ACCESS',
+  'THROUGHPUT',
+  'SCOPE',
+  'UPSTREAM',
+  'SERVICE_HTTP_METHOD',
+  'SERVICE_PROTOCOL',
+  'SERVICE_INQUIRY_STATUS',
+]);
