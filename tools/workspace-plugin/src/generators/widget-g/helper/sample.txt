@@ -1,5 +1,5 @@
 /*--import--*/
-import { KEYS as <%= constantName %>_KEYS } from './widgets/<%= pageName %>.key';
+import { KEYS as <%= constantName %>_KEYS } from './portals/<%= portalName %>/<%= pageName %>.key';
 /*--end import--*/
 
 /*--export--*/
