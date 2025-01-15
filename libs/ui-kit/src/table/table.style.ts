@@ -152,6 +152,19 @@ export const Table = styled(AntTable)<TableProps>`
   .ant-pagination {
     padding: 0.5 2rem;
     position: relative;
+    ${respondTo.down('sm')} {
+      display: flex;
+      align-items: center;
+
+      li:not(:last-child) {
+        flex: 1;
+      }
+
+      li:last-child {
+        justify-content: flex-start;
+        flex: 11;
+      }
+    }
   }
 
   li.ant-pagination-item > a {
@@ -222,6 +235,12 @@ export const Table = styled(AntTable)<TableProps>`
     margin: 0 1.6rem 0 0;
     position: absolute;
     left: 0;
+
+    ${respondTo.down('sm')} {
+      position: static;
+      display: flex;
+      justify-content: center;
+    }
   }
   .ant-btn-icon {
     margin: 0;
