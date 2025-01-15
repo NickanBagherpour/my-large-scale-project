@@ -1,4 +1,3 @@
-import { User as AuthUser } from 'next-auth';
 import { z } from 'zod';
 
 export const userSchema = z.object({
@@ -7,7 +6,7 @@ export const userSchema = z.object({
   name: z.string().optional(),
 });
 
-export type User = AuthUser & z.infer<typeof userSchema>;
+export type User = z.infer<typeof userSchema>;
 
 export interface UserToken {
   email?: string;
