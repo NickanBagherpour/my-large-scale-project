@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Form } from 'antd';
-import { signIn } from 'next-auth/react';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAuth } from '@oxygen/hooks';

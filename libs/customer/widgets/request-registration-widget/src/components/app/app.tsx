@@ -14,7 +14,7 @@ import { ThirdStep } from '../third-step/third-step';
 import SecondStep from '../second-step/second-step';
 import { resetErrorMessageAction, useAppDispatch, useAppState, updateAllStateFromDraftsAction } from '../../context';
 import { useQueryParams } from '@oxygen/hooks';
-import { useGetRequestDataFromDraftsMutationQuery } from '../../services/draftsRequest-data';
+import { useGetRequestDataFromDraftsMutationQuery } from '../../services/drafts-request-data';
 
 import * as S from './app.style';
 
