@@ -16,13 +16,29 @@ export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
   });
 };
 
-export const useGetServiceHistory = (params: { page: number; size: number }) => {
-  const { page, size } = params;
+type Service = {
+  id: number;
+  name: string;
+  persianName: string;
+  scope: string;
+  version: string;
+  path: string;
+  isActive: boolean;
+};
 
-  return useChangeHistoryQuery({
-    queryKey: ['hello', RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, params],
+const { UPSTREAM, UPSTREAM_HISTORY } = RQKEYS.BACKOFFICE;
+
+export const useGetUpstreamHistory = (params: { page: number; size: number }) => {
+  const { page, size } = params;
+  const dispatch = useAppDispatch();
+
+  return useChangeHistoryQuery<Service>({
+    queryKey: [UPSTREAM, UPSTREAM_HISTORY.GET_LIST],
     url: '/v1/services',
-    page,
-    size,
+    dispatch,
+    params: {
+      page,
+      size,
+    },
   });
 };

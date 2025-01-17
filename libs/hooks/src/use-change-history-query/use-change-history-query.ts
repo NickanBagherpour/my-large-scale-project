@@ -1,119 +1,58 @@
-import { useQuery, type QueryKey } from '@tanstack/react-query';
-import { client, portalUrl } from '@oxygen/client';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { withErrorHandling } from '@oxygen/utils';
+import { Props } from './types';
+import { api } from './api';
 
-type Props = {
-  url: string;
-  queryKey: QueryKey;
-  // TODO: add the ability to pass more params like sort, etc.
-  page: number;
-  size: number;
-};
-
-type Params<T extends object = Record<string, never>> = {
-  page: number;
-  size: number;
-} & T;
-
-type Upstream = {
-  id: number;
-  name: string;
-  description: string;
-  activeServerCount: number;
-};
-
-const api = {
-  async getList<TContent extends Array<any>, TParams extends object = Record<string, any>>({
+export default function useChangeHistoryQuery<TContentItem extends object>(props: Props) {
+  const {
+    queryKey,
     url,
     params,
-  }: {
-    url: string;
-    params: Params<TParams>;
-  }) {
-    return client.get<ApiResponse<TContent>>(`${portalUrl}${url}`, {
-      params,
-    });
-  },
-};
+    params: { size, page },
+    dispatch,
+  } = props;
 
-export default function useChangeHistoryQuery(props: Props) {
-  const { queryKey, url, page, size } = props;
+  const nextItemParams = { page: page * size + size, size: 1 };
 
-  const { data, isFetching: isFetchingCurrentPage } = useQuery({
-    queryKey,
-    // 'http://uat.bo.oxygenpro.ir/publisher/api/v1/upstreams?page=0&size=10&sort=createDate%2CDESC'
-    queryFn: withErrorHandling(
-      /* TODO: pass dispatch to this */ () => api.getList<Upstream[]>({ url, params: { page, size } })
-    ),
+  const { data: currentPageData, isFetching: isFetchingCurrentPage } = useQuery({
+    queryKey: [...queryKey, params],
+    queryFn: withErrorHandling(() => api.getList<TContentItem[]>({ url, params }), dispatch),
+    placeholderData: keepPreviousData,
   });
 
-  const nextItemPage = page * size + size + 1;
-
   const { data: nextItemData, isFetching: isFetchingPreviousItem } = useQuery({
-    queryKey: [...queryKey, 'previousItem'],
-    queryFn: withErrorHandling(
-      /* TODO: pass dispatch to this */ () => api.getList<Upstream[]>({ url, params: { page: nextItemPage, size: 1 } })
-    ),
+    queryKey: [...queryKey, nextItemParams],
+    queryFn: withErrorHandling(() => api.getList<TContentItem[]>({ url, params: nextItemParams }), dispatch),
   });
 
   const isFetching = isFetchingCurrentPage || isFetchingPreviousItem;
 
-  if (data && nextItemData) {
-    const combinedData = [...data.content, ...nextItemData.content];
+  if (currentPageData && nextItemData) {
+    const combinedData = [...currentPageData.content, ...nextItemData.content];
 
-    const newData = combinedData.map((item, index) => {
-      return Object.entries(item).reduce((acc, [key, value]) => {
-        const nextItemValue = combinedData?.[index + 1]?.[key];
-        const isDifferent = nextItemValue !== value;
+    const diffAnnotatedData = combinedData.map((item, index) =>
+      Object.entries(item).reduce((acc, [key, value]) => {
+        const nextItem = combinedData[index + 1];
+        const isDifferent = nextItem ? nextItem[key] !== value : false;
         return {
           ...acc,
-          [key]: {
-            isDifferent,
-            value,
-          },
+          [key]: { isDifferent, value },
         };
-      }, {} as any);
-    });
+      }, {} as { [K in keyof TContentItem]: { isDifferent: boolean; value: TContentItem[K] } })
+    );
 
-    newData.pop();
+    if (nextItemData.content.length) {
+      diffAnnotatedData.pop();
+    }
 
     return {
-      data: { ...data, content: newData },
-      isFetching,
-    };
-  } else {
-    return {
-      data: undefined,
+      data: { ...currentPageData, content: diffAnnotatedData },
       isFetching,
     };
   }
-}
 
-type ApiResponse<TContent extends Array<any>> = {
-  totalPages: number;
-  totalElements: number;
-  pageable: {
-    paged: boolean;
-    pageNumber: number;
-    pageSize: number;
-    unpaged: boolean;
-    offset: number;
-    sort: {
-      sorted: boolean;
-      unsorted: boolean;
-      empty: boolean;
-    };
+  return {
+    data: undefined,
+    isFetching,
   };
-  last: boolean;
-  numberOfElements: number;
-  first: boolean;
-  size: number;
-  content: TContent;
-  number: number;
-  sort: {
-    sorted: boolean;
-    unsorted: boolean;
-    empty: boolean;
-  };
-  empty: boolean;
-};
+}

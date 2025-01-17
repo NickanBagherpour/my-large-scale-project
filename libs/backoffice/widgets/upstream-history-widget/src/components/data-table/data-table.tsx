@@ -4,7 +4,7 @@ import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
 
@@ -12,8 +12,7 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useGetServiceHistory } from '../../services/get-service-history.api';
-import HistoryCell from 'libs/ui-kit/src/history-cell/history-cell';
+import { useGetUpstreamHistory } from '../../services/get-upstream-history.api';
 
 type AppProps = PageProps & {
   //
@@ -28,9 +27,8 @@ const DataTable: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
 
   const id = searchParams.get('historyId') || '';
-  // const { data, isFetching } = useGetsServiceHistoryDataQuery(prepareParams());
 
-  const { data, isFetching } = useGetServiceHistory({
+  const { data, isFetching } = useGetUpstreamHistory({
     page: page - 1,
     size: limit,
   });
@@ -48,7 +46,7 @@ const DataTable: React.FC<AppProps> = () => {
       dataIndex: 'editDate',
       // key: 'editDate',
       render: (value, _record, index) => {
-        return getValueOrDash(value); // TODO: this should display value.value
+        return getValueOrDash(value?.value); // TODO: this should display value.value
       },
       // width: 50,
     },
@@ -58,7 +56,6 @@ const DataTable: React.FC<AppProps> = () => {
       // key: 'adminName',
       ellipsis: true,
       render: (value, _record, index) => {
-        // return getValueOrDash(value);
         return <HistoryCell item={value} />;
       },
       // width: 50,

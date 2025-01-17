@@ -5,10 +5,8 @@ type Props = {
   item: { value: string | number | null | undefined | boolean; isDifferent: boolean };
 };
 
-export default function HistoryCell(props: Props) {
-  const {
-    item: { value, isDifferent },
-  } = props;
+export function HistoryCell(props: Props) {
+  const { item: { value, isDifferent } = {} } = props;
 
   const theme = useTheme();
 
