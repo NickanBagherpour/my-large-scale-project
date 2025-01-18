@@ -16,7 +16,7 @@ export default function DraftCard(props: DraftCardType) {
 
   const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    queryClient.setQueryData([RQKEYS.CLIENTS_LIST.DRAFTS], (oldData: DraftCardType[]) => {
+    queryClient.setQueryData([RQKEYS.BACKOFFICE.CLIENTS_LIST.DRAFTS], (oldData: DraftCardType[]) => {
       return oldData.filter((item) => item.id !== id);
     });
   };

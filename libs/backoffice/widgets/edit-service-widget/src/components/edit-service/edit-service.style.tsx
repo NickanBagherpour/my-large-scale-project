@@ -1,4 +1,3 @@
-import { Divider } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import { Form } from 'antd';
 import styled from 'styled-components';
@@ -16,6 +15,7 @@ export const TagContainer = styled.div`
   border: 1px solid ${(p) => p.theme.border._300};
   border-radius: 1rem;
   padding-top: 1rem;
+  padding-bottom: 1rem;
   padding-inline-start: 2rem;
   padding-right: 2rem;
   width: 100%;
@@ -26,17 +26,20 @@ export const TagContainer = styled.div`
 `;
 
 export const FormItem = styled(Form.Item)`
-  flex: 0 1 calc(33% - ${formGap} / 3);
-  ${respondTo.down('sm')} {
+  flex: 0 1 calc(33.33% - ${formGap});
+  box-sizing: border-box;
+  ${respondTo.down('md')} {
     flex-basis: 100%;
   }
-  ${respondTo.between('sm', 'lg')} {
-    flex-basis: calc(50% - ${formGap} / 2);
+  ${respondTo.between('md', 'lg')} {
+    flex-basis: calc(50% - ${formGap});
   }
 `;
 export const TagPicker = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
 
   ${respondTo.down('xs')} {
     flex-direction: column;
@@ -63,6 +66,12 @@ export const TagPicker = styled.div`
   }
 
   .ant-tag {
-    margin: 0.5rem 0 0.5rem 1.6rem;
+    ${respondTo.down('xs')} {
+      justify-content: space-between;
+    }
+  }
+
+  .ant-tag {
+    margin: 0;
   }
 `;

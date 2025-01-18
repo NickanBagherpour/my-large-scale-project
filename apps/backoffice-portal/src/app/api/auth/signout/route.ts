@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
-import { CookieKey, createResponse } from '@oxygen/types';
-import { decrypt } from '@oxygen/utils';
+
+import { CookieKey } from '@oxygen/types';
+import { decrypt, createResponse, createErrorResponse } from '@oxygen/utils';
 
 export async function GET(req: Request) {
   const sessionTicket = decrypt(cookies().get(CookieKey.SESSION_TICKET)?.value);
@@ -16,8 +17,26 @@ export async function GET(req: Request) {
       },
     });
 
-    return createResponse({ success: true });
-  } catch (error: any) {
-    return createResponse({ success: false, error: error.message, errorDetails: error.stack, statusCode: 500 });
+    if (!response.ok) {
+      // throw new Error('SSO signout failed');
+      console.log('-------------------SSO signout failed-------------------------');
+    }
+
+    // Filter out the CONFIG cookie
+    const cookiesToClear = cookies()
+      .getAll()
+      .filter((cookie) => cookie.name !== CookieKey.CONFIG);
+
+    // Create the response with success and clear the cookies
+    const res = createResponse({ success: true });
+
+    // Append Set-Cookie headers to clear each cookie
+    cookiesToClear.forEach((cookie) => {
+      res.cookies.delete(cookie.name);
+    });
+
+    return res;
+  } catch (error: unknown) {
+    return createErrorResponse(error);
   }
 }

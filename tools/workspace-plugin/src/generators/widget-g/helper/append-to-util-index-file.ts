@@ -1,7 +1,10 @@
 import { Tree, joinPathFragments, names } from '@nx/devkit'; // Import strings for string manipulation
-import { IWidgetSchema } from '../schema';
 import * as fs from 'fs'; // Use Node.js fs module to read file from file system
 import * as path from 'path';
+
+import { IWidgetSchema } from '../schema';
+
+type PortalNameType = 'backoffice' | 'customer' | 'business';
 
 /**
  * Appends import and export statements to the index.ts file at specified comment locations,
@@ -14,6 +17,8 @@ import * as path from 'path';
 export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema: IWidgetSchema) {
   const indexPath = joinPathFragments(directoryPath, 'index.ts');
   const templatePath = path.join(__dirname, 'sample.txt'); // Path to the template file
+
+  const portalName = schema.shortPortalName;
 
   // Check if index.ts exists
   if (!tree.exists(indexPath)) {
@@ -38,17 +43,17 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
   const renderedTemplate = replacePlaceholders(templateContent, schema);
 
   // Extract the content between /*--import--*/ and /*--end import--*/ from the rendered template
-  const importSection = extractSection(renderedTemplate, 'import');
-  const exportSection = extractSection(renderedTemplate, 'export');
+  const importSection = extractSection(renderedTemplate, 'import', portalName);
+  const exportSection = extractSection(renderedTemplate, 'export', portalName);
 
   // Split the index content into lines for easier manipulation
   const lines = indexContent.split('\n');
 
   // Insert the import section
-  const importInserted = insertSection(lines, 'import', importSection);
+  const importInserted = insertSection(lines, 'import', importSection, portalName);
 
   // Insert the export section
-  const exportInserted = insertSection(lines, 'export', exportSection);
+  const exportInserted = insertSection(lines, 'export', exportSection, portalName);
 
   // If both insertions were successful, write the updated content back to index.ts
   if (importInserted || exportInserted) {
@@ -63,14 +68,17 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
  * Replaces placeholders in the template content using schema values.
  *
  * @param template - The template content.
- * @param constantName - The constantName value to use for replacements.
+ * @param schema
  * @returns The rendered template content.
  */
 function replacePlaceholders(template: string, schema: IWidgetSchema): string {
   const constantName = names(schema.name).constantName.replace(/_widget$/i, '');
   const pageName = names(schema.name).fileName.replace(/-widget$/i, '');
 
-  return template.replace(/<%= constantName %>/g, constantName).replace(/<%= pageName %>/g, pageName);
+  return template
+    .replace(/<%= constantName %>/g, constantName)
+    .replace(/<%= pageName %>/g, pageName)
+    .replace(/<%= portalName %>/g, schema.shortPortalName);
 }
 
 /**
@@ -103,10 +111,16 @@ function extractSection(content: string, section: 'import' | 'export'): string[]
  * @param lines - The lines of the destination file.
  * @param section - The section type ('import' or 'export').
  * @param sectionContent - The content to insert.
+ * @param portalName - The portalName type ('backoffice' or 'customer' or 'business').
  * @returns True if the insertion was successful, false otherwise.
  */
-function insertSection(lines: string[], section: 'import' | 'export', sectionContent: string[]): boolean {
-  const marker = `/*--${section}--*/`;
+function insertSection(
+  lines: string[],
+  section: 'import' | 'export',
+  sectionContent: string[],
+  portalName: PortalNameType
+): boolean {
+  const marker = `/*--${section}-${portalName}--*/`;
   const index = lines.findIndex((line) => line.includes(marker));
 
   if (index !== -1) {

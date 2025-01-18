@@ -1,6 +1,6 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchIpType, FetchParamsType, ReportResponseType } from '../types';
+import { FetchIpType } from '../types';
 
 const Api = {
   getIP: async (params: any) => {

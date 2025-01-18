@@ -49,7 +49,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       centered
       cancelText={t('button.cancel')}
       okText={t('button.delete')}
-      okButtonProps={{ style: { backgroundColor: theme.error.main } }}
+      okButtonProps={{ style: { backgroundColor: theme.error.main }, disabled: isFetching }}
       cancelButtonProps={{ style: { color: theme.primary.main } }}
     >
       {isFetching ? (

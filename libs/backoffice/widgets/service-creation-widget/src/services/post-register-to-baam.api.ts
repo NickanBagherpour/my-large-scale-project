@@ -4,6 +4,8 @@ import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
+const { SERVICE, SERVICE_CREATION, SERVICES_LIST, SCOPE } = RQKEYS.BACKOFFICE;
+
 export const usePostRegisterToBaam = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -16,14 +18,13 @@ export const usePostRegisterToBaam = () => {
       updateMessageAction(dispatch, err);
     },
     async onSuccess() {
+      await queryClient.invalidateQueries({ queryKey: [SERVICE_CREATION.ROUTE, serviceName] });
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.SERVICE, serviceName],
-      });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName] });
-      await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.SCOPE, serviceName],
+        queryKey: [SCOPE, SERVICE_CREATION.SCOPE, serviceName],
         refetchType: 'none',
       });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE] });
+      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST] });
     },
   });
 };

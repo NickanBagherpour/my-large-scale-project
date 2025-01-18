@@ -85,7 +85,7 @@ export async function widgetGenerator(tree: Tree, schema: IWidgetSchema) {
     tree, // the virtual file system
     joinPathFragments(__dirname, './utils-rqk-files/widgets'), // path to the file templates
     // joinPathFragments('libs/'), // destination path of the files
-    `${utilsLibRQKPath}/widgets`, // destination path of the files
+    `${utilsLibRQKPath}/portals/${schema.shortPortalName}`, // destination path of the files
     {
       ...schema,
       ...names(schema.name),

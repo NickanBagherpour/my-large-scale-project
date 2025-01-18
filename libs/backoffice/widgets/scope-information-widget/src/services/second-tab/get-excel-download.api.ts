@@ -11,7 +11,7 @@ export const useExcelDownloadQuery = (params: ExcelDownloadParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SCOPE_INFORMATION.GET_EXCEL, params],
+    queryKey: [RQKEYS.BACKOFFICE.SCOPE_INFORMATION.GET_EXCEL, params],
     queryFn: withErrorHandling(() => Api.getExcel(params), dispatch),
     networkMode: 'offlineFirst',
     enabled: false,

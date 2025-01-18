@@ -24,6 +24,8 @@ declare global {
       NEXT_PUBLIC_SSO_CLIENT_KEY: string;
       SSO_CLIENT_SECRET: string;
       SSO_SCOPE: string;
+      SSO_SCOPE_BUSINESS: string;
+      SSO_SCOPE_COMMERCIAL: string;
       JWT_SIGNITURE_SECRET: string;
       NEXT_PUBLIC_IS_DEMO: string;
     }

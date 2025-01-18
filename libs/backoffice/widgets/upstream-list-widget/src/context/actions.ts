@@ -7,7 +7,7 @@ export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm:
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
+export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 

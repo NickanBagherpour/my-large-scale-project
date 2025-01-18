@@ -50,7 +50,7 @@ export const TagPicker = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.4rem;
+  gap: 3rem 1.4rem;
   ${respondTo.down('lg')} {
     grid-template-columns: repeat(1, 1fr);
   }

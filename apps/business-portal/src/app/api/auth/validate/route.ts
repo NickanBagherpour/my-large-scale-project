@@ -1,4 +1,4 @@
-import { createResponse } from '@oxygen/types';
+import { createResponse, createErrorResponse } from '@oxygen/utils';
 
 export async function GET(req: Request) {
   const token = req.headers.get('Authorization');
@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/validate`;
 
   if (!token) {
-    return createResponse({ success: false, error: 'Token is missing', statusCode: 401 });
+    return createErrorResponse(null, { error: 'Token is missing', statusCode: 401 });
   }
 
   try {
@@ -21,8 +21,7 @@ export async function GET(req: Request) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      return createResponse({
-        success: false,
+      return createErrorResponse(errorData, {
         error: errorData.message || 'Invalid token',
         errorDetails: errorData,
         statusCode: response.status,
@@ -30,12 +29,9 @@ export async function GET(req: Request) {
     }
 
     return createResponse({ success: true });
-  } catch (error: any) {
-    return createResponse({
-      success: false,
+  } catch (error: unknown) {
+    return createErrorResponse(error, {
       error: 'Error during token validation',
-      errorDetails: error.stack,
-      statusCode: 500,
     });
   }
 }

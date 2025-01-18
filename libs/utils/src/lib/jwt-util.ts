@@ -1,8 +1,8 @@
 import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
-import jwt, { SignOptions, Algorithm } from 'jsonwebtoken';
+import jwt, { Algorithm, SignOptions, verify } from 'jsonwebtoken';
 
 // Ensure that the JWT signature secret is available
-const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET;
+const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET as string;
 // const SSO_JWT_SECRET = process.env.SSO_JWT_SECRET; // SSO's secret or public key
 
 const DEFAULT_ALGORITHM = 'HS256';
@@ -62,9 +62,9 @@ export function decodeJWT2(token: string): { header: JwtHeader; payload: JwtPayl
  * @returns The decoded SSO payload if valid.
  * @throws Will throw an error if the token is invalid or verification fails.
  */
-export const verifySSOToken = (token: string): JwtPayload => {
+export const verifySSOToken = (token: string) => {
   try {
-    const decoded = jwt.verify(token, JWT_SIGNATURE_SECRET, { algorithms: [DEFAULT_ALGORITHM] }) as JwtPayload;
+    const decoded = verify(token, JWT_SIGNATURE_SECRET, { algorithms: [DEFAULT_ALGORITHM] });
     return decoded;
   } catch (error) {
     throw new Error('Invalid SSO token');
@@ -116,6 +116,39 @@ export const processAndSignToken = (ssoToken: string, options?: SignOptions): st
   });
 
   return newToken;
+};
+
+/**
+ * Processes an incoming SSO token by verifying it and re-signing with your secret.
+ *
+ * @param ssoToken - The incoming SSO JWT token string.
+ * @param options - Optional signing options for the new token.
+ * @param scopes - Optional signing options for the new scopes.
+ * @returns The newly signed JWT token string.
+ */
+export const processAndSignTokenWithScopes = (ssoToken: string, scopes?: string, options?: SignOptions): string => {
+  // Verify and decode the SSO token
+
+  const decodedPayload = decodeJWT(ssoToken);
+
+  if (!decodedPayload?.payload) {
+    throw new Error('Invalid decoded payload: payload is undefined.');
+  }
+
+  if (decodedPayload.payload?.scopes) {
+    decodedPayload.payload.scopes = scopes?.split('+') ?? [];
+  }
+
+  console.log('new scopes =>', decodedPayload.payload?.scopes);
+
+  // Optionally, you can manipulate the payload here if needed
+  // For example, remove sensitive information or add additional claims
+
+  // Sign a new token with the decoded payload
+  return signToken(decodedPayload?.payload, {
+    ...options,
+    algorithm: decodedPayload?.header?.alg as Algorithm,
+  });
 };
 
 export function decodeJWT(token: Nullable<string>): { header: JwtHeader; payload: JwtPayload } | null {

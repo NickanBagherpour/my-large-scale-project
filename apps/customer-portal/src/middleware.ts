@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-import { auth } from '@oxygen/customer/auth';
 import { ROUTES } from '@oxygen/utils';
 import { CookieKey } from '@oxygen/types';
 
@@ -55,7 +54,7 @@ export default async function middleware(request: NextRequest) {
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
   if (token && publicPaths.some((path) => pathname === path)) {
-    return NextResponse.redirect(new URL(ROUTES.CUSTOMER.REQUEST_MANAGEMENT, request.url));
+    return NextResponse.redirect(new URL(ROUTES.CUSTOMER.DASHBOARD, request.url));
   }
 
   return NextResponse.next(); // Proceed with the original request for non-protected routes

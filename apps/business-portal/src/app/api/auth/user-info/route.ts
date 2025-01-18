@@ -1,6 +1,5 @@
-import { createResponse, JwtPayload } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
-import { decodeJWT, ENV_CONSTANTS, getRole } from '@oxygen/utils';
+import { createErrorResponse, createResponse, decodeJWT, ENV_CONSTANTS, getRole } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
@@ -14,8 +13,7 @@ export async function GET(req) {
   }
 
   if (!token || !token.startsWith('Bearer')) {
-    return createResponse({
-      success: false,
+    return createErrorResponse(null, {
       error: 'Authorization token is missing or invalid',
       statusCode: 400, // Bad Request
     });
@@ -48,13 +46,8 @@ export async function GET(req) {
       success: true,
       data: data, // Response data for successful request
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error during user info fetch:', error);
-    return createResponse({
-      success: false,
-      error: error.message,
-      errorDetails: error.stack, // Optional: Provide error details for debugging
-      statusCode: 500, // Internal Server Error
-    });
+    return createErrorResponse(error);
   }
 }

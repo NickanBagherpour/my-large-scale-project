@@ -20,6 +20,6 @@ export const useInquireService = (params: InquiryParams) => {
     placeholderData: keepPreviousData,
     enabled: false,
     queryFn: withErrorHandling(() => Api.getInquiryInfo(params), dispatch),
-    queryKey: [RQKEYS.SERVICES_LIST.DRAFTS, params['service-name']],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS, params['service-name']],
   });
 };

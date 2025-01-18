@@ -43,29 +43,32 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async (path?: string) => {
     try {
-      // await client.get(`/signout/`);
+      const response = await fetch(`/api/auth/signout`);
+      const result = await response.json();
 
-      await fetch(`/api/auth/signout`);
-      // await signOut();
+      if (result.success) {
+        setUser(null);
+        removeUser();
+        removeUserPhoto();
+        setMenu(null);
+        removeMenus();
+        clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
+        // clearAllCookiesExceptForKey(CookieKey.CONFIG);
 
-      setUser(null);
-      removeUser();
-      removeUserPhoto();
-      setMenu(null);
-      removeMenus();
-      clearLocalStorageExceptForKey(LocalStorageKey.CONFIG);
-      clearAllCookiesExceptForKey(CookieKey.CONFIG);
+        queryClient?.clear();
 
-      queryClient?.clear();
+        /*
+        if (props.logout) {
+             props.logout();
+        }
+        */
 
-      // /*   if (props.logout) {
-      //      props.logout();
-      //    }*/
-      //
-      // // console.log('logout inside', localStorage);
-      await router.replace(path ?? '/');
+        await router.replace(path ?? '/');
+      } else {
+        console.error('Logout failed:', result.error);
+      }
     } catch (e) {
-      //
+      console.error('Logout failed', e);
     }
   };
 

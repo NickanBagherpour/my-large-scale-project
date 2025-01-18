@@ -44,8 +44,9 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const updateServiceName = (name) => {
     setServiceName(name);
   };
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+
+  const toggleModal = (modal: keyof Modal, item: boolean) => {
+    setModals((prev) => ({ ...prev, [modal]: item }));
   };
 
   const handlePrint = () => {
@@ -117,7 +118,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         id={'samat-lc-gutr-del'}
       /> */}
       {serviceName && (
-        <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} name={serviceName} />
+        <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details', false)} name={serviceName} />
       )}
     </>
   );

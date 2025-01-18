@@ -4,6 +4,8 @@ import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
+const { SERVICE, SERVICE_CREATION, SERVICES_LIST } = RQKEYS.BACKOFFICE;
+
 export const usePostRouteMutation = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -17,10 +19,11 @@ export const usePostRouteMutation = () => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.SERVICE_CREATION.ROUTE, serviceName],
+        queryKey: [SERVICE_CREATION.ROUTE, serviceName],
         refetchType: 'none',
       });
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE], refetchType: 'none' });
     },
   });
 };

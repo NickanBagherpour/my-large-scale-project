@@ -8,7 +8,7 @@ import { CookieKey } from '@oxygen/types';
 export const useGetUserInfo = () => {
   const token = getCookie(CookieKey.SESSION_ID);
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE_AUTH.USER_INFO],
+    queryKey: [RQKEYS.BACKOFFICE.AUTH.USER_INFO],
     queryFn: Api.getUserProfile,
     enabled: !!token,
     retry: 3, // Retries failed requests 1 time

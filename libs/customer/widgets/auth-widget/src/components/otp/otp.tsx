@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Form } from 'antd';
-import { signIn } from 'next-auth/react';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useAuth } from '@oxygen/hooks';
@@ -66,8 +65,8 @@ export const OTP: React.FC<FormContainerProps> = () => {
       }
       if (!data) return;
       const user = { name: state.OTP.mobileNumber, id: data?.headers['authorization'] };
-      await signIn('credentials', { ...user, redirect: false });
-      await login(user, ROUTES.CUSTOMER.REQUEST_MANAGEMENT);
+      // await signIn('credentials', { ...user, redirect: false });
+      await login(user, ROUTES.CUSTOMER.DASHBOARD);
     } catch (e) {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });

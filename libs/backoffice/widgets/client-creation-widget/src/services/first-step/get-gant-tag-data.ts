@@ -7,7 +7,7 @@ import Api from '../api';
 export const useGetGrantTagDataQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.CLIENT_CREATION.GRANT_TAG],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.GRANT_TAG],
     queryFn: withErrorHandling(() => Api.getGrantTagData(), dispatch),
   });
 };
