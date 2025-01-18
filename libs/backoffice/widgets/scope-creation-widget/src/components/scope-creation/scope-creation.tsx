@@ -57,10 +57,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
-          });
-          await queryClient.refetchQueries({
-            queryKey: [RQKEYS.BACKOFFICE.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
+            queryKey: [RQKEYS.BACKOFFICE.SCOPE],
           });
 
           onCancel();
