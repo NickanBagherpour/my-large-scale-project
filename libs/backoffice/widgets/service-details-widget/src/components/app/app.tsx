@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { Button, Tabs } from '@oxygen/ui-kit';
+
 import Route from '../route-info/route-info';
 import ServiceInfo from '../service-info/service-info';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
-import { useAssignToServiceScopeMutation } from '../../services/upstream-tab/post-assign-to-service-scope.api';
 import {
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
-  updateScopeTabCreationSubmitAction,
   useAppDispatch,
   useAppState,
 } from '../../context';
@@ -30,8 +28,6 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const { notification } = useApp();
-
-  // const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const state = useAppState();
   const dispatch = useAppDispatch();
 
@@ -45,20 +41,16 @@ const App: React.FC<AppProps> = (props) => {
 
   const isButtonDisabled = () => {
     if (activeTabKey === '3') {
-      return !state.scopeName; // Disable if scopeName is empty for "scopes" tab
+      return !state.scopeName;
     } else if (activeTabKey === '4') {
-      return !state.upstreamTab.activeSelect.cardId; // Disable if upstreamTab cardId is empty for "upstream" tab
+      return !state.upstreamTab.activeSelect.cardId;
     }
-    return false; // Default: button enabled
+    return false;
   };
 
   const [activeTabKey, setActiveTabKey] = useState('1');
-  const [scopeData, setScopeData] = useState(null);
-
   const servicename: Nullable<string> = searchParams.get('servicename');
-
   const { mutate, isPending } = useAssignToServiceMutation();
-  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
 
   useEffect(() => {
     updateServerNameAction(dispatch, servicename);
@@ -83,29 +75,7 @@ const App: React.FC<AppProps> = (props) => {
     {
       key: '3',
       label: t('scopes'),
-      children: (
-        <ScopeList
-        // updateData={(data) => {
-        //   setScopeData(data);
-        // }}
-        />
-      ),
-      // onSubmit: () => {
-      //   const params = { id: state.scopeName, serviceName: state.serviceName };
-      //   mutateScope(params, {
-      //     onSuccess: () => {
-      //       notification.success({
-      //         message: t('upstream_tab.success_notif'),
-      //       });
-      //       updateScopeTabCreationSubmitAction(dispatch);
-      //     },
-      //     onError: (error) => {
-      //       notification.error({
-      //         message: t(`${error}`),
-      //       });
-      //     },
-      //   });
-      // },
+      children: <ScopeList />,
     },
     {
       key: '4',
