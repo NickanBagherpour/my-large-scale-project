@@ -7,7 +7,7 @@ export const api = {
     return client.get<PaginatedData<TContent>>(`${portalUrl}${url}`, {
       params: {
         ...params,
-        sort: 'createDate,DESC',
+        sort: 'modifyDate,DESC',
       },
     });
   },

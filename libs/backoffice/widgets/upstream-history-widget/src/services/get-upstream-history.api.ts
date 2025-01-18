@@ -16,25 +16,24 @@ export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
   });
 };
 
-type Service = {
-  id: number;
-  name: string;
-  persianName: string;
-  scope: string;
-  version: string;
-  path: string;
-  isActive: boolean;
+type UpstreamHistory = {
+  upstream: {
+    name: string;
+    description: string;
+  };
+  modifyDate: string;
+  modifyBy: string;
 };
 
 const { UPSTREAM, UPSTREAM_HISTORY } = RQKEYS.BACKOFFICE;
 
-export const useGetUpstreamHistory = (params: { page: number; size: number }) => {
-  const { page, size } = params;
+export const useGetUpstreamHistory = (params: { page: number; size: number; upstreamName: string }) => {
+  const { page, size, upstreamName } = params;
   const dispatch = useAppDispatch();
 
-  return useChangeHistoryQuery<Service>({
+  return useChangeHistoryQuery<UpstreamHistory>({
     queryKey: [UPSTREAM, UPSTREAM_HISTORY.GET_LIST],
-    url: '/v1/services',
+    url: `/v1/upstreams/${upstreamName}/history`,
     dispatch,
     params: {
       page,

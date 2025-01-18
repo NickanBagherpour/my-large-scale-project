@@ -26,11 +26,12 @@ const DataTable: React.FC<AppProps> = () => {
   } = useAppState();
   const searchParams = useSearchParams();
 
-  const id = searchParams.get('historyId') || '';
+  const upstreamName = searchParams.get('upstream-name') || '';
 
   const { data, isFetching } = useGetUpstreamHistory({
     page: page - 1,
     size: limit,
+    upstreamName,
   });
 
   const lastValidTotal = data?.totalElements;
@@ -43,7 +44,7 @@ const DataTable: React.FC<AppProps> = () => {
   const columns: ColumnsType<any> = [
     {
       title: t('column.edit-date'),
-      dataIndex: 'editDate',
+      dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, _record, index) => {
         return getValueOrDash(value?.value); // TODO: this should display value.value
@@ -52,44 +53,33 @@ const DataTable: React.FC<AppProps> = () => {
     },
     {
       title: t('column.admin-name'),
-      dataIndex: 'name',
+      dataIndex: 'modifyBy',
       // key: 'adminName',
       ellipsis: true,
       render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+        return getValueOrDash(value?.value);
       },
       // width: 50,
     },
     {
       title: t('column.en-name'),
-      dataIndex: 'persianName',
-      // key: 'enName',
+      dataIndex: 'upstream',
+      key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
       render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+        return <HistoryCell item={value.value.name} />;
       },
       // width: 50,
     },
     {
       title: t('column.fa-name'),
-      dataIndex: 'version',
-      // key: 'faName',
+      dataIndex: 'upstream',
+      key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
       render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
-      },
-      // width: 50,
-    },
-    {
-      title: t('column.fa-name'),
-      dataIndex: 'path',
-      // key: 'faName',
-      ellipsis: true,
-      className: 'right-to-left',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+        return <HistoryCell item={value.value.description} />;
       },
       // width: 50,
     },
@@ -139,13 +129,6 @@ const DataTable: React.FC<AppProps> = () => {
     },
   ];
 
-  function prepareParams() {
-    const params = {
-      pagination: table?.pagination,
-      id,
-    };
-    return params;
-  }
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
     if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
     const updatedPagination = { page: current, limit: pageSize };
