@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form } from 'antd';
 import { useTr } from '@oxygen/translation';
 import * as S from './upstream-details-info.style';
 import { PageProps } from '@oxygen/types';
@@ -11,7 +10,7 @@ import { useEditUpstreamMutation } from '../../services/get-upstream-details.api
 import { updateMessageAction, useAppDispatch } from '../../context';
 
 type UpstreamDetailsInfoProps = PageProps & {
-  infoData?: { name: string; description: string };
+  infoData?: { name: string; description: string; id: number };
   loading?: boolean;
 };
 const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
@@ -45,7 +44,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
         },
       });
     } catch (error) {
-      // console.error('Validation failed:', error);
+      console.error('Validation failed:', error);
     }
   };
   return (

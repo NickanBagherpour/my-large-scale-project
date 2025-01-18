@@ -22,7 +22,7 @@ export const useAddServerToUpstreamMutationQuery = () => {
     mutationFn: (params: any) => Api.addServerToUpstream(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
   });
 };

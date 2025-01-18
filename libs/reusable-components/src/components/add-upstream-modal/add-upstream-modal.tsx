@@ -58,6 +58,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
   const handleCancel = () => {
     setOpen(false);
     form.resetFields();
+    setIsCreateMode(true);
   };
   const values = Form.useWatch([], form);
   const isFormEmpty = !values?.[FORM_ITEM_NAMES.name] || !values?.[FORM_ITEM_NAMES.description];

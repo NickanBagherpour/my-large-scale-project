@@ -27,6 +27,11 @@ export const StyledModal = styled(UikitModal)`
   .ant-modal-close {
     top: 2rem;
   }
+
+  & .ant-btn {
+    width: 100%;
+    min-height: 5.6rem;
+  }
 ` as typeof UikitModal;
 
 export const StyledHeader = styled(Box)`
@@ -42,7 +47,7 @@ export const StyledTitle = styled('span')`
 `;
 export const StyledCloseIcon = styled('i')`
   font-size: 2.4rem;
-  //padding:0.5rem;
+
   color: ${(p) => p.theme.iconPrimary};
   width: fit-content;
   &:hover {
@@ -68,31 +73,8 @@ export const StyledForm = styled(Form)`
 
 export const StyledButton = styled(Button)`
   width: 100%;
+
   &:not(:last-of-type) {
     margin-bottom: 0.8rem;
-  }
-`;
-
-export const ModalMessage = styled.div`
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  align-items: center;
-  padding: 1rem;
-  margin-bottom: 1.6rem;
-
-  .delete-modal {
-    background-color: red;
-  }
-
-  .ant-modal-title {
-    font-weight: 700;
-  }
-`;
-
-export const TableContainer = styled.div`
-  margin-bottom: 3rem;
-
-  div.ant-table {
-    min-height: fit-content;
   }
 `;

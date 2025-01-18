@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <AntStyleProvider>
           <StyledComponentsRegistry>
-              <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
+            <BaseProvider initialConfig={validConfig}>{children}</BaseProvider>
           </StyledComponentsRegistry>
         </AntStyleProvider>
       </body>
