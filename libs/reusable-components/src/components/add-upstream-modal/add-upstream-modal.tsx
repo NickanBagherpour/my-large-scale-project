@@ -46,7 +46,14 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
 
   const handleFinish = (values: CreateUpstreamType) => {
     setIsCreateMode(false);
-    onConfirm(values);
+
+    const trimmedValues = {
+      ...values,
+      [FORM_ITEM_NAMES.name]: values[FORM_ITEM_NAMES.name]?.trim(),
+      [FORM_ITEM_NAMES.description]: values[FORM_ITEM_NAMES.description]?.trim(),
+    };
+
+    onConfirm(trimmedValues);
   };
 
   const resetModal = () => {
@@ -83,7 +90,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.name} label={t('add_upstream.upstream_english_name')} rules={[rule]}>
-                <Input allow='letter' disabled={!!initialData} />
+                <Input disabled={!!initialData} />
               </Form.Item>
 
               <Form.Item
@@ -91,7 +98,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
                 label={t('add_upstream.upstream_persian_name')}
                 rules={[rule]}
               >
-                <Input allow='letter' />
+                <Input />
               </Form.Item>
             </S.StyledForm>
 
