@@ -4,13 +4,10 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-
 import { Button, Modal } from '@oxygen/ui-kit';
-import CustomInfobox from '../custom-infobox/custom-infobox';
-// import { Modal } from '../../scope-list/scope-list';
+
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
-
 import { useUpstreamListQuery } from '../../../services';
 import { UpstreamDetails } from '../upstream-details/upstream-details';
 
@@ -27,8 +24,6 @@ export type Modal = {
 };
 
 export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
-  // const {  } = props;
-  //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
@@ -61,7 +56,6 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-  //please add correct route instead of ROUTES.BACKOFFICE.UPSTREAM_LIST
   const handleHistoryBtn = () =>
     router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=${state.serviceName}&type=service`);
   return (

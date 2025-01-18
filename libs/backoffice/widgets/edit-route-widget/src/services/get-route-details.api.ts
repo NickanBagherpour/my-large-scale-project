@@ -7,9 +7,9 @@ import Api from './api';
 
 export const useGetRouteDetailsQuery = (params: any) => {
   const dispatch = useAppDispatch();
-
+  const { SERVICE, ROUTE_DETAILS } = RQKEYS.BACKOFFICE;
   return useQuery<any>({
-    queryKey: [RQKEYS.BACKOFFICE.ROUTE_DETAILS.GET_LIST, params],
+    queryKey: [SERVICE, ROUTE_DETAILS.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getRouteDetails(params), dispatch),
   });
 };

@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { ApiUtil } from '@oxygen/utils';
+import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
 import { updateMessageAction, useAppDispatch } from '../context';
 
 import Api from './api';
-import { Nullable } from '@oxygen/types';
+import { queryClient } from '@oxygen/client';
 export type EditRouteParams = {
   method: {
     code: any;
@@ -20,13 +20,16 @@ export type EditRouteParams = {
 };
 export const useEditRouteMutation = () => {
   const dispatch = useAppDispatch();
+  const { SERVICE, ROUTE_DETAILS } = RQKEYS.BACKOFFICE;
+
   return useMutation({
     mutationFn: (params: EditRouteParams) => Api.editRoute(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
-
-    networkMode: 'offlineFirst',
+    async onSuccess() {
+      await queryClient.invalidateQueries({ queryKey: [SERVICE, ROUTE_DETAILS.GET_LIST], refetchType: 'active' });
+    },
   });
 };
