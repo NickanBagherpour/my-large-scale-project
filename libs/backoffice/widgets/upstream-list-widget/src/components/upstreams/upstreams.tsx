@@ -72,7 +72,6 @@ export default function Upstreams(props: Props) {
             title={t('table.upstreams_list')}
             onChange={handlePageChange}
             rowKey={() => uuid()}
-            // size={'small'}
           />
         ) : (
           <NoResult isLoading={isLoading} />

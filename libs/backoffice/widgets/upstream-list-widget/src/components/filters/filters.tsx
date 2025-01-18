@@ -35,15 +35,19 @@ export default function Filters() {
         description: values.description,
       };
 
+      setOpenModal(false);
       mutate(params, {
         onSuccess: () => {
-          setOpenModal(false);
           updateMessageAction(dispatch, {
             description: t('create_upstream_success'),
             type: 'success',
             shouldTranslate: false,
           });
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM], refetchType: 'none' });
+          router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
+        },
+        onError: (error) => {
+          setOpenModal(true);
         },
       });
     } catch (error) {
