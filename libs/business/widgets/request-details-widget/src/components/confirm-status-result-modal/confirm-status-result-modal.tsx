@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 
-import { Icons } from '@oxygen/ui-kit';
+import { AnimatedStatus } from '@oxygen/reusable-components';
+import { MutationStatus } from '@tanstack/react-query';
 import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
@@ -12,13 +12,23 @@ type Props = {
   isConfirmStatus?: boolean;
   setOpenStatus: (boolean) => void;
   reviewDate: string;
+  status: MutationStatus;
 };
 const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
-  const { openStatus, isConfirmStatus, setOpenStatus, reviewDate } = props;
+  const { openStatus, isConfirmStatus, setOpenStatus, reviewDate, status } = props;
   const handleCancel = () => {
     setOpenStatus(false);
   };
   const [t] = useTr();
+  const newStatus = status === 'success' && !isConfirmStatus ? 'rejectSuccess' : status;
+
+  const createStatus = {
+    success: 'success',
+    pending: 'loading',
+    idle: 'loading',
+    error: 'error',
+    rejectSuccess: 'error',
+  } as const;
 
   return (
     <>
@@ -31,20 +41,14 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
         onCancel={handleCancel}
       >
         <S.StyledContainer>
-          <S.StatusBox>
-            <S.StyledIcon isConfirm={isConfirmStatus}>
-              {isConfirmStatus ? (
-                <i className={'icon-tick-circle'} />
-              ) : (
-                <Image src={Icons.iconWarningCircle} alt='warning circle icon' />
-              )}
-            </S.StyledIcon>
-            <S.StyledDescription>
-              {t(isConfirmStatus ? 'status_confirm_description' : 'status_reject_description', {
-                statusDate: reviewDate,
-              })}
-            </S.StyledDescription>
-          </S.StatusBox>
+          <S.AnimationContainer style={{ width: '100%' }}>
+            <AnimatedStatus
+              status={createStatus[newStatus]}
+              errorProps={{ description: t('status_reject_description', { statusDate: reviewDate }) }}
+              successProps={{ description: t('status_confirm_description', { statusDate: reviewDate }) }}
+              loadingProps={{ description: t('add_upstream.loading_description') }}
+            />
+          </S.AnimationContainer>
           <S.StyledButton
             href={ROUTES.BUSINESS.REQUEST_LIST}
             size={'large'}

@@ -44,7 +44,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 
-  const { mutate, isPending, data: reviewData } = usePostSubmissionResultMutation();
+  const { mutate, isPending, data: reviewData, status } = usePostSubmissionResultMutation();
   const queryClient = useQueryClient();
 
   const handleSubmissionConfirm = () => {
@@ -55,18 +55,18 @@ const ConfirmModal: React.FC<Props> = (props) => {
       description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription) ?? '',
     };
 
+    setOpenStatusResult(true);
     mutate(params, {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: [RQKEYS.BUSINESS.REQUEST_DETAILS.GET_REQUEST_DETAIL],
-        });
-        await queryClient.invalidateQueries({
-          queryKey: [RQKEYS.BUSINESS.REQUEST_LIST.REQUEST_MANAGEMENT],
+          queryKey: [RQKEYS.BUSINESS.REQUEST],
         });
       },
       onSettled: () => {
         setOpenModal(false);
-        setOpenStatusResult(true);
+      },
+      onError: () => {
+        setOpenStatusResult(false);
       },
     });
   };
@@ -173,6 +173,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
         isConfirmStatus={isConfirm}
         reviewDate={reviewData?.data}
         setOpenStatus={setOpenStatusResult}
+        status={status}
       />
     </>
   );
