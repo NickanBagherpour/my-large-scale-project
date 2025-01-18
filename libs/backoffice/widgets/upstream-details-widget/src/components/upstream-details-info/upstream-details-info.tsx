@@ -67,7 +67,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
           <S.TabName>{t('upstream_global_info')}</S.TabName>
           <S.Btns>
             <Button
-              href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=service-19`}
+              href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=${infoData?.name}`}
               color='primary'
               variant='filled'
             >
