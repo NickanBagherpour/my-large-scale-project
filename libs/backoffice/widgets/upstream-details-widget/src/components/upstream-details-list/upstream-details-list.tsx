@@ -65,7 +65,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
 
       await mutate(params, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST] });
         },
         onError: (error) => {
           console.error('request delete server  failed:', error);
@@ -114,7 +114,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
     deleteServerMutate(selectedServerId, {
       onSuccess: (data) => {
         setOpenDeleteModal(false);
-        queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST] });
+        queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST] });
         console.log('request delete server successful:', data);
       },
       onError: (error) => {
