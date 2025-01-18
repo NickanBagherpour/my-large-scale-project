@@ -32,7 +32,7 @@ export const StyledModal = styled(UikitModal)`
     width: 100%;
     min-height: 5.6rem;
   }
-`;
+` as typeof UikitModal;
 
 export const StyledHeader = styled(Box)`
   display: flex;
@@ -47,7 +47,7 @@ export const StyledTitle = styled('span')`
 `;
 export const StyledCloseIcon = styled('i')`
   font-size: 2.4rem;
-  //padding:0.5rem;
+
   color: ${(p) => p.theme.iconPrimary};
   width: fit-content;
   &:hover {
