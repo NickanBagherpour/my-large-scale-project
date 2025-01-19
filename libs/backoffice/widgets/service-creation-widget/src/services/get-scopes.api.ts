@@ -4,10 +4,12 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 import { ScopesParams } from '../types/scopes.type';
 
+const { SCOPE, SERVICE_CREATION } = RQKEYS.BACKOFFICE;
+
 export const useGetScopes = (params: ScopesParams) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPES, params],
+    queryKey: [SCOPE, SERVICE_CREATION.SCOPES, params],
     queryFn: withErrorHandling(() => Api.getScopes(params), dispatch),
     enabled: params['search-field'].length >= 3,
     placeholderData: keepPreviousData,
