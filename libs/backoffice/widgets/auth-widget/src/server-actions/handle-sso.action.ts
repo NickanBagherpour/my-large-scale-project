@@ -2,7 +2,7 @@
 
 import { cookies, headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
-import { decodeJWT, encrypt, getRole, processAndSignToken, ROUTES } from '@oxygen/utils';
+import { decodeToken, encrypt, getRole, processAndSignToken, ROUTES } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
@@ -28,7 +28,7 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   }
 
   const token = tokenData.data.access_token;
-  const signedToken = processAndSignToken(tokenData.data.access_token);
+  const signedToken = await processAndSignToken(tokenData.data.access_token);
   const expiresIn = tokenData.data.expires_in;
 
   // Set the cookie directly in the server action
@@ -65,7 +65,7 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
 
   cookieStore.set({
     name: CookieKey.INFO,
-    value: encrypt(getRole(decodeJWT(token)?.payload) ?? ''),
+    value: encrypt(getRole(decodeToken(token)) ?? ''),
     path: '/',
     maxAge: expiresIn, // Token expiration in seconds
     // httpOnly: true, // Prevent JavaScript access
