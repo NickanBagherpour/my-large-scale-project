@@ -1,26 +1,28 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { withErrorHandling } from '@oxygen/utils';
-import { Props } from './types';
+import { DifferenceMap, Props } from './types';
 import { api } from './api';
+import { cache } from 'react';
 
-type DiffedItems<T extends object> = {
-  [K in keyof T]: { value: T[K] extends object ? DiffedItems<T[K]> : T[K]; isDifferent: boolean };
-};
+const calculateDifference = cache(function calculateDifference<ObjectType extends object>(
+  baseObject: ObjectType,
+  comparisonObject: ObjectType
+): DifferenceMap<ObjectType> {
+  return Object.entries(baseObject).reduce((result, [key, value]) => {
+    const computedDifference =
+      value !== null && typeof value === 'object' ? calculateDifference(value, comparisonObject?.[key]) : value;
 
-function getDiff<T extends object>(one: T, two: T): DiffedItems<T> {
-  return Object.entries(one).reduce((acc, [key, value]) => {
-    const val = value !== null && typeof value === 'object' ? getDiff(value, two?.[key]) : value;
     return {
-      ...acc,
+      ...result,
       [key]: {
-        value: val,
-        isDifferent: two ? two[key] !== value : false,
+        value: computedDifference,
+        hasDifference: comparisonObject ? comparisonObject[key] !== value : false,
       },
     };
-  }, {} as DiffedItems<T>);
-}
+  }, {} as DifferenceMap<ObjectType>);
+});
 
-export default function useChangeHistoryQuery<TContentItem extends object>(props: Props) {
+export function useChangeHistoryQuery<TContentItem extends object>(props: Props) {
   const {
     queryKey,
     url,
@@ -37,20 +39,24 @@ export default function useChangeHistoryQuery<TContentItem extends object>(props
     placeholderData: keepPreviousData,
   });
 
+  const enableNextItemQuery = !!currentPageData && !currentPageData.empty && !currentPageData.last;
+
   const { data: nextItemData, isFetching: isFetchingPreviousItem } = useQuery({
     queryKey: [...queryKey, nextItemParams],
     queryFn: withErrorHandling(() => api.getList<TContentItem>({ url, params: nextItemParams }), dispatch),
+    enabled: enableNextItemQuery,
   });
 
   const isFetching = isFetchingCurrentPage || isFetchingPreviousItem;
 
-  if (currentPageData && nextItemData) {
-    const combinedData = [...currentPageData.content, ...nextItemData.content];
+  if (currentPageData && (nextItemData || !enableNextItemQuery)) {
+    const combinedData = [...currentPageData.content, ...(nextItemData?.content ?? [])];
 
-    // TODO: cache this computaion
-    const diffAnnotatedData = combinedData.map((item, index, arr) => getDiff<TContentItem>(item, arr[index + 1]));
+    const diffAnnotatedData = combinedData.map((item, index, arr) =>
+      calculateDifference<TContentItem>(item, arr[index + 1])
+    );
 
-    if (nextItemData.content.length) {
+    if (nextItemData?.content.length) {
       diffAnnotatedData.pop();
     }
 

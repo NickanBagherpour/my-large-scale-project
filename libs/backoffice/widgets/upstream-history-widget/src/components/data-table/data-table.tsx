@@ -12,11 +12,12 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useGetUpstreamHistory } from '../../services/get-upstream-history.api';
+import { useGetUpstreamHistory, type HistoryDifferenceObj } from '../../services';
 
 type AppProps = PageProps & {
   //
 };
+
 const DataTable: React.FC<AppProps> = () => {
   const {
     table,
@@ -41,7 +42,7 @@ const DataTable: React.FC<AppProps> = () => {
   const dataSource = data?.content ?? [];
   const hasResults = !data?.empty;
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',

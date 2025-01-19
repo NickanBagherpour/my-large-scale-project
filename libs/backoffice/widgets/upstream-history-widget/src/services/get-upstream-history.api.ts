@@ -4,7 +4,7 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { useChangeHistoryQuery } from '@oxygen/hooks';
+import { DifferenceMap, useChangeHistoryQuery } from '@oxygen/hooks';
 
 export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
@@ -24,6 +24,8 @@ type UpstreamHistory = {
   modifyDate: string;
   modifyBy: string;
 };
+
+export type HistoryDifferenceObj = DifferenceMap<UpstreamHistory>;
 
 const { UPSTREAM, UPSTREAM_HISTORY } = RQKEYS.BACKOFFICE;
 
