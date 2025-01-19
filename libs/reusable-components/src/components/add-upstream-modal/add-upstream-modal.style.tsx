@@ -67,7 +67,7 @@ export const StyledForm = styled(Form)`
   }
 
   .ant-form-item-row {
-    align-items: center;
+    //align-items: center;
   }
 ` as typeof Form;
 
