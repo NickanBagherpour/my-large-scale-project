@@ -1,12 +1,10 @@
 import Mockify from '@oxygen/mockify';
 import { FetchParamsType } from '../types';
+import { client, portalUrl } from '@oxygen/client';
 
 const Api = {
-  // getServiceHistoryData: async (params: FetchParamsType) => {
-  //   return client.post<ServiceHistoryResponseType>(`${portalUrl}/v1/redemption/report`, params);
-  // },
-  getServiceHistoryData: async (params: FetchParamsType) => {
-    return Mockify.getServiceHistory(params);
+  getRouteHistory: async (params) => {
+    return client.get(`${portalUrl}/v1/routes/610/history`);
   },
 };
 export default Api;
