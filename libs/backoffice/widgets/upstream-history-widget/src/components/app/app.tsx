@@ -1,11 +1,11 @@
 import React from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { useGetsServiceHistoryDataQuery, useGetUpstreamHistory } from '../../services';
+import { useGetUpstreamHistory } from '../../services';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
 
-import { i18nBase, useTr } from '@oxygen/translation';
+import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
@@ -29,15 +29,14 @@ const App: React.FC<AppProps> = () => {
   if (!upstreamName) {
     notFound();
   }
-  // const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
-  // const items = history?.items;
-  const title = /* items?.[0]?.[i18nBase.resolvedLanguage + 'Name'] ?? */ t('subtitle');
 
-  const { data, isFetching } = useGetUpstreamHistory({
+  const { data } = useGetUpstreamHistory({
     page: page - 1,
     size: limit,
     upstreamName,
   });
+
+  const title = data?.content[0].upstream.value.description.value ?? t('subtitle');
 
   return (
     <Container title={title} footer={<ReturnButton />}>
@@ -48,7 +47,6 @@ const App: React.FC<AppProps> = () => {
           resetMessageAction(dispatch);
         }}
       />
-      {/* <SecondaryTitle text={t('subtitle')} /> */}
       <S.TableContainer>
         <DataTable />
       </S.TableContainer>
