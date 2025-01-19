@@ -1,58 +1,61 @@
 import { TFunction } from 'i18next';
 
-import { ColumnsType } from '@oxygen/ui-kit';
-import { ClientHistoryData, ITheme } from '@oxygen/types';
+import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
+import { getValueOrDash } from '@oxygen/utils';
 
 type Props = {
   t: TFunction;
-  theme: ITheme;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> {
+export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { t } = props;
 
   return [
     {
-      title: t('field.modify_date'),
-      dataIndex: 'modify_date',
-      key: 'id',
-      align: 'center',
-      render: (value) => value,
+      title: t('column.edit-date'),
+      dataIndex: 'modifyDate',
+      render: (item) => {
+        return <div>{getValueOrDash(item?.value)}</div>;
+      },
     },
     {
-      title: t('field.admin_name'),
-      dataIndex: 'admin_name',
-      key: 'id',
-      align: 'center',
-      render: (value) => value,
+      title: t('column.admin-name'),
+      dataIndex: 'modifyBy',
+      key: 'modifyBy',
+      ellipsis: true,
+      render: (item) => {
+        return <div>{getValueOrDash(item?.value)}</div>;
+      },
     },
     {
-      title: t('field.action_method'),
-      dataIndex: 'action_method',
-      key: 'index',
-      align: 'center',
-      render: (value) => value,
+      title: t('column.action'),
+      dataIndex: 'route',
+      key: 'method',
+      ellipsis: true,
+      className: 'right-to-left',
+      render: (item) => {
+        return <HistoryCell item={item.value.method.value.title}></HistoryCell>;
+      },
     },
     {
-      title: t('field.protocol'),
-      dataIndex: 'protocol',
-      key: 'index',
-      width: 'min-content',
-      render: (value) => value,
+      title: t('column.path'),
+      dataIndex: 'route',
+      key: 'path',
+      ellipsis: true,
+      className: 'right-to-left',
+      render: (item) => {
+        return <HistoryCell item={item.value.path}></HistoryCell>;
+      },
     },
     {
-      title: t('field.path'),
-      dataIndex: 'path',
-      key: 'index',
-      width: 'min-content',
-      render: (value) => value,
-    },
-    {
-      title: t('field.host'),
-      dataIndex: 'host',
-      key: 'index',
-      width: 'min-content',
-      render: (value) => value,
+      title: t('column.host'),
+      dataIndex: 'route',
+      key: 'host',
+      ellipsis: true,
+      className: 'right-to-left',
+      render: (item) => {
+        return <HistoryCell item={item.value.host}></HistoryCell>;
+      },
     },
   ];
 }
