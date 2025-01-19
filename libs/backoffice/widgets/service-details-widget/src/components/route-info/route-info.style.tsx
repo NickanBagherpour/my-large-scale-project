@@ -5,10 +5,6 @@ import { Container } from '@oxygen/ui-kit';
 
 export const ItemsContainer = styled(Container)`
   height: 100%;
-
-  /* .ant-pagination {
-    margin: 2rem 3rem;
-  } */
 `;
 
 export const DataTableContainer = styled.div`
@@ -24,7 +20,6 @@ export const Buttons = styled.div`
   gap: 1.2rem;
 
   ${respondTo.down('lg')} {
-    /* width: 100%; */
     justify-content: end;
     padding-left: 2rem;
   }
