@@ -64,7 +64,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
-  const [aggregatorSelectData, setAggregatorSelectData] = useState();
+  const [aggregatorSelectData, setAggregatorSelectData] = useState([]);
+
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState<SelectedState>({
     isSelected: false,
@@ -106,15 +107,31 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   // }, [isSelected.id, organizations, t]);
 
   useEffect(() => {
-    const transformedAggregators = aggregators?.content?.map((aggregator) => ({
-      label: aggregator.aggregatorName,
-      value: aggregator.aggregatorId.toString(),
-    }));
-    setAggregatorSelectData(transformedAggregators);
+    if (aggregators?.content) {
+      const transformedAggregators = aggregators.content.map((aggregator) => ({
+        label: aggregator.aggregatorName,
+        value: aggregator.aggregatorId.toString(),
+      }));
+      setAggregatorSelectData(transformedAggregators);
+    }
   }, [aggregators]);
 
-  const checkFields = (_, allFields) => {
-    const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+  // const checkFields = (_, allFields) => {
+  //   const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+  //   if (!draft) {
+  //     setIsSubmitDisabled(hasErrors);
+  //   }
+  // };
+
+  const checkFields = () => {
+    const allFields = form.getFieldsError();
+    const allValues = form.getFieldsValue();
+
+    const hasErrors = allFields.some((field) => {
+      const fieldName = Array.isArray(field.name) ? field.name.join('.') : field.name;
+      return field.errors.length > 0 || !allValues[fieldName];
+    });
+
     if (!draft) {
       setIsSubmitDisabled(hasErrors);
     }
@@ -232,11 +249,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </S.Radios>
           {state.requestMode === 'selectOrganization' ? (
             <S.OrganizationContainer>
-              <S.Grid>
-                {isOrganizationsFetching ? (
-                  <Loading spinning={isOrganizationsFetching} />
-                ) : organizations?.length && organizations?.length ? (
-                  organizations.map(({ legalName, organizationNationalId, id }, idx) => (
+              {isOrganizationsFetching ? (
+                <Loading spinning={isOrganizationsFetching} />
+              ) : organizations?.length && organizations?.length ? (
+                <S.Grid>
+                  {organizations.map(({ legalName, organizationNationalId, id }, idx) => (
                     <S.Button
                       $isSelected={idx === isSelected.id ? true : false}
                       color='primary'
@@ -250,11 +267,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         {organizationNationalId}
                       </S.Subtitle>
                     </S.Button>
-                  ))
-                ) : (
-                  <NoResult isLoading={false} />
-                )}
-              </S.Grid>
+                  ))}
+                </S.Grid>
+              ) : (
+                <NoResult isLoading={false} />
+              )}
+
               {isSelected.isSelected && (
                 <S.OrganizationContainer>
                   {loading ? (
@@ -345,6 +363,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'isAggregator');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('company_is_aggregator')}
@@ -354,6 +375,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'hasAggregator');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('company_has_aggregator')}
@@ -363,6 +387,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'nothing');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('nothing')}
