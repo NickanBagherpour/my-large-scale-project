@@ -20,10 +20,8 @@ type AppProps = PageProps & {
 
 const DataTable: React.FC<AppProps> = () => {
   const {
-    table,
-    table: {
-      pagination: { limit, page },
-    },
+    pagination: { limit, page },
+    pagination,
   } = useAppState();
   const searchParams = useSearchParams();
 
@@ -148,11 +146,11 @@ const DataTable: React.FC<AppProps> = () => {
         dataSource={dataSource}
         loading={isFetching}
         pagination={{
-          ...table?.pagination,
+          ...pagination,
           total: data?.totalElements || lastTotal,
           pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-          pageSize: table?.pagination?.limit,
-          current: table?.pagination?.page,
+          pageSize: pagination.limit,
+          current: pagination.page,
           hideOnSinglePage: false,
         }}
         scroll={undefined}
