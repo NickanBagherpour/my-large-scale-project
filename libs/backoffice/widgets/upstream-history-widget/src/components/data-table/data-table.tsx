@@ -6,19 +6,15 @@ import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-import { PageProps } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useGetUpstreamHistory, type HistoryDifferenceObj } from '../../services';
+import { useGetUpstreamHistory } from '../../services';
+import { HistoryDifferenceObj } from '../../types';
 
-type AppProps = PageProps & {
-  //
-};
-
-const DataTable: React.FC<AppProps> = () => {
+const DataTable = () => {
   const {
     pagination: { limit, page },
     pagination,
@@ -44,21 +40,13 @@ const DataTable: React.FC<AppProps> = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
-      // key: 'editDate',
-      render: (value, _record, index) => {
-        return getValueOrDash(value?.value); // TODO: this should display value.value
-      },
-      // width: 50,
+      render: (column) => getValueOrDash(column?.value),
     },
     {
       title: t('column.admin-name'),
       dataIndex: 'modifyBy',
-      // key: 'adminName',
       ellipsis: true,
-      render: (value, _record, index) => {
-        return getValueOrDash(value?.value);
-      },
-      // width: 50,
+      render: (column) => getValueOrDash(column?.value),
     },
     {
       title: t('column.en-name'),
@@ -66,10 +54,7 @@ const DataTable: React.FC<AppProps> = () => {
       key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value.value.name} />;
-      },
-      // width: 50,
+      render: (column) => <HistoryCell item={column.value.name} />,
     },
     {
       title: t('column.fa-name'),
@@ -77,54 +62,37 @@ const DataTable: React.FC<AppProps> = () => {
       key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value.value.description} />;
-      },
-      // width: 50,
+      render: (column) => <HistoryCell item={column.value.description} />,
     },
   ];
 
-  const mobileColumns: ColumnsType<any> = [
+  const mobileColumns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit-date'),
-      dataIndex: 'editDate',
-      // key: 'editDate',
-      render: (value, record) => {
-        return <div>{getValueOrDash(value)}</div>;
-      },
-      // width: 50,
+      dataIndex: 'modifyDate',
+      render: (column) => <div>{getValueOrDash(column.value)}</div>,
     },
     {
       title: t('column.admin-name'),
-      dataIndex: 'adminName',
-      // key: 'adminName',
+      dataIndex: 'modifyBy',
       ellipsis: true,
-      render: (value, record) => {
-        return <div>{getValueOrDash(value)}</div>;
-      },
-      // width: 50,
+      render: (column) => <div>{getValueOrDash(column.value)}</div>,
     },
     {
       title: t('column.en-name'),
-      dataIndex: 'enName',
-      // key: 'enName',
+      dataIndex: 'upstream',
+      key: 'upstream',
       ellipsis: true,
       className: 'left-to-right',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 50,
+      render: (column) => <HistoryCell item={column.value.name} />,
     },
     {
       title: t('column.fa-name'),
-      dataIndex: 'faName',
-      // key: 'faName',
+      dataIndex: 'upstream',
+      key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 50,
+      render: (column) => <HistoryCell item={column.value.description} />,
     },
   ];
 
