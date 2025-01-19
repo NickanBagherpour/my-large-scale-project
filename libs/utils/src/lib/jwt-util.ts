@@ -1,208 +1,189 @@
-import { JwtHeader, JwtPayload, Nullable } from '@oxygen/types';
-import jwt, { Algorithm, SignOptions, verify } from 'jsonwebtoken';
+import { decodeJwt, jwtVerify, SignJWT } from 'jose';
+import { JwtPayload, Nullable } from '@oxygen/types';
 
-// Ensure that the JWT signature secret is available
-const JWT_SIGNATURE_SECRET = process.env.JWT_SIGNITURE_SECRET as string;
-// const SSO_JWT_SECRET = process.env.SSO_JWT_SECRET; // SSO's secret or public key
+// Secret key used for signing JWT tokens, encoded using TextEncoder
+const JWT_SIGNATURE_SECRET = new TextEncoder().encode(process.env.JWT_SIGNITURE_SECRET as string);
 
+// Default algorithm used for signing JWT tokens
 const DEFAULT_ALGORITHM = 'HS256';
 
-/* if (!JWT_SIGNATURE_SECRET) {
-  throw new Error('JWT_SIGNITURE_SECRET is not defined in environment variables');
-}
- */
-
-/* if (!SSO_JWT_SECRET) {
-  throw new Error('SSO_JWT_SECRET is not defined in environment variables');
-}
- */
-
-export function decodeJWT2(token: string): { header: JwtHeader; payload: JwtPayload } | null {
-  if (!token) {
-    console.error('No token provided to decode.');
-    return null;
-  }
-
-  const parts = token.split('.');
-
-  if (parts.length !== 3) {
-    console.error('Invalid JWT format. Expected three parts separated by dots.');
-    return null;
-  }
-
-  const header = parts[0];
-  const payload = parts[1];
-
-  try {
-    // Base64URL decode the header
-    const base64Header = header.replace(/-/g, '+').replace(/_/g, '/');
-    const paddedHeader = base64Header.padEnd(base64Header.length + ((4 - (base64Header.length % 4)) % 4), '=');
-    const decodedHeader = Buffer.from(paddedHeader, 'base64').toString('utf-8');
-
-    // Base64URL decode the payload
-    const base64Payload = payload.replace(/-/g, '+').replace(/_/g, '/');
-    const paddedPayload = base64Payload.padEnd(base64Payload.length + ((4 - (base64Payload.length % 4)) % 4), '=');
-    const decodedPayload = Buffer.from(paddedPayload, 'base64').toString('utf-8');
-
-    // Parse JSON
-    return {
-      header: JSON.parse(decodedHeader),
-      payload: JSON.parse(decodedPayload),
-    };
-  } catch (error) {
-    console.error('Failed to decode JWT:', error);
-    return null;
-  }
-}
-
 /**
- * Verifies an incoming SSO JWT token.
+ * Signs a new JWT token with the provided payload and optional signing options.
  *
- * @param token - The SSO JWT token to verify.
- * @returns The decoded SSO payload if valid.
- * @throws Will throw an error if the token is invalid or verification fails.
+ * @param payload - The payload to be encoded into the JWT. Must be a valid `JwtPayload` object.
+ * @param options - Optional signing options such as expiration time (`expiresIn`).
+ * @returns A promise that resolves to the signed JWT as a string.
  */
-export const verifySSOToken = (token: string) => {
-  try {
-    const decoded = verify(token, JWT_SIGNATURE_SECRET, { algorithms: [DEFAULT_ALGORITHM] });
-    return decoded;
-  } catch (error) {
-    throw new Error('Invalid SSO token');
-  }
-};
-
-/**
- * Signs a new JWT token with the provided payload.
- *
- * @param payload - The payload to encode into the new JWT.
- * @param options - Optional signing options (e.g., expiresIn, issuer).
- * @returns The signed JWT as a string.
- */
-export const signToken = (payload: JwtPayload, options?: SignOptions): string => {
-  // Define default signing options if not provided
-  const signOptions: SignOptions = {
-    // expiresIn: '1h', // Token expires in 1 hour
-    // algorithm: DEFAULT_ALGORITHM, // Specify the algorithm
+export const signToken = async (payload: JwtPayload, options?: { expiresIn?: string }): Promise<string> => {
+  const signOptions = {
     ...options,
   };
 
-  // Sign and return the token
-  return jwt.sign(payload, JWT_SIGNATURE_SECRET, signOptions);
+  const jwt = new SignJWT(payload)
+    .setProtectedHeader({ alg: DEFAULT_ALGORITHM });
+  // .setIssuedAt();
+
+  if (!payload.exp) {
+    jwt.setExpirationTime(signOptions.expiresIn || '1h');
+  }
+
+  // if (!payload.iss) {
+  //   jwt.setIssuer(signOptions.issuer);
+  // }
+
+  return await jwt.sign(JWT_SIGNATURE_SECRET);
 };
 
 /**
- * Processes an incoming SSO token by verifying it and re-signing with your secret.
+ * Processes and verifies an incoming SSO token, then re-signs it with your JWT signature secret.
  *
- * @param ssoToken - The incoming SSO JWT token string.
- * @param options - Optional signing options for the new token.
- * @returns The newly signed JWT token string.
+ * @param ssoToken - The incoming JWT token string (typically from an SSO system).
+ * @param options - Optional signing options for the new token (e.g., expiration time).
+ * @returns A promise that resolves to the newly signed JWT token string.
+ * @throws Will throw an error if the decoded token is invalid.
  */
-export const processAndSignToken = (ssoToken: string, options?: SignOptions): string => {
-  // Verify and decode the SSO token
+export const processAndSignToken = async (ssoToken: string, options?: { expiresIn?: string }): Promise<string> => {
+  const decodedToken = decodeToken(sanitizeJwt(ssoToken));
 
-  const decodedPayload = decodeJWT(ssoToken);
-
-  if (!decodedPayload?.payload) {
+  if (!decodedToken) {
     throw new Error('Invalid decoded payload: payload is undefined.');
   }
 
-  // Optionally, you can manipulate the payload here if needed
-  // For example, remove sensitive information or add additional claims
-
-  // Sign a new token with the decoded payload
-  const newToken = signToken(decodedPayload?.payload, {
-    ...options,
-    algorithm: decodedPayload?.header?.alg as Algorithm,
-  });
-
-  return newToken;
+  return await signToken(decodedToken, options);
 };
 
 /**
- * Processes an incoming SSO token by verifying it and re-signing with your secret.
+ * Processes an incoming SSO token, verifies it, updates its scopes, and re-signs it with your JWT signature secret.
  *
- * @param ssoToken - The incoming SSO JWT token string.
- * @param options - Optional signing options for the new token.
- * @param scopes - Optional signing options for the new scopes.
- * @returns The newly signed JWT token string.
+ * @param ssoToken - The incoming JWT token string (typically from an SSO system).
+ * @param scopes - Optional list of scopes to attach to the new token, as a string (space-separated).
+ * @param options - Optional signing options (e.g., expiration time).
+ * @returns A promise that resolves to the newly signed JWT token string with updated scopes.
+ * @throws Will throw an error if the decoded token is invalid.
  */
-export const processAndSignTokenWithScopes = (ssoToken: string, scopes?: string, options?: SignOptions): string => {
-  // Verify and decode the SSO token
+export const processAndSignTokenWithScopes = async (ssoToken: string, scopes?: string, options?: {
+  expiresIn?: string
+}): Promise<string> => {
+  const decodedToken = decodeToken(ssoToken);
 
-  const decodedPayload = decodeJWT(ssoToken);
-
-  if (!decodedPayload?.payload) {
+  if (!decodedToken) {
     throw new Error('Invalid decoded payload: payload is undefined.');
   }
 
-  if (decodedPayload.payload?.scopes) {
-    decodedPayload.payload.scopes = scopes?.split('+') ?? [];
+  if (decodedToken?.scopes) {
+    decodedToken.scopes = scopes?.split('+') ?? [];
   }
 
-  console.log('new scopes =>', decodedPayload.payload?.scopes);
-
-  // Optionally, you can manipulate the payload here if needed
-  // For example, remove sensitive information or add additional claims
-
-  // Sign a new token with the decoded payload
-  return signToken(decodedPayload?.payload, {
-    ...options,
-    algorithm: decodedPayload?.header?.alg as Algorithm,
-  });
+  return await signToken(decodedToken, options);
 };
 
-export function decodeJWT(token: Nullable<string>): { header: JwtHeader; payload: JwtPayload } | null {
+/**
+ * Decodes a JWT token (header and payload) without verifying its signature.
+ *
+ * @param token - The JWT token string to decode. If the token is in 'Bearer' format, it will be sanitized.
+ * @returns The decoded payload of the JWT, or null if decoding fails.
+ */
+export function decodeToken(token: Nullable<string>): JwtPayload | null {
   if (!token) {
     console.error('No token provided to decode.');
     return null;
   }
 
-  // console.log('token in decodeJWT -----------------------------------------------', token);
-
-  const parts = token.split('.');
-
-  if (parts.length !== 3) {
-    console.error('Invalid JWT format. Expected three parts separated by dots.');
-    return null;
-  }
-
-  const [header, payload] = parts;
-
   try {
-    const decodedHeader = decodeBase64Url(header);
-    const decodedPayload = decodeBase64Url(payload);
 
-    return {
-      header: JSON.parse(decodedHeader),
-      payload: JSON.parse(decodedPayload),
-    };
+    const plainToken = sanitizeJwt(token.replace('Bearer', '').trim());
+
+    const decoded = decodeJwt(plainToken);
+
+    if (!decoded) {
+      console.error('Invalid JWT or decode failed.');
+      return null;
+    }
+
+    return decoded as JwtPayload;
+
   } catch (error) {
     console.error('Failed to decode JWT:', error);
     return null;
   }
 }
 
-function decodeBase64Url(input: string): string {
-  let base64 = input.replace(/-/g, '+').replace(/_/g, '/');
-  const pad = 4 - (base64.length % 4);
-  if (pad !== 4) {
-    base64 += '='.repeat(pad);
+/**
+ * Converts a base64-encoded string to base64url format by replacing special characters.
+ *
+ * @param str - The base64-encoded string to convert.
+ * @returns The string converted to base64url format.
+ */
+export function toBase64Url(str: string): string {
+  return str
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
+
+/**
+ * Sanitizes the JWT token to ensure it is in base64url format.
+ * Throws an error if the token structure is invalid (i.e., not having 3 segments).
+ *
+ * @param token - The raw JWT string to sanitize. It should have 3 segments (header, payload, signature).
+ * @returns The sanitized JWT token in proper base64url format.
+ * @throws Will throw an error if the JWT structure is invalid.
+ */
+export function sanitizeJwt(token: string): string {
+  const parts = token.split('.');
+  if (parts.length !== 3) {
+    throw new Error('Invalid JWT structure; expected 3 segments (header.payload.signature)');
   }
 
-  if (typeof window !== 'undefined' && typeof window.atob === 'function') {
-    return decodeURIComponent(
-      Array.prototype.map
-        .call(window.atob(base64), (c: string) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join(''),
-    );
-  } else if (typeof Buffer !== 'undefined') {
-    return Buffer.from(base64, 'base64').toString('utf-8');
-  } else {
-    throw new Error('No base64 decoding method available');
+  const [header, payload, signature] = parts;
+  const fixedHeader = toBase64Url(header);
+  const fixedPayload = toBase64Url(payload);
+  const fixedSignature = toBase64Url(signature);
+
+  return `${fixedHeader}.${fixedPayload}.${fixedSignature}`;
+}
+
+/**
+ * Validates the given JWT token by sanitizing it, verifying its signature, and checking its claims.
+ *
+ * @param token - The raw JWT token string to validate.
+ * @returns The decoded payload if the token is valid, or null if validation fails.
+ * @throws Will throw an error if the token is invalid or expired.
+ */
+export async function validateToken(token: string): Promise<JwtPayload | null> {
+  try {
+    // Verify the token using the secret and specified algorithm
+    const { payload } = await jwtVerify(sanitizeJwt(token), JWT_SIGNATURE_SECRET, {
+      algorithms: [DEFAULT_ALGORITHM],
+      clockTolerance: Number.MAX_VALUE,
+      // requiredClaims: ['client_id', 'scopes', 'exp', 'ssn', 'role'],
+    });
+
+    if (!payload) {
+      console.error('Token validation failed: payload is undefined.');
+      return null;
+    }
+
+    if (!payload.exp || payload.exp < Date.now()) {
+      console.error('Token validation failed: token is expired.');
+      return null;
+    }
+
+    return payload as JwtPayload;
+  } catch (error) {
+    console.error('Token validation failed:', error);
+    return null;
   }
 }
 
-export function getRole(decodedToken: JwtPayload | undefined): string | null {
+/**
+ * Extracts the role from the decoded JWT payload, if available.
+ * The role will be sanitized by removing the client prefix.
+ *
+ * @param decodedToken - The decoded JWT payload.
+ * @returns The sanitized role string, or null if the role is not present.
+ */
+export function getRole(decodedToken: JwtPayload | null): string | null {
   if (decodedToken?.role) {
     return decodedToken.role?.replace(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}-`, '');
   }

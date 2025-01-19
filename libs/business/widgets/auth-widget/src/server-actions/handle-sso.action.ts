@@ -3,7 +3,7 @@
 import { cookies, headers } from 'next/headers';
 import { CookieKey, UserRole } from '@oxygen/types';
 import {
-  decodeJWT,
+  decodeToken,
   encrypt,
   getRole,
   processAndSignTokenWithScopes,
@@ -12,8 +12,8 @@ import {
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
   const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
-  const baseUrl = `${protocol}://${host}`;
-
+  const baseUrl2 = `${protocol}://${host}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const response = await fetch(`${baseUrl}/api/auth/signin`, {
     method: 'POST',
     headers: {
@@ -33,12 +33,12 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   }
 
   const token = tokenData.data.access_token;
-  const tokenPayload = decodeJWT(token)?.payload;
-  const userRole = getRole(tokenPayload);
+  const decodedToken = decodeToken(token);
+  const userRole = getRole(decodedToken);
 
   const newScopes = `${process.env.SSO_SCOPE}+${userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? process.env.SSO_SCOPE_COMMERCIAL : process.env.SSO_SCOPE_BUSINESS}`;
 
-  const signedToken = processAndSignTokenWithScopes(tokenData.data.access_token, newScopes);
+  const signedToken = await processAndSignTokenWithScopes(tokenData.data.access_token, newScopes);
   const expiresIn = tokenData.data.expires_in;
 
   // Set the cookie directly in the server action
