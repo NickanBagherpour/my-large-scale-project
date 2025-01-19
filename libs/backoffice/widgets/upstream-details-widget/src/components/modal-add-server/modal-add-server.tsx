@@ -1,56 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import { Form } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { MutationStatus } from '@tanstack/react-query';
-import { Divider, Table } from '@oxygen/ui-kit';
+import { Divider, Input, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { uuid } from '@oxygen/utils';
 
-import { CreateServerType } from './modal-delete-server.schema';
+import { createServerType, CreateServerType, FORM_ITEM_NAMES } from './add-server-modal.schema';
 import { AnimatedStatus } from '@oxygen/reusable-components';
-import {
-  getDesktopColumnsDeleteServerModal,
-  getMobileColumnsDeleteServerModal,
-} from '../../utils/upstream-details-list-util';
-import { UpstreamDetailsType } from '../../types';
 
-import * as S from './modal-delete-server.style';
+import * as S from './modal-add-server.style';
 
 interface ReusableFormModalProps {
-  title?: string;
+  title: string;
   open: boolean;
   setOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  onConfirm: (values: CreateServerType) => void;
   status: MutationStatus;
   initialData?: CreateServerType;
   successMsg?: string;
-  data?: UpstreamDetailsType[];
-  okButtonProps: any;
-  cancelButtonProps: any;
-  okText: string;
-  cancelText: string;
-  centered: boolean;
-  onOk: () => void;
+  selectedServerId?: number | null;
 }
 
-const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const {
-    title = 'add-upstream.create_upstream',
-    open,
-    setOpen,
-    status,
-    initialData,
-    successMsg,
-    data,
-    cancelText,
-    okText,
-    okButtonProps,
-    cancelButtonProps,
-    centered,
-    onOk,
-  } = props;
+const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
+  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
   const [t] = useTr();
+  const rule = createSchemaFieldRule(createServerType(t));
+  const [form] = Form.useForm<CreateServerType>();
+
+  const [formKey, setFormKey] = useState(0);
 
   const createStatus = {
     success: 'success',
@@ -61,29 +42,30 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
 
   useEffect(() => {
     if (!initialData && open) {
+      form.resetFields();
       setIsCreateMode(true);
     }
-  }, [open, initialData]);
+  }, [open, initialData, form]);
+
+  const handleFinish = (values: CreateServerType) => {
+    setIsCreateMode(false);
+    onConfirm(values);
+  };
 
   const resetModal = () => {
     setOpen(false);
+    form.resetFields();
     setIsCreateMode(true);
   };
 
   const handleCancel = () => {
     setOpen(false);
+    form.resetFields();
     setIsCreateMode(true);
+    setFormKey((prevKey) => prevKey + 1);
   };
-
-  const handleConfirmDelete = () => {
-    setIsCreateMode(false);
-    onOk();
-  };
-
-  const desktopColumns = getDesktopColumnsDeleteServerModal({ t });
-  const mobileColumns = getMobileColumnsDeleteServerModal({ t });
-
-  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
+  const values = Form.useWatch([], form);
+  const isFormEmpty = !values?.[FORM_ITEM_NAMES.domain] || !values?.[FORM_ITEM_NAMES.weight];
 
   const renderModalContent = () => {
     if (isCreateMode) {
@@ -95,18 +77,39 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
           </S.StyledHeader>
           <Divider />
           <S.StyledContainer>
-            <S.ModalMessage>{t('are_you_sure_delete_server_question')}</S.ModalMessage>
-            <S.TableContainer>
-              <Table
-                dataSource={tableData}
-                columns={desktopColumns}
-                mobileColumns={mobileColumns}
-                hasContainer={false}
-                pagination={false}
-                rowKey={() => uuid()}
-                showHeader
-              />
-            </S.TableContainer>
+            <S.StyledForm
+              key={formKey}
+              layout='horizontal'
+              labelAlign='left'
+              labelCol={{ span: 8 }}
+              style={{ width: '100%' }}
+              form={form}
+              onFinish={handleFinish}
+              colon={true}
+              initialValues={initialData}
+            >
+              <Form.Item name={FORM_ITEM_NAMES.domain} label={t('domain')} rules={[rule]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name={FORM_ITEM_NAMES.weight} label={t('weight')} rules={[rule]}>
+                <Input allow={'number'} />
+              </Form.Item>
+
+              <Form.Item name={FORM_ITEM_NAMES.healthStatus} label={t('health')} rules={[rule]} initialValue={'1'}>
+                <Select size={'large'} disabled={true}>
+                  <Select.Option value='1'>{t('health')}</Select.Option>
+                  <Select.Option value='0'>{t('unHealth')}</Select.Option>
+                </Select>
+              </Form.Item>
+            </S.StyledForm>
+
+            <S.StyledButton
+              disabled={status === 'pending' || isFormEmpty}
+              onClick={() => form.submit()}
+              style={{ marginBottom: '1.6rem' }}
+            >
+              {selectedServerId ? t('edit_server') : t('register_server')}
+            </S.StyledButton>
           </S.StyledContainer>
         </>
       );
@@ -146,18 +149,10 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
       destroyOnClose={true}
       closeIcon={false}
       headerDivider={false}
-      okButtonProps={okButtonProps}
-      cancelButtonProps={cancelButtonProps}
-      cancelText={cancelText}
-      okText={okText}
-      centered={centered}
-      footer={!isCreateMode ? null : undefined}
-      // onOk={onOk}
-      onOk={handleConfirmDelete}
-      keyboard={false}
+      footer={false}
     >
       {renderModalContent()}
     </S.StyledModal>
   );
 };
-export default MainDeleteServerModal;
+export default AddServerModal;

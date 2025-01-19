@@ -1,6 +1,7 @@
 export default {
   upstream_server_title: 'سرورهای آپ‌استریم',
   add_server: 'افزودن سرور',
+  edit_server: 'ویرایش سرور',
   widget_name_details: 'جزئیات آپ استریم',
   widget_name_creation: 'ایجاد آپ استریم',
   domain: 'دامنه',
@@ -38,4 +39,5 @@ export default {
   cancel: 'لغو',
   edit_upstream_success: 'ویرایش آپ‌استریم با موفقیت انجام شد',
   edit_upstream_successfully: 'ویرایش آپ‌استریم با موفقیت انجام شد',
+  delete_server_successfully: 'حذف سرور با موفقیت انجام شد',
 };

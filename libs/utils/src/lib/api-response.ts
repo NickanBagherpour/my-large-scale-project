@@ -19,10 +19,7 @@ createErrorResponse(error, {
       }
 * */
 
-export const createErrorResponse = (
-  error: unknown,
-  customOverrides?: Partial<ApiResponse>,
-) => {
+export const createErrorResponse = (error: unknown, customOverrides?: Partial<ApiResponse>) => {
   const baseResponse: ApiResponse = {
     success: false,
     error: 'An unknown error occurred',

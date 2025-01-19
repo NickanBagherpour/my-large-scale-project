@@ -106,6 +106,7 @@ export default {
     display: 'مشاهده',
     detail: 'جزئیات',
     cancel: 'انصراف',
+    cancellation: 'لغو',
     delete: 'حذف',
     genuine: 'حقیقی',
     real: 'حقیقی',
