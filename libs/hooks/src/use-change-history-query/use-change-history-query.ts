@@ -14,7 +14,7 @@ function calculateDifference<ObjectType extends object>(
     return {
       ...result,
       [key]: {
-        originalValue: computedDifference,
+        value: computedDifference,
         hasDifference: comparisonObject ? comparisonObject[key] !== value : false,
       },
     };

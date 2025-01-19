@@ -2,11 +2,11 @@ import { useTheme } from 'styled-components';
 import { Badge } from 'antd';
 
 type Props = {
-  item: { originalValue: string | number | null | undefined | boolean; hasDifference: boolean };
+  item: { value: string | number | null | undefined | boolean; hasDifference: boolean };
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { originalValue, hasDifference } = {} } = props;
+  const { item: { value, hasDifference } = {} } = props;
 
   const theme = useTheme();
 
@@ -14,10 +14,10 @@ export function HistoryCell(props: Props) {
     const badgeColor = theme.error._600;
     return (
       <>
-        {hasDifference && <Badge color={badgeColor} />} {originalValue}
+        {hasDifference && <Badge color={badgeColor} />} {value}
       </>
     );
   }
 
-  return originalValue;
+  return value;
 }

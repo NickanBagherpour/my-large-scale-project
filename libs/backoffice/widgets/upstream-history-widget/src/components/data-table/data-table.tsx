@@ -12,8 +12,7 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useGetUpstreamHistory } from '../../services';
-import { HistoryDifferenceObj } from '../../services/get-upstream-history.api';
+import { useGetUpstreamHistory, type HistoryDifferenceObj } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -49,7 +48,7 @@ const DataTable: React.FC<AppProps> = () => {
       dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, _record, index) => {
-        return getValueOrDash(value?.originalValue); // TODO: this should display value.value
+        return getValueOrDash(value?.value); // TODO: this should display value.value
       },
       // width: 50,
     },
@@ -59,7 +58,7 @@ const DataTable: React.FC<AppProps> = () => {
       // key: 'adminName',
       ellipsis: true,
       render: (value, _record, index) => {
-        return getValueOrDash(value?.originalValue);
+        return getValueOrDash(value?.value);
       },
       // width: 50,
     },
@@ -70,7 +69,7 @@ const DataTable: React.FC<AppProps> = () => {
       ellipsis: true,
       className: 'left-to-right',
       render: (value, _record, index) => {
-        return <HistoryCell item={value.originalValue.name} />;
+        return <HistoryCell item={value.value.name} />;
       },
       // width: 50,
     },
@@ -81,7 +80,7 @@ const DataTable: React.FC<AppProps> = () => {
       ellipsis: true,
       className: 'right-to-left',
       render: (value, _record, index) => {
-        return <HistoryCell item={value.originalValue.description} />;
+        return <HistoryCell item={value.value.description} />;
       },
       // width: 50,
     },
