@@ -2,22 +2,22 @@ import { useTheme } from 'styled-components';
 import { Badge } from 'antd';
 
 type Props = {
-  item: { value: string | number | null | undefined | boolean; isDifferent: boolean };
+  item: { originalValue: string | number | null | undefined | boolean; hasDifference: boolean };
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value, isDifferent } = {} } = props;
+  const { item: { originalValue, hasDifference } = {} } = props;
 
   const theme = useTheme();
 
-  if (isDifferent) {
+  if (hasDifference) {
     const badgeColor = theme.error._600;
     return (
       <>
-        {isDifferent && <Badge color={badgeColor} />} {value}
+        {hasDifference && <Badge color={badgeColor} />} {originalValue}
       </>
     );
   }
 
-  return value;
+  return originalValue;
 }

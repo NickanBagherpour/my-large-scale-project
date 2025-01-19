@@ -12,11 +12,13 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { useGetUpstreamHistory } from '../../services/get-upstream-history.api';
+import { useGetUpstreamHistory } from '../../services';
+import { HistoryDifferenceObj } from '../../services/get-upstream-history.api';
 
 type AppProps = PageProps & {
   //
 };
+
 const DataTable: React.FC<AppProps> = () => {
   const {
     table,
@@ -41,13 +43,13 @@ const DataTable: React.FC<AppProps> = () => {
   const dataSource = data?.content ?? [];
   const hasResults = !data?.empty;
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, _record, index) => {
-        return getValueOrDash(value?.value); // TODO: this should display value.value
+        return getValueOrDash(value?.originalValue); // TODO: this should display value.value
       },
       // width: 50,
     },
@@ -57,7 +59,7 @@ const DataTable: React.FC<AppProps> = () => {
       // key: 'adminName',
       ellipsis: true,
       render: (value, _record, index) => {
-        return getValueOrDash(value?.value);
+        return getValueOrDash(value?.originalValue);
       },
       // width: 50,
     },
@@ -68,7 +70,7 @@ const DataTable: React.FC<AppProps> = () => {
       ellipsis: true,
       className: 'left-to-right',
       render: (value, _record, index) => {
-        return <HistoryCell item={value.value.name} />;
+        return <HistoryCell item={value.originalValue.name} />;
       },
       // width: 50,
     },
@@ -79,7 +81,7 @@ const DataTable: React.FC<AppProps> = () => {
       ellipsis: true,
       className: 'right-to-left',
       render: (value, _record, index) => {
-        return <HistoryCell item={value.value.description} />;
+        return <HistoryCell item={value.originalValue.description} />;
       },
       // width: 50,
     },
