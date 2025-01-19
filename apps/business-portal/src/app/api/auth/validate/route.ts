@@ -1,4 +1,4 @@
-import { createResponse,createErrorResponse } from '@oxygen/utils';
+import { createResponse, createErrorResponse } from '@oxygen/utils';
 
 export async function GET(req: Request) {
   const token = req.headers.get('Authorization');

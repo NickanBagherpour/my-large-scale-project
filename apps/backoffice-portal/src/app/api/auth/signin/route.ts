@@ -1,4 +1,4 @@
-import { createResponse,createErrorResponse, ENV_CONSTANTS } from '@oxygen/utils';
+import { createResponse, createErrorResponse, ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function POST(req: Request) {
   const { code } = await req.json();
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   const url = `${process.env.SSO_URL}/identity/oauth2/auth/token`;
 
   const basicToken = Buffer.from(`${process.env.NEXT_PUBLIC_SSO_CLIENT_KEY}:${process.env.SSO_CLIENT_SECRET}`).toString(
-    'base64',
+    'base64'
   );
 
   const headers = {
@@ -51,5 +51,4 @@ export async function POST(req: Request) {
     console.error('Error during SSO:', error);
     return createErrorResponse(error);
   }
-
 }

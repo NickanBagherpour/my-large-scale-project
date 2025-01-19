@@ -40,7 +40,7 @@ export const usePostConfirmData = () => {
   return useMutation({
     mutationFn: () => Api.postCofirmData(serviceName),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [SERVICE] });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE], refetchType: 'none' });
       await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST.DRAFTS], refetchType: 'none' });
     },
     onError: (e) => {
