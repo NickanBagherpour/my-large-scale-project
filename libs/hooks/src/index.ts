@@ -15,3 +15,4 @@ export { default as TestProvider } from './test-provider/test-provider';
 export { default as AntStyleProvider } from './ant-style-provider/ant-style-provider';
 export { default as useDebouncedValue } from './use-debounced-value/use-debounced-value';
 export { default as useQueryParams } from './use-query-params/use-query-params';
+export * from './use-change-history-query';

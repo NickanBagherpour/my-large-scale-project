@@ -22,7 +22,7 @@ const App: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const servicename: Nullable<string> = searchParams.get('servicename');
+  const servicename: Nullable<string> = searchParams.get('upstream-name');
   if (!servicename) {
     notFound();
   }

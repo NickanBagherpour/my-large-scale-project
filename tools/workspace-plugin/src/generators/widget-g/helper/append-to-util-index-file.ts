@@ -6,7 +6,6 @@ import { IWidgetSchema } from '../schema';
 
 type PortalNameType = 'backoffice' | 'customer' | 'business';
 
-
 /**
  * Appends import and export statements to the index.ts file at specified comment locations,
  * using the content from a template file (sample.txt).
@@ -63,7 +62,6 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
   } else {
     throw new Error('Failed to find the import/export markers in index.ts');
   }
-
 }
 
 /**
@@ -77,7 +75,8 @@ function replacePlaceholders(template: string, schema: IWidgetSchema): string {
   const constantName = names(schema.name).constantName.replace(/_widget$/i, '');
   const pageName = names(schema.name).fileName.replace(/-widget$/i, '');
 
-  return template.replace(/<%= constantName %>/g, constantName)
+  return template
+    .replace(/<%= constantName %>/g, constantName)
     .replace(/<%= pageName %>/g, pageName)
     .replace(/<%= portalName %>/g, schema.shortPortalName);
 }
@@ -115,7 +114,12 @@ function extractSection(content: string, section: 'import' | 'export'): string[]
  * @param portalName - The portalName type ('backoffice' or 'customer' or 'business').
  * @returns True if the insertion was successful, false otherwise.
  */
-function insertSection(lines: string[], section: 'import' | 'export', sectionContent: string[], portalName: PortalNameType): boolean {
+function insertSection(
+  lines: string[],
+  section: 'import' | 'export',
+  sectionContent: string[],
+  portalName: PortalNameType
+): boolean {
   const marker = `/*--${section}-${portalName}--*/`;
   const index = lines.findIndex((line) => line.includes(marker));
 

@@ -23,9 +23,9 @@ export async function GET(req: Request) {
     }
 
     // Filter out the CONFIG cookie
-    const cookiesToClear = cookies().getAll().filter(
-      (cookie) => cookie.name !== CookieKey.CONFIG,
-    );
+    const cookiesToClear = cookies()
+      .getAll()
+      .filter((cookie) => cookie.name !== CookieKey.CONFIG);
 
     // Create the response with success and clear the cookies
     const res = createResponse({ success: true });
@@ -36,7 +36,6 @@ export async function GET(req: Request) {
     });
 
     return res;
-
   } catch (error: unknown) {
     return createErrorResponse(error);
   }

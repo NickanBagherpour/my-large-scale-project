@@ -61,7 +61,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
     {
       title: '',
       dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
-      key: 'delete',
+      key: 'id',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
         <S.BtnContainer>
           <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>
