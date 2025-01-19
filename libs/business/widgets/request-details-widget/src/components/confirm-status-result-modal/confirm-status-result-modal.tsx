@@ -54,6 +54,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
             size={'large'}
             variant={'outlined'}
             icon={<i className={'icon-home-empty'} />}
+            disabled={createStatus[newStatus] === 'loading'}
           >
             {t('requests_management')}
           </S.StyledButton>

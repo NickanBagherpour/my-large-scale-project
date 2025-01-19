@@ -54,7 +54,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
       expertOpinion: isConfirm ? ExpertOpinionStatus.CONFIRMED : ExpertOpinionStatus.REJECTED,
       description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription) ?? '',
     };
-
+    setOpenModal(false);
     setOpenStatusResult(true);
     mutate(params, {
       onSuccess: async () => {
@@ -63,7 +63,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
         });
       },
       onSettled: () => {
-        setOpenModal(false);
+        // setOpenModal(false);
       },
       onError: () => {
         setOpenStatusResult(false);
