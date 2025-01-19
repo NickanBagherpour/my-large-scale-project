@@ -27,8 +27,8 @@ const RequestedServices: React.FC<DataTableProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
   const {
-    table: { pagination = { page: 1, rowsPerPage: 5 } } = { pagination: { page: 1, rowsPerPage: 10 } }, // Fallback for pagination
-  } = state || {};
+    table: { pagination },
+  } = state;
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;

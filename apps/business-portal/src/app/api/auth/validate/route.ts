@@ -1,8 +1,8 @@
 import { createResponse, createErrorResponse } from '@oxygen/utils';
 
 export async function GET(req: Request) {
-  const token = req.headers.get('Authorization');
-  // const token = cookies().get(CookieKey.SESSION_ID)?.value;
+  const token = req.headers.get('Authorization'); // token with Bearer
+  // const token = cookies().get(CookieKey.SESSION_ID)?.value; // token without Bearer
   const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/validate`;
 
   if (!token) {
@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
     });
 
