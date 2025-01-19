@@ -4,8 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@oxygen/utils';
-import Filters from '../filters/filters';
-import Requests from '../requests/requests';
+import Filters from '../filter/filter';
 
 import { useAppDispatch, useAppState } from '../../context';
 import {
@@ -19,7 +18,6 @@ import DraftCard from '../draft-card/draft-card';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
-import { EmptyState } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //

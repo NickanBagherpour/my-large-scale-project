@@ -9,38 +9,15 @@ const Api = {
   },
 
   getRequestsListData: async (params: RequestParamsType) => {
-    const sort = params.sort === 'newest' ? 'asc' : 'desc';
     // Initialize filteredParams with the searchTerm
     const filteredParams: { [key: string]: string | number | string[] | number[] } = {
       orgName: params.searchTerm,
-      sort: sort,
+      sort: params.sort,
+      searchStatusSet: params.status,
     };
-
-    // Check the status and assign the corresponding searchStatusSet values
-    if (params.status && params.status === 'confirmed') {
-      // confirmed
-      filteredParams.searchStatusSet = 3;
-    } else if (params.status && params.status === 'reviewed') {
-      // reviewed
-      filteredParams.searchStatusSet = 1;
-    } else if (params.status && params.status === 'rejected') {
-      // rejected
-      filteredParams.searchStatusSet = 2;
-    }
-
-    // Manually build the query string
-    // const queryString = Object.entries(filteredParams)
-    //   .map(([key, value]) => {
-    //     if (Array.isArray(value)) {
-    //       return `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(value))}`;
-    //     }
-    //     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    //   })
-    //   .join('&');
 
     try {
       const res = await client.get(`${portalUrl}/v1/submissions/search?`, { params: filteredParams });
-      // const res = await client.get(`${portalUrl}/v1/submissions/search?${queryString}`);
       return res;
     } catch (error) {
       console.error('Error fetching request list:', error);

@@ -4,6 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
 import * as S from './modal-confirm.style';
 import { Card } from 'antd';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   isOpen: boolean;
@@ -14,9 +15,23 @@ type Props = {
 export default function ConfirmModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, trackCode } = props;
+  const router = useRouter();
+
+  const handleCancel = () => {
+    toggle();
+    router.push(ROUTES.CUSTOMER.REQUEST_MANAGEMENT);
+  };
 
   return (
-    <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
+    <S.ModalContainer
+      centered
+      open={isOpen}
+      closable={false}
+      keyboard={false}
+      footer={[]}
+      onCancel={handleCancel}
+      // maskClosable={false}
+    >
       <Card>
         <S.Info>
           <S.IconWrapper>

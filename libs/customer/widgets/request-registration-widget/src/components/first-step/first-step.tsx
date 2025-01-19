@@ -8,7 +8,7 @@ import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip, InfoBox } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
 import {
@@ -75,6 +75,35 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { mutate: secondMutate, isPending: secondIsPending } =
     useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
+
+  // type OrganizationInfo = { key: string; value: any };
+  // const [organizationInfoData, setOrganizationInfoData] = useState<OrganizationInfo[]>([]);
+
+  // useEffect(() => {
+  //   if (isSelected.id) {
+  //     setOrganizationInfoData([
+  //       { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
+  //       { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
+  //       {
+  //         key: t('form.legal_person_type'),
+  //         value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
+  //       },
+  //       { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
+  //       { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
+  //       { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
+  //       { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
+  //       {
+  //         key: t('form.aggregator_status'),
+  //         value: organizations[isSelected.id]?.isAggregator
+  //           ? t('company_is_aggregator')
+  //           : organizations[isSelected.id]?.aggregatorId
+  //           ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+  //           : t('company_is_not_aggregator'),
+  //       },
+  //     ]);
+  //   }
+  // }, [isSelected.id, organizations, t]);
 
   useEffect(() => {
     const transformedAggregators = aggregators?.content?.map((aggregator) => ({
@@ -83,7 +112,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     }));
     setAggregatorSelectData(transformedAggregators);
   }, [aggregators]);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
 
   const checkFields = (_, allFields) => {
     const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
@@ -234,6 +262,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
+                      {/* <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} /> */}
                       <Card>
                         <SearchItemsContainer>
                           <S.InfoItemContainer>

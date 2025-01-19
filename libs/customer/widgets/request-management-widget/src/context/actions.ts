@@ -23,7 +23,7 @@ export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial
   dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
+export function updatePagination(dispatch: WidgetDispatchType, pagination: WidgetStateType['pagination']) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
