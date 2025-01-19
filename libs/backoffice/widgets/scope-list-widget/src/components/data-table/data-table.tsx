@@ -3,6 +3,7 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { ScopeListData } from '../../types';
 import { Table } from '@oxygen/ui-kit';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -11,7 +12,7 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.uti
 import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
-  scopeListData: any;
+  scopeListData: ScopeListData | undefined;
   scopeListLoading: boolean;
 };
 

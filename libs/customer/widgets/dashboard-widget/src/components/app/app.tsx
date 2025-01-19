@@ -67,7 +67,7 @@ const App: React.FC<AppProps> = (props) => {
         ref={iframeRef}
         src={reportUrl}
         onLoad={() => {
-          console.log('loaded');
+          // console.log('loaded');
           setLoading(false);
         }}
         style={{ display: loading ? 'none' : 'block' }}
