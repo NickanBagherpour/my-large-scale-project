@@ -19,10 +19,6 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_SERVICE_NAME';
-      payload: string;
-    }
-  | {
       type: 'UPDATE_PAGINATION';
       payload: Partial<PaginationType>;
     };
