@@ -16,7 +16,8 @@ export default function ConfirmModal(props: Props) {
   const { isOpen, toggle, trackCode } = props;
 
   return (
-    <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
+    <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}
+                      maskClosable={false}>
       <Card>
         <S.Info>
           <S.IconWrapper>
@@ -29,7 +30,7 @@ export default function ConfirmModal(props: Props) {
         </S.FollowCode>
       </Card>
       <S.ReturnToRequest>
-        <i className='icon-home' />
+        <i className="icon-home" />
         <Link href={ROUTES.CUSTOMER.REQUEST_MANAGEMENT}>{t('return_to_request')}</Link>
       </S.ReturnToRequest>
     </S.ModalContainer>
