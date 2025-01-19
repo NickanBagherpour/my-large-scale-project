@@ -10,7 +10,7 @@ export default {
     protocol: 'پروتوکل',
     access: 'دسترسی',
     category: 'دسته‌بندی',
-    throughout: 'Throughout',
+    throughput: 'Throughput',
     version: 'نسخه',
     owner: 'مالک',
     tags: 'تگ',
