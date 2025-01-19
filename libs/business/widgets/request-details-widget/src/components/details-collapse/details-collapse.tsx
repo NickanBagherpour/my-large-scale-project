@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { type CollapseProps, Tooltip } from 'antd';
 
 import { InfoBox } from '@oxygen/ui-kit';
@@ -25,11 +24,9 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   const [t] = useTr();
   const userRole = state?.userRole;
 
-  if (!data) return <NoResult isLoading={false} />;
-
   const { submissionInfoDto, organization, representativeSet, services } = data;
   const representativeName =
-    (representativeSet && representativeSet.find((rep) => rep?.type === RepresentativeType.STANDARD)?.name) ?? '';
+    (representativeSet && representativeSet?.find((rep) => rep?.type === RepresentativeType.STANDARD)?.name) ?? '';
   const status = submissionInfoDto?.submissionStatus;
 
   const items: CollapseProps['items'] = [
@@ -45,7 +42,6 @@ const DetailsCollapse: React.FC<Props> = (props) => {
         <InfoBox data={getSubmissionInfo(submissionInfoDto, representativeName, t)} margin={0} />
       ) : (
         <S.StyledContainer>
-          {' '}
           <NoResult isLoading={false} />
         </S.StyledContainer>
       ),
@@ -102,12 +98,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
     },
   ];
 
-  return (
-    <Collapse
-      items={items}
-      // collapsible={'icon'}
-    />
-  );
+  return <Collapse items={items} />;
 };
 
 export default DetailsCollapse;

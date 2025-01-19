@@ -6,8 +6,12 @@ import { FetchSubmissionDetailParamsType } from '../types';
 
 export const useGetSubmissionDetailQuery = (params: FetchSubmissionDetailParamsType) => {
   const dispatch = useAppDispatch();
+  const {
+    REQUEST,
+    REQUEST_DETAILS: { GET_REQUEST_DETAIL },
+  } = RQKEYS.BUSINESS;
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.REQUEST_DETAILS.GET_REQUEST_DETAIL, params],
+    queryKey: [REQUEST, GET_REQUEST_DETAIL, params],
     queryFn: withErrorHandling(() => Api.getSubmissionDetail(params), dispatch),
     enabled: !!params.submissionId,
   });

@@ -36,9 +36,6 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
     ? `${t('company_has_aggregator')} - ${organization?.aggregatorName}`
     : t('company_is_not_aggregator');
 
-  const isAggregator = organization?.isAggregator;
-  const aggregatorName = organization?.aggregatorName;
-  const showAggregatorName = isAggregator && aggregatorName;
   return [
     {
       key: t('legal_name'),
@@ -71,13 +68,6 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
     {
       key: t('aggregator_status'),
       value: getValueOrDash(aggregatorStatusText),
-      // getValueOrDash(`${t(aggregatorStatusText)}${
-      //    showAggregatorName ? ` - ${getValueOrDash(aggregatorName)}` : ''}`),
-      //   getValueOrDash(
-      //   `${t(isAggregator ? 'has_aggregator' : 'dont_have_aggregator')}${
-      //     showAggregatorName ? ` - ${getValueOrDash(aggregatorName)}` : ''
-      //   }`,
-      // ),
     },
     {
       fullwidth: true,
