@@ -53,11 +53,11 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     fourthMutate(params, {
       onSuccess: (data) => {
         setTrackCode(data.headers['track-code']);
-        console.log('request registration first step successful:', data);
+        // console.log('request registration first step successful:', data);
         setConfirmModal(true);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        // console.error('request registration first step  failed:', error);
       },
     });
   };
