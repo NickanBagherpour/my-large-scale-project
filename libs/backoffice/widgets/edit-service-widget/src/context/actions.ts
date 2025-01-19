@@ -6,10 +6,6 @@ import { PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
-export function updateServiceName(dispatch: WidgetDispatchType, serviceName: string) {
-  dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });
-}
-
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
