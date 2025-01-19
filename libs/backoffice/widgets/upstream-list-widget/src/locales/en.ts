@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'Upstreams',
+  upstream_management: 'Upstreams',
   search_by_name: 'search by name',
   create_new_upstream: 'create new upstream',
   newest: 'newest',

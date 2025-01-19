@@ -47,7 +47,7 @@ const App: React.FC<AppProps> = (props) => {
   const upstreamSubTitle = upstreams?.totalElements ? `(${upstreams?.totalElements ?? 0})` : '';
 
   return (
-    <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle}>
+    <S.UpstreamContainer title={t('upstream_management')} subtitle={upstreamSubTitle}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {

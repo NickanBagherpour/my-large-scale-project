@@ -12,8 +12,8 @@ import {
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
   const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
-  const baseUrl2 = `${protocol}://${host}`;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = `${protocol}://${host}`;
+
   const response = await fetch(`${baseUrl}/api/auth/signin`, {
     method: 'POST',
     headers: {

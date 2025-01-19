@@ -21,6 +21,7 @@ export type UpstreamDetailsType = {
   domain: string;
   healthStatus: string;
   weight: string;
+  id?: number;
 };
 
 export type UpstreamDetails = {

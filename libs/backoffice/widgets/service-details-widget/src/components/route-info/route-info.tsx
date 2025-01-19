@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import type { Pagination, Service } from '@oxygen/types';
-import { TablePaginationConfig } from 'antd';
+
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
-import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Button, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
-import { useAppDispatch, useAppState } from '../../context';
+import { Button, InfoBox } from '@oxygen/ui-kit';
+
 import { useGetRouteDetailsQuery } from '../../services';
+
 import * as S from './route-info.style';
 
 export type Modal = {
@@ -18,19 +17,11 @@ export type Modal = {
   removeService: boolean;
 };
 
-type Props = {
-  t: (key: string) => string; // Assuming 't' is a function for translations
-  filteredClients: Service[];
-  pagination: { page: number; rowsPerPage: number };
-  isClientsFetching: boolean;
-  handlePageChange: (pagination: TablePaginationConfig) => void;
-};
-
 type AppProps = PageProps & {
   //
 };
 
-const Route: React.FC<AppProps> = (props) => {
+const Route: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const servicename: Nullable<string> = searchParams.get('servicename');
   if (!servicename) {
@@ -39,13 +30,9 @@ const Route: React.FC<AppProps> = (props) => {
 
   const params = servicename;
   const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery(params);
-
-  const state = useAppState();
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [t] = useTr();
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
 
   const transformServiceDetails = (routeDetails) => {
     if (!routeDetails) return [];
@@ -55,39 +42,10 @@ const Route: React.FC<AppProps> = (props) => {
       { key: t('protocol'), value: getValueOrDash(routeDetails.protocol?.title) },
       { key: t('path'), value: getValueOrDash(routeDetails.path) },
       { key: t('host'), value: getValueOrDash(routeDetails.host) },
-      // {
-      //   key: 'tags',
-      //   value: serviceDetails.tags.length
-      //     ? serviceDetails.tags.map(
-      //         (tag, index) => `<Chip type='active'>
-      //         {tag}
-      //       </Chip>`
-      //       )
-      //     : '-',
-      // },
     ];
   };
 
   const transformedData = transformServiceDetails(routeDetails);
-
-  const [modals, setModals] = useState<Modal>({
-    details: false,
-    removeService: false,
-  });
-
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
-  };
-
-  const handlePageChange = (pagination: any) => {
-    setPagination({
-      page: pagination.current,
-      rowsPerPage: pagination.pageSize,
-    });
-  };
-
-  const desktopColumns = getDesktopColumns({ t, toggleModal });
-  const mobileColumns = getMobileColumns({ t, toggleModal });
 
   return (
     <S.ItemsContainer className='clients-list'>

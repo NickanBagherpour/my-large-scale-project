@@ -1,32 +1,35 @@
 import z from 'zod';
 import { TFunction } from 'i18next';
 
-import { REGEX_PATTERNS } from '@oxygen/utils';
+import { REGEX_PATTERNS, REGEX_PATTERNS_ACCEPT_DASH } from '@oxygen/utils';
 
 export const FORM_ITEM_NAMES = {
   name: 'name',
   description: 'description',
 } as const;
 
-const requiredString = (t: (key: string) => string) =>
-  z
-    .string({ required_error: t('error.required') })
-    .trim()
-    .min(1, { message: t('error.required') });
-
-const regexString = (pattern: RegExp, errorKey: string, t: (key: string) => string) =>
-  requiredString(t).regex(pattern, { message: t(errorKey) });
+export const NAME_MAX_LENGTH = 150;
 
 export const createUpstreamType = (t: TFunction) => {
   return z.object({
-    [FORM_ITEM_NAMES.name]: regexString(REGEX_PATTERNS.isLatinText, 'error.english_validation_message', t).max(
-      150,
-      t('validation.max_len', { val: 150 })
-    ),
-    [FORM_ITEM_NAMES.description]: regexString(REGEX_PATTERNS.isPersianText, 'error.persian_validation_message', t).max(
-      150,
-      t('validation.max_len', { val: 150 })
-    ),
+    [FORM_ITEM_NAMES.name]: z
+      .string({ required_error: t('error.required') })
+      .trim()
+      .min(1, t('error.required'))
+      .max(NAME_MAX_LENGTH, t('validation.max_len', { val: NAME_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.isLatinText, t('error.english_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.dontAcceptNumbers, t('error.default_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.acceptDash, t('error.default_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.dontAcceptSpaces, t('error.default_validation_message')),
+    [FORM_ITEM_NAMES.description]: z
+      .string({ required_error: t('error.required') })
+      .trim()
+      .min(1, t('error.required'))
+      .max(NAME_MAX_LENGTH, t('validation.max_len', { val: NAME_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.isPersianText, t('error.persian_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.dontAcceptNumbers, t('error.default_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.acceptDash, t('error.default_validation_message'))
+      .regex(REGEX_PATTERNS_ACCEPT_DASH.dontAcceptSpaces, t('error.default_validation_message')),
   });
 };
 export type CreateUpstreamType = z.infer<ReturnType<typeof createUpstreamType>>;

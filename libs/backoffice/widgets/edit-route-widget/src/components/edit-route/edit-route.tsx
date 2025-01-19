@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
 import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
+import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Select, Typography } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
+import { Button, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
 import { FormSchema } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
+import { useGetRouteDetailsQuery, useGetServiceHttpMethod, useGetServiceProtocol } from '../../services';
+import { useEditRouteMutation } from '../../services/post-edit-route.api';
 
 import * as S from './edit-route.style';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { useGetRouteDetailsQuery, useGetServiceHttpMethod, useGetServiceProtocol } from '../../services';
-import { useApp } from '@oxygen/hooks';
-import { useEditRouteMutation } from '../../services/post-edit-route.api';
 
 type EditScopeProps = PageProps & {
   //
@@ -47,7 +47,6 @@ const EditRoute: React.FC<EditScopeProps> = () => {
   };
 
   useEffect(() => {
-    // Ensure routeDetails and select options are available before setting form values
     if (routeDetails && serviceHttpMethods && serviceProtocols) {
       form.setFieldsValue({
         [FORM_ITEM_NAMES.method]: routeDetails?.method?.code,
@@ -58,38 +57,36 @@ const EditRoute: React.FC<EditScopeProps> = () => {
     }
   }, [routeDetails, serviceHttpMethods, serviceProtocols, form]);
 
-  // Transform serviceHttpMethods and serviceProtocols into AntD Select options
   const methodsSelectOptions = serviceHttpMethods?.map((method) => ({
-    label: method.title, // Assuming 'name' contains a human-readable value
-    value: method.code, // Assuming 'code' is used for identifying the method
+    label: method.title,
+    value: method.code,
   }));
 
   const protocolsSelectOptions = serviceProtocols?.map((protocol) => ({
-    label: protocol.title, // Assuming 'name' contains a human-readable value
-    value: protocol.code, // Assuming 'code' is used for identifying the protocol
+    label: protocol.title,
+    value: protocol.code,
   }));
 
   const onFinish = async (values) => {
     const selectedMethod = methodsSelectOptions.find((option) => option.value === values[FORM_ITEM_NAMES.method]);
     const selectedProtocol = protocolsSelectOptions.find((option) => option.value === values[FORM_ITEM_NAMES.protocol]);
 
-    // Dynamically build the payload
     const payload = {
-      ...(servicename && { serviceName: servicename }), // Include only if servicename is present
+      ...(servicename && { serviceName: servicename }),
       ...(selectedMethod && {
         method: {
           code: selectedMethod?.value,
           title: selectedMethod?.label,
         },
-      }), // Include method only if selected
+      }),
       ...(selectedProtocol && {
         protocol: {
           code: selectedProtocol?.value,
           title: selectedProtocol?.label,
         },
-      }), // Include protocol only if selected
-      ...(values[FORM_ITEM_NAMES.path] && { path: values[FORM_ITEM_NAMES.path] }), // Include path only if filled
-      ...(values[FORM_ITEM_NAMES.host] && { host: values[FORM_ITEM_NAMES.host] }), // Include host only if filled
+      }),
+      ...(values[FORM_ITEM_NAMES.path] && { path: values[FORM_ITEM_NAMES.path] }),
+      ...(values[FORM_ITEM_NAMES.host] && { host: values[FORM_ITEM_NAMES.host] }),
     };
 
     try {
@@ -103,10 +100,8 @@ const EditRoute: React.FC<EditScopeProps> = () => {
         onError: (error: any) => {
           console.log('Error object:', error);
 
-          // Extract the error message from the response if available
           const errorMessage = error.response?.data?.message || t('unexpected_error');
 
-          // Show the error message in the notification
           notification.error({
             message: t(errorMessage),
           });
