@@ -6,7 +6,7 @@ import { MutationStatus } from '@tanstack/react-query';
 import { Divider, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
-import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from './add-upstream-modal.schema';
+import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES, NAME_MAX_LENGTH } from './add-upstream-modal.schema';
 import AnimatedStatus from '../animated-status/animated-status';
 
 import * as S from './add-upstream-modal.style';
@@ -90,7 +90,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.name} label={t('add_upstream.upstream_english_name')} rules={[rule]}>
-                <Input disabled={!!initialData} />
+                <Input maxLength={NAME_MAX_LENGTH} disabled={!!initialData} />
               </Form.Item>
 
               <Form.Item
@@ -98,7 +98,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
                 label={t('add_upstream.upstream_persian_name')}
                 rules={[rule]}
               >
-                <Input />
+                <Input maxLength={NAME_MAX_LENGTH} />
               </Form.Item>
             </S.StyledForm>
 
@@ -121,12 +121,17 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             loadingProps={{ description: t('add_upstream.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
-          {!initialData && (
+          {!initialData && createStatus[status] !== 'loading' && (
             <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
               {t('button.try_again')}
             </S.StyledButton>
           )}
-          <S.StyledButton color={'primary'} variant={'outlined'} onClick={resetModal}>
+          <S.StyledButton
+            color={'primary'}
+            variant={'outlined'}
+            onClick={resetModal}
+            disabled={createStatus[status] === 'loading'}
+          >
             {t('button.return')}
           </S.StyledButton>
         </S.StyledContainer>

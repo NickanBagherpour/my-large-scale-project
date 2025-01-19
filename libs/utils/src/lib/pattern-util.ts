@@ -8,6 +8,9 @@ export const REGEX_PATTERNS = {
 };
 
 export const REGEX_PATTERNS_ACCEPT_DASH = {
-  isLatinText: /^[a-zA-Z]+(-[a-zA-Z]+)*$/,
-  isPersianText: /^[\u0600-\u06FF]+(-[\u0600-\u06FF]+)*$/,
+  // isLatinText: /^[a-zA-Z]+(-[a-zA-Z]+)*$/,
+  // isPersianText: /^[\u0600-\u06FF]+(-[\u0600-\u06FF]+)*$/,
+  dontAcceptNumbers: /^[A-Za-z\u0600-\u06FF\s-]*$/,
+  acceptDash: /^[A-Za-z\u0600-\u06FF0-9\s-]*$/,
+  dontAcceptSpaces: /^[A-Za-z\u0600-\u06FF0-9-]*$/,
 };

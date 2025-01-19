@@ -35,9 +35,10 @@ export default function Filters() {
         description: values.description,
       };
 
-      setOpenModal(false);
+      setOpenModal(true);
       mutate(params, {
         onSuccess: () => {
+          setOpenModal(false);
           updateMessageAction(dispatch, {
             description: t('create_upstream_success'),
             type: 'success',
@@ -47,7 +48,10 @@ export default function Filters() {
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
         },
         onError: (error) => {
-          setOpenModal(true);
+          //
+        },
+        onSettled: () => {
+          // setOpenModal(false);
         },
       });
     } catch (error) {

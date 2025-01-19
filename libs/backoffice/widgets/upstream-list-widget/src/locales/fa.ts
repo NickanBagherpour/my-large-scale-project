@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'مدیریت آپ‌استریم‌',
+  upstream_management: 'مدیریت آپ‌استریم‌',
   search_by_name: 'جستجو براساس نام',
   create_new_upstream: 'ایجاد آپ‌ستریم',
   register_information: 'ثبت اطلاعات',
