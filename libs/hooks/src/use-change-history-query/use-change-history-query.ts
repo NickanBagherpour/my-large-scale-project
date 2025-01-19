@@ -2,8 +2,9 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { withErrorHandling } from '@oxygen/utils';
 import { DifferenceMap, Props } from './types';
 import { api } from './api';
+import { cache } from 'react';
 
-function calculateDifference<ObjectType extends object>(
+const calculateDifference = cache(function calculateDifference<ObjectType extends object>(
   baseObject: ObjectType,
   comparisonObject: ObjectType
 ): DifferenceMap<ObjectType> {
@@ -19,7 +20,7 @@ function calculateDifference<ObjectType extends object>(
       },
     };
   }, {} as DifferenceMap<ObjectType>);
-}
+});
 
 export function useChangeHistoryQuery<TContentItem extends object>(props: Props) {
   const {
@@ -38,22 +39,24 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props)
     placeholderData: keepPreviousData,
   });
 
+  const enableNextItemQuery = !!currentPageData && !currentPageData.empty && !currentPageData.last;
+
   const { data: nextItemData, isFetching: isFetchingPreviousItem } = useQuery({
     queryKey: [...queryKey, nextItemParams],
     queryFn: withErrorHandling(() => api.getList<TContentItem>({ url, params: nextItemParams }), dispatch),
+    enabled: enableNextItemQuery,
   });
 
   const isFetching = isFetchingCurrentPage || isFetchingPreviousItem;
 
-  if (currentPageData && nextItemData) {
-    const combinedData = [...currentPageData.content, ...nextItemData.content];
+  if (currentPageData && (nextItemData || !enableNextItemQuery)) {
+    const combinedData = [...currentPageData.content, ...(nextItemData?.content ?? [])];
 
-    // TODO: cache this computaion
     const diffAnnotatedData = combinedData.map((item, index, arr) =>
       calculateDifference<TContentItem>(item, arr[index + 1])
     );
 
-    if (nextItemData.content.length) {
+    if (nextItemData?.content.length) {
       diffAnnotatedData.pop();
     }
 
