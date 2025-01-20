@@ -8,7 +8,7 @@ import { dayjs } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip, InfoBox } from '@oxygen/ui-kit';
 
 import { requestRegistrationFormSchema } from '../../types';
 import {
@@ -64,7 +64,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
-  const [aggregatorSelectData, setAggregatorSelectData] = useState();
+  const [aggregatorSelectData, setAggregatorSelectData] = useState([]);
+
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
   const [isSelected, setIsSelected] = useState<SelectedState>({
     isSelected: false,
@@ -75,18 +76,62 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { mutate: secondMutate, isPending: secondIsPending } =
     useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
-
-  useEffect(() => {
-    const transformedAggregators = aggregators?.content?.map((aggregator) => ({
-      label: aggregator.aggregatorName,
-      value: aggregator.aggregatorId.toString(),
-    }));
-    setAggregatorSelectData(transformedAggregators);
-  }, [aggregators]);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
 
-  const checkFields = (_, allFields) => {
-    const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+  // type OrganizationInfo = { key: string; value: any };
+  // const [organizationInfoData, setOrganizationInfoData] = useState<OrganizationInfo[]>([]);
+
+  // useEffect(() => {
+  //   if (isSelected.id) {
+  //     setOrganizationInfoData([
+  //       { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
+  //       { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
+  //       {
+  //         key: t('form.legal_person_type'),
+  //         value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
+  //       },
+  //       { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
+  //       { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
+  //       { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
+  //       { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
+  //       {
+  //         key: t('form.aggregator_status'),
+  //         value: organizations[isSelected.id]?.isAggregator
+  //           ? t('company_is_aggregator')
+  //           : organizations[isSelected.id]?.aggregatorId
+  //           ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+  //           : t('company_is_not_aggregator'),
+  //       },
+  //     ]);
+  //   }
+  // }, [isSelected.id, organizations, t]);
+
+  useEffect(() => {
+    if (aggregators?.content) {
+      const transformedAggregators = aggregators.content.map((aggregator) => ({
+        label: aggregator.aggregatorName,
+        value: aggregator.aggregatorId.toString(),
+      }));
+      setAggregatorSelectData(transformedAggregators);
+    }
+  }, [aggregators]);
+
+  // const checkFields = (_, allFields) => {
+  //   const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+  //   if (!draft) {
+  //     setIsSubmitDisabled(hasErrors);
+  //   }
+  // };
+
+  const checkFields = () => {
+    const allFields = form.getFieldsError();
+    const allValues = form.getFieldsValue();
+
+    const hasErrors = allFields.some((field) => {
+      const fieldName = Array.isArray(field.name) ? field.name.join('.') : field.name;
+      return field.errors.length > 0 || !allValues[fieldName];
+    });
+
     if (!draft) {
       setIsSubmitDisabled(hasErrors);
     }
@@ -204,11 +249,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           </S.Radios>
           {state.requestMode === 'selectOrganization' ? (
             <S.OrganizationContainer>
-              <S.Grid>
-                {isOrganizationsFetching ? (
-                  <Loading spinning={isOrganizationsFetching} />
-                ) : organizations?.length && organizations?.length ? (
-                  organizations.map(({ legalName, organizationNationalId, id }, idx) => (
+              {isOrganizationsFetching ? (
+                <Loading spinning={isOrganizationsFetching} />
+              ) : organizations?.length && organizations?.length ? (
+                <S.Grid>
+                  {organizations.map(({ legalName, organizationNationalId, id }, idx) => (
                     <S.Button
                       $isSelected={idx === isSelected.id ? true : false}
                       color='primary'
@@ -222,11 +267,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         {organizationNationalId}
                       </S.Subtitle>
                     </S.Button>
-                  ))
-                ) : (
-                  <NoResult isLoading={false} />
-                )}
-              </S.Grid>
+                  ))}
+                </S.Grid>
+              ) : (
+                <NoResult isLoading={false} />
+              )}
+
               {isSelected.isSelected && (
                 <S.OrganizationContainer>
                   {loading ? (
@@ -234,6 +280,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
+                      {/* <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} /> */}
                       <Card>
                         <SearchItemsContainer>
                           <S.InfoItemContainer>
@@ -316,6 +363,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'isAggregator');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('company_is_aggregator')}
@@ -325,6 +375,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'hasAggregator');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('company_has_aggregator')}
@@ -334,6 +387,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         onClick={() => {
                           updateStatus(dispatch, 'nothing');
                           setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
                         }}
                       >
                         {t('nothing')}

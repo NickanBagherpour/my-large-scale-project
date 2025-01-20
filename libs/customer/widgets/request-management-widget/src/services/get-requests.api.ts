@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery, useMutation } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
@@ -27,12 +27,18 @@ export const useGetRequestsDraftsQuery = () => {
 
 export const useDeleteSelectedRequestsDraftsMutationQuery = () => {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (submissionId: number) => Api.deleteSelectedRequest(submissionId),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [RQKEYS.CUSTOMER.REQUEST_MANAGEMENT.DRAFTS],
+      });
     },
   });
 };

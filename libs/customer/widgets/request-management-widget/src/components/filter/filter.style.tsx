@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
+import { Button as KitButton, Divider as KitDivider, Input as KitInput, Chip as KitChip } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
@@ -24,10 +24,33 @@ export const Chips = styled.div`
   display: flex;
   align-items: center;
   margin-inline-end: auto;
+  flex-wrap: wrap;
+  row-gap: 1rem;
 
-  ${respondTo.down('xs')} {
+  ${respondTo.down('sm')} {
     flex-direction: column;
     gap: 1.5rem;
+  }
+`;
+
+export const Chip = styled(KitChip)`
+  &.ant-tag {
+    cursor: pointer;
+  }
+`;
+
+export const Indicators = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Input = styled(KitInput)`
+  max-width: 50.4rem;
+  margin-inline-end: auto;
+
+  ${respondTo.down('lg')} {
+    max-width: 100%;
+    font-size: 1.7rem;
   }
 `;
 
@@ -45,25 +68,6 @@ export const Buttons = styled.div`
 export const Button = styled(KitButton)`
   &&& {
     font-size: 1.4rem;
-  }
-`;
-
-export const Indicators = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${respondTo.between('lg', 'md')} {
-    flex-direction: column;
-  }
-`;
-
-export const Input = styled(KitInput)`
-  max-width: 50.4rem;
-  margin-inline-end: auto;
-
-  ${respondTo.down('lg')} {
-    max-width: 100%;
-    font-size: 1.7rem;
   }
 `;
 
