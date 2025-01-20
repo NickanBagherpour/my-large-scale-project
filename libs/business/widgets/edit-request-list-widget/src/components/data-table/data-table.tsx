@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { TablePaginationConfig } from 'antd';
 import { useRouter } from 'next/navigation';
 
@@ -14,6 +14,8 @@ import { useDeleteService } from '../../services/delete-service.api';
 
 import * as S from './data-table.style';
 import { useQueryClient } from '@tanstack/react-query';
+import { Button, MarkText, Modal } from '@oxygen/ui-kit';
+import { useTheme } from 'styled-components';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
@@ -24,7 +26,13 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const dispatch = useAppDispatch();
   const { message, pagination, ...rest } = useAppState();
   const [t] = useTr();
+  const theme = useTheme();
   const queryClient = useQueryClient();
+  const [isOpen, setIsOpen] = useState(false);
+  const [serviceDetails, setServiceDetails] = useState<any>({
+    serviceName: '',
+    serviceId: null,
+  });
 
   const { mutate, isPending } = useDeleteService();
 
@@ -35,8 +43,18 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     router.back();
   };
 
-  const handleApi = (params) => {
-    mutate(params, {
+  const onCancel = () => setIsOpen(false);
+
+  const handleApi = (serviceName: string, serviceId: number) => {
+    setServiceDetails({
+      serviceName: serviceName,
+      serviceId: serviceId,
+    });
+    setIsOpen(true);
+  };
+
+  const confirmDeleteService = () => {
+    mutate(serviceDetails.serviceId, {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
@@ -47,6 +65,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
           });
         } catch (error) {
           //
+        } finally {
+          setIsOpen(false);
         }
       },
       onError: (error) => {
@@ -65,18 +85,45 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     }
   };
 
+  const SubmitModal = () => {
+    return (
+      <Modal
+        open={isOpen}
+        centered={true}
+        title={t('delete_service')}
+        onCancel={onCancel}
+        confirmLoading={isPending}
+        footer={[
+          <Button variant={'outlined'} onClick={onCancel}>
+            {t('button.cancel')}
+          </Button>,
+          <Button color={'error'} onClick={confirmDeleteService}>
+            {t('buttons.delete')}
+          </Button>,
+        ]}
+      >
+        <MarkText
+          text={t('modal_text', { service_name: serviceDetails.serviceName })}
+          wordToHighlight={serviceDetails.serviceName}
+          highlightColor={theme.error.main}
+        ></MarkText>
+      </Modal>
+    );
+  };
+
   const dataTableParams = { t, pagination, handleApi };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
 
   return (
     <S.DataTableContainer>
+      {SubmitModal()}
       <S.Table
         loading={requestListFetching}
         current={pagination.page}
         total={requestList?.page?.totalElements}
         dataSource={requestList?.content}
-        pagination={{ pageSize: pagination.rowsPerPage }}
+        pagination={{ pageSize: pagination.rowsPerPage, hideOnSinglePage: true }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
