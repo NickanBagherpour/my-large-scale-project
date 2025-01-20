@@ -131,11 +131,11 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       </S.FormItemsContainer>
       <S.TagContainer>
         <S.TagPicker>
-          <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+          <S.TagFormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
             <Dropdown.Select multiSelect loading={isTagLoading} menu={tagOptions}>
               {t('placeholder.tag')}
             </Dropdown.Select>
-          </FormItem>
+          </S.TagFormItem>
 
           {selectedTags?.map((item) => (
             <Chip
