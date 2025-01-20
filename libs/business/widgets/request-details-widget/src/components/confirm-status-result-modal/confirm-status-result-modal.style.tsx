@@ -53,6 +53,7 @@ export const StyledDescription = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 2.5rem;
+  color: ${(p) => p.theme.text.tertiary};
 `;
 
 export const StyledButton = styled(Button)`
