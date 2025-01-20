@@ -37,7 +37,7 @@ export default function ConfirmModal(props: Props) {
         </S.FollowCode>
       </Card>
       <S.ReturnToRequest>
-        <i className='icon-home' />
+        <i className='icon-home-empty' />
         <Link href={ROUTES.CUSTOMER.REQUEST_MANAGEMENT}>{t('return_to_request')}</Link>
       </S.ReturnToRequest>
     </S.ModalContainer>
