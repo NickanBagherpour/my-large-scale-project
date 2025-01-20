@@ -73,6 +73,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
 
     const payload = {
       ...(servicename && { serviceName: servicename }),
+      ...(routeDetails.id && { id: routeDetails.id }),
       ...(selectedMethod && {
         method: {
           code: selectedMethod?.value,

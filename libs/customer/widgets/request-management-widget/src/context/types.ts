@@ -13,9 +13,12 @@ export type PaginationType = {
 
 export type WidgetStateType = {
   searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'confirmed' | 'reviewed' | 'rejected';
-  page: number;
+  sort: string;
+  status: any;
+  pagination: {
+    page: number;
+    rowsPerPage: number;
+  };
   message: Nullable<MessageType>;
 };
 
@@ -46,7 +49,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
-      payload: Partial<PaginationType>;
+      payload: WidgetStateType['pagination'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
