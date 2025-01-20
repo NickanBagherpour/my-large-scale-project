@@ -5,9 +5,9 @@ import { useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { EditServiceRequest } from '../types/edit-service.type';
 
-export const useEditServiceMutation = (onSuccess: (v?: string) => void) => {
+export const useEditServiceMutation = (onSuccess: (v?: string) => void, serviceName?: string, id?: number) => {
   const dispatch = useAppDispatch();
-  const { serviceName } = useAppState();
+  // const { serviceName } = useAppState();
   return useMutation({
     mutationFn: (params: EditServiceRequest) => Api.editService(params),
     onError: (e) => {
@@ -29,6 +29,10 @@ export const useEditServiceMutation = (onSuccess: (v?: string) => void) => {
         // This can occur if useServiceInquiry is triggered again in the app component while the user is navigating
         // back to previous steps and editing them, especially when the initial step is greater than zero.
         // For more details, refer to: https://tanstack.com/query/latest/docs/reference/QueryClient#queryclientinvalidatequeries
+        refetchType: 'none',
+      });
+      await queryClient.invalidateQueries({
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, id],
         refetchType: 'none',
       });
       onSuccess(serviceName);

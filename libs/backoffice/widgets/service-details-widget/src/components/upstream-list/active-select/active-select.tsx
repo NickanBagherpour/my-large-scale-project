@@ -56,13 +56,15 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
     toggleModal('removeService');
   };
-  const handleHistoryBtn = () =>
-    router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=${state.serviceName}&type=service`);
   return (
     <>
       <S.Header>
         <S.Title>{t('upstream_tab.tab_header')}</S.Title>
-        <Button variant='filled' icon={<S.Icon className='icon-clock' />} onClick={handleHistoryBtn}>
+        <Button
+          variant='filled'
+          icon={<S.Icon className='icon-clock' />}
+          href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=${data?.name}`}
+        >
           {t('see_changes_history')}
         </Button>
       </S.Header>

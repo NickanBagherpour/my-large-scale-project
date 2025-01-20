@@ -1,16 +1,20 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { RQKEYS } from '@oxygen/utils';
 
-import { FetchParamsType } from '../types';
 import { useAppDispatch } from '../context';
-import Api from './api';
 
-export const useGetsServiceHistoryDataQuery = (params: FetchParamsType) => {
+import { useChangeHistoryQuery } from '@oxygen/hooks';
+
+export const useGetsServiceHistoryDataQuery = (params) => {
+  const { serviceId, page, size } = params;
   const dispatch = useAppDispatch();
 
-  return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, params],
-    queryFn: withErrorHandling(() => Api.getServiceHistoryData(params), dispatch),
-    placeholderData: keepPreviousData,
+  return useChangeHistoryQuery({
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST],
+    url: `/v1/routes/${serviceId}/history`,
+    dispatch,
+    params: {
+      page,
+      size,
+    },
   });
 };

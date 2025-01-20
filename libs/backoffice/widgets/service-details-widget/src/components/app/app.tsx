@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
-import { Nullable } from '@oxygen/types';
-import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Button, Tabs } from '@oxygen/ui-kit';
+
+import { Nullable } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 
 import Route from '../route-info/route-info';
 import ServiceInfo from '../service-info/service-info';
@@ -27,11 +28,11 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const [t] = useTr();
   const { notification } = useApp();
   const state = useAppState();
   const dispatch = useAppDispatch();
 
-  const [t] = useTr();
   const searchParams = useSearchParams();
 
   const router = useRouter();
