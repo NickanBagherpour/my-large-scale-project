@@ -11,7 +11,7 @@ export const useGetSubmissionDetailQuery = (params: FetchSubmissionDetailParamsT
     REQUEST_DETAILS: { GET_REQUEST_DETAIL },
   } = RQKEYS.BUSINESS;
   return useQuery({
-    queryKey: [GET_REQUEST_DETAIL, params],
+    queryKey: [REQUEST, GET_REQUEST_DETAIL, params],
     queryFn: withErrorHandling(() => Api.getSubmissionDetail(params), dispatch),
     enabled: !!params.submissionId,
   });
