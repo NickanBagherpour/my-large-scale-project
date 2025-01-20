@@ -1,11 +1,11 @@
 import React from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { useGetsServiceHistoryDataQuery } from '../../services';
+import { useGetUpstreamHistory } from '../../services';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
 
-import { i18nBase, useTr } from '@oxygen/translation';
+import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
@@ -17,26 +17,27 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = () => {
-  const { message, table } = useAppState();
+  const {
+    message,
+    pagination: { page, limit },
+  } = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const servicename: Nullable<string> = searchParams.get('upstream-name');
-  if (!servicename) {
+  const upstreamName: Nullable<string> = searchParams.get('upstream-name');
+  if (!upstreamName) {
     notFound();
   }
-  const { data: history } = useGetsServiceHistoryDataQuery(prepareParams());
-  const items = history?.items;
-  const title = items?.[0]?.[i18nBase.resolvedLanguage + 'Name'] ?? t('subtitle');
 
-  function prepareParams() {
-    const params = {
-      pagination: table.pagination,
-      servicename: servicename!,
-    };
-    return params;
-  }
+  const { data } = useGetUpstreamHistory({
+    page: page - 1,
+    size: limit,
+    upstreamName,
+  });
+
+  const title = data?.content[0].upstream.value.description.value ?? t('subtitle');
+
   return (
     <Container title={title} footer={<ReturnButton />}>
       <GlobalMessageContainer
@@ -46,7 +47,6 @@ const App: React.FC<AppProps> = () => {
           resetMessageAction(dispatch);
         }}
       />
-      {/* <SecondaryTitle text={t('subtitle')} /> */}
       <S.TableContainer>
         <DataTable />
       </S.TableContainer>

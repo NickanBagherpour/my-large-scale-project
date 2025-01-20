@@ -35,6 +35,7 @@ export default function Filters() {
         description: values.description,
       };
 
+      setOpenModal(true);
       mutate(params, {
         onSuccess: () => {
           setOpenModal(false);
@@ -43,7 +44,14 @@ export default function Filters() {
             type: 'success',
             shouldTranslate: false,
           });
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM], refetchType: 'none' });
+          router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
+        },
+        onError: (error) => {
+          //
+        },
+        onSettled: () => {
+          // setOpenModal(false);
         },
       });
     } catch (error) {

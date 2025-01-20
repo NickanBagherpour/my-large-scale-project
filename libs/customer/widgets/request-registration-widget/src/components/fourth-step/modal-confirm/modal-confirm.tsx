@@ -4,6 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { Icons } from '@oxygen/ui-kit';
 import * as S from './modal-confirm.style';
 import { Card } from 'antd';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   isOpen: boolean;
@@ -14,9 +15,23 @@ type Props = {
 export default function ConfirmModal(props: Props) {
   const [t] = useTr();
   const { isOpen, toggle, trackCode } = props;
+  const router = useRouter();
+
+  const handleCancel = () => {
+    toggle();
+    router.push(ROUTES.CUSTOMER.REQUEST_MANAGEMENT);
+  };
 
   return (
-    <S.ModalContainer centered open={isOpen} closable={false} keyboard={false} onCancel={toggle} footer={[]}>
+    <S.ModalContainer
+      centered
+      open={isOpen}
+      closable={false}
+      keyboard={false}
+      footer={[]}
+      onCancel={handleCancel}
+       maskClosable={false}
+    >
       <Card>
         <S.Info>
           <S.IconWrapper>
@@ -29,10 +44,8 @@ export default function ConfirmModal(props: Props) {
         </S.FollowCode>
       </Card>
       <S.ReturnToRequest>
-        <i className='icon-home' />
-        <Link href={ROUTES.CUSTOMER.REQUEST_MANAGEMENT} target={'_blank'}>
-          {t('return_to_request')}
-        </Link>
+        <i className='icon-home-empty' />
+        <Link href={ROUTES.CUSTOMER.REQUEST_MANAGEMENT}>{t('return_to_request')}</Link>
       </S.ReturnToRequest>
     </S.ModalContainer>
   );

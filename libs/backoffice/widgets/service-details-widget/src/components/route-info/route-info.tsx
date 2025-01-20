@@ -57,7 +57,7 @@ const Route: React.FC<AppProps> = () => {
             color='primary'
             variant='filled'
             icon={<i className='icon-clock' />}
-            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?servicename=${servicename}`)}
+            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?serviceId=${routeDetails?.id}`)}
           >
             {t('see_changes_history')}
           </Button>

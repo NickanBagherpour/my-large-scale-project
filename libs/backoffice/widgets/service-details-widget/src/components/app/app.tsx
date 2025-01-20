@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
-import { Nullable } from '@oxygen/types';
-import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Button, Tabs } from '@oxygen/ui-kit';
+
+import { Nullable } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 
 import Route from '../route-info/route-info';
 import ServiceInfo from '../service-info/service-info';
@@ -19,6 +20,7 @@ import {
   useAppDispatch,
   useAppState,
 } from '../../context';
+import { getValidTab } from '../../utils/tabs.util';
 
 import * as S from './app.style';
 
@@ -27,12 +29,13 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const [t] = useTr();
   const { notification } = useApp();
   const state = useAppState();
   const dispatch = useAppDispatch();
 
-  const [t] = useTr();
   const searchParams = useSearchParams();
+  const tab = getValidTab(searchParams.get('tab'));
 
   const router = useRouter();
   const handleReturn = () => {
@@ -40,15 +43,15 @@ const App: React.FC<AppProps> = (props) => {
   };
 
   const isButtonDisabled = () => {
-    if (activeTabKey === '3') {
+    if (activeTabKey === 'scopes') {
       return !state.scopeName;
-    } else if (activeTabKey === '4') {
+    } else if (activeTabKey === 'upstream') {
       return !state.upstreamTab.activeSelect.cardId;
     }
     return false;
   };
 
-  const [activeTabKey, setActiveTabKey] = useState('1');
+  const [activeTabKey, setActiveTabKey] = useState('general-information');
   const servicename: Nullable<string> = searchParams.get('servicename');
   const { mutate, isPending } = useAssignToServiceMutation();
 
@@ -62,23 +65,23 @@ const App: React.FC<AppProps> = (props) => {
 
   const items = [
     {
-      key: '1',
+      key: 'general-information',
       label: t('general_information'),
       children: <ServiceInfo />,
     },
     {
-      key: '2',
+      key: 'route',
       label: t('route'),
       children: <Route />,
     },
 
     {
-      key: '3',
+      key: 'scopes',
       label: t('scopes'),
       children: <ScopeList />,
     },
     {
-      key: '4',
+      key: 'upstream',
       label: t('upstream'),
       children: <UpstreamList />,
       onSubmit: () => {
@@ -106,7 +109,7 @@ const App: React.FC<AppProps> = (props) => {
         {t('button.return')}
       </ReturnButton>
 
-      {activeTabKey === '4' && !state.upstreamTab.activeSelect.isInitialized && (
+      {activeTabKey === 'upstream' && !state.upstreamTab.activeSelect.isInitialized && (
         <Button
           loading={isPending}
           onClick={() => {
@@ -124,10 +127,12 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
       <Tabs
-        defaultActiveKey='1'
+        defaultActiveKey='general-information'
         items={items}
         style={{ paddingTop: '3rem' }}
         onChange={(key) => setActiveTabKey(key)}
+        activeKey={tab}
+        onTabClick={(tab) => router.replace(`?servicename=${servicename}&tab=${tab}`)}
       />
     </S.AppContainer>
   );

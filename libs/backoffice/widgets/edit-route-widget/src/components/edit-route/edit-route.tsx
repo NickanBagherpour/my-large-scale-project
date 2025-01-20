@@ -73,6 +73,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
 
     const payload = {
       ...(servicename && { serviceName: servicename }),
+      ...(routeDetails.id && { id: routeDetails.id }),
       ...(selectedMethod && {
         method: {
           code: selectedMethod?.value,
@@ -95,7 +96,9 @@ const EditRoute: React.FC<EditScopeProps> = () => {
           notification.success({
             message: t('success_notif'),
           });
-          router.back();
+          setTimeout(() => {
+            router.back();
+          }, 200); // this prevents rendering notifications twice, don't know why it works
         },
         onError: (error: any) => {
           console.log('Error object:', error);

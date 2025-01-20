@@ -10,7 +10,7 @@ export const useGetScopeListQuery = (params: ScopeRequestParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.SCOPE_MANAGEMENT.GET_SCOPE_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.SCOPE, RQKEYS.BACKOFFICE.SCOPE_MANAGEMENT.GET_SCOPE_LIST, params],
     queryFn: withErrorHandling(() => Api.getScopeList(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',

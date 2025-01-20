@@ -8,7 +8,10 @@ export type ServiceRequest = {
 
 export type RequestParamsType = {
   searchTerm: string;
-  sort: 'newest' | 'oldest';
-  status: 'all' | 'confirmed' | 'reviewed' | 'rejected';
-  page: number;
+  sort: string;
+  status: any;
+  pagination: {
+    page: number;
+    rowsPerPage: number;
+  };
 };

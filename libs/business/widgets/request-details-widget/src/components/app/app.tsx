@@ -58,14 +58,12 @@ const App: React.FC<AppProps> = (props) => {
     return params;
   }
 
-  if (error) return <NoResult isLoading={false} hasReturnButton={true} />;
-
   const footerButton = <ReturnButton size={'large'} onClick={handleReturn} />;
 
   const clientName = submissionData?.submissionInfoDto?.clientName;
 
-  if (!submissionId || !role) {
-    return <NoResult isLoading={isFetching} hasReturnButton={true} />;
+  if (!submissionId || !role || error) {
+    return <NoResult isLoading={false} hasReturnButton={true} />;
   }
 
   return (

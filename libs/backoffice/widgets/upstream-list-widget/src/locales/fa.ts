@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'مدیریت آپ‌استریم‌',
+  upstream_management: 'مدیریت آپ‌استریم‌',
   search_by_name: 'جستجو براساس نام',
   create_new_upstream: 'ایجاد آپ‌ستریم',
   register_information: 'ثبت اطلاعات',
@@ -25,4 +25,5 @@ export default {
     max_len: 'مقدار این فیلد نباید بیشتر از {{val}} کاراکتر باشد.',
   },
   create_upstream_success: 'آپ استریم با موفقیت ایجاد شد.',
+  delete_upstream_success: 'حذف آپ استریم با موفقیت انجام شد.',
 };

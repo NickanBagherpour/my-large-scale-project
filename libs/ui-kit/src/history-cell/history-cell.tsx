@@ -2,19 +2,19 @@ import { useTheme } from 'styled-components';
 import { Badge } from 'antd';
 
 type Props = {
-  item: { value: string | number | null | undefined | boolean; isDifferent: boolean };
+  item: { value: string | number | null | undefined | boolean; hasDifference: boolean };
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value, isDifferent } = {} } = props;
+  const { item: { value, hasDifference } = {} } = props;
 
   const theme = useTheme();
 
-  if (isDifferent) {
+  if (hasDifference) {
     const badgeColor = theme.error._600;
     return (
       <>
-        {isDifferent && <Badge color={badgeColor} />} {value}
+        {hasDifference && <Badge color={badgeColor} />} {value}
       </>
     );
   }

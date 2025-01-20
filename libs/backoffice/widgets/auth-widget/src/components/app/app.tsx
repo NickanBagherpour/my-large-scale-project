@@ -5,7 +5,7 @@ import { CookieKey, PageProps } from '@oxygen/types';
 import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAuth } from '@oxygen/hooks';
-import { decodeJWT, decrypt, ENV_CONSTANTS, getCookie, getRole, ROUTES } from '@oxygen/utils';
+import { decodeToken, decrypt, ENV_CONSTANTS, getCookie, getRole, ROUTES } from '@oxygen/utils';
 
 import { getSsoUrlAction } from '../../server-actions/get-sso-url.action';
 import { handleSSO } from '../../server-actions/handle-sso.action';
@@ -34,7 +34,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
       if (code) {
         await handleSSO(code, ticket);
       }
-      const role = getRole(decodeJWT(decrypt(getCookie(CookieKey.SESSION_ID)))?.payload);
+      const role = getRole(decodeToken(decrypt(getCookie(CookieKey.SESSION_ID))));
       login({ role }, ROUTES.BACKOFFICE.HOME);
     } catch (error) {
       console.error('Failed to handle SSO:', error);

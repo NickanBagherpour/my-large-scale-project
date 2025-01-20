@@ -53,11 +53,11 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     fourthMutate(params, {
       onSuccess: (data) => {
         setTrackCode(data.headers['track-code']);
-        console.log('request registration first step successful:', data);
+        // console.log('request registration first step successful:', data);
         setConfirmModal(true);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        // console.error('request registration first step  failed:', error);
       },
     });
   };
@@ -73,7 +73,9 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     : aggregatorName
     ? t(`company_has_aggregator_with_name`, { aggregatorName })
     : t('company_has_not_aggregator');
-
+  const sortedRepresentatives = requestData?.representativeSet.sort(
+    (a, b) => a.representativeType - b.representativeType
+  );
   return (
     <Loading spinning={loading}>
       {!loading && (
@@ -147,27 +149,27 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
                   <SearchItemsContainer className='representativeInfo' $columnNumber='3'>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('legal_name')}</span>
-                      <span>{requestData?.representativeSet[0].nameAndLastName}</span>
+                      <span>{sortedRepresentatives[0].nameAndLastName}</span>
                     </S.RepresentativesInfoItemContainer>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('form.mobile_number')}</span>
-                      <span>{requestData?.representativeSet[0].mobileNumber}</span>
+                      <span>{sortedRepresentatives[0].mobileNumber}</span>
                     </S.RepresentativesInfoItemContainer>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('telephone')}</span>
-                      <span>{requestData?.representativeSet[0].fixedPhoneNumber}</span>
+                      <span>{sortedRepresentatives[0].fixedPhoneNumber}</span>
                     </S.RepresentativesInfoItemContainer>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('technical_name')}</span>
-                      <span>{requestData?.representativeSet[1].nameAndLastName}</span>
+                      <span>{sortedRepresentatives[1].nameAndLastName}</span>
                     </S.RepresentativesInfoItemContainer>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('form.mobile_number')}</span>
-                      <span>{requestData?.representativeSet[1].mobileNumber}</span>
+                      <span>{sortedRepresentatives[1].mobileNumber}</span>
                     </S.RepresentativesInfoItemContainer>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('telephone')}</span>
-                      <span>{requestData?.representativeSet[1].fixedPhoneNumber}</span>
+                      <span>{sortedRepresentatives[1].fixedPhoneNumber}</span>
                     </S.RepresentativesInfoItemContainer>
                   </SearchItemsContainer>
                 </Card>

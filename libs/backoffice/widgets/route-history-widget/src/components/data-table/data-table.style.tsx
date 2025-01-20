@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { Table as KitTable } from '@oxygen/ui-kit';
 
-export const TableContainer = styled.div`
-  /* & td.left-to-right {
-    direction: ${(props) => props.theme.direction};
+export const TableContainer = styled.div``;
+
+export const Table = styled(KitTable)`
+  tr {
+    td.right-to-left {
+      unicode-bidi: normal !important;
+    }
   }
-  & td.right-to-left {
-    direction: ${(props) => (props.theme.direction === 'rtl' ? 'ltr' : 'rtl')};
-  } */
 `;
