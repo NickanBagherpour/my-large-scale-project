@@ -48,6 +48,9 @@ export type WidgetActionType =
       type: 'UPDATE_UPSTREAM_TAB_CREATION';
     }
   | {
+      type: 'UPDATE_ACTIVE_TAB';
+    }
+  | {
       type: 'UPDATE_SCOPE_TAB_CREATION';
     }
   | {
