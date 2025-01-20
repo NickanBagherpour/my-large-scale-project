@@ -25,4 +25,5 @@ export default {
     max_len: 'مقدار این فیلد نباید بیشتر از {{val}} کاراکتر باشد.',
   },
   create_upstream_success: 'آپ استریم با موفقیت ایجاد شد.',
+  delete_upstream_success: 'حذف آپ استریم با موفقیت انجام شد.',
 };

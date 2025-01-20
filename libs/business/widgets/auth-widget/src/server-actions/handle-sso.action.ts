@@ -2,12 +2,7 @@
 
 import { cookies, headers } from 'next/headers';
 import { CookieKey, UserRole } from '@oxygen/types';
-import {
-  decodeToken,
-  encrypt,
-  getRole,
-  processAndSignTokenWithScopes,
-} from '@oxygen/utils';
+import { decodeToken, encrypt, getRole, processAndSignTokenWithScopes } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
   const host = headers().get('host');
@@ -36,7 +31,9 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   const decodedToken = decodeToken(token);
   const userRole = getRole(decodedToken);
 
-  const newScopes = `${process.env.SSO_SCOPE}+${userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? process.env.SSO_SCOPE_COMMERCIAL : process.env.SSO_SCOPE_BUSINESS}`;
+  const newScopes = `${process.env.SSO_SCOPE}+${
+    userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? process.env.SSO_SCOPE_COMMERCIAL : process.env.SSO_SCOPE_BUSINESS
+  }`;
 
   const signedToken = await processAndSignTokenWithScopes(tokenData.data.access_token, newScopes);
   const expiresIn = tokenData.data.expires_in;

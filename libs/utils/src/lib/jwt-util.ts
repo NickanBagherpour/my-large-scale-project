@@ -19,8 +19,7 @@ export const signToken = async (payload: JwtPayload, options?: { expiresIn?: str
     ...options,
   };
 
-  const jwt = new SignJWT(payload)
-    .setProtectedHeader({ alg: DEFAULT_ALGORITHM });
+  const jwt = new SignJWT(payload).setProtectedHeader({ alg: DEFAULT_ALGORITHM });
   // .setIssuedAt();
 
   if (!payload.exp) {
@@ -61,9 +60,13 @@ export const processAndSignToken = async (ssoToken: string, options?: { expiresI
  * @returns A promise that resolves to the newly signed JWT token string with updated scopes.
  * @throws Will throw an error if the decoded token is invalid.
  */
-export const processAndSignTokenWithScopes = async (ssoToken: string, scopes?: string, options?: {
-  expiresIn?: string
-}): Promise<string> => {
+export const processAndSignTokenWithScopes = async (
+  ssoToken: string,
+  scopes?: string,
+  options?: {
+    expiresIn?: string;
+  }
+): Promise<string> => {
   const decodedToken = decodeToken(ssoToken);
 
   if (!decodedToken) {
@@ -90,7 +93,6 @@ export function decodeToken(token: Nullable<string>): JwtPayload | null {
   }
 
   try {
-
     const plainToken = sanitizeJwt(token.replace('Bearer', '').trim());
 
     const decoded = decodeJwt(plainToken);
@@ -101,7 +103,6 @@ export function decodeToken(token: Nullable<string>): JwtPayload | null {
     }
 
     return decoded as JwtPayload;
-
   } catch (error) {
     console.error('Failed to decode JWT:', error);
     return null;
@@ -115,10 +116,7 @@ export function decodeToken(token: Nullable<string>): JwtPayload | null {
  * @returns The string converted to base64url format.
  */
 export function toBase64Url(str: string): string {
-  return str
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 /**

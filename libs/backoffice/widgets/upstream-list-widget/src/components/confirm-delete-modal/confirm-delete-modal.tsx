@@ -10,6 +10,7 @@ import { GetUpstreamServiceResponseType } from '../../types';
 import { useDeleteUpstream } from '../../services';
 
 import * as S from './confirm-delete-modal.style';
+import { updateMessageAction, useAppDispatch } from '../../context';
 
 type Props = {
   openModal: boolean;
@@ -22,12 +23,20 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
   const { openModal, setOpenModal, services, upstreamName, isFetching } = props;
   const [t] = useTr();
   const theme = useAppTheme();
+  const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useDeleteUpstream();
   const handleDeleteUpstream = async (params) => {
     await mutate(params, {
       onSettled: () => {
         setOpenModal(false);
+      },
+      onSuccess: () => {
+        updateMessageAction(dispatch, {
+          description: t('delete_upstream_success'),
+          type: 'success',
+          shouldTranslate: false,
+        });
       },
     });
   };
