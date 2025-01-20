@@ -13,9 +13,6 @@ import {
 export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
 }
-export function updateActiveTab(dispatch: any) {
-  dispatch({ type: 'UPDATE_ACTIVE_TAB' });
-}
 export function updateScopeTabCreationSubmitAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'UPDATE_SCOPE_TAB_CREATION' });
 }
