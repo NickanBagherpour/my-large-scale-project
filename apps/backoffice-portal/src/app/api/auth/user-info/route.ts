@@ -1,5 +1,5 @@
 import Mockify from '@oxygen/mockify';
-import { createErrorResponse, createResponse, decodeJWT, ENV_CONSTANTS } from '@oxygen/utils';
+import { createErrorResponse, createResponse, decodeToken, ENV_CONSTANTS } from '@oxygen/utils';
 
 export async function GET(req) {
   // Get the authorization token from the request headers (assumed you set it in the headers)
@@ -35,7 +35,7 @@ export async function GET(req) {
 
     const data = await response.json();
 
-    const decodedToken = decodeJWT(token?.replace('Bearer ', '')?.trim());
+    const decodedToken = decodeToken(token?.replace('Bearer ', '')?.trim());
 
     data.userInfo.role = decodedToken?.payload?.role;
 

@@ -23,7 +23,7 @@ const Filter: React.FC<FilterProps> = (props) => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const [form] = Form.useForm();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
 
   const rule = createSchemaFieldRule(createFormSchema(t));
 

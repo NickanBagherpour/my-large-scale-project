@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import type {} from 'next/server';
 import { headers } from 'next/headers';
 
-import { decrypt, ROUTES } from '@oxygen/utils';
+import { decrypt, ROUTES, validateToken as JwtUtilValidateToken } from '@oxygen/utils';
 import { CookieKey } from '@oxygen/types';
 
 // Function to check if a URL has the same origin as the request
@@ -16,7 +16,7 @@ function isSameOrigin(request: NextRequest, url: string | null): boolean {
 }
 
 // Function to call the custom /api/auth/validate route
-async function validateToken(token: string | undefined): Promise<boolean> {
+async function validateTokenOnline(token: string | undefined): Promise<boolean> {
   const host = headers().get('host');
   const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
   const baseUrl = `${protocol}://${host}`;
@@ -44,12 +44,34 @@ async function validateToken(token: string | undefined): Promise<boolean> {
   }
 }
 
+export async function validateTokenOffline(token: string | undefined, pathname?: string): Promise<boolean> {
+  if (!token) {
+    return false; // Token is missing, consider it invalid
+  }
+
+  console.log('pathname in validateToken:', pathname);
+
+  try {
+    // Decrypt the token if your logic requires it
+    // (assuming the `decrypt` function exists in your codebase)
+    const decrypted = decrypt(token);
+
+    // Call your local validateToken, which returns `JwtPayload | null`
+    const decodedPayload = await JwtUtilValidateToken(decrypted);
+    console.log('validated token in middleware:', decodedPayload);
+
+    // If decodedPayload is not null, and has exp key , the token is valid
+    //time is checked in the validateToken function
+    return decodedPayload != null && decodedPayload.exp > 0;
+    // return decodedPayload != null && decodedPayload.exp > Date.now();
+  } catch (error) {
+    console.error('Error during token validation:', error);
+    return false; // Consider error as invalid token
+  }
+}
+
 export default async function middleware(request: NextRequest) {
-  // const session = await auth();
-
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
-
-  // console.log('request inside middleware', token);
 
   const publicPaths = [ROUTES.BUSINESS.AUTH]; // Define public paths here
   const apiPrefixes = ['/api/', '/commercial/api/', '/business/api/', '/back-api/'];
@@ -69,13 +91,16 @@ export default async function middleware(request: NextRequest) {
       return NextResponse.next(); // Allow the request to pass through
     }
 
+    const signedToken = request.cookies.get(CookieKey.S_SESSION_ID)?.value;
     // Validate token for other /api/ routes by calling the external validation service
-    const isTokenValid = true; //await validateToken(token);  //fixme work on validation token
+    // const isTokenValid = await validateTokenOnline(signedToken);  //fixme work on validation token
+    const isTokenValid = await validateTokenOffline(signedToken, pathname); //fixme work on validation token
 
     if (!isTokenValid) {
       console.log('Invalid token, signing out...');
 
       // If the token is invalid, return a 401 response
+      //fixme work on unauthorized response message translation
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 

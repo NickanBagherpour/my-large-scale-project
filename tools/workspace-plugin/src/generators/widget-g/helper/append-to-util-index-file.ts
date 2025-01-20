@@ -18,7 +18,7 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
   const indexPath = joinPathFragments(directoryPath, 'index.ts');
   const templatePath = path.join(__dirname, 'sample.txt'); // Path to the template file
 
-  const portalName = schema.shortPortalName;
+  const portalName = schema.shortPortalName as PortalNameType;
 
   // Check if index.ts exists
   if (!tree.exists(indexPath)) {
@@ -43,8 +43,8 @@ export function appendToUtilIndexFile(tree: Tree, directoryPath: string, schema:
   const renderedTemplate = replacePlaceholders(templateContent, schema);
 
   // Extract the content between /*--import--*/ and /*--end import--*/ from the rendered template
-  const importSection = extractSection(renderedTemplate, 'import', portalName);
-  const exportSection = extractSection(renderedTemplate, 'export', portalName);
+  const importSection = extractSection(renderedTemplate, 'import');
+  const exportSection = extractSection(renderedTemplate, 'export');
 
   // Split the index content into lines for easier manipulation
   const lines = indexContent.split('\n');

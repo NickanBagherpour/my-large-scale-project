@@ -50,7 +50,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       message: t('alert.edit_success'),
     });
   };
-  const { mutate: editService } = useEditServiceMutation(handleSuccess);
+  const { mutate: editService } = useEditServiceMutation(handleSuccess, serviceInfo?.name, serviceInfo?.serviceInfoId);
 
   const defaultValues = {
     [FORM_ITEM_NAMES.faName]: serviceInfo?.persianName,

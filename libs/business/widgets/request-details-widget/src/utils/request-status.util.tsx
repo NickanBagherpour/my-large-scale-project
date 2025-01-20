@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { CodeTitle, RequestStatus } from '../types';
-
-import * as S from '../components/details-collapse/details-collapse.style';
 import { Tag } from '@oxygen/ui-kit';
+
+import { CodeTitle, RequestStatus } from '../types';
 
 export function renderRequestStatus(t, requestStatus: CodeTitle) {
   const { code, title } = requestStatus;

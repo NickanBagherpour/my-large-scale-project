@@ -1,3 +1,5 @@
+import { PaginatedData } from '@oxygen/types';
+
 export type ScopeListDataType = {
   id: number;
   description: null | string;
@@ -22,3 +24,11 @@ export type ScopeRequestParams = {
   size?: number;
   sort?: string;
 };
+
+export type ScopeListItem = {
+  description: string;
+  id: number;
+  name: string;
+};
+
+export type ScopeListData = PaginatedData<ScopeListItem>;

@@ -17,8 +17,8 @@ export const queryClient = new QueryClient({
       retry: false,
       refetchOnWindowFocus: false,
       throwOnError: false,
-      gcTime: 1000 * 60 * 1, // cache time of 1 minute
-      staleTime: 1000 * 60 * 5 , // Stale time of 5 minutes
+      gcTime: 1000 * 10, // cache time of 1 minute
+      staleTime: 1000 * 10, // Stale time of 10 sec
     },
   },
 });
