@@ -7,7 +7,7 @@ import { useTr } from '@oxygen/translation';
 import { ROUTES } from '@oxygen/utils';
 
 import RequestedServices from '../requested-services/requested-services';
-import { RepresentativeType, SubmissionDetailType, UserRole } from '../../types';
+import { RepresentativeType, RequestStatus, SubmissionDetailType, UserRole } from '../../types';
 import { useAppState } from '../../context';
 import { renderRequestStatus } from '../../utils/request-status.util';
 import { getOrganizationInfo, getRepresentativeInfo, getSubmissionInfo } from '../../utils/details-collapse.util';
@@ -28,7 +28,10 @@ const DetailsCollapse: React.FC<Props> = (props) => {
   const representativeName =
     (representativeSet && representativeSet?.find((rep) => rep?.type === RepresentativeType.STANDARD)?.name) ?? '';
   const status = submissionInfoDto?.submissionStatus;
-
+  const showEditService =
+    userRole !== UserRole.COMMERCIAL_BANKING_ADMIN &&
+    (submissionInfoDto?.submissionStatus?.code === RequestStatus.APPROVED_BY_COMMERCIAL_BANK ||
+      submissionInfoDto?.submissionStatus?.code === RequestStatus.UNDER_REVIEW_BUSINESS_UNIT);
   const items: CollapseProps['items'] = [
     {
       key: '1',
@@ -75,7 +78,7 @@ const DetailsCollapse: React.FC<Props> = (props) => {
       label: (
         <S.TitleWrapper>
           {t('requested_services')}
-          {userRole !== UserRole.COMMERCIAL_BANKING_ADMIN && (
+          {showEditService && (
             <Tooltip title={t('edit_requested_services')}>
               <S.StyledButton
                 type='primary'

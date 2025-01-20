@@ -18,6 +18,7 @@ import {
 } from '../../services';
 import { convertCodeTitles } from '../../utils/convert-enums';
 import CenteredLoading from '../centered-loading/centered-loading';
+import * as S from './route.style';
 
 export default function Route() {
   const [form] = Form.useForm<RouteType>();
@@ -105,7 +106,7 @@ export default function Route() {
               label={t('path')}
               rules={[rule]}
             >
-              <Input disabled={!!isInSSO} />
+              <S.PlainTextInput disabled={!!isInSSO} />
             </FormItem>
 
             <FormItem
@@ -116,7 +117,7 @@ export default function Route() {
               label={t('host')}
               rules={[rule]}
             >
-              <Input />
+              <S.PlainTextInput />
             </FormItem>
           </SearchItemsContainer>
         </Form>
