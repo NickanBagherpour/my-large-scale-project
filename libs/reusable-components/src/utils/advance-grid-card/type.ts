@@ -24,4 +24,5 @@ export type AdvanceGridCardPropsType = {
   btnHandleClick: (submissionId: number) => void;
   btnLoading: boolean;
   data: CardPropsType;
+  wordToHighlight?: string;
 };
