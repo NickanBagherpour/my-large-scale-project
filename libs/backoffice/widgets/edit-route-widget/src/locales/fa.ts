@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'جزییات سرویس',
+  widget_name: 'جزئیات سرویس',
   edit_route: 'ویرایش Route',
   method: 'اکشن/متود',
   protocol: 'پروتوکل',

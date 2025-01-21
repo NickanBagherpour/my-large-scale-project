@@ -54,7 +54,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       width: '11.8rem',
       key: 'status',
       render: (_val, _record, index) => (
-        <Button variant={'text'} href={`scope-information?id=${_record.id}`} color={'primary'}>
+        <Button variant={'text'} href={`scope-information?id=${_record.id}&name=${_record.name}`} color={'primary'}>
           {t('table.details')}
         </Button>
       ),
@@ -75,7 +75,12 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
           {
             title: t('table.details'),
             value: (
-              <Button className={'item__btn'} href={`scope-information?id=${id}`} variant={'text'} color={'primary'}>
+              <Button
+                className={'item__btn'}
+                href={`scope-information?id=${id}&name=${name}`}
+                variant={'text'}
+                color={'primary'}
+              >
                 {t('table.details')}
               </Button>
             ),

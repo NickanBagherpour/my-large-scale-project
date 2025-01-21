@@ -2,7 +2,7 @@ import { table } from 'console';
 import { access } from 'fs/promises';
 
 export default {
-  widget_name: 'جزییات سرویس',
+  widget_name: 'جزئیات سرویس',
   service_information: 'اطلاعات سرویس',
   general_information: 'اطلاعات کلی',
   service_technical_info: 'اطلاعات فنی سرویس',
