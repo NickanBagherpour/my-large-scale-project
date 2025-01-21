@@ -6,7 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import { Modal } from '../../types/modal.type';
-import RemoveModal from './modal-remove/modal-remove';
+import RemoveModal from './modal-confirm-remove/modal-confirm-remove';
 import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/third-step-table-utils';
 import { useThirdStepRequestRegistrationMutationQuery } from '../../services/third-step/third-step-data';

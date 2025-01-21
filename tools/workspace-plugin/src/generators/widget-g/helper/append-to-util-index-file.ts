@@ -114,7 +114,12 @@ function extractSection(content: string, section: 'import' | 'export'): string[]
  * @param portalName - The portalName type ('backoffice' or 'customer' or 'business').
  * @returns True if the insertion was successful, false otherwise.
  */
-function insertSection(lines: string[], section: 'import' | 'export', sectionContent: string[], portalName: PortalNameType): boolean {
+function insertSection(
+  lines: string[],
+  section: 'import' | 'export',
+  sectionContent: string[],
+  portalName: PortalNameType
+): boolean {
   const marker = `/*--${section}-${portalName}--*/`;
   const index = lines.findIndex((line) => line.includes(marker));
 
@@ -133,4 +138,3 @@ function insertSection(lines: string[], section: 'import' | 'export', sectionCon
 
   return false;
 }
-

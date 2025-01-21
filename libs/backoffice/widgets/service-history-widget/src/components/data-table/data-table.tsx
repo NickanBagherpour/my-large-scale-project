@@ -143,7 +143,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         <Table
           rowKey={'id'}
           title={t('subtitle')}
-          scroll={{ x: 1600 }}
+          scroll={{ x: 1000 }}
           size='small'
           variant='complex'
           columns={columns}

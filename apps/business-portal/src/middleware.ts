@@ -71,7 +71,6 @@ export async function validateTokenOffline(token: string | undefined, pathname?:
 }
 
 export default async function middleware(request: NextRequest) {
-
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
   const publicPaths = [ROUTES.BUSINESS.AUTH]; // Define public paths here
@@ -95,7 +94,7 @@ export default async function middleware(request: NextRequest) {
     const signedToken = request.cookies.get(CookieKey.S_SESSION_ID)?.value;
     // Validate token for other /api/ routes by calling the external validation service
     // const isTokenValid = await validateTokenOnline(signedToken);  //fixme work on validation token
-    const isTokenValid = await validateTokenOffline(signedToken, pathname);  //fixme work on validation token
+    const isTokenValid = await validateTokenOffline(signedToken, pathname); //fixme work on validation token
 
     if (!isTokenValid) {
       console.log('Invalid token, signing out...');
