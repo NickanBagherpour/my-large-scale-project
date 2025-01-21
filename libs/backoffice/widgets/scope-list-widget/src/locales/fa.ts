@@ -10,7 +10,7 @@ export default {
     title: 'لیست اسکوپ‌ها',
   },
   placeholder: {
-    search_by_name: 'جستجو بر اساس نام',
+    search_by_name: 'جستجو بر اساس نام لاتین اسکوپ',
   },
   error: {
     english_character: 'لطفا مقادیر را به انگلیسی وارد کنید',
