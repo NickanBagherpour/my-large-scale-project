@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
@@ -13,9 +14,8 @@ import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import { ParamsType } from '../../types';
 
 import * as S from './app.style';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
-const DRAFT_LIST_LIMIIT = 4;
+const DRAFT_LIST_LIMIT = 4;
 const App = () => {
   const theme = useAppTheme();
   const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
@@ -86,11 +86,7 @@ const App = () => {
   // const handleDeleteCancel = () => {
   //   setOpenDeleteModal(false);
   // };
-  const draftList = useMemo(
-    () => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIIT) : drafts),
-    [showLoadMore, drafts]
-  );
-
+  const draftList = useMemo(() => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIT) : drafts), [showLoadMore, drafts]);
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
@@ -155,7 +151,7 @@ const App = () => {
               />
             ))}
           </S.Grid>
-          {showLoadMore && (
+          {showLoadMore && drafts?.length > DRAFT_LIST_LIMIT && (
             <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(false)}>
               <span>{t('show_all')}</span>
               <i className='icon-chev-down' />

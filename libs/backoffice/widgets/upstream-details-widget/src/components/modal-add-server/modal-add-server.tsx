@@ -95,7 +95,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
                 <Input allow={'number'} />
               </Form.Item>
 
-              <Form.Item name={FORM_ITEM_NAMES.healthStatus} label={t('health')} rules={[rule]} initialValue={'1'}>
+              <Form.Item name={FORM_ITEM_NAMES.healthStatus} label={t('health_some')} rules={[rule]} initialValue={'1'}>
                 <Select size={'large'} disabled={true}>
                   <Select.Option value='1'>{t('health')}</Select.Option>
                   <Select.Option value='0'>{t('unHealth')}</Select.Option>

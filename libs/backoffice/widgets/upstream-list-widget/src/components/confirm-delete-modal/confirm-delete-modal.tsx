@@ -28,10 +28,8 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
   const { mutate, isPending } = useDeleteUpstream();
   const handleDeleteUpstream = async (params) => {
     await mutate(params, {
-      onSettled: () => {
-        setOpenModal(false);
-      },
       onSuccess: () => {
+        setOpenModal(true);
         updateMessageAction(dispatch, {
           description: t('delete_upstream_success'),
           type: 'success',

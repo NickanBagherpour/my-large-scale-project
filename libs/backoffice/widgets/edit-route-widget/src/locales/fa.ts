@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
+  widget_name: 'جزئیات سرویس',
   edit_route: 'ویرایش Route',
   method: 'اکشن/متود',
   protocol: 'پروتوکل',

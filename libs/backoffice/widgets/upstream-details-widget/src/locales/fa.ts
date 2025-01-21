@@ -40,4 +40,5 @@ export default {
   edit_upstream_success: 'ویرایش آپ‌استریم با موفقیت انجام شد',
   edit_upstream_successfully: 'ویرایش آپ‌استریم با موفقیت انجام شد',
   delete_server_successfully: 'حذف سرور با موفقیت انجام شد',
+  health_some: 'سلامت',
 };
