@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import type { TablePaginationConfig } from 'antd';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'styled-components';
+import { useQueryClient } from '@tanstack/react-query';
 
+import { Button, MarkText, Modal } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
@@ -13,9 +16,6 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/request-list.ut
 import { useDeleteService } from '../../services/delete-service.api';
 
 import * as S from './data-table.style';
-import { useQueryClient } from '@tanstack/react-query';
-import { Button, MarkText, Modal } from '@oxygen/ui-kit';
-import { useTheme } from 'styled-components';
 
 type DataTableProps = PageProps & {
   requestListFetching: boolean;
