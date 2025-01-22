@@ -22,8 +22,12 @@ export const SearchItemsContainer = styled.div<{ $columnNumber?: string }>`
   grid-row-gap: var(--grid-layout-gap);
 
   ${respondTo.down('lg')} {
-    /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: ${(props) => (props.$columnNumber ? `repeat(${props.$columnNumber}, 1fr)` : '1fr 1fr')};
+    grid-template-columns: repeat(2, 1fr);
+
+    & > * {
+      grid-column: span 1 !important;
+      width: 100%;
+    }
   }
 
   ${respondTo.down('xs')} {

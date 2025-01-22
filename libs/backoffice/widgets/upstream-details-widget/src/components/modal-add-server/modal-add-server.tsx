@@ -8,6 +8,7 @@ import { useTr } from '@oxygen/translation';
 
 import { createServerType, CreateServerType, FORM_ITEM_NAMES } from './add-server-modal.schema';
 import { AnimatedStatus } from '@oxygen/reusable-components';
+import { MAX_INPUTE_LENGTH } from '../../utils/consts';
 
 import * as S from './modal-add-server.style';
 
@@ -20,10 +21,11 @@ interface ReusableFormModalProps {
   initialData?: CreateServerType;
   successMsg?: string;
   selectedServerId?: number | null;
+  centered: boolean;
 }
 
 const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId } = props;
+  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId, centered } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -89,10 +91,10 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
               initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.domain} label={t('domain')} rules={[rule]}>
-                <Input />
+                <Input maxLength={MAX_INPUTE_LENGTH} />
               </Form.Item>
               <Form.Item name={FORM_ITEM_NAMES.weight} label={t('weight')} rules={[rule]}>
-                <Input allow={'number'} />
+                <Input allow={'number'} maxLength={MAX_INPUTE_LENGTH} />
               </Form.Item>
 
               <Form.Item name={FORM_ITEM_NAMES.healthStatus} label={t('health_some')} rules={[rule]} initialValue={'1'}>
@@ -150,6 +152,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
       closeIcon={false}
       headerDivider={false}
       footer={false}
+      centered={centered}
     >
       {renderModalContent()}
     </S.StyledModal>

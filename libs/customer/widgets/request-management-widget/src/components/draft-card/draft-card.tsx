@@ -1,11 +1,9 @@
 import { Button, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
 import { useTr } from '@oxygen/translation';
-import { useQueryClient } from '@tanstack/react-query';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { ROUTES } from '@oxygen/utils';
 
 type DraftCardType = {
-  organizationId: number;
   organizationName: string;
   progress: number;
   stepName: string;
@@ -14,8 +12,7 @@ type DraftCardType = {
 };
 
 export default function DraftCard(props: DraftCardType) {
-  const { organizationId, organizationName, progress, stepName, submissionId, deleteDraft } = props;
-  const queryClient = useQueryClient();
+  const { organizationName, progress, stepName, submissionId, deleteDraft } = props;
 
   const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
