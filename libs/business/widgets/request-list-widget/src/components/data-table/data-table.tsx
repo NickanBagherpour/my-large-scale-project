@@ -45,7 +45,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         current={pagination.page}
         total={requestList?.page?.totalElements}
         dataSource={requestList?.content}
-        pagination={{ pageSize: pagination.rowsPerPage }}
+        pagination={{ pageSize: pagination.rowsPerPage, hideOnSinglePage: true }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}

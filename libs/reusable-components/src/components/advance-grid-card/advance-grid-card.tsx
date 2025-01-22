@@ -1,11 +1,16 @@
 import React from 'react';
-import { Box } from '@oxygen/ui-kit';
+import { Box, MarkText } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { AdvanceGridCardPropsType } from '../../utils/advance-grid-card/type';
 import { getStatusConfig } from '../../utils/advance-grid-card/consts';
 
 import * as S from './advance-grid-card.style';
-export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGridCardPropsType) => {
+export const AdvanceGridCard = ({
+  btnHandleClick,
+  btnLoading,
+  data,
+  wordToHighlight = '',
+}: AdvanceGridCardPropsType) => {
   const [t] = useTr();
   const { code } = data.submissionStatus;
   // Get the status configuration based on the code
@@ -16,7 +21,9 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
     <S.Container>
       <S.Div>
         <S.Details>
-          <S.Title>{data.clientName}</S.Title>
+          <S.Title>
+            <MarkText highlightColor='success' wordToHighlight={wordToHighlight} text={data.clientName} />
+          </S.Title>
           <S.SubTitle>{data.aggregatorName}</S.SubTitle>
           <S.IconTextWrapper>
             <i className='icon-calendar' />

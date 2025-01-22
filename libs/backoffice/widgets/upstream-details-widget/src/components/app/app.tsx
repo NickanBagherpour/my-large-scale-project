@@ -22,6 +22,7 @@ const App = () => {
 
   const searchParams = useSearchParams();
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
+  const title = upstreamName ? `${t('widget_name_details')} ${t(upstreamName)}` : t('widget_name_creation');
 
   const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
 
@@ -45,7 +46,7 @@ const App = () => {
   return (
     <Loading spinning={isUpstreamFetching}>
       <S.WidgetContainer>
-        <S.UpstreamDetailsContainer title={upstreamName ? t(upstreamName) : t('widget_name_creation')}>
+        <S.UpstreamDetailsContainer title={title}>
           <GlobalMessageContainer
             containerProps={{ marginBottom: '2.4rem' }}
             message={state.errorMessage}

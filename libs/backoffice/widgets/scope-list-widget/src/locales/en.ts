@@ -10,7 +10,7 @@ export default {
     title: 'Scope Service List',
   },
   placeholder: {
-    search_by_name: 'Search by Name',
+    search_by_name: 'Search by Latin name of scope',
   },
   error: {
     english_character: 'Please enter values in English',
