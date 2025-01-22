@@ -4,7 +4,8 @@ export const REGEX_PATTERNS = {
   urlValidator: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   optionalUrlValidator: /^(?:https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|)$/,
   onlyDigit: /^[0-9]*$/,
-  optionalEmailValidator: /^(|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/,
+  email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  mobileNumber: /^(\+98|0)?9\d{9}$/,
 };
 
 export const REGEX_PATTERNS_MORE_VALIDATION = {

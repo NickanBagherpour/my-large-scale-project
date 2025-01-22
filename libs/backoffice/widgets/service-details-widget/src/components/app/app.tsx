@@ -53,6 +53,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const [activeTabKey, setActiveTabKey] = useState('general-information');
   const servicename: Nullable<string> = searchParams.get('servicename');
+  const title = servicename ? `${t('widget_name')} ${t(servicename)}` : t('widget_name');
   const { mutate, isPending } = useAssignToServiceMutation();
 
   useEffect(() => {
@@ -125,7 +126,7 @@ const App: React.FC<AppProps> = (props) => {
   );
 
   return (
-    <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
+    <S.AppContainer title={title} style={{ minHeight: '100%' }} footer={footerButton}>
       <Tabs
         defaultActiveKey='general-information'
         items={items}

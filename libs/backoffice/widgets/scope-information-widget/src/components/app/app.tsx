@@ -25,9 +25,13 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
 
   const id: Nullable<string> = searchParams.get('id');
+
   if (!id) {
     redirect('/not-found');
   }
+
+  const scopeName: Nullable<string> = searchParams.get('name');
+  const title = scopeName ? `${t('widget_name')} ${t(scopeName)}` : t('widget_name');
 
   const handleReturn = () => {
     router.back();
@@ -47,7 +51,7 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer title={t('widget_name')}>
+    <S.AppContainer title={title}>
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {

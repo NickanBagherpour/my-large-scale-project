@@ -1,0 +1,5 @@
+export const limits = {
+  DEFAULT_MAX_LENGTH: 200,
+  DEFAULT_MIN_LENGTH: 1,
+  UPSTREAM_MAX_LENGTH: 150,
+};

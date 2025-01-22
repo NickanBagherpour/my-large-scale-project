@@ -4,9 +4,15 @@ import styled from 'styled-components';
 const formGap = '1.6rem';
 export const FormItemsContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  column-gap: ${formGap};
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  ${respondTo.down('md')} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  ${respondTo.between('md', 'xl')} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  gap: ${formGap};
   border: 1px solid ${(p) => p.theme.border._300};
   border-radius: 1rem;
   padding: 2rem;
@@ -25,16 +31,6 @@ export const TagContainer = styled.div`
   align-items: center;
 `;
 
-export const FormItem = styled(Form.Item)`
-  flex: 0 1 calc(33.33% - ${formGap});
-  box-sizing: border-box;
-  ${respondTo.down('md')} {
-    flex-basis: 100%;
-  }
-  ${respondTo.between('md', 'lg')} {
-    flex-basis: calc(50% - ${formGap});
-  }
-`;
 export const TagPicker = styled.div`
   display: flex;
   flex-direction: row;
@@ -75,3 +71,18 @@ export const TagPicker = styled.div`
     margin: 0;
   }
 `;
+export const TagFormItem = styled(Form.Item)`
+  & label {
+    padding-inline-start: 1rem;
+    font-size: 1.2rem;
+  }
+  margin-bottom: 0;
+
+  .ant-form-item-additional {
+    margin-top: 0.3rem;
+  }
+
+  .ant-col {
+    padding-bottom: 0.5rem;
+  }
+` as typeof Form.Item;

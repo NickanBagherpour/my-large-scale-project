@@ -17,3 +17,4 @@ export * from './lib/crypto';
 export * from './lib/jwt-util';
 export * from './lib/initial-config';
 export * from './lib/api-response';
+export * from './lib/validation/validation.schema';

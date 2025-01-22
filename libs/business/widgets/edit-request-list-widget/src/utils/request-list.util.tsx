@@ -9,7 +9,7 @@ import * as S from '../components/data-table/data-table.style';
 type Props = {
   t: TFunction;
   pagination: Pagination;
-  handleApi: (params: any) => void;
+  handleApi: (serviceName: string, serviceId: number) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
@@ -44,7 +44,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'details',
       render: (_val, _record, index) => {
         return (
-          <S.Button variant={'link'} color={'error'} className={'table_button'} onClick={() => handleApi(_record.id)}>
+          <S.Button
+            variant={'link'}
+            color={'error'}
+            className={'table_button'}
+            onClick={() => handleApi(_record.name, _record.id)}
+          >
             <i className={'icon-trash icon-remove'}></i>
           </S.Button>
         );
@@ -67,7 +72,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('table.delete_service'),
             value: (
-              <S.Button variant={'link'} color={'error'} onClick={() => handleApi(id)}>
+              <S.Button variant={'link'} color={'error'} onClick={() => handleApi(name, id)}>
                 <i className={'icon-trash icon-remove'}></i>
               </S.Button>
             ),
