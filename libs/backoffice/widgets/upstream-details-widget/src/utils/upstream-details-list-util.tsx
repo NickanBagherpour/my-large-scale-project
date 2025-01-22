@@ -169,9 +169,7 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
           },
           {
             title: t('health_status'),
-            value: getValueOrDash(
-              renderHealthStatus(t, value?.healthStatus) ? renderHealthStatus(t, value) : t('health')
-            ),
+            value: getValueOrDash(renderHealthStatus(t, value?.healthStatus !== '1') ? t('unHealth') : t('health')),
           },
           {
             title: t('weight'),

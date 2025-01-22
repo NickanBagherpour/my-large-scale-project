@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const ServerContainer = styled.div`
   display: flex;
@@ -10,6 +11,20 @@ export const ServerContainer = styled.div`
   padding: 1.6rem;
   border-radius: 1.6rem;
   min-height: 55rem;
+
+  & tbody > tr > td:last-child {
+    width: 25rem;
+
+    ${respondTo.down('lg')} {
+      width: 20rem;
+    }
+
+    ${respondTo.down('md')} {
+      & i {
+        margin-left: 2rem;
+      }
+    }
+  }
 `;
 
 export const ServerContent = styled.div`
@@ -39,9 +54,7 @@ export const Details = styled.a`
 export const BtnContainer = styled.span`
   align-items: center;
   display: flex;
-  justify-content: center;
-
-  column-gap: 8rem;
+  justify-content: space-around;
 `;
 
 export const Trash = styled.i`

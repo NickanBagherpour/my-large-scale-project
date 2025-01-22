@@ -130,16 +130,18 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
   return (
     <S.ServerContainer>
-      <AddServerModal
-        title={selectedServerId ? t('edit_server') : t('add_server')}
-        open={openAddServerModal}
-        setOpen={setOpenAddServerModal}
-        onConfirm={handleAddServer}
-        status={status}
-        initialData={initialValue}
-        successMsg='edit_upstream_successfully'
-        selectedServerId={selectedServerId}
-      />
+      {openAddServerModal && (
+        <AddServerModal
+          title={selectedServerId ? t('edit_server') : t('add_server')}
+          open={openAddServerModal}
+          setOpen={setOpenAddServerModal}
+          onConfirm={handleAddServer}
+          status={status}
+          initialData={initialValue}
+          successMsg='edit_upstream_successfully'
+          selectedServerId={selectedServerId}
+        />
+      )}
 
       <MainDeleteServerModal
         title={t('delete_server')}
