@@ -2,7 +2,7 @@ import React from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
 import { i18nBase, useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { PageProps, PaginatedData } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 import { useChangeHistoryQuery } from '@oxygen/hooks';
@@ -26,24 +26,40 @@ const App: React.FC<AppProps> = () => {
   if (!id) {
     notFound();
   }
+  type NormalizedService = Record<string, any>;
+
+  const normalizer = (
+    val: PaginatedData<ServiceHistoryContent>
+  ): PaginatedData<Omit<ServiceHistoryContent, 'service'> & NormalizedService> => {
+    const content = val.content.map((c) => {
+      const { service, ...rest } = c;
+      const { tags, ...otherProps } = service;
+      const normalizedService = Object.fromEntries(
+        Object.entries(otherProps).map(([key, value]) => [
+          key,
+          typeof value === 'object' && 'title' in value ? value?.title : value,
+        ])
+      );
+      return { ...rest, ...normalizedService };
+    });
+    return { ...val, content };
+  };
   function prepareParams() {
     const params = {
       url: `/v1/services/${id}/history`,
       queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, id],
       params: { page: table?.pagination.page - 1, size: table?.pagination.limit },
       dispatch,
+      normalizer,
     };
     return params;
   }
   const { data, isFetching } = useChangeHistoryQuery<ServiceHistoryContent>(prepareParams());
-
-  const firstItem = data?.content?.[0]?.service.value;
+  console.log('data', data);
+  const firstItem = data?.content?.[0];
   let title = '';
   if (firstItem) {
-    title =
-      i18nBase.resolvedLanguage === 'en'
-        ? firstItem?.name?.value + ' service'
-        : `سرویس ` + firstItem?.persianName.value;
+    title = i18nBase.resolvedLanguage === 'en' ? firstItem?.name?.value : firstItem?.persianName.value;
   } else if (!firstItem && !isFetching) {
     title = t('subtitle');
   }

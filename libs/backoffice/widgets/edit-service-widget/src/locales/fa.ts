@@ -38,7 +38,4 @@ export default {
   alert: {
     edit_success: 'ویرایش اطلاعات کلی با موفقیت اعمال شد.',
   },
-  validation: {
-    required: 'hi',
-  },
 };

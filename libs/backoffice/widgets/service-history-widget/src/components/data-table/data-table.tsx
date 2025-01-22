@@ -29,7 +29,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, record) => {
-        return <div>{getValueOrDash(value.value)}</div>;
+        return <div>{getValueOrDash(value?.value)}</div>;
       },
       // width: 130,
     },
@@ -39,29 +39,27 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // key: 'adminName',
       ellipsis: true,
       render: (value, record) => {
-        return <div>{getValueOrDash(value.value)}</div>;
+        return <div>{getValueOrDash(value?.value)}</div>;
       },
       // width: 100,
     },
     {
       title: t('column.en-name'),
-      dataIndex: 'service',
+      dataIndex: 'name',
       // key: 'enName',
       ellipsis: true,
-      className: 'left-to-right',
       render: (value, record) => {
-        return getValueOrDash(value?.value?.name.value);
+        return getValueOrDash(value?.value);
       },
       // width: 100,
     },
     {
       title: t('column.fa-name'),
-      dataIndex: 'service',
+      dataIndex: 'persianName',
       // key: 'faName',
       ellipsis: true,
-      className: 'right-to-left',
       render: (value, _record, index) => {
-        return <HistoryCell item={value.value.persianName} />;
+        return <HistoryCell item={value} />;
       },
       // width: 170,
     },
@@ -86,46 +84,46 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     // },
     {
       title: t('column.access'),
-      dataIndex: 'service',
+      dataIndex: 'accessLevel',
       // key: 'access',
       render: (value, record) => {
-        return getValueOrDash(value.value.accessLevel.value.title.value);
+        return getValueOrDash(value?.value);
       },
       // width: 100,
     },
     {
       title: t('column.category'),
-      dataIndex: 'service',
+      dataIndex: 'category',
       // key: 'category',
       render: (value, _record, index) => {
-        return <HistoryCell item={value?.value?.category?.value?.title} />;
+        return <HistoryCell item={value} />;
       },
       // width: 120,
     },
     {
       title: t('column.throughput'),
-      dataIndex: 'service',
+      dataIndex: 'throughput',
       // key: 'throughout',
       render: (value, record) => {
-        return getValueOrDash(value?.value.throughput.value.title.value);
+        return getValueOrDash(value?.value);
       },
       // width: 120,
     },
     {
       title: t('column.version'),
-      dataIndex: 'service',
+      dataIndex: 'version',
       // key: 'version',
       render: (value, _record, index) => {
-        return <HistoryCell item={value?.value?.version} />;
+        return <HistoryCell item={value} />;
       },
       // width: 80,
     },
     {
       title: t('column.owner'),
-      dataIndex: 'service',
+      dataIndex: 'owner',
       //key: 'owner',
       render: (value, _record, index) => {
-        return <HistoryCell item={value?.value?.owner} />;
+        return <HistoryCell item={value} />;
       },
       // width: 120,
     },

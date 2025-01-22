@@ -87,20 +87,20 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   return (
     <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
-        <S.FormItem name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
+        <Form.Item name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
           <Input
             disabled={true}
             placeholder={t('placeholder.en-name')}
             defaultValue={defaultValues[FORM_ITEM_NAMES.enName] as ServiceInfoDto['name']}
           />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
           <Input
             placeholder={t('placeholder.fa-name')}
             defaultValue={defaultValues[FORM_ITEM_NAMES.faName] as string}
           />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
           <Select
             labelInValue={true}
             disabled={true}
@@ -109,8 +109,8 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             placeholder={t('placeholder.access')}
             loading={isAccessLoading}
           ></Select>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
           <Select
             options={categoryOptions}
             size={'large'}
@@ -118,16 +118,16 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             loading={isCategoryLoading}
             defaultValue={defaultValues[FORM_ITEM_NAMES.category]}
           ></Select>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('form.throughput')}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('form.throughput')}>
           <Input disabled={true} size={'large'} readOnly></Input>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
           <Input placeholder={t('placeholder.owner')} />
-        </S.FormItem>
+        </Form.Item>
       </S.FormItemsContainer>
       <S.TagContainer>
         <S.TagPicker>
