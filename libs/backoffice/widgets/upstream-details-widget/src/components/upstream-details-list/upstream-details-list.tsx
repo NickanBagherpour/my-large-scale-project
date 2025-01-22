@@ -137,6 +137,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
           setOpen={setOpenAddServerModal}
           onConfirm={handleAddServer}
           status={status}
+          centered
           initialData={initialValue}
           successMsg='edit_upstream_successfully'
           selectedServerId={selectedServerId}

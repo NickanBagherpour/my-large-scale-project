@@ -21,10 +21,11 @@ interface ReusableFormModalProps {
   initialData?: CreateServerType;
   successMsg?: string;
   selectedServerId?: number | null;
+  centered: boolean;
 }
 
 const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId } = props;
+  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId, centered } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -151,6 +152,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
       closeIcon={false}
       headerDivider={false}
       footer={false}
+      centered={centered}
     >
       {renderModalContent()}
     </S.StyledModal>
