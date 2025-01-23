@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import { Direction, Locale, ThemeID } from './enums';
 import { z } from 'zod';
+
+import { Direction, Locale, ThemeID } from './enums';
 import { Obj } from './common';
 
 const ThemeIDSchema = z.nativeEnum(ThemeID);
@@ -84,3 +85,11 @@ export type MessageType = {
   type: 'error' | 'success' | 'info' | 'warning';
   shouldTranslate: boolean;
 };
+
+export interface IMiddlewareConfig {
+  publicPaths: string[];
+  apiPrefixes: string[];
+  authRoute: string;
+  baseProtectedRoute: string;
+  useOnlineValidation?: boolean;
+}
