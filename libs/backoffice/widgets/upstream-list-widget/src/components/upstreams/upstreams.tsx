@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { TablePaginationConfig } from 'antd';
 
-import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
 import { uuid } from '@oxygen/utils';
@@ -59,23 +58,19 @@ export default function Upstreams(props: Props) {
   return (
     <>
       <S.TableContainer>
-        {data?.length > 0 ? (
-          <Table
-            loading={isLoading}
-            current={pagination.page}
-            total={total}
-            dataSource={data}
-            pagination={{ pageSize: pagination.rowsPerPage }}
-            columns={desktopColumns}
-            mobileColumns={mobileColumns}
-            variant={'simple'}
-            title={t('table.upstreams_list')}
-            onChange={handlePageChange}
-            rowKey={() => uuid()}
-          />
-        ) : (
-          <NoResult isLoading={isLoading} />
-        )}
+        <Table
+          loading={isLoading}
+          current={pagination.page}
+          total={total}
+          dataSource={data}
+          pagination={{ pageSize: pagination.rowsPerPage }}
+          columns={desktopColumns}
+          mobileColumns={mobileColumns}
+          variant={'simple'}
+          title={t('table.upstreams_list')}
+          onChange={handlePageChange}
+          rowKey={() => uuid()}
+        />
       </S.TableContainer>
       {services && openModal && (
         <ConfirmDeleteModal
