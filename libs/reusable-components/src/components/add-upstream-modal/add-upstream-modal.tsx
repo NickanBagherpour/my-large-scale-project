@@ -67,8 +67,6 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
     form.resetFields();
     setIsCreateMode(true);
   };
-  const values = Form.useWatch([], form);
-  const isFormEmpty = !values?.[FORM_ITEM_NAMES.name] || !values?.[FORM_ITEM_NAMES.description];
 
   const renderModalContent = () => {
     if (isCreateMode) {
@@ -104,7 +102,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             </S.StyledForm>
 
             <S.StyledButton
-              disabled={status === 'pending' || isFormEmpty}
+              disabled={status === 'pending'}
               onClick={() => form.submit()}
               style={{ marginBottom: '1.6rem' }}
             >
@@ -148,6 +146,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
       closeIcon={false}
       headerDivider={false}
       footer={false}
+      centered={true}
     >
       {renderModalContent()}
     </S.StyledModal>
