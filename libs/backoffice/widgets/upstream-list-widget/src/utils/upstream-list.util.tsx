@@ -64,7 +64,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       width: 'min-content',
       render: (value, record) => (
         <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-          {t('table.details')}
+          {t('button.detail')}
         </S.Details>
       ),
     },
@@ -107,15 +107,15 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             value: getValueOrDash(value?.activeServerCount),
           },
           {
-            title: t('table.details'),
+            title: t('button.detail'),
             value: (
               <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-                {t('table.details')}
+                {t('button.detail')}
               </S.Details>
             ),
           },
           {
-            title: t('table.delete'),
+            title: t('button.delete'),
             value: <S.Trash className='icon-trash' onClick={() => deleteUpstream(record)} />,
           },
         ];
