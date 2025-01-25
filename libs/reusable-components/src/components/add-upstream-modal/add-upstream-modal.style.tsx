@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Box, Button, Modal as UikitModal } from '@oxygen/ui-kit';
 import { Form } from 'antd';
+import { Box, Button, Divider, Modal as UikitModal } from '@oxygen/ui-kit';
 
 export const StyledModal = styled(UikitModal)`
   .ant-modal-body {
@@ -20,10 +20,6 @@ export const StyledModal = styled(UikitModal)`
     padding-inline-start: 2.6rem;
   }
 
-  .close-button {
-    inset-inline-end: 35px;
-  }
-
   .ant-modal-close {
     top: 2rem;
   }
@@ -39,6 +35,9 @@ export const StyledHeader = styled(Box)`
   justify-content: space-between;
   padding: 0 2.4rem;
 `;
+export const StyledDivider = styled(Divider)`
+  margin-bottom: 3.4rem;
+`;
 
 export const StyledTitle = styled('span')`
   font-size: 1.9rem;
@@ -47,7 +46,6 @@ export const StyledTitle = styled('span')`
 `;
 export const StyledCloseIcon = styled('i')`
   font-size: 2.4rem;
-  //padding:0.5rem;
   color: ${(p) => p.theme.iconPrimary};
   width: fit-content;
   &:hover {
@@ -65,14 +63,11 @@ export const StyledForm = styled(Form)`
   .ant-form-item:last-of-type {
     margin-bottom: 4rem;
   }
-
-  .ant-form-item-row {
-    //align-items: center;
-  }
 ` as typeof Form;
 
 export const StyledButton = styled(Button)`
   width: 100%;
+  min-height: 5.6rem;
 
   &:not(:last-of-type) {
     margin-bottom: 0.8rem;
