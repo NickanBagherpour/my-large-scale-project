@@ -1,6 +1,6 @@
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Form } from 'antd';
 
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
@@ -47,12 +47,6 @@ export default function Filters() {
           queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM], refetchType: 'none' });
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
         },
-        onError: (error) => {
-          //
-        },
-        onSettled: () => {
-          // setOpenModal(false);
-        },
       });
     } catch (error) {
       // console.error('Validation failed:', error);
@@ -62,20 +56,21 @@ export default function Filters() {
   return (
     <>
       <S.Container>
-        <S.StyledText>{t('search')}</S.StyledText>
         <S.Actions>
-          <S.StyledInput
-            value={value}
-            placeholder={t('search_by_name')}
-            prefix={<i className='icon-search-normal' />}
-            onChange={(e) => setValue(e.target.value)}
-          />
-
-          <S.Buttons>
-            <S.StyledButton onClick={() => setOpenModal(!openModal)} color='primary' variant='solid'>
-              {t('create_new_upstream')}
-            </S.StyledButton>
-          </S.Buttons>
+          <Form layout={'vertical'}>
+            <S.StyledFormItem name={'search_by_name'} label={t('search')}>
+              <S.StyledInput
+                value={value}
+                placeholder={t('search_by_name')}
+                prefix={<i className='icon-search-normal' />}
+                onChange={(e) => setValue(e.target.value)}
+                maxLength={100}
+              />
+            </S.StyledFormItem>
+          </Form>
+          <S.StyledButton onClick={() => setOpenModal(!openModal)} color='primary' variant='solid'>
+            {t('create_new_upstream')}
+          </S.StyledButton>
         </S.Actions>
       </S.Container>
       <AddUpstreamModal
