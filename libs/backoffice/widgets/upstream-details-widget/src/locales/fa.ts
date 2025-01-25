@@ -37,8 +37,15 @@ export default {
   success_msg: 'سرور با موفقیت افزوده شد.',
   edit_msg: 'سرور با موفقیت ویرایش شد.',
   cancel: 'لغو',
-  edit_upstream_success: 'ویرایش آپ‌استریم با موفقیت انجام شد',
-  edit_upstream_successfully: 'ویرایش آپ‌استریم با موفقیت انجام شد',
-  delete_server_successfully: 'حذف سرور با موفقیت انجام شد',
   health_some: 'سلامت',
+
+  upstream_details: {
+    error__delete_server_description: 'حذف سرور با خطا مواجه شد',
+    error_edit_server_description: 'ویرایش سرور با خطا مواجه شد',
+    error_add_server_description: 'افزودن سرور با خطا مواجه شد',
+    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+    success_add_server: 'سرور با موفقیت افزوده شد.',
+    success_edit_server: 'سرور با موفقیت ویرایش شد.',
+    success_delete_server: 'سرور با موفقیت حذف شد.',
+  },
 };

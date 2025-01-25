@@ -22,7 +22,8 @@ const App = () => {
 
   const searchParams = useSearchParams();
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
-  const title = upstreamName ? `${t('widget_name_details')} ${t(upstreamName)}` : t('widget_name_creation');
+  // const title = upstreamName ? `${t('widget_name_details')} ${t(upstreamName)}` : t('widget_name_creation');
+  const title = upstreamName ? upstreamName : '';
 
   const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
 
@@ -44,16 +45,16 @@ const App = () => {
   }, [upstreamDetailsInfo]);
 
   return (
-    <Loading spinning={isUpstreamFetching}>
-      <S.WidgetContainer>
-        <S.UpstreamDetailsContainer title={title}>
-          <GlobalMessageContainer
-            containerProps={{ marginBottom: '2.4rem' }}
-            message={state.errorMessage}
-            onClose={() => {
-              resetErrorMessageAction(dispatch);
-            }}
-          />
+    <S.WidgetContainer>
+      <S.UpstreamDetailsContainer title={title}>
+        <GlobalMessageContainer
+          containerProps={{ marginBottom: '2.4rem' }}
+          message={state.errorMessage}
+          onClose={() => {
+            resetErrorMessageAction(dispatch);
+          }}
+        />
+        <Loading spinning={isUpstreamFetching}>
           <UpstreamDetailsInfo
             loading={isUpstreamFetching}
             infoData={{
@@ -62,19 +63,19 @@ const App = () => {
               id: upstreamDetailsInfo?.id,
             }}
           />
-        </S.UpstreamDetailsContainer>
-        <S.BoxContainer className={'table-container'}>
-          {
-            <UpstreamDetailsList
-              isFetching={upstreamServer?.list?.serverList.length ? isUpstreamFetching : false}
-              data={upstreamServer?.list?.serverList}
-              total={upstreamServer?.list?.serverList.length}
-              upstreamName={upstreamName}
-            />
-          }
-        </S.BoxContainer>
-      </S.WidgetContainer>
-    </Loading>
+        </Loading>
+      </S.UpstreamDetailsContainer>
+      <S.BoxContainer className={'table-container'}>
+        {
+          <UpstreamDetailsList
+            isFetching={isUpstreamFetching}
+            data={upstreamServer?.list?.serverList}
+            total={upstreamServer?.list?.serverList.length}
+            upstreamName={upstreamName}
+          />
+        }
+      </S.BoxContainer>
+    </S.WidgetContainer>
   );
 };
 
