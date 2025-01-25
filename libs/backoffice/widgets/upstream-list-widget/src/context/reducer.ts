@@ -9,7 +9,7 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
-  searchField: '',
+  searchField: null,
   sort: 'createDate,CDESC',
 };
 

@@ -14,7 +14,7 @@ export type WidgetStateType = {
     pagination: PaginationType;
   };
   message: Nullable<MessageType>;
-  searchField: string;
+  searchField: Nullable<string>;
   sort: Nullable<string>;
 };
 
