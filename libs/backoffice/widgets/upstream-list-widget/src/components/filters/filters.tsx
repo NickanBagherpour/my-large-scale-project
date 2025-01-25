@@ -16,17 +16,15 @@ import * as S from './filters.style';
 export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
-
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
-
   useBounce(() => {
     updateSearchTermAction(dispatch, value);
     updatePagination(dispatch, { page: 1 });
   }, [value]);
 
-  const { mutate, status } = useCreateUpstreamMutation();
+  const { mutate, status, error } = useCreateUpstreamMutation();
 
   const handleCreateUpstream = async (values) => {
     try {
@@ -47,9 +45,12 @@ export default function Filters() {
           queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM], refetchType: 'none' });
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
         },
+        onError: (error) => {
+          // console.log('error', error);
+        },
       });
     } catch (error) {
-      // console.error('Validation failed:', error);
+      // console.error('error:', error);
     }
   };
 
@@ -68,18 +69,21 @@ export default function Filters() {
               />
             </S.StyledFormItem>
           </Form>
-          <S.StyledButton onClick={() => setOpenModal(!openModal)} color='primary' variant='solid'>
+          <S.StyledButton onClick={() => setOpenModal(true)} color='primary' variant='solid'>
             {t('create_new_upstream')}
           </S.StyledButton>
         </S.Actions>
       </S.Container>
-      <AddUpstreamModal
-        title={t('create_new_upstream')}
-        open={openModal}
-        setOpen={setOpenModal}
-        onConfirm={handleCreateUpstream}
-        status={status}
-      />
+      {openModal && (
+        <AddUpstreamModal
+          title={t('create_new_upstream')}
+          open={openModal}
+          setOpen={setOpenModal}
+          onConfirm={handleCreateUpstream}
+          status={status}
+          error={error}
+        />
+      )}
     </>
   );
 }

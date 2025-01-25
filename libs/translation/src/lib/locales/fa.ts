@@ -321,7 +321,7 @@ export default {
   },
   add_upstream: {
     loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
-    error_description: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
+    error_description: 'ثبت اطلاعات آپ‌استریم در کُنگ با خطا مواجه شده است.',
     add_upstream: 'ایجاد آپ‌استریم',
     register_information: 'ثبت اطلاعات',
     upstream_english_name: 'نام انگلیسی آپ‌استریم',
