@@ -8,7 +8,13 @@ import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
 
-import { updateMessageAction, updatePagination, updateSearchTermAction, useAppDispatch } from '../../context';
+import {
+  updateMessageAction,
+  updatePagination,
+  updateSearchTermAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
 
 import * as S from './filters.style';
@@ -16,11 +22,12 @@ import * as S from './filters.style';
 export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
+  const state = useAppState();
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   useBounce(() => {
-    updateSearchTermAction(dispatch, value);
+    updateSearchTermAction(dispatch, value.trim());
     updatePagination(dispatch, { page: 1 });
   }, [value]);
 
@@ -53,7 +60,8 @@ export default function Filters() {
       // console.error('error:', error);
     }
   };
-
+  // console.log('description:',t(state.message?.description));
+  // console.log('title:',t(state.message?.title));
   return (
     <>
       <S.Container>
