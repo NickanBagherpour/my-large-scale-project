@@ -21,7 +21,7 @@ export default {
   return: 'بازگشت',
 
   form: {
-    //firstStep
+    //detailsInfo
     org_name: 'نام سازمان',
     client_name: 'نام کلاینت',
     company_representative_name: 'نام نماینده شرکت',
@@ -38,7 +38,7 @@ export default {
     phone: 'تلفن',
     last_registration_address: 'آخرین آدرس ثبتی',
     aggregator_status: 'وضعیت اگریگیتور',
-    //secondStep
+
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
     Phone_number: 'شماره تلفن ثابت',

@@ -13,7 +13,7 @@ type DraftCardType = {
 
 export default function DraftCard(props: DraftCardType) {
   const { organizationName, progress, stepName, submissionId, deleteDraft } = props;
-  // debugger;
+
   const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     deleteDraft(submissionId);

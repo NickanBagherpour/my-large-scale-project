@@ -12,14 +12,11 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/details-info';
 import * as S from './detail-info.style';
 
 type DetailsInfoProps = PageProps & {
-  // setCurrentStep: (prev) => void;
   data?: any;
-  loading?: boolean;
-  // submissionId: string;
 };
 
 const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
-  const { data, loading } = props;
+  const { data } = props;
 
   const [t] = useTr();
 
@@ -32,9 +29,7 @@ const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
   };
 
   return (
-    // <Loading spinning={loading}>
-    //   {!loading && (
-    <S.FourthStepContainer>
+    <S.DetailsInfoContainer>
       <Form layout={'vertical'}>
         <S.TitleTxt className={'cards-title'}>{t('details_info')}</S.TitleTxt>
         <S.StatusContainer>{data?.submissionInfoDto.submissionStatus.title}</S.StatusContainer>
@@ -162,9 +157,7 @@ const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
           {t('return')}
         </Button>
       </S.Footer>
-    </S.FourthStepContainer>
-    //   )}
-    // </Loading>
+    </S.DetailsInfoContainer>
   );
 };
 

@@ -19,7 +19,7 @@ export const StatusContainer = styled.span`
   margin-left: 1rem;
 `;
 
-export const FourthStepContainer = styled.div`
+export const DetailsInfoContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
