@@ -39,6 +39,7 @@ export default {
   cancel: 'لغو',
   health_some: 'سلامت',
 
+  edit_upstream_successfully: 'ویرایش آپ‌استریم با موفقیت انجام شد',
   upstream_details: {
     error__delete_server_description: 'حذف سرور با خطا مواجه شد',
     error_edit_server_description: 'ویرایش سرور با خطا مواجه شد',
