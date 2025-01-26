@@ -19,17 +19,24 @@ interface ReusableFormModalProps {
   status: MutationStatus;
   initialData?: CreateUpstreamType;
   successMsg?: string;
+  error?: any;
 }
 
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title = 'add-upstream.create_upstream', open, setOpen, onConfirm, status, initialData, successMsg } = props;
-
+  const {
+    title = 'add-upstream.create_upstream',
+    open,
+    setOpen,
+    onConfirm,
+    status,
+    initialData,
+    successMsg,
+    error,
+  } = props;
   const [isCreateMode, setIsCreateMode] = useState(true);
-
   const [t] = useTr();
   const rule = createSchemaFieldRule(createUpstreamType(t));
   const [form] = Form.useForm<CreateUpstreamType>();
-
   const createStatus = {
     success: 'success',
     pending: 'loading',
@@ -67,8 +74,6 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
     form.resetFields();
     setIsCreateMode(true);
   };
-  const values = Form.useWatch([], form);
-  const isFormEmpty = !values?.[FORM_ITEM_NAMES.name] || !values?.[FORM_ITEM_NAMES.description];
 
   const renderModalContent = () => {
     if (isCreateMode) {
@@ -78,7 +83,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             <S.StyledTitle>{t(title)}</S.StyledTitle>
             <S.StyledCloseIcon className={'icon-close-square'} onClick={resetModal} />
           </S.StyledHeader>
-          <Divider />
+          <S.StyledDivider />
           <S.StyledContainer>
             <S.StyledForm
               layout='horizontal'
@@ -104,7 +109,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             </S.StyledForm>
 
             <S.StyledButton
-              disabled={status === 'pending' || isFormEmpty}
+              disabled={status === 'pending'}
               onClick={() => form.submit()}
               style={{ marginBottom: '1.6rem' }}
             >
@@ -118,7 +123,9 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('add_upstream.error_description') }}
+            errorProps={{
+              description: t(error?.status === 400 ? 'add_upstream.error_description' : 'error.unknown_error'),
+            }}
             loadingProps={{ description: t('add_upstream.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
@@ -148,6 +155,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
       closeIcon={false}
       headerDivider={false}
       footer={false}
+      centered={true}
     >
       {renderModalContent()}
     </S.StyledModal>
