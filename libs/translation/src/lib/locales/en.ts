@@ -11,6 +11,7 @@ export default {
     register_new_request: 'register new request',
     retry: 'retry',
     display_more_items: 'more',
+    register_data: 'apply',
   },
   appbar: {
     title: 'Melli Bank',
@@ -20,19 +21,15 @@ export default {
   uikit: {
     select_all: 'select all',
   },
-  service_call: {
-    service_call_rate: 'service call rate',
-    register_data: 'apply',
-    in: 'in',
-    total_number_calls_limit: 'total call limit rate',
+
+  common: {
+    dashboard: 'dashboard',
     in_week: 'in week',
     in_month: 'in month',
     hour: 'hour',
     minute: 'minute',
     second: 'second',
-  },
-  common: {
-    dashboard: 'dashboard',
+    in: 'in',
   },
   message: {
     no_request: 'No requests have been registered in this system yet.',
@@ -63,5 +60,9 @@ export default {
     only_digit_message: 'Please enter only digits.',
     email_validation_message: 'Please enter a valid email address.',
     default_validation_message: 'Please enter the values correctly.',
+  },
+  field: {
+    service_call_rate: 'service call rate',
+    total_number_calls_limit: 'total call limit rate',
   },
 };
