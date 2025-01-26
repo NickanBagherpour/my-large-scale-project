@@ -37,6 +37,12 @@ export default {
       business_admin: 'واحد کسب و کار',
     },
     unknown: 'نامشخص',
+    in_week: 'در هفته',
+    in_month: 'در ماه',
+    hour: 'ساعت',
+    minute: 'دقیقه',
+    second: 'ثانیه',
+    in: 'در',
   },
 
   app: {
@@ -68,6 +74,7 @@ export default {
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
     active_servers_count: '{{count}} سرور فعال ',
+    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   },
 
   button: {
@@ -138,6 +145,7 @@ export default {
     display_more_items: 'بیشتر',
     view_request: 'مشاهده درخواست',
     try_again: 'تلاش دوباره',
+    register_data: 'ثبت اطلاعات',
   },
 
   field: {
@@ -189,6 +197,8 @@ export default {
     organization: 'شرکت',
     organization_info: 'اطلاعات شرکت',
     withdrawal_amount: 'مبلغ قابل برداشت',
+    service_call_rate: 'نرخ فراخوانی سرویس',
+    total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
   },
 
   placeholder: {
@@ -257,10 +267,6 @@ export default {
     unique_id: 'شناسه یکتا',
   },
 
-  autocomplete: {
-    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
-  },
-
   validation: {
     required: 'این فیلد اجباریست',
     incorrect: 'خطا',
@@ -286,17 +292,6 @@ export default {
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
   },
 
-  service_call: {
-    service_call_rate: 'نرخ فراخوانی سرویس',
-    register_data: 'ثبت اطلاعات',
-    in: 'در',
-    total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
-    in_week: 'در هفته',
-    in_month: 'در ماه',
-    hour: 'ساعت',
-    minute: 'دقیقه',
-    second: 'ثانیه',
-  },
   advance_grid_card: {
     discription: 'توضیحات:',
     two: ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
