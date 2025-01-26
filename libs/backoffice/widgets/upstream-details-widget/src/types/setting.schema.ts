@@ -9,7 +9,7 @@ export const FormSchema = (t: TFunction<'translation', undefined>) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isLatinText, {
         message: t('validation.english_validation_message'),
       }),
@@ -17,7 +17,7 @@ export const FormSchema = (t: TFunction<'translation', undefined>) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isPersianText, {
         message: t('validation.persian_validation_message'),
       }),
@@ -29,12 +29,12 @@ export const ModalFormSchema = (t: TFunction<'translation', undefined>) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) }),
+      .max(100, { message: t('validation.min_len', { val: 100 }) }),
     [FORM_ITEM_NAMES.weight]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.only_digit_message'),
       }),

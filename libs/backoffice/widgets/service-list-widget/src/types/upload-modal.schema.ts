@@ -11,7 +11,7 @@ export const uploadService = (t: TFunction<'translation', undefined>) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
-      .max(30, t('error.max_len', { val: 100 }))
+      .max(30, t('validation.min_len', { val: 100 }))
       .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message')),
   });
 
@@ -22,7 +22,7 @@ export const ServiceName = (t: TFunction<'translation', undefined>) =>
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
-      .max(30, t('error.max_len', { val: 100 }))
+      .max(30, t('validation.min_len', { val: 100 }))
       .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message')),
   });
 

@@ -8,7 +8,7 @@ export const CreateServiceNameSchema = (t: TFunction<'translation', undefined>) 
     [SERVICE_NAME.ServiceName]: z
       .string()
       .trim()
-      .max(100, t('error.max_len', { val: 100 }))
+      .max(100, t('validation.min_len', { val: 100 }))
       .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message'))
       .nullable()
       .optional(),

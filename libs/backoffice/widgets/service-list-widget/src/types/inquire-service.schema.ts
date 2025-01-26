@@ -8,7 +8,7 @@ export const CreateServiceInquirySchema = (t: TFunction<'translation', undefined
     [SERVICE_NAME.ServiceName]: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .max(100, t('error.max_len', { val: 100 }))
+      .max(100, t('validation.min_len', { val: 100 }))
       .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message'))
       .min(1, { message: t('validation.required') }),
   });
