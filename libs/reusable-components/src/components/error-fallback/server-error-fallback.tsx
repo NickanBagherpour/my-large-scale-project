@@ -7,9 +7,9 @@ const ServerErrorFallback = () => {
   const [t] = useTr();
   return (
     <ErrorView
-      errorCode={t('error.code_500')}
-      title={t('error.server_error')}
-      description={t('error.server_error_desc')}
+      errorCode={t('message.code_500')}
+      title={t('message.server_error')}
+      description={t('message.server_error_desc')}
       animationData={serverErrorAnimation}
     />
   );

@@ -52,7 +52,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
         <AdvanceSelector
           onSelect={handleSelect}
           label={t('step_two.client_services')}
-          placeholder={t('search_by_name_and_scope')}
+          placeholder={t('uikit.search_by_name_and_scope')}
         ></AdvanceSelector>
       </S.SearchField>
       <Box flexGrow={1}>

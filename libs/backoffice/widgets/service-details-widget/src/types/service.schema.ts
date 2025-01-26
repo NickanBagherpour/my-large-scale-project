@@ -6,18 +6,18 @@ import { ADD_SERVER_MODAL_FORM_ITEM, UPSTREAM_TAB_NAMES_FORM_ITEM } from '../uti
 export const FormSchema = (t: (key: string) => string) =>
   z.object({
     [FORM_ITEM_NAMES.latinNameScope]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
+      .min(1, { message: t('validation.required') })
       .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('error.english_validation_message'),
+        message: t('validation.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianNameScope]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
+      .min(1, { message: t('validation.required') })
       .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('error.persian_validation_message'),
+        message: t('validation.persian_validation_message'),
       }),
   });
 
@@ -26,21 +26,21 @@ export type FormValues = z.infer<ReturnType<typeof FormSchema>>;
 export const addServerModalSchema = (t: (key: string) => string) =>
   z.object({
     [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') }),
+      .min(1, { message: t('validation.required') }),
     [ADD_SERVER_MODAL_FORM_ITEM.WEIGHT]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') }),
+      .min(1, { message: t('validation.required') }),
   });
 export type addServerModalVlaues = z.infer<ReturnType<typeof addServerModalSchema>>;
 export const nameInputsSchema = (t: (key: string) => string) => {
-  const requiredString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  const requiredString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
     if (value.trim().length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
     if (value.length < 1) {
@@ -49,7 +49,7 @@ export const nameInputsSchema = (t: (key: string) => string) => {
         type: 'string',
         minimum: 1,
         inclusive: true,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
   });

@@ -19,7 +19,7 @@ const NoResult = (props: Props) => {
   const [t] = useTr();
   const router = useRouter();
 
-  const displayTitle = title || t('no_result.there_is_no_data_to_show');
+  const displayTitle = title || t('message.there_is_no_data_to_show');
 
   const handleReturn = () => {
     router.back();
