@@ -5,13 +5,13 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { AdvanceSelector } from '@oxygen/reusable-components';
 
-import { Modal } from '../../types/modal.type';
+import { Modal } from '../../types';
 import RemoveModal from './modal-confirm-remove/modal-confirm-remove';
 import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
-import { getDesktopColumns, getMobileColumns } from '../../utils/third-step-table-utils';
+import { getDesktopColumns, getMobileColumns } from '../../utils/service-select-table-utils';
 import { useThirdStepRequestRegistrationMutationQuery } from '../../services/third-step/third-step-data';
 
-import * as S from './third-step.style';
+import * as S from './select-service-step.style';
 
 type ThirdStep = PageProps & {
   setCurrentStep: any;

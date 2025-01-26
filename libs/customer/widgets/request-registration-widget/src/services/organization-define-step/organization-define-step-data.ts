@@ -13,11 +13,11 @@ export const useSelectDataQuery = () => {
   });
 };
 
-export const useFirstStepRequestRegistrationMutationQuery = () => {
+export const useOrganizationDefineStepRequestRegistrationMutationQuery = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (params: any) => Api.requestRegistrationFirstStep(params),
+    mutationFn: (params: any) => Api.requestRegistrationOrganizationDefineStep(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
@@ -32,7 +32,7 @@ export const useFirstStepRequestRegistrationMutationQuery = () => {
   });
 };
 
-export const useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery = () => {
+export const useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery = () => {
   const dispatch = useAppDispatch();
 
   return useMutation({

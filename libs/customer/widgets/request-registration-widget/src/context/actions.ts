@@ -4,7 +4,7 @@ import { WidgetStateType } from '../context/types';
 
 import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType, RequestMode } from './types';
 
-export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
+export function updateOrganizationDefineStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
 }
 

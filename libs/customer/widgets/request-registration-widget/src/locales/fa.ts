@@ -2,7 +2,7 @@ export default {
   select_organization: 'انتخاب شرکت',
   register_organization: 'ثبت اطلاعات شرکت',
 
-  //firstStep
+  //organizationDefineStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',
   company_specifications: 'مشخصات شرکت',
@@ -17,13 +17,13 @@ export default {
   select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
   public: 'عام',
   private: 'خاص',
-  //secondStep
+  //representativeDefineStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',
   tooTip_text: 'محتوای راهنمای ابزار',
   clientKeyMessage:
     'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
-  //thirdStep
+  //serviceSelectStep
   search_services: 'جستجوی سرویس‌ها',
   search_by_service_name_and_code: 'جستجو براساس نام یا کد سرویس',
   table_header: {
@@ -36,7 +36,7 @@ export default {
     remove: 'حذف',
     are_you_sure_to_remove: 'آیا از حذف سرویس {{name}} برای این اسکوپ اطمینان دارید؟',
   },
-  //fourthStep
+  //finalConfirmStep
   company_info: 'اطلاعات شرکت',
   representatives_info: 'اطلاعات نمایندگان',
   requested_services: 'سرویس‌های درخواستی',
@@ -55,7 +55,7 @@ export default {
     fourth_step: 'تایید اطلاعات',
   },
   form: {
-    //firstStep
+    //organizationDefineStep
     aggregator: 'اگریگیتور',
     aggregator_specifications: 'مشخصات اگریگیتور',
     legal_person_name: 'نام شخص حقوقی',
@@ -69,13 +69,13 @@ export default {
     phone: 'تلفن',
     last_registration_address: 'آخرین آدرس ثبتی',
     aggregator_status: 'وضعیت اگریگیتور',
-    //secondStep
+    //representativeDefineStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
     Phone_number: 'شماره تلفن ثابت',
   },
   placeholder: {
-    //firstStep
+    //organizationDefineStep
     do_select: 'انتخاب کنید',
     legal_person_name: 'نام شخص حقوقی را وارد نمایید',
     legal_person_type: 'نوع شخص حقوقی را انتخاب نمایید',
@@ -87,7 +87,7 @@ export default {
     postal_code: 'کد پستی را وارد نمایید',
     phone: 'تلفن را وارد نمایید',
     last_registration_address: 'آخرین آدرس ثبتی را وارد نمایید',
-    //secondStep
+    //representativeDefineStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
     Phone_number: 'شماره تلفن ثابت',

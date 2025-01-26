@@ -8,12 +8,12 @@ import { PageProps } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
 import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
 
-import { useSecondStepRequestRegistrationMutationQuery } from '../../services/second-step/second-step-data';
+import { useSecondStepRequestRegistrationMutationQuery } from '../../services/representative-define-step/representative-define-step-data';
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
 import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
 
-import * as S from './second-step.style';
+import * as S from './representative-define-step.style';
 
 type SecondStepProps = PageProps & {
   setCurrentStep: (prev) => void;

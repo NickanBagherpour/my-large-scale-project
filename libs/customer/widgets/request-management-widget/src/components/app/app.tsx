@@ -12,7 +12,7 @@ import {
   useGetRequestsDraftsQuery,
   useDeleteSelectedRequestsDraftsMutationQuery,
 } from '../../services';
-import { Container, Loading, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Loading, SearchItemsContainer } from '@oxygen/ui-kit';
 import { AdvanceGridCard, NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
 import RemoveModal from '../modal-confirm-remove/modal-confirm-remove';
@@ -70,7 +70,7 @@ const App: React.FC<AppProps> = (props) => {
         onSuccess: (data) => {
           console.log('deleted selected  request :', data);
           let filteredDrafts = localDrafts;
-          filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId != submissionId);
+          filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId !== submissionId);
           setLocalDrafts(filteredDrafts);
           toggleModal('removeRequest');
         },

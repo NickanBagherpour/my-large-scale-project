@@ -22,13 +22,13 @@ import {
 } from '../../utils/consts';
 import { WidgetStateType } from '../../context/types';
 import {
-  useFirstStepRequestRegistrationMutationQuery,
-  useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery,
   useGetOrganizationsQuery,
   useGetAggregatorsQuery,
-} from '../../services/first-step/first-step-data';
+} from '../../services';
 import {
-  updateFirstStepAction,
+  updateOrganizationDefineStepAction,
   updateOrganizationIdAndSubmissionId,
   useAppDispatch,
   useAppState,
@@ -36,17 +36,17 @@ import {
   updateStatus,
 } from '../../context';
 
-import * as S from './first-step.style';
+import * as S from './organization-define-step.style';
 import { NoResult } from '@oxygen/reusable-components';
 
-type FirstStepProps = PageProps & {
+type OrganizationDefineStepProps = PageProps & {
   setCurrentStep: (prev) => void;
   data?: any;
   loading?: boolean;
   draft?: boolean;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
   const { setCurrentStep, data, loading, draft } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -64,6 +64,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
+
   const [aggregatorSelectData, setAggregatorSelectData] = useState([]);
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
@@ -72,9 +73,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     id: '',
     submissionId: null,
   });
-  const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
+  const { mutate: firstMutate, isPending: firstIsPending } =
+    useOrganizationDefineStepRequestRegistrationMutationQuery();
   const { mutate: secondMutate, isPending: secondIsPending } =
-    useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
+    useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
 
@@ -173,7 +175,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           }
           const aggregator_status = state.firstStep.aggregator_status;
           const updatedValues = { ...values, aggregator_status };
-          updateFirstStepAction(dispatch, updatedValues);
+          updateOrganizationDefineStepAction(dispatch, updatedValues);
           setCurrentStep((perv) => perv + 1);
         },
         onError: (error) => {

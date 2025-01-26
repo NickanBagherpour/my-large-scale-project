@@ -11,13 +11,13 @@ import { useQueryParams } from '@oxygen/hooks';
 
 import { requestRegistrationFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
-import { getDesktopColumns, getMobileColumns } from '../../utils/fourth-step-table-utils';
+import { getDesktopColumns, getMobileColumns } from '../../utils/final-confirm-table-utils';
 import {
   useGetRequestDataQuery,
   useFourthStepRequestRegistrationMutationQuery,
 } from '../../services/fourth-step/fourth-step-data';
 
-import * as S from './fourth-step.style';
+import * as S from './final-confirm-step.style';
 
 type FourthStepProps = PageProps & {
   setCurrentStep: (prev) => void;
