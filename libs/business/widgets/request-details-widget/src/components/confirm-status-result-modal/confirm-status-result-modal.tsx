@@ -46,7 +46,7 @@ const ConfirmStatusResultModal: React.FC<Props> = (props: Props) => {
               status={createStatus[newStatus]}
               errorProps={{ description: t('status_reject_description', { statusDate: reviewDate }) }}
               successProps={{ description: t('status_confirm_description', { statusDate: reviewDate }) }}
-              loadingProps={{ description: t('add_upstream.loading_description') }}
+              loadingProps={{ description: t('uikit.loading_description') }}
             />
           </S.AnimationContainer>
           <S.StyledButton

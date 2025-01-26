@@ -34,7 +34,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-warning-2' />,
     businessColor: 'default',
     businessIcon: <i className='icon-info-hint' />,
-    descriptionText: 'advance_grid_card.two',
+    descriptionText: ' advanced_grid_card_step_two',
     isBlack: true,
   },
   [SubmissionStatusCode.Rejected]: {
@@ -43,7 +43,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-close' />,
     businessColor: 'default',
     businessIcon: <i className='icon-info-hint' />,
-    descriptionText: 'advance_grid_card.three',
+    descriptionText: ' advanced_grid_card_step_three',
     isBlack: true,
   },
   [SubmissionStatusCode.InProgress]: {
@@ -52,7 +52,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'warning',
     businessIcon: <i className='icon-warning-2' />,
-    descriptionText: 'advance_grid_card.four',
+    descriptionText: ' advanced_grid_card_step_four',
   },
   [SubmissionStatusCode.Completed]: {
     textColor: 'warning',
@@ -60,7 +60,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'warning',
     businessIcon: <i className='icon-warning-2' />,
-    descriptionText: 'advance_grid_card.five',
+    descriptionText: 'uikit. advanced_grid_card_step_five',
   },
   [SubmissionStatusCode.Failed]: {
     textColor: 'error',
@@ -68,7 +68,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'error',
     businessIcon: <i className='icon-close' />,
-    descriptionText: 'advance_grid_card.six',
+    descriptionText: 'uikit. advanced_grid_card_step_six',
   },
   [SubmissionStatusCode.Approved]: {
     textColor: 'success',
@@ -76,7 +76,7 @@ export const statusConfig: StatusConfigMap = {
     bankIcon: <i className='icon-checkmark' />,
     businessColor: 'success',
     businessIcon: <i className='icon-checkmark' />,
-    descriptionText: 'advance_grid_card.seven',
+    descriptionText: 'uikit. advanced_grid_card_step_seven',
   },
   default: {
     textColor: 'default',

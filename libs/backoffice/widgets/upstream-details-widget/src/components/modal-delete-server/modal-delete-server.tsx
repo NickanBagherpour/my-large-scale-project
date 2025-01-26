@@ -115,8 +115,8 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('add_upstream.error_description') }}
-            loadingProps={{ description: t('add_upstream.loading_description') }}
+            errorProps={{ description: t('uikit.error_description') }}
+            loadingProps={{ description: t('uikit.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
           {!initialData && status !== 'pending' && status !== 'success' && (

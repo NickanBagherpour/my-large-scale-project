@@ -75,6 +75,25 @@ export default {
     select_all: 'انتخاب همه',
     active_servers_count: '{{count}} سرور فعال ',
     search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    discription: 'توضیحات:',
+    advanced_grid_card_step_two:
+      ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
+    advanced_grid_card_step_three: ' درخواست شما توسط بانکداری تجاری رد شد.',
+    advanced_grid_card_step_four:
+      ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
+    advanced_grid_card_step_five:
+      ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
+    advanced_grid_card_step_six: ' درخواست شما توسط واحد کسب و کار رد شد.',
+    advanced_grid_card_step_seven: ' درخواست شما مورد تایید بانکداری تجاری و کسب و کار قرار گرفت.',
+    on_demand_service: ' سرویس درخواستی',
+    validation_commercial_banking: 'اعتبارسنجی بانکداری‌تجاری',
+    business_unit: 'واحد کسب و کار',
+    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+    error_description: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
+    add_upstream: 'ایجاد آپ‌استریم',
+    register_information: 'ثبت اطلاعات',
+    upstream_english_name: 'نام انگلیسی آپ‌استریم',
+    upstream_persian_name: 'نام فارسی آپ‌استریم',
   },
 
   button: {
@@ -290,26 +309,5 @@ export default {
     only_digit_message: 'لطفا فقط عدد وارد کنید',
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
-  },
-
-  advance_grid_card: {
-    discription: 'توضیحات:',
-    two: ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
-    three: ' درخواست شما توسط بانکداری تجاری رد شد.',
-    four: ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
-    five: ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
-    six: ' درخواست شما توسط واحد کسب و کار رد شد.',
-    seven: ' درخواست شما مورد تایید بانکداری تجاری و کسب و کار قرار گرفت.',
-    on_demand_service: ' سرویس درخواستی',
-    validation_commercial_banking: 'اعتبارسنجی بانکداری‌تجاری',
-    business_unit: 'واحد کسب و کار',
-  },
-  add_upstream: {
-    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
-    error_description: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
-    add_upstream: 'ایجاد آپ‌استریم',
-    register_information: 'ثبت اطلاعات',
-    upstream_english_name: 'نام انگلیسی آپ‌استریم',
-    upstream_persian_name: 'نام فارسی آپ‌استریم',
   },
 };

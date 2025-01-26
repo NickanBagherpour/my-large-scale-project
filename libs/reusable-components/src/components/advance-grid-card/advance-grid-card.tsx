@@ -31,13 +31,13 @@ export const AdvanceGridCard = ({
           </S.IconTextWrapper>
           <S.IconTextWrapper>
             <i className='icon-convertshape' />
-            <S.ServiceCount>{`${data.serviceCount} ${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
+            <S.ServiceCount>{`${data.serviceCount} ${t('uikit.on_demand_service')}`}</S.ServiceCount>
           </S.IconTextWrapper>
         </S.Details>
         <S.Status>
           <S.StatusContainer>
             <S.IconTop color={bankColor as S.ColorType}>{bankIcon}</S.IconTop>
-            <S.Paragraph>{t('advance_grid_card.validation_commercial_banking')}</S.Paragraph>
+            <S.Paragraph>{t('uikit.validation_commercial_banking')}</S.Paragraph>
           </S.StatusContainer>
           <Box flexGrow={1}>
             <S.LineUp color={bankColor as S.ColorType} />
@@ -47,12 +47,12 @@ export const AdvanceGridCard = ({
             <S.IconButtom color={businessColor as S.ColorType} isBlack={isBlack}>
               {businessIcon}
             </S.IconButtom>
-            <S.Paragraph>{t('advance_grid_card.business_unit')}</S.Paragraph>
+            <S.Paragraph>{t('uikit.business_unit')}</S.Paragraph>
           </S.StatusContainer>
         </S.Status>
       </S.Div>
       <S.Discription color={textColor as S.ColorType}>
-        <span>{t('advance_grid_card.discription')}</span>
+        <span>{t('uikit.discription')}</span>
         {t(descriptionText)}
       </S.Discription>
       <S.Button variant='outlined' loading={btnLoading} onClick={() => btnHandleClick(data.submissionId)}>
