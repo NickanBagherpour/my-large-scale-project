@@ -1,7 +1,7 @@
 export default {
   upstream_management: 'مدیریت آپ‌استریم‌',
   search_by_name: 'جستجو براساس نام',
-  create_new_upstream: 'ایجاد آپ‌ستریم',
+  create_new_upstream: 'ایجاد آپ‌استریم',
   register_information: 'ثبت اطلاعات',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
@@ -12,7 +12,6 @@ export default {
     english_name: 'نام انگلیسی',
     persian_name: 'نام فارسی',
     active_servers: 'سرورهای فعال',
-    details: 'جزئیات',
   },
   search: 'جستجو',
   warning: 'هشدار!',

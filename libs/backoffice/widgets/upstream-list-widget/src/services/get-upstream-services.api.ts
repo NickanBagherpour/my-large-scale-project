@@ -15,7 +15,7 @@ export const useGetUpstreamServicesQuery = (params: FetchUpstreamServiceParamsTy
     //EXCEPTION: DONT ADD UPSTREAM GENERAL KEY
     queryKey: [GET_UPSTREAM_SERVICES, params],
     queryFn: withErrorHandling(() => Api.getUpstreamServices(params), dispatch),
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',
     enabled: !!params,
   });

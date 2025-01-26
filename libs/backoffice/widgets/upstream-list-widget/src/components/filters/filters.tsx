@@ -1,6 +1,6 @@
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Form } from 'antd';
 
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
@@ -8,7 +8,13 @@ import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
 
-import { updateMessageAction, updatePagination, updateSearchTermAction, useAppDispatch } from '../../context';
+import {
+  updateMessageAction,
+  updatePagination,
+  updateSearchTermAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
 
 import * as S from './filters.style';
@@ -16,17 +22,16 @@ import * as S from './filters.style';
 export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
-
+  const state = useAppState();
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
-
   useBounce(() => {
-    updateSearchTermAction(dispatch, value);
+    updateSearchTermAction(dispatch, value.trim());
     updatePagination(dispatch, { page: 1 });
   }, [value]);
 
-  const { mutate, status } = useCreateUpstreamMutation();
+  const { mutate, status, error } = useCreateUpstreamMutation();
 
   const handleCreateUpstream = async (values) => {
     try {
@@ -48,43 +53,45 @@ export default function Filters() {
           router.push(`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${params.name}`);
         },
         onError: (error) => {
-          //
-        },
-        onSettled: () => {
-          // setOpenModal(false);
+          // console.log('error', error);
         },
       });
     } catch (error) {
-      // console.error('Validation failed:', error);
+      // console.error('error:', error);
     }
   };
-
+  // console.log('description:',t(state.message?.description));
+  // console.log('title:',t(state.message?.title));
   return (
     <>
       <S.Container>
-        <S.StyledText>{t('search')}</S.StyledText>
         <S.Actions>
-          <S.StyledInput
-            value={value}
-            placeholder={t('search_by_name')}
-            prefix={<i className='icon-search-normal' />}
-            onChange={(e) => setValue(e.target.value)}
-          />
-
-          <S.Buttons>
-            <S.StyledButton onClick={() => setOpenModal(!openModal)} color='primary' variant='solid'>
-              {t('create_new_upstream')}
-            </S.StyledButton>
-          </S.Buttons>
+          <Form layout={'vertical'}>
+            <S.StyledFormItem name={'search_by_name'} label={t('search')}>
+              <S.StyledInput
+                value={value}
+                placeholder={t('search_by_name')}
+                prefix={<i className='icon-search-normal' />}
+                onChange={(e) => setValue(e.target.value)}
+                maxLength={100}
+              />
+            </S.StyledFormItem>
+          </Form>
+          <S.StyledButton onClick={() => setOpenModal(true)} color='primary' variant='solid'>
+            {t('create_new_upstream')}
+          </S.StyledButton>
         </S.Actions>
       </S.Container>
-      <AddUpstreamModal
-        title={t('create_new_upstream')}
-        open={openModal}
-        setOpen={setOpenModal}
-        onConfirm={handleCreateUpstream}
-        status={status}
-      />
+      {openModal && (
+        <AddUpstreamModal
+          title={t('create_new_upstream')}
+          open={openModal}
+          setOpen={setOpenModal}
+          onConfirm={handleCreateUpstream}
+          status={status}
+          error={error}
+        />
+      )}
     </>
   );
 }
