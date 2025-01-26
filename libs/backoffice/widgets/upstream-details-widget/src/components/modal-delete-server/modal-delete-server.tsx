@@ -21,7 +21,6 @@ interface ReusableFormModalProps {
   setOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
   status: MutationStatus;
   initialData?: CreateServerType;
-  successMsg?: string;
   data?: UpstreamDetailsType[];
   okButtonProps: any;
   cancelButtonProps: any;
@@ -38,7 +37,6 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
     setOpen,
     status,
     initialData,
-    successMsg,
     data,
     cancelText,
     okText,
@@ -104,7 +102,6 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
                 hasContainer={false}
                 pagination={false}
                 rowKey={() => uuid()}
-                showHeader
               />
             </S.TableContainer>
           </S.StyledContainer>
@@ -115,9 +112,9 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('add_upstream.error_description') }}
-            loadingProps={{ description: t('add_upstream.loading_description') }}
-            successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
+            errorProps={{ description: t('upstream_details.error__delete_server_description') }}
+            loadingProps={{ description: t('upstream_details.loading_description') }}
+            successProps={{ description: t('upstream_details.success_delete_server') }}
           />
           {!initialData && status !== 'pending' && status !== 'success' && (
             <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
@@ -152,7 +149,6 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
       okText={okText}
       centered={centered}
       footer={!isCreateMode ? null : undefined}
-      // onOk={onOk}
       onOk={handleConfirmDelete}
       keyboard={false}
     >

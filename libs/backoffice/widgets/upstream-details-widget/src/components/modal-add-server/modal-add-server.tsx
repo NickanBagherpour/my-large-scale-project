@@ -19,13 +19,12 @@ interface ReusableFormModalProps {
   onConfirm: (values: CreateServerType) => void;
   status: MutationStatus;
   initialData?: CreateServerType;
-  successMsg?: string;
   selectedServerId?: number | null;
   centered: boolean;
 }
 
 const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title, open, setOpen, onConfirm, status, initialData, successMsg, selectedServerId, centered } = props;
+  const { title, open, setOpen, onConfirm, status, initialData, selectedServerId, centered } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -120,9 +119,19 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('add_upstream.error_description') }}
-            loadingProps={{ description: t('add_upstream.loading_description') }}
-            successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
+            errorProps={{
+              description: t(
+                selectedServerId
+                  ? 'upstream_details.error_edit_server_description'
+                  : 'upstream_details.error_add_server_description'
+              ),
+            }}
+            loadingProps={{ description: t('upstream_details.loading_description') }}
+            successProps={{
+              description: t(
+                selectedServerId ? 'upstream_details.success_edit_server' : 'upstream_details.success_add_server'
+              ),
+            }}
           />
           {!initialData && status !== 'pending' && status !== 'success' && (
             <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>

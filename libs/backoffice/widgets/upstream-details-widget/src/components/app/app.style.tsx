@@ -9,6 +9,8 @@ export const DraftsContainer = styled(Container)`
 
 export const WidgetContainer = styled.div`
   height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const UpstreamDetailsContainer = styled(Container)`
@@ -16,12 +18,12 @@ export const UpstreamDetailsContainer = styled(Container)`
   && .table-container {
     flex: 1;
     height: 100%;
-    background-color: red;
   }
 `;
 
 export const BoxContainer = styled(Box)`
   height: 100%;
+  flex-grow: 1;
 `;
 
 export const UpstreamDetailsContent = styled.div`
