@@ -6,7 +6,7 @@ import { SERVICE_NAME } from '../utils/consts';
 export const CreateServiceInquirySchema = (t: TFunction<'translation', undefined>) =>
   z.object({
     [SERVICE_NAME.ServiceName]: z
-      .string()
+      .string({ required_error: t('validation.required') })
       .trim()
       .max(100, t('error.max_len', { val: 100 }))
       .regex(REGEX_PATTERNS.isLatinText, t('error.english_validation_message'))

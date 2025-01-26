@@ -22,13 +22,14 @@ const calculateDifference = cache(function calculateDifference<ObjectType extend
   }, {} as DifferenceMap<ObjectType>);
 });
 
-export function useChangeHistoryQuery<TContentItem extends object>(props: Props) {
+export function useChangeHistoryQuery<TContentItem extends object>(props: Props<TContentItem>) {
   const {
     queryKey,
     url,
     params,
     params: { size, page },
     dispatch,
+    normalizer,
   } = props;
 
   const nextItemParams = { page: page * size + size, size: 1 };
@@ -36,6 +37,7 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props)
   const { data: currentPageData, isFetching: isFetchingCurrentPage } = useQuery({
     queryKey: [...queryKey, params],
     queryFn: withErrorHandling(() => api.getList<TContentItem>({ url, params }), dispatch),
+    select: normalizer,
     placeholderData: keepPreviousData,
   });
 
@@ -44,6 +46,7 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props)
   const { data: nextItemData, isFetching: isFetchingPreviousItem } = useQuery({
     queryKey: [...queryKey, nextItemParams],
     queryFn: withErrorHandling(() => api.getList<TContentItem>({ url, params: nextItemParams }), dispatch),
+    select: normalizer,
     enabled: enableNextItemQuery,
   });
 

@@ -54,21 +54,6 @@ const App: React.FC<AppProps> = (props) => {
     router.push(`${ROUTES.CUSTOMER.REQUEST_DETAILS_INFO}?submissionId=${submissionId}`);
   };
 
-  const handleDeleteDraft = (submissionId: number) => {
-    console.log(submissionId);
-    deleteMutate(submissionId, {
-      onSuccess: (data) => {
-        console.log('deleted selected  request :', data);
-        let filteredDrafts = localDrafts;
-        filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId != submissionId);
-        setLocalDrafts(filteredDrafts);
-      },
-      onError: (error) => {
-        console.error('request registration first step  failed:', error);
-      },
-    });
-  };
-
   const toggleModal = (modal: keyof Modal, requestName?: string, submissionId?: number) => {
     setModals((prev) => ({
       ...prev,
