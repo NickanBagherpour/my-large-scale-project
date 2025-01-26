@@ -3,10 +3,15 @@ import { Form } from 'antd';
 import { Box, Button, Divider, Modal as UikitModal } from '@oxygen/ui-kit';
 
 export const StyledModal = styled(UikitModal)`
+  .ant-form-item-label {
+    line-height: 4rem;
+  }
+
   .ant-modal-body {
     margin: 0;
     padding: 0;
   }
+
   .ant-modal-content {
     padding: 2.4rem 1.6rem 3.2rem 1.6rem;
     border-radius: 2.7rem;
@@ -33,7 +38,7 @@ export const StyledModal = styled(UikitModal)`
 export const StyledHeader = styled(Box)`
   display: flex;
   justify-content: space-between;
-  padding: 0 2.4rem;
+  padding: 0 2rem 0 2.4rem;
 `;
 export const StyledDivider = styled(Divider)`
   margin-bottom: 3.4rem;
@@ -45,7 +50,7 @@ export const StyledTitle = styled('span')`
   line-height: 3rem;
 `;
 export const StyledCloseIcon = styled('i')`
-  font-size: 2.4rem;
+  font-size: 3rem;
   color: ${(p) => p.theme.iconPrimary};
   width: fit-content;
   &:hover {

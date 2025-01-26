@@ -48,7 +48,7 @@ export const StyledInput = styled(Input)`
     font-size: 1.8rem;
   }
 
-  ${respondTo.down('lg')} {
+  ${respondTo.down('md')} {
     max-width: 100%;
   }
 `;
