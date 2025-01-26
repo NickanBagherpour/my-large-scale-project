@@ -4,7 +4,6 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Loading } from '@oxygen/ui-kit';
-import { useGetRequestQuery } from '../../services';
 
 import OrganizationDefineStep from '../organization-define-step/organization-define-step';
 import RepresentativeDefineStep from '../representative-define-step/representative-define-step';
@@ -27,7 +26,6 @@ const App: React.FC<AppProps> = (props) => {
   const { message, ...fetchState } = useAppState();
   const dispatch = useAppDispatch();
 
-  const { data: requestData, isFetching } = useGetRequestQuery();
   const { mutate: draftsMutate, isPending: draftsIsPending } = useGetRequestDataFromDraftsMutationQuery();
 
   const queryParams = useQueryParams();
@@ -60,14 +58,7 @@ const App: React.FC<AppProps> = (props) => {
   const stepsItem = [
     {
       title: t('progress_bar.organization_define_step'),
-      Content: (
-        <OrganizationDefineStep
-          setCurrentStep={setCurrentStep}
-          data={requestData}
-          loading={isFetching}
-          draft={progress ? true : false}
-        />
-      ),
+      Content: <OrganizationDefineStep setCurrentStep={setCurrentStep} draft={progress ? true : false} />,
     },
     {
       title: t('progress_bar.representative_define_step'),
@@ -76,7 +67,7 @@ const App: React.FC<AppProps> = (props) => {
     { title: t('progress_bar.service_select_step'), Content: <ServiceSelectStep setCurrentStep={setCurrentStep} /> },
     {
       title: t('progress_bar.final_confirm_step'),
-      Content: <FinalConfirmStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
+      Content: <FinalConfirmStep setCurrentStep={setCurrentStep} />,
     },
   ];
 

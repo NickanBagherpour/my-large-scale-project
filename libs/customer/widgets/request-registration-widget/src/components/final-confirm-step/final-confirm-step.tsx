@@ -18,12 +18,10 @@ import * as S from './final-confirm-step.style';
 
 type FinalConfirmStepProps = PageProps & {
   setCurrentStep: (prev) => void;
-  data?: any;
-  loading?: boolean;
 };
 
 const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
-  const { setCurrentStep, data, loading } = props;
+  const { setCurrentStep } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
@@ -74,8 +72,8 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
     (a, b) => a.representativeType - b.representativeType
   );
   return (
-    <Loading spinning={loading}>
-      {!loading && (
+    <Loading spinning={isRequestDataFetching}>
+      {!isRequestDataFetching && (
         <S.FinalConfirmStepContainer>
           <ConfirmModal isOpen={confirmModal} toggle={() => toggleModal()} trackCode={trackCode} />
           <Form layout={'vertical'}>

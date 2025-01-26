@@ -14,10 +14,11 @@ import { updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../..
 import * as S from './filter.style';
 
 type FilterProps = PageProps & {
-  //
+  onSearchChange: (value: string) => void;
 };
 
 const Filters: React.FC<FilterProps> = (props) => {
+  const { onSearchChange } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();
@@ -27,6 +28,12 @@ const Filters: React.FC<FilterProps> = (props) => {
     updateSearchTerm(dispatch, value);
   }, [value]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setValue(value);
+    onSearchChange(value);
+  };
+
   return (
     <S.Container>
       <S.Actions>
@@ -34,7 +41,7 @@ const Filters: React.FC<FilterProps> = (props) => {
           value={value}
           placeholder={t('search_by_name_or_request_id')}
           prefix={<i className='icon-search-normal' />}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleInputChange}
           allow={'letter'}
           type='text'
           maxLength={MAX_LENGTH}

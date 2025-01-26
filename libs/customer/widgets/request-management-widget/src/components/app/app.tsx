@@ -33,6 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
   const [localDrafts, setLocalDrafts] = useState(drafts); // Local state for drafts
   const [showLoadMore, setShowLoadMore] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const DRAFT_LIST_LIMIIT = 4;
 
   const [modals, setModals] = useState<Modal>({
@@ -48,6 +49,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const [t] = useTr();
   const router = useRouter();
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+  };
 
   const requestsSubTitle = requests?.length ? `(${requests?.length ?? 0})` : '';
   const handleClick = (submissionId: number) => {
@@ -126,7 +131,7 @@ const App: React.FC<AppProps> = (props) => {
 
       <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
         <Loading spinning={isRequestsFetching}>
-          <Filters />
+          <Filters onSearchChange={handleSearchChange} />
           {requests?.length ? (
             <SearchItemsContainer $columnNumber='2'>
               {requests.map((request: any, index: number) => (
@@ -135,6 +140,7 @@ const App: React.FC<AppProps> = (props) => {
                   btnHandleClick={(submissionId) => handleClick(submissionId)}
                   btnLoading={isRequestsFetching}
                   data={request}
+                  wordToHighlight={searchTerm}
                 />
               ))}
             </SearchItemsContainer>

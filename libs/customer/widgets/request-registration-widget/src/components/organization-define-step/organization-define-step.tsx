@@ -41,13 +41,13 @@ import { NoResult } from '@oxygen/reusable-components';
 
 type OrganizationDefineStepProps = PageProps & {
   setCurrentStep: (prev) => void;
-  data?: any;
-  loading?: boolean;
+  // data?: any;
+  // loading?: boolean;
   draft?: boolean;
 };
 
 const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) => {
-  const { setCurrentStep, data, loading, draft } = props;
+  const { setCurrentStep, draft } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const { ...fetchState } = useAppState();
@@ -278,8 +278,8 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
 
               {isSelected.isSelected && (
                 <S.OrganizationContainer>
-                  {loading ? (
-                    <Loading spinning={loading} />
+                  {isOrganizationsFetching ? (
+                    <Loading spinning={isOrganizationsFetching} />
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
