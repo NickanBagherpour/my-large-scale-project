@@ -67,6 +67,7 @@ export default {
     available_balance: 'موجودی قابل برداشت',
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
+    active_servers_count: '{{count}} سرور فعال ',
   },
 
   button: {
@@ -222,6 +223,7 @@ export default {
     unspecific_desc: 'عملیات با خطا مواجه شد، لطفا مجددا تلاش نمایید.',
     '404': 'متاسفیم \n صفحه مورد نظر شما یافت نشد.\n',
     '500': 'مشکلی پیش آمده! \n اتصال خود به اینترنت را بررسی کنید.\n',
+    there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
   },
 
   nav: {},
@@ -246,10 +248,6 @@ export default {
       'سامانه با خطا مواجه شده است. \nلطفا بعد از مدت زمانی دوباره تلاش کنید.\nدرصورت عدم رفع مشکل با واحد پشتیبانی\n تماس بگیرید.\n',
   },
 
-  no_result: {
-    there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
-  },
-
   print: {
     full_name: 'نام و نام خانوادگی',
     national_code: 'کد ملی',
@@ -257,10 +255,6 @@ export default {
     father_name: 'نام پدر ',
     number_national: 'شماره شناسنامه',
     unique_id: 'شناسه یکتا',
-  },
-
-  grid_card: {
-    active_servers_count: '{{count}} سرور فعال ',
   },
 
   autocomplete: {
