@@ -5,18 +5,18 @@ import { REGEX_PATTERNS } from '@oxygen/utils';
 export const FormSchema = (t: (key: string) => string) =>
   z.object({
     [FORM_ITEM_NAMES.latinNameScope]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
+      .min(1, { message: t('validation.required') })
       .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('error.english_validation_message'),
+        message: t('validation.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianNameScope]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
+      .min(1, { message: t('validation.required') })
       .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('error.persian_validation_message'),
+        message: t('validation.persian_validation_message'),
       }),
   });
 

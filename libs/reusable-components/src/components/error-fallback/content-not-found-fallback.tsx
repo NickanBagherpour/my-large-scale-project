@@ -7,8 +7,8 @@ const ContentNotFoundFallback = () => {
   const [t] = useTr();
   return (
     <ErrorView
-      title={t('error.content_not_found')}
-      description={t('error.content_not_found_desc')}
+      title={t('message.content_not_found')}
+      description={t('message.content_not_found_desc')}
       image={<ContentNotFoundImage style={{ marginTop: '5rem' }} />}
     />
   );

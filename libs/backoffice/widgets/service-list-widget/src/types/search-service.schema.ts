@@ -9,7 +9,7 @@ export const CreateServiceNameSchema = (t: TFunction<'translation', undefined>) 
       .string()
       .trim()
       .max(100, t('error.max_len', { val: 100 }))
-      .regex(REGEX_PATTERNS.isLatinText, t('error.english_validation_message'))
+      .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message'))
       .nullable()
       .optional(),
   });

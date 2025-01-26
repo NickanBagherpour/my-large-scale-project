@@ -10,9 +10,9 @@ const NotFoundFallback = (props) => {
   const [t] = useTr();
   return (
     <ErrorView
-      errorCode={t('error.code_404')}
-      title={t('error.not_found')}
-      description={t('error.not_found_desc')}
+      errorCode={t('message.code_404')}
+      title={t('message.not_found')}
+      description={t('message.not_found_desc')}
       animationData={notFoundAnimation}
     />
   );

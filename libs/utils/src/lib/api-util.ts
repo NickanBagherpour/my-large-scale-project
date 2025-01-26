@@ -131,7 +131,7 @@ export const ApiUtil = {
       if (!message?.description && !message?.type) {
         message = {
           title: 'common.error',
-          description: 'error.unknown_error',
+          description: 'message.unknown_error',
           type: 'error',
           shouldTranslate: true,
         };
