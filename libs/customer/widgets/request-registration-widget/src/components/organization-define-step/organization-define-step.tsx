@@ -46,7 +46,7 @@ type OrganizationDefineStepProps = PageProps & {
   draft?: boolean;
 };
 
-const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
+const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) => {
   const { setCurrentStep, data, loading, draft } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -78,7 +78,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
   const { mutate: secondMutate, isPending: secondIsPending } =
     useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.organizationDefineStepDisabledSubmit);
 
   // type OrganizationInfo = { key: string; value: any };
   // const [organizationInfoData, setOrganizationInfoData] = useState<OrganizationInfo[]>([]);
@@ -144,7 +144,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
   const onFinish = (values) => {
     if (!aggregatorIsRequired) {
       const params = {
-        aggregator_status: state.firstStep.aggregator_status,
+        aggregator_status: state.organizationDefineStep.aggregator_status,
         aggregator_value: values.aggregator_value,
         legalName: values.legal_person_name,
         legalType: values.legal_person_type,
@@ -157,29 +157,30 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
         phone: values.phone,
         registeredAddress: values.last_registration_address,
         isAggregator:
-          state.firstStep.aggregator_status === 'isAggregator'
+          state.organizationDefineStep.aggregator_status === 'isAggregator'
             ? true
-            : state.firstStep.aggregator_status === 'hasAggregator'
+            : state.organizationDefineStep.aggregator_status === 'hasAggregator'
             ? false
             : false,
-        aggregatorId: state.firstStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
+        aggregatorId:
+          state.organizationDefineStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
         organizationId: state.organizationId,
         submissionId: state.submissionId,
       };
 
       firstMutate(params, {
         onSuccess: (data) => {
-          console.log('request registration first step successful:', data);
+          console.log('request registration organization define step successful:', data);
           if (state.submissionId.length === 0) {
             updateOrganizationIdAndSubmissionId(dispatch, data.data);
           }
-          const aggregator_status = state.firstStep.aggregator_status;
+          const aggregator_status = state.organizationDefineStep.aggregator_status;
           const updatedValues = { ...values, aggregator_status };
           updateOrganizationDefineStepAction(dispatch, updatedValues);
           setCurrentStep((perv) => perv + 1);
         },
         onError: (error) => {
-          console.error('request registration first step  failed:', error);
+          console.error('request registration organization define step  failed:', error);
         },
       });
     }
@@ -189,7 +190,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
     const params = { organizationId: isSelected.submissionId };
     secondMutate(params, {
       onSuccess: (data) => {
-        console.log('request registration first step successful:', data);
+        console.log('request registration organization define step successful:', data);
         const submissionId = data.headers['submission-id'];
         if (state.submissionId.length === 0) {
           updateOrganizationIdAndSubmissionId(dispatch, {
@@ -200,7 +201,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
         setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        console.error('request registration organization define step  failed:', error);
       },
     });
   };
@@ -227,7 +228,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    if (!state.firstStep.aggregator_status) {
+    if (!state.organizationDefineStep.aggregator_status) {
       setAggregatorIsRequired(true);
     }
     if (state.requestMode === 'selectOrganization') {
@@ -242,7 +243,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
   };
 
   return (
-    <S.FirstStepContainer>
+    <S.OrganizationDefineStepContainer>
       <S.ContainerContent>
         <Card>
           <S.Radios onChange={onChange} value={state.requestMode}>
@@ -352,7 +353,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
               layout={'vertical'}
               onFinish={onFinish}
               form={form}
-              initialValues={state.firstStep}
+              initialValues={state.organizationDefineStep}
               onFieldsChange={checkFields}
             >
               <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
@@ -361,7 +362,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
                   <S.ChipsContainer>
                     <S.Chips>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'isAggregator')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'isAggregator')}
                         onClick={() => {
                           updateStatus(dispatch, 'isAggregator');
                           setAggregatorIsRequired(false);
@@ -373,7 +374,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
                         {t('company_is_aggregator')}
                       </Chip>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'hasAggregator')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'hasAggregator')}
                         onClick={() => {
                           updateStatus(dispatch, 'hasAggregator');
                           setAggregatorIsRequired(false);
@@ -385,7 +386,7 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
                         {t('company_has_aggregator')}
                       </Chip>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'nothing')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'nothing')}
                         onClick={() => {
                           updateStatus(dispatch, 'nothing');
                           setAggregatorIsRequired(false);
@@ -402,8 +403,8 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
                     )}
                   </S.ChipsContainer>
                 </SearchItemsContainer>
-                {state.firstStep.aggregator_status === 'hasAggregator' && (
-                  // ||state.firstStep.aggregator_status === 'isAggregator'
+                {state.organizationDefineStep.aggregator_status === 'hasAggregator' && (
+                  // ||state.organizationDefineStep.aggregator_status === 'isAggregator'
                   <SearchItemsContainer $columnNumber='3'>
                     <S.AggregatorContainer>
                       <Form.Item
@@ -517,8 +518,8 @@ const FirstStep: React.FC<OrganizationDefineStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-    </S.FirstStepContainer>
+    </S.OrganizationDefineStepContainer>
   );
 };
 
-export default FirstStep;
+export default OrganizationDefineStep;

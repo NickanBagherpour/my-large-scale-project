@@ -75,7 +75,7 @@ const App: React.FC<AppProps> = (props) => {
           toggleModal('removeRequest');
         },
         onError: (error) => {
-          console.error('request registration first step  failed:', error);
+          console.error('request registration organization define step  failed:', error);
         },
       });
     }

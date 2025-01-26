@@ -7,17 +7,17 @@ import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import { Modal } from '../../types';
 import RemoveModal from './modal-confirm-remove/modal-confirm-remove';
-import { updateThirdStepTableAction, useAppDispatch, useAppState } from '../../context';
+import { updateServiceSelectStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/service-select-table-utils';
-import { useThirdStepRequestRegistrationMutationQuery } from '../../services/third-step/third-step-data';
+import { useThirdStepRequestRegistrationMutationQuery } from '../../services';
 
 import * as S from './select-service-step.style';
 
-type ThirdStep = PageProps & {
+type ServiceSelectStep = PageProps & {
   setCurrentStep: any;
 };
 
-export const ThirdStep: React.FC<ThirdStep> = (props) => {
+const ServiceSelectStep: React.FC<ServiceSelectStep> = (props) => {
   const { setCurrentStep } = props;
   const state = useAppState();
   const dispatch = useAppDispatch();
@@ -41,13 +41,13 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
 
   const handleDeleteModal = (serviceId?: number) => {
     if (serviceId) {
-      updateThirdStepTableAction(dispatch, { serviceId });
+      updateServiceSelectStepTableAction(dispatch, { serviceId });
       toggleModal('removeService');
     }
   };
 
   const handleSelect = (item) => {
-    updateThirdStepTableAction(dispatch, item);
+    updateServiceSelectStepTableAction(dispatch, item);
   };
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
@@ -56,25 +56,25 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
   const handleSubmit = () => {
     const params = {
       submissionId: state.submissionId,
-      servicesIdSet: state.thirdStep.table.map((item) => item.id),
+      servicesIdSet: state.serviceSelectStep.table.map((item) => item.id),
     };
     thirdMutate(params, {
       onSuccess: (data) => {
-        console.log('request registration first step successful:', data);
+        console.log('request registration service select step successful:', data);
         setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        console.error('request registration service select step  failed:', error);
       },
     });
   };
-  const isDisable = state.thirdStep.table.length ? false : true;
+  const isDisable = state.serviceSelectStep.table.length ? false : true;
   const desktopColumns = getDesktopColumns({ t, toggleModal });
   const mobileColumns = getMobileColumns({ t, toggleModal });
-  const revertData = state.thirdStep.table;
+  const revertData = state.serviceSelectStep.table;
 
   return (
-    <S.ThirdStepContainer>
+    <S.ServiceSelectStepContainer>
       <S.SearchField>
         <AdvanceSelector
           onSelect={handleSelect}
@@ -102,6 +102,8 @@ export const ThirdStep: React.FC<ThirdStep> = (props) => {
         id={modals.serviceId}
         name={modals.serviceName}
       />
-    </S.ThirdStepContainer>
+    </S.ServiceSelectStepContainer>
   );
 };
+
+export default ServiceSelectStep;

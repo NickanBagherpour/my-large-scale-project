@@ -12,20 +12,17 @@ import { useQueryParams } from '@oxygen/hooks';
 import { requestRegistrationFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/final-confirm-table-utils';
-import {
-  useGetRequestDataQuery,
-  useFourthStepRequestRegistrationMutationQuery,
-} from '../../services/fourth-step/fourth-step-data';
+import { useGetRequestDataQuery, useFourthStepRequestRegistrationMutationQuery } from '../../services';
 
 import * as S from './final-confirm-step.style';
 
-type FourthStepProps = PageProps & {
+type FinalConfirmStepProps = PageProps & {
   setCurrentStep: (prev) => void;
   data?: any;
   loading?: boolean;
 };
 
-const FourthStep: React.FC<FourthStepProps> = (props) => {
+const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
   const { setCurrentStep, data, loading } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -53,11 +50,11 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
     fourthMutate(params, {
       onSuccess: (data) => {
         setTrackCode(data.headers['track-code']);
-        // console.log('request registration first step successful:', data);
+        // console.log('request registration final confirm step successful:', data);
         setConfirmModal(true);
       },
       onError: (error) => {
-        // console.error('request registration first step  failed:', error);
+        // console.error('request registration final confirm step  failed:', error);
       },
     });
   };
@@ -79,7 +76,7 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
   return (
     <Loading spinning={loading}>
       {!loading && (
-        <S.FourthStepContainer>
+        <S.FinalConfirmStepContainer>
           <ConfirmModal isOpen={confirmModal} toggle={() => toggleModal()} trackCode={trackCode} />
           <Form layout={'vertical'}>
             <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
@@ -193,10 +190,10 @@ const FourthStep: React.FC<FourthStepProps> = (props) => {
               {t('submit_info')}
             </Button>
           </S.Footer>
-        </S.FourthStepContainer>
+        </S.FinalConfirmStepContainer>
       )}
     </Loading>
   );
 };
 
-export default FourthStep;
+export default FinalConfirmStep;

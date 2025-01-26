@@ -49,10 +49,10 @@ export default {
   return_to_request: 'بازگشت به مدیریت درخواست‌ها',
 
   progress_bar: {
-    first_step: 'اطلاعات شرکت',
-    second_step: 'اطلاعات نمایندگان',
-    third_step: 'انتخاب سرویس‌ها',
-    fourth_step: 'تایید اطلاعات',
+    organization_define_step: 'اطلاعات شرکت',
+    representative_define_step: 'اطلاعات نمایندگان',
+    service_select_step: 'انتخاب سرویس‌ها',
+    final_confirm_step: 'تایید اطلاعات',
   },
   form: {
     //organizationDefineStep

@@ -135,7 +135,7 @@ export const TitleTxt = styled.p`
   margin: 3.2rem 0 1.6rem 0;
 `;
 
-export const FirstStepContainer = styled.div`
+export const OrganizationDefineStepContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;

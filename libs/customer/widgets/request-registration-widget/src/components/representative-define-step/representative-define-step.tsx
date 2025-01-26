@@ -11,15 +11,15 @@ import { Button, Input, SearchItemsContainer, Icons } from '@oxygen/ui-kit';
 import { useSecondStepRequestRegistrationMutationQuery } from '../../services/representative-define-step/representative-define-step-data';
 import { requestRegistrationFormSchema } from '../../types';
 import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
-import { updateSecondStepAction, useAppDispatch, useAppState } from '../../context';
+import { updateRepresentativeDefineStepAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './representative-define-step.style';
 
-type SecondStepProps = PageProps & {
+type RepresentativeDefineStepProps = PageProps & {
   setCurrentStep: (prev) => void;
 };
 
-const SecondStep: React.FC<SecondStepProps> = (props) => {
+const RepresentativeDefineStep: React.FC<RepresentativeDefineStepProps> = (props) => {
   const { setCurrentStep } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -46,12 +46,12 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
     };
     secondMutate(params, {
       onSuccess: (data) => {
-        console.log('request registration first step successful:', data);
-        updateSecondStepAction(dispatch, values);
+        console.log('request registration representative define step successful:', data);
+        updateRepresentativeDefineStepAction(dispatch, values);
         setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        console.error('request registration representative define step  failed:', error);
       },
     });
   };
@@ -61,8 +61,8 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
   };
 
   return (
-    <S.SecondStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.secondStep}>
+    <S.RepresentativeStepContainer>
+      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.representativeDefineStep}>
         <S.TitleTxt className={'cards-title'}>
           {t('representative_info')}
           <S.TooltipContainer>
@@ -128,8 +128,8 @@ const SecondStep: React.FC<SecondStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-    </S.SecondStepContainer>
+    </S.RepresentativeStepContainer>
   );
 };
 
-export default SecondStep;
+export default RepresentativeDefineStep;

@@ -7,9 +7,10 @@ import { Loading } from '@oxygen/ui-kit';
 import { useGetRequestQuery } from '../../services';
 
 import OrganizationDefineStep from '../organization-define-step/organization-define-step';
-import FourthStep from '../final-confirm-step/final-confirm-step';
-import { ThirdStep } from '../service-select-step/service-select-step';
-import SecondStep from '../representative-define-step/representative-define-step';
+import RepresentativeDefineStep from '../representative-define-step/representative-define-step';
+import ServiceSelectStep from '../service-select-step/service-select-step';
+import FinalConfirmStep from '../final-confirm-step/final-confirm-step';
+
 import { resetErrorMessageAction, useAppDispatch, useAppState, updateAllStateFromDraftsAction } from '../../context';
 import { useQueryParams } from '@oxygen/hooks';
 import { useGetRequestDataFromDraftsMutationQuery } from '../../services';
@@ -48,7 +49,7 @@ const App: React.FC<AppProps> = (props) => {
           updateAllStateFromDraftsAction(dispatch, data.data);
         },
         onError: (error) => {
-          console.error('Request registration first step failed:', error);
+          console.error('Request registration organization define step failed:', error);
         },
       });
     }
@@ -58,7 +59,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const stepsItem = [
     {
-      title: t('progress_bar.first_step'),
+      title: t('progress_bar.organization_define_step'),
       Content: (
         <OrganizationDefineStep
           setCurrentStep={setCurrentStep}
@@ -68,11 +69,14 @@ const App: React.FC<AppProps> = (props) => {
         />
       ),
     },
-    { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
-    { title: t('progress_bar.third_step'), Content: <ThirdStep setCurrentStep={setCurrentStep} /> },
     {
-      title: t('progress_bar.fourth_step'),
-      Content: <FourthStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
+      title: t('progress_bar.representative_define_step'),
+      Content: <RepresentativeDefineStep setCurrentStep={setCurrentStep} />,
+    },
+    { title: t('progress_bar.service_select_step'), Content: <ServiceSelectStep setCurrentStep={setCurrentStep} /> },
+    {
+      title: t('progress_bar.final_confirm_step'),
+      Content: <FinalConfirmStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
     },
   ];
 
