@@ -49,14 +49,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       key: 'weight',
       render: (weight) => getValueOrDash(weight),
     },
-    // {
-    //   title: '',
-    //   dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
-    //   key: 'edit',
-    //   render: (id: number, record: UpstreamDetailsType, index: number) => (
-    //     <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>{t('edit')}</S.Edit>
-    //   ),
-    // },
 
     {
       title: '',
@@ -83,47 +75,41 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
     {
       title: '',
       dataIndex: '',
-      render: (value, record, index) => {
-        const columns: MobileColumnType[] = [
+      render: ({ id, domain, healthStatus, weight }) => {
+        const data: MobileColumnType[] = [
           {
             title: t('domain'),
-            value: getValueOrDash(value?.domain),
+
+            value: getValueOrDash(domain),
           },
           {
             title: t('health_status'),
             value: getValueOrDash(
-              renderHealthStatus(t, value?.healthStatus) ? renderHealthStatus(t, value) : t('health')
+              renderHealthStatus(t, healthStatus) ? renderHealthStatus(t, healthStatus) : t('health')
             ),
           },
           {
             title: t('weight'),
-            value: getValueOrDash(value?.weight),
+            value: getValueOrDash(weight),
           },
-          // {
-          //   title: t('edit'),
-          //   value: (
-          //     <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
-          //       {t('edit')}
-          //     </S.Edit>
-          //   ),
-          // },
           {
             title: '',
             value: (
               <S.BtnContainer>
-                <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
-                  {t('edit')}
-                </S.Edit>
-                <S.Trash
-                  className='icon-trash'
-                  onClick={() => deleteUpstream(value.id, value.domain, value.weight, value.healthStatus)}
-                />
+                <S.Edit onClick={() => editUpstream(id, domain, weight, healthStatus)}>{t('edit')}</S.Edit>
+                <S.Trash className='icon-trash' onClick={() => deleteUpstream(id, domain, weight, healthStatus)} />
               </S.BtnContainer>
             ),
             colon: false,
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return (
+          <S.TableRow>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
+            ))}
+          </S.TableRow>
+        );
       },
     },
   ];
@@ -161,22 +147,36 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
     {
       title: '',
       dataIndex: '',
-      render: (value, record, index) => {
-        const columns: MobileColumnType[] = [
+      render: (domain, healthStatus, weight) => {
+        const data: MobileColumnType[] = [
           {
             title: t('domain'),
-            value: getValueOrDash(value?.domain),
+
+            value: getValueOrDash(domain),
           },
           {
             title: t('health_status'),
-            value: getValueOrDash(renderHealthStatus(t, value?.healthStatus !== '1') ? t('unHealth') : t('health')),
+
+            value: getValueOrDash(
+              renderHealthStatus(t, typeof healthStatus === 'string' && healthStatus !== '1')
+                ? renderHealthStatus(t, healthStatus)
+                : t('health')
+            ),
           },
           {
             title: t('weight'),
-            value: getValueOrDash(value?.weight),
+
+            value: getValueOrDash(weight),
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+
+        return (
+          <S.TableRow>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
+            ))}
+          </S.TableRow>
+        );
       },
     },
   ];

@@ -113,7 +113,6 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
   const handleDeleteOk = () => {
     deleteServerMutate(selectedServerId, {
       onSuccess: (data) => {
-        setOpenDeleteModal(false);
         queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST] });
         console.log('request delete server successful:', data);
       },
@@ -139,7 +138,6 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
           status={status}
           centered
           initialData={initialValue}
-          successMsg='edit_upstream_successfully'
           selectedServerId={selectedServerId}
         />
       )}
@@ -153,7 +151,6 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
         initialData={initialValue}
         onOk={() => handleDeleteOk()}
         data={initialValue ? [initialValue] : []}
-        successMsg='delete_server_successfully'
         cancelText={t('button.cancel')}
         okText={t('button.delete')}
         okButtonProps={{ style: { backgroundColor: theme.error.main } }}
@@ -176,10 +173,9 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
             columns={desktopColumns}
             mobileColumns={mobileColumns}
             hasContainer={false}
-            pagination={{ pageSize: pagination.rowsPerPage }}
+            pagination={{ pageSize: pagination.rowsPerPage, hideOnSinglePage: true }}
             onChange={handlePageChange}
             rowKey={() => uuid()}
-            showHeader
           />
         </S.TableContainer>
       </S.ServerContent>

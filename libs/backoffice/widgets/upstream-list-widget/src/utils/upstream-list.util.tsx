@@ -64,7 +64,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       width: 'min-content',
       render: (value, record) => (
         <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-          {t('table.details')}
+          {t('button.detail')}
         </S.Details>
       ),
     },
@@ -86,11 +86,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
 }
 
 export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
-  const {
-    t,
-    pagination: { page, rowsPerPage },
-    deleteUpstream,
-  } = props;
+  const { t, deleteUpstream } = props;
   return [
     {
       title: '',
@@ -98,10 +94,6 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
       // align: 'center',
       render: (value, record, index) => {
         const columns: MobileColumnType[] = [
-          {
-            title: t('table.index'),
-            value: (page - 1) * rowsPerPage + 1 + index,
-          },
           {
             title: t('table.english_name'),
             value: getValueOrDash(value?.name),
@@ -115,21 +107,19 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             value: getValueOrDash(value?.activeServerCount),
           },
           {
-            title: '',
+            title: t('button.detail'),
             value: (
               <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-                {t('table.details')}
+                {t('button.detail')}
               </S.Details>
             ),
-            colon: false,
           },
           {
-            title: '',
+            title: t('button.delete'),
             value: <S.Trash className='icon-trash' onClick={() => deleteUpstream(record)} />,
-            colon: false,
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns minHeight={'40px'} columns={columns} />;
       },
     },
   ];

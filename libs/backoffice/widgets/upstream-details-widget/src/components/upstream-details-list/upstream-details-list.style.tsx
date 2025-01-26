@@ -10,7 +10,6 @@ export const ServerContainer = styled.div`
   background-color: ${(props) => props.theme.onPrimary};
   padding: 1.6rem;
   border-radius: 1.6rem;
-  min-height: 55rem;
 
   & tbody > tr > td:last-child {
     width: 25rem;
@@ -32,7 +31,7 @@ export const ServerContent = styled.div`
 `;
 
 export const TableContainer = styled.div`
-  margin-bottom: 3rem;
+  //
 `;
 
 export const Name = styled(MarkText)`
@@ -101,4 +100,9 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
+`;
+
+export const TableRow = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

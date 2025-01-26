@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -38,7 +37,7 @@ const App: React.FC<AppProps> = (props) => {
     const params = {
       page: pagination.page - 1,
       size: pagination.rowsPerPage,
-      ['search-field']: searchField,
+      ...(searchField ? { ['search-field']: searchField } : {}),
       // sort:state.sort,
     };
     return params;
@@ -55,13 +54,11 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Filters />
-      <Loading spinning={isFetching} size='default'>
-        {upstreams?.content?.length ? (
-          <Upstreams data={upstreams.content} total={upstreams.totalElements} isLoading={isFetching} />
-        ) : (
-          <NoResult isLoading={false} />
-        )}
-      </Loading>
+      {upstreams?.content?.length ? (
+        <Upstreams data={upstreams.content} total={upstreams.totalElements} isLoading={isFetching} />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.UpstreamContainer>
   );
 };
