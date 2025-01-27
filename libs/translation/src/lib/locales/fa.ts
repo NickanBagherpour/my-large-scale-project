@@ -165,6 +165,7 @@ export default {
     view_request: 'مشاهده درخواست',
     try_again: 'تلاش دوباره',
     register_data: 'ثبت اطلاعات',
+    apply: 'ذخیره تغییرات',
   },
 
   field: {
@@ -218,6 +219,19 @@ export default {
     withdrawal_amount: 'مبلغ قابل برداشت',
     service_call_rate: 'نرخ فراخوانی سرویس',
     total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
+    'en-name': 'نام انگلیسی',
+    'fa-name': 'نام فارسی',
+    method: 'اکشن/متود',
+    protocol: 'پروتوکل',
+    access: 'دسترسی',
+    category: 'دسته‌بندی',
+    throughput: 'throughput',
+    version: 'نسخه',
+    owner: 'مالک',
+    path: 'Path',
+    host: 'Host',
+    upstream: 'Upstream',
+    tag: 'تگ',
   },
 
   placeholder: {
@@ -232,7 +246,19 @@ export default {
     search_account: 'جستجو حساب',
     input_national_code: 'کد ملی را وارد کنید',
     input_national_id: 'شناسه ملی شرکت را وارد کنید',
-    enter_filed: '{{field}} را وارد کنید',
+    enter_field: '{{field}} را وارد کنید',
+    'en-name': 'نام انگلیسی {{item}} را وارد نمایید',
+    'fa-name': 'نام فارسی {{item}} را وارد نمایید',
+    method: 'Post',
+    protocol: 'HTTP',
+    access: 'PUBLIC',
+    category: 'دسته‌بندی مورد نظر را انتخاب نمایید',
+    throughput: 'Unlimited',
+    version: '0.0',
+    path: 'api/sapta/v1/bale/customer-info/',
+    host: 'Openapis.bmi.ir',
+    upstream: 'IAMS -XzxcZ',
+    tag: ' اضافه‌کردن تگ‌ها ',
   },
 
   message: {
@@ -253,6 +279,7 @@ export default {
     '404': 'متاسفیم \n صفحه مورد نظر شما یافت نشد.\n',
     '500': 'مشکلی پیش آمده! \n اتصال خود به اینترنت را بررسی کنید.\n',
     there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
+    success_alert: 'ویرایش اطلاعات {{item}} با موفقیت اعمال شد.',
   },
 
   nav: {},
@@ -309,5 +336,10 @@ export default {
     only_digit_message: 'لطفا فقط عدد وارد کنید',
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
+  },
+  item: {
+    service: 'سرویس',
+    client: 'کلاینت',
+    route: 'route',
   },
 };

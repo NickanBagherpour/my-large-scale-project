@@ -47,7 +47,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${serviceName ?? ''}` // Replace 123 with your item ID
     );
     notification.success({
-      message: t('alert.edit_success'),
+      message: t('message.success_alert', { item: t('item.service') }),
     });
   };
   const { mutate: editService } = useEditServiceMutation(handleSuccess, serviceInfo?.name, serviceInfo?.serviceInfoId);
@@ -87,20 +87,20 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   return (
     <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
-        <Form.Item name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
+        <Form.Item name={FORM_ITEM_NAMES.enName} label={t('field.en-name')} rules={[rule]}>
           <Input
             disabled={true}
-            placeholder={t('placeholder.en-name')}
+            placeholder={t('placeholder.en-name', { item: t('item.service') })}
             defaultValue={defaultValues[FORM_ITEM_NAMES.enName] as ServiceInfoDto['name']}
           />
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
+        <Form.Item name={FORM_ITEM_NAMES.faName} label={t('field.fa-name')} rules={[rule]}>
           <Input
-            placeholder={t('placeholder.fa-name')}
+            placeholder={t('placeholder.fa-name', { item: t('item.service') })}
             defaultValue={defaultValues[FORM_ITEM_NAMES.faName] as string}
           />
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
+        <Form.Item name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('field.access')}>
           <Select
             labelInValue={true}
             disabled={true}
@@ -110,7 +110,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             loading={isAccessLoading}
           ></Select>
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
+        <Form.Item name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('field.category')}>
           <Select
             options={categoryOptions}
             size={'large'}
@@ -119,14 +119,14 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             defaultValue={defaultValues[FORM_ITEM_NAMES.category]}
           ></Select>
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('form.throughput')}>
+        <Form.Item name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('field.throughput')}>
           <Input disabled={true} size={'large'} readOnly></Input>
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
+        <Form.Item name={FORM_ITEM_NAMES.version} label={t('field.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
         </Form.Item>
-        <Form.Item name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
-          <Input placeholder={t('placeholder.owner')} />
+        <Form.Item name={FORM_ITEM_NAMES.owner} label={t('field.owner')} rules={[rule]}>
+          <Input placeholder={t('placeholder.enter_field', { field: t('field.owner') })} />
         </Form.Item>
       </S.FormItemsContainer>
       <S.TagContainer>
