@@ -47,7 +47,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${serviceName ?? ''}` // Replace 123 with your item ID
     );
     notification.success({
-      message: t('message.success_alert', { item: t('item.service') }),
+      message: t('message.success_alert', { element: t('element.service') }),
     });
   };
   const { mutate: editService } = useEditServiceMutation(handleSuccess, serviceInfo?.name, serviceInfo?.serviceInfoId);
@@ -90,13 +90,13 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
         <Form.Item name={FORM_ITEM_NAMES.enName} label={t('field.en-name')} rules={[rule]}>
           <Input
             disabled={true}
-            placeholder={t('placeholder.en-name', { item: t('item.service') })}
+            placeholder={t('placeholder.en-name', { element: t('element.service') })}
             defaultValue={defaultValues[FORM_ITEM_NAMES.enName] as ServiceInfoDto['name']}
           />
         </Form.Item>
         <Form.Item name={FORM_ITEM_NAMES.faName} label={t('field.fa-name')} rules={[rule]}>
           <Input
-            placeholder={t('placeholder.fa-name', { item: t('item.service') })}
+            placeholder={t('placeholder.fa-name', { element: t('element.service') })}
             defaultValue={defaultValues[FORM_ITEM_NAMES.faName] as string}
           />
         </Form.Item>

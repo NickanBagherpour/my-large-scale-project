@@ -153,13 +153,13 @@ const App = () => {
           </S.Grid>
           {showLoadMore && drafts?.length > DRAFT_LIST_LIMIT && (
             <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(false)}>
-              <span>{t('show_all')}</span>
+              <span>{t('button.show_all')}</span>
               <i className='icon-chev-down' />
             </S.Button>
           )}
           {!showLoadMore && (
             <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(true)}>
-              <span>{t('show_less')}</span>
+              <span>{t('button.show_less')}</span>
               <i className='icon-arrow-up' />
             </S.Button>
           )}

@@ -43,6 +43,8 @@ export default {
     minute: 'دقیقه',
     second: 'ثانیه',
     in: 'در',
+    ascending: 'جدیدترین',
+    descending: 'قدیمی ترین',
   },
 
   app: {
@@ -166,6 +168,8 @@ export default {
     try_again: 'تلاش دوباره',
     register_data: 'ثبت اطلاعات',
     apply: 'ذخیره تغییرات',
+    show_all: 'نمایش همه',
+    show_less: 'نمایش کمتر',
   },
 
   field: {
@@ -221,6 +225,8 @@ export default {
     total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
     'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
+    'element_en-name': 'نام انگلیسی {{element}}',
+    'element_fa-name': ' {{element}} نام فارسی',
     method: 'اکشن/متود',
     protocol: 'پروتوکل',
     access: 'دسترسی',
@@ -247,8 +253,8 @@ export default {
     input_national_code: 'کد ملی را وارد کنید',
     input_national_id: 'شناسه ملی شرکت را وارد کنید',
     enter_field: '{{field}} را وارد کنید',
-    'en-name': 'نام انگلیسی {{item}} را وارد نمایید',
-    'fa-name': 'نام فارسی {{item}} را وارد نمایید',
+    'en-name': 'نام انگلیسی {{element}} را وارد نمایید',
+    'fa-name': 'نام فارسی {{element}} را وارد نمایید',
     method: 'Post',
     protocol: 'HTTP',
     access: 'PUBLIC',
@@ -259,6 +265,7 @@ export default {
     host: 'Openapis.bmi.ir',
     upstream: 'IAMS -XzxcZ',
     tag: ' اضافه‌کردن تگ‌ها ',
+    search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
   },
 
   message: {
@@ -267,11 +274,11 @@ export default {
     no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
     unknown_error: 'عملیات با خطا مواجه شد، لطفا مجددا تلاش نمایید.',
     not_found: 'صفحه مورد نظر یافت نشد',
-    not_found_desc: 'اوه! صفحه‌ای که مد نظرتان است، وجود ندارد. در صورت نیاز از جستجو استفاده نمایید.',
+    not_found_desc: ' صفحه‌ای که مد نظرتان است، وجود ندارد. در صورت نیاز از جستجو استفاده نمایید.',
     code_404: '404 error',
     code_500: '500 error',
     server_error: 'خطای داخلی سرور',
-    server_error_desc: 'اوه! به دلایلی سرور با شرایط غیرمنتظره‌ای مواجه شده است.',
+    server_error_desc: ' به دلایلی سرور با شرایط غیرمنتظره‌ای مواجه شده است.',
     content_not_found: 'محتوای مورد نظر یافت نشد!',
     content_not_found_desc: 'محتوای مورد نظر در حال حاضر قابل دسترس نیست.',
     unspecific: 'مشکلی رخ داده است',
@@ -279,7 +286,9 @@ export default {
     '404': 'متاسفیم \n صفحه مورد نظر شما یافت نشد.\n',
     '500': 'مشکلی پیش آمده! \n اتصال خود به اینترنت را بررسی کنید.\n',
     there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
-    success_alert: 'ویرایش اطلاعات {{item}} با موفقیت اعمال شد.',
+    success_alert: 'ویرایش اطلاعات {{element}} با موفقیت اعمال شد.',
+    are_you_sure: 'اطمینان دارید؟',
+    delete_element_question: 'آیا از حذف {{element}}',
   },
 
   nav: {},
@@ -337,9 +346,10 @@ export default {
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
   },
-  item: {
+  element: {
     service: 'سرویس',
     client: 'کلاینت',
     route: 'route',
+    scope: 'اسکوپ',
   },
 };
