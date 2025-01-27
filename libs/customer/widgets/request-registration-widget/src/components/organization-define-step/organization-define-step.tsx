@@ -10,7 +10,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip, InfoBox } from '@oxygen/ui-kit';
 
-import { requestRegistrationFormSchema } from '../../types';
+import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
 import {
   FORM_ITEM,
   MAX_INPUTE_LENGTH,
@@ -41,8 +41,7 @@ import { NoResult } from '@oxygen/reusable-components';
 
 type OrganizationDefineStepProps = PageProps & {
   setCurrentStep: (prev) => void;
-  // data?: any;
-  // loading?: boolean;
+
   draft?: boolean;
 };
 
@@ -80,33 +79,36 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.organizationDefineStepDisabledSubmit);
 
-  // type OrganizationInfo = { key: string; value: any };
-  // const [organizationInfoData, setOrganizationInfoData] = useState<OrganizationInfo[]>([]);
+  const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
 
-  // useEffect(() => {
-  //   if (isSelected.id) {
-  //     setOrganizationInfoData([
-  //       { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
-  //       { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
-  //       {
-  //         key: t('form.legal_person_type'),
-  //         value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
-  //       },
-  //       { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
-  //       { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
-  //       { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
-  //       { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
-  //       {
-  //         key: t('form.aggregator_status'),
-  //         value: organizations[isSelected.id]?.isAggregator
-  //           ? t('company_is_aggregator')
-  //           : organizations[isSelected.id]?.aggregatorId
-  //           ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
-  //           : t('company_is_not_aggregator'),
-  //       },
-  //     ]);
-  //   }
-  // }, [isSelected.id, organizations, t]);
+  useEffect(() => {
+    if (isSelected.id) {
+      setOrganizationInfoData([
+        { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
+        { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
+        {
+          key: t('form.legal_person_type'),
+          value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
+        },
+        { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
+        { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
+        { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
+        { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
+        {
+          key: t('form.aggregator_status'),
+          value: organizations[isSelected.id]?.isAggregator
+            ? t('company_is_aggregator')
+            : organizations[isSelected.id]?.aggregatorId
+            ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+            : t('company_is_not_aggregator'),
+        },
+        { key: '', value: '', type: 'divider', fullwidth: true },
+        { key: t('form.last_registration_address'), value: organizations[isSelected.id].registeredAddress },
+        { key: t('form.postal_code'), value: organizations[isSelected.id].postalCode },
+        { key: t('form.phone'), value: organizations[isSelected.id].phone },
+      ]);
+    }
+  }, [isSelected.id, organizations, t]);
 
   useEffect(() => {
     if (aggregators?.content) {
@@ -283,8 +285,8 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
-                      {/* <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} /> */}
-                      <Card>
+                      <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} />
+                      {/* <Card>
                         <SearchItemsContainer>
                           <S.InfoItemContainer>
                             <span>{t('form.legal_person_name')}</span>
@@ -342,7 +344,7 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                             <span>{organizations[isSelected.id].phone}</span>
                           </S.InfoItemContainer>
                         </SearchItemsContainer>
-                      </Card>
+                      </Card> */}
                     </S.OrganizationContainer>
                   )}
                 </S.OrganizationContainer>

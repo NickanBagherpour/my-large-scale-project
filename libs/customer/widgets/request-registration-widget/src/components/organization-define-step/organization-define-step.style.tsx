@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Radio as AntRadio } from 'antd';
 import { respondTo } from '@oxygen/utils';
-import { Dropdown, Divider as KitDivider } from '@oxygen/ui-kit';
-import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
+import { Dropdown, Divider as KitDivider, Button as UiKitButton } from '@oxygen/ui-kit';
 import { LooperGroup } from '../../assets';
 import RawGrid from '../grid/grid.style';
 

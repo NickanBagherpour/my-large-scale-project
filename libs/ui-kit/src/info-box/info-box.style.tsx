@@ -1,5 +1,6 @@
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled, { css } from 'styled-components';
+import { Divider as KitDivider } from '../divider/divider';
 
 function setResponsiveGridColmns(props) {
   const min_col = props.min_col;
@@ -111,4 +112,9 @@ export const InfoBoxWrapper = styled.div<{ min_col: number; margin?: string | nu
       margin-left: 1rem;
     }
   }
+`;
+
+export const Divider = styled(KitDivider)`
+  border-color: ${(p) => p.theme.background._200};
+  margin-top: 1.6rem;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ConfirmModal from './modal-confirm/modal-confirm';
 import { Card, Form } from 'antd';
@@ -6,10 +6,10 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, SearchItemsContainer, Box, Table, Loading } from '@oxygen/ui-kit';
+import { Button, SearchItemsContainer, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
 import { useQueryParams } from '@oxygen/hooks';
 
-import { requestRegistrationFormSchema } from '../../types';
+import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/final-confirm-table-utils';
 import { useGetRequestDataQuery, useFourthStepRequestRegistrationMutationQuery } from '../../services';
@@ -39,6 +39,36 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
     submissionId ? submissionId : state.submissionId
   );
   const { mutate: fourthMutate, isPending: fourthIsPending } = useFourthStepRequestRegistrationMutationQuery();
+
+  const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
+  const [representativeInfoData, setRepresentativeInfoData] = useState<InfoBoxType[]>([]);
+
+  useEffect(() => {
+    setOrganizationInfoData([
+      { key: t('form.legal_person_name'), value: requestData?.organization.legalName },
+      { key: t('form.national_id'), value: requestData?.organization.organizationNationalId },
+      {
+        key: t('form.legal_person_type'),
+        value: requestData?.organization.legalType === 'PUBLIC' ? t('public') : t('private'),
+      },
+      { key: t('form.registration_number'), value: requestData?.organization.registerNo },
+      { key: t('form.registration_date'), value: requestData?.organization.registerDate },
+      { key: t('form.activity_field'), value: requestData?.organization.activityIndustry },
+      { key: t('form.economy_code'), value: requestData?.organization.economicCode },
+      {
+        key: t('form.aggregator_status'),
+        value: requestData?.organization?.isAggregator
+          ? t('company_is_aggregator')
+          : requestData?.organization?.aggregatorId
+          ? `${t('company_has_aggregator')} - ${requestData?.organization?.aggregatorName}`
+          : t('company_is_not_aggregator'),
+      },
+      { key: '', value: '', type: 'divider', fullwidth: true },
+      { key: t('form.last_registration_address'), value: requestData?.organization.registeredAddress },
+      { key: t('form.postal_code'), value: requestData?.organization.postalCode },
+      { key: t('form.phone'), value: requestData?.organization.phone },
+    ]);
+  }, [requestData]);
 
   const toggleModal = () => {
     setConfirmModal(false);
@@ -71,6 +101,22 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
   const sortedRepresentatives = requestData?.representativeSet.sort(
     (a, b) => a.representativeType - b.representativeType
   );
+
+  useEffect(() => {
+    if (sortedRepresentatives) {
+      setRepresentativeInfoData([
+        { key: t('legal_name'), value: sortedRepresentatives[0].nameAndLastName },
+        { key: t('form.mobile_number'), value: sortedRepresentatives[0].mobileNumber },
+        {
+          key: t('telephone'),
+          value: sortedRepresentatives[0].fixedPhoneNumber,
+        },
+        { key: t('technical_name'), value: sortedRepresentatives[1].nameAndLastName },
+        { key: t('form.mobile_number'), value: sortedRepresentatives[1].mobileNumber },
+        { key: t('telephone'), value: sortedRepresentatives[1].fixedPhoneNumber },
+      ]);
+    }
+  }, [sortedRepresentatives]);
   return (
     <Loading spinning={isRequestDataFetching}>
       {!isRequestDataFetching && (
@@ -82,7 +128,8 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
               <Loading spinning={isRequestDataFetching} />
             ) : (
               <>
-                <Card>
+                <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} />
+                {/* <Card>
                   <SearchItemsContainer>
                     <S.InfoItemContainer>
                       <span>{t('form.legal_person_name')}</span>
@@ -138,9 +185,10 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
                       <span>{requestData?.organization.phone}</span>
                     </S.InfoItemContainer>
                   </SearchItemsContainer>
-                </Card>
+                </Card> */}
                 <S.TitleTxt className={'cards-title'}>{t('representatives_info')}</S.TitleTxt>
-                <Card>
+                <InfoBox margin={0} data={representativeInfoData} minColumnCount={3} />
+                {/* <Card>
                   <SearchItemsContainer className='representativeInfo' $columnNumber='3'>
                     <S.RepresentativesInfoItemContainer>
                       <span>{t('legal_name')}</span>
@@ -167,7 +215,7 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
                       <span>{sortedRepresentatives[1].fixedPhoneNumber}</span>
                     </S.RepresentativesInfoItemContainer>
                   </SearchItemsContainer>
-                </Card>
+                </Card> */}
                 <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>
                 <Box flexGrow={1}>
                   <Table
