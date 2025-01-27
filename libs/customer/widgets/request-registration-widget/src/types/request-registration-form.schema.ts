@@ -2,11 +2,11 @@ import { z } from 'zod';
 import { FORM_ITEM } from '../utils/consts';
 
 export const requestRegistrationFormSchema = (t: (key: string) => string) => {
-  const requiredString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  const requiredString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
     if (value.trim().length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
     if (value.length < 1) {
@@ -15,17 +15,17 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
         type: 'string',
         minimum: 1,
         inclusive: true,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
   });
 
-  const requiredJustString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  const requiredJustString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
     // Check for empty or whitespace-only strings
     if (value.trim().length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
 
@@ -36,7 +36,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
         type: 'string',
         minimum: 1,
         inclusive: true,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
 
@@ -57,12 +57,12 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
         return input.toString(); // Convert Date object to ISO string
       }
       return input == null ? ' ' : input; // Return as is if it's already a string
-    }, z.string({ required_error: t('error.required') }))
+    }, z.string({ required_error: t('validation.required') }))
     .superRefine((value, ctx) => {
       if (value.trim().length === 0) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
       }
       if (value.length < 1) {
@@ -71,17 +71,17 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
       }
     });
 
-  const urlString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  const urlString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
     // Check if the value is empty or only whitespace
     if (value.trim().length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
       return;
     }
@@ -93,7 +93,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
         type: 'string',
         minimum: 1,
         inclusive: true,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
       return;
     }
@@ -139,7 +139,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     });
 
   const mobileNumber = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('validation.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
@@ -148,7 +148,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
         return;
       }
@@ -165,7 +165,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     });
 
   const postalCode = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('validation.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
@@ -174,7 +174,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
         return;
       }
@@ -191,7 +191,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     });
 
   const economyCode = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('validation.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
@@ -200,7 +200,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
         return;
       }
@@ -217,7 +217,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     });
 
   const nationalId = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('validation.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
@@ -226,7 +226,7 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
         return;
       }

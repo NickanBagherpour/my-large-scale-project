@@ -37,6 +37,12 @@ export default {
       business_admin: 'واحد کسب و کار',
     },
     unknown: 'نامشخص',
+    in_week: 'در هفته',
+    in_month: 'در ماه',
+    hour: 'ساعت',
+    minute: 'دقیقه',
+    second: 'ثانیه',
+    in: 'در',
   },
 
   app: {
@@ -67,6 +73,27 @@ export default {
     available_balance: 'موجودی قابل برداشت',
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
+    active_servers_count: '{{count}} سرور فعال ',
+    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    discription: 'توضیحات:',
+    advanced_grid_card_step_two:
+      ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
+    advanced_grid_card_step_three: ' درخواست شما توسط بانکداری تجاری رد شد.',
+    advanced_grid_card_step_four:
+      ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
+    advanced_grid_card_step_five:
+      ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
+    advanced_grid_card_step_six: ' درخواست شما توسط واحد کسب و کار رد شد.',
+    advanced_grid_card_step_seven: ' درخواست شما مورد تایید بانکداری تجاری و کسب و کار قرار گرفت.',
+    on_demand_service: ' سرویس درخواستی',
+    validation_commercial_banking: 'اعتبارسنجی بانکداری‌تجاری',
+    business_unit: 'واحد کسب و کار',
+    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
+    error_description: 'ثبت اطلاعات آپ‌استریم در کنگ با خطا مواجه شده است.',
+    add_upstream: 'ایجاد آپ‌استریم',
+    register_information: 'ثبت اطلاعات',
+    upstream_english_name: 'نام انگلیسی آپ‌استریم',
+    upstream_persian_name: 'نام فارسی آپ‌استریم',
   },
 
   button: {
@@ -137,6 +164,7 @@ export default {
     display_more_items: 'بیشتر',
     view_request: 'مشاهده درخواست',
     try_again: 'تلاش دوباره',
+    register_data: 'ثبت اطلاعات',
   },
 
   field: {
@@ -188,6 +216,8 @@ export default {
     organization: 'شرکت',
     organization_info: 'اطلاعات شرکت',
     withdrawal_amount: 'مبلغ قابل برداشت',
+    service_call_rate: 'نرخ فراخوانی سرویس',
+    total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
   },
 
   placeholder: {
@@ -205,7 +235,10 @@ export default {
     enter_filed: '{{field}} را وارد کنید',
   },
 
-  error: {
+  message: {
+    empty: 'آیتمی جهت نمایش وجود ندارد',
+    inquiry_infobox_warning: 'كاربر گرامی ، آيا از تاييد اطلاعات فوق مطمئن مي باشيد؟',
+    no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
     unknown_error: 'عملیات با خطا مواجه شد، لطفا مجددا تلاش نمایید.',
     not_found: 'صفحه مورد نظر یافت نشد',
     not_found_desc: 'اوه! صفحه‌ای که مد نظرتان است، وجود ندارد. در صورت نیاز از جستجو استفاده نمایید.',
@@ -219,25 +252,7 @@ export default {
     unspecific_desc: 'عملیات با خطا مواجه شد، لطفا مجددا تلاش نمایید.',
     '404': 'متاسفیم \n صفحه مورد نظر شما یافت نشد.\n',
     '500': 'مشکلی پیش آمده! \n اتصال خود به اینترنت را بررسی کنید.\n',
-    info_error_title: 'خطای دریافت اطلاعات',
-    user_error_desc: 'سیستم در دریافت اطلاعات شما با خطا مواجه شد. جهت ورود به سامانه لطفا مجددا تلاش کنید.',
-    required: 'این فیلد اجباریست',
-    shaba_code: 'کد شبا را به طور صحیح وارد نمایید',
-    count_securities: 'لطفا تعداد را به درستی وارد نمایید',
-    min_len: 'مقدار این فیلد نباید کمتر از {{val}} باشد.',
-    max_len: 'مقدار این فیلد نباید بیشتر از {{val}} باشد.',
-    english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
-    persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
-    url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
-    only_digit_message: 'لطفا فقط عدد وارد کنید',
-    email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
-    default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
-  },
-
-  message: {
-    empty: 'آیتمی جهت نمایش وجود ندارد',
-    inquiry_infobox_warning: 'كاربر گرامی ، آيا از تاييد اطلاعات فوق مطمئن مي باشيد؟',
-    no_request: 'تاکنون درخواستی در این سامانه ثبت نشده است.',
+    there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
   },
 
   nav: {},
@@ -262,10 +277,6 @@ export default {
       'سامانه با خطا مواجه شده است. \nلطفا بعد از مدت زمانی دوباره تلاش کنید.\nدرصورت عدم رفع مشکل با واحد پشتیبانی\n تماس بگیرید.\n',
   },
 
-  no_result: {
-    there_is_no_data_to_show: 'داده‌ای برای نمایش وجود ندارد.',
-  },
-
   print: {
     full_name: 'نام و نام خانوادگی',
     national_code: 'کد ملی',
@@ -273,14 +284,6 @@ export default {
     father_name: 'نام پدر ',
     number_national: 'شماره شناسنامه',
     unique_id: 'شناسه یکتا',
-  },
-
-  grid_card: {
-    active_servers_count: '{{count}} سرور فعال ',
-  },
-
-  autocomplete: {
-    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   },
 
   validation: {
@@ -294,37 +297,17 @@ export default {
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
     choose_at_least_one_option: 'لطفاً حداقل یکی از گزینه‌ها را انتخاب کنید',
-  },
-
-  service_call: {
-    service_call_rate: 'نرخ فراخوانی سرویس',
-    register_data: 'ثبت اطلاعات',
-    in: 'در',
-    total_number_calls_limit: 'محدودیت تعداد فراخوانی کل',
-    in_week: 'در هفته',
-    in_month: 'در ماه',
-    hour: 'ساعت',
-    minute: 'دقیقه',
-    second: 'ثانیه',
-  },
-  advance_grid_card: {
-    discription: 'توضیحات:',
-    two: ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
-    three: ' درخواست شما توسط بانکداری تجاری رد شد.',
-    four: ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
-    five: ' درخواست شما توسط بانکداری تجاری تایید شد و به واحد کسب و کار جهت بررسی انتقال یافت.',
-    six: ' درخواست شما توسط واحد کسب و کار رد شد.',
-    seven: ' درخواست شما مورد تایید بانکداری تجاری و کسب و کار قرار گرفت.',
-    on_demand_service: ' سرویس درخواستی',
-    validation_commercial_banking: 'اعتبارسنجی بانکداری‌تجاری',
-    business_unit: 'واحد کسب و کار',
-  },
-  add_upstream: {
-    loading_description: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
-    error_description: 'ثبت اطلاعات آپ‌استریم در کُنگ با خطا مواجه شده است.',
-    add_upstream: 'ایجاد آپ‌استریم',
-    register_information: 'ثبت اطلاعات',
-    upstream_english_name: 'نام انگلیسی آپ‌استریم',
-    upstream_persian_name: 'نام فارسی آپ‌استریم',
+    info_error_title: 'خطای دریافت اطلاعات',
+    user_error_desc: 'سیستم در دریافت اطلاعات شما با خطا مواجه شد. جهت ورود به سامانه لطفا مجددا تلاش کنید.',
+    //shaba_code: 'کد شبا را به طور صحیح وارد نمایید',
+    //count_securities: 'لطفا تعداد را به درستی وارد نمایید',
+    min_len: 'مقدار این فیلد نباید کمتر از {{val}} باشد.',
+    // max_len: 'مقدار این فیلد نباید بیشتر از {{val}} باشد.',
+    english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
+    persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
+    url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
+    only_digit_message: 'لطفا فقط عدد وارد کنید',
+    email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
+    default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
   },
 };

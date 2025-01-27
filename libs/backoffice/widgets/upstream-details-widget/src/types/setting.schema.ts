@@ -6,37 +6,37 @@ import { TFunction } from 'i18next';
 export const FormSchema = (t: TFunction<'translation', undefined>) =>
   z.object({
     [FORM_ITEM_NAMES.name]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .min(1, { message: t('validation.required') })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('error.english_validation_message'),
+        message: t('validation.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianName]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .min(1, { message: t('validation.required') })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('error.persian_validation_message'),
+        message: t('validation.persian_validation_message'),
       }),
   });
 
 export const ModalFormSchema = (t: TFunction<'translation', undefined>) =>
   z.object({
     [FORM_ITEM_NAMES.domain]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) }),
+      .min(1, { message: t('validation.required') })
+      .max(100, { message: t('validation.min_len', { val: 100 }) }),
     [FORM_ITEM_NAMES.weight]: z
-      .string({ required_error: t('error.required') })
+      .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, { message: t('error.required') })
-      .max(100, { message: t('error.max_len', { val: 100 }) })
+      .min(1, { message: t('validation.required') })
+      .max(100, { message: t('validation.min_len', { val: 100 }) })
       .regex(REGEX_PATTERNS.onlyDigit, {
-        message: t('error.only_digit_message'),
+        message: t('validation.only_digit_message'),
       }),
   });
 

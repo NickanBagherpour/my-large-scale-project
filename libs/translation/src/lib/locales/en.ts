@@ -11,12 +11,28 @@ export default {
     register_new_request: 'register new request',
     retry: 'retry',
     display_more_items: 'more',
+    register_data: 'apply',
   },
   appbar: {
     title: 'Melli Bank',
     logout: 'Logout',
   },
-  error: {
+
+  uikit: {
+    select_all: 'select all',
+  },
+
+  common: {
+    dashboard: 'dashboard',
+    in_week: 'in week',
+    in_month: 'in month',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    in: 'in',
+  },
+  message: {
+    no_request: 'No requests have been registered in this system yet.',
     unknown_error: 'unknown error',
     unspecific: 'unspecific error',
     unspecific_desc: 'some error happened please try again',
@@ -29,6 +45,8 @@ export default {
     server_error_desc: 'Oh! For some reason, the server can not response now.',
     content_not_found: 'content not found!',
     content_not_found_desc: 'The content is currently unavailable.',
+  },
+  validation: {
     info_error_title: 'error in info',
     user_error_desc: 'user error',
     required: 'This field is required',
@@ -43,24 +61,8 @@ export default {
     email_validation_message: 'Please enter a valid email address.',
     default_validation_message: 'Please enter the values correctly.',
   },
-  uikit: {
-    select_all: 'select all',
-  },
-  service_call: {
+  field: {
     service_call_rate: 'service call rate',
-    register_data: 'apply',
-    in: 'in',
     total_number_calls_limit: 'total call limit rate',
-    in_week: 'in week',
-    in_month: 'in month',
-    hour: 'hour',
-    minute: 'minute',
-    second: 'second',
-  },
-  common: {
-    dashboard: 'dashboard',
-  },
-  message: {
-    no_request: 'No requests have been registered in this system yet.',
   },
 };

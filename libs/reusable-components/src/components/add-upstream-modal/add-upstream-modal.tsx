@@ -95,15 +95,11 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               colon={true}
               initialValues={initialData}
             >
-              <Form.Item name={FORM_ITEM_NAMES.name} label={t('add_upstream.upstream_english_name')} rules={[rule]}>
+              <Form.Item name={FORM_ITEM_NAMES.name} label={t('uikit.upstream_english_name')} rules={[rule]}>
                 <Input maxLength={NAME_MAX_LENGTH} disabled={!!initialData} />
               </Form.Item>
 
-              <Form.Item
-                name={FORM_ITEM_NAMES.description}
-                label={t('add_upstream.upstream_persian_name')}
-                rules={[rule]}
-              >
+              <Form.Item name={FORM_ITEM_NAMES.description} label={t('uikit.upstream_persian_name')} rules={[rule]}>
                 <Input maxLength={NAME_MAX_LENGTH} />
               </Form.Item>
             </S.StyledForm>
@@ -113,7 +109,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               onClick={() => form.submit()}
               style={{ marginBottom: '1.6rem' }}
             >
-              {t('add_upstream.register_information')}
+              {t('uikit.register_information')}
             </S.StyledButton>
           </S.StyledContainer>
         </>
@@ -124,9 +120,9 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
           <AnimatedStatus
             status={createStatus[status]}
             errorProps={{
-              description: t(error?.status === 400 ? 'add_upstream.error_description' : 'error.unknown_error'),
+              description: t(error?.status === 400 ? 'uikit.error_description' : 'message.unknown_error'),
             }}
-            loadingProps={{ description: t('add_upstream.loading_description') }}
+            loadingProps={{ description: t('uikit.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
           {!initialData && createStatus[status] !== 'loading' && (

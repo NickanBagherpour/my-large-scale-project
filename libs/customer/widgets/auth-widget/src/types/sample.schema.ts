@@ -3,11 +3,11 @@ import { FORM_ITEM_NAMES } from '../utils/form-items-name';
 import { MOBILENUMBER_MAX_LENGTH } from '../utils/consts';
 
 export const authFormSchema = (t: (key: string, args?: any) => string) => {
-  const requiredString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  const requiredString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
     if (value.trim().length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
     if (value.length < 1) {
@@ -16,12 +16,12 @@ export const authFormSchema = (t: (key: string, args?: any) => string) => {
         type: 'string',
         minimum: 1,
         inclusive: true,
-        message: t('error.required'),
+        message: t('validation.required'),
       });
     }
   });
   const mobileNumber = z
-    .string({ required_error: t('error.required') })
+    .string({ required_error: t('validation.required') })
     .trim()
     .superRefine((value, ctx) => {
       if (value.length < 1) {
@@ -30,7 +30,7 @@ export const authFormSchema = (t: (key: string, args?: any) => string) => {
           type: 'string',
           minimum: 1,
           inclusive: true,
-          message: t('error.required'),
+          message: t('validation.required'),
         });
         return;
       }
@@ -46,18 +46,18 @@ export const authFormSchema = (t: (key: string, args?: any) => string) => {
       }
     });
 
-  // const digitOnlyString = z.string({ required_error: t('error.required') }).superRefine((value, ctx) => {
+  // const digitOnlyString = z.string({ required_error: t('validation.required') }).superRefine((value, ctx) => {
   //   if (value.trim().length === 0) {
   //     ctx.addIssue({
   //       code: z.ZodIssueCode.custom,
-  //       message: t('error.required'),
+  //       message: t('validation.required'),
   //     });
   //     return;
   //   }
   //   if (!REGEX_PATTERNS.onlyDigit.test(value)) {
   //     ctx.addIssue({
   //       code: z.ZodIssueCode.custom,
-  //       message: t('error.only_digit_message'),
+  //       message: t('validation.only_digit_message'),
   //     });
   //   }
   // });

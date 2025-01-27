@@ -28,7 +28,7 @@ export const createEditServiceFormSchema = (t: TFunction) => {
       .trim()
       .min(1, { message: t('validation.required') })
       .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('error.persian_validation_message'),
+        message: t('validation.persian_validation_message'),
       })
       .max(MAX_LENGTH, { message: t('validation.max_length') }),
     // [FORM_ITEM_NAMES.method]: z
@@ -44,7 +44,7 @@ export const createEditServiceFormSchema = (t: TFunction) => {
       key: z.number(),
     }),
     [FORM_ITEM_NAMES.category]: z.number({ required_error: t('validation.choose_one_option') }),
-    // [FORM_ITEM_NAMES.throughout]: z.string({ required_error: t('error.required') }),
+    // [FORM_ITEM_NAMES.throughout]: z.string({ required_error: t('validation.required') }),
     [FORM_ITEM_NAMES.version]: z
       .string({ required_error: t('validation.required') })
       .trim()
