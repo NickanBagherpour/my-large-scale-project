@@ -15,7 +15,7 @@ export const serviceDetailsData = [
     type: 'text',
   },
   {
-    key: 'پروتوکل',
+    key: 'پروتکل',
     value: 'HTTP',
     type: 'text',
   },

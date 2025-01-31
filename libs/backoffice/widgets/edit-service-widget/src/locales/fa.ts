@@ -5,7 +5,7 @@ export default {
     'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
     method: 'اکشن/متود',
-    protocol: 'پروتوکل',
+    protocol: 'پروتکل',
     access: 'دسترسی',
     category: 'دسته‌بندی',
     throughput: 'throughput',
