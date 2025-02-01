@@ -11,6 +11,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 import { withRoleCheck } from '@oxygen/reusable-components';
+import { ALLOWED_ROLES } from './utils/consts';
 
 const RequestListWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
@@ -21,7 +22,7 @@ const RequestListWidget: React.FC<PageProps> = (props) => {
         <GuardedApp
           parentProps={props.parentProps}
           role={props.parentProps?.role as string}
-          allowedRoles={BusinessUserRole}
+          allowedRoles={ALLOWED_ROLES}
         />
       </AppProvider>
     </WidgetWrapper>

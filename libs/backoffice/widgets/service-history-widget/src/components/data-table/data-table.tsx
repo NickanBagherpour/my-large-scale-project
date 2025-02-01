@@ -25,7 +25,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   const dataSource = data?.content || [];
   const columns: ColumnsType<ServiceHistoryContent> = [
     {
-      title: t('column.edit-date'),
+      title: t('column.edit_date'),
       dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, record) => {
@@ -34,7 +34,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // width: 130,
     },
     {
-      title: t('column.admin-name'),
+      title: t('column.admin_name'),
       dataIndex: 'modifyBy',
       // key: 'adminName',
       ellipsis: true,
@@ -44,7 +44,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // width: 100,
     },
     {
-      title: t('column.en-name'),
+      title: t('column.en_name'),
       dataIndex: 'name',
       // key: 'enName',
       ellipsis: true,
@@ -54,7 +54,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // width: 100,
     },
     {
-      title: t('column.fa-name'),
+      title: t('column.fa_name'),
       dataIndex: 'persianName',
       // key: 'faName',
       ellipsis: true,
