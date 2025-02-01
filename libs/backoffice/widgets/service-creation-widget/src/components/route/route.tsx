@@ -1,8 +1,8 @@
-import { Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
-import { createRouteSchema, RouteParams, RouteType } from '../../types';
+import { createRouteSchema, PostRouteParams, RouteType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, previousStep, initialStateValue, useAppState } from '../../context';
 import Footer from '../footer/footer';
@@ -40,9 +40,15 @@ export default function Route() {
       const currentHttpMethod = serviceHttpMethods.find((s) => s.code === actionOrMethod);
       const currentProtocole = serviceProtocols.find((s) => s.code === protocol);
 
-      const params: RouteParams = { host, path, protocol: currentProtocole!, method: currentHttpMethod!, serviceName };
+      const params: PostRouteParams = {
+        host,
+        path,
+        protocol: currentProtocole!,
+        method: currentHttpMethod!,
+        serviceName,
+      };
       const mutateOptions = { onSuccess: () => nextStep(dispatch) };
-      route ? putRoute(params, mutateOptions) : postRoute(params, mutateOptions);
+      route ? putRoute({ ...params, id: route.id }, mutateOptions) : postRoute(params, mutateOptions);
     }
   };
 

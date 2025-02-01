@@ -1,4 +1,4 @@
-export type RouteParams = {
+export type PostRouteParams = {
   serviceName: string;
   method: {
     code: number;
@@ -10,6 +10,10 @@ export type RouteParams = {
   };
   path: string;
   host: string;
+};
+
+export type PutRouteParams = PostRouteParams & {
+  id: number;
 };
 
 export type Route = {
@@ -24,4 +28,5 @@ export type Route = {
   path: string;
   host: string;
   isServiceInSso: boolean;
+  id: number;
 };

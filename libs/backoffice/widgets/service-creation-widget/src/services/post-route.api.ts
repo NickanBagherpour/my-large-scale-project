@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RouteParams } from '../types';
+import { PostRouteParams } from '../types';
 import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
@@ -12,7 +12,7 @@ export const usePostRouteMutation = () => {
   const { serviceName } = useAppState();
 
   return useMutation({
-    mutationFn: (params: RouteParams) => Api.postRoute(params),
+    mutationFn: (params: PostRouteParams) => Api.postRoute(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
