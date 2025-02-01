@@ -46,7 +46,7 @@ export default function Filters() {
             <Form.Item name={SERVICE_NAME.ServiceName} rules={[rule]} style={{ width: '100%' }}>
               <S.Input
                 value={value}
-                placeholder={t('search_by_english_name')}
+                placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
               />
@@ -94,8 +94,8 @@ export default function Filters() {
 
           <S.FilterPopover
             filters={[
-              { key: 'ascending', title: t('ascending'), icon: 'icon-arrow-ascending' },
-              { key: 'descending', title: t('descending'), icon: 'icon-arrow-descending' },
+              { key: 'ascending', title: t('common.ascending'), icon: 'icon-arrow-ascending' },
+              { key: 'descending', title: t('common.descending'), icon: 'icon-arrow-descending' },
             ]}
             initialValue={sort}
             onChange={(value) => updateSort(dispatch, value as Sort)}
