@@ -62,7 +62,7 @@ export default {
   remove: 'حذف',
   service_detail: 'جزئیات سرویس',
   action: 'اکشن/متود',
-  protocole: 'پروتوکل',
+  protocole: 'پروتکل',
   access: 'دسترسی',
   category: 'دسته‌بندی',
   throughout: 'Throughout',

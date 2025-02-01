@@ -7,7 +7,7 @@ export default {
     'en-name': 'نام لاتین سرویس',
     'fa-name': 'نام فارسی سرویس',
     method: 'اکشن/متود',
-    protocol: 'پروتوکل',
+    protocol: 'پروتکل',
     access: 'دسترسی',
     category: 'دسته‌بندی',
     throughput: 'Throughput',
