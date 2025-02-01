@@ -29,7 +29,7 @@ export default {
     english_name: 'نام لاتین',
     persian_name: 'نام فارسی',
     action: 'اکشن/متود',
-    protocole: 'پروتوکل',
+    protocole: 'پروتکل',
     access: 'دسترسی ',
     category: 'دسته‌بندی ',
     throughput: 'Throughput ',

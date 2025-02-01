@@ -8,7 +8,7 @@ import { PageProps } from '@oxygen/types';
 import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
 import { useGetRequestListQuery } from '../../services';
-import { handleUserRoleRedirect, prepareRequestListParams } from '../../utils/helper';
+import { prepareRequestListParams } from '../../utils/helper';
 import { UserRoleType } from '../../types/common-types';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -32,9 +32,9 @@ const App: React.FC<AppProps> = (props) => {
     message,
   } = useAppState();
 
-  useEffect(() => {
-    handleUserRoleRedirect(role as UserRoleType);
-  }, [role]);
+  // useEffect(() => {
+  //   handleUserRoleRedirect(role as UserRoleType);
+  // }, [role]);
 
   const requestListParams = {
     searchTerm,

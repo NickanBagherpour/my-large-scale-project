@@ -47,11 +47,11 @@ const ServiceExists: React.FC<Props> = ({ form, changeContent, inputRef, data })
         <S.StyledDivider orientation='center' type='vertical' variant='solid' />
         <S.Partition>
           <div>
-            <S.InfoTitle>{t('scope_en_name')}</S.InfoTitle>
+            <S.InfoTitle>{t('element_en_name', { element: t('element.scope') })}</S.InfoTitle>
             <S.CenteredText>{getValueOrDash(scopeInfo?.name)}</S.CenteredText>
           </div>
           <div>
-            <S.InfoTitle>{t('scope_fa_name')}</S.InfoTitle>
+            <S.InfoTitle>{t('element_fa_name', { element: t('element.scope') })}</S.InfoTitle>
             <S.CenteredText> {getValueOrDash(scopeInfo?.description)}</S.CenteredText>
           </div>
         </S.Partition>
