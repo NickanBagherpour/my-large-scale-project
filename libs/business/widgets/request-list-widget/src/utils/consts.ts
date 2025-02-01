@@ -28,7 +28,7 @@ export enum BusinessUserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
   BUSINESS_ADMIN = 'business-admin',
 }
-
+export const ALLOWED_ROLES = ['commercial-banking-admin', 'business-admin'];
 export enum BusinessStatusBadge {
   UNDER_REVIEW_COMMERCIAL_BANK = 2,
   REJECTED_BY_COMMERCIAL_BANK = 3,

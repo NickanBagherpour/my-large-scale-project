@@ -1,22 +1,20 @@
 import { FC, ComponentType, memo } from 'react';
-import ContentNotFoundFallback from '../components/error-fallback/content-not-found-fallback';
+import AccessDenied from '../components/error-fallback/access-denied';
 // import { useRouter } from 'next/router';
 
-interface WithRoleCheckProps<R extends Record<string, string>> {
+interface WithRoleCheckProps {
   role?: string;
-  allowedRoles: R;
+  allowedRoles: string[];
 }
 
-const withRoleCheck = <P extends object, R extends Record<string, string>>(
-  WrappedComponent: ComponentType<P>
-): FC<P & WithRoleCheckProps<R>> => {
-  const ComponentWithRoleCheck: FC<P & WithRoleCheckProps<R>> = ({ role, allowedRoles, ...props }) => {
+const withRoleCheck = <P extends object>(WrappedComponent: ComponentType<P>): FC<P & WithRoleCheckProps> => {
+  const ComponentWithRoleCheck: FC<P & WithRoleCheckProps> = ({ role, allowedRoles, ...props }) => {
     // const router = useRouter();
-    const isValidRole = (role: string): role is R[keyof R] => {
-      return Object.values(allowedRoles).includes(role as R[keyof R]);
+    const isValidRole = (role: string) => {
+      return allowedRoles.includes(role);
     };
     if (!role || !isValidRole(role)) {
-      return <ContentNotFoundFallback />;
+      return <AccessDenied />;
     }
 
     return <WrappedComponent {...(props as P)} />;

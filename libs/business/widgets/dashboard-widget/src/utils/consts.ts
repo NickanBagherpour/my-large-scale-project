@@ -10,3 +10,4 @@ export const reportUrlList = {
   [UserRole.COMMERCIAL_BANKING_ADMIN]:
     'http://uat.developer.bmi.ir/metabase/public/dashboard/925a1159-ae21-406a-82ce-0278bdb311d9',
 };
+export const ALLOWED_ROLES = ['commercial-banking-admin', 'business-admin'];

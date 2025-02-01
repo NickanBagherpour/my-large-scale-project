@@ -16,8 +16,18 @@ type Props = {
   description: string;
   animationData?: any;
   image?: ReactNode;
+  margin?: boolean;
 };
-const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, animationData }: Props) => {
+const ErrorView = ({
+  onRetry,
+  onReturn,
+  errorCode,
+  title,
+  description,
+  image,
+  animationData,
+  margin = true,
+}: Props) => {
   const [t] = useTr();
   const theme = useAppTheme();
   const { isAuth } = useAuth();
@@ -38,7 +48,7 @@ const ErrorView = ({ onRetry, onReturn, errorCode, title, description, image, an
     router.refresh();
   };
   return (
-    <Container margin={'1.6rem'} fillContainer={true}>
+    <Container margin={margin ? '1.6rem' : '0'} fillContainer={true}>
       <S.ContentContainer>
         <S.TextContainer>
           {errorCode && (
