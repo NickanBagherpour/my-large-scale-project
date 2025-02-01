@@ -14,9 +14,9 @@ import { useGetDraftsQuery } from '../../services/get-drafts.api';
 const App = () => {
   const { message, ...fetchState } = useAppState();
   const { data: clients, isFetching: isClientsFetching } = useGetClientsQuery(fetchState);
-  const { data: drafts } = useGetDraftsQuery();
+  const { data: drafts } = useGetDraftsQuery({ page: 0, size: 10, sort: 'createDate,DESC' }); // TODO: make them dynamic
   const [t] = useTr();
-  const hasDrafts = !!drafts?.length;
+  const hasDrafts = !!drafts?.page.totalElements;
   const clientsSubTitle = clients?.total ? `(${clients?.total ?? 0})` : '';
 
   return (
@@ -24,8 +24,8 @@ const App = () => {
       {hasDrafts && (
         <Container title={t('draft')} fillContainer={false}>
           <S.Grid>
-            {drafts?.map((item) => (
-              <DraftCard key={item.id} {...item} />
+            {drafts.content?.map((item) => (
+              <DraftCard key={item.clientId} {...item} />
             ))}
           </S.Grid>
         </Container>

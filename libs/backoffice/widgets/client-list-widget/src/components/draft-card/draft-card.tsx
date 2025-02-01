@@ -1,48 +1,29 @@
 import { Button, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
-import { useTr } from '@oxygen/translation';
-import { useQueryClient } from '@tanstack/react-query';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { ROUTES } from '@oxygen/utils';
+import { Draft } from '../../types';
 
-type DraftCardType = {
-  id: number;
-  name: string;
-  level: 1 | 2 | 3;
-};
-
-export default function DraftCard(props: DraftCardType) {
-  const { name, level, id } = props;
-  const queryClient = useQueryClient();
+export default function DraftCard(props: Draft) {
+  const { clientId, stepName, clientName, progressPercent } = props;
 
   const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    queryClient.setQueryData([RQKEYS.BACKOFFICE.CLIENTS_LIST.DRAFTS], (oldData: DraftCardType[]) => {
-      return oldData.filter((item) => item.id !== id);
-    });
+    // TODO: see if this functionality should exist
   };
-
-  const [t] = useTr();
-  const levelsMap: Record<DraftCardType['level'], string> = {
-    1: t('get_info'),
-    2: t('add_service'),
-    3: t('add_plugin'),
-  };
-
-  const progressPercentage = level * 25;
 
   return (
-    <S.Container href={ROUTES.BACKOFFICE.CLIENT_CREATION}>
+    <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-id=${clientId}`}>
       <S.Header>
-        <S.Name>{name}</S.Name>
+        <S.Name>{clientName}</S.Name>
         <Button onClick={remove} color='primary' variant='text' size='small'>
           <S.Trash className='icon-trash' />
         </Button>
       </S.Header>
 
-      <Progress percent={progressPercentage} showInfo={false} isPrimary />
+      <Progress percent={progressPercent} showInfo={false} isPrimary />
 
       <S.Footer>
-        ({levelsMap[level]}) {progressPercentage}%
+        ({stepName}) {progressPercent}%
       </S.Footer>
     </S.Container>
   );
