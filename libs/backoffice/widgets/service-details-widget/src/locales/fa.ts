@@ -84,7 +84,7 @@ export default {
   scope: 'اسکوپ',
   submit_and_add: 'تایید و افزودن',
   action_method: 'اکشن/متود',
-  protocol: 'پروتوکل',
+  protocol: 'پروتکل',
   path: 'Path',
   host: 'Host',
   persian_name: 'نام فارسی',

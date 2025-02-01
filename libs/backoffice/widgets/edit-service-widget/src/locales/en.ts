@@ -19,7 +19,7 @@ export default {
     'en-name': 'svc-gfg-bhhj-ngdc-zxzxc-zxp',
     'fa-name': 'دریافت کد‌های ملی متعلق به یک شماره موبایل-',
     method: '-Post',
-    protocol: '-پروتوکل',
+    protocol: '-پروتکل',
     access: 'HTTP-',
     category: 'ACCOUNT-',
     throughout: 'Unlimited-',
