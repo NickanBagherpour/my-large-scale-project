@@ -32,3 +32,4 @@ export { default as AddUpstreamModal } from './components/add-upstream-modal/add
 export * from './components/add-upstream-modal/add-upstream-modal.schema';
 export { default as AnimatedStatus } from './components/animated-status/animated-status';
 export { default as StatusModal } from './components/status-modal/status-modal';
+export { default as withRoleCheck } from './hocs/withRoleCheck';

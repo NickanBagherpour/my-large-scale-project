@@ -9,7 +9,7 @@ import Filters from '../filter/filter';
 import DataTable from '../data-table/data-table';
 import { useUpdateServiceDetails } from '../../services';
 import { REQUEST_ID_KEY } from '../../utils/consts';
-import { handleUserRoleRedirect } from '../../utils/helper';
+// import { handleUserRoleRedirect } from '../../utils/helper';
 import { UserRoleType } from '../../../../request-list-widget/src/types/common-types';
 
 import { resetErrorMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -35,9 +35,9 @@ const App: React.FC<AppProps> = (props) => {
 
   const submissionId: Nullable<string> = searchParams.get(REQUEST_ID_KEY);
 
-  useEffect(() => {
-    handleUserRoleRedirect(role as UserRoleType);
-  }, [role]);
+  // useEffect(() => {
+  //   handleUserRoleRedirect(role as UserRoleType);
+  // }, [role]);
 
   const params = {
     submissionId: submissionId,

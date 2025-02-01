@@ -2,7 +2,7 @@ export default {
   widget_name: 'جزئیات سرویس',
   edit_route: 'ویرایش Route',
   method: 'اکشن/متود',
-  protocol: 'پروتوکل',
+  protocol: 'پروتکل',
   path: 'Path',
   host: 'Host',
   path_sample: 'api/sapta/v1/bale/customer-info/',
