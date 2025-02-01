@@ -41,6 +41,7 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
   const { mutate: fourthMutate, isPending: fourthIsPending } = useFourthStepRequestRegistrationMutationQuery();
 
   const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
+  const [secondPartOffOrganizationInfoData, setSecondPartOffOrganizationInfoData] = useState<InfoBoxType[]>([]);
   const [representativeInfoData, setRepresentativeInfoData] = useState<InfoBoxType[]>([]);
 
   useEffect(() => {
@@ -63,8 +64,12 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
           ? `${t('company_has_aggregator')} - ${requestData?.organization?.aggregatorName}`
           : t('company_is_not_aggregator'),
       },
-      { key: '', value: '', type: 'divider', fullwidth: true },
-      { key: t('form.last_registration_address'), value: requestData?.organization.registeredAddress },
+    ]);
+    setSecondPartOffOrganizationInfoData([
+      {
+        key: t('form.last_registration_address'),
+        value: requestData?.organization.registeredAddress,
+      },
       { key: t('form.postal_code'), value: requestData?.organization.postalCode },
       { key: t('form.phone'), value: requestData?.organization.phone },
     ]);
@@ -128,94 +133,15 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
               <Loading spinning={isRequestDataFetching} />
             ) : (
               <>
-                <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} />
-                {/* <Card>
-                  <SearchItemsContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.legal_person_name')}</span>
-                      <span>{requestData?.organization.legalName}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.national_id')}</span>
-                      <span>{requestData?.organization.organizationNationalId}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.legal_person_type')}</span>
-                      <span>{requestData?.organization.legalType === 'PUBLIC' ? t('public') : t('private')}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.registration_number')}</span>
-                      <span>{requestData?.organization.registerNo}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.registration_date')}</span>
-                      <span>{requestData?.organization.registerDate}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.activity_field')}</span>
-                      <span>{requestData?.organization.activityIndustry}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.economy_code')}</span>
-                      <span>{requestData?.organization.economicCode}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.aggregator_status')}</span>
-                      <span>
-                        {requestData?.organization.isAggregator
-                          ? t('company_is_aggregator')
-                          : requestData?.organization.aggregatorId
-                          ? `${t('company_has_aggregator')} - ${requestData?.organization.aggregatorName}`
-                          : t('company_is_not_aggregator')}
-                      </span>
-                    </S.InfoItemContainer>
-                  </SearchItemsContainer>
+                <Card>
+                  <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} isChild={true} />
                   <S.Divider orientation='center' />
-                  <SearchItemsContainer $columnNumber='3'>
-                    <S.InfoItemContainer>
-                      <span>{t('form.last_registration_address')}</span>
-                      <span>{requestData?.organization.registeredAddress}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.postal_code')}</span>
-                      <span>{requestData?.organization.postalCode}</span>
-                    </S.InfoItemContainer>
-                    <S.InfoItemContainer>
-                      <span>{t('form.phone')}</span>
-                      <span>{requestData?.organization.phone}</span>
-                    </S.InfoItemContainer>
-                  </SearchItemsContainer>
-                </Card> */}
+                  <InfoBox margin={0} data={secondPartOffOrganizationInfoData} minColumnCount={3} isChild={true} />
+                </Card>
+
                 <S.TitleTxt className={'cards-title'}>{t('representatives_info')}</S.TitleTxt>
                 <InfoBox margin={0} data={representativeInfoData} minColumnCount={3} />
-                {/* <Card>
-                  <SearchItemsContainer className='representativeInfo' $columnNumber='3'>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('legal_name')}</span>
-                      <span>{sortedRepresentatives[0].nameAndLastName}</span>
-                    </S.RepresentativesInfoItemContainer>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('form.mobile_number')}</span>
-                      <span>{sortedRepresentatives[0].mobileNumber}</span>
-                    </S.RepresentativesInfoItemContainer>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('telephone')}</span>
-                      <span>{sortedRepresentatives[0].fixedPhoneNumber}</span>
-                    </S.RepresentativesInfoItemContainer>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('technical_name')}</span>
-                      <span>{sortedRepresentatives[1].nameAndLastName}</span>
-                    </S.RepresentativesInfoItemContainer>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('form.mobile_number')}</span>
-                      <span>{sortedRepresentatives[1].mobileNumber}</span>
-                    </S.RepresentativesInfoItemContainer>
-                    <S.RepresentativesInfoItemContainer>
-                      <span>{t('telephone')}</span>
-                      <span>{sortedRepresentatives[1].fixedPhoneNumber}</span>
-                    </S.RepresentativesInfoItemContainer>
-                  </SearchItemsContainer>
-                </Card> */}
+
                 <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>
                 <Box flexGrow={1}>
                   <Table

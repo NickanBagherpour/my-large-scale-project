@@ -35,6 +35,7 @@ export const FinalConfirmStepContainer = styled.div`
 
   & .ant-card {
     background-color: ${(p) => p.theme.background._50};
+    border: 1px solid ${(p) => p.theme.border._100};
   }
 
   & tbody tr.even-row,

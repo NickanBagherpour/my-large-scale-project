@@ -18,6 +18,7 @@ export type InfoBoxProps = {
   minColumnCount?: number;
   titleWordWrap?: boolean;
   loading?: boolean;
+  isChild?: boolean;
 };
 
 export const InfoBox = (props: InfoBoxProps) => {
@@ -29,6 +30,7 @@ export const InfoBox = (props: InfoBoxProps) => {
     minColumnCount = 4,
     titleWordWrap = true,
     loading = false,
+    isChild = false,
   } = props;
 
   const [t] = useTr();
@@ -45,7 +47,13 @@ export const InfoBox = (props: InfoBoxProps) => {
   }
 
   return (
-    <S.InfoBoxWrapper dense={String(isDense)} margin={margin} min_col={minColumnCount} wrap={String(titleWordWrap)}>
+    <S.InfoBoxWrapper
+      dense={String(isDense)}
+      margin={margin}
+      min_col={minColumnCount}
+      wrap={String(titleWordWrap)}
+      isChild={isChild}
+    >
       {data?.map((item: InfoItemType, index) => {
         return (
           <div key={index} className={`${item?.fullwidth ? 'fullwidth' : ''} grid-item`}>

@@ -80,9 +80,10 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.organizationDefineStepDisabledSubmit);
 
   const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
+  const [secondPartOffOrganizationInfoData, setSecondPartOffOrganizationInfoData] = useState<InfoBoxType[]>([]);
 
   useEffect(() => {
-    if (isSelected.id) {
+    if (isSelected.id !== '') {
       setOrganizationInfoData([
         { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
         { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
@@ -102,7 +103,8 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
             ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
             : t('company_is_not_aggregator'),
         },
-        { key: '', value: '', type: 'divider', fullwidth: true },
+      ]);
+      setSecondPartOffOrganizationInfoData([
         { key: t('form.last_registration_address'), value: organizations[isSelected.id].registeredAddress },
         { key: t('form.postal_code'), value: organizations[isSelected.id].postalCode },
         { key: t('form.phone'), value: organizations[isSelected.id].phone },
@@ -285,66 +287,16 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
-                      <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} />
-                      {/* <Card>
-                        <SearchItemsContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.legal_person_name')}</span>
-                            <span>{organizations[isSelected.id].legalName}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.national_id')}</span>
-                            <span>{organizations[isSelected.id].organizationNationalId}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.legal_person_type')}</span>
-                            <span>
-                              {organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private')}
-                            </span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.registration_number')}</span>
-                            <span>{organizations[isSelected.id].registerNo}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.registration_date')}</span>
-                            <span>{organizations[isSelected.id].registerDate}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.activity_field')}</span>
-                            <span>{organizations[isSelected.id].activityIndustry}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.economy_code')}</span>
-                            <span>{organizations[isSelected.id].economicCode}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.aggregator_status')}</span>
-                            <span>
-                              {organizations[isSelected.id]?.isAggregator
-                                ? t('company_is_aggregator')
-                                : organizations[isSelected.id]?.aggregatorId
-                                ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
-                                : t('company_is_not_aggregator')}
-                            </span>
-                          </S.InfoItemContainer>
-                        </SearchItemsContainer>
+                      <Card>
+                        <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} isChild={true} />
                         <S.Divider orientation='center' />
-                        <SearchItemsContainer $columnNumber='3'>
-                          <S.InfoItemContainer>
-                            <span>{t('form.last_registration_address')}</span>
-                            <span>{organizations[isSelected.id].registeredAddress}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.postal_code')}</span>
-                            <span>{organizations[isSelected.id].postalCode}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.phone')}</span>
-                            <span>{organizations[isSelected.id].phone}</span>
-                          </S.InfoItemContainer>
-                        </SearchItemsContainer>
-                      </Card> */}
+                        <InfoBox
+                          margin={0}
+                          data={secondPartOffOrganizationInfoData}
+                          minColumnCount={3}
+                          isChild={true}
+                        />
+                      </Card>
                     </S.OrganizationContainer>
                   )}
                 </S.OrganizationContainer>
