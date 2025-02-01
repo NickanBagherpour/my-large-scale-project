@@ -35,7 +35,7 @@ export default function UploadClient(props: Props) {
       title={t('add_service_from_sso')}
       onCancel={onCancel}
       cancelText={t('button.cancel')}
-      okText={t('save_changes')}
+      okText={t('button.apply')}
       onOk={() => form.submit()}
     >
       <Form layout={'vertical'} onFinish={onFinish} form={form}>
