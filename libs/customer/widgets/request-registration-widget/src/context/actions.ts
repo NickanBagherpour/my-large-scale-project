@@ -4,26 +4,32 @@ import { WidgetStateType } from '../context/types';
 
 import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType, RequestMode } from './types';
 
-export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
+export function updateOrganizationDefineStepAction(
+  dispatch: WidgetDispatchType,
+  organizationDefineStep: Partial<FiltersType>
+) {
+  dispatch({ type: 'UPDATE_ORGANIZATION_DEFINE_STEP_FORM', payload: organizationDefineStep });
 }
 
 export function updateOrganizationIdAndSubmissionId(dispatch: WidgetDispatchType, orgAndSubId: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID', payload: orgAndSubId });
 }
 
-export function updateSecondStepAction(dispatch: WidgetDispatchType, secondStep: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SECOND_STEP', payload: secondStep });
+export function updateRepresentativeDefineStepAction(
+  dispatch: WidgetDispatchType,
+  representativeDefineStep: Partial<FiltersType>
+) {
+  dispatch({ type: 'UPDATE_REPRESENTATIVE_DEFINE_STEP', payload: representativeDefineStep });
 }
 
-export function updateThirdStepTableAction(
+export function updateServiceSelectStepTableAction(
   dispatch: WidgetDispatchType,
-  thirdStepTable: Partial<FiltersType> | { serviceId: number }
+  serviceSelectStepTable: Partial<FiltersType> | { serviceId: number }
 ) {
-  if ('serviceId' in thirdStepTable) {
-    dispatch({ type: 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE', payload: { service: thirdStepTable } });
+  if ('serviceId' in serviceSelectStepTable) {
+    dispatch({ type: 'UPDATE_SERVICE_SELECT_STEP_TABLE_AFTER_DELETE', payload: { service: serviceSelectStepTable } });
   } else {
-    dispatch({ type: 'UPDATE_THIRD_STEP_TABLE', payload: thirdStepTable });
+    dispatch({ type: 'UPDATE_SERVICE_SELECT_STEP_TABLE', payload: serviceSelectStepTable });
   }
 }
 

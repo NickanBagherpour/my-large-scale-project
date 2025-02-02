@@ -1,4 +1,15 @@
 export { default as Api } from './api';
-export { useGetReportDataQuery } from './get-report.api';
-export { useGetRequestQuery } from './fourth-step/fourth-step-data';
-export { useFirstStepRequestRegistrationMutationQuery } from './first-step/first-step-data';
+export { useGetRequestDataFromDraftsMutationQuery } from './draft/drafts-request-data';
+export {
+  useGetRequestQuery,
+  useGetRequestDataQuery,
+  useFourthStepRequestRegistrationMutationQuery,
+} from './final-confirm-step/final-confirm-step-data';
+export {
+  useOrganizationDefineStepRequestRegistrationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery,
+  useGetOrganizationsQuery,
+  useGetAggregatorsQuery,
+} from './organization-define-step/organization-define-step-data';
+
+export { useThirdStepRequestRegistrationMutationQuery } from './service-select-step/service-select-step-data';
