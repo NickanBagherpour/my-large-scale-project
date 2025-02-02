@@ -1,54 +1,52 @@
 import * as S from './clients.style';
 import { GridCard } from '@oxygen/reusable-components';
-import { useTr } from '@oxygen/translation';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
-import Mockify from '@oxygen/mockify';
-import { ClientType } from '@oxygen/types';
 import { ROUTES } from '@oxygen/utils';
+import { Clients } from '../../types';
+import { CLIENTS_PAGE_SIZE } from '../../utils/consts';
+import { Pagination } from '@oxygen/ui-kit';
 
 type Props = {
-  data: ClientType[];
-  total?: number;
+  data: Clients;
   searchTerm: string;
-  isLoading: boolean;
 };
 
 export default function Clients(props: Props) {
-  const { data, total, searchTerm, isLoading } = props;
-  const [t] = useTr();
+  const {
+    data: { content, totalElements },
+    searchTerm,
+  } = props;
   const dispatch = useAppDispatch();
   const { page } = useAppState();
 
-  const showLoadMore = page * Mockify.CLIENTS_LIST_LIMIT <= (total ?? 0) && data.length >= Mockify.CLIENTS_LIST_LIMIT;
+  const changePage = (page: number) => {
+    updatePagination(dispatch, page);
+  };
 
   return (
     <>
       <S.Grid>
-        {data.map(({ name, description, isActiveInTheService, date }, idx) => (
+        {content.map(({ isActive, clientId, clientName, createDate, organizationName }, idx) => (
           <GridCard
             key={idx}
-            title={description}
-            subTitle={name}
-            status={isActiveInTheService ? 'active' : 'inactive'}
-            date={date}
+            title={clientName}
+            subTitle={organizationName}
+            status={isActive ? 'active' : 'inactive'}
+            date={createDate}
             wordToHighlight={searchTerm}
-            href={ROUTES.BACKOFFICE.CLIENT_DETAILS}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-id=${clientId}`}
           />
         ))}
       </S.Grid>
 
-      {showLoadMore && (
-        <S.Button
-          loading={isLoading}
-          variant='link'
-          color='primary'
-          disabled={isLoading}
-          onClick={() => updatePagination(dispatch)}
-        >
-          <span>{t('show_all')}</span>
-          <i className='icon-chev-down' />
-        </S.Button>
-      )}
+      <Pagination
+        current={page}
+        total={totalElements}
+        pageSize={CLIENTS_PAGE_SIZE}
+        showSizeChanger={false}
+        align='center'
+        onChange={changePage}
+      />
     </>
   );
 }

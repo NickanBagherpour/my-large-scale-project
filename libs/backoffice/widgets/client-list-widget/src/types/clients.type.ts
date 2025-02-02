@@ -1,3 +1,5 @@
+import { PaginatedData } from '@oxygen/types';
+
 export type ParamsWithPagination = {
   page: number;
   size: number;
@@ -11,14 +13,20 @@ export type Draft = {
   stepName: string;
 };
 
-export type Drafts = WithPagaination<Draft>;
+export type Drafts = PaginatedData<Draft>;
 
-type WithPagaination<T extends object> = {
-  content: T[];
-  page: {
-    size: number;
-    number: number;
-    totalElements: number;
-    totalPages: number;
-  };
+export type ClientsParams = ParamsWithPagination & {
+  isActive: boolean | null;
+  searchParam: string;
 };
+
+export type Client = {
+  clientId: number;
+  clientName: string;
+  organizationName: string;
+  organizationNationalId: number | null;
+  createDate: string;
+  isActive: boolean;
+};
+
+export type Clients = PaginatedData<Client>;

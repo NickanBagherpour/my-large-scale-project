@@ -1,7 +1,14 @@
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
 import * as S from './filters.sytle';
-import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
+import {
+  updatePagination,
+  updateSearchTerm,
+  updateSort,
+  updateStatus,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import { WidgetStateType } from '../../context/types';
 import { useState } from 'react';
 import { useBounce, useToggle } from '@oxygen/hooks';
@@ -25,6 +32,7 @@ export default function Filters() {
 
   useBounce(() => {
     updateSearchTerm(dispatch, value);
+    updatePagination(dispatch, 1);
   }, [value]);
 
   return (
