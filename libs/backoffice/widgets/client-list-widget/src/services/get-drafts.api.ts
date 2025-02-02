@@ -8,7 +8,7 @@ import { ParamsWithPagination } from '../types';
 export const useGetDraftsQuery = (params: ParamsWithPagination) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.CLIENTS_LIST.DRAFTS],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENTS_LIST.DRAFTS, params],
     queryFn: withErrorHandling(() => Api.getDraftsData(params), dispatch),
     placeholderData: keepPreviousData,
   });

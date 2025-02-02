@@ -3,3 +3,4 @@ export const UPLOAD_CLIENT_NAMES = {
 };
 
 export const CLIENTS_PAGE_SIZE = 1;
+export const INITIAL_DRAFTS_PAGE_SIZE = 1;

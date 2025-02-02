@@ -5,13 +5,12 @@ import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
 import Clients from '../clients/clients';
 import * as S from './app.style';
-import { Container, Loading } from '@oxygen/ui-kit';
+import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
-import DraftCard from '../draft-card/draft-card';
-import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import type { ClientsParams } from '../../types';
 import { CLIENTS_PAGE_SIZE } from '../../utils/consts';
+import Drafts from '../drafts/drafts';
 
 const App = () => {
   const { message, page, sort, status, searchTerm } = useAppState();
@@ -26,10 +25,8 @@ const App = () => {
     isActive: status === 'active' ? true : status === 'unActive' ? false : null,
   };
 
-  const { data: clients, isFetching: isClientsFetching } = useGetClientsQuery(paramsMap);
-  const { data: drafts } = useGetDraftsQuery({ page: 0, size: 10, sort: 'createDate,DESC' }); // TODO: make them dynamic
+  const { data: clients, isFetching: isFetchingClients } = useGetClientsQuery(paramsMap);
   const [t] = useTr();
-  const hasDrafts = !!drafts?.totalElements;
 
   const totalElements = clients?.totalElements;
   const clientsSubTitle = totalElements ? `(${totalElements ?? 0})` : '';
@@ -37,20 +34,10 @@ const App = () => {
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
-
-      {hasDrafts && (
-        <Container title={t('draft')} fillContainer={false}>
-          <S.Grid>
-            {drafts.content?.map((item) => (
-              <DraftCard key={item.clientId} {...item} />
-            ))}
-          </S.Grid>
-        </Container>
-      )}
-
+      <Drafts />
       <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle}>
         <Filters />
-        <Loading spinning={isClientsFetching}>
+        <Loading spinning={isFetchingClients}>
           {totalElements ? <Clients data={clients} searchTerm={searchTerm} /> : <NoResult isLoading={false} />}
         </Loading>
       </S.ClientsContainer>
