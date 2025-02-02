@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Radio as AntRadio } from 'antd';
 import { respondTo } from '@oxygen/utils';
-import { Dropdown, Divider as KitDivider } from '@oxygen/ui-kit';
-import { MarkText, Button as UiKitButton } from '@oxygen/ui-kit';
+import { Dropdown, Divider as KitDivider, Button as UiKitButton } from '@oxygen/ui-kit';
 import { LooperGroup } from '../../assets';
 import RawGrid from '../grid/grid.style';
 
@@ -135,7 +134,7 @@ export const TitleTxt = styled.p`
   margin: 3.2rem 0 1.6rem 0;
 `;
 
-export const FirstStepContainer = styled.div`
+export const OrganizationDefineStepContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;

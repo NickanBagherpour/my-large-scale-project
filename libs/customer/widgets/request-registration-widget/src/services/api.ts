@@ -62,7 +62,7 @@ const Api = {
     }
   },
 
-  requestRegistrationFirstStep: async (params: FirstStepParams) => {
+  requestRegistrationOrganizationDefineStep: async (params: FirstStepParams) => {
     const { organizationId, submissionId, ...restParams } = params;
     if (organizationId && submissionId) {
       return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {

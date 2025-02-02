@@ -1,5 +1,6 @@
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled, { css } from 'styled-components';
+import { Divider as KitDivider } from '../divider/divider';
 
 function setResponsiveGridColmns(props) {
   const min_col = props.min_col;
@@ -22,16 +23,21 @@ function setResponsiveGridColmns(props) {
   `;
 }
 
-export const InfoBoxWrapper = styled.div<{ min_col: number; margin?: string | number; dense?: string; wrap?: string }>`
+export const InfoBoxWrapper = styled.div<{
+  min_col: number;
+  margin?: string | number;
+  dense?: string;
+  wrap?: string;
+  isChild?: boolean;
+}>`
   margin: ${(p) => p.margin ?? ''};
   display: grid;
 
   ${(p) => setResponsiveGridColmns(p)}
-
   background-color: ${(p) => p.theme.background._50};
-  border: 1px solid ${(p) => p.theme.border._100};
+  border: ${(p) => (p.isChild ? 'none' : '1px solid ' + p.theme.border._100)};
   border-radius: var(${cssVar.radius});
-  padding: 3rem;
+  padding: ${(p) => (p.isChild ? '0' : '3rem')};
   column-gap: 1%;
   row-gap: ${(p) => (p.dense === 'true' ? '1rem' : '2rem')};
   overflow: hidden;
@@ -111,4 +117,9 @@ export const InfoBoxWrapper = styled.div<{ min_col: number; margin?: string | nu
       margin-left: 1rem;
     }
   }
+`;
+
+export const Divider = styled(KitDivider)`
+  border-color: ${(p) => p.theme.background._200};
+  margin-top: 1.6rem;
 `;

@@ -1,7 +1,6 @@
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import type { ServiceRequest } from '@oxygen/types';
-import Link from 'next/link';
 import { TFunction } from 'i18next';
 type Props = {
   t: TFunction;
@@ -32,12 +31,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceRequest> {
       align: 'center',
       render: (persianName) => getValueOrDash(persianName),
     },
-    // {
-    //   title: '',
-    //   dataIndex: 'details',
-    //   key: 'details',
-    //   render: (url) => <S.Details href=''>{t('detailed')}</S.Details>,
-    // },
   ];
 }
 

@@ -30,7 +30,7 @@ export default function ConfirmModal(props: Props) {
       keyboard={false}
       footer={[]}
       onCancel={handleCancel}
-       maskClosable={false}
+      maskClosable={false}
     >
       <Card>
         <S.Info>

@@ -1,6 +1,6 @@
 import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
-import { WidgetActionType, WidgetStateType, FirstStepType, SecondStepType } from './types';
+import { WidgetActionType, WidgetStateType, OrganizationDefineStepType, RepresentativeDefineStepType } from './types';
 import { dayjs } from '@oxygen/utils';
 import jalaliday from 'jalaliday';
 
@@ -20,8 +20,8 @@ export const initialStateValue: WidgetStateType = {
   requestMode: 'selectOrganization',
   organizationId: '',
   submissionId: '',
-  firstStepDisabledSubmit: true,
-  firstStep: {
+  organizationDefineStepDisabledSubmit: true,
+  organizationDefineStep: {
     aggregator_status: 'nothing',
     aggregator_value: undefined,
     legal_person_name: undefined,
@@ -35,7 +35,7 @@ export const initialStateValue: WidgetStateType = {
     phone: undefined,
     last_registration_address: undefined,
   },
-  secondStep: {
+  representativeDefineStep: {
     persian_name: undefined,
     mobile_number: undefined,
     phone_number: undefined,
@@ -44,7 +44,7 @@ export const initialStateValue: WidgetStateType = {
     technical_Phone_number: undefined,
     clientKey: undefined,
   },
-  thirdStep: { table: [] },
+  serviceSelectStep: { table: [] },
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -63,9 +63,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
-    case 'UPDATE_FIRST_STEP_FORM': {
-      state.firstStep = { ...action.payload } as FirstStepType;
-      state.firstStepDisabledSubmit = false;
+    case 'UPDATE_ORGANIZATION_DEFINE_STEP_FORM': {
+      state.organizationDefineStep = { ...action.payload } as OrganizationDefineStepType;
+      state.organizationDefineStepDisabledSubmit = false;
       return;
     }
     case 'UPDATE_ORGANIZATION_ID_AND_SUBMISSION_ID': {
@@ -73,22 +73,22 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.submissionId = action.payload.submissionId;
       return;
     }
-    case 'UPDATE_SECOND_STEP': {
-      state.secondStep = { ...action.payload } as SecondStepType;
+    case 'UPDATE_REPRESENTATIVE_DEFINE_STEP': {
+      state.representativeDefineStep = { ...action.payload } as RepresentativeDefineStepType;
       return;
     }
 
-    case 'UPDATE_THIRD_STEP_TABLE': {
+    case 'UPDATE_SERVICE_SELECT_STEP_TABLE': {
       // Check if the id exists in the table
-      const exists = state.thirdStep.table.some((item) => item.id === action.payload.id);
+      const exists = state.serviceSelectStep.table.some((item) => item.id === action.payload.id);
 
       // If it doesn't exist, add the new item
       if (!exists) {
         return {
           ...state,
-          thirdStep: {
-            ...state.thirdStep,
-            table: [...state.thirdStep.table, { ...action.payload }],
+          serviceSelectStep: {
+            ...state.serviceSelectStep,
+            table: [...state.serviceSelectStep.table, { ...action.payload }],
           },
         };
       }
@@ -97,48 +97,50 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return state;
     }
 
-    case 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE': {
-      const updatedTable = state.thirdStep.table.filter((item) => {
+    case 'UPDATE_SERVICE_SELECT_STEP_TABLE_AFTER_DELETE': {
+      const updatedTable = state.serviceSelectStep.table.filter((item) => {
         return item.id !== action.payload.service.serviceId;
       });
       return {
         ...state,
-        thirdStep: {
-          ...state.thirdStep,
+        serviceSelectStep: {
+          ...state.serviceSelectStep,
           table: updatedTable, // Update the table with the filtered array
         },
       };
     }
 
     case 'UPDATE_ALL_STATE_FROM_DRAFTS': {
-      state.firstStep.aggregator_status = action.payload.isAggregator
+      state.organizationDefineStep.aggregator_status = action.payload.isAggregator
         ? 'isAggregator'
         : action.payload.aggregatorId
         ? 'hasAggregator'
         : 'nothing';
-      state.firstStep.aggregator_value = action.payload.organization.aggregatorId;
-      state.firstStep.legal_person_name = action.payload.organization.legalName;
-      state.firstStep.legal_person_type = action.payload.organization.legalType === 'PUBLIC' ? '1' : '2';
-      state.firstStep.registration_number = action.payload.organization.registerNo;
-      state.firstStep.registration_date = dayjs(action.payload.organization.registerDate).calendar('gregory');
+      state.organizationDefineStep.aggregator_value = action.payload.organization.aggregatorId;
+      state.organizationDefineStep.legal_person_name = action.payload.organization.legalName;
+      state.organizationDefineStep.legal_person_type = action.payload.organization.legalType === 'PUBLIC' ? '1' : '2';
+      state.organizationDefineStep.registration_number = action.payload.organization.registerNo;
+      state.organizationDefineStep.registration_date = dayjs(action.payload.organization.registerDate).calendar(
+        'gregory'
+      );
 
-      state.firstStep.national_id = action.payload.organization.organizationNationalId;
-      state.firstStep.economy_code = action.payload.organization.economicCode;
-      state.firstStep.activity_field = action.payload.organization.activityIndustry;
-      state.firstStep.postal_code = action.payload.organization.postalCode;
-      state.firstStep.phone = action.payload.organization.phone;
-      state.firstStep.last_registration_address = action.payload.organization.registeredAddress;
+      state.organizationDefineStep.national_id = action.payload.organization.organizationNationalId;
+      state.organizationDefineStep.economy_code = action.payload.organization.economicCode;
+      state.organizationDefineStep.activity_field = action.payload.organization.activityIndustry;
+      state.organizationDefineStep.postal_code = action.payload.organization.postalCode;
+      state.organizationDefineStep.phone = action.payload.organization.phone;
+      state.organizationDefineStep.last_registration_address = action.payload.organization.registeredAddress;
       state.organizationId = action.payload.organization.id;
       state.submissionId = action.payload.submissionInfoDto.submissionId;
       state.requestMode = 'registerOrganization';
-      state.firstStepDisabledSubmit = false;
-      state.secondStep.persian_name = action.payload.representativeSet[0]?.nameAndLastName;
-      state.secondStep.mobile_number = action.payload.representativeSet[0]?.mobileNumber;
-      state.secondStep.phone_number = action.payload.representativeSet[0]?.fixedPhoneNumber;
-      state.secondStep.technical_persian_name = action.payload.representativeSet[1]?.nameAndLastName;
-      state.secondStep.technical_mobile_number = action.payload.representativeSet[1]?.mobileNumber;
-      state.secondStep.technical_Phone_number = action.payload.representativeSet[1]?.fixedPhoneNumber;
-      state.thirdStep.table = action.payload.services;
+      state.organizationDefineStepDisabledSubmit = false;
+      state.representativeDefineStep.persian_name = action.payload.representativeSet[0]?.nameAndLastName;
+      state.representativeDefineStep.mobile_number = action.payload.representativeSet[0]?.mobileNumber;
+      state.representativeDefineStep.phone_number = action.payload.representativeSet[0]?.fixedPhoneNumber;
+      state.representativeDefineStep.technical_persian_name = action.payload.representativeSet[1]?.nameAndLastName;
+      state.representativeDefineStep.technical_mobile_number = action.payload.representativeSet[1]?.mobileNumber;
+      state.representativeDefineStep.technical_Phone_number = action.payload.representativeSet[1]?.fixedPhoneNumber;
+      state.serviceSelectStep.table = action.payload.services;
       return;
     }
 
@@ -146,7 +148,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.requestMode = action.payload);
 
     case 'UPDATE_STATUS': {
-      state.firstStep.aggregator_status = action.payload;
+      state.organizationDefineStep.aggregator_status = action.payload;
       return;
     }
 

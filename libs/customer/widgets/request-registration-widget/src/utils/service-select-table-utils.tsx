@@ -1,8 +1,7 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-import * as S from '../components/third-step/third-step.style';
+import * as S from '../components/service-select-step/select-service-step.style';
 import type { ServiceRequest } from '@oxygen/types';
-import Link from 'next/link';
 import { TFunction } from 'i18next';
 import { Modal } from '../types/modal.type';
 type Props = {

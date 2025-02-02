@@ -25,7 +25,7 @@ const Api = {
       params,
     }),
   getUpstreamWithTargets: async (name: string) => client.get<UpstreamWithTargets>(`${portalUrl}/v1/upstreams/${name}`),
-  getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags`),
+  getTags: async () => client.get<Tags>(`${portalUrl}/v1/tags/service`),
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
