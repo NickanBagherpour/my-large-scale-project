@@ -103,5 +103,8 @@ export default {
     eleven_digits_needed: ' 11 رقم نیاز است',
     twelve_digits_needed: ' 12 رقم نیاز است',
     no_numbers_allowed: 'لطفا فقط حرف وارد نمایید',
+    three_characters_needed: 'حداقل 3 کاراکتر نیاز است',
+    seven_digits_needed: 'حداقل 7 رقم نیاز است',
+    only_alphabetic_and_special_chars_allowed: 'فقط حروف و کاراکترها - _ .  مجاز هستند',
   },
 };
