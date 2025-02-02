@@ -2,22 +2,20 @@ import * as S from './clients.style';
 import { GridCard } from '@oxygen/reusable-components';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { ROUTES } from '@oxygen/utils';
-import { Clients } from '../../types';
+import { type Clients } from '../../types';
 import { CLIENTS_PAGE_SIZE } from '../../utils/consts';
 import { Pagination } from '@oxygen/ui-kit';
 
 type Props = {
-  data: Clients;
-  searchTerm: string;
+  clients: Clients;
 };
 
 export default function Clients(props: Props) {
   const {
-    data: { content, totalElements },
-    searchTerm,
+    clients: { content, totalElements },
   } = props;
   const dispatch = useAppDispatch();
-  const { page } = useAppState();
+  const { page, searchTerm } = useAppState();
 
   const changePage = (page: number) => {
     updatePagination(dispatch, page);
@@ -46,6 +44,7 @@ export default function Clients(props: Props) {
         showSizeChanger={false}
         align='center'
         onChange={changePage}
+        hideOnSinglePage
       />
     </>
   );

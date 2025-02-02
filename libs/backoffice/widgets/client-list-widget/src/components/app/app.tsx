@@ -16,7 +16,6 @@ const App = () => {
   const { message, page, sort, status, searchTerm } = useAppState();
   const dispatch = useAppDispatch();
 
-  // TODO: clean this
   const paramsMap: ClientsParams = {
     page: page - 1,
     sort: sort === 'newest' ? 'createDate,DESC' : 'createDate,ASC',
@@ -38,7 +37,7 @@ const App = () => {
       <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle}>
         <Filters />
         <Loading spinning={isFetchingClients}>
-          {totalElements ? <Clients data={clients} searchTerm={searchTerm} /> : <NoResult isLoading={false} />}
+          {totalElements ? <Clients clients={clients} /> : <NoResult isLoading={false} />}
         </Loading>
       </S.ClientsContainer>
     </>
