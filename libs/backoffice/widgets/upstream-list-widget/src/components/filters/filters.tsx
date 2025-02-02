@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { limits, ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
@@ -16,6 +17,8 @@ import {
   useAppState,
 } from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
+import { SearchUpstreamSchema, SearchUpstreamType } from '../../types/search-upstream.schema';
+import { FILTER_FORM_ITEM_NAMES } from '../../utils/consts';
 
 import * as S from './filters.style';
 
@@ -30,6 +33,9 @@ export default function Filters() {
     updateSearchTermAction(dispatch, value.trim());
     updatePagination(dispatch, { page: 1 });
   }, [value]);
+
+  const [form] = Form.useForm<SearchUpstreamType>();
+  const rule = createSchemaFieldRule(SearchUpstreamSchema(t));
 
   const { mutate, status, error } = useCreateUpstreamMutation();
 
@@ -66,14 +72,14 @@ export default function Filters() {
     <>
       <S.Container>
         <S.Actions>
-          <Form layout={'vertical'}>
-            <S.StyledFormItem name={'search_by_name'} label={t('search')}>
+          <Form layout={'vertical'} form={form}>
+            <S.StyledFormItem name={FILTER_FORM_ITEM_NAMES.search_by_name} label={t('search')} rules={[rule]}>
               <S.StyledInput
                 value={value}
                 placeholder={t('search_by_name')}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
-                maxLength={100}
+                maxLength={limits.UPSTREAM_MAX_LENGTH}
               />
             </S.StyledFormItem>
           </Form>
