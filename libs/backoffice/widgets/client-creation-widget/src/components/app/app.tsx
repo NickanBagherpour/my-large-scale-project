@@ -32,7 +32,6 @@ const App: React.FC<AppProps> = (props) => {
     { title: t('progress_bar.first_step'), Content: <FirstStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.third_step'), Content: <ThirdStep setCurrentStep={setCurrentStep} /> },
-    { title: t('progress_bar.fourth_step'), Content: <FourthStep setCurrentStep={setCurrentStep} /> },
   ];
 
   return (

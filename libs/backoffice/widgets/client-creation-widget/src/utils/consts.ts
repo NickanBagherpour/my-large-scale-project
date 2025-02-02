@@ -17,7 +17,7 @@ export const FORM_ITEM = {
   identity_auth: 'identity_auth',
   website_url: 'website_url',
   input_address: 'input_address',
-  return_address: 'return_address',
+  client_return_address: 'return_address',
   aggregator_status: 'aggregator_status',
   aggregator: 'aggregator',
   user_name: 'user_name',
