@@ -5,3 +5,4 @@ export const INITIAL_PAGE = 1;
 export const CONFIRM_MODAL_NAMES = {
   expertDescription: 'expert_description',
 };
+export const ALLOWED_ROLES = ['commercial-banking-admin', 'business-admin'];

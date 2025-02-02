@@ -242,8 +242,6 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
       }
     });
 
-  // .min(11, { message: t('error.min_length') });
-
   return z.object({
     // Name Fields
     // [FORM_ITEM.latin_name_client]: requiredString.superRefine((value, ctx) => {

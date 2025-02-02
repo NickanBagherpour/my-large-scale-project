@@ -3,15 +3,16 @@ import ErrorView from './error-view';
 import { ContentNotFoundImage } from '../../assets';
 
 // type Props = {};
-const ContentNotFoundFallback = () => {
+const AccessDenied = () => {
   const [t] = useTr();
   return (
     <ErrorView
+      errorCode={t('message.code_403')}
       margin={false}
-      title={t('message.content_not_found')}
-      description={t('message.content_not_found_desc')}
+      title={t('message.access_denied')}
+      description={t('message.access_denied_desc')}
       image={<ContentNotFoundImage style={{ marginTop: '5rem' }} />}
     />
   );
 };
-export default ContentNotFoundFallback;
+export default AccessDenied;

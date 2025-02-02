@@ -66,7 +66,7 @@ export type InfoItemType = {
   value: string | ReactNode;
   subValue?: string | ReactNode;
   displayValue?: boolean;
-  type?: 'text' | 'file';
+  type?: 'text' | 'file' | 'divider';
   files?: any;
   fullwidth?: boolean;
 };

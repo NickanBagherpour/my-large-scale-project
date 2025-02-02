@@ -29,3 +29,10 @@ export type FetchParamsType = {
   filters?: FiltersType;
   pagination: PaginationType;
 };
+
+export type InfoBoxType = {
+  key: string;
+  value: any;
+  type?: 'text' | 'file' | 'divider' | undefined;
+  fullwidth?: boolean;
+};

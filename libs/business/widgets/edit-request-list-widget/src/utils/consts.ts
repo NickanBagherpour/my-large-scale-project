@@ -9,3 +9,4 @@ export enum BusinessUserRole {
   COMMERCIAL_BANKING_ADMIN = 'commercial-banking-admin',
   BUSINESS_ADMIN = 'business-admin',
 }
+export const ALLOWED_ROLES = ['commercial-banking-admin', 'business-admin'];

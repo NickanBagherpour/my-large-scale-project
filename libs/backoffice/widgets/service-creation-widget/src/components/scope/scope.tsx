@@ -3,35 +3,34 @@ import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
 import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
-import { getValueOrDash } from '@oxygen/utils';
+import { getValueOrDash, RQKEYS } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
 import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToBaam } from '../../services';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
+import { useQueryClient } from '@tanstack/react-query';
+
+const { SERVICE_CREATION, SCOPE } = RQKEYS.BACKOFFICE;
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const [selectedScope, setSelectedScope] = useState<ScopeType | null>(null);
-  const { data: scope, isFetching: isFetchingServiceScope } = useGetServiceScope();
+  const { data: selectedScope, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
   const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToBaam();
   const [isConfirmModalOpen, setIsCofirmModalOpen] = useState(false);
   const { serviceName } = useAppState();
-  const isInSSO = scope?.isServiceInSso;
-
-  useEffect(() => {
-    if (scope) setSelectedScope(scope);
-  }, [scope]);
+  const isInSSO = selectedScope?.isServiceInSso;
+  const queryClient = useQueryClient();
 
   const chooseScope = async (scope: ScopeType) => {
     assignScopeToService({ serviceName, scopeName: scope.name });
   };
 
   const removeSelectedScope = () => {
-    setSelectedScope(null);
+    queryClient.setQueryData([SCOPE, SERVICE_CREATION.SCOPE, serviceName], () => null);
   };
 
   const onReturn = () => {
