@@ -1,19 +1,17 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import Mockify from '@oxygen/mockify';
-
 const Api = {
-  getGrantType: async () => {
-    return Mockify.getGrantTyp();
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+  postClient: async (params) => {
+    return client.post<any>(`${portalUrl}/v1/clients`, params);
   },
   getTagsInfo: async () => {
-    return Mockify.TagInfo();
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+    return client.get<any>(`${portalUrl}/v1/tags/client`);
   },
   getClientInfo: async (reqId) => {
-    return Mockify.getClientInfo(reqId);
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+    return client.get<any>(`${portalUrl}/v1/clients/${reqId}`);
+  },
+  getClientType: async () => {
+    return client.get<any>(`${portalUrl}/v1/enums/client-types`);
   },
 };
 export default Api;
