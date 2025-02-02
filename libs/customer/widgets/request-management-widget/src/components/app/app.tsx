@@ -12,7 +12,7 @@ import {
   useGetRequestsDraftsQuery,
   useDeleteSelectedRequestsDraftsMutationQuery,
 } from '../../services';
-import { Container, Loading, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Loading, SearchItemsContainer } from '@oxygen/ui-kit';
 import { AdvanceGridCard, NoResult } from '@oxygen/reusable-components';
 import DraftCard from '../draft-card/draft-card';
 import RemoveModal from '../modal-confirm-remove/modal-confirm-remove';
@@ -33,6 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
   const [localDrafts, setLocalDrafts] = useState(drafts); // Local state for drafts
   const [showLoadMore, setShowLoadMore] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const DRAFT_LIST_LIMIIT = 4;
 
   const [modals, setModals] = useState<Modal>({
@@ -48,6 +49,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const [t] = useTr();
   const router = useRouter();
+
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+  };
 
   const requestsSubTitle = requests?.length ? `(${requests?.length ?? 0})` : '';
   const handleClick = (submissionId: number) => {
@@ -70,12 +75,12 @@ const App: React.FC<AppProps> = (props) => {
         onSuccess: (data) => {
           console.log('deleted selected  request :', data);
           let filteredDrafts = localDrafts;
-          filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId != submissionId);
+          filteredDrafts = filteredDrafts.filter((draft) => draft.submissionId !== submissionId);
           setLocalDrafts(filteredDrafts);
           toggleModal('removeRequest');
         },
         onError: (error) => {
-          console.error('request registration first step  failed:', error);
+          console.error('request registration organization define step  failed:', error);
         },
       });
     }
@@ -126,7 +131,7 @@ const App: React.FC<AppProps> = (props) => {
 
       <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
         <Loading spinning={isRequestsFetching}>
-          <Filters />
+          <Filters onSearchChange={handleSearchChange} />
           {requests?.length ? (
             <SearchItemsContainer $columnNumber='2'>
               {requests.map((request: any, index: number) => (
@@ -135,6 +140,7 @@ const App: React.FC<AppProps> = (props) => {
                   btnHandleClick={(submissionId) => handleClick(submissionId)}
                   btnLoading={isRequestsFetching}
                   data={request}
+                  wordToHighlight={searchTerm}
                 />
               ))}
             </SearchItemsContainer>

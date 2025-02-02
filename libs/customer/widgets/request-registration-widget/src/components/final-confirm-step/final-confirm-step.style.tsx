@@ -10,7 +10,7 @@ export const TitleTxt = styled.p`
   margin: 3.2rem 0 1.6rem 0;
 `;
 
-export const FourthStepContainer = styled.div`
+export const FinalConfirmStepContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -35,6 +35,7 @@ export const FourthStepContainer = styled.div`
 
   & .ant-card {
     background-color: ${(p) => p.theme.background._50};
+    border: 1px solid ${(p) => p.theme.border._100};
   }
 
   & tbody tr.even-row,
