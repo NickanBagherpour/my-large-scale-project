@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { FormFieldsType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
-
-export type FiltersType = FormFieldsType;
 
 export type PaginationType = {
   page: number;
@@ -16,6 +13,7 @@ export type WidgetStateType = {
   message: Nullable<MessageType>;
   searchField: Nullable<string>;
   sort: Nullable<string>;
+  errorMessage: Nullable<MessageType>;
 };
 
 export type WidgetActionType =
@@ -30,6 +28,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: Partial<PaginationType>;
+    }
+  | {
+      type: 'UPDATE_ERROR_MESSAGE';
+      payload: Nullable<MessageType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
