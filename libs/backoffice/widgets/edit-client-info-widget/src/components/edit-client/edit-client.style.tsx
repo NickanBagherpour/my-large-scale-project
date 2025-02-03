@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 import { Dropdown } from '@oxygen/ui-kit';
+import { Form as AntForm } from 'antd';
+
+export const Form = styled(AntForm)`
+  border: 1px solid ${(p) => p.theme.border.main};
+  border-radius: 0.8rem;
+  padding: 1.6rem;
+`;
 
 export const EditClientContainer = styled.div`
   height: 100%;
   display: flex;
+  width: 100%;
   flex-direction: column;
 
   .form-wrapper {
@@ -38,7 +46,7 @@ export const EditClientContainer = styled.div`
 export const TagPicker = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 3.2rem 1.6rem 3.2rem 0;
+  margin: 1.6rem 1.6rem 1.6rem 0;
 
   ${respondTo.down('xs')} {
     flex-direction: column;
