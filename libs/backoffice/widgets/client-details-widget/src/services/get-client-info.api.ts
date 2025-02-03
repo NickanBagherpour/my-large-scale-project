@@ -7,7 +7,7 @@ import Api from './api';
 export const useGetClientInfoQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_PROFILE, RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
     queryFn: withErrorHandling(() => Api.getClientInfoData(), dispatch),
   });
 };

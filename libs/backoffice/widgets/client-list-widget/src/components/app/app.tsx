@@ -1,49 +1,43 @@
 'use client';
 
-import { useAppState } from '../../context';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useGetClientsQuery } from '../../services';
 import Filters from '../filters/filters';
 import Clients from '../clients/clients';
 import * as S from './app.style';
-import { Container, Loading } from '@oxygen/ui-kit';
+import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { NoResult } from '@oxygen/reusable-components';
-import DraftCard from '../draft-card/draft-card';
-import { useGetDraftsQuery } from '../../services/get-drafts.api';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
+import type { ClientsParams } from '../../types';
+import { CLIENTS_PAGE_SIZE } from '../../utils/consts';
+import Drafts from '../drafts/drafts';
 
 const App = () => {
-  const { message, ...fetchState } = useAppState();
-  const { data: clients, isFetching: isClientsFetching } = useGetClientsQuery(fetchState);
-  const { data: drafts } = useGetDraftsQuery();
+  const { message, page, sort, status, searchTerm } = useAppState();
+  const dispatch = useAppDispatch();
+
+  const paramsMap: ClientsParams = {
+    page: page - 1,
+    sort: sort === 'newest' ? 'createDate,DESC' : 'createDate,ASC',
+    searchParam: searchTerm,
+    size: CLIENTS_PAGE_SIZE,
+    isActive: status === 'active' ? true : status === 'unActive' ? false : null,
+  };
+
+  const { data: clients, isFetching: isFetchingClients } = useGetClientsQuery(paramsMap);
   const [t] = useTr();
-  const hasDrafts = !!drafts?.length;
-  const clientsSubTitle = clients?.total ? `(${clients?.total ?? 0})` : '';
+
+  const totalElements = clients?.totalElements;
+  const clientsSubTitle = totalElements ? `(${totalElements ?? 0})` : '';
 
   return (
     <>
-      {hasDrafts && (
-        <Container title={t('draft')} fillContainer={false}>
-          <S.Grid>
-            {drafts?.map((item) => (
-              <DraftCard key={item.id} {...item} />
-            ))}
-          </S.Grid>
-        </Container>
-      )}
-
+      <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
+      <Drafts />
       <S.ClientsContainer title={t('widget_name')} subtitle={clientsSubTitle}>
         <Filters />
-        <Loading spinning={isClientsFetching}>
-          {clients?.list.length ? (
-            <Clients
-              data={clients.list}
-              total={clients.total}
-              searchTerm={fetchState.searchTerm}
-              isLoading={isClientsFetching}
-            />
-          ) : (
-            <NoResult isLoading={false} />
-          )}
+        <Loading spinning={isFetchingClients}>
+          {totalElements ? <Clients clients={clients} /> : <NoResult isLoading={false} />}
         </Loading>
       </S.ClientsContainer>
     </>
