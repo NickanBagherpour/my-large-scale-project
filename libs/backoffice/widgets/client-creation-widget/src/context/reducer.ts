@@ -30,6 +30,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'ADD_CLIENT_NAME': {
+      state.clientName = action.payload;
+      return;
+    }
+
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload };
       return;

@@ -46,8 +46,12 @@ export type WidgetStateType = {
 
 export type WidgetActionType =
   | {
+      type: 'ADD_CLIENT_NAME';
+      payload: WidgetStateType['clientName'];
+    }
+  | {
       type: 'UPDATE_FIRST_STEP_FORM';
-      payload: Partial<FiltersType>;
+      payload: WidgetStateType['firstStep'];
     }
   | {
       type: 'UPDATE_SECOND_STEP_TABLE';

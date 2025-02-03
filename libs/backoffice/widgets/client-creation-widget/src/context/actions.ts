@@ -1,11 +1,15 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, WidgetActionType, WidgetDispatchType } from './types';
+import { FiltersType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: Partial<FiltersType>) {
+export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: WidgetStateType['firstStep']) {
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
 }
+export function addClientName(dispatch: WidgetDispatchType, payload: WidgetStateType['clientName']) {
+  dispatch({ type: 'ADD_CLIENT_NAME', payload });
+}
+
 export function updateSecondStepTableAction(dispatch: WidgetDispatchType, secondStepTable: Partial<FiltersType>) {
   dispatch({ type: 'UPDATE_SECOND_STEP_TABLE', payload: secondStepTable });
 }
