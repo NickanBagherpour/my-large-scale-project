@@ -9,23 +9,15 @@ export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
   grant_tag: 'grant_tag',
-  add_tag: 'add_tag',
-  latin_name_client: 'latin_name_client',
-  persian_name_client: 'persian_name_client',
-  client_type: 'client_type',
-  client_id: 'client_id',
-  identity_auth: 'identity_auth',
-  website_url: 'website_url',
-  input_address: 'input_address',
-  client_return_address: 'return_address',
-  aggregator_status: 'aggregator_status',
-  aggregator: 'aggregator',
-  user_name: 'user_name',
-  national_code: 'national_code',
-  organization_name: 'organization_name',
-  mobile_number: 'mobile_number',
-  telephone: 'telephone',
-  email: 'email',
+  TAG_IDS: 'tagIds',
+  CLIENT_ENGLISH_NAME: 'clientEnglishName',
+  CLIENT_PERSIAN_NAME: 'clientPersianName',
+  CLIENT_TYPE_CODE: 'clientTypeCode',
+  CLIENT_KEY: 'clientKey',
+  AUTHORIZATION_KEY: 'authorizationKey',
+  WEBSITE_URL: 'websiteUrl',
+  INBOUND_ADDRESS: 'inboundAddress',
+  REDIRECT_URL: 'redirectUrl',
 };
 
 export const dropdownOptions: MenuItemType[] = [

@@ -39,7 +39,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { data: orgInfo, isFetching: orgInfoFetching } = useOrganizationInfoQuery({ orgNationalId: '32432423878' });
 
   const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
-  const [nameTags, setNameTags] = useState(state.firstStep.add_tag);
+  const [nameTags, setNameTags] = useState(state.firstStep.tagIds);
   const rule = createSchemaFieldRule(createFormSchema(t));
   //TODO:HANDLE THIS BASE ON FORM INPUTS
   const isBtnDisabled = true;
@@ -98,17 +98,17 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <S.TitleTxt>{t('technical_information')}</S.TitleTxt>
         <S.Card>
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM.latin_name_client} label={t('form.latin_name_client')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.latin_name_client')} rules={[rule]}>
               <Input size='large' maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
 
-            <Form.Item name={FORM_ITEM.persian_name_client} label={t('form.persian_name_client')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.client_id} label={t('form.client_id')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.CLIENT_KEY} label={t('form.client_id')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.client_type} label={t('form.client_type')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.CLIENT_TYPE_CODE} label={t('form.client_type')} rules={[rule]}>
               <Select
                 size={'large'}
                 options={clientTypes}
@@ -116,16 +116,16 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 placeholder={`${t('placeholder.Choose')}`}
               ></Select>
             </Form.Item>
-            <Form.Item name={FORM_ITEM.identity_auth} label={t('form.identity_auth')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.AUTHORIZATION_KEY} label={t('form.identity_auth')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.website_url} label={t('form.website_url')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.WEBSITE_URL} label={t('form.website_url')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.input_address} label={t('form.input_address')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.INBOUND_ADDRESS} label={t('form.input_address')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
             </Form.Item>
-            <Form.Item name={FORM_ITEM.client_return_address} label={t('form.client_return_address')} rules={[rule]}>
+            <Form.Item name={FORM_ITEM.REDIRECT_URL} label={t('form.client_return_address')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
             </Form.Item>
           </SearchItemsContainer>
@@ -160,7 +160,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             </S.TagPicker>
 
             <S.TagPicker>
-              <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.add_tag}>
+              <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.TAG_IDS}>
                 <S.Select
                   multiSelect={true}
                   menu={NameTagData}

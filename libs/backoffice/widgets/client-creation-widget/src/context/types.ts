@@ -17,26 +17,21 @@ export type Tag = {
 
 export type FirstStepType = {
   grant_tag?: any;
-  add_tag?: any;
-  latin_name_client?: string;
-  persian_name_client?: string;
-  client_type?: string;
-  client_id?: string;
-  identity_auth?: string;
-  website_url?: string;
-  input_address?: string;
-  return_address?: string;
-  aggregator_status?: boolean;
-  aggregator?: string;
-  user_uame?: string;
-  national_code?: string;
-  organization_name?: string;
-  mobile_number?: string;
-  telephone?: string;
-  email?: string;
+  tagIds?: any;
+  ssoClientId?: string;
+  clientEnglishName?: string;
+  clientPersianName?: string;
+  clientTypeCode?: number;
+  clientKey?: string;
+  authorizationKey?: string;
+  websiteUrl?: string;
+  inboundAddress?: string;
+  redirectUrl?: string;
+  organizationNationalId?: string;
 };
 
 export type WidgetStateType = {
+  clientName?: string;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
