@@ -24,8 +24,8 @@ export default function Filters() {
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
 
   useBounce(() => {
-    updateSearchTerm(dispatch, value);
-  }, [value]);
+    updateSearchTerm(dispatch, value.trim());
+  }, [value.trim()]);
 
   return (
     <>

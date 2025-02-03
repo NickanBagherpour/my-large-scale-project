@@ -13,14 +13,14 @@ export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: Widge
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType) {
-  dispatch({ type: 'UPDATE_PAGINATION' });
+export function updatePagination(dispatch: WidgetDispatchType, page: WidgetStateType['page']) {
+  dispatch({ type: 'UPDATE_PAGINATION', payload: page });
 }
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
-export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
+export function resetMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }
