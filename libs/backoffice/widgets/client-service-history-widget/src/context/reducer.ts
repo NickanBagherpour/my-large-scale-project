@@ -4,16 +4,15 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   table: {
     pagination: {
-      rowsPerPage: INITIAL_ROW_PER_PAGE,
+      limit: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
   message: null,
-  applicantId: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  // console.log('reducer', action.type, state, action);
+  //console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
@@ -22,11 +21,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_APPLICANT_ID': {
-      state.applicantId = action.payload;
       return;
     }
 

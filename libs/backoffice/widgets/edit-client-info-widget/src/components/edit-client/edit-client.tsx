@@ -74,13 +74,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     router.back();
   };
 
+  console.log(userData);
+
   const onFinish = async (values) => {
     mutate(prepareParams(values), {
       onSuccess: async () => {
-        notification.success({
-          message: t('message.success_alert', { element: userData?.latinNameClient ?? userData?.persianNameClient }),
-        });
-
         try {
           await queryClient.invalidateQueries({
             queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
@@ -90,13 +88,25 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             queryKey: [RQKEYS.BACKOFFICE.CLIENT_PROFILE, RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
           });
 
+          notification.success({
+            message: t('message.success_alert', {
+              element: userData?.clientPersianName ?? userData?.clientEnglishName,
+            }),
+          });
+
+          await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
+
           router.back();
         } catch (error) {
           //
         }
       },
       onError: (error) => {
-        //
+        error.message || t('unexpected_error');
+        const errorMessage = error.message || t('unexpected_error');
+        notification.error({
+          message: t(errorMessage),
+        });
       },
     });
   };
