@@ -26,6 +26,7 @@ export default {
   company_has_aggregator: 'شرکت اگریگیتور دارد',
   company_is_not_aggregator: 'شرکت اگریگیتور نیست',
   company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
+  search_organization_id_placeholder: 'جستجو براساس شناسه سازمان',
 
   step_two: {
     client_services: 'سرویس‌های کلاینت',

@@ -8,8 +8,9 @@ import { OrganizationInfoParamsType } from '../../types/first-step/organization-
 export const useOrganizationInfoQuery = (params: OrganizationInfoParamsType) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.REUSABLE_COMPONENTS.CLIENT_SERVICES, RQKEYS.BACKOFFICE.CLIENT_CREATION.ORGANIZATION_INFO, params],
+    queryKey: [RQKEYS.REUSABLE_COMPONENTS.CLIENT_SERVICES, RQKEYS.BACKOFFICE.CLIENT_CREATION.ORGANIZATION_INFO],
     queryFn: withErrorHandling(() => Api.getOrganizationInfo(params), dispatch),
+    enabled: false,
     networkMode: 'offlineFirst',
   });
 };

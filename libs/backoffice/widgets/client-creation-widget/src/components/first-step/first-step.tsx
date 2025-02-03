@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Card, Form } from 'antd';
+import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Chip, InfoBox, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
+import { Button, Chip, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
+import { FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
 
 import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
 import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
 import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
 
-import * as S from './first-step.style';
 import { getValueOrDash } from '@oxygen/utils';
 import { useOrganizationInfoQuery } from '../../services/first-step/get-organization-info';
 import { useClientTypesQuery } from '../../services/first-step/get-select-data';
+
+import * as S from './first-step.style';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -33,16 +34,22 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const router = useRouter();
   const [form] = Form.useForm();
 
+  const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
+  const [nameTags, setNameTags] = useState(state.firstStep.tagIds);
+  const [searchValue, setSearchValue] = useState({ orgNationalId: undefined });
+
   const { data: grantTagData, isFetching: grantTagFetching } = useGetGrantTagDataQuery();
   const { data: NameTagData, isFetching: nameTagFetching } = useGetnameTagDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useClientTypesQuery();
-  const { data: orgInfo, isFetching: orgInfoFetching } = useOrganizationInfoQuery({ orgNationalId: '32432423878' });
+  const { data: orgInfo, isFetching: orgInfoFetching, refetch } = useOrganizationInfoQuery(searchValue);
 
-  const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
-  const [nameTags, setNameTags] = useState(state.firstStep.tagIds);
   const rule = createSchemaFieldRule(createFormSchema(t));
+
+  const isFormDisabeled = !orgInfo;
+
   //TODO:HANDLE THIS BASE ON FORM INPUTS
-  const isBtnDisabled = true;
+  const isImportClient = false;
+  const isBtnDisabled = false;
   const handleGrantTagChange = (values) => {
     setGrantTags(values);
   };
@@ -66,17 +73,25 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleReturn = () => {
     router.back();
   };
+  const handleChange = (e) => {
+    setSearchValue({ orgNationalId: e.target.value });
+  };
+  const handleSearch = () => {
+    refetch();
+  };
   useEffect(() => {
     form.setFieldValue('grant_tag', grantTags);
     form.setFieldValue('add_tag', nameTags);
   }, [grantTags, nameTags]);
 
   const aggregatorStatus = () => {
-    return orgInfo?.isAggregator
-      ? t('company_is_aggregator')
-      : orgInfo?.aggregatorId
-      ? `${t('company_has_aggregator')} - ${orgInfo?.aggregatorName}`
-      : t('company_is_not_aggregator');
+    return orgInfo
+      ? orgInfo?.isAggregator
+        ? t('company_is_aggregator')
+        : orgInfo?.aggregatorId
+        ? `${t('company_has_aggregator')} - ${orgInfo?.aggregatorName}`
+        : t('company_is_not_aggregator')
+      : null;
   };
 
   const infoBoxData = [
@@ -92,24 +107,45 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     <S.FirstStepContainer>
       <S.TitleTxt>{t('organization_information')}</S.TitleTxt>
       <S.Card>
+        <S.SearchContainer>
+          <Input
+            size='large'
+            prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
+            placeholder={t('search_organization_id_placeholder')}
+            onChange={(e) => handleChange(e)}
+          />
+
+          <Button onClick={handleSearch}>
+            {t('button.search')}
+            <i className={'icon-search-normal'} />
+          </Button>
+        </S.SearchContainer>
         <InfoBox data={infoBoxData} margin={0} loading={orgInfoFetching} />
       </S.Card>
-      <Form style={{ flexGrow: 1 }} layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
+      <Form
+        style={{ flexGrow: 1 }}
+        layout={'vertical'}
+        onFinish={onFinish}
+        form={form}
+        initialValues={state.firstStep}
+        disabled={isFormDisabeled}
+      >
         <S.TitleTxt>{t('technical_information')}</S.TitleTxt>
         <S.Card>
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input size='large' maxLength={MAX_INPUTE_LENGTH} />
+              <Input disabled={isImportClient} size='large' maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
 
             <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.CLIENT_KEY} label={t('form.client_id')} rules={[rule]}>
-              <Input maxLength={MAX_INPUTE_LENGTH} />
+              <Input disabled={isImportClient} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.CLIENT_TYPE_CODE} label={t('form.client_type')} rules={[rule]}>
               <Select
+                disabled={isFormDisabeled}
                 size={'large'}
                 options={clientTypes}
                 loading={clientTypesFetching}
@@ -117,7 +153,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               ></Select>
             </Form.Item>
             <Form.Item name={FORM_ITEM.AUTHORIZATION_KEY} label={t('form.identity_auth')} rules={[rule]}>
-              <Input maxLength={MAX_INPUTE_LENGTH} />
+              <Input disabled={isImportClient} maxLength={MAX_INPUTE_LENGTH} />
             </Form.Item>
             <Form.Item name={FORM_ITEM.WEBSITE_URL} label={t('form.website_url')} rules={[rule]}>
               <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
@@ -134,6 +170,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <S.TagPicker>
               <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
                 <S.Select
+                  disabled={isFormDisabeled}
                   multiSelect={true}
                   // defaultValue={grantTags}
                   menu={grantTagData}
@@ -162,6 +199,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <S.TagPicker>
               <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.TAG_IDS}>
                 <S.Select
+                  disabled={isFormDisabeled}
                   multiSelect={true}
                   menu={NameTagData}
                   onChange={handleNameTagChange}

@@ -16,5 +16,5 @@ export type RepresentativeType = {
 };
 
 export type OrganizationInfoParamsType = {
-  orgNationalId: string;
+  orgNationalId?: string;
 };

@@ -85,3 +85,8 @@ export const Card = styled(AntCatd)`
 export const Divider = styled(KitDivider)`
   margin: 3.6rem 0;
 `;
+export const SearchContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+`;
