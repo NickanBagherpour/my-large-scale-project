@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Loading } from '@oxygen/ui-kit';
+import { getWidgetTitle } from '@oxygen/utils';
 
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
@@ -23,7 +24,13 @@ const App = () => {
   const searchParams = useSearchParams();
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
   // const title = upstreamName ? `${t('widget_name_details')} ${t(upstreamName)}` : t('widget_name_creation');
-  const title = upstreamName ? upstreamName : '';
+  // const title = upstreamName ? upstreamName : '';
+
+  const title = getWidgetTitle({
+    widgetName: t('widget_name_details'),
+    widgetNamePrefix: t('button.detail'),
+    englishName: upstreamName,
+  });
 
   const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
 

@@ -1,4 +1,4 @@
-import { LocalStorageKey } from '@oxygen/types';
+import { LocalStorageKey, Nullable } from '@oxygen/types';
 import { storage } from './storage';
 import axios, { type AxiosError } from 'axios';
 
@@ -273,4 +273,20 @@ export function normalizePhoneNumber(phone) {
 
 export function isAxiosError(error: any): error is AxiosError {
   return axios.isAxiosError(error);
+}
+
+export function getWidgetTitle(props: {
+  widgetName: string;
+  widgetNamePrefix?: string;
+  englishName?: Nullable<string>;
+  persianName?: Nullable<string>;
+}): string {
+  const { widgetName, widgetNamePrefix, englishName, persianName } = props;
+
+  const name = englishName || persianName;
+  if (name) {
+    return `${widgetNamePrefix} ${name}`;
+  } else {
+    return widgetName;
+  }
 }
