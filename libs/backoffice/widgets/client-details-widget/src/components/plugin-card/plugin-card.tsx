@@ -3,27 +3,28 @@ import * as S from './plugin-card.style';
 import { useState } from 'react';
 import LimitationsModal from '../limitations-modal/limitations-modal';
 import { useToggle } from '@oxygen/hooks';
+import { PluginConfig } from '../../types/plugins.type';
 
 type Props = {
-  idx: number;
-  name: string;
-  hasLimitations: boolean;
+  plugin: PluginConfig;
 };
 
 export default function PluginCard(props: Props) {
-  const { name, idx, hasLimitations } = props;
-  const [isChecked, setIsChecked] = useState(false);
+  const {
+    plugin: { enabled, name },
+  } = props;
+  const [isChecked, setIsChecked] = useState(enabled);
   const [isModalOpen, toggleModalOpen] = useToggle(false);
 
   return (
     <>
-      <S.Card key={idx} isChecked={isChecked}>
+      <S.Card isChecked={isChecked}>
         <S.CardHeader>
           <S.CardName>{name}</S.CardName>
           <Switch checked={isChecked} onChange={(e) => setIsChecked(e)} />
         </S.CardHeader>
 
-        {hasLimitations && (
+        {enabled && (
           <S.SettingBtn onClick={toggleModalOpen} disabled={!isChecked} color='primary' variant='link'>
             <S.Icon className='icon-setting' />
           </S.SettingBtn>

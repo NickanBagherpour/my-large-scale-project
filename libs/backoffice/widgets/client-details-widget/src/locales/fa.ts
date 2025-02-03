@@ -25,7 +25,7 @@ export default {
   email: 'ایمیل',
   app_plugins_for_each_service: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
   add_limits_for_services: 'تنظیم محدودیت فراخوانی برای همه سرویس‌ها',
-  search_by_service_name: 'جستجو براساس نام سرویس',
+  search_by_plugin_name: 'جستجو بر اساس نام پلاگین',
   version: 'نسخه',
   scope: 'اسکوپ',
   upstream: 'آپ‌استریم',
@@ -73,4 +73,6 @@ export default {
   upstream_details: 'Upstream',
   descriptions: 'توضیحات',
   index: 'ردیف',
+  client_plugin: 'پلاگین‌ کلاینت',
+  client_services_plugin: 'پلاگین‌ سرویس‌های کلاینت',
 };

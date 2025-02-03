@@ -91,17 +91,3 @@ export const Cards = styled.div`
     flex-direction: column;
   }
 `;
-
-export const PlusIcon = styled.i`
-  font-size: 2.4rem;
-`;
-
-export const Divider = styled(KitDivider)`
-  height: 2.6rem;
-  border-color: ${(p) => p.theme.border._300};
-  margin: 0;
-
-  ${respondTo.down('lg')} {
-    display: none;
-  }
-`;
