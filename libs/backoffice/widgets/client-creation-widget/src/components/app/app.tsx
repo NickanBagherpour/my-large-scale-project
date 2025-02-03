@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 
 import { Nullable, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
@@ -9,7 +9,7 @@ import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import FirstStep from '../first-step/first-step';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { addClientName, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -24,6 +24,10 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
 
   const clientName: Nullable<string> = searchParams.get('client-name');
+  useEffect(() => {
+    if (!clientName) notFound();
+    else addClientName(dispatch, clientName);
+  }, [dispatch, clientName]);
 
   const [currentStep, setCurrentStep] = useState(0);
 
