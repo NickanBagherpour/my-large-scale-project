@@ -27,9 +27,8 @@ const App = () => {
   // const title = upstreamName ? upstreamName : '';
 
   const title = getWidgetTitle({
-    widgetName: t('widget_name_details'),
-    widgetNamePrefix: t('button.detail'),
-    englishName: upstreamName,
+    defaultTitle: t('widget_name_details'),
+    secondaryTitle: upstreamName,
   });
 
   const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);

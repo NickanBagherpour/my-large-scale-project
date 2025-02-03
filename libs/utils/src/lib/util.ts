@@ -276,17 +276,16 @@ export function isAxiosError(error: any): error is AxiosError {
 }
 
 export function getWidgetTitle(props: {
-  widgetName: string;
-  widgetNamePrefix?: string;
-  englishName?: Nullable<string>;
-  persianName?: Nullable<string>;
+  defaultTitle: string;
+  primaryTitle?: Nullable<string>; //persian
+  secondaryTitle?: Nullable<string>; //english
 }): string {
-  const { widgetName, widgetNamePrefix, englishName, persianName } = props;
+  const { defaultTitle, primaryTitle, secondaryTitle } = props;
 
-  const name = englishName || persianName;
+  const name = primaryTitle || secondaryTitle;
   if (name) {
-    return `${widgetNamePrefix} ${name}`;
+    return name;
   } else {
-    return widgetName;
+    return defaultTitle;
   }
 }
