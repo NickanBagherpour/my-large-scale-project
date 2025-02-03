@@ -76,7 +76,7 @@ export default {
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
     active_servers_count: '{{count}} سرور فعال ',
-    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    search_by_name_and_scope: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
     discription: 'توضیحات:',
     advanced_grid_card_step_two:
       ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
