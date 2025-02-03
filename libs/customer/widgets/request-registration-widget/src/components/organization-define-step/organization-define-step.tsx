@@ -14,10 +14,14 @@ import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
 import {
   FORM_ITEM,
   MAX_INPUTE_LENGTH,
+  MAX_LEGAL_PERSON_NAME_LENGTH,
+  MIN_LEGAL_PERSON_NAME_LENGTH,
+  MAX_REGISTRATION_NUMBER_LENGTH,
   MAX_POSTAL_CODE_NUMBER_LENGTH,
   MAX_NATIONAL_ID_NUMBER_LENGTH,
   MAX_ECONOMY_CODE_NUMBER_LENGTH,
   MAX_MOBILE_NUMBER_LENGTH,
+  MAX_LAST_REGISTRATION_ADDRESS_LENGTH,
   selectLegalTypeOptions,
 } from '../../utils/consts';
 import { WidgetStateType } from '../../context/types';
@@ -383,7 +387,8 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   <Input
                     size='large'
                     placeholder={`${t('placeholder.legal_person_name')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_LEGAL_PERSON_NAME_LENGTH}
+                    minLength={MIN_LEGAL_PERSON_NAME_LENGTH}
                   />
                 </Form.Item>
 
@@ -391,7 +396,6 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   <Select
                     size={'large'}
                     options={selectLegalTypeOptions}
-                    // loading={selectFetching}
                     placeholder={`${t('placeholder.legal_person_type')}`}
                   ></Select>
                 </Form.Item>
@@ -399,7 +403,7 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                 <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
                   <Input
                     placeholder={`${t('placeholder.registration_number')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_REGISTRATION_NUMBER_LENGTH}
                     allow={'number'}
                   />
                 </Form.Item>
@@ -436,7 +440,7 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
                   <Input
-                    placeholder={`${t('placeholder.phone')}`}
+                    placeholder={`${t('placeholder.phone')} (0210000000)`}
                     maxLength={MAX_MOBILE_NUMBER_LENGTH}
                     allow={'number'}
                   />
@@ -447,7 +451,10 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   label={t('form.last_registration_address')}
                   rules={[rule]}
                 >
-                  <Input placeholder={`${t('placeholder.last_registration_address')}`} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    placeholder={`${t('placeholder.last_registration_address')}`}
+                    maxLength={MAX_LAST_REGISTRATION_ADDRESS_LENGTH}
+                  />
                 </Form.Item>
               </SearchItemsContainer>
             </Form>
