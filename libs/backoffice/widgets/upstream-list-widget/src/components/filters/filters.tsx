@@ -17,7 +17,7 @@ import {
   useAppState,
 } from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
-import { SearchUpstreamSchema, SearchUpstreamType } from '../../types/search-upstream.schema';
+import { SearchUpstreamSchema, SearchUpstreamType } from '../../types';
 import { FILTER_FORM_ITEM_NAMES } from '../../utils/consts';
 
 import * as S from './filters.style';
@@ -26,6 +26,7 @@ export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const state = useAppState();
+  const errorMessage = state.errorMessage?.description;
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function Filters() {
   const [form] = Form.useForm<SearchUpstreamType>();
   const rule = createSchemaFieldRule(SearchUpstreamSchema(t));
 
-  const { mutate, status, error } = useCreateUpstreamMutation();
+  const { mutate, status } = useCreateUpstreamMutation();
 
   const handleCreateUpstream = async (values) => {
     try {
@@ -66,8 +67,6 @@ export default function Filters() {
       // console.error('error:', error);
     }
   };
-  // console.log('description:',t(state.message?.description));
-  // console.log('title:',t(state.message?.title));
   return (
     <>
       <S.Container>
@@ -95,7 +94,7 @@ export default function Filters() {
           setOpen={setOpenModal}
           onConfirm={handleCreateUpstream}
           status={status}
-          error={error}
+          errorMessage={errorMessage}
         />
       )}
     </>
