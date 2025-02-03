@@ -33,7 +33,7 @@ const App = () => {
   const { data: drafts } = useGetDraftsQuery();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const hasDrafts = !!drafts?.length;
+  const hasDrafts = false; // !!drafts?.length;
   const clientsSubTitle = services?.totalElements ? `(${services?.totalElements ?? 0})` : '';
   const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
   const [openStatusModal, setOpenStatusModal] = useState(false);
@@ -86,7 +86,7 @@ const App = () => {
   // const handleDeleteCancel = () => {
   //   setOpenDeleteModal(false);
   // };
-  const draftList = useMemo(() => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIT) : drafts), [showLoadMore, drafts]);
+  // const draftList = useMemo(() => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIT) : drafts), [showLoadMore, drafts]);
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
@@ -138,7 +138,7 @@ const App = () => {
           </S.ModalMessage>
         </Modal>
       )} */}
-      {hasDrafts && (
+      {/* {hasDrafts && (
         <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
             {draftList?.map((item) => (
@@ -164,7 +164,7 @@ const App = () => {
             </S.Button>
           )}
         </S.DraftsContainer>
-      )}
+      )} */}
 
       <S.ServicesContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>
         <Filters />
