@@ -2,8 +2,8 @@ export default {
   create_new_service: 'ایجاد سرویس جدید',
   general_info: 'اطلاعات کلی',
   scope: 'اسکوپ',
-  english_name: 'نام لاتین',
-  enter_english_name: 'نام لاتین سرویس را وارد نمایید',
+  english_name: 'نام انگلیسی',
+  enter_english_name: 'نام انگلیسی سرویس را وارد نمایید',
   persian_name: 'نام فارسی',
   enter_persian_name: 'نام فارسی سرویس را وارد نمایید',
   access: 'دسترسی',
@@ -35,7 +35,7 @@ export default {
   search: 'جستجو',
   add_tags: ' اضافه‌کردن تگ‌ها ',
 
-  scope_english_name: 'نام لاتین اسکوپ',
+  scope_english_name: 'نام انگلیسی اسکوپ',
   scope_persian_name: 'نام فارسی اسکوپ',
   add_scope: 'افزودن اسکوپ',
   submit_and_add: 'تایید و افزودن',
@@ -44,7 +44,7 @@ export default {
 
   upstream: 'آپ استریم',
   choose_upstream: 'انتخاب آپ‌استریم',
-  upstream_english_name: 'نام لاتین آپ‌استریم',
+  upstream_english_name: 'نام انگلیسی آپ‌استریم',
   upstream_description: 'توضیحات آپ‌استریم',
   upstream_servers: 'سرورهای آپ‌استریم',
   domain: 'دامنه',
@@ -52,7 +52,7 @@ export default {
   weight: 'وزن',
   description: 'توضیحات',
   health: 'سلامت',
-  search_by_english_or_persian_name: 'جستجو براساس نام لاتین یا فارسی سرویس',
+  search_by_english_or_persian_name: 'جستجو براساس نام انگلیسی یا فارسی سرویس',
 
   action_or_method: 'اکشن/متود',
   protocol: 'پروتکل',
