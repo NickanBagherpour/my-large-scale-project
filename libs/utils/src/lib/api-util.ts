@@ -87,42 +87,31 @@ export const ApiUtil = {
       const data = reason.response?.data;
 
       if (data?.message) {
-        const hasDetails = !!data.details;
+        const hasDetails = !!data.detail;
         const hasErrors = data.errors && typeof data.errors === 'object';
 
         // Set title and description based on the presence of details
-        /*    if (hasDetails) {
-          message = {
-            title: data.message,
-            description: data.details,
-            type: 'error',
-            shouldTranslate: false,
-          };
-        } else {
-          message = {
-            description: data.message,
-            type: 'error',
-            shouldTranslate: false,
-          };
-        }*/
-
-        message = {
-          title: data.message,
-          description: '',
-          fields: data.errors,
-          type: 'error',
-          shouldTranslate: false,
-        };
+        let description;
+        if (hasDetails) {
+          description = data.detail;
+        }
 
         // If errors exist, append their messages to description and set fields
         if (hasErrors) {
           const errorMessages = Object.values(data.errors).join('\n');
-          if (message.description) {
-            message.description += `\n${errorMessages}`;
+          if (description) {
+            description += `\n${errorMessages}`;
           } else {
-            message.description = errorMessages;
+            description = errorMessages;
           }
         }
+        message = {
+          title: data.message,
+          description: description,
+          fields: data.errors,
+          type: 'error',
+          shouldTranslate: false,
+        };
       }
     } catch (e) {
       console.error('Error processing getErrorMessage:', e);
