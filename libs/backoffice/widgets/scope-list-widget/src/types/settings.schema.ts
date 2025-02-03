@@ -10,6 +10,9 @@ export const createFormSchema = (t: (key: string) => string) =>
       .regex(REGEX_PATTERNS.isLatinText, {
         message: t('error.english_character'),
       })
+      .refine((val) => !/^\d+$/.test(val), {
+        message: t('validation.default_validation_message'),
+      })
       .optional(),
   });
 

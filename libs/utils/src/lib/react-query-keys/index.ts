@@ -54,6 +54,8 @@ export const RQKEYS = {
     UPSTREAM: 'upstream',
     SCOPE: 'scope',
     CLIENT: 'client',
+    CLIENT_PROFILE: 'CLIENT_PROFILE',
+
     /*--export-backoffice--*/
     UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
     UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
