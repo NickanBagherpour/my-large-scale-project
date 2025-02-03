@@ -1,6 +1,6 @@
 export const serviceDetailsData = [
   {
-    key: 'نام لاتین',
+    key: 'نام انگلیسی',
     value: 'svc-gfg-bhhj-ngdc-zxzxc-zxc',
     type: 'text',
   },

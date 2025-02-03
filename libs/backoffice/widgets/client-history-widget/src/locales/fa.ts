@@ -4,7 +4,7 @@ export default {
     client_change_history: 'تاریخچه تغییرات کلاینت',
     edit_time: 'زمان ویرایش',
     admin_name: 'نام ادمین',
-    client_latin_name: 'نام لاتین کلاینت',
+    client_latin_name: 'نام انگلیسی کلاینت',
     client_farsi_name: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',

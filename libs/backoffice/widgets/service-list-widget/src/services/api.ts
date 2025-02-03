@@ -2,14 +2,17 @@ import { client, portalUrl } from '@oxygen/client';
 
 import { ParamsType, ServicesDto } from '../types';
 import { InquiryDto, InquiryParams } from '../types/get-Inquiry-info.type';
-import { DraftDto } from '../types/get-drafts-info.type';
+import { Drafts } from '../types/services.type';
 
 const Api = {
   getServicesList: async (params: ParamsType) => {
     return client.get<ServicesDto>(`${portalUrl}/v1/services`, { params });
   },
-  getDraftsData: async () => {
-    return client.get<DraftDto[]>(`${portalUrl}/v1/services/draft`);
+  // getDraftsData: async () => {
+  //   return client.get<DraftDto[]>(`${portalUrl}/v1/services/draft`);
+  // },
+  getDraftsData: async (params: ParamsType) => {
+    return client.get<Drafts>(`${portalUrl}/v1/services/draft`, { params });
   },
   getInquiryInfo: async (params: InquiryParams) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
