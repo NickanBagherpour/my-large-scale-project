@@ -4,7 +4,7 @@ import { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
-import { RQKEYS, uuid } from '@oxygen/utils';
+import { RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 import { Nullable } from '@oxygen/types';
 

@@ -2,11 +2,15 @@ export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const MAX_INPUTE_LENGTH = 75;
+export const MAX_INPUTE_LENGTH = 255;
+export const MAX_LEGAL_PERSON_NAME_LENGTH = 255;
+export const MIN_LEGAL_PERSON_NAME_LENGTH = 3;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
+export const MAX_REGISTRATION_NUMBER_LENGTH = 11;
 export const MAX_POSTAL_CODE_NUMBER_LENGTH = 10;
 export const MAX_NATIONAL_ID_NUMBER_LENGTH = 11;
 export const MAX_ECONOMY_CODE_NUMBER_LENGTH = 12;
+export const MAX_LAST_REGISTRATION_ADDRESS_LENGTH = 150;
 
 export const FORM_ITEM = {
   //organizationDefineStep

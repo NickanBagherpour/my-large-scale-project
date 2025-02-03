@@ -1,6 +1,6 @@
 import z from 'zod';
 import { TFunction } from 'i18next';
-import { REGEX_PATTERNS, REGEX_PATTERNS_MORE_VALIDATION } from '../pattern-util';
+import { REGEX_PATTERNS, REGEX_PATTERNS_UPSTREAM_MANAGEMENT } from '../pattern-util';
 import { limits } from './constants';
 
 export const createValidationSchema = (t: TFunction) => {
@@ -66,18 +66,20 @@ export const createValidationSchema = (t: TFunction) => {
       .trim()
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message'))
-      .regex(REGEX_PATTERNS_MORE_VALIDATION.dontAcceptNumbers, t('validation.default_validation_message'))
-      .regex(REGEX_PATTERNS_MORE_VALIDATION.acceptDash, t('validation.default_validation_message')),
+      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.upstreamName, t('validation.upstream_name')),
 
     upstreamDescription: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.isPersianText, t('validation.persian_validation_message'))
-      .regex(REGEX_PATTERNS_MORE_VALIDATION.dontStartWithNumber, t('validation.default_validation_message'))
-      .regex(REGEX_PATTERNS_MORE_VALIDATION.acceptDash, t('validation.default_validation_message')),
+      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.upstreamDescription, t('validation.upstream_description')),
+
+    searchUpstreamName: z
+      .string()
+      .trim()
+      .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.searchUpstreamName, t('validation.search_upstream_name')),
   };
 
   return validationSchema;

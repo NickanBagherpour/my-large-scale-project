@@ -17,12 +17,12 @@ export default {
   warning: 'هشدار!',
   confirm_question_first: 'این آپ‌استریم به ',
   confirm_question_last: ' متصل است. آیا از حذف آن اطمینان دارید؟',
-  no_service_question: 'آیا از حذف آپ استریم مطمئن هستید؟',
+  no_service_question: 'آیا از حذف آپ‌استریم مطمئن هستید؟',
   service: 'سرویس',
   validation: {
     min_len: 'مقدار این فیلد نباید کمتر از {{val}} کاراکتر باشد.',
     max_len: 'مقدار این فیلد نباید بیشتر از {{val}} کاراکتر باشد.',
   },
-  create_upstream_success: 'آپ استریم با موفقیت ایجاد شد.',
-  delete_upstream_success: 'حذف آپ استریم با موفقیت انجام شد.',
+  create_upstream_success: 'آپ‌استریم با موفقیت ایجاد شد.',
+  delete_upstream_success: 'حذف آپ‌استریم با موفقیت انجام شد.',
 };

@@ -4,7 +4,7 @@ export default {
   column: {
     'edit-date': 'زمان ویرایش',
     'admin-name': 'نام ادمین',
-    'en-name': 'نام لاتین',
+    'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
   },
 };
