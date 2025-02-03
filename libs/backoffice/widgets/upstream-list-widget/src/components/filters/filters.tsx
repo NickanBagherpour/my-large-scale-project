@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { limits, ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
@@ -16,6 +17,8 @@ import {
   useAppState,
 } from '../../context';
 import { useCreateUpstreamMutation } from '../../services/create-upstream.api';
+import { SearchUpstreamSchema, SearchUpstreamType } from '../../types';
+import { FILTER_FORM_ITEM_NAMES } from '../../utils/consts';
 
 import * as S from './filters.style';
 
@@ -23,6 +26,7 @@ export default function Filters() {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const state = useAppState();
+  const errorMessage = state.errorMessage?.description;
   const [value, setValue] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
@@ -31,7 +35,10 @@ export default function Filters() {
     updatePagination(dispatch, { page: 1 });
   }, [value]);
 
-  const { mutate, status, error } = useCreateUpstreamMutation();
+  const [form] = Form.useForm<SearchUpstreamType>();
+  const rule = createSchemaFieldRule(SearchUpstreamSchema(t));
+
+  const { mutate, status } = useCreateUpstreamMutation();
 
   const handleCreateUpstream = async (values) => {
     try {
@@ -60,20 +67,18 @@ export default function Filters() {
       // console.error('error:', error);
     }
   };
-  // console.log('description:',t(state.message?.description));
-  // console.log('title:',t(state.message?.title));
   return (
     <>
       <S.Container>
         <S.Actions>
-          <Form layout={'vertical'}>
-            <S.StyledFormItem name={'search_by_name'} label={t('search')}>
+          <Form layout={'vertical'} form={form}>
+            <S.StyledFormItem name={FILTER_FORM_ITEM_NAMES.search_by_name} label={t('search')} rules={[rule]}>
               <S.StyledInput
                 value={value}
                 placeholder={t('search_by_name')}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
-                maxLength={100}
+                maxLength={limits.UPSTREAM_MAX_LENGTH}
               />
             </S.StyledFormItem>
           </Form>
@@ -89,7 +94,7 @@ export default function Filters() {
           setOpen={setOpenModal}
           onConfirm={handleCreateUpstream}
           status={status}
-          error={error}
+          errorMessage={errorMessage}
         />
       )}
     </>

@@ -3,10 +3,11 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { MutationStatus } from '@tanstack/react-query';
-import { Divider, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { limits } from '@oxygen/utils';
+import { Input } from '@oxygen/ui-kit';
 
-import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES, NAME_MAX_LENGTH } from './add-upstream-modal.schema';
+import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from './add-upstream-modal.schema';
 import AnimatedStatus from '../animated-status/animated-status';
 
 import * as S from './add-upstream-modal.style';
@@ -19,7 +20,7 @@ interface ReusableFormModalProps {
   status: MutationStatus;
   initialData?: CreateUpstreamType;
   successMsg?: string;
-  error?: any;
+  errorMessage?: string;
 }
 
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
@@ -31,7 +32,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
     status,
     initialData,
     successMsg,
-    error,
+    errorMessage = 'uikit.error_description',
   } = props;
   const [isCreateMode, setIsCreateMode] = useState(true);
   const [t] = useTr();
@@ -96,11 +97,11 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.name} label={t('uikit.upstream_english_name')} rules={[rule]}>
-                <Input maxLength={NAME_MAX_LENGTH} disabled={!!initialData} />
+                <Input maxLength={limits.UPSTREAM_MAX_LENGTH} disabled={!!initialData} />
               </Form.Item>
 
               <Form.Item name={FORM_ITEM_NAMES.description} label={t('uikit.upstream_persian_name')} rules={[rule]}>
-                <Input maxLength={NAME_MAX_LENGTH} />
+                <Input maxLength={limits.UPSTREAM_MAX_LENGTH} />
               </Form.Item>
             </S.StyledForm>
 
@@ -120,7 +121,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
           <AnimatedStatus
             status={createStatus[status]}
             errorProps={{
-              description: t(error?.status === 400 ? 'uikit.error_description' : 'message.unknown_error'),
+              description: t(errorMessage),
             }}
             loadingProps={{ description: t('uikit.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
