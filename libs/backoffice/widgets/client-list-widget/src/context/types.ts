@@ -28,6 +28,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
+      payload: WidgetStateType['page'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

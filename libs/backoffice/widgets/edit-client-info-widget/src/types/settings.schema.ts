@@ -19,19 +19,19 @@ const optionalRegexString = (pattern: RegExp, errorKey: string, t: (key: string)
 
 export const createFormSchema = (t: (key: string) => string) =>
   z.object({
-    [FORM_ITEM_NAMES.latinNameClient]: regexString(
-      REGEX_PATTERNS.isLatinText,
-      'validation.english_validation_message',
-      t
-    ),
+    // [FORM_ITEM_NAMES.latinNameClient]: regexString(
+    //   REGEX_PATTERNS.isLatinText,
+    //   'validation.english_validation_message',
+    //   t
+    // ),
     [FORM_ITEM_NAMES.persianNameClient]: regexString(
       REGEX_PATTERNS.isPersianText,
       'validation.persian_validation_message',
       t
     ),
-    [FORM_ITEM_NAMES.clientType]: requiredString(t),
-    [FORM_ITEM_NAMES.clientId]: requiredString(t),
-    [FORM_ITEM_NAMES.identityAuth]: requiredString(t),
+    // [FORM_ITEM_NAMES.clientType]: z.number(),
+    [FORM_ITEM_NAMES.clientId]: z.number(),
+    // [FORM_ITEM_NAMES.identityAuth]: requiredString(t),
     [FORM_ITEM_NAMES.websiteUrl]: optionalRegexString(
       REGEX_PATTERNS.optionalUrlValidator,
       'validation.url_validation_message',

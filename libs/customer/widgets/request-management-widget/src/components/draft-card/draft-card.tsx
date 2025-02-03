@@ -24,7 +24,7 @@ export default function DraftCard(props: DraftCardType) {
   const progressPercentage = progress;
 
   return (
-    <S.Container href={`${ROUTES.CUSTOMER.REQUEST_REGISTRATION}?submissionId=${submissionId}&stepName=${stepName}`}>
+    <S.Container href={`${ROUTES.CUSTOMER.REQUEST_REGISTRATION}?submissionId=${submissionId}&progress=${progress}`}>
       <S.Header>
         <S.Name>{organizationName}</S.Name>
         <Button onClick={remove} color='primary' variant='text' size='small'>

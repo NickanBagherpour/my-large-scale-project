@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import { useSearchParams } from 'next/navigation';
-
-import { Nullable, PageProps } from '@oxygen/types';
+import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Loading } from '@oxygen/ui-kit';
-import { useGetRequestQuery } from '../../services';
 
-import FirstStep from '../first-step/first-step';
-import FourthStep from '../fourth-step/fourth-step';
-import { ThirdStep } from '../third-step/third-step';
-import SecondStep from '../second-step/second-step';
+import OrganizationDefineStep from '../organization-define-step/organization-define-step';
+import RepresentativeDefineStep from '../representative-define-step/representative-define-step';
+import ServiceSelectStep from '../service-select-step/service-select-step';
+import FinalConfirmStep from '../final-confirm-step/final-confirm-step';
+
 import { resetErrorMessageAction, useAppDispatch, useAppState, updateAllStateFromDraftsAction } from '../../context';
 import { useQueryParams } from '@oxygen/hooks';
-import { useGetRequestDataFromDraftsMutationQuery } from '../../services/drafts-request-data';
+import { useGetRequestDataFromDraftsMutationQuery } from '../../services';
 
 import * as S from './app.style';
+import { progressStep, StepsItemKey } from '../../utils/consts';
 
 type AppProps = PageProps & {
   //
@@ -26,69 +25,49 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const { message, ...fetchState } = useAppState();
   const dispatch = useAppDispatch();
-  const searchParams = useSearchParams();
 
-  const id: Nullable<string> = searchParams.get('id');
-  const { data: requestData, isFetching } = useGetRequestQuery();
   const { mutate: draftsMutate, isPending: draftsIsPending } = useGetRequestDataFromDraftsMutationQuery();
-
-  enum StepsItemKey {
-    FirstStep = 0,
-    SecondStep = 1,
-    ThirdStep = 2,
-    FourthStep = 3,
-  }
 
   const queryParams = useQueryParams();
 
   const submissionId = queryParams.get('submissionId');
-  const stepName = queryParams.get('stepName');
-  console.log('submissionId : ', submissionId, 'stepName : ', stepName);
-  let stepValue: StepsItemKey = StepsItemKey.FirstStep;
-  if (stepName) {
-    if (stepName === 'تعریف سازمان') {
-      stepValue = StepsItemKey.SecondStep;
-    } else if (stepName === 'تعریف نمایندگان') {
-      stepValue = StepsItemKey.ThirdStep;
-    } else if (stepName === 'انتخاب سرویس') {
-      stepValue = StepsItemKey.FourthStep;
-    }
+  const progress = Number(queryParams.get('progress'));
+  let stepValue: StepsItemKey = StepsItemKey.OrganizationDefineStep;
+
+  if (progress) {
+    stepValue = progressStep[progress];
   }
 
-  // Run draftsMutate only once when submissionId and stepName are available
+  // Run draftsMutate only once when submissionId and progress are available
   useEffect(() => {
-    if (submissionId && stepName) {
+    if (submissionId && progress) {
       draftsMutate(submissionId, {
         onSuccess: (data) => {
           console.log('get data from drafts successful:', data);
           updateAllStateFromDraftsAction(dispatch, data.data);
         },
         onError: (error) => {
-          console.error('Request registration first step failed:', error);
+          console.error('Request registration organization define step failed:', error);
         },
       });
     }
-  }, [submissionId, stepName, draftsMutate]);
+  }, [submissionId, progress, draftsMutate]);
 
   const [currentStep, setCurrentStep] = useState(stepValue);
 
   const stepsItem = [
     {
-      title: t('progress_bar.first_step'),
-      Content: (
-        <FirstStep
-          setCurrentStep={setCurrentStep}
-          data={requestData}
-          loading={isFetching}
-          draft={stepName ? true : false}
-        />
-      ),
+      title: t('progress_bar.organization_define_step'),
+      Content: <OrganizationDefineStep setCurrentStep={setCurrentStep} draft={progress ? true : false} />,
     },
-    { title: t('progress_bar.second_step'), Content: <SecondStep setCurrentStep={setCurrentStep} /> },
-    { title: t('progress_bar.third_step'), Content: <ThirdStep setCurrentStep={setCurrentStep} /> },
     {
-      title: t('progress_bar.fourth_step'),
-      Content: <FourthStep setCurrentStep={setCurrentStep} data={requestData} loading={isFetching} />,
+      title: t('progress_bar.representative_define_step'),
+      Content: <RepresentativeDefineStep setCurrentStep={setCurrentStep} />,
+    },
+    { title: t('progress_bar.service_select_step'), Content: <ServiceSelectStep setCurrentStep={setCurrentStep} /> },
+    {
+      title: t('progress_bar.final_confirm_step'),
+      Content: <FinalConfirmStep setCurrentStep={setCurrentStep} />,
     },
   ];
 
