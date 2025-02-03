@@ -10,4 +10,4 @@ export const SearchUpstreamSchema = (t: TFunction) => {
   });
 };
 
-export type SearchUpstreamType = z.infer<typeof SearchUpstreamSchema>;
+export type SearchUpstreamType = z.infer<ReturnType<typeof SearchUpstreamSchema>>;
