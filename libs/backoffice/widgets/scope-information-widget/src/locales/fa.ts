@@ -11,7 +11,7 @@ export default {
     title: 'اطلاعات کلی اسکوپ',
     view_history_changes: 'مشاهده تاریخچه تغییرات',
     edit: 'ویرایش',
-    latin_scope_name: 'نام لاتین اسکوپ',
+    latin_scope_name: 'نام انگلیسی اسکوپ',
     farsi_scope_name: 'نام فارسی اسکوپ',
   },
   second_tab: {
@@ -26,7 +26,7 @@ export default {
   },
   modal: {
     service_detail: 'جزئیات سرویس',
-    english_name: 'نام لاتین',
+    english_name: 'نام انگلیسی',
     persian_name: 'نام فارسی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',

@@ -14,7 +14,7 @@ export default {
   add_service: 'افزودن سرویس',
   add_plugin: 'افزودن پلاگین',
   add_client_from_sso: 'افزودن کلاینت از SSO',
-  clients_english_name: 'نام لاتین کلاینت',
+  clients_english_name: 'نام انگلیسی کلاینت',
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
 };
