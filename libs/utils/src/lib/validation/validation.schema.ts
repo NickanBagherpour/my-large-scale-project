@@ -46,7 +46,7 @@ export const createValidationSchema = (t: TFunction) => {
         message: t('validation.max_length'),
       })
       .regex(REGEX_PATTERNS.urlValidator, {
-        message: t('validation.english_name_error'),
+        message: t('validation.url_validation_message'),
       }),
 
     boolean: z.boolean({ required_error: t('validation.required') }),

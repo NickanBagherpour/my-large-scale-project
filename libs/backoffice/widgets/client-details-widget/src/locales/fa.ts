@@ -1,5 +1,6 @@
 export default {
   client_info: 'اطلاعات کلاینت',
+  technical_information: 'اطلاعات فنی',
   services: 'سرویس‌ها',
   plugins: 'پلاگین‌ها',
   display_change_history: 'مشاهده تاریخچه تغییرات',
@@ -17,7 +18,7 @@ export default {
   client_return_address: 'آدرس برگشت کلاینت',
   aggregator: 'اگریگیتور',
   organization_name: 'نام سازمان',
-  applicant_info: 'اطلاعات متقاضی',
+  organization_info: 'اطلاعات سازمان',
   username: 'نام کاربر',
   national_code: 'کدملی',
   mobile: 'تلفن همراه',

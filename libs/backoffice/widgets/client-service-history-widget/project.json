@@ -1,7 +1,7 @@
 {
-    "name": "applicant-history-widget",
+    "name": "client-service-history-widget",
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/widgets/applicant-history-widget/src",
+    "sourceRoot": "libs/widgets/client-service-history-widget/src",
     "projectType": "library",
     "tags": ["owner:backoffice", "type:ui-lib", "scope:widget"],
     "// targets": "to see all targets run: nx show project test --web",

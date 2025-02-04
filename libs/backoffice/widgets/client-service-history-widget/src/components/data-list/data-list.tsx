@@ -9,7 +9,7 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { getDesktopColumns } from '../../utils/data-list.util';
 
-import * as S from './data-table.style';
+import * as S from './data-list.style';
 
 type AppProps = PageProps & {
   data: any;
@@ -39,11 +39,10 @@ const DataTable: React.FC<AppProps> = (props) => {
   return (
     <S.TableContainer>
       <S.Table
-        title={t('subtitle')}
+        title={t('table.client_change_history')}
         size='small'
         variant='complex'
         columns={desktopColumns}
-        showHeader={true}
         dataSource={dataSource}
         loading={loading}
         pagination={{
