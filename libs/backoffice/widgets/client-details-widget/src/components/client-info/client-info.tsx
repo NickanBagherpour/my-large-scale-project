@@ -96,7 +96,7 @@ export default function ClientInfo() {
       <S.Container>
         <section>
           <S.Header>
-            <S.TabName>{t('client_info')}</S.TabName>
+            <S.TabName>{t('technical_information')}</S.TabName>
             <S.Btns>
               <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
                 <S.Icon className='icon-clock' />
@@ -117,21 +117,21 @@ export default function ClientInfo() {
         </section>
         <section>
           <S.Header>
-            <S.TabName>{t('applicant_info')}</S.TabName>
-            <S.Btns>
-              <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
-                <S.Icon className='icon-clock' />
-                {t('display_change_history')}
-              </Button>
-              <Button
-                href={`${ROUTES.BACKOFFICE.EDIT_APPLICANT_INFO}?requestId=123456789`}
-                color='primary'
-                variant='solid'
-              >
-                <S.Icon className='icon-edit' />
-                {t('edit')}
-              </Button>
-            </S.Btns>
+            <S.TabName>{t('organization_info')}</S.TabName>
+            {/*<S.Btns>*/}
+            {/*  <Button href={'#'} color='primary' variant='filled'>*/}
+            {/*    <S.Icon className='icon-clock' />*/}
+            {/*    {t('display_change_history')}*/}
+            {/*  </Button>*/}
+            {/*  <Button*/}
+            {/*    href={`${ROUTES.BACKOFFICE.EDIT_APPLICANT_INFO}?requestId=123456789`}*/}
+            {/*    color='primary'*/}
+            {/*    variant='solid'*/}
+            {/*  >*/}
+            {/*    <S.Icon className='icon-edit' />*/}
+            {/*    {t('edit')}*/}
+            {/*  </Button>*/}
+            {/*</S.Btns>*/}
           </S.Header>
 
           <InfoBox margin={0} data={applicantInfoData} />
