@@ -12,6 +12,7 @@ import { SecondStep } from '../second-step/second-step';
 import { addClientName, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import { useClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
 
 type AppProps = PageProps & {
   //
@@ -22,14 +23,17 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-
   const clientName: Nullable<string> = searchParams.get('client-name');
+
   useEffect(() => {
     if (!clientName) notFound();
     else addClientName(dispatch, clientName);
   }, [dispatch, clientName]);
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const { data, isFetching } = useClientInquiryStatusQuery({ 'client-name': clientName });
+
+  const step = data ? data?.clientProgress?.step : 0;
+  const [currentStep, setCurrentStep] = useState(step);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), component: <FirstStep setCurrentStep={setCurrentStep} /> },
@@ -45,8 +49,14 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <S.Steps items={stepsItem} current={currentStep} />
-      {stepsItem[currentStep].component}
+      {step === null ? (
+        <h1>loading...</h1>
+      ) : (
+        <>
+          <S.Steps items={stepsItem} current={currentStep} />
+          {stepsItem[currentStep].component}
+        </>
+      )}
     </S.AppContainer>
   );
 };

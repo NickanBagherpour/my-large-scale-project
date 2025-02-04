@@ -8,4 +8,5 @@ export const KEYS = createQueryKeys(prefix, [
   'NAME_TAG',
   'SELECT_OPTIONS',
   'ORGANIZATION_INFO',
+  'INQUIRY_STATUS',
 ]);
