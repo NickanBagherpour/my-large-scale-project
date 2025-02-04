@@ -344,7 +344,7 @@ export default {
     // max_len: 'مقدار این فیلد نباید بیشتر از {{val}} باشد.',
     english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
     persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',
-    url_validation_message: 'لطفا url را به صورت صحیح به همراه :https وارد کنید',
+    url_validation_message: 'آدرس وبسایت باید با فرمت URL باشد',
     only_digit_message: 'لطفا فقط عدد وارد کنید',
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
