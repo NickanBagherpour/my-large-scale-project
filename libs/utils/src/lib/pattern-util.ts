@@ -1,15 +1,18 @@
 export const REGEX_PATTERNS = {
   isLatinText: /^[^\u0600-\u06FF]*$/,
   isPersianText: /^[^a-zA-Z]*$/,
-  urlValidator: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  optionalUrlValidator: /^(?:https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|)$/,
+  defaultEnglishName: /^(?![-_.\d])[A-Za-z0-9._-]+$/,
+  defaultPersianName: /^(?![-_.\d])[A-Za-z0-9._-]+$/,
+  url: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  optionalProtocolUrl: /^(?:https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|)$/,
   onlyDigit: /^[0-9]*$/,
+  nationalCode: /^[0-9]{10}$/,
+  positiveNumber: /^[+]?\d*\.?\d+$/,
+  phoneNumber: /^(\+98|0)?9\d{9}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  mobileNumber: /^(\+98|0)?9\d{9}$/,
-};
-
-export const REGEX_PATTERNS_UPSTREAM_MANAGEMENT = {
-  searchUpstreamName: /^[A-Za-z0-9\u0600-\u06FF\u06F0-\u06F9._-]*$/,
-  upstreamName: /^[A-Za-z0-9._-]*$/,
-  upstreamDescription: /^[0-9\u0600-\u06FF\u06F0-\u06F9._-]*$/,
+  ipOrDomainAdrress: /^(?:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\b[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+\b)$/,
+  path: /^\/[A-Za-z0-9._-]+$/,
+  host: /^\/[A-Za-z0-9._-]+$/,
+  tel: /^\/[A-Za-z0-9._-]+$/,
+  description: /^[0-9\u0600-\u06FF\u06F0-\u06F9._-]*$/,
 };
