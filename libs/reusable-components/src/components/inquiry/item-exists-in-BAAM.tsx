@@ -19,13 +19,8 @@ const ItemExistsInBAAM: React.FC<Props> = ({ itemName, type, dispatch }) => {
   const router = useRouter();
   const navigateToItemCreation = () => router.push(NAVIGATION_URLS[type] + `${itemName}`);
   const { mutate: uploadService, isPending } = useUploadItemMutation(navigateToItemCreation, dispatch);
-  const handleClick = async () => {
-    if (type === 'service') {
-      uploadService(itemName);
-    } else {
-      navigateToItemCreation();
-    }
-  };
+  const handleClick = () => (type === 'service' ? uploadService(itemName) : navigateToItemCreation());
+
   const itemTranslation = { element: t(`element.${type}`) };
   return (
     <Flex vertical gap={'2rem'} justify='center' align='center'>
@@ -42,7 +37,7 @@ const ItemExistsInBAAM: React.FC<Props> = ({ itemName, type, dispatch }) => {
         onClick={handleClick}
         loading={isPending}
       >
-        {t('button.create_new_item', itemTranslation)}
+        {t('button.upload_item', itemTranslation)}
       </Button>
     </Flex>
   );

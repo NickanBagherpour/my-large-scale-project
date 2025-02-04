@@ -8,7 +8,7 @@ const { SERVICE, SERVICES_LIST } = RQKEYS.BACKOFFICE;
 export const useServiceInquiry = (serviceName: string) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [SERVICE, SERVICES_LIST.DRAFTS, serviceName],
+    queryKey: [SERVICE, SERVICES_LIST.INQUIRY, serviceName],
     queryFn: withErrorHandling(() => Api.getServiceInquiry(serviceName), dispatch),
     enabled: Boolean(serviceName),
   });

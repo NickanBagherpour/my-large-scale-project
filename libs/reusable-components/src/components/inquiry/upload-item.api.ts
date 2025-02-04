@@ -1,7 +1,7 @@
 import { client, portalUrl } from '@oxygen/client';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
+const backofficeKey = RQKEYS.BACKOFFICE;
 export const useUploadItemMutation = (onSuccess: () => void, dispatch: any) => {
   const queryClient = useQueryClient();
 
@@ -14,7 +14,10 @@ export const useUploadItemMutation = (onSuccess: () => void, dispatch: any) => {
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({
+        queryKey: [backofficeKey.SERVICE, backofficeKey.SERVICES_LIST.DRAFTS],
+        refetchType: 'none',
+      });
       onSuccess();
     },
   });

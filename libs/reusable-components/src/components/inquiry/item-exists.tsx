@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { RefObject } from 'react';
+import { Fragment, RefObject } from 'react';
 import { Flex, FormInstance, InputRef } from 'antd';
 
 import { useTr } from '@oxygen/translation';
@@ -16,7 +16,7 @@ type Props = {
   }>;
   changeContent: (c: ContentType) => void;
   inputRef: RefObject<InputRef>;
-  data?: string[];
+  data?: (string | number | undefined)[];
   type: InquiryType;
   itemName: string;
 };
@@ -50,13 +50,14 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
       action: inspectAnother,
     },
     client: {
-      title: t('observe_client_detail'),
+      title: t('button.observe_client_detail'),
       icon: <i className='icon-document' />,
       action: () => {
         router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?client-name=${itemName}`);
       },
     },
   };
+  const currentButtonInfo = buttonInfo[type];
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
       <S.TitleContainer>
@@ -66,26 +67,26 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
       <Flex justify='center' gap={'1rem'} style={{ width: '100%' }}>
         {/* <S.Partition style={{ justifyContent: 'end' }}>  */}
         {titles[type].map((item, index) => (
-          <>
+          <Fragment key={item}>
             <div style={{ flex: '1 1 0%' }}>
               <S.InfoTitle>{item}</S.InfoTitle>
               <S.CenteredText>{getValueOrDash(data?.[index])}</S.CenteredText>
             </div>
             {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />}
-          </>
+          </Fragment>
         ))}
       </Flex>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Flex justify='center'>
         <Button
           style={{ width: 'fit-content' }}
           block={false}
-          icon={buttonInfo[type].icon}
+          icon={currentButtonInfo.icon}
           variant='outlined'
-          onClick={buttonInfo[type]?.action}
+          onClick={currentButtonInfo?.action}
         >
-          {buttonInfo[type].title}
+          {currentButtonInfo.title}
         </Button>
-      </div>
+      </Flex>
     </Flex>
   );
 };

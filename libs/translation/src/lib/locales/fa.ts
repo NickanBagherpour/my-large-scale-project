@@ -192,6 +192,7 @@ export default {
     complete_item_info: 'تکمیل اطلاعات {{element}}',
     inspect_another_service: 'استعلام سرویس دیگر',
     observe_client_detail: 'مشاهده جزئیات کلاینت',
+    upload_item: 'بارگذاری {{element}} در اکسیژن',
   },
 
   field: {
