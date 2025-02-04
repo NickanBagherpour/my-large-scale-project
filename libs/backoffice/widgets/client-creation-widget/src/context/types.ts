@@ -32,6 +32,7 @@ export type FirstStepType = {
 
 export type WidgetStateType = {
   clientName?: string;
+  clientStatus?: string;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -45,6 +46,10 @@ export type WidgetStateType = {
 };
 
 export type WidgetActionType =
+  | {
+      type: 'ADD_CLIENT_STATUS';
+      payload: WidgetStateType['clientStatus'];
+    }
   | {
       type: 'ADD_CLIENT_NAME';
       payload: WidgetStateType['clientName'];

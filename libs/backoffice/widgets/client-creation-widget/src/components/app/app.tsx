@@ -9,12 +9,12 @@ import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import FirstStep from '../first-step/first-step';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
-import { addClientName, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { addClientName, addClientStatus, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
-import * as S from './app.style';
 import { useClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
 import { Loading } from '@oxygen/ui-kit';
 
+import * as S from './app.style';
 type AppProps = PageProps & {
   //
 };
@@ -33,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   } = useClientInquiryStatusQuery({
     'client-name': clientName,
   });
-
+  const clientStatus = inquiryStatus?.clientInquiryStatus.code;
   const step = inquiryStatus?.clientProgress?.step ?? 0;
 
   const [currentStep, setCurrentStep] = useState<number>(step);
@@ -43,6 +43,7 @@ const App: React.FC<AppProps> = (props) => {
       notFound();
     } else {
       addClientName(dispatch, clientName);
+      addClientStatus(dispatch, clientStatus);
     }
   }, [dispatch, clientName]);
 

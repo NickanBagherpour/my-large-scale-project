@@ -45,3 +45,10 @@ export const LIMITAION_FORM_NAME = {
   totalCallLimit: 'totalCallLimit',
   callLimitOptions: 'callLimitOptions',
 };
+
+export enum ClientInquiryStatus {
+  'CLIENT_IS_OPERATIONAL' = 1,
+  'CLIENT_IS_DRAFT' = 2,
+  'CLIENT_NOT_FOUND' = 3,
+  'CLIENT_EXISTS_IN_BAM' = 4,
+}

@@ -6,6 +6,9 @@ import { FiltersType, WidgetActionType, WidgetDispatchType, WidgetStateType } fr
 export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: WidgetStateType['firstStep']) {
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
 }
+export function addClientStatus(dispatch: WidgetDispatchType, payload: WidgetStateType['clientStatus']) {
+  dispatch({ type: 'ADD_CLIENT_NAME', payload });
+}
 export function addClientName(dispatch: WidgetDispatchType, payload: WidgetStateType['clientName']) {
   dispatch({ type: 'ADD_CLIENT_NAME', payload });
 }

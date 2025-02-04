@@ -4,6 +4,7 @@ import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
   clientName: undefined,
+  clientStatus: undefined,
   firstStep: {
     grant_tag: [],
     tagIds: [],
@@ -30,6 +31,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'ADD_CLIENT_STATUS': {
+      state.clientStatus = action.payload;
+      return;
+    }
     case 'ADD_CLIENT_NAME': {
       state.clientName = action.payload;
       return;
