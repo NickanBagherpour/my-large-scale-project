@@ -43,6 +43,7 @@ const DataTable: React.FC<AppProps> = (props) => {
         size='small'
         variant='complex'
         columns={desktopColumns}
+        showHeader={true}
         dataSource={dataSource}
         loading={loading}
         pagination={{

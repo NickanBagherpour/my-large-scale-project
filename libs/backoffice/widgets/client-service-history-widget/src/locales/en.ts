@@ -1,14 +1,14 @@
 export default {
-  widget_name: 'App Bale',
+  change_history: 'change history',
   table: {
-    applicant_change_history: 'applicant change history',
-    edit_time: 'edit time',
-    admin_name: 'admin name',
-    user_name: 'user name',
-    national_code: 'national code',
-    organization_name: 'organization name',
-    mobile: 'mobile',
-    phone: 'phone',
-    email: 'email',
+    client_change_history: 'Client Change History',
+    edit_time: 'Edit Time',
+    admin_name: 'Admin Name',
+    operation_type: 'Operation Type',
+    service_name: 'Service Name',
+    persian_service_name: 'Persian Name',
+  },
+  button: {
+    return: 'Return',
   },
 };

@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'App Bale',
+  change_history: 'تاریخچه تغییرات',
   table: {
     client_change_history: 'تاریخچه تغییرات کلاینت',
     edit_time: 'زمان ویرایش',

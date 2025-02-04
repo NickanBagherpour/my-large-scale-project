@@ -10,6 +10,7 @@ import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../cont
 
 import DataTable from '../data-list/data-list';
 import { useGetsClientHistoryDataQuery } from '../../services/get-report.api';
+import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -35,7 +36,7 @@ const App: React.FC<AppProps> = () => {
   });
 
   return (
-    <Container title={t('container_title')} footer={<ReturnButton />}>
+    <Container title={getWidgetTitle({ defaultTitle: t('change_history') })} footer={<ReturnButton />}>
       <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
         message={message}

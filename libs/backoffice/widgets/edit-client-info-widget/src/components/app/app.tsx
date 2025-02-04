@@ -9,9 +9,8 @@ import EditClient from '../edit-client/edit-client';
 import { REQUEST_ID_KEY } from '../../utils/consts';
 import { useGetClientInfo } from '../../services/get-client-info.api';
 
-import { TitleChanger } from '../../utils/helper';
-
 import * as S from './app.style';
+import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -29,11 +28,20 @@ const App: React.FC<AppProps> = () => {
     if (!requestId || !data) {
       return <NoResult isLoading={isLoading} hasReturnButton={true} />;
     }
-    return <EditClient userData={data} userDataLoading={isFetching} />;
+    return <EditClient userData={data} />;
   };
 
+  console.log(data);
+
   return (
-    <S.AppContainer fillContainer={true} title={TitleChanger(data, isFetching, t)}>
+    <S.AppContainer
+      fillContainer={true}
+      title={getWidgetTitle({
+        defaultTitle: t('edit_client_information'),
+        primaryTitle: data?.clientPersianName,
+        secondaryTitle: data?.clientEnglishName,
+      })}
+    >
       {checkParams(data, requestId, isFetching)}
     </S.AppContainer>
   );
