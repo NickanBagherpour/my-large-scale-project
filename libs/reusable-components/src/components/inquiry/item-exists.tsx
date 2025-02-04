@@ -60,7 +60,7 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
       <S.TitleContainer>
-        <i className='icon-box-search' />
+        <i className='icon-box-search' style={{ fontSize: '2.2rem' }} />
         <S.StyledText>{t('uikit.item_already_exists', { element: t(`element.${type}`) })}</S.StyledText>
       </S.TitleContainer>
       <Flex justify='center' gap={'1rem'} style={{ width: '100%' }}>
