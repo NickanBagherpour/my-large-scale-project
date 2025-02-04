@@ -3,14 +3,17 @@ import { useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
-import { NoResult } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
+import { getWidgetTitle } from '@oxygen/utils';
 
 import EditClient from '../edit-client/edit-client';
 import { REQUEST_ID_KEY } from '../../utils/consts';
 import { useGetClientInfo } from '../../services/get-client-info.api';
+import { ClientInfoType } from '../../types';
+
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -19,19 +22,19 @@ type AppProps = PageProps & {
 const App: React.FC<AppProps> = () => {
   const [t] = useTr();
   const searchParams = useSearchParams();
+  const dispatch = useAppDispatch();
+  const { message } = useAppState();
 
   const requestId: Nullable<string> = searchParams.get(REQUEST_ID_KEY);
 
   const { data, isFetching } = useGetClientInfo(requestId);
 
-  const checkParams = (data, requestId, isLoading) => {
+  const checkParams = (data: ClientInfoType, requestId: Nullable<string>, isLoading: boolean) => {
     if (!requestId || !data) {
       return <NoResult isLoading={isLoading} hasReturnButton={true} />;
     }
     return <EditClient userData={data} />;
   };
-
-  console.log(data);
 
   return (
     <S.AppContainer
@@ -42,6 +45,13 @@ const App: React.FC<AppProps> = () => {
         secondaryTitle: data?.clientEnglishName,
       })}
     >
+      <GlobalMessageContainer
+        message={message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
+
       {checkParams(data, requestId, isFetching)}
     </S.AppContainer>
   );
