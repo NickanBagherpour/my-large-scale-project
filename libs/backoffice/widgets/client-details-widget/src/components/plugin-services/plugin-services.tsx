@@ -1,7 +1,6 @@
 import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
-import { Button } from '@oxygen/ui-kit';
 import { PluginConfig } from '../../types/plugins.type';
 
 type Props = {

@@ -1,18 +1,14 @@
-import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
-
-import { WidgetActionType, WidgetDispatchType } from './types';
+import { WidgetDispatchType, WidgetStateType } from './types';
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
 
-export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
-  updateMessageAction(dispatch, null);
+export function updateCurrentConfig(dispatch: WidgetDispatchType, currentConfig: WidgetStateType['currentConfig']) {
+  dispatch({ type: 'UPDATE_CURRENT_CONFIG', payload: currentConfig });
 }
 
-function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
-  const message = ApiUtil.getErrorMessage(reason);
-  dispatch({ type: actionType, payload: { message, ...extraPayload } });
-  return null;
+export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
+  updateMessageAction(dispatch, null);
 }

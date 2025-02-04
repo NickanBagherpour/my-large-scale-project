@@ -21,7 +21,7 @@ export default function PluginHeader() {
         <S.Input placeholder={t('search_by_service_name')} prefix={<S.SearchIcon className='icon-search-normal' />} />
       </S.Header>
 
-      <LimitationsModal toggle={toggleModalOpen} isOpen={isModalOpen} />
+      <LimitationsModal close={toggleModalOpen} isOpen={isModalOpen} />
     </>
   );
 }

@@ -5,13 +5,28 @@ import Footer from '../footer/footer';
 import { useTr } from '@oxygen/translation';
 import * as S from './plugins.style';
 import PluginCard from '../plugin-card/plugin-card';
+import LimitationsModal from '../limitations-modal/limitations-modal';
+import { useState } from 'react';
+import { PluginConfig } from '../../types';
+import { updateCurrentConfig, useAppDispatch, useAppState } from '../../context';
+
+// request-non-repudiation عدم انکار
+// rate-limiting محدودیت فراخوانی
+// request-termination
+
+// عدم انکار
+// پلاگین محدودیت فراخوانی
+// اعتبارسنجی درخواست جدید
 
 export default function Plugins() {
   const [t] = useTr();
   const { data, isFetching, isLoading } = useGetPluginsQuery();
   const { data: clientPlugins } = useClientPlugins('test-prefix-ali-client4');
   const { data: clientServicePlugins /* , isFetching: isFetchingClientServicePlugins */ } =
-    useClientServicePlugins('test-prefix-ali-client2');
+    useClientServicePlugins('test-prefix-ali-client4');
+
+  const dispatch = useAppDispatch();
+  const { currentConfig } = useAppState();
 
   if (!data || !clientPlugins) return null;
 
@@ -33,6 +48,8 @@ export default function Plugins() {
         ))}
       </Loading>
       <Footer isLoading={isLoading} />
+
+      <LimitationsModal close={() => updateCurrentConfig(dispatch, null)} isOpen={!!currentConfig} />
     </>
   );
 }

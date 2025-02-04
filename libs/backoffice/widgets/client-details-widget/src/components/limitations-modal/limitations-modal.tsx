@@ -8,11 +8,11 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 type Props = {
   isOpen: boolean;
-  toggle: () => void;
+  close: () => void;
 };
 
 export default function LimitationsModal(props: Props) {
-  const { isOpen, toggle } = props;
+  const { isOpen, close } = props;
   const [t] = useTr();
   const [form] = Form.useForm<LimitationsType>();
   const rule = createSchemaFieldRule(limitationsSchema(t));
@@ -29,7 +29,7 @@ export default function LimitationsModal(props: Props) {
   ];
 
   const onFinish: FormProps<LimitationsType>['onFinish'] = () => {
-    toggle();
+    close();
   };
 
   return (
@@ -37,8 +37,9 @@ export default function LimitationsModal(props: Props) {
       centered
       title={t('call_limitation_for_all_services')}
       open={isOpen}
-      onCancel={toggle}
+      onCancel={close}
       width={600}
+      destroyOnClose
       footer={[<S.RegisterBtn onClick={form.submit}>{t('register_data')}</S.RegisterBtn>]}
     >
       <S.Form form={form} onFinish={onFinish}>
