@@ -33,17 +33,17 @@ export const createFormSchema = (t: (key: string) => string) =>
     [FORM_ITEM_NAMES.clientId]: z.number(),
     // [FORM_ITEM_NAMES.identityAuth]: requiredString(t),
     [FORM_ITEM_NAMES.websiteUrl]: optionalRegexString(
-      REGEX_PATTERNS.optionalUrlValidator,
+      REGEX_PATTERNS.optionalProtocolUrl,
       'validation.url_validation_message',
       t
     ),
     [FORM_ITEM_NAMES.inputAddress]: regexString(
-      REGEX_PATTERNS.optionalUrlValidator,
+      REGEX_PATTERNS.optionalProtocolUrl,
       'validation.url_validation_message',
       t
     ),
     [FORM_ITEM_NAMES.returnAddress]: regexString(
-      REGEX_PATTERNS.optionalUrlValidator,
+      REGEX_PATTERNS.optionalProtocolUrl,
       'validation.url_validation_message',
       t
     ),
