@@ -36,12 +36,10 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'method',
       ellipsis: true,
       render: (item, record) => {
+        const revType = item.value.revType.value;
         return (
-          <S.OperationTypeStyle
-            variant={item.value.revType.value}
-            isDeleted={record.clientServiceDto.value.isDeleted.value}
-          >
-            {item.value.revType.value}
+          <S.OperationTypeStyle variant={revType.code.value} isDeleted={record.clientServiceDto.value.isDeleted.value}>
+            {revType.title.value}
           </S.OperationTypeStyle>
         );
       },
@@ -51,6 +49,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientServiceDto',
       key: 'path',
       ellipsis: true,
+      className: 'right-to-left',
       render: (item) => {
         return <HistoryCell item={item?.value.serviceName}></HistoryCell>;
       },

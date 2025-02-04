@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Table as KitTable } from '@oxygen/ui-kit';
+import { REV_TYPE_CODE } from '../../utils/consts';
 
 export const TableContainer = styled.div``;
 
@@ -16,12 +17,12 @@ export const OperationTypeStyle = styled.p<any>`
 
   ${({ variant, isDeleted, theme }) => {
     switch (variant) {
-      case 'ایجاد':
+      case REV_TYPE_CODE.ADD:
         return css`
           color: ${theme.secondary.main};
         `;
 
-      case 'ویرایش':
+      case REV_TYPE_CODE.UPDATE:
         return isDeleted
           ? css`
               color: ${theme.error.main};
