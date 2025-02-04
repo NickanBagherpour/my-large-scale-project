@@ -12,9 +12,9 @@ import { KEYS as EDIT_SERVICE_KEYS } from './portals/backoffice/edit-service.key
 import { KEYS as CLIENT_CREATION_KEYS } from './portals/backoffice/client-creation.key';
 import { KEYS as SCOPE_CREATION_KEYS } from './portals/backoffice/scope-creation.key';
 import { KEYS as SERVICES_LIST_KEYS } from './portals/backoffice/services-list.key';
-import { KEYS as APPLICANT_HISTORY_KEYS } from './portals/backoffice/applicant-history.key';
 import { KEYS as CLIENT_DETAILS_KEYS } from './portals/backoffice/client-details.key';
 import { KEYS as CLIENT_HISTORY_KEYS } from './portals/backoffice/client-history.key';
+import { KEYS as CLIENT_SERVICE_HISTORY_KEYS } from './portals/backoffice/client-service-history.key';
 import { KEYS as SCOPE_CHANGE_HISTORY_KEYS } from './portals/backoffice/scope-change-history.key';
 import { KEYS as SERVICE_HISTORY_KEYS } from './portals/backoffice/service-history.key';
 import { KEYS as EDIT_APPLICANT_INFO_KEYS } from './portals/backoffice/edit-applicant-info.key';
@@ -64,6 +64,7 @@ export const RQKEYS = {
     EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
     CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
     CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
+    CLIENT_SERVICE_HISTORY: CLIENT_SERVICE_HISTORY_KEYS,
     CLIENT_CREATION: CLIENT_CREATION_KEYS,
     CREATE_NEW_CLIENT: CREATE_NEW_CLIENT_KEYS,
     //UPSTREAM
@@ -90,7 +91,7 @@ export const RQKEYS = {
     EDIT_ROUTE: EDIT_ROUTE_KEYS,
     ROUTE_DETAILS: ROUTE_DETAILS_KEYS,
     // ETC
-    APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
+
     EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
     AUTH: BACKOFFICE_AUTH_KEYS,
     DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,

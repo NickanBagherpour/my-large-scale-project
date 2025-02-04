@@ -9,7 +9,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const ApplicantHistoryWidget: React.FC<PageProps> = (props) => {
+const ClientServiceHistoryWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
 
   return (
@@ -21,4 +21,4 @@ const ApplicantHistoryWidget: React.FC<PageProps> = (props) => {
   );
 };
 
-export default ApplicantHistoryWidget;
+export default ClientServiceHistoryWidget;

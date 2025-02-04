@@ -14,7 +14,7 @@ export const ROUTES = {
     HOME: '/',
     AUTH: '/auth',
     DASHBOARD: '/dashboard',
-    APPLICANT_HISTORY: '/applicant-history',
+    CLIENT_SERVICE_HISTORY: '/client-service-history',
     CLIENT_CREATION: '/client-creation',
     CLIENT_DETAILS: '/client-details',
     CLIENT_HISTORY: '/client-history',
@@ -69,7 +69,7 @@ export const CUSTOMER_ROUTE_GROUPS = [
 export const BACKOFFICE_ROUTE_GROUPS = [
   // ['/dashboard', '/dashboard-report'],
   [
-    ROUTES.BACKOFFICE.APPLICANT_HISTORY,
+    ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY,
     ROUTES.BACKOFFICE.CLIENT_CREATION,
     ROUTES.BACKOFFICE.CLIENT_DETAILS,
     ROUTES.BACKOFFICE.CLIENT_HISTORY,

@@ -1,5 +1,4 @@
 import { GrantValue } from './consts';
-import { i18nBase } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
 
 const transformData = (data) => {
@@ -7,14 +6,6 @@ const transformData = (data) => {
     acc[`is${item.key}`] = data.some((d) => d.key === item.key);
     return acc;
   }, {});
-};
-
-export const TitleChanger = (data, loading, t) => {
-  if (loading) return '';
-
-  const title = i18nBase.resolvedLanguage === 'en' ? data?.clientEnglishName : data?.clientPersianName;
-
-  return title || t('subtitle');
 };
 
 export const renderChip = (tag, handleClose) => (
