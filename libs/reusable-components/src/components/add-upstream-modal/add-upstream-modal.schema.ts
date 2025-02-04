@@ -11,8 +11,8 @@ export const FORM_ITEM_NAMES = {
 export const createUpstreamType = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
   return z.object({
-    [FORM_ITEM_NAMES.name]: validationSchema.upstreamName,
-    [FORM_ITEM_NAMES.description]: validationSchema.upstreamDescription,
+    [FORM_ITEM_NAMES.name]: validationSchema.defaultEnglishName,
+    [FORM_ITEM_NAMES.description]: validationSchema.description,
   });
 };
 export type CreateUpstreamType = z.infer<ReturnType<typeof createUpstreamType>>;

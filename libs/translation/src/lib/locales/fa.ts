@@ -351,6 +351,7 @@ export default {
     search_upstream_name: 'فقط کاراکتر های الفبایی-عددی (انگلیسی و فارسی) و - _ . مجاز است',
     upstream_name: 'فقط کاراکتر های الفبایی-عددی (انگلیسی) و - _ . مجاز است',
     upstream_description: 'فقط کاراکتر های الفبایی-عددی فارسی و - _ . مجاز است',
+    is_not_valid: '{{val}} معتبر نیست',
   },
   element: {
     service: 'سرویس',
