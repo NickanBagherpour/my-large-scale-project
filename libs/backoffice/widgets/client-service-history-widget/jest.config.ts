@@ -1,10 +1,10 @@
 export default {
-  displayName: 'applicant-history-widget',
+  displayName: 'client-service-history-widget',
   preset: '../../../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/widgets/applicant-history-widget',
+  coverageDirectory: '../../../../coverage/libs/widgets/client-service-history-widget',
 };

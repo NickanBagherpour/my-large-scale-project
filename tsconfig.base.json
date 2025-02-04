@@ -24,9 +24,6 @@
             "@oxygen/backoffice/layouts": [
                 "libs/backoffice/layouts/src/index.ts"
             ],
-            "@oxygen/backoffice/widgets/applicant-history-widget": [
-                "libs/backoffice/widgets/applicant-history-widget/src/index.ts"
-            ],
             "@oxygen/backoffice/widgets/auth-widget": [
                 "libs/backoffice/widgets/auth-widget/src/index.ts"
             ],
@@ -41,6 +38,9 @@
             ],
             "@oxygen/backoffice/widgets/client-list-widget": [
                 "libs/backoffice/widgets/client-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-service-history-widget": [
+                "libs/backoffice/widgets/client-service-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
                 "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"

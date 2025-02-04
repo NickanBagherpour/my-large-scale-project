@@ -7,7 +7,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { useApp } from '@oxygen/hooks';
 import { RQKEYS } from '@oxygen/utils';
-import { Button, Chip, Divider, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Button, Divider, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
@@ -24,11 +24,10 @@ import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
   userData: any;
-  userDataLoading: boolean;
 };
 
 const EditClient: React.FC<FirstStepProps> = (props) => {
-  const { userData, userDataLoading } = props;
+  const { userData } = props;
   const [t] = useTr();
   const [form] = Form.useForm();
 
@@ -46,7 +45,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
 
-  const { mutate, isPending: loadingUpdateClient } = useUpdateClient();
+  const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
 
   useEffect(() => {
     if (tags && userData?.tagIds) {
@@ -77,26 +76,29 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   const onFinish = async (values) => {
     mutate(prepareParams(values), {
       onSuccess: async () => {
-        notification.success({
-          message: t('message.success_alert', { element: userData?.latinNameClient ?? userData?.persianNameClient }),
-        });
-
         try {
-          await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
-          });
-
           await queryClient.invalidateQueries({
             queryKey: [RQKEYS.BACKOFFICE.CLIENT_PROFILE, RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
           });
 
+          notification.success({
+            message: t('message.success_alert', {
+              element: '',
+            }),
+          });
+
+          await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
+
           router.back();
         } catch (error) {
-          //
+          console.error('Error invalidating queries:', error);
         }
       },
       onError: (error) => {
-        //
+        const errorMessage = error.message || t('unexpected_error');
+        notification.error({
+          message: t(errorMessage),
+        });
       },
     });
   };
@@ -110,7 +112,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const onGrantTypeClose = (item) => {
-    if (loadingUpdateClient || userDataLoading) {
+    if (loadingUpdateClient || isSuccess) {
       return;
     }
 
@@ -124,7 +126,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const onTagsClose = (option) => {
-    if (loadingUpdateClient || userDataLoading) {
+    if (loadingUpdateClient || isSuccess) {
       return;
     }
 
@@ -141,10 +143,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <S.Form
           layout={'vertical'}
+          key={userData?.id}
           onFinish={onFinish}
           form={form}
           initialValues={initialValues(userData)}
-          disabled={loadingUpdateClient || userDataLoading}
+          disabled={loadingUpdateClient || isSuccess}
         >
           <SearchItemsContainer>
             <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
@@ -158,7 +161,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             </Form.Item>
             <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
               <Select
-                disabled={loadingUpdateClient || userDataLoading}
+                disabled={loadingUpdateClient || isSuccess}
                 loading={isClientTypesFetching}
                 size={'large'}
                 placeholder={t('placeholder.credit_system')}
@@ -189,7 +192,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
           <S.TagPicker>
             <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.grantType}>
               <S.Select
-                disabled={loadingUpdateClient || userDataLoading}
+                disabled={loadingUpdateClient || isSuccess}
                 menu={GrantValue}
                 multiSelect={true}
                 onChange={onGrantTypeChange}
@@ -204,7 +207,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
             <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.tags}>
               <S.Select
                 loading={isTagsFetching}
-                disabled={loadingUpdateClient || userDataLoading}
+                disabled={loadingUpdateClient || isSuccess}
                 menu={tags}
                 multiSelect={true}
                 onChange={onTagsChange}
@@ -218,10 +221,15 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
       </div>
 
       <FooterContainer>
-        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        <ReturnButton
+          size={'large'}
+          variant={'outlined'}
+          onClick={handleReturn}
+          disabled={loadingUpdateClient || isSuccess}
+        >
           {t('form.return')}
         </ReturnButton>
-        <Button htmlType={'submit'} onClick={submitClick} loading={loadingUpdateClient}>
+        <Button htmlType={'submit'} onClick={submitClick} loading={loadingUpdateClient} disabled={isSuccess}>
           {t('form.save_changes')}
         </Button>
       </FooterContainer>
