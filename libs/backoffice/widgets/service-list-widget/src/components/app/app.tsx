@@ -12,6 +12,7 @@ import Services from '../services-list/services';
 import DraftCard from '../draft-card/draft-card';
 import { useGetDraftsQuery } from '../../services/get-drafts.api';
 import { ParamsType } from '../../types';
+import { INITIAL_DRAFTS_PAGE_SIZE } from '../../utils/consts';
 
 import * as S from './app.style';
 
@@ -19,6 +20,7 @@ const DRAFT_LIST_LIMIT = 4;
 const App = () => {
   const theme = useAppTheme();
   const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
+  const [pageSize, setPageSize] = useState(INITIAL_DRAFTS_PAGE_SIZE);
   const prepareParams = () => {
     return {
       isActive: status,
@@ -30,12 +32,25 @@ const App = () => {
     };
   };
   const { data: services, isFetching: isClientsFetching } = useGetServicesQuery(prepareParams());
-  const { data: drafts } = useGetDraftsQuery();
+  const { data: drafts, isFetching: isFetchingDrafts } = useGetDraftsQuery({
+    page: 0,
+    size: pageSize,
+    sort: 'createDate,DESC',
+    isActive: null,
+    searchParam: '',
+  });
+
+  const getAllDrafts = () => {
+    const totalElements = drafts?.totalElements;
+    if (totalElements) {
+      setPageSize(totalElements);
+    }
+  };
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const hasDrafts = false; // !!drafts?.length;
+  const hasDrafts = !!drafts?.content.length;
   const clientsSubTitle = services?.totalElements ? `(${services?.totalElements ?? 0})` : '';
-  const draftsSubTitle = drafts?.length ? `(${drafts?.length ?? 0})` : '';
+  const draftsSubTitle = drafts?.content.length ? `(${drafts?.content.length ?? 0})` : '';
   const [openStatusModal, setOpenStatusModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -86,7 +101,10 @@ const App = () => {
   // const handleDeleteCancel = () => {
   //   setOpenDeleteModal(false);
   // };
-  // const draftList = useMemo(() => (showLoadMore ? drafts?.slice(0, DRAFT_LIST_LIMIT) : drafts), [showLoadMore, drafts]);
+  const draftList = useMemo(
+    () => (showLoadMore ? drafts?.content.slice(0, DRAFT_LIST_LIMIT) : drafts),
+    [showLoadMore, drafts]
+  );
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
@@ -113,35 +131,10 @@ const App = () => {
         </S.ModalMessage>
       </Modal>
 
-      {/* {openDeleteModal && (
-        <Modal
-          title={t('delete_service')}
-          open={openDeleteModal}
-          onOk={() => handleDeleteOk(selectedServiceName)}
-          confirmLoading={confirmLoading}
-          onCancel={handleDeleteCancel}
-          headerDivider={true}
-          centered
-          cancelText={t('button.cancel')}
-          okText={t('button.delete')}
-          okButtonProps={{ style: { backgroundColor: theme.error.main } }}
-          cancelButtonProps={{ style: { color: theme.primary.main } }}
-        >
-          <S.ModalMessage>
-            {t('delete_service_question')}
-            <S.ServiceName
-              text={selectedServiceName}
-              highlightColor={theme.error.main}
-              wordToHighlight={selectedServiceName}
-            />
-            {t('are_you_sure')}
-          </S.ModalMessage>
-        </Modal>
-      )} */}
-      {/* {hasDrafts && (
+      {hasDrafts && (
         <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
-            {draftList?.map((item) => (
+            {drafts.content?.map((item) => (
               <DraftCard
                 id={item?.serviceInfoId}
                 level={item?.serviceProgress?.step}
@@ -151,8 +144,11 @@ const App = () => {
               />
             ))}
           </S.Grid>
-          {showLoadMore && drafts?.length > DRAFT_LIST_LIMIT && (
-            <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(false)}>
+
+          {/* {console.log(draftList, 'draftList')} */}
+
+          {showLoadMore && drafts?.content.length > DRAFT_LIST_LIMIT && (
+            <S.Button variant='link' color='primary' onClick={getAllDrafts}>
               <span>{t('button.show_all')}</span>
               <i className='icon-chev-down' />
             </S.Button>
@@ -164,16 +160,16 @@ const App = () => {
             </S.Button>
           )}
         </S.DraftsContainer>
-      )} */}
+      )}
 
       <S.ServicesContainer title={t('widget_name')} subtitle={clientsSubTitle} fillContainer={!hasDrafts}>
         <Filters />
         <Services
-          isFetching={isClientsFetching}
+          isFetching={isFetchingDrafts}
           data={services?.content}
           total={services?.totalElements}
           searchTerm={searchTerm}
-          isLoading={isClientsFetching}
+          isLoading={isFetchingDrafts}
           wordToHighlight={searchTerm ?? ''}
           changeStatus={(status, name) => changeStatusHandler(status, name)}
           deleteService={(name, status) => deleteHandler(name, status)}

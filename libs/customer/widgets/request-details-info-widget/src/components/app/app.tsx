@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = (props) => {
       <S.AppContainer
         title={`${t('widget_name')} ` + (requestDetailsInfo ? requestDetailsInfo?.submissionInfoDto?.clientName : '')}
       >
-        <DetailsInfo data={requestDetailsInfo} loading={isRequestDetailsFetching} />
+        <DetailsInfo data={requestDetailsInfo} />
       </S.AppContainer>
     </Loading>
   );

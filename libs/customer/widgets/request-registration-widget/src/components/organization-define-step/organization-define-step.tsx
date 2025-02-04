@@ -10,25 +10,29 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip, InfoBox } from '@oxygen/ui-kit';
 
-import { requestRegistrationFormSchema } from '../../types';
+import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
 import {
   FORM_ITEM,
   MAX_INPUTE_LENGTH,
+  MAX_LEGAL_PERSON_NAME_LENGTH,
+  MIN_LEGAL_PERSON_NAME_LENGTH,
+  MAX_REGISTRATION_NUMBER_LENGTH,
   MAX_POSTAL_CODE_NUMBER_LENGTH,
   MAX_NATIONAL_ID_NUMBER_LENGTH,
   MAX_ECONOMY_CODE_NUMBER_LENGTH,
   MAX_MOBILE_NUMBER_LENGTH,
+  MAX_LAST_REGISTRATION_ADDRESS_LENGTH,
   selectLegalTypeOptions,
 } from '../../utils/consts';
 import { WidgetStateType } from '../../context/types';
 import {
-  useFirstStepRequestRegistrationMutationQuery,
-  useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery,
   useGetOrganizationsQuery,
   useGetAggregatorsQuery,
-} from '../../services/first-step/first-step-data';
+} from '../../services';
 import {
-  updateFirstStepAction,
+  updateOrganizationDefineStepAction,
   updateOrganizationIdAndSubmissionId,
   useAppDispatch,
   useAppState,
@@ -36,18 +40,17 @@ import {
   updateStatus,
 } from '../../context';
 
-import * as S from './first-step.style';
+import * as S from './organization-define-step.style';
 import { NoResult } from '@oxygen/reusable-components';
 
-type FirstStepProps = PageProps & {
+type OrganizationDefineStepProps = PageProps & {
   setCurrentStep: (prev) => void;
-  data?: any;
-  loading?: boolean;
+
   draft?: boolean;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
-  const { setCurrentStep, data, loading, draft } = props;
+const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) => {
+  const { setCurrentStep, draft } = props;
   const dispatch = useAppDispatch();
   const state = useAppState();
   const { ...fetchState } = useAppState();
@@ -64,6 +67,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
   const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
+
   const [aggregatorSelectData, setAggregatorSelectData] = useState([]);
 
   const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
@@ -72,39 +76,45 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     id: '',
     submissionId: null,
   });
-  const { mutate: firstMutate, isPending: firstIsPending } = useFirstStepRequestRegistrationMutationQuery();
+  const { mutate: firstMutate, isPending: firstIsPending } =
+    useOrganizationDefineStepRequestRegistrationMutationQuery();
   const { mutate: secondMutate, isPending: secondIsPending } =
-    useFirstStepRequestRegistrationWithSelectedOrganizationMutationQuery();
+    useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery();
   const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.firstStepDisabledSubmit);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.organizationDefineStepDisabledSubmit);
 
-  // type OrganizationInfo = { key: string; value: any };
-  // const [organizationInfoData, setOrganizationInfoData] = useState<OrganizationInfo[]>([]);
+  const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
+  const [secondPartOffOrganizationInfoData, setSecondPartOffOrganizationInfoData] = useState<InfoBoxType[]>([]);
 
-  // useEffect(() => {
-  //   if (isSelected.id) {
-  //     setOrganizationInfoData([
-  //       { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
-  //       { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
-  //       {
-  //         key: t('form.legal_person_type'),
-  //         value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
-  //       },
-  //       { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
-  //       { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
-  //       { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
-  //       { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
-  //       {
-  //         key: t('form.aggregator_status'),
-  //         value: organizations[isSelected.id]?.isAggregator
-  //           ? t('company_is_aggregator')
-  //           : organizations[isSelected.id]?.aggregatorId
-  //           ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
-  //           : t('company_is_not_aggregator'),
-  //       },
-  //     ]);
-  //   }
-  // }, [isSelected.id, organizations, t]);
+  useEffect(() => {
+    if (isSelected.id !== '') {
+      setOrganizationInfoData([
+        { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
+        { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
+        {
+          key: t('form.legal_person_type'),
+          value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
+        },
+        { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
+        { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
+        { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
+        { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
+        {
+          key: t('form.aggregator_status'),
+          value: organizations[isSelected.id]?.isAggregator
+            ? t('company_is_aggregator')
+            : organizations[isSelected.id]?.aggregatorId
+            ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+            : t('company_is_not_aggregator'),
+        },
+      ]);
+      setSecondPartOffOrganizationInfoData([
+        { key: t('form.last_registration_address'), value: organizations[isSelected.id].registeredAddress },
+        { key: t('form.postal_code'), value: organizations[isSelected.id].postalCode },
+        { key: t('form.phone'), value: organizations[isSelected.id].phone },
+      ]);
+    }
+  }, [isSelected.id, organizations, t]);
 
   useEffect(() => {
     if (aggregators?.content) {
@@ -142,7 +152,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const onFinish = (values) => {
     if (!aggregatorIsRequired) {
       const params = {
-        aggregator_status: state.firstStep.aggregator_status,
+        aggregator_status: state.organizationDefineStep.aggregator_status,
         aggregator_value: values.aggregator_value,
         legalName: values.legal_person_name,
         legalType: values.legal_person_type,
@@ -155,29 +165,30 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         phone: values.phone,
         registeredAddress: values.last_registration_address,
         isAggregator:
-          state.firstStep.aggregator_status === 'isAggregator'
+          state.organizationDefineStep.aggregator_status === 'isAggregator'
             ? true
-            : state.firstStep.aggregator_status === 'hasAggregator'
+            : state.organizationDefineStep.aggregator_status === 'hasAggregator'
             ? false
             : false,
-        aggregatorId: state.firstStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
+        aggregatorId:
+          state.organizationDefineStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
         organizationId: state.organizationId,
         submissionId: state.submissionId,
       };
 
       firstMutate(params, {
         onSuccess: (data) => {
-          console.log('request registration first step successful:', data);
+          console.log('request registration organization define step successful:', data);
           if (state.submissionId.length === 0) {
             updateOrganizationIdAndSubmissionId(dispatch, data.data);
           }
-          const aggregator_status = state.firstStep.aggregator_status;
+          const aggregator_status = state.organizationDefineStep.aggregator_status;
           const updatedValues = { ...values, aggregator_status };
-          updateFirstStepAction(dispatch, updatedValues);
+          updateOrganizationDefineStepAction(dispatch, updatedValues);
           setCurrentStep((perv) => perv + 1);
         },
         onError: (error) => {
-          console.error('request registration first step  failed:', error);
+          console.error('request registration organization define step  failed:', error);
         },
       });
     }
@@ -187,7 +198,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     const params = { organizationId: isSelected.submissionId };
     secondMutate(params, {
       onSuccess: (data) => {
-        console.log('request registration first step successful:', data);
+        console.log('request registration organization define step successful:', data);
         const submissionId = data.headers['submission-id'];
         if (state.submissionId.length === 0) {
           updateOrganizationIdAndSubmissionId(dispatch, {
@@ -198,7 +209,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         setCurrentStep((perv) => perv + 1);
       },
       onError: (error) => {
-        console.error('request registration first step  failed:', error);
+        console.error('request registration organization define step  failed:', error);
       },
     });
   };
@@ -225,7 +236,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    if (!state.firstStep.aggregator_status) {
+    if (!state.organizationDefineStep.aggregator_status) {
       setAggregatorIsRequired(true);
     }
     if (state.requestMode === 'selectOrganization') {
@@ -240,7 +251,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   return (
-    <S.FirstStepContainer>
+    <S.OrganizationDefineStepContainer>
       <S.ContainerContent>
         <Card>
           <S.Radios onChange={onChange} value={state.requestMode}>
@@ -275,70 +286,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
               {isSelected.isSelected && (
                 <S.OrganizationContainer>
-                  {loading ? (
-                    <Loading spinning={loading} />
+                  {isOrganizationsFetching ? (
+                    <Loading spinning={isOrganizationsFetching} />
                   ) : (
                     <S.OrganizationContainer>
                       <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
-                      {/* <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} /> */}
                       <Card>
-                        <SearchItemsContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.legal_person_name')}</span>
-                            <span>{organizations[isSelected.id].legalName}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.national_id')}</span>
-                            <span>{organizations[isSelected.id].organizationNationalId}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.legal_person_type')}</span>
-                            <span>
-                              {organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private')}
-                            </span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.registration_number')}</span>
-                            <span>{organizations[isSelected.id].registerNo}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.registration_date')}</span>
-                            <span>{organizations[isSelected.id].registerDate}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.activity_field')}</span>
-                            <span>{organizations[isSelected.id].activityIndustry}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.economy_code')}</span>
-                            <span>{organizations[isSelected.id].economicCode}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.aggregator_status')}</span>
-                            <span>
-                              {organizations[isSelected.id]?.isAggregator
-                                ? t('company_is_aggregator')
-                                : organizations[isSelected.id]?.aggregatorId
-                                ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
-                                : t('company_is_not_aggregator')}
-                            </span>
-                          </S.InfoItemContainer>
-                        </SearchItemsContainer>
+                        <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} isChild={true} />
                         <S.Divider orientation='center' />
-                        <SearchItemsContainer $columnNumber='3'>
-                          <S.InfoItemContainer>
-                            <span>{t('form.last_registration_address')}</span>
-                            <span>{organizations[isSelected.id].registeredAddress}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.postal_code')}</span>
-                            <span>{organizations[isSelected.id].postalCode}</span>
-                          </S.InfoItemContainer>
-                          <S.InfoItemContainer>
-                            <span>{t('form.phone')}</span>
-                            <span>{organizations[isSelected.id].phone}</span>
-                          </S.InfoItemContainer>
-                        </SearchItemsContainer>
+                        <InfoBox
+                          margin={0}
+                          data={secondPartOffOrganizationInfoData}
+                          minColumnCount={3}
+                          isChild={true}
+                        />
                       </Card>
                     </S.OrganizationContainer>
                   )}
@@ -350,7 +311,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               layout={'vertical'}
               onFinish={onFinish}
               form={form}
-              initialValues={state.firstStep}
+              initialValues={state.organizationDefineStep}
               onFieldsChange={checkFields}
             >
               <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
@@ -359,7 +320,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   <S.ChipsContainer>
                     <S.Chips>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'isAggregator')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'isAggregator')}
                         onClick={() => {
                           updateStatus(dispatch, 'isAggregator');
                           setAggregatorIsRequired(false);
@@ -371,7 +332,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         {t('company_is_aggregator')}
                       </Chip>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'hasAggregator')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'hasAggregator')}
                         onClick={() => {
                           updateStatus(dispatch, 'hasAggregator');
                           setAggregatorIsRequired(false);
@@ -383,7 +344,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                         {t('company_has_aggregator')}
                       </Chip>
                       <Chip
-                        {...getChipProps(state.firstStep.aggregator_status, 'nothing')}
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'nothing')}
                         onClick={() => {
                           updateStatus(dispatch, 'nothing');
                           setAggregatorIsRequired(false);
@@ -400,8 +361,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                     )}
                   </S.ChipsContainer>
                 </SearchItemsContainer>
-                {state.firstStep.aggregator_status === 'hasAggregator' && (
-                  // ||state.firstStep.aggregator_status === 'isAggregator'
+                {state.organizationDefineStep.aggregator_status === 'hasAggregator' && (
+                  // ||state.organizationDefineStep.aggregator_status === 'isAggregator'
                   <SearchItemsContainer $columnNumber='3'>
                     <S.AggregatorContainer>
                       <Form.Item
@@ -426,7 +387,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   <Input
                     size='large'
                     placeholder={`${t('placeholder.legal_person_name')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_LEGAL_PERSON_NAME_LENGTH}
+                    minLength={MIN_LEGAL_PERSON_NAME_LENGTH}
                   />
                 </Form.Item>
 
@@ -434,7 +396,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   <Select
                     size={'large'}
                     options={selectLegalTypeOptions}
-                    // loading={selectFetching}
                     placeholder={`${t('placeholder.legal_person_type')}`}
                   ></Select>
                 </Form.Item>
@@ -442,7 +403,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
                   <Input
                     placeholder={`${t('placeholder.registration_number')}`}
-                    maxLength={MAX_INPUTE_LENGTH}
+                    maxLength={MAX_REGISTRATION_NUMBER_LENGTH}
                     allow={'number'}
                   />
                 </Form.Item>
@@ -479,7 +440,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
                   <Input
-                    placeholder={`${t('placeholder.phone')}`}
+                    placeholder={`${t('placeholder.phone')} (0210000000)`}
                     maxLength={MAX_MOBILE_NUMBER_LENGTH}
                     allow={'number'}
                   />
@@ -490,7 +451,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                   label={t('form.last_registration_address')}
                   rules={[rule]}
                 >
-                  <Input placeholder={`${t('placeholder.last_registration_address')}`} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    placeholder={`${t('placeholder.last_registration_address')}`}
+                    maxLength={MAX_LAST_REGISTRATION_ADDRESS_LENGTH}
+                  />
                 </Form.Item>
               </SearchItemsContainer>
             </Form>
@@ -515,8 +479,8 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-    </S.FirstStepContainer>
+    </S.OrganizationDefineStepContainer>
   );
 };
 
-export default FirstStep;
+export default OrganizationDefineStep;

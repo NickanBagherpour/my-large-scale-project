@@ -242,24 +242,103 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
       }
     });
 
-  // .min(11, { message: t('error.min_length') });
+  const legal_person_name = z
+    .string({ required_error: t('validation.required') })
+    .trim()
+    .superRefine((value, ctx) => {
+      if (value.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('validation.required'),
+        });
+        return;
+      }
+
+      if (value.trim() !== '' && !/^[\u0600-\u06FF\s]+$/.test(value)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('error.persian_only'),
+        });
+      }
+
+      if (value.length < 3) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 3,
+          inclusive: true,
+          message: t('error.three_characters_needed'),
+        });
+      }
+    });
+
+  const phoneNumber = z
+    .string({ required_error: t('validation.required') })
+    .trim()
+    .superRefine((value, ctx) => {
+      if (value.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('validation.required'),
+        });
+        return;
+      }
+
+      if (value.length < 7) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 7,
+          inclusive: true,
+          message: t('error.seven_digits_needed'),
+        });
+      }
+    });
+
+  const lastRegistrationAddress = z
+    .string({ required_error: t('validation.required') })
+    .trim()
+    .superRefine((value, ctx) => {
+      if (value.length < 1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 1,
+          inclusive: true,
+          message: t('validation.required'),
+        });
+        return;
+      }
+
+      if (value.trim() !== '' && !/^[\u0600-\u06FF0-9\-_.s]+$/.test(value)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t('error.persian_only'),
+        });
+      }
+    });
 
   return z.object({
-    // Name Fields
-    // [FORM_ITEM.latin_name_client]: requiredString.superRefine((value, ctx) => {
-    //   if (value.trim() !== '' && !/^[A-Za-z\s]+$/.test(value)) {
-    //     ctx.addIssue({
-    //       code: z.ZodIssueCode.custom,
-    //       message: t('error.english_only'),
-    //     });
-    //   }
-    // }),
-
     [FORM_ITEM.persian_name]: requiredString.superRefine((value, ctx) => {
       if (value.trim() !== '' && !/^[\u0600-\u06FF\s]+$/.test(value)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: t('error.persian_only'),
+        });
+      }
+      if (value.length < 3) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 3,
+          inclusive: true,
+          message: t('error.three_characters_needed'),
         });
       }
     }),
@@ -270,12 +349,21 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
           message: t('error.persian_only'),
         });
       }
+      if (value.length < 3) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          type: 'string',
+          minimum: 3,
+          inclusive: true,
+          message: t('error.three_characters_needed'),
+        });
+      }
     }),
 
     // Required Fields
     [FORM_ITEM.aggregator_status]: requiredString,
     [FORM_ITEM.aggregator_value]: requiredString,
-    [FORM_ITEM.legal_person_name]: requiredJustString,
+    [FORM_ITEM.legal_person_name]: legal_person_name,
     [FORM_ITEM.legal_person_type]: requiredString,
     [FORM_ITEM.registration_number]: requiredString,
     [FORM_ITEM.registration_date]: datePickerString,
@@ -283,14 +371,14 @@ export const requestRegistrationFormSchema = (t: (key: string) => string) => {
     [FORM_ITEM.economy_code]: economyCode,
     [FORM_ITEM.activity_field]: requiredString,
     [FORM_ITEM.postal_code]: postalCode,
-    [FORM_ITEM.phone]: requiredString,
-    [FORM_ITEM.last_registration_address]: requiredString,
+    [FORM_ITEM.phone]: phoneNumber,
+    [FORM_ITEM.last_registration_address]: lastRegistrationAddress,
 
     //mobile number
     [FORM_ITEM.mobile_number]: mobileNumber,
-    [FORM_ITEM.phone_number]: mobileNumber,
+    [FORM_ITEM.phone_number]: phoneNumber,
     [FORM_ITEM.technical_mobile_number]: mobileNumber,
-    [FORM_ITEM.technical_Phone_number]: mobileNumber,
+    [FORM_ITEM.technical_Phone_number]: phoneNumber,
 
     // optional URL Field
     // [FORM_ITEM.input_address]: optionalUrlString,

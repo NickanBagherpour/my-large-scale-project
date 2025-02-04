@@ -78,7 +78,7 @@ export default {
     rows_per_page: 'تعداد سطرها',
     select_all: 'انتخاب همه',
     active_servers_count: '{{count}} سرور فعال ',
-    search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    search_by_name_and_scope: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
     discription: 'توضیحات:',
     advanced_grid_card_step_two:
       ' در این مرحله بانکداری تجاری درخواست شما را بررسی می‌کند و در صورت تایید، به واحد کسب و کار منتقل می‌گردد.',
@@ -370,6 +370,9 @@ export default {
     only_digit_message: 'لطفا فقط عدد وارد کنید',
     email_validation_message: 'لطفا ایمیل را به صورت صحیح وارد کنید',
     default_validation_message: 'لطفا مقادیر را به طور صحیح وارد کنید',
+    search_upstream_name: 'فقط کاراکتر های الفبایی-عددی (انگلیسی و فارسی) و - _ . مجاز است',
+    upstream_name: 'فقط کاراکتر های الفبایی-عددی (انگلیسی) و - _ . مجاز است',
+    upstream_description: 'فقط کاراکتر های الفبایی-عددی فارسی و - _ . مجاز است',
   },
   element: {
     service: 'سرویس',

@@ -79,3 +79,10 @@ export type RequestRegistration = {
   organization: string;
   submissionId: string;
 };
+
+export type InfoBoxType = {
+  key: string;
+  value: any;
+  type?: 'text' | 'file' | 'divider' | undefined;
+  fullwidth?: boolean;
+};

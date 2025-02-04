@@ -5,7 +5,7 @@ export default {
   field: {
     farsi_name: 'نام فارسی اسکوپ',
     admin_name: 'نام ادمین',
-    english_name: 'نام لاتین اسکوپ',
+    english_name: 'نام انگلیسی اسکوپ',
     modify_date: 'زمان ویرایش',
   },
 };
