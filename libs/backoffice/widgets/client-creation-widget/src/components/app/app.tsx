@@ -13,6 +13,7 @@ import { addClientName, resetErrorMessageAction, useAppDispatch, useAppState } f
 
 import * as S from './app.style';
 import { useClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
+import { Loading } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {
   //
@@ -25,15 +26,31 @@ const App: React.FC<AppProps> = (props) => {
   const searchParams = useSearchParams();
   const clientName: Nullable<string> = searchParams.get('client-name');
 
+  const {
+    data: inquiryStatus,
+    isFetching: inquiryStatusFetching,
+    isSuccess,
+  } = useClientInquiryStatusQuery({
+    'client-name': clientName,
+  });
+
+  const step = inquiryStatus?.clientProgress?.step ?? 0;
+
+  const [currentStep, setCurrentStep] = useState<number>(step);
+
   useEffect(() => {
-    if (!clientName) notFound();
-    else addClientName(dispatch, clientName);
+    if (!clientName) {
+      notFound();
+    } else {
+      addClientName(dispatch, clientName);
+    }
   }, [dispatch, clientName]);
 
-  const { data, isFetching } = useClientInquiryStatusQuery({ 'client-name': clientName });
-
-  const step = data ? data?.clientProgress?.step : 0;
-  const [currentStep, setCurrentStep] = useState(step);
+  useEffect(() => {
+    if (isSuccess && inquiryStatus) {
+      setCurrentStep(step);
+    }
+  }, [isSuccess, step]);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), component: <FirstStep setCurrentStep={setCurrentStep} /> },
@@ -49,12 +66,12 @@ const App: React.FC<AppProps> = (props) => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      {step === null ? (
-        <h1>loading...</h1>
+      {inquiryStatusFetching ? (
+        <Loading />
       ) : (
         <>
           <S.Steps items={stepsItem} current={currentStep} />
-          {stepsItem[currentStep].component}
+          {stepsItem[currentStep]?.component}
         </>
       )}
     </S.AppContainer>

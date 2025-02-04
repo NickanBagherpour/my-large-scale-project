@@ -8,7 +8,9 @@ const Api = {
   getGrantTagData: async () => Mockify.getGrantTags(),
   getNameTagData: async () => Mockify.getNameTags(),
   getSelectData: async () => Mockify.getSelectOptions(),
+
   getClientTypes: async () => client.get(`${portalUrl}/v1/enums/client-types`),
+  getClientInquirySSO: async (params) => client.get(`${portalUrl}/v1/clients/inquiry-client-sso`, { params }),
   getClientInquiryStatus: async (params) => client.get(`${portalUrl}/v1/clients/inquiry-client-status`, { params }),
   getOrganizationInfo: async (params) =>
     client.get<OrganizationInfoResponceType>(`${portalUrl}/v1/organization`, { params }),
