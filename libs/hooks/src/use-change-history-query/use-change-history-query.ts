@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { withErrorHandling } from '@oxygen/utils';
+import { deepCopy, withErrorHandling } from '@oxygen/utils';
 import { DifferenceMap, Props } from './types';
 import { api } from './api';
 import { cache } from 'react';
@@ -30,6 +30,7 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props<
     params: { size, page },
     dispatch,
     normalizer,
+    nestedKeyAccessor,
   } = props;
 
   const nextItemParams = { page: page * size + size, size: 1 };
@@ -41,7 +42,9 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props<
     placeholderData: keepPreviousData,
   });
 
-  const enableNextItemQuery = !!currentPageData && !currentPageData.empty && !currentPageData.last;
+  const current = nestedKeyAccessor ? currentPageData?.[nestedKeyAccessor] : currentPageData;
+
+  const enableNextItemQuery = !!current && !current.empty && !current.last;
 
   const { data: nextItemData, isFetching: isFetchingPreviousItem } = useQuery({
     queryKey: [...queryKey, nextItemParams],
@@ -50,17 +53,29 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props<
     enabled: enableNextItemQuery,
   });
 
+  const next = nestedKeyAccessor ? nextItemData?.[nestedKeyAccessor] : nextItemData;
   const isFetching = isFetchingCurrentPage || isFetchingPreviousItem;
 
-  if (currentPageData && (nextItemData || !enableNextItemQuery)) {
-    const combinedData = [...currentPageData.content, ...(nextItemData?.content ?? [])];
+  if (current && (next || !enableNextItemQuery)) {
+    console.log(':)', 'current.content', current.content);
+    const combinedData = [...current.content, ...(next?.content ?? [])];
 
     const diffAnnotatedData = combinedData.map((item, index, arr) =>
       calculateDifference<TContentItem>(item, arr[index + 1])
     );
 
-    if (nextItemData?.content.length) {
+    if (next?.content.length) {
       diffAnnotatedData.pop();
+    }
+
+    if (nestedKeyAccessor) {
+      const clonedCurrentPageData = deepCopy(currentPageData);
+      delete clonedCurrentPageData[nestedKeyAccessor];
+      const { content, ...rest } = current;
+      return {
+        data: { ...clonedCurrentPageData, ...rest, content: diffAnnotatedData },
+        isFetching,
+      };
     }
 
     return {
