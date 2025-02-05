@@ -16,7 +16,8 @@ export default {
   search: 'جستجو',
   warning: 'هشدار!',
   confirm_question_first: 'این آپ‌استریم به ',
-  confirm_question_last: ' متصل است. آیا از حذف آن اطمینان دارید؟',
+  confirm_question_last:
+    ' متصل است. لطفاً پیش از حذف آپ‌استریم، نسبت به جایگزینی آن با یک آپ‌استریم دیگر در سرویس های زیر اقدام نمایید:',
   no_service_question: 'آیا از حذف آپ‌استریم مطمئن هستید؟',
   service: 'سرویس',
   validation: {

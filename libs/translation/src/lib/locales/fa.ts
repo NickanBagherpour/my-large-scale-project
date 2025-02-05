@@ -45,6 +45,8 @@ export default {
     in: 'در',
     ascending: 'جدیدترین',
     descending: 'قدیمی ترین',
+    has: 'دارد',
+    doesnt_have: 'ندارد',
   },
 
   app: {
@@ -96,6 +98,21 @@ export default {
     register_information: 'ثبت اطلاعات',
     upstream_english_name: 'نام انگلیسی آپ‌استریم',
     upstream_persian_name: 'نام فارسی آپ‌استریم',
+    organization_name: 'نام سازمان',
+    organization_id: 'شناسه سازمان',
+    aggrigator_status: 'وضعیت اگریگیتور',
+    representative_name: 'نام نماینده',
+    item_already_exists:
+      'مجاز به ثبت {{element}} با این مشخصات نمی‌باشید. {{element}} مورد نظر قبلاً با مشخصات زیر در سامانه ثبت شده است. ',
+    en_service_name: 'نام انگیسی سرویس',
+    desc: 'توضیحات',
+    allowed_creation: 'مجاز به ثبت {{element}} می‌باشید. {{element}} با این مشخصات در سامانه ثبت نشده است.',
+    allowed_creation_BAAM:
+      'مجاز به بارگذاری {{element}} می‌باشید. {{element}} مورد نظر در سامانه بام ثبت شده است. لطفاً جهت بارگذاری {{element}} در اکسیژن از طریق دکمه زیر اقدام نمایید.',
+    complete_item_info:
+      'مجاز به ثبت {{element}} می‌باشید. {{element}} مورد نظر تکمیل نشده است. لطفا نسبت به تکمیل فرایند ثبت {{element}} اقدام نمایید. ',
+    element_en_name: 'نام انگلیسی {{element}}',
+    element_fa_name: 'نام فارسی {{element}}',
   },
 
   button: {
@@ -170,6 +187,12 @@ export default {
     apply: 'ذخیره تغییرات',
     show_all: 'نمایش همه',
     show_less: 'نمایش کمتر',
+    create_new_item: 'ایجاد {{element}} جدید',
+    inquire_item: 'استعلام {{element}}',
+    complete_item_info: 'تکمیل اطلاعات {{element}}',
+    inspect_another_service: 'استعلام سرویس دیگر',
+    observe_client_detail: 'مشاهده جزئیات کلاینت',
+    upload_item: 'بارگذاری {{element}} در اکسیژن',
   },
 
   field: {
@@ -226,7 +249,7 @@ export default {
     en_name: 'نام انگلیسی',
     fa_name: 'نام فارسی',
     element_en_name: 'نام انگلیسی {{element}}',
-    element_fa_name: ' {{element}} نام فارسی',
+    element_fa_name: 'نام فارسی {{element}}',
     method: 'اکشن/متود',
     protocol: 'پروتوکل',
     access: 'دسترسی',
@@ -335,6 +358,12 @@ export default {
     website_url_error: 'آدرس وبسایت معتبر نیست',
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
+    email_error: 'ایمیل معتبر نیست',
+    national_code_error: 'کدملی معتبر نیست',
+    field_error: 'فیلد وارد شده معتبر نیست',
+    url_error: 'آدرس معتبر نیست',
+    phone_error: 'شماره معتبر نیست',
+    organization_number_error: 'شناسه سازمان معتبر نیست',
     choose_at_least_one_option: 'لطفاً حداقل یکی از گزینه‌ها را انتخاب کنید',
     info_error_title: 'خطای دریافت اطلاعات',
     user_error_desc: 'سیستم در دریافت اطلاعات شما با خطا مواجه شد. جهت ورود به سامانه لطفا مجددا تلاش کنید.',

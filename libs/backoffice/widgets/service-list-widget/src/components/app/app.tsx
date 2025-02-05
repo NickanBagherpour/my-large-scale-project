@@ -39,12 +39,12 @@ const App = () => {
     isActive: null,
     searchParam: '',
   });
-
   const getAllDrafts = () => {
     const totalElements = drafts?.totalElements;
     if (totalElements) {
       setPageSize(totalElements);
     }
+    setShowLoadMore(false);
   };
   const dispatch = useAppDispatch();
   const [t] = useTr();
@@ -82,27 +82,8 @@ const App = () => {
     setSelectedServiceName(name);
   };
 
-  // const handleDeleteOk = (name: string) => {
-  //   setConfirmLoading(true);
-  //   setTimeout(() => {
-  //     queryClient.setQueryData([RQKEYS.SERVICES_LIST.GET_LIST, fetchState], (oldData: any) => {
-  //       if (!oldData) return;
-  //       return {
-  //         ...oldData,
-  //         list: oldData.list.filter((item) => item.name !== name),
-  //       };
-  //     });
-
-  //     setOpenDeleteModal(false);
-  //     setConfirmLoading(false);
-  //   }, 2000);
-  // };
-
-  // const handleDeleteCancel = () => {
-  //   setOpenDeleteModal(false);
-  // };
-  const draftList = useMemo(
-    () => (showLoadMore ? drafts?.content.slice(0, DRAFT_LIST_LIMIT) : drafts),
+  const visibleDrafts = useMemo(
+    () => (showLoadMore ? drafts?.content.slice(0, DRAFT_LIST_LIMIT) : drafts?.content),
     [showLoadMore, drafts]
   );
   return (
@@ -134,7 +115,7 @@ const App = () => {
       {hasDrafts && (
         <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
-            {drafts.content?.map((item) => (
+            {visibleDrafts?.map((item) => (
               <DraftCard
                 id={item?.serviceInfoId}
                 level={item?.serviceProgress?.step}
@@ -147,13 +128,13 @@ const App = () => {
 
           {/* {console.log(draftList, 'draftList')} */}
 
-          {showLoadMore && drafts?.content.length > DRAFT_LIST_LIMIT && (
-            <S.Button variant='link' color='primary' onClick={getAllDrafts}>
+          {(showLoadMore || isFetchingDrafts) && drafts?.totalElements > DRAFT_LIST_LIMIT && (
+            <S.Button loading={isFetchingDrafts} variant='link' color='primary' onClick={getAllDrafts}>
               <span>{t('button.show_all')}</span>
               <i className='icon-chev-down' />
             </S.Button>
           )}
-          {!showLoadMore && (
+          {!showLoadMore && !isFetchingDrafts && (
             <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(true)}>
               <span>{t('button.show_less')}</span>
               <i className='icon-arrow-up' />
