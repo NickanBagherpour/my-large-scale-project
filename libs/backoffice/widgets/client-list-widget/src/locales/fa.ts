@@ -17,4 +17,6 @@ export default {
   clients_english_name: 'نام انگلیسی کلاینت',
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
+  are_you_sure_to_remove: 'آیا از حذف پیش‌نویس {{name}} اطمینان دارید؟',
+  remove_draft: 'حذف پیش‌نویس',
 };
