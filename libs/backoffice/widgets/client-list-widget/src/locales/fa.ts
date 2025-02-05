@@ -7,6 +7,7 @@ export default {
   active_clients: 'کلاینت‌های فعال',
   inactive_clients: 'کلاینت‌های غیر‌فعال',
   show_all: 'نمایش همه',
+  show_less: 'نمایش کمتر',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
   draft: 'پیش‌نویس‌',
