@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'App Bale',
+  edit_client_information: ' ویرایش اطلاعات کلاینت',
   edit_client_info: 'ویرایش اطلاعات فنی',
   applicant_info: 'اطلاعات کاربر متقاضی',
   select_aggregator: 'انتخاب اگریگیتور',
@@ -7,7 +7,7 @@ export default {
     client_status: 'وضعیت کلاینت',
     grant_type: 'اضافه کردن Grant Type',
     add_tags: 'اضافه کردن تگ ها',
-    latin_name_client: 'نام لاتین کلاینت',
+    latin_name_client: 'نام انگلیسی کلاینت',
     persian_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',
@@ -28,7 +28,7 @@ export default {
     return: 'بازگشت',
   },
   placeholder: {
-    latin_name_client: 'نام لاتین کلاینت',
+    latin_name_client: 'نام انگلیسی کلاینت',
     client_bale: 'نام فارسی کلاینت',
     credit_system: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',

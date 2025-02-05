@@ -1,6 +1,6 @@
 import z from 'zod';
 import { TFunction } from 'i18next';
-import { REGEX_PATTERNS, REGEX_PATTERNS_UPSTREAM_MANAGEMENT } from '../pattern-util';
+import { REGEX_PATTERNS } from '../pattern-util';
 import { limits } from './constants';
 
 export const createValidationSchema = (t: TFunction) => {
@@ -38,6 +38,35 @@ export const createValidationSchema = (t: TFunction) => {
         message: t('validation.english_name_error'),
       }),
 
+    organizationNumber: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .min(limits.ORGANIZATION_NUMBER, { message: t('validation.required') })
+      .max(limits.ORGANIZATION_NUMBER, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.onlyDigit, {
+        message: t('validation.english_name_error'),
+      }),
+
+    defaultEnglishName: z // "-", "_‌", ".", numbers, only english alphabet
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.required')),
+
+    defaultPersianName: z // "-", "_‌", ".", numbers, english and persian alphabet
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.required')),
+
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
@@ -45,15 +74,54 @@ export const createValidationSchema = (t: TFunction) => {
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.urlValidator, {
-        message: t('validation.english_name_error'),
+      .regex(REGEX_PATTERNS.url, {
+        message: t('validation.required'),
       }),
+
+    optionalProtocolUrl: z //optional Protocol Url
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.optionalProtocolUrl, t('validation.upstream_name')),
 
     boolean: z.boolean({ required_error: t('validation.required') }),
 
-    mobileNumber: z
+    nationalCode: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.nationalCode, t('validation.required')),
+
+    phoneNumber: z
       .string({ required_error: 'validation.required' })
-      .regex(REGEX_PATTERNS.mobileNumber, { message: 'validation.default_validation_message' }),
+      .trim()
+      .min(limits.PHONE_NUMBER, { message: t('validation.required') })
+      .max(limits.PHONE_NUMBER, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.phoneNumber, { message: 'validation.default_validation_message' }),
+
+    email: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.email, t('validation.upstream_name')),
+
+    positiveNumber: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(1, t('validation.required'))
+      .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.positiveNumber, t('validation.upstream_name')),
 
     tagsList: z
       .array(z.object({ key: z.number(), value: z.number(), label: z.string() }), {
@@ -61,25 +129,33 @@ export const createValidationSchema = (t: TFunction) => {
       })
       .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.choose_at_least_one_option') }),
 
-    upstreamName: z
+    path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.upstreamName, t('validation.upstream_name')),
+      .regex(REGEX_PATTERNS.path, t('validation.upstream_name')),
 
-    upstreamDescription: z
+    host: z // domain address without protocol or ip address
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.upstreamDescription, t('validation.upstream_description')),
+      .regex(REGEX_PATTERNS.host, t('validation.upstream_name')),
 
-    searchUpstreamName: z
-      .string()
+    tel: z
+      .string({ required_error: t('validation.required') })
       .trim()
+      .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS_UPSTREAM_MANAGEMENT.searchUpstreamName, t('validation.search_upstream_name')),
+      .regex(REGEX_PATTERNS.tel, t('validation.upstream_name')),
+
+    description: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(1, t('validation.required'))
+      .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.description, t('validation.upstream_description')),
   };
 
   return validationSchema;

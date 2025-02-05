@@ -5,8 +5,8 @@ import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState
 import { WidgetStateType } from '../../context/types';
 import { useState } from 'react';
 import { useBounce, useToggle } from '@oxygen/hooks';
-import { ROUTES } from '@oxygen/utils';
 import UploadClient from '../upload-client/upload-client';
+import { InquiryComponent } from '@oxygen/reusable-components';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -22,6 +22,7 @@ export default function Filters() {
   const { status, sort } = useAppState();
   const [value, setValue] = useState('');
   const [isUploadModalOpen, toggleUploadModal] = useToggle(false);
+  const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
   useBounce(() => {
     updateSearchTerm(dispatch, value.trim());
@@ -39,10 +40,10 @@ export default function Filters() {
           />
 
           <S.Buttons>
-            <S.Button color='primary' variant='outlined' onClick={toggleUploadModal}>
+            {/* <S.Button color='primary' variant='outlined' onClick={toggleUploadModal}>
               {t('upload_client')}
-            </S.Button>
-            <S.Button href={ROUTES.BACKOFFICE.CLIENT_CREATION} color='primary' variant='solid'>
+            </S.Button> */}
+            <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
               {t('create_new_client')}
             </S.Button>
           </S.Buttons>
@@ -77,6 +78,7 @@ export default function Filters() {
       </S.Container>
 
       <UploadClient toggle={toggleUploadModal} isOpen={isUploadModalOpen} />
+      {isInquiryModalOpen && <InquiryComponent type='client' dispatch={dispatch} toggle={toggleInquiryModal} />}
     </>
   );
 }

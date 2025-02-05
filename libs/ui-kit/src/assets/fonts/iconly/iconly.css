@@ -7,10 +7,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url('./iconly.eot?1736315076475');
-  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1736315076475') format('woff2'),
-    url('./iconly.woff?1736315076475') format('woff'), url('./iconly.ttf?1736315076475') format('truetype'),
-    url('./iconly.svg?1736315076475#Iconly') format('svg');
+  src: url('./iconly.eot?1738597291908');
+  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1738597291908') format('woff2'),
+    url('./iconly.woff?1738597291908') format('woff'), url('./iconly.ttf?1738597291908') format('truetype'),
+    url('./iconly.svg?1738597291908#Iconly') format('svg');
 }
 
 [class='icon'],
@@ -127,6 +127,10 @@
   content: '\e018';
 }
 
+.icon-close-square-1:before {
+  content: '\e019';
+}
+
 .icon-input-password:before {
   content: '\e01a';
 }
@@ -215,6 +219,10 @@
   content: '\e02f';
 }
 
+.icon-plus-circle:before {
+  content: '\e030';
+}
+
 .icon-chart-2:before {
   content: '\e031';
 }
@@ -269,4 +277,12 @@
 
 .icon-cloud:before {
   content: '\e03e';
+}
+
+.icon-box-search:before {
+  content: '\e03f';
+}
+
+.icon-reload:before {
+  content: '\e040';
 }
