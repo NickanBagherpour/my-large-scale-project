@@ -4,6 +4,8 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { Loading } from '@oxygen/ui-kit';
+import { useQueryParams } from '@oxygen/hooks';
+import { getWidgetTitle } from '@oxygen/utils';
 
 import OrganizationDefineStep from '../organization-define-step/organization-define-step';
 import RepresentativeDefineStep from '../representative-define-step/representative-define-step';
@@ -11,7 +13,6 @@ import ServiceSelectStep from '../service-select-step/service-select-step';
 import FinalConfirmStep from '../final-confirm-step/final-confirm-step';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState, updateAllStateFromDraftsAction } from '../../context';
-import { useQueryParams } from '@oxygen/hooks';
 import { useGetRequestDataFromDraftsMutationQuery } from '../../services';
 
 import * as S from './app.style';
@@ -37,6 +38,10 @@ const App: React.FC<AppProps> = (props) => {
   if (progress) {
     stepValue = progressStep[progress];
   }
+
+  const title = getWidgetTitle({
+    defaultTitle: t('widget_name_request_registration'),
+  });
 
   // Run draftsMutate only once when submissionId and progress are available
   useEffect(() => {
@@ -72,7 +77,7 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer title={t('request_registration')}>
+    <S.AppContainer title={title}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
