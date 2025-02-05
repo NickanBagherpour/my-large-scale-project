@@ -9,30 +9,38 @@ import { INITIAL_DRAFTS_PAGE_SIZE } from '../../utils/consts';
 export default function Drafts() {
   const [t] = useTr();
   const [pageSize, setPageSize] = useState(INITIAL_DRAFTS_PAGE_SIZE);
-  const { data: drafts, isFetching: isFetchingDrafts } = useGetDraftsQuery({
+  const { data, isFetching: isFetchingDrafts } = useGetDraftsQuery({
     page: 0,
     size: pageSize,
     sort: 'createDate,DESC',
   });
 
+  if (!data) return null;
+
+  const { content: drafts, totalElements } = data;
+  const hasMore = totalElements > drafts.length;
+  const hasLess = pageSize === totalElements;
+
   const getAllDrafts = () => {
-    const totalElements = drafts?.totalElements;
     if (totalElements) {
       setPageSize(totalElements);
     }
   };
 
-  if (!drafts) return null;
+  const showInitialDrafts = () => {
+    // Adjust the page size to fetch the initial items. If the data is cached, we return it directly; otherwise, we fetch the most up-to-date drafts.
+    setPageSize(INITIAL_DRAFTS_PAGE_SIZE);
+  };
 
   return (
     <Container title={t('draft')} fillContainer={false}>
       <S.Grid>
-        {drafts.content.map((item) => (
+        {drafts.map((item) => (
           <DraftCard key={item.clientId} {...item} />
         ))}
       </S.Grid>
 
-      {!drafts.last && (
+      {hasMore && (
         <S.Button
           loading={isFetchingDrafts}
           variant='link'
@@ -42,6 +50,13 @@ export default function Drafts() {
         >
           <span>{t('show_all')}</span>
           <i className='icon-chev-down' />
+        </S.Button>
+      )}
+
+      {hasLess && (
+        <S.Button variant='link' color='primary' onClick={showInitialDrafts}>
+          <span>{t('show_less')}</span>
+          <S.ShevDown className='icon-chev-down' />
         </S.Button>
       )}
     </Container>

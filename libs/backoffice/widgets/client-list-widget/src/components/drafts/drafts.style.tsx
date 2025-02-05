@@ -11,3 +11,7 @@ export const Button = styled(UiKitButton)`
   gap: 1rem;
   margin-inline: auto;
 `;
+
+export const ShevDown = styled.i`
+  transform: rotate(180deg);
+`;
