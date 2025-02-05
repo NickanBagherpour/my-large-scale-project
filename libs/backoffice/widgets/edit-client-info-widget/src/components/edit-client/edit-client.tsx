@@ -7,28 +7,29 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { useApp } from '@oxygen/hooks';
 import { RQKEYS } from '@oxygen/utils';
-import { Button, Chip, Divider, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Button, Divider, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import { useGetTags } from '../../services/get-tag-info.api';
-import { createFormSchema } from '../../types';
+import { ClientInfoType, createFormSchema, GrantType, Tag } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
-import { GrantValue, TEXT_INPUT_LIMIT } from '../../utils/consts';
+import { GrantValue } from '../../utils/consts';
 import { useGetClientTypes } from '../../services/get-client-types.api';
 import { useUpdateClient } from '../../services/post-client.api';
-import { getActiveFlow, prepareParams, renderChip } from '../../utils/helper';
+import { prepareGrantTypes, prepareParams, prepareTags } from '../../utils/helper';
+import SearchItems from '../search-items/search-items';
+import TagPicker from '../tag-picker/tag-picker';
 
 import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
-  userData: any;
-  userDataLoading: boolean;
+  userData: ClientInfoType;
 };
 
 const EditClient: React.FC<FirstStepProps> = (props) => {
-  const { userData, userDataLoading } = props;
+  const { userData } = props;
   const [t] = useTr();
   const [form] = Form.useForm();
 
@@ -36,9 +37,9 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const rule = createSchemaFieldRule(createFormSchema(t));
 
-  const [selectedGrantTypes, setSelectedGrantTypes] = useState<any>([]);
+  const [selectedGrantTypes, setSelectedGrantTypes] = useState<GrantType[]>([]);
 
-  const [selectedTags, setSelectedTags] = useState<any>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 
   const { notification } = useApp();
 
@@ -46,11 +47,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
 
-  const { mutate, isPending: loadingUpdateClient } = useUpdateClient();
+  const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
 
   useEffect(() => {
     if (tags && userData?.tagIds) {
-      const selectedTags = tags.filter((tag) => userData?.tagIds?.includes(tag.key)) || [];
+      const selectedTags = prepareTags(tags, userData?.tagIds);
       setSelectedTags(selectedTags);
       form.setFieldsValue({
         [FORM_ITEM_NAMES.tags]: selectedTags,
@@ -59,8 +60,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   }, [tags, userData]);
 
   useEffect(() => {
-    const activeFlows = getActiveFlow(userData);
-    const foundGrantTypes = GrantValue.filter((item) => activeFlows.includes(item.key));
+    const foundGrantTypes = prepareGrantTypes(userData, GrantValue);
     setSelectedGrantTypes(foundGrantTypes);
     form.setFieldsValue({
       [FORM_ITEM_NAMES.grantType]: foundGrantTypes,
@@ -77,44 +77,36 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   const onFinish = async (values) => {
     mutate(prepareParams(values), {
       onSuccess: async () => {
-        notification.success({
-          message: t('message.success_alert', { element: userData?.latinNameClient ?? userData?.persianNameClient }),
-        });
-
         try {
-          await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
-          });
-
           await queryClient.invalidateQueries({
             queryKey: [RQKEYS.BACKOFFICE.CLIENT_PROFILE, RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
           });
-
+          notification.success({
+            message: t('message.success_alert', { element: '' }),
+          });
+          await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
           router.back();
         } catch (error) {
-          //
+          // console.error('Error invalidating queries:', error);
         }
-      },
-      onError: (error) => {
-        //
       },
     });
   };
 
-  const onGrantTypeChange = (value) => {
+  const onGrantTypeChange = (value: GrantType[]) => {
     setSelectedGrantTypes(value);
   };
 
-  const onTagsChange = (value) => {
+  const onTagsChange = (value: Tag[]) => {
     setSelectedTags(value);
   };
 
   const onGrantTypeClose = (item) => {
-    if (loadingUpdateClient || userDataLoading) {
+    if (loadingUpdateClient || isSuccess) {
       return;
     }
 
-    const updatedGrantTypes = selectedGrantTypes.filter((grantType: any) => grantType.key !== item);
+    const updatedGrantTypes = selectedGrantTypes.filter((grantType: GrantType) => grantType.key !== item);
 
     setSelectedGrantTypes(updatedGrantTypes);
 
@@ -124,11 +116,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const onTagsClose = (option) => {
-    if (loadingUpdateClient || userDataLoading) {
+    if (loadingUpdateClient || isSuccess) {
       return;
     }
 
-    const updatedTags = selectedTags.filter((tag: any) => tag.key !== option);
+    const updatedTags = selectedTags.filter((tag: Tag) => tag.key !== option);
     setSelectedTags(updatedTags);
     form.setFieldsValue({
       [FORM_ITEM_NAMES.tags]: updatedTags,
@@ -141,87 +133,52 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
         <p className={'cards-title'}>{t('edit_client_info')}</p>
         <S.Form
           layout={'vertical'}
+          key={userData?.clientId}
           onFinish={onFinish}
           form={form}
           initialValues={initialValues(userData)}
-          disabled={loadingUpdateClient || userDataLoading}
+          disabled={loadingUpdateClient || isSuccess}
         >
           <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.latin_name_client')} maxLength={TEXT_INPUT_LIMIT} disabled />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
-              <Input placeholder={t('placeholder.client_bale')} maxLength={TEXT_INPUT_LIMIT} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.clientId} label={t('form.client_id')}>
-              <Input placeholder={t('placeholder.client_id')} maxLength={TEXT_INPUT_LIMIT} disabled />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
-              <Select
-                disabled={loadingUpdateClient || userDataLoading}
-                loading={isClientTypesFetching}
-                size={'large'}
-                placeholder={t('placeholder.credit_system')}
-                options={clientTypes}
-              ></Select>
-            </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.identityAuth} label={t('form.identity_auth')}>
-              <Input
-                placeholder={t('placeholder.identity_auth')}
-                allow={'number'}
-                maxLength={TEXT_INPUT_LIMIT}
-                disabled
-              />
-            </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.websiteUrl} label={t('form.website_url')}>
-              <Input placeholder={t('placeholder.website_url')} maxLength={TEXT_INPUT_LIMIT} />
-            </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.inputAddress} label={t('form.input_address')}>
-              <Input placeholder={t('placeholder.input_address')} maxLength={TEXT_INPUT_LIMIT} />
-            </Form.Item>
-            <Form.Item rules={[rule]} name={FORM_ITEM_NAMES.returnAddress} label={t('form.return_address')}>
-              <Input placeholder={t('placeholder.return_address')} maxLength={TEXT_INPUT_LIMIT} />
-            </Form.Item>
+            <SearchItems
+              clientTypes={clientTypes}
+              isClientTypesFetching={isClientTypesFetching}
+              loadingUpdateClient={loadingUpdateClient}
+              isSuccess={isSuccess}
+              t={t}
+              rule={rule}
+            />
           </SearchItemsContainer>
 
           <Divider />
 
-          <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.grantType}>
-              <S.Select
-                disabled={loadingUpdateClient || userDataLoading}
-                menu={GrantValue}
-                multiSelect={true}
-                onChange={onGrantTypeChange}
-              >
-                {t('form.grant_type')}
-              </S.Select>
-            </Form.Item>
-            <div>{selectedGrantTypes.map((tag: any) => renderChip(tag, onGrantTypeClose))}</div>
-          </S.TagPicker>
-
-          <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM_NAMES.tags}>
-              <S.Select
-                loading={isTagsFetching}
-                disabled={loadingUpdateClient || userDataLoading}
-                menu={tags}
-                multiSelect={true}
-                onChange={onTagsChange}
-              >
-                {t('form.add_tags')}
-              </S.Select>
-            </Form.Item>
-            <div>{selectedTags.map((tag: any) => renderChip(tag, onTagsClose))}</div>
-          </S.TagPicker>
+          <TagPicker
+            t={t}
+            selectedGrantTypes={selectedGrantTypes}
+            selectedTags={selectedTags}
+            onGrantTypeChange={onGrantTypeChange}
+            onTagsChange={onTagsChange}
+            loadingUpdateClient={loadingUpdateClient}
+            isSuccess={isSuccess}
+            isTagsFetching={isTagsFetching}
+            tags={tags}
+            GrantValue={GrantValue}
+            onTagsClose={onTagsClose}
+            onGrantTypeClose={onGrantTypeClose}
+          />
         </S.Form>
       </div>
 
       <FooterContainer>
-        <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
+        <ReturnButton
+          size={'large'}
+          variant={'outlined'}
+          onClick={handleReturn}
+          disabled={loadingUpdateClient || isSuccess}
+        >
           {t('form.return')}
         </ReturnButton>
-        <Button htmlType={'submit'} onClick={submitClick} loading={loadingUpdateClient}>
+        <Button htmlType={'submit'} onClick={submitClick} loading={loadingUpdateClient} disabled={isSuccess}>
           {t('form.save_changes')}
         </Button>
       </FooterContainer>

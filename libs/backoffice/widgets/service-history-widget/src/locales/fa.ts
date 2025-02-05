@@ -4,7 +4,7 @@ export default {
   column: {
     edit_date: 'زمان ویرایش',
     admin_name: 'نام ادمین',
-    en_name: 'نام لاتین سرویس',
+    en_name: 'نام انگلیسی سرویس',
     fa_name: 'نام فارسی سرویس',
     method: 'اکشن/متود',
     protocol: 'پروتکل',

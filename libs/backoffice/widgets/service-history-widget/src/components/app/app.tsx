@@ -16,6 +16,7 @@ import * as S from './app.style';
 type AppProps = PageProps & {
   //
 };
+const backofficeKey = RQKEYS.BACKOFFICE;
 
 const App: React.FC<AppProps> = () => {
   const { message, table } = useAppState();
@@ -47,7 +48,7 @@ const App: React.FC<AppProps> = () => {
   function prepareParams() {
     const params = {
       url: `/v1/services/${id}/history`,
-      queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST, id],
+      queryKey: [backofficeKey.SERVICE, backofficeKey.SERVICE_HISTORY.GET_LIST, id],
       params: { page: table?.pagination.page - 1, size: table?.pagination.limit },
       dispatch,
       normalizer,
@@ -55,7 +56,6 @@ const App: React.FC<AppProps> = () => {
     return params;
   }
   const { data, isFetching } = useChangeHistoryQuery<ServiceHistoryContent>(prepareParams());
-  console.log('data', data);
   const firstItem = data?.content?.[0];
   let title = '';
   if (firstItem) {

@@ -57,7 +57,7 @@ const RequestedServices: React.FC<DataTableProps> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={handlePageChange}
-        rowKey={(row) => row.index}
+        rowKey={'id'}
         pagination={false}
       />
     </S.DataTableContainer>

@@ -1,4 +1,4 @@
-import { LocalStorageKey } from '@oxygen/types';
+import { LocalStorageKey, Nullable } from '@oxygen/types';
 import { storage } from './storage';
 import axios, { type AxiosError } from 'axios';
 
@@ -49,7 +49,7 @@ export function isNumberComma(value: string): boolean {
 }
 
 export function getValueOrDash(value: any, emptyValue?: string) {
-  return value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
+  return value && value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
 }
 
 export function isEmptyObject(obj: Record<string, unknown>) {
@@ -273,4 +273,19 @@ export function normalizePhoneNumber(phone) {
 
 export function isAxiosError(error: any): error is AxiosError {
   return axios.isAxiosError(error);
+}
+
+export function getWidgetTitle(props: {
+  defaultTitle: string;
+  primaryTitle?: Nullable<string>; //persian
+  secondaryTitle?: Nullable<string>; //english
+}): string {
+  const { defaultTitle, primaryTitle, secondaryTitle } = props;
+
+  const name = primaryTitle || secondaryTitle;
+  if (name) {
+    return name;
+  } else {
+    return defaultTitle;
+  }
 }

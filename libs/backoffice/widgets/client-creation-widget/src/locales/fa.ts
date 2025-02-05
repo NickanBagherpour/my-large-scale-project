@@ -13,7 +13,7 @@ export default {
   non_denial: 'عدم انکار',
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   new_request_validation: 'اعتبارسنجی درخواست جدید',
-  search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+  // search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
   technical_information: 'اطلاعات فنی',
   organization_information: 'اطلاعات سازمان',
   organization_name: 'نام سازمان',
@@ -27,7 +27,7 @@ export default {
   company_is_not_aggregator: 'شرکت اگریگیتور نیست',
   company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   search_organization_id_placeholder: 'جستجو براساس شناسه سازمان',
-
+  search_by_name_and_scope: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
@@ -37,7 +37,7 @@ export default {
     are_you_sure_to_remove: 'آیا از حذف سرویس {{id}} برای این کلاینت اطمینان دارید؟',
     remove_service: 'حذف سرویس',
     service_detail: 'جزئیات سرویس',
-    english_name: 'نام لاتین',
+    english_name: 'نام انگلیسی',
     persian_name: 'نام فارسی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',
@@ -55,7 +55,7 @@ export default {
   step_three: {
     header_title: 'پلاگین‌های اپلکیشن به ازای هر سرویس',
     header_button: 'تنظیم محدودیت فراخوانی برای همه سرویس‌ها',
-    english_name: 'نام لاتین',
+    english_name: 'نام انگلیسی',
     status: 'وضعیت',
     version: 'نسخه',
     scope: 'اسکوپ',
@@ -88,7 +88,7 @@ export default {
   form: {
     grant_type: 'اضافه کردن Grant Type',
     add_tags: 'اضافه کردن تگ ها',
-    latin_name_client: 'نام لاتین کلاینت',
+    latin_name_client: 'نام انگلیسی کلاینت',
     persian_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',
@@ -107,7 +107,7 @@ export default {
     email: 'ایمیل (اختیاری)',
   },
   placeholder: {
-    latin_name_client: ' نام لاتین کلاینت',
+    latin_name_client: ' نام انگلیسی کلاینت',
     farsi_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',

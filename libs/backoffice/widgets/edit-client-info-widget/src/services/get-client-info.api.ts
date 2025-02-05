@@ -10,5 +10,6 @@ export const useGetClientInfo = (reqId) => {
   return useQuery({
     queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
     queryFn: withErrorHandling(() => Api.getClientInfo(reqId), dispatch),
+    enabled: !!reqId,
   });
 };

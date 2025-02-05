@@ -29,7 +29,7 @@ export default {
   service_question: 'آیا سرویس',
   done_stopped: 'شود؟',
   add_service_from_sso: 'افزودن سرویس از SSO',
-  services_english_name: 'نام لاتین سرویس',
+  services_english_name: 'نام انگلیسی سرویس',
   oauth_key: 'OAuth Key',
   next_level: 'مرحله بعد',
   inspect_another: 'استعلام سرویس دیگر',

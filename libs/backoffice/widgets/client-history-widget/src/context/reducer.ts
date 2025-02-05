@@ -4,12 +4,12 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   table: {
     pagination: {
-      rowsPerPage: INITIAL_ROW_PER_PAGE,
+      limit: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
   message: null,
-  clientId: null,
+  clientName: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
@@ -23,8 +23,8 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
     }
-    case 'UPDATE_CLIENT_ID': {
-      state.clientId = action.payload;
+    case 'UPDATE_CLIENT_NAME': {
+      state.clientName = action.payload;
       return;
     }
 

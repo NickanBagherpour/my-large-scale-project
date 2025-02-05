@@ -1,18 +1,18 @@
 export const REGEX_PATTERNS = {
   isLatinText: /^[^\u0600-\u06FF]*$/,
   isPersianText: /^[^a-zA-Z]*$/,
-  urlValidator: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  optionalUrlValidator: /^(?:https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|)$/,
+  defaultEnglishName: /^[A-Za-z][A-Za-z0-9._-]*$/,
+  defaultPersianName: /^(?![0-9._-])[A-Za-z\u0600-\u06FF][A-Za-z\u0600-\u06FF0-9._-]*(?<![\s])$/,
+  url: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  optionalProtocolUrl: /^(http:\/\/|https:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:\d{1,5})?$/,
   onlyDigit: /^[0-9]*$/,
+  nationalCode: /^[0-9]{10}$/,
+  positiveNumber: /^[+]?\d*\.?\d+$/,
+  phoneNumber: /^09\d{10}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  mobileNumber: /^(\+98|0)?9\d{9}$/,
-};
-
-export const REGEX_PATTERNS_MORE_VALIDATION = {
-  // isLatinText: /^[a-zA-Z]+(-[a-zA-Z]+)*$/,
-  // isPersianText: /^[\u0600-\u06FF]+(-[\u0600-\u06FF]+)*$/,
-  dontAcceptNumbers: /^[A-Za-z\u0600-\u06FF\s-]*$/,
-  dontStartWithNumber: /^(?!\d)[A-Za-z\u0600-\u06FF\s0-9-]*$/,
-  acceptDash: /^(?!-)[A-Za-z\u0600-\u06FF0-9\s-]*$/,
-  dontAcceptSpaces: /^[A-Za-z\u0600-\u06FF0-9-]*$/,
+  ipOrDomainAdrress: /^(?:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\b[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+\b)$/,
+  path: /^\/[A-Za-z][A-Za-z0-9._-]*$/,
+  host: /^((http:\/\/|https:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:\d{1,5})?|(\d{1,3}\.){3}\d{1,3})$/,
+  tel: /^0(21|22|23|24|25|26|27|28|29|31|32|33|34|35|36|37|38|39|41|42|43|44|45|46|47|48|49|51|52|53|54|55|56|57|58|59|61|62|63|64|65|66|67|68|69|71|72|73|74|75|76|77|78|79|81|82|83|84|85|86|87|88|89|91|92|93|94|95|96|97|98|99)\d{7}$/,
+  description: /^[0-9\u0600-\u06FF\u06F0-\u06F9._-]*$/,
 };
