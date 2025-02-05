@@ -127,7 +127,7 @@ export const createValidationSchema = (t: TFunction) => {
       .array(z.object({ key: z.number(), value: z.number(), label: z.string() }), {
         message: t('validation.choose_at_least_one_option'),
       })
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.choose_at_least_one_option') }),
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
       .string({ required_error: t('validation.required') })
