@@ -33,7 +33,7 @@ export default function ClientInfo() {
     phone,
     email,
   } = data;
-
+  console.log('data', data);
   const clientInfoData = [
     {
       fullwidth: true,
@@ -98,7 +98,11 @@ export default function ClientInfo() {
           <S.Header>
             <S.TabName>{t('client_info')}</S.TabName>
             <S.Btns>
-              <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
+              <Button
+                href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=${clientId}`}
+                color='primary'
+                variant='filled'
+              >
                 <S.Icon className='icon-clock' />
                 {t('display_change_history')}
               </Button>

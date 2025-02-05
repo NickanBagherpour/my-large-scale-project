@@ -1,149 +1,140 @@
 import React from 'react';
 
-import { Badge, Tooltip } from 'antd';
 import { TFunction } from 'i18next';
 
-import { ColumnsType, Table, MobileColumnType } from '@oxygen/ui-kit';
+import { ColumnsType, Table, MobileColumnType, HistoryCell } from '@oxygen/ui-kit';
 import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
-import { ClientHistoryData, ITheme } from '@oxygen/types';
+
+import { ClientHistoryItemType } from '../types';
 
 import * as S from '../components/data-list/data-list.style';
 
 type Props = {
   t: TFunction;
-  theme: ITheme;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> {
-  const { t, theme } = props;
+function renderGrantType(record) {
+  const grantTypes = [
+    { key: 'isAuthorizationFlow', label: 'Authorization Flow' },
+    { key: 'isClientFlow', label: 'Client Flow' },
+    { key: 'isImplicitFlow', label: 'Implicit Flow' },
+    { key: 'isPasswordFlow', label: 'Password Flow' },
+  ];
 
-  const badgeColor = theme.error._600;
+  const hasDifference = grantTypes.some(({ key }) => {
+    const value = record[key];
+    return value?.hasDifference === true;
+  });
+
+  const grantTypeLabels = grantTypes
+    .filter(({ key }) => record[key]?.value === true)
+    .map(({ label }) => label)
+    .join(', ');
+
+  return { value: getValueOrDash(grantTypeLabels), hasDifference: hasDifference };
+}
+
+export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemType> {
+  const { t } = props;
 
   return [
     {
-      title: t('table.edit_time'),
-      dataIndex: 'editTime',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return convertShamsiDateFormat(value);
-      },
-    },
-    {
-      title: t('table.admin_name'),
-      dataIndex: 'adminName',
+      title: t('table.modify_date'),
+      dataIndex: 'modifyDate',
       align: 'center',
       width: 'min-content',
       render: (value, record) => {
+        return convertShamsiDateFormat(record?.clientInfoDto?.value?.modifyDate?.value);
+      },
+    },
+    {
+      title: t('table.modify_by'),
+      dataIndex: 'modifyBy',
+      align: 'center',
+      ellipsis: true,
+      render: (value, record) => {
+        return getValueOrDash(record?.clientInfoDto?.value?.modifyBy?.value);
+      },
+    },
+    {
+      title: t('table.revision_type'),
+      dataIndex: 'revisionDto',
+      align: 'center',
+      width: 'min-content',
+      render: (value, record) => {
+        const variant = record?.revisionDto?.value?.revType?.value?.code?.value;
+        const isDeleted = record?.clientInfoDto?.value?.deleted?.value;
         return (
-          <S.ValueContainer>
-            {(value?.showBadge ?? 'show') && <Badge color={badgeColor} />}
-            <span>{getValueOrDash(value)}</span>
-          </S.ValueContainer>
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {record?.revisionDto?.value?.revType?.value?.title?.value}
+          </S.RevisionType>
         );
       },
     },
     {
-      title: t('table.client_latin_name'),
-      dataIndex: 'clientLatinName',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      title: t('table.grant_type'),
+      dataIndex: 'grantType',
+      ellipsis: true,
+      render: (value, record) => {
+        const grantType = renderGrantType(record?.clientInfoDto?.value);
+        return <HistoryCell item={grantType} />;
       },
     },
     {
-      title: t('table.client_farsi_name'),
-      dataIndex: 'clientFarsiName',
+      title: t('table.persian_name'),
+      dataIndex: 'persianName',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      render: (value, record) => {
+        const item = record?.clientInfoDto?.value?.commonClientInfoDto?.value?.persianName;
+        return <HistoryCell item={item} />;
       },
     },
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
+      ellipsis: true,
       align: 'center',
-      width: 200,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (value) => {
-        return (
-          <Tooltip placement='top' title={getValueOrDash(value)}>
-            {getValueOrDash(value)}
-          </Tooltip>
-        );
+      render: (value, record) => {
+        const item = record?.clientInfoDto?.value?.commonClientInfoDto?.value?.clientType?.value?.title;
+        return <HistoryCell item={item} />;
       },
     },
     {
-      title: t('table.client_id'),
-      dataIndex: 'clientId',
+      title: t('table.url'),
+      dataIndex: 'url',
+      ellipsis: true,
       align: 'center',
-      width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (value) => {
-        return (
-          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-            {getValueOrDash(value)}
-          </Tooltip>
-        );
+      render: (value, record) => {
+        const item = record?.clientInfoDto?.value?.url;
+        return <HistoryCell item={item} />;
       },
     },
     {
-      title: t('table.verification_id'),
-      dataIndex: 'verificationId',
+      title: t('table.inbound_url'),
+      dataIndex: 'inboundUrl',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      render: (value, record) => {
+        const item = record?.clientInfoDto?.value?.inboundUrl;
+        return <HistoryCell item={item} />;
       },
     },
     {
-      title: t('table.aggregator_status'),
-      dataIndex: 'aggregatorStatus',
+      title: t('table.redirect_url'),
+      dataIndex: 'redirectUrl',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.aggregator_name'),
-      dataIndex: 'aggregatorName',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.address'),
-      dataIndex: 'address',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.input_address'),
-      dataIndex: 'inputAddress',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      render: (value, record) => {
+        const item = record?.clientInfoDto?.value?.redirectUrl;
+        return <HistoryCell item={item} />;
       },
     },
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
-  const { t, theme } = props;
-  const badgeColor = theme.error._600;
+export function getMobileColumns(props: Props): ColumnsType<ClientHistoryItemType> {
+  const { t } = props;
 
   return [
     {
@@ -157,12 +148,7 @@ export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
           },
           {
             title: t('table.admin_name'),
-            value: (
-              <S.ValueContainer>
-                {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}
-                {getValueOrDash(value?.adminName)}
-              </S.ValueContainer>
-            ),
+            value: getValueOrDash(value?.adminName),
           },
           {
             title: t('table.client_latin_name'),

@@ -1,83 +1,65 @@
-import React from 'react';
-
-import { useTr } from '@oxygen/translation';
+import React, { useState } from 'react';
 
 import { TablePaginationConfig } from 'antd';
 
 import { uuid } from '@oxygen/utils';
 import { Table } from '@oxygen/ui-kit';
-import { NoResult } from '@oxygen/reusable-components';
-import { PageProps } from '@oxygen/types';
-import { useAppTheme } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
-import { getDesktopColumns, getMobileColumns } from '../../utils/data-list.util';
-import { useGetReportDataQuery } from '../../services';
+import { getDesktopColumns } from '../../utils/data-list.util';
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
+import { ClientHistoryResponseType } from '../../types';
 
 import * as S from './data-list.style';
 
-type dataListProps = PageProps & {
-  //
+type dataListProps = {
+  data: ClientHistoryResponseType;
+  isFetching: boolean;
 };
 
 const DataList: React.FC<dataListProps> = (props) => {
-  // const { data, isFetching } = props;
-  const dispatch = useAppDispatch();
-  const state = useAppState();
-  const [t] = useTr();
-  const theme = useAppTheme();
+  const { data, isFetching } = props;
 
+  const dispatch = useAppDispatch();
   const {
     table: { pagination },
-  } = state;
+  } = useAppState();
+  const [t] = useTr();
 
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const lastValidTotal = data?.totalElements;
+  const [lastTotal, setLastTotal] = useState(lastValidTotal);
 
-  function prepareParams() {
-    const params = {
-      clientId: state?.clientId,
-      ...pagination,
-    };
-
-    return params;
-  }
-
-  const handlePageChange = async (currentPagination: TablePaginationConfig) => {
-    const { pageSize, current } = currentPagination;
-
-    if (pageSize && current) {
-      const updatedPagination = {
-        page: pageSize === pagination.rowsPerPage ? current : 1,
-        rowsPerPage: pageSize,
-      };
-      updatePagination(dispatch, updatedPagination);
-    }
+  const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
+    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
+    const updatedPagination = { page: current, limit: pageSize };
+    updatePagination(dispatch, updatedPagination);
   };
 
-  const desktopColumns = getDesktopColumns({ t, theme });
-  const mobileColumns = getMobileColumns({ t, theme });
+  const desktopColumns = getDesktopColumns({ t });
 
   return (
     <S.TableContainer>
-      {data?.content?.length ? (
-        <Table
-          scroll={{ x: 1600 }}
-          loading={isFetching}
-          current={pagination.page}
-          total={data?.total}
-          dataSource={data?.content}
-          pagination={{ pageSize: pagination.rowsPerPage }}
-          columns={desktopColumns}
-          // mobileColumns={mobileColumns}
-          variant={'complex'}
-          title={t('table.client_change_history')}
-          onChange={handlePageChange}
-          rowKey={() => uuid()}
-          size={'small'}
-        />
-      ) : (
-        <NoResult isLoading={isFetching} />
-      )}
+      <Table
+        scroll={{ x: 1300 }}
+        loading={isFetching}
+        dataSource={data?.content}
+        pagination={{
+          ...pagination,
+          total: data?.totalElements || lastTotal,
+          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+          pageSize: pagination?.limit,
+          current: pagination?.page,
+          hideOnSinglePage: false,
+        }}
+        columns={desktopColumns}
+        // mobileColumns={mobileColumns}
+        variant={'complex'}
+        title={t('widget_name')}
+        onChange={handlePageChange}
+        rowKey={() => uuid()}
+        size={'small'}
+      />
     </S.TableContainer>
   );
 };
