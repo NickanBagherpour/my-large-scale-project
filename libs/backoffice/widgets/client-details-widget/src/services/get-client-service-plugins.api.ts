@@ -8,7 +8,7 @@ const { CLIENT_SERVICE_PLUGINS } = RQKEYS.BACKOFFICE.CLIENTS_LIST;
 export const useClientServicePlugins = (name: string) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [CLIENT_SERVICE_PLUGINS],
+    queryKey: [CLIENT_SERVICE_PLUGINS, name],
     queryFn: withErrorHandling(() => Api.getClientServicePlugins(name), dispatch),
   });
 };

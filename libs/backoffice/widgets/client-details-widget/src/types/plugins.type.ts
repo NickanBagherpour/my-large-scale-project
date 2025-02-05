@@ -36,3 +36,18 @@ type RequestTerminationConfig = {
 export type PluginConfig = RateLimitingConfig | RequestNonReputationConfig | RequestTerminationConfig;
 
 export type ClientServicePlugins = PluginConfig[];
+
+type BasePluginConfigParams = {
+  name: string;
+  config: object; // TODO: use the real type
+  enabled: boolean;
+};
+
+export type ClientPluginParams = BasePluginConfigParams & {
+  clientName: string;
+};
+
+export type ServicePluginParams = BasePluginConfigParams & {
+  clientName: string;
+  serviceName: string;
+};

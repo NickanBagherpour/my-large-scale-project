@@ -5,10 +5,12 @@ import Api from './api';
 
 const { CLIENT_PLUGINS } = RQKEYS.BACKOFFICE.CLIENTS_LIST;
 
+export const getKeys = (name: string) => [CLIENT_PLUGINS, name];
+
 export const useClientPlugins = (name: string) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [CLIENT_PLUGINS],
+    queryKey: getKeys(name),
     queryFn: withErrorHandling(() => Api.getClientPlugins(name), dispatch),
   });
 };

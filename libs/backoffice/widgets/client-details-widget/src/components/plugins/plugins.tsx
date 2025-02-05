@@ -6,9 +6,12 @@ import { useTr } from '@oxygen/translation';
 import * as S from './plugins.style';
 import PluginCard from '../plugin-card/plugin-card';
 import LimitationsModal from '../limitations-modal/limitations-modal';
-import { useState } from 'react';
-import { PluginConfig } from '../../types';
 import { updateCurrentConfig, useAppDispatch, useAppState } from '../../context';
+import { useClientName } from '../../utils/use-client-name';
+import { useClientPluginMutation } from '../../services/post-client-plugin.api';
+import { ClientPlugins, PluginConfig } from '../../types';
+import { useQueryClient } from '@tanstack/react-query';
+import { getKeys } from '../../services/get-client-plugins.api';
 
 // request-non-repudiation عدم انکار
 // rate-limiting محدودیت فراخوانی
@@ -20,28 +23,52 @@ import { updateCurrentConfig, useAppDispatch, useAppState } from '../../context'
 
 export default function Plugins() {
   const [t] = useTr();
-  const { data, isFetching, isLoading } = useGetPluginsQuery();
-  const { data: clientPlugins } = useClientPlugins('test-prefix-ali-client4');
+  const clientName = useClientName();
+  const { data: clientPlugins, isFetching: isFetchingClientPlugins, isLoading } = useClientPlugins(clientName);
   const { data: clientServicePlugins /* , isFetching: isFetchingClientServicePlugins */ } =
-    useClientServicePlugins('test-prefix-ali-client4');
+    useClientServicePlugins(clientName);
+
+  const queryClient = useQueryClient();
+
+  const clientPluginMutation = useClientPluginMutation();
 
   const dispatch = useAppDispatch();
   const { currentConfig } = useAppState();
 
-  if (!data || !clientPlugins) return null;
+  const onUpdateConfig = (plugin: PluginConfig) => {
+    clientPluginMutation.mutate(
+      { clientName, ...plugin },
+      {
+        onSuccess() {
+          queryClient.setQueryData(getKeys(clientName), (oldData: ClientPlugins) =>
+            oldData.map((oldPlugin) => (oldPlugin.name === plugin.name ? plugin : oldPlugin))
+          );
+        },
+      }
+    );
+  };
+
+  if (!clientPlugins || !clientPlugins) return null;
 
   return (
     <>
       <S.Title>{t('client_plugin')}</S.Title>
-      <S.Container>
-        {clientPlugins.map((plugin) => (
-          <PluginCard key={plugin.name} plugin={plugin} />
-        ))}
-      </S.Container>
+
+      <Loading spinning={clientPluginMutation.isPending}>
+        <S.Container>
+          {clientPlugins.map((plugin) => (
+            <PluginCard
+              key={plugin.name}
+              plugin={plugin}
+              onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })}
+            />
+          ))}
+        </S.Container>
+      </Loading>
 
       <Divider />
 
-      <Loading spinning={isFetching}>
+      <Loading spinning={isFetchingClientPlugins}>
         <S.Title>{t('client_services_plugin')}</S.Title>
         {clientServicePlugins?.map((plugins, idx) => (
           <PluginServices key={idx} idx={idx} plugins={plugins} />
@@ -49,7 +76,10 @@ export default function Plugins() {
       </Loading>
       <Footer isLoading={isLoading} />
 
-      <LimitationsModal close={() => updateCurrentConfig(dispatch, null)} isOpen={!!currentConfig} />
+      <LimitationsModal
+        close={() => updateCurrentConfig(dispatch, null)}
+        isOpen={false /*!!currentConfig?.name === 'rate-limiting'*/}
+      />
     </>
   );
 }
