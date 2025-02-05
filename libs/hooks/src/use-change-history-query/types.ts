@@ -7,6 +7,7 @@ export type Props<TContent extends object> = {
   dispatch: React.Dispatch<any>;
   params: FetchParams;
   normalizer?: (val: PaginatedData<TContent>) => any;
+  nestedKeyAccessor?: string;
 };
 
 export type FetchParams = { page: number; size: number } & Record<string, any>;

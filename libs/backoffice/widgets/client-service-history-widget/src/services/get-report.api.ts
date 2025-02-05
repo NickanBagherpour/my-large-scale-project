@@ -12,6 +12,7 @@ export const useGetsClientHistoryDataQuery = (params) => {
     queryKey: [RQKEYS.BACKOFFICE.CLIENT_HISTORY.GET_LIST],
     url: `/v1/clients/services-history/${serviceId}`,
     dispatch,
+    nestedKeyAccessor: 'clientServiceHistoryItemDtos',
     params: {
       page,
       size,
