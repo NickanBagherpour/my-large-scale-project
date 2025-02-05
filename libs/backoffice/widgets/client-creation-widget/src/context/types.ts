@@ -16,23 +16,45 @@ export type Tag = {
 };
 
 export type FirstStepType = {
-  grant_tag?: any;
-  tagIds?: any;
-  ssoClientId?: string;
+  clientId?: number;
+  ssoClientId?: number;
   clientEnglishName?: string;
   clientPersianName?: string;
   clientTypeCode?: number;
+  clientTypeName?: string;
   clientKey?: string;
   authorizationKey?: string;
   websiteUrl?: string;
   inboundAddress?: string;
   redirectUrl?: string;
+  isClientFlow?: boolean;
+  isPasswordFlow?: boolean;
+  isAuthorizationFlow?: boolean;
+  isImplicitFlow?: boolean;
+  isRefreshToken?: boolean;
+  tagIds?: number[];
+  organizationInfo: OrganizationInfo;
+};
+export type OrganizationInfo = {
+  organizationId?: number;
+  organizationName?: string;
   organizationNationalId?: string;
+  isAggregator?: boolean;
+  aggregatorId?: Nullable<number>;
+  aggregatorName?: Nullable<string>;
+  representative: Representative;
+};
+
+export type Representative = {
+  nameAndLastName?: string;
+  mobileNumber?: string;
+  fixedPhoneNumber?: string;
+  representativeType?: number;
 };
 
 export type WidgetStateType = {
   clientName?: string;
-  clientStatus?: string;
+  clientStatus?: number;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -46,6 +68,10 @@ export type WidgetStateType = {
 };
 
 export type WidgetActionType =
+  | {
+      type: 'ADD_ORGANIZATION_INFO';
+      payload: OrganizationInfo;
+    }
   | {
       type: 'ADD_CLIENT_STATUS';
       payload: WidgetStateType['clientStatus'];

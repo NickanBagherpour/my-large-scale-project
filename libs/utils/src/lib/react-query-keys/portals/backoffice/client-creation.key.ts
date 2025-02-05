@@ -10,4 +10,5 @@ export const KEYS = createQueryKeys(prefix, [
   'ORGANIZATION_INFO',
   'INQUIRY_STATUS',
   'INQUIRY_SSO',
+  'CLIENT_DRAFT_INFO',
 ]);

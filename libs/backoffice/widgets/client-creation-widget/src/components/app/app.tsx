@@ -43,16 +43,15 @@ const App: React.FC<AppProps> = (props) => {
       notFound();
     } else {
       addClientName(dispatch, clientName);
-      addClientStatus(dispatch, clientStatus);
     }
   }, [dispatch, clientName]);
 
   useEffect(() => {
     if (isSuccess && inquiryStatus) {
+      addClientStatus(dispatch, clientStatus);
       setCurrentStep(step);
     }
-  }, [isSuccess, step]);
-
+  }, [isSuccess, step, clientStatus]);
   const stepsItem = [
     { title: t('progress_bar.first_step'), component: <FirstStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.second_step'), component: <SecondStep setCurrentStep={setCurrentStep} /> },

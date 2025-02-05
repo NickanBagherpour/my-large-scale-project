@@ -6,18 +6,37 @@ export const initialStateValue: WidgetStateType = {
   clientName: undefined,
   clientStatus: undefined,
   firstStep: {
-    grant_tag: [],
-    tagIds: [],
+    clientId: undefined,
     ssoClientId: undefined,
     clientEnglishName: undefined,
     clientPersianName: undefined,
     clientTypeCode: undefined,
+    clientTypeName: undefined,
     clientKey: undefined,
     authorizationKey: undefined,
     websiteUrl: undefined,
     inboundAddress: undefined,
     redirectUrl: undefined,
-    organizationNationalId: undefined,
+    isClientFlow: undefined,
+    isPasswordFlow: undefined,
+    isAuthorizationFlow: undefined,
+    isImplicitFlow: undefined,
+    isRefreshToken: undefined,
+    tagIds: undefined,
+    organizationInfo: {
+      organizationId: undefined,
+      organizationName: undefined,
+      organizationNationalId: undefined,
+      isAggregator: undefined,
+      aggregatorId: undefined,
+      aggregatorName: undefined,
+      representative: {
+        nameAndLastName: undefined,
+        mobileNumber: undefined,
+        fixedPhoneNumber: undefined,
+        representativeType: undefined,
+      },
+    },
   },
   secondStep: { table: [] },
   message: null,
@@ -31,6 +50,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'ADD_ORGANIZATION_INFO': {
+      state.firstStep.organizationInfo = { ...action.payload };
+      return;
+    }
     case 'ADD_CLIENT_STATUS': {
       state.clientStatus = action.payload;
       return;
