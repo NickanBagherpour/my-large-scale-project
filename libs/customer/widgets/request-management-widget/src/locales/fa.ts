@@ -1,4 +1,6 @@
 export default {
+  widget_name_drafts: 'پیش‌نویس',
+  widget_name_request_list: 'لیست درخواست‌ها',
   widget_name: 'لیست درخواست‌ها',
   search_by_name_or_request_id: 'جستجو براساس نام یا شماره پیگیری درخواست',
   request_registration: 'ثبت درخواست',

@@ -1,4 +1,5 @@
 export default {
+  widget_name_request_registration: 'ثبت درخواست',
   select_organization: 'انتخاب شرکت',
   register_organization: 'ثبت اطلاعات شرکت',
 
