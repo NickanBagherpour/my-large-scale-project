@@ -57,7 +57,6 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props<
   const isFetching = isFetchingCurrentPage || isFetchingPreviousItem;
 
   if (current && (next || !enableNextItemQuery)) {
-    console.log(':)', 'current.content', current.content);
     const combinedData = [...current.content, ...(next?.content ?? [])];
 
     const diffAnnotatedData = combinedData.map((item, index, arr) =>
