@@ -4,6 +4,7 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@oxygen/utils';
+import { getWidgetTitle } from '@oxygen/utils';
 import Filters from '../filter/filter';
 
 import { useAppDispatch, useAppState } from '../../context';
@@ -86,6 +87,14 @@ const App: React.FC<AppProps> = (props) => {
     }
   };
 
+  const draftTitle = getWidgetTitle({
+    defaultTitle: t('widget_name_drafts'),
+  });
+
+  const requestListTitle = getWidgetTitle({
+    defaultTitle: t('widget_name_request_list'),
+  });
+
   const hasDrafts = !!drafts?.length;
 
   const draftList = useMemo(
@@ -104,7 +113,7 @@ const App: React.FC<AppProps> = (props) => {
         loading={deleteIsPending}
       />
       {hasDrafts && (
-        <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
+        <S.DraftsContainer title={draftTitle} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
             {draftList?.map((item) => (
               <DraftCard
@@ -129,7 +138,7 @@ const App: React.FC<AppProps> = (props) => {
         </S.DraftsContainer>
       )}
 
-      <S.RequestsContainer title={t('widget_name')} subtitle={requestsSubTitle}>
+      <S.RequestsContainer title={requestListTitle} subtitle={requestsSubTitle}>
         <Loading spinning={isRequestsFetching}>
           <Filters onSearchChange={handleSearchChange} />
           {requests?.length ? (
