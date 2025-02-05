@@ -5,12 +5,13 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
+import { getWidgetTitle } from '@oxygen/utils';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import DataTable from '../data-list/data-list';
 import { useGetsClientHistoryDataQuery } from '../../services/get-report.api';
-import { getWidgetTitle } from '@oxygen/utils';
+import { SERVICE_NAME } from '../../utils/consts';
 
 type AppProps = PageProps & {
   //
@@ -27,7 +28,7 @@ const App: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const serviceId = searchParams.get('serviceId') || '';
+  const serviceId = searchParams.get(SERVICE_NAME) || '';
 
   const { data, isFetching } = useGetsClientHistoryDataQuery({
     page: page - 1,

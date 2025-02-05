@@ -1,4 +1,4 @@
-export const REQUEST_ID_KEY = 'requestId';
+export const REQUEST_ID_Name = 'requestName';
 export const TEXT_INPUT_LIMIT = 100;
 
 export const GrantValue = [

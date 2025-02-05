@@ -65,7 +65,7 @@ export const createValidationSchema = (t: TFunction) => {
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.required')),
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.required', { element: 'asdf' })),
 
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
