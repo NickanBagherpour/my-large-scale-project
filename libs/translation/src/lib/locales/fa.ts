@@ -375,6 +375,7 @@ export default {
     upstream_name: 'فقط کاراکتر های الفبایی-عددی (انگلیسی) و - _ . مجاز است',
     upstream_description: 'فقط کاراکتر های الفبایی-عددی فارسی و - _ . مجاز است',
     is_not_valid: '{{val}} معتبر نیست',
+    positive_number: 'فقط مقادیر مثبت معتبر هستند',
   },
   element: {
     service: 'سرویس',

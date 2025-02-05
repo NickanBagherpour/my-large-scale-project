@@ -209,6 +209,13 @@ export const createValidationSchema = (
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.description, t('validation.upstream_description')),
+
+    UpstreamServiceWeight: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(1, t('validation.required'))
+      .max(limits.UPSTREAM_SERVICE_WEIGHT_MAX_NUMBER, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH })),
+    // .regex(REGEX_PATTERNS.positiveNumber, t('validation.positive_number')),
   };
 
   return validationSchema;
