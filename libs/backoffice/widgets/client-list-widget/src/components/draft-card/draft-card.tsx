@@ -7,7 +7,7 @@ import RemoveDraftModal from '../remove-draft-modal/remove-draft-modal';
 import { useState } from 'react';
 
 export default function DraftCard(props: Draft) {
-  const { clientId, stepName, clientName, progressPercent } = props;
+  const { stepName, clientName, progressPercent } = props;
   const { mutate: removeDraft, isPending } = useDeleteDraft();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,7 +27,7 @@ export default function DraftCard(props: Draft) {
 
   return (
     <>
-      <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-id=${clientId}`}>
+      <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-name=${clientName}`}>
         <S.Header>
           <S.Name>{clientName}</S.Name>
           <Button onClick={openModal} color='primary' variant='text' size='small'>
