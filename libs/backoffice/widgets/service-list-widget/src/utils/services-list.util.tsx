@@ -73,10 +73,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'path',
       key: 'path',
       align: 'center',
-      width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
+      width: 120,
+      ellipsis: true,
       render: (url) => (
         <Tooltip placement='top' title={getValueOrDash(url)} arrow={true}>
           <S.Url>{getValueOrDash(url)}</S.Url>
