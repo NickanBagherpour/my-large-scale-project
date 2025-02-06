@@ -1,18 +1,19 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
-import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
-import DetailsModal from '../details-modal/details-modal';
 import { useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
-import { Modals, Service } from '../../types';
 import Footer from '../footer/footer';
-import ServiceSelector from '../service-selector/service-selector';
 import { ROUTES } from '@oxygen/utils';
 import { useClientName } from '../../utils/use-client-name';
-import { useAssignServiceToClient, useUnassignServiceFromClient } from '../../services';
+import ServiceSelector from './service-selector/service-selector';
+import RemoveServiceModal from './remove-service-modal/remove-service-modal';
+import DetailsModal from './details-modal/details-modal';
+import { useAssignServiceToClient } from './utils/assign-service-to-client';
+import { useUnassignServiceFromClient } from './utils/unassign-from-client';
+import { Service } from './utils/services.type';
 
 export default function Services() {
   const [t] = useTr();

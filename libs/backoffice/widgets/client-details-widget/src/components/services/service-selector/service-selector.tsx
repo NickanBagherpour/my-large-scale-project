@@ -4,10 +4,9 @@ import { useState } from 'react';
 import { AdvanceSelector } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
-
-import { useGetServices } from '../../services';
-import { SERVICE_PAGE_SIZE } from '../../utils/const';
-import { Service } from '../../types/services.type';
+import { SERVICE_PAGE_SIZE } from '../utils/const';
+import { Service } from '../utils/services.type';
+import { useGetServices } from '../utils/get-services.api';
 
 type Props = {
   onClear?: () => void;

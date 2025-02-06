@@ -1,17 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
-import { updateMessageAction, useAppDispatch } from '../context';
+// import { updateMessageAction, useAppDispatch } from '../context';
 import Api from './api';
 import { ApiUtil } from '@oxygen/utils';
-import { ServiceToClientParams } from '../types/services.type';
+import { ServiceToClientParams } from './services.type';
 
 export const useUnassignServiceFromClient = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   return useMutation({
     mutationFn: (params: ServiceToClientParams) => Api.deleteUnassignServiceFromClient(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      updateMessageAction(dispatch, err);
+      // updateMessageAction(dispatch, err);
     },
   });
 };
