@@ -3,11 +3,9 @@ import * as S from './services.style';
 import { useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
 import type { Pagination } from '@oxygen/types';
-import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
+import { getDesktopColumns, getMobileColumns } from './utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
-import Footer from '../footer/footer';
 import { ROUTES } from '@oxygen/utils';
-import { useClientName } from '../../utils/use-client-name';
 import ServiceSelector from './service-selector/service-selector';
 import RemoveServiceModal from './remove-service-modal/remove-service-modal';
 import DetailsModal from './details-modal/details-modal';
@@ -15,11 +13,15 @@ import { useAssignServiceToClient } from './utils/assign-service-to-client';
 import { useUnassignServiceFromClient } from './utils/unassign-from-client';
 import { Service } from './utils/services.type';
 
-export default function Services() {
+type Props = {
+  clientName: string;
+};
+
+export default function Services(props: Props) {
+  const { clientName } = props;
   const [t] = useTr();
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
-  const clientName = useClientName();
   const { mutate: assignToClient } = useAssignServiceToClient();
   const { mutate: unassignFromClient } = useUnassignServiceFromClient();
   const [selectedServices, setSelectedServices] = useState<Service[]>([]);
@@ -27,7 +29,6 @@ export default function Services() {
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
 
-  const isLoading = false;
   const isFetching = false;
   const currentServices = { total: selectedServices.length, list: selectedServices };
 
@@ -99,7 +100,6 @@ export default function Services() {
         name={'samat-lc-gutr-del'}
       />
       <DetailsModal isOpen={!!serviceToView} close={() => setServiceToView(null)} />
-      <Footer isLoading={isLoading} />
     </>
   );
 }

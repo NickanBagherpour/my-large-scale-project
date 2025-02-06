@@ -1,9 +1,9 @@
 import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import * as S from '../components/services/services.style';
+import * as S from '../services.style';
 import type { Pagination } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import Link from 'next/link';
-import { Service } from '../types';
+import { Service } from './services.type';
 
 type Props = {
   t: TFunction;
