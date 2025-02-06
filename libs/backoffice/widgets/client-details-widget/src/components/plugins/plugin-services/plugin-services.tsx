@@ -1,7 +1,7 @@
 import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import PluginCard from '../plugin-card/plugin-card';
-import { PluginConfig } from '../../types/plugins.type';
+import { PluginConfig } from '../utils/plugins.type';
 
 type Props = {
   idx: number;

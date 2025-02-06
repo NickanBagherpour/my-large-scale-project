@@ -21,7 +21,7 @@ const App = () => {
   const tabs: { label: string; key: Tab; children: ReactNode }[] = [
     { label: t('client_info'), key: 'client-info', children: <ClientInfo /> },
     { label: t('services'), key: 'services', children: <Services clientName={clientName} /> },
-    { label: t('plugins'), key: 'plugins', children: <Plugins /> },
+    { label: t('plugins'), key: 'plugins', children: <Plugins clientName={clientName} /> },
   ];
 
   const changeTab = (tab: string) => {

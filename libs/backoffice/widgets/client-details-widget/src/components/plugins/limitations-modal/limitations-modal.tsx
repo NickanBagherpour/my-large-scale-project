@@ -2,9 +2,9 @@ import { useTr } from '@oxygen/translation';
 import { Input, Modal, Select } from '@oxygen/ui-kit';
 import * as S from './limitations-modal.style';
 import { Form, FormProps } from 'antd';
-import { LIMITAION_FORM_NAME } from '../../utils/const';
-import { limitationsSchema, LimitationsType } from '../../types/limitation-form.schema';
+import { LIMITAION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
+import { limitationsSchema, LimitationsType } from '../utils/limitation-form.schema';
 
 type Props = {
   isOpen: boolean;

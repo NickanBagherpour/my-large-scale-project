@@ -1,7 +1,7 @@
 import { Switch } from '@oxygen/ui-kit';
 import * as S from './plugin-card.style';
-import { PluginConfig } from '../../types/plugins.type';
-import { updateCurrentConfig, useAppDispatch } from '../../context';
+import { PluginConfig } from '../utils/plugins.type';
+// import { updateCurrentConfig, useAppDispatch } from '../../context';
 
 type Props = {
   plugin: PluginConfig;
@@ -14,7 +14,7 @@ export default function PluginCard(props: Props) {
     plugin,
     onCheck,
   } = props;
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const hasSetting = name !== 'request-non-repudiation'; // TODO: clean this
 
   return (
@@ -29,7 +29,7 @@ export default function PluginCard(props: Props) {
           variant='link'
           color='primary'
           disabled={!enabled}
-          onClick={() => updateCurrentConfig(dispatch, plugin)}
+          // onClick={() => updateCurrentConfig(dispatch, plugin)}
         >
           <S.Icon className='icon-setting' />
         </S.SettingBtn>

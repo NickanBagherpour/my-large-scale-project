@@ -1,21 +1,16 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ClientPluginParams, ClientPlugins } from '../types';
-import { updateMessageAction, useAppDispatch } from '../context';
+import { useMutation } from '@tanstack/react-query';
 import Api from './api';
 import { ApiUtil } from '@oxygen/utils';
-import { getKeys } from './get-client-plugins.api';
-import { useClientName } from '../utils/use-client-name';
+import { ClientPluginParams } from './plugins.type';
 
 export const useClientPluginMutation = () => {
-  const dispatch = useAppDispatch();
-  const name = useClientName();
-  const queryClient = useQueryClient();
+  // const dispatch = useAppDispatch();
 
   return useMutation({
     mutationFn: (params: ClientPluginParams) => Api.postClientConfig(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      updateMessageAction(dispatch, err);
+      // updateMessageAction(dispatch, err);
     },
     async onSuccess() {
       // queryClient.setQueryData(getKeys(name), (oldData: ClientPlugins) => {
