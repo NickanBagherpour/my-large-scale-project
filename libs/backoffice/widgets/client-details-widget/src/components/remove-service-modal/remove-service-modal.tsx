@@ -6,13 +6,14 @@ import * as S from './remove-service-modal.style';
 
 type Props = {
   isOpen: boolean;
-  id: string;
-  toggle: () => void;
+  name: string;
+  close: () => void;
+  onRemove: () => void;
 };
 
 export default function RemoveServiceModal(props: Props) {
+  const { isOpen, close, name, onRemove } = props;
   const [t] = useTr();
-  const { isOpen, toggle, id } = props;
   const theme = useAppTheme();
 
   return (
@@ -21,17 +22,21 @@ export default function RemoveServiceModal(props: Props) {
       title={t('remove_service')}
       open={isOpen}
       closable={true}
-      onCancel={toggle}
+      onCancel={close}
       footer={[
-        <Button onClick={toggle} size='large' color='primary' variant='outlined'>
+        <Button onClick={close} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <S.RemoveBtn onClick={toggle} size='large' color='error'>
+        <S.RemoveBtn onClick={onRemove} size='large' color='error'>
           {t('remove')}
         </S.RemoveBtn>,
       ]}
     >
-      <S.MarkText text={t('are_you_sure_to_remove', { id })} wordToHighlight={id} highlightColor={theme.error.main} />
+      <S.MarkText
+        wordToHighlight={name}
+        highlightColor={theme.error.main}
+        text={t('are_you_sure_to_remove', { name })}
+      />
     </Modal>
   );
 }

@@ -1,21 +1,23 @@
-import { Box, Button, ColumnsType, Switch, Table } from '@oxygen/ui-kit';
+import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../components/services/services.style';
-import type { Pagination, Service } from '@oxygen/types';
+import type { Pagination } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import Link from 'next/link';
-import { Modals } from '../types';
+import { Service } from '../types';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
-  toggleModal: (modal: keyof Modals) => void;
+  addServiceToRemove: (service: Service | null) => void;
+  addServiceToView: (service: Service | null) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
     t,
     pagination: { page, rowsPerPage },
-    toggleModal,
+    addServiceToRemove,
+    addServiceToView,
   } = props;
 
   return [
@@ -57,30 +59,14 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '7rem',
     },
     {
-      title: t('status'),
-      align: 'center',
-      key: 'status',
-      render: () => (
-        <S.Status>
-          <S.StatusTxt>{t('stop')} </S.StatusTxt>
-          <Switch
-            onChange={(checked) => {
-              checked ? toggleModal('startService') : toggleModal('stopService');
-            }}
-          />
-          <S.StatusTxt> {t('operational')} </S.StatusTxt>
-        </S.Status>
-      ),
-    },
-    {
       width: '7rem',
       key: 'action',
-      render: () => (
+      render: (_, service) => (
         <Box>
-          <S.DetailsBtn variant='link' color='primary' onClick={() => toggleModal('details')}>
+          <S.DetailsBtn variant='link' color='primary' onClick={() => addServiceToView(service)}>
             {t('details')}
           </S.DetailsBtn>
-          <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
+          <Button variant='link' color='error' onClick={() => addServiceToRemove(service)}>
             <S.TrashIcon className='icon-trash' />
           </Button>
         </Box>
@@ -90,40 +76,31 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t, toggleModal } = props;
+  const { t, addServiceToRemove, addServiceToView } = props;
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render({ scope, url, version, persianName, serviceName }: Service) {
+      render(service: Service) {
+        const { scope, version, persianName, path, name } = service;
         const data = [
-          { title: t('service_name'), value: serviceName },
+          { title: t('service_name'), value: name },
           { title: t('persian_name'), value: persianName },
           { title: t('scope'), value: scope },
           {
             title: t('url'),
-            value: <Link href={url}>{url}</Link>,
+            value: path,
           },
           { title: t('version'), value: version },
           {
-            title: t('status'),
-            value: (
-              <S.Status>
-                <S.StatusTxt>{t('stop')} </S.StatusTxt>
-                <Switch
-                  size='small'
-                  onChange={(checked) => {
-                    checked ? toggleModal('startService') : toggleModal('stopService');
-                  }}
-                />
-                <S.StatusTxt> {t('operational')} </S.StatusTxt>
-              </S.Status>
-            ),
-          },
-          {
             title: t('details'),
             value: (
-              <S.DetailsBtn className='item__btn' variant='link' color='primary' onClick={() => toggleModal('details')}>
+              <S.DetailsBtn
+                variant='link'
+                color='primary'
+                className='item__btn'
+                onClick={() => addServiceToView(service)}
+              >
                 {t('details')}
               </S.DetailsBtn>
             ),
@@ -131,7 +108,7 @@ export function getMobileColumns(props: Props) {
           {
             title: t('remove'),
             value: (
-              <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
+              <Button className='item__btn' variant='link' color='error' onClick={() => addServiceToRemove(service)}>
                 <S.TrashIcon className='icon-trash' />
               </Button>
             ),

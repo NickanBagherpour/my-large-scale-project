@@ -22,3 +22,8 @@ export type Service = {
 };
 
 export type Services = PaginatedData<Service>;
+
+export type ServiceToClientParams = {
+  clientName: string;
+  serviceInfoId: number;
+};

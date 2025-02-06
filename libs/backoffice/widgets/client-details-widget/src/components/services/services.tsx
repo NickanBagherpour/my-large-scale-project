@@ -4,30 +4,31 @@ import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
 import DetailsModal from '../details-modal/details-modal';
 import { useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
-import type { Pagination, Service } from '@oxygen/types';
+import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
-import { Modals } from '../../types';
+import { Modals, Service } from '../../types';
 import Footer from '../footer/footer';
 import ServiceSelector from '../service-selector/service-selector';
 import { ROUTES } from '@oxygen/utils';
 import { useClientName } from '../../utils/use-client-name';
+import { useAssignServiceToClient, useUnassignServiceFromClient } from '../../services';
 
 export default function Services() {
   const [t] = useTr();
-  const [modals, setModals] = useState<Modals>({
-    details: false,
-    stopService: false,
-    startService: false,
-    removeService: false,
-  });
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
   const clientName = useClientName();
+  const { mutate: assignToClient } = useAssignServiceToClient();
+  const { mutate: unassignFromClient } = useUnassignServiceFromClient();
+  const [selectedServices, setSelectedServices] = useState<Service[]>([]);
+
+  const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
+  const [serviceToView, setServiceToView] = useState<Service | null>(null);
 
   const isLoading = false;
   const isFetching = false;
-  const data = { total: 0, list: [] };
+  const currentServices = { total: selectedServices.length, list: selectedServices };
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -39,18 +40,35 @@ export default function Services() {
     }
   };
 
-  const toggleModal = (modal: keyof Modals) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  const onAssignToClient = (service: Service) => {
+    assignToClient(
+      { clientName, serviceInfoId: service.id },
+      {
+        onSuccess: () => {
+          setSelectedServices((prev) => prev.concat(service));
+        },
+      }
+    );
   };
 
-  const tableData = { t, pagination, toggleModal };
+  const onUnassignFromClient = () => {
+    if (serviceToRemove) {
+      unassignFromClient({ clientName, serviceInfoId: serviceToRemove.id });
+    }
+  };
+
+  const tableData: Parameters<typeof getDesktopColumns>[0] = {
+    t,
+    pagination,
+    addServiceToRemove: (service) => setServiceToRemove(service),
+    addServiceToView: (service) => setServiceToView(service),
+  };
   const desktopColumns = getDesktopColumns(tableData);
   const mobileColumns = getMobileColumns(tableData);
 
   return (
     <>
-      <ServiceSelector disabled={false} onSelect={() => void 1} />
-
+      <ServiceSelector disabled={false} onSelect={onAssignToClient} />
       <S.Header>
         <S.Title>{t('client_services')}</S.Title>
         <Button
@@ -62,24 +80,24 @@ export default function Services() {
           {t('display_change_history')}
         </Button>
       </S.Header>
-
       <Table
         loading={isFetching}
         current={page}
-        total={data?.total}
-        dataSource={data?.list}
+        total={currentServices?.total}
+        dataSource={currentServices?.list}
         pagination={{ pageSize: rowsPerPage }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        rowKey={(row: Service) => row.idx}
+        rowKey={(row: Service) => row.id}
       />
       <RemoveServiceModal
-        isOpen={modals['removeService']}
-        toggle={() => toggleModal('removeService')}
-        id={'samat-lc-gutr-del'}
+        onRemove={onUnassignFromClient}
+        isOpen={!!serviceToRemove}
+        close={() => setServiceToRemove(null)}
+        name={'samat-lc-gutr-del'}
       />
-      <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details')} />
+      <DetailsModal isOpen={!!serviceToView} close={() => setServiceToView(null)} />
       <Footer isLoading={isLoading} />
     </>
   );

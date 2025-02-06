@@ -3,11 +3,11 @@ import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
 
 type Props = {
   isOpen: boolean;
-  toggle: () => void;
+  close: () => void;
 };
 
 export default function DetailsModal(props: Props) {
-  const { isOpen, toggle } = props;
+  const { isOpen, close } = props;
   const [t] = useTr();
 
   const data = [
@@ -32,10 +32,10 @@ export default function DetailsModal(props: Props) {
       centered
       title={t('service_detail')}
       open={isOpen}
-      onCancel={toggle}
+      onCancel={close}
       width={1000}
       footer={[
-        <Button size='large' color='primary' variant='outlined' onClick={toggle}>
+        <Button size='large' color='primary' variant='outlined' onClick={close}>
           {t('register_data')}
         </Button>,
       ]}

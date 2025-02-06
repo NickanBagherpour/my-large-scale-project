@@ -29,7 +29,7 @@ const App = () => {
   };
 
   return (
-    <Container title={'App-Bale'}>
+    <Container title={clientName}>
       <S.Tabs type='line' items={tabs} activeKey={tab} onTabClick={changeTab} />
     </Container>
   );
