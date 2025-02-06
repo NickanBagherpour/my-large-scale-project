@@ -9,12 +9,14 @@ import { Tab } from '../../types';
 import { ReactNode } from 'react';
 import { getValidTab } from '../../utils/tabs.util';
 import { Container } from '@oxygen/ui-kit';
+import { useClientName } from '../../utils/use-client-name';
 
 const App = () => {
   const [t] = useTr();
   const router = useRouter();
   const search = useSearchParams();
   const tab = getValidTab(search.get('tab'));
+  const clientName = useClientName();
 
   const tabs: { label: string; key: Tab; children: ReactNode }[] = [
     { label: t('client_info'), key: 'client-info', children: <ClientInfo /> },
@@ -22,9 +24,13 @@ const App = () => {
     { label: t('plugins'), key: 'plugins', children: <Plugins /> },
   ];
 
+  const changeTab = (tab: string) => {
+    router.replace(`?name=${clientName}&tab=${tab}`);
+  };
+
   return (
     <Container title={'App-Bale'}>
-      <S.Tabs type='line' items={tabs} activeKey={tab} onTabClick={(tab) => router.replace(`?tab=${tab}`)} />
+      <S.Tabs type='line' items={tabs} activeKey={tab} onTabClick={changeTab} />
     </Container>
   );
 };

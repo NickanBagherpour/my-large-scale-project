@@ -2,16 +2,16 @@ import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
 import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
 import DetailsModal from '../details-modal/details-modal';
-import StartServiceModal from '../start-service-modal/start-service-modal';
-import StopServiceModal from '../stop-service-modal/stop-service-modal';
 import { useState } from 'react';
-import { useGetServicesQuery } from '../../services';
 import { type TablePaginationConfig } from 'antd';
 import type { Pagination, Service } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Input, Table } from '@oxygen/ui-kit';
+import { Button, Table } from '@oxygen/ui-kit';
 import { Modals } from '../../types';
 import Footer from '../footer/footer';
+import ServiceSelector from '../service-selector/service-selector';
+import { ROUTES } from '@oxygen/utils';
+import { useClientName } from '../../utils/use-client-name';
 
 export default function Services() {
   const [t] = useTr();
@@ -23,8 +23,11 @@ export default function Services() {
   });
   const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const { page, rowsPerPage } = pagination;
+  const clientName = useClientName();
 
-  const { data, isFetching, isLoading } = useGetServicesQuery(pagination);
+  const isLoading = false;
+  const isFetching = false;
+  const data = { total: 0, list: [] };
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -46,9 +49,19 @@ export default function Services() {
 
   return (
     <>
-      <S.FormItem name={'clientService'} label={t('client_services')} colon={false}>
-        <Input placeholder={t('searchByNames')} prefix={<i className='icon-search-normal' />} />
-      </S.FormItem>
+      <ServiceSelector disabled={false} onSelect={() => void 1} />
+
+      <S.Header>
+        <S.Title>{t('client_services')}</S.Title>
+        <Button
+          href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
+          color='primary'
+          variant='filled'
+        >
+          <S.Icon className='icon-clock' />
+          {t('display_change_history')}
+        </Button>
+      </S.Header>
 
       <Table
         loading={isFetching}
@@ -60,17 +73,6 @@ export default function Services() {
         mobileColumns={mobileColumns}
         onChange={changePage}
         rowKey={(row: Service) => row.idx}
-      />
-
-      <StopServiceModal
-        isOpen={modals['stopService']}
-        toggle={() => toggleModal('stopService')}
-        id={'samat-lc-gutr-del'}
-      />
-      <StartServiceModal
-        isOpen={modals['startService']}
-        toggle={() => toggleModal('startService')}
-        id={'samat-lc-gutr-del'}
       />
       <RemoveServiceModal
         isOpen={modals['removeService']}

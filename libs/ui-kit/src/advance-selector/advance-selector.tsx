@@ -13,7 +13,6 @@ export type dataType = {
   id?: string | number;
   title: string;
   subTitle?: string;
-  scope: any;
 };
 
 type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {

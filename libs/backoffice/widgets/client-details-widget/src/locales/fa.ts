@@ -43,6 +43,9 @@ export default {
   service: 'سرویس',
   english_name: 'نام انگلیسی',
   status: 'وضعیت',
+  search_english_or_persian_name: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+  client_services: 'کلاینت‌ های سرویس',
+
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   non_denial: 'عدم انکار',
   new_request_validation: 'اعتبارسنجی درخواست جدید',

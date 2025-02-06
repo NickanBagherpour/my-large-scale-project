@@ -3,13 +3,13 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import type { Pagination } from '@oxygen/types';
+import { ServiceParams } from '../types/services.type';
 
-export const useGetServicesQuery = (params: Pagination) => {
+export const useGetServices = (params: ServiceParams) => {
   const dispatch = useAppDispatch();
   return useQuery({
     queryKey: [RQKEYS.BACKOFFICE.CLIENT_DETAILS.SERVICES, params],
-    queryFn: withErrorHandling(() => Api.getServicesData(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getServices(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

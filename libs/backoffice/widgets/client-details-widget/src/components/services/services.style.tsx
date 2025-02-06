@@ -1,39 +1,29 @@
 import styled from 'styled-components';
 import { Button as KitButton } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
-import { Form } from 'antd';
 
-export const FormItem = styled(Form.Item)`
-  & .ant-row {
-    gap: 4rem;
-    align-items: center;
-    ${respondTo.down('md')} {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
-      & > div {
-        text-align: start;
-        padding: 0;
-        width: 100%;
-      }
-    }
-  }
+export const Header = styled.header`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding-inline: 0.8rem;
+  margin-block: 2rem 1.6rem;
 
-  & label {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: ${(p) => p.theme.text.primary};
-    margin: 0;
-    white-space: nowrap;
+  ${respondTo.down('sm')} {
+    flex-direction: column;
   }
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   font-size: 1.6rem;
   font-weight: 600;
   color: ${(p) => p.theme.text.primary};
-  margin: 0;
-  white-space: nowrap;
+  margin-inline-end: auto;
+  margin-block: 0;
+`;
+
+export const Icon = styled.i`
+  font-size: 1.8rem;
 `;
 
 export const Status = styled.div`
