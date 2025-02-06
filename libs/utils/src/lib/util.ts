@@ -49,7 +49,7 @@ export function isNumberComma(value: string): boolean {
 }
 
 export function getValueOrDash(value: any, emptyValue?: string) {
-  return value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
+  return value && value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
 }
 
 export function isEmptyObject(obj: Record<string, unknown>) {

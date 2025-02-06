@@ -4,6 +4,6 @@ import { Box, Container } from '@oxygen/ui-kit';
 
 export const AppContainer = styled(Container)``;
 
-export const StyledBox = styled(Box)`
+export const TableContainer = styled(Box)`
   height: 100%;
 `;

@@ -3,11 +3,11 @@ import { Form } from 'antd';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
+import { InquiryComponent } from '@oxygen/reusable-components';
 import { useBounce, useToggle } from '@oxygen/hooks';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
-import InquiryService from '../service-inquiry/inquiry-service';
 import { SERVICE_NAME } from '../../utils/consts';
 import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
 import * as S from './filters.sytle';
@@ -103,7 +103,8 @@ export default function Filters() {
         </S.Indicators>
       </S.Container>
       {isUploadModalOpen && <UploadService toggle={toggleUploadModal} isOpen={isUploadModalOpen} />}
-      {isInquiryModalOpen && <InquiryService toggle={toggleInquiryModal} isOpen={isInquiryModalOpen} />}
+      {/* {isInquiryModalOpen && <InquiryService toggle={toggleInquiryModal} isOpen={isInquiryModalOpen} />} */}
+      {isInquiryModalOpen && <InquiryComponent type='service' dispatch={dispatch} toggle={toggleInquiryModal} />}
     </>
   );
 }

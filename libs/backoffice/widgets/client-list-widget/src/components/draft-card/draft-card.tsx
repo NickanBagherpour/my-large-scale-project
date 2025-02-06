@@ -2,29 +2,53 @@ import { Button, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
 import { ROUTES } from '@oxygen/utils';
 import { Draft } from '../../types';
+import { useDeleteDraft } from '../../services/delete-draft.api';
+import RemoveDraftModal from '../remove-draft-modal/remove-draft-modal';
+import { useState } from 'react';
 
 export default function DraftCard(props: Draft) {
-  const { clientId, stepName, clientName, progressPercent } = props;
+  const { stepName, clientName, progressPercent } = props;
+  const { mutate: removeDraft, isPending } = useDeleteDraft();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const openModal = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    // TODO: see if this functionality should exist
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    if (isPending) return;
+    setIsModalOpen(false);
+  };
+
+  const onRemoveDraft = () => {
+    removeDraft(clientName);
   };
 
   return (
-    <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-id=${clientId}`}>
-      <S.Header>
-        <S.Name>{clientName}</S.Name>
-        <Button onClick={remove} color='primary' variant='text' size='small'>
-          <S.Trash className='icon-trash' />
-        </Button>
-      </S.Header>
+    <>
+      <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-name=${clientName}`}>
+        <S.Header>
+          <S.Name>{clientName}</S.Name>
+          <Button onClick={openModal} color='primary' variant='text' size='small'>
+            <S.Trash className='icon-trash' />
+          </Button>
+        </S.Header>
 
-      <Progress percent={progressPercent} showInfo={false} isPrimary />
+        <Progress percent={progressPercent} showInfo={false} isPrimary />
 
-      <S.Footer>
-        ({stepName}) {progressPercent}%
-      </S.Footer>
-    </S.Container>
+        <S.Footer>
+          ({stepName}) {progressPercent}%
+        </S.Footer>
+      </S.Container>
+
+      <RemoveDraftModal
+        isOpen={isModalOpen}
+        close={closeModal}
+        name={clientName}
+        remove={onRemoveDraft}
+        isLoading={isPending}
+      />
+    </>
   );
 }

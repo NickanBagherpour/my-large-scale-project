@@ -9,6 +9,10 @@ const Api = {
   getDraftsData: async (params: ParamsWithPagination) => {
     return client.get<Drafts>(`${portalUrl}/v1/clients/drafts`, { params });
   },
+
+  deleteDraft: async (draftName: string) => {
+    return client.delete(`${portalUrl}/v1/clients/${draftName}`);
+  },
 };
 
 export default Api;
