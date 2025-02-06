@@ -1,8 +1,6 @@
 import { Divider, Loading } from '@oxygen/ui-kit';
-import Footer from '../footer/footer';
 import { useTr } from '@oxygen/translation';
 import * as S from './plugins.style';
-import { useAppDispatch } from '../../context';
 import { useQueryClient } from '@tanstack/react-query';
 import PluginCard from './plugin-card/plugin-card';
 import PluginServices from './plugin-services/plugin-services';
@@ -28,7 +26,7 @@ type Props = {
 export default function Plugins(props: Props) {
   const { clientName } = props;
   const [t] = useTr();
-  const { data: clientPlugins, isFetching: isFetchingClientPlugins, isLoading } = useClientPlugins(clientName);
+  const { data: clientPlugins, isFetching: isFetchingClientPlugins } = useClientPlugins(clientName);
   const { data: clientServicePlugins } = useClientServicePlugins(clientName);
 
   const [currentConfig, setCurrentConfig] = useState<PluginConfig | null>(null);
@@ -36,9 +34,6 @@ export default function Plugins(props: Props) {
   const queryClient = useQueryClient();
 
   const clientPluginMutation = useClientPluginMutation();
-
-  const dispatch = useAppDispatch();
-  // const { currentConfig } = useAppState();
 
   const updateCurrentConfig = (config: PluginConfig | null) => {
     setCurrentConfig(config);
@@ -83,7 +78,7 @@ export default function Plugins(props: Props) {
           <PluginServices key={idx} idx={idx} plugins={plugins} onUpdateConfig={updateCurrentConfig} />
         ))}
       </Loading>
-      <Footer isLoading={isLoading} />
+      {/* <Footer isLoading={isLoading} /> */}
 
       <LimitationsModal
         close={() => updateCurrentConfig(null)}

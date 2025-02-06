@@ -35,3 +35,4 @@ export { default as StatusModal } from './components/status-modal/status-modal';
 export { default as withRoleCheck } from './hocs/withRoleCheck';
 export { default as InquiryComponent } from './components/inquiry/inquiry-component';
 export { default as Services } from './components/services/services';
+export { default as Plugins } from './components/plugins/plugins';

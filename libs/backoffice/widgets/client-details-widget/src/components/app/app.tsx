@@ -1,7 +1,6 @@
 import * as S from './app.style';
 import { useTr } from '@oxygen/translation';
 import ClientInfo from '../client-info/client-info';
-import Plugins from '../plugins/plugins';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Tab } from '../../types';
@@ -9,7 +8,7 @@ import { ReactNode } from 'react';
 import { getValidTab } from '../../utils/tabs.util';
 import { Container } from '@oxygen/ui-kit';
 import { useClientName } from '../../utils/use-client-name';
-import { Services } from '@oxygen/reusable-components';
+import { Plugins, Services } from '@oxygen/reusable-components';
 
 const App = () => {
   const [t] = useTr();
