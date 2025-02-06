@@ -2,7 +2,7 @@ import { Divider, Loading } from '@oxygen/ui-kit';
 import Footer from '../footer/footer';
 import { useTr } from '@oxygen/translation';
 import * as S from './plugins.style';
-import { updateCurrentConfig, useAppDispatch } from '../../context';
+import { useAppDispatch } from '../../context';
 import { useQueryClient } from '@tanstack/react-query';
 import PluginCard from './plugin-card/plugin-card';
 import PluginServices from './plugin-services/plugin-services';
@@ -11,6 +11,7 @@ import { ClientPlugins, PluginConfig } from './utils/plugins.type';
 import { useClientPluginMutation } from './utils/post-client-plugin.api';
 import { getKeys, useClientPlugins } from './utils/get-client-plugins.api';
 import { useClientServicePlugins } from './utils/get-client-service-plugins.api';
+import { useState } from 'react';
 
 // request-non-repudiation عدم انکار
 // rate-limiting محدودیت فراخوانی
@@ -30,12 +31,18 @@ export default function Plugins(props: Props) {
   const { data: clientPlugins, isFetching: isFetchingClientPlugins, isLoading } = useClientPlugins(clientName);
   const { data: clientServicePlugins } = useClientServicePlugins(clientName);
 
+  const [currentConfig, setCurrentConfig] = useState<PluginConfig | null>(null);
+
   const queryClient = useQueryClient();
 
   const clientPluginMutation = useClientPluginMutation();
 
   const dispatch = useAppDispatch();
   // const { currentConfig } = useAppState();
+
+  const updateCurrentConfig = (config: PluginConfig | null) => {
+    setCurrentConfig(config);
+  };
 
   const onUpdateConfig = (plugin: PluginConfig) => {
     clientPluginMutation.mutate(
@@ -73,13 +80,13 @@ export default function Plugins(props: Props) {
       <Loading spinning={isFetchingClientPlugins}>
         <S.Title>{t('client_services_plugin')}</S.Title>
         {clientServicePlugins?.map((plugins, idx) => (
-          <PluginServices key={idx} idx={idx} plugins={plugins} />
+          <PluginServices key={idx} idx={idx} plugins={plugins} onUpdateConfig={updateCurrentConfig} />
         ))}
       </Loading>
       <Footer isLoading={isLoading} />
 
       <LimitationsModal
-        close={() => updateCurrentConfig(dispatch, null)}
+        close={() => updateCurrentConfig(null)}
         isOpen={false /*!!currentConfig?.name === 'rate-limiting'*/}
       />
     </>

@@ -6,10 +6,11 @@ import { PluginConfig } from '../utils/plugins.type';
 type Props = {
   idx: number;
   plugins: PluginConfig[];
+  onUpdateConfig: (config: PluginConfig | null) => void;
 };
 
 export default function PluginServices(props: Props) {
-  const { idx, plugins /* name, englishName, status, version, scope, upstream */ } = props;
+  const { idx, plugins, onUpdateConfig /* name, englishName, status, version, scope, upstream */ } = props;
   const [t] = useTr();
 
   // const data = [
@@ -44,7 +45,7 @@ export default function PluginServices(props: Props) {
 
         <S.Cards>
           {plugins.map((plugin) => (
-            <PluginCard plugin={plugin} />
+            <PluginCard plugin={plugin} onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })} />
           ))}
         </S.Cards>
       </div>

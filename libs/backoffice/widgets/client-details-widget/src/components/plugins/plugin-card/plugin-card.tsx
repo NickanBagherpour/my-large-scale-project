@@ -1,7 +1,6 @@
 import { Switch } from '@oxygen/ui-kit';
 import * as S from './plugin-card.style';
 import { PluginConfig } from '../utils/plugins.type';
-// import { updateCurrentConfig, useAppDispatch } from '../../context';
 
 type Props = {
   plugin: PluginConfig;
@@ -11,10 +10,8 @@ type Props = {
 export default function PluginCard(props: Props) {
   const {
     plugin: { enabled, name },
-    plugin,
     onCheck,
   } = props;
-  // const dispatch = useAppDispatch();
   const hasSetting = name !== 'request-non-repudiation'; // TODO: clean this
 
   return (
