@@ -5,12 +5,14 @@ import { PluginConfig } from '../utils/plugins.type';
 type Props = {
   plugin: PluginConfig;
   onCheck: (isChecked: boolean) => void;
+  onSetting: () => void;
 };
 
 export default function PluginCard(props: Props) {
   const {
     plugin: { enabled, name },
     onCheck,
+    onSetting,
   } = props;
   const hasSetting = name !== 'request-non-repudiation'; // TODO: clean this
 
@@ -22,12 +24,7 @@ export default function PluginCard(props: Props) {
       </S.CardHeader>
 
       {hasSetting && (
-        <S.SettingBtn
-          variant='link'
-          color='primary'
-          disabled={!enabled}
-          // onClick={() => updateCurrentConfig(dispatch, plugin)}
-        >
+        <S.SettingBtn variant='link' color='primary' disabled={!enabled} onClick={onSetting}>
           <S.Icon className='icon-setting' />
         </S.SettingBtn>
       )}

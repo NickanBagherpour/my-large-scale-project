@@ -45,7 +45,11 @@ export default function PluginServices(props: Props) {
 
         <S.Cards>
           {plugins.map((plugin) => (
-            <PluginCard plugin={plugin} onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })} />
+            <PluginCard
+              plugin={plugin}
+              onSetting={() => onUpdateConfig(plugin)}
+              onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })}
+            />
           ))}
         </S.Cards>
       </div>

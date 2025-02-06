@@ -10,6 +10,7 @@ import { useClientPluginMutation } from './utils/post-client-plugin.api';
 import { getKeys, useClientPlugins } from './utils/get-client-plugins.api';
 import { useClientServicePlugins } from './utils/get-client-service-plugins.api';
 import { useState } from 'react';
+import TerminationsModal from './termination-modal/termination-modal';
 
 // request-non-repudiation عدم انکار
 // rate-limiting محدودیت فراخوانی
@@ -40,7 +41,7 @@ export default function Plugins(props: Props) {
   };
 
   const onUpdateConfig = (plugin: PluginConfig) => {
-    clientPluginMutation.mutate(
+    clientPluginMutation.mutateAsync(
       { clientName, ...plugin },
       {
         onSuccess() {
@@ -50,6 +51,14 @@ export default function Plugins(props: Props) {
         },
       }
     );
+  };
+
+  const onCheck = (isChecked: boolean, plugin: PluginConfig) => {
+    if (isChecked) {
+      updateCurrentConfig({ ...plugin, enabled: true });
+    } else {
+      onUpdateConfig({ ...plugin, enabled: false });
+    }
   };
 
   if (!clientPlugins || !clientPlugins) return null;
@@ -64,7 +73,8 @@ export default function Plugins(props: Props) {
             <PluginCard
               key={plugin.name}
               plugin={plugin}
-              onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })}
+              onCheck={(isChecked) => onCheck(isChecked, plugin)}
+              onSetting={() => updateCurrentConfig(plugin)}
             />
           ))}
         </S.Container>
@@ -78,11 +88,18 @@ export default function Plugins(props: Props) {
           <PluginServices key={idx} idx={idx} plugins={plugins} onUpdateConfig={updateCurrentConfig} />
         ))}
       </Loading>
+
       {/* <Footer isLoading={isLoading} /> */}
 
       <LimitationsModal
         close={() => updateCurrentConfig(null)}
-        isOpen={false /*!!currentConfig?.name === 'rate-limiting'*/}
+        isOpen={Boolean(currentConfig && currentConfig.name === 'rate-limiting')}
+        // onSubmit={values => onUpdateConfig({...values, enabled: true})}
+      />
+
+      <TerminationsModal
+        close={() => updateCurrentConfig(null)}
+        isOpen={Boolean(currentConfig && currentConfig.name === 'request-termination')}
       />
     </>
   );

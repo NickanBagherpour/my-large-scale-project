@@ -9,6 +9,7 @@ import { limitationsSchema, LimitationsType } from '../utils/limitation-form.sch
 type Props = {
   isOpen: boolean;
   close: () => void;
+  // onSubmit: () =>
 };
 
 export default function LimitationsModal(props: Props) {
