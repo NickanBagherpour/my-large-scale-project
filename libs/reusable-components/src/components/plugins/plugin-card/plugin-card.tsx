@@ -5,7 +5,7 @@ import { PluginConfig } from '../utils/plugins.type';
 type Props = {
   plugin: PluginConfig;
   onCheck: (isChecked: boolean) => void;
-  onSetting: (() => void) | null;
+  onSetting: () => void;
 };
 
 export default function PluginCard(props: Props) {
@@ -22,11 +22,9 @@ export default function PluginCard(props: Props) {
         <Switch checked={enabled} onChange={(isChecked) => void onCheck(isChecked)} />
       </S.CardHeader>
 
-      {onSetting && (
-        <S.SettingBtn variant='link' color='primary' disabled={!enabled} onClick={onSetting}>
-          <S.Icon className='icon-setting' />
-        </S.SettingBtn>
-      )}
+      <S.SettingBtn variant='link' color='primary' disabled={!enabled} onClick={onSetting}>
+        <S.Icon className='icon-setting' />
+      </S.SettingBtn>
     </S.Card>
   );
 }

@@ -17,10 +17,6 @@ type Props = {
   serviceId?: number;
 };
 
-const hasSetting = (plugin: PluginConfig) => {
-  return plugin.name !== 'request-non-repudiation';
-};
-
 export default function PluginList(props: Props) {
   const { plugins, clientName, serviceId } = props;
   const queryClient = useQueryClient();
@@ -68,27 +64,17 @@ export default function PluginList(props: Props) {
     <>
       <Loading spinning={isPending}>
         <S.Container>
-          {plugins.map((plugin) => {
-            const withSetting = hasSetting(plugin);
-            return (
-              <PluginCard
-                key={plugin.name}
-                plugin={plugin}
-                onCheck={(isChecked) => {
-                  if (isChecked) {
-                    if (withSetting) {
-                      updateCurrentConfig({ ...plugin, enabled: true });
-                    } else {
-                      postConfig({ ...plugin, enabled: true });
-                    }
-                  } else {
-                    postConfig({ ...plugin, enabled: false });
-                  }
-                }}
-                onSetting={withSetting ? () => updateCurrentConfig(plugin) : null}
-              />
-            );
-          })}
+          {plugins.map((plugin) => (
+            <PluginCard
+              key={plugin.name}
+              plugin={plugin}
+              onCheck={(isChecked) => {
+                if (isChecked) updateCurrentConfig({ ...plugin, enabled: true });
+                else postConfig({ ...plugin, enabled: false });
+              }}
+              onSetting={() => updateCurrentConfig(plugin)}
+            />
+          ))}
         </S.Container>
       </Loading>
 
