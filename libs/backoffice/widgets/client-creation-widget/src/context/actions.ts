@@ -3,6 +3,9 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { FiltersType, OrganizationInfo, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
+export function resetOrganizationInfoAction(dispatch: WidgetDispatchType) {
+  dispatch({ type: 'RESET_ORGANIZATION_INFO' });
+}
 export function updateOrganizationInfoAction(dispatch: WidgetDispatchType, organizationInfo: OrganizationInfo) {
   dispatch({ type: 'ADD_ORGANIZATION_INFO', payload: organizationInfo });
 }

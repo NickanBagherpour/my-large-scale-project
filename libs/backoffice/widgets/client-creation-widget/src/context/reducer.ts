@@ -49,7 +49,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.message = action.payload;
       return;
     }
-
+    case 'RESET_ORGANIZATION_INFO': {
+      state.firstStep.organizationInfo = initialStateValue.firstStep.organizationInfo;
+      return;
+    }
     case 'ADD_ORGANIZATION_INFO': {
       state.firstStep.organizationInfo = { ...action.payload };
       return;

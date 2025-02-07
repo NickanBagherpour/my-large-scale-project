@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { getValueOrDash } from '@oxygen/utils';
-import { Button, Chip, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
+import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { updateFirstStepAction, updateOrganizationInfoAction, useAppDispatch, useAppState } from '../../context';
-import { ClientInquiryStatus, FORM_ITEM, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import TagPicker from './tag-picker/tag-picker';
+import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
+import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import {
+  resetOrganizationInfoAction,
+  updateFirstStepAction,
+  updateOrganizationInfoAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 
-import { useClientTypesQuery } from '../../services/first-step/get-select-data';
-import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
-import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
-import { useOrganizationInfoQuery } from '../../services/first-step/get-organization-info';
-import { useClientDraftInfoQuery } from '../../services/first-step/get-client-draft-data.api';
-import { useClientInquirySSOQuery } from '../../services/first-step/get-client-inquiry-sso.api';
+import {
+  usePostSubmitClient,
+  useGetClientTypesQuery,
+  useGetTagsDataQuery,
+  useGetOrganizationInfoQuery,
+  useGetClientDraftInfoQuery,
+  useGetClientInquirySSOQuery,
+} from '../../services/first-step';
 
 import * as S from './first-step.style';
-import { useSubmitClient } from '../../services/first-step/post-clients.api';
+import { TagInterface } from '../../types/first-step/general';
+import { useApp } from '@oxygen/hooks';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -29,55 +40,67 @@ type FirstStepProps = PageProps & {
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { setCurrentStep } = props;
+  //Hooks
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const { notification } = useApp();
 
   const router = useRouter();
   const [form] = Form.useForm();
-  const clientStatus = state.clientStatus;
+  const rule = createSchemaFieldRule(createFormSchema(t));
+  //Constants
   const clientName = state.clientName;
-  //todo:update this base on new api
-  const [grantTags, setGrantTags] = useState([]);
-  const [nameTags, setNameTags] = useState([]);
+  const clientStatus = state.clientStatus;
+  const isFormDisabeled = !(state.firstStep?.organizationInfo?.organizationNationalId ?? undefined);
+  const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
+  const isDraft = clientStatus === ClientInquiryStatus.CLIENT_IS_DRAFT;
+  const orgNationalId = state.firstStep.organizationInfo?.organizationNationalId;
+  const aggregatorStatusParams = state.firstStep.organizationInfo.organizationNationalId;
+  const isBtnDisabled = !orgNationalId;
+  //States
+  const [selectedGrantTypes, setSelectedGrantTypes] = useState([]);
+  const [nameTags, setNameTags] = useState([state.firstStep.tagIds]);
+  const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
   const [searchValue, setSearchValue] = useState({
     orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
   });
-  const { mutate: submitClient, isPending: submitClientLoading } = useSubmitClient();
 
-  const { data: grantTagData, isFetching: grantTagFetching } = useGetGrantTagDataQuery();
-  const { data: NameTagData, isFetching: nameTagFetching } = useGetnameTagDataQuery();
-  const { data: clientTypes, isFetching: clientTypesFetching } = useClientTypesQuery();
-  const { data: orgInfo, isFetching: orgInfoFetching, refetch: searchRefetch } = useOrganizationInfoQuery(searchValue);
+  //Mutatuions
+  const { mutate: submitClient, isPending: submitClientLoading, isSuccess } = usePostSubmitClient();
+  //Queries
+  const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
+  const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
+  const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
+  const {
+    data: orgInfo,
+    isFetching: orgInfoFetching,
+    refetch: searchRefetch,
+    isSuccess: searchIsSuccess,
+    isError: searchIsError,
+  } = useGetOrganizationInfoQuery(searchValue);
   const {
     data: SSOInquiryData,
     isFetching: SSOInquiryFetching,
     refetch: SSOInquiryRefetch,
-  } = useClientInquirySSOQuery({ 'client-name': clientName });
-  const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useClientDraftInfoQuery(clientName!);
-
-  const rule = createSchemaFieldRule(createFormSchema(t));
-
-  const isFormDisabeled = !state.firstStep?.organizationInfo.organizationNationalId;
-
-  //TODO:HANDLE THIS BASE ON FORM INPUTS
-  const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
-  const isDraft = clientStatus === ClientInquiryStatus.CLIENT_IS_DRAFT;
-  const isBtnDisabled = false;
-
+  } = useGetClientInquirySSOQuery({ 'client-name': clientName });
+  //Effects
   useEffect(() => {
     if (isImportClient) {
       SSOInquiryRefetch();
       if (SSOInquiryData) {
         updateFirstStepAction(dispatch, SSOInquiryData);
+        setNameTags(SSOInquiryData.tagIds);
       }
     }
   }, [isImportClient, SSOInquiryData]);
+
   useEffect(() => {
     if (isDraft) {
       draftRefetch();
       if (draftData) {
         updateFirstStepAction(dispatch, draftData);
+        setNameTags(draftData.tagIds);
       }
     }
   }, [isDraft, draftData]);
@@ -96,36 +119,33 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       updateOrganizationInfoAction(dispatch, orgInfo);
     }
   }, [orgInfo]);
-
-  const handleGrantTagChange = (values) => {
-    setGrantTags(values);
-  };
-
-  const handleNameTagChange = (values) => {
-    setNameTags(values);
-  };
-
-  // updateFirstStepAction(dispatch, values);
-  // setCurrentStep((perv) => perv + 1);
-
-  const onFinish = async (values) => {
-    const params = values;
-    submitClient(params, {
-      onSuccess: async () => {
-        console.log(params);
-        setCurrentStep((pervStep) => pervStep++);
-      },
+  useEffect(() => {
+    if (NameTagData && nameTags) {
+      const selectedTags = prepareTags(NameTagData, nameTags);
+      setSelectedTags(selectedTags);
+      form.setFieldsValue({
+        [FORM_ITEM.TAG_IDS]: selectedTags,
+      });
+    }
+  }, [NameTagData, nameTags]);
+  useEffect(() => {
+    const foundGrantTypes = prepareGrantTypes(state.firstStep, GrantValue);
+    setSelectedGrantTypes(foundGrantTypes);
+    form.setFieldsValue({
+      [FORM_ITEM.GRANT_TYPE]: foundGrantTypes,
     });
-  };
-
-  const handleGrantChipClose = (key) => {
-    setGrantTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
-  };
-
-  const handleNameChipClose = (key) => {
-    setNameTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
-  };
-
+  }, [state.firstStep]);
+  useEffect(() => {
+    if (searchIsSuccess) {
+      notification.success({
+        message: t('success_notif'),
+      });
+    }
+    if (searchIsError) {
+      resetOrganizationInfoAction(dispatch);
+    }
+  }, [searchIsSuccess, searchIsError]);
+  //Handlers
   const handleReturn = () => {
     router.back();
   };
@@ -135,11 +155,28 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const handleSearch = () => {
     searchRefetch();
   };
-  useEffect(() => {
-    form.setFieldValue('grant_tag', grantTags);
-    form.setFieldValue('add_tag', nameTags);
-  }, [grantTags, nameTags]);
-  const aggregatorStatusParams = state.firstStep.organizationInfo.organizationNationalId;
+
+  const onTagsChange = (value: TagInterface[]) => {
+    setSelectedTags(value);
+  };
+  const onGrantTypeChange = (value) => {
+    setSelectedGrantTypes(value);
+  };
+  const onGrantTypeClose = (item) => {
+    const updatedGrantTypes = selectedGrantTypes.filter((grantType: any) => grantType.key !== item);
+    setSelectedGrantTypes(updatedGrantTypes);
+    form.setFieldsValue({
+      [FORM_ITEM.GRANT_TYPE]: updatedGrantTypes,
+    });
+  };
+  const onTagsClose = (option) => {
+    const updatedTags = selectedTags.filter((tag: any) => tag.key !== option);
+    setSelectedTags(updatedTags);
+    form.setFieldsValue({
+      [FORM_ITEM.TAG_IDS]: updatedTags,
+    });
+  };
+
   const aggregatorStatus = (aggregatorStatusParams) => {
     return aggregatorStatusParams
       ? aggregatorStatusParams?.isAggregator
@@ -148,6 +185,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         ? `${t('company_has_aggregator')} - ${aggregatorStatusParams?.aggregatorName}`
         : t('company_is_not_aggregator')
       : null;
+  };
+
+  const onFinish = async (values) => {
+    submitClient(prepareSubmitClientParams(values, orgNationalId), {
+      onSuccess: async () => {
+        setCurrentStep((pervStep) => pervStep + 1);
+      },
+    });
   };
 
   const infoBoxData = [
@@ -234,63 +279,19 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 </Form.Item>
               </SearchItemsContainer>
               <S.Divider />
-              <S.TagsForm>
-                <S.TagPicker>
-                  <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
-                    <S.Select
-                      disabled={isFormDisabeled}
-                      multiSelect={true}
-                      // defaultValue={grantTags}
-                      menu={grantTagData}
-                      onChange={handleGrantTagChange}
-                      loading={grantTagFetching}
-                    >
-                      {t('form.grant_type')}
-                    </S.Select>
-                  </Form.Item>
-                  <div>
-                    {grantTags.map((tag: any) => (
-                      <Chip
-                        tooltipTitle={tag}
-                        key={tag.key}
-                        type='active'
-                        tooltipOnEllipsis={true}
-                        closeIcon
-                        onClose={() => handleGrantChipClose(tag.key)}
-                      >
-                        {tag.label}
-                      </Chip>
-                    ))}
-                  </div>
-                </S.TagPicker>
-
-                <S.TagPicker>
-                  <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.TAG_IDS}>
-                    <S.Select
-                      disabled={isFormDisabeled}
-                      multiSelect={true}
-                      menu={NameTagData}
-                      onChange={handleNameTagChange}
-                      loading={nameTagFetching}
-                    >
-                      {t('form.add_tags')}
-                    </S.Select>
-                  </Form.Item>
-                  <div>
-                    {nameTags.map((tag: any) => (
-                      <Chip
-                        tooltipTitle={tag.label}
-                        tooltipOnEllipsis={true}
-                        closeIcon
-                        type='active'
-                        onClose={() => handleNameChipClose(tag.key)}
-                      >
-                        {tag.label}
-                      </Chip>
-                    ))}
-                  </div>
-                </S.TagPicker>
-              </S.TagsForm>
+              <TagPicker
+                selectedTags={selectedTags}
+                onTagsChange={onTagsChange}
+                loadingUpdateClient={submitClientLoading}
+                isSuccess={isSuccess}
+                isTagsFetching={nameTagFetching}
+                tags={NameTagData}
+                onTagsClose={onTagsClose}
+                GrantValue={GrantValue}
+                onGrantTypeClose={onGrantTypeClose}
+                onGrantTypeChange={onGrantTypeChange}
+                selectedGrantTypes={selectedGrantTypes}
+              />
             </S.Card>
           </Form>
           <S.Footer>

@@ -69,6 +69,9 @@ export type WidgetStateType = {
 
 export type WidgetActionType =
   | {
+      type: 'RESET_ORGANIZATION_INFO';
+    }
+  | {
       type: 'ADD_ORGANIZATION_INFO';
       payload: OrganizationInfo;
     }

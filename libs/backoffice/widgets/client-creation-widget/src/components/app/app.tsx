@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { Nullable, PageProps } from '@oxygen/types';
+import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import FirstStep from '../first-step/first-step';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
+import { useGetClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
 import { addClientName, addClientStatus, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-
-import { useClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
-import { Loading } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
 type AppProps = PageProps & {
@@ -30,7 +29,7 @@ const App: React.FC<AppProps> = (props) => {
     data: inquiryStatus,
     isFetching: inquiryStatusFetching,
     isSuccess,
-  } = useClientInquiryStatusQuery({
+  } = useGetClientInquiryStatusQuery({
     'client-name': clientName,
   });
   const clientStatus = inquiryStatus?.clientInquiryStatus.code;
@@ -52,6 +51,7 @@ const App: React.FC<AppProps> = (props) => {
       setCurrentStep(step);
     }
   }, [isSuccess, step, clientStatus]);
+
   const stepsItem = [
     { title: t('progress_bar.first_step'), component: <FirstStep setCurrentStep={setCurrentStep} /> },
     { title: t('progress_bar.second_step'), component: <SecondStep setCurrentStep={setCurrentStep} /> },
