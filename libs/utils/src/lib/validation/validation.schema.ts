@@ -27,10 +27,27 @@ export const createValidationSchema = (
       .trim()
       .min(1, { message: t('validation.required') })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
-    searchField: z.string().max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+    searchField: z
+      .string()
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') })
+      .optional(),
 
     idSelection: z.number({ required_error: t('validation.choose_one_option') }),
 
+    objectMultipleSelection: z
+      .array(z.object({ value: z.number(), label: z.string() }), {
+        message: t('validation.choose_at_least_one_option'),
+      })
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    objectSingleSelection: z
+      .object({
+        value: z.number(),
+        label: z.string(),
+      })
+      .refine((data) => data.value !== undefined, {
+        message: t('validation.choose_one_option'),
+      }),
     english: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
@@ -88,6 +105,16 @@ export const createValidationSchema = (
       })
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
+      }),
+
+    version: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .max(limits.VERSION_MAX, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.positiveNumber, {
+        message: t('validation.only_digit_message'),
       }),
 
     postalCode: z
