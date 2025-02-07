@@ -8,7 +8,7 @@ interface DataType {
   code: string;
 }
 
-export const useClientTypesQuery = () => {
+export const useGetClientTypesQuery = () => {
   const dispatch = useAppDispatch();
   return useQuery({
     queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.SELECT_OPTIONS],

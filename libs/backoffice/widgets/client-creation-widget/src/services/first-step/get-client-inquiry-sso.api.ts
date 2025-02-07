@@ -4,7 +4,7 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
-export const useClientInquirySSOQuery = (params) => {
+export const useGetClientInquirySSOQuery = (params) => {
   const dispatch = useAppDispatch();
   return useQuery<any>({
     queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.INQUIRY_SSO, params],

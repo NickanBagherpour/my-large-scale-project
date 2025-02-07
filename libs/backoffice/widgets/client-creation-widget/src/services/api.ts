@@ -6,10 +6,9 @@ import { FirstStepType } from '../context/types';
 const Api = {
   // getTableReportData: async (params: FetchParamsType) => Mockify.clientCreationTable(params),
   getMainCardData: async () => Mockify.getPlugins(),
-  getGrantTagData: async () => Mockify.getGrantTags(),
-  getNameTagData: async () => Mockify.getNameTags(),
   getSelectData: async () => Mockify.getSelectOptions(),
 
+  getNameTagData: async () => client.get(`${portalUrl}/v1/tags/client`),
   postClient: async (params) => client.post<FirstStepType>(`${portalUrl}/v1/clients`, { ...params }),
   getClientTypes: async () => client.get(`${portalUrl}/v1/enums/client-types`),
   getClientDraftInfo: async (params) => client.get(`${portalUrl}/v1/clients/${params}`),

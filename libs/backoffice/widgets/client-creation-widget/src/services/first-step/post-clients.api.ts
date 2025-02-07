@@ -5,7 +5,7 @@ import { ApiUtil } from '@oxygen/utils';
 import Api from '../api';
 import { updateMessageAction, useAppDispatch } from '../../context';
 
-export const useSubmitClient = () => {
+export const usePostSubmitClient = () => {
   const dispatch = useAppDispatch();
 
   return useMutation({
