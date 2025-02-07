@@ -36,12 +36,15 @@ const DataList: React.FC<dataListProps> = (props) => {
     updatePagination(dispatch, updatedPagination);
   };
 
-  const desktopColumns = getDesktopColumns({ t });
+  const clientPersianName = data?.commonClientInfoDto?.persianName;
+  const clientType = data?.commonClientInfoDto?.clientType?.title;
+
+  const desktopColumns = getDesktopColumns({ t, clientPersianName, clientType });
 
   return (
     <S.TableContainer>
       <Table
-        scroll={{ x: 1300 }}
+        scroll={{ x: 1200 }}
         loading={isFetching}
         dataSource={data?.content}
         pagination={{
