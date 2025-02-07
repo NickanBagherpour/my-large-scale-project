@@ -5,7 +5,7 @@ import { PluginConfig } from '../utils/plugins.type';
 type Props = {
   plugin: PluginConfig;
   onCheck: (isChecked: boolean) => void;
-  onSetting: () => void;
+  onSetting: (() => void) | null;
 };
 
 export default function PluginCard(props: Props) {
@@ -14,7 +14,6 @@ export default function PluginCard(props: Props) {
     onCheck,
     onSetting,
   } = props;
-  const hasSetting = name !== 'request-non-repudiation'; // TODO: clean this
 
   return (
     <S.Card isChecked={enabled}>
@@ -23,7 +22,7 @@ export default function PluginCard(props: Props) {
         <Switch checked={enabled} onChange={(isChecked) => void onCheck(isChecked)} />
       </S.CardHeader>
 
-      {hasSetting && (
+      {onSetting && (
         <S.SettingBtn variant='link' color='primary' disabled={!enabled} onClick={onSetting}>
           <S.Icon className='icon-setting' />
         </S.SettingBtn>

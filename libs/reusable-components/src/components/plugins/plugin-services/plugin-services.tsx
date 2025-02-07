@@ -1,16 +1,14 @@
 import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
-import PluginCard from '../plugin-card/plugin-card';
-import { PluginConfig } from '../utils/plugins.type';
+import { type ReactNode } from 'react';
 
 type Props = {
   idx: number;
-  plugins: PluginConfig[];
-  onUpdateConfig: (config: PluginConfig | null) => void;
+  children: ReactNode;
 };
 
 export default function PluginServices(props: Props) {
-  const { idx, plugins, onUpdateConfig /* name, englishName, status, version, scope, upstream */ } = props;
+  const { idx, children /* name, englishName, status, version, scope, upstream */ } = props;
   const [t] = useTr();
 
   // const data = [
@@ -29,7 +27,7 @@ export default function PluginServices(props: Props) {
         </S.Tag>
         {/* <S.ServiceName>{name}</S.ServiceName> */}
       </S.Header>
-      <div>
+      <S.Body>
         {/*
         <S.Items>
           {data.map(({ name, value }, idx) => (
@@ -43,16 +41,8 @@ export default function PluginServices(props: Props) {
         </S.Items>
         */}
 
-        <S.Cards>
-          {plugins.map((plugin) => (
-            <PluginCard
-              plugin={plugin}
-              onSetting={() => onUpdateConfig(plugin)}
-              onCheck={(isChecked) => onUpdateConfig({ ...plugin, enabled: isChecked })}
-            />
-          ))}
-        </S.Cards>
-      </div>
+        {children}
+      </S.Body>
     </S.Container>
   );
 }

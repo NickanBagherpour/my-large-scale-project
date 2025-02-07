@@ -1,16 +1,16 @@
 export type ClientPlugins = PluginConfig[];
 
-type RateLimitingConfig = {
+export type RateLimitingConfig = {
   name: 'rate-limiting';
   enabled: boolean;
-  config: {
+  config: Partial<{
     year: number;
     month: number;
     day: number;
     hour: number;
     minute: number;
     second: number;
-  };
+  }>;
 };
 
 type RequestNonReputationConfig = {
@@ -23,7 +23,7 @@ type RequestNonReputationConfig = {
   };
 };
 
-type RequestTerminationConfig = {
+export type RequestTerminationConfig = {
   name: 'request-termination';
   enabled: boolean;
   config: {
@@ -49,5 +49,5 @@ export type ClientPluginParams = BasePluginConfigParams & {
 
 export type ServicePluginParams = BasePluginConfigParams & {
   clientName: string;
-  serviceName: string;
+  serviceId: number;
 };

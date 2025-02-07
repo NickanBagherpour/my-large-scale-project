@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Divider as KitDivider } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
@@ -30,6 +29,10 @@ export const Tag = styled.p`
   padding: 0.5rem 1.5rem;
   border-radius: 2.4rem;
   margin: 0;
+`;
+
+export const Body = styled.div`
+  padding: 1.6rem 2.4rem;
 `;
 
 export const ServiceName = styled.h4`

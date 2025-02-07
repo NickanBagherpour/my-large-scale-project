@@ -28,7 +28,7 @@ export const Form = styled(AntForm)`
       width: auto;
     }
   }
-` as typeof Form;
+` as typeof AntForm;
 
 export const Rate = styled.div`
   display: flex;

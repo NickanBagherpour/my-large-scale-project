@@ -5,15 +5,18 @@ import { Form, FormProps } from 'antd';
 import { LIMITAION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
 import { limitationsSchema, LimitationsType } from '../utils/limitation-form.schema';
+import { PluginConfig, RateLimitingConfig } from '../utils/plugins.type';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
-  // onSubmit: () =>
+  isPending: boolean;
+  onSubmit: (values: PluginConfig) => void;
+  plugin: RateLimitingConfig;
 };
 
 export default function LimitationsModal(props: Props) {
-  const { isOpen, close } = props;
+  const { isOpen, close, onSubmit, isPending, plugin } = props;
   const [t] = useTr();
   const [form] = Form.useForm<LimitationsType>();
   const rule = createSchemaFieldRule(limitationsSchema(t));
@@ -29,8 +32,41 @@ export default function LimitationsModal(props: Props) {
     { value: 'week', label: t('in_week') },
   ];
 
-  const onFinish: FormProps<LimitationsType>['onFinish'] = () => {
-    close();
+  const get = () => {
+    const time = ['second', 'minute', 'hour'];
+    const calendar = ['week', 'month'];
+
+    const obj = {};
+
+    time.forEach((item) => {
+      if (plugin[item]) {
+        obj['totalCallLimit'] = item;
+        obj['serviceCallRate'] = plugin[item];
+      }
+    });
+
+    calendar.forEach((item) => {
+      if (plugin[item]) {
+        obj['totalCallLimit'] = item;
+        obj['serviceCallRate'] = plugin[item];
+      }
+    });
+
+    return obj;
+  };
+
+  // console.log('>>>', get());
+
+  const onFinish: FormProps<LimitationsType>['onFinish'] = (values) => {
+    const { totalCallLimit, serviceCallRate, callLimitOptions, serviceCallRateOptions } = values;
+    onSubmit({
+      name: 'rate-limiting',
+      enabled: true,
+      config: {
+        [serviceCallRateOptions]: +serviceCallRate,
+        [callLimitOptions]: +totalCallLimit,
+      },
+    });
   };
 
   return (
@@ -41,7 +77,11 @@ export default function LimitationsModal(props: Props) {
       onCancel={close}
       width={600}
       destroyOnClose
-      footer={[<S.RegisterBtn onClick={form.submit}>{t('register_data')}</S.RegisterBtn>]}
+      footer={[
+        <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
+          {t('register_data')}
+        </S.RegisterBtn>,
+      ]}
     >
       <S.Form form={form} onFinish={onFinish}>
         <S.Div>

@@ -1,25 +1,37 @@
 import { useTr } from '@oxygen/translation';
 import { Input, Modal } from '@oxygen/ui-kit';
-import { Form, FormProps } from 'antd';
+import { Checkbox, Form, FormProps } from 'antd';
 import { TERMINATION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
 import * as S from './termination-modal.style';
 import { type TerminationType, termaintionSchema } from '../utils/termination-form.schema';
+import { PluginConfig, RequestTerminationConfig } from '../utils/plugins.type';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
+  isPending: boolean;
+  plugin: RequestTerminationConfig;
+  onSubmit: (values: PluginConfig) => void;
 };
 
 export default function TerminationsModal(props: Props) {
-  const { isOpen, close } = props;
+  const { isOpen, close, onSubmit, isPending, plugin } = props;
   const [t] = useTr();
   const [form] = Form.useForm<TerminationType>();
   const rule = createSchemaFieldRule(termaintionSchema(t));
 
   const onFinish: FormProps<TerminationType>['onFinish'] = (values) => {
-    console.log('>>>>', values);
-    // close();
+    const { echo, message, statusCode } = values;
+    onSubmit({
+      name: 'request-termination',
+      enabled: true,
+      config: {
+        echo,
+        message,
+        statusCode: +statusCode,
+      },
+    });
   };
 
   return (
@@ -30,11 +42,15 @@ export default function TerminationsModal(props: Props) {
       onCancel={close}
       width={600}
       destroyOnClose
-      footer={[<S.RegisterBtn onClick={form.submit}>{t('register_data')}</S.RegisterBtn>]}
+      footer={[
+        <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
+          {t('register_data')}
+        </S.RegisterBtn>,
+      ]}
     >
       <Form form={form} onFinish={onFinish}>
-        <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]}>
-          <Input placeholder={t('echo')} size='middle' />
+        <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} label={t('echo')}>
+          <Checkbox />
         </Form.Item>
 
         <Form.Item name={TERMINATION_FORM_NAME.statusCode} rules={[rule]}>
