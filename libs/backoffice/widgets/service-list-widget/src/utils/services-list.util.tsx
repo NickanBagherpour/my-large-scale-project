@@ -12,8 +12,8 @@ import * as S from '../components/services-list/services.style';
 
 type Props = {
   t: TFunction;
-  changeStatus: (status: boolean, name: string) => void;
-  deleteService: (name: string, status: ParamsType) => void;
+  changeStatus?: (status: boolean, name: string) => void;
+  deleteService?: (name: string, status: ParamsType) => void;
   theme: ITheme;
   wordToHighlight: string;
 };
