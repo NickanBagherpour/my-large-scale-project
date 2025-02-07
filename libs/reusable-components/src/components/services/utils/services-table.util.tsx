@@ -1,7 +1,6 @@
 import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../services.style';
 import { TFunction } from 'i18next';
-import Link from 'next/link';
 import { Service } from './services.type';
 
 type Props = {
@@ -32,7 +31,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('service_name'),
-      dataIndex: 'serviceName',
+      dataIndex: 'name',
       align: 'center',
     },
     {
