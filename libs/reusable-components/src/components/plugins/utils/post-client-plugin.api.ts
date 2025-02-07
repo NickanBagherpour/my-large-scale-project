@@ -8,15 +8,8 @@ export const useClientPluginMutation = () => {
 
   return useMutation({
     mutationFn: (params: ClientPluginParams) => Api.postClientConfig(params),
-    onError: (e) => {
+    onError(e) {
       const err = ApiUtil.getErrorMessage(e);
-      // updateMessageAction(dispatch, err);
-    },
-    async onSuccess() {
-      // queryClient.setQueryData(getKeys(name), (oldData: ClientPlugins) => {
-      //   return oldData.map();
-      // });
-      // await queryClient.invalidateQueries({ queryKey: getKeys(name), refetchType: 'active' });
     },
   });
 };
