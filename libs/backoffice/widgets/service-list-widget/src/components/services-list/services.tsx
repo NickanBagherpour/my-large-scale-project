@@ -20,8 +20,8 @@ type ServicesProps = PageProps & {
   searchTerm: string;
   isLoading: boolean;
   wordToHighlight: string;
-  changeStatus: (status: boolean, name: string) => void;
-  deleteService: (name: string, status: ParamsType) => void;
+  changeStatus?: (status: boolean, name: string) => void;
+  deleteService?: (name: string, status: ParamsType) => void;
 };
 
 const Services: React.FC<ServicesProps> = (props) => {
@@ -55,6 +55,7 @@ const Services: React.FC<ServicesProps> = (props) => {
   return (
     <S.TableContainer>
       <Table
+        tableLayout='auto'
         loading={isFetching}
         current={pagination.page}
         total={total}
