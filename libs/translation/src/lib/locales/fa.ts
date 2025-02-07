@@ -289,6 +289,7 @@ export default {
     upstream: 'IAMS -XzxcZ',
     tag: ' اضافه‌کردن تگ‌ها ',
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
+    client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
   },
 
   message: {
@@ -360,7 +361,7 @@ export default {
     persian_name_error: 'نام فارسی معتبر نیست',
     email_error: 'ایمیل معتبر نیست',
     national_code_error: 'کدملی معتبر نیست',
-    field_error: 'فیلد وارد شده معتبر نیست',
+    field_error: 'مقدار وارد شده صحیح نیست',
     url_error: 'آدرس معتبر نیست',
     phone_error: 'شماره معتبر نیست',
     organization_number_error: 'شناسه سازمان معتبر نیست',

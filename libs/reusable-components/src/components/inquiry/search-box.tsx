@@ -26,13 +26,17 @@ const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type 
           <Input
             autoFocus={true}
             ref={inputRef}
-            placeholder={t('placeholder.search_by_english_name', itemTranslation)}
+            placeholder={
+              type === 'service'
+                ? t('placeholder.search_by_english_name', { element: t(`element.service`) })
+                : t('placeholder.client_inquiry')
+            }
             prefix={<i className='search-normal' />}
             allowClear
           />
         </S.FormItem>
         <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
-          {t('button.inquire_item', itemTranslation)}
+          {t('button.inquire_item', { element: t(`element.${type}`) })}
         </Button>
       </S.Container>
     </Form>
