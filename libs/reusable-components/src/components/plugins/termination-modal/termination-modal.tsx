@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import { Input, Modal } from '@oxygen/ui-kit';
+import { Input, Modal, Select } from '@oxygen/ui-kit';
 import { Checkbox, Form, FormProps } from 'antd';
 import { TERMINATION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -15,8 +15,14 @@ type Props = {
   onSubmit: (values: PluginConfig) => void;
 };
 
+const statusOptions = [
+  { value: 200, label: '200' },
+  { value: 400, label: '400' },
+  { value: 500, label: '500' },
+];
+
 export default function TerminationsModal(props: Props) {
-  const { isOpen, close, onSubmit, isPending, plugin } = props;
+  const { isOpen, close, onSubmit, isPending /* , plugin */ } = props;
   const [t] = useTr();
   const [form] = Form.useForm<TerminationType>();
   const rule = createSchemaFieldRule(termaintionSchema(t));
@@ -24,10 +30,11 @@ export default function TerminationsModal(props: Props) {
   const onFinish: FormProps<TerminationType>['onFinish'] = (values) => {
     const { echo, message, statusCode } = values;
     onSubmit({
+      title: '',
       name: 'request-termination',
       enabled: true,
       config: {
-        echo,
+        echo: !!echo,
         message,
         statusCode: +statusCode,
       },
@@ -49,12 +56,12 @@ export default function TerminationsModal(props: Props) {
       ]}
     >
       <Form form={form} onFinish={onFinish}>
-        <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} label={t('echo')}>
-          <Checkbox />
+        <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} valuePropName='checked'>
+          <Checkbox>{t('echo')}</Checkbox>
         </Form.Item>
 
         <Form.Item name={TERMINATION_FORM_NAME.statusCode} rules={[rule]}>
-          <Input placeholder={t('statusCode')} size='middle' />
+          <Select placeholder={t('statusCode')} options={statusOptions} size='middle' />
         </Form.Item>
 
         <Form.Item name={TERMINATION_FORM_NAME.message} rules={[rule]}>

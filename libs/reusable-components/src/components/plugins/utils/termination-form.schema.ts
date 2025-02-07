@@ -6,7 +6,7 @@ import { createValidationSchema } from '@oxygen/utils';
 export const termaintionSchema = (t: TFunction) => {
   const validation = createValidationSchema(t);
   return z.object({
-    [TERMINATION_FORM_NAME.statusCode]: validation.required,
+    [TERMINATION_FORM_NAME.statusCode]: validation.idSelection,
     [TERMINATION_FORM_NAME.echo]: validation.boolean,
     [TERMINATION_FORM_NAME.message]: validation.required,
   });
