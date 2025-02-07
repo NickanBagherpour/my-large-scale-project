@@ -6,7 +6,7 @@ import { PageProps, PaginatedData } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 import { useChangeHistoryQuery } from '@oxygen/hooks';
-import { RQKEYS } from '@oxygen/utils';
+import { getWidgetTitle, RQKEYS } from '@oxygen/utils';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
@@ -57,12 +57,11 @@ const App: React.FC<AppProps> = () => {
   }
   const { data, isFetching } = useChangeHistoryQuery<ServiceHistoryContent>(prepareParams());
   const firstItem = data?.content?.[0];
-  let title = '';
-  if (firstItem) {
-    title = i18nBase.resolvedLanguage === 'en' ? firstItem?.name?.value : firstItem?.persianName.value;
-  } else if (!firstItem && !isFetching) {
-    title = t('subtitle');
-  }
+  const title = getWidgetTitle({
+    defaultTitle: t('widget_name'),
+    primaryTitle: firstItem?.persianName.value,
+    secondaryTitle: firstItem?.name?.value,
+  });
 
   return (
     <Container title={title} footer={<ReturnButton />}>

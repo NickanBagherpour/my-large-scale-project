@@ -1,6 +1,6 @@
 export default {
   upstream_management: 'مدیریت آپ‌استریم‌',
-  search_by_name: 'جستجو براساس نام',
+  search_by_name: 'نام آپ‌استریم',
   create_new_upstream: 'ایجاد آپ‌استریم',
   register_information: 'ثبت اطلاعات',
   newest: 'جدیدترین',

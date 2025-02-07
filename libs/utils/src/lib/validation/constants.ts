@@ -1,5 +1,3 @@
-import { getOrganizations } from 'libs/mockify/src/client-list.mock';
-
 export const limits = {
   DEFAULT_MAX_LENGTH: 255,
   DEFAULT_MIN_LENGTH: 3,
@@ -12,4 +10,6 @@ export const limits = {
   POSTAL_CODE_NUMBER: 10,
   UPSTREAM_SERVICE_WEIGHT_MAX_NUMBER: 100,
   VERSION_MAX: 3,
+  UPSTREAM_SERVER_WEIGHT_MAX_LENGTH: 5,
+  CONFIRM_REASON_MAX_LENGTH: 150,
 };

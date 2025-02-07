@@ -238,12 +238,28 @@ export const createValidationSchema = (
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.description, t('validation.field_error')),
 
-    UpstreamServiceWeight: z
+    optionalDescription: z
+      .string()
+      .trim()
+      .max(limits.CONFIRM_REASON_MAX_LENGTH, t('validation.max_len', { val: limits.CONFIRM_REASON_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.field_error')),
+
+    upstreamServerWeight: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
-      .max(limits.UPSTREAM_SERVICE_WEIGHT_MAX_NUMBER, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH })),
-    // .regex(REGEX_PATTERNS.positiveNumber, t('validation.positive_number')),
+      .max(
+        limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH,
+        t('validation.max_len', { val: limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH })
+      )
+      .regex(REGEX_PATTERNS.upstreamServerWeight, t('validation.field_error')),
+
+    upstreamServerDomain: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
+      .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.field_error')),
   };
 
   return validationSchema;
