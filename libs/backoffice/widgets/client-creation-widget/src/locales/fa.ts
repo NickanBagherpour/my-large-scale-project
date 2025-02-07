@@ -28,6 +28,7 @@ export default {
   company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   search_organization_id_placeholder: 'جستجو براساس شناسه سازمان',
   search_by_name_and_scope: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
+  success_notif: 'شناسه با موفقیت اضافه گردید.',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',

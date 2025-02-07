@@ -8,7 +8,7 @@ export const MAX_INPUTE_LENGTH = 75;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
-  grant_tag: 'grant_tag',
+  GRANT_TYPE: 'grantType',
   TAG_IDS: 'tagIds',
   CLIENT_ENGLISH_NAME: 'clientEnglishName',
   CLIENT_PERSIAN_NAME: 'clientPersianName',
@@ -52,3 +52,26 @@ export enum ClientInquiryStatus {
   'CLIENT_NOT_FOUND' = 3,
   'CLIENT_EXISTS_IN_BAM' = 4,
 }
+
+export const GrantValue = [
+  {
+    key: 'ClientFlow',
+    label: 'ClientFlow',
+  },
+  {
+    key: 'PasswordFlow',
+    label: 'PasswordFlow',
+  },
+  {
+    key: 'AuthorizationFlow',
+    label: 'AuthorizationFlow',
+  },
+  {
+    key: 'ImplicitFlow',
+    label: 'ImplicitFlow',
+  },
+  {
+    key: 'RefreshToken',
+    label: 'RefreshToken',
+  },
+];
