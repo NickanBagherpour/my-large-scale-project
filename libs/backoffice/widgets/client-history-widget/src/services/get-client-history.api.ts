@@ -19,6 +19,7 @@ export const useGetClientHistoryQuery = (params: FetchClientHistoryParamsType) =
     queryKey: [CLIENT, GET_LIST],
     url: `/v1/clients/history/${clientName}`,
     dispatch,
+    nestedKeyAccessor: 'clientInfoHistoryItemDtos',
     params: {
       page,
       size,
