@@ -12,8 +12,8 @@ import * as S from '../components/services-list/services.style';
 
 type Props = {
   t: TFunction;
-  changeStatus: (status: boolean, name: string) => void;
-  deleteService: (name: string, status: ParamsType) => void;
+  changeStatus?: (status: boolean, name: string) => void;
+  deleteService?: (name: string, status: ParamsType) => void;
   theme: ITheme;
   wordToHighlight: string;
 };
@@ -73,10 +73,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'path',
       key: 'path',
       align: 'center',
-      width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
+      width: 120,
+      ellipsis: true,
       render: (url) => (
         <Tooltip placement='top' title={getValueOrDash(url)} arrow={true}>
           <S.Url>{getValueOrDash(url)}</S.Url>

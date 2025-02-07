@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'جزئیات درخواست کلاینت',
+  widget_name_request_details: 'جزئیات درخواست کلاینت',
   details_info: 'اطلاعات کلی درخواست',
   company_info: 'اطلاعات شرکت',
   representatives_info: 'اطلاعات نمایندگان',

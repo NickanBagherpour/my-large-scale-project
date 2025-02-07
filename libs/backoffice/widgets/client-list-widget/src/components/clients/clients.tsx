@@ -24,7 +24,7 @@ export default function Clients(props: Props) {
   return (
     <>
       <S.Grid>
-        {content.map(({ isActive, clientId, clientName, createDate, organizationName }, idx) => (
+        {content.map(({ isActive, clientName, createDate, organizationName }, idx) => (
           <GridCard
             key={idx}
             title={clientName}
@@ -32,7 +32,7 @@ export default function Clients(props: Props) {
             status={isActive ? 'active' : 'inactive'}
             date={createDate}
             wordToHighlight={searchTerm}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-id=${clientId}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${clientName}`}
           />
         ))}
       </S.Grid>
