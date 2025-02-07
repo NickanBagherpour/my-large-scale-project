@@ -2,7 +2,6 @@ import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
 import { useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
-import type { Pagination } from '@oxygen/types';
 import { getDesktopColumns, getMobileColumns } from './utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
@@ -12,6 +11,7 @@ import DetailsModal from './details-modal/details-modal';
 import { useAssignServiceToClient } from './utils/assign-service-to-client';
 import { useUnassignServiceFromClient } from './utils/unassign-from-client';
 import { Service } from './utils/services.type';
+import { useGetClientServices } from './utils/get-client-services.api';
 
 type Props = {
   clientName: string;
@@ -20,24 +20,25 @@ type Props = {
 export default function Services(props: Props) {
   const { clientName } = props;
   const [t] = useTr();
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
-  const { page, rowsPerPage } = pagination;
+  const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
+  const { page, size } = pagination;
   const { mutate: assignToClient } = useAssignServiceToClient();
   const { mutate: unassignFromClient } = useUnassignServiceFromClient();
-  const [selectedServices, setSelectedServices] = useState<Service[]>([]);
-
+  const { data, isFetching } = useGetClientServices({
+    size,
+    clientName,
+    page: page - 1,
+    sort: 'createDate,DESC',
+  });
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
-
-  const isFetching = false;
-  const currentServices = { total: selectedServices.length, list: selectedServices };
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
       setPagination({
-        page: pageSize === rowsPerPage ? current : 1,
-        rowsPerPage: pageSize,
+        page: pageSize === size ? current : 1,
+        size: pageSize,
       });
     }
   };
@@ -47,7 +48,7 @@ export default function Services(props: Props) {
       { clientName, serviceInfoId: service.id },
       {
         onSuccess: () => {
-          setSelectedServices((prev) => prev.concat(service));
+          //
         },
       }
     );
@@ -55,7 +56,14 @@ export default function Services(props: Props) {
 
   const onUnassignFromClient = () => {
     if (serviceToRemove) {
-      unassignFromClient({ clientName, serviceInfoId: serviceToRemove.id });
+      unassignFromClient(
+        { clientName, serviceInfoId: serviceToRemove.id },
+        {
+          onSuccess() {
+            setServiceToRemove(null);
+          },
+        }
+      );
     }
   };
 
@@ -85,21 +93,24 @@ export default function Services(props: Props) {
       <Table
         loading={isFetching}
         current={page}
-        total={currentServices?.total}
-        dataSource={currentServices?.list}
-        pagination={{ pageSize: rowsPerPage }}
+        total={data?.totalElements}
+        dataSource={data?.content}
+        pagination={{ pageSize: size }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
         rowKey={(row: Service) => row.id}
       />
-      <RemoveServiceModal
-        onRemove={onUnassignFromClient}
-        isOpen={!!serviceToRemove}
-        close={() => setServiceToRemove(null)}
-        name={'samat-lc-gutr-del'}
-      />
-      <DetailsModal isOpen={!!serviceToView} close={() => setServiceToView(null)} />
+
+      {!!serviceToRemove && (
+        <RemoveServiceModal
+          onRemove={onUnassignFromClient}
+          isOpen={!!serviceToRemove}
+          close={() => setServiceToRemove(null)}
+          name={serviceToRemove.name}
+        />
+      )}
+      {!!serviceToView && <DetailsModal isOpen={!!serviceToView} close={() => setServiceToView(null)} />}
     </>
   );
 }

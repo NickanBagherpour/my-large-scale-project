@@ -27,15 +27,15 @@ export default function RemoveServiceModal(props: Props) {
         <Button onClick={close} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <S.RemoveBtn onClick={onRemove} size='large' color='error'>
+        <Button onClick={onRemove} size='large' color='error'>
           {t('remove')}
-        </S.RemoveBtn>,
+        </Button>,
       ]}
     >
       <S.MarkText
         wordToHighlight={name}
         highlightColor={theme.error.main}
-        text={t('are_you_sure_to_remove', { name })}
+        text={t('are_you_sure_to_remove', { id: name })}
       />
     </Modal>
   );

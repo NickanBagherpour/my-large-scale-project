@@ -11,13 +11,18 @@ export type ServiceParams = Pagination & {
   sort: 'createDate,DESC' | 'createDate,ASC';
 };
 
+export type ClientServicesParams = Pagination & {
+  clientName: string;
+  sort: 'createDate,DESC' | 'createDate,ASC';
+};
+
 export type Service = {
   id: number;
   name: string;
   persianName: string;
-  scope: string;
+  scopes: string[];
   version: string;
-  path: string;
+  paths: string[];
   isActive: boolean;
 };
 

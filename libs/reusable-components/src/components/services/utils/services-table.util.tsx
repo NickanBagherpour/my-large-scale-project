@@ -1,13 +1,12 @@
 import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../services.style';
-import type { Pagination } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import Link from 'next/link';
 import { Service } from './services.type';
 
 type Props = {
   t: TFunction;
-  pagination: Pagination;
+  pagination: { page: number; size: number };
   addServiceToRemove: (service: Service | null) => void;
   addServiceToView: (service: Service | null) => void;
 };
@@ -15,7 +14,7 @@ type Props = {
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
   const {
     t,
-    pagination: { page, rowsPerPage },
+    pagination: { page, size },
     addServiceToRemove,
     addServiceToView,
   } = props;
@@ -27,7 +26,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       key: 'index',
       width: '5rem',
       render: (_val, _record, index) => {
-        const start = (page - 1) * rowsPerPage + 1;
+        const start = (page - 1) * size + 1;
         return start + index;
       },
     },
@@ -43,14 +42,15 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     },
     {
       title: t('scope'),
-      dataIndex: 'scope',
+      dataIndex: 'scopes',
       align: 'center',
+      render: (scopes) => scopes.join(' , '),
     },
     {
       title: t('url'),
-      dataIndex: 'url',
+      dataIndex: 'paths',
       align: 'center',
-      render: (url) => <Link href={url}> {url} </Link>,
+      render: (paths) => paths.join(' , '),
     },
     {
       title: t('version'),
@@ -82,14 +82,14 @@ export function getMobileColumns(props: Props) {
       title: '',
       key: 'mobile-columns',
       render(service: Service) {
-        const { scope, version, persianName, path, name } = service;
+        const { scopes, version, persianName, paths, name } = service;
         const data = [
           { title: t('service_name'), value: name },
           { title: t('persian_name'), value: persianName },
-          { title: t('scope'), value: scope },
+          { title: t('scope'), value: scopes.join(' , ') },
           {
             title: t('url'),
-            value: path,
+            value: paths.join(' , '),
           },
           { title: t('version'), value: version },
           {
