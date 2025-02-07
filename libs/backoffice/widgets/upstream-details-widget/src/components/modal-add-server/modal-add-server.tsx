@@ -95,7 +95,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
               <Form.Item name={FORM_ITEM_NAMES.weight} label={t('weight')} rules={[rule]}>
                 <Input
                   allow={'number'}
-                  maxLength={limits.UPSTREAM_SERVER_WEIGHT}
+                  maxLength={limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH}
                   placeholder={t('weight_placeholder')}
                 />
               </Form.Item>

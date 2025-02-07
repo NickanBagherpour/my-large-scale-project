@@ -11,14 +11,8 @@ export const FORM_ITEM_NAMES = {
 export const createUpstreamType = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
   return z.object({
-    [FORM_ITEM_NAMES.name]: validationSchema.defaultEnglishName.regex(
-      REGEX_PATTERNS.defaultEnglishName,
-      t('validation.is_not_valid', { val: t('uikit.upstream_english_name') })
-    ),
-    [FORM_ITEM_NAMES.description]: validationSchema.defaultPersianName.regex(
-      REGEX_PATTERNS.defaultPersianName,
-      t('validation.is_not_valid', { val: t('uikit.upstream_persian_name') })
-    ),
+    [FORM_ITEM_NAMES.name]: validationSchema.defaultEnglishName,
+    [FORM_ITEM_NAMES.description]: validationSchema.defaultPersianName,
   });
 };
 export type CreateUpstreamType = z.infer<ReturnType<typeof createUpstreamType>>;
