@@ -2,8 +2,9 @@ import { Form } from 'antd';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
-import { i18nBase, useTr } from '@oxygen/translation';
-import { Nullable, PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 import { Button, Container, Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, SecondaryTitle } from '@oxygen/reusable-components';
 
@@ -31,7 +32,11 @@ const App: React.FC<AppProps> = (props) => {
   }
 
   const { data: serviceInfo, isFetching } = useGetServiceInfoQuery(serviceName);
-  const title = i18nBase.resolvedLanguage == 'en' ? serviceInfo?.name : serviceInfo?.persianName ?? '';
+  const title = getWidgetTitle({
+    defaultTitle: t('widget_name'),
+    primaryTitle: serviceInfo?.persianName,
+    secondaryTitle: serviceInfo?.name,
+  });
 
   const handleReturn = () => {
     router.back();
