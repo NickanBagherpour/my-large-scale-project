@@ -1,23 +1,25 @@
 import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import { type ReactNode } from 'react';
+import { ServicePlugin } from '../utils/plugins.type';
+import { Tooltip } from 'antd';
 
 type Props = {
   idx: number;
   children: ReactNode;
-};
+} & Omit<ServicePlugin, 'plugins' | 'serviceInfoId'>;
 
 export default function PluginServices(props: Props) {
-  const { idx, children /* name, englishName, status, version, scope, upstream */ } = props;
+  const { idx, children, name, version, upstream, scopes, isActive, persianName } = props;
   const [t] = useTr();
 
-  // const data = [
-  // 	{ name: t('english_name'), value: englishName },
-  // 	{ name: t('status'), value: status },
-  // 	{ name: t('version'), value: version },
-  // 	{ name: t('scope'), value: scope },
-  // 	{ name: t('upstream'), value: upstream },
-  // ];
+  const data = [
+    { name: t('english_name'), value: name },
+    { name: t('status'), value: isActive ? t('common.active') : t('common.inactive') },
+    { name: t('version'), value: version },
+    { name: t('scope'), value: scopes.join(' , ') },
+    { name: t('upstream'), value: upstream },
+  ];
 
   return (
     <S.Container>
@@ -25,10 +27,9 @@ export default function PluginServices(props: Props) {
         <S.Tag>
           {t('service')} {idx + 1}
         </S.Tag>
-        {/* <S.ServiceName>{name}</S.ServiceName> */}
+        <S.ServiceName>{persianName}</S.ServiceName>
       </S.Header>
       <S.Body>
-        {/*
         <S.Items>
           {data.map(({ name, value }, idx) => (
             <div key={idx}>
@@ -39,7 +40,6 @@ export default function PluginServices(props: Props) {
             </div>
           ))}
         </S.Items>
-        */}
 
         {children}
       </S.Body>

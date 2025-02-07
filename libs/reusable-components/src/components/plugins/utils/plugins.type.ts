@@ -13,18 +13,20 @@ export type RateLimitingConfig = {
   }>;
 };
 
-type RequestNonReputationConfig = {
-  name: 'request-non-repudiation';
-  enabled: boolean;
-  config: {
-    url: string;
-    timeout: number;
-    keepalive: number;
-  };
-};
+// type RequestNonReputationConfig = {
+// 	name: 'request-non-repudiation';
+//   title: string;
+// 	enabled: boolean;
+// 	config: {
+// 		url: string;
+// 		timeout: number;
+// 		keepalive: number;
+// 	};
+// };
 
 export type RequestTerminationConfig = {
   name: 'request-termination';
+  title: string;
   enabled: boolean;
   config: {
     echo: boolean;
@@ -33,7 +35,7 @@ export type RequestTerminationConfig = {
   };
 };
 
-export type PluginConfig = RateLimitingConfig | RequestNonReputationConfig | RequestTerminationConfig;
+export type PluginConfig = RateLimitingConfig | RequestTerminationConfig;
 
 export type ClientServicePlugins = PluginConfig[];
 
@@ -50,4 +52,15 @@ export type ClientPluginParams = BasePluginConfigParams & {
 export type ServicePluginParams = BasePluginConfigParams & {
   clientName: string;
   serviceId: number;
+};
+
+export type ServicePlugin = {
+  persianName: string;
+  serviceInfoId: number;
+  name: string;
+  isActive: boolean;
+  version: string;
+  scopes: string[];
+  upstream: string;
+  plugins: PluginConfig[];
 };

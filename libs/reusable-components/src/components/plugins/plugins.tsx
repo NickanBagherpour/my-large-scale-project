@@ -28,9 +28,9 @@ export default function Plugins(props: Props) {
 
       <Loading spinning={isFetchingClientPlugins}>
         <S.Title>{t('client_services_plugin')}</S.Title>
-        {clientServicePlugins?.map((plugins, idx) => (
-          <PluginServices key={idx} idx={idx}>
-            <PluginList clientName={clientName} plugins={plugins} serviceId={596} />
+        {clientServicePlugins?.map(({ plugins, serviceInfoId, ...rest }, idx) => (
+          <PluginServices {...rest} key={idx} idx={idx}>
+            <PluginList clientName={clientName} plugins={plugins} serviceId={serviceInfoId} />
           </PluginServices>
         ))}
       </Loading>
