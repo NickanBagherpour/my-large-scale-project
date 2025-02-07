@@ -211,6 +211,12 @@ export const createValidationSchema = (
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.description, t('validation.field_error')),
 
+    optionalDescription: z
+      .string()
+      .trim()
+      .max(limits.CONFIRM_REASON_MAX_LENGTH, t('validation.max_len', { val: limits.CONFIRM_REASON_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.field_error')),
+
     UpstreamServiceWeight: z
       .string({ required_error: t('validation.required') })
       .trim()
