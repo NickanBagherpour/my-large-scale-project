@@ -131,6 +131,10 @@
   content: '\e019';
 }
 
+.icon-close-square-1:before {
+  content: '\e019';
+}
+
 .icon-input-password:before {
   content: '\e01a';
 }
@@ -217,6 +221,10 @@
 
 .icon-document-code-2:before {
   content: '\e02f';
+}
+
+.icon-plus-circle:before {
+  content: '\e030';
 }
 
 .icon-plus-circle:before {

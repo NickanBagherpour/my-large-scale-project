@@ -265,6 +265,12 @@ export const createValidationSchema = (
       .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.field_error')),
+
+    statusCode: z
+      .string({ required_error: t('validation.required') })
+      .refine((value) => +value >= 300 && +value <= 599, {
+        message: t('validation.status_code'),
+      }),
   };
 
   return validationSchema;

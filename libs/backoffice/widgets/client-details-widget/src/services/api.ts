@@ -1,9 +1,13 @@
+import { client, portalUrl } from '@oxygen/client';
 import Mockify from '@oxygen/mockify';
 import type { Pagination } from '@oxygen/types';
+import { ClientInfo, ClientTypes } from '../types';
 
 const Api = {
-  getClientInfoData: async () => Mockify.getClientInformation(),
+  getClientInfo: async (clientName: string) => client.get<ClientInfo>(`${portalUrl}/v1/clients/${clientName}`),
+
   getServicesData: async (params: Pagination) => Mockify.getServices(params),
-  getPluginsData: async () => Mockify.getPlugins(),
+
+  getClientTypes: async () => client.get<ClientTypes>(`${portalUrl}/v1/enums/client-types`),
 };
 export default Api;
