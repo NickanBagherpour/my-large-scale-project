@@ -33,6 +33,22 @@ export const signToken = async (payload: JwtPayload, options?: { expiresIn?: str
   return await jwt.sign(JWT_SIGNATURE_SECRET);
 };
 
+export const signTokenForMetabase = async (payload: any, secret: string): Promise<string> => {
+  const jwt = new SignJWT(payload).setProtectedHeader({ alg: DEFAULT_ALGORITHM });
+
+  const JWT_METABASE_SECRET = new TextEncoder().encode(secret as string);
+
+  // if (!payload.exp) {
+  //   jwt.setExpirationTime(signOptions.expiresIn || '1h');
+  // }
+
+  // if (!payload.iss) {
+  //   jwt.setIssuer(signOptions.issuer);
+  // }
+
+  return await jwt.sign(JWT_METABASE_SECRET);
+};
+
 /**
  * Processes and verifies an incoming SSO token, then re-signs it with your JWT signature secret.
  *
