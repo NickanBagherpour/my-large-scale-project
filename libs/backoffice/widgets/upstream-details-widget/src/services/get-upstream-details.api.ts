@@ -36,7 +36,9 @@ export const useDeleteServerFromUpstreamMutationQuery = () => {
     mutationFn: (params: any) => Api.deleteServerFromUpstream(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // updateErrorMessageAction(dispatch, err);
+      updateMessageAction(dispatch, err);
     },
   });
 };

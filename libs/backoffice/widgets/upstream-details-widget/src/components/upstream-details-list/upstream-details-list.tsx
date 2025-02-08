@@ -40,7 +40,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
   const [openAddServerModal, setOpenAddServerModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [initialValue, setInitialValue] = useState<UpstreamDetailsType | undefined>(undefined);
-  const errorMessage = state.errorMessage?.description;
+  const errorMessage = state.modalErrorMessage?.description;
   const {
     table: { pagination },
   } = state;
@@ -101,7 +101,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
   const handleEditServer = (id: number, domain: string, weight: string, healthStatus: string) => {
     setSelectedServerId(id);
     setOpenAddServerModal(true);
-    setInitialValue({ domain, weight, healthStatus: '1' });
+    setInitialValue({ domain, weight: weight.toString(), healthStatus: '1' });
   };
 
   const handleDeleteServer = (id: number, domain: string, weight: string, healthStatus: string) => {
@@ -117,7 +117,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
         console.log('request delete server successful:', data);
       },
       onError: (error) => {
-        setOpenDeleteModal(false);
+        // setOpenDeleteModal(false);
         console.error('request delete server  failed:', error);
       },
     });
@@ -156,6 +156,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
         okText={t('button.delete')}
         okButtonProps={{ style: { backgroundColor: theme.error.main } }}
         cancelButtonProps={{ style: { color: theme.primary.main } }}
+        errorMessage={errorMessage}
       />
       <S.ServerContent>
         <S.Actions>

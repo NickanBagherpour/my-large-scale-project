@@ -19,6 +19,7 @@ export const initialStateValue: WidgetStateType = {
     name: '',
     persianName: '',
   },
+  modalErrorMessage: null,
   errorMessage: null,
 };
 
@@ -29,7 +30,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_ERROR_MESSAGE': {
-      state.errorMessage = action.payload;
+      state.modalErrorMessage = action.payload;
       return;
     }
 

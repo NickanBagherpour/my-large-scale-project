@@ -90,11 +90,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
               colon={true}
               initialValues={initialData}
             >
-              <Form.Item
-                name={FORM_ITEM_NAMES.domain}
-                label={t('domain')}
-                // rules={[rule]}
-              >
+              <Form.Item name={FORM_ITEM_NAMES.domain} label={t('domain')} rules={[rule]}>
                 <Input maxLength={limits.UPSTREAM_MAX_LENGTH} placeholder={t('domain_placeholder')} />
               </Form.Item>
               <Form.Item name={FORM_ITEM_NAMES.weight} label={t('weight')} rules={[rule]}>

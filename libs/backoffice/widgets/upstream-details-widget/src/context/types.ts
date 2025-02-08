@@ -26,6 +26,7 @@ export type WidgetStateType = {
     name: string;
     persianName: string;
   };
+  modalErrorMessage: Nullable<MessageType>;
   errorMessage: Nullable<MessageType>;
 };
 
