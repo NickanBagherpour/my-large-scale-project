@@ -69,7 +69,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('request_details'),
-    primaryTitle: clientName ? t('request_details_client', { clientName: clientName }) : '',
+    primaryTitle: clientName,
   });
 
   return (
