@@ -6,6 +6,7 @@ import { LIMITAION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
 import { limitationsSchema, LimitationsType } from '../utils/limitation-form.schema';
 import { PluginConfig, RateLimitingConfig } from '../utils/plugins.type';
+import { ComponentProps } from 'react';
 
 type Props = {
   isOpen: boolean;
@@ -14,6 +15,8 @@ type Props = {
   onSubmit: (values: PluginConfig) => void;
   plugin: RateLimitingConfig;
 };
+
+type SelectOptions = ComponentProps<typeof Select>['options'];
 
 export default function LimitationsModal(props: Props) {
   const { isOpen, close, onSubmit, isPending, plugin } = props;
@@ -25,37 +28,36 @@ export default function LimitationsModal(props: Props) {
     { value: 'second', label: t('second') },
     { value: 'minute', label: t('minute') },
     { value: 'hour', label: t('hour') },
-  ];
+  ] as const;
 
   const totalCallLimitOptions = [
+    { value: 'day', label: t('in_day') },
     { value: 'month', label: t('in_month') },
-    { value: 'week', label: t('in_week') },
-  ];
+    { value: 'year', label: t('in_year') },
+  ] as const;
 
-  const get = () => {
-    const time = ['second', 'minute', 'hour'];
-    const calendar = ['week', 'month'];
+  const getInitialValue = () => {
+    const time: (typeof callRateOptions)[number]['value'][] = ['second', 'minute', 'hour'];
+    const calendar: (typeof totalCallLimitOptions)[number]['value'][] = ['day', 'month', 'year'];
 
-    const obj = {};
+    const initialValue = {};
 
     time.forEach((item) => {
-      if (plugin[item]) {
-        obj['totalCallLimit'] = item;
-        obj['serviceCallRate'] = plugin[item];
+      if (plugin.config[item]) {
+        initialValue['serviceCallRateOptions'] = item;
+        initialValue['serviceCallRate'] = plugin.config[item] + '';
       }
     });
 
     calendar.forEach((item) => {
-      if (plugin[item]) {
-        obj['totalCallLimit'] = item;
-        obj['serviceCallRate'] = plugin[item];
+      if (plugin.config[item]) {
+        initialValue['totalCallLimit'] = plugin.config[item] + '';
+        initialValue['callLimitOptions'] = item;
       }
     });
 
-    return obj;
+    return initialValue;
   };
-
-  // console.log('>>>', get());
 
   const onFinish: FormProps<LimitationsType>['onFinish'] = (values) => {
     const { totalCallLimit, serviceCallRate, callLimitOptions, serviceCallRateOptions } = values;
@@ -83,7 +85,7 @@ export default function LimitationsModal(props: Props) {
         </S.RegisterBtn>,
       ]}
     >
-      <S.Form form={form} onFinish={onFinish}>
+      <S.Form form={form} onFinish={onFinish} initialValues={getInitialValue()}>
         <S.Div>
           <S.RateLimit label={t('service_call_rate')} name={LIMITAION_FORM_NAME.serviceCallRate} rules={[rule]} colon>
             <S.RateInput size='middle' />
@@ -92,14 +94,14 @@ export default function LimitationsModal(props: Props) {
         </S.Div>
 
         <Form.Item name={LIMITAION_FORM_NAME.serviceCallRateOptions} rules={[rule]}>
-          <Select options={callRateOptions} size='middle' />
+          <Select options={callRateOptions as unknown as SelectOptions} size='middle' />
         </Form.Item>
 
         <Form.Item name={LIMITAION_FORM_NAME.totalCallLimit} rules={[rule]}>
           <Input placeholder={t('total_number_of_calls_limit')} size='middle' />
         </Form.Item>
         <Form.Item name={LIMITAION_FORM_NAME.callLimitOptions} rules={[rule]}>
-          <Select options={totalCallLimitOptions} size='middle' />
+          <Select options={totalCallLimitOptions as unknown as SelectOptions} size='middle' />
         </Form.Item>
       </S.Form>
     </Modal>
