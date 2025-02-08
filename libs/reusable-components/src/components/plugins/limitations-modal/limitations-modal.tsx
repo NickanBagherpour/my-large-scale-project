@@ -62,6 +62,7 @@ export default function LimitationsModal(props: Props) {
   const onFinish: FormProps<LimitationsType>['onFinish'] = (values) => {
     const { totalCallLimit, serviceCallRate, callLimitOptions, serviceCallRateOptions } = values;
     onSubmit({
+      title: '',
       name: 'rate-limiting',
       enabled: true,
       config: {
