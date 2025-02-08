@@ -6,7 +6,7 @@ import { PageProps } from '@oxygen/types';
 import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, updateClientNameAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
 import { useGetClientHistoryQuery } from '../../services';
 import { ClientName } from '../../types';
@@ -49,11 +49,7 @@ const App: React.FC<AppProps> = (props) => {
     return params;
   }
   const clientEnglishName = data?.commonClientInfoDto?.name;
-  const clientPersianName = data?.content[0]?.clientInfoDto?.value?.persianName?.value;
-
-  useEffect(() => {
-    updateClientNameAction(dispatch, clientEnglishName);
-  }, [clientEnglishName]);
+  const clientPersianName = data?.commonClientInfoDto?.lastPersianName;
 
   useEffect(() => {
     if (clientPersianName && !clientPrimaryName) {

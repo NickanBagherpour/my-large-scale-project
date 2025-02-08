@@ -76,7 +76,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      // width:200,
       ellipsis: { showTitle: false },
       className: 'right-to-left',
       render: (_value, record) => {
@@ -89,6 +88,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       dataIndex: 'persianName',
       align: 'center',
       ellipsis: { showTitle: false },
+      className: 'right-to-left',
       render: (_value, record) => {
         const persianName = record?.clientInfoDto?.value?.persianName;
         return <HistoryCell item={persianName} />;

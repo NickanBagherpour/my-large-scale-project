@@ -29,6 +29,7 @@ type CodeTitle = {
 type CommonClientInfoDto = {
   clientId: number;
   name: string;
+  lastPersianName: string;
   clientType: CodeTitle;
 };
 
@@ -73,8 +74,8 @@ type ClientInfoDtoValue = {
   isPasswordFlow: ValueWithDifference<boolean>;
   isAuthorizationFlow: ValueWithDifference<boolean>;
   modifyDate: ValueWithDifference<string>;
-  modifyBy: ValueWithDifference<string>;
   persianName: ValueWithDifference<string>;
+  modifyBy: ValueWithDifference<string>;
   url: ValueWithDifference<string>;
   inboundUrl: ValueWithDifference<string>;
   redirectUrl: ValueWithDifference<string>;
