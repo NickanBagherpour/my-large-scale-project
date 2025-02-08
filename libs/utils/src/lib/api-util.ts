@@ -92,7 +92,7 @@ export const ApiUtil = {
 
         // Set title and description based on the presence of details
         let description = '';
-        if (hasDetails && !hasErrors) {
+        if (hasDetails) {
           description = data.detail;
         }
 
