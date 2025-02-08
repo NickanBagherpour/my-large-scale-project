@@ -76,12 +76,13 @@ export const prepareParams = (item) => {
   return { ...obj, ...grantType };
 };
 
-// utils/prepareClientData.ts
 export const prepareGrantTypes = (userData, GrantValue) => {
   const activeFlows = getActiveFlow(userData);
   return GrantValue.filter((item) => activeFlows.includes(item.key));
 };
 
 export const prepareTags = (tags, tagIds) => {
-  return tags.filter((tag) => tagIds.includes(tag.key)) || [];
+  const selectedTagCodes = tagIds.map((item) => item.code);
+
+  return tags.filter((tag) => selectedTagCodes.includes(tag.key)) || [];
 };

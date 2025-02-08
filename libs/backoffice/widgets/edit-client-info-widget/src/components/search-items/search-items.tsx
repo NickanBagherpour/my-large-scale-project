@@ -12,7 +12,7 @@ const SearchItems = ({ rule, t, clientTypes, isClientTypesFetching, loadingUpdat
     <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
       <Input placeholder={t('placeholder.client_bale')} maxLength={TEXT_INPUT_LIMIT} />
     </Form.Item>
-    <Form.Item name={FORM_ITEM_NAMES.clientId} label={t('form.client_id')}>
+    <Form.Item name={FORM_ITEM_NAMES.clientId} rules={[rule]} label={t('form.client_id')}>
       <Input placeholder={t('placeholder.client_id')} maxLength={TEXT_INPUT_LIMIT} disabled />
     </Form.Item>
     <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>

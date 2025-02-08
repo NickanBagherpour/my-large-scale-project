@@ -360,6 +360,7 @@ export default {
     english_name_error: 'نام انگلیسی معتبر نیست',
     persian_name_error: 'نام فارسی معتبر نیست',
     email_error: 'ایمیل معتبر نیست',
+    client_name_error: 'ساختار نام کلاینت نامعتبر است',
     national_code_error: 'کدملی معتبر نیست',
     field_error: 'مقدار وارد شده صحیح نیست',
     url_error: 'آدرس معتبر نیست',
