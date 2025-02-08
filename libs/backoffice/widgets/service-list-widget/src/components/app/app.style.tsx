@@ -1,15 +1,5 @@
 import styled from 'styled-components';
 import { Container, MarkText } from '@oxygen/ui-kit';
-import { Button as KitButton } from '@oxygen/ui-kit';
-import RawGrid from '../grid/grid.style';
-
-export const Grid = styled(RawGrid)`
-  margin: 1.6rem 0;
-`;
-
-export const DraftsContainer = styled(Container)`
-  //margin-bottom: 1.6rem;
-`;
 
 export const ServicesContainer = styled(Container)`
   padding-bottom: 2rem;
@@ -32,9 +22,4 @@ export const ModalMessage = styled.div`
 
 export const ServiceName = styled(MarkText)`
   margin: 0.4rem;
-`;
-export const Button = styled(KitButton)`
-  display: flex;
-  gap: 1rem;
-  margin-inline: auto;
 `;

@@ -6,7 +6,7 @@ import { FILTER_FORM_ITEM_NAMES } from '../utils/consts';
 export const SearchUpstreamSchema = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
   return z.object({
-    [FILTER_FORM_ITEM_NAMES.search_by_name]: validationSchema.defaultPersianName,
+    [FILTER_FORM_ITEM_NAMES.search_by_name]: validationSchema.searchField,
   });
 };
 

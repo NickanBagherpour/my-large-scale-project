@@ -55,8 +55,5 @@ export const MobileTableItem = styled.div`
 `;
 
 export const SwitchContainer = styled.span`
-  ${respondTo.down('xxl')} {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
 `;

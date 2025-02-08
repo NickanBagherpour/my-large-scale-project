@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import FormItem from 'antd/lib/form/FormItem';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form, FormInstance } from 'antd';
 
@@ -76,7 +75,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
     editService({
       latinName: values[FORM_ITEM_NAMES.enName],
       persianName: values[FORM_ITEM_NAMES.faName],
-      accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access]),
+      accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access] as SelectOptionType),
       categoryCode: values[FORM_ITEM_NAMES.category],
       throughput: convertToCodeTitle(values[FORM_ITEM_NAMES.throughput]),
       version: values[FORM_ITEM_NAMES.version],

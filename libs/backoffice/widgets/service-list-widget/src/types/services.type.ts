@@ -1,13 +1,3 @@
-// import { PaginatedData } from '@oxygen/types';
-
-import { Nullable } from '@oxygen/types';
-
-export type ParamsWithPagination = {
-  page: number;
-  size: number;
-  sort: 'createDate,DESC' | 'createDate,ASC';
-};
-
 export type Drafts = {
   content: Draft[];
   totalPages: number;
@@ -29,7 +19,4 @@ export type Draft = {
   statusTitle: string;
 };
 
-export type ServicesParams = ParamsWithPagination & {
-  isActive: boolean | null;
-  searchParam: string;
-};
+export type DraftsParams = { page: number; size: number; sort: 'createDate,DESC' | 'createDate,ASC' };
