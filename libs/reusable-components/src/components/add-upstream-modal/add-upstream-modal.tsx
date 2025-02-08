@@ -97,11 +97,15 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               initialValues={initialData}
             >
               <Form.Item name={FORM_ITEM_NAMES.name} label={t('uikit.upstream_english_name')} rules={[rule]}>
-                <Input maxLength={limits.UPSTREAM_MAX_LENGTH} disabled={!!initialData} />
+                <Input
+                  maxLength={limits.DEFAULT_MAX_LENGTH}
+                  disabled={!!initialData}
+                  placeholder={t('uikit.upstream_english_name')}
+                />
               </Form.Item>
 
               <Form.Item name={FORM_ITEM_NAMES.description} label={t('uikit.upstream_persian_name')} rules={[rule]}>
-                <Input maxLength={limits.UPSTREAM_MAX_LENGTH} />
+                <Input maxLength={limits.DEFAULT_MAX_LENGTH} placeholder={t('uikit.upstream_persian_name')} />
               </Form.Item>
             </S.StyledForm>
 
