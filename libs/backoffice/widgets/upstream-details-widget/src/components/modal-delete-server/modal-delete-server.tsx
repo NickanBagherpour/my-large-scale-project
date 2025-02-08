@@ -28,6 +28,7 @@ interface ReusableFormModalProps {
   cancelText: string;
   centered: boolean;
   onOk: () => void;
+  errorMessage?: string;
 }
 
 const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
@@ -44,6 +45,7 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
     cancelButtonProps,
     centered,
     onOk,
+    errorMessage,
   } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
@@ -112,7 +114,9 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('upstream_details.error__delete_server_description') }}
+            errorProps={{
+              description: errorMessage ? t(errorMessage) : t('upstream_details.error__delete_server_description'),
+            }}
             loadingProps={{ description: t('upstream_details.loading_description') }}
             successProps={{ description: t('upstream_details.success_delete_server') }}
           />
