@@ -383,6 +383,7 @@ export default {
     upstream_description: 'فقط کاراکتر های الفبایی-عددی فارسی و - _ . مجاز است',
     is_not_valid: '{{val}} معتبر نیست',
     positive_number: 'فقط مقادیر مثبت معتبر هستند',
+    status_code: 'کد وضعیت باید بین ۳۰۰ و ۵۹۹ باشد',
   },
   element: {
     service: 'سرویس',

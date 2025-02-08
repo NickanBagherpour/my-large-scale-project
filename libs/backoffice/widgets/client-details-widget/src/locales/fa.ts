@@ -58,6 +58,12 @@ export default {
   second: 'ثانیه',
   minute: 'دقیقه',
   hour: 'ساعت',
+
+  status_code: 'کد وضعیت',
+  echo: 'Echo',
+  msg: 'پیام',
+  request_termination: 'مسدودی',
+
   client_services: 'سرویس‌های کلاینت',
   searchByNames: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
   service_name: 'نام سرویس',

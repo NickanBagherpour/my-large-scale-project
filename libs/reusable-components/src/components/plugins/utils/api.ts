@@ -10,7 +10,7 @@ const Api = {
   postClientConfig: async ({ clientName, ...body }: ClientPluginParams) =>
     client.post<unknown>(`${portalUrl}/v1/plugins/client/${clientName}`, body),
 
-  postServiceConfig: async ({ clientName, serviceId, ...body }: ServicePluginParams) =>
-    client.post<unknown>(`${portalUrl}/v1/plugins/client-service/${clientName}/${serviceId}`, body),
+  postServiceConfig: async ({ clientName, serviceName, ...body }: ServicePluginParams) =>
+    client.post<unknown>(`${portalUrl}/v1/plugins/client-service/${clientName}/${serviceName}`, body),
 };
 export default Api;

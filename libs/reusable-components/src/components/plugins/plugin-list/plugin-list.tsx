@@ -9,15 +9,16 @@ import TerminationsModal from '../termination-modal/termination-modal';
 import LimitationsModal from '../limitations-modal/limitations-modal';
 import { useServiceMutaionMutation } from '../utils/post-service-plugin.api';
 import { Loading } from '@oxygen/ui-kit';
+import { getServiceKeys } from '../utils/get-client-service-plugins.api';
 
 type Props = {
   plugins: PluginConfig[];
   clientName: string;
-  serviceId?: number;
+  serviceName?: string;
 };
 
 export default function PluginList(props: Props) {
-  const { plugins, clientName, serviceId } = props;
+  const { plugins, clientName, serviceName } = props;
   const queryClient = useQueryClient();
   const clientPluginMutation = useClientPluginMutation();
   const servicePluginMutation = useServiceMutaionMutation();
@@ -28,7 +29,7 @@ export default function PluginList(props: Props) {
     setCurrentConfig(config);
   };
 
-  const isPending = serviceId ? servicePluginMutation.isPending : clientPluginMutation.isPending;
+  const isPending = serviceName ? servicePluginMutation.isPending : clientPluginMutation.isPending;
 
   const closeModal = () => {
     if (isPending) return;
@@ -36,12 +37,12 @@ export default function PluginList(props: Props) {
   };
 
   const postConfig = (plugin: PluginConfig) => {
-    if (serviceId) {
+    if (serviceName) {
       servicePluginMutation.mutateAsync(
-        { clientName, serviceId, ...plugin },
+        { clientName, serviceName, ...plugin },
         {
           async onSuccess() {
-            await queryClient.invalidateQueries({ queryKey: getPluginKeys(clientName) });
+            await queryClient.invalidateQueries({ queryKey: getServiceKeys(clientName) });
             closeModal();
           },
         }

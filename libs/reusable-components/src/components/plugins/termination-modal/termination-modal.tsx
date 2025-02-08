@@ -1,11 +1,12 @@
 import { useTr } from '@oxygen/translation';
-import { Input, Modal, Select } from '@oxygen/ui-kit';
+import { Input, Modal } from '@oxygen/ui-kit';
 import { Checkbox, Form, FormProps } from 'antd';
 import { TERMINATION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
 import * as S from './termination-modal.style';
 import { type TerminationType, termaintionSchema } from '../utils/termination-form.schema';
 import { PluginConfig, RequestTerminationConfig } from '../utils/plugins.type';
+import { stat } from 'fs';
 
 type Props = {
   isOpen: boolean;
@@ -14,12 +15,6 @@ type Props = {
   plugin: RequestTerminationConfig;
   onSubmit: (values: PluginConfig) => void;
 };
-
-const statusOptions = [
-  { value: 200, label: '200' },
-  { value: 400, label: '400' },
-  { value: 500, label: '500' },
-];
 
 export default function TerminationsModal(props: Props) {
   const { isOpen, close, onSubmit, isPending, plugin } = props;
@@ -35,10 +30,19 @@ export default function TerminationsModal(props: Props) {
       enabled: true,
       config: {
         echo,
-        message,
+        message: message.trim(),
         statusCode: +statusCode,
       },
     });
+  };
+
+  const getInitailValues = () => {
+    const { statusCode, message, echo } = plugin.config;
+    return {
+      echo: echo || false,
+      message: message || '',
+      statusCode: statusCode ? statusCode + '' : '', // converting statusCode to string
+    };
   };
 
   return (
@@ -55,19 +59,26 @@ export default function TerminationsModal(props: Props) {
         </S.RegisterBtn>,
       ]}
     >
-      <Form form={form} onFinish={onFinish} initialValues={plugin.config}>
-        <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} valuePropName='checked'>
-          <Checkbox>{t('echo')}</Checkbox>
-        </Form.Item>
+      <S.Form form={form} onFinish={onFinish} initialValues={getInitailValues()}>
+        <S.Row>
+          <Form.Item
+            name={TERMINATION_FORM_NAME.statusCode}
+            rules={[rule]}
+            label={t('status_code')}
+            className='first-item'
+          >
+            <Input allow={'number'} type='number' size='middle' />
+          </Form.Item>
 
-        <Form.Item name={TERMINATION_FORM_NAME.statusCode} rules={[rule]}>
-          <Select placeholder={t('statusCode')} options={statusOptions} size='middle' />
-        </Form.Item>
+          <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} valuePropName='checked' label={t('echo')}>
+            <Checkbox></Checkbox>
+          </Form.Item>
+        </S.Row>
 
-        <Form.Item name={TERMINATION_FORM_NAME.message} rules={[rule]}>
-          <Input placeholder={t('messages')} size='middle' />
+        <Form.Item name={TERMINATION_FORM_NAME.message} rules={[rule]} label={t('msg')} className='first-item'>
+          <Input size='middle' />
         </Form.Item>
-      </Form>
+      </S.Form>
     </Modal>
   );
 }

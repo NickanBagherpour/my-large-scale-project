@@ -32,7 +32,7 @@ export default function Plugins(props: Props) {
         {clientServicePlugins.length ? (
           clientServicePlugins.map(({ plugins, serviceInfoId, ...rest }, idx) => (
             <PluginServices {...rest} key={idx} idx={idx}>
-              <PluginList clientName={clientName} plugins={plugins} serviceId={serviceInfoId} />
+              <PluginList clientName={clientName} plugins={plugins} serviceName={rest.name} />
             </PluginServices>
           ))
         ) : (

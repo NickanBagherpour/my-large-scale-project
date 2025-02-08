@@ -41,7 +41,7 @@ export type ClientPluginParams = BasePluginConfigParams & {
 
 export type ServicePluginParams = BasePluginConfigParams & {
   clientName: string;
-  serviceId: number;
+  serviceName: string;
 };
 
 export type ServicePlugin = {
