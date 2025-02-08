@@ -45,7 +45,7 @@ export const ServiceName = styled.h4`
 export const Items = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  padding: 1.6rem 3.6rem;
+  padding: 1.6rem 0;
   gap: 1rem;
 
   ${respondTo.down('xl')} {
