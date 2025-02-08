@@ -12,7 +12,6 @@ import { useGetClientHistoryQuery } from '../../services';
 import { ClientName } from '../../types';
 
 import * as S from './app.style';
-import { TableContainer } from './app.style';
 
 type AppProps = PageProps & {
   updateHeaderTitle: (newTitles: string[] | string) => void;
@@ -49,9 +48,8 @@ const App: React.FC<AppProps> = (props) => {
     };
     return params;
   }
-
   const clientEnglishName = data?.commonClientInfoDto?.name;
-  const clientPersianName = data?.commonClientInfoDto?.persianName;
+  const clientPersianName = data?.content[0]?.clientInfoDto?.value?.persianName?.value;
 
   useEffect(() => {
     updateClientNameAction(dispatch, clientEnglishName);

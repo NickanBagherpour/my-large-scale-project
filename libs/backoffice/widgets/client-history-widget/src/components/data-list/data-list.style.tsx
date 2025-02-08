@@ -6,6 +6,12 @@ import { REVISION_TYPE } from '../../utils/consts';
 
 export const TableContainer = styled(Box)`
   height: 100%;
+
+  tr {
+    td.right-to-left {
+      unicode-bidi: normal !important;
+    }
+  }
 `;
 
 export const RevisionType = styled.p<any>`

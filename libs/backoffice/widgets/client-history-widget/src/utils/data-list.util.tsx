@@ -6,13 +6,12 @@ import { ColumnsType, Table, MobileColumnType, HistoryCell } from '@oxygen/ui-ki
 import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 
-import { ClientInfoHistoryItemType } from '../types';
+import { ClientHistoryItemType } from '../types';
 
 import * as S from '../components/data-list/data-list.style';
 
 type Props = {
   t: TFunction;
-  clientPersianName: Nullable<string>;
   clientType: Nullable<string>;
 };
 
@@ -37,8 +36,8 @@ function renderGrantType(record) {
   return { value: getValueOrDash(grantTypeLabels), hasDifference: hasDifference };
 }
 
-export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryItemType> {
-  const { t, clientPersianName, clientType } = props;
+export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemType> {
+  const { t, clientType } = props;
 
   return [
     {
@@ -54,7 +53,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
       title: t('table.modify_by'),
       dataIndex: 'modifyBy',
       align: 'center',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
       render: (_value, record) => {
         return getValueOrDash(record?.clientInfoDto?.value?.modifyBy?.value);
       },
@@ -77,7 +76,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      ellipsis: true,
+      // width:200,
+      ellipsis: { showTitle: false },
+      className: 'right-to-left',
       render: (_value, record) => {
         const grantType = renderGrantType(record?.clientInfoDto?.value);
         return <HistoryCell item={grantType} />;
@@ -87,15 +88,16 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
-      render: () => {
-        return getValueOrDash(clientPersianName);
+      ellipsis: { showTitle: false },
+      render: (_value, record) => {
+        const persianName = record?.clientInfoDto?.value?.persianName;
+        return <HistoryCell item={persianName} />;
       },
     },
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
       align: 'center',
       render: () => {
         return getValueOrDash(clientType);
@@ -104,8 +106,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
     {
       title: t('table.url'),
       dataIndex: 'url',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
       align: 'center',
+      className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.clientInfoDto?.value?.url;
         return <HistoryCell item={item} />;
@@ -115,7 +118,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
       title: t('table.inbound_url'),
       dataIndex: 'inboundUrl',
       align: 'center',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
+      className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.clientInfoDto?.value?.inboundUrl;
         return <HistoryCell item={item} />;
@@ -125,7 +129,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfoHistoryIt
       title: t('table.redirect_url'),
       dataIndex: 'redirectUrl',
       align: 'center',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
+      className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.clientInfoDto?.value?.redirectUrl;
         return <HistoryCell item={item} />;

@@ -21,66 +21,18 @@ export type FetchClientHistoryParamsType = {
   clientName: ClientName;
 };
 
-type HasDifference = {
-  value: any;
-  hasDifference: boolean;
-};
-
-type RevisionDto = {
-  value: {
-    revNumber: HasDifference;
-    revType: {
-      value: {
-        code: HasDifference;
-        title: HasDifference;
-      };
-      hasDifference: boolean;
-    };
-  };
-  hasDifference: boolean;
-};
-
-type ClientType = {
-  value: {
-    code: HasDifference;
-    title: HasDifference;
-  };
-  hasDifference: boolean;
+type CodeTitle = {
+  code: number;
+  title: string;
 };
 
 type CommonClientInfoDto = {
-  value: {
-    clientId: HasDifference;
-    name: HasDifference;
-    persianName: HasDifference;
-    clientType: ClientType;
-  };
-  hasDifference: boolean;
+  clientId: number;
+  name: string;
+  clientType: CodeTitle;
 };
 
-type ClientInfoDto = {
-  value: {
-    commonClientInfoDto: CommonClientInfoDto;
-    isClientFlow: HasDifference;
-    isImplicitFlow: HasDifference;
-    isPasswordFlow: HasDifference;
-    isAuthorizationFlow: HasDifference;
-    modifyDate: HasDifference;
-    modifyBy: HasDifference;
-    url: HasDifference;
-    inboundUrl: HasDifference;
-    redirectUrl: HasDifference;
-    deleted: HasDifference;
-  };
-  hasDifference: boolean;
-};
-
-export type ClientHistoryItemType = {
-  revisionDto: RevisionDto;
-  clientInfoDto: ClientInfoDto;
-};
-
-type Sort = {
+type SortInfo = {
   unsorted: boolean;
   sorted: boolean;
   empty: boolean;
@@ -89,22 +41,67 @@ type Sort = {
 type Pageable = {
   pageNumber: number;
   pageSize: number;
-  sort: Sort;
+  sort: SortInfo;
   offset: number;
   unpaged: boolean;
   paged: boolean;
 };
 
+type ValueWithDifference<T> = {
+  value: T;
+  hasDifference: boolean;
+};
+
+type RevisionType = {
+  code: ValueWithDifference<number>;
+  title: ValueWithDifference<string>;
+};
+
+type RevisionDtoValue = {
+  revNumber: ValueWithDifference<number>;
+  revType: ValueWithDifference<RevisionType>;
+};
+
+type RevisionDto = {
+  value: RevisionDtoValue;
+  hasDifference: boolean;
+};
+
+type ClientInfoDtoValue = {
+  isClientFlow: ValueWithDifference<boolean>;
+  isImplicitFlow: ValueWithDifference<boolean>;
+  isPasswordFlow: ValueWithDifference<boolean>;
+  isAuthorizationFlow: ValueWithDifference<boolean>;
+  modifyDate: ValueWithDifference<string>;
+  modifyBy: ValueWithDifference<string>;
+  persianName: ValueWithDifference<string>;
+  url: ValueWithDifference<string>;
+  inboundUrl: ValueWithDifference<string>;
+  redirectUrl: ValueWithDifference<string>;
+  deleted: ValueWithDifference<boolean>;
+};
+
+type ClientInfoDto = {
+  value: ClientInfoDtoValue;
+  hasDifference: boolean;
+};
+
+export type ClientHistoryItemType = {
+  revisionDto: RevisionDto;
+  clientInfoDto: ClientInfoDto;
+};
+
 export type ClientHistoryResponseType = {
-  content: ClientHistoryItemType[];
+  commonClientInfoDto: CommonClientInfoDto;
   pageable: Pageable;
-  last: boolean;
   totalPages: number;
+  last: boolean;
   totalElements: number;
   first: boolean;
   numberOfElements: number;
   size: number;
   number: number;
-  sort: Sort;
+  sort: SortInfo;
   empty: boolean;
+  content: ClientHistoryItemType[];
 };

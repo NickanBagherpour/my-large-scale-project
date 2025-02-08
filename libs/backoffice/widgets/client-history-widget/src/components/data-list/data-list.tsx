@@ -36,10 +36,9 @@ const DataList: React.FC<dataListProps> = (props) => {
     updatePagination(dispatch, updatedPagination);
   };
 
-  const clientPersianName = data?.commonClientInfoDto?.persianName;
   const clientType = data?.commonClientInfoDto?.clientType?.title;
 
-  const desktopColumns = getDesktopColumns({ t, clientPersianName, clientType });
+  const desktopColumns = getDesktopColumns({ t, clientType });
 
   return (
     <S.TableContainer>
