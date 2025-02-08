@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Nullable, PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { Loading } from '@oxygen/ui-kit';
 
@@ -66,11 +67,13 @@ const App: React.FC<AppProps> = (props) => {
     return <NoResult isLoading={false} hasReturnButton={true} />;
   }
 
+  const widgetTitle = getWidgetTitle({
+    defaultTitle: t('request_details'),
+    primaryTitle: clientName ? t('request_details_client', { clientName: clientName }) : '',
+  });
+
   return (
-    <S.AppContainer
-      title={clientName ? t('request_details_client', { clientName: clientName }) : t('request_details')}
-      footer={footerButton}
-    >
+    <S.AppContainer title={widgetTitle} footer={footerButton}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
