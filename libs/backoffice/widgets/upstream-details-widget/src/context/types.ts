@@ -53,6 +53,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: PaginationType;
+    }
+  | {
+      type: 'UPDATE_ERROR_MESSAGE';
+      payload: Nullable<MessageType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

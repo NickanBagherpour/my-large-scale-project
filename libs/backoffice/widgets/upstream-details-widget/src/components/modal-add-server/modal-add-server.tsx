@@ -21,10 +21,11 @@ interface ReusableFormModalProps {
   initialData?: CreateServerType;
   selectedServerId?: number | null;
   centered: boolean;
+  errorMessage?: string;
 }
 
 const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title, open, setOpen, onConfirm, status, initialData, selectedServerId, centered } = props;
+  const { title, open, setOpen, onConfirm, status, initialData, selectedServerId, centered, errorMessage } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -89,7 +90,11 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
               colon={true}
               initialValues={initialData}
             >
-              <Form.Item name={FORM_ITEM_NAMES.domain} label={t('domain')} rules={[rule]}>
+              <Form.Item
+                name={FORM_ITEM_NAMES.domain}
+                label={t('domain')}
+                // rules={[rule]}
+              >
                 <Input maxLength={limits.UPSTREAM_MAX_LENGTH} placeholder={t('domain_placeholder')} />
               </Form.Item>
               <Form.Item name={FORM_ITEM_NAMES.weight} label={t('weight')} rules={[rule]}>
@@ -124,11 +129,13 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
           <AnimatedStatus
             status={createStatus[status]}
             errorProps={{
-              description: t(
-                selectedServerId
-                  ? 'upstream_details.error_edit_server_description'
-                  : 'upstream_details.error_add_server_description'
-              ),
+              description: errorMessage
+                ? t(errorMessage)
+                : t(
+                    selectedServerId
+                      ? 'upstream_details.error_edit_server_description'
+                      : 'upstream_details.error_add_server_description'
+                  ),
             }}
             loadingProps={{ description: t('upstream_details.loading_description') }}
             successProps={{

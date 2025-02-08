@@ -28,6 +28,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return void (state.errorMessage = action.payload);
     }
 
+    case 'UPDATE_ERROR_MESSAGE': {
+      state.errorMessage = action.payload;
+      return;
+    }
+
     case 'UPDATE_SORT': {
       state.table.pagination.page = initialStateValue['page'];
       state.sort = action.payload;

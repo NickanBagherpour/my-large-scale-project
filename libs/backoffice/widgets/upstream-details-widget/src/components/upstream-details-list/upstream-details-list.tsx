@@ -40,7 +40,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
   const [openAddServerModal, setOpenAddServerModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [initialValue, setInitialValue] = useState<UpstreamDetailsType | undefined>(undefined);
-
+  const errorMessage = state.errorMessage?.description;
   const {
     table: { pagination },
   } = state;
@@ -139,6 +139,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
           centered
           initialData={initialValue}
           selectedServerId={selectedServerId}
+          errorMessage={errorMessage}
         />
       )}
 

@@ -1,8 +1,8 @@
 import { MessageType, Nullable, UserRole } from '@oxygen/types';
-import { getCookie } from './util';
+import { getCookie, isEmptyObject } from './util';
 
 export const ApiUtil = {
-  downloadFile: function(data, type, extension, preferredName?) {
+  downloadFile: function (data, type, extension, preferredName?) {
     const blob = new Blob([data], { type: type });
     const downloadUrl = URL.createObjectURL(blob);
 
@@ -26,7 +26,7 @@ export const ApiUtil = {
 
     return false;
   },
-  getFile: function(serviceURL: string, params?: any, options?: any) {
+  getFile: function (serviceURL: string, params?: any, options?: any) {
     const { method = 'GET', encodeQuery = true, contentType = 'application/octet-stream' } = options ?? {};
 
     const xsrfTokenKey = 'XSRF-TOKEN';
@@ -37,7 +37,7 @@ export const ApiUtil = {
       serviceURL = serviceURL + '?' + this.encodeQueryData(params);
     }
 
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       xhr.open(method, serviceURL, true);
       xhr.responseType = 'blob';
       xhr.setRequestHeader('Content-type', contentType);
@@ -50,7 +50,7 @@ export const ApiUtil = {
         xhr.send();
       }
 
-      xhr.onload = function(e) {
+      xhr.onload = function (e) {
         try {
           if (xhr.readyState === 4 && xhr.status === 200) {
             resolve(xhr.response);
@@ -67,7 +67,7 @@ export const ApiUtil = {
       };
     });
   },
-  encodeQueryData: function(data) {
+  encodeQueryData: function (data) {
     const ret: any[] = [];
     for (const d in data) {
       if (encodeURIComponent(data[d]) !== 'null') {
@@ -76,7 +76,7 @@ export const ApiUtil = {
     }
     return ret.join('&');
   },
-  getErrorMessage: function(reason: any): MessageType | null {
+  getErrorMessage: function (reason: any): MessageType | null {
     if (!reason) {
       return null;
     }
@@ -88,7 +88,7 @@ export const ApiUtil = {
 
       if (data?.message) {
         const hasDetails = !!data.detail;
-        const hasErrors = data.errors && typeof data.errors === 'object';
+        const hasErrors = !isEmptyObject(data.errors);
 
         // Set title and description based on the presence of details
         let description = '';
