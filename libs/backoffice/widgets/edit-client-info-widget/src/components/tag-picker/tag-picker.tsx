@@ -16,12 +16,13 @@ const TagPicker = (props) => {
     isTagsFetching,
     tags,
     t,
+    rule,
   } = props;
 
   return (
     <>
       <S.TagPicker>
-        <Form.Item name='grantType'>
+        <Form.Item name='grantType' rules={[rule]}>
           <S.Select
             disabled={loadingUpdateClient || isSuccess}
             menu={GrantValue}
@@ -35,7 +36,7 @@ const TagPicker = (props) => {
       </S.TagPicker>
 
       <S.TagPicker>
-        <Form.Item name='tags'>
+        <Form.Item name='tags' rules={[rule]}>
           <S.Select
             loading={isTagsFetching}
             disabled={loadingUpdateClient || isSuccess}

@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { MessageType, Nullable } from '@oxygen/types';
-import { ClientName } from '../types';
 
 export type PaginationType = {
   page: number;
@@ -13,7 +12,6 @@ export type WidgetStateType = {
     pagination: PaginationType;
   };
   message: Nullable<MessageType>;
-  clientName: ClientName;
 };
 
 export type WidgetActionType =
@@ -24,10 +22,6 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: Partial<PaginationType>;
-    }
-  | {
-      type: 'UPDATE_CLIENT_NAME';
-      payload: ClientName;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

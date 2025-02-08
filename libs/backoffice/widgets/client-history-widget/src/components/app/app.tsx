@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
@@ -6,13 +6,12 @@ import { PageProps } from '@oxygen/types';
 import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, updateClientNameAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
 import { useGetClientHistoryQuery } from '../../services';
 import { ClientName } from '../../types';
 
 import * as S from './app.style';
-import { TableContainer } from './app.style';
 
 type AppProps = PageProps & {
   updateHeaderTitle: (newTitles: string[] | string) => void;
@@ -49,27 +48,14 @@ const App: React.FC<AppProps> = (props) => {
     };
     return params;
   }
-
-  const clientEnglishName = data?.content[0]?.clientInfoDto?.value?.commonClientInfoDto?.value?.name?.value;
-
-  useEffect(() => {
-    updateClientNameAction(dispatch, clientEnglishName);
-  }, [clientEnglishName]);
+  const clientEnglishName = data?.commonClientInfoDto?.name;
+  const clientPersianName = data?.commonClientInfoDto?.lastPersianName;
 
   useEffect(() => {
-    const fetchedClientName = data?.content[0]?.clientInfoDto?.value?.commonClientInfoDto?.value?.persianName?.value;
-
-    if (fetchedClientName && !clientPrimaryName) {
-      setClientPrimaryName(fetchedClientName);
-
-      const title = getWidgetTitle({
-        defaultTitle: t('change_history'),
-        primaryTitle: fetchedClientName,
-      });
-
-      updateHeaderTitle(title);
+    if (clientPersianName && !clientPrimaryName) {
+      setClientPrimaryName(clientPersianName);
     }
-  }, [data, clientName, updateHeaderTitle]);
+  }, [clientPersianName, clientPrimaryName]);
 
   const footerButton = (
     <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
@@ -77,17 +63,28 @@ const App: React.FC<AppProps> = (props) => {
     </ReturnButton>
   );
 
-  const title = getWidgetTitle({
-    defaultTitle: t('change_history'),
-    primaryTitle: clientPrimaryName,
-  });
+  // Memoized title computation
+  const widgetTitle = useMemo(() => {
+    return getWidgetTitle({
+      defaultTitle: t('change_history'),
+      primaryTitle: clientPrimaryName,
+      secondaryTitle: clientEnglishName,
+    });
+  }, [t, clientPrimaryName, clientEnglishName]);
+
+  // Update header title only when Persian name is first set
+  useEffect(() => {
+    if (clientPrimaryName) {
+      updateHeaderTitle(widgetTitle);
+    }
+  }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
 
   if (!clientName) {
     notFound();
   }
 
   return (
-    <S.AppContainer title={title} footer={footerButton}>
+    <S.AppContainer title={widgetTitle} footer={footerButton}>
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {
