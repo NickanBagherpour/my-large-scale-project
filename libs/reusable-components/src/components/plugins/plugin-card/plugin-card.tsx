@@ -10,7 +10,7 @@ type Props = {
 
 export default function PluginCard(props: Props) {
   const {
-    plugin: { enabled, name },
+    plugin: { enabled, title },
     onCheck,
     onSetting,
   } = props;
@@ -18,7 +18,7 @@ export default function PluginCard(props: Props) {
   return (
     <S.Card isChecked={enabled}>
       <S.CardHeader>
-        <S.CardName>{name}</S.CardName>
+        <S.CardName>{title}</S.CardName>
         <Switch checked={enabled} onChange={(isChecked) => void onCheck(isChecked)} />
       </S.CardHeader>
 

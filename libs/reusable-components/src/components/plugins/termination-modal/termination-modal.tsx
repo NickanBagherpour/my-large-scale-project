@@ -22,7 +22,7 @@ const statusOptions = [
 ];
 
 export default function TerminationsModal(props: Props) {
-  const { isOpen, close, onSubmit, isPending /* , plugin */ } = props;
+  const { isOpen, close, onSubmit, isPending, plugin } = props;
   const [t] = useTr();
   const [form] = Form.useForm<TerminationType>();
   const rule = createSchemaFieldRule(termaintionSchema(t));
@@ -34,7 +34,7 @@ export default function TerminationsModal(props: Props) {
       name: 'request-termination',
       enabled: true,
       config: {
-        echo: !!echo,
+        echo,
         message,
         statusCode: +statusCode,
       },
@@ -55,7 +55,7 @@ export default function TerminationsModal(props: Props) {
         </S.RegisterBtn>,
       ]}
     >
-      <Form form={form} onFinish={onFinish}>
+      <Form form={form} onFinish={onFinish} initialValues={plugin.config}>
         <Form.Item name={TERMINATION_FORM_NAME.echo} rules={[rule]} valuePropName='checked'>
           <Checkbox>{t('echo')}</Checkbox>
         </Form.Item>

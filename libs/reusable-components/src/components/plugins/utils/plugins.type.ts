@@ -3,6 +3,7 @@ export type ClientPlugins = PluginConfig[];
 export type RateLimitingConfig = {
   name: 'rate-limiting';
   enabled: boolean;
+  title: string;
   config: Partial<{
     year: number;
     month: number;
@@ -12,17 +13,6 @@ export type RateLimitingConfig = {
     second: number;
   }>;
 };
-
-// type RequestNonReputationConfig = {
-// 	name: 'request-non-repudiation';
-//   title: string;
-// 	enabled: boolean;
-// 	config: {
-// 		url: string;
-// 		timeout: number;
-// 		keepalive: number;
-// 	};
-// };
 
 export type RequestTerminationConfig = {
   name: 'request-termination';
