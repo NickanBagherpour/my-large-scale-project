@@ -7,7 +7,7 @@ import { Loading } from '@oxygen/ui-kit';
 import * as S from './no-result.style';
 
 type Props = {
-  isLoading: boolean;
+  isLoading?: boolean;
   link?: string;
   title?: string;
   hasReturnButton?: boolean;
