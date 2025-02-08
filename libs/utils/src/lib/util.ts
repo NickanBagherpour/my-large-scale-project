@@ -12,6 +12,22 @@ export function addThousandSeparator(value: number | string) {
     ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+export const trimValues = (values: Record<string, any>): Record<string, any> => {
+  return Object.keys(values).reduce((acc, key) => {
+    const value = values[key];
+
+    if (typeof value === 'string') {
+      acc[key] = value.trim(); // Trim string values
+    } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      acc[key] = trimValues(value); // Recursively trim nested objects
+    } else {
+      acc[key] = value; // Keep other types unchanged
+    }
+
+    return acc;
+  }, {} as Record<string, any>);
+};
+
 export const arrayToQueryString = (params: (string | number)[], paramName: string): string => {
   let store = '';
   params.map((item) => {

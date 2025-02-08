@@ -14,7 +14,7 @@ export default {
     identity_auth: 'شناسه احراز',
     website_url: 'آدرس وبسایت',
     input_address: 'آدرس ورودی',
-    return_address: 'آدرس برگشت کنار',
+    return_address: 'آدرس برگشت کلاینت',
     save_changes: 'ثبت اطلاعات',
     return: 'بازگشت',
   },

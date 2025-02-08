@@ -7,14 +7,13 @@ export const createFormSchema = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
 
   return z.object({
-    [FORM_ITEM_NAMES.persianNameClient]: validationSchema.persian,
-    [FORM_ITEM_NAMES.clientType]: z.number({
-      required_error: t('validation.required'),
-      invalid_type_error: t('validation.required') /* if value is null */,
-    }),
-    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalProtocolUrl,
+    [FORM_ITEM_NAMES.persianNameClient]: validationSchema.defaultPersianName,
+    [FORM_ITEM_NAMES.clientType]: validationSchema.selectNumberRequired,
+    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.url,
     [FORM_ITEM_NAMES.inputAddress]: validationSchema.url,
     [FORM_ITEM_NAMES.returnAddress]: validationSchema.url,
+    [FORM_ITEM_NAMES.grantType]: validationSchema.objectMultipleSelection,
+    [FORM_ITEM_NAMES.tags]: validationSchema.objectMultipleSelection,
   });
 };
 

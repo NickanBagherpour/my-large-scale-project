@@ -11,7 +11,7 @@ import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../cont
 
 import DataTable from '../data-list/data-list';
 import { useGetsClientHistoryDataQuery } from '../../services/get-report.api';
-import { SERVICE_NAME } from '../../utils/consts';
+import { CLIENT_NAME } from '../../utils/consts';
 
 type AppProps = PageProps & {
   //
@@ -28,16 +28,23 @@ const App: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const serviceId = searchParams.get(SERVICE_NAME) || '';
+  const clientName = searchParams.get(CLIENT_NAME) || '';
 
   const { data, isFetching } = useGetsClientHistoryDataQuery({
     page: page - 1,
     size: limit,
-    serviceId,
+    clientName,
   });
 
   return (
-    <Container title={getWidgetTitle({ defaultTitle: t('change_history') })} footer={<ReturnButton />}>
+    <Container
+      title={getWidgetTitle({
+        primaryTitle: data?.commonClientInfoDto?.name,
+        secondaryTitle: data?.commonClientInfoDto?.persianName,
+        defaultTitle: t('change_history'),
+      })}
+      footer={<ReturnButton />}
+    >
       <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
         message={message}

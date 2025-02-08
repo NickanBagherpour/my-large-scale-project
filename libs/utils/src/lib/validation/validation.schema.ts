@@ -34,6 +34,11 @@ export const createValidationSchema = (
 
     idSelection: z.number({ required_error: t('validation.choose_one_option') }),
 
+    selectNumberRequired: z.number({
+      required_error: t('validation.required'),
+      invalid_type_error: t('validation.required') /* if value is null */,
+    }),
+
     objectMultipleSelection: z
       .array(z.object({ value: z.number(), label: z.string() }), {
         message: t('validation.choose_at_least_one_option'),
