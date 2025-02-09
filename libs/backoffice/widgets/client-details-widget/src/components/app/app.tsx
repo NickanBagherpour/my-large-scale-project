@@ -5,11 +5,14 @@ import { PageTitle, Tab } from '../../types';
 import { ReactNode, useCallback, useState } from 'react';
 import { Container } from '@oxygen/ui-kit';
 import { useClientName } from '../../utils/use-client-name';
-import { Plugins, Services } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, Plugins, Services } from '@oxygen/reusable-components';
 import { getWidgetTitle } from '@oxygen/utils';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 
 const App = () => {
   const [t] = useTr();
+  const { message } = useAppState();
+  const dispatch = useAppDispatch();
   const clientName = useClientName();
   const [currentTab, setCurrentTab] = useState<Tab>('client-info');
   const [localizedTitle, setLocalizedTitle] = useState<PageTitle>({ persian: '', english: '' });
@@ -26,16 +29,19 @@ const App = () => {
 
   const tabs: { label: string; key: Tab; children: ReactNode }[] = [
     { label: t('client_info'), key: 'client-info', children: <ClientInfo updateTitle={updateTitle} /> },
-    { label: t('services'), key: 'services', children: <Services clientName={clientName} /> },
+    { label: t('services'), key: 'services', children: <Services dispatch={dispatch} clientName={clientName} /> },
     { label: t('plugins'), key: 'plugins', children: <Plugins clientName={clientName} /> },
   ];
 
   const changeTab = (tab: string) => setCurrentTab(tab as Tab);
 
   return (
-    <Container title={widgetTitle}>
-      <S.Tabs type='line' items={tabs} activeKey={currentTab} onTabClick={changeTab} />
-    </Container>
+    <>
+      <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
+      <Container title={widgetTitle}>
+        <S.Tabs type='line' items={tabs} activeKey={currentTab} onTabClick={changeTab} />
+      </Container>
+    </>
   );
 };
 

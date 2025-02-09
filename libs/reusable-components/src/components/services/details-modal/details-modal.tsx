@@ -2,17 +2,19 @@ import { useTr } from '@oxygen/translation';
 import { Button, InfoBox, Loading, Modal } from '@oxygen/ui-kit';
 import { useGetServiceDetails } from '../utils/get-service-details.api';
 import { getValueOrDash } from '@oxygen/utils';
+import { type Dispatch } from 'react';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
   serviceName: string;
+  dispatch: Dispatch<any>;
 };
 
 export default function DetailsModal(props: Props) {
-  const { isOpen, close, serviceName } = props;
+  const { isOpen, close, serviceName, dispatch } = props;
   const [t] = useTr();
-  const { data: service, isFetching } = useGetServiceDetails(serviceName);
+  const { data: service, isFetching } = useGetServiceDetails(serviceName, dispatch);
 
   let data: Array<{ key: string; value: string }> = [];
   if (service) {

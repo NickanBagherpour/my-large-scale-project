@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
-import { useState } from 'react';
+import { type Dispatch, useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
 import { getDesktopColumns, getMobileColumns } from './utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
@@ -15,20 +15,23 @@ import { useGetClientServices } from './utils/get-client-services.api';
 
 type Props = {
   clientName: string;
+  pageType: 'details' | 'creation';
+  dispatch: Dispatch<any>;
 };
 
 export default function Services(props: Props) {
-  const { clientName } = props;
+  const { clientName, dispatch, pageType } = props;
   const [t] = useTr();
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
-  const { mutate: assignToClient } = useAssignServiceToClient();
-  const { mutate: unassignFromClient } = useUnassignServiceFromClient();
+  const { mutate: assignToClient } = useAssignServiceToClient(dispatch);
+  const { mutate: unassignFromClient } = useUnassignServiceFromClient(dispatch);
   const { data, isFetching } = useGetClientServices({
     size,
     clientName,
     page: page - 1,
     sort: 'createDate,DESC',
+    dispatch,
   });
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
@@ -74,14 +77,16 @@ export default function Services(props: Props) {
       <ServiceSelector disabled={false} onSelect={onAssignToClient} />
       <S.Header>
         <S.Title>{t('client_services')}</S.Title>
-        <Button
-          href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
-          color='primary'
-          variant='filled'
-        >
-          <S.Icon className='icon-clock' />
-          {t('display_change_history')}
-        </Button>
+        {pageType === 'details' && (
+          <Button
+            href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
+            color='primary'
+            variant='filled'
+          >
+            <S.Icon className='icon-clock' />
+            {t('display_change_history')}
+          </Button>
+        )}
       </S.Header>
       <Table
         loading={isFetching}
@@ -104,7 +109,12 @@ export default function Services(props: Props) {
         />
       )}
       {!!serviceToView && (
-        <DetailsModal serviceName={serviceToView.name} isOpen={!!serviceToView} close={() => setServiceToView(null)} />
+        <DetailsModal
+          dispatch={dispatch}
+          serviceName={serviceToView.name}
+          isOpen={!!serviceToView}
+          close={() => setServiceToView(null)}
+        />
       )}
     </>
   );
