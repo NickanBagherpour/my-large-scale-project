@@ -4,7 +4,7 @@ import { useClientPluginMutation } from '../utils/post-client-plugin.api';
 import { getPluginKeys } from '../utils/get-client-plugins.api';
 import * as S from './plugin-list.style';
 import PluginCard from '../plugin-card/plugin-card';
-import { useState } from 'react';
+import { type Dispatch, useState } from 'react';
 import TerminationsModal from '../termination-modal/termination-modal';
 import LimitationsModal from '../limitations-modal/limitations-modal';
 import { useServiceMutaionMutation } from '../utils/post-service-plugin.api';
@@ -15,13 +15,14 @@ type Props = {
   plugins: PluginConfig[];
   clientName: string;
   serviceName?: string;
+  dispatch: Dispatch<any>;
 };
 
 export default function PluginList(props: Props) {
-  const { plugins, clientName, serviceName } = props;
+  const { plugins, clientName, serviceName, dispatch } = props;
   const queryClient = useQueryClient();
-  const clientPluginMutation = useClientPluginMutation();
-  const servicePluginMutation = useServiceMutaionMutation();
+  const clientPluginMutation = useClientPluginMutation(dispatch);
+  const servicePluginMutation = useServiceMutaionMutation(dispatch);
 
   const [currentConfig, setCurrentConfig] = useState<PluginConfig | null>(null);
 

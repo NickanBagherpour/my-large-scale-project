@@ -6,16 +6,18 @@ import { useClientPlugins } from './utils/get-client-plugins.api';
 import { useClientServicePlugins } from './utils/get-client-service-plugins.api';
 import PluginList from './plugin-list/plugin-list';
 import NoResult from '../no-result/no-result';
+import { type Dispatch } from 'react';
 
 type Props = {
   clientName: string;
+  dispatch: Dispatch<any>;
 };
 
 export default function Plugins(props: Props) {
-  const { clientName } = props;
+  const { clientName, dispatch } = props;
   const [t] = useTr();
-  const { data: clientPlugins, isFetching: isFetchingClientPlugins } = useClientPlugins(clientName);
-  const { data: clientServicePlugins } = useClientServicePlugins(clientName);
+  const { data: clientPlugins, isFetching: isFetchingClientPlugins } = useClientPlugins(clientName, dispatch);
+  const { data: clientServicePlugins } = useClientServicePlugins(clientName, dispatch);
 
   if (!clientPlugins || !clientServicePlugins) return null;
 
@@ -23,7 +25,7 @@ export default function Plugins(props: Props) {
     <>
       <S.Title>{t('client_plugin')}</S.Title>
       <S.Container>
-        <PluginList clientName={clientName} plugins={clientPlugins} />
+        <PluginList dispatch={dispatch} clientName={clientName} plugins={clientPlugins} />
       </S.Container>
       <Divider />
 
@@ -32,7 +34,7 @@ export default function Plugins(props: Props) {
         {clientServicePlugins.length ? (
           clientServicePlugins.map(({ plugins, serviceInfoId, ...rest }, idx) => (
             <PluginServices {...rest} key={idx} idx={idx}>
-              <PluginList clientName={clientName} plugins={plugins} serviceName={rest.name} />
+              <PluginList dispatch={dispatch} clientName={clientName} plugins={plugins} serviceName={rest.name} />
             </PluginServices>
           ))
         ) : (
