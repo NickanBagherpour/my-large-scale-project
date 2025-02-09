@@ -20,7 +20,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 
   return [
     {
-      title: t('index'),
+      title: t('uikit.index'),
       align: 'center',
       key: 'index',
       width: '5rem',
@@ -30,29 +30,29 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       },
     },
     {
-      title: t('service_name'),
+      title: t('uikit.service_name'),
       dataIndex: 'name',
       align: 'center',
     },
     {
-      title: t('persian_name'),
+      title: t('uikit.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
     },
     {
-      title: t('scope'),
+      title: t('uikit.scope'),
       dataIndex: 'scopes',
       align: 'center',
       render: (scopes) => scopes.join(' , '),
     },
     {
-      title: t('url'),
+      title: t('uikit.url'),
       dataIndex: 'paths',
       align: 'center',
       render: (paths) => paths.join(' , '),
     },
     {
-      title: t('version'),
+      title: t('uikit.version'),
       dataIndex: 'version',
       align: 'center',
       width: '7rem',
@@ -63,7 +63,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       render: (_, service) => (
         <S.Btns>
           <S.DetailsBtn variant='link' color='primary' onClick={() => addServiceToView(service)}>
-            {t('details')}
+            {t('uikit.details')}
           </S.DetailsBtn>
           <Button variant='link' color='error' onClick={() => addServiceToRemove(service)}>
             <S.TrashIcon className='icon-trash' />
@@ -83,16 +83,16 @@ export function getMobileColumns(props: Props) {
       render(service: Service) {
         const { scopes, version, persianName, paths, name } = service;
         const data = [
-          { title: t('service_name'), value: name },
-          { title: t('persian_name'), value: persianName },
-          { title: t('scope'), value: scopes.join(' , ') },
+          { title: t('uikit.service_name'), value: name },
+          { title: t('uikit.persian_name'), value: persianName },
+          { title: t('uikit.scope'), value: scopes.join(' , ') },
           {
-            title: t('url'),
+            title: t('uikit.url'),
             value: paths.join(' , '),
           },
-          { title: t('version'), value: version },
+          { title: t('uikit.version'), value: version },
           {
-            title: t('details'),
+            title: t('uikit.details'),
             value: (
               <S.DetailsBtn
                 variant='link'
@@ -100,12 +100,12 @@ export function getMobileColumns(props: Props) {
                 className='item__btn'
                 onClick={() => addServiceToView(service)}
               >
-                {t('details')}
+                {t('uikit.details')}
               </S.DetailsBtn>
             ),
           },
           {
-            title: t('remove'),
+            title: t('uikit.remove'),
             value: (
               <Button className='item__btn' variant='link' color='error' onClick={() => addServiceToRemove(service)}>
                 <S.TrashIcon className='icon-trash' />

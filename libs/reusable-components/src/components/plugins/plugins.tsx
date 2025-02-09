@@ -24,7 +24,7 @@ export default function Plugins(props: Props) {
 
   return (
     <>
-      <S.Title>{t('client_plugin')}</S.Title>
+      <S.Title>{t('uikit.client_plugin')}</S.Title>
       <S.Container>
         {isFetchingClientPlugins ? (
           <Loading />
@@ -34,7 +34,7 @@ export default function Plugins(props: Props) {
       </S.Container>
       <Divider />
 
-      <S.Title>{t('client_services_plugin')}</S.Title>
+      <S.Title>{t('uikit.client_services_plugin')}</S.Title>
       {isFetchingServicePlugins ? (
         <Loading />
       ) : clientServicePlugins?.length ? (

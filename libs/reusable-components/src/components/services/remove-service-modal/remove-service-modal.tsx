@@ -19,7 +19,7 @@ export default function RemoveServiceModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('remove_service')}
+      title={t('uikit.remove_service')}
       open={isOpen}
       closable={true}
       onCancel={close}
@@ -28,14 +28,14 @@ export default function RemoveServiceModal(props: Props) {
           {t('button.cancel')}
         </Button>,
         <Button onClick={onRemove} size='large' color='error'>
-          {t('remove')}
+          {t('uikit.remove')}
         </Button>,
       ]}
     >
       <S.MarkText
         wordToHighlight={name}
         highlightColor={theme.error.main}
-        text={t('are_you_sure_to_remove', { id: name })}
+        text={t('uikit.are_you_sure_to_remove', { id: name })}
       />
     </Modal>
   );

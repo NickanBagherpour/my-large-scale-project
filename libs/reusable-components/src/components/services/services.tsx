@@ -76,7 +76,7 @@ export default function Services(props: Props) {
     <>
       <ServiceSelector disabled={false} onSelect={onAssignToClient} />
       <S.Header>
-        <S.Title>{t('client_services')}</S.Title>
+        <S.Title>{t('uikit.client_services')}</S.Title>
         {pageType === 'details' && (
           <Button
             href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
@@ -84,7 +84,7 @@ export default function Services(props: Props) {
             variant='filled'
           >
             <S.Icon className='icon-clock' />
-            {t('display_change_history')}
+            {t('uikit.display_change_history')}
           </Button>
         )}
       </S.Header>

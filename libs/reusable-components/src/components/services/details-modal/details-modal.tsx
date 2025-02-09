@@ -48,21 +48,21 @@ export default function DetailsModal(props: Props) {
     });
 
     data = [
-      { key: t('english_name'), value: serviceLatinName },
-      { key: t('persian_name'), value: servicePersianName },
-      { key: t('action'), value: flatRoutes.methods.join(' ,') },
-      { key: t('protocole'), value: flatRoutes.protocol.join(' ,') },
-      { key: t('access'), value: authenticationType.title },
-      { key: t('category'), value: serviceCategoryTitle },
-      { key: t('throughout'), value: throughput.title },
-      { key: t('version'), value: serviceVersion },
-      { key: t('owner'), value: ownerName },
-      { key: t('tag'), value: tags.map((tag) => tag.title).join(' ,') },
-      { key: t('path'), value: flatRoutes.paths.join(' ,') },
-      { key: t('host'), value: flatRoutes.hosts.join(' ,') },
-      { key: t('upstream_details'), value: upstreamTitle },
-      { key: t('scope'), value: scopes.map((scope) => scope.name).join(' ,') },
-      { key: t('descriptions'), value: getValueOrDash(serviceDescription) },
+      { key: t('uikit.english_name'), value: serviceLatinName },
+      { key: t('uikit.persian_name'), value: servicePersianName },
+      { key: t('uikit.action'), value: flatRoutes.methods.join(' ,') },
+      { key: t('uikit.protocole'), value: flatRoutes.protocol.join(' ,') },
+      { key: t('uikit.access'), value: authenticationType.title },
+      { key: t('uikit.category'), value: serviceCategoryTitle },
+      { key: t('uikit.throughout'), value: throughput.title },
+      { key: t('uikit.version'), value: serviceVersion },
+      { key: t('uikit.owner'), value: ownerName },
+      { key: t('uikit.tag'), value: tags.map((tag) => tag.title).join(' ,') },
+      { key: t('uikit.path'), value: flatRoutes.paths.join(' ,') },
+      { key: t('uikit.host'), value: flatRoutes.hosts.join(' ,') },
+      { key: t('uikit.upstream'), value: upstreamTitle },
+      { key: t('uikit.scope'), value: scopes.map((scope) => scope.name).join(' ,') },
+      { key: t('uikit.descriptions'), value: getValueOrDash(serviceDescription) },
     ];
   }
 
