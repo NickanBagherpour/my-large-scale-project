@@ -1,4 +1,4 @@
-import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../services.style';
 import { TFunction } from 'i18next';
 import { Service } from './services.type';

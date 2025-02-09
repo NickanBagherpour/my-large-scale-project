@@ -44,14 +44,7 @@ export default function Services(props: Props) {
   };
 
   const onAssignToClient = (service: Service) => {
-    assignToClient(
-      { clientName, serviceInfoId: service.id },
-      {
-        onSuccess: () => {
-          //
-        },
-      }
-    );
+    assignToClient({ clientName, serviceInfoId: service.id });
   };
 
   const onUnassignFromClient = () => {
