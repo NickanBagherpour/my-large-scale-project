@@ -2,6 +2,7 @@ import z from 'zod';
 import { TFunction } from 'i18next';
 import { REGEX_PATTERNS } from '../pattern-util';
 import { limits } from './constants';
+import { dayjs } from '@oxygen/utils';
 
 export const createValidationSchema = (
   t: TFunction,
@@ -22,11 +23,19 @@ export const createValidationSchema = (
     simpleRequired: z
       .string({
         required_error: t('validation.required'),
-        invalid_type_error: t('validation.required') /* if value is null */,
+        invalid_type_error: t('validation.required@@') /* if value is null */,
       })
       .trim()
       .min(1, { message: t('validation.required') })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+    datePicker: z
+      .date({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.invalid_date@@@'),
+      })
+      .refine((date) => dayjs(date).isValid(), {
+        message: t('validation.invalid_date'),
+      }),
     searchField: z
       .string()
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') })
@@ -97,7 +106,8 @@ export const createValidationSchema = (
       })
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
-      }),
+      })
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     organizationEconomyCodeNumber: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -110,7 +120,8 @@ export const createValidationSchema = (
       })
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
-      }),
+      })
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     version: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -151,7 +162,8 @@ export const createValidationSchema = (
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.persian_name_error')),
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.persian_name_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -257,14 +269,16 @@ export const createValidationSchema = (
         limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH,
         t('validation.max_len', { val: limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH })
       )
-      .regex(REGEX_PATTERNS.upstreamServerWeight, t('validation.field_error')),
+      .regex(REGEX_PATTERNS.upstreamServerWeight, t('validation.field_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     upstreamServerDomain: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.field_error')),
+      .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.host_domain_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     statusCode: z
       .string({ required_error: t('validation.required') })

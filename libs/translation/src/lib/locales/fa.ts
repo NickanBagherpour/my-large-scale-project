@@ -385,6 +385,7 @@ export default {
     is_not_valid: '{{val}} معتبر نیست',
     positive_number: 'فقط مقادیر مثبت معتبر هستند',
     status_code: 'کد وضعیت باید بین ۳۰۰ و ۵۹۹ باشد',
+    host_domain_error: 'آدرس host نامعتبر است',
   },
   element: {
     service: 'سرویس',
