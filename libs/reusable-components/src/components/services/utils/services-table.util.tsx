@@ -61,14 +61,14 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: '7rem',
       key: 'action',
       render: (_, service) => (
-        <Box>
+        <S.Btns>
           <S.DetailsBtn variant='link' color='primary' onClick={() => addServiceToView(service)}>
             {t('details')}
           </S.DetailsBtn>
           <Button variant='link' color='error' onClick={() => addServiceToRemove(service)}>
             <S.TrashIcon className='icon-trash' />
           </Button>
-        </Box>
+        </S.Btns>
       ),
     },
   ];
