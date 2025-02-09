@@ -17,10 +17,11 @@ export default function Plugins(props: Props) {
   const { clientName, dispatch } = props;
   const [t] = useTr();
   const { data: clientPlugins, isFetching: isFetchingClientPlugins } = useClientPlugins(clientName, dispatch);
-  const { data: clientServicePlugins, isFetching: isFetchingServicePlugins } = useClientServicePlugins(
-    clientName,
-    dispatch
-  );
+  const {
+    data: clientServicePlugins,
+    isFetching: isFetchingServicePlugins,
+    isPending,
+  } = useClientServicePlugins(clientName, dispatch);
 
   return (
     <>
@@ -35,14 +36,16 @@ export default function Plugins(props: Props) {
       <Divider />
 
       <S.Title>{t('uikit.client_services_plugin')}</S.Title>
-      {isFetchingServicePlugins ? (
+      {isPending ? (
         <Loading />
       ) : clientServicePlugins?.length ? (
-        clientServicePlugins.map(({ plugins, serviceInfoId, ...rest }, idx) => (
-          <PluginServices {...rest} key={idx} idx={idx}>
-            <PluginList dispatch={dispatch} clientName={clientName} plugins={plugins} serviceName={rest.name} />
-          </PluginServices>
-        ))
+        <Loading spinning={isFetchingServicePlugins}>
+          {clientServicePlugins.map(({ plugins, serviceInfoId, ...rest }, idx) => (
+            <PluginServices {...rest} key={idx} idx={idx}>
+              <PluginList dispatch={dispatch} clientName={clientName} plugins={plugins} serviceName={rest.name} />
+            </PluginServices>
+          ))}
+        </Loading>
       ) : (
         <NoResult isLoading={false} />
       )}

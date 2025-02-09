@@ -9,7 +9,7 @@ import TerminationsModal from '../termination-modal/termination-modal';
 import LimitationsModal from '../limitations-modal/limitations-modal';
 import { useServiceMutaionMutation } from '../utils/post-service-plugin.api';
 import { Loading } from '@oxygen/ui-kit';
-import { getServiceKeys } from '../utils/get-client-service-plugins.api';
+import { getServicePluginKeys } from '../utils/get-client-service-plugins.api';
 
 type Props = {
   plugins?: PluginConfig[];
@@ -43,7 +43,7 @@ export default function PluginList(props: Props) {
         { clientName, serviceName, ...plugin },
         {
           async onSuccess() {
-            await queryClient.invalidateQueries({ queryKey: getServiceKeys(clientName) });
+            await queryClient.invalidateQueries({ queryKey: getServicePluginKeys(clientName) });
             closeModal();
           },
         }

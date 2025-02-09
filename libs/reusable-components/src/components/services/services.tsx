@@ -74,7 +74,7 @@ export default function Services(props: Props) {
 
   return (
     <>
-      <ServiceSelector disabled={false} onSelect={onAssignToClient} />
+      <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
       <S.Header>
         <S.Title>{t('uikit.client_services')}</S.Title>
         {pageType === 'details' && (
