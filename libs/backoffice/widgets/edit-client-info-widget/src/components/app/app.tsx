@@ -10,12 +10,12 @@ import EditClient from '../edit-client/edit-client';
 import { useGetClientInfo } from '../../services/get-client-info.api';
 import { ClientInfoType } from '../../types';
 import { CLIENT_NAME } from '../../utils/consts';
+import { useGetTags } from '../../services/get-tag-info.api';
+import { useGetClientTypes } from '../../services/get-client-types.api';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { useGetTags } from '../../services/get-tag-info.api';
-import { useGetClientTypes } from '../../services/get-client-types.api';
 
 type AppProps = PageProps & {
   //
@@ -54,7 +54,7 @@ const App: React.FC<AppProps> = () => {
     <S.AppContainer
       fillContainer={true}
       title={getWidgetTitle({
-        defaultTitle: t('edit_client_information'),
+        defaultTitle: t('edit_information'),
         primaryTitle: data?.clientPersianName,
         secondaryTitle: data?.clientEnglishName,
       })}

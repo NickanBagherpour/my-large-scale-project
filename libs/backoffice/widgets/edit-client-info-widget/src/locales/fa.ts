@@ -1,5 +1,5 @@
 export default {
-  edit_client_information: ' ویرایش اطلاعات کلاینت',
+  edit_information: ' ویرایش اطلاعات',
   edit_client_info: 'ویرایش اطلاعات فنی',
   applicant_info: 'اطلاعات کاربر متقاضی',
   select_aggregator: 'انتخاب اگریگیتور',

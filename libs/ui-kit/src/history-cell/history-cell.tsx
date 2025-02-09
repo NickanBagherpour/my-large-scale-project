@@ -1,13 +1,14 @@
 import { useTheme } from 'styled-components';
 import { Badge } from 'antd';
 import { HistoryCellContainer } from './history-cell.style';
+import { getValueOrDash } from '@oxygen/utils';
 
 type Props = {
   item: { value: string | number | null | undefined | boolean; hasDifference: boolean };
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value, hasDifference } = {} } = props;
+  const { item: { value = getValueOrDash(''), hasDifference } = {} } = props;
 
   const theme = useTheme();
 
@@ -18,7 +19,7 @@ export function HistoryCell(props: Props) {
         <span className='badge-wrapper'>
           <Badge color={badgeColor} />
         </span>
-        <span className='text'>{value}</span>
+        <span className='text'>{getValueOrDash(value)}</span>
       </HistoryCellContainer>
     );
   }

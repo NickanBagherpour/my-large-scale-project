@@ -27,7 +27,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'modifyBy',
       ellipsis: true,
       render: (item) => {
-        return <div>{getValueOrDash(item?.value.modifyBy.value)}</div>;
+        return <HistoryCell item={item?.value.modifyBy}></HistoryCell>;
       },
     },
     {
