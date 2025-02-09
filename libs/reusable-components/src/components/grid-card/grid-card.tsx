@@ -53,10 +53,10 @@ export default function GridCard(props: CardProps) {
           <S.Title text={title} highlightColor={theme.secondary.main} wordToHighlight={wordToHighlight} />
         </Tooltip>
 
-        {hasSetting && <S.Settings />}
+        {hasSetting && <S.Settings className='icon-setting' />}
       </S.Header>
 
-      {subTitle && <S.Subtitle>{subTitle}</S.Subtitle>}
+      {subTitle && <S.Subtitle $isRtl={isHeaderLtr}>{subTitle}</S.Subtitle>}
 
       <S.Footer>
         <Status status={status} />
