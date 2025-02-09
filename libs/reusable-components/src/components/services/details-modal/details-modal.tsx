@@ -1,31 +1,68 @@
 import { useTr } from '@oxygen/translation';
-import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
+import { Button, InfoBox, Loading, Modal } from '@oxygen/ui-kit';
+import { useGetServiceDetails } from '../utils/get-service-details.api';
+import { getValueOrDash } from '@oxygen/utils';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
+  serviceName: string;
 };
 
 export default function DetailsModal(props: Props) {
-  const { isOpen, close } = props;
+  const { isOpen, close, serviceName } = props;
   const [t] = useTr();
+  const { data: service, isFetching } = useGetServiceDetails(serviceName);
 
-  const data = [
-    { key: t('english_name'), value: 'svc-gfg-bhhj-ngdc-zxzxc-zxc' },
-    { key: t('persian_name'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-    { key: t('action'), value: 'Post' },
-    { key: t('protocole'), value: 'HTTP' },
-    { key: t('access'), value: 'PUBLIC' },
-    { key: t('category'), value: 'ACCOUNT' },
-    { key: t('throughout'), value: 'Throughout' },
-    { key: t('version'), value: 'V1' },
-    { key: t('owner'), value: 'Sadad' },
-    { key: t('tag'), value: 'CUSOTMER' },
-    { key: t('path'), value: 'api/sapta/v1/bale/customer-info/' },
-    { key: t('host'), value: 'Openapis.bmi.ir' },
-    { key: t('upstream_details'), value: 'ICMS -XzxcZ' },
-    { key: t('descriptions'), value: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
-  ];
+  let data: Array<{ key: string; value: string }> = [];
+  if (service) {
+    const {
+      throughput,
+      scopes,
+      tags,
+      routes,
+      ownerName,
+      upstreamTitle,
+      serviceVersion,
+      serviceLatinName,
+      authenticationType,
+      serviceDescription,
+      servicePersianName,
+      serviceCategoryTitle,
+    } = service;
+
+    const flatRoutes = {
+      methods: [] as string[],
+      protocol: [] as string[],
+      hosts: [] as string[],
+      paths: [] as string[],
+    };
+
+    routes.forEach((route) => {
+      flatRoutes.methods.push(...route.routeMethod);
+      flatRoutes.protocol.push(...route.routeProtocol);
+      flatRoutes.hosts.push(...route.routeHosts);
+      flatRoutes.paths.push(...route.routePath);
+    });
+
+    data = [
+      { key: t('english_name'), value: serviceLatinName },
+      { key: t('persian_name'), value: servicePersianName },
+      { key: t('action'), value: flatRoutes.methods.join(' ,') },
+      { key: t('protocole'), value: flatRoutes.protocol.join(' ,') },
+      { key: t('access'), value: authenticationType.title },
+      { key: t('category'), value: serviceCategoryTitle },
+      { key: t('throughout'), value: throughput.title },
+      { key: t('version'), value: serviceVersion },
+      { key: t('owner'), value: ownerName },
+      { key: t('tag'), value: tags.map((tag) => tag.title).join(' ,') },
+      { key: t('path'), value: flatRoutes.paths.join(' ,') },
+      { key: t('host'), value: flatRoutes.hosts.join(' ,') },
+      { key: t('upstream_details'), value: upstreamTitle },
+      { key: t('scope'), value: scopes.map((scope) => scope.name).join(' ,') },
+      { key: t('descriptions'), value: getValueOrDash(serviceDescription) },
+    ];
+  }
 
   return (
     <Modal
@@ -36,11 +73,11 @@ export default function DetailsModal(props: Props) {
       width={1000}
       footer={[
         <Button size='large' color='primary' variant='outlined' onClick={close}>
-          {t('register_data')}
+          {t('common.close')}
         </Button>,
       ]}
     >
-      <InfoBox margin={0} data={data} />
+      {isFetching ? <Loading /> : <InfoBox margin={0} data={data} />}
     </Modal>
   );
 }

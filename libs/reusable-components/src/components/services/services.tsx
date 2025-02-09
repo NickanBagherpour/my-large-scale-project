@@ -110,7 +110,9 @@ export default function Services(props: Props) {
           name={serviceToRemove.name}
         />
       )}
-      {!!serviceToView && <DetailsModal isOpen={!!serviceToView} close={() => setServiceToView(null)} />}
+      {!!serviceToView && (
+        <DetailsModal serviceName={serviceToView.name} isOpen={!!serviceToView} close={() => setServiceToView(null)} />
+      )}
     </>
   );
 }

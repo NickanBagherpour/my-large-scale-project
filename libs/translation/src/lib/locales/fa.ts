@@ -47,6 +47,7 @@ export default {
     descending: 'قدیمی ترین',
     has: 'دارد',
     doesnt_have: 'ندارد',
+    close: 'بستن',
   },
 
   app: {
