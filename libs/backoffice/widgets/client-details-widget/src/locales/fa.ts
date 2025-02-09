@@ -1,4 +1,5 @@
 export default {
+  client_details: 'جزئیات کلاینت',
   client_info: 'اطلاعات کلاینت',
   technical_information: 'اطلاعات فنی',
   services: 'سرویس‌ها',

@@ -6,11 +6,25 @@ import { ROUTES } from '@oxygen/utils';
 import Footer from '../footer/footer';
 import { useClientName } from '../../utils/use-client-name';
 import { NoResult } from '@oxygen/reusable-components';
+import { useEffect } from 'react';
+import { PageTitle } from '../../types';
 
-export default function ClientInfo() {
+type Props = {
+  updateTitle: ({ persian, english }: PageTitle) => void;
+};
+
+export default function ClientInfo(props: Props) {
+  const { updateTitle } = props;
   const [t] = useTr();
   const clientName = useClientName();
   const { data: clientInfo } = useGetClientInfoQuery(clientName);
+
+  useEffect(() => {
+    if (clientInfo?.clientPersianName) {
+      const { clientPersianName, clientEnglishName } = clientInfo;
+      updateTitle({ english: clientEnglishName, persian: clientPersianName });
+    }
+  }, [clientInfo, updateTitle]);
 
   if (!clientInfo) return <Loading />;
 
