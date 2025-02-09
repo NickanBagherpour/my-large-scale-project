@@ -4,7 +4,7 @@ import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { ServiceToClientParams } from './services.type';
 import { type Dispatch } from 'react';
 
-const { CLIENT_SERVICES } = RQKEYS.BACKOFFICE.CLIENT_DETAILS;
+const { CLIENT_SERVICES, PLUGINS } = RQKEYS.BACKOFFICE.CLIENT_DETAILS;
 
 export const useAssignServiceToClient = (dispatch: Dispatch<any>) => {
   const queryClient = useQueryClient();
@@ -17,6 +17,7 @@ export const useAssignServiceToClient = (dispatch: Dispatch<any>) => {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({ queryKey: [CLIENT_SERVICES] });
+      await queryClient.invalidateQueries({ queryKey: [PLUGINS] });
     },
   });
 };
