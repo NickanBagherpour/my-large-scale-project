@@ -2,14 +2,19 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-import { getWidgetTitle } from '@oxygen/utils';
+import { PageProps, PaginatedData } from '@oxygen/types';
+import { useChangeHistoryQuery } from '@oxygen/hooks';
+import { getWidgetTitle, RQKEYS } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
+import {
+  ClientHistoryResponseType,
+  ClientName,
+  NormalizedClientHistoryItemType,
+  NormalizedClientHistoryResponse,
+} from '../../types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataList from '../data-list/data-list';
-import { useGetClientHistoryQuery } from '../../services';
-import { ClientName } from '../../types';
 
 import * as S from './app.style';
 
@@ -38,18 +43,57 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
-  const { data, isFetching } = useGetClientHistoryQuery(prepareParams());
+  const normalizer = (
+    data: PaginatedData<any> //ClientHistoryResponseType,
+  ): NormalizedClientHistoryResponse => {
+    const fullResponse = data as unknown as ClientHistoryResponseType;
+    const {
+      commonClientInfoDto,
+      clientInfoHistoryItemDtos: { content, ...rest },
+    } = fullResponse;
+    const resultContent: NormalizedClientHistoryItemType[] = content.map((item: any) => {
+      const { revisionDto, clientInfoDto } = item;
+      const normalizedRevision = Object.fromEntries(Object.entries(revisionDto).map(([key, value]) => [key, value]));
+      const normalizedClientDto = Object.fromEntries(
+        Object.entries(clientInfoDto).map(([key, value]) => [
+          key,
+          value && typeof value === 'object' && 'title' in value ? value.title : value,
+        ])
+      );
+
+      return { ...normalizedRevision, ...normalizedClientDto } as NormalizedClientHistoryItemType;
+    });
+
+    return {
+      content: resultContent,
+      commonClientInfoDto: commonClientInfoDto,
+      ...rest,
+    } as NormalizedClientHistoryResponse;
+  };
+
+  const {
+    CLIENT,
+    CLIENT_HISTORY: { GET_LIST },
+  } = RQKEYS.BACKOFFICE;
 
   function prepareParams() {
     const params = {
-      clientName: clientName,
-      page: pagination.page - 1,
-      size: pagination.limit,
+      queryKey: [CLIENT, GET_LIST],
+      url: `/v1/clients/history/${clientName}`,
+      dispatch,
+      // nestedKeyAccessor: 'clientInfoHistoryItemDtos',
+      params: {
+        page: pagination.page - 1,
+        size: pagination.limit,
+      },
+      normalizer,
     };
     return params;
   }
-  const clientEnglishName = data?.commonClientInfoDto?.name;
-  const clientPersianName = data?.commonClientInfoDto?.lastPersianName;
+
+  const { data: historyData, isFetching } = useChangeHistoryQuery<any>(prepareParams());
+  const clientEnglishName = historyData?.commonClientInfoDto?.name;
+  const clientPersianName = historyData?.commonClientInfoDto?.lastPersianName;
 
   useEffect(() => {
     if (clientPersianName && !clientPrimaryName) {
@@ -92,7 +136,7 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <S.TableContainer>
-        {clientName ? <DataList data={data} isFetching={isFetching} /> : <NoResult isLoading={isFetching} />}
+        {clientName ? <DataList data={historyData} isFetching={isFetching} /> : <NoResult isLoading={isFetching} />}
       </S.TableContainer>
     </S.AppContainer>
   );

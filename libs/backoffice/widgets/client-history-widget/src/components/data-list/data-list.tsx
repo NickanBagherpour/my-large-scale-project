@@ -9,12 +9,12 @@ import { useTr } from '@oxygen/translation';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns } from '../../utils/data-list.util';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-import { ClientHistoryResponseType } from '../../types';
+import { NormalizedClientHistoryResponse } from '../../types';
 
 import * as S from './data-list.style';
 
 type dataListProps = {
-  data: ClientHistoryResponseType;
+  data: NormalizedClientHistoryResponse;
   isFetching: boolean;
 };
 

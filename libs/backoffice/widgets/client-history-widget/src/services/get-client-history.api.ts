@@ -14,7 +14,7 @@ export const useGetClientHistoryQuery = (params: FetchClientHistoryParamsType) =
 
   const dispatch = useAppDispatch();
 
-  return useChangeHistoryQuery<ClientHistoryResponseType>({
+  return useChangeHistoryQuery<any>({
     queryKey: [CLIENT, GET_LIST],
     url: `/v1/clients/history/${clientName}`,
     dispatch,
