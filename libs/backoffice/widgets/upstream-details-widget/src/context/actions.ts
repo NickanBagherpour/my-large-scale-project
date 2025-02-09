@@ -28,7 +28,7 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
 }
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
-  dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
+  dispatch({ type: 'UPDATE_ERROR_MESSAGE', payload: message });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {

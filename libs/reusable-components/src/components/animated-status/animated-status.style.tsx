@@ -30,6 +30,8 @@ export const Description = styled.p<{ status: StatusProps['status'] }>`
         `
       : css`
           color: ${(p) => p.theme.text.tertiary};
+          white-space: break-spaces;
+          text-align: center;
           font-size: 1.6rem;
           margin: 0;
           font-weight: 600;

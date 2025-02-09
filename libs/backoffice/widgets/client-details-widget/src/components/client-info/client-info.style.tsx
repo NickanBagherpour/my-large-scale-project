@@ -1,4 +1,4 @@
-import { respondTo } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -49,4 +49,11 @@ export const Btns = styled.div`
 
 export const Icon = styled.i`
   font-size: 1.8rem;
+`;
+
+export const Box = styled.div`
+  background-color: ${(p) => p.theme.background._50};
+  border: ${(p) => `1px solid ${p.theme.border._100}`};
+  border-radius: var(${cssVar.radius});
+  padding-top: 2.4rem;
 `;

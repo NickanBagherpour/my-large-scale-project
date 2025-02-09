@@ -1,25 +1,21 @@
 {
-  "name": "customer-portal",
-  "version": "0.0.16",
-  "tryCount": "4",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/customer-portal",
-  "projectType": "application",
-  "tags": [
-    "type:portal"
-  ],
-  "// targets": "to see all targets run: nx show project customer-portal --web",
-  "targets": {
-    "build": {
-      "executor": "@nx/next:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "defaultConfiguration": "production",
-      "options": {
-        "root": "apps/customer-portal",
-        "outputPath": "dist/apps/customer-portal"
-      }
+    "name": "customer-portal",
+    "version": "0.0.16",
+    "tryCount": "4",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/customer-portal",
+    "projectType": "application",
+    "tags": ["type:portal"],
+    "// targets": "to see all targets run: nx show project customer-portal --web",
+    "targets": {
+        "build": {
+            "executor": "@nx/next:build",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "root": "apps/customer-portal",
+                "outputPath": "dist/apps/customer-portal"
+            }
+        }
     }
-  }
 }

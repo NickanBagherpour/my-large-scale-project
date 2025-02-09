@@ -21,10 +21,11 @@ interface ReusableFormModalProps {
   initialData?: CreateServerType;
   selectedServerId?: number | null;
   centered: boolean;
+  errorMessage?: string;
 }
 
 const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title, open, setOpen, onConfirm, status, initialData, selectedServerId, centered } = props;
+  const { title, open, setOpen, onConfirm, status, initialData, selectedServerId, centered, errorMessage } = props;
 
   const [isCreateMode, setIsCreateMode] = useState(true);
 
@@ -124,11 +125,13 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
           <AnimatedStatus
             status={createStatus[status]}
             errorProps={{
-              description: t(
-                selectedServerId
-                  ? 'upstream_details.error_edit_server_description'
-                  : 'upstream_details.error_add_server_description'
-              ),
+              description: errorMessage
+                ? t(errorMessage)
+                : t(
+                    selectedServerId
+                      ? 'upstream_details.error_edit_server_description'
+                      : 'upstream_details.error_add_server_description'
+                  ),
             }}
             loadingProps={{ description: t('upstream_details.loading_description') }}
             successProps={{

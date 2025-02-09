@@ -34,6 +34,11 @@ export const createValidationSchema = (
 
     idSelection: z.number({ required_error: t('validation.choose_one_option') }),
 
+    selectNumberRequired: z.number({
+      required_error: t('validation.required'),
+      invalid_type_error: t('validation.required') /* if value is null */,
+    }),
+
     objectMultipleSelection: z
       .array(z.object({ value: z.number(), label: z.string() }), {
         message: t('validation.choose_at_least_one_option'),
@@ -260,6 +265,12 @@ export const createValidationSchema = (
       .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.field_error')),
+
+    statusCode: z
+      .string({ required_error: t('validation.required') })
+      .refine((value) => +value >= 300 && +value <= 599, {
+        message: t('validation.status_code'),
+      }),
   };
 
   return validationSchema;

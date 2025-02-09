@@ -32,7 +32,7 @@ export default function Clients(props: Props) {
             status={isActive ? 'active' : 'inactive'}
             date={createDate}
             wordToHighlight={searchTerm}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${clientName}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${clientName}`}
           />
         ))}
       </S.Grid>
