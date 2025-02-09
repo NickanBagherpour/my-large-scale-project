@@ -13,4 +13,6 @@ export const Container = styled.div`
   border-radius: 0.8rem;
   padding: 2.4rem 1.8rem;
   margin-bottom: 2.4rem;
+
+  min-height: 14.8rem;
 `;

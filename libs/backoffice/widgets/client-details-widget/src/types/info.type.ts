@@ -15,7 +15,7 @@ export type ClientInfo = {
   isAuthorizationFlow: boolean;
   isImplicitFlow: boolean;
   isRefreshToken: boolean;
-  tagIds: number[];
+  tagIds: { code: number; title: string }[];
   organizationInfo: {
     organizationId: number;
     organizationName: string;

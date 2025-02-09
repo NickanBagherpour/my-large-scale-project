@@ -25,15 +25,15 @@ export default function LimitationsModal(props: Props) {
   const rule = createSchemaFieldRule(limitationsSchema(t));
 
   const callRateOptions = [
-    { value: 'second', label: t('second') },
-    { value: 'minute', label: t('minute') },
-    { value: 'hour', label: t('hour') },
+    { value: 'second', label: t('uikit.second') },
+    { value: 'minute', label: t('uikit.minute') },
+    { value: 'hour', label: t('uikit.hour') },
   ] as const;
 
   const totalCallLimitOptions = [
-    { value: 'day', label: t('in_day') },
-    { value: 'month', label: t('in_month') },
-    { value: 'year', label: t('in_year') },
+    { value: 'day', label: t('uikit.in_day') },
+    { value: 'month', label: t('uikit.in_month') },
+    { value: 'year', label: t('uikit.in_year') },
   ] as const;
 
   const getInitialValue = () => {
@@ -82,16 +82,21 @@ export default function LimitationsModal(props: Props) {
       destroyOnClose
       footer={[
         <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
-          {t('register_data')}
+          {t('uikit.register_data')}
         </S.RegisterBtn>,
       ]}
     >
       <S.Form form={form} onFinish={onFinish} initialValues={getInitialValue()}>
         <S.Div>
-          <S.RateLimit label={t('service_call_rate')} name={LIMITAION_FORM_NAME.serviceCallRate} rules={[rule]} colon>
+          <S.RateLimit
+            label={t('uikit.service_call_rate')}
+            name={LIMITAION_FORM_NAME.serviceCallRate}
+            rules={[rule]}
+            colon
+          >
             <S.RateInput size='middle' />
           </S.RateLimit>
-          <span>{t('in')}</span>
+          <span>{t('uikit.in')}</span>
         </S.Div>
 
         <Form.Item name={LIMITAION_FORM_NAME.serviceCallRateOptions} rules={[rule]}>
@@ -99,7 +104,7 @@ export default function LimitationsModal(props: Props) {
         </Form.Item>
 
         <Form.Item name={LIMITAION_FORM_NAME.totalCallLimit} rules={[rule]}>
-          <Input placeholder={t('total_number_of_calls_limit')} size='middle' />
+          <Input placeholder={t('uikit.total_number_of_calls_limit')} size='middle' />
         </Form.Item>
         <Form.Item name={LIMITAION_FORM_NAME.callLimitOptions} rules={[rule]}>
           <Select options={totalCallLimitOptions as unknown as SelectOptions} size='middle' />

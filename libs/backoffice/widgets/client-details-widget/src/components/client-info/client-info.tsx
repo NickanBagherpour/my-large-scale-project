@@ -5,16 +5,28 @@ import { useGetClientInfoQuery } from '../../services';
 import { ROUTES } from '@oxygen/utils';
 import Footer from '../footer/footer';
 import { useClientName } from '../../utils/use-client-name';
-import { useGetClientTypeQuery } from '../../services/get-client-types.api';
 import { NoResult } from '@oxygen/reusable-components';
+import { useEffect } from 'react';
+import { PageTitle } from '../../types';
 
-export default function ClientInfo() {
+type Props = {
+  updateTitle: ({ persian, english }: PageTitle) => void;
+};
+
+export default function ClientInfo(props: Props) {
+  const { updateTitle } = props;
   const [t] = useTr();
   const clientName = useClientName();
   const { data: clientInfo } = useGetClientInfoQuery(clientName);
-  const { data: clientTypes } = useGetClientTypeQuery();
 
-  if (!clientInfo || !clientTypes) return <Loading />;
+  useEffect(() => {
+    if (clientInfo?.clientPersianName) {
+      const { clientPersianName, clientEnglishName } = clientInfo;
+      updateTitle({ english: clientEnglishName, persian: clientPersianName });
+    }
+  }, [clientInfo, updateTitle]);
+
+  if (!clientInfo) return <Loading />;
 
   const {
     clientId,
@@ -52,12 +64,6 @@ export default function ClientInfo() {
     },
   ].reduce((acc, type) => (type.isActive ? acc.concat(type.name) : acc), [] as string[]);
 
-  const tags = tagIds.reduce((acc, tag) => {
-    const found = clientTypes.find((c) => c.code === tag);
-    if (found) return acc.concat(found);
-    else return acc;
-  }, [] as { code: number; title: string }[]);
-
   const clientInfoData = [
     { key: t('english_client_name'), value: clientEnglishName },
     { key: t('persian_client_name'), value: clientPersianName },
@@ -85,7 +91,7 @@ export default function ClientInfo() {
       key: t('tags'),
       value: (
         <S.Chips>
-          {tags?.map((t, idx) => (
+          {tagIds?.map((t, idx) => (
             <Chip key={idx} type='active'>
               {t.title}
             </Chip>
