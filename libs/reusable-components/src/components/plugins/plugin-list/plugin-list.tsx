@@ -12,7 +12,7 @@ import { Loading } from '@oxygen/ui-kit';
 import { getServiceKeys } from '../utils/get-client-service-plugins.api';
 
 type Props = {
-  plugins: PluginConfig[];
+  plugins?: PluginConfig[];
   clientName: string;
   serviceName?: string;
   dispatch: Dispatch<any>;
@@ -65,7 +65,7 @@ export default function PluginList(props: Props) {
     <>
       <Loading spinning={isPending}>
         <S.Container>
-          {plugins.map((plugin) => (
+          {plugins?.map((plugin) => (
             <PluginCard
               key={plugin.name}
               plugin={plugin}
