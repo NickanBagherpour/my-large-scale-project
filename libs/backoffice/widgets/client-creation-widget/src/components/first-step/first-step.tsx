@@ -63,7 +63,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { INQUIRY_STATUS } = RQKEYS.BACKOFFICE.CLIENT_CREATION;
   //States
   const [selectedGrantTypes, setSelectedGrantTypes] = useState([]);
-  // const [initialTags, setInitialTags] = useState(state.firstStep.tagIds);
   const [selectedTags, setSelectedTags] = useState<TagInterface[]>(state.firstStep.tagIds);
   const [searchValue, setSearchValue] = useState({
     orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
@@ -84,14 +83,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     isFetching: SSOInquiryFetching,
     refetch: SSOInquiryRefetch,
   } = useGetClientInquirySSOQuery({ 'client-name': clientName });
-
   //Effects
   useEffect(() => {
     if (isImportClient) {
       SSOInquiryRefetch();
       if (SSOInquiryData) {
         updateFirstStepAction(dispatch, SSOInquiryData);
-        setSelectedTags(SSOInquiryData.tagIds);
       }
     }
   }, [isImportClient, SSOInquiryData]);
@@ -291,6 +288,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               </SearchItemsContainer>
               <S.Divider />
               <TagPicker
+                isDisabled={isFormDisabeled}
                 tags={NameTagData}
                 selectedTags={selectedTags}
                 onTagsChange={onTagsChange}

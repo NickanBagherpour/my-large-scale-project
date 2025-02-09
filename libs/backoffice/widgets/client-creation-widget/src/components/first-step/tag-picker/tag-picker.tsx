@@ -6,6 +6,7 @@ import { FORM_ITEM } from '../../../utils/consts';
 
 const TagPicker = (props) => {
   const {
+    isDisabled,
     tags,
     isTagsFetching,
     selectedTags,
@@ -25,7 +26,7 @@ const TagPicker = (props) => {
       <S.TagPicker>
         <Form.Item name={FORM_ITEM.GRANT_TYPE}>
           <S.Select
-            disabled={loadingUpdateClient || isSuccess}
+            disabled={loadingUpdateClient || isSuccess || isDisabled}
             menu={GrantValue}
             multiSelect={true}
             onChange={onGrantTypeChange}
@@ -40,7 +41,7 @@ const TagPicker = (props) => {
         <Form.Item name={FORM_ITEM.TAG_IDS}>
           <S.Select
             loading={isTagsFetching}
-            disabled={loadingUpdateClient || isSuccess}
+            disabled={loadingUpdateClient || isSuccess || isDisabled}
             menu={tags}
             multiSelect={true}
             onChange={onTagsChange}
