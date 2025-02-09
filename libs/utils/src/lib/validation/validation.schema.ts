@@ -151,7 +151,8 @@ export const createValidationSchema = (
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.persian_name_error')),
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.persian_name_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -162,7 +163,8 @@ export const createValidationSchema = (
       })
       .regex(REGEX_PATTERNS.url, {
         message: t('validation.url_error'),
-      }),
+      })
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     optionalProtocolUrl: z //optional Protocol Url
       .string({ required_error: t('validation.required') })

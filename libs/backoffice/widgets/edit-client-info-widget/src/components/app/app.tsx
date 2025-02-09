@@ -14,6 +14,8 @@ import { CLIENT_NAME } from '../../utils/consts';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import { useGetTags } from '../../services/get-tag-info.api';
+import { useGetClientTypes } from '../../services/get-client-types.api';
 
 type AppProps = PageProps & {
   //
@@ -29,11 +31,23 @@ const App: React.FC<AppProps> = () => {
 
   const { data, isFetching } = useGetClientInfo(requestId);
 
+  const { data: tags, isFetching: isTagsFetching } = useGetTags();
+
+  const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
+
   const checkParams = (data: ClientInfoType, requestId: Nullable<string>, isLoading: boolean) => {
     if (!requestId || !data) {
       return <NoResult isLoading={isLoading} hasReturnButton={true} />;
     }
-    return <EditClient userData={data} />;
+    return (
+      <EditClient
+        userData={data}
+        tags={tags}
+        isTagsFetching={isTagsFetching}
+        clientTypes={clientTypes}
+        isClientTypesFetching={isClientTypesFetching}
+      />
+    );
   };
 
   return (

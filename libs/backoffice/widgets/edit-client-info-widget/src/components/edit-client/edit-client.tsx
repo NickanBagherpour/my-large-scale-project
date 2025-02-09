@@ -26,10 +26,14 @@ import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
   userData: ClientInfoType;
+  tags: any;
+  isTagsFetching: boolean;
+  clientTypes: any;
+  isClientTypesFetching: boolean;
 };
 
 const EditClient: React.FC<FirstStepProps> = (props) => {
-  const { userData } = props;
+  const { userData, tags, isTagsFetching, clientTypes, isClientTypesFetching } = props;
   const [t] = useTr();
   const [form] = Form.useForm();
 
@@ -43,9 +47,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const { notification } = useApp();
 
-  const { data: tags, isFetching: isTagsFetching } = useGetTags();
-
-  const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
+  console.log('ali');
 
   const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
 
