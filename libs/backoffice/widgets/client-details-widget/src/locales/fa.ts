@@ -33,4 +33,5 @@ export default {
   status: 'وضعیت',
   plugins: 'پلاگین‌ها',
   services: 'سرویس‌ها',
+  display_change_history: 'مشاهده تاریخچه تغییرات',
 };

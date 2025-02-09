@@ -14,7 +14,7 @@ const App = () => {
   const { message } = useAppState();
   const dispatch = useAppDispatch();
   const clientName = useClientName();
-  const [currentTab, setCurrentTab] = useState<Tab>('plugins');
+  const [currentTab, setCurrentTab] = useState<Tab>('client-info');
   const [localizedTitle, setLocalizedTitle] = useState<PageTitle>({ persian: '', english: '' });
 
   const widgetTitle = getWidgetTitle({

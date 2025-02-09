@@ -49,7 +49,7 @@ const ServiceSelector = (props: Props) => {
       loading={isFetching}
       isLastPage={data?.last ?? true}
       loadMore={loadMore}
-      placeholder={t('search_english_or_persian_name')}
+      placeholder={t('uikit.search_english_or_persian_name')}
       disabled={disabled}
     />
   );
