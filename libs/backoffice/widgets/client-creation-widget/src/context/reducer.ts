@@ -3,6 +3,7 @@ import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
+  orgStatus: 'normal',
   clientName: undefined,
   clientStatus: undefined,
   firstStep: {
@@ -22,7 +23,7 @@ export const initialStateValue: WidgetStateType = {
     isAuthorizationFlow: undefined,
     isImplicitFlow: undefined,
     isRefreshToken: undefined,
-    tagIds: undefined,
+    tagIds: [],
     organizationInfo: {
       organizationId: undefined,
       organizationName: undefined,
@@ -47,6 +48,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
+      return;
+    }
+    case 'UPDATE_ORG_STATUS': {
+      state.orgStatus = action.payload;
       return;
     }
     case 'RESET_ORGANIZATION_INFO': {

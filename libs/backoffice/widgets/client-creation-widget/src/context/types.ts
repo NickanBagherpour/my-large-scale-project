@@ -11,8 +11,8 @@ export type PaginationType = {
   limit: number;
 };
 export type Tag = {
+  key: number;
   label: string;
-  key: string;
 };
 
 export type FirstStepType = {
@@ -32,7 +32,7 @@ export type FirstStepType = {
   isAuthorizationFlow?: boolean;
   isImplicitFlow?: boolean;
   isRefreshToken?: boolean;
-  tagIds?: number[];
+  tagIds: Tag[];
   organizationInfo: OrganizationInfo;
 };
 export type OrganizationInfo = {
@@ -53,6 +53,7 @@ export type Representative = {
 };
 
 export type WidgetStateType = {
+  orgStatus: 'normal' | 'success' | 'error';
   clientName?: string;
   clientStatus?: number;
   firstStep: FirstStepType;
@@ -70,6 +71,10 @@ export type WidgetStateType = {
 export type WidgetActionType =
   | {
       type: 'RESET_ORGANIZATION_INFO';
+    }
+  | {
+      type: 'UPDATE_ORG_STATUS';
+      payload: WidgetStateType['orgStatus'];
     }
   | {
       type: 'ADD_ORGANIZATION_INFO';

@@ -40,7 +40,7 @@ export const prepareSubmitClientParams: any = (item, orgId) => {
     inboundAddress: item.inboundAddress,
     redirectUrl: item.redirectUrl,
     organizationNationalId: orgId,
-    tagIds: Array.isArray(item.tagIds) ? item.tagIds.map((tag) => tag.key) : [],
+    tagIds: item.tagIds.length ? item.tagIds.map((tag) => tag.key) : [],
   };
   const grantType = transformData(item.grantType);
 
@@ -54,5 +54,5 @@ export const prepareGrantTypes = (userData, GrantValue) => {
 };
 
 export const prepareTags = (tags, tagIds) => {
-  return tags.filter((tag) => tagIds.includes(tag.key)) || [];
+  return tags.filter((tag) => tagIds?.includes(tag.key)) || [];
 };

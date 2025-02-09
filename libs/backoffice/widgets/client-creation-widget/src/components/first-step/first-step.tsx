@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Form, message } from 'antd';
+import { Form, message, Tooltip } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
+import { useApp } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash } from '@oxygen/utils';
+import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
 import TagPicker from './tag-picker/tag-picker';
+import { TagInterface } from '../../types/first-step/general';
 import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
 import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import {
-  resetOrganizationInfoAction,
   updateFirstStepAction,
+  updateOrgStatusAction,
   updateOrganizationInfoAction,
   useAppDispatch,
   useAppState,
@@ -31,8 +34,6 @@ import {
 } from '../../services/first-step';
 
 import * as S from './first-step.style';
-import { TagInterface } from '../../types/first-step/general';
-import { useApp } from '@oxygen/hooks';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -45,6 +46,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
   const { notification } = useApp();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
   const [form] = Form.useForm();
@@ -58,14 +60,14 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const orgNationalId = state.firstStep.organizationInfo?.organizationNationalId;
   const aggregatorStatusParams = state.firstStep.organizationInfo.organizationNationalId;
   const isBtnDisabled = !orgNationalId;
+  const { INQUIRY_STATUS } = RQKEYS.BACKOFFICE.CLIENT_CREATION;
   //States
   const [selectedGrantTypes, setSelectedGrantTypes] = useState([]);
-  const [nameTags, setNameTags] = useState([state.firstStep.tagIds]);
-  const [selectedTags, setSelectedTags] = useState<TagInterface[]>([]);
+  // const [initialTags, setInitialTags] = useState(state.firstStep.tagIds);
+  const [selectedTags, setSelectedTags] = useState<TagInterface[]>(state.firstStep.tagIds);
   const [searchValue, setSearchValue] = useState({
     orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
   });
-
   //Mutatuions
   const { mutate: submitClient, isPending: submitClientLoading, isSuccess } = usePostSubmitClient();
   //Queries
@@ -76,21 +78,20 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     data: orgInfo,
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
-    isSuccess: searchIsSuccess,
-    isError: searchIsError,
   } = useGetOrganizationInfoQuery(searchValue);
   const {
     data: SSOInquiryData,
     isFetching: SSOInquiryFetching,
     refetch: SSOInquiryRefetch,
   } = useGetClientInquirySSOQuery({ 'client-name': clientName });
+
   //Effects
   useEffect(() => {
     if (isImportClient) {
       SSOInquiryRefetch();
       if (SSOInquiryData) {
         updateFirstStepAction(dispatch, SSOInquiryData);
-        setNameTags(SSOInquiryData.tagIds);
+        setSelectedTags(SSOInquiryData.tagIds);
       }
     }
   }, [isImportClient, SSOInquiryData]);
@@ -100,10 +101,18 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
       draftRefetch();
       if (draftData) {
         updateFirstStepAction(dispatch, draftData);
-        setNameTags(draftData.tagIds);
+        setSelectedTags(draftData.tagIds);
       }
     }
   }, [isDraft, draftData]);
+
+  useEffect(() => {
+    if (state.orgStatus === 'success') {
+      notification.success({
+        message: t('success_notif'),
+      });
+    }
+  }, [state.orgStatus]);
 
   useEffect(() => {
     if (state.firstStep) {
@@ -115,36 +124,22 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   }, [state.firstStep, form]);
 
   useEffect(() => {
-    if (orgInfo) {
+    if (orgInfo && state.orgStatus === 'success') {
       updateOrganizationInfoAction(dispatch, orgInfo);
     }
-  }, [orgInfo]);
-  useEffect(() => {
-    if (NameTagData && nameTags) {
-      const selectedTags = prepareTags(NameTagData, nameTags);
-      setSelectedTags(selectedTags);
-      form.setFieldsValue({
-        [FORM_ITEM.TAG_IDS]: selectedTags,
-      });
-    }
-  }, [NameTagData, nameTags]);
+  }, [orgInfo, state.orgStatus]);
+
   useEffect(() => {
     const foundGrantTypes = prepareGrantTypes(state.firstStep, GrantValue);
     setSelectedGrantTypes(foundGrantTypes);
     form.setFieldsValue({
       [FORM_ITEM.GRANT_TYPE]: foundGrantTypes,
     });
+    form.setFieldsValue({
+      [FORM_ITEM.TAG_IDS]: selectedTags,
+    });
   }, [state.firstStep]);
-  useEffect(() => {
-    if (searchIsSuccess) {
-      notification.success({
-        message: t('success_notif'),
-      });
-    }
-    if (searchIsError) {
-      resetOrganizationInfoAction(dispatch);
-    }
-  }, [searchIsSuccess, searchIsError]);
+
   //Handlers
   const handleReturn = () => {
     router.back();
@@ -190,7 +185,11 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId), {
       onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [INQUIRY_STATUS],
+        });
         setCurrentStep((pervStep) => pervStep + 1);
+        updateOrgStatusAction(dispatch, 'normal');
       },
     });
   };
@@ -213,21 +212,33 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         <Loading />
       ) : (
         <>
-          <S.TitleTxt>{t('organization_information')}</S.TitleTxt>
+          <S.TitleContainer>
+            <S.TitleTxt>{t('organization_information')}</S.TitleTxt>
+            <Tooltip title={t('tooltip_txt')}>
+              <S.Icon className={'icon-info-hint'} />
+            </Tooltip>
+          </S.TitleContainer>
           <S.Card>
             <S.SearchContainer>
-              <Input
+              <S.Input
                 size='large'
                 value={searchValue.orgNationalId}
                 prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
                 placeholder={t('search_organization_id_placeholder')}
                 onChange={(e) => handleChange(e)}
+                orgStatus={state.orgStatus}
               />
-
-              <Button onClick={handleSearch}>
-                {t('button.search')}
-                <i className={'icon-search-normal'} />
-              </Button>
+              {state.orgStatus === 'success' ? (
+                <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
+                  {t('re_search')}
+                  <i className={'icon-search-normal'} />
+                </Button>
+              ) : (
+                <Button onClick={handleSearch} loading={SSOInquiryFetching}>
+                  {t('button.search')}
+                  <i className={'icon-search-normal'} />
+                </Button>
+              )}
             </S.SearchContainer>
             <InfoBox data={infoBoxData} margin={0} loading={orgInfoFetching} />
           </S.Card>
@@ -280,12 +291,12 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
               </SearchItemsContainer>
               <S.Divider />
               <TagPicker
+                tags={NameTagData}
                 selectedTags={selectedTags}
                 onTagsChange={onTagsChange}
                 loadingUpdateClient={submitClientLoading}
                 isSuccess={isSuccess}
                 isTagsFetching={nameTagFetching}
-                tags={NameTagData}
                 onTagsClose={onTagsClose}
                 GrantValue={GrantValue}
                 onGrantTypeClose={onGrantTypeClose}

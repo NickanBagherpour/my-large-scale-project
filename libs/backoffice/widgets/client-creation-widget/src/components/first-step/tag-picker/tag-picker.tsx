@@ -6,17 +6,17 @@ import { FORM_ITEM } from '../../../utils/consts';
 
 const TagPicker = (props) => {
   const {
+    tags,
+    isTagsFetching,
     selectedTags,
     onTagsChange,
     onTagsClose,
-    onGrantTypeClose,
+    isSuccess,
     GrantValue,
     selectedGrantTypes,
     onGrantTypeChange,
+    onGrantTypeClose,
     loadingUpdateClient,
-    isSuccess,
-    isTagsFetching,
-    tags,
   } = props;
   const [t] = useTr();
 

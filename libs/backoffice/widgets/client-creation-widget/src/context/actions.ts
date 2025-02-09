@@ -1,15 +1,25 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, OrganizationInfo, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
+import {
+  FiltersType,
+  FirstStepType,
+  OrganizationInfo,
+  WidgetActionType,
+  WidgetDispatchType,
+  WidgetStateType,
+} from './types';
 
 export function resetOrganizationInfoAction(dispatch: WidgetDispatchType) {
   dispatch({ type: 'RESET_ORGANIZATION_INFO' });
 }
+export function updateOrgStatusAction(dispatch: WidgetDispatchType, OrgStatus: 'normal' | 'success' | 'error') {
+  dispatch({ type: 'UPDATE_ORG_STATUS', payload: OrgStatus });
+}
 export function updateOrganizationInfoAction(dispatch: WidgetDispatchType, organizationInfo: OrganizationInfo) {
   dispatch({ type: 'ADD_ORGANIZATION_INFO', payload: organizationInfo });
 }
-export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: WidgetStateType['firstStep']) {
+export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: FirstStepType) {
   dispatch({ type: 'UPDATE_FIRST_STEP_FORM', payload: firstStep });
 }
 export function addClientStatus(dispatch: WidgetDispatchType, payload: WidgetStateType['clientStatus']) {
