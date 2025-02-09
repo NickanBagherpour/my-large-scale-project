@@ -23,19 +23,26 @@ export const createValidationSchema = (
     simpleRequired: z
       .string({
         required_error: t('validation.required'),
-        invalid_type_error: t('validation.required@@') /* if value is null */,
+        invalid_type_error: t('validation.required') /* if value is null */,
       })
       .trim()
       .min(1, { message: t('validation.required') })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
-    datePicker: z
-      .date({
-        required_error: t('validation.required'),
-        invalid_type_error: t('validation.invalid_date@@@'),
-      })
-      .refine((date) => dayjs(date).isValid(), {
-        message: t('validation.invalid_date'),
-      }),
+
+    datePicker: z.preprocess(
+      (input) => {
+        // Ensure we are dealing with a string
+        // if (input instanceof Date) {
+        if (input instanceof Object) {
+          return input.toString(); // Convert Date object to ISO string
+        }
+        return input == null ? ' ' : input; // Return as is if it's already a string
+      },
+      z
+        .string({ required_error: t('error.required') })
+        .refine((value) => value !== '', { message: t('validation.required') })
+    ),
+
     searchField: z
       .string()
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') })
@@ -203,7 +210,7 @@ export const createValidationSchema = (
       .max(limits.PHONE_NUMBER, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.phoneNumber, { message: 'validation.phone_error' }),
+      .regex(REGEX_PATTERNS.phoneNumber, { message: t('validation.phone_error') }),
 
     email: z
       .string({ required_error: t('validation.required') })
@@ -246,7 +253,7 @@ export const createValidationSchema = (
       .trim()
       .min(1, t('validation.required'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.tel, t('validation.upstream_name')),
+      .regex(REGEX_PATTERNS.tel, t('validation.tel_error')),
 
     description: z
       .string({ required_error: t('validation.phone_error') })
