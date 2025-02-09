@@ -48,14 +48,14 @@ export default function TerminationsModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('request_termination')}
+      title={t('uikit.request_termination')}
       open={isOpen}
       onCancel={close}
       width={600}
       destroyOnClose
       footer={[
         <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
-          {t('register_data')}
+          {t('uikit.register_data')}
         </S.RegisterBtn>,
       ]}
     >
@@ -64,7 +64,7 @@ export default function TerminationsModal(props: Props) {
           <Form.Item
             name={TERMINATION_FORM_NAME.statusCode}
             rules={[rule]}
-            label={t('status_code')}
+            label={t('uikit.status_code')}
             className='first-item'
           >
             <Input allow={'number'} type='number' size='middle' />
@@ -75,7 +75,7 @@ export default function TerminationsModal(props: Props) {
           </Form.Item>
         </S.Row>
 
-        <Form.Item name={TERMINATION_FORM_NAME.message} rules={[rule]} label={t('msg')} className='first-item'>
+        <Form.Item name={TERMINATION_FORM_NAME.message} rules={[rule]} label={t('uikit.msg')} className='first-item'>
           <Input size='middle' />
         </Form.Item>
       </S.Form>

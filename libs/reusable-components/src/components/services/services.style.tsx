@@ -44,3 +44,8 @@ export const TrashIcon = styled.i`
 export const DetailsBtn = styled(KitButton)`
   font-weight: 600;
 `;
+
+export const Btns = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

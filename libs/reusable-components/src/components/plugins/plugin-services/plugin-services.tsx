@@ -14,18 +14,18 @@ export default function PluginServices(props: Props) {
   const [t] = useTr();
 
   const data = [
-    { name: t('english_name'), value: name },
-    { name: t('status'), value: isActive ? t('common.active') : t('common.inactive') },
-    { name: t('version'), value: version },
-    { name: t('scope'), value: scopes.join(' , ') },
-    { name: t('upstream'), value: upstream },
+    { name: t('uikit.english_name'), value: name },
+    { name: t('uikit.status'), value: isActive ? t('common.active') : t('common.inactive') },
+    { name: t('uikit.version'), value: version },
+    { name: t('uikit.scope'), value: scopes.join(' , ') },
+    { name: t('uikit.upstream'), value: upstream },
   ];
 
   return (
     <S.Container>
       <S.Header>
         <S.Tag>
-          {t('service')} {idx + 1}
+          {t('uikit.service')} {idx + 1}
         </S.Tag>
         <S.ServiceName>{persianName}</S.ServiceName>
       </S.Header>
