@@ -8,6 +8,7 @@ import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import FirstStep from '../first-step/first-step';
+import { CLIENT_NAME } from '../../utils/consts';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
 import { useGetClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
@@ -23,7 +24,7 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-  const clientName: Nullable<string> = searchParams.get('client-name');
+  const clientName: Nullable<string> = searchParams.get(CLIENT_NAME);
 
   const {
     data: inquiryStatus,

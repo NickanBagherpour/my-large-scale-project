@@ -86,7 +86,7 @@ export type WidgetActionType =
     }
   | {
       type: 'ADD_CLIENT_NAME';
-      payload: WidgetStateType['clientName'];
+      payload: string;
     }
   | {
       type: 'UPDATE_FIRST_STEP_FORM';

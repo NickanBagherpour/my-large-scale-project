@@ -52,7 +52,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [form] = Form.useForm();
   const rule = createSchemaFieldRule(createFormSchema(t));
   //Constants
-  const clientName = state.clientName;
+  const clientName = state.firstStep.clientEnglishName;
   const clientStatus = state.clientStatus;
   const isFormDisabeled = !(state.firstStep?.organizationInfo?.organizationNationalId ?? undefined);
   const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
@@ -72,7 +72,9 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
+  //-----------------------------=========================================================---------------------------------------------------
   const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
+  //-----------------------------=========================================================---------------------------------------------------
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
@@ -251,11 +253,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
             <S.Card>
               <SearchItemsContainer>
                 <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.latin_name_client')} rules={[rule]}>
-                  <Input
-                    disabled={isDraft || isImportClient || isFormDisabeled}
-                    size='large'
-                    maxLength={MAX_INPUTE_LENGTH}
-                  />
+                  <Input disabled size='large' maxLength={MAX_INPUTE_LENGTH} />
                 </Form.Item>
 
                 <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>

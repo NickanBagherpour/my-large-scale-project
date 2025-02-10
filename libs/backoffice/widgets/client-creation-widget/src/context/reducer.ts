@@ -22,8 +22,8 @@ export const initialStateValue: WidgetStateType = {
     isPasswordFlow: undefined,
     isAuthorizationFlow: undefined,
     isImplicitFlow: undefined,
-    isRefreshToken: undefined,
     tagIds: [],
+    isRefreshToken: undefined,
     organizationInfo: {
       organizationId: undefined,
       organizationName: undefined,
@@ -67,7 +67,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
     case 'ADD_CLIENT_NAME': {
-      state.clientName = action.payload;
+      state.firstStep.clientEnglishName = action.payload;
       return;
     }
 

@@ -14,5 +14,6 @@ export const useGetClientTypesQuery = () => {
     queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.SELECT_OPTIONS],
     queryFn: withErrorHandling(() => Api.getClientTypes(), dispatch),
     select: (data: DataType[]) => data.map((item) => ({ label: item.title, value: item.code })),
+    networkMode: 'offlineFirst',
   });
 };

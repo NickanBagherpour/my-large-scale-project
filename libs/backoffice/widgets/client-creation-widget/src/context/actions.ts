@@ -25,7 +25,7 @@ export function updateFirstStepAction(dispatch: WidgetDispatchType, firstStep: F
 export function addClientStatus(dispatch: WidgetDispatchType, payload: WidgetStateType['clientStatus']) {
   dispatch({ type: 'ADD_CLIENT_STATUS', payload });
 }
-export function addClientName(dispatch: WidgetDispatchType, payload: WidgetStateType['clientName']) {
+export function addClientName(dispatch: WidgetDispatchType, payload: string) {
   dispatch({ type: 'ADD_CLIENT_NAME', payload });
 }
 

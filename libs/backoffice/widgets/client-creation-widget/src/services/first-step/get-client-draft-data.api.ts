@@ -12,7 +12,8 @@ export const useGetClientDraftInfoQuery = (params: string) => {
     queryFn: withErrorHandling(() => Api.getClientDraftInfo(params), dispatch),
     enabled: false,
     select: (data: ClientDraftDataType) => {
-      const updatedTagIds = data.tagIds.map((tag) => ({
+      const sortedTagIds = data.tagIds.sort((a, b) => a.code - b.code);
+      const updatedTagIds = sortedTagIds.map((tag) => ({
         key: tag.code,
         label: tag.title,
       }));
