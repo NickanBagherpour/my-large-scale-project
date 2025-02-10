@@ -229,6 +229,13 @@ export const createValidationSchema = (
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.host, t('validation.url_error')),
 
+    domain: z // domain address
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(1, t('validation.required'))
+      .max(limits.DEFAULT_MAX_LENGTH, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.domain, t('validation.url_error')),
+
     tel: z
       .string({ required_error: t('validation.required') })
       .trim()

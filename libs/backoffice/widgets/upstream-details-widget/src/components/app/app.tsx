@@ -23,15 +23,14 @@ const App = () => {
 
   const searchParams = useSearchParams();
   const upstreamName: Nullable<string> = searchParams.get('upstreamName');
-  // const title = upstreamName ? `${t('widget_name_details')} ${t(upstreamName)}` : t('widget_name_creation');
-  // const title = upstreamName ? upstreamName : '';
+
+  const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
 
   const title = getWidgetTitle({
     defaultTitle: t('widget_name_details'),
-    secondaryTitle: upstreamName,
+    primaryTitle: upstreamDetailsInfo?.description,
+    secondaryTitle: upstreamDetailsInfo?.name,
   });
-
-  const { data: upstreamDetailsInfo, isFetching: isUpstreamFetching } = useGetUpstreamDetailsQuery(upstreamName);
 
   const [upstreamServer, setUpstreamServer] = useState<UpstreamDetailsTypeQuery>({
     list: { name: '', persianName: '', serverList: [] },

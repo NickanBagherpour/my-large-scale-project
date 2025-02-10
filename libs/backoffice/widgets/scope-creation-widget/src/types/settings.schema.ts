@@ -1,23 +1,18 @@
-import { z } from 'zod';
-import { FORM_ITEM_NAMES } from '../utils/form-item-name';
-import { REGEX_PATTERNS } from '@oxygen/utils';
+import z from 'zod';
+import { TFunction } from 'i18next';
 
-export const FormSchema = (t: (key: string) => string) =>
-  z.object({
-    [FORM_ITEM_NAMES.latinNameScope]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') })
-      .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('validation.english_validation_message'),
-      }),
-    [FORM_ITEM_NAMES.persianNameScope]: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') })
-      .regex(REGEX_PATTERNS.isPersianText, {
-        message: t('validation.persian_validation_message'),
-      }),
+import { createValidationSchema, REGEX_PATTERNS } from '@oxygen/utils';
+
+export const FORM_ITEM_NAMES = {
+  latinNameScope: 'name',
+  persianNameScope: 'description',
+} as const;
+
+export const createUpstreamType = (t: TFunction) => {
+  const validationSchema = createValidationSchema(t);
+  return z.object({
+    [FORM_ITEM_NAMES.latinNameScope]: validationSchema.defaultEnglishName,
+    [FORM_ITEM_NAMES.persianNameScope]: validationSchema.defaultPersianName,
   });
-
-export type FormValues = z.infer<ReturnType<typeof FormSchema>>;
+};
+export type CreateUpstreamType = z.infer<ReturnType<typeof createUpstreamType>>;
