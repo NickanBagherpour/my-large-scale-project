@@ -16,5 +16,6 @@ export const useGetClientTypes = () => {
         label: item.title,
       }));
     },
+    networkMode: 'offlineFirst',
   });
 };
