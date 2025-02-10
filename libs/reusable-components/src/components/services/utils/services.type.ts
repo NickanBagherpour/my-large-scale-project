@@ -1,11 +1,11 @@
 import { PaginatedData } from '@oxygen/types';
 
-type Pagination = {
+export type Pagination = {
   page: number;
   size: number;
 };
 
-export type ServiceParams = Pagination & {
+export type ServiceParams = {
   'search-field': string;
   isActive: boolean;
   sort: 'createDate,DESC' | 'createDate,ASC';

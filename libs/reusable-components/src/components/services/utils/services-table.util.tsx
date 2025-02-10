@@ -2,6 +2,7 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../services.style';
 import { TFunction } from 'i18next';
 import { Service } from './services.type';
+import WidthBadge from '../badge/badge';
 
 type Props = {
   t: TFunction;
@@ -43,13 +44,13 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      render: (scopes) => scopes.join(' , '),
+      render: (scopes) => <WidthBadge items={scopes} />,
     },
     {
       title: t('uikit.url'),
       dataIndex: 'paths',
       align: 'center',
-      render: (paths) => paths.join(' , '),
+      render: (paths) => <WidthBadge items={paths} />,
     },
     {
       title: t('uikit.version'),

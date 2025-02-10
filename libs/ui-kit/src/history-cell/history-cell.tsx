@@ -8,7 +8,7 @@ type Props = {
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value = getValueOrDash(''), hasDifference } = {} } = props;
+  const { item: { value, hasDifference } = {} } = props;
 
   const theme = useTheme();
 
@@ -24,5 +24,5 @@ export function HistoryCell(props: Props) {
     );
   }
 
-  return value;
+  return getValueOrDash(value);
 }

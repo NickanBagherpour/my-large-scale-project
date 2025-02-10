@@ -34,19 +34,20 @@ const DataTable = () => {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const dataSource = data?.content ?? [];
-  const hasResults = !data?.empty;
+
+  if (!data?.content.length) return <NoResult isLoading={isFetching} />;
 
   const columns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
-      render: (column) => getValueOrDash(column?.value),
+      render: (column) => getValueOrDash(column.value),
     },
     {
       title: t('column.admin-name'),
       dataIndex: 'modifyBy',
       ellipsis: true,
-      render: (column) => getValueOrDash(column?.value),
+      render: (column) => getValueOrDash(column.value),
     },
     {
       title: t('column.en-name'),
@@ -54,7 +55,7 @@ const DataTable = () => {
       key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
-      render: (column) => <HistoryCell item={column.value.name} />,
+      render: (column) => <HistoryCell item={column.name} />,
     },
     {
       title: t('column.fa-name'),
@@ -62,7 +63,7 @@ const DataTable = () => {
       key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (column) => <HistoryCell item={column.value.description} />,
+      render: (column) => <HistoryCell item={column.description} />,
     },
   ];
 
@@ -84,7 +85,7 @@ const DataTable = () => {
       key: 'upstream',
       ellipsis: true,
       className: 'left-to-right',
-      render: (column) => <HistoryCell item={column.value.name} />,
+      render: (column) => <HistoryCell item={column.name} />,
     },
     {
       title: t('column.fa-name'),
@@ -92,7 +93,7 @@ const DataTable = () => {
       key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (column) => <HistoryCell item={column.value.description} />,
+      render: (column) => <HistoryCell item={column.description} />,
     },
   ];
 
@@ -102,7 +103,7 @@ const DataTable = () => {
     updatePagination(dispatch, updatedPagination);
   };
 
-  return hasResults ? (
+  return (
     <S.TableContainer>
       <Table
         rowKey={'id'}
@@ -125,8 +126,6 @@ const DataTable = () => {
         onChange={handlePageChange}
       />
     </S.TableContainer>
-  ) : (
-    <NoResult isLoading={isFetching} />
   );
 };
 export default DataTable;
