@@ -6,10 +6,10 @@ import { PageProps } from '@oxygen/types';
 import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import DataList from '../data-list/data-list';
-import { useGetClientHistoryQuery } from '../../services';
 import { ClientName } from '../../types';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useGetClientHistoryQuery } from '../../services';
+import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
 
@@ -30,7 +30,9 @@ const App: React.FC<AppProps> = (props) => {
 
   const searchParams = useSearchParams();
   const clientName: ClientName = searchParams.get('clientName');
-
+  if (!clientName) {
+    notFound();
+  }
   const [clientPrimaryName, setClientPrimaryName] = useState<string | null>(null);
 
   const router = useRouter();
@@ -38,18 +40,19 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
-  const { data, isFetching } = useGetClientHistoryQuery(prepareParams());
-
-  function prepareParams() {
-    const params = {
-      clientName: clientName,
+  const preparedParams = useMemo(
+    () => ({
+      clientName,
       page: pagination.page - 1,
       size: pagination.limit,
-    };
-    return params;
-  }
-  const clientEnglishName = data?.commonClientInfoDto?.name;
-  const clientPersianName = data?.commonClientInfoDto?.lastPersianName;
+    }),
+    [clientName, pagination.page, pagination.limit]
+  );
+
+  const { data: historyData, isFetching } = useGetClientHistoryQuery(preparedParams);
+
+  const clientEnglishName = historyData?.commonClientInfoDto?.name;
+  const clientPersianName = historyData?.commonClientInfoDto?.lastPersianName;
 
   useEffect(() => {
     if (clientPersianName && !clientPrimaryName) {
@@ -79,10 +82,6 @@ const App: React.FC<AppProps> = (props) => {
     }
   }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
 
-  if (!clientName) {
-    notFound();
-  }
-
   return (
     <S.AppContainer title={widgetTitle} footer={footerButton}>
       <GlobalMessageContainer
@@ -92,7 +91,7 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <S.TableContainer>
-        {clientName ? <DataList data={data} isFetching={isFetching} /> : <NoResult isLoading={isFetching} />}
+        <DataList data={historyData} isFetching={isFetching} />
       </S.TableContainer>
     </S.AppContainer>
   );

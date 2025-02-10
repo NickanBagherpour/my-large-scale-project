@@ -26,83 +26,107 @@ type CodeTitle = {
   title: string;
 };
 
-type CommonClientInfoDto = {
-  clientId: number;
-  name: string;
-  lastPersianName: string;
-  clientType: CodeTitle;
-};
-
-type SortInfo = {
-  unsorted: boolean;
-  sorted: boolean;
-  empty: boolean;
-};
-
-type Pageable = {
-  pageNumber: number;
-  pageSize: number;
-  sort: SortInfo;
-  offset: number;
-  unpaged: boolean;
-  paged: boolean;
-};
-
 type ValueWithDifference<T> = {
   value: T;
   hasDifference: boolean;
 };
 
-type RevisionType = {
-  code: ValueWithDifference<number>;
-  title: ValueWithDifference<string>;
-};
-
-type RevisionDtoValue = {
-  revNumber: ValueWithDifference<number>;
-  revType: ValueWithDifference<RevisionType>;
-};
-
 type RevisionDto = {
-  value: RevisionDtoValue;
-  hasDifference: boolean;
+  revNumber: number;
+  revType: CodeTitle;
 };
 
-type ClientInfoDtoValue = {
-  isClientFlow: ValueWithDifference<boolean>;
-  isImplicitFlow: ValueWithDifference<boolean>;
-  isPasswordFlow: ValueWithDifference<boolean>;
-  isAuthorizationFlow: ValueWithDifference<boolean>;
-  modifyDate: ValueWithDifference<string>;
-  persianName: ValueWithDifference<string>;
-  modifyBy: ValueWithDifference<string>;
-  url: ValueWithDifference<string>;
-  inboundUrl: ValueWithDifference<string>;
-  redirectUrl: ValueWithDifference<string>;
-  deleted: ValueWithDifference<boolean>;
+export type ClientInfoDto = {
+  persianName: string;
+  isClientFlow: boolean;
+  isImplicitFlow: boolean;
+  isPasswordFlow: boolean;
+  isAuthorizationFlow: boolean;
+  modifyDate: string;
+  modifyBy: string;
+  url: string;
+  inboundUrl: string;
+  redirectUrl: string;
+  deleted: boolean;
 };
 
-type ClientInfoDto = {
-  value: ClientInfoDtoValue;
-  hasDifference: boolean;
-};
-
-export type ClientHistoryItemType = {
+export type ClientInfoHistoryItemDto = {
   revisionDto: RevisionDto;
   clientInfoDto: ClientInfoDto;
 };
 
+type Pageable = {
+  pageNumber: number;
+  pageSize: number;
+  sort: {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+  };
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+};
+
+export type CommonClientInfoDto = {
+  clientId: number;
+  name: string;
+  clientType: CodeTitle;
+  lastPersianName: string;
+};
+
 export type ClientHistoryResponseType = {
+  clientInfoHistoryItemDtos: {
+    content: ClientInfoHistoryItemDto[];
+    pageable: Pageable;
+    totalElements: number;
+    totalPages: number;
+    last: boolean;
+    first: boolean;
+    numberOfElements: number;
+    size: number;
+    number: number;
+    sort: {
+      sorted: boolean;
+      unsorted: boolean;
+      empty: boolean;
+    };
+    empty: boolean;
+  };
   commonClientInfoDto: CommonClientInfoDto;
+};
+
+export type NormalizedClientHistoryItemType = {
+  deleted: ValueWithDifference<boolean>;
+  inboundUrl: ValueWithDifference<string>;
+  isAuthorizationFlow: ValueWithDifference<boolean>;
+  isClientFlow: ValueWithDifference<boolean>;
+  isImplicitFlow: ValueWithDifference<boolean>;
+  isPasswordFlow: ValueWithDifference<boolean>;
+  modifyBy: ValueWithDifference<string>;
+  modifyDate: ValueWithDifference<string>;
+  persianName: ValueWithDifference<string>;
+  redirectUrl: ValueWithDifference<string>;
+  revNumber: ValueWithDifference<number>;
+  revType: ValueWithDifference<any>;
+  url: ValueWithDifference<string>;
+};
+
+export type NormalizedClientHistoryResponse = {
+  commonClientInfoDto: CommonClientInfoDto;
+  content: NormalizedClientHistoryItemType[];
   pageable: Pageable;
+  totalElements: number;
   totalPages: number;
   last: boolean;
-  totalElements: number;
   first: boolean;
   numberOfElements: number;
   size: number;
   number: number;
-  sort: SortInfo;
+  sort: {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+  };
   empty: boolean;
-  content: ClientHistoryItemType[];
 };
