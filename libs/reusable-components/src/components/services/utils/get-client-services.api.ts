@@ -5,13 +5,14 @@ import Api from './api';
 import { type ClientServicesParams } from './services.type';
 import { type Dispatch } from 'react';
 
-const { CLIENT_SERVICES } = RQKEYS.BACKOFFICE.CLIENT_DETAILS;
+const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
 
-export const useGetClientServices = (params: ClientServicesParams & { dispatch: Dispatch<any> }) => {
-  const { dispatch, ...restOfParams } = params;
+export const getClientServicesKeys = () => [SERVICE, CLIENT_DETAILS.CLIENT_SERVICES];
+
+export const useGetClientServices = (params: ClientServicesParams, dispatch: Dispatch<any>) => {
   return useQuery({
-    queryKey: [CLIENT_SERVICES, restOfParams],
-    queryFn: withErrorHandling(() => Api.getClientServices(restOfParams), dispatch),
+    queryKey: [...getClientServicesKeys(), params],
+    queryFn: withErrorHandling(() => Api.getClientServices(params), dispatch),
     placeholderData: keepPreviousData,
   });
 };

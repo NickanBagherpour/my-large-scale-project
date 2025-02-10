@@ -33,6 +33,8 @@ export default function Clients(props: Props) {
             date={createDate}
             wordToHighlight={searchTerm}
             href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${clientName}`}
+            hasSetting
+            isHeaderLtr
           />
         ))}
       </S.Grid>
