@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Box, Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
-import { SERVICE_STATUS } from '../../utils/consts';
+import { SERVICE_STATUS_LIST } from '../../utils/consts';
 
 export const TableContainer = styled(Box)`
   height: 100%;
@@ -55,12 +55,12 @@ export const StatusContainer = styled.p<any>`
 
   ${({ status, theme }) => {
     switch (status) {
-      case SERVICE_STATUS.OPERATIONAL:
+      case SERVICE_STATUS_LIST.ACTIVE:
         return css`
           color: ${theme.secondary.main};
         `;
 
-      case SERVICE_STATUS.STOPPED:
+      case SERVICE_STATUS_LIST.INACTIVE:
         return css`
           color: ${theme.error.main};
         `;

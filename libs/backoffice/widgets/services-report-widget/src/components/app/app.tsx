@@ -31,21 +31,20 @@ const App: React.FC<AppProps> = (props) => {
   const { data, isFetching } = useGetServicesReportQuery(prepareParams());
 
   function prepareParams() {
-    const params = {
+    return {
       searchTerm: searchTerm,
       status: status,
       page: page,
       size: rowsPerPage,
       sort: sort,
     };
-    return params;
   }
 
   return (
     <S.AppContainer
       fillContainer={true}
       title={getWidgetTitle({ defaultTitle: t('widget_name') })}
-      subtitle={`( ${getValueOrDash(data?.page?.totalElements)} )`}
+      subtitle={`( ${getValueOrDash(data?.totalElements)} )`}
     >
       <GlobalMessageContainer
         message={message}

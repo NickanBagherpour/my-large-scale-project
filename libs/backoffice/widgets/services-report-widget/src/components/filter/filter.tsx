@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 
 import { useTr } from '@oxygen/translation';
@@ -6,30 +7,34 @@ import { useBounce } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { limits } from '@oxygen/utils';
 
-import { updatePagination, updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
-import { renderChips } from '../../utils/helper';
+import {
+  updatePaginationAction,
+  updateSearchTermAction,
+  updateSortAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import { FILTER_FORM_ITEM_NAMES, SORT_ORDER } from '../../utils/consts';
 import { searchServiceSchema, SearchServiceType, Sort } from '../../types';
+import { renderChips } from '../../utils/helper';
 
 import * as S from './filter.style';
-import { createSchemaFieldRule } from 'antd-zod';
 
 type FilterProps = PageProps & {
   //
 };
 
 const Filters: React.FC<FilterProps> = (props) => {
-  const { userRole } = props;
-
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const { status, sort } = useAppState();
+
   const [value, setValue] = useState('');
 
   useBounce(() => {
-    updateSearchTerm(dispatch, value.trim());
-    updatePagination(dispatch, { page: 1 });
-  }, [value]);
+    updateSearchTermAction(dispatch, value.trim());
+    updatePaginationAction(dispatch, { page: 1 });
+  }, [value.trim()]);
 
   const [form] = Form.useForm<SearchServiceType>();
   const rule = createSchemaFieldRule(searchServiceSchema(t));
@@ -58,7 +63,7 @@ const Filters: React.FC<FilterProps> = (props) => {
             { key: SORT_ORDER.DESCENDING, title: t('filter.oldest'), icon: 'icon-arrow-descending' },
           ]}
           initialValue={sort}
-          onChange={(value) => updateSort(dispatch, value as Sort)}
+          onChange={(value) => updateSortAction(dispatch, value as Sort)}
         />
       </S.Indicators>
     </S.Container>

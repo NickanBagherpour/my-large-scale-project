@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { MessageType, Nullable } from '@oxygen/types';
+
 import { SORT_ORDER } from '../utils/consts';
 
 export type PaginationType = {
@@ -10,7 +12,7 @@ export type PaginationType = {
 export type WidgetStateType = {
   searchTerm: string;
   sort: SORT_ORDER;
-  status: any;
+  status: string;
   pagination: PaginationType;
   message: Nullable<MessageType>;
 };

@@ -4,7 +4,7 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   searchTerm: '',
   sort: SORT_ORDER.ASCENDING,
-  status: [null],
+  status: 'all',
   pagination: {
     page: INITIAL_PAGE,
     rowsPerPage: INITIAL_ROW_PER_PAGE,
@@ -28,35 +28,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_STATUS': {
       state.pagination.page = initialStateValue.pagination.page;
-
-      if (action.payload) {
-        if (Array.isArray(action.payload)) {
-          const isAllIncluded = action.payload.every((item) => state.status.includes(item));
-
-          if (isAllIncluded) {
-            state.status = state.status.filter((item) => !action.payload.includes(item));
-
-            if (state.status.length === 0) {
-              state.status = [null];
-            }
-          } else {
-            state.status = [...state.status.filter((item) => item !== null), ...action.payload];
-          }
-        } else {
-          if (state.status.includes(action.payload)) {
-            state.status = state.status.filter((item) => item !== action.payload);
-
-            if (state.status.length === 0) {
-              state.status = [null];
-            }
-          } else {
-            state.status = [...state.status.filter((item) => item !== null), action.payload];
-          }
-        }
-      } else {
-        state.status = [null];
-      }
-
+      state.status = action.payload;
       return;
     }
 

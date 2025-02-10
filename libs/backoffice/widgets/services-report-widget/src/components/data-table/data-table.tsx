@@ -5,10 +5,10 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/data-table.util';
-import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { updatePaginationAction, useAppDispatch, useAppState } from '../../context';
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 import * as S from './data-table.style';
-import { AVAILABLE_ROWS_PER_PAGE } from '../../../../client-history-widget/src/utils/consts';
 
 type DataTableProps = PageProps & {
   isLoading: boolean;
@@ -30,7 +30,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     if (lastValidTotal) setLastTotal(lastValidTotal);
 
     if (pageSize && current) {
-      updatePagination(dispatch, {
+      updatePaginationAction(dispatch, {
         page: pageSize === pagination.rowsPerPage ? current : 1,
         rowsPerPage: pageSize,
       });

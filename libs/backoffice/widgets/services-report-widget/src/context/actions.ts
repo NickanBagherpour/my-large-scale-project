@@ -3,7 +3,7 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
+export function updatePaginationAction(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
@@ -21,14 +21,14 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   return null;
 }
 
-export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+export function updateStatusAction(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 
-export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
+export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
+export function updateSortAction(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
   dispatch({ type: 'UPDATE_SORT', payload: sort });
 }
