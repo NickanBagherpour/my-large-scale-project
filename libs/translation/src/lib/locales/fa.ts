@@ -313,6 +313,7 @@ export default {
     host: 'Host',
     upstream: 'Upstream',
     tag: 'تگ',
+    upstream_persian: 'آپ‌استریم‌',
   },
 
   placeholder: {

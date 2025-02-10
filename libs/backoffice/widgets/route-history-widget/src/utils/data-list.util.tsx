@@ -30,21 +30,23 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     {
       title: t('column.action'),
       dataIndex: 'route',
-      key: 'method',
+      key: 'route',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.method.value.title}></HistoryCell>;
+        const value = item?.value?.methods?.value?.[0]?.value?.title;
+        return <HistoryCell item={value} />;
       },
     },
     {
       title: t('column.path'),
       dataIndex: 'route',
-      key: 'path',
+      key: 'paths',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.path}></HistoryCell>;
+        const value = item?.value?.paths?.value[0];
+        return <HistoryCell item={value}></HistoryCell>;
       },
     },
     {
@@ -54,7 +56,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.host}></HistoryCell>;
+        const value = item?.value?.hosts?.value[0];
+        return <HistoryCell item={value}></HistoryCell>;
       },
     },
   ];

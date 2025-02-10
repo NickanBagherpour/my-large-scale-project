@@ -10,6 +10,7 @@ import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import { useGetsServiceHistoryDataQuery } from '../../services';
 import DataTable from '../data-table/data-table';
+import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -35,7 +36,14 @@ const App: React.FC<AppProps> = () => {
   });
 
   return (
-    <Container title={t('container_title')} footer={<ReturnButton />}>
+    <Container
+      title={getWidgetTitle({
+        defaultTitle: t('subtitle'),
+        primaryTitle: data?.name,
+        secondaryTitle: data?.name,
+      })}
+      footer={<ReturnButton />}
+    >
       <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
         message={message}
