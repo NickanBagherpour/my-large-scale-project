@@ -9,18 +9,18 @@ import { useTr } from '@oxygen/translation';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns } from '../../utils/data-list.util';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-import { ClientHistoryResponseType } from '../../types';
+import { NormalizedClientHistoryResponse } from '../../types';
 
 import * as S from './data-list.style';
 
 type dataListProps = {
-  data: ClientHistoryResponseType;
+  data: NormalizedClientHistoryResponse;
   isFetching: boolean;
 };
 
 const DataList: React.FC<dataListProps> = (props) => {
   const { data, isFetching } = props;
-
+  const dataSource = data?.content || [];
   const dispatch = useAppDispatch();
   const {
     table: { pagination },
@@ -45,7 +45,7 @@ const DataList: React.FC<dataListProps> = (props) => {
       <Table
         scroll={{ x: 1200 }}
         loading={isFetching}
-        dataSource={data?.content}
+        dataSource={dataSource}
         pagination={{
           ...pagination,
           total: data?.totalElements || lastTotal,

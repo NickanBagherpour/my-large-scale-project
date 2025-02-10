@@ -15,5 +15,6 @@ export const useGetTags = () => {
         label: tag.title,
       }));
     },
+    networkMode: 'offlineFirst',
   });
 };

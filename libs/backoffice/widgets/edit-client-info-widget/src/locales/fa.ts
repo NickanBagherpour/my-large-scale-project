@@ -1,5 +1,5 @@
 export default {
-  edit_client_information: ' ویرایش اطلاعات کلاینت',
+  edit_information: ' ویرایش اطلاعات',
   edit_client_info: 'ویرایش اطلاعات فنی',
   applicant_info: 'اطلاعات کاربر متقاضی',
   select_aggregator: 'انتخاب اگریگیتور',
@@ -20,7 +20,7 @@ export default {
   },
   placeholder: {
     latin_name_client: 'نام انگلیسی کلاینت',
-    client_bale: 'نام فارسی کلاینت',
+    persian_name_client: 'نام فارسی کلاینت',
     credit_system: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',
     identity_auth: 'شناسه احراز',

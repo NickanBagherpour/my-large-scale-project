@@ -21,7 +21,6 @@ const DataTable: React.FC<AppProps> = (props) => {
   const { table } = useAppState();
   const dispatch = useAppDispatch();
   const { data, loading } = props;
-
   const lastValidTotal = data?.totalElements;
   const [lastTotal, setLastTotal] = useState(lastValidTotal);
 

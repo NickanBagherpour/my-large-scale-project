@@ -75,7 +75,7 @@ export default function Filters() {
             <S.StyledFormItem name={FILTER_FORM_ITEM_NAMES.search_by_name} label={t('search')} rules={[rule]}>
               <S.StyledInput
                 value={value}
-                placeholder={t('search_by_name')}
+                placeholder={t('placeholder.search_by_english_name', { element: t('field.upstream_persian') })}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
                 maxLength={limits.DEFAULT_MAX_LENGTH}
