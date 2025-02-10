@@ -2,15 +2,15 @@ import React from 'react';
 import { Input, Select } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { TEXT_INPUT_LIMIT } from '../../utils/consts';
+import { CLIENT_NAME_LIMIT, TEXT_INPUT_LIMIT } from '../../utils/consts';
 
 const SearchItems = ({ rule, t, clientTypes, isClientTypesFetching, loadingUpdateClient, isSuccess }) => (
   <>
     <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
-      <Input placeholder={t('placeholder.latin_name_client')} maxLength={TEXT_INPUT_LIMIT} disabled />
+      <Input placeholder={t('placeholder.latin_name_client')} maxLength={CLIENT_NAME_LIMIT} disabled />
     </Form.Item>
     <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
-      <Input placeholder={t('placeholder.client_bale')} maxLength={TEXT_INPUT_LIMIT} />
+      <Input placeholder={t('placeholder.persian_name_client')} maxLength={CLIENT_NAME_LIMIT} />
     </Form.Item>
     <Form.Item name={FORM_ITEM_NAMES.clientId} rules={[rule]} label={t('form.client_id')}>
       <Input placeholder={t('placeholder.client_id')} maxLength={TEXT_INPUT_LIMIT} disabled />

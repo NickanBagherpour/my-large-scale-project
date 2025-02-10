@@ -26,13 +26,15 @@ export default function Services(props: Props) {
   const { page, size } = pagination;
   const { mutate: assignToClient } = useAssignServiceToClient(dispatch);
   const { mutate: unassignFromClient } = useUnassignServiceFromClient(dispatch);
-  const { data, isFetching } = useGetClientServices({
-    size,
-    clientName,
-    page: page - 1,
-    sort: 'createDate,DESC',
-    dispatch,
-  });
+  const { data, isFetching } = useGetClientServices(
+    {
+      size,
+      clientName,
+      page: page - 1,
+      sort: 'createDate,DESC',
+    },
+    dispatch
+  );
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
 
@@ -74,7 +76,7 @@ export default function Services(props: Props) {
 
   return (
     <>
-      <ServiceSelector disabled={false} onSelect={onAssignToClient} />
+      <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
       <S.Header>
         <S.Title>{t('uikit.client_services')}</S.Title>
         {pageType === 'details' && (

@@ -10,7 +10,7 @@ import { getWidgetTitle } from '@oxygen/utils';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import DataTable from '../data-list/data-list';
-import { useGetsClientHistoryDataQuery } from '../../services/get-report.api';
+import { useGetsClientHistoryDataQuery } from '../../services/get-client-history.api';
 import { CLIENT_NAME } from '../../utils/consts';
 
 type AppProps = PageProps & {

@@ -3,8 +3,11 @@ import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { ServiceToClientParams } from './services.type';
 import { type Dispatch } from 'react';
+import { getClientServicesKeys } from './get-client-services.api';
 
-const { CLIENT_SERVICES } = RQKEYS.BACKOFFICE.CLIENT_DETAILS;
+const {
+  CLIENT_DETAILS: { PLUGINS },
+} = RQKEYS.BACKOFFICE;
 
 export const useUnassignServiceFromClient = (dispatch: Dispatch<any>) => {
   const queryClient = useQueryClient();
@@ -16,7 +19,8 @@ export const useUnassignServiceFromClient = (dispatch: Dispatch<any>) => {
       dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: [CLIENT_SERVICES] });
+      await queryClient.invalidateQueries({ queryKey: getClientServicesKeys() });
+      await queryClient.invalidateQueries({ queryKey: [PLUGINS] });
     },
   });
 };

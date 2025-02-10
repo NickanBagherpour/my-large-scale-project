@@ -8,7 +8,7 @@ export const REGEX_PATTERNS = {
   onlyDigit: /^[0-9]*$/,
   nationalCode: /^[0-9]{10}$/,
   positiveNumber: /^[+]?\d*\.?\d+$/,
-  phoneNumber: /^09\d{10}$/,
+  phoneNumber: /^09\d{9}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   ipOrDomainAddress:
     /^(https?:\/\/)?(((25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|1?[0-9][0-9]?)|([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+))(:\d{1,5})?$/,

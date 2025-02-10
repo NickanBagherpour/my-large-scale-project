@@ -22,12 +22,6 @@ export const renderChip = (tag, handleClose) => (
   </Chip>
 );
 
-export const getActiveFlow = (data) => {
-  return Object.entries(data)
-    .filter(([key, value]) => key.startsWith('is') && value === true)
-    .map(([key]) => key.replace(/^is/, ''));
-};
-
 export const prepareParams = (item) => {
   const obj: any = {};
 
@@ -76,13 +70,32 @@ export const prepareParams = (item) => {
   return { ...obj, ...grantType };
 };
 
-export const prepareGrantTypes = (userData, GrantValue) => {
-  const activeFlows = getActiveFlow(userData);
-  return GrantValue.filter((item) => activeFlows.includes(item.key));
-};
+export const convertApi = (data) => {
+  const filteredData = {};
 
-export const prepareTags = (tags, tagIds) => {
-  const selectedTagCodes = tagIds.map((item) => item.code);
+  const activeTagIds =
+    data.tagIds.map((tag) => ({
+      key: tag.code,
+      label: tag.title,
+    })) ?? [];
 
-  return tags.filter((tag) => selectedTagCodes.includes(tag.key)) || [];
+  const activeGrantType =
+    Object.entries(data)
+      .filter(([key, value]) => key.startsWith('is') && value === true)
+      .map(([key]) => ({
+        key: key.replace(/^is/, ''),
+        label: key.replace(/^is/, ''),
+      })) ?? [];
+
+  for (const key in data) {
+    if (!key.startsWith('is') && key !== 'tagIds') {
+      filteredData[key] = data[key];
+    }
+  }
+
+  return {
+    ...filteredData,
+    activeTagIds,
+    activeGrantType,
+  };
 };

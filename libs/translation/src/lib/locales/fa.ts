@@ -164,6 +164,7 @@ export default {
     client_services_plugin: 'پلاگین‌ سرویس‌های کلاینت',
     status: 'وضعیت',
     search_english_or_persian_name: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    call_limitation_plugin: 'پلاگین محدودیت فراخوانی کلاینت',
   },
 
   button: {
@@ -437,6 +438,8 @@ export default {
     is_not_valid: '{{val}} معتبر نیست',
     positive_number: 'فقط مقادیر مثبت معتبر هستند',
     status_code: 'کد وضعیت باید بین ۳۰۰ و ۵۹۹ باشد',
+    host_domain_error: 'آدرس host نامعتبر است',
+    tel_error: 'لطفا شماره تلفن معتبر وارد کنید',
   },
   element: {
     service: 'سرویس',

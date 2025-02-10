@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { type Dispatch, useState } from 'react';
 
 import { AdvanceSelector } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -12,21 +12,25 @@ type Props = {
   onClear?: () => void;
   onSelect: (scope: Service) => void;
   disabled: boolean;
+  dispatch: Dispatch<any>;
 };
 
 const ServiceSelector = (props: Props) => {
-  const { onSelect, disabled } = props;
+  const { onSelect, disabled, dispatch } = props;
   const [t] = useTr();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [page, setPage] = useState(0);
-  const { data, isFetching } = useGetServices({
-    'search-field': debouncedSearchTerm.trim(),
-    page,
-    size: SERVICE_PAGE_SIZE,
-    isActive: true,
-    sort: 'createDate,DESC',
-  });
+  const { data, isFetching } = useGetServices(
+    {
+      'search-field': debouncedSearchTerm.trim(),
+      page,
+      size: SERVICE_PAGE_SIZE,
+      isActive: true,
+      sort: 'createDate,DESC',
+    },
+    dispatch
+  );
 
   useBounce(() => {
     setDebouncedSearchTerm(searchTerm);

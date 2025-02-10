@@ -11,14 +11,13 @@ import { Button, Divider, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
-import { useGetTags } from '../../services/get-tag-info.api';
-import { ClientInfoType, createFormSchema, GrantType, Tag } from '../../types';
+import { ClientInfoType, clientType, createFormSchema, GrantType, Tag, TagType } from '../../types';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { initialValues } from '../../utils/initial-values';
 import { GrantValue } from '../../utils/consts';
-import { useGetClientTypes } from '../../services/get-client-types.api';
+
 import { useUpdateClient } from '../../services/post-client.api';
-import { prepareGrantTypes, prepareParams, prepareTags } from '../../utils/helper';
+import { prepareParams } from '../../utils/helper';
 import SearchItems from '../search-items/search-items';
 import TagPicker from '../tag-picker/tag-picker';
 
@@ -26,10 +25,14 @@ import * as S from './edit-client.style';
 
 type FirstStepProps = PageProps & {
   userData: ClientInfoType;
+  tags: TagType;
+  isTagsFetching: boolean;
+  clientTypes: clientType;
+  isClientTypesFetching: boolean;
 };
 
 const EditClient: React.FC<FirstStepProps> = (props) => {
-  const { userData } = props;
+  const { userData, tags, isTagsFetching, clientTypes, isClientTypesFetching } = props;
   const [t] = useTr();
   const [form] = Form.useForm();
 
@@ -37,33 +40,21 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const rule = createSchemaFieldRule(createFormSchema(t));
 
-  const [selectedGrantTypes, setSelectedGrantTypes] = useState<GrantType[]>([]);
+  const [selectedGrantTypes, setSelectedGrantTypes] = useState<GrantType[]>(userData?.activeGrantType);
 
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(userData?.activeTagIds);
 
   const { notification } = useApp();
-
-  const { data: tags, isFetching: isTagsFetching } = useGetTags();
-
-  const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
 
   const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
 
   useEffect(() => {
-    if (tags && userData?.tagIds) {
-      const selectedTags = prepareTags(tags, userData?.tagIds);
-      setSelectedTags(selectedTags);
-      form.setFieldsValue({
-        [FORM_ITEM_NAMES.tags]: selectedTags,
-      });
-    }
-  }, [tags, userData]);
-
-  useEffect(() => {
-    const foundGrantTypes = prepareGrantTypes(userData, GrantValue);
-    setSelectedGrantTypes(foundGrantTypes);
     form.setFieldsValue({
-      [FORM_ITEM_NAMES.grantType]: foundGrantTypes,
+      [FORM_ITEM_NAMES.tags]: selectedTags,
+    });
+
+    form.setFieldsValue({
+      [FORM_ITEM_NAMES.grantType]: selectedGrantTypes,
     });
   }, [userData]);
 
