@@ -32,6 +32,8 @@ export default {
     error: 'خطا',
     warning: 'هشدار',
     dashboard: 'داشبورد',
+    edit: 'ویرایش',
+    edit_data: 'ویرایش اطلاعات',
     user_role: {
       commercial_banking_admin: 'واحد بانکداری تجاری',
       business_admin: 'واحد کسب و کار',
