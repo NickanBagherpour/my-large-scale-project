@@ -68,6 +68,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
     case 'ADD_CLIENT_NAME': {
       state.firstStep.clientEnglishName = action.payload;
+      state.clientName = action.payload;
       return;
     }
 

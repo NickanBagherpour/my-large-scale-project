@@ -19,7 +19,7 @@ type Props = {
   dispatch: Dispatch<any>;
 };
 
-export default function Services(props: Props) {
+export default function (props: Props) {
   const { clientName, dispatch, pageType } = props;
   const [t] = useTr();
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
