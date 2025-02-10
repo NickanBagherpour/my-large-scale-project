@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
 import { resetMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -43,10 +44,11 @@ const App: React.FC<AppProps> = (props) => {
     return params;
   }
 
+  const title = getWidgetTitle({ defaultTitle: t('upstream_management') });
   const upstreamSubTitle = upstreams?.totalElements ? `(${upstreams?.totalElements ?? 0})` : '';
 
   return (
-    <S.UpstreamContainer title={t('upstream_management')} subtitle={upstreamSubTitle}>
+    <S.UpstreamContainer title={title} subtitle={upstreamSubTitle}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {

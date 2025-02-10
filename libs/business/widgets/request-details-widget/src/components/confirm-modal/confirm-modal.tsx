@@ -4,7 +4,7 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { getValueOrDash, limits, RQKEYS } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 
@@ -107,7 +107,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
             ),
           }}
           rows={8}
-          maxLength={150}
+          maxLength={limits.CONFIRM_REASON_MAX_LENGTH}
           placeholder={t(isConfirm ? 'description' : 'reject_reason')}
           style={{ resize: 'none' }}
         />

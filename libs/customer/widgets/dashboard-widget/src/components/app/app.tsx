@@ -34,7 +34,7 @@ const App: React.FC<AppProps> = (props) => {
   const [loading, setLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const theme = useTheme();
-  console.log('theme', theme);
+  // console.log('theme', theme);
   const reportUrl = getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
 
   // useEffect(() => {
@@ -44,6 +44,20 @@ const App: React.FC<AppProps> = (props) => {
   useEffect(() => {
     setLoading(true);
   }, [theme.id]);
+
+
+  const [url, setUrl] = useState('');
+
+  useEffect(() => {
+    async function fetchUrl() {
+      const response = await fetch('/api/auth/metabase');
+      const data = await response.json();
+      setUrl(data.url);
+    }
+
+    fetchUrl();
+  }, []);
+
 
   function getReportUrl(id: keyof typeof reportUrlList, theme = 'light') {
     const urlPostfix = `#theme=${theme}&bordered=false&titled=false`;
@@ -60,12 +74,16 @@ const App: React.FC<AppProps> = (props) => {
     }
   }
 
+
+  console.log('url', url);
+
   return (
     <>
       {loading && <Loading containerProps={{ display: 'flex', height: '100%' }} />}
       <StyledIframe
         ref={iframeRef}
-        src={reportUrl}
+        // src={reportUrl}
+        src={url}
         onLoad={() => {
           // console.log('loaded');
           setLoading(false);

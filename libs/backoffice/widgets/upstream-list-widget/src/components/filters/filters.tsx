@@ -78,7 +78,7 @@ export default function Filters() {
                 placeholder={t('search_by_name')}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
-                maxLength={limits.UPSTREAM_MAX_LENGTH}
+                maxLength={limits.DEFAULT_MAX_LENGTH}
               />
             </S.StyledFormItem>
           </Form>

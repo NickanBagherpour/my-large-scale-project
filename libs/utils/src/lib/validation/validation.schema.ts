@@ -27,10 +27,32 @@ export const createValidationSchema = (
       .trim()
       .min(1, { message: t('validation.required') })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
-    searchField: z.string().max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+    searchField: z
+      .string()
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') })
+      .optional(),
 
     idSelection: z.number({ required_error: t('validation.choose_one_option') }),
 
+    selectNumberRequired: z.number({
+      required_error: t('validation.required'),
+      invalid_type_error: t('validation.required') /* if value is null */,
+    }),
+
+    objectMultipleSelection: z
+      .array(z.object({ value: z.number(), label: z.string() }), {
+        message: t('validation.choose_at_least_one_option'),
+      })
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    objectSingleSelection: z
+      .object({
+        value: z.number(),
+        label: z.string(),
+      })
+      .refine((data) => data.value !== undefined, {
+        message: t('validation.choose_one_option'),
+      }),
     english: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
@@ -88,6 +110,16 @@ export const createValidationSchema = (
       })
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
+      }),
+
+    version: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .max(limits.VERSION_MAX, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.positiveNumber, {
+        message: t('validation.only_digit_message'),
       }),
 
     postalCode: z
@@ -211,12 +243,34 @@ export const createValidationSchema = (
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.description, t('validation.field_error')),
 
-    UpstreamServiceWeight: z
+    optionalDescription: z
+      .string()
+      .trim()
+      .max(limits.CONFIRM_REASON_MAX_LENGTH, t('validation.max_len', { val: limits.CONFIRM_REASON_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.defaultPersianName, t('validation.field_error')),
+
+    upstreamServerWeight: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, t('validation.required'))
-      .max(limits.UPSTREAM_SERVICE_WEIGHT_MAX_NUMBER, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH })),
-    // .regex(REGEX_PATTERNS.positiveNumber, t('validation.positive_number')),
+      .max(
+        limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH,
+        t('validation.max_len', { val: limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH })
+      )
+      .regex(REGEX_PATTERNS.upstreamServerWeight, t('validation.field_error')),
+
+    upstreamServerDomain: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
+      .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
+      .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.field_error')),
+
+    statusCode: z
+      .string({ required_error: t('validation.required') })
+      .refine((value) => +value >= 300 && +value <= 599, {
+        message: t('validation.status_code'),
+      }),
   };
 
   return validationSchema;

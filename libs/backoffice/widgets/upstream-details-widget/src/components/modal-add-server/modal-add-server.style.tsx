@@ -66,9 +66,13 @@ export const StyledForm = styled(Form)`
     margin-bottom: 4rem;
   }
 
-  .ant-form-item-row {
-    align-items: center;
+  .ant-form-item-label {
+    line-height: 4rem;
   }
+
+  //.ant-form-item-row {
+  //  align-items: center;
+  //}
 ` as typeof Form;
 
 export const StyledButton = styled(Button)`

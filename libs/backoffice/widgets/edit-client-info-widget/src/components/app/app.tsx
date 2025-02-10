@@ -7,9 +7,9 @@ import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 import { getWidgetTitle } from '@oxygen/utils';
 
 import EditClient from '../edit-client/edit-client';
-import { REQUEST_ID_KEY } from '../../utils/consts';
 import { useGetClientInfo } from '../../services/get-client-info.api';
 import { ClientInfoType } from '../../types';
+import { CLIENT_NAME } from '../../utils/consts';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
@@ -25,7 +25,7 @@ const App: React.FC<AppProps> = () => {
   const dispatch = useAppDispatch();
   const { message } = useAppState();
 
-  const requestId: Nullable<string> = searchParams.get(REQUEST_ID_KEY);
+  const requestId: Nullable<string> = searchParams.get(CLIENT_NAME);
 
   const { data, isFetching } = useGetClientInfo(requestId);
 

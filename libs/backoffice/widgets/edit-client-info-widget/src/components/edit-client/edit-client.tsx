@@ -6,7 +6,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { useApp } from '@oxygen/hooks';
-import { RQKEYS } from '@oxygen/utils';
+import { RQKEYS, trimValues } from '@oxygen/utils';
 import { Button, Divider, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
@@ -75,7 +75,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const onFinish = async (values) => {
-    mutate(prepareParams(values), {
+    mutate(prepareParams(trimValues(values)), {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
@@ -154,6 +154,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
           <TagPicker
             t={t}
+            rule={rule}
             selectedGrantTypes={selectedGrantTypes}
             selectedTags={selectedTags}
             onGrantTypeChange={onGrantTypeChange}

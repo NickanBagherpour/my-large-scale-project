@@ -1,8 +1,7 @@
 import { RQKEYS } from '@oxygen/utils';
 
-import Api from './api';
 import { useAppDispatch } from '../context';
-import { FetchClientHistoryParamsType } from '../types';
+import { ClientHistoryResponseType, FetchClientHistoryParamsType } from '../types';
 import { useChangeHistoryQuery } from '@oxygen/hooks';
 
 const {
@@ -15,10 +14,11 @@ export const useGetClientHistoryQuery = (params: FetchClientHistoryParamsType) =
 
   const dispatch = useAppDispatch();
 
-  return useChangeHistoryQuery<any>({
+  return useChangeHistoryQuery<ClientHistoryResponseType>({
     queryKey: [CLIENT, GET_LIST],
     url: `/v1/clients/history/${clientName}`,
     dispatch,
+    nestedKeyAccessor: 'clientInfoHistoryItemDtos',
     params: {
       page,
       size,

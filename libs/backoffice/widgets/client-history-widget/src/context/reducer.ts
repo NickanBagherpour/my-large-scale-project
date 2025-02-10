@@ -9,7 +9,6 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
-  clientName: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
@@ -21,10 +20,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
-      return;
-    }
-    case 'UPDATE_CLIENT_NAME': {
-      state.clientName = action.payload;
       return;
     }
 

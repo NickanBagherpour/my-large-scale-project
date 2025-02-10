@@ -26,6 +26,7 @@ export type WidgetStateType = {
     name: string;
     persianName: string;
   };
+  modalErrorMessage: Nullable<MessageType>;
   errorMessage: Nullable<MessageType>;
 };
 
@@ -53,6 +54,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: PaginationType;
+    }
+  | {
+      type: 'UPDATE_ERROR_MESSAGE';
+      payload: Nullable<MessageType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

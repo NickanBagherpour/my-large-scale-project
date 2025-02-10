@@ -1,5 +1,5 @@
 import { MessageType, Nullable, UserRole } from '@oxygen/types';
-import { getCookie } from './util';
+import { getCookie, isEmptyObject } from './util';
 
 export const ApiUtil = {
   downloadFile: function (data, type, extension, preferredName?) {
@@ -88,10 +88,10 @@ export const ApiUtil = {
 
       if (data?.message) {
         const hasDetails = !!data.detail;
-        const hasErrors = data.errors && typeof data.errors === 'object';
+        const hasErrors = !isEmptyObject(data.errors);
 
         // Set title and description based on the presence of details
-        let description;
+        let description = '';
         if (hasDetails) {
           description = data.detail;
         }
