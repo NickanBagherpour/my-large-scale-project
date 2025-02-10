@@ -29,8 +29,10 @@ import * as RouteDetailsMock from './route-details.mock';
 import * as getRouteChangeHistory from './route-history.mock';
 import * as RequestDetails from './request-details.mock';
 import * as editRequestListMock from './edit-request-list.mock';
+import * as ClientList from './client-list.mock';
 
 const Mockify = {
+  ...ClientList,
   ...UserMock,
   ...MenuMock,
   ...InfoTransfereeMock,
