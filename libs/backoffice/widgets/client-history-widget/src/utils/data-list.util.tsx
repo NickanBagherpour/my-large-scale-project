@@ -23,10 +23,9 @@ function renderGrantType(record) {
     { key: 'isPasswordFlow', label: 'Password Flow' },
   ];
 
-  const hasDifference = grantTypes.some(({ key }) => {
-    const value = record[key];
-    return value?.hasDifference === true;
-  });
+  if (!record) return { value: getValueOrDash(''), hasDifference: false };
+
+  const hasDifference = grantTypes.some(({ key }) => record[key]?.hasDifference === true);
 
   const grantTypeLabels = grantTypes
     .filter(({ key }) => record[key]?.value === true)
@@ -68,7 +67,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
         const isDeleted = record?.deleted?.value;
         return (
           <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {record?.revType?.value?.title?.value}
+            {getValueOrDash(record?.revType?.value?.title?.value)}
           </S.RevisionType>
         );
       },
@@ -100,7 +99,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       ellipsis: { showTitle: false },
       align: 'center',
       render: () => {
-        return getValueOrDash(clientType);
+        return getValueOrDash(clientType ?? '');
       },
     },
     {

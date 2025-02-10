@@ -2,18 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps, PaginatedData } from '@oxygen/types';
-import { useChangeHistoryQuery } from '@oxygen/hooks';
-import { getWidgetTitle, RQKEYS } from '@oxygen/utils';
+import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 
-import {
-  ClientHistoryResponseType,
-  ClientName,
-  NormalizedClientHistoryItemType,
-  NormalizedClientHistoryResponse,
-} from '../../types';
+import { ClientName } from '../../types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useGetClientHistoryQuery } from '../../services';
 import DataList from '../data-list/data-list';
 
 import * as S from './app.style';
@@ -35,7 +30,9 @@ const App: React.FC<AppProps> = (props) => {
 
   const searchParams = useSearchParams();
   const clientName: ClientName = searchParams.get('clientName');
-
+  if (!clientName) {
+    notFound();
+  }
   const [clientPrimaryName, setClientPrimaryName] = useState<string | null>(null);
 
   const router = useRouter();
@@ -43,55 +40,17 @@ const App: React.FC<AppProps> = (props) => {
     router.back();
   };
 
-  const normalizer = (
-    data: PaginatedData<any> //ClientHistoryResponseType,
-  ): NormalizedClientHistoryResponse => {
-    const fullResponse = data as unknown as ClientHistoryResponseType;
-    const {
-      commonClientInfoDto,
-      clientInfoHistoryItemDtos: { content, ...rest },
-    } = fullResponse;
-    const resultContent: NormalizedClientHistoryItemType[] = content.map((item: any) => {
-      const { revisionDto, clientInfoDto } = item;
-      const normalizedRevision = Object.fromEntries(Object.entries(revisionDto).map(([key, value]) => [key, value]));
-      const normalizedClientDto = Object.fromEntries(
-        Object.entries(clientInfoDto).map(([key, value]) => [
-          key,
-          value && typeof value === 'object' && 'title' in value ? value.title : value,
-        ])
-      );
+  const preparedParams = useMemo(
+    () => ({
+      clientName,
+      page: pagination.page - 1,
+      size: pagination.limit,
+    }),
+    [clientName, pagination.page, pagination.limit]
+  );
 
-      return { ...normalizedRevision, ...normalizedClientDto } as NormalizedClientHistoryItemType;
-    });
+  const { data: historyData, isFetching } = useGetClientHistoryQuery(preparedParams);
 
-    return {
-      content: resultContent,
-      commonClientInfoDto: commonClientInfoDto,
-      ...rest,
-    } as NormalizedClientHistoryResponse;
-  };
-
-  const {
-    CLIENT,
-    CLIENT_HISTORY: { GET_LIST },
-  } = RQKEYS.BACKOFFICE;
-
-  function prepareParams() {
-    const params = {
-      queryKey: [CLIENT, GET_LIST],
-      url: `/v1/clients/history/${clientName}`,
-      dispatch,
-      // nestedKeyAccessor: 'clientInfoHistoryItemDtos',
-      params: {
-        page: pagination.page - 1,
-        size: pagination.limit,
-      },
-      normalizer,
-    };
-    return params;
-  }
-
-  const { data: historyData, isFetching } = useChangeHistoryQuery<any>(prepareParams());
   const clientEnglishName = historyData?.commonClientInfoDto?.name;
   const clientPersianName = historyData?.commonClientInfoDto?.lastPersianName;
 
@@ -123,10 +82,6 @@ const App: React.FC<AppProps> = (props) => {
     }
   }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
 
-  if (!clientName) {
-    notFound();
-  }
-
   return (
     <S.AppContainer title={widgetTitle} footer={footerButton}>
       <GlobalMessageContainer
@@ -136,7 +91,7 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <S.TableContainer>
-        {clientName ? <DataList data={historyData} isFetching={isFetching} /> : <NoResult isLoading={isFetching} />}
+        <DataList data={historyData} isFetching={isFetching} />
       </S.TableContainer>
     </S.AppContainer>
   );

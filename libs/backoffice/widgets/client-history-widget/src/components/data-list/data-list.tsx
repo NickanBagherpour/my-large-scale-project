@@ -20,7 +20,7 @@ type dataListProps = {
 
 const DataList: React.FC<dataListProps> = (props) => {
   const { data, isFetching } = props;
-
+  const dataSource = data?.content || [];
   const dispatch = useAppDispatch();
   const {
     table: { pagination },
@@ -45,7 +45,7 @@ const DataList: React.FC<dataListProps> = (props) => {
       <Table
         scroll={{ x: 1200 }}
         loading={isFetching}
-        dataSource={data?.content}
+        dataSource={dataSource}
         pagination={{
           ...pagination,
           total: data?.totalElements || lastTotal,
