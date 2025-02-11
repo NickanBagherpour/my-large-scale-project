@@ -66,12 +66,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clients_report',
       render: (item, record) => {
         return (
-          <Button
-            variant={'text'}
-            // href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
+          <S.TableLink
+            // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+            href={''}
           >
             {t('table.clients_report')}
-          </Button>
+          </S.TableLink>
         );
       },
     },
@@ -79,12 +79,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'details',
       render: (item, record) => {
         return (
-          <Button
-            variant={'text'}
-            // href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
+          <S.TableLink
+            // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+            href={''}
           >
             {t('uikit.details')}
-          </Button>
+          </S.TableLink>
         );
       },
     },
@@ -126,23 +126,23 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
           {
             title: t('table.clients_report'),
             value: (
-              <Button
-                variant={'text'}
-                // href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
+              <S.TableLink
+                // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+                href={''}
               >
                 {t('table.clients_report')}
-              </Button>
+              </S.TableLink>
             ),
           },
           {
             title: t('uikit.details'),
             value: (
-              <Button
-                variant={'text'}
-                // href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
+              <S.TableLink
+                // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+                href={''}
               >
                 {t('uikit.details')}
-              </Button>
+              </S.TableLink>
             ),
           },
         ];

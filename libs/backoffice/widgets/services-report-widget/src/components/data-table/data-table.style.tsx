@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Link from 'next/link';
 
 import { Box, Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
@@ -48,6 +49,11 @@ export const Tag = styled(KitTag)`
   ${respondTo.down('md')} {
     margin-inline: 0;
   }
+`;
+
+export const TableLink = styled(Link)`
+  color: ${(p) => p.theme.primary.main};
+  font-size: 1.4rem;
 `;
 
 export const StatusContainer = styled.p<any>`
