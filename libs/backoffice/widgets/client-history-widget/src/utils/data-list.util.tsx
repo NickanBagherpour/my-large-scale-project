@@ -63,11 +63,11 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       align: 'center',
       width: 'min-content',
       render: (_value, record) => {
-        const variant = record?.revType?.value?.code?.value;
+        const variant = record?.revType?.code?.value;
         const isDeleted = record?.deleted?.value;
         return (
           <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {getValueOrDash(record?.revType?.value?.title?.value)}
+            {getValueOrDash(record?.revType?.title?.value)}
           </S.RevisionType>
         );
       },
@@ -76,7 +76,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.grant_type'),
       dataIndex: 'grantType',
       ellipsis: { showTitle: false },
-      className: 'right-to-left',
+      // className: 'right-to-left',
       render: (_value, record) => {
         const grantType = renderGrantType(record);
         return <HistoryCell item={grantType} />;
@@ -107,7 +107,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       dataIndex: 'url',
       ellipsis: { showTitle: false },
       align: 'center',
-      className: 'right-to-left',
+      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.url;
         return <HistoryCell item={item} />;
@@ -118,7 +118,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       dataIndex: 'inboundUrl',
       align: 'center',
       ellipsis: { showTitle: false },
-      className: 'right-to-left',
+      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.inboundUrl;
         return <HistoryCell item={item} />;
@@ -129,7 +129,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       dataIndex: 'redirectUrl',
       align: 'center',
       ellipsis: { showTitle: false },
-      className: 'right-to-left',
+      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.redirectUrl;
         return <HistoryCell item={item} />;
