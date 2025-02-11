@@ -7,7 +7,7 @@ export const TableContainer = styled.div``;
 export const Table = styled(KitTable)`
   tr {
     td.right-to-left {
-      unicode-bidi: normal !important;
+      unicode-bidi: plaintext !important;
     }
   }
 `;

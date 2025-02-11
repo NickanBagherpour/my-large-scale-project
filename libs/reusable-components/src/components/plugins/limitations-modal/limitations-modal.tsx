@@ -75,7 +75,7 @@ export default function LimitationsModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('call_limitation_for_all_services')}
+      title={t('uikit.call_limitation_plugin')}
       open={isOpen}
       onCancel={close}
       width={600}

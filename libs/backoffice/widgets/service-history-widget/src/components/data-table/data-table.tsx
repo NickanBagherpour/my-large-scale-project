@@ -29,7 +29,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       dataIndex: 'modifyDate',
       // key: 'editDate',
       render: (value, record) => {
-        return <div>{getValueOrDash(value?.value)}</div>;
+        return <HistoryCell item={value} />;
       },
       // width: 130,
     },
@@ -39,7 +39,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // key: 'adminName',
       ellipsis: true,
       render: (value, record) => {
-        return <div>{getValueOrDash(value?.value)}</div>;
+        return <HistoryCell item={value} />;
       },
       // width: 100,
     },
@@ -49,7 +49,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       // key: 'enName',
       ellipsis: true,
       render: (value, record) => {
-        return getValueOrDash(value?.value);
+        return <HistoryCell item={value} />;
       },
       // width: 100,
     },
@@ -63,31 +63,12 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       },
       // width: 170,
     },
-    // {
-    //   title: t('column.method'),
-    //   dataIndex: 'service.value.method',
-    //   // key: 'method',
-    //   render: (value, record) => {
-    //     return getValueOrDash(value);
-    //   },
-    //   // width: 20,
-    // },
-    // {
-    //   title: t('column.protocol'),
-    //   dataIndex: 'service.value.protocol',
-    //   // key: 'protocol',
-    //   render: (value, record) => {
-    //     // return getValueOrDash(convertShamsiDateFormat(value));
-    //     return getValueOrDash(value);
-    //   },
-    //   // width: 1000,
-    // },
     {
       title: t('column.access'),
       dataIndex: 'accessLevel',
       // key: 'access',
       render: (value, record) => {
-        return getValueOrDash(value?.value);
+        return <HistoryCell item={value} />;
       },
       // width: 100,
     },
@@ -105,7 +86,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       dataIndex: 'throughput',
       // key: 'throughout',
       render: (value, record) => {
-        return getValueOrDash(value?.value);
+        return <HistoryCell item={value} />;
       },
       // width: 120,
     },

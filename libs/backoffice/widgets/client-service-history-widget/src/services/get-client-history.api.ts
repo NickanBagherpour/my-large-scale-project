@@ -3,8 +3,9 @@ import { RQKEYS } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 
 import { useChangeHistoryQuery } from '@oxygen/hooks';
+import { GetClientParamsType } from '../types/common-types';
 
-export const useGetsClientHistoryDataQuery = (params) => {
+export const useGetsClientHistoryDataQuery = (params: GetClientParamsType) => {
   const { clientName, page, size } = params;
   const dispatch = useAppDispatch();
 

@@ -3,7 +3,6 @@ import { Button, Chip, InfoBox, Loading } from '@oxygen/ui-kit';
 import * as S from './client-info.style';
 import { useGetClientInfoQuery } from '../../services';
 import { ROUTES } from '@oxygen/utils';
-import Footer from '../footer/footer';
 import { useClientName } from '../../utils/use-client-name';
 import { NoResult } from '@oxygen/reusable-components';
 import { useEffect } from 'react';
@@ -124,49 +123,45 @@ export default function ClientInfo(props: Props) {
   }
 
   return (
-    <>
-      <S.Container>
-        <section>
-          <S.Header>
-            <S.TabName>{t('technical_information')}</S.TabName>
-            <S.Btns>
-              <Button
-                href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=${clientId}`}
-                color='primary'
-                variant='filled'
-              >
-                <S.Icon className='icon-clock' />
-                {t('display_change_history')}
-              </Button>
-              <Button
-                href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`}
-                color='primary'
-                variant='solid'
-              >
-                <S.Icon className='icon-edit' />
-                {t('edit')}
-              </Button>
-            </S.Btns>
-          </S.Header>
+    <S.Container>
+      <section>
+        <S.Header>
+          <S.TabName>{t('technical_information')}</S.TabName>
+          <S.Btns>
+            <Button
+              color='primary'
+              variant='filled'
+              href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientName=${clientName}`}
+            >
+              <S.Icon className='icon-clock' />
+              {t('display_change_history')}
+            </Button>
+            <Button
+              color='primary'
+              variant='solid'
+              href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?clientName=${clientName}`}
+            >
+              <S.Icon className='icon-edit' />
+              {t('edit')}
+            </Button>
+          </S.Btns>
+        </S.Header>
 
-          <InfoBox margin={0} data={clientInfoData} />
-        </section>
+        <InfoBox margin={0} data={clientInfoData} />
+      </section>
 
-        <section>
-          <S.Header>
-            <S.TabName>{t('organization_info')}</S.TabName>
-          </S.Header>
-          {orgInfoData.length ? (
-            <InfoBox margin={0} data={orgInfoData} />
-          ) : (
-            <S.Box>
-              <NoResult isLoading={false} />
-            </S.Box>
-          )}
-        </section>
-      </S.Container>
-
-      <Footer isLoading={false} />
-    </>
+      <section>
+        <S.Header>
+          <S.TabName>{t('organization_info')}</S.TabName>
+        </S.Header>
+        {orgInfoData.length ? (
+          <InfoBox margin={0} data={orgInfoData} />
+        ) : (
+          <S.Box>
+            <NoResult isLoading={false} />
+          </S.Box>
+        )}
+      </section>
+    </S.Container>
   );
 }

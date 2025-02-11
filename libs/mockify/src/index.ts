@@ -9,9 +9,7 @@ import * as SecuritiesStatusReportMock from './securities-status-report.mock';
 import * as DetailTableMock from './detail-table.mock';
 import * as GrantTypeMock from './grant-type.mock';
 import * as TagsInfo from './tags.mock';
-import * as ClientsListMock from './client-list.mock';
 import * as ServicesListMock from './services-list.mock';
-import * as ClientsDetailsMock from './client-details.mock';
 import * as ApplicantInfo from './applicant-info.mock';
 import * as ClientInfo from './client-info.mock';
 import * as ServiceHistoryMock from './service-history.mock';
@@ -31,8 +29,10 @@ import * as RouteDetailsMock from './route-details.mock';
 import * as getRouteChangeHistory from './route-history.mock';
 import * as RequestDetails from './request-details.mock';
 import * as editRequestListMock from './edit-request-list.mock';
+import * as ClientList from './client-list.mock';
 
 const Mockify = {
+  ...ClientList,
   ...UserMock,
   ...MenuMock,
   ...InfoTransfereeMock,
@@ -42,7 +42,6 @@ const Mockify = {
   ...DashboardMock,
   ...SecuritiesStatusReportMock,
   ...DetailTableMock,
-  ...ClientsListMock,
   ...ServicesListMock,
   ...ServiceHistoryMock,
   ...ServiceDetailsMock,
@@ -50,7 +49,6 @@ const Mockify = {
   ...ServiceInfoMock,
   ...GrantTypeMock,
   ...TagsInfo,
-  ...ClientsDetailsMock,
   ...ClientHistoryMock,
   ...ClientInfo,
   ...ApplicantInfo,

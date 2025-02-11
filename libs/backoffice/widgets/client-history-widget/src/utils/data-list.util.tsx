@@ -6,7 +6,7 @@ import { ColumnsType, Table, MobileColumnType, HistoryCell } from '@oxygen/ui-ki
 import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 
-import { ClientHistoryItemType } from '../types';
+import { NormalizedClientHistoryItemType } from '../types';
 
 import * as S from '../components/data-list/data-list.style';
 
@@ -23,10 +23,9 @@ function renderGrantType(record) {
     { key: 'isPasswordFlow', label: 'Password Flow' },
   ];
 
-  const hasDifference = grantTypes.some(({ key }) => {
-    const value = record[key];
-    return value?.hasDifference === true;
-  });
+  if (!record) return { value: getValueOrDash(''), hasDifference: false };
+
+  const hasDifference = grantTypes.some(({ key }) => record[key]?.hasDifference === true);
 
   const grantTypeLabels = grantTypes
     .filter(({ key }) => record[key]?.value === true)
@@ -36,7 +35,7 @@ function renderGrantType(record) {
   return { value: getValueOrDash(grantTypeLabels), hasDifference: hasDifference };
 }
 
-export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemType> {
+export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHistoryItemType> {
   const { t, clientType } = props;
 
   return [
@@ -45,8 +44,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       dataIndex: 'modifyDate',
       align: 'center',
       width: 'min-content',
-      render: (_value, record) => {
-        return convertShamsiDateFormat(record?.clientInfoDto?.value?.modifyDate?.value);
+      render: (column) => {
+        return convertShamsiDateFormat(column?.value);
       },
     },
     {
@@ -54,8 +53,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       dataIndex: 'modifyBy',
       align: 'center',
       ellipsis: { showTitle: false },
-      render: (_value, record) => {
-        return getValueOrDash(record?.clientInfoDto?.value?.modifyBy?.value);
+      render: (column) => {
+        return getValueOrDash(column?.value);
       },
     },
     {
@@ -64,11 +63,11 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       align: 'center',
       width: 'min-content',
       render: (_value, record) => {
-        const variant = record?.revisionDto?.value?.revType?.value?.code?.value;
-        const isDeleted = record?.clientInfoDto?.value?.deleted?.value;
+        const variant = record?.revType?.value?.code?.value;
+        const isDeleted = record?.deleted?.value;
         return (
           <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {record?.revisionDto?.value?.revType?.value?.title?.value}
+            {getValueOrDash(record?.revType?.value?.title?.value)}
           </S.RevisionType>
         );
       },
@@ -79,7 +78,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       ellipsis: { showTitle: false },
       className: 'right-to-left',
       render: (_value, record) => {
-        const grantType = renderGrantType(record?.clientInfoDto?.value);
+        const grantType = renderGrantType(record);
         return <HistoryCell item={grantType} />;
       },
     },
@@ -90,7 +89,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       ellipsis: { showTitle: false },
       className: 'right-to-left',
       render: (_value, record) => {
-        const persianName = record?.clientInfoDto?.value?.persianName;
+        const persianName = record?.persianName;
         return <HistoryCell item={persianName} />;
       },
     },
@@ -100,7 +99,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       ellipsis: { showTitle: false },
       align: 'center',
       render: () => {
-        return getValueOrDash(clientType);
+        return getValueOrDash(clientType ?? '');
       },
     },
     {
@@ -110,7 +109,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       align: 'center',
       className: 'right-to-left',
       render: (_value, record) => {
-        const item = record?.clientInfoDto?.value?.url;
+        const item = record?.url;
         return <HistoryCell item={item} />;
       },
     },
@@ -121,7 +120,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       ellipsis: { showTitle: false },
       className: 'right-to-left',
       render: (_value, record) => {
-        const item = record?.clientInfoDto?.value?.inboundUrl;
+        const item = record?.inboundUrl;
         return <HistoryCell item={item} />;
       },
     },
@@ -132,14 +131,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryItemTy
       ellipsis: { showTitle: false },
       className: 'right-to-left',
       render: (_value, record) => {
-        const item = record?.clientInfoDto?.value?.redirectUrl;
+        const item = record?.redirectUrl;
         return <HistoryCell item={item} />;
       },
     },
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<ClientHistoryItemType> {
+export function getMobileColumns(props: Props): ColumnsType<any> {
   const { t } = props;
 
   return [

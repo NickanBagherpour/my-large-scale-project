@@ -1,6 +1,11 @@
-import { useSearchParams } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 
-// TODO: validate this, if it doesn't exits redirect them
 export function useClientName() {
-  return useSearchParams().get('name')!;
+  const clientName = useSearchParams().get('name');
+
+  if (!clientName) {
+    return notFound();
+  }
+
+  return clientName;
 }

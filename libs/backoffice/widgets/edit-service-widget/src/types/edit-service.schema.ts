@@ -22,18 +22,10 @@ export const createEditServiceFormSchema = (t: TFunction) => {
   return z.object({
     [FORM_ITEM_NAMES.enName]: validationSchema.defaultEnglishName,
     [FORM_ITEM_NAMES.faName]: validationSchema.defaultPersianName,
-    // [FORM_ITEM_NAMES.method]: z
-    //   .string({ required_error: t('validation.required') })
-    //   .trim()
-    //   .max(MAX_LENGTH, { message: t('validation.max_length') })
-    //   .min(1, { message: t('validation.required') }),
-
-    // [FORM_ITEM_NAMES.protocol]: z.number({ required_error: t('validation.choose_one_option') }),
     [FORM_ITEM_NAMES.access]: validationSchema.objectSingleSelection,
     [FORM_ITEM_NAMES.category]: validationSchema.idSelection,
-    // [FORM_ITEM_NAMES.throughout]: z.string({ required_error: t('validation.required') }),
     [FORM_ITEM_NAMES.version]: validationSchema.version,
-    [FORM_ITEM_NAMES.owner]: validationSchema.simpleRequired,
+    [FORM_ITEM_NAMES.owner]: validationSchema.defaultPersianName,
     [FORM_ITEM_NAMES.tags]: validationSchema.tagsList,
   });
 };

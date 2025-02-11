@@ -12,7 +12,7 @@ export const FORM_ITEM_NAMES = {
 export const createServerType = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
   return z.object({
-    [FORM_ITEM_NAMES.domain]: validationSchema.upstreamServerDomain,
+    [FORM_ITEM_NAMES.domain]: validationSchema.domain,
     [FORM_ITEM_NAMES.weight]: validationSchema.upstreamServerWeight,
   });
 };
