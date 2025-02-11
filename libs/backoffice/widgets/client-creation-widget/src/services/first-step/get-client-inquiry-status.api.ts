@@ -4,10 +4,10 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../../context';
 import Api from '../api';
 
-export const useGetnameTagDataQuery = () => {
+export const useGetClientInquiryStatusQuery = (params) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.NAME_TAG],
-    queryFn: withErrorHandling(() => Api.getNameTagData(), dispatch),
+    queryKey: [RQKEYS.BACKOFFICE.CLIENT_CREATION.INQUIRY_STATUS],
+    queryFn: withErrorHandling(() => Api.getClientInquiryStatus(params), dispatch),
   });
 };

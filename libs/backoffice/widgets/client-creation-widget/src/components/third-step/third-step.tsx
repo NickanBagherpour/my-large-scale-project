@@ -1,10 +1,16 @@
+import { useRouter } from 'next/navigation';
+
+import { useApp } from '@oxygen/hooks';
+import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Loading } from '@oxygen/ui-kit';
+import { queryClient } from '@oxygen/client';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { Plugins } from '@oxygen/reusable-components';
 
-import Header from './header/header';
-import MainCard from './main-card/main-card';
-import { useGetMainCardQuery } from '../../services';
+import { PROGRESS_CODE } from '../../utils/consts';
+import { usePutProgressQuery } from '../../services';
+import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './third-step.style';
 
@@ -14,34 +20,51 @@ type ThirdStepProps = PageProps & {
 
 export const ThirdStep: React.FC<ThirdStepProps> = (props) => {
   const { setCurrentStep } = props;
+  const dispatch = useAppDispatch();
+  const state = useAppState();
   const [t] = useTr();
-  const { data, isFetching } = useGetMainCardQuery();
+  const { notification } = useApp();
+  const router = useRouter();
+
+  const clientName = state.clientName!;
+  const queryParams = {
+    clientName: clientName,
+    progressCode: PROGRESS_CODE.PLUGIN_ASSIGNED,
+  };
+  const { mutate, isPending } = usePutProgressQuery();
+
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
   };
 
-  const handleSubmit = () => {
-    setCurrentStep((perv) => perv + 1);
+  const handleSubmit = async () => {
+    mutate(queryParams, {
+      onSuccess: async () => {
+        notification.success({
+          message: t('success_notif'),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.CLIENTS_LIST.CLIENTS],
+          refetchType: 'none',
+        });
+
+        router.push(ROUTES.BACKOFFICE.CLIENT_LIST);
+      },
+    });
   };
 
   return (
-    <>
-      <S.ThirdStepContainer>
-        <Header />
-        <Loading spinning={isFetching} />
-        {data?.map((item) => (
-          <MainCard key={item.idx} {...item} />
-        ))}
-      </S.ThirdStepContainer>
+    <S.ThirdStepContainer>
+      <Plugins clientName={clientName} dispatch={dispatch} />
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={handleSubmit}>
+        <Button htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>
       </S.Footer>
-    </>
+    </S.ThirdStepContainer>
   );
 };

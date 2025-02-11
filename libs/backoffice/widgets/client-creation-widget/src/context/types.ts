@@ -11,32 +11,51 @@ export type PaginationType = {
   limit: number;
 };
 export type Tag = {
+  key: number;
   label: string;
-  key: string;
 };
 
 export type FirstStepType = {
-  grant_tag?: any;
-  add_tag?: any;
-  latin_name_client?: string;
-  persian_name_client?: string;
-  client_type?: string;
-  client_id?: string;
-  identity_auth?: string;
-  website_url?: string;
-  input_address?: string;
-  return_address?: string;
-  aggregator_status?: boolean;
-  aggregator?: string;
-  user_uame?: string;
-  national_code?: string;
-  organization_name?: string;
-  mobile_number?: string;
-  telephone?: string;
-  email?: string;
+  clientId?: number;
+  ssoClientId?: number;
+  clientEnglishName?: string;
+  clientPersianName?: string;
+  clientTypeCode?: number;
+  clientTypeName?: string;
+  clientKey?: string;
+  authorizationKey?: string;
+  websiteUrl?: string;
+  inboundAddress?: string;
+  redirectUrl?: string;
+  isClientFlow?: boolean;
+  isPasswordFlow?: boolean;
+  isAuthorizationFlow?: boolean;
+  isImplicitFlow?: boolean;
+  isRefreshToken?: boolean;
+  tagIds: Tag[];
+  organizationInfo: OrganizationInfo;
+};
+export type OrganizationInfo = {
+  organizationId?: number;
+  organizationName?: string;
+  organizationNationalId?: string;
+  isAggregator?: boolean;
+  aggregatorId?: Nullable<number>;
+  aggregatorName?: Nullable<string>;
+  representative: Representative;
+};
+
+export type Representative = {
+  nameAndLastName?: string;
+  mobileNumber?: string;
+  fixedPhoneNumber?: string;
+  representativeType?: number;
 };
 
 export type WidgetStateType = {
+  orgStatus: 'normal' | 'success' | 'error';
+  clientName?: string;
+  clientStatus?: number;
   firstStep: FirstStepType;
   secondStep: {
     table: FiltersType;
@@ -51,8 +70,27 @@ export type WidgetStateType = {
 
 export type WidgetActionType =
   | {
+      type: 'RESET_ORGANIZATION_INFO';
+    }
+  | {
+      type: 'UPDATE_ORG_STATUS';
+      payload: WidgetStateType['orgStatus'];
+    }
+  | {
+      type: 'ADD_ORGANIZATION_INFO';
+      payload: OrganizationInfo;
+    }
+  | {
+      type: 'ADD_CLIENT_STATUS';
+      payload: WidgetStateType['clientStatus'];
+    }
+  | {
+      type: 'ADD_CLIENT_NAME';
+      payload: string;
+    }
+  | {
       type: 'UPDATE_FIRST_STEP_FORM';
-      payload: Partial<FiltersType>;
+      payload: WidgetStateType['firstStep'];
     }
   | {
       type: 'UPDATE_SECOND_STEP_TABLE';
