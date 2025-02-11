@@ -86,7 +86,7 @@ export default function Services(props: Props) {
         <S.Title>{t('uikit.client_services')}</S.Title>
         {pageType === 'details' && (
           <Button
-            href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientName=${clientName}`}
             color='primary'
             variant='filled'
           >
