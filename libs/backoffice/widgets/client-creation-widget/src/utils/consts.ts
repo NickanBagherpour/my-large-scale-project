@@ -77,3 +77,7 @@ export const GrantValue = [
 ];
 
 export const CLIENT_NAME = 'client-name';
+export const PROGRESS_CODE = {
+  SERVICE_ASSIGNED: 11,
+  PLUGIN_ASSIGNED: 12,
+};

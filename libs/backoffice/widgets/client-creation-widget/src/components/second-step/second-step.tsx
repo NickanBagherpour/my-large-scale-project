@@ -9,6 +9,8 @@ import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './second-step.style';
 import { usePutProgressQuery } from '../../services';
+import { queryClient } from '@oxygen/client';
+import { PROGRESS_CODE } from '../../utils/consts';
 
 type SecondStep = PageProps & {
   setCurrentStep: any;
@@ -23,21 +25,20 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const clientName = state.clientName;
   const queryParams = {
     clientName: clientName!,
-    progressCode: 2,
+    progressCode: PROGRESS_CODE.SERVICE_ASSIGNED,
   };
-  const { refetch, isLoading } = usePutProgressQuery(queryParams);
+  const { mutate, isPending } = usePutProgressQuery();
 
   const handleReturn = () => {
     setCurrentStep((perv) => perv - 1);
   };
 
   const handleSubmit = async () => {
-    try {
-      await refetch();
-      setCurrentStep((perv) => perv + 1);
-    } catch (e) {
-      console.log('error:', e);
-    }
+    mutate(queryParams, {
+      onSuccess: async () => {
+        setCurrentStep((pervStep) => pervStep + 1);
+      },
+    });
   };
 
   return (
@@ -49,7 +50,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={handleSubmit} loading={isLoading}>
+        <Button htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

@@ -11,4 +11,5 @@ export const KEYS = createQueryKeys(prefix, [
   'INQUIRY_STATUS',
   'INQUIRY_SSO',
   'CLIENT_DRAFT_INFO',
+  'UPDATE_PROGRESS',
 ]);

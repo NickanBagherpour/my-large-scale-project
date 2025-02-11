@@ -72,9 +72,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
-  //-----------------------------=========================================================---------------------------------------------------
   const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
-  //-----------------------------=========================================================---------------------------------------------------
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
@@ -115,7 +113,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   useEffect(() => {
     if (state.firstStep) {
-      form.setFieldsValue(state.firstStep); // Update form when state.firstStep changes
+      form.setFieldsValue(state.firstStep);
       setSearchValue({
         orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
       });
