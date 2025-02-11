@@ -35,7 +35,7 @@ export const StatusContainer = styled.p<any>`
           color: ${theme.secondary.main};
         `;
 
-      case SERVICE_STATUS_LIST.INACTIVE:
+      case SERVICE_STATUS_LIST.UNACTIVE:
         return css`
           color: ${theme.error.main};
         `;

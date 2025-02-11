@@ -6,7 +6,7 @@ export const ALL_STATUS_LIST = 'all';
 
 export enum SERVICE_STATUS_LIST {
   ACTIVE = 'active',
-  INACTIVE = 'inactive',
+  UNACTIVE = 'unActive',
 }
 
 export enum SORT_ORDER {

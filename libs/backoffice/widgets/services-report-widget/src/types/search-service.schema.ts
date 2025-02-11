@@ -15,4 +15,4 @@ export const searchServiceSchema = (t: TFunction) => {
     .partial();
 };
 
-export type SearchServiceType = z.infer<typeof searchServiceSchema>;
+export type SearchServiceType = z.infer<ReturnType<typeof searchServiceSchema>>;

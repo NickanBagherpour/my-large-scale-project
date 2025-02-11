@@ -7,14 +7,14 @@ import * as S from '../components/filter/filter.style';
 const getChipProps = (currentStatus: Status, chipStatus: Status) =>
   currentStatus === chipStatus
     ? ({ type: 'active', iconProp: 'checked icon-checkmark' } as const)
-    : ({ type: 'inActive' } as const);
+    : ({ type: 'unActive' } as const);
 
 export const renderChips = (status: Status, dispatch: any, t: any) => {
   const ALL_STATUS = ALL_STATUS_LIST;
 
   const filterChips = [
     { key: SERVICE_STATUS_LIST.ACTIVE, label: t('chips.operational') },
-    { key: SERVICE_STATUS_LIST.INACTIVE, label: t('chips.stopped') },
+    { key: SERVICE_STATUS_LIST.UNACTIVE, label: t('chips.stopped') },
   ];
 
   return (
