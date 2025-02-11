@@ -48,8 +48,6 @@ const Filters: React.FC<FilterProps> = (props) => {
             placeholder={t('search_by_service_english_name')}
             prefix={<i className='icon-search-normal' />}
             onChange={(e) => setValue(e.target.value)}
-            allow={'letter'}
-            type='text'
             maxLength={limits.DEFAULT_MAX_LENGTH}
           />
         </S.FormItem>

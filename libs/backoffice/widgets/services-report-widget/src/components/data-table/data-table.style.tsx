@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import Link from 'next/link';
 
-import { Box, Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
+import { Box, Table as KitTable } from '@oxygen/ui-kit';
 
 import { SERVICE_STATUS_LIST } from '../../utils/consts';
 
@@ -18,36 +17,6 @@ export const Table = styled(KitTable)`
   & tbody > tr:has(.ant-btn-color-secondary) > td {
     border-bottom: 1px solid ${(p) => p.theme.success.main};
     background-color: ${(p) => p.theme.success._50};
-  }
-`;
-
-export const TableRow = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  div > span.item__value {
-    & a,
-    button {
-      margin-inline-end: -15px;
-    }
-  }
-`;
-
-export const StyledContainer = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-
-  i.icon-tick-circle-outlined {
-    margin: 0.3rem 0.4rem;
-    font-size: 20px;
-  }
-`;
-
-export const Tag = styled(KitTag)`
-  ${respondTo.down('md')} {
-    margin-inline: 0;
   }
 `;
 
