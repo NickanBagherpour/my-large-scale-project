@@ -22,7 +22,7 @@ export const requestRegistrationFormSchema = (t: TFunction) => {
     [FORM_ITEM.legal_person_name]: validationSchema.defaultPersianName,
     [FORM_ITEM.legal_person_type]: validationSchema.simpleRequired,
     [FORM_ITEM.registration_number]: validationSchema.required,
-    [FORM_ITEM.registration_date]: validationSchema.simpleRequired,
+    [FORM_ITEM.registration_date]: validationSchema.datePicker,
     [FORM_ITEM.national_id]: validationSchema.organizationNationalIdNumber,
     [FORM_ITEM.economy_code]: validationSchema.organizationEconomyCodeNumber,
     [FORM_ITEM.activity_field]: validationSchema.required,

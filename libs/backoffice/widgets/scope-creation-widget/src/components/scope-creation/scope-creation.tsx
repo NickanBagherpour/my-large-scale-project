@@ -10,8 +10,8 @@ import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 
-import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { FormSchema } from '../../types';
+import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from '../../types/settings.schema';
+
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { useCreateScope } from '../../services/create-scope.api';
 
@@ -25,11 +25,12 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm();
   const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
 
-  const rule = createSchemaFieldRule(FormSchema(t));
+  const [form] = Form.useForm<CreateUpstreamType>();
+
+  const rule = createSchemaFieldRule(createUpstreamType(t));
 
   const submitClick = () => {
     form.submit();

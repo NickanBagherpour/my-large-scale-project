@@ -10,6 +10,8 @@ import EditClient from '../edit-client/edit-client';
 import { useGetClientInfo } from '../../services/get-client-info.api';
 import { ClientInfoType } from '../../types';
 import { CLIENT_NAME } from '../../utils/consts';
+import { useGetTags } from '../../services/get-tag-info.api';
+import { useGetClientTypes } from '../../services/get-client-types.api';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
@@ -29,18 +31,30 @@ const App: React.FC<AppProps> = () => {
 
   const { data, isFetching } = useGetClientInfo(requestId);
 
+  const { data: tags, isFetching: isTagsFetching } = useGetTags();
+
+  const { data: clientTypes, isFetching: isClientTypesFetching } = useGetClientTypes();
+
   const checkParams = (data: ClientInfoType, requestId: Nullable<string>, isLoading: boolean) => {
     if (!requestId || !data) {
       return <NoResult isLoading={isLoading} hasReturnButton={true} />;
     }
-    return <EditClient userData={data} />;
+    return (
+      <EditClient
+        userData={data}
+        tags={tags}
+        isTagsFetching={isTagsFetching}
+        clientTypes={clientTypes}
+        isClientTypesFetching={isClientTypesFetching}
+      />
+    );
   };
 
   return (
     <S.AppContainer
       fillContainer={true}
       title={getWidgetTitle({
-        defaultTitle: t('edit_client_information'),
+        defaultTitle: t('edit_information'),
         primaryTitle: data?.clientPersianName,
         secondaryTitle: data?.clientEnglishName,
       })}

@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './services.style';
-import { type Dispatch, useState } from 'react';
+import { type Dispatch, useEffect, useState } from 'react';
 import { type TablePaginationConfig } from 'antd';
 import { getDesktopColumns, getMobileColumns } from './utils/services-table.util';
 import { Button, Table } from '@oxygen/ui-kit';
@@ -17,24 +17,31 @@ type Props = {
   clientName: string;
   pageType: 'details' | 'creation';
   dispatch: Dispatch<any>;
+  hasServices?: (hasData: boolean) => void;
 };
 
-export default function (props: Props) {
-  const { clientName, dispatch, pageType } = props;
+export default function Services(props: Props) {
+  const { clientName, dispatch, pageType, hasServices } = props;
   const [t] = useTr();
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
   const { mutate: assignToClient } = useAssignServiceToClient(dispatch);
   const { mutate: unassignFromClient } = useUnassignServiceFromClient(dispatch);
-  const { data, isFetching } = useGetClientServices({
-    size,
-    clientName,
-    page: page - 1,
-    sort: 'createDate,DESC',
-    dispatch,
-  });
+  const { data, isFetching } = useGetClientServices(
+    {
+      size,
+      clientName,
+      page: page - 1,
+      sort: 'createDate,DESC',
+    },
+    dispatch
+  );
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
+
+  useEffect(() => {
+    hasServices?.(!!data?.content.length);
+  }, [data]);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -74,12 +81,12 @@ export default function (props: Props) {
 
   return (
     <>
-      <ServiceSelector disabled={false} onSelect={onAssignToClient} />
+      <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
       <S.Header>
         <S.Title>{t('uikit.client_services')}</S.Title>
         {pageType === 'details' && (
           <Button
-            href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientId=${clientName}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_SERVICE_HISTORY}?clientName=${clientName}`}
             color='primary'
             variant='filled'
           >

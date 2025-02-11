@@ -69,7 +69,7 @@ export default function DetailsModal(props: Props) {
   return (
     <Modal
       centered
-      title={t('service_detail')}
+      title={t('uikit.service_detail')}
       open={isOpen}
       onCancel={close}
       width={1000}

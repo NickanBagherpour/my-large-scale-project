@@ -39,7 +39,7 @@ const DataTable: React.FC<AppProps> = (props) => {
   return (
     <S.TableContainer>
       <S.Table
-        title={t('subtitle')}
+        title={t('widget_name')}
         size='small'
         variant='complex'
         columns={desktopColumns}
@@ -54,7 +54,7 @@ const DataTable: React.FC<AppProps> = (props) => {
           current: table?.pagination?.page,
           hideOnSinglePage: false,
         }}
-        scroll={undefined}
+        scroll={{ x: 300 }}
         onChange={handlePageChange}
         rowKey={'id'}
       />

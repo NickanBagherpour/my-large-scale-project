@@ -9,13 +9,14 @@ import { Nullable, PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { Button, Input, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
-import { FormSchema } from '../../types';
+import { EditRouteFormSchema } from '../../types/setting.schema';
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { useGetRouteDetailsQuery, useGetServiceHttpMethod, useGetServiceProtocol } from '../../services';
 import { useEditRouteMutation } from '../../services/post-edit-route.api';
 
 import * as S from './edit-route.style';
+import { TFunction } from 'i18next';
 
 type EditScopeProps = PageProps & {
   //
@@ -26,7 +27,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
   const { notification } = useApp();
 
   const [form] = Form.useForm();
-  const rule = createSchemaFieldRule(FormSchema(t));
+  const rule = createSchemaFieldRule(EditRouteFormSchema(t));
   const submitClick = () => form.submit();
   const searchParams = useSearchParams();
   const servicename: Nullable<string> = searchParams.get('servicename');
@@ -49,10 +50,10 @@ const EditRoute: React.FC<EditScopeProps> = () => {
   useEffect(() => {
     if (routeDetails && serviceHttpMethods && serviceProtocols) {
       form.setFieldsValue({
-        [FORM_ITEM_NAMES.method]: routeDetails?.method?.code,
-        [FORM_ITEM_NAMES.protocol]: routeDetails?.protocol?.code,
-        [FORM_ITEM_NAMES.path]: routeDetails.path,
-        [FORM_ITEM_NAMES.host]: routeDetails.host,
+        [FORM_ITEM_NAMES.method]: routeDetails?.methods[0]?.code,
+        [FORM_ITEM_NAMES.protocol]: routeDetails?.protocols[0]?.code,
+        [FORM_ITEM_NAMES.path]: routeDetails.paths[0],
+        [FORM_ITEM_NAMES.host]: routeDetails.hosts[0],
       });
     }
   }, [routeDetails, serviceHttpMethods, serviceProtocols, form]);
@@ -75,19 +76,23 @@ const EditRoute: React.FC<EditScopeProps> = () => {
       ...(servicename && { serviceName: servicename }),
       ...(routeDetails.id && { id: routeDetails.id }),
       ...(selectedMethod && {
-        method: {
-          code: selectedMethod?.value,
-          title: selectedMethod?.label,
-        },
+        methods: [
+          {
+            code: selectedMethod?.value,
+            title: selectedMethod?.label,
+          },
+        ],
       }),
       ...(selectedProtocol && {
-        protocol: {
-          code: selectedProtocol?.value,
-          title: selectedProtocol?.label,
-        },
+        protocols: [
+          {
+            code: selectedProtocol?.value,
+            title: selectedProtocol?.label,
+          },
+        ],
       }),
-      ...(values[FORM_ITEM_NAMES.path] && { path: values[FORM_ITEM_NAMES.path] }),
-      ...(values[FORM_ITEM_NAMES.host] && { host: values[FORM_ITEM_NAMES.host] }),
+      ...(values[FORM_ITEM_NAMES.path] && { paths: [values[FORM_ITEM_NAMES.path]] }),
+      ...(values[FORM_ITEM_NAMES.host] && { hosts: [values[FORM_ITEM_NAMES.host]] }),
     };
 
     try {
@@ -167,21 +172,7 @@ const EditRoute: React.FC<EditScopeProps> = () => {
               />
             </Form.Item>
 
-            <Form.Item
-              name={FORM_ITEM_NAMES.host}
-              className={'span-2'}
-              label={t('host')}
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.required'),
-                },
-                // {
-                //   pattern: /^[A-Za-z][A-Za-z0-9_-]*$/,
-                //   message: t('host_validation_error'),
-                // },
-              ]}
-            >
+            <Form.Item name={FORM_ITEM_NAMES.host} className={'span-2'} label={t('host')} rules={[rule]}>
               <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholders.host')} />
             </Form.Item>
           </SearchItemsContainer>

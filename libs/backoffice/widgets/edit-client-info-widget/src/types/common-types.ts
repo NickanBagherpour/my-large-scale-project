@@ -1,3 +1,5 @@
+export type GrantValueType = 'ClientFlow' | 'PasswordFlow' | 'AuthorizationFlow' | 'ImplicitFlow' | 'RefreshToken';
+
 export type ClientInfoType = {
   clientId: number;
   ssoClientId: number;
@@ -10,13 +12,9 @@ export type ClientInfoType = {
   websiteUrl: string;
   inboundAddress: string;
   redirectUrl: string;
-  isClientFlow: boolean;
-  isPasswordFlow: boolean;
-  isAuthorizationFlow: boolean;
-  isImplicitFlow: boolean;
-  isRefreshToken: boolean;
-  tagIds: number[];
   organizationInfo: any;
+  activeTagIds: Tag[];
+  activeGrantType: GrantType[];
 };
 
 export type Tag = {
@@ -24,7 +22,14 @@ export type Tag = {
   label: string;
 };
 
-export type GrantValueType = 'ClientFlow' | 'PasswordFlow' | 'AuthorizationFlow' | 'ImplicitFlow' | 'RefreshToken';
+export type Client = {
+  value: number;
+  label: string;
+};
+
+export type TagType = Tag[];
+
+export type clientType = Client[];
 
 export type GrantType = {
   key: GrantValueType;

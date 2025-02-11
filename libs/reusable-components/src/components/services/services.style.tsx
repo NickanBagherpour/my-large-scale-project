@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Button as KitButton } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { Badge as AntBadge } from 'antd';
 
 export const Header = styled.header`
   display: flex;

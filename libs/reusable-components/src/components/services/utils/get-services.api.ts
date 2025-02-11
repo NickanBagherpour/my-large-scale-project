@@ -1,15 +1,25 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-// import { useAppDispatch } from '../context';
 import Api from './api';
-import { ServiceParams } from './services.type';
+import { type Dispatch } from 'react';
+import { SERVICE_DEFAULTS } from './const';
 
-export const useGetServices = (params: ServiceParams) => {
-  // const dispatch = useAppDispatch();
-  return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.CLIENT_DETAILS.SERVICES, params],
-    queryFn: withErrorHandling(() => Api.getServices(params) /* dispatch */),
-    placeholderData: keepPreviousData,
+const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
+
+export const useGetServices = (searchTerm: string, dispatch: Dispatch<any>) => {
+  return useInfiniteQuery({
+    queryKey: [SERVICE, CLIENT_DETAILS.SERVICES, searchTerm],
+    queryFn: ({ pageParam }) =>
+      withErrorHandling(
+        () =>
+          Api.getServices({
+            'search-field': searchTerm,
+            page: pageParam,
+            ...SERVICE_DEFAULTS,
+          }),
+        dispatch
+      )(),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.pageable.pageNumber + 1,
   });
 };

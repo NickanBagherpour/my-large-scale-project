@@ -36,7 +36,7 @@ const App: React.FC<AppProps> = () => {
     upstreamName,
   });
 
-  const title = data?.content[0]?.upstream?.value?.description?.value ?? t('subtitle');
+  const title = data?.content[0]?.upstream?.description?.value ?? t('subtitle');
 
   return (
     <Container title={title} footer={<ReturnButton />}>

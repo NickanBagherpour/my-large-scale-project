@@ -63,11 +63,17 @@ export const Settings = styled.i`
   color: ${(p) => p.theme.text.primary};
 `;
 
-export const Subtitle = styled.p`
+export const Subtitle = styled.p<{ $isRtl: boolean }>`
   font-size: 1rem;
   text-align: start;
   color: ${(p) => p.theme.text.primary};
   margin: 0.5rem 0 0;
+  ${(p) =>
+    p.$isRtl &&
+    css`
+      /*! @noflip */
+      direction: ltr;
+    `};
 `;
 
 export const Footer = styled.footer`

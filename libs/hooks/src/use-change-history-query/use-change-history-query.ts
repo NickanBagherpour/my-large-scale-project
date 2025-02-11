@@ -9,13 +9,29 @@ const calculateDifference = cache(function calculateDifference<ObjectType extend
   comparisonObject: ObjectType
 ): DifferenceMap<ObjectType> {
   return Object.entries(baseObject).reduce((result, [key, value]) => {
-    const computedDifference =
-      value !== null && typeof value === 'object' ? calculateDifference(value, comparisonObject?.[key]) : value;
+    const isObject = value !== null && typeof value === 'object';
+
+    if (Array.isArray(value)) {
+      return {
+        ...result,
+        [key]: {
+          value,
+          hasDifference: comparisonObject ? JSON.stringify(comparisonObject[key]) !== JSON.stringify(value) : false,
+        },
+      };
+    }
+
+    if (isObject) {
+      return {
+        ...result,
+        [key]: calculateDifference(value, comparisonObject?.[key]),
+      };
+    }
 
     return {
       ...result,
       [key]: {
-        value: computedDifference,
+        value,
         hasDifference: comparisonObject ? comparisonObject[key] !== value : false,
       },
     };

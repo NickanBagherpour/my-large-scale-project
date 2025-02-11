@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
+import { Tooltip } from 'antd';
 
 type Props = {
   t: TFunction;
@@ -24,37 +25,43 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'modifyBy',
       ellipsis: true,
       render: (item) => {
-        return <div>{getValueOrDash(item?.value)}</div>;
+        return <HistoryCell item={item} />;
       },
     },
     {
       title: t('column.action'),
       dataIndex: 'route',
-      key: 'method',
+      key: 'hosts',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.method.value.title}></HistoryCell>;
+        const value = item?.hosts.value.join(' ,');
+        const hasDifference = item?.hosts.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
       title: t('column.path'),
       dataIndex: 'route',
-      key: 'path',
+      key: 'paths',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.path}></HistoryCell>;
+        const value = item?.paths.value.join(' ,');
+        const hasDifference = item?.paths.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
       title: t('column.host'),
       dataIndex: 'route',
-      key: 'host',
+      key: 'methods',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item.value.host}></HistoryCell>;
+        const value = item?.methods.value.map((item) => item.title).join(' ,');
+        const hasDifference = item?.methods.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
   ];

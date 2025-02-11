@@ -1,5 +1,5 @@
-import { clientInfo, services } from './data/client-details.data';
-import type { Pagination, Service, ClientInfo } from '@oxygen/types';
+import { clientInfo, plugins, services } from './data/client-details.data';
+import type { Pagination, Service, ClientInfo, Plugin } from '@oxygen/types';
 import { grantType } from './data/grant-type';
 import { TagsData } from './data/tags';
 import { selectOptions } from './data/select-options.data';
@@ -41,6 +41,14 @@ export const getSelectOptions = async () => {
     setTimeout(() => {
       resolve({ data: selectOptions });
     }, 2500);
+  });
+};
+
+export const getPlugins = async () => {
+  return new Promise<{ data: Plugin[] }>((resolve) => {
+    setTimeout(() => {
+      resolve({ data: plugins });
+    }, 700);
   });
 };
 

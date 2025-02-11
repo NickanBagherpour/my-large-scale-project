@@ -16,6 +16,10 @@ export const Container = styled.div`
       width: 100%;
     }
   }
+
+  input {
+    height: 100%;
+  }
 `;
 
 export const Item = styled.div`
