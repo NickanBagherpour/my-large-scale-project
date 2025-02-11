@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import Filters from '../filters/filters';
+import ClientReport from '../client-report/client-report';
+
+import { useGetClientReportQuery } from '../../services';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
@@ -16,22 +22,45 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const { message, searchTerm, table, ...fetchState } = useAppState();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const prepareServiceParams = () => {
+    return {
+      // isActive: status,
+      // 'search-field': searchTerm ? searchTerm : null,
+      page: table.pagination.page - 1,
+      ...(searchTerm && { 'search-field': searchTerm }),
+      size: table.pagination.rowsPerPage,
+      // sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
+    };
+  };
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  const { data: clientReport, isFetching: isClientReportListFetching } = useGetClientReportQuery(
+    prepareServiceParams()
+  );
 
-     return params;
-   }
- */
+  const title = getWidgetTitle({
+    defaultTitle: t('widget_name_client_detail'),
+  });
 
-  return <S.AppContainer title={'ClientReportWidget'}>ClientReportWidget</S.AppContainer>;
+  return (
+    <>
+      <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
+
+      <S.ClientReportContainer title={title}>
+        <Filters />
+        <ClientReport
+          isFetching={isClientReportListFetching}
+          data={clientReport?.content}
+          total={clientReport?.totalElements}
+          searchTerm={searchTerm}
+          isLoading={isClientReportListFetching}
+          wordToHighlight={searchTerm ?? ''}
+          // changeStatus={(status, name) => changeStatusHandler(status, name)}
+        />
+      </S.ClientReportContainer>
+    </>
+  );
 };
 
 export default App;

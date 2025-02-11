@@ -8,10 +8,12 @@ export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
+  rowsPerPage: number;
 };
 
 export type WidgetStateType = {
+  searchTerm: string;
+  page: number;
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -24,6 +26,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
+    }
+  | {
+      type: 'UPDATE_SEARCH_TERM';
+      payload: WidgetStateType['searchTerm'];
     }
   | {
       type: 'UPDATE_FILTERS';
