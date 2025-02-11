@@ -22,7 +22,7 @@ export const INQUIRY = {
   ItemName: 'name',
 } as const;
 export const API_URLS = {
-  service: '/v1/services/service-inquiry',
+  service: '/v1/services/inquiry-service-status',
   client: '/v1/clients/inquiry-client-status',
 } as const;
 export const UPLOAD_URLS = {
