@@ -12,7 +12,7 @@ export const createGeneralInfoSchema = (t: TFunction) => {
     [SERVICE_NAMES.access]: validationSchema.idSelection,
     [SERVICE_NAMES.category]: validationSchema.idSelection,
     [SERVICE_NAMES.throughput]: validationSchema.idSelection,
-    [SERVICE_NAMES.version]: validationSchema.required,
+    [SERVICE_NAMES.version]: validationSchema.version,
     [SERVICE_NAMES.owner]: validationSchema.required,
     [SERVICE_NAMES.tags]: validationSchema.tagsList,
   });

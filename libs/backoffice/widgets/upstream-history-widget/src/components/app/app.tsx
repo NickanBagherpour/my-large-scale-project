@@ -11,6 +11,7 @@ import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import * as S from './app.style';
+import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -36,10 +37,16 @@ const App: React.FC<AppProps> = () => {
     upstreamName,
   });
 
-  const title = data?.content[0]?.upstream?.description?.value ?? t('subtitle');
+  const { title, description } = data?.content[0].upstream ?? {};
+
+  const widgetTitle = getWidgetTitle({
+    defaultTitle: t('subtitle'),
+    primaryTitle: t(description?.value),
+    secondaryTitle: t(title?.value),
+  });
 
   return (
-    <Container title={title} footer={<ReturnButton />}>
+    <Container title={widgetTitle} footer={<ReturnButton />}>
       <GlobalMessageContainer
         containerProps={{ margin: '1.6rem 0' }}
         message={message}
