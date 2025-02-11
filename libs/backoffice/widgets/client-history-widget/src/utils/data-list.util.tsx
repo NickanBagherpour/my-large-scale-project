@@ -52,7 +52,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_by'),
       dataIndex: 'modifyBy',
       align: 'center',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       render: (column) => {
         return getValueOrDash(column?.value);
       },
@@ -75,7 +75,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       // className: 'right-to-left',
       render: (_value, record) => {
         const grantType = renderGrantType(record);
@@ -86,7 +86,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       className: 'right-to-left',
       render: (_value, record) => {
         const persianName = record?.persianName;
@@ -96,7 +96,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       align: 'center',
       render: () => {
         return getValueOrDash(clientType ?? '');
@@ -105,7 +105,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.url'),
       dataIndex: 'url',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       align: 'center',
       // className: 'right-to-left',
       render: (_value, record) => {
@@ -117,7 +117,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.inbound_url'),
       dataIndex: 'inboundUrl',
       align: 'center',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.inboundUrl;
@@ -128,7 +128,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.redirect_url'),
       dataIndex: 'redirectUrl',
       align: 'center',
-      ellipsis: { showTitle: false },
+      ellipsis: true,
       // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.redirectUrl;
