@@ -45,7 +45,7 @@ const Api = {
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
   postCofirmData: async (serviceName: string) => client.post(`${portalUrl}/v1/services/confirm-info/${serviceName}`),
   getServiceInquiry: async (serviceName: string) =>
-    client.get<ServiceInquiry>(`${portalUrl}/v1/services/service-inquiry`, {
+    client.get<ServiceInquiry>(`${portalUrl}/v1/services/inquiry-service-status`, {
       params: { 'service-name': serviceName },
     }),
   postRegisterToBaam: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
