@@ -14,6 +14,7 @@ import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@
 import { createFormSchema } from '../../types';
 import TagPicker from './tag-picker/tag-picker';
 import { TagInterface } from '../../types/first-step/general';
+import CenteredLoading from '../centered-loading/centered-loading';
 import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
 import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import {
@@ -58,9 +59,10 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
   const isDraft = clientStatus === ClientInquiryStatus.CLIENT_IS_DRAFT;
   const orgNationalId = state.firstStep.organizationInfo?.organizationNationalId;
-  const aggregatorStatusParams = state.firstStep.organizationInfo.organizationNationalId;
+  const aggregatorStatusParams = state.firstStep.organizationInfo?.organizationNationalId;
   const isBtnDisabled = !orgNationalId;
   const { INQUIRY_STATUS } = RQKEYS.BACKOFFICE.CLIENT_CREATION;
+  const ssoClientId = state.firstStep.ssoClientId;
   //States
   const [selectedGrantTypes, setSelectedGrantTypes] = useState([]);
   const [selectedTags, setSelectedTags] = useState<TagInterface[]>(state.firstStep.tagIds);
@@ -180,7 +182,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const onFinish = async (values) => {
-    submitClient(prepareSubmitClientParams(values, orgNationalId), {
+    submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
           queryKey: [INQUIRY_STATUS],
@@ -206,7 +208,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   return (
     <S.FirstStepContainer>
       {draftFetching || SSOInquiryFetching ? (
-        <Loading />
+        <CenteredLoading />
       ) : (
         <>
           <S.TitleContainer>
@@ -225,7 +227,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 onChange={(e) => handleChange(e)}
                 orgStatus={state.orgStatus}
               />
-              {state.orgStatus === 'success' ? (
+              {!!state.firstStep.organizationInfo?.organizationNationalId === true ? (
                 <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
                   {t('re_search')}
                   <i className={'icon-search-normal'} />

@@ -1,18 +1,18 @@
 import { useRouter } from 'next/navigation';
+
+import { useApp } from '@oxygen/hooks';
 import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { queryClient } from '@oxygen/client';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { Plugins } from '@oxygen/reusable-components';
 
-import { useGetMainCardQuery, usePutProgressQuery } from '../../services';
+import { PROGRESS_CODE } from '../../utils/consts';
+import { usePutProgressQuery } from '../../services';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './third-step.style';
-import { useApp } from '@oxygen/hooks';
-import { message } from 'antd';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
-import { PROGRESS_CODE } from '../../utils/consts';
-import { queryClient } from '@oxygen/client';
 
 type ThirdStepProps = PageProps & {
   setCurrentStep: any;

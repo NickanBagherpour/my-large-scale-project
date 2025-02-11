@@ -22,6 +22,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
+  const [hasValue, setHasValue] = useState(true);
   const clientName = state.clientName;
   const queryParams = {
     clientName: clientName!,
@@ -44,13 +45,18 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   return (
     <S.SecondStepContainer>
       <Box flexGrow={1}>
-        <Services clientName={clientName!} dispatch={dispatch} pageType='creation' />
+        <Services
+          clientName={clientName!}
+          dispatch={dispatch}
+          pageType='creation'
+          hasServices={(hasData) => setHasValue(!hasData)}
+        />
       </Box>
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>
           {t('return')}
         </Button>
-        <Button htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
+        <Button htmlType={'submit'} onClick={handleSubmit} disabled={hasValue} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
         </Button>

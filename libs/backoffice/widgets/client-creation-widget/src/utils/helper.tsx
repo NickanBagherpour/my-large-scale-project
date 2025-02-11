@@ -28,9 +28,9 @@ export const getActiveFlow = (data) => {
     .map(([key]) => key.replace(/^is/, ''));
 };
 
-export const prepareSubmitClientParams: any = (item, orgId) => {
+export const prepareSubmitClientParams: any = (item, orgId, ssoId) => {
   const params = {
-    ssoClientId: item.ssoClientId,
+    ssoClientId: ssoId,
     clientEnglishName: item.clientEnglishName,
     clientPersianName: item.clientPersianName,
     clientTypeCode: item.clientTypeCode,

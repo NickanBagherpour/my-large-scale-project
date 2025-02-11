@@ -15,6 +15,7 @@ import { useGetClientInquiryStatusQuery } from '../../services/first-step/get-cl
 import { addClientName, addClientStatus, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import CenteredLoading from '../centered-loading/centered-loading';
 type AppProps = PageProps & {
   //
 };
@@ -68,7 +69,7 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       {inquiryStatusFetching ? (
-        <Loading />
+        <CenteredLoading />
       ) : (
         <>
           <S.Steps items={stepsItem} current={currentStep} />
