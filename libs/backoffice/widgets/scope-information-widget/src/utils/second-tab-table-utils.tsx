@@ -6,6 +6,7 @@ import { ScopeInformationService } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
 
 import * as S from './second-tab-table-util.style';
+import WidthBadge from '../../../../../reusable-components/src/components/services/badge/badge';
 
 export type Modal = {
   details: boolean;
@@ -51,17 +52,19 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
     },
     {
       title: t('second_tab.scope'),
-      dataIndex: 'scope',
+      dataIndex: 'scopes',
       align: 'center',
       render: (value) => {
-        return getValueOrDash(value);
+        return <WidthBadge items={value} />;
       },
     },
     {
       title: t('second_tab.url'),
-      dataIndex: 'path',
+      dataIndex: 'paths',
       align: 'center',
-      render: (value) => <S.Url>{getValueOrDash(value)}</S.Url>,
+      render: (value) => {
+        return <WidthBadge items={value} />;
+      },
     },
     {
       title: t('second_tab.version'),
@@ -109,14 +112,14 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
     {
       title: '',
       key: 'mobile-columns',
-      render({ id, scope, path, version, persianName, name }: ScopeInformationService) {
+      render({ id, scopes, paths, version, persianName, name }: ScopeInformationService) {
         const data = [
           { title: t('second_tab.service_name'), value: getValueOrDash(name) },
           { title: t('second_tab.persian_name'), value: getValueOrDash(persianName) },
-          { title: t('second_tab.scope'), value: getValueOrDash(scope) },
+          { title: t('second_tab.scope'), value: <WidthBadge items={scopes} /> },
           {
             title: t('second_tab.url'),
-            value: <S.Url>{getValueOrDash(path)}</S.Url>,
+            value: <WidthBadge items={paths} />,
           },
           { title: t('second_tab.version'), value: getValueOrDash(version) },
           {
