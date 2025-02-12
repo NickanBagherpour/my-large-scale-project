@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const HistoryCellContainer = styled.span`
+export const HistoryCellContainer = styled.span<any>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@ export const HistoryCellContainer = styled.span`
 
   .text {
     ${(p) =>
-      p.theme.direction === 'rtl'
+      !p.isPersian && p.theme.direction === 'rtl'
         ? css`
             direction: rtl !important;
           `

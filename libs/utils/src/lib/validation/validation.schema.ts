@@ -2,7 +2,6 @@ import z from 'zod';
 import { TFunction } from 'i18next';
 import { REGEX_PATTERNS } from '../pattern-util';
 import { limits } from './constants';
-import { dayjs } from '@oxygen/utils';
 
 export const createValidationSchema = (
   t: TFunction,
@@ -191,7 +190,8 @@ export const createValidationSchema = (
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.optionalProtocolUrl, t('validation.url_error')),
+      .regex(REGEX_PATTERNS.optionalProtocolUrl, t('validation.url_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     boolean: z.boolean({ required_error: t('validation.required') }),
 
