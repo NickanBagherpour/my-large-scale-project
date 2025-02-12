@@ -21,4 +21,5 @@ export * from './lib/validation/validation.schema';
 export * from './lib/server-side/token-validation';
 export * from './lib/server-side/create-middleware';
 export * from './lib/server-side/auth-api-helper';
+export * from './lib/server-side/server-util';
 export * from './lib/validation/constants';
