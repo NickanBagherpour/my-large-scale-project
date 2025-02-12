@@ -28,7 +28,7 @@ export default function DetailsModal(props: Props) {
       ? t('modal.operational')
       : t(`modal.draft`, { progressPercent })
     : '-';
-  const infoBoxData = [
+  const firstInfoBoxData = [
     { key: t('modal.english_name'), value: modalDataQuery?.serviceLatinName ?? '-' },
     { key: t('modal.persian_name'), value: modalDataQuery?.servicePersianName ?? '-' },
     { key: t('modal.action'), value: modalDataQuery?.routeMethod ?? '-' },
@@ -52,7 +52,7 @@ export default function DetailsModal(props: Props) {
     <Modal
       centered
       title={t('modal.service_detail')}
-      open={isOpen}
+      open={true}
       onCancel={toggle}
       width={1000}
       footer={[
@@ -61,7 +61,9 @@ export default function DetailsModal(props: Props) {
         </Button>,
       ]}
     >
-      <InfoBox margin={0} data={infoBoxData} loading={modalIsFetching} />
+      <InfoBox data={firstInfoBoxData} loading={modalIsFetching} />
+      {/*<InfoBox data={firstInfoBoxData} loading={modalIsFetching} />*/}
+      {/*<InfoBox data={firstInfoBoxData} loading={modalIsFetching} />*/}
     </Modal>
   );
 }

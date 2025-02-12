@@ -74,27 +74,27 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
     <>
       <S.SecondTabHeader>
         <S.SecondTabTitle>{t('second_tab.title')}</S.SecondTabTitle>
-        <S.ButtonContainer>
-          <S.ButtonWraper background={'primary'}>
-            <Button
-              onClick={handlePrint}
-              variant='link'
-              color='primary'
-              shape='circle'
-              icon={<S.Icon className={'icon-printer'}></S.Icon>}
-            ></Button>
-          </S.ButtonWraper>
-          <S.ButtonWraper background={'secondary'}>
-            <Button
-              onClick={handleExcleDownload}
-              loading={excelIsFetching}
-              variant='link'
-              color='secondary'
-              shape='circle'
-              icon={<S.Icon className={'icon-excel'}></S.Icon>}
-            ></Button>
-          </S.ButtonWraper>
-        </S.ButtonContainer>
+        {/*<S.ButtonContainer>*/}
+        {/*  <S.ButtonWraper background={'primary'}>*/}
+        {/*    <Button*/}
+        {/*      onClick={handlePrint}*/}
+        {/*      variant='link'*/}
+        {/*      color='primary'*/}
+        {/*      shape='circle'*/}
+        {/*      icon={<S.Icon className={'icon-printer'}></S.Icon>}*/}
+        {/*    ></Button>*/}
+        {/*  </S.ButtonWraper>*/}
+        {/*  <S.ButtonWraper background={'secondary'}>*/}
+        {/*    <Button*/}
+        {/*      onClick={handleExcleDownload}*/}
+        {/*      loading={excelIsFetching}*/}
+        {/*      variant='link'*/}
+        {/*      color='secondary'*/}
+        {/*      shape='circle'*/}
+        {/*      icon={<S.Icon className={'icon-excel'}></S.Icon>}*/}
+        {/*    ></Button>*/}
+        {/*  </S.ButtonWraper>*/}
+        {/*</S.ButtonContainer>*/}
       </S.SecondTabHeader>
       <Table
         dataSource={tableData}
