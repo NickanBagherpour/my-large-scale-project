@@ -235,6 +235,13 @@ export const createValidationSchema = (
       })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
+    // TODO: merge this with tagsList or objectMultipleSelection
+    codeTitle: z
+      .array(z.object({ code: z.number(), title: z.string() }), {
+        message: t('validation.choose_at_least_one_option'),
+      })
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
       .string({ required_error: t('validation.required') })
       .trim()

@@ -12,7 +12,6 @@ import {
 } from '../../context';
 import * as S from './app.style';
 import Scope from '../scope/scope';
-import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
@@ -22,10 +21,12 @@ import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
 import { InquiryStatus } from '../../utils/consts';
+import NewRoute from '../new-route/new-route';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
-  { name: 'route', title: 'route', component: <Route /> },
+  // { name: 'route', title: 'route', component: <Route /> },
+  { name: 'route', title: 'route', component: <NewRoute /> },
   { name: 'scope', title: 'scope', component: <Scope /> },
   { name: 'upstream', title: 'upstream', component: <Upstream /> },
   { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },

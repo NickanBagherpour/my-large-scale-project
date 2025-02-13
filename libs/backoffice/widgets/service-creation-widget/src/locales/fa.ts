@@ -59,6 +59,9 @@ export default {
   path: 'Path',
   host: 'Host',
   route: 'Route',
+  add_methods: 'افزودن متودها',
+  add_protocols: 'افزودن پروتکل‌ها',
+  route_name: 'نام Route',
 
   service_general_info: 'اطلاعات کلی سرویس',
   confirm_data: 'تایید اطلاعات',
