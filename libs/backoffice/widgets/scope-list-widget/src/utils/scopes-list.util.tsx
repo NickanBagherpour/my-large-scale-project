@@ -1,9 +1,11 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
-import { TFunction } from 'i18next';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { TFunction } from '@oxygen/translation';
+
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 
 import * as S from '../components/data-table/data-table.style';
+import React from 'react';
 
 type Props = {
   t: TFunction;
@@ -24,14 +26,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.index'),
       align: 'center',
       key: 'id',
-      width: '2.8rem',
+      // width: '2.8rem',
+      width: '0',
       render: (_val, _record, index) => {
         const start = (page - 1) * pageSize + 1;
         return start + index;
       },
     },
     {
-      width: '43.9rem',
+      // width: '43.9rem',
       title: t('table.latin_name_scope'),
       dataIndex: 'name',
       align: 'center',
@@ -41,7 +44,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       },
     },
     {
-      width: '43.9rem',
+      // width: '43.9rem',
       title: t('table.persian_name_scope'),
       dataIndex: 'description',
       align: 'center',
@@ -51,10 +54,13 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       },
     },
     {
-      width: '11.8rem',
-      key: 'status',
+      // width: '11.8rem',
+      width: '0',
+      key: 'action',
       render: (_val, _record, index) => (
-        <Button variant={'text'} href={`scope-information?id=${_record.id}&name=${_record.name}`} color={'primary'}>
+        <Button variant={'text'} size={'small'}
+                href={`${ROUTES.BACKOFFICE.SCOPE_INFORMATION}?id=${_record.id}&name=${_record.name}`}
+                color={'primary'}>
           {t('table.details')}
         </Button>
       ),
@@ -73,11 +79,13 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
           { title: t('table.latin_name_scope'), value: getValueOrDash(name) },
           { title: t('table.persian_name_scope'), value: getValueOrDash(description) },
           {
-            title: t('table.details'),
+            title: '',
+            colon: false,
             value: (
               <Button
                 className={'item__btn'}
-                href={`scope-information?id=${id}&name=${name}`}
+                size={'small'}
+                href={`${ROUTES.BACKOFFICE.SCOPE_INFORMATION}?id=${id}&name=${name}`}
                 variant={'text'}
                 color={'primary'}
               >
@@ -86,13 +94,8 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
             ),
           },
         ];
-        return (
-          <S.TableRow>
-            {data.map((item, idx) => (
-              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
-            ))}
-          </S.TableRow>
-        );
+
+        return <Table.MobileColumns columns={data} minHeight={'4rem'}></Table.MobileColumns>;
       },
     },
   ];

@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Box, Table } from '@oxygen/ui-kit';
 
-import * as S from './table.style';
-
 export type MobileColumnType = {
   title: string;
   value: React.ReactNode;

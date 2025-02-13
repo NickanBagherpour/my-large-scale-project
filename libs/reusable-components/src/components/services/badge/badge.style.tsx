@@ -10,9 +10,11 @@ export const Badge = styled(AntBadge)`
   sup {
     font-size: 1.2rem;
     line-height: 2rem;
+
     ${respondTo.down('md')} {
       line-height: 2.5rem;
     }
+
     position: static;
     background: ${(p) => p.theme.primary._400};
   }
@@ -22,10 +24,10 @@ export const StyledList = styled.ul<{ isPersian: boolean }>`
   ${(p) =>
     p.isPersian
       ? css`
-          direction: ltr;
-        `
+        direction: ltr;
+      `
       : css`
-          direction: rtl;
-        `};
+        direction: rtl;
+      `};
   padding-inline-start: 2rem;
 `;

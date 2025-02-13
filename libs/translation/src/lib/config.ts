@@ -1,6 +1,6 @@
 'use client';
 
-import i18n from 'i18next';
+import i18n, { TFunction } from 'i18next';
 import { initReactI18next, useTranslation, Trans } from 'react-i18next';
 
 import en from './locales/en';
@@ -41,4 +41,4 @@ export function loadTr(params: any) {
   i18n.loadResources();
 }
 
-export { useTranslation as useTr, Trans as Tr, i18n as i18nBase };
+export { useTranslation as useTr, Trans as Tr, i18n as i18nBase,TFunction };
