@@ -25,6 +25,9 @@ export default {
   operational: 'عملیاتی',
   route: 'Route',
   upstream: 'آپ‌استریم',
+  documentation: 'مستندات',
+  service_documentation: 'مستندات سرویس',
+  add_documentation: 'افزودن مستندات',
   stop: 'توقف',
   field: {
     row: 'ردیف',
