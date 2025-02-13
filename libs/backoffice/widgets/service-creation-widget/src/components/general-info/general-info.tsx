@@ -1,4 +1,4 @@
-import { Input, Select, Chip, Dropdown } from '@oxygen/ui-kit';
+import { Input, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
 import { SERVICE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
@@ -21,6 +21,7 @@ import {
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 import CenteredLoading from '../centered-loading/centered-loading';
 import * as S from './general-info.style';
+import TagPicker from '../tag-picker/tag-picker';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 
@@ -33,7 +34,6 @@ export default function GeneralInfo() {
   const router = useRouter();
   const { data: service, isPending: isPendingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
-  const selectedTags = Form.useWatch(SERVICE_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
@@ -55,7 +55,7 @@ export default function GeneralInfo() {
         persianName,
         version,
         ownerName: owner,
-        tagsIds: formTags.map((tag) => tag.value),
+        tagsIds: formTags.map((tag) => tag.code),
         categoryCode: currentCategory.code,
         throughput: currentThroughput,
         latinName: englishName,
@@ -70,13 +70,6 @@ export default function GeneralInfo() {
   const onReturn = () => router.back();
 
   const onRegister = () => form.submit();
-
-  const closeChip = (tag: { key: number; label: string; value: number }) => {
-    form.setFieldValue(
-      SERVICE_NAMES.tags,
-      selectedTags?.filter((t) => t.value !== tag.value)
-    );
-  };
 
   if (isPendingService) {
     return <CenteredLoading />;
@@ -198,27 +191,9 @@ export default function GeneralInfo() {
         </S.InputsBox>
 
         <Box>
-          <S.TagPicker>
-            <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
-              <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
-                {t('add_tags')}
-              </Dropdown.Select>
-            </FormItem>
-
-            {selectedTags?.map((item) => (
-              <Chip
-                ellipsis
-                closeIcon
-                type='active'
-                key={item.key}
-                tooltipOnEllipsis
-                tooltipTitle={item.label}
-                onClose={() => closeChip(item)}
-              >
-                {item.label}
-              </Chip>
-            ))}
-          </S.TagPicker>
+          <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
+            <TagPicker title={t('add_tags')} isLoading={isFetchingTags} menu={convertTags(tags)} />
+          </FormItem>
         </Box>
       </Form>
 

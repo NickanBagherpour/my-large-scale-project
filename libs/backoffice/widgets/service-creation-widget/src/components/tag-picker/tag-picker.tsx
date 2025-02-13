@@ -1,6 +1,5 @@
 import { Chip, Dropdown } from '@oxygen/ui-kit';
 import * as S from './tag-picker.style';
-import { useTr } from '@oxygen/translation';
 import { CodeTitle } from '../../types';
 
 type Props =
