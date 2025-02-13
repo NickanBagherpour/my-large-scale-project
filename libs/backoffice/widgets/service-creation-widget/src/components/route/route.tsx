@@ -18,7 +18,7 @@ import MultiInput from '../multi-input/multi-input';
 import Box from '../box/box';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
-import * as S from './new-route.style';
+import * as S from './route.style';
 
 export default function Route() {
   const [t] = useTr();

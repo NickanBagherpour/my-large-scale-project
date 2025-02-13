@@ -21,12 +21,11 @@ import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 import CenteredLoading from '../centered-loading/centered-loading';
 import { InquiryStatus } from '../../utils/consts';
-import NewRoute from '../new-route/new-route';
+import Route from '../route/route';
 
 export const steps = [
   { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
-  // { name: 'route', title: 'route', component: <Route /> },
-  { name: 'route', title: 'route', component: <NewRoute /> },
+  { name: 'route', title: 'route', component: <Route /> },
   { name: 'scope', title: 'scope', component: <Scope /> },
   { name: 'upstream', title: 'upstream', component: <Upstream /> },
   { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
