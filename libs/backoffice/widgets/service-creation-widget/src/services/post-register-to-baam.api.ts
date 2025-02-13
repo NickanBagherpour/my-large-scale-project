@@ -6,13 +6,13 @@ import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
 const { SERVICE, SERVICE_CREATION, SERVICES_LIST, SCOPE } = RQKEYS.BACKOFFICE;
 
-export const usePostRegisterToBaam = () => {
+export const usePostRegisterToSso = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { serviceName } = useAppState();
 
   return useMutation({
-    mutationFn: (params: AssignScopeToServiceParams) => Api.postRegisterToBaam(params),
+    mutationFn: (params: AssignScopeToServiceParams) => Api.postRegisterToSso(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);

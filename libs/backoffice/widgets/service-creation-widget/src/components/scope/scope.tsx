@@ -8,7 +8,7 @@ import { Container } from '../container/container.style';
 import { type Scope as ScopeType } from '../../types';
 import { getValueOrDash, RQKEYS } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToBaam } from '../../services';
+import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToSso } from '../../services';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -19,7 +19,7 @@ export default function Scope() {
   const dispatch = useAppDispatch();
   const { data: selectedScope, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
-  const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToBaam();
+  const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToSso();
   const [isConfirmModalOpen, setIsCofirmModalOpen] = useState(false);
   const { serviceName } = useAppState();
   const isInSSO = selectedScope?.isServiceInSso;
@@ -111,7 +111,7 @@ export default function Scope() {
   return (
     <>
       <Container>
-        <ScopeSelector onSelect={chooseScope} disabled={!!selectedScope} />
+        <ScopeSelector onSelect={chooseScope} disabled={false} /* disabled={!!selectedScope} */ />
 
         <S.Table
           pagination={false}
