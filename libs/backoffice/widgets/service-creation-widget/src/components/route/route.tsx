@@ -44,10 +44,9 @@ export default function Route() {
     if (isInSso) return void nextStep(dispatch);
 
     if (serviceName && serviceHttpMethods && serviceProtocols) {
-      const { name, hosts, paths, protocols, methods } = values;
+      const { hosts, paths, protocols, methods } = values;
 
       const params: PostRouteParams = {
-        name,
         hosts: hosts.map((item) => item.title),
         paths: paths.map((item) => item.title),
         protocols,
@@ -66,11 +65,10 @@ export default function Route() {
   };
   if (routeData) {
     const {
-      route: { name, hosts, paths, methods, protocols },
+      route: { hosts, paths, methods, protocols },
     } = routeData;
 
     initialValues = {
-      [ROUTE_NAMES.name]: name,
       [ROUTE_NAMES.methods]: methods,
       [ROUTE_NAMES.hosts]: hosts,
       [ROUTE_NAMES.paths]: paths,
@@ -85,10 +83,6 @@ export default function Route() {
   return (
     <>
       <S.Form disabled={isInSso} layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
-        <FormItem label={t('route_name')} name={ROUTE_NAMES.name} rules={[rule]}>
-          <Input />
-        </FormItem>
-
         <Box>
           <Space direction='vertical' size={'middle'}>
             <FormItem name={ROUTE_NAMES.methods} rules={[rule]}>

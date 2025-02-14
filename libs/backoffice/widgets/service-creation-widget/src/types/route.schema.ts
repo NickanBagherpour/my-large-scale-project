@@ -7,7 +7,6 @@ export const createRouteSchema = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
 
   return z.object({
-    [ROUTE_NAMES.name]: validationSchema.required,
     [ROUTE_NAMES.methods]: validationSchema.codeTitle,
     [ROUTE_NAMES.protocols]: validationSchema.codeTitle,
     [ROUTE_NAMES.paths]: validationSchema.codeTitle,

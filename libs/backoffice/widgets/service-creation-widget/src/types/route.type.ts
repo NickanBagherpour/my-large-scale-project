@@ -1,6 +1,6 @@
 export type PostRouteParams = {
   serviceName: string;
-  name: string;
+  name?: string;
   methods: {
     code: number;
     title: string;
