@@ -19,6 +19,7 @@ import Box from '../box/box';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import Footer from '../footer/footer';
 import * as S from './route.style';
+import { getId } from '../../utils/get-id';
 
 export default function Route() {
   const [t] = useTr();
@@ -54,7 +55,10 @@ export default function Route() {
     }
   };
 
-  let initialValues = {};
+  let initialValues: Partial<RouteType> = {
+    [ROUTE_NAMES.hosts]: [{ code: getId(), title: '' }],
+    [ROUTE_NAMES.paths]: [{ code: getId(), title: '' }],
+  };
   if (routeData) {
     const {
       route: { name, hosts, paths, methods, protocols },
