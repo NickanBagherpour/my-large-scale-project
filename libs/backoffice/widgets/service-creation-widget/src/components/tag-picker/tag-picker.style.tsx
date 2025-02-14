@@ -1,7 +1,9 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+import { Chip as UikitChip } from '@oxygen/ui-kit';
+import { type CSSProperties } from 'react';
 
-export const TagPicker = styled.div`
+export const Container = styled.div<{ $dropdownMinWidth: CSSProperties['width'] }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -11,7 +13,8 @@ export const TagPicker = styled.div`
     flex-direction: column;
   }
 
-  .ant-form-item-control-input {
+  /* dropdown container: */
+  & > div:first-child {
     margin: 0;
     padding: 0 1.6rem 0 0;
     border-inline-end: 1px solid ${(p) => p.theme.border.main};
@@ -25,19 +28,20 @@ export const TagPicker = styled.div`
   }
 
   .ant-btn {
+    min-width: ${(p) => p.$dropdownMinWidth};
     ${respondTo.down('xs')} {
       width: 100%;
       margin-bottom: 1rem;
     }
   }
+`;
 
-  .ant-tag {
+export const Chip = styled(UikitChip)`
+  && {
+    margin: 0;
+
     ${respondTo.down('xs')} {
       justify-content: space-between;
     }
   }
-
-  .ant-tag {
-    margin: 0;
-  }
-`;
+` as typeof UikitChip;

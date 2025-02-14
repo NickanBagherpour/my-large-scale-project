@@ -5,7 +5,7 @@ import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createRouteSchema, PostRouteParams, RouteType } from '../../types';
-import { Form, type FormProps } from 'antd';
+import { Form, Space, type FormProps } from 'antd';
 import {
   useGetRoute,
   useGetServiceHttpMethod,
@@ -21,6 +21,8 @@ import Footer from '../footer/footer';
 import * as S from './route.style';
 import { getId } from '../../utils/get-id';
 
+const dropdownMinWidth = '17rem';
+
 export default function Route() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
@@ -32,12 +34,15 @@ export default function Route() {
   const { serviceName } = useAppState();
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
+  const isInSso = routeData?.isServiceInSso;
 
   if (isPending) {
     return <CenteredLoading />;
   }
 
   const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
+    if (isInSso) return void nextStep(dispatch);
+
     if (serviceName && serviceHttpMethods && serviceProtocols) {
       const { name, hosts, paths, protocols, methods } = values;
 
@@ -79,21 +84,31 @@ export default function Route() {
 
   return (
     <>
-      <S.Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+      <S.Form disabled={isInSso} layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
         <FormItem label={t('route_name')} name={ROUTE_NAMES.name} rules={[rule]}>
           <Input />
         </FormItem>
 
         <Box>
-          <FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
-            <TagPicker title={t('add_methods')} isLoading={isFetchingServiceHttpMethod} menu={serviceHttpMethods} />
-          </FormItem>
-        </Box>
+          <Space direction='vertical' size={'middle'}>
+            <FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
+              <TagPicker
+                title={t('add_methods')}
+                menu={serviceHttpMethods}
+                dropdownMinWidth={dropdownMinWidth}
+                isLoading={isFetchingServiceHttpMethod}
+              />
+            </FormItem>
 
-        <Box>
-          <FormItem name={ROUTE_NAMES.protocols} rules={[rule]}>
-            <TagPicker title={t('add_protocols')} isLoading={isFetchingServiceProtocol} menu={serviceProtocols} />
-          </FormItem>
+            <FormItem name={ROUTE_NAMES.protocols} rules={[rule]}>
+              <TagPicker
+                menu={serviceProtocols}
+                title={t('add_protocols')}
+                dropdownMinWidth={dropdownMinWidth}
+                isLoading={isFetchingServiceProtocol}
+              />
+            </FormItem>
+          </Space>
         </Box>
 
         <Box>
