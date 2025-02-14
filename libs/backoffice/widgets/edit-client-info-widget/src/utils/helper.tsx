@@ -1,4 +1,4 @@
-import { GrantValue } from './consts';
+import { GrantValue, nonExistentNationalId } from './consts';
 import { Chip } from '@oxygen/ui-kit';
 
 const transformData = (data) => {
@@ -22,7 +22,7 @@ export const renderChip = (tag, handleClose) => (
   </Chip>
 );
 
-export const prepareParams = (item) => {
+export const prepareParams = (item, OrganizationNationalId) => {
   const obj: any = {};
 
   if (item.latinNameClient) {
@@ -60,6 +60,8 @@ export const prepareParams = (item) => {
   if (item.identityAuth) {
     obj.authorizationKey = item.identityAuth;
   }
+
+  obj.organizationNationalId = OrganizationNationalId ?? nonExistentNationalId;
 
   const grantType = transformData(item.grantType);
 

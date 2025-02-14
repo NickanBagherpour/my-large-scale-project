@@ -74,9 +74,6 @@ const App: React.FC<AppProps> = (props) => {
     }
   }
 
-
-  console.log('url', url);
-
   return (
     <>
       {loading && <Loading containerProps={{ display: 'flex', height: '100%' }} />}
