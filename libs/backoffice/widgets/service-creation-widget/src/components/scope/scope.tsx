@@ -2,7 +2,7 @@ import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
 import Footer from '../footer/footer';
 import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
-import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
 import { Container } from '../container/container.style';
 import { ServiceScope, type Scope as ScopeType } from '../../types';

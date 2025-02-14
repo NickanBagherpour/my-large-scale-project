@@ -32,7 +32,7 @@ export default function GeneralInfo() {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const router = useRouter();
-  const { data: service, isPending: isPendingService } = useGetService();
+  const { data: service, isFetching: isFetchingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
@@ -71,7 +71,8 @@ export default function GeneralInfo() {
 
   const onRegister = () => form.submit();
 
-  if (isPendingService) {
+  if (isFetchingService) {
+    // Using `isFetching` to unmount the form while new data is being fetched, ensuring the form's initial values are updated once the data is received.
     return <CenteredLoading />;
   }
 

@@ -1,4 +1,3 @@
-import { Input } from '@oxygen/ui-kit';
 import TagPicker from '../tag-picker/tag-picker';
 import FormItem from '../form-item/form-item';
 import { ROUTE_NAMES } from '../../utils/consts';
@@ -29,14 +28,14 @@ export default function Route() {
   const { mutate: postRoute } = usePostRouteMutation();
   const { mutate: putRoute } = usePutRouteMutation();
   const [form] = Form.useForm();
-  const { data: routeData, isPending } = useGetRoute();
+  const { data: routeData, isFetching } = useGetRoute();
   const dispatch = useAppDispatch();
   const { serviceName } = useAppState();
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod();
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol();
   const isInSso = routeData?.isServiceInSso;
 
-  if (isPending) {
+  if (isFetching) {
     return <CenteredLoading />;
   }
 
