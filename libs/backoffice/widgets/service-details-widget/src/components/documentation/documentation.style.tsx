@@ -17,7 +17,7 @@ export const Header = styled.div`
   padding: 0 0.8rem;
   margin-bottom: 0.8rem;
   align-items: center;
-  ${respondTo.down('sm')} {
+  ${respondTo.down('md')} {
     flex-direction: column;
     align-items: start;
     Button {
@@ -43,13 +43,18 @@ export const Dragger = styled(KitDragger)`
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  *::before,
-  *::after {
+  .ant-upload-list.ant-upload-list-picture::before,
+  .ant-upload-list.ant-upload-list-picture::before {
     content: none;
   }
   .ant-upload-list-item {
     margin: 0;
     background-color: ${(p) => p.theme.background.main};
+  }
+  ${respondTo.down('sm')} {
+    .ant-upload-list.ant-upload-list-picture {
+      grid-template-columns: 1fr;
+    }
   }
 `;
 export const UploadIcon = styled.i`

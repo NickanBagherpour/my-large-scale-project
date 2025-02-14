@@ -1,16 +1,69 @@
 import React from 'react';
-import * as S from './documentation.style';
+import { UploadProps } from 'antd';
+
+import { ROUTES } from '@oxygen/utils';
+import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { useAppDispatch, useAppState } from '../../context';
-import { Button, Dragger, Uploader } from '@oxygen/ui-kit';
-import { ROUTES } from '@oxygen/utils';
 
-type DocumentationType = PageProps;
-export const Documentation = (props) => {
+import { useAppDispatch, useAppState } from '../../context';
+
+import * as S from './documentation.style';
+import { useApp } from '@oxygen/hooks';
+
+type DocumentationType = PageProps & {
+  //
+};
+export const Documentation: React.FC<DocumentationType> = (props) => {
   const [t] = useTr();
   const state = useAppState();
   const dispatch = useAppDispatch();
+  const { notification } = useApp();
+  const draggerProps: UploadProps = {
+    name: 'file',
+    multiple: true,
+    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+    listType: 'picture',
+    // accept: '.pdf,.xlsx,.xls',
+    beforeUpload: (file) => {
+      const isPdfOrXlsOrXlsx = [
+        'application/pdf',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ].includes(file.type);
+      if (!isPdfOrXlsOrXlsx) {
+        notification.error({
+          message: t('file_format_error'),
+        });
+        return false;
+      }
+      const isValidSize = file.size <= 5 * 1024 * 1024; // 5MB in bytes
+      if (!isValidSize) {
+        notification.error({
+          message: t('file_size_limit_error'),
+        });
+        return false;
+      }
+      return true;
+    },
+    onRemove: (file) => {
+      console.log(file);
+    },
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        console.log(info.file, info.fileList);
+      } else if (status === 'error') {
+        console.log(info.file, info.fileList);
+      }
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
 
   return (
     <S.DocumentationContainer>
@@ -25,7 +78,7 @@ export const Documentation = (props) => {
         </Button>
       </S.Header>
       <S.Card>
-        <S.Dragger>
+        <S.Dragger {...draggerProps}>
           <S.DraggerConatainer>
             <S.UploadIcon className='icon-upload' />
             <S.UploaderTxt>
@@ -44,109 +97,3 @@ export const Documentation = (props) => {
     </S.DocumentationContainer>
   );
 };
-// import { Form, type FormProps } from 'antd';
-// import { Box, Button } from '@oxygen/ui-kit';
-// import { useTr } from '@oxygen/translation';
-// import * as S from './documentation.style';
-// import { useState } from 'react';
-// import { UploadFile } from 'antd/lib';
-// // import { createUploadDocsSchema, UploadDocsType } from '../../types/upload-docs.schema';
-// import { createSchemaFieldRule } from 'antd-zod';
-// import { fileSize } from '@oxygen/utils';
-// // import FormItem from '../form-item/form-item';
-// import { isExcel } from '../../utils/schema.utils';
-// import { UPLOAD_NAMES } from '../../utils/consts';
-// import { useAppDispatch } from '../../context';
-
-// const data = {
-//   progress: '52%',
-//   uploadRate: '213kb/sec',
-// };
-
-// function getFileDetails(file: UploadFile | null): null | { name: string; extension: string; size: number } {
-//   if (!file) return null;
-//   const nameArr = file.name.split('.');
-//   const extension = nameArr.at(-1);
-//   const fileName = nameArr.slice(0, nameArr.length - 1).join('.');
-//   return {
-//     name: fileName,
-//     extension: extension!,
-//     size: file.size!,
-//   };
-// }
-
-// export const Documentation = () => {
-//   const [form] = Form.useForm();
-//   const [t] = useTr();
-//   const [selectedFile, setSelectedFile] = useState<UploadFile | null>(null);
-//   const isFetching = false;
-//   const hasError = false;
-//   const fileDetails = getFileDetails(selectedFile);
-//   const dispatch = useAppDispatch();
-
-//   const onFinish = (values) => {
-//     console.log('finish');
-//     // updateUploadDocs(dispatch, values);
-//   };
-
-//   return (
-//     <S.Form onFinish={onFinish} form={form}>
-//       <Box>
-//         <Form.Item name={UPLOAD_NAMES.file}>
-//           <S.Dragger
-//             multiple={false}
-//             fileList={selectedFile ? [selectedFile] : []}
-//             onChange={({ file }) => setSelectedFile(file)}
-//             customRequest={() => null}
-//             itemRender={() => null}
-//             disabled={isFetching}
-//           >
-//             <S.UploadIcon className='icon-upload' />
-//             <S.Title>{t('choose_or_drag_file')}</S.Title>
-//             <S.Subtitle>{t('file_format_xls')}</S.Subtitle>
-//             <Button color='secondary' disabled={isFetching}>
-//               <S.PlusIcon className='icon-plus' />
-//               {t('add_docs')}
-//             </Button>
-//           </S.Dragger>
-//         </Form.Item>
-
-//         {!!fileDetails && selectedFile && (
-//           <S.Status hasError={hasError}>
-//             <S.Header>
-//               <S.Group>
-//                 {isExcel({ file: selectedFile }) && <S.ExcelIcon className='icon-excel' />}
-//                 <S.Name>{fileDetails.name}</S.Name>
-//                 <S.Extesion>{fileDetails.extension}</S.Extesion>
-//                 <S.Size>{fileSize(fileDetails.size)}</S.Size>
-//               </S.Group>
-
-//               <S.Group>
-//                 {hasError && <S.ErrMsg>{t('upload_error')}</S.ErrMsg>}
-//                 {isFetching ? (
-//                   <S.ActionBtn variant='link' hasError={false}>
-//                     <i className='icon-close-circle' />
-//                   </S.ActionBtn>
-//                 ) : (
-//                   <S.ActionBtn variant='link' hasError={hasError} onClick={() => setSelectedFile(null)}>
-//                     <i className='icon-trash' />
-//                   </S.ActionBtn>
-//                 )}
-//               </S.Group>
-//             </S.Header>
-
-//             {isFetching && (
-//               <>
-//                 <S.Progress percent={50} showInfo={false} isPrimary />
-//                 <S.ProgressInfo>
-//                   <span>{data.progress}</span>
-//                   <span>{data.uploadRate}</span>
-//                 </S.ProgressInfo>
-//               </>
-//             )}
-//           </S.Status>
-//         )}
-//       </Box>
-//     </S.Form>
-//   );
-// };
