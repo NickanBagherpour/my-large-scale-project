@@ -104,17 +104,15 @@ export default function Route() {
           </Space>
         </Box>
 
-        <Box>
+        <S.Container>
           <FormItem name={ROUTE_NAMES.paths} label={t('path')} rules={[rule]}>
             <MultiInput />
           </FormItem>
-        </Box>
 
-        <Box>
           <FormItem name={ROUTE_NAMES.hosts} label={t('host')} rules={[rule]}>
             <MultiInput />
           </FormItem>
-        </Box>
+        </S.Container>
       </S.Form>
 
       <Footer onRegister={onRegister} onReturn={onReturn} />
