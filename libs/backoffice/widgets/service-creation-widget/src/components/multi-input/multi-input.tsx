@@ -3,6 +3,7 @@ import { CodeTitle } from '../../types';
 import { getId } from '../../utils/get-id';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { useContext } from 'react';
+import { Button } from '@oxygen/ui-kit';
 
 type Props =
   | {
@@ -32,19 +33,26 @@ export default function MultiInput(props: Props) {
     onChange(value.concat({ code: getId(), title: '' }));
   };
 
-  const removeDisabled = value.length === 1 || isFormDisabled;
+  const removeDisabled = value?.length === 1 || isFormDisabled;
 
   return (
     <S.Container>
       {value?.map(({ code, title }, idx) => (
         <S.Action key={code}>
           <S.PlainTextInput value={title} onChange={(e) => handleChange({ code, title: e.target.value })} />
-          <S.TrashBtn type='button' onClick={handleRemove(code)} disabled={removeDisabled}>
-            <i className='icon-trash' />
-          </S.TrashBtn>
-          <S.PlusBtn type='button' onClick={handleAdd} disabled={idx !== value.length - 1 || !title || isFormDisabled}>
-            <i className='icon-plus-circle' />
-          </S.PlusBtn>
+          <Button color='error' variant='link' htmlType='button' onClick={handleRemove(code)} disabled={removeDisabled}>
+            <S.Icon className='icon-trash' />
+          </Button>
+
+          <Button
+            variant='link'
+            color='secondary'
+            htmlType='button'
+            onClick={handleAdd}
+            disabled={idx !== value.length - 1 || !title || isFormDisabled}
+          >
+            <S.Icon className='icon-plus-circle' />
+          </Button>
         </S.Action>
       ))}
     </S.Container>

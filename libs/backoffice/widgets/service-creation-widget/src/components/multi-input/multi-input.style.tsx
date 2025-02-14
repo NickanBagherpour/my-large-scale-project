@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { Input as UiKitInput } from '@oxygen/ui-kit';
+import { Button, Input as UiKitInput } from '@oxygen/ui-kit';
 
 export const PlainTextInput = styled(UiKitInput)`
   unicode-bidi: plaintext;
+  margin-inline-end: 3rem;
 `;
 
 export const Container = styled.div`
@@ -14,27 +15,8 @@ export const Container = styled.div`
 export const Action = styled.div`
   display: flex;
   align-items: center;
-  gap: 2rem;
 `;
 
-export const PlusBtn = styled.button`
+export const Icon = styled.i`
   font-size: 2.4rem;
-  background: transparent;
-  border: none;
-  color: ${(p) => p.theme.secondary.main};
-
-  &:disabled {
-    color: ${(p) => p.theme.iconPrimary};
-  }
-`;
-
-export const TrashBtn = styled.button`
-  font-size: 2.4rem;
-  background: transparent;
-  border: none;
-  color: ${(p) => p.theme.error.main};
-
-  &:disabled {
-    color: ${(p) => p.theme.iconPrimary};
-  }
-`;
+` as typeof Button;
