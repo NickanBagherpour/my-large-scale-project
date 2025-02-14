@@ -1,7 +1,6 @@
 import { Dragger as KitDragger } from '@oxygen/ui-kit';
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-
 export const DocumentationContainer = styled.div``;
 export const TopSection = styled.div`
   display: flex;
@@ -33,12 +32,14 @@ export const Dragger = styled(KitDragger)`
   & .ant-upload {
     padding: 0;
   }
-
-  /* .ant-form-item-has-error:has(&) div.ant-upload {
-    border: 1px dashed ${(p) => p.theme.error.main};
-  } */
+  .ant-upload.ant-upload-drag {
+    padding: 2.4rem;
+    border: 1px dashed ${(p) => p.theme.primary._400};
+    border-radius: var(${cssVar.radiusLg});
+  }
 `;
 export const UploadIcon = styled.i`
+  color: ${(p) => p.theme.text.quaternary};
   font-size: 2.5rem;
 `;
 export const Card = styled.div`
