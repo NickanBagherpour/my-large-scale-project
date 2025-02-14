@@ -112,13 +112,13 @@ export default function Route() {
         </Box>
 
         <Box>
-          <FormItem name={ROUTE_NAMES.paths} className='span-2' label={t('path')} rules={[rule]}>
+          <FormItem name={ROUTE_NAMES.paths} label={t('path')} rules={[rule]}>
             <MultiInput />
           </FormItem>
         </Box>
 
         <Box>
-          <FormItem name={ROUTE_NAMES.hosts} className='span-2' label={t('host')} rules={[rule]}>
+          <FormItem name={ROUTE_NAMES.hosts} label={t('host')} rules={[rule]}>
             <MultiInput />
           </FormItem>
         </Box>
