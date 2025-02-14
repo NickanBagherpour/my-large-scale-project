@@ -58,6 +58,7 @@ export default function Scope() {
       title: t('common.row_number'),
       key: 'rowNumber',
       align: 'center',
+      width: '2rem',
       render: (_val, _record, idx) => idx + 1,
     },
     {
@@ -74,8 +75,15 @@ export default function Scope() {
     {
       dataIndex: 'isServiceInSso',
       align: 'center',
+      width: '2rem',
       render: (isServiceInSso, scope) => (
-        <Button variant='link' color='error' onClick={() => setScopeToUnassign(scope)} disabled={isServiceInSso}>
+        <Button
+          size='small'
+          variant='link'
+          color='error'
+          onClick={() => setScopeToUnassign(scope)}
+          disabled={isServiceInSso}
+        >
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
@@ -87,28 +95,27 @@ export default function Scope() {
       title: null,
       key: 'mobileColumn',
       render: (scope: ServiceScope) => {
-        return (
-          <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={scope?.name} />
-            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={scope?.description} />
-            <Table.MobileColumn
-              minHeight={'40px'}
-              title={t('remove')}
-              value={
-                <Button
-                  className='item__btn'
-                  variant='link'
-                  color='error'
-                  onClick={() => setScopeToUnassign(scope)}
-                  disabled={scope.isServiceInSso}
-                >
-                  <S.TrashIcon className='icon-trash' />
-                </Button>
-              }
-            />
-          </UiKitBox>
-        );
+        const columns = [
+          { title: t('scope_english_name'), value: scope?.name },
+          { title: t('persian_name'), value: scope?.description },
+          {
+            colon: false,
+            title: '',
+            value: (
+              <Button
+                className='item__btn'
+                variant='link'
+                color='error'
+                onClick={() => setScopeToUnassign(scope)}
+                disabled={scope.isServiceInSso}
+              >
+                <S.TrashIcon className='icon-trash' />
+              </Button>
+            ),
+          },
+        ];
+
+        return <Table.MobileColumns minHeight={'40px'} columns={columns} />;
       },
     },
   ];
