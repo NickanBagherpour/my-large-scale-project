@@ -235,11 +235,23 @@ export const createValidationSchema = (
       })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
-    // TODO: merge this with tagsList or objectMultipleSelection
     codeTitle: z
-      .array(z.object({ code: z.number(), title: z.string() }), {
-        message: t('validation.choose_at_least_one_option'),
-      })
+      .array(
+        z.object({
+          code: z.number(),
+          title: z
+            .string({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.required'),
+            })
+            .trim()
+            .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+            .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+        }),
+        {
+          message: t('validation.choose_at_least_one_option'),
+        }
+      )
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
