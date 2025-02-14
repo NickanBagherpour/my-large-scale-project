@@ -10,6 +10,7 @@ import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './documentation.style';
 import { useApp } from '@oxygen/hooks';
+import { isFileInValid } from '../../utils/helper';
 
 type DocumentationType = PageProps & {
   //
@@ -19,50 +20,37 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const { notification } = useApp();
+
+  const handleFileUpload = async (options) => {
+    const { onSuccess, onError, file } = options;
+    console.log(options);
+
+    if (isFileInValid(file, notification, t)) {
+      return onError('');
+    }
+    onSuccess(true);
+  };
+
   const draggerProps: UploadProps = {
     name: 'file',
     multiple: true,
-    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
     listType: 'picture',
-    // accept: '.pdf,.xlsx,.xls',
-    beforeUpload: (file) => {
-      const isPdfOrXlsOrXlsx = [
-        'application/pdf',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      ].includes(file.type);
-      if (!isPdfOrXlsOrXlsx) {
-        notification.error({
-          message: t('file_format_error'),
-        });
-        return false;
-      }
-      const isValidSize = file.size <= 5 * 1024 * 1024; // 5MB in bytes
-      if (!isValidSize) {
-        notification.error({
-          message: t('file_size_limit_error'),
-        });
-        return false;
-      }
-      return true;
-    },
+    accept: '.pdf,.xlsx,.xls',
+    customRequest: handleFileUpload,
     onRemove: (file) => {
       console.log(file);
     },
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        console.log(info.file, info.fileList);
-      } else if (status === 'error') {
-        console.log(info.file, info.fileList);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
+    // onChange(info) {
+    //   const { status } = info.file;
+    //   if (status !== 'uploading') {
+    //     console.log(info.file, info.fileList);
+    //   }
+    //   if (status === 'done') {
+    //     console.log(info.file, info.fileList);
+    //   } else if (status === 'error') {
+    //     console.log(info.file, info.fileList);
+    //   }
+    // },
   };
 
   return (
