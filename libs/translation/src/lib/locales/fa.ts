@@ -50,6 +50,9 @@ export default {
     has: 'دارد',
     doesnt_have: 'ندارد',
     close: 'بستن',
+    english_name: 'نام لاتین',
+    persian_name: 'نام فارسی',
+    index: 'ردیف',
   },
 
   app: {
@@ -151,6 +154,7 @@ export default {
     stop_service: 'توقف سرویس',
     remove: 'حذف',
     service_detail: 'جزئیات سرویس',
+    general_info: 'اطلاعات کلی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',
     access: 'دسترسی',
@@ -446,7 +450,7 @@ export default {
   element: {
     service: 'سرویس',
     client: 'کلاینت',
-    route: 'route',
+    route: 'Route',
     scope: 'اسکوپ',
   },
 };
