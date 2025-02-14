@@ -1,4 +1,5 @@
 export default {
-  widget_name: 'auth-widget',
+  widget_name: 'احراز هویت',
   title: 'به سامانه اکسیژن خوش آمدید',
+  auth_error: 'ورود به سامانه با خطا مواجه شده، لطفا مجددا تلاش نمایید.',
 };

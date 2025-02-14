@@ -4,7 +4,7 @@ import { TablePaginationConfig } from 'antd';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 
 import DetailsModal from './modals/info-service-modal/info-service-modal';
 // import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';

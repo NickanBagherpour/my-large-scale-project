@@ -10,9 +10,11 @@ export const Badge = styled(AntBadge)`
   sup {
     font-size: 1.2rem;
     line-height: 2rem;
+
     ${respondTo.down('md')} {
       line-height: 2.5rem;
     }
+
     position: static;
     background: ${(p) => p.theme.primary._400};
   }
