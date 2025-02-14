@@ -50,7 +50,22 @@ export const Dragger = styled(KitDragger)`
   .ant-upload-list-item {
     margin: 0;
     background-color: ${(p) => p.theme.background.main};
+    text-overflow: ellipsis;
   }
+
+  .ant-upload-list-item-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 2.2rem;
+    text-overflow: ellipsis;
+    max-width: inherit;
+    display: flex;
+    gap: 1rem;
+  }
+  .ant-upload-list-item-container {
+    overflow: hidden;
+  }
+
   ${respondTo.down('sm')} {
     .ant-upload-list.ant-upload-list-picture {
       grid-template-columns: 1fr;
@@ -83,4 +98,18 @@ export const DraggerSubtitle = styled.span`
   font-size: 1.2rem;
   font-weight: 400;
   color: ${(p) => p.theme.text.quaternary};
+`;
+export const TrashIcon = styled.i`
+  color: ${(p) => p.theme.text.quaternary};
+  font-size: 2rem;
+`;
+export const ExcelIcon = styled.i`
+  color: ${(p) => p.theme.error.main};
+  font-size: 2.5rem;
+`;
+export const FileSize = styled.span`
+  color: ${(p) => p.theme.border.main};
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.2rem;
 `;

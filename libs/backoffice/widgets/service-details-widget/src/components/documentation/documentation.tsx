@@ -1,16 +1,17 @@
 import React from 'react';
+
 import { UploadProps } from 'antd';
 
 import { ROUTES } from '@oxygen/utils';
-import { Button } from '@oxygen/ui-kit';
+import { useApp } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { Box, Button } from '@oxygen/ui-kit';
 
+import { isFileInValid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './documentation.style';
-import { useApp } from '@oxygen/hooks';
-import { isFileInValid } from '../../utils/helper';
 
 type DocumentationType = PageProps & {
   //
@@ -23,7 +24,6 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
 
   const handleFileUpload = async (options) => {
     const { onSuccess, onError, file } = options;
-    console.log(options);
 
     if (isFileInValid(file, notification, t)) {
       return onError('');
@@ -40,17 +40,12 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     onRemove: (file) => {
       console.log(file);
     },
-    // onChange(info) {
-    //   const { status } = info.file;
-    //   if (status !== 'uploading') {
-    //     console.log(info.file, info.fileList);
-    //   }
-    //   if (status === 'done') {
-    //     console.log(info.file, info.fileList);
-    //   } else if (status === 'error') {
-    //     console.log(info.file, info.fileList);
-    //   }
-    // },
+    iconRender: () => <S.ExcelIcon className='icon-excel' />,
+    maxCount: 5,
+    showUploadList: {
+      removeIcon: <S.TrashIcon className='icon-trash' />,
+      extra: ({ size = 0 }) => <S.FileSize>{(size / 1024 / 1024).toFixed(2)}MB</S.FileSize>,
+    },
   };
 
   return (
