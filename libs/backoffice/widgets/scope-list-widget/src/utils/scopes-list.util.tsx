@@ -1,6 +1,7 @@
+import { TFunction } from 'i18next';
+
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
-import { TFunction } from '@oxygen/translation';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 
@@ -58,9 +59,12 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       width: '0',
       key: 'action',
       render: (_val, _record, index) => (
-        <Button variant={'text'} size={'small'}
-                href={`${ROUTES.BACKOFFICE.SCOPE_INFORMATION}?id=${_record.id}&name=${_record.name}`}
-                color={'primary'}>
+        <Button
+          variant={'text'}
+          size={'small'}
+          href={`${ROUTES.BACKOFFICE.SCOPE_INFORMATION}?id=${_record.id}&name=${_record.name}`}
+          color={'primary'}
+        >
           {t('table.details')}
         </Button>
       ),
