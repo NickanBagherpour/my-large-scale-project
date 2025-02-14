@@ -6,13 +6,13 @@ import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
 const { SERVICE, SERVICE_CREATION, SCOPE, SERVICES_LIST } = RQKEYS.BACKOFFICE;
 
-export const usePostAssignScopeToService = () => {
+export const useDeleteUnassignFromService = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { serviceName } = useAppState();
 
   return useMutation({
-    mutationFn: (params: scopeToServiceParams) => Api.postAssignScopeToService(params),
+    mutationFn: (params: scopeToServiceParams) => Api.deleteUnassignScopeFromService(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);

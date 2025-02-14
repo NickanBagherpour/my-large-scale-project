@@ -5,32 +5,32 @@ import { useAppDispatch, previousStep, nextStep, useAppState } from '../../conte
 import { Box as UiKitBox, Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
 import { Container } from '../container/container.style';
-import { type Scope as ScopeType } from '../../types';
-import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { ServiceScope, type Scope as ScopeType } from '../../types';
+import { getValueOrDash } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
-import { useGetServiceScope, usePostAssignScopeToService, usePostRegisterToSso } from '../../services';
+import {
+  useDeleteUnassignFromService,
+  useGetServiceScope,
+  usePostAssignScopeToService,
+  usePostRegisterToSso,
+} from '../../services';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
-import { useQueryClient } from '@tanstack/react-query';
-
-const { SERVICE_CREATION, SCOPE } = RQKEYS.BACKOFFICE;
+import { ConfirmRemoveModal } from '@oxygen/reusable-components';
 
 export default function Scope() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { data: selectedScope, isFetching: isFetchingServiceScope } = useGetServiceScope();
+  const { data: selectedScopes, isFetching: isFetchingServiceScope } = useGetServiceScope();
   const { mutate: assignScopeToService, isPending: isAssigningScopeToService } = usePostAssignScopeToService();
-  const { mutate: registerToBaam, isPending: isRegiseteringToBaam } = usePostRegisterToSso();
+  const { mutate: unassignScope, isPending: isUnassigning } = useDeleteUnassignFromService();
+  const { mutate: registerToSso, isPending: isRegiseteringToBaam } = usePostRegisterToSso();
+  const [scopeToUnassign, setScopeToUnassign] = useState<ServiceScope | null>(null);
   const [isConfirmModalOpen, setIsCofirmModalOpen] = useState(false);
   const { serviceName } = useAppState();
-  const isInSSO = selectedScope?.isServiceInSso;
-  const queryClient = useQueryClient();
+  const isScopeSelectorDisabled = !!selectedScopes?.some((scope) => scope.isServiceInSso);
 
   const chooseScope = async (scope: ScopeType) => {
     assignScopeToService({ serviceName, scopeName: scope.name });
-  };
-
-  const removeSelectedScope = () => {
-    queryClient.setQueryData([SCOPE, SERVICE_CREATION.SCOPE, serviceName], () => null);
   };
 
   const onReturn = () => {
@@ -38,17 +38,22 @@ export default function Scope() {
   };
 
   const registerAndProceed = () => {
-    if (selectedScope && serviceName) {
-      registerToBaam({ scopeName: selectedScope.name, serviceName }, { onSuccess: () => nextStep(dispatch) });
+    if (!!selectedScopes?.length && serviceName) {
+      registerToSso(serviceName, { onSuccess: () => nextStep(dispatch) });
+    }
+  };
+
+  const onUnassign = () => {
+    if (scopeToUnassign) {
+      unassignScope({ scopeName: scopeToUnassign.name, serviceName }, { onSettled: () => setScopeToUnassign(null) });
     }
   };
 
   const onRegister = () => {
-    if (isInSSO) nextStep(dispatch);
-    else setIsCofirmModalOpen(true);
+    setIsCofirmModalOpen(true);
   };
 
-  const desktopColumns: ColumnsType<ScopeType> = [
+  const desktopColumns: ColumnsType<ServiceScope> = [
     {
       title: t('common.row_number'),
       key: 'rowNumber',
@@ -67,26 +72,26 @@ export default function Scope() {
       render: (value) => getValueOrDash(value),
     },
     {
-      key: 'remove',
+      dataIndex: 'isServiceInSso',
       align: 'center',
-      render: () => (
-        <Button variant='link' color='error' onClick={removeSelectedScope} disabled={isInSSO}>
+      render: (isServiceInSso, scope) => (
+        <Button variant='link' color='error' onClick={() => setScopeToUnassign(scope)} disabled={isServiceInSso}>
           <S.TrashIcon className='icon-trash' />
         </Button>
       ),
     },
   ];
 
-  const mobileColumns: ColumnsType<ScopeType> = [
+  const mobileColumns: ColumnsType<ServiceScope> = [
     {
       title: null,
       key: 'mobileColumn',
-      render: () => {
+      render: (scope: ServiceScope) => {
         return (
           <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={selectedScope?.name} />
+            <Table.MobileColumn minHeight={'40px'} title={t('scope_english_name')} value={scope?.name} />
             {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={selectedScope?.description} />
+            <Table.MobileColumn minHeight={'40px'} title={t('persian_name')} value={scope?.description} />
             <Table.MobileColumn
               minHeight={'40px'}
               title={t('remove')}
@@ -95,8 +100,8 @@ export default function Scope() {
                   className='item__btn'
                   variant='link'
                   color='error'
-                  onClick={removeSelectedScope}
-                  disabled={isInSSO}
+                  onClick={() => setScopeToUnassign(scope)}
+                  disabled={scope.isServiceInSso}
                 >
                   <S.TrashIcon className='icon-trash' />
                 </Button>
@@ -111,19 +116,22 @@ export default function Scope() {
   return (
     <>
       <Container>
-        <ScopeSelector onSelect={chooseScope} disabled={false} /* disabled={!!selectedScope} */ />
+        <ScopeSelector onSelect={chooseScope} disabled={isScopeSelectorDisabled} />
 
         <S.Table
           pagination={false}
           columns={desktopColumns}
           rowKey={(row: ScopeType) => row.name}
           mobileColumns={mobileColumns}
-          dataSource={selectedScope ? [selectedScope] : []}
+          dataSource={selectedScopes}
           loading={isFetchingServiceScope}
         />
 
         <Footer
-          registerButtonProps={{ disabled: !selectedScope, loading: isRegiseteringToBaam || isAssigningScopeToService }}
+          registerButtonProps={{
+            disabled: !selectedScopes,
+            loading: isRegiseteringToBaam || isAssigningScopeToService,
+          }}
           onRegister={onRegister}
           onReturn={onReturn}
         />
@@ -134,6 +142,18 @@ export default function Scope() {
         close={() => setIsCofirmModalOpen(false)}
         onConfirm={registerAndProceed}
       />
+
+      {scopeToUnassign && (
+        <ConfirmRemoveModal
+          isLoading={isUnassigning}
+          onRemove={onUnassign}
+          title={t('remove_scope')}
+          isOpen={!!scopeToUnassign}
+          wordToHighlight={scopeToUnassign.name}
+          close={() => setScopeToUnassign(null)}
+          message={t('confirm_remove_msg', { name: scopeToUnassign.name })}
+        />
+      )}
     </>
   );
 }
