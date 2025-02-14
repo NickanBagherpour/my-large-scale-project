@@ -37,6 +37,20 @@ export const Dragger = styled(KitDragger)`
     border: 1px dashed ${(p) => p.theme.primary._400};
     border-radius: var(${cssVar.radiusLg});
   }
+  .ant-upload-list.ant-upload-list-picture {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  *::before,
+  *::after {
+    content: none;
+  }
+  .ant-upload-list-item {
+    margin: 0;
+    background-color: ${(p) => p.theme.background.main};
+  }
 `;
 export const UploadIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
