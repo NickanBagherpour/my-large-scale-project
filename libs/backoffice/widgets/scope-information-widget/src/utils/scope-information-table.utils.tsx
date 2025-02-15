@@ -50,7 +50,7 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
       key: 'mobile-columns',
       render: ({ name, description }) => {
         const data = [
-          { title: t('first_tab.latin_scope_name'), value: getValueOrDash(name) },
+          { title: t('first_tab.english_scope_name'), value: getValueOrDash(name) },
           {
             title: t('first_tab.farsi_scope_name'),
             value: getValueOrDash(description),

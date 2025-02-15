@@ -58,7 +58,7 @@ export default function GeneralInfo() {
         tagsIds: formTags.map((tag) => tag.code),
         categoryCode: currentCategory.code,
         throughput: currentThroughput,
-        latinName: englishName,
+        englishName: englishName,
         accessLevel: currentServiceAccess,
       },
       {

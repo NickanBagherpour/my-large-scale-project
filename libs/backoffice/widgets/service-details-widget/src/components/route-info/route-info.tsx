@@ -38,10 +38,10 @@ const Route: React.FC<AppProps> = () => {
     if (!routeDetails) return [];
 
     return [
-      { key: t('action_method'), value: getValueOrDash(routeDetails.methods[0]?.title) },
-      { key: t('protocol'), value: getValueOrDash(routeDetails.protocols[0]?.title) },
-      { key: t('path'), value: getValueOrDash(routeDetails.paths[0]) },
-      { key: t('host'), value: getValueOrDash(routeDetails.hosts[0]) },
+      { key: t('action_method'), value: getValueOrDash(routeDetails?.methods[0]?.title) },
+      { key: t('protocol'), value: getValueOrDash(routeDetails?.protocols[0]?.title) },
+      { key: t('path'), value: getValueOrDash(routeDetails?.paths[0]) },
+      { key: t('host'), value: getValueOrDash(routeDetails?.hosts[0]) },
     ];
   };
 

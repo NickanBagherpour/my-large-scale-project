@@ -29,7 +29,7 @@ export default function DetailsModal(props: Props) {
       routes,
       ownerName,
       serviceVersion,
-      serviceLatinName,
+      serviceenglishName,
       authenticationType,
       servicePersianName,
       serviceCategoryTitle,

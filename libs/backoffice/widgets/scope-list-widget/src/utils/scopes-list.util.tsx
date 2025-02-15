@@ -36,7 +36,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     },
     {
       // width: '43.9rem',
-      title: t('table.latin_name_scope'),
+      title: t('table.english_name_scope'),
       dataIndex: 'name',
       align: 'center',
       render: (_val, _record, index) => {
@@ -80,7 +80,7 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
       key: 'mobile-columns',
       render: ({ id, name, description }) => {
         const data = [
-          { title: t('table.latin_name_scope'), value: getValueOrDash(name) },
+          { title: t('table.english_name_scope'), value: getValueOrDash(name) },
           { title: t('table.persian_name_scope'), value: getValueOrDash(description) },
           {
             title: '',

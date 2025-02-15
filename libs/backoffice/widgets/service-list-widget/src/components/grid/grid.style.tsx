@@ -7,10 +7,7 @@ const Grid = styled.section`
   gap: 1.6rem;
 
   ${respondTo.down('xxl')} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  ${respondTo.down('xl')} {
+    /* Use even columns to prevent having only one item on a line */
     grid-template-columns: repeat(2, 1fr);
   }
 

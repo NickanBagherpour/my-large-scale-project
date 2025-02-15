@@ -7,7 +7,7 @@ export default {
     client_status: 'Client Status',
     grant_type: 'Add Grant Type',
     add_tags: 'Add Tags',
-    latin_name_client: 'Client English Name',
+    english_name_client: 'Client English Name',
     persian_name_client: 'Client Persian Name',
     client_type: 'Client Type',
     client_id: 'Client ID',
@@ -19,7 +19,7 @@ export default {
     return: 'Return',
   },
   placeholder: {
-    latin_name_client: 'Client English Name',
+    english_name_client: 'Client English Name',
     client_bale: 'Client Persian Name',
     credit_system: 'Client Type',
     client_id: 'Client ID',

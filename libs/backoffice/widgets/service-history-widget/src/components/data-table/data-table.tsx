@@ -27,97 +27,79 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('column.edit_date'),
       dataIndex: 'modifyDate',
-      // key: 'editDate',
       render: (value, record) => {
         return <HistoryCell item={value} />;
       },
-      // width: 130,
     },
     {
-      title: t('column.admin_name'),
+      title: t('column.user_name'),
       dataIndex: 'modifyBy',
-      // key: 'adminName',
       ellipsis: true,
       render: (value, record) => {
         return <HistoryCell item={value} />;
       },
-      // width: 100,
     },
     {
       title: t('column.en_name'),
       dataIndex: 'name',
-      // key: 'enName',
       ellipsis: true,
       render: (value, record) => {
         return <HistoryCell item={value} />;
       },
-      // width: 100,
     },
     {
       title: t('column.fa_name'),
       dataIndex: 'persianName',
-      // key: 'faName',
       ellipsis: true,
       render: (value, _record, index) => {
         return <HistoryCell item={value} />;
       },
-      // width: 170,
     },
     {
       title: t('column.access'),
       dataIndex: 'accessLevel',
-      // key: 'access',
       render: (value, record) => {
         return <HistoryCell item={value} />;
       },
-      // width: 100,
     },
     {
       title: t('column.category'),
       dataIndex: 'category',
-      // key: 'category',
       render: (value, _record, index) => {
         return <HistoryCell item={value} />;
       },
-      // width: 120,
     },
     {
       title: t('column.throughput'),
       dataIndex: 'throughput',
-      // key: 'throughout',
       render: (value, record) => {
         return <HistoryCell item={value} />;
       },
-      // width: 120,
     },
     {
       title: t('column.version'),
       dataIndex: 'version',
-      // key: 'version',
       render: (value, _record, index) => {
         return <HistoryCell item={value} />;
       },
-      // width: 80,
     },
     {
       title: t('column.owner'),
       dataIndex: 'owner',
-      //key: 'owner',
       render: (value, _record, index) => {
         return <HistoryCell item={value} />;
       },
-      // width: 120,
     },
   ];
 
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
-    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
+    if (lastValidTotal) setLastTotal(lastValidTotal);
     const updatedPagination = { page: current, limit: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
 
   return (
-    <>
+    <div>
       {displayTable ? (
         <Table
           rowKey={'id'}
@@ -141,7 +123,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       ) : (
         <NoResult isLoading={isFetching} />
       )}
-    </>
+    </div>
   );
 };
 export default DataTable;

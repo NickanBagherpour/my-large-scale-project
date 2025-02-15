@@ -169,7 +169,7 @@ export default {
     client_plugin: 'پلاگین‌ کلاینت',
     client_services_plugin: 'پلاگین‌ سرویس‌های کلاینت',
     status: 'وضعیت',
-    search_english_or_persian_name: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+    search_english_or_persian_name: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
     call_limitation_plugin: 'پلاگین محدودیت فراخوانی کلاینت',
   },
 
