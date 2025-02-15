@@ -1,17 +1,60 @@
+import React from 'react';
+import { Tooltip } from 'antd';
+import { getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
+
+import { StyledList } from './badge.style';
 import * as S from './badge.style';
 
 type Props = {
   items: string[];
+  onRender?: (value: string) => React.ReactNode;
 };
 
-export default function WidthBadge(props: Props) {
-  const { items } = props;
+export default function WithBadge(props: Props) {
+  const { items, onRender } = props;
+
   const count = items.length;
   const firstItem = items[0];
+
+  const formattedFirstItem = getValueOrDash(firstItem && firstItem.replace(/[{}]/g, ''));
+
+  const listItems = items
+    // ?.slice(1)
+    .map((item, index) => <li key={index}>{getValueOrDash(item && item.replace(/[{}]/g, ''))}</li>);
+
+  function isPersian(text: string): boolean {
+    return REGEX_PATTERNS.PersianIdentifier.test(text);
+  }
+
+  function isMorePersian(items: string[]): boolean {
+    const persianCount = items.filter((item) => isPersian(item)).length;
+    const englishCount = items.length - persianCount;
+    return persianCount > englishCount;
+  }
+
+  const isPersianContent = isMorePersian(items);
+
+  const renderFirstItem = () => {
+    if (onRender) {
+      return onRender(formattedFirstItem);
+    }
+    return <span>{formattedFirstItem}</span>;
+  };
+
   return (
     <>
-      {firstItem}
-      {count > 1 && <S.Badge count={`+${count - 1}`} />}
+      {count > 1 ? (
+        <Tooltip
+          title={<StyledList isPersian={isPersianContent}>{listItems}</StyledList>}
+          arrow={false}
+          overlayStyle={{ maxWidth: 'unset' }}
+        >
+          {<S.Badge count={`+${count - 1}`} />}
+          {renderFirstItem()}
+        </Tooltip>
+      ) : (
+        renderFirstItem()
+      )}
     </>
   );
 }

@@ -5,6 +5,7 @@ import { Tooltip } from 'antd';
 import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
+import { WithBadge } from '@oxygen/reusable-components';
 
 import { ParamsType } from '../types';
 
@@ -22,13 +23,13 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
+    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 0, className: 'row-number' },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      width: 150,
+      // width: 150,
       ellipsis: {
         showTitle: false,
       },
@@ -43,42 +44,47 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'persianName',
       key: 'persianName',
       align: 'center',
-      width: 150,
+      // width: 50,
       ellipsis: {
-        showTitle: false,
+        showTitle: true,
       },
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
+          {getValueOrDash(persian_name)}
           {getValueOrDash(persian_name)}
         </Tooltip>
       ),
     },
     {
       title: `${t('scope')}`,
-      dataIndex: 'scope',
-      key: 'scope',
+      dataIndex: 'scopes',
+      key: 'scopes',
       align: 'center',
-      width: 150,
+      // width: 150,
       ellipsis: {
         showTitle: false,
       },
-      render: (scope) => (
-        <Tooltip placement='top' title={getValueOrDash(scope)} arrow={true}>
-          <S.Name text={getValueOrDash(scope)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
-        </Tooltip>
+      render: (scopes) => (
+        <WithBadge
+          items={scopes}
+          onRender={(value) => (
+            <S.Name text={getValueOrDash(value)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+          )}
+        />
       ),
     },
     {
       title: 'url',
-      dataIndex: 'path',
-      key: 'path',
+      dataIndex: 'paths',
+      key: 'paths',
       align: 'center',
-      width: 120,
+      // width: 120,
       ellipsis: true,
-      render: (url) => (
-        <Tooltip placement='top' title={getValueOrDash(url)} arrow={true}>
-          <S.Url>{getValueOrDash(url)}</S.Url>
-        </Tooltip>
+      render: (paths) => (
+        <WithBadge
+          items={[...paths, ...paths, ...paths]}
+          onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>}
+        />
       ),
     },
     {
@@ -86,21 +92,21 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
-      width: 100,
+      width: 0,
       render: (version) => getValueOrDash(version),
     },
     {
       title: `${t('status')}`,
       dataIndex: 'isActive',
       key: 'isActive',
-      width: 150,
+      // width: 150,
       render: (isActive, name) => (
         <S.SwitchContainer>
-          {t('operational')}
+          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('operational')}</span>
           <span style={{ margin: '0 1.2rem' }}>
             <Switch disabled={true} checked={isActive} />
           </span>
-          {t('stopped')}
+          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('stopped')}</span>
         </S.SwitchContainer>
       ),
     },
@@ -109,7 +115,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'details',
       key: 'details',
       align: 'center',
-      width: 80,
+      width: 0,
       render: (value, record) => (
         <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
           {t('detailed')}

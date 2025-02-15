@@ -128,11 +128,19 @@ export default function ClientInfo(props: Props) {
         <S.Header>
           <S.TabName>{t('technical_information')}</S.TabName>
           <S.Btns>
-            <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=${clientId}`} color='primary' variant='filled'>
+            <Button
+              color='primary'
+              variant='filled'
+              href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientName=${clientName}`}
+            >
               <S.Icon className='icon-clock' />
               {t('display_change_history')}
             </Button>
-            <Button href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`} color='primary' variant='solid'>
+            <Button
+              color='primary'
+              variant='solid'
+              href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?clientName=${clientName}`}
+            >
               <S.Icon className='icon-edit' />
               {t('edit')}
             </Button>

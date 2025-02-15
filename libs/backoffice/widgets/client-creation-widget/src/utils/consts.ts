@@ -8,24 +8,16 @@ export const MAX_INPUTE_LENGTH = 75;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
-  grant_tag: 'grant_tag',
-  add_tag: 'add_tag',
-  latin_name_client: 'latin_name_client',
-  persian_name_client: 'persian_name_client',
-  client_type: 'client_type',
-  client_id: 'client_id',
-  identity_auth: 'identity_auth',
-  website_url: 'website_url',
-  input_address: 'input_address',
-  return_address: 'return_address',
-  aggregator_status: 'aggregator_status',
-  aggregator: 'aggregator',
-  user_name: 'user_name',
-  national_code: 'national_code',
-  organization_name: 'organization_name',
-  mobile_number: 'mobile_number',
-  telephone: 'telephone',
-  email: 'email',
+  GRANT_TYPE: 'grantType',
+  TAG_IDS: 'tagIds',
+  CLIENT_ENGLISH_NAME: 'clientEnglishName',
+  CLIENT_PERSIAN_NAME: 'clientPersianName',
+  CLIENT_TYPE_CODE: 'clientTypeCode',
+  CLIENT_KEY: 'clientKey',
+  AUTHORIZATION_KEY: 'authorizationKey',
+  WEBSITE_URL: 'websiteUrl',
+  INBOUND_ADDRESS: 'inboundAddress',
+  REDIRECT_URL: 'redirectUrl',
 };
 
 export const dropdownOptions: MenuItemType[] = [
@@ -52,4 +44,40 @@ export const LIMITAION_FORM_NAME = {
   serviceCallRateOptions: 'serviceCallRateOptions',
   totalCallLimit: 'totalCallLimit',
   callLimitOptions: 'callLimitOptions',
+};
+
+export enum ClientInquiryStatus {
+  'CLIENT_IS_OPERATIONAL' = 1,
+  'CLIENT_IS_DRAFT' = 2,
+  'CLIENT_NOT_FOUND' = 3,
+  'CLIENT_EXISTS_IN_BAM' = 4,
+}
+
+export const GrantValue = [
+  {
+    key: 'ClientFlow',
+    label: 'ClientFlow',
+  },
+  {
+    key: 'PasswordFlow',
+    label: 'PasswordFlow',
+  },
+  {
+    key: 'AuthorizationFlow',
+    label: 'AuthorizationFlow',
+  },
+  {
+    key: 'ImplicitFlow',
+    label: 'ImplicitFlow',
+  },
+  {
+    key: 'RefreshToken',
+    label: 'RefreshToken',
+  },
+];
+
+export const CLIENT_NAME = 'client-name';
+export const PROGRESS_CODE = {
+  SERVICE_ASSIGNED: 11,
+  PLUGIN_ASSIGNED: 12,
 };

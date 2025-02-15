@@ -20,7 +20,7 @@ export const Scope = styled(MarkText)`
   //
 `;
 
-export const Url = styled.p`
+export const Url = styled.span`
   unicode-bidi: plaintext;
 `;
 

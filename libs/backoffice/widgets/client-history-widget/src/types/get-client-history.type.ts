@@ -108,7 +108,10 @@ export type NormalizedClientHistoryItemType = {
   persianName: ValueWithDifference<string>;
   redirectUrl: ValueWithDifference<string>;
   revNumber: ValueWithDifference<number>;
-  revType: ValueWithDifference<any>;
+  revType: {
+    code: ValueWithDifference<number>;
+    title: ValueWithDifference<string>;
+  };
   url: ValueWithDifference<string>;
 };
 

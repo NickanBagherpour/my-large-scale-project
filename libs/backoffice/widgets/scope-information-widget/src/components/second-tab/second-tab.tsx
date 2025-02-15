@@ -4,7 +4,7 @@ import { TablePaginationConfig } from 'antd';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 
 import DetailsModal from './modals/info-service-modal/info-service-modal';
 // import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
@@ -74,27 +74,27 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
     <>
       <S.SecondTabHeader>
         <S.SecondTabTitle>{t('second_tab.title')}</S.SecondTabTitle>
-        <S.ButtonContainer>
-          <S.ButtonWraper background={'primary'}>
-            <Button
-              onClick={handlePrint}
-              variant='link'
-              color='primary'
-              shape='circle'
-              icon={<S.Icon className={'icon-printer'}></S.Icon>}
-            ></Button>
-          </S.ButtonWraper>
-          <S.ButtonWraper background={'secondary'}>
-            <Button
-              onClick={handleExcleDownload}
-              loading={excelIsFetching}
-              variant='link'
-              color='secondary'
-              shape='circle'
-              icon={<S.Icon className={'icon-excel'}></S.Icon>}
-            ></Button>
-          </S.ButtonWraper>
-        </S.ButtonContainer>
+        {/*<S.ButtonContainer>*/}
+        {/*  <S.ButtonWraper background={'primary'}>*/}
+        {/*    <Button*/}
+        {/*      onClick={handlePrint}*/}
+        {/*      variant='link'*/}
+        {/*      color='primary'*/}
+        {/*      shape='circle'*/}
+        {/*      icon={<S.Icon className={'icon-printer'}></S.Icon>}*/}
+        {/*    ></Button>*/}
+        {/*  </S.ButtonWraper>*/}
+        {/*  <S.ButtonWraper background={'secondary'}>*/}
+        {/*    <Button*/}
+        {/*      onClick={handleExcleDownload}*/}
+        {/*      loading={excelIsFetching}*/}
+        {/*      variant='link'*/}
+        {/*      color='secondary'*/}
+        {/*      shape='circle'*/}
+        {/*      icon={<S.Icon className={'icon-excel'}></S.Icon>}*/}
+        {/*    ></Button>*/}
+        {/*  </S.ButtonWraper>*/}
+        {/*</S.ButtonContainer>*/}
       </S.SecondTabHeader>
       <Table
         dataSource={tableData}

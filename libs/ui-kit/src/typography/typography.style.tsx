@@ -1,36 +1,19 @@
 import styled from 'styled-components';
-import { Typography } from 'antd';
-import { TextProps as AntTextProps } from 'antd/es/typography/Text';
-import { LinkProps as AntLinkProps } from 'antd/es/typography/Link';
-import { TitleProps as AntTitleProps } from 'antd/es/typography/Title';
-import { ParagraphProps as AntParagraphProps } from 'antd/es/typography/Paragraph';
 
-const { Text: AntText, Link: AntLink, Title: AntTitle, Paragraph: AntParagraph } = Typography;
+import { Typography as AntTypography, TypographyProps as AntTypographyProps } from 'antd';
+import { TextProps as AntTextProps } from 'antd/lib/typography/Text';
+import { LinkProps as AntLinkProps } from 'antd/lib/typography/Link';
+import { TitleProps as AntTitleProps } from 'antd/lib/typography/Title';
+import { ParagraphProps as AntParagraphProps } from 'antd/lib/typography/Paragraph';
 
-export const Text = styled(AntText)<AntTextProps>`
-  font-size: 1.2rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.8rem;
-`;
+const { Text: AntText, Link: AntLink, Title: AntTitle, Paragraph: AntParagraph } = AntTypography;
 
-export const Link = styled(AntLink)<AntLinkProps>`
-  font-size: 1.2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8rem;
-`;
+export const Typography = styled(AntTypography)<AntTypographyProps>``;
 
-export const Title = styled(AntTitle)<AntTitleProps>`
-  font-size: 1.8rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.8rem;
-`;
+export const Text = styled(AntText)<AntTextProps>``;
 
-export const Paragraph = styled(AntParagraph)<AntParagraphProps>`
-  font-size: 1.2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8rem;
-`;
+export const Link = styled(AntLink)<AntLinkProps>``;
+
+export const Title = styled(AntTitle)<AntTitleProps>``;
+
+export const Paragraph = styled(AntParagraph)<AntParagraphProps>``;

@@ -15,7 +15,7 @@ export default function Drafts() {
     sort: 'createDate,DESC',
   });
 
-  if (!data) return null;
+  if (!data?.content.length) return null;
 
   const { content: drafts, totalElements } = data;
   const hasMore = totalElements > drafts.length;

@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { Card, Form } from 'antd';
+import { Form, message, Tooltip } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
-import { useTr } from '@oxygen/translation';
+import { useApp } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
-import { Button, Chip, Input, SearchItemsContainer, Select, Switch } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { FORM_ITEM, MAX_INPUTE_LENGTH, MAX_MOBILE_NUMBER_LENGTH } from '../../utils/consts';
-import { useSelectDataQuery } from '../../services/first-step/get-select-data';
-import { updateFirstStepAction, useAppDispatch, useAppState } from '../../context';
-import { useGetnameTagDataQuery } from '../../services/first-step/get-name-tag-data';
-import { useGetGrantTagDataQuery } from '../../services/first-step/get-gant-tag-data';
+import TagPicker from './tag-picker/tag-picker';
+import { TagInterface } from '../../types/first-step/general';
+import CenteredLoading from '../centered-loading/centered-loading';
+import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
+import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
+import {
+  updateFirstStepAction,
+  updateOrgStatusAction,
+  updateOrganizationInfoAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
+
+import {
+  usePostSubmitClient,
+  useGetClientTypesQuery,
+  useGetTagsDataQuery,
+  useGetOrganizationInfoQuery,
+  useGetClientDraftInfoQuery,
+  useGetClientInquirySSOQuery,
+} from '../../services/first-step';
 
 import * as S from './first-step.style';
-import { number } from 'zod';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -24,195 +42,276 @@ type FirstStepProps = PageProps & {
 
 const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { setCurrentStep } = props;
+  //Hooks
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const { notification } = useApp();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
   const [form] = Form.useForm();
-
-  const { data: grantTagData, isFetching: grantTagFetching } = useGetGrantTagDataQuery();
-  const { data: NameTagData, isFetching: nameTagFetching } = useGetnameTagDataQuery();
-  const { data: selectData, isFetching: selectFetching } = useSelectDataQuery();
-  const [grantTags, setGrantTags] = useState(state.firstStep.grant_tag);
-  const [nameTags, setNameTags] = useState(state.firstStep.add_tag);
   const rule = createSchemaFieldRule(createFormSchema(t));
+  //Constants
+  const clientName = state.firstStep.clientEnglishName;
+  const clientStatus = state.clientStatus;
+  const isFormDisabeled = !(state.firstStep?.organizationInfo?.organizationNationalId ?? undefined);
+  const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
+  const isDraft = clientStatus === ClientInquiryStatus.CLIENT_IS_DRAFT;
+  const orgNationalId = state.firstStep.organizationInfo?.organizationNationalId;
+  const aggregatorStatusParams = state.firstStep.organizationInfo?.organizationNationalId;
+  const isBtnDisabled = !orgNationalId;
+  const { INQUIRY_STATUS } = RQKEYS.BACKOFFICE.CLIENT_CREATION;
+  const ssoClientId = state.firstStep.ssoClientId;
+  //States
+  const [selectedGrantTypes, setSelectedGrantTypes] = useState([]);
+  const [selectedTags, setSelectedTags] = useState<TagInterface[]>(state.firstStep.tagIds);
+  const [searchValue, setSearchValue] = useState({
+    orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
+  });
+  //Mutatuions
+  const { mutate: submitClient, isPending: submitClientLoading, isSuccess } = usePostSubmitClient();
+  //Queries
+  const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
+  const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
+  const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
+  const {
+    data: orgInfo,
+    isFetching: orgInfoFetching,
+    refetch: searchRefetch,
+  } = useGetOrganizationInfoQuery(searchValue);
+  const {
+    data: SSOInquiryData,
+    isFetching: SSOInquiryFetching,
+    refetch: SSOInquiryRefetch,
+  } = useGetClientInquirySSOQuery({ 'client-name': clientName });
+  //Effects
+  useEffect(() => {
+    if (isImportClient) {
+      SSOInquiryRefetch();
+      if (SSOInquiryData) {
+        updateFirstStepAction(dispatch, SSOInquiryData);
+      }
+    }
+  }, [isImportClient, SSOInquiryData]);
 
-  const handleGrantTagChange = (values) => {
-    setGrantTags(values);
-  };
+  useEffect(() => {
+    if (isDraft) {
+      draftRefetch();
+      if (draftData) {
+        updateFirstStepAction(dispatch, draftData);
+        setSelectedTags(draftData.tagIds);
+      }
+    }
+  }, [isDraft, draftData]);
 
-  const handleNameTagChange = (values) => {
-    setNameTags(values);
-  };
-  const onFinish = (values) => {
-    updateFirstStepAction(dispatch, values);
-    setCurrentStep((perv) => perv + 1);
-  };
+  useEffect(() => {
+    if (state.orgStatus === 'success') {
+      notification.success({
+        message: t('success_notif'),
+      });
+    }
+  }, [state.orgStatus]);
 
-  const handleGrantChipClose = (key) => {
-    setGrantTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
-  };
+  useEffect(() => {
+    if (state.firstStep) {
+      form.setFieldsValue(state.firstStep);
+      setSearchValue({
+        orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
+      });
+    }
+  }, [state.firstStep, form]);
 
-  const handleNameChipClose = (key) => {
-    setNameTags((prevTags) => prevTags.filter((tag: any) => tag.key !== key));
-  };
+  useEffect(() => {
+    if (orgInfo && state.orgStatus === 'success') {
+      updateOrganizationInfoAction(dispatch, orgInfo);
+    }
+  }, [orgInfo, state.orgStatus]);
 
+  useEffect(() => {
+    const foundGrantTypes = prepareGrantTypes(state.firstStep, GrantValue);
+    setSelectedGrantTypes(foundGrantTypes);
+    form.setFieldsValue({
+      [FORM_ITEM.GRANT_TYPE]: foundGrantTypes,
+    });
+    form.setFieldsValue({
+      [FORM_ITEM.TAG_IDS]: selectedTags,
+    });
+  }, [state.firstStep]);
+
+  //Handlers
   const handleReturn = () => {
     router.back();
   };
-  useEffect(() => {
-    form.setFieldValue('grant_tag', grantTags);
-    form.setFieldValue('add_tag', nameTags);
-  }, [grantTags, nameTags]);
+  const handleChange = (e) => {
+    setSearchValue({ orgNationalId: e.target.value });
+  };
+  const handleSearch = () => {
+    searchRefetch();
+  };
+
+  const onTagsChange = (value: TagInterface[]) => {
+    setSelectedTags(value);
+  };
+  const onGrantTypeChange = (value) => {
+    setSelectedGrantTypes(value);
+  };
+  const onGrantTypeClose = (item) => {
+    const updatedGrantTypes = selectedGrantTypes.filter((grantType: any) => grantType.key !== item);
+    setSelectedGrantTypes(updatedGrantTypes);
+    form.setFieldsValue({
+      [FORM_ITEM.GRANT_TYPE]: updatedGrantTypes,
+    });
+  };
+  const onTagsClose = (option) => {
+    const updatedTags = selectedTags.filter((tag: any) => tag.key !== option);
+    setSelectedTags(updatedTags);
+    form.setFieldsValue({
+      [FORM_ITEM.TAG_IDS]: updatedTags,
+    });
+  };
+
+  const aggregatorStatus = (aggregatorStatusParams) => {
+    return aggregatorStatusParams
+      ? aggregatorStatusParams?.isAggregator
+        ? t('company_is_aggregator')
+        : aggregatorStatusParams?.aggregatorId
+        ? `${t('company_has_aggregator')} - ${aggregatorStatusParams?.aggregatorName}`
+        : t('company_is_not_aggregator')
+      : null;
+  };
+
+  const onFinish = async (values) => {
+    submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [INQUIRY_STATUS],
+        });
+        setCurrentStep((pervStep) => pervStep + 1);
+        updateOrgStatusAction(dispatch, 'normal');
+      },
+    });
+  };
+
+  const infoBoxData = [
+    { key: t('organization_name'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationName) },
+    { key: t('organization_id'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationNationalId) },
+    { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus(aggregatorStatusParams)) },
+    {
+      key: t('representative_name'),
+      value: getValueOrDash(state.firstStep.organizationInfo?.representative?.nameAndLastName),
+    },
+    { key: t('mobile_phone'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.mobileNumber) },
+    { key: t('landline'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.fixedPhoneNumber) },
+  ];
 
   return (
     <S.FirstStepContainer>
-      <Form layout={'vertical'} onFinish={onFinish} form={form} initialValues={state.firstStep}>
-        <S.FirstForm>
-          <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.grant_tag}>
-              <S.Select
-                multiSelect={true}
-                // defaultValue={grantTags}
-                menu={grantTagData}
-                onChange={handleGrantTagChange}
-                loading={grantTagFetching}
-              >
-                {t('form.grant_type')}
-              </S.Select>
-            </Form.Item>
-            <div>
-              {grantTags.map((tag: any) => (
-                <Chip
-                  tooltipTitle={tag}
-                  key={tag.key}
-                  type='active'
-                  tooltipOnEllipsis={true}
-                  closeIcon
-                  onClose={() => handleGrantChipClose(tag.key)}
-                >
-                  {tag.label}
-                </Chip>
-              ))}
-            </div>
-          </S.TagPicker>
-
-          <S.TagPicker>
-            <Form.Item className={'tag-input-grant-tag'} name={FORM_ITEM.add_tag}>
-              <S.Select multiSelect={true} menu={NameTagData} onChange={handleNameTagChange} loading={nameTagFetching}>
-                {t('form.add_tags')}
-              </S.Select>
-            </Form.Item>
-            <div>
-              {nameTags.map((tag: any) => (
-                <Chip
-                  tooltipTitle={tag.label}
-                  tooltipOnEllipsis={true}
-                  closeIcon
-                  type='active'
-                  onClose={() => handleNameChipClose(tag.key)}
-                >
-                  {tag.label}
-                </Chip>
-              ))}
-            </div>
-          </S.TagPicker>
-        </S.FirstForm>
-        <S.TitleTxt className={'cards-title'}>{t('client_info')}</S.TitleTxt>
-        <Card>
-          <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM.latin_name_client} label={t('form.latin_name_client')} rules={[rule]}>
-              <Input size='large' placeholder={`${t('placeholder.latin_name_client')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-
-            <Form.Item name={FORM_ITEM.persian_name_client} label={t('form.persian_name_client')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.farsi_name_client')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.client_type} label={t('form.client_type')} rules={[rule]}>
-              <Select
-                size={'large'}
-                options={selectData}
-                loading={selectFetching}
-                placeholder={`${t('placeholder.client_type')}`}
-              ></Select>
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.client_id} label={t('form.client_id')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.client_id')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.identity_auth} label={t('form.identity_auth')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.authentication_id')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.website_url} label={t('form.website_url')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.website_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.input_address} label={t('form.input_address')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.input_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.return_address} label={t('form.return_address')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.return_address')}`} maxLength={MAX_INPUTE_LENGTH} type='url' />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEM.aggregator_status}
-              className={'label-switch'}
-              layout={'horizontal'}
-              label={t('form.aggregator_status')}
-            >
-              <Switch />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.aggregator} label={t('form.aggregator')} rules={[rule]}>
-              <Select
-                size={'large'}
-                options={selectData}
-                loading={selectFetching}
-                placeholder={`${t('placeholder.Aggregator')}`}
-              ></Select>
-            </Form.Item>
-          </SearchItemsContainer>
-        </Card>
-        <S.TitleTxt className={'cards-title'}>{t('applicant_info')}</S.TitleTxt>
-        <Card>
-          <SearchItemsContainer>
-            <Form.Item name={FORM_ITEM.user_name} label={t('form.user_name')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.user_name')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.national_code} label={t('form.national_code')}>
-              <Input placeholder={`${t('placeholder.national_code')}`} maxLength={MAX_INPUTE_LENGTH} allow={'number'} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.organization_name} label={t('form.organization_name')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.organization_name')}`} maxLength={MAX_INPUTE_LENGTH} />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.mobile_number} label={t('form.mobile_number')} rules={[rule]}>
-              <Input
-                placeholder={`${t('placeholder.mobile_number')}`}
-                maxLength={MAX_MOBILE_NUMBER_LENGTH}
-                type='tell'
-                allow={'number'}
+      {draftFetching || SSOInquiryFetching ? (
+        <CenteredLoading />
+      ) : (
+        <>
+          <S.TitleContainer>
+            <S.TitleTxt>{t('organization_information')}</S.TitleTxt>
+            <Tooltip title={t('tooltip_txt')}>
+              <S.Icon className={'icon-info-hint'} />
+            </Tooltip>
+          </S.TitleContainer>
+          <S.Card>
+            <S.SearchContainer>
+              <S.Input
+                size='large'
+                value={searchValue.orgNationalId}
+                prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
+                placeholder={t('search_organization_id_placeholder')}
+                onChange={(e) => handleChange(e)}
+                orgStatus={state.orgStatus}
               />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.telephone} label={t('form.telephone')} rules={[rule]}>
-              <Input
-                placeholder={`${t('placeholder.telephone')}`}
-                maxLength={MAX_INPUTE_LENGTH}
-                type='tell'
-                allow={'number'}
+              {!!state.firstStep.organizationInfo?.organizationNationalId === true ? (
+                <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
+                  {t('re_search')}
+                  <i className={'icon-search-normal'} />
+                </Button>
+              ) : (
+                <Button onClick={handleSearch} loading={SSOInquiryFetching}>
+                  {t('button.search')}
+                  <i className={'icon-search-normal'} />
+                </Button>
+              )}
+            </S.SearchContainer>
+            <InfoBox data={infoBoxData} margin={0} loading={orgInfoFetching} />
+          </S.Card>
+          <Form
+            style={{ flexGrow: 1 }}
+            layout={'vertical'}
+            onFinish={onFinish}
+            form={form}
+            initialValues={state.firstStep}
+            disabled={isFormDisabeled}
+          >
+            <S.TitleTxt>{t('technical_information')}</S.TitleTxt>
+            <S.Card>
+              <SearchItemsContainer>
+                <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.latin_name_client')} rules={[rule]}>
+                  <Input disabled size='large' maxLength={MAX_INPUTE_LENGTH} />
+                </Form.Item>
+
+                <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>
+                  <Input maxLength={MAX_INPUTE_LENGTH} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.CLIENT_KEY} label={t('form.client_id')} rules={[rule]}>
+                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.CLIENT_TYPE_CODE} label={t('form.client_type')} rules={[rule]}>
+                  <Select
+                    disabled={isFormDisabeled}
+                    size={'large'}
+                    options={clientTypes}
+                    loading={clientTypesFetching}
+                    placeholder={`${t('placeholder.Choose')}`}
+                  ></Select>
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.AUTHORIZATION_KEY} label={t('form.identity_auth')} rules={[rule]}>
+                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.WEBSITE_URL} label={t('form.website_url')} rules={[rule]}>
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.INBOUND_ADDRESS} label={t('form.input_address')} rules={[rule]}>
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.REDIRECT_URL} label={t('form.client_return_address')} rules={[rule]}>
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                </Form.Item>
+              </SearchItemsContainer>
+              <S.Divider />
+              <TagPicker
+                isDisabled={isFormDisabeled}
+                tags={NameTagData}
+                selectedTags={selectedTags}
+                onTagsChange={onTagsChange}
+                loadingUpdateClient={submitClientLoading}
+                isSuccess={isSuccess}
+                isTagsFetching={nameTagFetching}
+                onTagsClose={onTagsClose}
+                GrantValue={GrantValue}
+                onGrantTypeClose={onGrantTypeClose}
+                onGrantTypeChange={onGrantTypeChange}
+                selectedGrantTypes={selectedGrantTypes}
               />
-            </Form.Item>
-            <Form.Item name={FORM_ITEM.email} label={t('form.email')} rules={[rule]}>
-              <Input placeholder={`${t('placeholder.email')}`} maxLength={MAX_INPUTE_LENGTH} type='email' />
-            </Form.Item>
-          </SearchItemsContainer>
-        </Card>
-      </Form>
-      <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
-          {t('return')}
-        </Button>
-        <Button htmlType={'submit'} onClick={form.submit}>
-          {t('submit_info')}
-          <i className={'icon-arrow-left'}></i>
-        </Button>
-      </S.Footer>
+            </S.Card>
+          </Form>
+          <S.Footer>
+            <Button variant={'outlined'} onClick={handleReturn}>
+              {t('return')}
+            </Button>
+            <Button htmlType={'submit'} onClick={form.submit} loading={submitClientLoading} disabled={isBtnDisabled}>
+              {t('submit_info')}
+              <i className={'icon-arrow-left'}></i>
+            </Button>
+          </S.Footer>
+        </>
+      )}
     </S.FirstStepContainer>
   );
 };

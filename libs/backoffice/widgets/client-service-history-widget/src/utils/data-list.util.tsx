@@ -18,7 +18,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.edit_time'),
       dataIndex: 'clientServiceDto',
       render: (item) => {
-        return <div>{getValueOrDash(item?.value.modifyDate.value)}</div>;
+        return <div>{getValueOrDash(item?.modifyDate.value)}</div>;
       },
     },
     {
@@ -27,7 +27,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'modifyBy',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.value.modifyBy}></HistoryCell>;
+        return <HistoryCell item={item?.modifyBy}></HistoryCell>;
       },
     },
     {
@@ -36,12 +36,10 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'method',
       ellipsis: true,
       render: (item, record) => {
-        const revType = item.value.revType.value;
+        const revType = item.revType;
+
         return (
-          <S.OperationTypeStyle
-            variant={revType?.code.value}
-            isDeleted={record?.clientServiceDto.value.isDeleted.value}
-          >
+          <S.OperationTypeStyle variant={revType?.code.value} isDeleted={record?.clientServiceDto.isDeleted.value}>
             {getValueOrDash(revType?.title.value)}
           </S.OperationTypeStyle>
         );
@@ -54,7 +52,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item?.value.serviceName}></HistoryCell>;
+        return <HistoryCell item={item?.serviceName}></HistoryCell>;
       },
     },
     {
@@ -63,7 +61,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'host',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.value.persianServiceName}></HistoryCell>;
+        return <HistoryCell item={item?.persianServiceName}></HistoryCell>;
       },
     },
   ];

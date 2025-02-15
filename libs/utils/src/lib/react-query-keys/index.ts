@@ -1,5 +1,6 @@
 /*--import-backoffice--*/
 import { KEYS as CLIENT_REPORT_KEYS } from './portals/backoffice/client-report.key';
+import { KEYS as SERVICES_REPORT_KEYS } from './portals/backoffice/services-report.key';
 import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './portals/backoffice/upstream-service-history.key';
 import { KEYS as UPSTREAM_HISTORY_KEYS } from './portals/backoffice/upstream-history.key';
 import { KEYS as EDIT_REQUEST_LIST_KEYS } from './portals/backoffice/edit-request-list.key';
@@ -59,6 +60,7 @@ export const RQKEYS = {
 
     /*--export-backoffice--*/
     CLIENT_REPORT: CLIENT_REPORT_KEYS,
+    SERVICES_REPORT: SERVICES_REPORT_KEYS,
     UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
     UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
     //CLIENTS
