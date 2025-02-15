@@ -1,8 +1,9 @@
 import { client, portalUrl } from '@oxygen/client';
 import Mockify from '@oxygen/mockify';
-import { OrganizationInfoResponceType } from '../types/first-step/organization-info.type';
 import { FirstStepType } from '../context/types';
 import { ClientDraftDataType } from '../types/first-step/client-draft.type';
+import { InquiryStatusResponceType } from '../types/get-client-inquiry-status.type';
+import { OrganizationInfoResponceType } from '../types';
 
 const Api = {
   // getTableReportData: async (params: FetchParamsType) => Mockify.clientCreationTable(params),
@@ -16,7 +17,8 @@ const Api = {
   getClientTypes: async () => client.get(`${portalUrl}/v1/enums/client-types`),
   getClientDraftInfo: async (params) => client.get<ClientDraftDataType>(`${portalUrl}/v1/clients/${params}`),
   getClientInquirySSO: async (params) => client.get(`${portalUrl}/v1/clients/inquiry-client-sso`, { params }),
-  getClientInquiryStatus: async (params) => client.get(`${portalUrl}/v1/clients/inquiry-client-status`, { params }),
+  getClientInquiryStatus: async (params) =>
+    client.get<InquiryStatusResponceType>(`${portalUrl}/v1/clients/inquiry-client-status`, { params }),
   getOrganizationInfo: async (params) =>
     client.get<OrganizationInfoResponceType>(`${portalUrl}/v1/organization`, { params }),
 };

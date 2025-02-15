@@ -40,7 +40,7 @@ type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { setCurrentStep } = props;
   //Hooks
   const dispatch = useAppDispatch();
@@ -315,5 +315,3 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     </S.FirstStepContainer>
   );
 };
-
-export default FirstStep;

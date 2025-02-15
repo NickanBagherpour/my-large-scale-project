@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
-import FirstStep from '../first-step/first-step';
 import { CLIENT_NAME } from '../../utils/consts';
+import { FirstStep } from '../first-step/first-step';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
 import { useGetClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
@@ -34,7 +33,7 @@ const App: React.FC<AppProps> = (props) => {
   } = useGetClientInquiryStatusQuery({
     'client-name': clientName,
   });
-  const clientStatus = inquiryStatus?.clientInquiryStatus.code;
+  const clientStatus = inquiryStatus?.clientInquiryStatus?.code;
   const step = inquiryStatus?.clientProgress?.step ?? 0;
 
   const [currentStep, setCurrentStep] = useState<number>(step);
