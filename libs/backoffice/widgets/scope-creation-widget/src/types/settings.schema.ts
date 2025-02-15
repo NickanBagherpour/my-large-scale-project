@@ -1,12 +1,8 @@
 import z from 'zod';
 import { TFunction } from 'i18next';
 
-import { createValidationSchema, REGEX_PATTERNS } from '@oxygen/utils';
-
-export const FORM_ITEM_NAMES = {
-  latinNameScope: 'name',
-  persianNameScope: 'description',
-} as const;
+import { createValidationSchema } from '@oxygen/utils';
+import { FORM_ITEM_NAMES } from '../utils/form-item-name';
 
 export const createUpstreamType = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);

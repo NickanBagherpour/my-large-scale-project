@@ -10,8 +10,9 @@ import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 
-import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from '../../types/settings.schema';
+import { createUpstreamType, CreateUpstreamType } from '../../types';
 
+import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { useCreateScope } from '../../services/create-scope.api';
 

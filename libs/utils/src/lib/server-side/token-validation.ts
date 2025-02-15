@@ -1,8 +1,6 @@
 'use server';
 
-import { headers } from 'next/headers';
-
-import { decrypt, validateToken as JwtUtilValidateToken } from '@oxygen/utils';
+import { decrypt, getAppBaseUrl, validateToken as JwtUtilValidateToken } from '@oxygen/utils';
 import { JwtPayload } from '@oxygen/types';
 
 /**
@@ -12,9 +10,7 @@ import { JwtPayload } from '@oxygen/types';
  * @returns {Promise<boolean>} - Whether the token is valid
  */
 export async function validateTokenOnline(token: string | undefined): Promise<boolean> {
-  const host = headers().get('host');
-  const protocol = 'http';
-  const baseUrl = `${protocol}://${host}`;
+  const baseUrl = await getAppBaseUrl();
 
   if (!token) return false;
 

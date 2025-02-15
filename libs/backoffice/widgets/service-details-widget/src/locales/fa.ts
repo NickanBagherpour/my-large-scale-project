@@ -25,6 +25,11 @@ export default {
   operational: 'عملیاتی',
   route: 'Route',
   upstream: 'آپ‌استریم',
+  documentation: 'مستندات',
+  service_documentation: 'مستندات سرویس',
+  add_documentation: 'افزودن مستندات',
+  file_format_error: 'فرمت فایل معتبر نیست',
+  file_size_limit_error: 'حجم فایل بیشتر از 5مگابایت است',
   stop: 'توقف',
   field: {
     row: 'ردیف',

@@ -19,6 +19,13 @@ export type ProgressEvent = {
   step: number;
 };
 
+export type RouteType = {
+  routeMethod: string[];
+  routeProtocol: string[];
+  routeHosts: string;
+  routePath: string;
+};
+
 export type ModalDataType = {
   scopeName: string;
   scopeDescription: string;
@@ -29,10 +36,8 @@ export type ModalDataType = {
   serviceDescription: string;
   serviceCategoryTitle: string;
   serviceVersion: string;
-  routeMethod: string;
-  routeProtocol: string;
-  routeHosts: string;
-  routePath: string;
+  routes: RouteType[];
+  scopes: any[];
   isActive: boolean;
   isInSSO: boolean;
   serviceProtocol: string;

@@ -2,12 +2,10 @@
 
 import { headers } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
-import { decrypt } from '@oxygen/utils';
+import { decrypt, getAppBaseUrl } from '@oxygen/utils';
 
 export async function handleSignOut() {
-  const host = headers().get('host'); // Get the current host (domain)
-  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' :*/ 'http'; // Use HTTPS in production
-  const baseUrl = `${protocol}://${host}`;
+  const baseUrl = await getAppBaseUrl();
 
   // Assuming the session ticket is stored in a cookie or comes from some other source
   const sessionTicket = decrypt(headers().get(CookieKey.SESSION_TICKET)); // Example, replace with the correct header or method to fetch session ticket

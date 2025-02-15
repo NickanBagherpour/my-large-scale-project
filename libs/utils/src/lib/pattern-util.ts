@@ -1,6 +1,7 @@
 export const REGEX_PATTERNS = {
   isLatinText: /^[^\u0600-\u06FF]*$/,
   isPersianText: /^[^a-zA-Z]*$/,
+  PersianIdentifier: /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/,
   defaultEnglishName: /^[A-Za-z][A-Za-z0-9._-]*$/,
   defaultPersianName: /^(?![0-9._-])[A-Za-z\u0600-\u06FF][A-Za-z\u0600-\u06FF0-9._\-\s]*(?<![\s])$/,
   url: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,

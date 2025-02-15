@@ -6,6 +6,7 @@ import { ScopeInformationService } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
 
 import * as S from './second-tab-table-util.style';
+import { WithBadge } from '@oxygen/reusable-components';
 
 export type Modal = {
   details: boolean;
@@ -19,6 +20,7 @@ type Props = {
   page: number;
   rowsPerPage: number;
 };
+
 export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
   const { t, toggleModal, updateServiceName, page, rowsPerPage } = props;
 
@@ -27,7 +29,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.row'),
       align: 'center',
       key: 'index',
-      width: '5rem',
+      width: '0',
       render: (_val, _record, index) => {
         const start = page * rowsPerPage + 1;
         return start + index;
@@ -45,40 +47,45 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
+      // ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
     },
     {
       title: t('second_tab.scope'),
-      dataIndex: 'scope',
+      dataIndex: 'scopes',
       align: 'center',
+      // ellipsis: true,
       render: (value) => {
-        return getValueOrDash(value);
+        return <WithBadge items={value} />;
       },
     },
     {
       title: t('second_tab.url'),
-      dataIndex: 'path',
+      dataIndex: 'paths',
       align: 'center',
-      render: (value) => <S.Url>{getValueOrDash(value)}</S.Url>,
+      render: (value) => {
+        return <WithBadge items={value} />;
+      },
     },
     {
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      width: '7rem',
+      width: '0',
       render: (value) => {
         return getValueOrDash(value);
       },
     },
     {
-      width: '7rem',
-      key: 'status',
+      width: '0',
+      key: 'action',
       render: (value) => (
         <S.DetailsBtn
-          variant='link'
-          color='primary'
+          variant="link"
+          color="primary"
+          size={'small'}
           onClick={() => {
             updateServiceName(value?.name);
             toggleModal('details', true);
@@ -109,23 +116,25 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
     {
       title: '',
       key: 'mobile-columns',
-      render({ id, scope, path, version, persianName, name }: ScopeInformationService) {
+      render({ id, scopes, paths, version, persianName, name }: ScopeInformationService) {
         const data = [
           { title: t('second_tab.service_name'), value: getValueOrDash(name) },
           { title: t('second_tab.persian_name'), value: getValueOrDash(persianName) },
-          { title: t('second_tab.scope'), value: getValueOrDash(scope) },
+          { title: t('second_tab.scope'), value: <WithBadge items={scopes} /> },
           {
             title: t('second_tab.url'),
-            value: <S.Url>{getValueOrDash(path)}</S.Url>,
+            value: <WithBadge items={paths} />,
           },
           { title: t('second_tab.version'), value: getValueOrDash(version) },
           {
-            title: t('details'),
+            title: '',
+            colon: false,
             value: (
               <S.DetailsBtn
-                className='item__btn'
-                variant='link'
-                color='primary'
+                className="item__btn"
+                variant="link"
+                size={'small'}
+                color="primary"
                 onClick={() => {
                   updateServiceName(name);
                   toggleModal('details', true);

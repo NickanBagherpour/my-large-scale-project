@@ -9,9 +9,9 @@ export const createFormSchema = (t: TFunction) => {
   return z.object({
     [FORM_ITEM_NAMES.persianNameClient]: validationSchema.defaultPersianName,
     [FORM_ITEM_NAMES.clientType]: validationSchema.selectNumberRequired,
-    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.url,
-    [FORM_ITEM_NAMES.inputAddress]: validationSchema.url,
-    [FORM_ITEM_NAMES.returnAddress]: validationSchema.url,
+    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalProtocolUrl,
+    [FORM_ITEM_NAMES.inputAddress]: validationSchema.optionalProtocolUrl,
+    [FORM_ITEM_NAMES.returnAddress]: validationSchema.optionalProtocolUrl,
     [FORM_ITEM_NAMES.grantType]: validationSchema.objectMultipleSelection,
     [FORM_ITEM_NAMES.tags]: validationSchema.objectMultipleSelection,
   });

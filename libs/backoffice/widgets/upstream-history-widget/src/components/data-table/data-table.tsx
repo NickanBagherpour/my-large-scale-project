@@ -67,36 +67,6 @@ const DataTable = () => {
     },
   ];
 
-  const mobileColumns: ColumnsType<HistoryDifferenceObj> = [
-    {
-      title: t('column.edit-date'),
-      dataIndex: 'modifyDate',
-      render: (column) => <div>{getValueOrDash(column.value)}</div>,
-    },
-    {
-      title: t('column.admin-name'),
-      dataIndex: 'modifyBy',
-      ellipsis: true,
-      render: (column) => <div>{getValueOrDash(column.value)}</div>,
-    },
-    {
-      title: t('column.en-name'),
-      dataIndex: 'upstream',
-      key: 'upstream',
-      ellipsis: true,
-      className: 'left-to-right',
-      render: (column) => <HistoryCell item={column.name} />,
-    },
-    {
-      title: t('column.fa-name'),
-      dataIndex: 'upstream',
-      key: 'faName',
-      ellipsis: true,
-      className: 'right-to-left',
-      render: (column) => <HistoryCell item={column.description} />,
-    },
-  ];
-
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
     if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
     const updatedPagination = { page: current, limit: pageSize };
@@ -111,7 +81,6 @@ const DataTable = () => {
         size='small'
         variant='complex'
         columns={columns}
-        mobileColumns={mobileColumns}
         dataSource={dataSource}
         loading={isFetching}
         pagination={{

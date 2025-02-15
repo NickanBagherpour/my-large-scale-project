@@ -66,7 +66,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
   };
 
   const onFinish = async (values) => {
-    mutate(prepareParams(trimValues(values)), {
+    mutate(prepareParams(trimValues(values), userData?.organizationInfo?.organizationNationalId), {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({

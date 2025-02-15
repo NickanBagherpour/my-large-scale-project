@@ -52,7 +52,7 @@ export const Actions = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-bottom: 3.4rem;
+  margin-bottom: 1rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;

@@ -50,11 +50,11 @@ export const AppContainer = styled(Container)`
     }
   }
 
-  .ant-upload.ant-upload-drag {
+  /* .ant-upload.ant-upload-drag {
     padding: 2rem;
     border: 2px dashed ${(p) => p.theme.primary._400};
     border-radius: 20px;
-  }
+  } */
 
   .excel-icon {
     background: ${(p) => p.theme.info._50};
@@ -68,8 +68,8 @@ export const AppContainer = styled(Container)`
     border-radius: 35px;
     font-size: 2.4rem !important;
   }
-
+  /* 
   .ant-upload-list {
     display: none;
-  }
+  } */
 `;
