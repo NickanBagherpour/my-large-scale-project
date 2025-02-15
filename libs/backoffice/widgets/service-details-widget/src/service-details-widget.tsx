@@ -23,7 +23,10 @@ const ServiceDetailsWidget: React.FC<PageProps> = (props) => {
     // headerTitle={headerTitles}
     >
       <AppProvider>
-        <App parentProps={props.parentProps} updateHeaderTitle={handleTitleUpdate} />
+        <App
+          parentProps={props.parentProps}
+          // updateHeaderTitle={handleTitleUpdate}
+        />
       </AppProvider>
     </WidgetWrapper>
   );

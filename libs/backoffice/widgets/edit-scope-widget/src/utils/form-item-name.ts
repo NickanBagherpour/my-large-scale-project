@@ -1,4 +1,4 @@
 export const FORM_ITEM_NAMES = {
-  latinNameScope: 'latinNameScope',
+  englishNameScope: 'englishNameScope',
   persianNameScope: 'persianNameScope',
 };

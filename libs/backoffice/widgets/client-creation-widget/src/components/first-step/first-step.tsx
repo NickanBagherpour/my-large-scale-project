@@ -252,7 +252,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
             <S.TitleTxt>{t('technical_information')}</S.TitleTxt>
             <S.Card>
               <SearchItemsContainer>
-                <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.latin_name_client')} rules={[rule]}>
+                <Form.Item name={FORM_ITEM.CLIENT_ENGLISH_NAME} label={t('form.english_name_client')} rules={[rule]}>
                   <Input disabled size='large' maxLength={MAX_INPUTE_LENGTH} />
                 </Form.Item>
 

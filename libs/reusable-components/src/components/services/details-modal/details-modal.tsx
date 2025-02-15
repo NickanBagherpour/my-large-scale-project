@@ -26,7 +26,7 @@ export default function DetailsModal(props: Props) {
       ownerName,
       upstreamTitle,
       serviceVersion,
-      serviceLatinName,
+      serviceenglishName,
       authenticationType,
       serviceDescription,
       servicePersianName,
@@ -48,7 +48,7 @@ export default function DetailsModal(props: Props) {
     });
 
     data = [
-      { key: t('uikit.english_name'), value: serviceLatinName },
+      { key: t('uikit.english_name'), value: serviceenglishName },
       { key: t('uikit.persian_name'), value: servicePersianName },
       { key: t('uikit.action'), value: flatRoutes.methods.join(' ,') },
       { key: t('uikit.protocole'), value: flatRoutes.protocol.join(' ,') },

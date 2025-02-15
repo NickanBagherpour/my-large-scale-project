@@ -10,7 +10,7 @@ import * as S from './custom-infobox.style';
 
 export type CustomInfoboxProps = {
   handleDeleteButton?: () => void;
-  data: { latinName: Nullable<string>; persianName: Nullable<string> };
+  data: { englishName: Nullable<string>; persianName: Nullable<string> };
   loading: boolean;
 };
 function CustomInfobox(props: CustomInfoboxProps) {
@@ -27,8 +27,8 @@ function CustomInfobox(props: CustomInfoboxProps) {
         <S.InfoboxContainer>
           <>
             <Box className='upstream-box'>
-              <S.Lable>{t('upstream_tab.info_box_latinName')}</S.Lable>
-              <span>{data?.latinName ? data.latinName : '-'}</span>
+              <S.Lable>{t('upstream_tab.info_box_englishName')}</S.Lable>
+              <span>{data?.englishName ? data.englishName : '-'}</span>
             </Box>
             <Box className='upstream-box'>
               <S.Lable>{t('upstream_tab.info_box_persianName')}</S.Lable>

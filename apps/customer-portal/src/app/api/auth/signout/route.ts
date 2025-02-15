@@ -4,26 +4,12 @@ import { CookieKey } from '@oxygen/types';
 import { createErrorResponse, createResponse, decrypt } from '@oxygen/utils';
 
 export async function GET(req: Request) {
-  // const sessionTicket = decrypt(cookies().get(CookieKey.SESSION_TICKET)?.value);
-  // const token = decrypt(cookies().get(CookieKey.SESSION_ID)?.value);
-  // const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/signout?sessionTicket=${sessionTicket}`;
-
   try {
-    /* const response = await fetch(url, {
-       method: 'GET',
-       headers: {
-         'Content-Type': 'application/json',
-         Authorization: `Bearer ${token}`,
-       },
-     });
 
-     if (!response.ok) {
-       // throw new Error('SSO signout failed');
-       console.log('-------------------SSO signout failed-------------------------');
-     }*/
+    const cookieStore = await cookies();
 
     // Filter out the CONFIG cookie
-    const cookiesToClear = cookies()
+    const cookiesToClear = cookieStore
       .getAll()
       .filter((cookie) => cookie.name !== CookieKey.CONFIG);
 

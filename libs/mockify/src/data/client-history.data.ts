@@ -2,8 +2,8 @@ import { ClientHistoryData } from '@oxygen/types';
 
 export const clientHistoryData: ClientHistoryData[] = Array.from({ length: 53 }).map(() => ({
   editTime: '03/01/20 12:30',
-  adminName: 'ادمین شماره 1',
-  clientLatinName: 'Bale messenger',
+  adminName: 'کاربر شماره 1',
+  clientenglishName: 'Bale messenger',
   clientFarsiName: 'کلاینت بله',
   clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
   clientId: '407af44d-f469-413d-81cf-469b21fa',

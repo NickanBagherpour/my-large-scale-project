@@ -3,7 +3,7 @@ export default {
   table: {
     client_change_history: 'تاریخچه تغییرات کلاینت',
     edit_time: 'زمان ویرایش',
-    admin_name: 'نام ادمین',
+    user_name: 'نام کاربر',
     operation_type: 'نوع عملیات',
     service_name: 'نام سرویس',
     persian_service_name: 'نام فارسی',
