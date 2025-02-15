@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AssignScopeToServiceParams } from '../types';
+import { scopeToServiceParams } from '../types';
 import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
@@ -12,7 +12,7 @@ export const usePostAssignScopeToService = () => {
   const { serviceName } = useAppState();
 
   return useMutation({
-    mutationFn: (params: AssignScopeToServiceParams) => Api.postAssignScopeToService(params),
+    mutationFn: (params: scopeToServiceParams) => Api.postAssignScopeToService(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);

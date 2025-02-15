@@ -19,4 +19,5 @@ export { useGetServiceHttpMethod } from './get-service-http-method.api';
 export { useGetServiceProtocol } from './get-service-protocol.api';
 export { usePostConfirmData } from './post-confirm-data.api';
 export { useServiceInquiry } from './get-service-inquiry-status.api';
-export { usePostRegisterToBaam } from './post-register-to-baam.api';
+export { usePostRegisterToSso } from './post-register-to-sso.api';
+export { useDeleteUnassignFromService } from './delete-unassign-scope-from-service.api';

@@ -6,7 +6,6 @@ import { createSchemaFieldRule } from 'antd-zod';
 import * as S from './termination-modal.style';
 import { type TerminationType, termaintionSchema } from '../utils/termination-form.schema';
 import { PluginConfig, RequestTerminationConfig } from '../utils/plugins.type';
-import { stat } from 'fs';
 
 type Props = {
   isOpen: boolean;
@@ -54,7 +53,7 @@ export default function TerminationsModal(props: Props) {
       width={600}
       destroyOnClose
       footer={[
-        <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
+        <S.RegisterBtn key={'register'} onClick={form.submit} loading={isPending} disabled={isPending}>
           {t('uikit.register_data')}
         </S.RegisterBtn>,
       ]}

@@ -2,10 +2,10 @@ import { Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
-export const Card = styled.div<{ isChecked: boolean }>`
+export const Card = styled.div<{ $isChecked: boolean }>`
   width: 22.8rem;
   border: ${(p) => `1px solid ${p.theme.border._300}`};
-  background: ${(p) => (p.isChecked ? p.theme.primary._50 : p.theme.background._50)};
+  background: ${(p) => (p.$isChecked ? p.theme.primary._50 : p.theme.background._50)};
   transition: background-color 200ms;
   border-radius: 1.2rem;
   height: 10rem;

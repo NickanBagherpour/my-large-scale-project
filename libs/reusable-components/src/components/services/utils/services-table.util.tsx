@@ -86,10 +86,10 @@ export function getMobileColumns(props: Props) {
         const data = [
           { title: t('uikit.service_name'), value: name },
           { title: t('uikit.persian_name'), value: persianName },
-          { title: t('uikit.scope'), value: scopes.join(' , ') },
+          { title: t('uikit.scope'), value: <WithBadge items={scopes} /> },
           {
             title: t('uikit.url'),
-            value: paths.join(' , '),
+            value: <WithBadge items={paths} />,
           },
           { title: t('uikit.version'), value: version },
           {

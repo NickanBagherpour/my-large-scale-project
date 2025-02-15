@@ -18,7 +18,7 @@ export default function Footer(props: Props) {
         {t('button.return')}
       </Button>
       <Button htmlType={'submit'} onClick={onRegister} {...registerButtonProps}>
-        {t('register_info')}
+        {t('button.register_info')}
       </Button>
     </S.FooterContainer>
   );

@@ -1,30 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AssignScopeToServiceParams } from '../types';
+import { PostRouteParams } from '../types';
 import { updateMessageAction, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 
-const { SERVICE, SERVICE_CREATION, SERVICES_LIST, SCOPE } = RQKEYS.BACKOFFICE;
+const { SERVICE, SERVICE_CREATION, SERVICES_LIST } = RQKEYS.BACKOFFICE;
 
-export const usePostRegisterToBaam = () => {
+export const usePostRouteMutation = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const { serviceName } = useAppState();
 
   return useMutation({
-    mutationFn: (params: AssignScopeToServiceParams) => Api.postRegisterToBaam(params),
+    mutationFn: (params: PostRouteParams) => Api.postRoute(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: [SERVICE_CREATION.ROUTE, serviceName] });
       await queryClient.invalidateQueries({
-        queryKey: [SCOPE, SERVICE_CREATION.SCOPE, serviceName],
+        queryKey: [SERVICE_CREATION.ROUTE, serviceName],
         refetchType: 'none',
       });
-      await queryClient.invalidateQueries({ queryKey: [SERVICE] });
-      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST] });
+      await queryClient.invalidateQueries({ queryKey: [SERVICES_LIST.DRAFTS], refetchType: 'none' });
+      await queryClient.invalidateQueries({ queryKey: [SERVICE], refetchType: 'none' });
     },
   });
 };

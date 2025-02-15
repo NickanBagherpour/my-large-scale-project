@@ -50,6 +50,9 @@ export default {
     has: 'دارد',
     doesnt_have: 'ندارد',
     close: 'بستن',
+    english_name: 'نام لاتین',
+    persian_name: 'نام فارسی',
+    index: 'ردیف',
   },
 
   app: {
@@ -151,6 +154,7 @@ export default {
     stop_service: 'توقف سرویس',
     remove: 'حذف',
     service_detail: 'جزئیات سرویس',
+    general_info: 'اطلاعات کلی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',
     access: 'دسترسی',
@@ -167,6 +171,9 @@ export default {
     status: 'وضعیت',
     search_english_or_persian_name: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
     call_limitation_plugin: 'پلاگین محدودیت فراخوانی کلاینت',
+
+    add_methods: 'افزودن متودها',
+    add_protocols: 'افزودن پروتکل‌ها',
   },
 
   button: {
@@ -247,6 +254,7 @@ export default {
     inspect_another_service: 'استعلام سرویس دیگر',
     observe_client_detail: 'مشاهده جزئیات کلاینت',
     upload_item: 'بارگذاری {{element}} در اکسیژن',
+    register_info: 'ثبت اطلاعات',
   },
 
   field: {
@@ -446,7 +454,7 @@ export default {
   element: {
     service: 'سرویس',
     client: 'کلاینت',
-    route: 'route',
+    route: 'Route',
     scope: 'اسکوپ',
   },
 };
