@@ -121,7 +121,7 @@ export default InquiryComponent;
 function extractSpecificData(t: TFunction, data?: InquiryDto) {
   if (data) {
     return isServiceInquiryDto(data)
-      ? [data.serviceName, data.servicePersianName, data.scope?.name, data.scope?.description]
+      ? [data.serviceName, data.servicePersianName, data.scopes?.map((s) => s.name)]
       : [
           data.organizationInfo?.organizationName,
           data.organizationInfo?.organizationId,

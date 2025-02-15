@@ -10,9 +10,9 @@ export type ServiceDto = {
   id: number;
   name: string;
   persianName: string;
-  scope: string;
+  scopes: string[];
   version: string;
-  path: string;
+  paths: string[];
   isActive: boolean;
 };
 // export type ServiceTypeQuery = {
