@@ -100,7 +100,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       color={color}
       dropdownRender={(menu) => {
         return (
-          <S.DropdownRender>{React.cloneElement(menu as React.ReactElement, { style: menuStyle })}</S.DropdownRender>
+          <S.DropdownRender>{React.cloneElement(menu /* as React.ReactElement */, { style: menuStyle })}</S.DropdownRender>
         );
       }}
     >

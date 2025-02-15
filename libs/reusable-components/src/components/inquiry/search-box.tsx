@@ -11,7 +11,7 @@ import * as S from './search-box.style';
 type Props = {
   form: FormInstance<{ name: string }>;
   onFinish: ((values: { name: string }) => void) | undefined;
-  inputRef: RefObject<InputRef>;
+  inputRef: RefObject<InputRef | null>;
   isLoading: boolean;
   type: InquiryType;
 };
