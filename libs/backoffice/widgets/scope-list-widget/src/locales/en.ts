@@ -5,12 +5,12 @@ export default {
   table: {
     index: 'Row',
     persian_name_scope: 'Persian Name of Scope',
-    latin_name_scope: 'Latin Name of Scope',
+    english_name_scope: 'english Name of Scope',
     details: 'Details',
     title: 'Scope Service List',
   },
   placeholder: {
-    search_by_name: 'Search by Latin name of scope',
+    search_by_name: 'Search by english name of scope',
   },
   error: {
     english_character: 'Please enter values in English',

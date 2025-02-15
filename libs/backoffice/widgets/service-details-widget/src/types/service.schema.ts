@@ -5,11 +5,11 @@ import { ADD_SERVER_MODAL_FORM_ITEM, UPSTREAM_TAB_NAMES_FORM_ITEM } from '../uti
 
 export const FormSchema = (t: (key: string) => string) =>
   z.object({
-    [FORM_ITEM_NAMES.latinNameScope]: z
+    [FORM_ITEM_NAMES.englishNameScope]: z
       .string({ required_error: t('validation.required') })
       .trim()
       .min(1, { message: t('validation.required') })
-      .regex(REGEX_PATTERNS.isLatinText, {
+      .regex(REGEX_PATTERNS.isenglishText, {
         message: t('validation.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianNameScope]: z

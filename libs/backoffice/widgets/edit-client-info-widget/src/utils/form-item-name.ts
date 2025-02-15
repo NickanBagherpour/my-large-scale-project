@@ -1,5 +1,5 @@
 export const FORM_ITEM_NAMES = {
-  latinNameClient: 'latinNameClient',
+  englishNameClient: 'englishNameClient',
   persianNameClient: 'persianNameClient',
   clientId: 'clientId',
   clientType: 'clientType',

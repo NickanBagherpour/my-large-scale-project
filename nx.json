@@ -26,7 +26,9 @@
                 "startTargetName": "start",
                 "buildTargetName": "build",
                 "devTargetName": "dev",
-                "serveStaticTargetName": "serve-static"
+                "serveStaticTargetName": "serve-static",
+                "buildDepsTargetName": "build-deps",
+                "watchDepsTargetName": "watch-deps"
             }
         },
         {
@@ -74,6 +76,5 @@
         "e2e-ci--**/*": {
             "dependsOn": ["^build"]
         }
-    },
-    "useLegacyCache": true
+    }
 }

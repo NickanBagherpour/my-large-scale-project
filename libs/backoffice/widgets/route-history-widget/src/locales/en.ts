@@ -4,7 +4,7 @@ export default {
   container_title: 'Service for Retrieving National Codes Associated with a Mobile Number',
   column: {
     'edit-date': 'Edit Time',
-    'admin-name': 'Admin Name',
+    'user-name': 'user name',
     action: 'Action/Method',
     path: 'Path',
     host: 'Host',

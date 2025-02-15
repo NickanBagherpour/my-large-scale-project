@@ -37,7 +37,7 @@ const Route: React.FC<AppProps> = (props) => {
     if (!serviceDetails) return [];
 
     return [
-      { key: t('latin_name'), value: getValueOrDash(serviceDetails?.name) },
+      { key: t('english_name'), value: getValueOrDash(serviceDetails?.name) },
       { key: t('persian_name'), value: getValueOrDash(serviceDetails?.persianName) },
       { key: t('access'), value: getValueOrDash(serviceDetails?.accessLevel?.title) },
       { key: t('category'), value: getValueOrDash(serviceDetails?.category?.title) },

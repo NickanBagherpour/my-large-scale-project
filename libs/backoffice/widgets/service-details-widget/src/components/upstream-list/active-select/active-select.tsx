@@ -42,7 +42,7 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const { data, isFetching } = useUpstreamListQuery(params);
   //constants
   const tableData = data?.targets;
-  const infoBoxData = { latinName: data?.name, persianName: data?.description };
+  const infoBoxData = { englishName: data?.name, persianName: data?.description };
   //Handlers
   const toggleModal = (modal: keyof Modal) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));

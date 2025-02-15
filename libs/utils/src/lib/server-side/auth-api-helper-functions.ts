@@ -99,8 +99,11 @@ export async function signout(sessionTicket: string, token: string, config: Auth
       console.log('-------------------SSO signout failed-------------------------');
     }
 
+
+    const cookieStore = await cookies();
+
     // Filter out the CONFIG cookie
-    const cookiesToClear = cookies()
+    const cookiesToClear = cookieStore
       .getAll()
       .filter((cookie) => cookie.name !== CookieKey.CONFIG);
 

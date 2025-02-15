@@ -10,7 +10,7 @@ export const uploadClient = (t: TFunction) =>
       .trim()
       .min(1, t('validation.required'))
       .max(30, t('validation.max_length'))
-      .regex(REGEX_PATTERNS.isLatinText, t('validation.english_name_error')),
+      .regex(REGEX_PATTERNS.isenglishText, t('validation.english_name_error')),
   });
 
 export type UploadClientType = z.infer<ReturnType<typeof uploadClient>>;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, JSX } from 'react';
 import { ConfigProvider as AntConfigProvider } from 'antd';
 import { ThemeProvider } from 'styled-components';
 

@@ -79,7 +79,7 @@ const LandingAppbar = (props: LandingAppBarProps) => {
         <Space size={'middle'}>
           <ThemeSwitch />
 
-          {(ENV_CONSTANTS.IS_DEV || true) && <LocaleSwitcher type={isPrimaryAppbar ? 'onPrimary' : 'textPrimary'} />}
+          <LocaleSwitcher type={isPrimaryAppbar ? 'onPrimary' : 'textPrimary'} />
 
           {props.isAuth ? (
             <span className={'logout-item'}>

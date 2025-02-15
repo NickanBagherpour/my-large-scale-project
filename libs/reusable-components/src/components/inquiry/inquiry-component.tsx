@@ -35,7 +35,7 @@ export type ContentType = 'searching' | keyof typeof InquiryStatus;
 const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const [t] = useTr();
   const [form] = Form.useForm<InquiryItemNameType>();
-  const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<InputRef | null>(null);
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const [content, setContent] = useState<ContentType>('searching');
   const [fromSubmission, setFormSubmission] = useState({ isSubmitted: false, itemName: '' });
