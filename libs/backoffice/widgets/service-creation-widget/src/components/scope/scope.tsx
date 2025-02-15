@@ -26,7 +26,7 @@ export default function Scope() {
   const [scopeToUnassign, setScopeToUnassign] = useState<ServiceScope | null>(null);
   const [isConfirmModalOpen, setIsCofirmModalOpen] = useState(false);
   const { serviceName } = useAppState();
-  const isScopeSelectorDisabled = !!selectedScopes?.some((scope) => scope.isServiceInSso);
+  const isInSso = !!selectedScopes?.some((scope) => scope.isServiceInSso);
 
   const chooseScope = async (scope: ScopeType) => {
     assignScopeToService({ serviceName, scopeName: scope.name });
@@ -37,9 +37,9 @@ export default function Scope() {
   };
 
   const registerAndProceed = () => {
-    if (!!selectedScopes?.length && serviceName) {
-      registerToSso(serviceName, { onSuccess: () => nextStep(dispatch) });
-    }
+    if (isInSso) return void nextStep(dispatch);
+
+    if (!!selectedScopes?.length && serviceName) registerToSso(serviceName, { onSuccess: () => nextStep(dispatch) });
   };
 
   const onUnassign = () => {
@@ -122,7 +122,7 @@ export default function Scope() {
   return (
     <>
       <Container>
-        <ScopeSelector onSelect={chooseScope} disabled={isScopeSelectorDisabled} />
+        <ScopeSelector onSelect={chooseScope} disabled={isInSso} />
 
         <S.Table
           pagination={false}
