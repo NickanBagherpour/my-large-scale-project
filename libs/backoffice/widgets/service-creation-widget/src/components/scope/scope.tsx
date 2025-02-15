@@ -49,7 +49,8 @@ export default function Scope() {
   };
 
   const onRegister = () => {
-    setIsCofirmModalOpen(true);
+    if (isInSso) nextStep(dispatch);
+    else setIsCofirmModalOpen(true);
   };
 
   const desktopColumns: ColumnsType<ServiceScope> = [
