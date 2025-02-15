@@ -49,9 +49,9 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   };
 
   const onFinish = async (values: any) => {
-    const { latinNameScope, persianNameScope } = values;
+    const { englishNameScope, persianNameScope } = values;
     const params: any = {
-      name: latinNameScope.trim(),
+      name: englishNameScope.trim(),
       description: persianNameScope.trim(),
     };
 
@@ -86,7 +86,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         okText={t('buttons.confirm')}
         onOk={submitClick}
       >
-        <p>{t('modal_text', { scope_name: form.getFieldValue(FORM_ITEM_NAMES.latinNameScope) })}</p>
+        <p>{t('modal_text', { scope_name: form.getFieldValue(FORM_ITEM_NAMES.englishNameScope) })}</p>
       </Modal>
     );
   };
@@ -98,12 +98,12 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <Form.Item
-              name={FORM_ITEM_NAMES.latinNameScope}
+              name={FORM_ITEM_NAMES.englishNameScope}
               className={'span-2'}
-              label={t('form.latin_name_scope')}
+              label={t('form.english_name_scope')}
               rules={[rule]}
             >
-              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.latin_name')} />
+              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.english_name')} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.persianNameScope}

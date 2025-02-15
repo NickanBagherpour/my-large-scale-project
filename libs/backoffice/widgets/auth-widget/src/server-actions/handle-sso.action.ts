@@ -31,7 +31,7 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   const userRole = getRole(token);
 
   // Set the cookie directly in the server action
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   const cookieOptions = {
     path: '/',

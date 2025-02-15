@@ -45,7 +45,7 @@ export default function WithBadge(props: Props) {
     <>
       {count > 1 ? (
         <Tooltip
-          title={<StyledList isPersian={isPersianContent}>{listItems}</StyledList>}
+          title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>}
           arrow={false}
           overlayStyle={{ maxWidth: 'unset' }}
         >

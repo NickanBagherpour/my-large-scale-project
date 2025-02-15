@@ -3,7 +3,7 @@ export default {
   subtitle: 'تاریخچه ی تغییرات سرویس',
   column: {
     edit_date: 'زمان ویرایش',
-    admin_name: 'نام ادمین',
+    user_name: 'نام کاربر',
     en_name: 'نام انگلیسی سرویس',
     fa_name: 'نام فارسی سرویس',
     method: 'اکشن/متود',

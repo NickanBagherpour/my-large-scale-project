@@ -3,7 +3,7 @@ import { routeHistoryData } from '@oxygen/types';
 export const routeChangeHistoryData = [
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -11,7 +11,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -19,7 +19,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -27,7 +27,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -35,7 +35,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -43,7 +43,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -51,7 +51,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -59,7 +59,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -67,7 +67,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -75,7 +75,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -83,7 +83,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -91,7 +91,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -99,7 +99,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -107,7 +107,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -115,7 +115,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -123,7 +123,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -131,7 +131,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -139,7 +139,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -147,7 +147,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -155,7 +155,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -163,7 +163,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -171,7 +171,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -179,7 +179,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -187,7 +187,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -195,7 +195,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -203,7 +203,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -211,7 +211,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -219,7 +219,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -227,7 +227,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -235,7 +235,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -243,7 +243,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -251,7 +251,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -259,7 +259,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -267,7 +267,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -275,7 +275,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -283,7 +283,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -291,7 +291,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',
@@ -299,7 +299,7 @@ export const routeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     action_method: 'Post',
     protocol: 'HTTP',
     path: 'api/sapta/v1/bale/customer-info/',

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Table as KitTable } from '@oxygen/ui-kit';
+import { Typography as AntTypography } from 'antd';
 
 export const Table = styled(KitTable)`
   margin: 0 3rem;
@@ -17,6 +18,15 @@ export const ItemWrapper = styled.div`
   overflow-y: auto;
   background-color: ${(p) => p.theme.background._50};
   padding-bottom: 5rem;
+  border: 1px solid ${(p) => p.theme.border._100};
+  border-right: none;
+  border-radius: 0.8rem;
+
+  .info-box__value {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+  }
 `;
 
 export const CaptionInfoBox = styled.p`
@@ -41,5 +51,13 @@ export const RowItem = styled.div`
   & > button {
     /* to align buttons with other elements */
     margin-inline-end: -15px;
+  }
+`;
+
+export const Text = styled(AntTypography.Text)`
+  unicode-bidi: normal;
+
+  button {
+    margin: 0 1rem;
   }
 `;

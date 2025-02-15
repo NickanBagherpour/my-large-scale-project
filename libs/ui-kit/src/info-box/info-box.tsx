@@ -52,7 +52,7 @@ export const InfoBox = (props: InfoBoxProps) => {
       margin={margin}
       min_col={minColumnCount}
       wrap={String(titleWordWrap)}
-      isChild={isChild}
+      $isChild={isChild}
     >
       {data?.map((item: InfoItemType, index) => {
         return (

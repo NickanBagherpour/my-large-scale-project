@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, JSX, ReactNode } from 'react';
 import { Obj } from './common';
 
 export type BasicComponentProps = {

@@ -22,8 +22,8 @@ export type ProgressEvent = {
 export type RouteType = {
   routeMethod: string[];
   routeProtocol: string[];
-  routeHosts: string;
-  routePath: string;
+  routeHosts: string[];
+  routePath: string[];
 };
 
 export type ModalDataType = {
@@ -31,7 +31,7 @@ export type ModalDataType = {
   scopeDescription: string;
   scopeId: number;
   serviceInfoId: number;
-  serviceLatinName: string;
+  serviceenglishName: string;
   servicePersianName: string;
   serviceDescription: string;
   serviceCategoryTitle: string;

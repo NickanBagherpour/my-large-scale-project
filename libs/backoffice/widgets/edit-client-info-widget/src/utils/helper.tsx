@@ -25,8 +25,8 @@ export const renderChip = (tag, handleClose) => (
 export const prepareParams = (item, OrganizationNationalId) => {
   const obj: any = {};
 
-  if (item.latinNameClient) {
-    obj.clientEnglishName = item.latinNameClient;
+  if (item.englishNameClient) {
+    obj.clientEnglishName = item.englishNameClient;
   }
 
   if (item.persianNameClient) {

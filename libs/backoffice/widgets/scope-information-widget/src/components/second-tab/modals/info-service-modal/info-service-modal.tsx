@@ -1,13 +1,14 @@
+import React from 'react';
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, InfoBox, Modal } from '@oxygen/ui-kit';
+import { Button, Chip, InfoBox, Modal, Tag } from '@oxygen/ui-kit';
+import { Nullable } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
 
 import { useModalInfoQuery } from '../../../../services/second-tab/get-modal-data.api';
-import { Nullable } from '@oxygen/types';
+import { getDesktopColumns, getMobileColumns } from '../../../../utils/scope-information-table.utils';
+import { renderChip, renderTag } from '../../../../utils/helper.util';
 
 import * as S from './info-service-modal.style';
-import { getValueOrDash } from '@oxygen/utils';
-import React from 'react';
-import { getDesktopColumns, getMobileColumns } from '../../../../utils/scope-information-table.utils';
 
 type Props = {
   isOpen: boolean;
@@ -21,14 +22,8 @@ export default function DetailsModal(props: Props) {
 
   const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(name);
 
-  const renderChip = (tag) => (
-    <Chip key={tag} tooltipTitle={tag.label} ellipsis={true} tooltipOnEllipsis={true} type='active'>
-      <span>{tag}</span>
-    </Chip>
-  );
-
   const firstInfoBoxData = [
-    { key: t('modal.english_name'), value: getValueOrDash(modalDataQuery?.serviceLatinName) },
+    { key: t('modal.english_name'), value: getValueOrDash(modalDataQuery?.serviceenglishName) },
     { key: t('modal.persian_name'), value: getValueOrDash(modalDataQuery?.servicePersianName) },
     { key: t('modal.access'), value: getValueOrDash(modalDataQuery?.authenticationType?.title) },
     { key: t('modal.category'), value: getValueOrDash(modalDataQuery?.serviceCategoryTitle) },
@@ -53,8 +48,16 @@ export default function DetailsModal(props: Props) {
       value: modalDataQuery?.routes[0]?.routeProtocol?.map((item) => renderChip(item)),
       fullwidth: true,
     },
-    { key: t('modal.path'), value: getValueOrDash(modalDataQuery?.routes[0]?.routePath), fullwidth: true },
-    { key: t('modal.host'), value: getValueOrDash(modalDataQuery?.routes[0]?.routeHosts), fullwidth: true },
+    {
+      key: t('modal.path'),
+      value: modalDataQuery?.routes[0]?.routePath.map((item) => renderTag(item)),
+      fullwidth: true,
+    },
+    {
+      key: t('modal.host'),
+      value: modalDataQuery?.routes[0]?.routeHosts.map((item) => renderTag(item)),
+      fullwidth: true,
+    },
   ];
 
   const desktopColumns = getDesktopColumns({ t });
@@ -78,7 +81,7 @@ export default function DetailsModal(props: Props) {
         <InfoBox margin={'0 3.2rem'} data={firstInfoBoxData} loading={modalIsFetching} />
         <S.CaptionInfoBox>{t('table.route')}</S.CaptionInfoBox>
         <InfoBox margin={'0 3.2rem'} data={SecondInfoBoxData} loading={modalIsFetching} />
-        <S.CaptionInfoBox>{t('table.scopes')}</S.CaptionInfoBox>
+        <S.CaptionInfoBox>{t('table.scope')}</S.CaptionInfoBox>
         <S.Table
           loading={modalIsFetching}
           total={modalDataQuery?.scopes?.length}
