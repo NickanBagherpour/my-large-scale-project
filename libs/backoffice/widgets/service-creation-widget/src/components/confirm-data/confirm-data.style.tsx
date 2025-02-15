@@ -55,10 +55,3 @@ export const RequestError = styled.li`
   display: flex;
   align-items: center;
 `;
-
-export const Text = styled(Typography.Text)`
-  unicode-bidi: normal;
-  button {
-    margin: 0 1rem;
-  }
-`;

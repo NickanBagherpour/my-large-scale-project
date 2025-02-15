@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
-import { Chip, ColumnsType, InfoBox, Table, Tag } from '@oxygen/ui-kit';
+import { Chip, ColumnsType, InfoBox, Table } from '@oxygen/ui-kit';
 import type { InfoItemType } from '@oxygen/types';
 import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
@@ -11,7 +11,7 @@ import { getValueOrDash } from '@oxygen/utils';
 import { ServiceScope, UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
-import { Footer, StatusModal } from '@oxygen/reusable-components';
+import { Footer, StatusModal, RouteInfoBox } from '@oxygen/reusable-components';
 
 const mapStatuses = {
   success: 'success',
@@ -19,14 +19,6 @@ const mapStatuses = {
   idle: 'loading',
   error: 'error',
 } as const;
-
-const renderTag = (tag: string) => {
-  return (
-    <Tag key={tag} type='processing'>
-      <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{tag}</S.Text>
-    </Tag>
-  );
-};
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -122,35 +114,6 @@ export default function ConfirmData() {
     }));
   }
 
-  let routeData: InfoItemType[] = [];
-  if (route) {
-    const {
-      route: { protocols, methods, paths, hosts },
-    } = route;
-    routeData = [
-      {
-        key: 'action_or_method',
-        value: methods.map(({ title, code }) => (
-          <Chip ellipsis type='active' key={code} tooltipOnEllipsis tooltipTitle={title}>
-            {title}
-          </Chip>
-        )),
-        fullwidth: true,
-      },
-      {
-        key: 'protocol',
-        value: protocols.map(({ title, code }) => (
-          <Chip ellipsis type='active' key={code} tooltipOnEllipsis tooltipTitle={title}>
-            {title}
-          </Chip>
-        )),
-        fullwidth: true,
-      },
-      { key: 'Path', value: paths.map((item) => renderTag(item.title)), fullwidth: true },
-      { key: 'host', value: hosts.map((item) => renderTag(item.title)), fullwidth: true },
-    ];
-  }
-
   const desktopColumns: ColumnsType<UpstreamTarget> = [
     {
       title: t('domain'),
@@ -209,7 +172,7 @@ export default function ConfirmData() {
 
           <S.Section>
             <S.Title>{t('route')}</S.Title>
-            <InfoBox loading={isFetchingRoute} data={routeData} margin={0} />
+            <RouteInfoBox route={route} isLoading={isFetchingRoute} />
           </S.Section>
 
           <S.Section>

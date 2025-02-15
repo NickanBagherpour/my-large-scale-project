@@ -43,3 +43,4 @@ export { default as BorderedSection } from './components/bordered-section/border
 export { default as CenteredLoading } from './components/centered-loading/centered-loading';
 export { default as Route } from './components/route/components/route';
 export { default as Footer } from './components/footer/footer';
+export { default as RouteInfoBox } from './components/route-info-box/route-info-box';
