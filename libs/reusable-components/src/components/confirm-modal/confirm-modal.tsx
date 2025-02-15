@@ -1,8 +1,9 @@
+import React, {  MouseEventHandler } from 'react';
+
 import { BasicComponentProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button, ButtonProps, ModalProps } from '@oxygen/ui-kit';
 
-import { MouseEvent, MouseEventHandler, ReactElement, SyntheticEvent } from 'react';
 
 import * as S from './confirm-modal.style';
 
@@ -17,7 +18,7 @@ type Props = BasicComponentProps &
     cancelBtnProps?: ButtonProps;
     modalProps?: ModalProps;
     isOpen?: boolean;
-    footer?: ReactElement;
+    footer?: React.ReactNode;
     okText?: string;
   };
 const ConfirmModal: React.FC<Props> = ({
@@ -35,7 +36,7 @@ const ConfirmModal: React.FC<Props> = ({
   ...rest
 }) => {
   const [t] = useTr();
-  const footer: Array<JSX.Element> = [];
+  const footer: Array<React.ReactNode> = [];
   if (showConfirm || showCancel) {
     if (showCancel) {
       footer.push(

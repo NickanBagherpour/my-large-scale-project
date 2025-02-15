@@ -4,7 +4,7 @@ export default {
   container_title: 'جزئیات سرویس',
   column: {
     'edit-date': 'زمان ویرایش',
-    'admin-name': 'نام ادمین',
+    'user-name': 'نام کاربر',
     action: 'اکشن/متود',
     path: 'Path',
     host: 'Host',

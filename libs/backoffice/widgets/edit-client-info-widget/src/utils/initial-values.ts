@@ -2,7 +2,7 @@ import { FORM_ITEM_NAMES } from './form-item-name';
 
 export const initialValues = (userData) => {
   return {
-    [FORM_ITEM_NAMES.latinNameClient]: userData?.clientEnglishName,
+    [FORM_ITEM_NAMES.englishNameClient]: userData?.clientEnglishName,
     [FORM_ITEM_NAMES.persianNameClient]: userData?.clientPersianName,
     [FORM_ITEM_NAMES.clientType]: userData?.clientTypeCode,
     [FORM_ITEM_NAMES.clientId]: userData?.clientKey,

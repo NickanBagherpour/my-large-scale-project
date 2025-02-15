@@ -21,8 +21,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> 
       render: (value) => value,
     },
     {
-      title: t('field.admin_name'),
-      dataIndex: 'admin_name',
+      title: t('field.user_name'),
+      dataIndex: 'user_name',
       key: 'id',
       align: 'center',
       render: (value) => value,

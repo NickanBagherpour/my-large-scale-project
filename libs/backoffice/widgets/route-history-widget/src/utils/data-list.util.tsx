@@ -20,7 +20,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
     },
     {
-      title: t('column.admin-name'),
+      title: t('column.user-name'),
       dataIndex: 'modifyBy',
       key: 'modifyBy',
       ellipsis: true,

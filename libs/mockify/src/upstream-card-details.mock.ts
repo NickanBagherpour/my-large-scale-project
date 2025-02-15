@@ -2,7 +2,7 @@ import { scopeHistoryData } from '@oxygen/types';
 import { upstreamCardData } from './data/upstream-card.data';
 
 export type UpstreamCardDetailsType = {
-  upstream_latin_name: string;
+  upstream_english_name: string;
   id: string;
   active_server: string;
   is_server_active: boolean;

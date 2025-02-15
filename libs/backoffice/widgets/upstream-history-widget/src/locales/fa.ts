@@ -4,7 +4,7 @@ export default {
   change_history: 'تاریخچه تغییرات',
   column: {
     'edit-date': 'زمان ویرایش',
-    'admin-name': 'نام ادمین',
+    'user-name': 'نام کاربر',
     'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
   },

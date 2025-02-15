@@ -12,7 +12,7 @@ export const uploadService = (t: TFunction<'translation', undefined>) =>
       .trim()
       .min(1, t('validation.required'))
       .max(30, t('validation.min_len', { val: 100 }))
-      .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message')),
+      .regex(REGEX_PATTERNS.isenglishText, t('validation.english_validation_message')),
   });
 
 export type UploadServiceType = z.infer<ReturnType<typeof uploadService>>;
@@ -23,7 +23,7 @@ export const ServiceName = (t: TFunction<'translation', undefined>) =>
       .trim()
       .min(1, t('validation.required'))
       .max(30, t('validation.min_len', { val: 100 }))
-      .regex(REGEX_PATTERNS.isLatinText, t('validation.english_validation_message')),
+      .regex(REGEX_PATTERNS.isenglishText, t('validation.english_validation_message')),
   });
 
 export type ServiceNameType = z.infer<ReturnType<typeof ServiceName>>;

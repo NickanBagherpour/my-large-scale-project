@@ -8,33 +8,28 @@ import * as S from './draft-list.style';
 
 const DraftList: React.FC = () => {
   const [pageSize, setPageSize] = useState(INITIAL_DRAFTS_PAGE_SIZE);
-  const [showLoadMore, setShowLoadMore] = useState(true);
   const [t] = useTr();
   const { data: drafts, isFetching: isFetchingDrafts } = useGetDraftsQuery({
     page: 0,
     size: pageSize,
     sort: 'createDate,DESC',
   });
-  const hasDrafts = !!drafts?.content.length;
+  const hasDrafts = !!drafts?.totalElements;
   const draftsSubTitle = drafts?.content.length ? `(${drafts?.content.length ?? 0})` : '';
-
+  const showLoadMore = isFetchingDrafts || (drafts?.totalElements ?? 0) > pageSize;
   const getAllDrafts = () => {
     const totalElements = drafts?.totalElements;
-    if (totalElements) {
+    if (totalElements && totalElements > INITIAL_DRAFTS_PAGE_SIZE) {
       setPageSize(totalElements);
     }
-    setShowLoadMore(false);
   };
-  const visibleDrafts = useMemo(
-    () => (showLoadMore ? drafts?.content.slice(0, INITIAL_DRAFTS_PAGE_SIZE) : drafts?.content),
-    [showLoadMore, drafts]
-  );
+  const getInitialDrafts = () => setPageSize(INITIAL_DRAFTS_PAGE_SIZE);
   return (
     <>
       {hasDrafts && (
         <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
-            {visibleDrafts?.map((item) => (
+            {drafts.content?.map((item) => (
               <DraftCard
                 id={item?.serviceInfoId}
                 level={item?.serviceProgress?.step}
@@ -47,14 +42,14 @@ const DraftList: React.FC = () => {
 
           {/* {console.log(draftList, 'draftList')} */}
 
-          {(showLoadMore || isFetchingDrafts) && drafts?.totalElements > INITIAL_DRAFTS_PAGE_SIZE && (
+          {showLoadMore && (
             <S.Button loading={isFetchingDrafts} variant='link' color='primary' onClick={getAllDrafts}>
               <span>{t('button.show_all')}</span>
               <i className='icon-chev-down' />
             </S.Button>
           )}
-          {!showLoadMore && !isFetchingDrafts && (
-            <S.Button variant='link' color='primary' onClick={() => setShowLoadMore(true)}>
+          {!showLoadMore && (
+            <S.Button loading={isFetchingDrafts} variant='link' color='primary' onClick={getInitialDrafts}>
               <span>{t('button.show_less')}</span>
               <i className='icon-arrow-up' />
             </S.Button>

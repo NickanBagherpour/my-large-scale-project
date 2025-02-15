@@ -2,7 +2,7 @@ export const clientInfoData = [
   {
     clientStatus: true,
     requestId: 123456789,
-    latinNameClient: 'app-bale',
+    englishNameClient: 'app-bale',
     grantType: [
       { label: 'Client Flow', key: 'clientFlow' },
       { label: 'Password Flow', key: 'passwordFlow' },
@@ -25,7 +25,7 @@ export const clientInfoData = [
   {
     clientStatus: false,
     requestId: 987654321,
-    latinNameClient: 'app-sadad',
+    englishNameClient: 'app-sadad',
     grantType: [{ label: 'Client Flow', key: 'clientFlow' }],
     tags: [{ label: 'سازمان ها و شرکت های بزرگ', key: 'bigOrganization' }],
     persianNameClient: 'کلاینت سداد',

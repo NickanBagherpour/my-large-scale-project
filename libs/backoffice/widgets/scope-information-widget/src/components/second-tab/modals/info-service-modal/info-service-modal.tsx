@@ -28,7 +28,7 @@ export default function DetailsModal(props: Props) {
   );
 
   const firstInfoBoxData = [
-    { key: t('modal.english_name'), value: getValueOrDash(modalDataQuery?.serviceLatinName) },
+    { key: t('modal.english_name'), value: getValueOrDash(modalDataQuery?.serviceenglishName) },
     { key: t('modal.persian_name'), value: getValueOrDash(modalDataQuery?.servicePersianName) },
     { key: t('modal.access'), value: getValueOrDash(modalDataQuery?.authenticationType?.title) },
     { key: t('modal.category'), value: getValueOrDash(modalDataQuery?.serviceCategoryTitle) },

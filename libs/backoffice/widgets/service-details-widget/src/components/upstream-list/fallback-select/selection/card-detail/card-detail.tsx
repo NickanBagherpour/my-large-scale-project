@@ -13,7 +13,7 @@ export const CardDetail = (props: CardDetailPropsType) => {
   const { data, isFetching } = useUpstreamCardDetailsQuery(queryParams);
 
   const tableData = data?.targets;
-  const infoBoxData = { latinName: data?.name, persianName: data?.description };
+  const infoBoxData = { englishName: data?.name, persianName: data?.description };
 
   return (
     <S.DetailContainer>
