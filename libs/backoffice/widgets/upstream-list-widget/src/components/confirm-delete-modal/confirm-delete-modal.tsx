@@ -75,7 +75,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
           <S.ServicesContainer>
             {services?.length > 0 &&
               services.map((service, index) => (
-                <Tooltip title={service}>
+                <Tooltip title={service} key={service}>
                   <span key={index}>{service}</span>
                 </Tooltip>
               ))}
