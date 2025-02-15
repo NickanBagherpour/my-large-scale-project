@@ -1,17 +1,17 @@
 import React from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { useGetUpstreamHistory } from '../../services';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useGetUpstreamHistory } from '../../services';
 import DataTable from '../data-table/data-table';
 
-import { useTr } from '@oxygen/translation';
-import { Nullable, PageProps } from '@oxygen/types';
-import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
+import { Nullable, PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useTr } from '@oxygen/translation';
+import { Container } from '@oxygen/ui-kit';
 
 import * as S from './app.style';
-import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
@@ -37,7 +37,7 @@ const App: React.FC<AppProps> = () => {
     upstreamName,
   });
 
-  const { title, description } = data?.content[0].upstream ?? {};
+  const { title, description } = data?.content[0]?.upstream ?? {};
 
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('change_history'),

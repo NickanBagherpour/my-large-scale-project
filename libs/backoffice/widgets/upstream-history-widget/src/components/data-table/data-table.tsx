@@ -75,30 +75,26 @@ const DataTable = () => {
 
   return (
     <S.TableContainer>
-      {dataSource?.length ? (
-        <Table
-          rowKey={(row) => `${row?.modifyDate}${row?.modifyBy}`}
-          title={t('subtitle')}
-          size='small'
-          variant='complex'
-          columns={columns}
-          dataSource={dataSource}
-          loading={isFetching}
-          pagination={{
-            ...pagination,
-            total: data?.totalElements || lastTotal,
-            pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-            pageSize: pagination.limit,
-            current: pagination.page,
-            hideOnSinglePage: false,
-          }}
-          scroll={undefined}
-          onChange={handlePageChange}
-          showHeader={true}
-        />
-      ) : (
-        <NoResult isLoading={isFetching} />
-      )}
+      <Table
+        rowKey={(row) => `${row?.modifyDate}${row?.modifyBy}`}
+        title={t('subtitle')}
+        size='small'
+        variant='complex'
+        columns={columns}
+        dataSource={dataSource}
+        loading={isFetching}
+        pagination={{
+          ...pagination,
+          total: data?.totalElements || lastTotal,
+          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+          pageSize: pagination.limit,
+          current: pagination.page,
+          hideOnSinglePage: false,
+        }}
+        scroll={undefined}
+        onChange={handlePageChange}
+        showHeader={true}
+      />
     </S.TableContainer>
   );
 };
