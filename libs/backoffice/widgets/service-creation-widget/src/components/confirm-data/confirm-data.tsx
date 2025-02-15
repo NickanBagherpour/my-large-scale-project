@@ -128,8 +128,24 @@ export default function ConfirmData() {
       route: { protocols, methods, paths, hosts },
     } = route;
     routeData = [
-      { key: 'action_or_method', value: methods.map((item) => renderTag(item.title)), fullwidth: true },
-      { key: 'protocol', value: protocols.map((item) => renderTag(item.title)), fullwidth: true },
+      {
+        key: 'action_or_method',
+        value: methods.map(({ title, code }) => (
+          <Chip ellipsis type='active' key={code} tooltipOnEllipsis tooltipTitle={title}>
+            {title}
+          </Chip>
+        )),
+        fullwidth: true,
+      },
+      {
+        key: 'protocol',
+        value: protocols.map(({ title, code }) => (
+          <Chip ellipsis type='active' key={code} tooltipOnEllipsis tooltipTitle={title}>
+            {title}
+          </Chip>
+        )),
+        fullwidth: true,
+      },
       { key: 'Path', value: paths.map((item) => renderTag(item.title)), fullwidth: true },
       { key: 'host', value: hosts.map((item) => renderTag(item.title)), fullwidth: true },
     ];

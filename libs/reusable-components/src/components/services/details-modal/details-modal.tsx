@@ -80,26 +80,31 @@ export default function DetailsModal(props: Props) {
 
     route = [
       {
+        key: t('field.method'),
+        value: flatRoutes.methods.map((method) => (
+          <Chip ellipsis type='active' key={method} tooltipOnEllipsis tooltipTitle={method}>
+            {method}
+          </Chip>
+        )),
+        fullwidth: true,
+      },
+      {
+        key: t('field.protocol'),
+        value: flatRoutes.protocol.map((protocol) => (
+          <Chip ellipsis type='active' key={protocol} tooltipOnEllipsis tooltipTitle={protocol}>
+            {protocol}
+          </Chip>
+        )),
+        fullwidth: true,
+      },
+      {
         key: t('uikit.path'),
         value: flatRoutes.paths.map(renderTag),
         fullwidth: true,
       },
-
       {
         key: t('uikit.host'),
         value: flatRoutes.hosts.map(renderTag),
-        fullwidth: true,
-      },
-
-      {
-        key: t('field.method'),
-        value: flatRoutes.methods.map(renderTag),
-        fullwidth: true,
-      },
-
-      {
-        key: t('field.protocol'),
-        value: flatRoutes.protocol.map(renderTag),
         fullwidth: true,
       },
     ];
