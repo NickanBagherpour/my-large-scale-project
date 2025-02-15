@@ -17,8 +17,8 @@ type Props = {
     name: string;
   }>;
   changeContent: (c: ContentType) => void;
-  inputRef: RefObject<InputRef>;
-  data?: (string | number | undefined | string[])[];
+  inputRef: RefObject<InputRef | null>;
+  data?: (string | number | undefined)[];
   type: InquiryType;
   itemName: string;
 };
@@ -30,7 +30,7 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
   const inspectAnother = () => {
     form.resetFields();
     changeContent('searching');
-    inputRef.current?.focus();
+    inputRef?.current?.focus();
   };
   const titles: Record<InquiryType, string[]> = {
     service: [t('uikit.en_service_name'), t('uikit.desc'), t('uikit.element_en_name', { element: t('element.scope') })],

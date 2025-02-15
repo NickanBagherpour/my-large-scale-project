@@ -5,7 +5,7 @@ export const serviceClientsListData = {
   content: [
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -42,7 +42,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -79,7 +79,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -116,7 +116,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -153,7 +153,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -190,7 +190,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -227,7 +227,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -264,7 +264,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,
@@ -301,7 +301,7 @@ export const serviceClientsListData = {
     },
     {
       row: '123456789',
-      latin_name: 'app bale',
+      english_name: 'app bale',
       persian_name: 'کلاینت بله',
       status: true,
       chargeAmount: 500000,

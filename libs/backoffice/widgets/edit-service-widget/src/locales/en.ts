@@ -3,7 +3,7 @@ export default {
   subtitle: 'Edit Service',
   form: {
     edit_date: 'edit date',
-    admin_name: 'admin name',
+    user_name: 'user name',
     en_name: 'service Name',
     fa_name: 'farsi service Name',
     method: 'method',

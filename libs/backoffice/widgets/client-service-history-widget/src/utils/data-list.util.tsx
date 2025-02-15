@@ -22,7 +22,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
     },
     {
-      title: t('table.admin_name'),
+      title: t('table.user_name'),
       dataIndex: 'clientServiceDto',
       key: 'modifyBy',
       ellipsis: true,

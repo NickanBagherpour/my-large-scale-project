@@ -45,9 +45,9 @@ const EditScope: React.FC<EditScopeProps> = (props) => {
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
           <SearchItemsContainer>
             <Form.Item
-              name={FORM_ITEM_NAMES.latinNameScope}
+              name={FORM_ITEM_NAMES.englishNameScope}
               className={'span-2'}
-              label={t('form.latin_name_scope')}
+              label={t('form.english_name_scope')}
               rules={[rule]}
             >
               <Input maxLength={MAX_LENGTH_INPUT} />

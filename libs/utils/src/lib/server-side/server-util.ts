@@ -7,12 +7,14 @@ import { headers } from 'next/headers';
  * @returns {string} The base URL (e.g., "http://localhost:3000" or "https://example.com").
  */
 export async function getAppBaseUrl(): Promise<string> {
-  const host = headers().get('host');
+  const headersCollection = await headers();
+
+  const host = headersCollection.get('host');
   if (!host) {
     throw new Error('Host header is missing');
   }
 
-  const protocol = headers().get('x-forwarded-proto') || 'http';
+  const protocol = headersCollection.get('x-forwarded-proto') || 'http';
   //const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
 
   return `${protocol}://${host}`;

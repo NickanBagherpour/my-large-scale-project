@@ -10,7 +10,7 @@ export const FormSchema = (t: TFunction<'translation', undefined>) =>
       .trim()
       .min(1, { message: t('validation.required') })
       .max(100, { message: t('validation.min_len', { val: 100 }) })
-      .regex(REGEX_PATTERNS.isLatinText, {
+      .regex(REGEX_PATTERNS.isenglishText, {
         message: t('validation.english_validation_message'),
       }),
     [FORM_ITEM_NAMES.persianName]: z

@@ -41,7 +41,7 @@ export type ServiceDetails = {
     description: string;
   }[];
   serviceInfoId: number;
-  serviceLatinName: string;
+  serviceenglishName: string;
   servicePersianName: string;
   serviceDescription: string | null;
   serviceCategoryTitle: string;

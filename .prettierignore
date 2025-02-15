@@ -1,10 +1,11 @@
 # Directories
-node_modules/
-coverage/
-dist/
+/node_modules
+/coverage
+/dist
 /.nx/cache
+/.nx/workspace-data
 .tmp/
-logs/
+/logs
 #.cypress/
 #.e2e/
 apps/*/out-tsc/

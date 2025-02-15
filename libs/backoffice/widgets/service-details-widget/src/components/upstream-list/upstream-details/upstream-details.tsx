@@ -13,7 +13,7 @@ export type UpstreamDetailsPropsType = {
   tableLoading: boolean;
   tableData: any[] | undefined;
   handleDeleteButton?: () => void;
-  infoBoxData: { latinName: Nullable<string>; persianName: Nullable<string> };
+  infoBoxData: { englishName: Nullable<string>; persianName: Nullable<string> };
   infoBoxLoading: boolean;
 };
 export const UpstreamDetails = (props: UpstreamDetailsPropsType) => {

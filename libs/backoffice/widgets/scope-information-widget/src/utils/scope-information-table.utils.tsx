@@ -18,7 +18,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'id',
       width: '2.8rem',
       render: (_val, _record, index) => {
-        return index + 1;
+        return getValueOrDash(index + 1);
       },
     },
     {
@@ -27,7 +27,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'ssoScopeId',
       width: '2.8rem',
       render: (value) => {
-        return value?.name;
+        return getValueOrDash(value?.name);
       },
     },
     {
@@ -36,7 +36,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'description',
       width: '2.8rem',
       render: (value) => {
-        return value?.description;
+        return getValueOrDash(value?.description);
       },
     },
   ];
@@ -50,7 +50,7 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
       key: 'mobile-columns',
       render: ({ name, description }) => {
         const data = [
-          { title: t('first_tab.latin_scope_name'), value: getValueOrDash(name) },
+          { title: t('first_tab.english_scope_name'), value: getValueOrDash(name) },
           {
             title: t('first_tab.farsi_scope_name'),
             value: getValueOrDash(description),
