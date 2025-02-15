@@ -42,11 +42,11 @@ export interface ServiceInquiryDto {
     code: 1 | 2 | 3 | 4;
     title: keyof typeof ServiceInquiryStatus;
   };
-  scope: {
-    name?: string;
+  scopes: {
+    name: string;
     description?: string;
-    id?: number;
-  };
+    id: number;
+  }[];
 }
 // export type InquiryStatus = ServiceInquiryStatus | ClientInquiryStatus;
 export type InquiryParams = {
