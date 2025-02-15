@@ -53,7 +53,7 @@ export default function DetailsModal(props: Props) {
       { key: t('common.english_name'), value: serviceLatinName },
       { key: t('common.persian_name'), value: servicePersianName },
       { key: t('uikit.access'), value: authenticationType.title },
-      { key: t('uikit.category'), value: serviceCategoryTitle },
+      { key: t('uikit.category'), value: getValueOrDash(serviceCategoryTitle) },
       { key: t('uikit.throughout'), value: throughput.title },
       { key: t('uikit.version'), value: serviceVersion },
       { key: t('uikit.owner'), value: ownerName },
