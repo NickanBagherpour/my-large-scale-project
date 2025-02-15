@@ -81,6 +81,9 @@
             "@oxygen/backoffice/widgets/service-details-widget": [
                 "libs/backoffice/widgets/service-details-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/service-documentation-history-widget": [
+                "libs/backoffice/widgets/service-documentation-history-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
             ],

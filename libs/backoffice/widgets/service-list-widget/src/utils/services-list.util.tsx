@@ -159,16 +159,21 @@ export function getMobileColumns(props: Props): any {
           {
             title: t('scope'),
             value: (
-              <S.Name
-                text={getValueOrDash(value?.scope)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
+              <WithBadge
+                items={value.scopes}
+                onRender={(value) => (
+                  <S.Name
+                    text={getValueOrDash(value)}
+                    highlightColor={highlightColor}
+                    wordToHighlight={wordToHighlight}
+                  />
+                )}
               />
             ),
           },
           {
             title: t('url'),
-            value: <S.Url>{getValueOrDash(value?.path)}</S.Url>,
+            value: <WithBadge items={value?.paths} onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>} />,
           },
           {
             title: t('status'),
