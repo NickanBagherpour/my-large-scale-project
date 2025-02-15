@@ -36,15 +36,12 @@ export default function Route(props: Props) {
   const { data: routeData, isFetching } = useGetRoute({ dispatch, serviceName });
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod({ dispatch });
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol({ dispatch });
-  const isInSso = routeData?.isServiceInSso;
 
   if (isFetching) {
     return <CenteredLoading />;
   }
 
   const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
-    if (isInSso) return void nextStep();
-
     if (serviceName && serviceHttpMethods && serviceProtocols) {
       const { hosts, paths, protocols, methods } = values;
 
@@ -85,7 +82,7 @@ export default function Route(props: Props) {
 
   return (
     <>
-      <S.Form disabled={isInSso} layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+      <S.Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
         <BorderedSection>
           <Space direction='vertical' size={'middle'}>
             <S.FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
