@@ -51,7 +51,7 @@ const App: React.FC<AppProps> = (props) => {
       addClientStatus(dispatch, clientStatus);
       setCurrentStep(step);
     }
-  }, [isSuccess, step, clientStatus]);
+  }, [inquiryStatus, step, clientStatus]);
 
   const stepsItem = [
     { title: t('progress_bar.first_step'), component: <FirstStep setCurrentStep={setCurrentStep} /> },
