@@ -28,16 +28,16 @@ export const InfoBoxWrapper = styled.div<{
   margin?: string | number;
   dense?: string;
   wrap?: string;
-  isChild?: boolean;
+  $isChild?: boolean;
 }>`
   margin: ${(p) => p.margin ?? ''};
   display: grid;
 
   ${(p) => setResponsiveGridColmns(p)}
   background-color: ${(p) => p.theme.background._50};
-  border: ${(p) => (p.isChild ? 'none' : '1px solid ' + p.theme.border._100)};
+  border: ${(p) => (p.$isChild ? 'none' : '1px solid ' + p.theme.border._100)};
   border-radius: var(${cssVar.radius});
-  padding: ${(p) => (p.isChild ? '0' : '3rem')};
+  padding: ${(p) => (p.$isChild ? '0' : '3rem')};
   column-gap: 1%;
   row-gap: ${(p) => (p.dense === 'true' ? '1rem' : '2rem')};
   overflow: hidden;
