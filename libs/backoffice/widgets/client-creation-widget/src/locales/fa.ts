@@ -13,7 +13,7 @@ export default {
   non_denial: 'عدم انکار',
   rate_limit_plugin: 'پلاگین محدودیت فراخوانی Rate Limit',
   new_request_validation: 'اعتبارسنجی درخواست جدید',
-  // search_by_name_and_scope: 'جستجو براساس نام لاتین، نام فارسی و نام اسکوپ',
+  // search_by_name_and_scope: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
   technical_information: 'اطلاعات فنی',
   organization_information: 'اطلاعات سازمان',
   organization_name: 'نام سازمان',
@@ -91,7 +91,7 @@ export default {
   form: {
     grant_type: 'اضافه کردن Grant Type',
     add_tags: 'اضافه کردن تگ ها',
-    latin_name_client: 'نام انگلیسی کلاینت',
+    english_name_client: 'نام انگلیسی کلاینت',
     persian_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',
@@ -110,7 +110,7 @@ export default {
     email: 'ایمیل (اختیاری)',
   },
   placeholder: {
-    latin_name_client: ' نام انگلیسی کلاینت',
+    english_name_client: ' نام انگلیسی کلاینت',
     farsi_name_client: 'نام فارسی کلاینت',
     client_type: 'نوع کلاینت',
     client_id: 'شناسه کلاینت',

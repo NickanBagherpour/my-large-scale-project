@@ -24,13 +24,13 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
   //   historyLoadign: false,
   // });
 
-  const latinName = data?.name;
+  const englishName = data?.name;
   const farsiName = data?.description;
 
   const item = [
     {
-      key: t('first_tab.latin_scope_name'),
-      value: getValueOrDash(latinName),
+      key: t('first_tab.english_scope_name'),
+      value: getValueOrDash(englishName),
     },
     {
       key: t('first_tab.farsi_scope_name'),

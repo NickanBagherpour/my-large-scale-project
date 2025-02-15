@@ -31,7 +31,7 @@ export type ModalDataType = {
   scopeDescription: string;
   scopeId: number;
   serviceInfoId: number;
-  serviceLatinName: string;
+  serviceenglishName: string;
   servicePersianName: string;
   serviceDescription: string;
   serviceCategoryTitle: string;

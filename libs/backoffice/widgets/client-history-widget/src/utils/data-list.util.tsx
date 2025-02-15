@@ -152,12 +152,12 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
             value: getValueOrDash(value?.editTime),
           },
           {
-            title: t('table.admin_name'),
+            title: t('table.user_name'),
             value: getValueOrDash(value?.adminName),
           },
           {
-            title: t('table.client_latin_name'),
-            value: getValueOrDash(value?.clientLatinName),
+            title: t('table.client_english_name'),
+            value: getValueOrDash(value?.clientenglishName),
           },
           {
             title: t('table.client_farsi_name'),

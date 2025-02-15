@@ -24,6 +24,8 @@ import { getValidTab } from '../../utils/tabs.util';
 
 import * as S from './app.style';
 import { Documentation } from '../documentation/documentation';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useGetServiceDetailsQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -56,7 +58,7 @@ const App: React.FC<AppProps> = (props) => {
   const servicename: Nullable<string> = searchParams.get('servicename');
   const title = servicename ? `${t('widget_name')} ${t(servicename)}` : t('widget_name');
   const { mutate, isPending } = useAssignToServiceMutation();
-
+  const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery(servicename);
   useEffect(() => {
     updateServerNameAction(dispatch, servicename);
   }, [servicename]);
@@ -132,7 +134,15 @@ const App: React.FC<AppProps> = (props) => {
   );
 
   return (
-    <S.AppContainer title={title} style={{ minHeight: '100%' }} footer={footerButton}>
+    <S.AppContainer
+      title={getWidgetTitle({
+        defaultTitle: t('widget_name'),
+        primaryTitle: serviceDetails?.persianName,
+        secondaryTitle: serviceDetails?.name,
+      })}
+      style={{ minHeight: '100%' }}
+      footer={footerButton}
+    >
       <Tabs
         defaultActiveKey='general-information'
         items={items}
