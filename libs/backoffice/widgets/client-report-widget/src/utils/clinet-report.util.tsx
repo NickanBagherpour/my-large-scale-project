@@ -78,7 +78,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       width: 80,
       render: (value, record) => (
         <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
-          {t('detailed')}
+          {t('details')}
         </S.Details>
       ),
     },
@@ -126,7 +126,7 @@ export function getMobileColumns(props: Props): any {
             title: '',
             value: (
               <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
-                {t('detailed')}
+                {t('details')}
               </S.Details>
             ),
             colon: false,
