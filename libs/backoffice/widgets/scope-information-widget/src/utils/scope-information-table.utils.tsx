@@ -18,7 +18,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'id',
       width: '2.8rem',
       render: (_val, _record, index) => {
-        return index + 1;
+        return getValueOrDash(index + 1);
       },
     },
     {
@@ -27,7 +27,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'ssoScopeId',
       width: '2.8rem',
       render: (value) => {
-        return value?.name;
+        return getValueOrDash(value?.name);
       },
     },
     {
@@ -36,7 +36,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'description',
       width: '2.8rem',
       render: (value) => {
-        return value?.description;
+        return getValueOrDash(value?.description);
       },
     },
   ];

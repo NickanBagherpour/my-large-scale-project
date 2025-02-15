@@ -44,8 +44,11 @@ export default function WithBadge(props: Props) {
   return (
     <>
       {count > 1 ? (
-        <Tooltip title={<StyledList isPersian={isPersianContent}>{listItems}</StyledList>} arrow={false}
-                 overlayStyle={{ maxWidth: 'unset' }}>
+        <Tooltip
+          title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>}
+          arrow={false}
+          overlayStyle={{ maxWidth: 'unset' }}
+        >
           {<S.Badge count={`+${count - 1}`} />}
           {renderFirstItem()}
         </Tooltip>
