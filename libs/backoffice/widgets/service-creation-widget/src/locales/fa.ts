@@ -17,7 +17,6 @@ export default {
   enter_owner: 'مالک را وارد نمایید',
   tag: 'تگ',
   enter_tag: 'تگ مورد نظر را نتخاب نمایید',
-  register_info: 'ثبت اطلاعات',
 
   attention: 'توجه',
   proceed_notice: 'توجه داشته باشید در صورت ثبت اطلاعات و رفتن به مرحله بعد، اسکوپ  قابل تغییر و ویرایش نخواهند بود.',
@@ -61,8 +60,6 @@ export default {
   path: 'Path',
   host: 'Host',
   route: 'Route',
-  add_methods: 'افزودن متودها',
-  add_protocols: 'افزودن پروتکل‌ها',
   route_name: 'نام Route',
 
   service_general_info: 'اطلاعات کلی سرویس',

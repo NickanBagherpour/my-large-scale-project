@@ -87,7 +87,7 @@ export default function Route(props: Props) {
           <Space direction='vertical' size={'middle'}>
             <S.FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
               <TagPicker
-                title={t('add_methods')}
+                title={t('uikit.add_methods')}
                 menu={serviceHttpMethods}
                 dropdownMinWidth={dropdownMinWidth}
                 isLoading={isFetchingServiceHttpMethod}
@@ -97,7 +97,7 @@ export default function Route(props: Props) {
             <S.FormItem name={ROUTE_NAMES.protocols} rules={[rule]}>
               <TagPicker
                 menu={serviceProtocols}
-                title={t('add_protocols')}
+                title={t('uikit.add_protocols')}
                 dropdownMinWidth={dropdownMinWidth}
                 isLoading={isFetchingServiceProtocol}
               />
