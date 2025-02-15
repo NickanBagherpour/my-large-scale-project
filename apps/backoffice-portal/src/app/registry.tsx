@@ -15,7 +15,7 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 
     // Types are out of date, clearTag is not defined.
     // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/65021
-    (styledComponentsStyleSheet.instance as any).clearTag();
+    styledComponentsStyleSheet.instance.clearTag();
 
     return <>{styles}</>;
   });
