@@ -48,7 +48,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        rowKey={(row) => row.index}
+        rowKey={(row) => row.id}
       />
     </S.DataTableContainer>
   );
