@@ -72,7 +72,6 @@ const App: React.FC<AppProps> = () => {
           resetMessageAction(dispatch);
         }}
       />
-      {/* <SecondaryTitle text={t('subtitle')} /> */}
       <S.TableContainer>
         <DataTable data={data} isFetching={isFetching} />
       </S.TableContainer>

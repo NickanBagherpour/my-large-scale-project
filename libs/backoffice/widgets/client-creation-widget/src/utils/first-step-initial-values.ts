@@ -2,10 +2,10 @@ import { FORM_ITEM } from './consts';
 
 export const initialValues = (userData) => {
   return {
-    // [FORM_ITEM.latin_name_client]: userData.clientStatus,
+    // [FORM_ITEM.english_name_client]: userData.clientStatus,
     // [FORM_ITEM.persian_name_client]: userData.grantType,
     // [FORM_ITEM.client_type]: userData.tags,
-    // [FORM_ITEM.client_id]: userData.latinNameClient,
+    // [FORM_ITEM.client_id]: userData.englishNameClient,
     // [FORM_ITEM.identity_auth]: userData.persianNameClient,
     // [FORM_ITEM.website_url]: userData.website_url,
     // [FORM_ITEM.input_address]: userData.input_address,
@@ -46,7 +46,7 @@ export const initialValues = (userData) => {
 //             "key": "payCompany"
 //         }
 //     ],
-//     "latin-name-client": "latin name",
+//     "english-name-client": "english name",
 //     "persian_name_client": "نام فارسی",
 //     "client_type": "test 1",
 //     "client_id": "cllient id",

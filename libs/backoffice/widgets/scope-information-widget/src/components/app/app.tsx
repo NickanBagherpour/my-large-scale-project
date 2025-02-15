@@ -35,7 +35,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
 
-  const latinName = data?.name;
+  const englishName = data?.name;
   const farsiName = data?.description;
 
   const handleReturn = () => {
@@ -60,7 +60,7 @@ const App: React.FC<AppProps> = (props) => {
       title={getWidgetTitle({
         defaultTitle: t('widget_name'),
         primaryTitle: farsiName,
-        secondaryTitle: latinName,
+        secondaryTitle: englishName,
       })}
     >
       <GlobalMessageContainer

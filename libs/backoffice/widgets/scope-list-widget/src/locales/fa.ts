@@ -5,7 +5,7 @@ export default {
   table: {
     index: 'ردیف',
     persian_name_scope: 'نام فارسی اسکوپ',
-    latin_name_scope: 'نام انگلیسی اسکوپ',
+    english_name_scope: 'نام انگلیسی اسکوپ',
     details: 'جزئیات',
     title: 'لیست اسکوپ‌ها',
   },

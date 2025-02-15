@@ -1,7 +1,7 @@
 export default {
   widget_name: 'ویرایش اسکوپ',
   form: {
-    latin_name_scope: 'نام انگلیسی اسکوپ',
+    english_name_scope: 'نام انگلیسی اسکوپ',
     persian_name_scope: 'نام فارسی اسکوپ',
   },
 

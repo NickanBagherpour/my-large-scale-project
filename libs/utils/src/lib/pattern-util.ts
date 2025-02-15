@@ -1,5 +1,5 @@
 export const REGEX_PATTERNS = {
-  isLatinText: /^[^\u0600-\u06FF]*$/,
+  isenglishText: /^[^\u0600-\u06FF]*$/,
   isPersianText: /^[^a-zA-Z]*$/,
   PersianIdentifier: /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/,
   defaultEnglishName: /^[A-Za-z][A-Za-z0-9._-]*$/,

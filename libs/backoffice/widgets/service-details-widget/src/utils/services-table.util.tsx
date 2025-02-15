@@ -27,8 +27,8 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       render: (value) => value,
     },
     {
-      title: t('field.scope_latin_name'),
-      dataIndex: 'latin_name',
+      title: t('field.scope_english_name'),
+      dataIndex: 'english_name',
       key: 'index',
       align: 'center',
       render: (value) => value,
@@ -71,8 +71,8 @@ export function getMobileColumns(props: Props) {
             value: getValueOrDash(value?.row),
           },
           {
-            title: t('field.scope_latin_name'),
-            value: getValueOrDash(value?.latin_name),
+            title: t('field.scope_english_name'),
+            value: getValueOrDash(value?.english_name),
           },
           {
             title: t('field.scope_persian_name'),
