@@ -5,8 +5,6 @@ import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, useAppState } from '../../context';
-import Footer from '../footer/footer';
-import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
@@ -19,9 +17,8 @@ import {
   usePostService,
 } from '../../services';
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
-import CenteredLoading from '../centered-loading/centered-loading';
 import * as S from './general-info.style';
-import { TagPicker } from '@oxygen/reusable-components';
+import { BorderedSection, CenteredLoading, Footer, TagPicker } from '@oxygen/reusable-components';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 
@@ -191,11 +188,11 @@ export default function GeneralInfo() {
           </S.Grid>
         </S.InputsBox>
 
-        <Box>
+        <BorderedSection>
           <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
             <TagPicker title={t('add_tags')} isLoading={isFetchingTags} menu={convertTags(tags)} />
           </FormItem>
-        </Box>
+        </BorderedSection>
       </Form>
 
       <Footer onRegister={onRegister} onReturn={onReturn} />

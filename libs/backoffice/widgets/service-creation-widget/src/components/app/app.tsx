@@ -1,10 +1,12 @@
 import { useTr } from '@oxygen/translation';
 import { Container } from '@oxygen/ui-kit';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { CenteredLoading, GlobalMessageContainer, Route } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import {
   addInitialStep,
   addServiceName,
+  nextStep,
+  previousStep,
   resetMessageAction,
   StepIndex,
   useAppDispatch,
@@ -19,17 +21,7 @@ import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
 import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
-import CenteredLoading from '../centered-loading/centered-loading';
 import { InquiryStatus } from '../../utils/consts';
-import Route from '../route/route';
-
-export const steps = [
-  { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
-  { name: 'route', title: 'route', component: <Route /> },
-  { name: 'scope', title: 'scope', component: <Scope /> },
-  { name: 'upstream', title: 'upstream', component: <Upstream /> },
-  { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
-] as const;
 
 const App = () => {
   const [t] = useTr();
@@ -39,6 +31,25 @@ const App = () => {
   const maybeServiceName = useSearchParams().get('service-name');
   const serviceName = getServiceNameFromUrl(maybeServiceName);
   const { data, isSuccess } = useServiceInquiry(serviceName);
+
+  const steps = [
+    { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
+    {
+      name: 'route',
+      title: 'route',
+      component: (
+        <Route
+          dispatch={dispatch}
+          nextStep={() => nextStep(dispatch)}
+          previousStep={() => previousStep(dispatch)}
+          serviceName={serviceName}
+        />
+      ),
+    },
+    { name: 'scope', title: 'scope', component: <Scope /> },
+    { name: 'upstream', title: 'upstream', component: <Upstream /> },
+    { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
+  ] as const;
 
   useEffect(() => {
     if (!serviceName) notFound();

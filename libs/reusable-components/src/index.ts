@@ -39,3 +39,7 @@ export { default as Plugins } from './components/plugins/plugins';
 export { default as ConfirmRemoveModal } from './components/confirm-remove-modal/confirm-remove-modal';
 export { default as WithBadge } from './components/services/badge/badge';
 export { default as TagPicker } from './components/tag-picker/tag-picker';
+export { default as BorderedSection } from './components/bordered-section/bordered-section';
+export { default as CenteredLoading } from './components/centered-loading/centered-loading';
+export { default as Route } from './components/route/components/route';
+export { default as Footer } from './components/footer/footer';

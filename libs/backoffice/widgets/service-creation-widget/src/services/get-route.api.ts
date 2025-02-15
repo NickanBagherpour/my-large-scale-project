@@ -3,7 +3,7 @@ import Api from './api';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch, useAppState } from '../context';
 import { type Route } from '../types';
-import { getId } from '../utils/get-id';
+// import { getId } from '../utils/get-id';
 
 export const useGetRoute = () => {
   const { serviceName } = useAppState();
@@ -19,8 +19,8 @@ export const useGetRoute = () => {
         route: {
           ...data.route,
           // TODO: find a better way and remove these:
-          paths: data.route.paths.map((p) => ({ code: getId(), title: p })),
-          hosts: data.route.hosts.map((p) => ({ code: getId(), title: p })),
+          paths: data.route.paths.map((p) => ({ code: 1 /* getId() */, title: p })),
+          hosts: data.route.hosts.map((p) => ({ code: 2 /* getId() */, title: p })),
         },
       };
     },

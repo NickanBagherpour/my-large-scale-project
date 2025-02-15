@@ -10,7 +10,7 @@ import {
 } from '../services';
 import MultiInput from './multi-input/multi-input';
 import * as S from './route.style';
-import { BorderedSection, CenteredLoading, Footer, TagPicker } from '@oxygen/reusable-components';
+import { BorderedSection, CenteredLoading, Footer, TagPicker } from '../../../index';
 import { createRouteSchema, RouteType } from '../type/route.schema';
 import { PostRouteParams } from '../type/route.type';
 import { ROUTE_NAMES } from '../utils/consts';

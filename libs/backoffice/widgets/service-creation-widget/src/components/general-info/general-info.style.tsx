@@ -1,8 +1,8 @@
+import { BorderedSection } from '@oxygen/reusable-components';
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import Box from '../box/box';
 
-export const InputsBox = styled(Box)`
+export const InputsBox = styled(BorderedSection)`
   margin-bottom: 1.6rem;
 `;
 

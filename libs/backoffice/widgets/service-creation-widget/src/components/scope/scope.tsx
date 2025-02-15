@@ -1,6 +1,5 @@
 import * as S from './scope.style';
 import { useTr } from '@oxygen/translation';
-import Footer from '../footer/footer';
 import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
 import { Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
@@ -15,7 +14,7 @@ import {
   usePostRegisterToSso,
 } from '../../services';
 import ConfirmModal from '../cofirm-modal/confirm-modal';
-import { ConfirmRemoveModal } from '@oxygen/reusable-components';
+import { ConfirmRemoveModal, Footer } from '@oxygen/reusable-components';
 
 export default function Scope() {
   const [t] = useTr();

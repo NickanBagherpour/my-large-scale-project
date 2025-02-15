@@ -2,7 +2,6 @@ import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
 import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
 import type { InfoItemType } from '@oxygen/types';
-import Footer from '../footer/footer';
 import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
@@ -12,7 +11,7 @@ import { getValueOrDash } from '@oxygen/utils';
 import { UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
-import { StatusModal } from '@oxygen/reusable-components';
+import { Footer, StatusModal } from '@oxygen/reusable-components';
 
 const mapStatuses = {
   success: 'success',

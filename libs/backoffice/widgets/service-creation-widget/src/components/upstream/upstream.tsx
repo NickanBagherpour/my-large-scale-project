@@ -1,9 +1,7 @@
-import Box from '../box/box';
 import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
-import { GridCard, NoResult } from '@oxygen/reusable-components';
+import { BorderedSection, CenteredLoading, Footer, GridCard, NoResult } from '@oxygen/reusable-components';
 import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import Footer from '../footer/footer';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import {
@@ -17,7 +15,6 @@ import { UpstreamTarget, UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import { useBounce } from '@oxygen/hooks';
 import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
-import CenteredLoading from '../centered-loading/centered-loading';
 
 export default function Upstream() {
   const [t] = useTr();
@@ -121,7 +118,7 @@ export default function Upstream() {
     <Container>
       <Loading spinning={isFetching}>
         <S.Title>{t('choose_upstream')}</S.Title>
-        <Box>
+        <BorderedSection>
           <S.Input
             value={searchTerm}
             placeholder={t('search_by_english_or_persian_name')}
@@ -157,11 +154,11 @@ export default function Upstream() {
           ) : (
             <NoResult isLoading={isFetchingUpstreams} />
           )}
-        </Box>
+        </BorderedSection>
       </Loading>
 
       {upstream && !!upstreams?.totalElements && (
-        <Box>
+        <BorderedSection>
           <InfoBox
             minColumnCount={2}
             margin={'0 0 2.8rem'}
@@ -178,7 +175,7 @@ export default function Upstream() {
             rowKey={(row) => row.idx}
             pagination={false}
           />
-        </Box>
+        </BorderedSection>
       )}
 
       {!isFetching && (
