@@ -13,7 +13,7 @@ import { queryClient } from '@oxygen/client';
 import { PROGRESS_CODE } from '../../utils/consts';
 
 type SecondStep = PageProps & {
-  setCurrentStep: any;
+  setCurrentStep: (prev) => void;
 };
 
 export const SecondStep: React.FC<SecondStep> = (props) => {

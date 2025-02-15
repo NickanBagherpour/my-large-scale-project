@@ -15,7 +15,7 @@ import { useAppDispatch, useAppState } from '../../context';
 import * as S from './third-step.style';
 
 type ThirdStepProps = PageProps & {
-  setCurrentStep: any;
+  setCurrentStep: (prev) => void;
 };
 
 export const ThirdStep: React.FC<ThirdStepProps> = (props) => {
