@@ -46,10 +46,10 @@ export interface BoxProps {
 }
 
 type TransientBoxProps = {
-  [K in keyof Omit<BoxProps, 'visible' | 'children' | 'fillChildren'| 'className'> as `$${string & K}`]: BoxProps[K]
+  [K in keyof Omit<BoxProps, 'visible' | 'children' | 'fillChildren' | 'className'> as `$${string & K}`]: BoxProps[K];
 } & {
-  $fillChildren?: string
-}
+  $fillChildren?: string;
+};
 
 const StyledBox = styled.div<TransientBoxProps>`
   ${(props) => props.$display && `display: ${props.$display}`};
@@ -116,4 +116,3 @@ export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren
     </StyledBox>
   );
 };
-

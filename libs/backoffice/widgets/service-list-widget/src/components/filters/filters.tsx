@@ -10,7 +10,7 @@ import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
 import { SERVICE_NAME } from '../../utils/consts';
 import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
-import * as S from './filters.sytle';
+import * as S from './filters.style';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];

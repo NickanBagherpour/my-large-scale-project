@@ -1,5 +1,5 @@
 /*--import-backoffice--*/
-import { KEYS as SERVICE_DOCUMENTATION_HISTORY_KEYS } from './portals/backoffice/service-documentation-history.key';
+import { KEYS as CLIENT_REPORT_KEYS } from './portals/backoffice/client-report.key';
 import { KEYS as SERVICES_REPORT_KEYS } from './portals/backoffice/services-report.key';
 import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './portals/backoffice/upstream-service-history.key';
 import { KEYS as UPSTREAM_HISTORY_KEYS } from './portals/backoffice/upstream-history.key';
