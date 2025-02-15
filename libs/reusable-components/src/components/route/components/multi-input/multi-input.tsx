@@ -1,9 +1,9 @@
 import * as S from './multi-input.style';
-import { CodeTitle } from '../../types';
 import { getId } from '../../utils/get-id';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { useContext } from 'react';
 import { Button } from '@oxygen/ui-kit';
+import { CodeTitle } from '../../type/route.type';
 
 type Props =
   | {
