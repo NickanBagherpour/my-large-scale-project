@@ -1,7 +1,7 @@
 import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
 import { BorderedSection, CenteredLoading, Footer, GridCard, NoResult } from '@oxygen/reusable-components';
-import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
+import { ColumnsType, InfoBox, Loading, Pagination, Table } from '@oxygen/ui-kit';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import {
