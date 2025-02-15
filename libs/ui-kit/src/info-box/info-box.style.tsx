@@ -45,8 +45,9 @@ export const InfoBoxWrapper = styled.div<{
   .ant-tag {
     width: fit-content;
     padding: 0.3rem 0.8rem;
-    border-radius: 25px;
-    background-color: ${(p) => p.theme.primary._100};
+    border-radius: 0.4rem;
+    //border-radius: 25px;
+    // background-color: ${(p) => p.theme.primary._100};
     color: ${(p) => p.theme.text.primary};
   }
 
