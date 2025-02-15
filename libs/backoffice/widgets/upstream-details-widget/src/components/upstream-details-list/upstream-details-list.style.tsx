@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MarkText } from '@oxygen/ui-kit';
+import { Button, MarkText } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const ServerContainer = styled.div`
@@ -50,22 +50,16 @@ export const Details = styled.a`
   color: ${(p) => p.theme.primary.main};
 `;
 
-export const BtnContainer = styled.span`
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
+export const TrashButton = styled(Button)`
+  width: fit-content;
+  & i {
+    font-size: 2.4rem;
+  }
 `;
 
-export const Trash = styled.i`
-  font-size: 2.4rem;
-  color: ${(p) => p.theme.error.main};
-`;
-
-export const Edit = styled.span`
-  font-size: 1.4rem;
+export const EditButton = styled(Button)`
   font-weight: 500;
-  line-height: 2.2rem;
-  color: ${(p) => p.theme.primary.main};
+  width: fit-content;
 `;
 
 export const MobileTableItem = styled.div`

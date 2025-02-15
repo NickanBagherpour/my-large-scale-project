@@ -1,7 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import { UpstreamDetailsType } from '../types';
 
@@ -30,23 +30,26 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
   const { t, deleteUpstream, editUpstream } = props;
   return [
     {
-      title: `${t('domain')}`,
+      title: t('domain'),
       dataIndex: 'domain',
       key: 'domain',
+      align: 'center',
       render: (domain) => getValueOrDash(domain),
     },
     {
-      title: `${t('health_status')}`,
+      title: t('health_status'),
       dataIndex: 'healthStatus',
       key: 'health_status',
+      align: 'center',
       render: (value) => {
         return getValueOrDash(renderHealthStatus(t, value) ? renderHealthStatus(t, value) : t('health'));
       },
     },
     {
-      title: `${t('weight')}`,
+      title: t('weight'),
       dataIndex: 'weight',
       key: 'weight',
+      align: 'center',
       render: (weight) => getValueOrDash(weight),
     },
 
@@ -54,16 +57,26 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       title: '',
       dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
       key: 'id',
+      width: 1,
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <S.BtnContainer>
-          <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>
+        <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'} justifyContent={'end'}>
+          <S.EditButton
+            variant={'text'}
+            onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}
+            size={'small'}
+          >
             {t('edit')}
-          </S.Edit>
-          <S.Trash
-            className='icon-trash'
+          </S.EditButton>
+
+          <S.TrashButton
+            variant={'text'}
+            color={'error'}
+            size={'small'}
             onClick={() => deleteUpstream(id, record.domain, record.weight, record.healthStatus)}
-          />
-        </S.BtnContainer>
+          >
+            <i className={'icon-trash'} />
+          </S.TrashButton>
+        </Box>
       ),
     },
   ];
@@ -79,7 +92,6 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
         const data: MobileColumnType[] = [
           {
             title: t('domain'),
-
             value: getValueOrDash(domain),
           },
           {
@@ -94,11 +106,20 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
           },
           {
             title: '',
+            color: false,
             value: (
-              <S.BtnContainer>
-                <S.Edit onClick={() => editUpstream(id, domain, weight, healthStatus)}>{t('edit')}</S.Edit>
-                <S.Trash className='icon-trash' onClick={() => deleteUpstream(id, domain, weight, healthStatus)} />
-              </S.BtnContainer>
+              <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'}>
+                <S.EditButton onClick={() => editUpstream(id, domain, weight, healthStatus)} variant={'text'}>
+                  {t('edit')}
+                </S.EditButton>
+                <S.TrashButton
+                  variant={'text'}
+                  color={'error'}
+                  onClick={() => deleteUpstream(id, domain, weight, healthStatus)}
+                >
+                  <i className={'icon-trash'} />
+                </S.TrashButton>
+              </Box>
             ),
             colon: false,
           },
@@ -119,13 +140,13 @@ export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps
   const { t } = props;
   return [
     {
-      title: `${t('domain')}`,
+      title: t('domain'),
       dataIndex: 'domain',
       key: 'domain',
       render: (domain) => getValueOrDash(domain),
     },
     {
-      title: `${t('health_status')}`,
+      title: t('health_status'),
       dataIndex: 'healthStatus',
       key: 'health_status',
       render: (value) => {
@@ -133,7 +154,7 @@ export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps
       },
     },
     {
-      title: `${t('weight')}`,
+      title: t('weight'),
       dataIndex: 'weight',
       key: 'weight',
       render: (weight) => getValueOrDash(weight),
