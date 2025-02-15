@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
-import { Chip, ColumnsType, InfoBox, Table, Box as UiKitBox } from '@oxygen/ui-kit';
+import { Chip, ColumnsType, InfoBox, Table, Tag } from '@oxygen/ui-kit';
 import type { InfoItemType } from '@oxygen/types';
 import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
@@ -8,7 +8,7 @@ import { useToggle } from '@oxygen/hooks';
 import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
 import { useGetRoute } from '../../services/get-route.api';
 import { getValueOrDash } from '@oxygen/utils';
-import { UpstreamTarget } from '../../types';
+import { ServiceScope, UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import { Footer, StatusModal } from '@oxygen/reusable-components';
@@ -19,6 +19,14 @@ const mapStatuses = {
   idle: 'loading',
   error: 'error',
 } as const;
+
+const renderTag = (tag: string) => {
+  return (
+    <Tag key={tag} type='processing'>
+      <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{tag}</S.Text>
+    </Tag>
+  );
+};
 
 export default function ConfirmData() {
   const [t] = useTr();
@@ -60,14 +68,41 @@ export default function ConfirmData() {
     ];
   }
 
-  let scopeData: InfoItemType[] = [];
-  if (scope) {
-    const { description, name } = scope;
-    scopeData = [
-      { key: 'english_name', value: name },
-      { key: 'persian_name', value: getValueOrDash(description) },
-    ];
-  }
+  const scopeDesktopColumns: ColumnsType<ServiceScope> = [
+    {
+      title: t('common.row_number'),
+      key: 'rowNumber',
+      align: 'center',
+      width: '2rem',
+      render: (_val, _record, idx) => idx + 1,
+    },
+    {
+      title: t('scope_english_name'),
+      dataIndex: 'name',
+      align: 'center',
+    },
+    {
+      title: t('scope_persian_name'),
+      dataIndex: 'description',
+      align: 'center',
+      render: (value) => getValueOrDash(value),
+    },
+  ];
+
+  const scopeMobileColumns: ColumnsType<ServiceScope> = [
+    {
+      title: null,
+      key: 'mobileColumn',
+      render: (scope: ServiceScope) => {
+        const columns = [
+          { title: t('scope_english_name'), value: scope?.name },
+          { title: t('persian_name'), value: scope?.description },
+        ];
+
+        return <Table.MobileColumns minHeight={'40px'} columns={columns} />;
+      },
+    },
+  ];
 
   let upstreamData: InfoItemType[] = [];
   let upstreamTargets: UpstreamTarget[] = [];
@@ -89,12 +124,14 @@ export default function ConfirmData() {
 
   let routeData: InfoItemType[] = [];
   if (route) {
-    const { host, path, method, protocol } = route;
+    const {
+      route: { protocols, methods, paths, hosts },
+    } = route;
     routeData = [
-      { key: 'action_or_method', value: getValueOrDash(method?.title) },
-      { key: 'protocol', value: getValueOrDash(protocol?.title) },
-      { key: 'Path', value: path },
-      { key: 'host', value: host },
+      { key: 'action_or_method', value: methods.map((item) => renderTag(item.title)), fullwidth: true },
+      { key: 'protocol', value: protocols.map((item) => renderTag(item.title)), fullwidth: true },
+      { key: 'Path', value: paths.map((item) => renderTag(item.title)), fullwidth: true },
+      { key: 'host', value: hosts.map((item) => renderTag(item.title)), fullwidth: true },
     ];
   }
 
@@ -120,14 +157,12 @@ export default function ConfirmData() {
     {
       key: 'mobileColumn',
       render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
-        return (
-          <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
-            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={healthStatus} />
-            <Table.MobileColumn minHeight={'40px'} title={t('weight')} value={weight} />
-          </UiKitBox>
-        );
+        const columns = [
+          { title: t('domain'), value: domain },
+          { title: t('health_status'), value: healthStatus },
+          { title: t('weight'), value: weight },
+        ];
+        return <Table.MobileColumns columns={columns} minHeight={'40px'} />;
       },
     },
   ];
@@ -158,12 +193,19 @@ export default function ConfirmData() {
 
           <S.Section>
             <S.Title>{t('route')}</S.Title>
-            <InfoBox loading={isFetchingRoute} data={routeData} margin={0} minColumnCount={2} />
+            <InfoBox loading={isFetchingRoute} data={routeData} margin={0} />
           </S.Section>
 
           <S.Section>
             <S.Title>{t('scope')}</S.Title>
-            <InfoBox loading={isFetchingScope} data={scopeData} margin={0} minColumnCount={2} />
+            <Table
+              loading={isFetchingScope}
+              dataSource={scope}
+              pagination={false}
+              columns={scopeDesktopColumns}
+              rowKey={(row) => row.id}
+              mobileColumns={scopeMobileColumns}
+            />
           </S.Section>
 
           <S.Section>

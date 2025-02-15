@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import styled from 'styled-components';
 
 export const Title = styled.h2`
@@ -9,6 +10,9 @@ export const Title = styled.h2`
 
 export const Section = styled.div`
   margin-bottom: 3rem;
+  .ant-tag {
+    display: inline-flex;
+  }
 `;
 
 export const Chips = styled.div`
@@ -50,4 +54,11 @@ export const ErrCode = styled.span`
 export const RequestError = styled.li`
   display: flex;
   align-items: center;
+`;
+
+export const Text = styled(Typography.Text)`
+  unicode-bidi: normal;
+  button {
+    margin: 0 1rem;
+  }
 `;
