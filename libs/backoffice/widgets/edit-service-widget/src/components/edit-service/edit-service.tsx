@@ -54,10 +54,10 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   const defaultValues = {
     [FORM_ITEM_NAMES.faName]: serviceInfo?.persianName,
     [FORM_ITEM_NAMES.enName]: serviceInfo?.name,
-    [FORM_ITEM_NAMES.category]: serviceInfo?.category.code,
+    [FORM_ITEM_NAMES.category]: serviceInfo?.category?.code,
     [FORM_ITEM_NAMES.access]: serviceInfo?.accessLevel && convertToOption(serviceInfo?.accessLevel),
     [FORM_ITEM_NAMES.owner]: serviceInfo?.owner,
-    [FORM_ITEM_NAMES.throughput]: serviceInfo?.throughput.title,
+    [FORM_ITEM_NAMES.throughput]: serviceInfo?.throughput?.title,
     [FORM_ITEM_NAMES.version]: serviceInfo?.version,
     [FORM_ITEM_NAMES.tags]: convertTags(serviceInfo?.tags),
   };

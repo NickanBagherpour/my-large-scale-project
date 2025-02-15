@@ -14,7 +14,7 @@ export const createGeneralInfoSchema = (t: TFunction) => {
     [SERVICE_NAMES.throughput]: validationSchema.idSelection,
     [SERVICE_NAMES.version]: validationSchema.version,
     [SERVICE_NAMES.owner]: validationSchema.required,
-    [SERVICE_NAMES.tags]: validationSchema.tagsList,
+    [SERVICE_NAMES.tags]: validationSchema.codeTitle,
   });
 };
 

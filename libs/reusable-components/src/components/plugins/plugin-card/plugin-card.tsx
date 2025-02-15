@@ -16,7 +16,7 @@ export default function PluginCard(props: Props) {
   } = props;
 
   return (
-    <S.Card isChecked={enabled}>
+    <S.Card $isChecked={enabled}>
       <S.CardHeader>
         <S.CardName>{title}</S.CardName>
         <Switch checked={enabled} onChange={(isChecked) => void onCheck(isChecked)} />

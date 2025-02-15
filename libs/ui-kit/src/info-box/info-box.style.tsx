@@ -28,16 +28,16 @@ export const InfoBoxWrapper = styled.div<{
   margin?: string | number;
   dense?: string;
   wrap?: string;
-  isChild?: boolean;
+  $isChild?: boolean;
 }>`
   margin: ${(p) => p.margin ?? ''};
   display: grid;
 
   ${(p) => setResponsiveGridColmns(p)}
   background-color: ${(p) => p.theme.background._50};
-  border: ${(p) => (p.isChild ? 'none' : '1px solid ' + p.theme.border._100)};
+  border: ${(p) => (p.$isChild ? 'none' : '1px solid ' + p.theme.border._100)};
   border-radius: var(${cssVar.radius});
-  padding: ${(p) => (p.isChild ? '0' : '3rem')};
+  padding: ${(p) => (p.$isChild ? '0' : '3rem')};
   column-gap: 1%;
   row-gap: ${(p) => (p.dense === 'true' ? '1rem' : '2rem')};
   overflow: hidden;
@@ -45,8 +45,9 @@ export const InfoBoxWrapper = styled.div<{
   .ant-tag {
     width: fit-content;
     padding: 0.3rem 0.8rem;
-    border-radius: 25px;
-    background-color: ${(p) => p.theme.primary._100};
+    border-radius: 0.4rem;
+    //border-radius: 25px;
+    // background-color: ${(p) => p.theme.primary._100};
     color: ${(p) => p.theme.text.primary};
   }
 

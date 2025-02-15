@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import styled from 'styled-components';
 
 export const Title = styled.h2`
@@ -9,6 +10,9 @@ export const Title = styled.h2`
 
 export const Section = styled.div`
   margin-bottom: 3rem;
+  .ant-tag {
+    display: inline-flex;
+  }
 `;
 
 export const Chips = styled.div`

@@ -8,11 +8,16 @@ export type Scope = {
   name: string;
   description: string | null;
   id: number;
+  ssoScopeId: number | null;
 };
 
 export type ScopesData = PaginatedData<Scope>;
 
-export type AssignScopeToServiceParams = {
+export type scopeToServiceParams = {
   scopeName: string;
   serviceName: string;
+};
+
+export type ServiceScope = Scope & {
+  isServiceInSso: boolean;
 };
