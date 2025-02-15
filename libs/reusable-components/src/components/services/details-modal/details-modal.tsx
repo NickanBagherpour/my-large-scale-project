@@ -162,7 +162,7 @@ export default function DetailsModal(props: Props) {
       width={1000}
       headerDivider
       footer={[
-        <Button size='large' color='primary' variant='outlined' onClick={close}>
+        <Button key='close' size='large' color='primary' variant='outlined' onClick={close}>
           {t('common.close')}
         </Button>,
       ]}
@@ -190,7 +190,7 @@ export default function DetailsModal(props: Props) {
               pagination={false}
               columns={desktopColumns}
               mobileColumns={mobileColumns}
-              rowKey={(row) => row.index}
+              rowKey={(row) => row.id}
             />
           </div>
         </S.Container>
