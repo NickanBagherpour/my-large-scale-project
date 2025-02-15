@@ -171,7 +171,7 @@ export default function Upstream() {
             columns={desktopColumns}
             mobileColumns={mobileColumns}
             dataSource={upstream?.targets}
-            rowKey={(row) => row.idx}
+            rowKey={(row) => row.id}
             pagination={false}
           />
         </BorderedSection>
