@@ -20,14 +20,14 @@ export const Badge = styled(AntBadge)`
   }
 `;
 
-export const StyledList = styled.ul<{ isPersian: boolean }>`
+export const StyledList = styled.ul<{ $isPersian: boolean }>`
   ${(p) =>
-    p.isPersian
+    p.$isPersian
       ? css`
-        direction: ltr;
-      `
+          direction: ltr;
+        `
       : css`
-        direction: rtl;
-      `};
+          direction: rtl;
+        `};
   padding-inline-start: 2rem;
 `;

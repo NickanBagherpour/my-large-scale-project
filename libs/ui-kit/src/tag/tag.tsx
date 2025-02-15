@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { TagProps } from 'antd';
 
@@ -6,7 +6,7 @@ import * as S from './tag.style';
 
 export type TypeValueType = 'default' | 'initialApproval' | 'finalApproval' | 'processing' | 'error' | 'warning';
 export type TagType = TagProps & {
-  children: string;
+  children: string | ReactNode;
   type?: TypeValueType;
 };
 

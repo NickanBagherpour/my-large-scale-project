@@ -4,9 +4,9 @@ import { TFunction } from 'i18next';
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
+import { WithBadge } from '@oxygen/reusable-components';
 
 import * as S from './second-tab-table-util.style';
-import { WithBadge } from '@oxygen/reusable-components';
 
 export type Modal = {
   details: boolean;
@@ -83,8 +83,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       key: 'action',
       render: (value) => (
         <S.DetailsBtn
-          variant="link"
-          color="primary"
+          variant='link'
+          color='primary'
           size={'small'}
           onClick={() => {
             updateServiceName(value?.name);
@@ -95,17 +95,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
         </S.DetailsBtn>
       ),
     },
-    //uncomment when remove service is needed
-
-    // {
-    //   width: '7rem',
-    //   key: 'remove',
-    //   render: (p) => (
-    //     <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
-    //       <S.TrashIcon className='icon-trash' />
-    //     </Button>
-    //   ),
-    // },
   ];
 }
 
@@ -131,10 +120,10 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
             colon: false,
             value: (
               <S.DetailsBtn
-                className="item__btn"
-                variant="link"
+                className='item__btn'
+                variant='link'
                 size={'small'}
-                color="primary"
+                color='primary'
                 onClick={() => {
                   updateServiceName(name);
                   toggleModal('details', true);
@@ -144,16 +133,6 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
               </S.DetailsBtn>
             ),
           },
-          //uncomment when remove service is needed
-
-          // {
-          //   title: t('remove'),
-          //   value: (
-          //     <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
-          //       <S.TrashIcon className='icon-trash' />
-          //     </Button>
-          //   ),
-          // },
         ];
 
         return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
