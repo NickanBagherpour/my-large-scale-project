@@ -58,6 +58,15 @@ const DataTable = () => {
       ellipsis: true,
       className: 'left-to-right',
       render: (column) => <HistoryCell item={column.name} />,
+      // render: (_value, record) => {
+      //   const variant = record?.revType?.code?.value;
+      //   const isDeleted = record?.deleted?.value;
+      //   return (
+      //     <S.RevisionType variant={variant} isDeleted={isDeleted}>
+      //       {getValueOrDash(record?.revType?.title?.value)}
+      //     </S.RevisionType>
+      //   );
+      // },
     },
     {
       title: t('column.file-name'),
@@ -65,7 +74,8 @@ const DataTable = () => {
       key: 'fileName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (column) => <HistoryCell item={column.description} />,
+      // render: (column) => <HistoryCell item={column.description} />,
+      render: (column) => getValueOrDash(column.value),
     },
   ];
 
