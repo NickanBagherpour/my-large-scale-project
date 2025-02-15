@@ -1,6 +1,7 @@
+import { TFunction } from 'i18next';
+
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
-import { TFunction } from '@oxygen/translation';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 

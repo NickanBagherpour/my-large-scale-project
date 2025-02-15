@@ -44,4 +44,4 @@ export function loadTr(params: any) {
   i18n.loadResources();
 }
 
-export { useTranslation as useTr, Trans as Tr, i18n as i18nBase, TFunction };
+export { useTranslation as useTr, Trans as Tr, i18n as i18nBase };

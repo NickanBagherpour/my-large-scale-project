@@ -23,6 +23,7 @@ import {
 import { getValidTab } from '../../utils/tabs.util';
 
 import * as S from './app.style';
+import { Documentation } from '../documentation/documentation';
 
 type AppProps = PageProps & {
   //
@@ -101,6 +102,11 @@ const App: React.FC<AppProps> = (props) => {
           },
         });
       },
+    },
+    {
+      key: 'documentation',
+      label: t('documentation'),
+      children: <Documentation />,
     },
   ];
 
