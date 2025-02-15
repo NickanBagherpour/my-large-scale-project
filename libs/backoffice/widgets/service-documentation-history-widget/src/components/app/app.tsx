@@ -1,37 +1,64 @@
 import React from 'react';
+import { notFound, useSearchParams } from 'next/navigation';
+
+import { useGetServiceDocumentationHistory } from '../../services';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import DataTable from '../data-table/data-table';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
-
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
+import { Nullable, PageProps } from '@oxygen/types';
+import { Container } from '@oxygen/ui-kit';
+import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 
 import * as S from './app.style';
+import { getWidgetTitle } from '@oxygen/utils';
 
 type AppProps = PageProps & {
   //
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
+  const {
+    message,
+    pagination: { page, limit },
+  } = useAppState();
   const dispatch = useAppDispatch();
-  const state = useAppState();
+  const searchParams = useSearchParams();
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const upstreamName: Nullable<string> = searchParams.get('upstream-name');
+  if (!upstreamName) {
+    notFound();
+  }
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  const { data } = useGetServiceDocumentationHistory({
+    page: page - 1,
+    size: limit,
+    upstreamName,
+  });
 
-     return params;
-   }
- */
+  const { title, description } = data?.content[0].upstream ?? {};
 
-  return <S.AppContainer title={'ServiceDocumentationHistoryWidget'}>ServiceDocumentationHistoryWidget</S.AppContainer>;
+  const widgetTitle = getWidgetTitle({
+    defaultTitle: t('subtitle'),
+    primaryTitle: t(description?.value),
+    secondaryTitle: t(title?.value),
+  });
+
+  return (
+    <Container title={widgetTitle} footer={<ReturnButton />}>
+      <GlobalMessageContainer
+        containerProps={{ margin: '1.6rem 0' }}
+        message={message}
+        onClose={() => {
+          resetMessageAction(dispatch);
+        }}
+      />
+      <S.TableContainer>
+        <DataTable />
+      </S.TableContainer>
+    </Container>
+  );
 };
 
 export default App;
