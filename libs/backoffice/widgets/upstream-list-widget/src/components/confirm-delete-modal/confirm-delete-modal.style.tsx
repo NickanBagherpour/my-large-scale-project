@@ -14,7 +14,7 @@ export const StyledModal = styled(Modal)`
     font-weight: 500;
 
     &[disabled] {
-      background-color: ${(props) => withOpacity(props.theme.text.primary, 30)}!important;
+      background-color: ${(props) => withOpacity(props.theme.text.primary, 30)} !important;
       color: ${(props) => props.theme.onPrimary};
     }
   }
@@ -58,13 +58,8 @@ export const ServicesContainer = styled.div`
   color: ${(p) => p.theme.text.primary};
   max-height: 7.5rem;
   overflow-y: auto;
+`;
 
-  & span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    max-width: 80%;
-    flex-shrink: 0;
-  }
+export const ServiceList = styled.ul`
+  padding-inline-start: 2rem;
 `;
