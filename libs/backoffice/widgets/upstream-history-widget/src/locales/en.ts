@@ -1,6 +1,7 @@
 export default {
-  widget_name: 'service-history-widget',
-  subtitle: 'service hsitory',
+  widget_name: 'upstream-history-widget',
+  subtitle: 'upstream history',
+  change_history: 'change history',
   columns: {
     'edit-date': 'edit date',
     'admin-name': 'admin name',

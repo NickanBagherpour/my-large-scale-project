@@ -40,7 +40,7 @@ const App: React.FC<AppProps> = () => {
   const { title, description } = data?.content[0].upstream ?? {};
 
   const widgetTitle = getWidgetTitle({
-    defaultTitle: t('subtitle'),
+    defaultTitle: t('change_history'),
     primaryTitle: t(description?.value),
     secondaryTitle: t(title?.value),
   });

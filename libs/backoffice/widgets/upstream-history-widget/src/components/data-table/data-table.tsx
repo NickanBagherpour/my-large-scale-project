@@ -9,10 +9,10 @@ import { getValueOrDash } from '@oxygen/utils';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-
-import * as S from './data-table.style';
 import { useGetUpstreamHistory } from '../../services';
 import { HistoryDifferenceObj } from '../../types';
+
+import * as S from './data-table.style';
 
 const DataTable = () => {
   const {
@@ -75,25 +75,30 @@ const DataTable = () => {
 
   return (
     <S.TableContainer>
-      <Table
-        rowKey={'id'}
-        title={t('subtitle')}
-        size='small'
-        variant='complex'
-        columns={columns}
-        dataSource={dataSource}
-        loading={isFetching}
-        pagination={{
-          ...pagination,
-          total: data?.totalElements || lastTotal,
-          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-          pageSize: pagination.limit,
-          current: pagination.page,
-          hideOnSinglePage: false,
-        }}
-        scroll={undefined}
-        onChange={handlePageChange}
-      />
+      {dataSource?.length ? (
+        <Table
+          rowKey={(row) => `${row?.modifyDate}${row?.modifyBy}`}
+          title={t('subtitle')}
+          size='small'
+          variant='complex'
+          columns={columns}
+          dataSource={dataSource}
+          loading={isFetching}
+          pagination={{
+            ...pagination,
+            total: data?.totalElements || lastTotal,
+            pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+            pageSize: pagination.limit,
+            current: pagination.page,
+            hideOnSinglePage: false,
+          }}
+          scroll={undefined}
+          onChange={handlePageChange}
+          showHeader={true}
+        />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.TableContainer>
   );
 };
