@@ -1,9 +1,10 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, InfoBox, Loading, Modal, Table } from '@oxygen/ui-kit';
+import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, type InfoBoxProps } from '@oxygen/ui-kit';
 import { useGetServiceDetails } from '../utils/get-service-details.api';
 import { getValueOrDash } from '@oxygen/utils';
-import { type ReactNode, type Dispatch } from 'react';
+import { type Dispatch } from 'react';
 import * as S from './details-modal.style';
+import { ServiceDetails } from '../utils/services.type';
 
 type Props = {
   isOpen: boolean;
@@ -12,25 +13,24 @@ type Props = {
   dispatch: Dispatch<any>;
 };
 
+type Scope = ServiceDetails['scopes'][number];
+
 export default function DetailsModal(props: Props) {
   const { isOpen, close, serviceName, dispatch } = props;
   const [t] = useTr();
   const { data: service, isFetching } = useGetServiceDetails(serviceName, dispatch);
 
-  let generalData: Array<{ key: string; value: ReactNode }> = [];
-  let route: Array<{ key: string; value: ReactNode }> = [];
+  let generalData: InfoBoxProps['data'] = [];
+  let route: InfoBoxProps['data'] = [];
   if (service) {
     const {
       throughput,
-      scopes,
       tags,
       routes,
       ownerName,
-      upstreamTitle,
       serviceVersion,
       serviceLatinName,
       authenticationType,
-      serviceDescription,
       servicePersianName,
       serviceCategoryTitle,
     } = service;
@@ -52,8 +52,6 @@ export default function DetailsModal(props: Props) {
     generalData = [
       { key: t('common.english_name'), value: serviceLatinName },
       { key: t('common.persian_name'), value: servicePersianName },
-      // { key: t('uikit.action'), value: flatRoutes.methods.join(' ,') },
-      // { key: t('uikit.protocole'), value: flatRoutes.protocol.join(' ,') },
       { key: t('uikit.access'), value: authenticationType.title },
       { key: t('uikit.category'), value: serviceCategoryTitle },
       { key: t('uikit.throughout'), value: throughput.title },
@@ -70,14 +68,6 @@ export default function DetailsModal(props: Props) {
           )) ?? [],
         fullwidth: true,
       },
-
-      // { key: t('uikit.path'), value: flatRoutes.paths.join(' ,') },
-      // { key: t('uikit.host'), value: flatRoutes.hosts.join(' ,') },
-
-      // { key: t('uikit.upstream'), value: upstreamTitle },
-
-      // { key: t('uikit.scope'), value: scopes.map((scope) => scope.name).join(' ,') },
-      // { key: t('uikit.descriptions'), value: getValueOrDash(serviceDescription) },
     ];
 
     route = [
@@ -104,7 +94,7 @@ export default function DetailsModal(props: Props) {
       },
 
       {
-        key: t('uikit.methods'),
+        key: t('field.method'),
         value:
           flatRoutes.methods.map((tag) => (
             <Chip key={tag} type='active'>
@@ -115,7 +105,7 @@ export default function DetailsModal(props: Props) {
       },
 
       {
-        key: t('uikit.protocols'),
+        key: t('field.protocol'),
         value:
           flatRoutes.protocol.map((tag) => (
             <Chip key={tag} type='active'>
@@ -127,33 +117,27 @@ export default function DetailsModal(props: Props) {
     ];
   }
 
-  const desktopColumns = [
+  const desktopColumns: ColumnsType<Scope> = [
     {
       title: t('common.index'),
       align: 'center',
-      key: 'id',
+      dataIndex: 'id',
       width: '1rem',
-      render: (_val, _record, index) => {
-        return index + 1;
-      },
+      render: (_val: number, _record: ServiceDetails['scopes'][number], index: number) => index + 1,
     },
     {
       title: t('common.english_name'),
       align: 'center',
-      key: 'ssoScopeId',
-      render: (value) => {
-        return value?.name;
-      },
+      dataIndex: 'name',
+      render: (name: string) => name,
     },
     {
       title: t('common.persian_name'),
       align: 'center',
-      key: 'description',
-      render: (value) => {
-        return value?.description;
-      },
+      dataIndex: 'description',
+      render: (description: string) => description,
     },
-  ];
+  ] as const;
 
   const mobileColumns = [
     {
@@ -162,12 +146,8 @@ export default function DetailsModal(props: Props) {
       render: ({ name, description }) => {
         const data = [
           { title: t('common.english_name'), value: getValueOrDash(name) },
-          {
-            title: t('common.persian_name'),
-            value: getValueOrDash(description),
-          },
+          { title: t('common.persian_name'), value: getValueOrDash(description) },
         ];
-
         return <Table.MobileColumns columns={data} />;
       },
     },
