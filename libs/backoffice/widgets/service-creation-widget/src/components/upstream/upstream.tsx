@@ -98,14 +98,13 @@ export default function Upstream() {
       title: null,
       key: 'mobileColumn',
       render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
-        return (
-          <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
-            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={getValueOrDash(healthStatus)} />
-            <Table.MobileColumn minHeight={'40px'} title={t('weight')} value={weight} />
-          </UiKitBox>
-        );
+        const data = [
+          { title: t('domain'), value: domain },
+          { title: t('health_status'), value: getValueOrDash(healthStatus) },
+          { title: t('weight'), value: weight },
+        ];
+
+        return <Table.MobileColumns columns={data} minHeight={'40px'} />;
       },
     },
   ];
