@@ -38,3 +38,4 @@ export { default as Services } from './components/services/services';
 export { default as Plugins } from './components/plugins/plugins';
 export { default as ConfirmRemoveModal } from './components/confirm-remove-modal/confirm-remove-modal';
 export { default as WithBadge } from './components/services/badge/badge';
+export { default as TagPicker } from './components/tag-picker/tag-picker';

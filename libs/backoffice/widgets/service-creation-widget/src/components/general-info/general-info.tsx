@@ -21,7 +21,7 @@ import {
 import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 import CenteredLoading from '../centered-loading/centered-loading';
 import * as S from './general-info.style';
-import TagPicker from '../tag-picker/tag-picker';
+import { TagPicker } from '@oxygen/reusable-components';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 

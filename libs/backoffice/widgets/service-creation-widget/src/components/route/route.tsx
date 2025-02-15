@@ -1,4 +1,3 @@
-import TagPicker from '../tag-picker/tag-picker';
 import FormItem from '../form-item/form-item';
 import { ROUTE_NAMES } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
@@ -19,6 +18,7 @@ import { nextStep, previousStep, useAppDispatch, useAppState } from '../../conte
 import Footer from '../footer/footer';
 import * as S from './route.style';
 import { getId } from '../../utils/get-id';
+import { TagPicker } from '@oxygen/reusable-components';
 
 const dropdownMinWidth = '17rem';
 

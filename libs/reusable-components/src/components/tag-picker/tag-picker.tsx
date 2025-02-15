@@ -1,6 +1,5 @@
 import { Dropdown } from '@oxygen/ui-kit';
 import * as S from './tag-picker.style';
-import { CodeTitle } from '../../types';
 import { type CSSProperties, useContext } from 'react';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 
@@ -8,12 +7,18 @@ const convert = (item: CodeTitle[] | undefined) => {
   return item?.map((tag) => ({ key: tag.code, label: tag.title, value: tag.code })) ?? [];
 };
 
+/* TODO: share this for service creation and reusable components */
+type CodeTitle = {
+  code: number;
+  title: string;
+};
+
 type Props =
   | {
       isLoading: boolean;
       title: string;
       menu?: CodeTitle[];
-      dropdownMinWidth: CSSProperties['width'];
+      dropdownMinWidth?: CSSProperties['width'];
     } & (
       | {
           value: CodeTitle[];
