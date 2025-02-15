@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, type InfoBoxProps } from '@oxygen/ui-kit';
+import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, Tag, type InfoBoxProps } from '@oxygen/ui-kit';
 import { useGetServiceDetails } from '../utils/get-service-details.api';
 import { getValueOrDash } from '@oxygen/utils';
 import { type Dispatch } from 'react';
@@ -14,6 +14,14 @@ type Props = {
 };
 
 type Scope = ServiceDetails['scopes'][number];
+
+const renderTag = (tag: string) => {
+  return (
+    <Tag key={tag} type='processing'>
+      <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{tag}</S.Text>
+    </Tag>
+  );
+};
 
 export default function DetailsModal(props: Props) {
   const { isOpen, close, serviceName, dispatch } = props;
@@ -73,45 +81,25 @@ export default function DetailsModal(props: Props) {
     route = [
       {
         key: t('uikit.path'),
-        value:
-          flatRoutes.paths.map((tag) => (
-            <Chip key={tag} type='active'>
-              {tag}
-            </Chip>
-          )) ?? [],
+        value: flatRoutes.paths.map(renderTag),
         fullwidth: true,
       },
 
       {
         key: t('uikit.host'),
-        value:
-          flatRoutes.hosts.map((tag) => (
-            <Chip key={tag} type='active'>
-              {tag}
-            </Chip>
-          )) ?? [],
+        value: flatRoutes.hosts.map(renderTag),
         fullwidth: true,
       },
 
       {
         key: t('field.method'),
-        value:
-          flatRoutes.methods.map((tag) => (
-            <Chip key={tag} type='active'>
-              {tag}
-            </Chip>
-          )) ?? [],
+        value: flatRoutes.methods.map(renderTag),
         fullwidth: true,
       },
 
       {
         key: t('field.protocol'),
-        value:
-          flatRoutes.protocol.map((tag) => (
-            <Chip key={tag} type='active'>
-              {tag}
-            </Chip>
-          )) ?? [],
+        value: flatRoutes.protocol.map(renderTag),
         fullwidth: true,
       },
     ];

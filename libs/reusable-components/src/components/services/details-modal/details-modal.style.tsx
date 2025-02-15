@@ -1,4 +1,5 @@
 import { cssVar } from '@oxygen/utils';
+import { Typography } from 'antd';
 import styled from 'styled-components';
 
 export const Container = styled.section`
@@ -25,4 +26,11 @@ export const Title = styled.h2`
   font-weight: 600;
   font-size: 1.6rem;
   margin-bottom: 2.4rem;
+`;
+
+export const Text = styled(Typography.Text)`
+  unicode-bidi: normal;
+  button {
+    margin: 0 1rem;
+  }
 `;
