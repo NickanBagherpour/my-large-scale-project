@@ -7,6 +7,7 @@ export interface BoxProps {
   children?: React.ReactNode;
   fillChildren?: boolean;
   className?: string;
+  style?: CSSProperties;
   display?: CSSProperties['display'];
   flexDirection?: CSSProperties['flexDirection'];
   justifyContent?: CSSProperties['justifyContent'];
@@ -46,10 +47,11 @@ export interface BoxProps {
 }
 
 type TransientBoxProps = {
-  [K in keyof Omit<BoxProps, 'visible' | 'children' | 'fillChildren'| 'className'> as `$${string & K}`]: BoxProps[K]
+  [K in keyof Omit<BoxProps, 'visible' | 'children' | 'style' | 'fillChildren' | 'className'> as `$${string &
+    K}`]: BoxProps[K];
 } & {
-  $fillChildren?: string
-}
+  $fillChildren?: string;
+};
 
 const StyledBox = styled.div<TransientBoxProps>`
   ${(props) => props.$display && `display: ${props.$display}`};
@@ -102,7 +104,14 @@ const StyledBox = styled.div<TransientBoxProps>`
         `}
 `;
 
-export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className, ...rest }) => {
+export const Box: React.FC<BoxProps> = ({
+  visible = true,
+  children,
+  style,
+  fillChildren = true,
+  className,
+  ...rest
+}) => {
   if (!visible) return null;
 
   const transientProps = Object.entries(rest).reduce((acc, [key, value]) => {
@@ -111,9 +120,8 @@ export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren
   }, {} as TransientBoxProps);
 
   return (
-    <StyledBox className={className} $fillChildren={String(fillChildren)} {...transientProps}>
+    <StyledBox className={className} $fillChildren={String(fillChildren)} {...transientProps} style={style}>
       {children}
     </StyledBox>
   );
 };
-
