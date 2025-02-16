@@ -26,4 +26,5 @@ export default {
   },
   create_upstream_success: 'آپ‌استریم با موفقیت ایجاد شد.',
   delete_upstream_success: 'حذف آپ‌استریم با موفقیت انجام شد.',
+  upstream: 'آپ‌استریم',
 };

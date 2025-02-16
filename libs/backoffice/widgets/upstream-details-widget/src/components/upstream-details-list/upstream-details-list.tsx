@@ -3,12 +3,11 @@ import { useTr } from '@oxygen/translation';
 import { TablePaginationConfig } from 'antd';
 import { useRouter } from 'next/navigation';
 import { queryClient } from '@oxygen/client';
-import { uuid } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 import { RQKEYS } from '@oxygen/utils';
 import { Table, Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { FooterContainer } from '@oxygen/reusable-components';
+import { FooterContainer, NoResult } from '@oxygen/reusable-components';
 import AddServerModal from '../modal-add-server/modal-add-server';
 import MainDeleteServerModal from '../modal-delete-server/modal-delete-server';
 import { useAddServerToUpstreamMutationQuery, useDeleteServerFromUpstreamMutationQuery } from '../../services';
@@ -154,8 +153,8 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
         data={initialValue ? [initialValue] : []}
         cancelText={t('button.cancel')}
         okText={t('button.delete')}
-        okButtonProps={{ style: { backgroundColor: theme.error.main } }}
-        cancelButtonProps={{ style: { color: theme.primary.main } }}
+        okButtonProps={{ style: { backgroundColor: theme.error.main, minHeight: '4.8rem', padding: '0.8rem 3rem' } }}
+        cancelButtonProps={{ style: { color: theme.primary.main, minHeight: '4.8rem', padding: '0.8rem 3rem' } }}
         errorMessage={errorMessage}
       />
       <S.ServerContent>
@@ -167,18 +166,23 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
           </Button>
         </S.Actions>
         <S.TableContainer>
-          <Table
-            loading={isFetching}
-            current={pagination.page}
-            total={total}
-            dataSource={tableData}
-            columns={desktopColumns}
-            mobileColumns={mobileColumns}
-            hasContainer={false}
-            pagination={{ pageSize: pagination.rowsPerPage, hideOnSinglePage: true }}
-            onChange={handlePageChange}
-            rowKey={() => uuid()}
-          />
+          {tableData?.length ? (
+            <Table
+              loading={isFetching}
+              current={pagination.page}
+              total={total}
+              dataSource={tableData}
+              columns={desktopColumns}
+              mobileColumns={mobileColumns}
+              hasContainer={false}
+              pagination={{ pageSize: pagination.rowsPerPage, hideOnSinglePage: true }}
+              onChange={handlePageChange}
+              rowKey={'id'}
+              variant={'simple'}
+            />
+          ) : (
+            <NoResult isLoading={isFetching} />
+          )}
         </S.TableContainer>
       </S.ServerContent>
       <FooterContainer>
