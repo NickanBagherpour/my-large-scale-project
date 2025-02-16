@@ -73,7 +73,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   const handleSubmit = async (values: EditServiceFormFieldsType) => {
     // form.submit();
     editService({
-      englishName: values[FORM_ITEM_NAMES.enName],
+      latinName: values[FORM_ITEM_NAMES.enName],
       persianName: values[FORM_ITEM_NAMES.faName],
       accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access] as SelectOptionType),
       categoryCode: values[FORM_ITEM_NAMES.category],
