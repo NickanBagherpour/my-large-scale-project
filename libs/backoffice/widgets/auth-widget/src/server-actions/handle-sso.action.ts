@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
 import { encrypt, getAppBaseUrl, getRole, processAndSignToken } from '@oxygen/utils';
 
-export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
+export async function handleSSO(code: string | null, ticket: string | null): Promise<boolean> {
   const baseUrl = await getAppBaseUrl();
 
   const response = await fetch(`${baseUrl}/api/auth/signin`, {

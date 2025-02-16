@@ -5,6 +5,7 @@ import { getValueOrDash } from '@oxygen/utils';
 import { type Dispatch } from 'react';
 import * as S from './details-modal.style';
 import { ServiceDetails } from '../utils/services.type';
+import RouteInfoBox from '../../route-info-box/route-info-box';
 
 type Props = {
   isOpen: boolean;
@@ -15,21 +16,19 @@ type Props = {
 
 type Scope = ServiceDetails['scopes'][number];
 
-const renderTag = (tag: string) => {
-  return (
-    <Tag key={tag} type='processing'>
-      <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{tag}</S.Text>
-    </Tag>
-  );
-};
-
 export default function DetailsModal(props: Props) {
   const { isOpen, close, serviceName, dispatch } = props;
   const [t] = useTr();
   const { data: service, isFetching } = useGetServiceDetails(serviceName, dispatch);
 
   let generalData: InfoBoxProps['data'] = [];
-  let route: InfoBoxProps['data'] = [];
+  const route = {
+    methods: [] as string[],
+    protocols: [] as string[],
+    hosts: [] as string[],
+    paths: [] as string[],
+  };
+
   if (service) {
     const {
       throughput,
@@ -43,18 +42,11 @@ export default function DetailsModal(props: Props) {
       serviceCategoryTitle,
     } = service;
 
-    const flatRoutes = {
-      methods: [] as string[],
-      protocol: [] as string[],
-      hosts: [] as string[],
-      paths: [] as string[],
-    };
-
-    routes.forEach((route) => {
-      flatRoutes.methods.push(...route.routeMethod);
-      flatRoutes.protocol.push(...route.routeProtocol);
-      flatRoutes.hosts.push(...route.routeHosts);
-      flatRoutes.paths.push(...route.routePath);
+    routes.forEach(({ routePath, routeHosts, routeMethod, routeProtocol }) => {
+      route.methods.push(...routeMethod);
+      route.protocols.push(...routeProtocol);
+      route.hosts.push(...routeHosts);
+      route.paths.push(...routePath);
     });
 
     generalData = [
@@ -74,37 +66,6 @@ export default function DetailsModal(props: Props) {
               {tag.title}
             </Chip>
           )) ?? [],
-        fullwidth: true,
-      },
-    ];
-
-    route = [
-      {
-        key: t('field.method'),
-        value: flatRoutes.methods.map((method) => (
-          <Chip ellipsis type='active' key={method} tooltipOnEllipsis tooltipTitle={method}>
-            {method}
-          </Chip>
-        )),
-        fullwidth: true,
-      },
-      {
-        key: t('field.protocol'),
-        value: flatRoutes.protocol.map((protocol) => (
-          <Chip ellipsis type='active' key={protocol} tooltipOnEllipsis tooltipTitle={protocol}>
-            {protocol}
-          </Chip>
-        )),
-        fullwidth: true,
-      },
-      {
-        key: t('uikit.path'),
-        value: flatRoutes.paths.map(renderTag),
-        fullwidth: true,
-      },
-      {
-        key: t('uikit.host'),
-        value: flatRoutes.hosts.map(renderTag),
         fullwidth: true,
       },
     ];
@@ -171,7 +132,7 @@ export default function DetailsModal(props: Props) {
 
           <div>
             <S.Title>{t('element.route')}</S.Title>
-            <InfoBox margin={0} data={route} />
+            <RouteInfoBox route={route} isLoading={false} />
           </div>
 
           <div>

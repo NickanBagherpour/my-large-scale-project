@@ -86,7 +86,7 @@ const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
       <ItemExists
         itemName={name}
         type={type}
-        data={specificData}
+        data={specificData as any}
         form={form}
         inputRef={inputRef}
         changeContent={changeContent}
