@@ -106,7 +106,7 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
           },
           {
             title: '',
-            color: false,
+            colon: false,
             value: (
               <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'}>
                 <S.EditButton onClick={() => editUpstream(id, domain, weight, healthStatus)} variant={'text'}>
@@ -121,7 +121,6 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
                 </S.TrashButton>
               </Box>
             ),
-            colon: false,
           },
         ];
         return (
