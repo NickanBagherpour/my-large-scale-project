@@ -37,7 +37,6 @@ export const UpstreamDetails = (props: UpstreamDetailsPropsType) => {
           mobileColumns={mobileColumns}
           pagination={false}
           loading={tableLoading}
-          rowKey={'id'}
         />
       </S.Table>
     </S.BorderBoxContainer>
