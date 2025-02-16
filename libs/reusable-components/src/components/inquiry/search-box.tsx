@@ -17,7 +17,7 @@ type Props = {
 };
 const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type }) => {
   const [t] = useTr();
-  const rule = createSchemaFieldRule(CreateInquirySchema(t));
+  const rule = createSchemaFieldRule(CreateInquirySchema(t, type));
   const itemTranslation = { element: t(`element.${type}`) };
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
@@ -26,11 +26,7 @@ const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type 
           <Input
             autoFocus={true}
             ref={inputRef}
-            placeholder={
-              type === 'service'
-                ? t('placeholder.search_by_english_name', { element: t(`element.service`) })
-                : t('placeholder.client_inquiry')
-            }
+            placeholder={t('placeholder.search_by_english_name', { element: t(`element.${type}`) })}
             prefix={<i className='search-normal' />}
             allowClear
           />
