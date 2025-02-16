@@ -50,7 +50,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'weight',
       key: 'weight',
       align: 'center',
-      render: (weight) => getValueOrDash(weight),
+      render: (weight) => weight ?? getValueOrDash(weight),
     },
 
     {
@@ -102,7 +102,7 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
           },
           {
             title: t('weight'),
-            value: getValueOrDash(weight),
+            value: weight ?? getValueOrDash(weight),
           },
           {
             title: '',
@@ -156,7 +156,7 @@ export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps
       title: t('weight'),
       dataIndex: 'weight',
       key: 'weight',
-      render: (weight) => getValueOrDash(weight),
+      render: (weight) => weight ?? getValueOrDash(weight),
     },
   ];
 }
@@ -183,7 +183,7 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
           },
           {
             title: t('weight'),
-            value: getValueOrDash(value?.weight),
+            value: value?.weight ?? getValueOrDash(value?.weight),
           },
         ];
 
