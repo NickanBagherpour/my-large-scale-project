@@ -16,7 +16,7 @@ export const requestRegistrationFormSchema = (t: TFunction) => {
 
   return z.object({
     [FORM_ITEM.persian_name]: validationSchema.defaultPersianName,
-    [FORM_ITEM.technical_persian_name]: validationSchema.defaultEnglishName,
+    [FORM_ITEM.technical_persian_name]: validationSchema.defaultPersianName,
     [FORM_ITEM.aggregator_status]: validationSchema.simpleRequired,
     [FORM_ITEM.aggregator_value]: validationSchema.simpleRequired,
     [FORM_ITEM.legal_person_name]: validationSchema.defaultPersianName,
