@@ -27,7 +27,7 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const { login } = useAuth();
   const searchParams = useSearchParams();
 
-  const code = searchParams.get('code') ?? null;
+  const code = searchParams.get('code');
   const ticket = searchParams.get('ticket');
 
   useEffect(() => {
