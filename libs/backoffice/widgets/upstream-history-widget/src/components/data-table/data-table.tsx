@@ -4,7 +4,7 @@ import { TablePaginationConfig } from 'antd';
 
 import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
-import { getValueOrDash, uuid } from '@oxygen/utils';
+import { convertShamsiDateFormat, getValueOrDash, uuid } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -41,7 +41,7 @@ const DataTable = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
-      render: (column) => getValueOrDash(column.value),
+      render: (column) => convertShamsiDateFormat(column.value, true),
     },
     {
       title: t('column.user-name'),
