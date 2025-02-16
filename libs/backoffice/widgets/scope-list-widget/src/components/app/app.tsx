@@ -42,7 +42,7 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer
       fillContainer={true}
       title={t('widget_name')}
-      subtitle={`(${getValueOrDash(scopeListData?.totalElements)})`}
+      subtitle={scopeListData?.totalElements && `(${getValueOrDash(scopeListData?.totalElements)})`}
     >
       <GlobalMessageContainer
         message={message}

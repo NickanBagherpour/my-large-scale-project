@@ -1,7 +1,7 @@
 import z from 'zod';
 import { TFunction } from 'i18next';
 
-import { createValidationSchema, REGEX_PATTERNS } from '@oxygen/utils';
+import { createValidationSchema } from '@oxygen/utils';
 
 export const FORM_ITEM_NAMES = {
   name: 'name',

@@ -20,6 +20,9 @@ export const useGetServices = (searchTerm: string, dispatch: Dispatch<any>) => {
         dispatch
       )(),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.pageable.pageNumber + 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.last) return null;
+      else return lastPage.pageable.pageNumber + 1;
+    },
   });
 };

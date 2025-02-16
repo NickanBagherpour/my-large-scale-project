@@ -3,7 +3,7 @@ import { Button, Input as UiKitInput } from '@oxygen/ui-kit';
 
 export const PlainTextInput = styled(UiKitInput)`
   unicode-bidi: plaintext;
-  margin-inline-end: 3rem;
+  margin-inline-end: 1rem;
 `;
 
 export const Container = styled.div`

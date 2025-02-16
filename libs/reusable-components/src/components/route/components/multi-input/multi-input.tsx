@@ -40,11 +40,19 @@ export default function MultiInput(props: Props) {
       {value?.map(({ code, title }, idx) => (
         <S.Action key={code}>
           <S.PlainTextInput value={title} onChange={(e) => handleChange({ code, title: e.target.value })} />
-          <Button color='error' variant='link' htmlType='button' onClick={handleRemove(code)} disabled={removeDisabled}>
+          <Button
+            size='small'
+            color='error'
+            variant='link'
+            htmlType='button'
+            onClick={handleRemove(code)}
+            disabled={removeDisabled}
+          >
             <S.Icon className='icon-trash' />
           </Button>
 
           <Button
+            size='small'
             variant='link'
             color='secondary'
             htmlType='button'

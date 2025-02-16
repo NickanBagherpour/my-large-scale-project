@@ -110,13 +110,14 @@ export default function ClientInfo(props: Props) {
       representative: { mobileNumber, nameAndLastName, fixedPhoneNumber },
     } = organizationInfo;
 
-    const aggregatorStatus = isAggregator ? `${t('has')} - ${aggregatorName}` : t('has_not');
+    const formattedAggregatorName = aggregatorName ? ` - ${aggregatorName}` : '';
+    const aggregatorStatus = isAggregator ? `${t('has')}${formattedAggregatorName}` : t('has_not');
 
     orgInfoData = [
       { key: t('organization_name'), value: organizationName },
       { key: t('organization_id'), value: organizationNationalId },
       { key: t('aggregator_status'), value: aggregatorStatus },
-      { key: t(' representative_name'), value: nameAndLastName },
+      { key: t('representative_name'), value: nameAndLastName },
       { key: t('mobile'), value: mobileNumber },
       { key: t('phone'), value: fixedPhoneNumber },
     ];

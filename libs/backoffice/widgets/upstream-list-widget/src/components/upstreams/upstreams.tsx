@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 
 import { TablePaginationConfig } from 'antd';
 
+import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
 import { RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 import { Nullable } from '@oxygen/types';
 
-import { useGetUpstreamServicesQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-list.util';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import ConfirmDeleteModal from '../confirm-delete-modal/confirm-delete-modal';
+import { useGetUpstreamServicesQuery } from '../../services';
 import { UpstreamItemType } from '../../types';
 
 import * as S from './upstreams.style';
@@ -63,19 +64,23 @@ export default function Upstreams(props: Props) {
   return (
     <>
       <S.TableContainer>
-        <Table
-          loading={isLoading}
-          current={pagination.page}
-          total={total}
-          dataSource={data}
-          pagination={{ pageSize: pagination.rowsPerPage }}
-          columns={desktopColumns}
-          mobileColumns={mobileColumns}
-          variant={'simple'}
-          title={t('table.upstreams_list')}
-          onChange={handlePageChange}
-          rowKey={'id'}
-        />
+        {data?.length ? (
+          <Table
+            loading={isLoading}
+            current={pagination.page}
+            total={total}
+            dataSource={data}
+            pagination={{ pageSize: pagination.rowsPerPage }}
+            columns={desktopColumns}
+            mobileColumns={mobileColumns}
+            variant={'simple'}
+            title={t('table.upstreams_list')}
+            onChange={handlePageChange}
+            rowKey={'id'}
+          />
+        ) : (
+          <NoResult isLoading={isLoading} />
+        )}
       </S.TableContainer>
       {services && openModal && (
         <ConfirmDeleteModal

@@ -63,6 +63,7 @@ export default function Route(props: Props) {
     [ROUTE_NAMES.hosts]: [{ code: getId(), title: '' }],
     [ROUTE_NAMES.paths]: [{ code: getId(), title: '' }],
   };
+
   if (routeData) {
     const {
       route: { hosts, paths, methods, protocols },
@@ -70,8 +71,8 @@ export default function Route(props: Props) {
 
     initialValues = {
       [ROUTE_NAMES.methods]: methods,
-      [ROUTE_NAMES.hosts]: hosts,
-      [ROUTE_NAMES.paths]: paths,
+      [ROUTE_NAMES.hosts]: hosts ?? initialValues.hosts,
+      [ROUTE_NAMES.paths]: paths ?? initialValues.paths,
       [ROUTE_NAMES.protocols]: protocols,
     };
   }

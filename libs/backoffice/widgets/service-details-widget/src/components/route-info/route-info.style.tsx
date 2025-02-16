@@ -1,6 +1,6 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
+import { Input as KitInput, Button as KitButton } from '@oxygen/ui-kit';
 import { Container } from '@oxygen/ui-kit';
 
 export const ItemsContainer = styled(Container)`
