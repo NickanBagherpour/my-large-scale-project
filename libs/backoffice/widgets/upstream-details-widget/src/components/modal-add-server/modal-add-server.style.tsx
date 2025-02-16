@@ -61,10 +61,14 @@ export const Divider = styled(UikitDivider)`
 export const StyledContainer = styled('div')`
   padding: 0 2.6rem;
 `;
+export const AddResultContainer = styled('div')`
+  padding: 0.8rem 1.6rem 0 1.6rem;
+`;
 export const StyledForm = styled(Form)`
   .ant-form-item:not(:last-of-type) {
     margin-bottom: 3rem;
   }
+
   .ant-form-item:last-of-type {
     margin-bottom: 4rem;
   }
