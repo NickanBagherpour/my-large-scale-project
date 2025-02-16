@@ -167,26 +167,23 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
     {
       title: '',
       dataIndex: '',
-      render: (domain, healthStatus, weight) => {
+      render: (value) => {
         const data: MobileColumnType[] = [
           {
             title: t('domain'),
-
-            value: getValueOrDash(domain),
+            value: getValueOrDash(value?.domain),
           },
           {
             title: t('health_status'),
-
             value: getValueOrDash(
-              renderHealthStatus(t, typeof healthStatus === 'string' && healthStatus !== '1')
-                ? renderHealthStatus(t, healthStatus)
+              renderHealthStatus(t, typeof value?.healthStatus === 'string' && value?.healthStatus !== '1')
+                ? renderHealthStatus(t, value?.healthStatus)
                 : t('health')
             ),
           },
           {
             title: t('weight'),
-
-            value: getValueOrDash(weight),
+            value: getValueOrDash(value?.weight),
           },
         ];
 

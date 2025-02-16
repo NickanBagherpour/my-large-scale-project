@@ -153,8 +153,8 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
         data={initialValue ? [initialValue] : []}
         cancelText={t('button.cancel')}
         okText={t('button.delete')}
-        okButtonProps={{ style: { backgroundColor: theme.error.main } }}
-        cancelButtonProps={{ style: { color: theme.primary.main } }}
+        okButtonProps={{ style: { backgroundColor: theme.error.main, minHeight: '4.8rem', padding: '0.8rem 3rem' } }}
+        cancelButtonProps={{ style: { color: theme.primary.main, minHeight: '4.8rem', padding: '0.8rem 3rem' } }}
         errorMessage={errorMessage}
       />
       <S.ServerContent>

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+
 import { useTr } from '@oxygen/translation';
-import * as S from './upstream-details-info.style';
-import { PageProps } from '@oxygen/types';
-import { Button, InfoBox } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES, RQKEYS } from '@oxygen/utils';
-import { queryClient } from '@oxygen/client';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
+import { getValueOrDash, ROUTES, RQKEYS } from '@oxygen/utils';
+import { Button, InfoBox } from '@oxygen/ui-kit';
+import { queryClient } from '@oxygen/client';
+import { PageProps } from '@oxygen/types';
+
 import { useEditUpstreamMutation } from '../../services/get-upstream-details.api';
 import { updateMessageAction, useAppDispatch } from '../../context';
+
+import * as S from './upstream-details-info.style';
 
 type UpstreamDetailsInfoProps = PageProps & {
   infoData?: { name: string; description: string; id: number };
@@ -18,7 +21,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
   const [t] = useTr();
 
   const upstreamInfoData = [
-    { key: t('english_upstream_name'), value: infoData?.name },
+    { key: t('english_upstream_name'), value: getValueOrDash(infoData?.name) },
     { key: t('persian_upstream_name'), value: getValueOrDash(infoData?.description) },
   ];
   const [openEditModal, setOpenEditModal] = useState(false);
