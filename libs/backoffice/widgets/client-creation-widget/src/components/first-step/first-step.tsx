@@ -225,7 +225,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
                 placeholder={t('search_organization_id_placeholder')}
                 onChange={(e) => handleChange(e)}
-                orgStatus={state.orgStatus}
+                $orgStatus={state.orgStatus}
               />
               {!!state.firstStep.organizationInfo?.organizationNationalId === true ? (
                 <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
