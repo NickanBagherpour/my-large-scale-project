@@ -47,6 +47,6 @@ export default {
     index: 'ردیف',
     general_info: 'اطلاعات کلی',
     route: 'Route',
-    scopes: 'Scopes',
+    scope: 'اسکوپ',
   },
 };

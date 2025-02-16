@@ -51,7 +51,6 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
       setErrorMessage(t('auth_error'));
       setAuthState('error');
     }
-
   }
 
   const handleLogin = async () => {
@@ -77,7 +76,6 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
 
   return (
     <S.CardWrapper>
-
       <S.TopSection>{t('title')}</S.TopSection>
 
       <S.BottomSection>
@@ -88,13 +86,14 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
         {authState === 'error' && (
           <>
             <Box marginBottom={'1.6rem'}>
-              <Typography.Title type={'danger'} level={5}>{errorMessage}</Typography.Title>
+              <Typography.Title type={'danger'} level={5}>
+                {errorMessage}
+              </Typography.Title>
             </Box>
             {getLoginButton()}
           </>
         )}
       </S.BottomSection>
-
     </S.CardWrapper>
   );
 };

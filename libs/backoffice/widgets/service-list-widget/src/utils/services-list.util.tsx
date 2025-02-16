@@ -34,7 +34,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: false,
       },
       render: (name) => (
-        <Tooltip placement="top" title={getValueOrDash(name)} arrow={true}>
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
@@ -49,8 +49,9 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: true,
       },
       render: (persian_name) => (
-        <Tooltip placement="top" title={getValueOrDash(persian_name)} arrow={true}>
-          {getValueOrDash(persian_name)}{getValueOrDash(persian_name)}
+        <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
+          {getValueOrDash(persian_name)}
+          {getValueOrDash(persian_name)}
         </Tooltip>
       ),
     },
@@ -67,10 +68,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         <WithBadge
           items={scopes}
           onRender={(value) => (
-            <S.Name text={getValueOrDash(value)}
-                    highlightColor={highlightColor}
-                    wordToHighlight={wordToHighlight}
-            />
+            <S.Name text={getValueOrDash(value)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
           )}
         />
       ),
@@ -85,10 +83,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       render: (paths) => (
         <WithBadge
           items={[...paths, ...paths, ...paths]}
-          onRender={(value) => (
-            <S.Url>{getValueOrDash(value)}</S.Url>
-          )
-          }
+          onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>}
         />
       ),
     },
@@ -107,15 +102,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       // width: 150,
       render: (isActive, name) => (
         <S.SwitchContainer>
-          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
-          {t('operational')}
-          </span>
+          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('operational')}</span>
           <span style={{ margin: '0 1.2rem' }}>
             <Switch disabled={true} checked={isActive} />
           </span>
-          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
-          {t('stopped')}
-          </span>
+          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('stopped')}</span>
         </S.SwitchContainer>
       ),
     },
@@ -168,16 +159,21 @@ export function getMobileColumns(props: Props): any {
           {
             title: t('scope'),
             value: (
-              <S.Name
-                text={getValueOrDash(value?.scope)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
+              <WithBadge
+                items={value.scopes}
+                onRender={(value) => (
+                  <S.Name
+                    text={getValueOrDash(value)}
+                    highlightColor={highlightColor}
+                    wordToHighlight={wordToHighlight}
+                  />
+                )}
               />
             ),
           },
           {
             title: t('url'),
-            value: <S.Url>{getValueOrDash(value?.path)}</S.Url>,
+            value: <WithBadge items={value?.paths} onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>} />,
           },
           {
             title: t('status'),

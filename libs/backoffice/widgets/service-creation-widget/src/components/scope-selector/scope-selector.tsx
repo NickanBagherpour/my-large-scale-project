@@ -51,7 +51,6 @@ const ScopeSelector = (props: Props) => {
       placeholder={t('scope_name_from_o2_or_scope')}
       disabled={disabled}
       label={t('choose_scope')}
-      size='small'
     />
   );
 };

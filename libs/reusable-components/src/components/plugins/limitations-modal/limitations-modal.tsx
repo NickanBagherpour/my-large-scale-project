@@ -81,7 +81,7 @@ export default function LimitationsModal(props: Props) {
       width={600}
       destroyOnClose
       footer={[
-        <S.RegisterBtn onClick={form.submit} loading={isPending} disabled={isPending}>
+        <S.RegisterBtn key={'register'} onClick={form.submit} loading={isPending} disabled={isPending}>
           {t('uikit.register_data')}
         </S.RegisterBtn>,
       ]}

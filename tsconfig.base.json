@@ -39,6 +39,9 @@
             "@oxygen/backoffice/widgets/client-list-widget": [
                 "libs/backoffice/widgets/client-list-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/client-report-widget": [
+                "libs/backoffice/widgets/client-report-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/client-service-history-widget": [
                 "libs/backoffice/widgets/client-service-history-widget/src/index.ts"
             ],
@@ -77,6 +80,9 @@
             ],
             "@oxygen/backoffice/widgets/service-details-widget": [
                 "libs/backoffice/widgets/service-details-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/service-documentation-history-widget": [
+                "libs/backoffice/widgets/service-documentation-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"

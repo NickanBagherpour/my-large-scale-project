@@ -5,7 +5,8 @@ import { respondTo } from '@oxygen/utils';
 export const Badge = styled(AntBadge)`
   display: inline-flex;
   justify-content: center;
-  margin: 0.5rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 
   sup {
     font-size: 1.2rem;
@@ -20,14 +21,14 @@ export const Badge = styled(AntBadge)`
   }
 `;
 
-export const StyledList = styled.ul<{ isPersian: boolean }>`
+export const StyledList = styled.ul<{ $isPersian: boolean }>`
   ${(p) =>
-    p.isPersian
+    p.$isPersian
       ? css`
-        direction: ltr;
-      `
+          direction: ltr;
+        `
       : css`
-        direction: rtl;
-      `};
+          direction: rtl;
+        `};
   padding-inline-start: 2rem;
 `;

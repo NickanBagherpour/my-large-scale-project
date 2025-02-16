@@ -52,11 +52,11 @@ export const respondTo = {
 
     const min = Math.min(
       +breakpoints[firstBreakpoint].replace('em', ''),
-      +breakpoints[secondBreakpoint].replace('em', ''),
+      +breakpoints[secondBreakpoint].replace('em', '')
     );
     const max = Math.max(
       +breakpoints[firstBreakpoint].replace('em', ''),
-      +breakpoints[secondBreakpoint].replace('em', ''),
+      +breakpoints[secondBreakpoint].replace('em', '')
     );
 
     return `@media only screen and (min-width: ${min}em) and (max-width: ${max}em)`;
