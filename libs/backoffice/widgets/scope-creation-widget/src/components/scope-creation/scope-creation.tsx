@@ -10,7 +10,7 @@ import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
 
-import { createScopeType, CreateScopeType } from '../../types';
+import { CreateScopeType, createScopeType } from '../../types';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
@@ -54,7 +54,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
 
   const onFinish = async (values: any) => {
     const { englishNameScope, persianNameScope } = values;
-    const params: any = {
+    const params: CreateScopeType = {
       name: englishNameScope,
       description: persianNameScope,
     };
@@ -79,6 +79,8 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   };
 
   const SubmitModal = () => {
+    const englishNameScope = form.getFieldValue(FORM_ITEM_NAMES.englishNameScope) || '';
+
     return (
       <Modal
         open={isOpen}
@@ -90,7 +92,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         okText={t('buttons.confirm')}
         onOk={submitClick}
       >
-        <p>{t('modal_text', { scope_name: form.getFieldValue(FORM_ITEM_NAMES.englishNameScope) })}</p>
+        <p>{t('modal_text', { scope_name: englishNameScope })}</p>
       </Modal>
     );
   };
@@ -98,8 +100,8 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   return (
     <S.ScopeCreationContainer>
       <div className={'form-wrapper'}>
-        {SubmitModal()}
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
+          {isOpen && SubmitModal()}
           <SearchItemsContainer>
             <Form.Item
               name={FORM_ITEM_NAMES.englishNameScope}
@@ -124,7 +126,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('button.cancel')}
         </ReturnButton>
-        <Button htmlType={'submit'} onClick={showModal}>
+        <Button htmlType={'button'} onClick={showModal}>
           {t('buttons.register_scope')}
         </Button>
       </FooterContainer>

@@ -11,4 +11,5 @@ export const createScopeType = (t: TFunction) => {
     [FORM_ITEM_NAMES.persianNameScope]: validationSchema.defaultPersianName,
   });
 };
+
 export type CreateScopeType = z.infer<ReturnType<typeof createScopeType>>;

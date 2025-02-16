@@ -56,7 +56,7 @@ const DataTable: React.FC<AppProps> = (props) => {
         }}
         scroll={{ x: 300 }}
         onChange={handlePageChange}
-        rowKey={'id'}
+        rowKey={(row) => row.modifyDate.value + row.modifyBy.value}
       />
     </S.TableContainer>
   );

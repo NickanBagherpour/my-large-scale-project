@@ -2,7 +2,6 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-import { Tooltip } from 'antd';
 
 type Props = {
   t: TFunction;

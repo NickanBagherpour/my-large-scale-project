@@ -39,7 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         const revType = item.revType;
 
         return (
-          <S.OperationTypeStyle variant={revType?.code.value} isDeleted={record?.clientServiceDto.isDeleted.value}>
+          <S.OperationTypeStyle variant={revType?.code.value} $isDeleted={record?.clientServiceDto.isDeleted.value}>
             {getValueOrDash(revType?.title.value)}
           </S.OperationTypeStyle>
         );
