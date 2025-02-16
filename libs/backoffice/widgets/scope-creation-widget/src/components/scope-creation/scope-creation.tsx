@@ -8,9 +8,9 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
 
-import { createUpstreamType, CreateUpstreamType } from '../../types';
+import { createScopeType, CreateScopeType } from '../../types';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
@@ -29,17 +29,21 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
 
-  const [form] = Form.useForm<CreateUpstreamType>();
+  const [form] = Form.useForm<CreateScopeType>();
 
-  const rule = createSchemaFieldRule(createUpstreamType(t));
+  const rule = createSchemaFieldRule(createScopeType(t));
 
   const submitClick = () => {
     form.submit();
   };
 
   const showModal = async () => {
-    await form.validateFields();
-    setIsOpen(true);
+    try {
+      await form?.validateFields();
+      setIsOpen(true);
+    } catch (error) {
+      return false;
+    }
   };
 
   const onCancel = () => setIsOpen(false);
@@ -51,11 +55,11 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const onFinish = async (values: any) => {
     const { englishNameScope, persianNameScope } = values;
     const params: any = {
-      name: englishNameScope.trim(),
-      description: persianNameScope.trim(),
+      name: englishNameScope,
+      description: persianNameScope,
     };
 
-    createScope(params, {
+    createScope(trimValues(params), {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
