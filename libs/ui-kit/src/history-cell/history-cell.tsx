@@ -21,7 +21,7 @@ export function HistoryCell(props: Props) {
   if (hasDifference) {
     const badgeColor = theme.error._600;
     return (
-      <HistoryCellContainer isPersian={valueIsString ? isPersian(value) : false}>
+      <HistoryCellContainer $isPersian={valueIsString ? isPersian(value) : false}>
         <span className='badge-wrapper'>
           <Badge color={badgeColor} />
         </span>
