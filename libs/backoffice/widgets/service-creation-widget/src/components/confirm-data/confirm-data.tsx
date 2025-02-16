@@ -26,12 +26,19 @@ export default function ConfirmData() {
   const state = useAppState();
   const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
   const { data: service, isFetching: isFetchingService } = useGetService();
-  const { data: route, isFetching: isFetchingRoute } = useGetRoute();
+  const { data: routeData, isFetching: isFetchingRoute } = useGetRoute();
   const { data: scope, isFetching: isFetchingScope } = useGetServiceScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
   const { mutate: confirmData, status } = usePostConfirmData();
 
   let generalInfoData: InfoItemType[] = [];
+  let route = {
+    methods: [] as string[],
+    protocols: [] as string[],
+    hosts: [] as string[],
+    paths: [] as string[],
+  };
+
   if (service) {
     const { name, persianName, accessLevel, category, throughput, version, owner, tags } = service;
     generalInfoData = [
@@ -58,6 +65,18 @@ export default function ConfirmData() {
         ),
       },
     ];
+  }
+
+  if (routeData) {
+    const {
+      route: { protocols, hosts, paths, methods },
+    } = routeData;
+    route = {
+      methods: methods.map((item) => item.title),
+      protocols: protocols.map((item) => item.title),
+      paths,
+      hosts,
+    };
   }
 
   const scopeDesktopColumns: ColumnsType<ServiceScope> = [
