@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { CookieKey } from '@oxygen/types';
-import { encrypt, getAppBaseUrl, getRole, processAndSignToken } from '@oxygen/utils';
+import { decodeToken, encrypt, getAppBaseUrl, getRole, processAndSignToken } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string | null): Promise<boolean> {
   const baseUrl = await getAppBaseUrl();
@@ -26,9 +26,10 @@ export async function handleSSO(code: string | null, ticket: string | null): Pro
   }
 
   const token = tokenData.data.access_token;
+  const decodedToken = decodeToken(token);
+  const userRole = getRole(decodedToken);
   const signedToken = await processAndSignToken(token);
   const expiresIn = tokenData.data.expires_in;
-  const userRole = getRole(token);
 
   // Set the cookie directly in the server action
   const cookieStore = await cookies();
