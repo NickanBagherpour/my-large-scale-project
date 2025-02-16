@@ -33,7 +33,7 @@ export const AppContainer = styled(Container)`
   }
 
   .clients-list h3 {
-    margin-bottom: 4rem;
+    margin: 0;
     padding: 0 1rem;
   }
 
@@ -68,7 +68,7 @@ export const AppContainer = styled(Container)`
     border-radius: 35px;
     font-size: 2.4rem !important;
   }
-  /* 
+  /*
   .ant-upload-list {
     display: none;
   } */

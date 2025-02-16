@@ -6,7 +6,7 @@ export const Tag = styled(UikitTag)`
 `;
 
 export const Text = styled(Typography.Text)`
-  unicode-bidi: normal;
+  unicode-bidi: plaintext;
   button {
     margin: 0 1rem;
   }
