@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { MutationStatus } from '@tanstack/react-query';
-import { Divider, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 
@@ -93,7 +93,7 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
             <S.StyledTitle>{t(title)}</S.StyledTitle>
             <S.StyledCloseIcon className={'icon-close-square'} onClick={resetModal} />
           </S.StyledHeader>
-          <Divider />
+          <S.Divider />
           <S.StyledContainer>
             <S.ModalMessage>{t('are_you_sure_delete_server_question')}</S.ModalMessage>
             <S.TableContainer>
@@ -103,7 +103,7 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
                 mobileColumns={mobileColumns}
                 hasContainer={false}
                 pagination={false}
-                rowKey={() => uuid()}
+                rowKey={(row) => row?.index || `fallback${uuid()}`}
               />
             </S.TableContainer>
           </S.StyledContainer>
@@ -111,7 +111,7 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
       );
     } else {
       return (
-        <S.StyledContainer>
+        <S.DeleteResultContainer>
           <AnimatedStatus
             status={createStatus[status]}
             errorProps={{
@@ -135,7 +135,7 @@ const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
               {t('button.cancellation')}
             </S.StyledButton>
           )}
-        </S.StyledContainer>
+        </S.DeleteResultContainer>
       );
     }
   };

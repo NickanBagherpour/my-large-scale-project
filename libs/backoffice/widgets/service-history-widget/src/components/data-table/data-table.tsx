@@ -119,6 +119,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
             hideOnSinglePage: false,
           }}
           onChange={handlePageChange}
+          showHeader={true}
         />
       ) : (
         <NoResult isLoading={isFetching} />

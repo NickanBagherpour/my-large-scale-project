@@ -1,8 +1,9 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
+
 import { UpstreamItemType } from '../types';
 import { PaginationType } from '../context/types';
 
@@ -23,7 +24,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: 70,
+      width: '0',
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -33,7 +34,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
-      width: 'min-content',
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -42,7 +42,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
-      width: 'min-content',
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -52,7 +51,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.active_servers'),
       dataIndex: 'activeServerCount',
       align: 'center',
-      width: 'min-content',
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -60,26 +58,28 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: '',
       dataIndex: '',
-      align: 'center',
-      width: 'min-content',
+      width: 1,
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-          {t('button.detail')}
-        </S.Details>
-      ),
-    },
-    {
-      title: '',
-      dataIndex: '',
-      align: 'center',
-      width: 'min-content',
-      render: (value, record) => (
-        <S.Trash
-          className='icon-trash'
-          onClick={() => {
-            deleteUpstream(record);
-          }}
-        />
+        <Box display={'flex'} style={{ gap: '2rem' }}>
+          <S.DetailsButton
+            variant={'link'}
+            href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+            size={'small'}
+          >
+            {t('button.detail')}
+          </S.DetailsButton>
+
+          <S.TrashButton
+            variant={'text'}
+            color={'error'}
+            size={'small'}
+            onClick={() => {
+              deleteUpstream(record);
+            }}
+          >
+            <i className={'icon-trash'} />
+          </S.TrashButton>
+        </Box>
       ),
     },
   ];
@@ -91,7 +91,6 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: '',
       dataIndex: '',
-      // align: 'center',
       render: (value, record, index) => {
         const columns: MobileColumnType[] = [
           {
@@ -107,16 +106,30 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             value: getValueOrDash(value?.activeServerCount),
           },
           {
-            title: t('button.detail'),
+            title: '',
+            colon: false,
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}>
-                {t('button.detail')}
-              </S.Details>
+              <>
+                <Box display={'flex'} style={{ gap: '2rem' }}>
+                  <S.DetailsButton
+                    variant={'link'}
+                    href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+                  >
+                    {t('button.detail')}
+                  </S.DetailsButton>
+
+                  <S.TrashButton
+                    variant={'text'}
+                    color={'error'}
+                    onClick={() => {
+                      deleteUpstream(record);
+                    }}
+                  >
+                    <i className={'icon-trash'} />
+                  </S.TrashButton>
+                </Box>
+              </>
             ),
-          },
-          {
-            title: t('button.delete'),
-            value: <S.Trash className='icon-trash' onClick={() => deleteUpstream(record)} />,
           },
         ];
         return <Table.MobileColumns minHeight={'40px'} columns={columns} />;

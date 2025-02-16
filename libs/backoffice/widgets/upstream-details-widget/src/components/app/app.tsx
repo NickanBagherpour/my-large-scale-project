@@ -45,7 +45,7 @@ const App = () => {
           serverList: upstreamDetailsInfo.targets, // Update serverList with targets
         },
       }));
-      console.log(upstreamServer);
+      // console.log(upstreamServer);
     }
   }, [upstreamDetailsInfo]);
 

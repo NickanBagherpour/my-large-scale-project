@@ -2,17 +2,17 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
-import { NoResult } from '@oxygen/reusable-components';
-import { useTr } from '@oxygen/translation';
 import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { NoResult } from '@oxygen/reusable-components';
+import { convertShamsiDateFormat, getValueOrDash, uuid } from '@oxygen/utils';
+import { useTr } from '@oxygen/translation';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-
-import * as S from './data-table.style';
 import { useGetUpstreamHistory } from '../../services';
 import { HistoryDifferenceObj } from '../../types';
+
+import * as S from './data-table.style';
 
 const DataTable = () => {
   const {
@@ -41,7 +41,7 @@ const DataTable = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
-      render: (column) => getValueOrDash(column.value),
+      render: (column) => convertShamsiDateFormat(column.value, true),
     },
     {
       title: t('column.user-name'),
@@ -76,7 +76,7 @@ const DataTable = () => {
   return (
     <S.TableContainer>
       <Table
-        rowKey={'id'}
+        rowKey={(row) => row?.revision?.revNumber?.value || `fallback-${uuid()}`}
         title={t('subtitle')}
         size='small'
         variant='complex'
@@ -93,6 +93,7 @@ const DataTable = () => {
         }}
         scroll={undefined}
         onChange={handlePageChange}
+        showHeader={true}
       />
     </S.TableContainer>
   );
