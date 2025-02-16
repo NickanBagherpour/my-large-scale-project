@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box, Button, Modal as UikitModal } from '@oxygen/ui-kit';
+import { Box, Button, Divider as UikitDivider, Modal as UikitModal } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 
 export const StyledModal = styled(UikitModal)`
@@ -55,6 +55,9 @@ export const StyledCloseIcon = styled('i')`
   }
 `;
 
+export const Divider = styled(UikitDivider)`
+  margin-bottom: 3.4rem;
+`;
 export const StyledContainer = styled('div')`
   padding: 0 2.6rem;
 `;

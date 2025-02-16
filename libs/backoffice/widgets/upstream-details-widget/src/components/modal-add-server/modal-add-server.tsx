@@ -67,7 +67,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
     setFormKey((prevKey) => prevKey + 1);
   };
   const values = Form.useWatch([], form);
-  const isFormEmpty = !values?.[FORM_ITEM_NAMES.domain] || !values?.[FORM_ITEM_NAMES.weight];
+  // const isFormEmpty = !values?.[FORM_ITEM_NAMES.domain] || !values?.[FORM_ITEM_NAMES.weight];
 
   const renderModalContent = () => {
     if (isCreateMode) {
@@ -77,7 +77,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
             <S.StyledTitle>{t(title)}</S.StyledTitle>
             <S.StyledCloseIcon className={'icon-close-square'} onClick={resetModal} />
           </S.StyledHeader>
-          <Divider />
+          <S.Divider />
           <S.StyledContainer>
             <S.StyledForm
               key={formKey}
@@ -110,7 +110,7 @@ const AddServerModal: React.FC<ReusableFormModalProps> = (props) => {
             </S.StyledForm>
 
             <S.StyledButton
-              disabled={status === 'pending' || isFormEmpty}
+              // disabled={status === 'pending' || isFormEmpty}
               onClick={() => form.submit()}
               style={{ marginBottom: '1.6rem' }}
             >
