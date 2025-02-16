@@ -3,7 +3,7 @@ import { useTr } from '@oxygen/translation';
 import * as S from './upstream-details-info.style';
 import { PageProps } from '@oxygen/types';
 import { Button, InfoBox } from '@oxygen/ui-kit';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { getValueOrDash, ROUTES, RQKEYS } from '@oxygen/utils';
 import { queryClient } from '@oxygen/client';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
 import { useEditUpstreamMutation } from '../../services/get-upstream-details.api';
@@ -19,7 +19,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
 
   const upstreamInfoData = [
     { key: t('english_upstream_name'), value: infoData?.name },
-    { key: t('persian_upstream_name'), value: infoData?.description },
+    { key: t('persian_upstream_name'), value: getValueOrDash(infoData?.description) },
   ];
   const [openEditModal, setOpenEditModal] = useState(false);
 
