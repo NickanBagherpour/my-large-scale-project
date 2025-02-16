@@ -32,6 +32,25 @@ const Route: React.FC<AppProps> = () => {
   const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery(params);
   const router = useRouter();
 
+  let route = {
+    methods: [] as string[],
+    protocols: [] as string[],
+    hosts: [] as string[],
+    paths: [] as string[],
+  };
+
+  if (routeDetails) {
+    const {
+      route: { protocols, hosts, paths, methods },
+    } = routeDetails;
+    route = {
+      methods: methods.map((item) => item.title),
+      protocols: protocols.map((item) => item.title),
+      paths,
+      hosts,
+    };
+  }
+
   const [t] = useTr();
 
   return (
@@ -59,7 +78,7 @@ const Route: React.FC<AppProps> = () => {
           </Button>
         </div>
       </div>
-      <RouteInfoBox route={routeDetails} isLoading={isServiceFetching} />
+      <RouteInfoBox route={route} isLoading={isServiceFetching} />
     </S.ItemsContainer>
   );
 };
