@@ -11,6 +11,7 @@ const Api = {
 
   getNameTagData: async () => client.get(`${portalUrl}/v1/tags/client`),
   getClientTypes: async () => client.get(`${portalUrl}/v1/enums/client-types`),
+  getClientInfo: async (params) => client.get(`${portalUrl}/v1/clients/${params}/integrations`),
   getClientDraftInfo: async (params) => client.get<ClientDraftDataType>(`${portalUrl}/v1/clients/${params}`),
   getClientInquirySSO: async (params) => client.get(`${portalUrl}/v1/clients/inquiry-client-sso`, { params }),
   getClientInquiryStatus: async (params) =>
