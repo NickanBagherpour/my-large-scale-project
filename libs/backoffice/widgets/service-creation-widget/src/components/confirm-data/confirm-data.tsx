@@ -72,10 +72,10 @@ export default function ConfirmData() {
       route: { protocols, hosts, paths, methods },
     } = routeData;
     route = {
-      methods: methods.map((item) => item.title),
-      protocols: protocols.map((item) => item.title),
-      paths,
-      hosts,
+      methods: methods?.map((item) => item.title),
+      protocols: protocols?.map((item) => item.title),
+      paths: paths,
+      hosts: hosts,
     };
   }
 

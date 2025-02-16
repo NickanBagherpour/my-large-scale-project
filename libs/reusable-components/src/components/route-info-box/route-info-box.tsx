@@ -30,24 +30,26 @@ export default function RouteInfoBox(props: Props) {
     routeData = [
       {
         key: 'uikit.action',
-        value: methods.map((tag) => (
-          <Chip ellipsis type='active' key={tag} tooltipOnEllipsis tooltipTitle={tag}>
-            {tag}
-          </Chip>
-        )),
+        value:
+          methods?.map((tag) => (
+            <Chip ellipsis type='active' key={tag} tooltipOnEllipsis tooltipTitle={tag}>
+              {tag}
+            </Chip>
+          )) ?? '-',
         fullwidth: true,
       },
       {
         key: 'protocol',
-        value: protocols.map((tag) => (
-          <Chip ellipsis type='active' key={tag} tooltipOnEllipsis tooltipTitle={tag}>
-            {tag}
-          </Chip>
-        )),
+        value:
+          protocols?.map((tag) => (
+            <Chip ellipsis type='active' key={tag} tooltipOnEllipsis tooltipTitle={tag}>
+              {tag}
+            </Chip>
+          )) ?? '-',
         fullwidth: true,
       },
-      { key: 'Path', value: paths.map((item: string) => renderTag(item)), fullwidth: true },
-      { key: 'host', value: hosts.map((item: string) => renderTag(item)), fullwidth: true },
+      { key: 'Path', value: paths?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
+      { key: 'host', value: hosts?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
     ];
   }
 
