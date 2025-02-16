@@ -18,7 +18,6 @@ type Props = {
 const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type }) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(CreateInquirySchema(t, type));
-  const itemTranslation = { element: t(`element.${type}`) };
   return (
     <Form layout={'vertical'} onFinish={onFinish} form={form}>
       <S.Container>

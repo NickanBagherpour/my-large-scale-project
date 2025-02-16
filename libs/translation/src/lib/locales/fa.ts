@@ -421,6 +421,7 @@ export default {
     choose_one_option: 'یکی از گزینه‌ها را انتخاب کنید',
     website_url_error: 'آدرس وبسایت معتبر نیست',
     english_name_error: 'نام انگلیسی معتبر نیست',
+    no_whitespace: 'لطفاً فقط از کاراکترهای مجاز بدون فاصله استفاده نمایید.',
     persian_name_error: 'نام فارسی معتبر نیست',
     email_error: 'ایمیل معتبر نیست',
     client_name_error: 'ساختار نام کلاینت نامعتبر است',
