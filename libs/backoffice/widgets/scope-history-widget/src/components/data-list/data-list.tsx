@@ -68,6 +68,7 @@ const DataList: React.FC<dataListProps> = (props) => {
           onChange={handlePageChange}
           rowKey={() => uuid()}
           size={'small'}
+          showHeader={true}
         />
       ) : (
         <NoResult isLoading={isFetching} />

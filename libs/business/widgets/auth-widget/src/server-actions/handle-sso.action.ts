@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { CookieKey, UserRole } from '@oxygen/types';
-import { encrypt, getAppBaseUrl, getRole, processAndSignTokenWithScopes } from '@oxygen/utils';
+import { decodeToken, encrypt, getAppBaseUrl, getRole, processAndSignTokenWithScopes } from '@oxygen/utils';
 
 export async function handleSSO(code: string | null, ticket: string | null): Promise<boolean> {
   const baseUrl = await getAppBaseUrl();
@@ -26,7 +26,8 @@ export async function handleSSO(code: string | null, ticket: string | null): Pro
   }
 
   const token = tokenData.data.access_token;
-  const userRole = getRole(token);
+  const decodedToken = decodeToken(token);
+  const userRole = getRole(decodedToken);
 
   const newScopes = `${process.env.SSO_SCOPE}+${
     userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? process.env.SSO_SCOPE_COMMERCIAL : process.env.SSO_SCOPE_BUSINESS
