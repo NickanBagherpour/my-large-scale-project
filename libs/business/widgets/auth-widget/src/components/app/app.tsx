@@ -12,6 +12,7 @@ import { getSsoUrlAction } from '../../server-actions/get-sso-url.action';
 import { handleSSO } from '../../server-actions/handle-sso.action';
 
 import * as S from './app.style';
+import { useSearchParams } from 'next/navigation';
 
 type AuthWidgetType = PageProps & {
   parentProps?: any;
@@ -24,9 +25,10 @@ const AuthWidget: React.FC<AuthWidgetType> = (props) => {
   const [authState, setAuthState] = useState<AuthState>('processing');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { login } = useAuth();
+  const searchParams = useSearchParams();
 
-  const code = props?.parentProps?.searchParams['code'] ?? null;
-  const ticket = props?.parentProps?.searchParams['ticket'];
+  const code = searchParams.get('code') ?? null;
+  const ticket = searchParams.get('ticket');
 
   useEffect(() => {
     if (code) {
