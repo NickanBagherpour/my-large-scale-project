@@ -28,10 +28,10 @@ export default function ConfirmRemoveModal(props: Props) {
       onCancel={close}
       maskClosable={!isLoading}
       footer={[
-        <Button onClick={close} size='large' color='primary' variant='outlined' disabled={isLoading}>
+        <Button key={'cancel'} onClick={close} size='large' color='primary' variant='outlined' disabled={isLoading}>
           {t('button.cancel')}
         </Button>,
-        <Button onClick={onRemove} size='large' color='error' loading={isLoading} disabled={isLoading}>
+        <Button key={'remove'} onClick={onRemove} size='large' color='error' loading={isLoading} disabled={isLoading}>
           {t('uikit.remove')}
         </Button>,
       ]}

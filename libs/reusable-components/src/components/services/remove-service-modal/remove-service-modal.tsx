@@ -24,10 +24,10 @@ export default function RemoveServiceModal(props: Props) {
       closable={true}
       onCancel={close}
       footer={[
-        <Button onClick={close} size='large' color='primary' variant='outlined'>
+        <Button key={'cancel'} onClick={close} size='large' color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <Button onClick={onRemove} size='large' color='error'>
+        <Button key={'remove'} onClick={onRemove} size='large' color='error'>
           {t('uikit.remove')}
         </Button>,
       ]}

@@ -28,8 +28,7 @@ export const FormItem = styled(Form.Item)`
 
 export const Container = styled(BorderedSection)`
   display: flex;
-  gap: 4rem;
-
+  gap: 8rem;
   & > * {
     flex: 1;
   }

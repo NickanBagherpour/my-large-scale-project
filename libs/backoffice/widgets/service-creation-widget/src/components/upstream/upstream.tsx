@@ -32,7 +32,7 @@ export default function Upstream() {
   } = useGetUpstreams({
     page: page - 1, // backend pages starts from zero
     size: UPSTREAMS_PAGE_SIZE,
-    sort: '',
+    sort: 'createDate,DESC',
     'search-field': debouncedSearchTerm,
   });
   const [selectedUpstreamName, setSelectedUpstreamName] = useState<string | null>(null);

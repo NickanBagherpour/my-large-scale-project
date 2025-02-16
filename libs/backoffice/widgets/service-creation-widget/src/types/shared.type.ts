@@ -6,7 +6,7 @@ export type Pagination = {
 export type ParamsWithPagaination<T extends object> = T & {
   page: number;
   size: number;
-  sort?: string;
+  sort?: 'createDate,DESC' | 'createDate,ASC';
 };
 
 export type PaginatedData<T> = {

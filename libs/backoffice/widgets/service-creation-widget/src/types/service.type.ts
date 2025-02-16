@@ -1,5 +1,5 @@
 export type PostServiceParams = {
-  englishName: string;
+  latinName: string;
   persianName: string;
   accessLevel: {
     code: number;
