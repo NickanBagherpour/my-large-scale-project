@@ -75,7 +75,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
-  const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
   const {
     data: clientData,
     isFetching: clientFetching,
@@ -87,37 +86,15 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
   } = useGetOrganizationInfoQuery(searchValue);
-  const {
-    data: SSOInquiryData,
-    isFetching: SSOInquiryFetching,
-    refetch: SSOInquiryRefetch,
-  } = useGetClientInquirySSOQuery({ 'client-name': clientName });
+
   //Effects
   useEffect(() => {
     clientRefetch();
     if (clientData) {
       updateFirstStepAction(dispatch, clientData);
+      setSelectedTags(clientData.tagIds);
     }
   }, [clientData]);
-
-  // useEffect(() => {
-  //   if (isImportClient) {
-  //     SSOInquiryRefetch();
-  //     if (SSOInquiryData) {
-  //       updateFirstStepAction(dispatch, SSOInquiryData);
-  //     }
-  //   }
-  // }, [isImportClient, SSOInquiryData]);
-
-  // useEffect(() => {
-  //   if (isDraft) {
-  //     draftRefetch();
-  //     if (draftData) {
-  //       updateFirstStepAction(dispatch, draftData);
-  //       setSelectedTags(draftData.tagIds);
-  //     }
-  //   }
-  // }, [isDraft, draftData]);
 
   useEffect(() => {
     if (state.orgStatus === 'success') {
@@ -194,7 +171,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
         : t('company_is_not_aggregator')
       : null;
   };
-  console.log(clientData);
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
       onSuccess: async () => {
@@ -221,7 +197,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   return (
     <S.FirstStepContainer>
-      {draftFetching || SSOInquiryFetching ? (
+      {clientFetching ? (
         <CenteredLoading />
       ) : (
         <>
@@ -242,12 +218,12 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 $orgStatus={state.orgStatus}
               />
               {!!state.firstStep.organizationInfo?.organizationNationalId === true ? (
-                <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
+                <Button onClick={handleSearch} variant='outlined' loading={orgInfoFetching || clientFetching}>
                   {t('re_search')}
                   <i className={'icon-search-normal'} />
                 </Button>
               ) : (
-                <Button onClick={handleSearch} loading={SSOInquiryFetching}>
+                <Button onClick={handleSearch} loading={orgInfoFetching || clientFetching}>
                   {t('button.search')}
                   <i className={'icon-search-normal'} />
                 </Button>

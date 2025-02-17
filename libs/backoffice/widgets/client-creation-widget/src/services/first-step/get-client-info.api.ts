@@ -12,13 +12,6 @@ export const useGetClientInfoQuery = (params) => {
     queryFn: withErrorHandling(() => Api.getClientInfo(params), dispatch),
     select: (p): ConvertedClientInfoResponseType => {
       const { clientInfo, ssoInfo } = p;
-      const tagIds = clientInfo ? clientInfo.tagIds : [];
-      const sortedTagIds = tagIds.sort((a, b) => a.code - b.code);
-      const updatedTagIds = sortedTagIds.map((tag) => ({
-        key: tag.code,
-        label: tag.title,
-      }));
-      console.log('tagIds', tagIds, 'sortedTagIds', sortedTagIds, 'updatedTagIds', updatedTagIds);
       return {
         ssoClientId: ssoInfo ? ssoInfo.id : undefined,
         clientId: undefined,
