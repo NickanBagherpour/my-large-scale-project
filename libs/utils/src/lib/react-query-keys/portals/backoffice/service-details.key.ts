@@ -7,4 +7,5 @@ export const KEYS = createQueryKeys(prefix, [
   'SEARCH',
   'UPSTREAM_TAB_CARDS_DETAILS',
   'UPSTREAM_TAB_CARD_DETAILS',
+  'DOCUMENTATION_TAB_DOCUMENT_LIST',
 ]);

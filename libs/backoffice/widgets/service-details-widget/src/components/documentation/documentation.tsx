@@ -12,6 +12,7 @@ import { isFileInValid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './documentation.style';
+import { useGetDocumentListQuery } from '../../services/documentation-tab';
 
 type DocumentationType = PageProps & {
   //
@@ -21,6 +22,9 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const { notification } = useApp();
+  //TO DO: change it to sercive name and do it dynamickly
+  const serviceId = 12;
+  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceId);
 
   const handleFileUpload = async (options) => {
     const { onSuccess, onError, file } = options;

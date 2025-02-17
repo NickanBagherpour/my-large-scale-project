@@ -2,8 +2,12 @@ import { client, portalUrl } from '@oxygen/client';
 
 import Mockify from '@oxygen/mockify';
 import { UpstreamCardsData, UpstreamListData } from '../types';
+import { DocumentListResponseType } from '../types/documentation-tab';
 
 const Api = {
+  getDocumentList: async (params) => {
+    return client.get<DocumentListResponseType>(`${portalUrl}/v1/services/${params}/files`);
+  },
   getUpstreamList: async (params) => {
     return client.get<UpstreamListData>(`${portalUrl}/v1/upstreams/service-name/${params}`);
   },
