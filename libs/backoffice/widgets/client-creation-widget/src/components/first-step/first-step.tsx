@@ -32,6 +32,7 @@ import {
   useGetOrganizationInfoQuery,
   useGetClientDraftInfoQuery,
   useGetClientInquirySSOQuery,
+  useGetClientInfoQuery,
 } from '../../services/first-step';
 
 import * as S from './first-step.style';
@@ -79,7 +80,8 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     data: clientData,
     isFetching: clientFetching,
     refetch: clientRefetch,
-  } = useGetClientDraftInfoQuery(clientName!);
+    isSuccess: isClientSuccess,
+  } = useGetClientInfoQuery(clientName!);
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
@@ -92,23 +94,30 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   } = useGetClientInquirySSOQuery({ 'client-name': clientName });
   //Effects
   useEffect(() => {
-    if (isImportClient) {
-      SSOInquiryRefetch();
-      if (SSOInquiryData) {
-        updateFirstStepAction(dispatch, SSOInquiryData);
-      }
+    clientRefetch();
+    if (clientData) {
+      updateFirstStepAction(dispatch, clientData);
     }
-  }, [isImportClient, SSOInquiryData]);
+  }, [clientData]);
 
-  useEffect(() => {
-    if (isDraft) {
-      draftRefetch();
-      if (draftData) {
-        updateFirstStepAction(dispatch, draftData);
-        setSelectedTags(draftData.tagIds);
-      }
-    }
-  }, [isDraft, draftData]);
+  // useEffect(() => {
+  //   if (isImportClient) {
+  //     SSOInquiryRefetch();
+  //     if (SSOInquiryData) {
+  //       updateFirstStepAction(dispatch, SSOInquiryData);
+  //     }
+  //   }
+  // }, [isImportClient, SSOInquiryData]);
+
+  // useEffect(() => {
+  //   if (isDraft) {
+  //     draftRefetch();
+  //     if (draftData) {
+  //       updateFirstStepAction(dispatch, draftData);
+  //       setSelectedTags(draftData.tagIds);
+  //     }
+  //   }
+  // }, [isDraft, draftData]);
 
   useEffect(() => {
     if (state.orgStatus === 'success') {
@@ -185,7 +194,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
         : t('company_is_not_aggregator')
       : null;
   };
-
+  console.log(clientData);
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
       onSuccess: async () => {
