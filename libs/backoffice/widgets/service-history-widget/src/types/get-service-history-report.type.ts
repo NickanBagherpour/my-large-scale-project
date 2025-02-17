@@ -7,7 +7,7 @@ export type FetchParamsType = {
 };
 export type SortType = 'modifyDate,DESC' | 'modifyDate,ASC';
 export type ServiceHistoryContent = {
-  service: ServiceInfo;
+  service?: ServiceInfo;
   modifyDate: string;
   modifyBy: string;
 };
