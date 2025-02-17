@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TFunction } from 'i18next';
 
-import { ColumnsType, Table, MobileColumnType, HistoryCell } from '@oxygen/ui-kit';
+import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 
@@ -133,67 +133,6 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       render: (_value, record) => {
         const item = record?.redirectUrl;
         return <HistoryCell item={item} />;
-      },
-    },
-  ];
-}
-
-export function getMobileColumns(props: Props): ColumnsType<any> {
-  const { t } = props;
-
-  return [
-    {
-      title: '',
-      key: 'mobile-columns',
-      render: (value) => {
-        const columns: MobileColumnType[] = [
-          {
-            title: t('table.edit_time'),
-            value: getValueOrDash(value?.editTime),
-          },
-          {
-            title: t('table.user_name'),
-            value: getValueOrDash(value?.adminName),
-          },
-          {
-            title: t('table.client_english_name'),
-            value: getValueOrDash(value?.clientenglishName),
-          },
-          {
-            title: t('table.client_farsi_name'),
-            value: getValueOrDash(value?.clientFarsiName),
-          },
-          {
-            title: t('table.client_type'),
-            value: getValueOrDash(value?.clientType),
-          },
-          {
-            title: t('table.client_id'),
-            value: getValueOrDash(value?.clientId),
-          },
-          {
-            title: t('table.verification_id'),
-            value: getValueOrDash(value?.verificationId),
-          },
-          {
-            title: t('table.aggregator_status'),
-            value: getValueOrDash(value?.aggregatorStatus),
-          },
-          {
-            title: t('table.aggregator_name'),
-            value: getValueOrDash(value?.aggregatorName),
-          },
-          {
-            title: t('table.address'),
-            value: getValueOrDash(value?.address),
-          },
-          {
-            title: t('table.input_address'),
-            value: getValueOrDash(value?.inputAddress),
-          },
-        ];
-
-        return <Table.MobileColumns columns={columns} />;
       },
     },
   ];
