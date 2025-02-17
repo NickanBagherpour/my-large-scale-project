@@ -1,68 +1,61 @@
 import * as S from './multi-input.style';
-import { getId } from '../../utils/get-id';
-import DisabledContext from 'antd/es/config-provider/DisabledContext';
-import { useContext } from 'react';
 import { Button } from '@oxygen/ui-kit';
-import { CodeTitle } from '../../type/route.type';
+import { Form, type FormInstance } from 'antd';
+import { FormItem } from '../form-item/form-item.style';
+import { Rule } from 'antd/es/form';
+import { useTr } from '@oxygen/translation';
+import { type RouteType } from '../../type/route.schema';
 
-type Props =
-  | {
-      value: CodeTitle[];
-      onChange: (props: CodeTitle[]) => void;
-    }
-  | Record<string, never>;
+type Props = {
+  rule: Rule[] | undefined;
+  name: string;
+  form: FormInstance<RouteType>;
+};
 
 export default function MultiInput(props: Props) {
-  const { value, onChange } = props;
-  // Retrieves the `disabled` state from the parent form context to control whether the form fields should be disabled.
-  const isFormDisabled = useContext(DisabledContext);
-
-  const handleChange = ({ code, title }: CodeTitle) => {
-    if (props.value) {
-      const updatedValue = props.value.map((item) => (item.code === code ? { code, title } : item));
-      onChange(updatedValue);
-    }
-  };
-
-  const handleRemove = (code: number) => () => {
-    const updatedValue = props.value.filter((item) => item.code !== code);
-    onChange(updatedValue);
-  };
-
-  const handleAdd = () => {
-    onChange(value.concat({ code: getId(), title: '' }));
-  };
-
-  const removeDisabled = value?.length === 1 || isFormDisabled;
+  const { rule, name, form } = props;
+  const [t] = useTr();
+  const formValues = Form.useWatch(name, form);
 
   return (
-    <S.Container>
-      {value?.map(({ code, title }, idx) => (
-        <S.Action key={code}>
-          <S.PlainTextInput value={title} onChange={(e) => handleChange({ code, title: e.target.value })} />
-          <Button
-            size='small'
-            color='error'
-            variant='link'
-            htmlType='button'
-            onClick={handleRemove(code)}
-            disabled={removeDisabled}
-          >
-            <S.Icon className='icon-trash' />
-          </Button>
+    <FormItem name={name} label={t('path')} rules={rule}>
+      <Form.List name={name}>
+        {(childrenFields, { add, remove }) => {
+          const removeDisabled = childrenFields.length === 1;
+          return (
+            <S.Container>
+              {childrenFields.map((child, idx) => (
+                <S.Action key={child.key}>
+                  <FormItem name={[child.name, 'title']} rules={rule}>
+                    <S.PlainTextInput />
+                  </FormItem>
+                  <Button
+                    size='small'
+                    color='error'
+                    variant='link'
+                    htmlType='button'
+                    onClick={() => remove(child.name)}
+                    disabled={removeDisabled}
+                  >
+                    <S.Icon className='icon-trash' />
+                  </Button>
 
-          <Button
-            size='small'
-            variant='link'
-            color='secondary'
-            htmlType='button'
-            onClick={handleAdd}
-            disabled={idx !== value.length - 1 || !title || isFormDisabled}
-          >
-            <S.Icon className='icon-plus-circle' />
-          </Button>
-        </S.Action>
-      ))}
-    </S.Container>
+                  <Button
+                    size='small'
+                    onClick={add}
+                    variant='link'
+                    color='secondary'
+                    htmlType='button'
+                    disabled={!formValues?.[idx].title}
+                  >
+                    <S.Icon className='icon-plus-circle' />
+                  </Button>
+                </S.Action>
+              ))}
+            </S.Container>
+          );
+        }}
+      </Form.List>
+    </FormItem>
   );
 }

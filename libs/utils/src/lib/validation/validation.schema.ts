@@ -236,8 +236,8 @@ export const createValidationSchema = (
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     codeTitle: z
-      .array(
-        z.object({
+      .object(
+        {
           code: z.number(),
           title: z
             .string({
@@ -247,11 +247,10 @@ export const createValidationSchema = (
             .trim()
             .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
             .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
-        }),
-        {
-          message: t('validation.choose_at_least_one_option'),
-        }
+        },
+        { message: t('validation.choose_at_least_one_option') }
       )
+      .array()
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
