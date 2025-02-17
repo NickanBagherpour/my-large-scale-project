@@ -34,7 +34,7 @@ export const Trash = styled.i`
 
 export const Footer = styled.footer`
   width: fit-content;
-  margin-inline-start: auto;
+  margin-inline-end: auto;
   margin-top: 0.2rem;
   color: ${(p) => p.theme.text.quaternary};
   font-weight: 700;
