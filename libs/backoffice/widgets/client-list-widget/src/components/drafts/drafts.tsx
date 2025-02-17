@@ -19,7 +19,7 @@ export default function Drafts() {
 
   const { content: drafts, totalElements } = data;
   const hasMore = totalElements > drafts.length;
-  const hasLess = pageSize === totalElements;
+  const hasLess = pageSize === totalElements && pageSize > INITIAL_DRAFTS_PAGE_SIZE;
 
   const getAllDrafts = () => {
     if (totalElements) {
