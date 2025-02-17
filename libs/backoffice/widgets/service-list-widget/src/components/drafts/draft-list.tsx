@@ -25,10 +25,8 @@ const DraftList: React.FC = () => {
   const getInitialDrafts = () => setPageSize(INITIAL_DRAFTS_PAGE_SIZE);
   const hasDrafts = !!drafts?.totalElements;
   const draftsSubTitle = drafts?.totalElements ? `(${totalElements})` : '';
-  const loadMore = totalElements > pageSize;
-  const showLoadMore = (isFetchingDrafts && loadMore) || loadMore;
-  const loadLess = totalElements === pageSize && pageSize > INITIAL_DRAFTS_PAGE_SIZE;
-  const showLoadLess = (isFetchingDrafts && loadLess) || loadLess;
+  const showLoadMore = totalElements > drafts.content.length;
+  const showLoadLess = totalElements > INITIAL_DRAFTS_PAGE_SIZE && drafts.content.length === totalElements;
   return (
     <>
       {hasDrafts && (
@@ -54,7 +52,7 @@ const DraftList: React.FC = () => {
             </S.Button>
           )}
           {showLoadLess && (
-            <S.Button loading={isFetchingDrafts} variant='link' color='primary' onClick={getInitialDrafts}>
+            <S.Button variant='link' color='primary' onClick={getInitialDrafts}>
               <span>{t('button.show_less')}</span>
               <i className='icon-arrow-up' />
             </S.Button>
