@@ -39,3 +39,21 @@ export const RevisionType = styled.p<any>`
     }
   }}
 `;
+
+export const valueWrapper = styled.span`
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  ${(p) =>
+    p.theme.direction === 'rtl'
+      ? css`
+          direction: rtl !important;
+        `
+      : css`
+          direction: ltr !important;
+        `}
+  unicode-bidi: embed !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
