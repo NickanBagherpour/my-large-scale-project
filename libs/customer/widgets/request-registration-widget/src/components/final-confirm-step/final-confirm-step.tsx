@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import { uuid } from '@oxygen/utils';
 import ConfirmModal from './modal-confirm/modal-confirm';
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -145,6 +146,7 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
                 <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>
                 <Box flexGrow={1}>
                   <Table
+                    rowKey={() => uuid()}
                     dataSource={requestData?.services}
                     columns={desktopColumns}
                     mobileColumns={mobileColumns}
