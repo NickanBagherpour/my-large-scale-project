@@ -3,7 +3,6 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { getValueOrDash } from '@oxygen/utils';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
@@ -38,12 +37,10 @@ const App: React.FC<AppProps> = (props) => {
     prepareScopeListParams(scopeListParams)
   );
 
+  const subTitle = scopeListData?.totalElements ? `(${scopeListData?.totalElements ?? 0})` : '';
+
   return (
-    <S.AppContainer
-      fillContainer={true}
-      title={t('widget_name')}
-      subtitle={scopeListData?.totalElements && `(${getValueOrDash(scopeListData?.totalElements)})`}
-    >
+    <S.AppContainer fillContainer={true} title={t('widget_name')} subtitle={subTitle}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
