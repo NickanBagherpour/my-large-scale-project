@@ -17,7 +17,7 @@ export const TableContainer = styled(Box)`
 export const RevisionType = styled.p<any>`
   font-weight: 700;
 
-  ${({ variant, isDeleted, theme }) => {
+  ${({ variant, $isdeleted, theme }) => {
     switch (variant) {
       case REVISION_TYPE.ADD:
         return css`
@@ -25,7 +25,7 @@ export const RevisionType = styled.p<any>`
         `;
 
       case REVISION_TYPE.UPDATE:
-        return isDeleted
+        return $isdeleted
           ? css`
               color: ${theme.error.main};
             `

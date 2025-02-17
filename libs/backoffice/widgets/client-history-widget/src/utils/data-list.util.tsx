@@ -45,7 +45,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       align: 'center',
       width: 'min-content',
       render: (column) => {
-        return convertShamsiDateFormat(column?.value);
+        return convertShamsiDateFormat(column?.value, true);
       },
     },
     {
@@ -64,9 +64,9 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       width: 'min-content',
       render: (_value, record) => {
         const variant = record?.revType?.code?.value;
-        const isDeleted = record?.deleted?.value;
+        const isdeleted = record?.deleted?.value;
         return (
-          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+          <S.RevisionType variant={variant} $isdeleted={isdeleted}>
             {getValueOrDash(record?.revType?.title?.value)}
           </S.RevisionType>
         );
