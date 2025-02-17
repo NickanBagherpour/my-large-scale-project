@@ -21,7 +21,7 @@ export default {
   scope_name_placeholder: 'نام اسکوپ مربوطه',
   scope_persian_name: 'نام فارسی اسکوپ',
   upload_title: 'فایل مورد نظر را انتخاب کنید یا بکشید و در این قسمت رها کنید.',
-  upload_description: 'فرمت فایل ارسالی .xls باشد (حجم زیر ۵ مگابایت)',
+  upload_description: 'فرمت فایل ارسالی .pdf باشد (حجم زیر ۵ مگابایت)',
   operational: 'عملیاتی',
   route: 'Route',
   upstream: 'آپ‌استریم',

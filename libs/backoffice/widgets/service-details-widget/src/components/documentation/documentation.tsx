@@ -40,7 +40,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     onRemove: (file) => {
       console.log(file);
     },
-    iconRender: () => <S.ExcelIcon className='icon-excel' />,
+    iconRender: () => <S.PDFIcon className='icon-pdf' />,
     maxCount: 5,
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,

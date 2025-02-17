@@ -103,7 +103,7 @@ export const TrashIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
   font-size: 2rem;
 `;
-export const ExcelIcon = styled.i`
+export const PDFIcon = styled.i`
   color: ${(p) => p.theme.error.main};
   font-size: 2.5rem;
 `;
