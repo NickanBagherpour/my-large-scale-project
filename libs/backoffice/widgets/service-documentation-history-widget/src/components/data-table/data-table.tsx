@@ -2,6 +2,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
+import { uuid } from '@oxygen/utils';
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
@@ -41,6 +42,7 @@ const DataTable = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
+      key: 'modifyDate',
       render: (column) => {
         return convertShamsiDateFormat(column.value);
       },
@@ -48,7 +50,7 @@ const DataTable = () => {
     {
       title: t('column.user-name'),
       dataIndex: 'modifyBy',
-      ellipsis: true,
+      key: 'modifyBy',
       render: (column) => getValueOrDash(column.value),
     },
     {
@@ -57,7 +59,8 @@ const DataTable = () => {
       key: 'actionType',
       ellipsis: true,
       className: 'left-to-right',
-      render: (column) => <HistoryCell item={column.name} />,
+      render: (column) => <HistoryCell item={column?.name} />,
+      // render: (column) => getValueOrDash(column.value),
       // render: (_value, record) => {
       //   const variant = record?.revType?.code?.value;
       //   const isDeleted = record?.deleted?.value;
@@ -88,7 +91,7 @@ const DataTable = () => {
   return (
     <S.TableContainer>
       <Table
-        rowKey={'id'}
+        rowKey={() => uuid()}
         title={t('subtitle')}
         size='small'
         variant='complex'

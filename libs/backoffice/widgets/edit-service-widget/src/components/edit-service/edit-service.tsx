@@ -87,17 +87,10 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
     <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
         <Form.Item name={FORM_ITEM_NAMES.enName} label={t('field.en_name')} rules={[rule]}>
-          <Input
-            disabled={true}
-            placeholder={t('placeholder.en_name', { element: t('element.service') })}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.enName] as ServiceInfoDto['name']}
-          />
+          <Input disabled={true} placeholder={t('placeholder.en_name', { element: t('element.service') })} />
         </Form.Item>
         <Form.Item name={FORM_ITEM_NAMES.faName} label={t('field.fa_name')} rules={[rule]}>
-          <Input
-            placeholder={t('placeholder.fa_name', { element: t('element.service') })}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.faName] as string}
-          />
+          <Input placeholder={t('placeholder.fa_name', { element: t('element.service') })} />
         </Form.Item>
         <Form.Item name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('field.access')}>
           <Select
@@ -115,7 +108,6 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             size={'large'}
             placeholder={t('placeholder.category')}
             loading={isCategoryLoading}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.category]}
           ></Select>
         </Form.Item>
         <Form.Item name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('field.throughput')}>

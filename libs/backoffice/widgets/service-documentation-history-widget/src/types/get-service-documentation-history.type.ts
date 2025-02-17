@@ -6,7 +6,9 @@ export type ServiceDocumentationHistory = {
     description: string;
   };
   modifyDate: string;
-  modifyBy: string;
+  userName: string;
+  actionType: string;
+  fileName: string;
 };
 
 export type HistoryDifferenceObj = DifferenceMap<ServiceDocumentationHistory>;
