@@ -23,7 +23,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 0, className: 'row-number' },
+    { title: `${t('row')}`, width: 70, dataIndex: 'index', key: 'index', align: 'center', className: 'row-number' },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
@@ -92,21 +92,20 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
-      width: 0,
       render: (version) => getValueOrDash(version),
     },
     {
       title: `${t('status')}`,
       dataIndex: 'isActive',
       key: 'isActive',
-      // width: 150,
       render: (isActive, name) => (
         <S.SwitchContainer>
-          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('operational')}</span>
-          <span style={{ margin: '0 1.2rem' }}>
-            <Switch disabled={true} checked={isActive} />
+          <S.DesktopSpan>{t('operational')}</S.DesktopSpan>
+          <span style={{ margin: '0 1rem' }}>
+            <S.DesktopSwitch checked={isActive} />
+            <S.MobileSwitch checkedChildren={t('operational')} unCheckedChildren={t('stopped')} checked={isActive} />
           </span>
-          <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('stopped')}</span>
+          <S.DesktopSpan>{t('stopped')}</S.DesktopSpan>
         </S.SwitchContainer>
       ),
     },
@@ -115,7 +114,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'details',
       key: 'details',
       align: 'center',
-      width: 0,
+      width: 75,
       render: (value, record) => (
         <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
           {t('detailed')}
