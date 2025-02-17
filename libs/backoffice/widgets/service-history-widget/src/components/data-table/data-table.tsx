@@ -9,7 +9,9 @@ import { PageProps } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-import { ServiceHistoryContent } from '../../types';
+import { HistoryDifferenceObj } from '../../types';
+
+import * as S from './data-table.style';
 
 type AppProps = PageProps & {
   data?: any;
@@ -23,7 +25,8 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   const displayTable = data?.totalElements;
   const dispatch = useAppDispatch();
   const dataSource = data?.content || [];
-  const columns: ColumnsType<ServiceHistoryContent> = [
+
+  const columns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit_date'),
       dataIndex: 'modifyDate',
@@ -37,6 +40,19 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       ellipsis: true,
       render: (value, record) => {
         return <HistoryCell item={value} />;
+      },
+    },
+    {
+      title: t('column.revision_type'),
+      dataIndex: 'revisionDto',
+      render: (value, record) => {
+        const variant = value.revType?.code?.value;
+        const isDeleted = record?.isDeleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(value?.revType?.title?.value)}
+          </S.RevisionType>
+        );
       },
     },
     {

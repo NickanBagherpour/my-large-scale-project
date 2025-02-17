@@ -7,6 +7,14 @@ export type UpstreamHistory = {
   };
   modifyDate: string;
   modifyBy: string;
+  deleted: boolean;
+  revision: {
+    revNumber: number;
+    revType: {
+      code: number;
+      title: string;
+    };
+  };
 };
 
 export type HistoryDifferenceObj = DifferenceMap<UpstreamHistory>;
