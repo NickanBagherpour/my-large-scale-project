@@ -4,6 +4,7 @@ import { Table } from '@oxygen/ui-kit';
 import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
+import { uuid } from '@oxygen/utils';
 import CustomInfobox from '../custom-infobox/custom-infobox';
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 
@@ -30,12 +31,12 @@ export const UpstreamDetails = (props: UpstreamDetailsPropsType) => {
       <S.Table>
         <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
         <Table
+          rowKey={() => uuid()}
           dataSource={tableData}
           columns={desktopColumns}
           mobileColumns={mobileColumns}
           pagination={false}
           loading={tableLoading}
-          rowKey={'id'}
         />
       </S.Table>
     </S.BorderBoxContainer>

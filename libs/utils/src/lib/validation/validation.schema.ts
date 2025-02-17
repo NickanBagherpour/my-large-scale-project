@@ -78,7 +78,19 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.isenglishText, {
         message: t('validation.english_name_error'),
       }),
-
+    englishWithoutWhitespace: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.isenglishText, {
+        message: t('validation.english_name_error'),
+      })
+      .regex(REGEX_PATTERNS.noWhitespace, {
+        message: t('validation.no_whitespace'),
+      }),
     persian: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
+import { uuid } from '@oxygen/utils';
 import { Card, Form } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, SearchItemsContainer, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { Button, Box, Table, InfoBox } from '@oxygen/ui-kit';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/details-info';
 
@@ -102,6 +102,7 @@ const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
         <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>
         <Box flexGrow={1}>
           <Table
+            rowKey={() => uuid()}
             dataSource={data?.services}
             columns={desktopColumns}
             mobileColumns={mobileColumns}

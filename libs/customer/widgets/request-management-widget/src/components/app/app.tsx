@@ -115,9 +115,9 @@ const App: React.FC<AppProps> = (props) => {
       {hasDrafts && (
         <S.DraftsContainer title={draftTitle} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
-            {draftList?.map((item) => (
+            {draftList?.map((item, index: number) => (
               <DraftCard
-                key={item.id}
+                key={index}
                 {...item}
                 deleteDraft={(submissionId) => toggleModal('removeRequest', item.organizationName, submissionId)}
               />

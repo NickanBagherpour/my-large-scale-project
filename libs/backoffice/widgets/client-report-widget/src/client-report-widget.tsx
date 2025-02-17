@@ -16,6 +16,7 @@ const ClientReportWidget: React.FC<PageProps> = (props) => {
     <WidgetWrapper>
       <AppProvider>
         <App parentProps={props.parentProps} />
+        {/* <span>hi</span> */}
       </AppProvider>
     </WidgetWrapper>
   );
