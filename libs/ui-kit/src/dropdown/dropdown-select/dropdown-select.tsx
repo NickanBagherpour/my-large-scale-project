@@ -182,24 +182,21 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
         disabled={loading}
         {...rest}
       >
-        {/* TODO: Fix this */}
-        <a onClick={(e) => e.preventDefault()}>
-          <Button
-            type='default'
-            className={'dropdown-button'}
-            icon={
-              loading ? (
-                <Loading size={'small'} />
-              ) : (
-                <S.StyledIcon className={`icon-chev-down ${open ? 'select-open' : ''}`} />
-              )
-            }
-            variant={'outlined'}
-            iconPosition={iconPosition}
-          >
-            <S.StyledSpace>{children}</S.StyledSpace>
-          </Button>
-        </a>
+        <Button
+          type='default'
+          className={'dropdown-button'}
+          icon={
+            loading ? (
+              <Loading size={'small'} />
+            ) : (
+              <S.StyledIcon className={`icon-chev-down ${open ? 'select-open' : ''}`} />
+            )
+          }
+          variant={'outlined'}
+          iconPosition={iconPosition}
+        >
+          <S.StyledSpace>{children}</S.StyledSpace>
+        </Button>
       </Dropdown>
     </S.DropdownSelectContainer>
   );
