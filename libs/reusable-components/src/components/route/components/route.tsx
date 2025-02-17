@@ -14,7 +14,6 @@ import { BorderedSection, CenteredLoading, Footer, TagPicker } from '../../../in
 import { createRouteSchema, type RouteType } from '../type/route.schema';
 import { PostRouteParams } from '../type/route.type';
 import { ROUTE_NAMES } from '../utils/consts';
-import { getId } from '../utils/get-id';
 import { Dispatch } from 'react';
 import { FormItem } from './form-item/form-item.style';
 
@@ -46,13 +45,8 @@ export default function Route(props: Props) {
     if (serviceName && serviceHttpMethods && serviceProtocols) {
       const { hosts, paths, protocols, methods } = values;
 
-      const params: PostRouteParams = {
-        hosts: hosts.map((item) => item.title),
-        paths: paths.map((item) => item.title),
-        protocols,
-        methods,
-        serviceName,
-      };
+      // TODO: see if values could be passed directly
+      const params: PostRouteParams = { hosts, paths, protocols, methods, serviceName };
 
       const mutateOptions = { onSuccess: () => nextStep() };
       if (routeData) putRoute({ ...params, id: routeData.route.id }, mutateOptions);
@@ -61,8 +55,8 @@ export default function Route(props: Props) {
   };
 
   let initialValues: Partial<RouteType> = {
-    [ROUTE_NAMES.hosts]: [{ code: getId(), title: '' }],
-    [ROUTE_NAMES.paths]: [{ code: getId(), title: '' }],
+    [ROUTE_NAMES.hosts]: [''],
+    [ROUTE_NAMES.paths]: [''],
   };
 
   if (routeData) {
@@ -72,8 +66,8 @@ export default function Route(props: Props) {
 
     initialValues = {
       [ROUTE_NAMES.methods]: methods,
-      [ROUTE_NAMES.hosts]: hosts ?? initialValues.hosts,
-      [ROUTE_NAMES.paths]: paths ?? initialValues.paths,
+      [ROUTE_NAMES.hosts]: hosts ?? [''],
+      [ROUTE_NAMES.paths]: paths ?? [''],
       [ROUTE_NAMES.protocols]: protocols,
     };
   }
@@ -84,7 +78,13 @@ export default function Route(props: Props) {
 
   return (
     <>
-      <S.Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+      <S.Form
+        layout={'vertical'}
+        initialValues={initialValues}
+        onFinish={onFinish}
+        form={form}
+        onFinishFailed={(e) => console.log('>>>', e)}
+      >
         <BorderedSection>
           <Space direction='vertical' size={'middle'}>
             <FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
@@ -108,8 +108,8 @@ export default function Route(props: Props) {
         </BorderedSection>
 
         <S.Container>
-          <MultiInput rule={[rule]} name={ROUTE_NAMES.paths} form={form} />
-          <MultiInput rule={[rule]} name={ROUTE_NAMES.hosts} form={form} />
+          <MultiInput rule={[rule]} name={ROUTE_NAMES.paths} form={form} label={t('uikit.path')} />
+          <MultiInput rule={[rule]} name={ROUTE_NAMES.hosts} form={form} label={t('uikit.host')} />
         </S.Container>
       </S.Form>
 

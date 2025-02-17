@@ -17,6 +17,7 @@ export const Action = styled.div`
   display: flex;
   width: 100%;
   button {
+    /* to align buttons and the input even when there is a validation error */
     height: 40px;
   }
 `;

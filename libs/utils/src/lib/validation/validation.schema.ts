@@ -236,20 +236,23 @@ export const createValidationSchema = (
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     codeTitle: z
-      .object(
-        {
+      .array(
+        z.object({
           code: z.number(),
-          title: z
-            .string({
-              required_error: t('validation.required'),
-              invalid_type_error: t('validation.required'),
-            })
-            .trim()
-            .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
-            .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
-        },
-        { message: t('validation.choose_at_least_one_option') }
+          title: z.string(),
+        }),
+        { message: t('validation.required') }
       )
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    arrayOfStrings: z
+      .string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required'),
+      })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) })
       .array()
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 

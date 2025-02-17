@@ -3,22 +3,21 @@ import { Button } from '@oxygen/ui-kit';
 import { Form, type FormInstance } from 'antd';
 import { FormItem } from '../form-item/form-item.style';
 import { Rule } from 'antd/es/form';
-import { useTr } from '@oxygen/translation';
 import { type RouteType } from '../../type/route.schema';
 
 type Props = {
   rule: Rule[] | undefined;
   name: string;
+  label: string;
   form: FormInstance<RouteType>;
 };
 
 export default function MultiInput(props: Props) {
-  const { rule, name, form } = props;
-  const [t] = useTr();
+  const { rule, name, form, label } = props;
   const formValues = Form.useWatch(name, form);
 
   return (
-    <FormItem name={name} label={t('path')} rules={rule}>
+    <FormItem name={name} label={label} rules={rule}>
       <Form.List name={name}>
         {(childrenFields, { add, remove }) => {
           const removeDisabled = childrenFields.length === 1;
@@ -26,7 +25,7 @@ export default function MultiInput(props: Props) {
             <S.Container>
               {childrenFields.map((child, idx) => (
                 <S.Action key={child.key}>
-                  <FormItem name={[child.name, 'title']} rules={rule}>
+                  <FormItem name={[child.name /* , 'title' if it is nested */]} rules={rule}>
                     <S.PlainTextInput />
                   </FormItem>
                   <Button
@@ -42,11 +41,11 @@ export default function MultiInput(props: Props) {
 
                   <Button
                     size='small'
-                    onClick={add}
+                    onClick={() => add('' /* this is the initial value of the new input */)}
                     variant='link'
                     color='secondary'
                     htmlType='button'
-                    disabled={!formValues?.[idx].title}
+                    disabled={!formValues?.[idx]}
                   >
                     <S.Icon className='icon-plus-circle' />
                   </Button>
