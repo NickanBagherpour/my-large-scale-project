@@ -1,10 +1,8 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { Nullable } from '@oxygen/types';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
-import { Pagination } from '@oxygen/types';
 
 export const useGetScopesBySearch = (params: any) => {
   const dispatch = useAppDispatch();

@@ -23,8 +23,8 @@ export const useGetRoute = (props: Props) => {
         route: {
           ...data.route,
           // TODO: find a better way and remove these:
-          paths: data.route.paths.map((p) => ({ code: getId(), title: p })),
-          hosts: data.route.hosts.map((p) => ({ code: getId(), title: p })),
+          paths: data.route.paths?.map((p) => ({ code: getId(), title: p })),
+          hosts: data.route.hosts?.map((p) => ({ code: getId(), title: p })),
         },
       };
     },

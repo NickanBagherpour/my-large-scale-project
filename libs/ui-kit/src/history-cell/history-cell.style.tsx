@@ -14,7 +14,7 @@ export const HistoryCellContainer = styled.span<any>`
 
   .text {
     ${(p) =>
-      !p.isPersian && p.theme.direction === 'rtl'
+      !p.$isPersian && p.theme.direction === 'rtl'
         ? css`
             direction: rtl !important;
           `

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
+import { Tag as UikitTag } from '@oxygen/ui-kit';
 
 export const Container = styled.section`
   border: ${(p) => `1px solid ${p.theme.border._100}`};
@@ -21,7 +22,7 @@ export const Header = styled.header`
   }
 `;
 
-export const Tag = styled.p`
+export const Index = styled.p`
   color: ${(p) => p.theme.secondary._800};
   font-weight: 600;
   font-size: 1.2rem;
@@ -42,9 +43,9 @@ export const ServiceName = styled.h4`
   color: ${(p) => p.theme.text.primary};
 `;
 
-export const Items = styled.div`
+export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 1.6rem 0;
   gap: 1rem;
 
@@ -84,13 +85,13 @@ export const ItemValue = styled.div`
   -webkit-line-clamp: 1;
 `;
 
-export const Cards = styled.div`
+export const Scopes = styled.div`
   display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  padding: 1.6rem 2.4rem;
+  flex-wrap: wrap;
+  gap: 1rem 0;
+  margin-bottom: 3rem;
+`;
 
-  ${respondTo.down('lg')} {
-    flex-direction: column;
-  }
+export const Tag = styled(UikitTag)`
+  color: ${(p) => p.theme.text.tertiary};
 `;

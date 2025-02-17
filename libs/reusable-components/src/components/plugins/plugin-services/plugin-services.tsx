@@ -17,20 +17,19 @@ export default function PluginServices(props: Props) {
     { name: t('uikit.english_name'), value: name },
     { name: t('uikit.status'), value: isActive ? t('common.active') : t('common.inactive') },
     { name: t('uikit.version'), value: version },
-    { name: t('uikit.scope'), value: scopes.join(' , ') },
     { name: t('uikit.upstream'), value: upstream },
   ];
 
   return (
     <S.Container>
       <S.Header>
-        <S.Tag>
+        <S.Index>
           {t('uikit.service')} {idx + 1}
-        </S.Tag>
+        </S.Index>
         <S.ServiceName>{persianName}</S.ServiceName>
       </S.Header>
       <S.Body>
-        <S.Items>
+        <S.Grid>
           {data.map(({ name, value }, idx) => (
             <div key={idx}>
               <S.ItemName>{name}</S.ItemName>
@@ -39,7 +38,16 @@ export default function PluginServices(props: Props) {
               </Tooltip>
             </div>
           ))}
-        </S.Items>
+        </S.Grid>
+
+        <S.ItemName>{t('uikit.scope')}</S.ItemName>
+        <S.Scopes>
+          {scopes.map((scope, idx) => (
+            <S.Tag type='processing' key={idx}>
+              {scope}
+            </S.Tag>
+          ))}
+        </S.Scopes>
 
         {children}
       </S.Body>
