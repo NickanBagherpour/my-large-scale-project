@@ -17,11 +17,10 @@ import Scope from '../scope/scope';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
+import { getServiceNameFromUrl, InquiryStatus } from '../../utils';
 import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
-import { InquiryStatus } from '../../utils/consts';
 
 const App = () => {
   const [t] = useTr();

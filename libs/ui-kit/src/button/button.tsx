@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { ButtonProps as AntButtonProps } from 'antd';
 import { StyledButton } from './button.style';
@@ -10,7 +10,7 @@ export type ButtonProps = Omit<AntButtonProps, 'color'> & {
   flex?: boolean;
 };
 
-export const Button = forwardRef((props: ButtonProps, ref) => {
+export const Button = (props: ButtonProps) => {
   const { children, color = 'primary', flex = `true`, href, ...rest } = props;
 
   if (href) {
@@ -28,6 +28,6 @@ export const Button = forwardRef((props: ButtonProps, ref) => {
       </StyledButton>
     );
   }
-});
+};
 
 // export default Button;

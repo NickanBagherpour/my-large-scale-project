@@ -2,17 +2,18 @@ import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
-import { getValueOrDash } from '@oxygen/utils';
 import { ColumnsType, HistoryCell, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { PageProps, PaginatedData } from '@oxygen/types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { ServiceHistoryContent } from '../../types';
+import { getValueOrDash } from '@oxygen/utils';
 
+import * as S from './data-table.style';
 type AppProps = PageProps & {
-  data?: any;
+  data?: PaginatedData<ServiceHistoryContent>;
   isFetching: boolean;
 };
 const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
@@ -22,13 +23,18 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   const [t] = useTr();
   const displayTable = data?.totalElements;
   const dispatch = useAppDispatch();
-  const dataSource = data?.content || [];
+  const dataSource =
+    data?.content?.map((c) => {
+      const result = { ...c, ...c.service };
+      delete result.service;
+      return result;
+    }) ?? [];
   const columns: ColumnsType<ServiceHistoryContent> = [
     {
       title: t('column.edit_date'),
       dataIndex: 'modifyDate',
       render: (value, record) => {
-        return <HistoryCell item={value} />;
+        return <div>{getValueOrDash(value?.value)}</div>;
       },
     },
     {
@@ -59,21 +65,21 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       title: t('column.access'),
       dataIndex: 'accessLevel',
       render: (value, record) => {
-        return <HistoryCell item={value} />;
+        return <HistoryCell item={value?.title} />;
       },
     },
     {
       title: t('column.category'),
       dataIndex: 'category',
       render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+        return <HistoryCell item={value?.title} />;
       },
     },
     {
       title: t('column.throughput'),
       dataIndex: 'throughput',
       render: (value, record) => {
-        return <HistoryCell item={value} />;
+        return <HistoryCell item={value?.title} />;
       },
     },
     {
@@ -99,7 +105,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   };
 
   return (
-    <div>
+    <>
       {displayTable ? (
         <Table
           rowKey={'id'}
@@ -122,9 +128,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
           showHeader={true}
         />
       ) : (
-        <NoResult isLoading={isFetching} />
+        <S.NoResultContainer>
+          <NoResult isLoading={isFetching} />
+        </S.NoResultContainer>
       )}
-    </div>
+    </>
   );
 };
 export default DataTable;

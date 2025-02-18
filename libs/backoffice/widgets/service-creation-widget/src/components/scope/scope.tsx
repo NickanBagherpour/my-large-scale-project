@@ -136,7 +136,7 @@ export default function Scope() {
 
         <Footer
           registerButtonProps={{
-            disabled: !selectedScopes,
+            disabled: !selectedScopes?.length,
             loading: isRegiseteringToBaam || isAssigningScopeToService,
           }}
           onRegister={onRegister}

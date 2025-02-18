@@ -3,7 +3,6 @@ import type {
   AssignUpstreamToServiceParams,
   CodeTitle,
   PostServiceParams,
-  PostRouteParams,
   Route,
   Service,
   Tags,
@@ -11,7 +10,6 @@ import type {
   UpstreamsParams,
   UpstreamWithTargets,
   ServiceInquiry,
-  PutRouteParams,
 } from '../types';
 import type { scopeToServiceParams, ScopesData, ScopesParams, ServiceScope } from '../types/scopes.type';
 
@@ -34,10 +32,6 @@ const Api = {
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ upstreamName, serviceName }: AssignUpstreamToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/assign-to-service/${serviceName}`),
-  postRoute: async ({ serviceName, ...otherParams }: PostRouteParams) =>
-    client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
-  putRoute: async ({ serviceName, ...otherParams }: PutRouteParams) =>
-    client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
   postAssignScopeToService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/services/${serviceName}`),
   deleteUnassignScopeFromService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
