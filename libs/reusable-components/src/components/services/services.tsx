@@ -7,11 +7,11 @@ import { Button, Table } from '@oxygen/ui-kit';
 import { ROUTES } from '@oxygen/utils';
 import ServiceSelector from './service-selector/service-selector';
 import RemoveServiceModal from './remove-service-modal/remove-service-modal';
-import DetailsModal from './details-modal/details-modal';
 import { useAssignServiceToClient } from './utils/assign-service-to-client';
 import { useUnassignServiceFromClient } from './utils/unassign-from-client';
 import { Service } from './utils/services.type';
 import { useGetClientServices } from './utils/get-client-services.api';
+import ServiceDetailsModal from '../service-details-modal/service-details-modal';
 
 type Props = {
   clientName: string;
@@ -116,7 +116,7 @@ export default function Services(props: Props) {
         />
       )}
       {!!serviceToView && (
-        <DetailsModal
+        <ServiceDetailsModal
           dispatch={dispatch}
           serviceName={serviceToView.name}
           isOpen={!!serviceToView}
