@@ -1,15 +1,17 @@
 import styled, { css } from 'styled-components';
 
+import { Box } from '@oxygen/ui-kit';
+
 import { REVISION_TYPE } from '../../utils/consts';
 
-export const TableContainer = styled.div`
+export const TableContainer = styled(Box)`
   height: 100%;
-  /* & td.left-to-right {
-    direction: ${(props) => props.theme.direction};
+
+  tr {
+    td.right-to-left {
+      unicode-bidi: normal !important;
+    }
   }
-  & td.right-to-left {
-    direction: ${(props) => (props.theme.direction === 'rtl' ? 'ltr' : 'rtl')};
-  } */
 `;
 
 export const RevisionType = styled.p<any>`

@@ -325,6 +325,12 @@ export default {
     upstream: 'Upstream',
     tag: 'تگ',
     upstream_persian: 'آپ‌استریم‌',
+    edit_date: 'زمان ویرایش',
+    user_name: 'نام کاربر',
+    service_en_name: 'نام انگلیسی سرویس',
+    service_fa_name: 'نام فارسی سرویس',
+    tags: 'تگ',
+    revision_type: 'نوع عملیات',
   },
 
   placeholder: {
