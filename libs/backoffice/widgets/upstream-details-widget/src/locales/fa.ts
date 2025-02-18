@@ -35,7 +35,7 @@ export default {
   display_change_history: 'مشاهده تاریخچه تغییرات',
   english_upstream_name: 'نام انگلیسی',
   persian_upstream_name: 'نام فارسی ',
-  are_you_sure_delete_server_question: 'آیا از حذف سرویس زیر اطمینان دارید؟',
+  are_you_sure_delete_server_question: 'آیا از حذف سرور زیر اطمینان دارید؟',
   waiting_msg: 'سامانه در حال بررسی اطلاعات وارد شده می‌باشد. لطفا صبور باشید.',
   success_msg: 'سرور با موفقیت افزوده شد.',
   edit_msg: 'سرور با موفقیت ویرایش شد.',

@@ -37,3 +37,9 @@ export const RevisionType = styled.p<any>`
     }
   }}
 `;
+
+export const NoResultContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+`;

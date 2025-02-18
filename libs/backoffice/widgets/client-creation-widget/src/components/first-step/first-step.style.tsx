@@ -99,12 +99,12 @@ export const SearchContainer = styled.div`
   gap: 1rem;
   margin-bottom: 1.6rem;
 `;
-export const Input = styled(KitInput)<{ orgStatus: 'normal' | 'success' | 'error' }>`
+export const Input = styled(KitInput)<{ $orgStatus: 'normal' | 'success' | 'error' }>`
   border-color: ${(p) =>
-    p.orgStatus === 'success'
+    p.$orgStatus === 'success'
       ? p.theme.secondary.main
-      : p.orgStatus === 'error'
+      : p.$orgStatus === 'error'
       ? p.theme.error.main
       : p.theme.border.main};
-  background-color: ${(p) => (p.orgStatus === 'success' ? p.theme.secondary._50 : null)};
+  background-color: ${(p) => (p.$orgStatus === 'success' ? p.theme.secondary._50 : null)};
 `;

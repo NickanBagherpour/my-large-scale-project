@@ -9,8 +9,8 @@ import { useGetServicesQuery } from '../../services';
 import Filters from '../filters/filters';
 import Services from '../services-list/services';
 
-import * as S from './app.style';
 import DraftList from '../drafts/draft-list';
+import * as S from './app.style';
 
 const App = () => {
   const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();

@@ -1,4 +1,4 @@
-export type OrganizationInfoResponceType = {
+export type postOrganizationInfoResponceType = {
   organizationId: number;
   organizationName: string;
   organizationNationalId: string;

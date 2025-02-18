@@ -7,7 +7,6 @@ const convert = (item: CodeTitle[] | undefined) => {
   return item?.map((tag) => ({ key: tag.code, label: tag.title, value: tag.code })) ?? [];
 };
 
-/* TODO: share this for service creation and reusable components */
 type CodeTitle = {
   code: number;
   title: string;
@@ -36,7 +35,7 @@ export default function TagPicker(props: Props) {
   // Retrieves the `disabled` state from the parent form context to control whether the form fields should be disabled.
   const isFormDisabled = useContext(DisabledContext);
 
-  const handleChange = (items /* TODO: find a type for this */) => {
+  const handleChange = (items) => {
     if (onChange) onChange(items.map((item) => ({ code: item.value, title: item.label })));
   };
 

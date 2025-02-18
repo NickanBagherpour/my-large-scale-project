@@ -32,6 +32,7 @@ import {
   useGetOrganizationInfoQuery,
   useGetClientDraftInfoQuery,
   useGetClientInquirySSOQuery,
+  useGetClientInfoQuery,
 } from '../../services/first-step';
 
 import * as S from './first-step.style';
@@ -40,7 +41,7 @@ type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
 };
 
-const FirstStep: React.FC<FirstStepProps> = (props) => {
+export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const { setCurrentStep } = props;
   //Hooks
   const dispatch = useAppDispatch();
@@ -74,36 +75,26 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
-  const { data: draftData, isFetching: draftFetching, refetch: draftRefetch } = useGetClientDraftInfoQuery(clientName!);
+  const {
+    data: clientData,
+    isFetching: clientFetching,
+    refetch: clientRefetch,
+    isSuccess: isClientSuccess,
+  } = useGetClientInfoQuery(clientName!);
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
   } = useGetOrganizationInfoQuery(searchValue);
-  const {
-    data: SSOInquiryData,
-    isFetching: SSOInquiryFetching,
-    refetch: SSOInquiryRefetch,
-  } = useGetClientInquirySSOQuery({ 'client-name': clientName });
+
   //Effects
   useEffect(() => {
-    if (isImportClient) {
-      SSOInquiryRefetch();
-      if (SSOInquiryData) {
-        updateFirstStepAction(dispatch, SSOInquiryData);
-      }
+    clientRefetch();
+    if (clientData) {
+      updateFirstStepAction(dispatch, clientData);
+      setSelectedTags(clientData.tagIds);
     }
-  }, [isImportClient, SSOInquiryData]);
-
-  useEffect(() => {
-    if (isDraft) {
-      draftRefetch();
-      if (draftData) {
-        updateFirstStepAction(dispatch, draftData);
-        setSelectedTags(draftData.tagIds);
-      }
-    }
-  }, [isDraft, draftData]);
+  }, [clientData]);
 
   useEffect(() => {
     if (state.orgStatus === 'success') {
@@ -180,7 +171,6 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
         : t('company_is_not_aggregator')
       : null;
   };
-
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
       onSuccess: async () => {
@@ -207,7 +197,7 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   return (
     <S.FirstStepContainer>
-      {draftFetching || SSOInquiryFetching ? (
+      {clientFetching ? (
         <CenteredLoading />
       ) : (
         <>
@@ -225,15 +215,15 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
                 prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
                 placeholder={t('search_organization_id_placeholder')}
                 onChange={(e) => handleChange(e)}
-                orgStatus={state.orgStatus}
+                $orgStatus={state.orgStatus}
               />
               {!!state.firstStep.organizationInfo?.organizationNationalId === true ? (
-                <Button onClick={handleSearch} variant='outlined' loading={SSOInquiryFetching}>
+                <Button onClick={handleSearch} variant='outlined' loading={orgInfoFetching || clientFetching}>
                   {t('re_search')}
                   <i className={'icon-search-normal'} />
                 </Button>
               ) : (
-                <Button onClick={handleSearch} loading={SSOInquiryFetching}>
+                <Button onClick={handleSearch} loading={orgInfoFetching || clientFetching}>
                   {t('button.search')}
                   <i className={'icon-search-normal'} />
                 </Button>
@@ -315,5 +305,3 @@ const FirstStep: React.FC<FirstStepProps> = (props) => {
     </S.FirstStepContainer>
   );
 };
-
-export default FirstStep;

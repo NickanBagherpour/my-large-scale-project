@@ -5,10 +5,11 @@ import { getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
 
 type Props = {
   item: { value: string | number | null | undefined | boolean; hasDifference: boolean };
+  showValue?: boolean;
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value, hasDifference } = {} } = props;
+  const { item: { value, hasDifference } = {}, showValue = true } = props;
 
   const theme = useTheme();
 
@@ -25,10 +26,10 @@ export function HistoryCell(props: Props) {
         <span className='badge-wrapper'>
           <Badge color={badgeColor} />
         </span>
-        <span className='text'>{getValueOrDash(value)}</span>
+        {showValue && <span className='text'>{getValueOrDash(value)}</span>}
       </HistoryCellContainer>
     );
   }
 
-  return getValueOrDash(value);
+  return showValue && getValueOrDash(value);
 }

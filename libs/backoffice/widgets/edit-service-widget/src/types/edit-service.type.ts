@@ -27,7 +27,7 @@ export interface ServiceInfoDto {
 }
 
 export interface EditServiceRequest {
-  englishName?: string;
+  latinName?: string;
   persianName?: string;
   accessLevel?: {
     code: number;
