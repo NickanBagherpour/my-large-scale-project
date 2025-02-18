@@ -2,7 +2,7 @@ import * as S from './multi-input.style';
 import { Button } from '@oxygen/ui-kit';
 import { Form, type FormInstance } from 'antd';
 import { FormItem } from '../form-item/form-item.style';
-import { Rule } from 'antd/es/form';
+import { FormItemProps, Rule } from 'antd/es/form';
 import { type RouteType } from '../../type/route.schema';
 import { useTr } from '@oxygen/translation';
 import { BorderedSection } from '@oxygen/reusable-components';
@@ -12,16 +12,20 @@ type Props = {
   name: string;
   label: string;
   form: FormInstance<RouteType>;
+  validateStatus: FormItemProps['validateStatus'];
+  help: FormItemProps['help'];
 };
 
 export default function MultiInput(props: Props) {
-  const { rule, name, form, label } = props;
+  const { rule, name, form, label, validateStatus, help } = props;
   const [t] = useTr();
   const formValues = Form.useWatch(name, form);
 
+  console.log('>>>', validateStatus, help);
+
   return (
-    <BorderedSection>
-      <FormItem name={name} rules={rule}>
+    <BorderedSection $hasError={validateStatus === 'error'}>
+      <FormItem name={name} rules={rule} help={help} validateStatus={validateStatus}>
         <Form.List name={name}>
           {(childrenFields, { add, remove }) => {
             const removeDisabled = childrenFields.length === 1;

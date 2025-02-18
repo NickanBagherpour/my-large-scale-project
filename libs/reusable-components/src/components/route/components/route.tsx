@@ -24,10 +24,11 @@ type Props = {
   dispatch: Dispatch<any>;
   nextStep: () => void;
   previousStep: () => void;
+  errors?: Record<string, string>;
 };
 
 export default function Route(props: Props) {
-  const { serviceName, dispatch, previousStep, nextStep } = props;
+  const { serviceName, dispatch, previousStep, nextStep, errors } = props;
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const { mutate: postRoute } = usePostRouteMutation({ dispatch, serviceName });
@@ -76,6 +77,9 @@ export default function Route(props: Props) {
 
   const onReturn = () => previousStep();
 
+  const getValidateStatus = (name: string) => (errors?.[name] ? 'error' : undefined);
+  const getErrorMsg = (name: string) => errors?.[name] ?? undefined;
+
   return (
     <>
       <S.Form
@@ -87,7 +91,12 @@ export default function Route(props: Props) {
       >
         <BorderedSection>
           <Space direction='vertical' size={'middle'}>
-            <FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
+            <FormItem
+              name={ROUTE_NAMES.methods}
+              rules={[rule]}
+              validateStatus={getValidateStatus(ROUTE_NAMES.methods)}
+              help={getErrorMsg(ROUTE_NAMES.methods)}
+            >
               <TagPicker
                 title={t('uikit.add_methods')}
                 menu={serviceHttpMethods}
@@ -96,7 +105,12 @@ export default function Route(props: Props) {
               />
             </FormItem>
 
-            <FormItem name={ROUTE_NAMES.protocols} rules={[rule]}>
+            <FormItem
+              name={ROUTE_NAMES.protocols}
+              rules={[rule]}
+              validateStatus={getValidateStatus(ROUTE_NAMES.protocols)}
+              help={getErrorMsg(ROUTE_NAMES.protocols)}
+            >
               <TagPicker
                 menu={serviceProtocols}
                 title={t('uikit.add_protocols')}
@@ -108,8 +122,22 @@ export default function Route(props: Props) {
         </BorderedSection>
 
         <S.Container>
-          <MultiInput rule={[rule]} name={ROUTE_NAMES.paths} form={form} label={t('uikit.path')} />
-          <MultiInput rule={[rule]} name={ROUTE_NAMES.hosts} form={form} label={t('uikit.host')} />
+          <MultiInput
+            rule={[rule]}
+            name={ROUTE_NAMES.paths}
+            form={form}
+            label={t('uikit.path')}
+            validateStatus={getValidateStatus(ROUTE_NAMES.paths)}
+            help={getErrorMsg(ROUTE_NAMES.paths)}
+          />
+          <MultiInput
+            validateStatus={getValidateStatus(ROUTE_NAMES.hosts)}
+            help={getErrorMsg(ROUTE_NAMES.hosts)}
+            rule={[rule]}
+            name={ROUTE_NAMES.hosts}
+            form={form}
+            label={t('uikit.host')}
+          />
         </S.Container>
       </S.Form>
 
