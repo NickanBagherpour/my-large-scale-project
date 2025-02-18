@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 
@@ -24,9 +24,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
   return [
     {
       title: t('table.index'),
-      align: 'center',
       key: 'id',
-      width: '0.1rem',
+      align: 'center',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * pageSize + 1;
         return start + index;
@@ -34,9 +34,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     },
     {
       title: t('table.english_name_scope'),
-      width: 'auto',
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
         return getValueOrDash(name);
@@ -44,16 +44,16 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     },
     {
       title: t('table.persian_name_scope'),
-      width: 'auto',
       dataIndex: 'description',
       align: 'center',
+      ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
         return getValueOrDash(description);
       },
     },
     {
-      width: '0.1rem',
+      width: widthByButtonCount(1),
       key: 'action',
       align: 'left',
       render: (_val, _record, index) => (
@@ -86,10 +86,8 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
           {
             title: '',
             colon: false,
-            width: '0.1rem',
             value: (
               <Button
-                className={'item__btn'}
                 size={'small'}
                 href={`${ROUTES.BACKOFFICE.SCOPE_INFORMATION}?id=${id}&name=${name}`}
                 variant={'text'}

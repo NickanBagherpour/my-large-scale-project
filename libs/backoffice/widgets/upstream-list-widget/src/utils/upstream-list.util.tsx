@@ -2,7 +2,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { UpstreamItemType } from '../types';
 import { PaginationType } from '../context/types';
@@ -24,7 +24,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: '0.1rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -34,7 +34,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
-      width: 'auto',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -43,7 +43,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
-      width: 'auto',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -53,7 +53,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.active_servers'),
       dataIndex: 'activeServerCount',
       align: 'center',
-      width: 'auto',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -62,7 +62,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: '0.1rem',
+      width: widthByButtonCount(2),
       render: (value, record) => (
         <Box display={'flex'} style={{ gap: '2rem' }}>
           <S.DetailsButton
