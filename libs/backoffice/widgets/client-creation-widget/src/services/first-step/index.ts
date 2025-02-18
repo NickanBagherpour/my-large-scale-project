@@ -6,3 +6,4 @@ export { useGetTagsDataQuery } from './get-tags-data.api';
 export { useGetClientInquiryStatusQuery } from './get-client-inquiry-status.api';
 export { useGetClientInquirySSOQuery } from './get-client-inquiry-sso.api';
 export { useGetClientDraftInfoQuery } from './get-client-draft-data.api';
+export { useGetClientInfoQuery } from './get-client-info.api';

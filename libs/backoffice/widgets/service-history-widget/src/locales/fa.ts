@@ -4,6 +4,7 @@ export default {
   column: {
     edit_date: 'زمان ویرایش',
     user_name: 'نام کاربر',
+    revision_type: 'نوع عملیات',
     en_name: 'نام انگلیسی سرویس',
     fa_name: 'نام فارسی سرویس',
     method: 'اکشن/متود',

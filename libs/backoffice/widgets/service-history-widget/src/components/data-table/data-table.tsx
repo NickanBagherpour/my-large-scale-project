@@ -10,7 +10,9 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { ServiceHistoryContent } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
+import { HistoryDifferenceObj } from '../../types';
 
+import * as S from './data-table.style';
 type AppProps = PageProps & {
   data?: PaginatedData<ServiceHistoryContent>;
   isFetching: boolean;
@@ -28,7 +30,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       delete result.service;
       return result;
     }) ?? [];
-  const columns: ColumnsType<ServiceHistoryContent> = [
+  const columns: ColumnsType<HistoryDifferenceObj> = [
     {
       title: t('column.edit_date'),
       dataIndex: 'modifyDate',
@@ -42,6 +44,19 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       ellipsis: true,
       render: (value, record) => {
         return <HistoryCell item={value} />;
+      },
+    },
+    {
+      title: t('column.revision_type'),
+      dataIndex: 'revisionDto',
+      render: (value, record) => {
+        const variant = value.revType?.code?.value;
+        const isDeleted = record?.isDeleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(value?.revType?.title?.value)}
+          </S.RevisionType>
+        );
       },
     },
     {
@@ -103,33 +118,31 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     updatePagination(dispatch, updatedPagination);
   };
 
-  return (
-    <div>
-      {displayTable ? (
-        <Table
-          rowKey={'id'}
-          title={t('subtitle')}
-          scroll={{ x: 1000 }}
-          size='small'
-          variant='complex'
-          columns={columns}
-          dataSource={dataSource}
-          loading={isFetching}
-          pagination={{
-            ...table?.pagination,
-            total: data?.totalElements || lastTotal,
-            pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-            pageSize: table?.pagination?.limit,
-            current: table?.pagination?.page,
-            hideOnSinglePage: false,
-          }}
-          onChange={handlePageChange}
-          showHeader={true}
-        />
-      ) : (
-        <NoResult isLoading={isFetching} />
-      )}
-    </div>
+  return displayTable ? (
+    <Table
+      rowKey={'id'}
+      title={t('subtitle')}
+      scroll={{ x: 1000 }}
+      size='small'
+      variant='complex'
+      columns={columns}
+      dataSource={dataSource}
+      loading={isFetching}
+      pagination={{
+        ...table?.pagination,
+        total: data?.totalElements || lastTotal,
+        pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+        pageSize: table?.pagination?.limit,
+        current: table?.pagination?.page,
+        hideOnSinglePage: false,
+      }}
+      onChange={handlePageChange}
+      showHeader={true}
+    />
+  ) : (
+    <S.NoResultContainer>
+      <NoResult isLoading={isFetching} />
+    </S.NoResultContainer>
   );
 };
 export default DataTable;
