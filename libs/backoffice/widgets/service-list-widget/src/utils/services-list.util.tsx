@@ -8,6 +8,7 @@ import { ITheme } from '@oxygen/types';
 import { WithBadge } from '@oxygen/reusable-components';
 
 import { ParamsType } from '../types';
+import { ToggleActivationInfo } from '../types/toggle-status.type';
 
 import * as S from '../components/services-list/services.style';
 
@@ -17,6 +18,7 @@ type Props = {
   deleteService?: (name: string, status: ParamsType) => void;
   theme: ITheme;
   wordToHighlight: string;
+  onToggleActivationSwitchClick: (info: ToggleActivationInfo) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
@@ -50,7 +52,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
-          {getValueOrDash(persian_name)}
           {getValueOrDash(persian_name)}
         </Tooltip>
       ),
@@ -100,11 +101,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'isActive',
       key: 'isActive',
       // width: 150,
-      render: (isActive, name) => (
+      render: (isActive, record) => (
         <S.SwitchContainer>
           <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('operational')}</span>
           <span style={{ margin: '0 1.2rem' }}>
-            <Switch disabled={true} checked={isActive} />
+            <Switch
+              onClick={() => props.onToggleActivationSwitchClick({ isActive, serviceName: record.name })}
+              checked={isActive}
+            />
           </span>
           <span style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>{t('stopped')}</span>
         </S.SwitchContainer>
