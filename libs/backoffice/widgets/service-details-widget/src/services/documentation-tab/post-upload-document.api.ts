@@ -5,7 +5,6 @@ import { ApiUtil } from '@oxygen/utils';
 import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
-import { Nullable } from '@oxygen/types';
 
 export const usePostUploadDocumentMutation = () => {
   const dispatch = useAppDispatch();

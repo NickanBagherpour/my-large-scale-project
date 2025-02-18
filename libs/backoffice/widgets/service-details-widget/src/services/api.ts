@@ -5,6 +5,10 @@ import { UpstreamCardsData, UpstreamListData } from '../types';
 import { DocumentListResponseType, UploadDocumentResponseType } from '../types/documentation-tab';
 
 const Api = {
+  getDownloadUploadedFile: async (params) => {
+    const { serviceName, serviceDocumentId } = params;
+    return client.get<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
+  },
   getDocumentList: async (params) => {
     return client.get<DocumentListResponseType>(`${portalUrl}/v1/services/${params}/files`);
   },

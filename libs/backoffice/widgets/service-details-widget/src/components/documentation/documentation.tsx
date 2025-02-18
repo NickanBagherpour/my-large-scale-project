@@ -8,7 +8,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Box, Button } from '@oxygen/ui-kit';
 
-import { isFileInValid } from '../../utils/helper';
+import { isFileInvalid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
 import { useGetDocumentListQuery, usePostUploadDocumentMutation } from '../../services/documentation-tab';
 
@@ -30,7 +30,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const handleFileUpload = async (options) => {
     const { onSuccess, onError, file } = options;
 
-    if (isFileInValid(file, notification, t)) {
+    if (isFileInvalid(file, notification, t)) {
       return onError('');
     }
 
@@ -61,7 +61,8 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
         <Button
           variant='filled'
           icon={<S.Icon className='icon-clock' />}
-          href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=`}
+          //TODO:CHANGE IT AFTER PULL
+          href={`${ROUTES.BACKOFFICE./*SERVICE_DOCUMENTATON_HISTORY*/ SERVICE_HISTORY}?service-name=`}
         >
           {t('see_changes_history')}
         </Button>
