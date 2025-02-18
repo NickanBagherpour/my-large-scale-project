@@ -6,7 +6,7 @@ export default {
   widget_name_creation: 'ایجاد آپ‌استریم',
   domain: 'دامنه',
   host_address: 'آدرس host',
-  domain_placeholder: 'http://example.com:8080',
+  domain_placeholder: 'www.example.com:8080',
   weight_placeholder: 'حداکثر 65536',
   health_status: 'وضعیت سلامت',
   weight: 'وزن',
