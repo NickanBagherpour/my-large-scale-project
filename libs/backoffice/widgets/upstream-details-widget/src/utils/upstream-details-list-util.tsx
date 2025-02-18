@@ -63,7 +63,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       width: widthByButtonCount(2),
       align: 'left',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'} justifyContent={'end'}>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.EditButton
             variant={'text'}
             onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}

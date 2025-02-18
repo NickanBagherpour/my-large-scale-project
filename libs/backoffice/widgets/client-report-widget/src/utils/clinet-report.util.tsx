@@ -75,16 +75,21 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'servicesReport',
       key: 'servicesReport',
       align: 'left',
-      ellipsis: {
-        showTitle: true,
-      },
       width: widthByButtonCount(2),
       render: (value, record) => (
-        <Box display={'flex'} style={{ gap: '8rem' }} alignItems={'center'} justifyContent={'end'}>
-          <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
+          <S.Details
+            variant={'link'}
+            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+            size={'small'}
+          >
             {t('services_report')}
           </S.Details>
-          <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+          <S.Details
+            variant={'link'}
+            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+            size={'small'}
+          >
             {t('details')}
           </S.Details>
         </Box>
@@ -120,11 +125,17 @@ export function getMobileColumns(props: Props): any {
             title: '',
 
             value: (
-              <Box display={'flex'} style={{ gap: '4rem' }} alignItems={'center'}>
-                <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+              <Box display={'flex'} alignItems={'center'}>
+                <S.Details
+                  variant={'link'}
+                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+                >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
-                <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+                <S.Details
+                  variant={'link'}
+                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+                >
                   {t('details')}
                 </S.Details>
               </Box>

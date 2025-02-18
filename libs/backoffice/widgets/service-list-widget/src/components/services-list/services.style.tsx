@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { MarkText, Switch } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { Button } from '@oxygen/ui-kit';
 
 export const TableContainer = styled.div`
   margin-bottom: 1.6rem;
@@ -24,10 +25,7 @@ export const Url = styled.span`
   unicode-bidi: plaintext;
 `;
 
-export const Details = styled(Link)`
-  color: ${(p) => p.theme.primary.main};
-  font-size: 1.4rem;
-`;
+export const Details = styled(Button)``;
 
 export const Trash = styled.i`
   font-size: 2.4rem;

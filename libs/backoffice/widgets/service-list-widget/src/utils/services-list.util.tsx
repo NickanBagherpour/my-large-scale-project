@@ -114,7 +114,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'left',
       width: widthByButtonCount(1),
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+        <S.Details
+          variant={'link'}
+          size={'small'}
+          href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+        >
           {t('detailed')}
         </S.Details>
       ),
@@ -179,7 +183,11 @@ export function getMobileColumns(props: Props): any {
           {
             title: '',
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+              <S.Details
+                variant={'link'}
+                size={'small'}
+                href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+              >
                 {t('detailed')}
               </S.Details>
             ),
