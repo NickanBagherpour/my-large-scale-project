@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
 import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
 // import { ParamsType } from '../types';
@@ -32,16 +32,16 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { page, rowsPerPage } = pagination;
 
   return [
-    // {
-    //   title: t('row'),
-    //   align: 'center',
-    //   key: 'index',
-    //   width: '0',
-    //   render: (_val, _record, index) => {
-    //     const start = (page - 1) * rowsPerPage + 1;
-    //     return start + index;
-    //   },
-    // },
+    {
+      title: t('row'),
+      align: 'center',
+      key: 'index',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
+      render: (_val, _record, index) => {
+        const start = (page - 1) * rowsPerPage + 1;
+        return start + index;
+      },
+    },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
@@ -50,7 +50,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: {
         showTitle: true,
       },
-      // width: 350,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -65,7 +64,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: {
         showTitle: true,
       },
-      // width: 350,
       render: (persianName) => (
         <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
           {getValueOrDash(persianName)}
@@ -76,11 +74,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: '',
       dataIndex: 'servicesReport',
       key: 'servicesReport',
-      align: 'center',
+      align: 'left',
       ellipsis: {
         showTitle: true,
       },
-      width: 150,
+      width: widthByButtonCount(2),
       render: (value, record) => (
         <Box display={'flex'} style={{ gap: '8rem' }} alignItems={'center'} justifyContent={'end'}>
           <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
@@ -134,7 +132,7 @@ export function getMobileColumns(props: Props): any {
             colon: false,
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];
