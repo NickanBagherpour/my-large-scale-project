@@ -47,7 +47,21 @@ const DataTable = () => {
       title: t('column.user-name'),
       dataIndex: 'modifyBy',
       ellipsis: true,
-      render: (column) => getValueOrDash(column.value),
+      render: (column) => <HistoryCell item={column.name} />,
+    },
+    {
+      title: t('column.revision-type'),
+      dataIndex: 'revision',
+
+      render: (column) => {
+        const variant = column.revType?.code?.value;
+        const isDeleted = column?.deleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(column?.revType?.title?.value)}
+          </S.RevisionType>
+        );
+      },
     },
     {
       title: t('column.en-name'),

@@ -1,3 +1,4 @@
+import { DifferenceMap } from '@oxygen/hooks';
 // -------
 export type FetchParamsType = {
   page?: number;
@@ -10,6 +11,14 @@ export type ServiceHistoryContent = {
   service?: ServiceInfo;
   modifyDate: string;
   modifyBy: string;
+  isDeleted: boolean;
+  revisionDto: {
+    revNumber: number;
+    revType: {
+      code: number;
+      title: string;
+    };
+  };
 };
 export type ServiceInfo = {
   serviceInfoId: number;
@@ -39,3 +48,5 @@ export type ServiceInfo = {
     }
   ];
 };
+
+export type HistoryDifferenceObj = DifferenceMap<ServiceHistoryContent>;

@@ -3,6 +3,8 @@ import { TFunction } from 'i18next';
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 
+import * as S from '../components/data-table/data-table.style';
+
 type Props = {
   t: TFunction;
 };
@@ -25,6 +27,19 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: true,
       render: (item) => {
         return <HistoryCell item={item} />;
+      },
+    },
+    {
+      title: t('column.revision-type'),
+      dataIndex: 'revisionDto',
+      render: (value, record) => {
+        const variant = value.revType?.code?.value;
+        const isDeleted = record?.isDeleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(value?.revType?.title?.value)}
+          </S.RevisionType>
+        );
       },
     },
     {
