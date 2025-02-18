@@ -6,17 +6,23 @@ export type FetchParamsType = {
   sort?: SortType | SortType[];
   id: number;
 };
+
+type ValueWithDifference<T> = {
+  value: T;
+  hasDifference: boolean;
+};
+
 export type SortType = 'modifyDate,DESC' | 'modifyDate,ASC';
 export type ServiceHistoryContent = {
-  service?: ServiceInfo;
+  service: ServiceInfo;
   modifyDate: string;
   modifyBy: string;
-  isDeleted: boolean;
+  isDeleted: ValueWithDifference<boolean>;
   revisionDto: {
     revNumber: number;
     revType: {
-      code: number;
-      title: string;
+      code: ValueWithDifference<number>;
+      title: ValueWithDifference<string>;
     };
   };
 };

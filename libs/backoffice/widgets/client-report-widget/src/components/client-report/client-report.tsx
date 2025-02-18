@@ -57,12 +57,14 @@ const Services: React.FC<ServicesProps> = (props) => {
     t,
     // , changeStatus, deleteService
     theme,
+    pagination,
     wordToHighlight,
   });
   const desktopColumns = getDesktopColumns({
     t,
     // , changeStatus, deleteService
     theme,
+    pagination,
     wordToHighlight,
   });
 

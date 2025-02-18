@@ -52,7 +52,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
           {getValueOrDash(persian_name)}
-          {getValueOrDash(persian_name)}
         </Tooltip>
       ),
     },

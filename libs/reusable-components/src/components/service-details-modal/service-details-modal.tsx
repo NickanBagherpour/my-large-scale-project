@@ -1,11 +1,11 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, Tag, type InfoBoxProps } from '@oxygen/ui-kit';
-import { useGetServiceDetails } from '../utils/get-service-details.api';
+import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, type InfoBoxProps } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 import { type Dispatch } from 'react';
-import * as S from './details-modal.style';
-import { ServiceDetails } from '../utils/services.type';
-import RouteInfoBox from '../../route-info-box/route-info-box';
+import * as S from './details-modal-modal.style';
+import { useGetServiceDetails } from './service';
+import { ServiceDetails } from './types/type';
+import RouteInfoBox from '../route-info-box/route-info-box';
 
 type Props = {
   isOpen: boolean;

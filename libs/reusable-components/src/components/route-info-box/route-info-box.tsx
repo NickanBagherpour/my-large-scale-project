@@ -4,8 +4,17 @@ import { InfoItemType } from '@oxygen/types';
 
 const renderTag = (tag: string) => {
   return (
-    <S.Tag key={tag} type='processing'>
-      <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{tag}</S.Text>
+    <S.Tag key={tag}>
+      <S.Text
+        copyable={{
+          text: tag,
+          tooltips: ['', ''],
+          icon: [<S.Icon className='icon-copy' />, <S.Icon className='icon-tick-circle-outlined' />],
+          onCopy: (e) => void console.log('>>>', e),
+        }}
+      >
+        {tag}
+      </S.Text>
     </S.Tag>
   );
 };
