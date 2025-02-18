@@ -46,7 +46,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       // width: 50,
       ellipsis: {
-        showTitle: true,
+        showTitle: false,
       },
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>

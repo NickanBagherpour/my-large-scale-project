@@ -34,8 +34,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        const value = item?.hosts.value.join(' ,');
-        const hasDifference = item?.hosts.hasDifference;
+        const value = item?.methods.value.map((item) => item.title).join(' ,');
+        const hasDifference = item?.methods.hasDifference;
         return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
@@ -54,12 +54,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     {
       title: t('column.host'),
       dataIndex: 'route',
-      key: 'methods',
+      key: 'host',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        const value = item?.methods.value.map((item) => item.title).join(' ,');
-        const hasDifference = item?.methods.hasDifference;
+        const value = item?.hosts.value.join(' ,');
+        const hasDifference = item?.hosts.hasDifference;
         return <HistoryCell item={{ value, hasDifference }} />;
       },
     },

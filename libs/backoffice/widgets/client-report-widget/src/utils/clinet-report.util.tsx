@@ -27,7 +27,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   } = props;
   const highlightColor = theme.secondary.main;
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
+    {
+      title: `${t('row')}`,
+      dataIndex: 'index',
+      key: 'index',
+      align: 'center',
+      width: '0.1rem',
+      className: 'row-number',
+    },
     {
       title: `${t('name')}`,
       dataIndex: 'name',

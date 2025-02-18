@@ -5,7 +5,6 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
 
-import * as S from '../components/data-table/data-table.style';
 import React from 'react';
 
 type Props = {
@@ -27,16 +26,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.index'),
       align: 'center',
       key: 'id',
-      // width: '2.8rem',
-      width: '0',
+      width: '0.1rem',
       render: (_val, _record, index) => {
         const start = (page - 1) * pageSize + 1;
         return start + index;
       },
     },
     {
-      // width: '43.9rem',
       title: t('table.english_name_scope'),
+      width: 'auto',
       dataIndex: 'name',
       align: 'center',
       render: (_val, _record, index) => {
@@ -45,8 +43,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       },
     },
     {
-      // width: '43.9rem',
       title: t('table.persian_name_scope'),
+      width: 'auto',
       dataIndex: 'description',
       align: 'center',
       render: (_val, _record, index) => {
@@ -55,9 +53,9 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       },
     },
     {
-      // width: '11.8rem',
-      width: '0',
+      width: '0.1rem',
       key: 'action',
+      align: 'left',
       render: (_val, _record, index) => (
         <Button
           variant={'text'}
@@ -81,10 +79,14 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeListDataType> {
       render: ({ id, name, description }) => {
         const data = [
           { title: t('table.english_name_scope'), value: getValueOrDash(name) },
-          { title: t('table.persian_name_scope'), value: getValueOrDash(description) },
+          {
+            title: t('table.persian_name_scope'),
+            value: getValueOrDash(description),
+          },
           {
             title: '',
             colon: false,
+            width: '0.1rem',
             value: (
               <Button
                 className={'item__btn'}
