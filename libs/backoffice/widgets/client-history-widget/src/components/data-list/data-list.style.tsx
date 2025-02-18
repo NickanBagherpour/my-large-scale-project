@@ -7,14 +7,18 @@ import { REVISION_TYPE } from '../../utils/consts';
 export const TableContainer = styled(Box)`
   height: 100%;
 
-  tr {
-    td.right-to-left {
-      unicode-bidi: normal !important;
-    }
+  //tr {
+  td.right-to-left {
+    unicode-bidi: normal !important;
   }
+  //}
+
+  //& tbody>tr>td{
+  //  padding:0.6rem;
+  //}
 `;
 
-export const RevisionType = styled.p<any>`
+export const RevisionType = styled.span<any>`
   font-weight: 700;
 
   ${({ variant, $isdeleted, theme }) => {

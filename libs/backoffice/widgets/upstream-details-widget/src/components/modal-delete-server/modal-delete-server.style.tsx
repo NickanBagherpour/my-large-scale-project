@@ -38,6 +38,7 @@ export const StyledTitle = styled('span')`
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 3rem;
+  padding: 0.8rem;
 `;
 export const StyledCloseIcon = styled('i')`
   font-size: 2.4rem;
