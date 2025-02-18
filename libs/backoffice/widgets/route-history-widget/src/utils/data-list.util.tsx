@@ -2,7 +2,6 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-
 import * as S from '../components/data-table/data-table.style';
 
 type Props = {
@@ -14,14 +13,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 
   return [
     {
-      title: t('column.edit-date'),
+      title: t('field.edit_date'),
       dataIndex: 'modifyDate',
       render: (item) => {
         return <div>{getValueOrDash(item?.value)}</div>;
       },
     },
     {
-      title: t('column.user-name'),
+      title: t('field.user_name'),
       dataIndex: 'modifyBy',
       key: 'modifyBy',
       ellipsis: true,
@@ -30,32 +29,46 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
     },
     {
-      title: t('column.revision-type'),
+      title: t('field.revision_type'),
       dataIndex: 'revisionDto',
-      render: (value, record) => {
-        const variant = value.revType?.code?.value;
-        const isDeleted = record?.isDeleted?.value;
+      align: 'center',
+      width: 'min-content',
+      render: (_value, record) => {
+        const variant = record?.revisionDto?.revType?.code?.value;
+        const isDeleted = record?.deleted?.value;
         return (
           <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {getValueOrDash(value?.revType?.title?.value)}
+            {getValueOrDash(record?.revisionDto?.revType?.title?.value)}
           </S.RevisionType>
         );
       },
     },
     {
-      title: t('column.action'),
+      title: t('field.method'),
       dataIndex: 'route',
       key: 'hosts',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        const value = item?.hosts.value.join(' ,');
-        const hasDifference = item?.hosts.hasDifference;
+        const value = item?.hosts?.value?.join(' ,');
+        const hasDifference = item?.hosts?.hasDifference;
         return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.path'),
+      title: t('field.protocol'),
+      dataIndex: 'route',
+      key: 'hosts',
+      ellipsis: true,
+      className: 'right-to-left',
+      render: (item) => {
+        const value = item?.hosts?.value?.join(' ,');
+        const hasDifference = item?.hosts?.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
+      },
+    },
+    {
+      title: t('field.path'),
       dataIndex: 'route',
       key: 'paths',
       ellipsis: true,
@@ -67,14 +80,18 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
     },
     {
-      title: t('column.host'),
+      title: t('field.host'),
       dataIndex: 'route',
       key: 'methods',
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        const value = item?.methods.value.map((item) => item.title).join(' ,');
-        const hasDifference = item?.methods.hasDifference;
+        const value = Array.isArray(item?.methods?.value)
+          ? item.methods.value.map((method) => method.title).join(' , ')
+          : '-';
+
+        const hasDifference = item?.methods?.hasDifference ?? false;
+
         return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
