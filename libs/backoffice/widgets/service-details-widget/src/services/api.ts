@@ -10,7 +10,7 @@ const Api = {
     return client.get<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
   },
   getDocumentList: async (params) => {
-    return client.get<DocumentListResponseType>(`${portalUrl}/v1/services/${params}/files`);
+    return client.get<DocumentListResponseType[]>(`${portalUrl}/v1/services/${params}/files`);
   },
   postDocumentUpload: async (params) => {
     return client.post<UploadDocumentResponseType[]>(`${portalUrl}/v1/services/${params}/files/upload`);

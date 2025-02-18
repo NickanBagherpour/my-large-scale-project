@@ -1,7 +1,17 @@
 export type DocumentListResponseType = {
   serviceDocumentId: number;
-  title: string;
+  fileContents: string;
+  fileName: string;
   serviceInfoId: number;
-  fileId: string;
+  fileGUId: string;
   deleted: boolean;
+};
+export type ConvertedDocumentListResponseType = {
+  serviceDocumentId: number;
+  fileContents: string;
+  fileName: string;
+  serviceInfoId: number;
+  fileGUId: string;
+  deleted: boolean;
+  uid: number | string;
 };
