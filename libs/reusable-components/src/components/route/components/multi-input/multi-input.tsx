@@ -21,8 +21,6 @@ export default function MultiInput(props: Props) {
   const [t] = useTr();
   const formValues = Form.useWatch(name, form);
 
-  console.log('>>>', validateStatus, help);
-
   return (
     <BorderedSection $hasError={validateStatus === 'error'}>
       <FormItem name={name} rules={rule} help={help} validateStatus={validateStatus}>
