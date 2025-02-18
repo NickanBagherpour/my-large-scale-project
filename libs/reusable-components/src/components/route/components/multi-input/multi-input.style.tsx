@@ -22,9 +22,9 @@ export const Header = styled.header`
 `;
 
 export const Title = styled.h3`
-  color: ${(p) => p.theme.text.secondary};
-  font-size: 1.9rem;
-  font-weight: 700;
+  color: ${(p) => p.theme.text.tertiary};
+  font-size: 1.5rem;
+  font-weight: 600;
   margin: 0;
 `;
 
