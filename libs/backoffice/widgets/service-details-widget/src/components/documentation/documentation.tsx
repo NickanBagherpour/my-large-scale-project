@@ -42,6 +42,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     multiple: true,
     listType: 'picture',
     accept: '.pdf,.xlsx,.xls',
+
     customRequest: handleFileUpload,
     onRemove: (file) => {
       console.log(file);
@@ -50,6 +51,8 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     maxCount: 5,
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
+      showDownloadIcon: true,
+      // downloadIcon: <S.DownloadIcon className='icon-document-text-2' />,
       extra: ({ size = 0 }) => <S.FileSize>{(size / 1024 / 1024).toFixed(2)}MB</S.FileSize>,
     },
   };
@@ -62,7 +65,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
           variant='filled'
           icon={<S.Icon className='icon-clock' />}
           //TODO:CHANGE IT AFTER PULL
-          href={`${ROUTES.BACKOFFICE./*SERVICE_DOCUMENTATON_HISTORY*/ SERVICE_HISTORY}?service-name=`}
+          href={`${ROUTES.BACKOFFICE./*SERVICE_DOCUMENTATON_HISTORY*/ SERVICE_HISTORY}?service-name=${serviceName}`}
         >
           {t('see_changes_history')}
         </Button>
