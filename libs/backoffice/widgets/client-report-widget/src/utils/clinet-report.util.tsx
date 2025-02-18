@@ -7,13 +7,14 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
 // import { ParamsType } from '../types';
+import { PaginationType } from '../context/types';
 
 import * as S from '../components/client-report/client-report.style';
 
 type Props = {
   t: TFunction;
-  // changeStatus?: (status: boolean, name: string) => void;
-  // deleteService?: (name: string, status: ParamsType) => void;
+
+  pagination: Omit<PaginationType, 'sort'>;
   theme: ITheme;
   wordToHighlight: string;
 };
@@ -21,22 +22,35 @@ type Props = {
 export function getDesktopColumns(props: Props): ColumnsType<any> {
   const {
     t,
-    // , changeStatus, deleteService
+
+    pagination,
     theme,
     wordToHighlight,
   } = props;
   const highlightColor = theme.secondary.main;
+
+  const { page, rowsPerPage } = pagination;
+
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
+    // {
+    //   title: t('row'),
+    //   align: 'center',
+    //   key: 'index',
+    //   width: '0',
+    //   render: (_val, _record, index) => {
+    //     const start = (page - 1) * rowsPerPage + 1;
+    //     return start + index;
+    //   },
+    // },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      width: 150,
       ellipsis: {
-        showTitle: false,
+        showTitle: true,
       },
+      // width: 350,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -44,17 +58,17 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ),
     },
     {
-      title: `${t('national')}`,
-      dataIndex: 'national',
-      key: 'national',
+      title: `${t('persianName')}`,
+      dataIndex: 'persianName',
+      key: 'persianName',
       align: 'center',
-      width: 150,
       ellipsis: {
-        showTitle: false,
+        showTitle: true,
       },
-      render: (national) => (
-        <Tooltip placement='top' title={getValueOrDash(national)} arrow={true}>
-          {getValueOrDash(national)}
+      // width: 350,
+      render: (persianName) => (
+        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
+          {getValueOrDash(persianName)}
         </Tooltip>
       ),
     },
@@ -63,35 +77,26 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'servicesReport',
       key: 'servicesReport',
       align: 'center',
-      width: 80,
+      ellipsis: {
+        showTitle: true,
+      },
+      width: 150,
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
-          {t('services_report')}
-        </S.Details>
-      ),
-    },
-    {
-      title: '',
-      dataIndex: 'details',
-      key: 'details',
-      align: 'center',
-      width: 80,
-      render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
-          {t('details')}
-        </S.Details>
+        <Box display={'flex'} style={{ gap: '8rem' }} alignItems={'center'} justifyContent={'end'}>
+          <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+            {t('services_report')}
+          </S.Details>
+          <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+            {t('details')}
+          </S.Details>
+        </Box>
       ),
     },
   ];
 }
 
 export function getMobileColumns(props: Props): any {
-  const {
-    t,
-    // , changeStatus, deleteService
-    theme,
-    wordToHighlight,
-  } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
@@ -110,32 +115,24 @@ export function getMobileColumns(props: Props): any {
             ),
           },
           {
-            title: t('national'),
-            value: getValueOrDash(value?.national),
+            title: t('persianName'),
+            value: getValueOrDash(value?.persianName),
           },
           {
             title: '',
+
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
-                {t('services_report')}
-              </S.Details>
+              <Box display={'flex'} style={{ gap: '4rem' }} alignItems={'center'}>
+                <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+                  <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
+                </S.Details>
+                <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+                  {t('details')}
+                </S.Details>
+              </Box>
             ),
             colon: false,
           },
-          {
-            title: '',
-            value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
-                {t('details')}
-              </S.Details>
-            ),
-            colon: false,
-          },
-          // {
-          //   title: '',
-          //   value: <S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />,
-          //   colon: false,
-          // },
         ];
         return <Table.MobileColumns columns={columns} />;
       },
