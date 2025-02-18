@@ -4,12 +4,12 @@ import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { getWidgetTitle } from '@oxygen/utils';
-import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 
-import { ClientName } from '../../types';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useGetClientHistoryQuery } from '../../services';
 import DataList from '../data-list/data-list';
+import { ClientName } from '../../types';
 
 import * as S from './app.style';
 
@@ -75,12 +75,12 @@ const App: React.FC<AppProps> = (props) => {
     });
   }, [t, clientPrimaryName, clientEnglishName]);
 
-  // Update header title only when Persian name is first set
-  useEffect(() => {
-    if (clientPrimaryName) {
-      updateHeaderTitle(widgetTitle);
-    }
-  }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
+  // // Update header title only when Persian name is first set
+  // useEffect(() => {
+  //   if (clientPrimaryName) {
+  //     updateHeaderTitle(widgetTitle);
+  //   }
+  // }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
 
   return (
     <S.AppContainer title={widgetTitle} footer={footerButton}>

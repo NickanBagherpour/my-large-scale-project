@@ -1,8 +1,8 @@
 import React from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
-import { i18nBase, useTr } from '@oxygen/translation';
-import { PageProps, PaginatedData } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+import { PageProps } from '@oxygen/types';
 import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 import { useChangeHistoryQuery } from '@oxygen/hooks';

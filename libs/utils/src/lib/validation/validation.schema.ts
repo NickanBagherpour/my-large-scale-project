@@ -171,7 +171,8 @@ export const createValidationSchema = (
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.english_name_error')),
+      .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.english_name_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     defaultPersianName: z // "-", "_‌", ".", numbers, english and persian alphabet
       .string({ required_error: t('validation.required') })
@@ -251,19 +252,21 @@ export const createValidationSchema = (
       .array(
         z.object({
           code: z.number(),
-          title: z
-            .string({
-              required_error: t('validation.required'),
-              invalid_type_error: t('validation.required'),
-            })
-            .trim()
-            .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
-            .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+          title: z.string(),
         }),
-        {
-          message: t('validation.choose_at_least_one_option'),
-        }
+        { message: t('validation.required') }
       )
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    arrayOfStrings: z
+      .string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required'),
+      })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) })
+      .array()
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
@@ -285,7 +288,8 @@ export const createValidationSchema = (
       .trim()
       .min(1, t('validation.min_length'))
       .max(limits.DEFAULT_MAX_LENGTH, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.domain, t('validation.url_error')),
+      .regex(REGEX_PATTERNS.domain, t('validation.url_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     tel: z
       .string({ required_error: t('validation.required') })

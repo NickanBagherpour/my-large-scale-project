@@ -11,6 +11,7 @@ import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { ServiceHistoryContent } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 
+import * as S from './data-table.style';
 type AppProps = PageProps & {
   data?: PaginatedData<ServiceHistoryContent>;
   isFetching: boolean;
@@ -104,7 +105,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   };
 
   return (
-    <div>
+    <>
       {displayTable ? (
         <Table
           rowKey={'id'}
@@ -127,9 +128,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
           showHeader={true}
         />
       ) : (
-        <NoResult isLoading={isFetching} />
+        <S.NoResultContainer>
+          <NoResult isLoading={isFetching} />
+        </S.NoResultContainer>
       )}
-    </div>
+    </>
   );
 };
 export default DataTable;

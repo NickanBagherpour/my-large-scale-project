@@ -5,6 +5,7 @@ import { INITIAL_DRAFTS_PAGE_SIZE } from '../../utils/consts';
 import DraftCard from './draft-card';
 
 import * as S from './draft-list.style';
+import { Container } from '@oxygen/ui-kit';
 
 const DraftList: React.FC = () => {
   const [pageSize, setPageSize] = useState(INITIAL_DRAFTS_PAGE_SIZE);
@@ -14,20 +15,22 @@ const DraftList: React.FC = () => {
     size: pageSize,
     sort: 'createDate,DESC',
   });
-  const hasDrafts = !!drafts?.totalElements;
-  const draftsSubTitle = drafts?.content.length ? `(${drafts?.content.length ?? 0})` : '';
-  const showLoadMore = isFetchingDrafts || (drafts?.totalElements ?? 0) > pageSize;
+  if (!drafts) return null;
+  const { totalElements } = drafts;
   const getAllDrafts = () => {
-    const totalElements = drafts?.totalElements;
     if (totalElements && totalElements > INITIAL_DRAFTS_PAGE_SIZE) {
       setPageSize(totalElements);
     }
   };
   const getInitialDrafts = () => setPageSize(INITIAL_DRAFTS_PAGE_SIZE);
+  const hasDrafts = !!drafts?.totalElements;
+  const draftsSubTitle = drafts?.totalElements ? `(${totalElements})` : '';
+  const showLoadMore = totalElements > drafts.content.length;
+  const showLoadLess = totalElements > INITIAL_DRAFTS_PAGE_SIZE && drafts.content.length === totalElements;
   return (
     <>
       {hasDrafts && (
-        <S.DraftsContainer title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
+        <Container title={t('draft')} subtitle={draftsSubTitle} fillContainer={false}>
           <S.Grid>
             {drafts.content?.map((item) => (
               <DraftCard
@@ -48,13 +51,13 @@ const DraftList: React.FC = () => {
               <i className='icon-chev-down' />
             </S.Button>
           )}
-          {!showLoadMore && (
-            <S.Button loading={isFetchingDrafts} variant='link' color='primary' onClick={getInitialDrafts}>
+          {showLoadLess && (
+            <S.Button variant='link' color='primary' onClick={getInitialDrafts}>
               <span>{t('button.show_less')}</span>
               <i className='icon-arrow-up' />
             </S.Button>
           )}
-        </S.DraftsContainer>
+        </Container>
       )}
     </>
   );
