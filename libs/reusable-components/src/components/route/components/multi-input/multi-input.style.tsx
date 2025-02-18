@@ -10,11 +10,16 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  width: 100%;
 `;
 
 export const Action = styled.div`
   display: flex;
-  align-items: center;
+  width: 100%;
+  button {
+    /* to align buttons and the input even when there is a validation error */
+    height: 40px;
+  }
 `;
 
 export const Icon = styled.i`

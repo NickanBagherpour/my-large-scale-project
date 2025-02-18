@@ -5,12 +5,10 @@ import type { InfoItemType } from '@oxygen/types';
 import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
-import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData } from '../../services';
-import { useGetRoute } from '../../services/get-route.api';
-import { getValueOrDash } from '@oxygen/utils';
+import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData, useGetRoute } from '../../services';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { ServiceScope, UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
-import { ROUTES } from '@oxygen/utils';
 import { Footer, StatusModal, RouteInfoBox } from '@oxygen/reusable-components';
 
 const mapStatuses = {
@@ -74,8 +72,8 @@ export default function ConfirmData() {
     route = {
       methods: methods?.map((item) => item.title),
       protocols: protocols?.map((item) => item.title),
-      paths: paths,
-      hosts: hosts,
+      paths,
+      hosts,
     };
   }
 

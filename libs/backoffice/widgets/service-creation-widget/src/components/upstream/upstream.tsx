@@ -14,7 +14,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { UpstreamTarget, UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import { useBounce } from '@oxygen/hooks';
-import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
+import { UPSTREAMS_PAGE_SIZE } from '../../utils';
 
 export default function Upstream() {
   const [t] = useTr();

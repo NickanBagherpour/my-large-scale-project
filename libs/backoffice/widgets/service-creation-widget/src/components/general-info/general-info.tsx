@@ -1,6 +1,6 @@
 import { Input, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
-import { SERVICE_NAMES } from '../../utils/consts';
+import { SERVICE_NAMES, convertCodeTitles, convertTags } from '../../utils';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -16,7 +16,6 @@ import {
   useGetThroughput,
   usePostService,
 } from '../../services';
-import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
 import * as S from './general-info.style';
 import { BorderedSection, CenteredLoading, Footer, TagPicker } from '@oxygen/reusable-components';
 

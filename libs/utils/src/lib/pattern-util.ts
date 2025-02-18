@@ -9,7 +9,7 @@ export const REGEX_PATTERNS = {
   optionalProtocolUrl: /^(http:\/\/|https:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:\d{1,5})?$/,
   onlyDigit: /^[0-9]*$/,
   nationalCode: /^[0-9]{10}$/,
-  positiveNumber: /^[+]?\d*\.?\d+$/,
+  positiveNumber: /^[\d٫۰-۹]+(\.[\d٫۰-۹]+)?$/,
   phoneNumber: /^09\d{9}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   ipOrDomainAddress:
