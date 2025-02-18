@@ -57,3 +57,8 @@ export const MobileTableItem = styled.div`
 export const SwitchContainer = styled.span`
   display: flex;
 `;
+
+export const ServicesReportOnMobile = styled.span`
+  display: inline-block;
+  width: 10rem;
+`;
