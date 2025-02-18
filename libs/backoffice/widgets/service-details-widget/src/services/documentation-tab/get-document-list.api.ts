@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../context';
 
 import Api from '../api';
 
-export const useGetDocumentListQuery = (params: number) => {
+export const useGetDocumentListQuery = (params: string) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

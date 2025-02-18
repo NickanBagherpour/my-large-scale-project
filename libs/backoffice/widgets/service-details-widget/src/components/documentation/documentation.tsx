@@ -10,9 +10,9 @@ import { Box, Button } from '@oxygen/ui-kit';
 
 import { isFileInValid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
+import { useGetDocumentListQuery, usePostUploadDocumentMutation } from '../../services/documentation-tab';
 
 import * as S from './documentation.style';
-import { useGetDocumentListQuery, usePostUploadDocumentMutation } from '../../services/documentation-tab';
 
 type DocumentationType = PageProps & {
   //
@@ -23,8 +23,8 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const dispatch = useAppDispatch();
   const { notification } = useApp();
   //TO DO: change it to sercive name and do it dynamickly
-  const serviceId = 12;
-  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceId);
+  const serviceName = state.serviceName;
+  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName!);
   const { isPending } = usePostUploadDocumentMutation();
 
   const handleFileUpload = async (options) => {
@@ -33,6 +33,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     if (isFileInValid(file, notification, t)) {
       return onError('');
     }
+
     onSuccess(true);
   };
 
