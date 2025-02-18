@@ -55,21 +55,17 @@ const DataTable = () => {
     },
     {
       title: t('column.revision-type'),
-      dataIndex: 'upstream',
-      key: 'actionType',
-      ellipsis: true,
-      className: 'left-to-right',
-      render: (column) => <HistoryCell item={column?.name} />,
-      // render: (column) => getValueOrDash(column.value),
-      // render: (_value, record) => {
-      //   const variant = record?.revType?.code?.value;
-      //   const isDeleted = record?.deleted?.value;
-      //   return (
-      //     <S.RevisionType variant={variant} isDeleted={isDeleted}>
-      //       {getValueOrDash(record?.revType?.title?.value)}
-      //     </S.RevisionType>
-      //   );
-      // },
+      dataIndex: 'revision',
+
+      render: (column) => {
+        const variant = column.revType?.code?.value;
+        const isDeleted = column?.deleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(column?.revType?.title?.value)}
+          </S.RevisionType>
+        );
+      },
     },
     {
       title: t('column.file-name'),
