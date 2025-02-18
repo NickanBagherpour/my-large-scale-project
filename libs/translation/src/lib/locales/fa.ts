@@ -255,6 +255,7 @@ export default {
     observe_client_detail: 'مشاهده جزئیات کلاینت',
     upload_item: 'بارگذاری {{element}} در اکسیژن',
     register_info: 'ثبت اطلاعات',
+    add: 'افزودن',
   },
 
   field: {
