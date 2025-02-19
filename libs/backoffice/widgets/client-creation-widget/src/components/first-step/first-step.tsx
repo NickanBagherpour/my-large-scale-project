@@ -60,7 +60,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const isImportClient = clientStatus === ClientInquiryStatus.CLIENT_EXISTS_IN_BAM;
   const isDraft = clientStatus === ClientInquiryStatus.CLIENT_IS_DRAFT;
   const orgNationalId = state.firstStep.organizationInfo?.organizationNationalId;
-  const aggregatorStatusParams = state.firstStep.organizationInfo?.organizationNationalId;
+  const aggregatorStatusParams = state.firstStep.organizationInfo;
   const isBtnDisabled = !orgNationalId;
   const { INQUIRY_STATUS } = RQKEYS.BACKOFFICE.CLIENT_CREATION;
   const ssoClientId = state.firstStep.ssoClientId;
@@ -163,7 +163,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   };
 
   const aggregatorStatus = (aggregatorStatusParams) => {
-    return aggregatorStatusParams
+    return aggregatorStatusParams?.organizationNationalId
       ? aggregatorStatusParams?.isAggregator
         ? t('company_is_aggregator')
         : aggregatorStatusParams?.aggregatorId

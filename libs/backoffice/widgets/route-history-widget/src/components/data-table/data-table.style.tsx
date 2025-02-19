@@ -12,7 +12,7 @@ export const Table = styled(KitTable)`
   }
 `;
 
-export const RevisionType = styled.p<any>`
+export const RevisionType = styled.span<any>`
   font-weight: 700;
 
   ${({ variant, isDeleted, theme }) => {
