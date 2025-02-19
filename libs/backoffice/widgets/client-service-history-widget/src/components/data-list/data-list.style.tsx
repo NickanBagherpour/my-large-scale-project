@@ -12,7 +12,7 @@ export const Table = styled(KitTable)`
   }
 `;
 
-export const OperationTypeStyle = styled.p<any>`
+export const OperationTypeStyle = styled.span<any>`
   font-weight: 600;
 
   ${({ variant, $isDeleted, theme }) => {
