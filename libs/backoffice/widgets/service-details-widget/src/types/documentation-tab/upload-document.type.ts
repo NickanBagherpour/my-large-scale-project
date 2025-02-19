@@ -6,3 +6,7 @@ export type UploadDocumentResponseType = {
   fileGUId: string;
   deleted: boolean;
 };
+export type UploadDocumentParamsType = {
+  serviceName: string;
+  file: File;
+};

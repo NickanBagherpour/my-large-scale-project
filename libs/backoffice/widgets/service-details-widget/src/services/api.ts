@@ -12,9 +12,16 @@ const Api = {
   getDocumentList: async (params) => {
     return client.get<DocumentListResponseType[]>(`${portalUrl}/v1/services/${params}/files`);
   },
+
   postDocumentUpload: async (params) => {
-    return client.post<UploadDocumentResponseType>(`${portalUrl}/v1/services/${params}/files`);
+    const { file, serviceName } = params;
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return client.post<UploadDocumentResponseType>(`${portalUrl}/v1/services/${serviceName}/files`, formData, {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
   },
+
   getUpstreamList: async (params) => {
     return client.get<UpstreamListData>(`${portalUrl}/v1/upstreams/service-name/${params}`);
   },

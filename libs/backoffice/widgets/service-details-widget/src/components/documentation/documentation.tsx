@@ -20,9 +20,9 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const dispatch = useAppDispatch();
   const { notification } = useApp();
 
-  const serviceName = state.serviceName;
+  const serviceName = state.serviceName!;
 
-  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName!);
+  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName);
   const { mutate, isPending } = usePostUploadDocumentMutation();
 
   const handleFileUpload = async (options) => {
@@ -33,14 +33,17 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
       return uploaderOnError('');
     }
 
-    mutate(serviceName!, {
-      onSuccess: (data) => {
-        uploaderOnSuccess(true);
-      },
-      onError: (error) => {
-        return uploaderOnError('');
-      },
-    });
+    mutate(
+      { file, serviceName },
+      {
+        onSuccess: (data) => {
+          uploaderOnSuccess(true);
+        },
+        onError: (error) => {
+          return uploaderOnError('');
+        },
+      }
+    );
   };
 
   const draggerProps: UploadProps = {

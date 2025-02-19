@@ -5,11 +5,12 @@ import { ApiUtil } from '@oxygen/utils';
 import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
+import { UploadDocumentParamsType } from '../../types/documentation-tab';
 
 export const usePostUploadDocumentMutation = () => {
   const dispatch = useAppDispatch();
   return useMutation({
-    mutationFn: (params: string) => Api.postDocumentUpload(params),
+    mutationFn: (params: UploadDocumentParamsType) => Api.postDocumentUpload(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
