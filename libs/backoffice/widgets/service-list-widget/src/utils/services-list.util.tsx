@@ -185,7 +185,12 @@ export function getMobileColumns(props: Props): any {
               <span>
                 {t('operational')}
                 <span style={{ margin: '0 1.2rem' }}>
-                  <Switch checked={value?.isActive} disabled={true} />
+                  <Switch
+                    checked={value?.isActive}
+                    onClick={() =>
+                      props.onToggleActivationSwitchClick({ isActive: value?.isActive, serviceName: value?.name })
+                    }
+                  />
                 </span>
                 {t('stopped')}
               </span>

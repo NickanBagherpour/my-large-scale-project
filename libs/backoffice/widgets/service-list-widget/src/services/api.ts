@@ -22,7 +22,6 @@ const Api = {
     return client.post(`${portalUrl}/v1/services/import-service?service-name=${serviceName}`);
   },
   toggleStatus: async ({ serviceName, ...rest }) => {
-    console.log('rest', rest);
     return client.patch(`${portalUrl}/v1/services/${serviceName}/enabled`, {}, { params: rest });
   },
   getClients: async (serviceName?: string) => {
