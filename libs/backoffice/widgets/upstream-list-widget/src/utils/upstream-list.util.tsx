@@ -1,7 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
+import { Tooltip } from 'antd';
 
-import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { UpstreamItemType } from '../types';
@@ -34,18 +35,18 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
       render: (value) => {
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
     {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
+      ellipsis: { showTitle: false },
       render: (value) => {
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
 
@@ -53,7 +54,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.active_servers'),
       dataIndex: 'activeServerCount',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -64,7 +64,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       align: 'left',
       width: widthByButtonCount(2),
       render: (value, record) => (
-        <Box display={'flex'} style={{ gap: '2rem' }}>
+        <S.ActionBox>
           <S.DetailsButton
             variant={'link'}
             href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
@@ -83,7 +83,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
           >
             <i className={'icon-trash'} />
           </S.TrashButton>
-        </Box>
+        </S.ActionBox>
       ),
     },
   ];
@@ -113,7 +113,7 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             title: '',
             colon: false,
             value: (
-              <Box display={'flex'}>
+              <S.ActionBox>
                 <S.DetailsButton
                   variant={'link'}
                   href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
@@ -130,7 +130,7 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
                 >
                   <i className={'icon-trash'} />
                 </S.TrashButton>
-              </Box>
+              </S.ActionBox>
             ),
           },
         ];
