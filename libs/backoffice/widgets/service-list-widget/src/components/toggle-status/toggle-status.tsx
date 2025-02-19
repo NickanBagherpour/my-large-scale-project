@@ -72,21 +72,22 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
           {!isActive && (
             <>
               {!!clientCount && (
-                <MarkText
-                  text={
-                    t('element.service') +
-                    ' ' +
-                    serviceName +
-                    t('to') +
-                    wordToHighlight +
-                    t('is_connected') +
-                    t('with_activation') +
-                    wordToHighlight +
-                    t('activation_question')
-                  }
-                  wordToHighlight={wordToHighlight}
-                  highlightColor={'success'}
-                ></MarkText>
+                <>
+                  <MarkText
+                    text={
+                      t('element.service') +
+                      ' ' +
+                      serviceName +
+                      t('to') +
+                      wordToHighlight +
+                      t('is_connected') +
+                      t('with_activation')
+                    }
+                    wordToHighlight={wordToHighlight}
+                    highlightColor={'success'}
+                  />
+                  <span>{wordToHighlight + t('activation_question')}</span>
+                </>
               )}
               {!clientCount && <p>{t('activation_confirm') + serviceName + t('are_u_sure')}</p>}
             </>
