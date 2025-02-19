@@ -50,12 +50,10 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     name: 'file',
     multiple: true,
     listType: 'picture',
-    accept: '.pdf,.xlsx,.xls',
+    accept: '.pdf,.docx,.doc',
     defaultFileList: documentListData,
     customRequest: handleFileUpload,
-    onRemove: (file) => {
-      console.log(file);
-    },
+    onRemove: (file) => {},
     iconRender: () => <S.PDFIcon className='icon-pdf' />,
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
