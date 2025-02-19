@@ -1,5 +1,6 @@
 import React from 'react';
 import { TFunction } from 'i18next';
+import { Tooltip } from 'antd';
 
 import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
@@ -34,16 +35,18 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: { showTitle: false },
       render: (value) => {
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
     {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
+      ellipsis: { showTitle: false },
       render: (value) => {
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
 
@@ -58,9 +61,10 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: '',
       dataIndex: '',
-      width: 1,
+      // width: 'auto',
+      align: 'left',
       render: (value, record) => (
-        <Box display={'flex'} style={{ gap: '2rem' }}>
+        <S.ActionBox>
           <S.DetailsButton
             variant={'link'}
             href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
@@ -79,7 +83,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
           >
             <i className={'icon-trash'} />
           </S.TrashButton>
-        </Box>
+        </S.ActionBox>
       ),
     },
   ];
@@ -109,26 +113,24 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             title: '',
             colon: false,
             value: (
-              <>
-                <Box display={'flex'} style={{ gap: '2rem' }}>
-                  <S.DetailsButton
-                    variant={'link'}
-                    href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-                  >
-                    {t('button.detail')}
-                  </S.DetailsButton>
+              <S.ActionBox>
+                <S.DetailsButton
+                  variant={'link'}
+                  href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+                >
+                  {t('button.detail')}
+                </S.DetailsButton>
 
-                  <S.TrashButton
-                    variant={'text'}
-                    color={'error'}
-                    onClick={() => {
-                      deleteUpstream(record);
-                    }}
-                  >
-                    <i className={'icon-trash'} />
-                  </S.TrashButton>
-                </Box>
-              </>
+                <S.TrashButton
+                  variant={'text'}
+                  color={'error'}
+                  onClick={() => {
+                    deleteUpstream(record);
+                  }}
+                >
+                  <i className={'icon-trash'} />
+                </S.TrashButton>
+              </S.ActionBox>
             ),
           },
         ];
