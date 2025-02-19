@@ -26,7 +26,6 @@ export default function MultiInput(props: Props) {
       <FormItem name={name} rules={rule} help={help} validateStatus={validateStatus}>
         <Form.List name={name}>
           {(childrenFields, { add, remove }) => {
-            const removeDisabled = childrenFields.length === 1;
             return (
               <>
                 <S.Header>
@@ -36,7 +35,7 @@ export default function MultiInput(props: Props) {
                     variant='filled'
                     color='primary'
                     icon={<i className='icon-plus' />}
-                    disabled={!formValues?.at(-1)}
+                    disabled={formValues?.length && !formValues?.at(-1)}
                   >
                     {t('button.add')}
                   </Button>
@@ -52,8 +51,13 @@ export default function MultiInput(props: Props) {
                               color='error'
                               variant='link'
                               htmlType='button'
-                              onClick={() => remove(child.name)}
-                              disabled={removeDisabled}
+                              onClick={() => {
+                                if (childrenFields.length === 1) {
+                                  // if this is the last input add an empty one before deleting the last one
+                                  add('');
+                                }
+                                remove(child.name);
+                              }}
                             >
                               <S.Icon className='icon-trash' />
                             </Button>
