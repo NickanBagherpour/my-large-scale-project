@@ -2,8 +2,8 @@ import React from 'react';
 import { TFunction } from 'i18next';
 import { Tooltip } from 'antd';
 
-import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { UpstreamItemType } from '../types';
 import { PaginationType } from '../context/types';
@@ -25,7 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: '0',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -61,8 +61,8 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: '',
       dataIndex: '',
-      // width: 'auto',
       align: 'left',
+      width: widthByButtonCount(2),
       render: (value, record) => (
         <S.ActionBox>
           <S.DetailsButton

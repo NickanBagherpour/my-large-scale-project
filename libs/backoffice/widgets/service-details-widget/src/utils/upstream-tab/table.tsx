@@ -24,6 +24,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('upstream_tab.table.range'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN],
       align: 'center',
+      ellipsis: true,
       render: (value, record) => {
         return getValueOrDash(value);
       },
@@ -32,6 +33,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('upstream_tab.table.health_status'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.HEALTH],
       align: 'center',
+      ellipsis: true,
       render: (value, record) => {
         return getValueOrDash(value ?? t('upstream_tab.healthy'));
       },
@@ -40,31 +42,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('upstream_tab.table.weight'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.WEIGHT],
       align: 'center',
-      // width: '7rem',
-    },
-    {
-      ...(deletable && {
-        title: '',
-        dataIndex: 'status',
-        key: 'id',
-        align: 'center',
-        render: (value, record, index) => {
-          return (
-            <Button
-              className='item__btn'
-              variant='link'
-              color='error'
-              onClick={() => {
-                setToggleInfo(record);
-                toggleModal!('removeService');
-              }}
-            >
-              <i className='icon-trash' style={{ fontSize: '2rem' }} />
-            </Button>
-          );
-          // disabled={disabled} defaultChecked={defaultChecked}
-        },
-      }),
+      ellipsis: true,
     },
   ];
 }
