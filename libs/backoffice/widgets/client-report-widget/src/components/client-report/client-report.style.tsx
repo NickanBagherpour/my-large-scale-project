@@ -27,8 +27,7 @@ export const Url = styled.p`
 `;
 
 export const Details = styled(Button)`
-  padding: 0;
-  padding-inline-start: 2rem;
+  //
 `;
 
 export const Trash = styled.i`
