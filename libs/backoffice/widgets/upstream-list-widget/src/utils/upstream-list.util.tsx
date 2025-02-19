@@ -2,7 +2,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { UpstreamItemType } from '../types';
 import { PaginationType } from '../context/types';
@@ -24,7 +24,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: '0',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -34,6 +34,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -42,6 +43,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -51,6 +53,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.active_servers'),
       dataIndex: 'activeServerCount',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -58,7 +61,8 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: '',
       dataIndex: '',
-      width: 1,
+      align: 'left',
+      width: widthByButtonCount(2),
       render: (value, record) => (
         <Box display={'flex'} style={{ gap: '2rem' }}>
           <S.DetailsButton
@@ -109,26 +113,24 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
             title: '',
             colon: false,
             value: (
-              <>
-                <Box display={'flex'} style={{ gap: '2rem' }}>
-                  <S.DetailsButton
-                    variant={'link'}
-                    href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-                  >
-                    {t('button.detail')}
-                  </S.DetailsButton>
+              <Box display={'flex'}>
+                <S.DetailsButton
+                  variant={'link'}
+                  href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
+                >
+                  {t('button.detail')}
+                </S.DetailsButton>
 
-                  <S.TrashButton
-                    variant={'text'}
-                    color={'error'}
-                    onClick={() => {
-                      deleteUpstream(record);
-                    }}
-                  >
-                    <i className={'icon-trash'} />
-                  </S.TrashButton>
-                </Box>
-              </>
+                <S.TrashButton
+                  variant={'text'}
+                  color={'error'}
+                  onClick={() => {
+                    deleteUpstream(record);
+                  }}
+                >
+                  <i className={'icon-trash'} />
+                </S.TrashButton>
+              </Box>
             ),
           },
         ];

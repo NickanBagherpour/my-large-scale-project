@@ -115,6 +115,9 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/clients-report-widget": [
+                "libs/business/widgets/clients-report-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/dashboard-widget": [
                 "libs/business/widgets/dashboard-widget/src/index.ts"
             ],
@@ -126,6 +129,9 @@
             ],
             "@oxygen/business/widgets/request-list-widget": [
                 "libs/business/widgets/request-list-widget/src/index.ts"
+            ],
+            "@oxygen/business/widgets/services-report-widget": [
+                "libs/business/widgets/services-report-widget/src/index.ts"
             ],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],

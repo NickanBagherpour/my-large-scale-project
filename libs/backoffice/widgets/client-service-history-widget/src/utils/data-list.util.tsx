@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 
-import { getValueOrDash } from '@oxygen/utils';
+import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 
 import * as S from '../components/data-list/data-list.style';
 
@@ -18,7 +18,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.edit_time'),
       dataIndex: 'clientServiceDto',
       render: (item) => {
-        return <div>{getValueOrDash(item?.modifyDate.value)}</div>;
+        return <div>{convertShamsiDateFormat(item?.modifyDate.value)}</div>;
       },
     },
     {

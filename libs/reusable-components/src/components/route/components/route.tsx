@@ -11,11 +11,11 @@ import {
 import MultiInput from './multi-input/multi-input';
 import * as S from './route.style';
 import { BorderedSection, CenteredLoading, Footer, TagPicker } from '../../../index';
-import { createRouteSchema, RouteType } from '../type/route.schema';
+import { createRouteSchema, type RouteType } from '../type/route.schema';
 import { PostRouteParams } from '../type/route.type';
 import { ROUTE_NAMES } from '../utils/consts';
-import { getId } from '../utils/get-id';
 import { Dispatch } from 'react';
+import { FormItem } from './form-item/form-item.style';
 
 const dropdownMinWidth = '17rem';
 
@@ -24,15 +24,16 @@ type Props = {
   dispatch: Dispatch<any>;
   nextStep: () => void;
   previousStep: () => void;
+  errors?: Record<string, string>;
 };
 
 export default function Route(props: Props) {
-  const { serviceName, dispatch, previousStep, nextStep } = props;
+  const { serviceName, dispatch, previousStep, nextStep, errors } = props;
   const [t] = useTr();
   const rule = createSchemaFieldRule(createRouteSchema(t));
   const { mutate: postRoute } = usePostRouteMutation({ dispatch, serviceName });
   const { mutate: putRoute } = usePutRouteMutation({ dispatch, serviceName });
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<RouteType>();
   const { data: routeData, isFetching } = useGetRoute({ dispatch, serviceName });
   const { data: serviceHttpMethods, isFetching: isFetchingServiceHttpMethod } = useGetServiceHttpMethod({ dispatch });
   const { data: serviceProtocols, isFetching: isFetchingServiceProtocol } = useGetServiceProtocol({ dispatch });
@@ -45,13 +46,8 @@ export default function Route(props: Props) {
     if (serviceName && serviceHttpMethods && serviceProtocols) {
       const { hosts, paths, protocols, methods } = values;
 
-      const params: PostRouteParams = {
-        hosts: hosts.map((item) => item.title),
-        paths: paths.map((item) => item.title),
-        protocols,
-        methods,
-        serviceName,
-      };
+      // TODO: see if values could be passed directly
+      const params: PostRouteParams = { hosts, paths, protocols, methods, serviceName };
 
       const mutateOptions = { onSuccess: () => nextStep() };
       if (routeData) putRoute({ ...params, id: routeData.route.id }, mutateOptions);
@@ -60,8 +56,8 @@ export default function Route(props: Props) {
   };
 
   let initialValues: Partial<RouteType> = {
-    [ROUTE_NAMES.hosts]: [{ code: getId(), title: '' }],
-    [ROUTE_NAMES.paths]: [{ code: getId(), title: '' }],
+    [ROUTE_NAMES.hosts]: [''],
+    [ROUTE_NAMES.paths]: [''],
   };
 
   if (routeData) {
@@ -71,8 +67,8 @@ export default function Route(props: Props) {
 
     initialValues = {
       [ROUTE_NAMES.methods]: methods,
-      [ROUTE_NAMES.hosts]: hosts ?? initialValues.hosts,
-      [ROUTE_NAMES.paths]: paths ?? initialValues.paths,
+      [ROUTE_NAMES.hosts]: hosts ?? [''],
+      [ROUTE_NAMES.paths]: paths ?? [''],
       [ROUTE_NAMES.protocols]: protocols,
     };
   }
@@ -81,39 +77,67 @@ export default function Route(props: Props) {
 
   const onReturn = () => previousStep();
 
+  const getValidateStatus = (name: string) => (errors?.[name] ? 'error' : undefined);
+  const getErrorMsg = (name: string) => errors?.[name] ?? undefined;
+
   return (
     <>
-      <S.Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
+      <S.Form
+        layout={'vertical'}
+        initialValues={initialValues}
+        onFinish={onFinish}
+        form={form}
+        onFinishFailed={(e) => console.log('>>>', e)}
+      >
         <BorderedSection>
           <Space direction='vertical' size={'middle'}>
-            <S.FormItem name={ROUTE_NAMES.methods} rules={[rule]}>
+            <FormItem
+              name={ROUTE_NAMES.methods}
+              rules={[rule]}
+              validateStatus={getValidateStatus(ROUTE_NAMES.methods)}
+              help={getErrorMsg(ROUTE_NAMES.methods)}
+            >
               <TagPicker
                 title={t('uikit.add_methods')}
                 menu={serviceHttpMethods}
                 dropdownMinWidth={dropdownMinWidth}
                 isLoading={isFetchingServiceHttpMethod}
               />
-            </S.FormItem>
+            </FormItem>
 
-            <S.FormItem name={ROUTE_NAMES.protocols} rules={[rule]}>
+            <FormItem
+              name={ROUTE_NAMES.protocols}
+              rules={[rule]}
+              validateStatus={getValidateStatus(ROUTE_NAMES.protocols)}
+              help={getErrorMsg(ROUTE_NAMES.protocols)}
+            >
               <TagPicker
                 menu={serviceProtocols}
                 title={t('uikit.add_protocols')}
                 dropdownMinWidth={dropdownMinWidth}
                 isLoading={isFetchingServiceProtocol}
               />
-            </S.FormItem>
+            </FormItem>
           </Space>
         </BorderedSection>
 
         <S.Container>
-          <S.FormItem name={ROUTE_NAMES.paths} label={t('path')} rules={[rule]}>
-            <MultiInput />
-          </S.FormItem>
-
-          <S.FormItem name={ROUTE_NAMES.hosts} label={t('host')} rules={[rule]}>
-            <MultiInput />
-          </S.FormItem>
+          <MultiInput
+            rule={[rule]}
+            name={ROUTE_NAMES.paths}
+            form={form}
+            label={t('uikit.path')}
+            validateStatus={getValidateStatus(ROUTE_NAMES.paths)}
+            help={getErrorMsg(ROUTE_NAMES.paths)}
+          />
+          <MultiInput
+            validateStatus={getValidateStatus(ROUTE_NAMES.hosts)}
+            help={getErrorMsg(ROUTE_NAMES.hosts)}
+            rule={[rule]}
+            name={ROUTE_NAMES.hosts}
+            form={form}
+            label={t('uikit.host')}
+          />
         </S.Container>
       </S.Form>
 

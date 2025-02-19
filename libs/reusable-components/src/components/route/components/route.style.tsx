@@ -1,4 +1,4 @@
-import { BorderedSection } from '@oxygen/reusable-components';
+import { respondTo } from '@oxygen/utils';
 import { Form as AntForm } from 'antd';
 import styled from 'styled-components';
 
@@ -10,26 +10,13 @@ export const Form = styled(AntForm)`
   margin-bottom: 4rem;
 ` as typeof AntForm;
 
-export const FormItem = styled(Form.Item)`
-  & label {
-    padding-inline-start: 1rem;
-    font-size: 1.2rem;
-  }
-  margin-bottom: 0;
-
-  .ant-form-item-additional {
-    margin-top: 0.3rem;
-  }
-
-  .ant-col {
-    padding-bottom: 0.5rem;
-  }
-` as typeof Form.Item;
-
-export const Container = styled(BorderedSection)`
+export const Container = styled.section`
   display: flex;
-  gap: 8rem;
+  gap: 4rem;
   & > * {
     flex: 1;
+  }
+  ${respondTo.down('lg')} {
+    flex-direction: column;
   }
 `;

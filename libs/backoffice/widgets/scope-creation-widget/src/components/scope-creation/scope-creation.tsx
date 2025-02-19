@@ -6,15 +6,17 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Button, Input, MarkText, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
+import { useAppTheme } from '@oxygen/hooks';
 
 import { CreateScopeType, createScopeType } from '../../types';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { useCreateScope } from '../../services/create-scope.api';
+import ConfirmModal from '../confirm-modal/confirm-modal';
 
 import * as S from './scope-creation.style';
 
@@ -25,6 +27,7 @@ type EditScopeProps = PageProps & {
 const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
+  const theme = useAppTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
@@ -80,20 +83,14 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
 
   const SubmitModal = () => {
     const englishNameScope = form.getFieldValue(FORM_ITEM_NAMES.englishNameScope) || '';
-
     return (
-      <Modal
-        open={isOpen}
-        centered={true}
-        title={t('create_scope')}
-        onCancel={onCancel}
-        confirmLoading={loadingCreateScope}
-        cancelText={t('button.cancel')}
-        okText={t('buttons.confirm')}
-        onOk={submitClick}
-      >
-        <p>{t('modal_text', { scope_name: englishNameScope })}</p>
-      </Modal>
+      <ConfirmModal
+        loading={loadingCreateScope}
+        onSubmit={submitClick}
+        englishNameScope={englishNameScope}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     );
   };
 

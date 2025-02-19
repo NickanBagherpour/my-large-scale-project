@@ -5,7 +5,7 @@ import { Button, type ColumnsType, Table } from '@oxygen/ui-kit';
 import { useState } from 'react';
 import { Container } from '../container/container.style';
 import { ServiceScope, type Scope as ScopeType } from '../../types';
-import { getValueOrDash } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import ScopeSelector from '../scope-selector/scope-selector';
 import {
   useDeleteUnassignFromService,
@@ -58,24 +58,26 @@ export default function Scope() {
       title: t('common.row_number'),
       key: 'rowNumber',
       align: 'center',
-      width: '2rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, idx) => idx + 1,
     },
     {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
+      ellipsis: true,
       render: (value) => getValueOrDash(value),
     },
     {
       dataIndex: 'isServiceInSso',
-      align: 'center',
-      width: '2rem',
+      align: 'left',
+      width: widthByButtonCount(1),
       render: (isServiceInSso, scope) => (
         <Button
           size='small'
@@ -136,7 +138,7 @@ export default function Scope() {
 
         <Footer
           registerButtonProps={{
-            disabled: !selectedScopes,
+            disabled: !selectedScopes?.length,
             loading: isRegiseteringToBaam || isAssigningScopeToService,
           }}
           onRegister={onRegister}

@@ -51,7 +51,8 @@ export const Details = styled.a`
 `;
 
 export const TrashButton = styled(Button)`
-  width: fit-content;
+  padding: 0;
+
   & i {
     font-size: 2.4rem;
   }
@@ -60,6 +61,7 @@ export const TrashButton = styled(Button)`
 export const EditButton = styled(Button)`
   font-weight: 500;
   width: fit-content;
+  padding: 0;
 `;
 
 export const MobileTableItem = styled.div`

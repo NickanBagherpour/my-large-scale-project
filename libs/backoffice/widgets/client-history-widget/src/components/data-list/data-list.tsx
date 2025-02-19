@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 import { TablePaginationConfig } from 'antd';
 
-import { uuid } from '@oxygen/utils';
-import { Table } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
+import { Table } from '@oxygen/ui-kit';
+import { uuid } from '@oxygen/utils';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns } from '../../utils/data-list.util';
@@ -42,26 +43,30 @@ const DataList: React.FC<dataListProps> = (props) => {
 
   return (
     <S.TableContainer>
-      <Table
-        scroll={{ x: 1200 }}
-        loading={isFetching}
-        dataSource={dataSource}
-        pagination={{
-          ...pagination,
-          total: data?.totalElements || lastTotal,
-          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-          pageSize: pagination?.limit,
-          current: pagination?.page,
-          hideOnSinglePage: false,
-        }}
-        columns={desktopColumns}
-        // mobileColumns={mobileColumns}
-        variant={'complex'}
-        title={t('widget_name')}
-        onChange={handlePageChange}
-        rowKey={() => uuid()}
-        size={'small'}
-      />
+      {dataSource?.length ? (
+        <Table
+          scroll={{ x: 1200 }}
+          loading={isFetching}
+          dataSource={dataSource}
+          pagination={{
+            ...pagination,
+            total: data?.totalElements || lastTotal,
+            pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+            pageSize: pagination?.limit,
+            current: pagination?.page,
+            hideOnSinglePage: false,
+          }}
+          columns={desktopColumns}
+          title={t('widget_name')}
+          onChange={handlePageChange}
+          rowKey={(row) => row?.revNumber?.value || `fallback-${uuid()}`}
+          variant={'complex'}
+          showHeader={true}
+          size={'small'}
+        />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.TableContainer>
   );
 };

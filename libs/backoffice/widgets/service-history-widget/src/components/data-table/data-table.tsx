@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
+import { getValueOrDash } from '@oxygen/utils';
 import { ColumnsType, HistoryCell, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { PageProps, PaginatedData } from '@oxygen/types';
@@ -9,9 +10,9 @@ import { PageProps, PaginatedData } from '@oxygen/types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { ServiceHistoryContent } from '../../types';
-import { getValueOrDash } from '@oxygen/utils';
 
 import * as S from './data-table.style';
+
 type AppProps = PageProps & {
   data?: PaginatedData<ServiceHistoryContent>;
   isFetching: boolean;
@@ -23,22 +24,17 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   const [t] = useTr();
   const displayTable = data?.totalElements;
   const dispatch = useAppDispatch();
-  const dataSource =
-    data?.content?.map((c) => {
-      const result = { ...c, ...c.service };
-      delete result.service;
-      return result;
-    }) ?? [];
+  const dataSource = data?.content || [];
   const columns: ColumnsType<ServiceHistoryContent> = [
     {
-      title: t('column.edit_date'),
+      title: t('field.edit_date'),
       dataIndex: 'modifyDate',
       render: (value, record) => {
         return <div>{getValueOrDash(value?.value)}</div>;
       },
     },
     {
-      title: t('column.user_name'),
+      title: t('field.user_name'),
       dataIndex: 'modifyBy',
       ellipsis: true,
       render: (value, record) => {
@@ -46,54 +42,91 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       },
     },
     {
-      title: t('column.en_name'),
-      dataIndex: 'name',
+      title: t('field.revision_type'),
+      dataIndex: 'revisionDto',
+      align: 'center',
+      width: 'min-content',
+      render: (_value, record) => {
+        const variant = record?.revisionDto?.revType?.code.value;
+        const isDeleted = record?.isDeleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(record?.revisionDto?.revType?.title.value)}
+          </S.RevisionType>
+        );
+      },
+    },
+    {
+      title: t('field.en_name'),
+      dataIndex: 'service',
       ellipsis: true,
-      render: (value, record) => {
-        return <HistoryCell item={value} />;
+      render: (item) => {
+        const value = item?.name.value;
+        const hasDifference = item?.name?.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.fa_name'),
-      dataIndex: 'persianName',
+      title: t('field.fa_name'),
+      dataIndex: 'service',
       ellipsis: true,
-      render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+      render: (item) => {
+        const value = item?.persianName.value;
+        const hasDifference = item?.persianName.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.access'),
-      dataIndex: 'accessLevel',
-      render: (value, record) => {
-        return <HistoryCell item={value?.title} />;
+      title: t('field.access'),
+      dataIndex: 'service',
+      render: (item) => {
+        console.log(item, 'irwwdwdssd');
+
+        const value = item?.accessLevel?.title.value;
+        const hasDifference = item?.accessLevel?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.category'),
-      dataIndex: 'category',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value?.title} />;
+      title: t('field.category'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.category?.title.value;
+        const hasDifference = item?.category?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.throughput'),
-      dataIndex: 'throughput',
-      render: (value, record) => {
-        return <HistoryCell item={value?.title} />;
+      title: t('field.throughput'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.throughput?.title.value;
+        const hasDifference = item?.throughput?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.version'),
-      dataIndex: 'version',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+      title: t('field.version'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.version?.value;
+        const hasDifference = item?.version?.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
     {
-      title: t('column.owner'),
-      dataIndex: 'owner',
-      render: (value, _record, index) => {
-        return <HistoryCell item={value} />;
+      title: t('field.owner'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.owner?.value;
+        const hasDifference = item?.owner?.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
   ];
@@ -105,7 +138,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   };
 
   return (
-    <>
+    <div>
       {displayTable ? (
         <Table
           rowKey={'id'}
@@ -128,11 +161,9 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
           showHeader={true}
         />
       ) : (
-        <S.NoResultContainer>
-          <NoResult isLoading={isFetching} />
-        </S.NoResultContainer>
+        <NoResult isLoading={isFetching} />
       )}
-    </>
+    </div>
   );
 };
 export default DataTable;

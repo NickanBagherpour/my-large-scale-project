@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, InfoBox, Modal, Tag } from '@oxygen/ui-kit';
+import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
 import { Nullable } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
 
@@ -71,7 +71,7 @@ export default function DetailsModal(props: Props) {
       onCancel={toggle}
       width={1000}
       footer={[
-        <Button size='large' color='primary' variant='outlined' onClick={toggle}>
+        <Button key={'register_data'} size='large' color='primary' variant='outlined' onClick={toggle}>
           {t('register_data')}
         </Button>,
       ]}
@@ -89,7 +89,7 @@ export default function DetailsModal(props: Props) {
           pagination={false}
           columns={desktopColumns}
           mobileColumns={mobileColumns}
-          rowKey={(row) => row.index}
+          rowKey={(row) => row.id}
         />
       </S.ItemWrapper>
     </Modal>

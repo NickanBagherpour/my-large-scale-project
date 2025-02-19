@@ -30,6 +30,7 @@ import * as getRouteChangeHistory from './route-history.mock';
 import * as RequestDetails from './request-details.mock';
 import * as editRequestListMock from './edit-request-list.mock';
 import * as ClientList from './client-list.mock';
+import * as ClientsReport from './clients-report.mock';
 
 const Mockify = {
   ...ClientList,
@@ -64,6 +65,7 @@ const Mockify = {
   ...getRouteChangeHistory,
   ...RequestDetails,
   ...editRequestListMock,
+  ...ClientsReport,
 };
 
 export default Mockify;

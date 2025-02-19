@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-
+import { App } from 'antd';
 import { Box, BoxProps, MessageBox } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { MessageType, Nullable } from '@oxygen/types';
@@ -39,16 +39,18 @@ const GlobalMessageContainer: React.FC<GlobalMessageContainerProps> = ({
   if (!message) return null;
 
   return isAlert ? (
-    <Box {...containerProps}>
-      <MessageBox
-        type={message.type || 'error'}
-        shouldScroll={true}
-        description={message.shouldTranslate ? t(message.description) : message.description}
-        onClose={onClose}
-        closable={!!onClose}
-        message={message.shouldTranslate ? t(message.title || '') : message.title}
-      />
-    </Box>
+    <App>
+      <Box {...containerProps}>
+        <MessageBox
+          type={message.type || 'error'}
+          shouldScroll={true}
+          description={message.shouldTranslate ? t(message.description) : message.description}
+          onClose={onClose}
+          closable={!!onClose}
+          message={message.shouldTranslate ? t(message.title || '') : message.title}
+        />
+      </Box>
+    </App>
   ) : null;
 };
 

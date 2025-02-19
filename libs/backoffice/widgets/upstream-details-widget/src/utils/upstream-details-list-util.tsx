@@ -2,7 +2,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { UpstreamDetailsType } from '../types';
 
 import * as S from '../components/upstream-details-list/upstream-details-list.style';
@@ -34,6 +34,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'domain',
       key: 'domain',
       align: 'center',
+      ellipsis: true,
       render: (domain) => getValueOrDash(domain),
     },
     {
@@ -41,6 +42,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'healthStatus',
       key: 'health_status',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(renderHealthStatus(t, value) ? renderHealthStatus(t, value) : t('health'));
       },
@@ -50,6 +52,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'weight',
       key: 'weight',
       align: 'center',
+      ellipsis: true,
       render: (weight) => weight ?? getValueOrDash(weight),
     },
 
@@ -57,9 +60,10 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       title: '',
       dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
       key: 'id',
-      width: 1,
+      width: widthByButtonCount(2),
+      align: 'left',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'} justifyContent={'end'}>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.EditButton
             variant={'text'}
             onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}

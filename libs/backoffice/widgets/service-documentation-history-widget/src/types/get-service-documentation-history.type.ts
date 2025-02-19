@@ -7,8 +7,15 @@ export type ServiceDocumentationHistory = {
   };
   modifyDate: string;
   userName: string;
-  actionType: string;
   fileName: string;
+  isDeleted: boolean;
+  revisionDto: {
+    revNumber: number;
+    revType: {
+      code: number;
+      title: string;
+    };
+  };
 };
 
 export type HistoryDifferenceObj = DifferenceMap<ServiceDocumentationHistory>;
