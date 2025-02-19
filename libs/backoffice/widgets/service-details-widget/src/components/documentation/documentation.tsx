@@ -29,7 +29,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const dispatch = useAppDispatch();
   const { notification } = useApp();
   //STATE
-  const [serviceDocumentId, setServiceDocumentId] = useState<number>();
+  const [fileInfo, setFileInfo] = useState({});
   // CONSTANTS
   const serviceName = state.serviceName!;
   //MUTATIONS
@@ -37,11 +37,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const { mutate: removeMutate } = useDeleteRemoveUploadedFileQuery();
   //QUERIES
   const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName);
-  const {
-    data: downloadData,
-    isFetching: isDownloading,
-    refetch: downloadRefetch,
-  } = useGetDownloadUploadedFileQuery({ serviceName, serviceDocumentId });
+  const { refetch: downloadRefetch } = useGetDownloadUploadedFileQuery({ serviceName, ...fileInfo });
   const handleFileUpload = async (options) => {
     const { onSuccess: uploaderOnSuccess, onError: uploaderOnError, onProgress: uploaderOnProgress, file } = options;
 
@@ -64,7 +60,23 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     );
   };
   const handleFileDownload = async (file) => {
-    await setServiceDocumentId(file.serviceDocumentId);
+    const fileExtension = file.name.split('.').pop();
+    let fileType;
+    switch (fileExtension) {
+      case 'pdf':
+        fileType = 'application/pdf';
+        break;
+      case 'doc':
+        fileType = 'application/msword';
+        break;
+      case 'docx':
+        fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        break;
+      default:
+        fileType = 'unknown'; // Handle unknown file types
+        break;
+    }
+    await setFileInfo({ serviceDocumentId: file.serviceDocumentId, fileExtension: fileExtension, fileType: fileType });
     downloadRefetch();
   };
 

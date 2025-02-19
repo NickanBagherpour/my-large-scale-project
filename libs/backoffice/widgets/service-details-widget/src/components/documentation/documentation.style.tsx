@@ -71,6 +71,15 @@ export const Dragger = styled(KitDragger)`
       grid-template-columns: 1fr;
     }
   }
+  .ant-upload-list-item-actions {
+    width: 7rem;
+    margin: 0 2rem;
+    display: flex;
+    gap: 2rem;
+  }
+  .anticon.anticon-download {
+    font-size: 2rem;
+  }
 `;
 export const UploadIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};

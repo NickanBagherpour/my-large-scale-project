@@ -8,7 +8,6 @@ import Api from '../api';
 
 export const useGetDownloadUploadedFileQuery = (params) => {
   const dispatch = useAppDispatch();
-
   return useQuery({
     queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_DOWLOAD_UPLOADED_FILE, params],
     queryFn: withErrorHandling(() => Api.getDownloadUploadedFile(params), dispatch),
