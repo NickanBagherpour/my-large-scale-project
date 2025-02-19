@@ -9,7 +9,6 @@ import { getWidgetTitle } from '@oxygen/utils';
 import { useGetRouteDetailsQuery } from '../../services';
 import { Route } from '@oxygen/reusable-components';
 import { useAppDispatch } from '../../context';
-import { notification } from 'antd';
 import { useApp } from '@oxygen/hooks';
 
 type AppProps = PageProps & {
