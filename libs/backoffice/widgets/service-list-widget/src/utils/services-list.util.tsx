@@ -8,6 +8,7 @@ import { ITheme } from '@oxygen/types';
 import { WithBadge } from '@oxygen/reusable-components';
 
 import { ParamsType } from '../types';
+import { ToggleActivationInfo } from '../types/toggle-status.type';
 
 import * as S from '../components/services-list/services.style';
 
@@ -17,6 +18,7 @@ type Props = {
   deleteService?: (name: string, status: ParamsType) => void;
   theme: ITheme;
   wordToHighlight: string;
+  onToggleActivationSwitchClick: (info: ToggleActivationInfo) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
@@ -96,12 +98,20 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'isActive',
       key: 'isActive',
       align: 'center',
-      render: (isActive, name) => (
+      render: (isActive, record) => (
         <S.SwitchContainer>
           <S.DesktopSpan>{t('operational')}</S.DesktopSpan>
           <span style={{ margin: '0 1rem' }}>
-            <S.DesktopSwitch checked={isActive} />
-            <S.MobileSwitch checkedChildren={t('operational')} unCheckedChildren={t('stopped')} checked={isActive} />
+            <S.DesktopSwitch
+              checked={isActive}
+              onClick={() => props.onToggleActivationSwitchClick({ isActive, serviceName: record?.name })}
+            />
+            <S.MiniDesktopSwitch
+              checkedChildren={t('stopped')}
+              unCheckedChildren={t('operational')}
+              checked={isActive}
+              onClick={() => props.onToggleActivationSwitchClick({ isActive, serviceName: record?.name })}
+            />
           </span>
           <S.DesktopSpan>{t('stopped')}</S.DesktopSpan>
         </S.SwitchContainer>
@@ -174,7 +184,12 @@ export function getMobileColumns(props: Props): any {
               <span>
                 {t('operational')}
                 <span style={{ margin: '0 1.2rem' }}>
-                  <Switch checked={value?.isActive} disabled={true} />
+                  <Switch
+                    checked={value?.isActive}
+                    onClick={() =>
+                      props.onToggleActivationSwitchClick({ isActive: value?.isActive, serviceName: value?.name })
+                    }
+                  />
                 </span>
                 {t('stopped')}
               </span>
