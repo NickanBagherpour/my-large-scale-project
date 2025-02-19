@@ -62,7 +62,7 @@ export const DesktopSwitch = styled(Switch)`
     display: none;
   }
 `;
-export const MobileSwitch = styled(Switch)`
+export const MiniDesktopSwitch = styled(Switch)`
   display: none;
   ${respondTo.down('xl')} {
     display: block;
