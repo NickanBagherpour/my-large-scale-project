@@ -36,11 +36,13 @@ const App: React.FC<AppProps> = () => {
     clientName,
   });
 
+  const persianName = data?.content[0]?.clientServiceDto?.clientPersianName?.value;
+
   return (
     <Container
       title={getWidgetTitle({
-        primaryTitle: data?.commonClientInfoDto?.name,
-        secondaryTitle: data?.commonClientInfoDto?.persianName,
+        primaryTitle: persianName,
+        secondaryTitle: data?.commonClientInfoDto?.name,
         defaultTitle: t('change_history'),
       })}
       footer={<ReturnButton />}

@@ -115,6 +115,10 @@ export function mergeObjects(obj1: any, obj2: any) {
   return result;
 }
 
+export const widthByButtonCount = (count = 1): string => {
+  return `${count * 7.5}rem`;
+};
+
 export const getValueByKey = (targetEnum: object, key: string) => {
   let value = null;
 

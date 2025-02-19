@@ -3,6 +3,7 @@ import * as S from '../services.style';
 import { TFunction } from 'i18next';
 import { Service } from './services.type';
 import WithBadge from '../badge/badge';
+import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
 
 type Props = {
   t: TFunction;
@@ -24,7 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.index'),
       align: 'center',
       key: 'index',
-      width: '5rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * size + 1;
         return start + index;
@@ -34,32 +35,36 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.service_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
     },
     {
       title: t('uikit.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
+      ellipsis: true,
     },
     {
       title: t('uikit.scope'),
       dataIndex: 'scopes',
       align: 'center',
+      ellipsis: true,
       render: (scopes) => <WithBadge items={scopes} />,
     },
     {
       title: t('uikit.url'),
       dataIndex: 'paths',
       align: 'center',
+      ellipsis: true,
       render: (paths) => <WithBadge items={paths} />,
     },
     {
       title: t('uikit.version'),
       dataIndex: 'version',
       align: 'center',
-      width: '7rem',
+      ellipsis: true,
     },
     {
-      width: '7rem',
+      width: widthByButtonCount(2),
       key: 'action',
       render: (_, service) => (
         <S.Btns>

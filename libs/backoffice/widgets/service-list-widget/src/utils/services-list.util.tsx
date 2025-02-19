@@ -2,8 +2,8 @@ import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { ColumnsType, MobileColumnType, Table, Switch } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 import { WithBadge } from '@oxygen/reusable-components';
 
@@ -23,16 +23,20 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
-    { title: `${t('row')}`, width: 70, dataIndex: 'index', key: 'index', align: 'center', className: 'row-number' },
+    {
+      title: `${t('row')}`,
+      width: CONSTANTS.ROW_INDEX_WIDTH,
+      dataIndex: 'index',
+      key: 'index',
+      align: 'center',
+      className: 'row-number',
+    },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      // width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
+      ellipsis: true,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -44,10 +48,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'persianName',
       key: 'persianName',
       align: 'center',
-      // width: 50,
-      ellipsis: {
-        showTitle: true,
-      },
+      ellipsis: true,
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
           {getValueOrDash(persian_name)}
@@ -59,10 +60,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'scopes',
       key: 'scopes',
       align: 'center',
-      // width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
+      ellipsis: true,
       render: (scopes) => (
         <WithBadge
           items={scopes}
@@ -77,7 +75,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'paths',
       key: 'paths',
       align: 'center',
-      // width: 120,
       ellipsis: true,
       render: (paths) => (
         <WithBadge
@@ -91,12 +88,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
+      ellipsis: true,
       render: (version) => getValueOrDash(version),
     },
     {
       title: `${t('status')}`,
       dataIndex: 'isActive',
       key: 'isActive',
+      align: 'center',
       render: (isActive, name) => (
         <S.SwitchContainer>
           <S.DesktopSpan>{t('operational')}</S.DesktopSpan>
@@ -112,22 +111,18 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: '',
       dataIndex: 'details',
       key: 'details',
-      align: 'center',
-      width: 75,
+      align: 'left',
+      width: widthByButtonCount(1),
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
+        <S.Details
+          variant={'link'}
+          size={'small'}
+          href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+        >
           {t('detailed')}
         </S.Details>
       ),
     },
-    // {
-    //   title: '',
-    //   dataIndex: 'name',
-    //   key: 'name',
-    //   align: 'center',
-    //   width: 70,
-    //   render: (name, status) => <S.Trash className='icon-trash' onClick={() => deleteService(name, status)} />,
-    // },
   ];
 }
 
@@ -188,19 +183,18 @@ export function getMobileColumns(props: Props): any {
           {
             title: '',
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
+              <S.Details
+                variant={'link'}
+                size={'small'}
+                href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+              >
                 {t('detailed')}
               </S.Details>
             ),
             colon: false,
           },
-          // {
-          //   title: '',
-          //   value: <S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />,
-          //   colon: false,
-          // },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];

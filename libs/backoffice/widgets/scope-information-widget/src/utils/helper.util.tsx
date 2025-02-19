@@ -12,7 +12,7 @@ export const renderChip = (tag) => (
 );
 
 export const renderTag = (tag: string) => (
-  <Tag type={'processing'}>
+  <Tag type={'processing'} key={tag}>
     <S.Text copyable={{ text: tag, tooltips: ['', ''] }}>{getValueOrDash(tag)}</S.Text>
   </Tag>
 );
