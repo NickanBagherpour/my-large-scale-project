@@ -10,9 +10,9 @@ const Api = {
   },
 
   getClientReportList: async (params: ParamsType) => {
-    return client.get<ClientReportsDto>(`${portalUrl}/v1/services`, { params });
+    // return client.get<ClientReportsDto>(`${portalUrl}/v1/services`, { params });
 
-    // return Mockify.getClientsReport();
+    return Mockify.getClientsReport();
   },
 };
 export default Api;

@@ -59,5 +59,4 @@ export const ClientsReportData = [
     clientEnglishName: 'english name 12',
     clientPersianName: 'نام فارسی 12',
   },
-
 ];
