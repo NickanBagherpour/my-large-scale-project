@@ -1,18 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { RQKEYS, withErrorHandling } from '@oxygen/utils';
+import { ApiUtil, RQKEYS, withErrorHandling } from '@oxygen/utils';
 
-import { useAppDispatch } from '../../context';
+import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
 
-export const useDeleteRemoveUploadedFileQuery = (params: string) => {
+export const useDeleteRemoveUploadedFileQuery = (params: any) => {
   const dispatch = useAppDispatch();
 
-  return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_REMOVE_UPLOADED_FILE, params],
-    queryFn: withErrorHandling(() => Api.deleteRemoveUploadedFile(params), dispatch),
+  return useMutation({
+    mutationFn: (params: any) => Api.deleteRemoveUploadedFile(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      updateMessageAction(dispatch, err);
+    },
     networkMode: 'offlineFirst',
-    enabled: false,
   });
 };

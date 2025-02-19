@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { UploadProps } from 'antd';
-import { ROUTES } from '@oxygen/utils';
+
 import { useApp } from '@oxygen/hooks';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { Button } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Box, Button } from '@oxygen/ui-kit';
+import { queryClient } from '@oxygen/client';
+import { CenteredLoading } from '@oxygen/reusable-components';
+
 import { isFileInvalid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
-import { useGetDocumentListQuery, usePostUploadDocumentMutation } from '../../services/documentation-tab';
+import {
+  useDeleteRemoveUploadedFileQuery,
+  useGetDocumentListQuery,
+  usePostUploadDocumentMutation,
+} from '../../services/documentation-tab';
+
 import * as S from './documentation.style';
-import { CenteredLoading } from '@oxygen/reusable-components';
 
 type DocumentationType = PageProps & {
   //
@@ -20,10 +28,15 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const dispatch = useAppDispatch();
   const { notification } = useApp();
 
+  //STATES
+  const [serviceDocumentId, setServiceDocumentId] = useState<number>();
+  // CONSTANTS
   const serviceName = state.serviceName!;
-
+  //MUTATIONS
+  const { mutate } = usePostUploadDocumentMutation();
+  //QUERIES
   const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName);
-  const { mutate, isPending } = usePostUploadDocumentMutation();
+  const { mutate: removeMutate } = useDeleteRemoveUploadedFileQuery({ serviceName, serviceDocumentId });
 
   const handleFileUpload = async (options) => {
     const { onSuccess: uploaderOnSuccess, onError: uploaderOnError, onProgress: uploaderOnProgress, file } = options;
@@ -53,8 +66,20 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     accept: '.pdf,.docx,.doc',
     defaultFileList: documentListData,
     customRequest: handleFileUpload,
-    onRemove: (file) => {
-      console.log('this is file info:', file);
+    onRemove: async (file: any) => {
+      console.log(file);
+      const serviceDocumentId = file.serviceDocumentId;
+      removeMutate(
+        { serviceDocumentId, serviceName },
+        {
+          onError() {
+            queryClient.invalidateQueries({
+              queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_DOCUMENT_LIST],
+              // refetchType:'none'
+            });
+          },
+        }
+      );
     },
     iconRender: () => <S.PDFIcon className='icon-pdf' />,
     showUploadList: {
