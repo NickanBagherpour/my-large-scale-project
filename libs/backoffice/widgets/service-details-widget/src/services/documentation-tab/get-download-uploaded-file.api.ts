@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../context';
 
 import Api from '../api';
 
-export const useGetDownloadUploadedFileQuery = (params: string) => {
+export const useGetDownloadUploadedFileQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

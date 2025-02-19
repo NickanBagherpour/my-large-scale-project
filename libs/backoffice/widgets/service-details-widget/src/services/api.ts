@@ -3,6 +3,7 @@ import { client, portalUrl } from '@oxygen/client';
 import Mockify from '@oxygen/mockify';
 import { UpstreamCardsData, UpstreamListData } from '../types';
 import { DocumentListResponseType, UploadDocumentResponseType } from '../types/documentation-tab';
+import { ApiUtil } from '@oxygen/utils';
 
 const Api = {
   deleteRemoveUploadedFile: async (params) => {
@@ -10,8 +11,12 @@ const Api = {
     return client.delete<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
   },
   getDownloadUploadedFile: async (params) => {
-    const { serviceName, serviceDocumentId } = params;
-    return client.get<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
+    const { serviceName, serviceDocumentId, fileExtension, fileType } = params;
+    const xhr = await ApiUtil.getFile(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
+    if (xhr) {
+      ApiUtil.downloadFile(xhr, fileType, fileExtension, `success-${Date.now()}.xlsx`);
+    }
+    return { data: null };
   },
   getDocumentList: async (params) => {
     return client.get<DocumentListResponseType[]>(`${portalUrl}/v1/services/${params}/files`);

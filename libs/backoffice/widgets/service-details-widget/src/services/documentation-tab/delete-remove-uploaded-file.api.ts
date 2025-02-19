@@ -6,7 +6,7 @@ import { updateMessageAction, useAppDispatch } from '../../context';
 
 import Api from '../api';
 
-export const useDeleteRemoveUploadedFileQuery = (params: any) => {
+export const useDeleteRemoveUploadedFileQuery = () => {
   const dispatch = useAppDispatch();
 
   return useMutation({

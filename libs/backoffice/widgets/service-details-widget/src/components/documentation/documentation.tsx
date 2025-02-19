@@ -14,6 +14,7 @@ import { useAppDispatch, useAppState } from '../../context';
 import {
   useDeleteRemoveUploadedFileQuery,
   useGetDocumentListQuery,
+  useGetDownloadUploadedFileQuery,
   usePostUploadDocumentMutation,
 } from '../../services/documentation-tab';
 
@@ -27,19 +28,23 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const { notification } = useApp();
-
-  //STATES
+  //STATE
   const [serviceDocumentId, setServiceDocumentId] = useState<number>();
   // CONSTANTS
   const serviceName = state.serviceName!;
   //MUTATIONS
   const { mutate } = usePostUploadDocumentMutation();
+  const { mutate: removeMutate } = useDeleteRemoveUploadedFileQuery();
   //QUERIES
   const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName);
-  const { mutate: removeMutate } = useDeleteRemoveUploadedFileQuery({ serviceName, serviceDocumentId });
-
+  const {
+    data: downloadData,
+    isFetching: isDownloading,
+    refetch: downloadRefetch,
+  } = useGetDownloadUploadedFileQuery({ serviceName, serviceDocumentId });
   const handleFileUpload = async (options) => {
     const { onSuccess: uploaderOnSuccess, onError: uploaderOnError, onProgress: uploaderOnProgress, file } = options;
+
     const { name } = file;
 
     if (isFileInvalid(file, notification, t)) {
@@ -58,6 +63,24 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
       }
     );
   };
+  const handleFileDownload = async (file) => {
+    await setServiceDocumentId(file.serviceDocumentId);
+    downloadRefetch();
+  };
+
+  const handleRemove = async (file: any) => {
+    const serviceDocumentId = file.serviceDocumentId;
+    removeMutate(
+      { serviceDocumentId, serviceName },
+      {
+        onError() {
+          queryClient.invalidateQueries({
+            queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_DOCUMENT_LIST],
+          });
+        },
+      }
+    );
+  };
 
   const draggerProps: UploadProps = {
     name: 'file',
@@ -66,25 +89,13 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     accept: '.pdf,.docx,.doc',
     defaultFileList: documentListData,
     customRequest: handleFileUpload,
-    onRemove: async (file: any) => {
-      console.log(file);
-      const serviceDocumentId = file.serviceDocumentId;
-      removeMutate(
-        { serviceDocumentId, serviceName },
-        {
-          onError() {
-            queryClient.invalidateQueries({
-              queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_DOCUMENT_LIST],
-              // refetchType:'none'
-            });
-          },
-        }
-      );
-    },
+    onRemove: handleRemove,
+    onDownload: handleFileDownload,
     iconRender: () => <S.PDFIcon className='icon-pdf' />,
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
       showDownloadIcon: true,
+      // downloadIcon: <i className='icon-three-dots-vertical' onClick={(p) => console.log(p)} />,
       extra: ({ size = 0 }) => size !== 0 && <S.FileSize>{(size / 1024 / 1024).toFixed(2)}MB</S.FileSize>,
     },
   };
