@@ -3,7 +3,7 @@ import * as S from '../services.style';
 import { TFunction } from 'i18next';
 import { Service } from './services.type';
 import WithBadge from '../badge/badge';
-import { convertToRemWidth } from '@oxygen/utils';
+import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
 
 type Props = {
   t: TFunction;
@@ -25,7 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.index'),
       align: 'center',
       key: 'index',
-      width: '6.5rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * size + 1;
         return start + index;
@@ -64,7 +64,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       ellipsis: true,
     },
     {
-      width: convertToRemWidth(2),
+      width: widthByButtonCount(2),
       key: 'action',
       render: (_, service) => (
         <S.Btns>
