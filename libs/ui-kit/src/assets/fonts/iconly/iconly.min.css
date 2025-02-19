@@ -6,10 +6,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url(./iconly.eot?1739879431844);
-  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1739879431844) format('woff2'),
-    url(./iconly.woff?1739879431844) format('woff'), url(./iconly.ttf?1739879431844) format('truetype'),
-    url(./iconly.svg?1739879431844#Iconly) format('svg');
+  src: url(./iconly.eot?1739880789968);
+  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1739880789968) format('woff2'),
+    url(./iconly.woff?1739880789968) format('woff'), url(./iconly.ttf?1739880789968) format('truetype'),
+    url(./iconly.svg?1739880789968#Iconly) format('svg');
 }
 [class*=' icon-'],
 [class='icon'],
@@ -237,6 +237,6 @@
 .icon-buliding:before {
   content: '\e046';
 }
-.icon-asdf:before {
+.icon-cube:before {
   content: '\e047';
 }
