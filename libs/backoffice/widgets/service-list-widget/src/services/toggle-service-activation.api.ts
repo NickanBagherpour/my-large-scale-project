@@ -16,7 +16,7 @@ export const useToggleServiceAtivationMutation = (onSuccess: () => void) => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.GET_LIST],
+        queryKey: [RQKEYS.BACKOFFICE.SERVICE, RQKEYS.BACKOFFICE.SERVICES_LIST.GET_LIST],
         exact: false,
       });
       onSuccess();
