@@ -5,6 +5,10 @@ import { UpstreamCardsData, UpstreamListData } from '../types';
 import { DocumentListResponseType, UploadDocumentResponseType } from '../types/documentation-tab';
 
 const Api = {
+  deleteRemoveUploadedFile: async (params) => {
+    const { serviceName, serviceDocumentId } = params;
+    return client.delete<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
+  },
   getDownloadUploadedFile: async (params) => {
     const { serviceName, serviceDocumentId } = params;
     return client.get<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
