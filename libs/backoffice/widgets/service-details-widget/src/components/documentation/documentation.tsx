@@ -19,23 +19,26 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const { notification } = useApp();
+
   const serviceName = state.serviceName;
+
   const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName!);
   const { mutate, isPending } = usePostUploadDocumentMutation();
 
   const handleFileUpload = async (options) => {
-    const { onSuccess, onError, file } = options;
+    const { onSuccess: uploaderOnSuccess, onError: uploaderOnError, onProgress: uploaderOnProgress, file } = options;
     const { name } = file;
-    console.log('this is options:', options);
-    // if (isFileInvalid(file, notification, t)) {
-    //   return onError('');
-    // }
-    mutate(name, {
+
+    if (isFileInvalid(file, notification, t)) {
+      return uploaderOnError('');
+    }
+
+    mutate(serviceName!, {
       onSuccess: (data) => {
-        onSuccess(true);
+        uploaderOnSuccess(true);
       },
       onError: (error) => {
-        return onError('');
+        return uploaderOnError('');
       },
     });
   };
@@ -54,7 +57,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
       showDownloadIcon: true,
-      extra: ({ size = 0 }) => <S.FileSize>{(size / 1024 / 1024).toFixed(2)}MB</S.FileSize>,
+      extra: ({ size = 0 }) => size !== 0 && <S.FileSize>{(size / 1024 / 1024).toFixed(2)}MB</S.FileSize>,
     },
   };
 

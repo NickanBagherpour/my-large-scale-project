@@ -9,7 +9,7 @@ import Api from '../api';
 export const usePostUploadDocumentMutation = () => {
   const dispatch = useAppDispatch();
   return useMutation({
-    mutationFn: (params: number) => Api.postDocumentUpload(params),
+    mutationFn: (params: string) => Api.postDocumentUpload(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
       updateMessageAction(dispatch, err);
