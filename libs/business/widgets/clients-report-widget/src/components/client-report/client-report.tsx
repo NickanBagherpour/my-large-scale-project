@@ -71,7 +71,7 @@ const Services: React.FC<ServicesProps> = (props) => {
   return (
     <S.TableContainer>
       <Table
-        tableLayout='auto'
+        // tableLayout='auto'
         loading={isFetching}
         current={pagination.page}
         total={total}

@@ -29,57 +29,58 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   return [
     { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
     {
-      title: `${t('name')}`,
-      dataIndex: 'name',
-      key: 'name',
-      align: 'center',
-      width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-          <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
-        </Tooltip>
-      ),
-    },
-    {
       title: `${t('national')}`,
-      dataIndex: 'national',
+      dataIndex: 'clientEnglishName',
       key: 'national',
       align: 'center',
-      width: 150,
+      // width: 150,
       ellipsis: {
         showTitle: false,
       },
-      render: (national) => (
-        <Tooltip placement='top' title={getValueOrDash(national)} arrow={true}>
-          {getValueOrDash(national)}
+      render: (value) => (
+        <Tooltip placement="top" title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
         </Tooltip>
       ),
     },
     {
-      title: '',
-      dataIndex: 'servicesReport',
-      key: 'servicesReport',
+      title: `${t('name')}`,
+      dataIndex: 'clientPersianName',
+      key: 'clientPersianName',
       align: 'center',
-      width: 80,
-      render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
-          {t('services_report')}
-        </S.Details>
+      // width: 150,
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (value) => (
+        <Tooltip placement="top" title={getValueOrDash(value)} arrow={true}>
+          <S.Name text={getValueOrDash(value)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+        </Tooltip>
       ),
     },
+
     {
       title: '',
-      dataIndex: 'details',
-      key: 'details',
-      align: 'center',
-      width: 80,
+      dataIndex: '',
+      key: 'actions',
+      align: 'left',
+      // width: 10,
       render: (value, record) => (
-        <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}>
-          {t('details')}
-        </S.Details>
+        <Box display={'flex'} style={{ gap: '0.8rem' }}>
+          <S.DetailsButton
+            size={'small'}
+            variant={'link'}
+            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}>
+            {t('services_report')}
+          </S.DetailsButton>
+
+          <S.DetailsButton
+            size={'small'}
+            variant={'link'}
+            href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}>
+            {t('details')}
+          </S.DetailsButton>
+        </Box>
       ),
     },
   ];
@@ -103,7 +104,7 @@ export function getMobileColumns(props: Props): any {
             title: t('name'),
             value: (
               <S.Name
-                text={getValueOrDash(value?.name)}
+                text={getValueOrDash(value?.clientEnglishName)}
                 highlightColor={highlightColor}
                 wordToHighlight={wordToHighlight}
               />
@@ -111,23 +112,27 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('national'),
-            value: getValueOrDash(value?.national),
+            value: getValueOrDash(value?.clientPersianName),
           },
+
           {
             title: '',
             value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
-                {t('services_report')}
-              </S.Details>
-            ),
-            colon: false,
-          },
-          {
-            title: '',
-            value: (
-              <S.Details href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}>
-                {t('details')}
-              </S.Details>
+              <Box display={'flex'} style={{ gap: '0.8rem' }}>
+                <S.DetailsButton
+                  size={'small'}
+                  variant={'link'}
+                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}>
+                  {t('services_report')}
+                </S.DetailsButton>
+
+                <S.DetailsButton
+                  size={'small'}
+                  variant={'link'}
+                  href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}>
+                  {t('details')}
+                </S.DetailsButton>
+              </Box>
             ),
             colon: false,
           },
