@@ -255,6 +255,7 @@ export default {
     observe_client_detail: 'مشاهده جزئیات کلاینت',
     upload_item: 'بارگذاری {{element}} در اکسیژن',
     register_info: 'ثبت اطلاعات',
+    add: 'افزودن',
   },
 
   field: {
@@ -324,6 +325,12 @@ export default {
     upstream: 'Upstream',
     tag: 'تگ',
     upstream_persian: 'آپ‌استریم‌',
+    edit_date: 'زمان ویرایش',
+    user_name: 'نام کاربر',
+    service_en_name: 'نام انگلیسی سرویس',
+    service_fa_name: 'نام فارسی سرویس',
+    tags: 'تگ',
+    revision_type: 'نوع عملیات',
   },
 
   placeholder: {
@@ -435,7 +442,7 @@ export default {
     user_error_desc: 'سیستم در دریافت اطلاعات شما با خطا مواجه شد. جهت ورود به سامانه لطفا مجددا تلاش کنید.',
     //shaba_code: 'کد شبا را به طور صحیح وارد نمایید',
     //count_securities: 'لطفا تعداد را به درستی وارد نمایید',
-    min_len: 'مقدار این فیلد نباید کمتر از {{val}} باشد.',
+    min_len: 'حداقل طول مجاز {{val}} کاراکتر می باشد',
     // max_len: 'مقدار این فیلد نباید بیشتر از {{val}} باشد.',
     english_validation_message: 'لطفا مقادیر را به انگلیسی وارد کنید',
     persian_validation_message: 'لطفا مقادیر را به فارسی وارد کنید',

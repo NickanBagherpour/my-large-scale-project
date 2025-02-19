@@ -21,6 +21,6 @@ export const RowItem = styled.div`
 
   & > button {
     /* to align buttons with other elements */
-    margin-inline-end: -15px;
+    //margin-inline-end: -15px;
   }
 `;

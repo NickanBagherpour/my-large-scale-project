@@ -9,10 +9,10 @@ const errorsMap = {
   'service.throughput': { stepName: 'generalInfo', inputName: 'throughput' },
   'service.version': { stepName: 'generalInfo', inputName: 'version' },
   'service.owner': { stepName: 'generalInfo', inputName: 'owner' },
-  'route.method': { stepName: 'route', inputName: 'actionOrMethod' },
-  'route.protocol': { stepName: 'route', inputName: 'protocol' },
-  'route.path': { stepName: 'route', inputName: 'path' },
-  'route.host': { stepName: 'route', inputName: 'host' },
+  'route.method': { stepName: 'route', inputName: 'methods' },
+  'route.protocol': { stepName: 'route', inputName: 'protocols' },
+  'route.path': { stepName: 'route', inputName: 'paths' },
+  'route.host': { stepName: 'route', inputName: 'hosts' },
 } satisfies Record<string, { stepName: StepNames; inputName: string }>;
 
 type Keys = keyof typeof errorsMap;

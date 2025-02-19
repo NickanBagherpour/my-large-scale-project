@@ -2,6 +2,8 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { MarkText } from '@oxygen/ui-kit';
+
+import { Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const TableContainer = styled.div`
@@ -24,9 +26,8 @@ export const Url = styled.p`
   unicode-bidi: plaintext;
 `;
 
-export const Details = styled(Link)`
-  color: ${(p) => p.theme.primary.main};
-  font-size: 1.4rem;
+export const Details = styled(Button)`
+  //
 `;
 
 export const Trash = styled.i`
@@ -56,4 +57,9 @@ export const MobileTableItem = styled.div`
 
 export const SwitchContainer = styled.span`
   display: flex;
+`;
+
+export const ServicesReportOnMobile = styled.span`
+  display: inline-block;
+  width: 10rem;
 `;

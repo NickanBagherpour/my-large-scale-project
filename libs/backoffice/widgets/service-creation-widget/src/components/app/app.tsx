@@ -42,6 +42,7 @@ const App = () => {
           nextStep={() => nextStep(dispatch)}
           previousStep={() => previousStep(dispatch)}
           serviceName={serviceName}
+          errors={stepStatuses.find((item) => item.name === 'route')?.error}
         />
       ),
     },

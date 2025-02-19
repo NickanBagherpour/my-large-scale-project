@@ -5,6 +5,7 @@ import { IConfig } from '@oxygen/types';
 import { changeLanguage } from '@oxygen/translation';
 
 import { QueryProvider, AuthProvider, ConfigProvider, MenuProvider } from '../index';
+import { NotificationProvider } from '../use-app/use-app';
 
 type BaseProviderProps = {
   children: React.ReactNode;
@@ -21,11 +22,13 @@ const BaseProvider = ({ children, initialConfig }: BaseProviderProps) => {
   return (
     <ConfigProvider initialConfig={initialConfig}>
       <ThemeConfig onLocaleChange={handleLocaleChange}>
-        <QueryProvider>
-          <AuthProvider>
-            <MenuProvider>{children}</MenuProvider>
-          </AuthProvider>
-        </QueryProvider>
+        <NotificationProvider>
+          <QueryProvider>
+            <AuthProvider>
+              <MenuProvider>{children}</MenuProvider>
+            </AuthProvider>
+          </QueryProvider>
+        </NotificationProvider>
       </ThemeConfig>
     </ConfigProvider>
   );

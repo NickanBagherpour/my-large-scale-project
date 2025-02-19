@@ -7,5 +7,6 @@ export default {
     'user-name': 'نام کاربر',
     'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
+    'revision-type': 'نوع عملیات',
   },
 };

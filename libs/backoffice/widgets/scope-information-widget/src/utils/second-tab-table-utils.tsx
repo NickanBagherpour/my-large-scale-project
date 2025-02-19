@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
-import { getValueOrDash } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { WithBadge } from '@oxygen/reusable-components';
 
 import * as S from './second-tab-table-util.style';
@@ -29,7 +29,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.row'),
       align: 'center',
       key: 'index',
-      width: '0',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = page * rowsPerPage + 1;
         return start + index;
@@ -39,6 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.service_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -47,7 +48,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      // ellipsis: true,
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -56,7 +57,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      // ellipsis: true,
+      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -65,6 +66,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.url'),
       dataIndex: 'paths',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -73,13 +75,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      width: '0',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
     },
     {
-      width: '0',
+      width: widthByButtonCount(1),
+      align: 'left',
       key: 'action',
       render: (value) => (
         <S.DetailsBtn

@@ -97,7 +97,7 @@ export type ClientHistoryResponseType = {
 };
 
 export type NormalizedClientHistoryItemType = {
-  deleted: ValueWithDifference<boolean>;
+  isDeleted: ValueWithDifference<boolean>;
   inboundUrl: ValueWithDifference<string>;
   isAuthorizationFlow: ValueWithDifference<boolean>;
   isClientFlow: ValueWithDifference<boolean>;

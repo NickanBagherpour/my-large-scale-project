@@ -44,3 +44,4 @@ export { default as CenteredLoading } from './components/centered-loading/center
 export { default as Route } from './components/route/components/route';
 export { default as Footer } from './components/footer/footer';
 export { default as RouteInfoBox } from './components/route-info-box/route-info-box';
+export { default as ServiceDetails } from './components/service-details-modal/service-details-modal';

@@ -7,9 +7,8 @@ import * as S from './app.style';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { getWidgetTitle } from '@oxygen/utils';
 import { useGetRouteDetailsQuery } from '../../services';
-import { Route } from '@oxygen/reusable-components';
-import { useAppDispatch } from '../../context';
-import { notification } from 'antd';
+import { GlobalMessageContainer, Route } from '@oxygen/reusable-components';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useApp } from '@oxygen/hooks';
 
 type AppProps = PageProps & {
@@ -24,6 +23,7 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { notification } = useApp();
+  const { message } = useAppState();
 
   if (!serviceName) {
     return void redirect('/not-found');
@@ -45,6 +45,7 @@ const App: React.FC<AppProps> = (props) => {
         primaryTitle: routeDetails?.name,
       })}
     >
+      <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
       <Route dispatch={dispatch} nextStep={onSuccess} previousStep={() => router.back()} serviceName={serviceName} />
     </S.AppContainer>
   );

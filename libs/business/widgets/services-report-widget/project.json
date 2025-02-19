@@ -1,0 +1,9 @@
+{
+    "name": "business-services-report-widget",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/business/widgets/services-report-widget/src",
+    "projectType": "library",
+    "tags": [],
+    "// targets": "to see all targets run: nx show project test --web",
+    "targets": {}
+}
