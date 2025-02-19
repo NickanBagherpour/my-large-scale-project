@@ -7,7 +7,7 @@ export default {
   domain: 'دامنه',
   host_address: 'آدرس host',
   domain_placeholder: 'www.example.com:8080',
-  weight_placeholder: 'حداکثر 65536',
+  weight_placeholder: 'حداکثر 65535',
   health_status: 'وضعیت سلامت',
   weight: 'وزن',
   health: 'سالم',

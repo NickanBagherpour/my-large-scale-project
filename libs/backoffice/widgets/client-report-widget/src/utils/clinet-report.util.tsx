@@ -47,9 +47,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      ellipsis: {
-        showTitle: true,
-      },
+      ellipsis: true,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -61,9 +59,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'persianName',
       key: 'persianName',
       align: 'center',
-      ellipsis: {
-        showTitle: true,
-      },
+      ellipsis: true,
       render: (persianName) => (
         <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
           {getValueOrDash(persianName)}

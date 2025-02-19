@@ -124,6 +124,9 @@
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/meta-widget": [
+                "libs/business/widgets/meta-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/request-details-widget": [
                 "libs/business/widgets/request-details-widget/src/index.ts"
             ],
