@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
-import * as S from './cards.style';
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
 import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
+
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
+
+import * as S from './cards.style';
+
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -27,10 +30,17 @@ export const Cards = (props: CardProps) => {
 
   const [clickedCard, setClickedCard] = useState('');
 
+  useEffect(() => {
+    if (!state.upstreamTab.activeSelect.cardId) {
+      setClickedCard('');
+    }
+  }, [state.upstreamTab.activeSelect]);
+
   const handleClick = (data) => {
     setClickedCard(data.id);
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.name });
   };
+
   return (
     <>
       {loading ? (

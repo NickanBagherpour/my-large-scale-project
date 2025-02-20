@@ -9,5 +9,6 @@ export default {
     action: 'اکشن/متود',
     path: 'Path',
     host: 'Host',
+    protocol: 'پروتکل',
   },
 };

@@ -5,19 +5,17 @@ import { getValueOrDash } from '@oxygen/utils';
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 
 import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
-import { UpstreamTabModalType } from '../../components/upstream-list/upstream-list';
 
 import { UpstreamListTarget } from '../../types';
 
 type Props = {
   t: TFunction;
   deletable?: boolean;
-  toggleModal?: (modal: keyof UpstreamTabModalType) => void;
   setToggleInfo?: any;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
-  const { t, deletable = false, toggleModal, setToggleInfo } = props;
+  const { t, deletable = false, setToggleInfo } = props;
 
   return [
     {
@@ -48,7 +46,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t, deletable = false, toggleModal } = props;
+  const { t, deletable = false } = props;
 
   return [
     {
