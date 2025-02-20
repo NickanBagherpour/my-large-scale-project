@@ -29,7 +29,10 @@ const App = () => {
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
-      <S.ServicesContainer title={t('widget_name')} subtitle={servicesSubTitle}>
+      <S.ServicesContainer
+        title={t('widget_name')}
+        // subtitle={servicesSubTitle}
+      >
         <Filters />
         <Services
           isFetching={isServiceListFetching}

@@ -21,30 +21,31 @@ const ServiceSelector = (props: Props) => {
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm);
 
   const { data, isFetching, hasNextPage, fetchNextPage } = useGetServices(debouncedSearchTerm.trim(), dispatch);
-  // const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as Service[]);
+  const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as Service[]);
 
   return (
-    <div></div>
-    // <AdvanceSelector
-    //   data={
-    //     allData?.map((service) => ({
-    //       title: service.name,
-    //       subTitle: service.persianName ?? '',
-    //       service,
-    //     })) ?? []
-    //   }
-    //   value={searchTerm}
-    //   onSelect={({ service }) => {
-    //     setSearchTerm('');
-    //     onSelect(service);
-    //   }}
-    //   onChange={(value) => setSearchTerm(value)}
-    //   loading={isFetching}
-    //   isLastPage={!hasNextPage}
-    //   loadMore={() => fetchNextPage()}
-    //   placeholder={t('uikit.search_english_or_persian_name')}
-    //   disabled={disabled}
-    // />
+    <div>
+      <AdvanceSelector
+        data={
+          allData?.map((service) => ({
+            title: service.name,
+            subTitle: service.persianName ?? '',
+            service,
+          })) ?? []
+        }
+        value={searchTerm}
+        onSelect={({ service }) => {
+          setSearchTerm('');
+          onSelect(service);
+        }}
+        onChange={(value) => setSearchTerm(value)}
+        loading={isFetching}
+        isLastPage={!hasNextPage}
+        loadMore={() => fetchNextPage()}
+        placeholder={t('uikit.search_english_or_persian_name')}
+        disabled={disabled}
+      />
+    </div>
   );
 };
 

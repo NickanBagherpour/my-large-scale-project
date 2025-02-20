@@ -1,10 +1,25 @@
 import styled from 'styled-components';
 import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
 export const Container = styled.section`
   margin: 2.8rem 0 2.7rem;
+
+  .filter-container {
+    border-radius: var(${cssVar.radius});
+    border: 1px solid ${(p) => p.theme.border._100};
+    padding: 2rem;
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  height: 7.2rem;
+  align-items: center;
+  justify-content: end;
+  /* border-top: 1px solid ${(p) => p.theme.border._100}; */
+  gap: 1.2rem;
 `;
 
 export const Actions = styled.div`

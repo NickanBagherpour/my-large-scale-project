@@ -2,7 +2,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
-import { Chip } from '@oxygen/ui-kit';
+import { Box, Button, Chip, DatePicker, SearchItemsContainer } from '@oxygen/ui-kit';
 import { useBounce, useToggle } from '@oxygen/hooks';
 // import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
@@ -80,23 +80,68 @@ export default function Filters() {
     }
   }, [value]);
 
+  function handleSearch() {
+    throw new Error('Function not implemented.');
+  }
+
   return (
-    <div>
-      <S.Container>
-        <Form form={form}>
-          <S.Actions>
-            <Form.Item name={SERVICE_NAME.ServiceName} rules={[rule]} style={{ width: '100%' }}>
-              <S.Input
+    <S.Container>
+      <Box className='filter-container'>
+        <Form form={form} layout={'vertical'}>
+          {/* <S.Actions> */}
+          <SearchItemsContainer>
+            <Form.Item
+              label={t('field.from_date')}
+              name={SERVICE_NAME.ServiceName}
+              rules={[rule]}
+              style={{ width: '100%' }}
+            >
+              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
+            </Form.Item>
+            <Form.Item
+              label={t('field.from_date')}
+              name={SERVICE_NAME.ServiceName}
+              rules={[rule]}
+              style={{ width: '100%' }}
+            >
+              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
+            </Form.Item>
+            <Form.Item
+              label={t('field.from_date')}
+              name={SERVICE_NAME.ServiceName}
+              rules={[rule]}
+              style={{ display: '100%' }}
+            >
+              {/* <S.Input
                 value={value}
                 placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
+              /> */}
+              <DatePicker
+              // placeholder={t('field.from_date', { element: t('element.service') })}
+              // prefix={<i className='icon-search-normal' />}
               />
             </Form.Item>
-          </S.Actions>
+            <Form.Item
+              label={t('field.to_date')}
+              name={SERVICE_NAME.ServiceName}
+              rules={[rule]}
+              style={{ width: '100%' }}
+            >
+              <DatePicker />
+            </Form.Item>
+            {/* </S.Actions> */}
+          </SearchItemsContainer>
+          <S.Footer>
+            <Button variant={'outlined'}> {t('button.delete_all')}</Button>
+            <Button htmlType={'submit'} size='large'>
+              {t('button.search')}
+              {/* <i className={'icon-arrow-left'}></i> */}
+            </Button>
+          </S.Footer>
         </Form>
-        <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
-      </S.Container>
-    </div>
+      </Box>
+    </S.Container>
   );
 }
