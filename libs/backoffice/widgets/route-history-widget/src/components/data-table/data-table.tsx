@@ -54,9 +54,8 @@ const DataTable: React.FC<AppProps> = (props) => {
           current: table?.pagination?.page,
           hideOnSinglePage: false,
         }}
-        scroll={{ x: 1200 }}
         onChange={handlePageChange}
-        rowKey={(row) => row.modifyDate.value + row.modifyBy.value}
+        rowKey={(row) => row.modifyDate.value + row.userName.value}
       />
     </S.TableContainer>
   );

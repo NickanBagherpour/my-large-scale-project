@@ -24,10 +24,10 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     {
       title: t('table.user_name'),
       dataIndex: 'clientServiceDto',
-      key: 'modifyBy',
+      key: 'userName',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.modifyBy}></HistoryCell>;
+        return <HistoryCell item={item?.userName}></HistoryCell>;
       },
     },
     {

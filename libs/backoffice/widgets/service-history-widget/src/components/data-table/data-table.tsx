@@ -29,16 +29,16 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('field.edit_date'),
       dataIndex: 'modifyDate',
-      render: (value, record) => {
-        return <div>{getValueOrDash(value?.value)}</div>;
+      render: (column) => {
+        return <div>{getValueOrDash(column?.value)}</div>;
       },
     },
     {
       title: t('field.user_name'),
-      dataIndex: 'modifyBy',
+      dataIndex: 'userName',
       ellipsis: true,
-      render: (value, record) => {
-        return <HistoryCell item={value} />;
+      render: (column) => {
+        return <HistoryCell item={column} />;
       },
     },
     {
@@ -141,9 +141,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     <div>
       {displayTable ? (
         <Table
-          rowKey={'id'}
           title={t('subtitle')}
-          scroll={{ x: 1000 }}
           size='small'
           variant='complex'
           columns={columns}
@@ -157,6 +155,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
             current: table?.pagination?.page,
             hideOnSinglePage: false,
           }}
+          rowKey={(row) => row.modifyDate.value + row.userName.value}
           onChange={handlePageChange}
           showHeader={true}
         />
