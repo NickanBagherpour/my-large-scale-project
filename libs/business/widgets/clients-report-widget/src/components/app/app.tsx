@@ -49,7 +49,7 @@ const App: React.FC<AppProps> = (props) => {
 
       <S.ClientReportContainer title={title}>
         <Filters />
-        <ClientReport
+        {/* <ClientReport
           isFetching={isClientReportListFetching}
           data={clientReport?.content}
           total={clientReport?.totalElements}
@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = (props) => {
           isLoading={isClientReportListFetching}
           wordToHighlight={searchTerm ?? ''}
           // changeStatus={(status, name) => changeStatusHandler(status, name)}
-        />
+        /> */}
       </S.ClientReportContainer>
     </>
   );
