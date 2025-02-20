@@ -30,6 +30,8 @@ declare global {
       SSO_SCOPE_COMMERCIAL: string;
       JWT_SIGNITURE_SECRET: string;
       NEXT_PUBLIC_IS_DEMO: string;
+      METABASE_SITE_URL: string;
+      METABASE_SECRET_KEY: string;
     }
   }
 }

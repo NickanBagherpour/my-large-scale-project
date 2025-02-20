@@ -119,7 +119,7 @@ const App: React.FC<AppProps> = (props) => {
         {t('button.return')}
       </ReturnButton>
 
-      {activeTabKey === 'upstream' && !state.upstreamTab.activeSelect.isInitialized && (
+      {activeTabKey === 'upstream' && (
         <Button
           loading={isPending}
           onClick={() => {

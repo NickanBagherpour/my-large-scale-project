@@ -48,7 +48,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     },
     {
       title: t('table.modify_by'),
-      dataIndex: 'modifyBy',
+      dataIndex: 'userName',
       align: 'center',
       ellipsis: true,
       render: (column) => {

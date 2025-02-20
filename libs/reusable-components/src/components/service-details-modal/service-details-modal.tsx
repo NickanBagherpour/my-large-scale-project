@@ -62,7 +62,7 @@ export default function DetailsModal(props: Props) {
         key: t('uikit.tag'),
         value:
           tags.map((tag) => (
-            <Chip key={tag.id} type='active'>
+            <Chip tooltipTitle={tag.title} key={tag.id} type='active'>
               {tag.title}
             </Chip>
           )) ?? [],

@@ -47,7 +47,9 @@ const DataTable = () => {
       title: t('column.user-name'),
       dataIndex: 'modifyBy',
       ellipsis: true,
-      render: (column) => <HistoryCell item={column.name} />,
+      render: (column) => {
+        return <HistoryCell item={column} />;
+      },
     },
     {
       title: t('column.revision-type'),

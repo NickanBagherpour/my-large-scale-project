@@ -13,7 +13,7 @@ import * as S from './upstream-details.style';
 export type UpstreamDetailsPropsType = {
   tableLoading: boolean;
   tableData: any[] | undefined;
-  handleDeleteButton?: () => void;
+  handleDeleteButton?: any;
   infoBoxData: { englishName: Nullable<string>; persianName: Nullable<string> };
   infoBoxLoading: boolean;
 };
