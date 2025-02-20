@@ -1,9 +1,13 @@
 'use client';
 
-import { message, Modal, notification, App } from 'antd';
+import { Modal, App } from 'antd';
 import { useConfig } from '../use-config/use-config';
 
 import { Direction } from '@oxygen/types';
+import { App as AntApp } from 'antd';
+import { type ReactNode } from 'react';
+import { type NotificationInstance } from 'antd/es/notification/interface';
+import { type MessageInstance } from 'antd/es/message/interface';
 
 type CustomModalFunctions = Omit<ReturnType<typeof Modal>, 'warn'> & {
   confirm: typeof Modal.confirm;
@@ -14,28 +18,14 @@ type CustomModalFunctions = Omit<ReturnType<typeof Modal>, 'warn'> & {
 };
 
 interface IUseApp {
-  message: typeof message;
-  notification: typeof notification;
+  message: MessageInstance;
+  notification: NotificationInstance;
   modal: CustomModalFunctions;
 }
 
 const useApp = (): IUseApp => {
   const [modalInstance, contextHolder] = Modal.useModal();
-  const { config } = useConfig();
-
-  notification.config({
-    placement: config.direction === Direction.RTL ? 'topLeft' : 'topRight',
-    top: 85,
-    duration: 5,
-    showProgress: true,
-    rtl: config.direction === Direction.RTL,
-  });
-
-  message.config({
-    top: 90,
-    duration: 3,
-    rtl: config.direction === Direction.RTL,
-  });
+  const { message, notification } = AntApp.useApp();
 
   return {
     message,
@@ -51,5 +41,29 @@ const useApp = (): IUseApp => {
     },
   };
 };
+
+export function NotificationProvider(props: { children: ReactNode }) {
+  const { children } = props;
+  const { config } = useConfig();
+
+  return (
+    <App
+      notification={{
+        placement: config.direction === Direction.RTL ? 'topLeft' : 'topRight',
+        top: 85,
+        duration: 500000,
+        showProgress: true,
+        rtl: config.direction === Direction.RTL,
+      }}
+      message={{
+        top: 90,
+        duration: 3,
+        rtl: config.direction === Direction.RTL,
+      }}
+    >
+      {children}
+    </App>
+  );
+}
 
 export default useApp;

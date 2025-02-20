@@ -44,7 +44,7 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer
       fillContainer={true}
       title={getWidgetTitle({ defaultTitle: t('widget_name') })}
-      subtitle={`( ${getValueOrDash(data?.totalElements)} )`}
+      // subtitle={`( ${getValueOrDash(data?.totalElements)} )`}
     >
       <GlobalMessageContainer
         message={message}

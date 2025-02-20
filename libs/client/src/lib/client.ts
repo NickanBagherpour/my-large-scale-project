@@ -5,16 +5,16 @@ import {
   clearAllCookiesExceptForKey,
   clearLocalStorageExceptForKey,
   decrypt,
-  encrypt,
   getCookie,
   getUserFullNameFromStorage,
   ROUTES,
-  storage,
 } from '@oxygen/utils';
 
 const baseUrl = '/';
 
 export const portalUrl = process.env.NEXT_PUBLIC_PORTAL_PREFIX;
+export const reportUrl = process.env.NEXT_PUBLIC_REPORT_PREFIX;
+
 const client = axios.create({
   baseURL: baseUrl,
   timeout: 120000,
@@ -77,7 +77,7 @@ client.interceptors.response.use(
       }*/
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default client;

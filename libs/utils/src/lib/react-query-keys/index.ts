@@ -35,6 +35,7 @@ import { KEYS as GET_SCOPE } from './portals/backoffice/get-scope.key';
 import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.key';
 
 /*--import-business--*/
+import { KEYS as META_KEYS } from './portals/business/meta.key';
 import { KEYS as BUSINESS_DASHBOARD_KEYS } from './portals/business/business-dashboard.key';
 import { KEYS as REQUEST_DETAILS_KEYS } from './portals/business/request-details.key';
 import { KEYS as REQUEST_LIST_KEYS } from './portals/business/request-list.key';
@@ -60,7 +61,6 @@ export const RQKEYS = {
     CLIENT_PROFILE: 'CLIENT_PROFILE',
 
     /*--export-backoffice--*/
-    SERVICE_DOCUMENTATION_HISTORY: SERVICE_DOCUMENTATION_HISTORY_KEYS,
     SERVICES_REPORT: SERVICES_REPORT_KEYS,
     UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
     UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
@@ -85,6 +85,7 @@ export const RQKEYS = {
     SERVICE_MANAGEMENT: SERVICE_MANAGEMENT_KEYS,
     SERVICE_CLIENTS_LIST: SERVICE_CLIENTS_LIST_KEYS,
     SERVICE_INQUIRY: SERVICES_LIST_KEYS.INQUIRY,
+    SERVICE_DOCUMENTATION_HISTORY: SERVICE_DOCUMENTATION_HISTORY_KEYS,
     //SCOPE
     EDIT_SCOPE: EDIT_SCOPE_KEYS,
     SCOPE_CREATION: SCOPE_CREATION_KEYS,
@@ -106,6 +107,7 @@ export const RQKEYS = {
   BUSINESS: {
     REQUEST: 'request',
     /*--export-business--*/
+    META: META_KEYS,
     DASHBOARD: BUSINESS_DASHBOARD_KEYS,
     REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
     EDIT_REQUEST_LIST: EDIT_REQUEST_LIST_KEYS,

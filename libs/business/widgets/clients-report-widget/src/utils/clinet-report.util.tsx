@@ -38,7 +38,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: false,
       },
       render: (value) => (
-        <Tooltip placement="top" title={getValueOrDash(value)} arrow={true}>
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}
         </Tooltip>
       ),
@@ -53,7 +53,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         showTitle: false,
       },
       render: (value) => (
-        <Tooltip placement="top" title={getValueOrDash(value)} arrow={true}>
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           <S.Name text={getValueOrDash(value)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
@@ -70,14 +70,16 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
           <S.DetailsButton
             size={'small'}
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}>
+            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}
+          >
             {t('services_report')}
           </S.DetailsButton>
 
           <S.DetailsButton
             size={'small'}
             variant={'link'}
-            href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}>
+            href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}
+          >
             {t('details')}
           </S.DetailsButton>
         </Box>
@@ -122,14 +124,16 @@ export function getMobileColumns(props: Props): any {
                 <S.DetailsButton
                   size={'small'}
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}>
+                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}
+                >
                   {t('services_report')}
                 </S.DetailsButton>
 
                 <S.DetailsButton
                   size={'small'}
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}>
+                  href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}
+                >
                   {t('details')}
                 </S.DetailsButton>
               </Box>

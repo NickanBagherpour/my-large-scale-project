@@ -21,7 +21,7 @@ export default {
   scope_name_placeholder: 'نام اسکوپ مربوطه',
   scope_persian_name: 'نام فارسی اسکوپ',
   upload_title: 'فایل مورد نظر را انتخاب کنید یا بکشید و در این قسمت رها کنید.',
-  upload_description: 'فرمت فایل ارسالی .xls باشد (حجم زیر ۵ مگابایت)',
+  upload_description: 'فرمت فایل ارسالی .pdf,.docx,.doc باشد (حجم زیر 6 مگابایت)',
   operational: 'عملیاتی',
   route: 'Route',
   upstream: 'آپ‌استریم',
@@ -29,7 +29,7 @@ export default {
   service_documentation: 'مستندات سرویس',
   add_documentation: 'افزودن مستندات',
   file_format_error: 'فرمت فایل معتبر نیست',
-  file_size_limit_error: 'حجم فایل بیشتر از 5مگابایت است',
+  file_size_limit_error: 'حجم فایل بیشتر از 6مگابایت است',
   stop: 'توقف',
   field: {
     row: 'ردیف',
