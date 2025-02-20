@@ -76,6 +76,6 @@ const Api = {
     return client.post<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
   },
   postAssignScopeToService: async ({ scopeName, serviceName }: any) =>
-    client.post<unknown>(`${portalUrl}/v1/upstreams/${scopeName}/assign-to-service/${serviceName}`),
+    client.post<unknown>(`${portalUrl}/v1/upstreams/${scopeName}/services/${serviceName}`),
 };
 export default Api;

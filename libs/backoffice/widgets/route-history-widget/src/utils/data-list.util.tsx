@@ -17,7 +17,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('column.edit_date'),
       dataIndex: 'modifyDate',
       render: (item) => {
-        return <div>{convertShamsiDateFormat(item?.value)}</div>;
+        return <div>{convertShamsiDateFormat(item?.value, true)}</div>;
       },
     },
     {
@@ -25,6 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'modifyBy',
       key: 'modifyBy',
       ellipsis: true,
+      align: 'center',
       render: (item) => {
         return <HistoryCell item={item} />;
       },
@@ -33,6 +34,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('column.revision_type'),
       dataIndex: 'revisionDto',
       key: 'actionType',
+      align: 'center',
       render: (value, record) => {
         const variant = value.revType?.code?.value;
         const isDeleted = record?.isDeleted?.value;
@@ -48,6 +50,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'route',
       key: 'action',
       ellipsis: true,
+      align: 'center',
       className: 'right-to-left',
       render: (item) => {
         const value = item?.methods.value.map((item) => item.title).join(' ,');
@@ -56,10 +59,23 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       },
     },
     {
+      title: t('column.protocol'),
+      dataIndex: 'route',
+      key: 'protocols',
+      ellipsis: true,
+      align: 'center',
+      render: (item) => {
+        const value = item?.protocols.value.map((item) => item.title).join(' ,');
+        const hasDifference = item?.protocols.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
+      },
+    },
+    {
       title: t('column.path'),
       dataIndex: 'route',
       key: 'paths',
       ellipsis: true,
+      align: 'center',
       className: 'right-to-left',
       render: (item) => {
         const value = item?.paths.value.join(' ,');
@@ -72,6 +88,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'route',
       key: 'host',
       ellipsis: true,
+      align: 'center',
       className: 'right-to-left',
       render: (item) => {
         const value = item?.hosts.value.join(' ,');

@@ -1,11 +1,13 @@
 import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Modal } from '@oxygen/ui-kit';
+import { Button } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 
-import * as S from './remove-service-modal.style';
 import { FallbackSelect } from '../../fallback-select/fallback-select';
+
 import { useAppState } from '../../../../context';
+
+import * as S from './remove-service-modal.style';
 
 type Props = {
   isOpen: boolean;
@@ -22,10 +24,8 @@ export default function RemoveServiceModal(props: Props) {
   const state = useAppState();
 
   return (
-    <Modal
-      width={'50%'}
+    <S.Modal
       centered
-      loading={props?.loading}
       title={
         <S.MarkText
           text={t('upstream_tab.description', { id })}
@@ -50,6 +50,6 @@ export default function RemoveServiceModal(props: Props) {
       ]}
     >
       <FallbackSelect />
-    </Modal>
+    </S.Modal>
   );
 }

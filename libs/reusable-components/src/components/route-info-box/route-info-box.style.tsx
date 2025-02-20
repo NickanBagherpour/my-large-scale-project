@@ -7,6 +7,7 @@ export const Tag = styled(UikitTag)`
   background-color: ${(p) => withOpacity(p.theme.secondary._200, 50)};
   color: ${(p) => p.theme.success.main};
   border: transparent;
+  margin: 1rem 1rem 1rem 0;
   border-radius: 2.4rem !important;
   padding: 0.3rem 1rem !important;
 ` as typeof UikitTag;

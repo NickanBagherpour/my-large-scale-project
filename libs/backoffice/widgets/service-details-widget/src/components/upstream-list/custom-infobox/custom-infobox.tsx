@@ -4,19 +4,17 @@ import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
 
-import { useAppState } from '../../../context';
-
 import * as S from './custom-infobox.style';
+import { getValueOrDash } from '@oxygen/utils';
 
 export type CustomInfoboxProps = {
-  handleDeleteButton?: () => void;
+  handleDeleteButton?: (item: boolean) => void;
   data: { englishName: Nullable<string>; persianName: Nullable<string> };
   loading: boolean;
 };
 function CustomInfobox(props: CustomInfoboxProps) {
   const { handleDeleteButton, data, loading } = props;
 
-  const state = useAppState();
   const [t] = useTr();
 
   return (
@@ -28,15 +26,15 @@ function CustomInfobox(props: CustomInfoboxProps) {
           <>
             <Box className='upstream-box'>
               <S.Lable>{t('upstream_tab.info_box_englishName')}</S.Lable>
-              <span>{data?.englishName ? data.englishName : '-'}</span>
+              <span>{getValueOrDash(data.englishName)}</span>
             </Box>
             <Box className='upstream-box'>
               <S.Lable>{t('upstream_tab.info_box_persianName')}</S.Lable>
-              <span>{data?.persianName ? data.persianName : '-'}</span>
+              <span>{getValueOrDash(data.persianName)}</span>
             </Box>
             {handleDeleteButton && (
               <S.ButtonContainer>
-                <Button variant={'text'} color='error' onClick={handleDeleteButton}>
+                <Button variant={'text'} color='error' onClick={() => handleDeleteButton(true)}>
                   <S.TrashIcon className='icon-trash' />
                 </Button>
               </S.ButtonContainer>

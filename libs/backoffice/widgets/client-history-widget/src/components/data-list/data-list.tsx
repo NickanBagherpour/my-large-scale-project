@@ -45,7 +45,6 @@ const DataList: React.FC<dataListProps> = (props) => {
     <S.TableContainer>
       {dataSource?.length ? (
         <Table
-          scroll={{ x: 1200 }}
           loading={isFetching}
           dataSource={dataSource}
           pagination={{
