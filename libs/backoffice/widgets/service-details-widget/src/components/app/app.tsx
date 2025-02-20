@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
-import { NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Button, Tabs } from '@oxygen/ui-kit';
 
 import { Nullable } from '@oxygen/types';
@@ -15,6 +15,7 @@ import { UpstreamList } from '../upstream-list/upstream-list';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
 import {
+  resetErrorMessageAction,
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
   useAppDispatch,
@@ -143,6 +144,12 @@ const App: React.FC<AppProps> = (props) => {
       style={{ minHeight: '100%' }}
       footer={footerButton}
     >
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       <Tabs
         defaultActiveKey='general-information'
         items={items}

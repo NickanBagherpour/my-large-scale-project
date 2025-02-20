@@ -71,6 +71,15 @@ export const Dragger = styled(KitDragger)`
       grid-template-columns: 1fr;
     }
   }
+  .ant-upload-list-item-actions {
+    width: 7rem;
+    margin: 0 2rem;
+    display: flex;
+    gap: 2rem;
+  }
+  .anticon.anticon-download {
+    font-size: 2rem;
+  }
 `;
 export const UploadIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
@@ -103,7 +112,11 @@ export const TrashIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
   font-size: 2rem;
 `;
-export const ExcelIcon = styled.i`
+export const DownloadIcon = styled.i`
+  color: ${(p) => p.theme.text.quaternary};
+  font-size: 2rem;
+`;
+export const PDFIcon = styled.i`
   color: ${(p) => p.theme.error.main};
   font-size: 2.5rem;
 `;
