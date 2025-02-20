@@ -25,4 +25,10 @@ export const StyledSwitch = styled<any>(AntSwitch)`
       inset-inline-start: calc(100% - 18px);
     }
   }
+  .ant-switch-inner {
+    padding-top: 0.3rem !important;
+  }
+  .ant-switch-inner-unchecked {
+    color: ${(p) => p.theme.border._500};
+  }
 `;
