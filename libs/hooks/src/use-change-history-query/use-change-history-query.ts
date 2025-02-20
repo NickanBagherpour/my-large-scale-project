@@ -17,7 +17,8 @@ const calculateDifference = cache(function calculateDifference<ObjectType extend
         [key]: {
           value,
           hasDifference: comparisonObject
-            ? JSON.stringify(comparisonObject?.[key].slice().toSorted()) !== JSON.stringify(value.slice().sort())
+            ? JSON.stringify(comparisonObject?.[key]?.map((item) => JSON.stringify(item)).sort()) !==
+              JSON.stringify(value.map((item) => JSON.stringify(item)).sort())
             : false,
         },
       };
