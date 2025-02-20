@@ -75,6 +75,9 @@
             "@oxygen/backoffice/widgets/scope-list-widget": [
                 "libs/backoffice/widgets/scope-list-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/service-call-log-widget": [
+                "libs/backoffice/widgets/service-call-log-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/service-creation-widget": [
                 "libs/backoffice/widgets/service-creation-widget/src/index.ts"
             ],
