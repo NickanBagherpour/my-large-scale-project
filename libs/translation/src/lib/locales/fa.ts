@@ -180,6 +180,7 @@ export default {
     register: 'ثبت',
     login: 'ورود',
     logout: 'خروج',
+    delete_all: 'پاک کردن همه',
     toggle_theme: 'تغییر پوسته',
     toggle_direction: 'تغییر جهت',
     choose_file: 'انتخاب فایل',
