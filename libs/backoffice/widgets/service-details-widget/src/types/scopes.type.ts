@@ -1,4 +1,5 @@
 import { PaginatedData, ParamsWithPagaination } from './shared.type';
+import { Nullable } from '@oxygen/types';
 
 export type ScopesParams = ParamsWithPagaination<{
   'scope-name': string;
@@ -13,6 +14,6 @@ export type Scope = {
 export type ScopesData = PaginatedData<Scope>;
 
 export type AssignScopeToServiceParams = {
-  scopeName: string;
-  serviceName: string;
+  scopeName: Nullable<string>;
+  serviceName: Nullable<string>;
 };

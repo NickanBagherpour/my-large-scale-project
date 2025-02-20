@@ -12,9 +12,7 @@ export type PaginationType = {
   rowsPerPage: number;
 };
 export type initialActiveSelectType = {
-  isInitialized: boolean;
-  id: Nullable<number | string>;
-  cardId: Nullable<number | string>;
+  cardId: Nullable<string>;
 };
 
 export type WidgetStateType = {

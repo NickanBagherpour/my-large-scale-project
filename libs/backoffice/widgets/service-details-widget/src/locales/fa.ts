@@ -46,10 +46,11 @@ export default {
     add_upstream: 'افزودن آپ‌استریم',
     upstream_name: 'نام آپ‌استریم',
     upstream_name_placeholder: 'نام آپ‌استریم',
-    are_you_sure_to_remove: 'آیا از حذف آپ‌استریم {{id}} برای این سرویس اطمینان دارید؟',
-    remove_upstream: 'حذف آپ‌استریم',
+    description: 'به منظور حذف آپ‌استریم {{id}} برای این سرویس، لطفاً آپ‌استریم جدید را جایگزین کنید.',
+    replace_upstream: 'حذف و جایگزین آپ‌استریم جدید',
     upstream_servers: 'سرورهای آپ‌استریم',
     placeholder: 'جستجو براساس نام انگلیسی یا فارسی سرویس',
+
     table: {
       range: 'دامنه',
       health_status: 'وضعیت سلامت',

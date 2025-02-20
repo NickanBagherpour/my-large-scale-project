@@ -48,7 +48,6 @@ export const FallbackSelect = () => {
 
   return (
     <S.UpstreamCreationContainer>
-      <S.Title>{t('upstream_tab.tab_header')}</S.Title>
       <S.BorderBox>
         <S.SelectContainer>
           <Input
@@ -78,7 +77,7 @@ export const FallbackSelect = () => {
           )}
         </S.SelectContainer>
       </S.BorderBox>
-      {state.upstreamTab.activeSelect.cardId && <CardDetail id={state.upstreamTab.activeSelect.cardId} />}
+      {/*{state.upstreamTab.activeSelect.cardId && <CardDetail id={state.upstreamTab.activeSelect.cardId} />}*/}
     </S.UpstreamCreationContainer>
   );
 };

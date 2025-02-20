@@ -37,16 +37,10 @@ const Api = {
   getScopes: async (params: any) => client.get<any>(`${portalUrl}/v1/scope`, { params }),
   getServiceClientsList: async () => {
     return Mockify.ServiceClientsList();
-    // return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getScopeListBySearch: async (params) => {
-    //   return client.get<any>(`${portalUrl}/v1/scope/service-name/${params}`);
-    //   // return Mockify.getScopes;
-    // },
-    // getScopeListBy: async (params) => {
     const queryString = new URLSearchParams(params).toString();
     return client.get<any>(`${portalUrl}/v1/scope?${queryString}`);
-    // return Mockify.getScopes;
   },
   deleteServiceScope: async ({ servicename, scopeId }: { servicename: string; scopeId: string | number }) => {
     return client.delete<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
@@ -55,27 +49,6 @@ const Api = {
     return client.post<any>(`${portalUrl}/v1/scope/${servicename}/assign-to-service/${scopeId}`);
   },
   postAssignScopeToService: async ({ scopeName, serviceName }: any) =>
-    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign/${serviceName}`),
-  // deleteServiceScope: (async = (params) => {
-  //   const { servicename, scopeId } = params;
-
-  //   return client.delete(`/services/${servicename}/scopes/${scopeId}`);
-  // }),
-
-  // getScopeListBySearch: async (params) => {
-  //   const queryString = new URLSearchParams(params).toString();
-  //   try {
-  //     const response = await client.get<any>(`${portalUrl}/v1/scope?${queryString}`);
-  //     return response;
-  //   } catch (error) {
-  //     const axiosError = error as any;
-  //     if (axiosError.response?.status === 500) {
-  //       console.error('Received 500 error. Returning mock data.');
-  //       return Mockify.getScopes;
-  //     } else {
-  //       throw error;
-  //     }
-  //   }
-  // },
+    client.post<unknown>(`${portalUrl}/v1/upstreams/${scopeName}/assign-to-service/${serviceName}`),
 };
 export default Api;

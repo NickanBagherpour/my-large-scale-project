@@ -4,40 +4,52 @@ import { Button, Modal } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 
 import * as S from './remove-service-modal.style';
+import { FallbackSelect } from '../../fallback-select/fallback-select';
+import { useAppState } from '../../../../context';
 
 type Props = {
   isOpen: boolean;
   id: Nullable<string>;
   cancelToggle: () => void;
   deleteToggle: () => void;
+  loading: boolean;
 };
 
 export default function RemoveServiceModal(props: Props) {
   const [t] = useTr();
   const { isOpen, cancelToggle, deleteToggle, id } = props;
   const theme = useAppTheme();
+  const state = useAppState();
 
   return (
     <Modal
+      width={'50%'}
       centered
-      title={t('upstream_tab.remove_upstream')}
+      loading={props?.loading}
+      title={
+        <S.MarkText
+          text={t('upstream_tab.description', { id })}
+          wordToHighlight={id ?? ''}
+          highlightColor={theme.error.main}
+        />
+      }
       open={isOpen}
-      closable={true}
-      onCancel={cancelToggle}
+      closeIcon={false}
       footer={[
-        <Button onClick={cancelToggle} color='primary' variant='outlined'>
+        <Button key={'first'} onClick={cancelToggle} color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <Button onClick={deleteToggle} color='error'>
-          {t('remove')}
+        <Button
+          key={'second'}
+          disabled={Boolean(!state.upstreamTab.activeSelect.cardId)}
+          onClick={deleteToggle}
+          color='error'
+        >
+          {t('upstream_tab.replace_upstream')}
         </Button>,
       ]}
     >
-      <S.MarkText
-        text={t('upstream_tab.are_you_sure_to_remove', { id })}
-        wordToHighlight={id ?? ''}
-        highlightColor={theme.error.main}
-      />
+      <FallbackSelect />
     </Modal>
   );
 }
