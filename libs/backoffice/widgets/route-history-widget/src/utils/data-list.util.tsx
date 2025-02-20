@@ -22,8 +22,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: t('column.user_name'),
-      dataIndex: 'modifyBy',
-      key: 'modifyBy',
+      dataIndex: 'userName',
+      key: 'userName',
       ellipsis: true,
       render: (item) => {
         return <HistoryCell item={item} />;
