@@ -12,13 +12,13 @@ const GlobalStyle = createGlobalStyle`
     ${cssVar.verticalGap}: 0px; //2.8rem;
     ${cssVar.radius}: 0.8rem;
     ${cssVar.radiusLg}: 1.2rem;
-    ${cssVar.appbarZIndex}: 10000;
-    ${cssVar.onAppbarZIndex}: 10001;
+    ${cssVar.appbarZIndex}: 1000;
+    ${cssVar.onAppbarZIndex}: 1001;
   }
 
   ${respondTo.down('md')} {
     :root {
-      ${cssVar.appbarZIndex}: 1000;
+      ${cssVar.appbarZIndex}: 100;
     }
   }
 
