@@ -6,3 +6,9 @@ export const AppContainer = styled(Container)`
     margin-bottom: 2rem;
   }
 `;
+
+export const Title = styled.h3`
+  color: ${(p) => p.theme.text.primary};
+  font-size: 1.6rem;
+  font-weight: 600;
+`;

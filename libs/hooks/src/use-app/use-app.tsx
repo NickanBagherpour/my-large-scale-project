@@ -51,7 +51,7 @@ export function NotificationProvider(props: { children: ReactNode }) {
       notification={{
         placement: config.direction === Direction.RTL ? 'topLeft' : 'topRight',
         top: 85,
-        duration: 500000,
+        duration: 5,
         showProgress: true,
         rtl: config.direction === Direction.RTL,
       }}

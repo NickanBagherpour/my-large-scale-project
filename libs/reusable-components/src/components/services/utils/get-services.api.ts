@@ -4,11 +4,11 @@ import Api from './api';
 import { type Dispatch } from 'react';
 import { SERVICE_DEFAULTS } from './const';
 
-const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
+const { SERVICE } = RQKEYS.BACKOFFICE;
 
 export const useGetServices = (searchTerm: string, dispatch: Dispatch<any>) => {
   return useInfiniteQuery({
-    queryKey: [SERVICE, CLIENT_DETAILS.SERVICES, searchTerm],
+    queryKey: [SERVICE, searchTerm],
     queryFn: ({ pageParam }) =>
       withErrorHandling(
         () =>

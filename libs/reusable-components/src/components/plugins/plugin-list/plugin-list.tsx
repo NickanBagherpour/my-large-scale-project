@@ -10,6 +10,9 @@ import LimitationsModal from '../limitations-modal/limitations-modal';
 import { useServiceMutaionMutation } from '../utils/post-service-plugin.api';
 import { Loading } from '@oxygen/ui-kit';
 import { getServicePluginKeys } from '../utils/get-client-service-plugins.api';
+import { useApp } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
+import { NoResult } from '@oxygen/reusable-components';
 
 type Props = {
   plugins?: PluginConfig[];
@@ -23,6 +26,8 @@ export default function PluginList(props: Props) {
   const queryClient = useQueryClient();
   const clientPluginMutation = useClientPluginMutation(dispatch);
   const servicePluginMutation = useServiceMutaionMutation(dispatch);
+  const { notification } = useApp();
+  const [t] = useTr();
 
   const [currentConfig, setCurrentConfig] = useState<PluginConfig | null>(null);
 
@@ -44,6 +49,7 @@ export default function PluginList(props: Props) {
         {
           async onSuccess() {
             await queryClient.invalidateQueries({ queryKey: getServicePluginKeys(clientName) });
+            notification.success({ message: t('uikit.edit_was_successful') });
             closeModal();
           },
         }
@@ -54,6 +60,7 @@ export default function PluginList(props: Props) {
         {
           async onSuccess() {
             await queryClient.invalidateQueries({ queryKey: getPluginKeys(clientName) });
+            notification.success({ message: t('uikit.edit_was_successful') });
             closeModal();
           },
         }
@@ -65,17 +72,21 @@ export default function PluginList(props: Props) {
     <>
       <Loading spinning={isPending}>
         <S.Container>
-          {plugins?.map((plugin) => (
-            <PluginCard
-              key={plugin.name}
-              plugin={plugin}
-              onCheck={(isChecked) => {
-                if (isChecked) updateCurrentConfig({ ...plugin, enabled: true });
-                else postConfig({ ...plugin, enabled: false });
-              }}
-              onSetting={() => updateCurrentConfig(plugin)}
-            />
-          ))}
+          {plugins?.length ? (
+            plugins.map((plugin) => (
+              <PluginCard
+                key={plugin.name}
+                plugin={plugin}
+                onCheck={(isChecked) => {
+                  if (isChecked) updateCurrentConfig({ ...plugin, enabled: true });
+                  else postConfig({ ...plugin, enabled: false });
+                }}
+                onSetting={() => updateCurrentConfig(plugin)}
+              />
+            ))
+          ) : (
+            <NoResult />
+          )}
         </S.Container>
       </Loading>
 

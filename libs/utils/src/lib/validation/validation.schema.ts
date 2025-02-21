@@ -258,7 +258,22 @@ export const createValidationSchema = (
       )
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
-    arrayOfStrings: z
+    hostArray: z
+      .string()
+      .refine(
+        (value) => {
+          if (/^\d/.test(value)) {
+            return REGEX_PATTERNS.ip.test(value);
+          } else {
+            return REGEX_PATTERNS.notHttpUrlPattern.test(value) && REGEX_PATTERNS.defaultEnglishName.test(value);
+          }
+        },
+        { message: t('validation.field_error') }
+      )
+      .array()
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    pathArray: z
       .string({
         required_error: t('validation.required'),
         invalid_type_error: t('validation.required'),
@@ -266,6 +281,7 @@ export const createValidationSchema = (
       .trim()
       .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) })
+      .regex(REGEX_PATTERNS.path, t('validation.field_error'))
       .array()
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
