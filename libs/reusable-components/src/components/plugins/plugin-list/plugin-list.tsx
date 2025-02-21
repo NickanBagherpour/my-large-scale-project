@@ -12,6 +12,7 @@ import { Loading } from '@oxygen/ui-kit';
 import { getServicePluginKeys } from '../utils/get-client-service-plugins.api';
 import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
+import { NoResult } from '@oxygen/reusable-components';
 
 type Props = {
   plugins?: PluginConfig[];
@@ -71,17 +72,21 @@ export default function PluginList(props: Props) {
     <>
       <Loading spinning={isPending}>
         <S.Container>
-          {plugins?.map((plugin) => (
-            <PluginCard
-              key={plugin.name}
-              plugin={plugin}
-              onCheck={(isChecked) => {
-                if (isChecked) updateCurrentConfig({ ...plugin, enabled: true });
-                else postConfig({ ...plugin, enabled: false });
-              }}
-              onSetting={() => updateCurrentConfig(plugin)}
-            />
-          ))}
+          {plugins?.length ? (
+            plugins.map((plugin) => (
+              <PluginCard
+                key={plugin.name}
+                plugin={plugin}
+                onCheck={(isChecked) => {
+                  if (isChecked) updateCurrentConfig({ ...plugin, enabled: true });
+                  else postConfig({ ...plugin, enabled: false });
+                }}
+                onSetting={() => updateCurrentConfig(plugin)}
+              />
+            ))
+          ) : (
+            <NoResult />
+          )}
         </S.Container>
       </Loading>
 
