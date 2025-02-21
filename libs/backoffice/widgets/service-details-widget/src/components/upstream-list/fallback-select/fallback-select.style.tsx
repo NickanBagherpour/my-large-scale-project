@@ -1,5 +1,6 @@
 import { cssVar } from '@oxygen/utils';
 import styled from 'styled-components';
+import { Pagination as KitPagination } from '@oxygen/ui-kit';
 
 export const UpstreamCreationContainer = styled.div`
   gap: 2.4rem;
@@ -8,6 +9,8 @@ export const BorderBox = styled.div`
   border: 1px solid ${(p) => p.theme.border._100};
   border-radius: var(${cssVar.radius});
   padding: 1.6rem;
+  max-height: 50vh;
+  overflow-y: auto;
 `;
 export const SelectContainer = styled.div`
   display: flex;
@@ -30,6 +33,12 @@ export const Title = styled.p`
 export const PaginationBox = styled.div`
   margin: 1.8rem 0 0.8rem 0;
 `;
+
+export const Pagination = styled(KitPagination)`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 export const DataSection = styled.div`
   display: flex;
   flex-direction: column;

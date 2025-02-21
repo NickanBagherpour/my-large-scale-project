@@ -13,6 +13,7 @@ import { UpstreamDetails } from '../upstream-details/upstream-details';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 
 import * as S from './active-select.style';
+import { useApp } from '@oxygen/hooks';
 
 type ActiveSelectType = PageProps & {
   serviceName: string;
@@ -24,32 +25,49 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const queryClient = useQueryClient();
   const state = useAppState();
   const dispatch = useAppDispatch();
+  const { notification } = useApp();
 
   const [removeServiceModals, setRemoveServiceModals] = useState<boolean>(false);
 
   const { data: upStreamListData, isFetching: upStreamLoading } = useUpstreamListQuery({ serviceName });
-
-  const { mutate, isPending: postAssignLoading } = usePostAssignScopeToService();
+  const { mutate } = usePostAssignScopeToService();
 
   const tableData = upStreamListData?.targets;
 
   const infoBoxData = { englishName: upStreamListData?.name, persianName: upStreamListData?.description };
 
   const handleModalDeleteButton = async () => {
-    mutate(
-      { serviceName: serviceName, scopeName: state?.upstreamTab?.activeSelect?.cardId },
-      {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
-          });
+    const assignUpstreamParams = {
+      serviceName: serviceName,
+      upstreamName: state?.upstreamTab?.activeSelect?.cardId,
+    };
 
-          updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+    mutate(assignUpstreamParams, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
+          refetchType: 'active',
+        });
 
-          setRemoveServiceModals(false);
-        },
-      }
-    );
+        updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+
+        setRemoveServiceModals(false);
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
+          refetchType: 'active',
+        });
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS],
+          refetchType: 'none',
+        });
+
+        notification.success({
+          message: t('message.success_alert', { element: t('upstream') }),
+        });
+      },
+    });
   };
 
   const handleModalCancelButton = () => {
@@ -81,8 +99,9 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         deleteToggle={handleModalDeleteButton}
         cancelToggle={handleModalCancelButton}
         id={upStreamListData?.name}
-        loading={postAssignLoading}
       />
     </>
   );
 };
+
+//checked
