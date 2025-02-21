@@ -18,7 +18,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.edit_time'),
       dataIndex: 'clientServiceDto',
       render: (item) => {
-        return <div>{convertShamsiDateFormat(item?.modifyDate.value)}</div>;
+        return <div>{convertShamsiDateFormat(item?.modifyDate.value, true)}</div>;
       },
     },
     {
