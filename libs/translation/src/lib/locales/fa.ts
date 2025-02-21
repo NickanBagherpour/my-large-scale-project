@@ -175,6 +175,7 @@ export default {
     add_protocols: 'افزودن پروتکل‌ها',
     service_was_removed_successfly: 'سرویس با موفقیت حذف شد',
     service_was_added_successfly: 'سرویس با موفقیت افزوده شد',
+    edit_was_successful: 'ویرایش با موفقیت انجام شد',
   },
 
   button: {
