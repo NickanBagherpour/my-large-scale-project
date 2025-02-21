@@ -7,7 +7,6 @@ export const InfoboxContainer = styled.div`
   gap: 2rem;
   align-items: center;
   button {
-    width: 16rem;
     ${respondTo.down('sm')} {
       width: 100%;
     }
@@ -33,7 +32,6 @@ export const Lable = styled.p`
 `;
 export const ButtonContainer = styled.div`
   display: flex;
-
   justify-content: end;
 `;
 export const Container = styled.div`

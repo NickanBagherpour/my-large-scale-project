@@ -28,28 +28,40 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
   const [removeServiceModals, setRemoveServiceModals] = useState<boolean>(false);
 
   const { data: upStreamListData, isFetching: upStreamLoading } = useUpstreamListQuery({ serviceName });
-
-  const { mutate, isPending: postAssignLoading } = usePostAssignScopeToService();
+  const { mutate } = usePostAssignScopeToService();
 
   const tableData = upStreamListData?.targets;
 
   const infoBoxData = { englishName: upStreamListData?.name, persianName: upStreamListData?.description };
 
   const handleModalDeleteButton = async () => {
-    mutate(
-      { serviceName: serviceName, scopeName: state?.upstreamTab?.activeSelect?.cardId },
-      {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
-          });
+    const assignUpstreamParams = {
+      serviceName: serviceName,
+      upstreamName: state?.upstreamTab?.activeSelect?.cardId,
+    };
 
-          updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+    mutate(assignUpstreamParams, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
+          refetchType: 'active',
+        });
 
-          setRemoveServiceModals(false);
-        },
-      }
-    );
+        updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+
+        setRemoveServiceModals(false);
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
+          refetchType: 'active',
+        });
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS],
+          refetchType: 'none',
+        });
+      },
+    });
   };
 
   const handleModalCancelButton = () => {
@@ -81,8 +93,9 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
         deleteToggle={handleModalDeleteButton}
         cancelToggle={handleModalCancelButton}
         id={upStreamListData?.name}
-        loading={postAssignLoading}
       />
     </>
   );
 };
+
+//checked
