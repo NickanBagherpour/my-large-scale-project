@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { useTr } from '@oxygen/translation';
-import { Nullable, PageProps } from '@oxygen/types';
+import { Nullable } from '@oxygen/types';
 
 import * as S from './app.style';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
