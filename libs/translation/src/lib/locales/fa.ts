@@ -171,9 +171,10 @@ export default {
     status: 'وضعیت',
     search_english_or_persian_name: 'جستجو براساس نام انگلیسی، نام فارسی و نام اسکوپ',
     call_limitation_plugin: 'پلاگین محدودیت فراخوانی کلاینت',
-
     add_methods: 'افزودن متودها',
     add_protocols: 'افزودن پروتکل‌ها',
+    service_was_removed_successfly: 'سرویس با موفقیت حذف شد',
+    service_was_added_successfly: 'سرویس با موفقیت افزوده شد',
   },
 
   button: {
