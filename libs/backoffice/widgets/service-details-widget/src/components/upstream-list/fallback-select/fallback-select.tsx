@@ -2,7 +2,7 @@ import { use, useEffect, useState } from 'react';
 
 import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
-import { Input } from '@oxygen/ui-kit';
+import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
 import { Cards } from './selection/cards/cards';
@@ -60,7 +60,7 @@ export const FallbackSelect = (props) => {
                 <Cards cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
               </S.DataSection>
               <S.PaginationBox>
-                <S.Pagination
+                <Pagination
                   current={page}
                   total={data?.totalElements}
                   pageSize={UPSTREAM_CARD_PAGE_SIZE}

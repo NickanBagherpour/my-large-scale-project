@@ -34,11 +34,6 @@ export const PaginationBox = styled.div`
   margin: 1.8rem 0 0.8rem 0;
 `;
 
-export const Pagination = styled(KitPagination)`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
 export const DataSection = styled.div`
   display: flex;
   flex-direction: column;

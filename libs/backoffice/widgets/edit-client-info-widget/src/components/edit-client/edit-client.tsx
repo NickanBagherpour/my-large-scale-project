@@ -76,7 +76,6 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
           notification.success({
             message: t('message.success_alert', { element: '' }),
           });
-          await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
 
           router.back();
 
