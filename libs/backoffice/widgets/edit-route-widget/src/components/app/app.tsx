@@ -11,15 +11,11 @@ import { GlobalMessageContainer, Route } from '@oxygen/reusable-components';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useApp } from '@oxygen/hooks';
 
-type AppProps = PageProps & {
-  //
-};
-
-const App: React.FC<AppProps> = (props) => {
+const App = () => {
   const [t] = useTr();
   const searchParams = useSearchParams();
   const serviceName: Nullable<string> = searchParams.get('servicename');
-  const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery(serviceName);
+  const { data: routeDetails } = useGetRouteDetailsQuery(serviceName);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { notification } = useApp();
@@ -33,19 +29,19 @@ const App: React.FC<AppProps> = (props) => {
     notification.success({
       message: t('success_notif'),
     });
-    setTimeout(() => {
-      router.back();
-    }, 200); // this prevents rendering notifications twice, don't know why it works
+
+    router.back();
   };
 
   return (
     <S.AppContainer
       title={getWidgetTitle({
         defaultTitle: t('common.edit_data'),
-        primaryTitle: routeDetails?.name,
+        primaryTitle: routeDetails?.route.serviceName,
       })}
     >
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
+      <S.Title>{t('edit_route')}</S.Title>
       <Route dispatch={dispatch} nextStep={onSuccess} previousStep={() => router.back()} serviceName={serviceName} />
     </S.AppContainer>
   );
