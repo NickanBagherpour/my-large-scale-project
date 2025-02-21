@@ -38,6 +38,7 @@ export default function ClientInfo(props: Props) {
     isImplicitFlow,
     isPasswordFlow,
     isAuthorizationFlow,
+    isRefreshToken,
     authorizationKey,
     organizationInfo,
     clientEnglishName,
@@ -60,6 +61,10 @@ export default function ClientInfo(props: Props) {
     {
       name: t('password_flow'),
       isActive: isPasswordFlow,
+    },
+    {
+      name: t('refresh_token'),
+      isActive: isRefreshToken,
     },
   ].reduce((acc, type) => (type.isActive ? acc.concat(type.name) : acc), [] as string[]);
 
