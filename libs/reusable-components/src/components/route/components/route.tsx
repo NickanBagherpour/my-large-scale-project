@@ -82,13 +82,7 @@ export default function Route(props: Props) {
 
   return (
     <>
-      <S.Form
-        layout={'vertical'}
-        initialValues={initialValues}
-        onFinish={onFinish}
-        form={form}
-        onFinishFailed={(e) => console.log('>>>', e)}
-      >
+      <S.Form layout={'vertical'} initialValues={initialValues} onFinish={onFinish} form={form}>
         <BorderedSection>
           <Space direction='vertical' size={'middle'}>
             <FormItem

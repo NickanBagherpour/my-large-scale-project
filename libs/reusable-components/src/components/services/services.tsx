@@ -12,6 +12,7 @@ import { useUnassignServiceFromClient } from './utils/unassign-from-client';
 import { Service } from './utils/services.type';
 import { useGetClientServices } from './utils/get-client-services.api';
 import ServiceDetailsModal from '../service-details-modal/service-details-modal';
+import { useApp } from '@oxygen/hooks';
 
 type Props = {
   clientName: string;
@@ -38,6 +39,7 @@ export default function Services(props: Props) {
   );
   const [serviceToRemove, setServiceToRemove] = useState<Service | null>(null);
   const [serviceToView, setServiceToView] = useState<Service | null>(null);
+  const { notification } = useApp();
 
   useEffect(() => {
     hasServices?.(!!data?.content.length);
@@ -54,7 +56,14 @@ export default function Services(props: Props) {
   };
 
   const onAssignToClient = (service: Service) => {
-    assignToClient({ clientName, serviceInfoId: service.id });
+    assignToClient(
+      { clientName, serviceInfoId: service.id },
+      {
+        onSuccess() {
+          notification.success({ message: t('uikit.service_was_added_successfly') });
+        },
+      }
+    );
   };
 
   const onUnassignFromClient = () => {
@@ -64,6 +73,7 @@ export default function Services(props: Props) {
         {
           onSuccess() {
             setServiceToRemove(null);
+            notification.success({ message: t('uikit.service_was_removed_successfly') });
           },
         }
       );

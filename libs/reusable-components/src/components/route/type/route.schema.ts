@@ -9,8 +9,8 @@ export const createRouteSchema = (t: TFunction) => {
   return z.object({
     [ROUTE_NAMES.methods]: validationSchema.codeTitle,
     [ROUTE_NAMES.protocols]: validationSchema.codeTitle,
-    [ROUTE_NAMES.paths]: validationSchema.arrayOfStrings,
-    [ROUTE_NAMES.hosts]: validationSchema.arrayOfStrings,
+    [ROUTE_NAMES.paths]: validationSchema.pathArray,
+    [ROUTE_NAMES.hosts]: validationSchema.hostArray,
   });
 };
 

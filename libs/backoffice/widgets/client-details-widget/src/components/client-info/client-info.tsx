@@ -2,7 +2,7 @@ import { useTr } from '@oxygen/translation';
 import { Button, Chip, InfoBox, Loading } from '@oxygen/ui-kit';
 import * as S from './client-info.style';
 import { useGetClientInfoQuery } from '../../services';
-import { ROUTES } from '@oxygen/utils';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { useClientName } from '../../utils/use-client-name';
 import { NoResult } from '@oxygen/reusable-components';
 import { useEffect } from 'react';
@@ -16,7 +16,7 @@ export default function ClientInfo(props: Props) {
   const { updateTitle } = props;
   const [t] = useTr();
   const clientName = useClientName();
-  const { data: clientInfo } = useGetClientInfoQuery(clientName);
+  const { data: clientInfo, isError } = useGetClientInfoQuery(clientName);
 
   useEffect(() => {
     if (clientInfo?.clientPersianName) {
@@ -25,6 +25,7 @@ export default function ClientInfo(props: Props) {
     }
   }, [clientInfo, updateTitle]);
 
+  if (isError) return <NoResult />;
   if (!clientInfo) return <Loading />;
 
   const {
@@ -38,6 +39,7 @@ export default function ClientInfo(props: Props) {
     isImplicitFlow,
     isPasswordFlow,
     isAuthorizationFlow,
+    isRefreshToken,
     authorizationKey,
     organizationInfo,
     clientEnglishName,
@@ -61,27 +63,33 @@ export default function ClientInfo(props: Props) {
       name: t('password_flow'),
       isActive: isPasswordFlow,
     },
+    {
+      name: t('refresh_token'),
+      isActive: isRefreshToken,
+    },
   ].reduce((acc, type) => (type.isActive ? acc.concat(type.name) : acc), [] as string[]);
 
   const clientInfoData = [
-    { key: t('english_client_name'), value: clientEnglishName },
-    { key: t('persian_client_name'), value: clientPersianName },
-    { key: t('client_type'), value: clientTypeName },
-    { key: t('client_id'), value: clientId },
-    { key: t('authentication_id'), value: authorizationKey },
-    { key: t('website_address'), value: websiteUrl },
-    { key: t('input_address'), value: inboundAddress },
-    { key: t('client_return_address'), value: redirectUrl },
+    { key: t('english_client_name'), value: getValueOrDash(clientEnglishName) },
+    { key: t('persian_client_name'), value: getValueOrDash(clientPersianName) },
+    { key: t('client_type'), value: getValueOrDash(clientTypeName) },
+    { key: t('client_id'), value: getValueOrDash(clientId) },
+    { key: t('authentication_id'), value: getValueOrDash(authorizationKey) },
+    { key: t('website_address'), value: getValueOrDash(websiteUrl) },
+    { key: t('input_address'), value: getValueOrDash(inboundAddress) },
+    { key: t('client_return_address'), value: getValueOrDash(redirectUrl) },
     {
       fullwidth: true,
       key: t('grant_type'),
       value: (
         <S.Chips>
-          {grantType.map((name) => (
-            <Chip key={name} type='active'>
-              {name}
-            </Chip>
-          ))}
+          {grantType?.length
+            ? grantType.map((name) => (
+                <Chip key={name} type='active'>
+                  {name}
+                </Chip>
+              ))
+            : '-'}
         </S.Chips>
       ),
     },
@@ -90,11 +98,13 @@ export default function ClientInfo(props: Props) {
       key: t('tags'),
       value: (
         <S.Chips>
-          {tagIds?.map((t, idx) => (
-            <Chip key={idx} type='active'>
-              {t.title}
-            </Chip>
-          ))}
+          {tagIds?.length
+            ? tagIds?.map((t, idx) => (
+                <Chip key={idx} type='active'>
+                  {t.title}
+                </Chip>
+              ))
+            : '-'}
         </S.Chips>
       ),
     },
@@ -114,12 +124,12 @@ export default function ClientInfo(props: Props) {
     const aggregatorStatus = isAggregator ? `${t('has')}${formattedAggregatorName}` : t('has_not');
 
     orgInfoData = [
-      { key: t('organization_name'), value: organizationName },
-      { key: t('organization_id'), value: organizationNationalId },
-      { key: t('aggregator_status'), value: aggregatorStatus },
-      { key: t('representative_name'), value: nameAndLastName },
-      { key: t('mobile'), value: mobileNumber },
-      { key: t('phone'), value: fixedPhoneNumber },
+      { key: t('organization_name'), value: getValueOrDash(organizationName) },
+      { key: t('organization_id'), value: getValueOrDash(organizationNationalId) },
+      { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus) },
+      { key: t('representative_name'), value: getValueOrDash(nameAndLastName) },
+      { key: t('mobile'), value: getValueOrDash(mobileNumber) },
+      { key: t('phone'), value: getValueOrDash(fixedPhoneNumber) },
     ];
   }
 
