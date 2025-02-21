@@ -35,12 +35,13 @@ const App: React.FC<AppProps> = () => {
     serviceId,
   });
 
+  const serviceName = data?.content[0]?.route?.serviceName?.value;
+
   return (
     <Container
       title={getWidgetTitle({
         defaultTitle: t('subtitle'),
-        primaryTitle: data?.name,
-        secondaryTitle: data?.name,
+        primaryTitle: serviceName,
       })}
       footer={<ReturnButton />}
     >

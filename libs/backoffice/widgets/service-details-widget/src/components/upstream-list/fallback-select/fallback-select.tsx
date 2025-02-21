@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
-import { Input, Pagination } from '@oxygen/ui-kit';
+import { Input } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
 import { Cards } from './selection/cards/cards';
@@ -13,8 +13,11 @@ import * as S from './fallback-select.style';
 
 export const FallbackSelect = (props) => {
   const [t] = useTr();
+  const {
+    Query: { page, searchTerm },
+    setQuery,
+  } = props;
 
-  const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
   const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
@@ -36,6 +39,7 @@ export const FallbackSelect = (props) => {
   const handleChange = (e) => {
     setQuery((prev) => ({ ...prev, searchTerm: e.target.value.trimStart() }));
   };
+
   const changePage = (currentPage: number) => {
     setQuery((prev) => ({ ...prev, page: currentPage }));
   };
@@ -56,7 +60,7 @@ export const FallbackSelect = (props) => {
                 <Cards cardData={data?.content} loading={isFetching} wordToHighlight={searchTerm} />
               </S.DataSection>
               <S.PaginationBox>
-                <Pagination
+                <S.Pagination
                   current={page}
                   total={data?.totalElements}
                   pageSize={UPSTREAM_CARD_PAGE_SIZE}

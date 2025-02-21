@@ -8,13 +8,13 @@ import { FallbackSelect } from '../../fallback-select/fallback-select';
 import { useAppState } from '../../../../context';
 
 import * as S from './remove-service-modal.style';
+import { useEffect, useState } from 'react';
 
 type Props = {
   isOpen: boolean;
   id: Nullable<string>;
   cancelToggle: () => void;
   deleteToggle: () => void;
-  loading: boolean;
 };
 
 export default function RemoveServiceModal(props: Props) {
@@ -22,6 +22,12 @@ export default function RemoveServiceModal(props: Props) {
   const { isOpen, cancelToggle, deleteToggle, id } = props;
   const theme = useAppTheme();
   const state = useAppState();
+
+  const [Query, setQuery] = useState({ page: 1, searchTerm: '' });
+
+  useEffect(() => {
+    setQuery((prev) => ({ ...prev, page: 1 }));
+  }, [isOpen]);
 
   return (
     <S.Modal
@@ -36,11 +42,11 @@ export default function RemoveServiceModal(props: Props) {
       open={isOpen}
       closeIcon={false}
       footer={[
-        <Button key={'first'} onClick={cancelToggle} color='primary' variant='outlined'>
+        <Button key={'cancelButton'} onClick={cancelToggle} color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
         <Button
-          key={'second'}
+          key={'deleteButton'}
           disabled={Boolean(!state.upstreamTab.activeSelect.cardId)}
           onClick={deleteToggle}
           color='error'
@@ -49,7 +55,9 @@ export default function RemoveServiceModal(props: Props) {
         </Button>,
       ]}
     >
-      <FallbackSelect />
+      <FallbackSelect isOpenModal={isOpen} setQuery={setQuery} Query={Query} />
     </S.Modal>
   );
 }
+
+//checked

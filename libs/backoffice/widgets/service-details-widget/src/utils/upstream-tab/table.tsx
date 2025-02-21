@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
-  const { t, deletable = false, setToggleInfo } = props;
+  const { t } = props;
 
   return [
     {
@@ -46,7 +46,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: Props) {
-  const { t, deletable = false } = props;
+  const { t } = props;
 
   return [
     {
