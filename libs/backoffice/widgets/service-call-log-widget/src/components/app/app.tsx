@@ -14,7 +14,7 @@ const App = () => {
     return {
       isActive: status,
       page: table.pagination.page - 1,
-      ...(searchTerm && { 'search-field': searchTerm }),
+      searchTerm: searchTerm,
       size: table.pagination.rowsPerPage,
       sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
     };
@@ -24,15 +24,10 @@ const App = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const servicesSubTitle = services?.totalElements ? `(${services?.totalElements ?? 0})` : '';
-
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
-      <S.ServicesContainer
-        title={t('widget_name')}
-        // subtitle={servicesSubTitle}
-      >
+      <S.ServicesContainer title={t('widget_name')}>
         <Filters />
         <Services
           isFetching={isServiceListFetching}
@@ -41,7 +36,6 @@ const App = () => {
           searchTerm={searchTerm}
           isLoading={isServiceListFetching}
           wordToHighlight={searchTerm ?? ''}
-          // changeStatus={(status, name) => changeStatusHandler(status, name)}
         />
       </S.ServicesContainer>
     </>

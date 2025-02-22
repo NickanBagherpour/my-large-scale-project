@@ -6,6 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { useDebouncedValue } from '@oxygen/hooks';
 import { Service } from '../../utils/services.type';
 import { useGetServices } from '../../utils/get-services.api';
+import { useGetClientsQuery } from '../../utils/get-clients.api';
 
 type Props = {
   onClear?: () => void;
@@ -20,25 +21,33 @@ const ServiceSelector = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm);
 
-  const { data, isFetching, hasNextPage, fetchNextPage } = useGetServices(debouncedSearchTerm.trim(), dispatch);
+  const { data, isFetching, hasNextPage, fetchNextPage } = useGetClientsQuery(debouncedSearchTerm.trim(), dispatch);
   const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as Service[]);
+  console.log(allData, 'allData****');
+  console.log(searchTerm, 'searchTerm****');
 
   return (
     <div>
       <AdvanceSelector
         data={
-          allData?.map((service) => ({
-            title: service.name,
-            subTitle: service.persianName ?? '',
-            service,
+          allData?.map((client) => ({
+            title: client.clientName,
+            subTitle: client.clientName ?? '',
+            client,
           })) ?? []
         }
         value={searchTerm}
-        onSelect={({ service }) => {
+        onSelect={({ title }) => {
+          console.log(title, 'serviceserviceservice');
+
           // setSearchTerm('');
-          // onSelect(service);
+          // onSelect('');
         }}
-        onChange={(value) => setSearchTerm(value)}
+        onChange={(value) => {
+          console.log(value);
+          setSearchTerm(value);
+        }}
+        // setSearchTerm(value)}
         loading={isFetching}
         isLastPage={!hasNextPage}
         loadMore={() => fetchNextPage()}
