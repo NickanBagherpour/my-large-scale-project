@@ -22,6 +22,7 @@ function renderGrantType(record) {
     { key: 'isClientFlow', label: 'Client Flow' },
     { key: 'isImplicitFlow', label: 'Implicit Flow' },
     { key: 'isPasswordFlow', label: 'Password Flow' },
+    { key: 'isRefreshToken', label: 'Refresh Token' },
   ];
 
   if (!record) return { value: getValueOrDash(''), hasDifference: false };
