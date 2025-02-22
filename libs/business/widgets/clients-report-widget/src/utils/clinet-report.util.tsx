@@ -78,7 +78,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
           <S.DetailsButton
             size={'small'}
             variant={'link'}
-            href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}
+            href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?name=${record.clientEnglishName ?? ''}`}
           >
             {t('details')}
           </S.DetailsButton>
@@ -132,7 +132,7 @@ export function getMobileColumns(props: Props): any {
                 <S.DetailsButton
                   size={'small'}
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.CLIENTS_REPORT_META}?name=${record.clientEnglishName ?? ''}`}
+                  href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?name=${record.clientEnglishName ?? ''}`}
                 >
                   {t('details')}
                 </S.DetailsButton>
