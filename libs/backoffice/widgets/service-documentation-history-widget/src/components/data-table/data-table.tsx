@@ -49,8 +49,8 @@ const DataTable = () => {
     },
     {
       title: t('column.user-name'),
-      dataIndex: 'modifyBy',
-      key: 'modifyBy',
+      dataIndex: 'userName',
+      key: 'userName',
       render: (column) => getValueOrDash(column.value),
     },
     {
