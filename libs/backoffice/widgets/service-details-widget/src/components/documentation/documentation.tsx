@@ -76,7 +76,12 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
         fileType = 'unknown'; // Handle unknown file types
         break;
     }
-    await setFileInfo({ serviceDocumentId: file.serviceDocumentId, fileExtension: fileExtension, fileType: fileType });
+    await setFileInfo({
+      serviceDocumentId: file.serviceDocumentId,
+      fileExtension: fileExtension,
+      fileType: fileType,
+      fileName: file.name,
+    });
     downloadRefetch();
   };
 
