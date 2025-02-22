@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 // copied from: https://mantine.dev/hooks/use-debounced-value/
-export default function useDebouncedValue<T = any>(value: T, wait: number, options = { leading: false }) {
+export default function useDebouncedValue<T = any>(value: T, wait = 500, options = { leading: false }) {
   const [_value, setValue] = useState(value);
   const mountedRef = useRef(false);
   const timeoutRef = useRef<number | null>(null);

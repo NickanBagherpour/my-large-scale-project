@@ -5,12 +5,12 @@ export default {
   table: {
     index: 'ردیف',
     persian_name_scope: 'نام فارسی اسکوپ',
-    latin_name_scope: 'نام لاتین اسکوپ',
+    english_name_scope: 'نام انگلیسی اسکوپ',
     details: 'جزئیات',
     title: 'لیست اسکوپ‌ها',
   },
   placeholder: {
-    search_by_name: 'جستجو بر اساس نام',
+    search_by_name: 'جستجو بر اساس نام انگلیسی اسکوپ',
   },
   error: {
     english_character: 'لطفا مقادیر را به انگلیسی وارد کنید',

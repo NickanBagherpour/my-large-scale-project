@@ -1,11 +1,12 @@
 //@ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
 
 const base_url = process.env.API_BASE_URL;
 const auth_prefix = process.env.NEXT_PUBLIC_AUTH_PREFIX || 'api2';
 const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
+const report_base_url = process.env.API_REPORT_BASE_URL || '';
+const report_prefix = process.env.API_REPORT_PREFIX || '';
 
 const rewritesConfig = [
   {
@@ -15,6 +16,10 @@ const rewritesConfig = [
   {
     source: `/${portal_prefix}/:path*`,
     destination: `${base_url}/${portal_prefix}/:path*`,
+  },
+  {
+    source: `/${report_prefix}/:path*`,
+    destination: `${report_base_url}/${report_prefix}/:path*`,
   },
 ];
 

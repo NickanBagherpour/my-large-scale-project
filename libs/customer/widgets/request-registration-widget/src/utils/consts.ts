@@ -1,17 +1,19 @@
-import { MenuItemType } from '@oxygen/ui-kit';
-
 export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const MAX_INPUTE_LENGTH = 75;
+export const MAX_INPUTE_LENGTH = 255;
+export const MAX_LEGAL_PERSON_NAME_LENGTH = 255;
+export const MIN_LEGAL_PERSON_NAME_LENGTH = 3;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
+export const MAX_REGISTRATION_NUMBER_LENGTH = 11;
 export const MAX_POSTAL_CODE_NUMBER_LENGTH = 10;
 export const MAX_NATIONAL_ID_NUMBER_LENGTH = 11;
 export const MAX_ECONOMY_CODE_NUMBER_LENGTH = 12;
+export const MAX_LAST_REGISTRATION_ADDRESS_LENGTH = 150;
 
 export const FORM_ITEM = {
-  //firstStep
+  //organizationDefineStep
   aggregator_status: 'aggregator_status',
   aggregator_value: 'aggregator_value',
   legal_person_name: 'legal_person_name',
@@ -24,7 +26,7 @@ export const FORM_ITEM = {
   postal_code: 'postal_code',
   phone: 'phone',
   last_registration_address: 'last_registration_address',
-  //secondStep
+  //representativeDefineStep
   persian_name: 'persian_name',
   mobile_number: 'mobile_number',
   phone_number: 'phone_number',
@@ -37,23 +39,21 @@ export const FORM_ITEM = {
   email: 'email',
 };
 
-export const dropdownOptions: MenuItemType[] = [
-  { label: 'Client Flow', key: 'option1' },
-  { label: 'Password Flow', key: 'option2' },
-  { label: 'Implicit Flow', key: 'option4' },
-  { label: 'Refresh Token', key: 'option5' },
-  { label: 'Client Flow', key: 'option6' },
-  { label: 'Password Flow', key: 'option7' },
-  { label: 'Authorization Code Flow', key: 'option8' },
-];
 export const selectLegalTypeOptions: any[] = [
   { label: 'عام', value: '1' },
   { label: 'خاص', value: '2' },
 ];
 
-export const LIMITAION_FORM_NAME = {
-  serviceCallRate: 'serviceCallRate',
-  serviceCallRateOptions: 'serviceCallRateOptions',
-  totalCallLimit: 'totalCallLimit',
-  callLimitOptions: 'callLimitOptions',
+export enum StepsItemKey {
+  OrganizationDefineStep = 0,
+  RepresentativeDefineStep = 1,
+  ServiceSelectStep = 2,
+  FinalConfirmStep = 3,
+}
+
+export const progressStep = {
+  0: StepsItemKey.OrganizationDefineStep,
+  20: StepsItemKey.RepresentativeDefineStep,
+  40: StepsItemKey.ServiceSelectStep,
+  60: StepsItemKey.FinalConfirmStep,
 };

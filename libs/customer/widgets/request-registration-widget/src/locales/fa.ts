@@ -1,8 +1,9 @@
 export default {
+  widget_name_request_registration: 'ثبت درخواست',
   select_organization: 'انتخاب شرکت',
   register_organization: 'ثبت اطلاعات شرکت',
 
-  //firstStep
+  //organizationDefineStep
   request_registration: 'ثبت درخواست',
   register_info: 'مشخصات ثبتی',
   company_specifications: 'مشخصات شرکت',
@@ -17,13 +18,13 @@ export default {
   select_aggregator_status: 'وضعیت اگریگیتور را مشخص نمایید',
   public: 'عام',
   private: 'خاص',
-  //secondStep
+  //representativeDefineStep
   representative_info: 'اطلاعات نماینده',
   technical_representative_info: 'اطلاعات نماینده فنی',
   tooTip_text: 'محتوای راهنمای ابزار',
   clientKeyMessage:
     'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
-  //thirdStep
+  //serviceSelectStep
   search_services: 'جستجوی سرویس‌ها',
   search_by_service_name_and_code: 'جستجو براساس نام یا کد سرویس',
   table_header: {
@@ -36,7 +37,7 @@ export default {
     remove: 'حذف',
     are_you_sure_to_remove: 'آیا از حذف سرویس {{name}} برای این اسکوپ اطمینان دارید؟',
   },
-  //fourthStep
+  //finalConfirmStep
   company_info: 'اطلاعات شرکت',
   representatives_info: 'اطلاعات نمایندگان',
   requested_services: 'سرویس‌های درخواستی',
@@ -49,13 +50,13 @@ export default {
   return_to_request: 'بازگشت به مدیریت درخواست‌ها',
 
   progress_bar: {
-    first_step: 'اطلاعات شرکت',
-    second_step: 'اطلاعات نمایندگان',
-    third_step: 'انتخاب سرویس‌ها',
-    fourth_step: 'تایید اطلاعات',
+    organization_define_step: 'اطلاعات شرکت',
+    representative_define_step: 'اطلاعات نمایندگان',
+    service_select_step: 'انتخاب سرویس‌ها',
+    final_confirm_step: 'تایید اطلاعات',
   },
   form: {
-    //firstStep
+    //organizationDefineStep
     aggregator: 'اگریگیتور',
     aggregator_specifications: 'مشخصات اگریگیتور',
     legal_person_name: 'نام شخص حقوقی',
@@ -69,13 +70,13 @@ export default {
     phone: 'تلفن',
     last_registration_address: 'آخرین آدرس ثبتی',
     aggregator_status: 'وضعیت اگریگیتور',
-    //secondStep
+    //representativeDefineStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
     Phone_number: 'شماره تلفن ثابت',
   },
   placeholder: {
-    //firstStep
+    //organizationDefineStep
     do_select: 'انتخاب کنید',
     legal_person_name: 'نام شخص حقوقی را وارد نمایید',
     legal_person_type: 'نوع شخص حقوقی را انتخاب نمایید',
@@ -87,7 +88,7 @@ export default {
     postal_code: 'کد پستی را وارد نمایید',
     phone: 'تلفن را وارد نمایید',
     last_registration_address: 'آخرین آدرس ثبتی را وارد نمایید',
-    //secondStep
+    //representativeDefineStep
     persian_name: 'نام و نام‌خانوادگی',
     mobile_number: 'شماره موبایل',
     Phone_number: 'شماره تلفن ثابت',
@@ -103,5 +104,8 @@ export default {
     eleven_digits_needed: ' 11 رقم نیاز است',
     twelve_digits_needed: ' 12 رقم نیاز است',
     no_numbers_allowed: 'لطفا فقط حرف وارد نمایید',
+    three_characters_needed: 'حداقل 3 کاراکتر نیاز است',
+    seven_digits_needed: 'حداقل 7 رقم نیاز است',
+    only_alphabetic_and_special_chars_allowed: 'فقط حروف و کاراکترها - _ .  مجاز هستند',
   },
 };

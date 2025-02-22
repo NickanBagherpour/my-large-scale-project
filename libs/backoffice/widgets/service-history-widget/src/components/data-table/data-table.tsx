@@ -1,185 +1,147 @@
-import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
-import { useTr } from '@oxygen/translation';
-import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
-import { PageProps } from '@oxygen/types';
+import { ColumnsType, HistoryCell, Table } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+import { PageProps, PaginatedData } from '@oxygen/types';
 
-import { useGetsServiceHistoryDataQuery } from '../../services';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
+import { ServiceHistoryContent } from '../../types';
+
+import * as S from './data-table.style';
 
 type AppProps = PageProps & {
-  //
+  data?: PaginatedData<ServiceHistoryContent>;
+  isFetching: boolean;
 };
-const DataTable: React.FC<AppProps> = () => {
+const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   const { table } = useAppState();
-  const searchParams = useSearchParams();
-
-  const id = searchParams.get('historyId') || '';
-  const { data, isFetching } = useGetsServiceHistoryDataQuery(prepareParams());
-  const lastValidTotal = data?.paginationResult.total;
+  const lastValidTotal = data?.totalElements;
   const [lastTotal, setLastTotal] = useState(lastValidTotal);
   const [t] = useTr();
-  const displayTable = true;
+  const displayTable = data?.totalElements;
   const dispatch = useAppDispatch();
-  const dataSource = data?.items || [];
-  const columns: ColumnsType<any> = [
+  const dataSource = data?.content || [];
+  const columns: ColumnsType<ServiceHistoryContent> = [
     {
-      title: t('column.edit-date'),
-      dataIndex: 'editDate',
-      // key: 'editDate',
-      render: (value, record) => {
-        return <div>{getValueOrDash(value)}</div>;
+      title: t('field.edit_date'),
+      dataIndex: 'modifyDate',
+      render: (column) => {
+        return <div>{getValueOrDash(column?.value)}</div>;
       },
-      // width: 130,
     },
     {
-      title: t('column.admin-name'),
-      dataIndex: 'adminName',
-      // key: 'adminName',
+      title: t('field.user_name'),
+      dataIndex: 'userName',
       ellipsis: true,
-      render: (value, record) => {
-        return <div>{getValueOrDash(value)}</div>;
+      render: (column) => {
+        return <HistoryCell item={column} />;
       },
-      // width: 100,
     },
     {
-      title: t('column.en-name'),
-      dataIndex: 'enName',
-      // key: 'enName',
+      title: t('field.revision_type'),
+      dataIndex: 'revisionDto',
+      align: 'center',
+      width: 'min-content',
+      render: (_value, record) => {
+        const variant = record?.revisionDto?.revType?.code.value;
+        const isDeleted = record?.isDeleted?.value;
+        return (
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(record?.revisionDto?.revType?.title.value)}
+          </S.RevisionType>
+        );
+      },
+    },
+    {
+      title: t('field.en_name'),
+      dataIndex: 'service',
       ellipsis: true,
-      className: 'left-to-right',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      render: (item) => {
+        const value = item?.name.value;
+        const hasDifference = item?.name?.hasDifference;
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 100,
     },
     {
-      title: t('column.fa-name'),
-      dataIndex: 'faName',
-      // key: 'faName',
+      title: t('field.fa_name'),
+      dataIndex: 'service',
       ellipsis: true,
-      className: 'right-to-left',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      render: (item) => {
+        const value = item?.persianName.value;
+        const hasDifference = item?.persianName.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 170,
     },
     {
-      title: t('column.method'),
-      dataIndex: 'method',
-      // key: 'method',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      title: t('field.access'),
+      dataIndex: 'service',
+      render: (item) => {
+        console.log(item, 'irwwdwdssd');
+
+        const value = item?.accessLevel?.title.value;
+        const hasDifference = item?.accessLevel?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 20,
     },
     {
-      title: t('column.protocol'),
-      dataIndex: 'protocol',
-      // key: 'protocol',
-      render: (value, record) => {
-        // return getValueOrDash(convertShamsiDateFormat(value));
-        return getValueOrDash(value);
+      title: t('field.category'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.category?.title.value;
+        const hasDifference = item?.category?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 1000,
     },
     {
-      title: t('column.access'),
-      dataIndex: 'access',
-      // key: 'access',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      title: t('field.throughput'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.throughput?.title.value;
+        const hasDifference = item?.throughput?.title.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 100,
     },
     {
-      title: t('column.category'),
-      dataIndex: 'category',
-      // key: 'category',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      title: t('field.version'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.version?.value;
+        const hasDifference = item?.version?.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
-      // width: 120,
     },
     {
-      title: t('column.throughout'),
-      dataIndex: 'throughout',
-      // key: 'throughout',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 120,
-    },
-    {
-      title: t('column.version'),
-      dataIndex: 'version',
-      // key: 'version',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 80,
-    },
-    {
-      title: t('column.owner'),
-      dataIndex: 'owner',
-      //key: 'owner',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 120,
-    },
-    {
-      title: t('column.tags'),
-      dataIndex: 'tags1',
-      //key: 'tags1',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 100,
-    },
-    {
-      title: t('column.tags'),
-      dataIndex: 'tags2',
-      //key: 'tags2',
-      render: (value, record) => {
-        return getValueOrDash(value);
-      },
-      // width: 100,
-    },
-    {
-      title: t('column.tags'),
-      dataIndex: 'tags3',
-      //key: 'tags3',
-      render: (value, record) => {
-        return getValueOrDash(value);
+      title: t('field.owner'),
+      dataIndex: 'service',
+      render: (item) => {
+        const value = item?.owner?.value;
+        const hasDifference = item?.owner?.hasDifference;
+
+        return <HistoryCell item={{ value, hasDifference }} />;
       },
     },
   ];
-  function prepareParams() {
-    const params = {
-      pagination: table?.pagination,
-      id,
-    };
-    return params;
-  }
+
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
-    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
+    if (lastValidTotal) setLastTotal(lastValidTotal);
     const updatedPagination = { page: current, limit: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
 
   return (
-    <>
+    <div>
       {displayTable ? (
         <Table
-          rowKey={'id'}
           title={t('subtitle')}
-          scroll={{ x: 1600 }}
           size='small'
           variant='complex'
           columns={columns}
@@ -187,18 +149,20 @@ const DataTable: React.FC<AppProps> = () => {
           loading={isFetching}
           pagination={{
             ...table?.pagination,
-            total: data?.paginationResult.total || lastTotal,
+            total: data?.totalElements || lastTotal,
             pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
             pageSize: table?.pagination?.limit,
             current: table?.pagination?.page,
             hideOnSinglePage: false,
           }}
+          rowKey={(row) => row.modifyDate.value + row.userName.value}
           onChange={handlePageChange}
+          showHeader={true}
         />
       ) : (
         <NoResult isLoading={isFetching} />
       )}
-    </>
+    </div>
   );
 };
 export default DataTable;

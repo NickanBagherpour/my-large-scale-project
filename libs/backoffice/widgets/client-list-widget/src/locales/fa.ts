@@ -7,6 +7,7 @@ export default {
   active_clients: 'کلاینت‌های فعال',
   inactive_clients: 'کلاینت‌های غیر‌فعال',
   show_all: 'نمایش همه',
+  show_less: 'نمایش کمتر',
   newest: 'جدیدترین',
   oldest: 'قدیمی‌ترین',
   draft: 'پیش‌نویس‌',
@@ -14,7 +15,9 @@ export default {
   add_service: 'افزودن سرویس',
   add_plugin: 'افزودن پلاگین',
   add_client_from_sso: 'افزودن کلاینت از SSO',
-  clients_english_name: 'نام لاتین کلاینت',
+  clients_english_name: 'نام انگلیسی کلاینت',
   oauth_key: 'OAuth Key',
   save_changes: 'ذخیره تغییرات',
+  are_you_sure_to_remove: 'آیا از حذف پیش‌نویس {{name}} اطمینان دارید؟',
+  remove_draft: 'حذف پیش‌نویس',
 };

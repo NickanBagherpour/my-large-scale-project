@@ -2,14 +2,15 @@ import { Form } from 'antd';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
-import { i18nBase, useTr } from '@oxygen/translation';
-import { Nullable, PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
 import { Button, Container, Loading } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, SecondaryTitle } from '@oxygen/reusable-components';
 
 import { useGetServiceInfoQuery } from '../../services/get-edit-service.api';
 import EditService from '../edit-service/edit-service';
-import { resetMessageAction, updateServiceName, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { EditServiceFormFieldsType } from '../../types';
 
 import * as S from './app.style';
@@ -21,7 +22,7 @@ const App: React.FC<AppProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { message, serviceName: storedName } = useAppState();
+  const { message } = useAppState();
   const searchParams = useSearchParams();
   const [form] = Form.useForm<EditServiceFormFieldsType>();
 
@@ -29,11 +30,13 @@ const App: React.FC<AppProps> = (props) => {
   if (!serviceName) {
     notFound();
   }
-  if (!storedName || serviceName !== storedName) {
-    updateServiceName(dispatch, serviceName);
-  }
+
   const { data: serviceInfo, isFetching } = useGetServiceInfoQuery(serviceName);
-  const title = i18nBase.resolvedLanguage == 'en' ? serviceInfo?.name : serviceInfo?.persianName ?? '';
+  const title = getWidgetTitle({
+    defaultTitle: t('widget_name'),
+    primaryTitle: serviceInfo?.persianName,
+    secondaryTitle: serviceInfo?.name,
+  });
 
   const handleReturn = () => {
     router.back();

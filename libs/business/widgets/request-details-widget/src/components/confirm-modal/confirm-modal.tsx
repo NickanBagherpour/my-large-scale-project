@@ -4,7 +4,7 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { getValueOrDash, limits, RQKEYS } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
 
@@ -44,7 +44,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const [openStatusResult, setOpenStatusResult] = useState(false);
   const userRole = state?.userRole;
 
-  const { mutate, isPending, data: reviewData } = usePostSubmissionResultMutation();
+  const { mutate, isPending, data: reviewData, status } = usePostSubmissionResultMutation();
   const queryClient = useQueryClient();
 
   const handleSubmissionConfirm = () => {
@@ -54,20 +54,19 @@ const ConfirmModal: React.FC<Props> = (props) => {
       expertOpinion: isConfirm ? ExpertOpinionStatus.CONFIRMED : ExpertOpinionStatus.REJECTED,
       description: form.getFieldValue(CONFIRM_MODAL_NAMES.expertDescription) ?? '',
     };
-
+    setOpenModal(false);
+    setOpenStatusResult(true);
     mutate(params, {
       onSuccess: async () => {
-        if (userRole === UserRole.COMMERCIAL_BANKING_ADMIN) {
-          await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL, RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT],
-          });
-        }
-        await queryClient.refetchQueries({ queryKey: [RQKEYS.REQUEST_DETAILS.GET_REQUEST_DETAIL] });
-        await queryClient.refetchQueries({ queryKey: [RQKEYS.REQUEST_LIST.REQUEST_MANAGEMENT] });
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BUSINESS.REQUEST],
+        });
       },
       onSettled: () => {
-        setOpenModal(false);
-        setOpenStatusResult(true);
+        // setOpenModal(false);
+      },
+      onError: () => {
+        setOpenStatusResult(false);
       },
     });
   };
@@ -108,7 +107,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
             ),
           }}
           rows={8}
-          maxLength={150}
+          maxLength={limits.CONFIRM_REASON_MAX_LENGTH}
           placeholder={t(isConfirm ? 'description' : 'reject_reason')}
           style={{ resize: 'none' }}
         />
@@ -174,6 +173,7 @@ const ConfirmModal: React.FC<Props> = (props) => {
         isConfirmStatus={isConfirm}
         reviewDate={reviewData?.data}
         setOpenStatus={setOpenStatusResult}
+        status={status}
       />
     </>
   );

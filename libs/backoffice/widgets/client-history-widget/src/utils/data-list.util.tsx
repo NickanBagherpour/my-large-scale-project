@@ -1,149 +1,154 @@
 import React from 'react';
 
-import { Badge, Tooltip } from 'antd';
 import { TFunction } from 'i18next';
 
-import { ColumnsType, Table, MobileColumnType } from '@oxygen/ui-kit';
-import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
-import { ClientHistoryData, ITheme } from '@oxygen/types';
+import { convertShamsiDateFormat, getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
+import { ColumnsType, HistoryCell, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { WithBadge } from '@oxygen/reusable-components';
+import { Nullable } from '@oxygen/types';
+
+import { NormalizedClientHistoryItemType } from '../types';
 
 import * as S from '../components/data-list/data-list.style';
 
 type Props = {
   t: TFunction;
-  theme: ITheme;
+  clientType: Nullable<string>;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<ClientHistoryData> {
-  const { t, theme } = props;
+function renderGrantType(record) {
+  const grantTypes = [
+    { key: 'isAuthorizationFlow', label: 'Authorization Flow' },
+    { key: 'isClientFlow', label: 'Client Flow' },
+    { key: 'isImplicitFlow', label: 'Implicit Flow' },
+    { key: 'isPasswordFlow', label: 'Password Flow' },
+    { key: 'isRefreshToken', label: 'Refresh Token' },
+  ];
 
-  const badgeColor = theme.error._600;
+  if (!record) return { value: getValueOrDash(''), hasDifference: false };
+
+  const hasDifference = grantTypes.some(({ key }) => record[key]?.hasDifference === true);
+
+  const grantTypeLabelsArray = grantTypes.filter(({ key }) => record[key]?.value === true).map(({ label }) => label);
+
+  return { value: grantTypeLabelsArray, hasDifference: hasDifference };
+}
+
+export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHistoryItemType> {
+  const { t, clientType } = props;
 
   return [
     {
-      title: t('table.edit_time'),
-      dataIndex: 'editTime',
+      title: t('table.modify_date'),
+      dataIndex: 'modifyDate',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return convertShamsiDateFormat(value);
+      // width: 'min-content',
+      ellipsis: true,
+      render: (column) => {
+        return convertShamsiDateFormat(column?.value, true);
       },
     },
     {
-      title: t('table.admin_name'),
-      dataIndex: 'adminName',
+      title: t('table.modify_by'),
+      dataIndex: 'userName',
+      align: 'center',
+      ellipsis: true,
+      render: (column) => {
+        return getValueOrDash(column?.value);
+      },
+    },
+    {
+      title: t('table.revision_type'),
+      dataIndex: 'revisionDto',
       align: 'center',
       width: 'min-content',
-      render: (value, record) => {
+      render: (_value, record) => {
+        const variant = record?.revType?.code?.value;
+        const isdeleted = record?.isDeleted?.value;
         return (
-          <S.ValueContainer>
-            {(value?.showBadge ?? 'show') && <Badge color={badgeColor} />}
-            <span>{getValueOrDash(value)}</span>
-          </S.ValueContainer>
+          <S.RevisionType variant={variant} $isdeleted={isdeleted}>
+            {getValueOrDash(record?.revType?.title?.value)}
+          </S.RevisionType>
         );
       },
     },
     {
-      title: t('table.client_latin_name'),
-      dataIndex: 'clientLatinName',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      title: t('table.grant_type'),
+      dataIndex: 'grantType',
+      ellipsis: { showTitle: false },
+      width: '20rem',
+      render: (_value, record) => {
+        const grantType = renderGrantType(record);
+
+        return (
+          <S.valueWrapper>
+            <WithBadge
+              items={grantType.value}
+              // onRender={() => <HistoryCell item={grantType} />}
+            />
+            <HistoryCell item={grantType} showValue={false} />
+          </S.valueWrapper>
+        );
       },
     },
     {
-      title: t('table.client_farsi_name'),
-      dataIndex: 'clientFarsiName',
+      title: t('table.persian_name'),
+      dataIndex: 'persianName',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      className: 'right-to-left',
+      render: (_value, record) => {
+        const persianName = record?.persianName;
+        return <HistoryCell item={persianName} />;
       },
     },
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
+      ellipsis: true,
       align: 'center',
-      width: 200,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (value) => {
-        return (
-          <Tooltip placement='top' title={getValueOrDash(value)}>
-            {getValueOrDash(value)}
-          </Tooltip>
-        );
+      render: () => {
+        return getValueOrDash(clientType ?? '');
       },
     },
     {
-      title: t('table.client_id'),
-      dataIndex: 'clientId',
+      title: t('table.url'),
+      dataIndex: 'url',
+      ellipsis: true,
       align: 'center',
-      width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (value) => {
-        return (
-          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-            {getValueOrDash(value)}
-          </Tooltip>
-        );
+      // className: 'right-to-left',
+      render: (_value, record) => {
+        const item = record?.url;
+        return <HistoryCell item={item} />;
       },
     },
     {
-      title: t('table.verification_id'),
-      dataIndex: 'verificationId',
+      title: t('table.inbound_url'),
+      dataIndex: 'inboundUrl',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      // className: 'right-to-left',
+      render: (_value, record) => {
+        const item = record?.inboundUrl;
+        return <HistoryCell item={item} />;
       },
     },
     {
-      title: t('table.aggregator_status'),
-      dataIndex: 'aggregatorStatus',
+      title: t('table.redirect_url'),
+      dataIndex: 'redirectUrl',
       align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.aggregator_name'),
-      dataIndex: 'aggregatorName',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.address'),
-      dataIndex: 'address',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
-      },
-    },
-    {
-      title: t('table.input_address'),
-      dataIndex: 'inputAddress',
-      align: 'center',
-      width: 'min-content',
-      render: (value) => {
-        return getValueOrDash(value);
+      ellipsis: true,
+      // className: 'right-to-left',
+      render: (_value, record) => {
+        const item = record?.redirectUrl;
+        return <HistoryCell item={item} />;
       },
     },
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
-  const { t, theme } = props;
-  const badgeColor = theme.error._600;
+export function getMobileColumns(props: Props): ColumnsType<any> {
+  const { t } = props;
 
   return [
     {
@@ -151,22 +156,14 @@ export function getMobileColumns(props: Props): ColumnsType<ClientHistoryData> {
       key: 'mobile-columns',
       render: (value) => {
         const columns: MobileColumnType[] = [
+          { title: t('table.edit_time'), value: getValueOrDash(value?.editTime) },
           {
-            title: t('table.edit_time'),
-            value: getValueOrDash(value?.editTime),
+            title: t('table.user_name'),
+            value: getValueOrDash(value?.adminName),
           },
           {
-            title: t('table.admin_name'),
-            value: (
-              <S.ValueContainer>
-                {(value?.adminName?.showBadge ?? 'show') && <Badge offset={[2, 2]} color={badgeColor} />}
-                {getValueOrDash(value?.adminName)}
-              </S.ValueContainer>
-            ),
-          },
-          {
-            title: t('table.client_latin_name'),
-            value: getValueOrDash(value?.clientLatinName),
+            title: t('table.client_english_name'),
+            value: getValueOrDash(value?.clientenglishName),
           },
           {
             title: t('table.client_farsi_name'),

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import FormItem from 'antd/lib/form/FormItem';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form, FormInstance } from 'antd';
 
@@ -47,18 +46,18 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
       `${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${serviceName ?? ''}` // Replace 123 with your item ID
     );
     notification.success({
-      message: t('alert.edit_success'),
+      message: t('message.success_alert', { element: t('element.service') }),
     });
   };
-  const { mutate: editService } = useEditServiceMutation(handleSuccess);
+  const { mutate: editService } = useEditServiceMutation(handleSuccess, serviceInfo?.name, serviceInfo?.serviceInfoId);
 
   const defaultValues = {
     [FORM_ITEM_NAMES.faName]: serviceInfo?.persianName,
     [FORM_ITEM_NAMES.enName]: serviceInfo?.name,
-    [FORM_ITEM_NAMES.category]: serviceInfo?.category.code,
+    [FORM_ITEM_NAMES.category]: serviceInfo?.category?.code,
     [FORM_ITEM_NAMES.access]: serviceInfo?.accessLevel && convertToOption(serviceInfo?.accessLevel),
     [FORM_ITEM_NAMES.owner]: serviceInfo?.owner,
-    [FORM_ITEM_NAMES.throughput]: serviceInfo?.throughput.title,
+    [FORM_ITEM_NAMES.throughput]: serviceInfo?.throughput?.title,
     [FORM_ITEM_NAMES.version]: serviceInfo?.version,
     [FORM_ITEM_NAMES.tags]: convertTags(serviceInfo?.tags),
   };
@@ -76,7 +75,7 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
     editService({
       latinName: values[FORM_ITEM_NAMES.enName],
       persianName: values[FORM_ITEM_NAMES.faName],
-      accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access]),
+      accessLevel: convertToCodeTitle(values[FORM_ITEM_NAMES.access] as SelectOptionType),
       categoryCode: values[FORM_ITEM_NAMES.category],
       throughput: convertToCodeTitle(values[FORM_ITEM_NAMES.throughput]),
       version: values[FORM_ITEM_NAMES.version],
@@ -87,20 +86,13 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
   return (
     <Form layout={'vertical'} onFinish={handleSubmit} form={form} initialValues={defaultValues}>
       <S.FormItemsContainer>
-        <S.FormItem name={FORM_ITEM_NAMES.enName} label={t('form.en-name')} rules={[rule]}>
-          <Input
-            disabled={true}
-            placeholder={t('placeholder.en-name')}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.enName] as ServiceInfoDto['name']}
-          />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.faName} label={t('form.fa-name')} rules={[rule]}>
-          <Input
-            placeholder={t('placeholder.fa-name')}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.faName] as string}
-          />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('form.access')}>
+        <Form.Item name={FORM_ITEM_NAMES.enName} label={t('field.en_name')} rules={[rule]}>
+          <Input disabled={true} placeholder={t('placeholder.en_name', { element: t('element.service') })} />
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.faName} label={t('field.fa_name')} rules={[rule]}>
+          <Input placeholder={t('placeholder.fa_name', { element: t('element.service') })} />
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.access} rules={[rule]} label={t('field.access')}>
           <Select
             labelInValue={true}
             disabled={true}
@@ -109,33 +101,32 @@ const EditService: React.FC<Props> = ({ serviceInfo, form }) => {
             placeholder={t('placeholder.access')}
             loading={isAccessLoading}
           ></Select>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('form.category')}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.category} rules={[rule]} label={t('field.category')}>
           <Select
             options={categoryOptions}
             size={'large'}
             placeholder={t('placeholder.category')}
             loading={isCategoryLoading}
-            defaultValue={defaultValues[FORM_ITEM_NAMES.category]}
           ></Select>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('form.throughput')}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.throughput} rules={[rule]} label={t('field.throughput')}>
           <Input disabled={true} size={'large'} readOnly></Input>
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.version} label={t('form.version')} rules={[rule]}>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.version} label={t('field.version')} rules={[rule]}>
           <Input placeholder={t('placeholder.version')} />
-        </S.FormItem>
-        <S.FormItem name={FORM_ITEM_NAMES.owner} label={t('form.owner')} rules={[rule]}>
-          <Input placeholder={t('placeholder.owner')} />
-        </S.FormItem>
+        </Form.Item>
+        <Form.Item name={FORM_ITEM_NAMES.owner} label={t('field.owner')} rules={[rule]}>
+          <Input placeholder={t('placeholder.enter_field', { field: t('field.owner') })} />
+        </Form.Item>
       </S.FormItemsContainer>
       <S.TagContainer>
         <S.TagPicker>
-          <FormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+          <S.TagFormItem name={FORM_ITEM_NAMES.tags} rules={[rule]}>
             <Dropdown.Select multiSelect loading={isTagLoading} menu={tagOptions}>
               {t('placeholder.tag')}
             </Dropdown.Select>
-          </FormItem>
+          </S.TagFormItem>
 
           {selectedTags?.map((item) => (
             <Chip

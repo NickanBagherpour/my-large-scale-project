@@ -11,7 +11,7 @@ const Api = {
   getServiceInfo: async (serviceName: string) => {
     return client.get<ServiceInfoDto>(`${portalUrl}/v1/services/service-name/${serviceName}`);
   },
-  getTags: async () => client.get<TagType[]>(`${portalUrl}/v1/tags`),
+  getTags: async () => client.get<TagType[]>(`${portalUrl}/v1/tags/service`),
   getCategories: async () => client.get<CategoryType[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<AccessEnumType[]>(`${portalUrl}/v1/enums/service-access`),
   editService: async (params: EditServiceRequest) => {

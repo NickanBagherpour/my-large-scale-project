@@ -3,8 +3,9 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { MutationStatus } from '@tanstack/react-query';
-import { Divider, Input } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
+import { limits } from '@oxygen/utils';
+import { Input } from '@oxygen/ui-kit';
 
 import { createUpstreamType, CreateUpstreamType, FORM_ITEM_NAMES } from './add-upstream-modal.schema';
 import AnimatedStatus from '../animated-status/animated-status';
@@ -19,17 +20,24 @@ interface ReusableFormModalProps {
   status: MutationStatus;
   initialData?: CreateUpstreamType;
   successMsg?: string;
+  errorMessage?: string;
 }
 
 const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
-  const { title = 'add-upstream.create_upstream', open, setOpen, onConfirm, status, initialData, successMsg } = props;
-
+  const {
+    title = 'add-upstream.create_upstream',
+    open,
+    setOpen,
+    onConfirm,
+    status,
+    initialData,
+    successMsg,
+    errorMessage = 'uikit.error_description',
+  } = props;
   const [isCreateMode, setIsCreateMode] = useState(true);
-
   const [t] = useTr();
   const rule = createSchemaFieldRule(createUpstreamType(t));
   const [form] = Form.useForm<CreateUpstreamType>();
-
   const createStatus = {
     success: 'success',
     pending: 'loading',
@@ -46,7 +54,14 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
 
   const handleFinish = (values: CreateUpstreamType) => {
     setIsCreateMode(false);
-    onConfirm(values);
+
+    const trimmedValues = {
+      ...values,
+      [FORM_ITEM_NAMES.name]: values[FORM_ITEM_NAMES.name]?.trim(),
+      [FORM_ITEM_NAMES.description]: values[FORM_ITEM_NAMES.description]?.trim(),
+    };
+
+    onConfirm(trimmedValues);
   };
 
   const resetModal = () => {
@@ -58,9 +73,8 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
   const handleCancel = () => {
     setOpen(false);
     form.resetFields();
+    setIsCreateMode(true);
   };
-  const values = Form.useWatch([], form);
-  const isFormEmpty = !values?.[FORM_ITEM_NAMES.name] || !values?.[FORM_ITEM_NAMES.description];
 
   const renderModalContent = () => {
     if (isCreateMode) {
@@ -70,7 +84,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
             <S.StyledTitle>{t(title)}</S.StyledTitle>
             <S.StyledCloseIcon className={'icon-close-square'} onClick={resetModal} />
           </S.StyledHeader>
-          <Divider />
+          <S.StyledDivider />
           <S.StyledContainer>
             <S.StyledForm
               layout='horizontal'
@@ -82,25 +96,25 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
               colon={true}
               initialValues={initialData}
             >
-              <Form.Item name={FORM_ITEM_NAMES.name} label={t('add_upstream.upstream_english_name')} rules={[rule]}>
-                <Input allow='letter' disabled={!!initialData} />
+              <Form.Item name={FORM_ITEM_NAMES.name} label={t('uikit.upstream_english_name')} rules={[rule]}>
+                <Input
+                  maxLength={limits.DEFAULT_MAX_LENGTH}
+                  disabled={!!initialData}
+                  placeholder={t('uikit.upstream_english_name')}
+                />
               </Form.Item>
 
-              <Form.Item
-                name={FORM_ITEM_NAMES.description}
-                label={t('add_upstream.upstream_persian_name')}
-                rules={[rule]}
-              >
-                <Input allow='letter' />
+              <Form.Item name={FORM_ITEM_NAMES.description} label={t('uikit.upstream_persian_name')} rules={[rule]}>
+                <Input maxLength={limits.DEFAULT_MAX_LENGTH} placeholder={t('uikit.upstream_persian_name')} />
               </Form.Item>
             </S.StyledForm>
 
             <S.StyledButton
-              disabled={status === 'pending' || isFormEmpty}
+              disabled={status === 'pending'}
               onClick={() => form.submit()}
               style={{ marginBottom: '1.6rem' }}
             >
-              {t('add_upstream.register_information')}
+              {t('uikit.register_information')}
             </S.StyledButton>
           </S.StyledContainer>
         </>
@@ -110,16 +124,23 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
         <S.StyledContainer>
           <AnimatedStatus
             status={createStatus[status]}
-            errorProps={{ description: t('add_upstream.error_description') }}
-            loadingProps={{ description: t('add_upstream.loading_description') }}
+            errorProps={{
+              description: t(errorMessage),
+            }}
+            loadingProps={{ description: t('uikit.loading_description') }}
             successProps={{ description: successMsg ? t(`${successMsg}`) : '' }}
           />
-          {!initialData && (
+          {!initialData && createStatus[status] !== 'loading' && (
             <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
               {t('button.try_again')}
             </S.StyledButton>
           )}
-          <S.StyledButton color={'primary'} variant={'outlined'} onClick={resetModal}>
+          <S.StyledButton
+            color={'primary'}
+            variant={'outlined'}
+            onClick={resetModal}
+            disabled={createStatus[status] === 'loading'}
+          >
             {t('button.return')}
           </S.StyledButton>
         </S.StyledContainer>
@@ -135,6 +156,7 @@ const AddUpstreamModal: React.FC<ReusableFormModalProps> = (props) => {
       closeIcon={false}
       headerDivider={false}
       footer={false}
+      centered={true}
     >
       {renderModalContent()}
     </S.StyledModal>

@@ -25,8 +25,8 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
-export type FetchUpstreamListParamsType = PaginationType & {
-  ['search-field']: string;
+export type FetchUpstreamListParamsType = Omit<PaginationType, 'rowsPerPage'> & {
+  ['search-field']?: string;
 };
 
 type Pageable = {

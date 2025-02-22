@@ -94,7 +94,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   thead > tr > th {
-    padding: ${(p) => (p.variant === 'simple' ? '2.4rem 1.6rem' : '0.8rem')};
+    padding: ${(p) => (p.variant === 'simple' ? '1.6rem' : '0.8rem')};
     text-align: center;
     background-color: ${(p) => p.theme.background.main};
     border-top: ${(p) => (p.variant === 'simple' ? 0 : `1px solid `)};
@@ -108,6 +108,7 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   tbody > tr > td {
+    padding: ${(p) => (p.variant === 'simple' ? '1.6rem' : '0.8rem')};
     text-align: center;
     border-color: ${(p) => p.theme.border._100};
     font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
@@ -152,6 +153,19 @@ export const Table = styled(AntTable)<TableProps>`
   .ant-pagination {
     padding: 0.5 2rem;
     position: relative;
+    ${respondTo.down('sm')} {
+      display: flex;
+      align-items: center;
+
+      li:not(:last-child) {
+        flex: 1;
+      }
+
+      li:last-child {
+        justify-content: flex-start;
+        flex: 11;
+      }
+    }
   }
 
   li.ant-pagination-item > a {
@@ -222,6 +236,12 @@ export const Table = styled(AntTable)<TableProps>`
     margin: 0 1.6rem 0 0;
     position: absolute;
     left: 0;
+
+    ${respondTo.down('sm')} {
+      position: static;
+      display: flex;
+      justify-content: center;
+    }
   }
   .ant-btn-icon {
     margin: 0;
@@ -266,16 +286,14 @@ export const MobileColumnWrapper = styled.div<{ min_height: React.CSSProperties[
   color: ${(props) => props.theme.text.secondary};
   min-height: ${(p) => p.min_height};
   gap: 1rem;
-
   margin-bottom: 1rem;
-  gap: 1rem;
 
   .item__btn {
     margin-inline-end: -1.6rem;
   }
 
   .item__title {
-    max-width: 10rem;
+    max-width: 14rem;
   }
 
   .item__value {

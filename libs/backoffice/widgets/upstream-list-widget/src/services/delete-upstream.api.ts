@@ -7,7 +7,10 @@ import Api from './api';
 
 export const useDeleteUpstream = () => {
   const dispatch = useAppDispatch();
-
+  const {
+    UPSTREAM,
+    UPSTREAM_LIST: { GET_UPSTREAM_SERVICES, GET_LIST },
+  } = RQKEYS.BACKOFFICE;
   return useMutation({
     mutationFn: (params) => Api.deleteUpstream(params),
     onError: (e) => {
@@ -16,7 +19,11 @@ export const useDeleteUpstream = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [RQKEYS.UPSTREAM_LIST.GET_LIST, RQKEYS.UPSTREAM_LIST.GET_UPSTREAM_SERVICES],
+        queryKey: [UPSTREAM],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: [GET_UPSTREAM_SERVICES],
+        refetchType: 'none',
       });
     },
     networkMode: 'offlineFirst',

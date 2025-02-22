@@ -2,10 +2,10 @@ export default {
   widget_name: 'ویرایش اطلاعات فنی سرویس',
   subtitle: 'ویرایش اطلاعات کلی',
   form: {
-    'en-name': 'نام انگلیسی',
-    'fa-name': 'نام فارسی',
+    en_name: 'نام انگلیسی',
+    fa_name: 'نام فارسی',
     method: 'اکشن/متود',
-    protocol: 'پروتوکل',
+    protocol: 'پروتکل',
     access: 'دسترسی',
     category: 'دسته‌بندی',
     throughput: 'throughput',
@@ -17,8 +17,8 @@ export default {
     tag: 'تگ',
   },
   placeholder: {
-    'en-name': 'نام انگلیسی سرویس را وارد نمایید',
-    'fa-name': 'نام فارسی سرویس را وارد نمایید',
+    en_name: 'نام انگلیسی سرویس را وارد نمایید',
+    fa_name: 'نام فارسی سرویس را وارد نمایید',
     method: '-Post',
     protocol: 'HTTP-',
     access: 'PUBLIC',
@@ -37,8 +37,5 @@ export default {
   },
   alert: {
     edit_success: 'ویرایش اطلاعات کلی با موفقیت اعمال شد.',
-  },
-  validation: {
-    required: 'hi',
   },
 };

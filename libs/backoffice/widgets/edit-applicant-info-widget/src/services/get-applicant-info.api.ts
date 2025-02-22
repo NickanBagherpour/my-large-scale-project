@@ -8,7 +8,7 @@ export const useGetApplicantInfo = (reqId) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.EDIT_APPLICANT_INFO.APPLICANT_INFO],
+    queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.APPLICANT_INFO],
     queryFn: withErrorHandling(() => Api.getApplicantInfo(reqId), dispatch),
   });
 };

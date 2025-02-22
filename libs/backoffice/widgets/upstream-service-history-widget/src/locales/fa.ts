@@ -3,8 +3,8 @@ export default {
   subtitle: 'تاریخچه تغییرات آپ‌استریم',
   column: {
     'edit-date': 'زمان ویرایش',
-    'admin-name': 'نام ادمین',
-    'en-name': 'نام لاتین',
+    'user-name': 'نام کاربر',
+    'en-name': 'نام انگلیسی',
     'fa-name': 'نام فارسی',
   },
 };

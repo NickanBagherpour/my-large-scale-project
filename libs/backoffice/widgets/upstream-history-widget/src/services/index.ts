@@ -1,2 +1,2 @@
 export { default as Api } from './api';
-export { useGetsServiceHistoryDataQuery } from './get-service-history.api';
+export { useGetUpstreamHistory } from './get-upstream-history.api';

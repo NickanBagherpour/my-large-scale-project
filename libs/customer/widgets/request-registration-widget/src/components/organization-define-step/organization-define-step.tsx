@@ -1,0 +1,486 @@
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { RadioChangeEvent, Typography } from 'antd';
+
+import { Card, Form } from 'antd';
+import { createSchemaFieldRule } from 'antd-zod';
+import { dayjs } from '@oxygen/utils';
+
+import { useTr } from '@oxygen/translation';
+import { PageProps } from '@oxygen/types';
+import { Button, Input, SearchItemsContainer, Icons, Select, DatePicker, Loading, Chip, InfoBox } from '@oxygen/ui-kit';
+
+import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
+import {
+  FORM_ITEM,
+  MAX_INPUTE_LENGTH,
+  MAX_LEGAL_PERSON_NAME_LENGTH,
+  MIN_LEGAL_PERSON_NAME_LENGTH,
+  MAX_REGISTRATION_NUMBER_LENGTH,
+  MAX_POSTAL_CODE_NUMBER_LENGTH,
+  MAX_NATIONAL_ID_NUMBER_LENGTH,
+  MAX_ECONOMY_CODE_NUMBER_LENGTH,
+  MAX_MOBILE_NUMBER_LENGTH,
+  MAX_LAST_REGISTRATION_ADDRESS_LENGTH,
+  selectLegalTypeOptions,
+} from '../../utils/consts';
+import { WidgetStateType } from '../../context/types';
+import {
+  useOrganizationDefineStepRequestRegistrationMutationQuery,
+  useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery,
+  useGetOrganizationsQuery,
+  useGetAggregatorsQuery,
+} from '../../services';
+import {
+  updateOrganizationDefineStepAction,
+  updateOrganizationIdAndSubmissionId,
+  useAppDispatch,
+  useAppState,
+  updateRequestMode,
+  updateStatus,
+} from '../../context';
+
+import * as S from './organization-define-step.style';
+import { NoResult } from '@oxygen/reusable-components';
+
+type OrganizationDefineStepProps = PageProps & {
+  setCurrentStep: (prev) => void;
+
+  draft?: boolean;
+};
+
+const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) => {
+  const { setCurrentStep, draft } = props;
+  const dispatch = useAppDispatch();
+  const state = useAppState();
+  const { ...fetchState } = useAppState();
+  const [t] = useTr();
+
+  const router = useRouter();
+  const [form] = Form.useForm();
+
+  type SelectedState = {
+    isSelected: boolean;
+    id: string;
+    submissionId: null | number;
+  };
+
+  const { data: organizations, isFetching: isOrganizationsFetching } = useGetOrganizationsQuery();
+  const { data: aggregators, isFetching: isAggregatorsFetching } = useGetAggregatorsQuery(fetchState);
+
+  const [aggregatorSelectData, setAggregatorSelectData] = useState([]);
+
+  const rule = createSchemaFieldRule(requestRegistrationFormSchema(t));
+  const [isSelected, setIsSelected] = useState<SelectedState>({
+    isSelected: false,
+    id: '',
+    submissionId: null,
+  });
+  const { mutate: firstMutate, isPending: firstIsPending } =
+    useOrganizationDefineStepRequestRegistrationMutationQuery();
+  const { mutate: secondMutate, isPending: secondIsPending } =
+    useOrganizationDefineStepRequestRegistrationWithSelectedOrganizationMutationQuery();
+  const [aggregatorIsRequired, setAggregatorIsRequired] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(state.organizationDefineStepDisabledSubmit);
+
+  const [organizationInfoData, setOrganizationInfoData] = useState<InfoBoxType[]>([]);
+  const [secondPartOffOrganizationInfoData, setSecondPartOffOrganizationInfoData] = useState<InfoBoxType[]>([]);
+
+  useEffect(() => {
+    if (isSelected.id !== '') {
+      setOrganizationInfoData([
+        { key: t('form.legal_person_name'), value: organizations[isSelected.id].legalName },
+        { key: t('form.national_id'), value: organizations[isSelected.id].organizationNationalId },
+        {
+          key: t('form.legal_person_type'),
+          value: organizations[isSelected.id].legalType === 'PUBLIC' ? t('public') : t('private'),
+        },
+        { key: t('form.registration_number'), value: organizations[isSelected.id].registerNo },
+        { key: t('form.registration_date'), value: organizations[isSelected.id].registerDate },
+        { key: t('form.activity_field'), value: organizations[isSelected.id].activityIndustry },
+        { key: t('form.economy_code'), value: organizations[isSelected.id].economicCode },
+        {
+          key: t('form.aggregator_status'),
+          value: organizations[isSelected.id]?.isAggregator
+            ? t('company_is_aggregator')
+            : organizations[isSelected.id]?.aggregatorId
+            ? `${t('company_has_aggregator')} - ${organizations[isSelected.id]?.aggregatorName}`
+            : t('company_is_not_aggregator'),
+        },
+      ]);
+      setSecondPartOffOrganizationInfoData([
+        { key: t('form.last_registration_address'), value: organizations[isSelected.id].registeredAddress },
+        { key: t('form.postal_code'), value: organizations[isSelected.id].postalCode },
+        { key: t('form.phone'), value: organizations[isSelected.id].phone },
+      ]);
+    }
+  }, [isSelected.id, organizations, t]);
+
+  useEffect(() => {
+    if (aggregators?.content) {
+      const transformedAggregators = aggregators.content.map((aggregator) => ({
+        label: aggregator.aggregatorName,
+        value: aggregator.aggregatorId.toString(),
+      }));
+      setAggregatorSelectData(transformedAggregators);
+    }
+  }, [aggregators]);
+
+  // const checkFields = (_, allFields) => {
+  //   const hasErrors = allFields.some((field) => field.errors.length > 0 || !field.value);
+  //   if (!draft) {
+  //     setIsSubmitDisabled(hasErrors);
+  //   }
+  // };
+
+  const checkFields = () => {
+    const allFields = form.getFieldsError();
+    const allValues = form.getFieldsValue();
+
+    const hasErrors = allFields.some((field) => {
+      const fieldName = Array.isArray(field.name) ? field.name.join('.') : field.name;
+      return field.errors.length > 0 || !allValues[fieldName];
+    });
+
+    if (!draft) {
+      setIsSubmitDisabled(hasErrors);
+    }
+  };
+
+  type Status = WidgetStateType['status'];
+
+  const onFinish = (values) => {
+    if (!aggregatorIsRequired) {
+      const params = {
+        aggregator_status: state.organizationDefineStep.aggregator_status,
+        aggregator_value: values.aggregator_value,
+        legalName: values.legal_person_name,
+        legalType: values.legal_person_type,
+        registerNo: values.registration_number,
+        registerDate: dayjs(values.registration_date).format('YYYY/MM/DD'),
+        organizationNationalId: values.national_id,
+        economicCode: values.economy_code,
+        activityIndustry: values.activity_field,
+        postalCode: values.postal_code,
+        phone: values.phone,
+        registeredAddress: values.last_registration_address,
+        isAggregator:
+          state.organizationDefineStep.aggregator_status === 'isAggregator'
+            ? true
+            : state.organizationDefineStep.aggregator_status === 'hasAggregator'
+            ? false
+            : false,
+        aggregatorId:
+          state.organizationDefineStep.aggregator_status === 'hasAggregator' ? values.aggregator_value : null,
+        organizationId: state.organizationId,
+        submissionId: state.submissionId,
+      };
+
+      firstMutate(params, {
+        onSuccess: (data) => {
+          console.log('request registration organization define step successful:', data);
+          if (state.submissionId.length === 0) {
+            updateOrganizationIdAndSubmissionId(dispatch, data.data);
+          }
+          const aggregator_status = state.organizationDefineStep.aggregator_status;
+          const updatedValues = { ...values, aggregator_status };
+          updateOrganizationDefineStepAction(dispatch, updatedValues);
+          setCurrentStep((perv) => perv + 1);
+        },
+        onError: (error) => {
+          console.error('request registration organization define step  failed:', error);
+        },
+      });
+    }
+  };
+
+  const handleContinue = () => {
+    const params = { organizationId: isSelected.submissionId };
+    secondMutate(params, {
+      onSuccess: (data) => {
+        console.log('request registration organization define step successful:', data);
+        const submissionId = data.headers['submission-id'];
+        if (state.submissionId.length === 0) {
+          updateOrganizationIdAndSubmissionId(dispatch, {
+            organization: { id: isSelected.id },
+            submissionId: submissionId,
+          });
+        }
+        setCurrentStep((perv) => perv + 1);
+      },
+      onError: (error) => {
+        console.error('request registration organization define step  failed:', error);
+      },
+    });
+  };
+
+  const getChipProps = (currentStatus: Status, chipStatus: Status) =>
+    currentStatus === chipStatus
+      ? ({
+          type: 'active',
+          iconProp: 'checked icon-checkmark',
+        } as const)
+      : ({ type: 'unActive', error: aggregatorIsRequired ? true : undefined } as const);
+
+  const onChange = (e: RadioChangeEvent) => {
+    updateRequestMode(dispatch, e.target.value);
+  };
+
+  const handleOrganizationSelect = (idx: string, submissionId: null | number) => {
+    setIsSelected({
+      ...isSelected,
+      isSelected: true,
+      id: idx,
+      submissionId: submissionId,
+    });
+  };
+
+  const handleSubmit = () => {
+    if (!state.organizationDefineStep.aggregator_status) {
+      setAggregatorIsRequired(true);
+    }
+    if (state.requestMode === 'selectOrganization') {
+      handleContinue();
+    } else {
+      form.submit();
+    }
+  };
+
+  const handleReturn = () => {
+    router.back();
+  };
+
+  return (
+    <S.OrganizationDefineStepContainer>
+      <S.ContainerContent>
+        <Card>
+          <S.Radios onChange={onChange} value={state.requestMode}>
+            <S.Radio value={'selectOrganization'}>{t('select_organization')}</S.Radio>
+            <S.Radio value={'registerOrganization'}>{t('register_organization')}</S.Radio>
+          </S.Radios>
+          {state.requestMode === 'selectOrganization' ? (
+            <S.OrganizationContainer>
+              {isOrganizationsFetching ? (
+                <Loading spinning={isOrganizationsFetching} />
+              ) : organizations?.length && organizations?.length ? (
+                <S.Grid>
+                  {organizations.map(({ legalName, organizationNationalId, id }, idx) => (
+                    <S.Button
+                      $isSelected={idx === isSelected.id ? true : false}
+                      color='primary'
+                      key={idx}
+                      onClick={() => handleOrganizationSelect(idx, id)}
+                    >
+                      <S.Header>{legalName}</S.Header>
+
+                      <S.Subtitle>
+                        <span className='nationalId'>{t('form.national_id')}: </span>
+                        {organizationNationalId}
+                      </S.Subtitle>
+                    </S.Button>
+                  ))}
+                </S.Grid>
+              ) : (
+                <NoResult isLoading={false} />
+              )}
+
+              {isSelected.isSelected && (
+                <S.OrganizationContainer>
+                  {isOrganizationsFetching ? (
+                    <Loading spinning={isOrganizationsFetching} />
+                  ) : (
+                    <S.OrganizationContainer>
+                      <S.TitleTxt className={'cards-title'}>{t('company_info')}</S.TitleTxt>
+                      <Card>
+                        <InfoBox margin={0} data={organizationInfoData} minColumnCount={4} isChild={true} />
+                        <S.Divider orientation='center' />
+                        <InfoBox
+                          margin={0}
+                          data={secondPartOffOrganizationInfoData}
+                          minColumnCount={3}
+                          isChild={true}
+                        />
+                      </Card>
+                    </S.OrganizationContainer>
+                  )}
+                </S.OrganizationContainer>
+              )}
+            </S.OrganizationContainer>
+          ) : (
+            <Form
+              layout={'vertical'}
+              onFinish={onFinish}
+              form={form}
+              initialValues={state.organizationDefineStep}
+              onFieldsChange={checkFields}
+            >
+              <S.TitleTxt className={'cards-title'}>{t('company_specifications')}</S.TitleTxt>
+              <S.CheckAggregator>
+                <SearchItemsContainer $columnNumber='3'>
+                  <S.ChipsContainer>
+                    <S.Chips>
+                      <Chip
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'isAggregator')}
+                        onClick={() => {
+                          updateStatus(dispatch, 'isAggregator');
+                          setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
+                        }}
+                      >
+                        {t('company_is_aggregator')}
+                      </Chip>
+                      <Chip
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'hasAggregator')}
+                        onClick={() => {
+                          updateStatus(dispatch, 'hasAggregator');
+                          setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
+                        }}
+                      >
+                        {t('company_has_aggregator')}
+                      </Chip>
+                      <Chip
+                        {...getChipProps(state.organizationDefineStep.aggregator_status, 'nothing')}
+                        onClick={() => {
+                          updateStatus(dispatch, 'nothing');
+                          setAggregatorIsRequired(false);
+                          setTimeout(() => {
+                            checkFields();
+                          }, 100);
+                        }}
+                      >
+                        {t('nothing')}
+                      </Chip>
+                    </S.Chips>
+                    {aggregatorIsRequired && (
+                      <Typography.Text type='danger'>{t('select_aggregator_status')}</Typography.Text>
+                    )}
+                  </S.ChipsContainer>
+                </SearchItemsContainer>
+                {state.organizationDefineStep.aggregator_status === 'hasAggregator' && (
+                  // ||state.organizationDefineStep.aggregator_status === 'isAggregator'
+                  <SearchItemsContainer $columnNumber='3'>
+                    <S.AggregatorContainer>
+                      <Form.Item
+                        className={'label-switch'}
+                        layout={'horizontal'}
+                        label={t('form.aggregator_specifications')}
+                      ></Form.Item>
+                      <Form.Item name={FORM_ITEM.aggregator_value} className='select-aggregator' rules={[rule]}>
+                        <Select
+                          size={'large'}
+                          options={aggregatorSelectData}
+                          loading={isAggregatorsFetching}
+                          placeholder={`${t('placeholder.do_select')}`}
+                        ></Select>
+                      </Form.Item>
+                    </S.AggregatorContainer>
+                  </SearchItemsContainer>
+                )}
+              </S.CheckAggregator>
+              <SearchItemsContainer $columnNumber='3'>
+                <Form.Item name={FORM_ITEM.legal_person_name} label={t('form.legal_person_name')} rules={[rule]}>
+                  <Input
+                    size='large'
+                    placeholder={`${t('placeholder.legal_person_name')}`}
+                    maxLength={MAX_LEGAL_PERSON_NAME_LENGTH}
+                    minLength={MIN_LEGAL_PERSON_NAME_LENGTH}
+                  />
+                </Form.Item>
+
+                <Form.Item name={FORM_ITEM.legal_person_type} label={t('form.legal_person_type')} rules={[rule]}>
+                  <Select
+                    size={'large'}
+                    options={selectLegalTypeOptions}
+                    placeholder={`${t('placeholder.legal_person_type')}`}
+                  ></Select>
+                </Form.Item>
+
+                <Form.Item name={FORM_ITEM.registration_number} label={t('form.registration_number')} rules={[rule]}>
+                  <Input
+                    placeholder={`${t('placeholder.registration_number')}`}
+                    maxLength={MAX_REGISTRATION_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.registration_date} label={t('form.registration_date')} rules={[rule]}>
+                  <DatePicker
+                    placeholder={`${t('placeholder.registration_date')}`}
+                    suffixIcon={<Icons.Calender />}
+                    disableFuture={true}
+                  />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.national_id} label={t('form.national_id')} rules={[rule]}>
+                  <Input
+                    placeholder={`${t('placeholder.national_id')}`}
+                    maxLength={MAX_NATIONAL_ID_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.economy_code} label={t('form.economy_code')} rules={[rule]}>
+                  <Input
+                    placeholder={`${t('placeholder.economy_code')}`}
+                    maxLength={MAX_ECONOMY_CODE_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.activity_field} label={t('form.activity_field')} rules={[rule]}>
+                  <Input placeholder={`${t('placeholder.activity_field')}`} maxLength={MAX_INPUTE_LENGTH} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.postal_code} label={t('form.postal_code')} rules={[rule]}>
+                  <Input
+                    placeholder={`${t('placeholder.postal_code')}`}
+                    maxLength={MAX_POSTAL_CODE_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.phone} label={t('form.phone')} rules={[rule]}>
+                  <Input
+                    placeholder={`${t('placeholder.phone')} (0210000000)`}
+                    maxLength={MAX_MOBILE_NUMBER_LENGTH}
+                    allow={'number'}
+                  />
+                </Form.Item>
+                <Form.Item
+                  className='full-width-3'
+                  name={FORM_ITEM.last_registration_address}
+                  label={t('form.last_registration_address')}
+                  rules={[rule]}
+                >
+                  <Input
+                    placeholder={`${t('placeholder.last_registration_address')}`}
+                    maxLength={MAX_LAST_REGISTRATION_ADDRESS_LENGTH}
+                  />
+                </Form.Item>
+              </SearchItemsContainer>
+            </Form>
+          )}
+        </Card>
+      </S.ContainerContent>
+
+      <S.Footer>
+        <Button variant={'outlined'} onClick={handleReturn}>
+          {t('return')}
+        </Button>
+        <Button
+          htmlType={'submit'}
+          loading={firstIsPending || secondIsPending}
+          onClick={() => handleSubmit()}
+          disabled={
+            (state.requestMode === 'selectOrganization' && !isSelected.isSelected) ||
+            (state.requestMode === 'registerOrganization' && isSubmitDisabled)
+          }
+        >
+          {t('submit_info')}
+          <i className={'icon-arrow-left'}></i>
+        </Button>
+      </S.Footer>
+    </S.OrganizationDefineStepContainer>
+  );
+};
+
+export default OrganizationDefineStep;

@@ -9,15 +9,21 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
-  searchField: '',
-  sort: null,
+  searchField: null,
+  sort: 'createDate,CDESC',
+  errorMessage: null,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  //console.log(action.type, state, action);
+  // console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
+      return;
+    }
+
+    case 'UPDATE_ERROR_MESSAGE': {
+      state.errorMessage = action.payload;
       return;
     }
 

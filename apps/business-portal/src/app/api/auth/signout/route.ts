@@ -1,23 +1,14 @@
 import { cookies } from 'next/headers';
-import { CookieKey, createResponse } from '@oxygen/types';
-import { decrypt } from '@oxygen/utils';
+
+import { CookieKey } from '@oxygen/types';
+import { decrypt, AuthApiHelper } from '@oxygen/utils';
 
 export async function GET(req: Request) {
-  const sessionTicket = decrypt(cookies().get(CookieKey.SESSION_TICKET)?.value);
-  const token = decrypt(cookies().get(CookieKey.SESSION_ID)?.value);
-  const url = `${process.env.SSO_URL}/identity/oauth2/auth/session/signout?sessionTicket=${sessionTicket}`;
+  const cookieStore = await cookies();
+  const sessionTicket = decrypt(cookieStore.get(CookieKey.SESSION_TICKET)?.value);
+  const token = decrypt(cookieStore.get(CookieKey.SESSION_ID)?.value);
 
-  try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return createResponse({ success: true });
-  } catch (error: any) {
-    return createResponse({ success: false, error: error.message, errorDetails: error.stack, statusCode: 500 });
-  }
+  return AuthApiHelper.signout(sessionTicket, token, {
+    ssoUrl: process.env.SSO_URL ?? '',
+  });
 }

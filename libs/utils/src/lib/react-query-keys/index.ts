@@ -1,96 +1,133 @@
-/*--import--*/
-import { KEYS as BUSINESS_DASHBOARD_KEYS } from './widgets/business-dashboard.key';
-import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './widgets/customer-dashboard.key';
-import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './widgets/upstream-service-history.key';
-import { KEYS as UPSTREAM_HISTORY_KEYS } from './widgets/upstream-history.key';
-import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './widgets/request-details-info.key';
-import { KEYS as EDIT_REQUEST_LIST_KEYS } from './widgets/edit-request-list.key';
-import { KEYS as REQUEST_DETAILS_KEYS } from './widgets/request-details.key';
-import { KEYS as REQUEST_MANAGEMENT_KEYS } from './widgets/request-management.key';
-import { KEYS as REQUEST_REGISTRATION_KEYS } from './widgets/request-registration.key';
-import { KEYS as CUSTOMER_AUTH_KEYS } from './widgets/customer-auth.key';
-import { KEYS as BACKOFFICE_AUTH_KEYS } from './widgets/backoffice-auth.key';
-import { KEYS as BUSINESS_AUTH_KEYS } from './widgets/business-auth.key';
-import { KEYS as LANDING_KEYS } from './widgets/landing.key';
-import { KEYS as SERVICE_DETAILS_KEYS } from './widgets/service-details.key';
-import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './widgets/service-clients-list.key';
-import { KEYS as UPSTREAM_DETAILS_KEYS } from './widgets/upstream-details.key';
-import { KEYS as SCOPE_INFORMATION_KEYS } from './widgets/scope-information.key';
-import { KEYS as SERVICE_CREATION_KEYS } from './widgets/service-creation.key';
-import { KEYS as EDIT_SERVICE_KEYS } from './widgets/edit-service.key';
-import { KEYS as CLIENT_CREATION_KEYS } from './widgets/client-creation.key';
-import { KEYS as SCOPE_CREATION_KEYS } from './widgets/scope-creation.key';
-import { KEYS as SERVICES_LIST_KEYS } from './widgets/services-list.key';
-import { KEYS as APPLICANT_HISTORY_KEYS } from './widgets/applicant-history.key';
-import { KEYS as CLIENT_DETAILS_KEYS } from './widgets/client-details.key';
-import { KEYS as CLIENT_HISTORY_KEYS } from './widgets/client-history.key';
-import { KEYS as SCOPE_CHANGE_HISTORY_KEYS } from './widgets/scope-change-history.key';
-import { KEYS as SERVICE_HISTORY_KEYS } from './widgets/service-history.key';
-import { KEYS as EDIT_APPLICANT_INFO_KEYS } from './widgets/edit-applicant-info.key';
-import { KEYS as CREATE_NEW_CLIENT_KEYS } from './widgets/create-new-client.key';
-import { KEYS as SERVICE_MANAGEMENT_KEYS } from './widgets/service-management.key';
-import { KEYS as CLIENTS_LIST_KEYS } from './widgets/client-list.key';
-import { KEYS as REUSABLE_COMPONENTS_KEYS } from './widgets/reusable-components.key';
-import { KEYS as EDIT_CLIENT_KEYS } from './widgets/edit-client-info.key';
-import { KEYS as SCOPE_MANAGEMENT_KEYS } from './widgets/scope-management.key';
-import { KEYS as UPSTREAM_LIST_KEYS } from './widgets/upstream-list.key';
-import { KEYS as EDIT_SCOPE_KEYS } from './widgets/edit-scope.key';
-import { KEYS as REQUEST_LIST_KEYS } from './widgets/request-list.key';
-import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './widgets/documentation-history.key';
-import { KEYS as ROUTE_HISTORY_KEYS } from './widgets/route-history.key';
-import { KEYS as EDIT_ROUTE_KEYS } from './widgets/edit-route.key';
-import { KEYS as GET_SCOPE } from './widgets/get-scope.key';
-import { KEYS as ROUTE_DETAILS_KEYS } from './widgets/route-details.key';
+/*--import-backoffice--*/
+import { KEYS as SERVICE_CALL_LOG_KEYS } from './portals/backoffice/service-call-log.key';
+import { KEYS as CLIENT_REPORT_KEYS } from './portals/backoffice/client-report.key';
+import { KEYS as SERVICES_REPORT_KEYS } from './portals/backoffice/services-report.key';
+import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './portals/backoffice/upstream-service-history.key';
+import { KEYS as UPSTREAM_HISTORY_KEYS } from './portals/backoffice/upstream-history.key';
+import { KEYS as SERVICE_DOCUMENTATION_HISTORY_KEYS } from './portals/backoffice/service-documentation-history.key';
+import { KEYS as EDIT_REQUEST_LIST_KEYS } from './portals/backoffice/edit-request-list.key';
+import { KEYS as BACKOFFICE_AUTH_KEYS } from './portals/backoffice/backoffice-auth.key';
+import { KEYS as SERVICE_DETAILS_KEYS } from './portals/backoffice/service-details.key';
+import { KEYS as SERVICE_CLIENTS_LIST_KEYS } from './portals/backoffice/service-clients-list.key';
+import { KEYS as UPSTREAM_DETAILS_KEYS } from './portals/backoffice/upstream-details.key';
+import { KEYS as SCOPE_INFORMATION_KEYS } from './portals/backoffice/scope-information.key';
+import { KEYS as SERVICE_CREATION_KEYS } from './portals/backoffice/service-creation.key';
+import { KEYS as EDIT_SERVICE_KEYS } from './portals/backoffice/edit-service.key';
+import { KEYS as CLIENT_CREATION_KEYS } from './portals/backoffice/client-creation.key';
+import { KEYS as SCOPE_CREATION_KEYS } from './portals/backoffice/scope-creation.key';
+import { KEYS as SERVICES_LIST_KEYS } from './portals/backoffice/services-list.key';
+import { KEYS as CLIENT_DETAILS_KEYS } from './portals/backoffice/client-details.key';
+import { KEYS as CLIENT_HISTORY_KEYS } from './portals/backoffice/client-history.key';
+import { KEYS as CLIENT_SERVICE_HISTORY_KEYS } from './portals/backoffice/client-service-history.key';
+import { KEYS as SCOPE_CHANGE_HISTORY_KEYS } from './portals/backoffice/scope-change-history.key';
+import { KEYS as SERVICE_HISTORY_KEYS } from './portals/backoffice/service-history.key';
+import { KEYS as EDIT_APPLICANT_INFO_KEYS } from './portals/backoffice/edit-applicant-info.key';
+import { KEYS as CREATE_NEW_CLIENT_KEYS } from './portals/backoffice/create-new-client.key';
+import { KEYS as SERVICE_MANAGEMENT_KEYS } from './portals/backoffice/service-management.key';
+import { KEYS as CLIENTS_LIST_KEYS } from './portals/backoffice/client-list.key';
+import { KEYS as EDIT_CLIENT_KEYS } from './portals/backoffice/edit-client-info.key';
+import { KEYS as SCOPE_MANAGEMENT_KEYS } from './portals/backoffice/scope-management.key';
+import { KEYS as UPSTREAM_LIST_KEYS } from './portals/backoffice/upstream-list.key';
+import { KEYS as EDIT_SCOPE_KEYS } from './portals/backoffice/edit-scope.key';
+import { KEYS as DOCUMENTATION_HISTORY_KEYS } from './portals/backoffice/documentation-history.key';
+import { KEYS as ROUTE_HISTORY_KEYS } from './portals/backoffice/route-history.key';
+import { KEYS as EDIT_ROUTE_KEYS } from './portals/backoffice/edit-route.key';
+import { KEYS as GET_SCOPE } from './portals/backoffice/get-scope.key';
+import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.key';
+
+/*--import-business--*/
+import { KEYS as META_KEYS } from './portals/business/meta.key';
+import { KEYS as BUSINESS_DASHBOARD_KEYS } from './portals/business/business-dashboard.key';
+import { KEYS as REQUEST_DETAILS_KEYS } from './portals/business/request-details.key';
+import { KEYS as REQUEST_LIST_KEYS } from './portals/business/request-list.key';
+import { KEYS as BUSINESS_AUTH_KEYS } from './portals/business/business-auth.key';
+
+/*--import-customer--*/
+import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './portals/customer/customer-dashboard.key';
+import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './portals/customer/request-details-info.key';
+import { KEYS as REQUEST_MANAGEMENT_KEYS } from './portals/customer/request-management.key';
+import { KEYS as REQUEST_REGISTRATION_KEYS } from './portals/customer/request-registration.key';
+import { KEYS as CUSTOMER_AUTH_KEYS } from './portals/customer/customer-auth.key';
+import { KEYS as LANDING_KEYS } from './portals/customer/landing.key';
+
+/*--import-shared--*/
+import { KEYS as REUSABLE_COMPONENTS_KEYS } from './portals/shared/reusable-components.key';
 
 export const RQKEYS = {
-  /*--export--*/
-  BUSINESS_DASHBOARD: BUSINESS_DASHBOARD_KEYS,
-  CUSTOMER_DASHBOARD: CUSTOMER_DASHBOARD_KEYS,
-  UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
-  UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
-  REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
-  EDIT_REQUEST_LIST: EDIT_REQUEST_LIST_KEYS,
-  REQUEST_DETAILS: REQUEST_DETAILS_KEYS,
-  REQUEST_MANAGEMENT: REQUEST_MANAGEMENT_KEYS,
-  REQUEST_LIST: REQUEST_LIST_KEYS,
-  REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
-  LANDING: LANDING_KEYS,
-  BACKOFFICE_AUTH: BACKOFFICE_AUTH_KEYS,
-  BUSINESS_AUTH: BUSINESS_AUTH_KEYS,
-  CUSTOMER_AUTH: CUSTOMER_AUTH_KEYS,
-  //CLIENTS
-  CLIENTS_LIST: CLIENTS_LIST_KEYS,
-  EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
-  CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
-  CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
-  CLIENT_CREATION: CLIENT_CREATION_KEYS,
-  CREATE_NEW_CLIENT: CREATE_NEW_CLIENT_KEYS,
-  //UPSTREAM
-  UPSTREAM_DETAILS: UPSTREAM_DETAILS_KEYS,
-  UPSTREAM_LIST: UPSTREAM_LIST_KEYS,
-  //SERVICES
-  EDIT_SERVICE: EDIT_SERVICE_KEYS,
-  SERVICES_LIST: SERVICES_LIST_KEYS,
-  SERVICE_HISTORY: SERVICE_HISTORY_KEYS,
-  SERVICE_DETAILS: SERVICE_DETAILS_KEYS,
-  SERVICE_CREATION: SERVICE_CREATION_KEYS,
-  SERVICE_MANAGEMENT: SERVICE_MANAGEMENT_KEYS,
-  SERVICE_CLIENTS_LIST: SERVICE_CLIENTS_LIST_KEYS,
-  SERVICE_INQUIRY: SERVICES_LIST_KEYS.INQUIRY,
-  //SCOPE
-  EDIT_SCOPE: EDIT_SCOPE_KEYS,
-  SCOPE_CREATION: SCOPE_CREATION_KEYS,
-  SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
-  SCOPE_INFORMATION: SCOPE_INFORMATION_KEYS,
-  SCOPE_CHANGE_HISTORY: SCOPE_CHANGE_HISTORY_KEYS,
-  GET_SCOPE: GET_SCOPE,
-  //ETC
-  APPLICANT_HISTORY: APPLICANT_HISTORY_KEYS,
-  EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
+  BACKOFFICE: {
+    SERVICE: 'service',
+    UPSTREAM: 'upstream',
+    SCOPE: 'scope',
+    CLIENT: 'client',
+    CLIENT_PROFILE: 'CLIENT_PROFILE',
+
+    /*--export-backoffice--*/
+    SERVICE_CALL_LOG: SERVICE_CALL_LOG_KEYS,
+    SERVICE_DOCUMENTATION_HISTORY: SERVICE_DOCUMENTATION_HISTORY_KEYS,
+    SERVICES_REPORT: SERVICES_REPORT_KEYS,
+    UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
+    UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
+    //CLIENTS
+    CLIENTS_LIST: CLIENTS_LIST_KEYS,
+    EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
+    CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
+    CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
+    CLIENT_REPORT: CLIENT_REPORT_KEYS,
+    CLIENT_SERVICE_HISTORY: CLIENT_SERVICE_HISTORY_KEYS,
+    CLIENT_CREATION: CLIENT_CREATION_KEYS,
+    CREATE_NEW_CLIENT: CREATE_NEW_CLIENT_KEYS,
+    //UPSTREAM
+    UPSTREAM_DETAILS: UPSTREAM_DETAILS_KEYS,
+    UPSTREAM_LIST: UPSTREAM_LIST_KEYS,
+    //SERVICES
+    EDIT_SERVICE: EDIT_SERVICE_KEYS,
+    SERVICES_LIST: SERVICES_LIST_KEYS,
+    SERVICE_HISTORY: SERVICE_HISTORY_KEYS,
+    SERVICE_DETAILS: SERVICE_DETAILS_KEYS,
+    SERVICE_CREATION: SERVICE_CREATION_KEYS,
+    SERVICE_MANAGEMENT: SERVICE_MANAGEMENT_KEYS,
+    SERVICE_CLIENTS_LIST: SERVICE_CLIENTS_LIST_KEYS,
+    SERVICE_INQUIRY: SERVICES_LIST_KEYS.INQUIRY,
+    //SCOPE
+    EDIT_SCOPE: EDIT_SCOPE_KEYS,
+    SCOPE_CREATION: SCOPE_CREATION_KEYS,
+    SCOPE_MANAGEMENT: SCOPE_MANAGEMENT_KEYS,
+    SCOPE_INFORMATION: SCOPE_INFORMATION_KEYS,
+    SCOPE_CHANGE_HISTORY: SCOPE_CHANGE_HISTORY_KEYS,
+    GET_SCOPE: GET_SCOPE,
+    // ROUTE
+    ROUTE_CHANGE_HISTORY: ROUTE_HISTORY_KEYS,
+    EDIT_ROUTE: EDIT_ROUTE_KEYS,
+    ROUTE_DETAILS: ROUTE_DETAILS_KEYS,
+    // ETC
+
+    EDIT_APPLICANT_INFO: EDIT_APPLICANT_INFO_KEYS,
+    AUTH: BACKOFFICE_AUTH_KEYS,
+    DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,
+  },
+
+  BUSINESS: {
+    REQUEST: 'request',
+    /*--export-business--*/
+    META: META_KEYS,
+    DASHBOARD: BUSINESS_DASHBOARD_KEYS,
+    REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
+    EDIT_REQUEST_LIST: EDIT_REQUEST_LIST_KEYS,
+    REQUEST_DETAILS: REQUEST_DETAILS_KEYS,
+    REQUEST_LIST: REQUEST_LIST_KEYS,
+    AUTH: BUSINESS_AUTH_KEYS,
+  },
+
+  CUSTOMER: {
+    REQUEST: 'request',
+    /*--export-customer--*/
+    LANDING: LANDING_KEYS,
+    DASHBOARD: CUSTOMER_DASHBOARD_KEYS,
+    AUTH: CUSTOMER_AUTH_KEYS,
+    REQUEST_MANAGEMENT: REQUEST_MANAGEMENT_KEYS,
+    REQUEST_REGISTRATION: REQUEST_REGISTRATION_KEYS,
+  },
+
   REUSABLE_COMPONENTS: REUSABLE_COMPONENTS_KEYS,
-  DOCUMENTATION_HISTORY: DOCUMENTATION_HISTORY_KEYS,
-  // ROUTE
-  ROUTE_CHANGE_HISTORY: ROUTE_HISTORY_KEYS,
-  EDIT_ROUTE: EDIT_ROUTE_KEYS,
-  ROUTE_DETAILS: ROUTE_DETAILS_KEYS,
+  /*--export-shared--*/
 };

@@ -5,13 +5,14 @@ import { TablePaginationConfig } from 'antd';
 import { NoResult } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
-import { uuid } from '@oxygen/utils';
+import { RQKEYS } from '@oxygen/utils';
+import { queryClient } from '@oxygen/client';
 import { Nullable } from '@oxygen/types';
 
-import { useGetUpstreamServicesQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/upstream-list.util';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import ConfirmDeleteModal from '../confirm-delete-modal/confirm-delete-modal';
+import { useGetUpstreamServicesQuery } from '../../services';
 import { UpstreamItemType } from '../../types';
 
 import * as S from './upstreams.style';
@@ -29,10 +30,9 @@ export default function Upstreams(props: Props) {
   const state = useAppState();
   const [upstreamName, setUpstreamName] = useState<Nullable<string>>();
   const [openModal, setOpenModal] = useState(false);
-
   const {
-    table: { pagination = { page: 1, rowsPerPage: 5 } } = { pagination: { page: 1, rowsPerPage: 5 } }, // Fallback for pagination
-  } = state || {};
+    table: { pagination },
+  } = state;
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -46,9 +46,11 @@ export default function Upstreams(props: Props) {
     }
   };
 
-  const { data: services, isFetching } = useGetUpstreamServicesQuery(upstreamName);
-
-  const deleteUpstream = (record: UpstreamItemType) => {
+  const deleteUpstream = async (record: UpstreamItemType) => {
+    await queryClient.invalidateQueries({
+      queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_UPSTREAM_SERVICES, upstreamName],
+      refetchType: 'none',
+    });
     setUpstreamName(record?.name);
     setOpenModal(true);
   };
@@ -60,7 +62,7 @@ export default function Upstreams(props: Props) {
   return (
     <>
       <S.TableContainer>
-        {data?.length > 0 ? (
+        {data?.length ? (
           <Table
             loading={isLoading}
             current={pagination.page}
@@ -72,21 +74,14 @@ export default function Upstreams(props: Props) {
             variant={'simple'}
             title={t('table.upstreams_list')}
             onChange={handlePageChange}
-            rowKey={() => uuid()}
-            // size={'small'}
+            rowKey={'id'}
           />
         ) : (
           <NoResult isLoading={isLoading} />
         )}
       </S.TableContainer>
-      {services && openModal && (
-        <ConfirmDeleteModal
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          services={services}
-          upstreamName={upstreamName}
-          isFetching={isFetching}
-        />
+      {openModal && (
+        <ConfirmDeleteModal openModal={openModal} setOpenModal={setOpenModal} upstreamName={upstreamName} />
       )}
     </>
   );

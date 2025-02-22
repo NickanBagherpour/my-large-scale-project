@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { MenuProps } from 'antd';
-import { signOut } from 'next-auth/react';
 
 import { Button, LocaleSwitcher, ThemeSwitch } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
@@ -73,7 +72,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
         break;
       case MenuItemKey.Logout:
         if (isAuth) {
-          await signOut({ redirect: false });
+          // await signOut({ redirect: false });
           logout();
         }
         break;
@@ -99,7 +98,7 @@ const AppBarMenu = (props: AppBarMenuProps) => {
       color={color}
       dropdownRender={(menu) => {
         return (
-          <S.DropdownRender>{React.cloneElement(menu as React.ReactElement, { style: menuStyle })}</S.DropdownRender>
+          <S.DropdownRender>{React.cloneElement(menu /* as React.ReactElement */, { style: menuStyle })}</S.DropdownRender>
         );
       }}
     >

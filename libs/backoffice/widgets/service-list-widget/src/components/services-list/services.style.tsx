@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { MarkText } from '@oxygen/ui-kit';
+import { MarkText, Switch } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { Button } from '@oxygen/ui-kit';
 
 export const TableContainer = styled.div`
   margin-bottom: 1.6rem;
@@ -20,14 +21,11 @@ export const Scope = styled(MarkText)`
   //
 `;
 
-export const Url = styled.p`
-  color: ${(p) => p.theme.primary._500};
+export const Url = styled.span`
+  unicode-bidi: plaintext;
 `;
 
-export const Details = styled(Link)`
-  color: ${(p) => p.theme.primary.main};
-  font-size: 1.4rem;
-`;
+export const Details = styled(Button)``;
 
 export const Trash = styled.i`
   font-size: 2.4rem;
@@ -55,8 +53,24 @@ export const MobileTableItem = styled.div`
 `;
 
 export const SwitchContainer = styled.span`
-  ${respondTo.down('xxl')} {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+`;
+export const DesktopSwitch = styled(Switch)`
+  display: block;
+  ${respondTo.down('xl')} {
+    display: none;
+  }
+`;
+export const MiniDesktopSwitch = styled(Switch)`
+  display: none;
+  ${respondTo.down('xl')} {
+    display: block;
+  }
+`;
+export const DesktopSpan = styled.span`
+  display: block;
+  ${respondTo.down('xl')} {
+    display: none;
   }
 `;

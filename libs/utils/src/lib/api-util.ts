@@ -1,5 +1,5 @@
 import { MessageType, Nullable, UserRole } from '@oxygen/types';
-import { getCookie } from './util';
+import { getCookie, isEmptyObject } from './util';
 
 export const ApiUtil = {
   downloadFile: function (data, type, extension, preferredName?) {
@@ -87,42 +87,31 @@ export const ApiUtil = {
       const data = reason.response?.data;
 
       if (data?.message) {
-        const hasDetails = !!data.details;
-        const hasErrors = data.errors && typeof data.errors === 'object';
+        const hasDetails = !!data.detail;
+        const hasErrors = !isEmptyObject(data.errors);
 
         // Set title and description based on the presence of details
-        /*    if (hasDetails) {
-          message = {
-            title: data.message,
-            description: data.details,
-            type: 'error',
-            shouldTranslate: false,
-          };
-        } else {
-          message = {
-            description: data.message,
-            type: 'error',
-            shouldTranslate: false,
-          };
-        }*/
-
-        message = {
-          title: data.message,
-          description: '',
-          fields: data.errors,
-          type: 'error',
-          shouldTranslate: false,
-        };
+        let description = '';
+        if (hasDetails) {
+          description = data.detail;
+        }
 
         // If errors exist, append their messages to description and set fields
         if (hasErrors) {
           const errorMessages = Object.values(data.errors).join('\n');
-          if (message.description) {
-            message.description += `\n${errorMessages}`;
+          if (description) {
+            description += `\n${errorMessages}`;
           } else {
-            message.description = errorMessages;
+            description = errorMessages;
           }
         }
+        message = {
+          title: data.message,
+          description: description,
+          fields: data.errors,
+          type: 'error',
+          shouldTranslate: false,
+        };
       }
     } catch (e) {
       console.error('Error processing getErrorMessage:', e);
@@ -131,7 +120,7 @@ export const ApiUtil = {
       if (!message?.description && !message?.type) {
         message = {
           title: 'common.error',
-          description: 'error.unknown_error',
+          description: 'message.unknown_error',
           type: 'error',
           shouldTranslate: true,
         };

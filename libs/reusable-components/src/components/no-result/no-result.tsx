@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { Loading } from '@oxygen/ui-kit';
@@ -6,17 +7,23 @@ import { Loading } from '@oxygen/ui-kit';
 import * as S from './no-result.style';
 
 type Props = {
-  isLoading: boolean;
+  isLoading?: boolean;
   link?: string;
   title?: string;
-  handleClick?: () => any;
+  hasReturnButton?: boolean;
+  children?: ReactNode;
 } & React.ComponentProps<'div'>;
 
 const NoResult = (props: Props) => {
-  const { isLoading, title, link, handleClick, ...restOfProps } = props;
+  const { isLoading, title, link, hasReturnButton, children, ...restOfProps } = props;
   const [t] = useTr();
+  const router = useRouter();
 
-  const displayTitle = title || t('no_result.there_is_no_data_to_show');
+  const displayTitle = title || t('message.there_is_no_data_to_show');
+
+  const handleReturn = () => {
+    router.back();
+  };
 
   return (
     <S.NoResult {...restOfProps}>
@@ -26,19 +33,20 @@ const NoResult = (props: Props) => {
         <S.BoxContainer>
           <S.Empty description={displayTitle} />
           {link ||
-            (handleClick && (
+            (hasReturnButton && (
               <S.ButtonContainer>
                 <S.ReturnButton
                   size={'middle'}
                   variant={'outlined'}
                   color={'primary'}
                   href={link}
-                  onClick={handleClick}
+                  onClick={handleReturn}
                 >
                   {t('button.return')}
                 </S.ReturnButton>
               </S.ButtonContainer>
             ))}
+          {children}
         </S.BoxContainer>
       )}
     </S.NoResult>

@@ -1,90 +1,107 @@
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { ROUTES } from '@oxygen/utils';
+import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { Button } from '@oxygen/ui-kit';
 
-import { Button, Modal } from '@oxygen/ui-kit';
-import CustomInfobox from '../custom-infobox/custom-infobox';
-// import { Modal } from '../../scope-list/scope-list';
 import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
-
-import { useUpstreamListQuery } from '../../../services';
+import { usePostAssignScopeToService, useUpstreamListQuery } from '../../../services';
 import { UpstreamDetails } from '../upstream-details/upstream-details';
 
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
+
 import * as S from './active-select.style';
+import { useApp } from '@oxygen/hooks';
 
 type ActiveSelectType = PageProps & {
-  data?: any;
-  loading?: boolean;
-};
-
-export type Modal = {
-  details: boolean;
-  removeService: boolean;
+  serviceName: string;
 };
 
 export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
-  // const {  } = props;
-  //Hooks
+  const [t] = useTr();
+  const { serviceName } = props;
+  const queryClient = useQueryClient();
   const state = useAppState();
   const dispatch = useAppDispatch();
-  const [t] = useTr();
-  const router = useRouter();
-  //States
-  const [modals, setModals] = useState<Modal>({
-    details: false,
-    removeService: false,
-  });
+  const { notification } = useApp();
 
-  const params = {
-    serviceName: state.serviceName,
-    id: state.upstreamTab.activeSelect.id,
-  };
-  //Queries
-  const { data, isFetching } = useUpstreamListQuery(params);
-  //constants
-  const tableData = data?.targets;
-  const infoBoxData = { latinName: data?.name, persianName: data?.description };
-  //Handlers
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
+  const [removeServiceModals, setRemoveServiceModals] = useState<boolean>(false);
+
+  const { data: upStreamListData, isFetching: upStreamLoading } = useUpstreamListQuery({ serviceName });
+  const { mutate } = usePostAssignScopeToService();
+
+  const tableData = upStreamListData?.targets;
+
+  const infoBoxData = { englishName: upStreamListData?.name, persianName: upStreamListData?.description };
+
+  const handleModalDeleteButton = async () => {
+    const assignUpstreamParams = {
+      serviceName: serviceName,
+      upstreamName: state?.upstreamTab?.activeSelect?.cardId,
+    };
+
+    mutate(assignUpstreamParams, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
+          refetchType: 'active',
+        });
+
+        updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+
+        setRemoveServiceModals(false);
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICE_CREATION.SCOPE, serviceName],
+          refetchType: 'active',
+        });
+
+        await queryClient.invalidateQueries({
+          queryKey: [RQKEYS.BACKOFFICE.SERVICES_LIST.DRAFTS],
+          refetchType: 'none',
+        });
+
+        notification.success({
+          message: t('message.success_alert', { element: t('upstream') }),
+        });
+      },
+    });
   };
 
-  const handleDeleteButton = () => {
-    toggleModal('removeService');
+  const handleModalCancelButton = () => {
+    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: null });
+    setRemoveServiceModals(false);
   };
 
-  const handleModalDeleteButton = () => {
-    updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, isInitialized: false });
-    toggleModal('removeService');
-  };
-  //please add correct route instead of ROUTES.BACKOFFICE.UPSTREAM_LIST
-  const handleHistoryBtn = () =>
-    router.push(`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=${state.serviceName}&type=service`);
   return (
     <>
       <S.Header>
         <S.Title>{t('upstream_tab.tab_header')}</S.Title>
-        <Button variant='filled' icon={<S.Icon className='icon-clock' />} onClick={handleHistoryBtn}>
+        <Button
+          variant='filled'
+          icon={<S.Icon className='icon-clock' />}
+          href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=${upStreamListData?.name}`}
+        >
           {t('see_changes_history')}
         </Button>
       </S.Header>
       <UpstreamDetails
-        tableLoading={isFetching}
+        tableLoading={upStreamLoading}
         tableData={tableData}
-        handleDeleteButton={handleDeleteButton}
+        handleDeleteButton={setRemoveServiceModals}
         infoBoxData={infoBoxData}
-        infoBoxLoading={isFetching}
+        infoBoxLoading={upStreamLoading}
       />
       <RemoveServiceModal
-        isOpen={modals.removeService}
+        isOpen={removeServiceModals}
         deleteToggle={handleModalDeleteButton}
-        cancelToggle={() => toggleModal('removeService')}
-        id={data?.name}
+        cancelToggle={handleModalCancelButton}
+        id={upStreamListData?.name}
       />
     </>
   );
 };
+
+//checked

@@ -1,9 +1,7 @@
-import Mockify from '@oxygen/mockify';
-import type { Pagination } from '@oxygen/types';
+import { client, portalUrl } from '@oxygen/client';
+import { ClientInfo } from '../types';
 
 const Api = {
-  getClientInfoData: async () => Mockify.getClientInformation(),
-  getServicesData: async (params: Pagination) => Mockify.getServices(params),
-  getPluginsData: async () => Mockify.getPlugins(),
+  getClientInfo: async (clientName: string) => client.get<ClientInfo>(`${portalUrl}/v1/clients/${clientName}`),
 };
 export default Api;

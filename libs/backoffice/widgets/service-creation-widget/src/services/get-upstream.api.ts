@@ -3,12 +3,14 @@ import Api from './api';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch, useAppState } from '../context';
 
+const { UPSTREAM, SERVICE_CREATION } = RQKEYS.BACKOFFICE;
+
 export const useGetUpstream = () => {
   const { serviceName } = useAppState();
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.SERVICE_CREATION.UPSTREAM, serviceName],
+    queryKey: [UPSTREAM, SERVICE_CREATION.UPSTREAM, serviceName],
     enabled: !!serviceName,
     queryFn: withErrorHandling(() => Api.getUpstream(serviceName), dispatch, { ignore404Errors: true }),
   });

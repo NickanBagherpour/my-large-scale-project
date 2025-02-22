@@ -2,9 +2,8 @@ import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
 import { PaginationType, WidgetActionType, WidgetDispatchType } from './types';
-import { ClientId } from '../types';
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
+export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
@@ -20,8 +19,4 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   const message = ApiUtil.getErrorMessage(reason);
   dispatch({ type: actionType, payload: { message, ...extraPayload } });
   return null;
-}
-
-export function updateClientIdAction(dispatch: WidgetDispatchType, clientId: ClientId) {
-  dispatch({ type: 'UPDATE_CLIENT_ID', payload: clientId });
 }

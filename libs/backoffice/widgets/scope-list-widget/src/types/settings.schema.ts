@@ -1,16 +1,13 @@
 import { z } from 'zod';
+import { TFunction } from 'i18next';
+import { createValidationSchema } from '@oxygen/utils';
 import { FORM_ITEM_NAMES } from '../utils/form-item-name';
-import { REGEX_PATTERNS } from '@oxygen/utils';
 
-export const createFormSchema = (t: (key: string) => string) =>
-  z.object({
-    [FORM_ITEM_NAMES.scopesName]: z
-      .string()
-      .trim()
-      .regex(REGEX_PATTERNS.isLatinText, {
-        message: t('error.english_character'),
-      })
-      .optional(),
+export const createFormSchema = (t: TFunction) => {
+  const validationSchema = createValidationSchema(t);
+  return z.object({
+    [FORM_ITEM_NAMES.scopesName]: validationSchema.searchField,
   });
+};
 
 export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;

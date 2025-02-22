@@ -1,10 +1,12 @@
 import { useTr } from '@oxygen/translation';
 import { Container } from '@oxygen/ui-kit';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { CenteredLoading, GlobalMessageContainer, Route } from '@oxygen/reusable-components';
 import GeneralInfo from '../general-info/general-info';
 import {
   addInitialStep,
   addServiceName,
+  nextStep,
+  previousStep,
   resetMessageAction,
   StepIndex,
   useAppDispatch,
@@ -12,24 +14,13 @@ import {
 } from '../../context';
 import * as S from './app.style';
 import Scope from '../scope/scope';
-import Route from '../route/route';
 import Upstream from '../upstream/upstream';
 import ConfirmData from '../confirm-data/confirm-data';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { getServiceNameFromUrl } from '../../utils/get-valid-service-name';
+import { getServiceNameFromUrl, InquiryStatus } from '../../utils';
 import { useServiceInquiry } from '../../services';
 import { useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
-import CenteredLoading from '../centered-loading/centered-loading';
-import { InquiryStatus } from '../../utils/consts';
-
-export const steps = [
-  { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
-  { name: 'route', title: 'route', component: <Route /> },
-  { name: 'scope', title: 'scope', component: <Scope /> },
-  { name: 'upstream', title: 'upstream', component: <Upstream /> },
-  { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
-] as const;
 
 const App = () => {
   const [t] = useTr();
@@ -39,6 +30,26 @@ const App = () => {
   const maybeServiceName = useSearchParams().get('service-name');
   const serviceName = getServiceNameFromUrl(maybeServiceName);
   const { data, isSuccess } = useServiceInquiry(serviceName);
+
+  const steps = [
+    { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
+    {
+      name: 'route',
+      title: 'route',
+      component: (
+        <Route
+          dispatch={dispatch}
+          nextStep={() => nextStep(dispatch)}
+          previousStep={() => previousStep(dispatch)}
+          serviceName={serviceName}
+          errors={stepStatuses.find((item) => item.name === 'route')?.error}
+        />
+      ),
+    },
+    { name: 'scope', title: 'scope', component: <Scope /> },
+    { name: 'upstream', title: 'upstream', component: <Upstream /> },
+    { name: 'confirmData', title: 'confirm_data', component: <ConfirmData /> },
+  ] as const;
 
   useEffect(() => {
     if (!serviceName) notFound();
@@ -74,7 +85,8 @@ const App = () => {
               status: stepStatuses[idx].status,
             }))}
           />
-          {steps[step].component}
+          {/* @ts-expect-error TODO: fix this */}
+          {steps[step]?.component}
         </>
       )}
     </Container>

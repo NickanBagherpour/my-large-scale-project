@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     if (!ip) {
       // Fallback to X-Real-IP or request.ip if available
-      ip = headersList.get('x-real-ip') || request.ip || null;
+      ip = headersList.get('x-real-ip') /* || request.ip */ || null;
       console.log('X-Real-IP or Request IP:', ip);
     }
 

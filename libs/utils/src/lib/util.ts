@@ -1,4 +1,4 @@
-import { LocalStorageKey } from '@oxygen/types';
+import { LocalStorageKey, Nullable } from '@oxygen/types';
 import { storage } from './storage';
 import axios, { type AxiosError } from 'axios';
 
@@ -11,6 +11,22 @@ export function addThousandSeparator(value: number | string) {
     ?.join('')
     ?.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+export const trimValues = (values: Record<string, any>): Record<string, any> => {
+  return Object.keys(values).reduce((acc, key) => {
+    const value = values[key];
+
+    if (typeof value === 'string') {
+      acc[key] = value.trim(); // Trim string values
+    } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      acc[key] = trimValues(value); // Recursively trim nested objects
+    } else {
+      acc[key] = value; // Keep other types unchanged
+    }
+
+    return acc;
+  }, {} as Record<string, any>);
+};
 
 export const arrayToQueryString = (params: (string | number)[], paramName: string): string => {
   let store = '';
@@ -49,7 +65,7 @@ export function isNumberComma(value: string): boolean {
 }
 
 export function getValueOrDash(value: any, emptyValue?: string) {
-  return value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
+  return value && value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
 }
 
 export function isEmptyObject(obj: Record<string, unknown>) {
@@ -98,6 +114,10 @@ export function mergeObjects(obj1: any, obj2: any) {
 
   return result;
 }
+
+export const widthByButtonCount = (count = 1): string => {
+  return `${count * 7.5}rem`;
+};
 
 export const getValueByKey = (targetEnum: object, key: string) => {
   let value = null;
@@ -241,13 +261,12 @@ export function convertToEnglishNumbers(text) {
   return text.replace(/[٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹]/g, (match) => arabicPersianMap[match]);
 }
 
-export function convertShamsiDateFormat(dateString) {
+export function convertShamsiDateFormat(dateString, showSecond = false) {
   if (dateString) {
     const [datePart, timePart] = dateString.split(' ');
 
-    const [hours, minutes] = timePart.split(':');
-
-    const newFormat = `${datePart}\u00A0\u00A0\u00A0\u00A0${hours}:${minutes}`;
+    const [hours, minutes, seconds] = timePart.split(':');
+    const newFormat = `${datePart}\u00A0\u00A0\u00A0\u00A0${hours}:${minutes}${showSecond ? `:${seconds}` : ''}`;
 
     return newFormat;
   } else {
@@ -273,4 +292,19 @@ export function normalizePhoneNumber(phone) {
 
 export function isAxiosError(error: any): error is AxiosError {
   return axios.isAxiosError(error);
+}
+
+export function getWidgetTitle(props: {
+  defaultTitle: string;
+  primaryTitle?: Nullable<string>; //persian
+  secondaryTitle?: Nullable<string>; //english
+}): string {
+  const { defaultTitle, primaryTitle, secondaryTitle } = props;
+
+  const name = primaryTitle || secondaryTitle;
+  if (name) {
+    return name;
+  } else {
+    return defaultTitle;
+  }
 }

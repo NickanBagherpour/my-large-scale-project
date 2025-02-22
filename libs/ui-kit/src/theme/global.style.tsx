@@ -8,17 +8,17 @@ const GlobalStyle = createGlobalStyle`
     ${cssVar.appBarHeight}: 7.7rem;
     ${cssVar.drawerWidth}: 23rem;
     ${cssVar.mainContentMargin}: var(${cssVar.drawerWidth});
-    ${cssVar.drawerSideGap}: 0;//1rem;
-    ${cssVar.verticalGap}: 0px;//2.8rem;
+    ${cssVar.drawerSideGap}: 0; //1rem;
+    ${cssVar.verticalGap}: 0px; //2.8rem;
     ${cssVar.radius}: 0.8rem;
     ${cssVar.radiusLg}: 1.2rem;
-    ${cssVar.appbarZIndex}: 10000;
-    ${cssVar.onAppbarZIndex}: 10001;
+    ${cssVar.appbarZIndex}: 1000;
+    ${cssVar.onAppbarZIndex}: 1001;
   }
 
   ${respondTo.down('md')} {
     :root {
-      ${cssVar.appbarZIndex}: 1000;
+      ${cssVar.appbarZIndex}: 100;
     }
   }
 
@@ -38,14 +38,23 @@ const GlobalStyle = createGlobalStyle`
 
   ${respondTo.down('lg')} {
     :root {
-      ${cssVar.drawerSideGap}: 0;//2.4rem;
+      ${cssVar.drawerSideGap}: 0; //2.4rem;
     }
   }
 
+  /*
+  * this will be fixed in antd's future versions
+  * see: https://github.com/ant-design/ant-design/pull/52499/files
+  * see: https://github.com/ant-design/ant-design/issues/48608#issuecomment-2152404334
+  * */
+  .ant-notification-stack > .ant-notification-notice-wrapper {
+    transition: transform 0.3s, backdrop-filter 0s !important;
+    will-change: transform, opacity;
+  }
 
   @media only screen and (min-width: 150em) {
     :root {
-      ${cssVar.drawerSideGap}: 0;//10vw;
+      ${cssVar.drawerSideGap}: 0; //10vw;
     }
   }
 
@@ -139,64 +148,66 @@ const GlobalStyle = createGlobalStyle`
   }
 
 
+  .ant-notification, .ant-notification-stack-expanded {
+    font-family: inherit !important;
+    border-radius: 10px;
 
+    & .ant-notification-notice-wrapper {
+      color: ${(p) => p.theme.onPrimary};
 
-  .ant-notification,.ant-notification-stack-expanded {
-     font-family: inherit !important;
-     border-radius: 10px;
+      & .ant-notification-notice {
+        border-radius: inherit;
+        padding: 2rem 1.6rem;
+        color: ${(props) => props.theme.onPrimary};
 
-     & .ant-notification-notice-wrapper {
-       color: ${(p) => p.theme.onPrimary};
-
-       & .ant-notification-notice {
-         border-radius: inherit;
-         padding: 2rem 1.6rem;
-         color: ${(props) => props.theme.onPrimary};
-          & a{
+        & a {
           color: ${(props) => props.theme.onPrimary};
         }
 
-      & .ant-notification-notice-content {
-        margin-right: 2rem;
-        & path {
-          color: ${(props) => props.theme.onPrimary};
+        & .ant-notification-notice-content {
+          margin-right: 2rem;
+
+          & path {
+            color: ${(props) => props.theme.onPrimary};
+          }
+        }
+
+        & .ant-notification-notice-message {
+          color: inherit;
+          font-size: 1.6rem;
+          font-weight: 500;
+        }
+
+        & .ant-notification-notice-description {
+          color: inherit;
+          font-size: 1.4rem;
+          font-weight: 400;
+          margin-top: 0.8rem;
+          white-space: break-spaces;
+        }
+
+        & .ant-notification-notice-close {
+          inset-inline-end: 1.6rem;
         }
       }
 
-      & .ant-notification-notice-message{
-        color: inherit;
-        font-size: 1.6rem;
-        font-weight: 500;
-      }
-      & .ant-notification-notice-description {
-        color: inherit;
-        font-size:1.4rem;
-        font-weight: 400;
-        margin-top:0.8rem;
+      & .ant-notification-notice-success {
+        background: ${(props) => props.theme.success._600};
       }
 
-      & .ant-notification-notice-close {
-        inset-inline-end: 1.6rem;
+      & .ant-notification-notice-error {
+        background: ${(props) => props.theme.error._500};
       }
-    }
 
-    & .ant-notification-notice-success {
-      background: ${(props) => props.theme.success._600};
-    }
+      & .ant-notification-notice-warning {
+        background: ${(props) => props.theme.warning._500};
+      }
 
-    & .ant-notification-notice-error {
-      background: ${(props) => props.theme.error._500};
-    }
-
-    & .ant-notification-notice-warning {
-      background: ${(props) => props.theme.warning._500};
-    }
-
-    & .ant-notification-notice-info {
-      background: ${(props) => props.theme.info._500};
+      & .ant-notification-notice-info {
+        background: ${(props) => props.theme.info._500};
+      }
     }
   }
-}
 
   .tsqd-parent-container {
     /* Force the TanStack Query DevTools to always display in Left-to-Right (LTR) layout */

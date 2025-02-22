@@ -1,5 +1,5 @@
 'use client';
-import { CSSProperties, useState } from 'react';
+import { CSSProperties } from 'react';
 
 import { AutoComplete as AntAutoComplete, AutoCompleteProps } from 'antd';
 
@@ -13,7 +13,6 @@ export type dataType = {
   id?: string | number;
   title: string;
   subTitle?: string;
-  scope: any;
 };
 
 type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {
@@ -51,8 +50,6 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
   const theme = useAppTheme();
   const [t] = useTr();
 
-  const [searchTerm, setSearchTerm] = useState('');
-
   return (
     <S.Container>
       <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel>
@@ -62,7 +59,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
         size='large'
         id={id ?? 'autocomplete'}
         autoFocus
-        value={searchTerm}
+        value={props.value}
         className={className}
         style={{ height: 40, ...style }}
         popupClassName={'popup'}
@@ -72,11 +69,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
         allowClear
         onChange={onChange}
         onClear={onClear}
-        onSearch={(value) => setSearchTerm(value)}
-        onSelect={(_, option) => {
-          onSelect(option.item);
-          setSearchTerm('');
-        }}
+        onSelect={(_, option) => onSelect(option.item)}
         dropdownRender={(menu) => (
           <>
             {menu}
@@ -91,7 +84,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
         )}
         optionRender={({ value, data }) => (
           <S.Item>
-            <S.Title text={value as string} wordToHighlight={searchTerm} highlightColor={theme.secondary.main} />
+            <S.Title text={value as string} wordToHighlight={props.value ?? ''} highlightColor={theme.secondary.main} />
             <S.Subtitle>{data.item.subTitle}</S.Subtitle>
             <S.Icon className='icon-plus' />
           </S.Item>

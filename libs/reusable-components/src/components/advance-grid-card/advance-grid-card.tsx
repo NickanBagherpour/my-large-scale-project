@@ -1,11 +1,16 @@
 import React from 'react';
-import { Box } from '@oxygen/ui-kit';
+import { Box, MarkText } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { AdvanceGridCardPropsType } from '../../utils/advance-grid-card/type';
 import { getStatusConfig } from '../../utils/advance-grid-card/consts';
 
 import * as S from './advance-grid-card.style';
-export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGridCardPropsType) => {
+export const AdvanceGridCard = ({
+  btnHandleClick,
+  btnLoading,
+  data,
+  wordToHighlight = '',
+}: AdvanceGridCardPropsType) => {
   const [t] = useTr();
   const { code } = data.submissionStatus;
   // Get the status configuration based on the code
@@ -16,7 +21,9 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
     <S.Container>
       <S.Div>
         <S.Details>
-          <S.Title>{data.clientName}</S.Title>
+          <S.Title>
+            <MarkText highlightColor='success' wordToHighlight={wordToHighlight} text={data.clientName} />
+          </S.Title>
           <S.SubTitle>{data.aggregatorName}</S.SubTitle>
           <S.IconTextWrapper>
             <i className='icon-calendar' />
@@ -24,13 +31,13 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
           </S.IconTextWrapper>
           <S.IconTextWrapper>
             <i className='icon-convertshape' />
-            <S.ServiceCount>{`${data.serviceCount} ${t('advance_grid_card.on_demand_service')}`}</S.ServiceCount>
+            <S.ServiceCount>{`${data.serviceCount} ${t('uikit.on_demand_service')}`}</S.ServiceCount>
           </S.IconTextWrapper>
         </S.Details>
         <S.Status>
           <S.StatusContainer>
             <S.IconTop color={bankColor as S.ColorType}>{bankIcon}</S.IconTop>
-            <S.Paragraph>{t('advance_grid_card.validation_commercial_banking')}</S.Paragraph>
+            <S.Paragraph>{t('uikit.validation_commercial_banking')}</S.Paragraph>
           </S.StatusContainer>
           <Box flexGrow={1}>
             <S.LineUp color={bankColor as S.ColorType} />
@@ -40,12 +47,12 @@ export const AdvanceGridCard = ({ btnHandleClick, btnLoading, data }: AdvanceGri
             <S.IconButtom color={businessColor as S.ColorType} isBlack={isBlack}>
               {businessIcon}
             </S.IconButtom>
-            <S.Paragraph>{t('advance_grid_card.business_unit')}</S.Paragraph>
+            <S.Paragraph>{t('uikit.business_unit')}</S.Paragraph>
           </S.StatusContainer>
         </S.Status>
       </S.Div>
       <S.Discription color={textColor as S.ColorType}>
-        <span>{t('advance_grid_card.discription')}</span>
+        <span>{t('uikit.discription')}</span>
         {t(descriptionText)}
       </S.Discription>
       <S.Button variant='outlined' loading={btnLoading} onClick={() => btnHandleClick(data.submissionId)}>

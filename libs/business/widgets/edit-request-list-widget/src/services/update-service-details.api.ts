@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
@@ -8,8 +8,9 @@ export const useUpdateServiceDetails = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.EDIT_REQUEST_LIST.UPDATE, params],
+    queryKey: [RQKEYS.BUSINESS.EDIT_REQUEST_LIST.UPDATE, params],
     queryFn: withErrorHandling(() => Api.updateServiceDetails(params), dispatch),
+    placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',
   });
 };

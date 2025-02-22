@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-import { auth } from '@oxygen/customer/auth';
 import { ROUTES } from '@oxygen/utils';
 import { CookieKey } from '@oxygen/types';
 

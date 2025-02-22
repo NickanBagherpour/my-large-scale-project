@@ -1,13 +1,11 @@
 'use server';
 
-import { cookies, headers } from 'next/headers';
-import { CookieKey } from '@oxygen/types';
-import { ApiUtil, decodeJWT, encrypt, getRole, processAndSignToken } from '@oxygen/utils';
+import { cookies } from 'next/headers';
+import { CookieKey, UserRole } from '@oxygen/types';
+import { decodeToken, encrypt, getAppBaseUrl, getRole, processAndSignTokenWithScopes } from '@oxygen/utils';
 
-export async function handleSSO(code: string | null, ticket: string): Promise<boolean> {
-  const host = headers().get('host');
-  const protocol = /*process.env.NODE_ENV === 'production' ? 'https' : */ 'http';
-  const baseUrl = `${protocol}://${host}`;
+export async function handleSSO(code: string | null, ticket: string | null): Promise<boolean> {
+  const baseUrl = await getAppBaseUrl();
 
   const response = await fetch(`${baseUrl}/api/auth/signin`, {
     method: 'POST',
@@ -28,51 +26,31 @@ export async function handleSSO(code: string | null, ticket: string): Promise<bo
   }
 
   const token = tokenData.data.access_token;
-  const signedToken = processAndSignToken(tokenData.data.access_token);
+  const decodedToken = decodeToken(token);
+  const userRole = getRole(decodedToken);
+
+  const newScopes = `${process.env.SSO_SCOPE}+${
+    userRole === UserRole.COMMERCIAL_BANKING_ADMIN ? process.env.SSO_SCOPE_COMMERCIAL : process.env.SSO_SCOPE_BUSINESS
+  }`;
+
+  const signedToken = await processAndSignTokenWithScopes(token, newScopes);
   const expiresIn = tokenData.data.expires_in;
 
   // Set the cookie directly in the server action
-  const cookieStore = cookies();
-  cookieStore.set({
-    name: CookieKey.SESSION_ID,
-    value: encrypt(token),
-    // value: encrypt(token),
-    path: '/',
-    maxAge: expiresIn, // Token expiration in seconds
-    // httpOnly: true, // Prevent JavaScript access
-    // secure: process.env.NODE_ENV === 'production', // Only secure in production
-    // sameSite: 'strict', // CSRF protection
-  });
+  const cookieStore = await cookies();
 
-  cookieStore.set({
-    name: CookieKey.SESSION_TICKET,
-    value: encrypt(ticket),
+  const cookieOptions = {
     path: '/',
-    maxAge: expiresIn, // Token expiration in seconds
-    // httpOnly: true, // Prevent JavaScript access
-    // secure: process.env.NODE_ENV === 'production', // Only secure in production
-    sameSite: 'strict', // CSRF protection
-  });
+    maxAge: expiresIn,
+    sameSite: 'strict' as const,
+    // httpOnly: true,
+    // secure: process.env.NODE_ENV === 'production',
+  };
 
-  cookieStore.set({
-    name: CookieKey.S_SESSION_ID,
-    value: encrypt(signedToken),
-    path: '/',
-    maxAge: expiresIn, // Token expiration in seconds
-    // httpOnly: true, // Prevent JavaScript access
-    // secure: process.env.NODE_ENV === 'production', // Only secure in production
-    sameSite: 'strict', // CSRF protection
-  });
-
-  cookieStore.set({
-    name: CookieKey.INFO,
-    value: encrypt(getRole(decodeJWT(token)?.payload) ?? ''),
-    path: '/',
-    maxAge: expiresIn, // Token expiration in seconds
-    // httpOnly: true, // Prevent JavaScript access
-    // secure: process.env.NODE_ENV === 'production', // Only secure in production
-    sameSite: 'strict', // CSRF protection
-  });
+  cookieStore.set(CookieKey.SESSION_ID, encrypt(token), cookieOptions);
+  cookieStore.set(CookieKey.SESSION_TICKET, encrypt(ticket), cookieOptions);
+  cookieStore.set(CookieKey.S_SESSION_ID, encrypt(signedToken), cookieOptions);
+  cookieStore.set(CookieKey.INFO, encrypt(userRole ?? ''), cookieOptions);
 
   return true;
 }

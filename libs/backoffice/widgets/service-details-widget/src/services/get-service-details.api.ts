@@ -9,7 +9,7 @@ export const useGetServiceDetailsQuery = (params: any) => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.SERVICE_DETAILS.GET_LIST, params],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE, RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_LIST, params],
     queryFn: withErrorHandling(() => Api.getServiceDetails(params), dispatch),
   });
 };

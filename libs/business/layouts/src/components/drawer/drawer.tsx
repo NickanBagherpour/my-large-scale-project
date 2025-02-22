@@ -7,7 +7,7 @@ import { useAsync, useMenu } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
-import { BACKOFFICE_ROUTE_GROUPS, cssVar } from '@oxygen/utils';
+import { BUSINESS_ROUTE_GROUPS, cssVar } from '@oxygen/utils';
 
 import { Api } from '../../services';
 import { findActiveMenuItem, findActiveParentKeys, searchMenuItems } from '../../utils/menu-utils';
@@ -134,7 +134,7 @@ const Drawer = (props: DrawerProps) => {
   }
 
   function getDefaultSelectedKeys() {
-    const activeMenuItem = findActiveMenuItem(menu, pathname, BACKOFFICE_ROUTE_GROUPS);
+    const activeMenuItem = findActiveMenuItem(menu, pathname, BUSINESS_ROUTE_GROUPS);
 
     if (!activeMenuItem) {
       return [];

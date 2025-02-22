@@ -1,7 +1,13 @@
-import React, { CSSProperties } from 'react';
-import styled, { css } from 'styled-components';
+import type React from 'react';
+import type { CSSProperties } from 'react';
+import styled from 'styled-components';
 
-interface TransientBoxProps {
+export interface BoxProps {
+  visible?: boolean;
+  children?: React.ReactNode;
+  fillChildren?: boolean;
+  className?: string;
+  style?: CSSProperties;
   display?: CSSProperties['display'];
   flexDirection?: CSSProperties['flexDirection'];
   justifyContent?: CSSProperties['justifyContent'];
@@ -38,48 +44,54 @@ interface TransientBoxProps {
   lineHeight?: CSSProperties['lineHeight'];
   letterSpacing?: CSSProperties['letterSpacing'];
   textAlign?: CSSProperties['textAlign'];
-  $fill_children?: string;
 }
 
+type TransientBoxProps = {
+  [K in keyof Omit<BoxProps, 'visible' | 'children' | 'style' | 'fillChildren' | 'className'> as `$${string &
+    K}`]: BoxProps[K];
+} & {
+  $fillChildren?: string;
+};
+
 const StyledBox = styled.div<TransientBoxProps>`
-  ${(props) => props.display && `display: ${props.display ?? 'initial'}`};
-  ${(props) => props.flexDirection && `flex-direction: ${props.flexDirection ?? 'initial'}`};
-  ${(props) => props.justifyContent && `justify-content: ${props.justifyContent ?? 'initial'}`};
-  ${(props) => props.alignItems && `align-Items: ${props.alignItems ?? 'initial'}`};
-  ${(props) => props.alignContent && `align-content: ${props.alignContent ?? 'initial'}`};
-  ${(props) => props.flexGrow && `flex-grow: ${props.flexGrow ?? 0}`};
-  ${(props) => props.flexWrap && `flex-wrap: ${props.flexWrap ?? 'nowrap'}`};
-  ${(props) => props.flexShrink && `flex-shrink: ${props.flexShrink ?? 1}`};
-  ${(props) => props.flexBasis && `flex-basis: ${props.flexBasis ?? 'auto'}`};
-  ${(props) => props.alignSelf && `align-self: ${props.alignSelf ?? 'auto'}`};
-  ${(props) => props.height && `height: ${props.height ?? 'auto'}`};
-  ${(props) => props.maxHeight && `max-height: ${props.maxHeight ?? 'none'}`};
-  ${(props) => props.minHeight && `min-height: ${props.minHeight ?? 'auto'}`};
-  ${(props) => props.width && `width: ${props.width ?? 'auto'}`};
-  ${(props) => props.maxWidth && `max-width: ${props.maxWidth ?? 'none'}`};
-  ${(props) => props.minWidth && `min-width: ${props.minWidth ?? 'auto'}`};
-  ${(props) => props.padding && `padding: ${props.padding ?? 0}`};
-  ${(props) => props.paddingTop && `padding-top: ${props.paddingTop ?? 0}`};
-  ${(props) => props.paddingRight && `padding-right: ${props.paddingRight ?? 0}`};
-  ${(props) => props.paddingBottom && `padding-bottom: ${props.paddingBottom ?? 0}`};
-  ${(props) => props.paddingLeft && `padding-left: ${props.paddingLeft ?? 0}`};
-  ${(props) => props.margin && `margin: ${props.margin ?? 0}`};
-  ${(props) => props.marginTop && `margin-top: ${props.marginTop ?? 0}`};
-  ${(props) => props.marginRight && `margin-right: ${props.marginRight ?? 0}`};
-  ${(props) => props.marginBottom && `margin-bottom: ${props.marginBottom ?? 0}`};
-  ${(props) => props.marginLeft && `margin-left: ${props.marginLeft ?? 0}`};
-  ${(props) => props.border && `border: ${props.border ?? 'none'}`};
-  ${(props) => props.borderRadius && `border-radius: ${props.borderRadius ?? '0'}`};
-  ${(props) => props.boxShadow && `box-shadow: ${props.boxShadow ?? 'none'}`};
-  ${(props) => props.backgroundColor && `background-color: ${props.backgroundColor ?? 'transparent'}`};
-  ${(props) => props.color && `color: ${props.color ?? 'inherit'}`};
-  ${(props) => props.fontSize && `font-size: ${props.fontSize ?? 'inherit'}`};
-  ${(props) => props.fontWeight && `font-weight: ${props.fontWeight ?? 'normal'}`};
-  ${(props) => props.lineHeight && `line-height: ${props.lineHeight ?? 'normal'}`};
-  ${(props) => props.letterSpacing && `letter-spacing: ${props.letterSpacing ?? 'normal'}`};
-  ${(props) => props.textAlign && `text-align: ${props.textAlign ?? 'inherit'}`};
+  ${(props) => props.$display && `display: ${props.$display}`};
+  ${(props) => props.$flexDirection && `flex-direction: ${props.$flexDirection}`};
+  ${(props) => props.$justifyContent && `justify-content: ${props.$justifyContent}`};
+  ${(props) => props.$alignItems && `align-items: ${props.$alignItems}`};
+  ${(props) => props.$alignContent && `align-content: ${props.$alignContent}`};
+  ${(props) => props.$flexWrap && `flex-wrap: ${props.$flexWrap}`};
+  ${(props) => props.$flexGrow && `flex-grow: ${props.$flexGrow}`};
+  ${(props) => props.$flexShrink && `flex-shrink: ${props.$flexShrink}`};
+  ${(props) => props.$flexBasis && `flex-basis: ${props.$flexBasis}`};
+  ${(props) => props.$alignSelf && `align-self: ${props.$alignSelf}`};
+  ${(props) => props.$height && `height: ${props.$height}`};
+  ${(props) => props.$maxHeight && `max-height: ${props.$maxHeight}`};
+  ${(props) => props.$minHeight && `min-height: ${props.$minHeight}`};
+  ${(props) => props.$width && `width: ${props.$width}`};
+  ${(props) => props.$maxWidth && `max-width: ${props.$maxWidth}`};
+  ${(props) => props.$minWidth && `min-width: ${props.$minWidth}`};
+  ${(props) => props.$padding && `padding: ${props.$padding}`};
+  ${(props) => props.$paddingTop && `padding-top: ${props.$paddingTop}`};
+  ${(props) => props.$paddingRight && `padding-right: ${props.$paddingRight}`};
+  ${(props) => props.$paddingBottom && `padding-bottom: ${props.$paddingBottom}`};
+  ${(props) => props.$paddingLeft && `padding-left: ${props.$paddingLeft}`};
+  ${(props) => props.$margin && `margin: ${props.$margin}`};
+  ${(props) => props.$marginTop && `margin-top: ${props.$marginTop}`};
+  ${(props) => props.$marginRight && `margin-right: ${props.$marginRight}`};
+  ${(props) => props.$marginBottom && `margin-bottom: ${props.$marginBottom}`};
+  ${(props) => props.$marginLeft && `margin-left: ${props.$marginLeft}`};
+  ${(props) => props.$border && `border: ${props.$border}`};
+  ${(props) => props.$borderRadius && `border-radius: ${props.$borderRadius}`};
+  ${(props) => props.$boxShadow && `box-shadow: ${props.$boxShadow}`};
+  ${(props) => props.$backgroundColor && `background-color: ${props.$backgroundColor}`};
+  ${(props) => props.$color && `color: ${props.$color}`};
+  ${(props) => props.$fontSize && `font-size: ${props.$fontSize}`};
+  ${(props) => props.$fontWeight && `font-weight: ${props.$fontWeight}`};
+  ${(props) => props.$lineHeight && `line-height: ${props.$lineHeight}`};
+  ${(props) => props.$letterSpacing && `letter-spacing: ${props.$letterSpacing}`};
+  ${(props) => props.$textAlign && `text-align: ${props.$textAlign}`};
   ${(props) =>
-    props.$fill_children === 'true'
+    props.$fillChildren === 'true'
       ? `
           & > * {
             width: 100%;
@@ -92,19 +104,24 @@ const StyledBox = styled.div<TransientBoxProps>`
         `}
 `;
 
-export interface BoxProps extends TransientBoxProps {
-  visible?: boolean;
-  children?: React.ReactNode;
-  fillChildren?: boolean;
-  className?: string;
-}
+export const Box: React.FC<BoxProps> = ({
+  visible = true,
+  children,
+  style,
+  fillChildren = true,
+  className,
+  ...rest
+}) => {
+  if (!visible) return null;
 
-export const Box: React.FC<BoxProps> = ({ visible = true, children, fillChildren = true, className, ...rest }) => {
+  const transientProps = Object.entries(rest).reduce((acc, [key, value]) => {
+    acc[`$${key}`] = value;
+    return acc;
+  }, {} as TransientBoxProps);
+
   return (
-    visible && (
-      <StyledBox className={className} $fill_children={String(fillChildren)} {...rest}>
-        {children}
-      </StyledBox>
-    )
+    <StyledBox className={className} $fillChildren={String(fillChildren)} {...transientProps} style={style}>
+      {children}
+    </StyledBox>
   );
 };

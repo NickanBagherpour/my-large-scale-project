@@ -19,4 +19,5 @@ export const TopSection = styled(Box)`
 
 export const BottomSection = styled(Box)`
   width: 100%;
+  text-align: center;
 `;

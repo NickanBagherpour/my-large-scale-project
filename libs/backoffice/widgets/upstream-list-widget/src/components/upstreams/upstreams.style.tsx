@@ -1,28 +1,36 @@
 import styled from 'styled-components';
 
 import { Box, Button } from '@oxygen/ui-kit';
-import Link from 'next/link';
+import { respondTo } from '@oxygen/utils';
 
 export const TableContainer = styled(Box)`
   height: 100%;
 `;
 
-export const StyledButton = styled(Button)`
-  display: flex;
-  margin-inline: auto;
-  font-weight: 600;
+export const DetailsButton = styled(Button)`
+  font-weight: 500;
+  padding: 0 0.8rem;
+`;
 
+export const TrashButton = styled(Button)`
+  padding: 0 0 0 0.8rem;
   & i {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
   }
 `;
 
-export const Details = styled(Link)`
-  color: ${(p) => p.theme.primary.main};
-  font-size: 1.4rem;
-`;
+export const ActionBox = styled(Box)`
+  display: flex;
+  gap: 2rem;
 
-export const Trash = styled.i`
-  font-size: 2.4rem;
-  color: ${(p) => p.theme.error.main};
+  ${respondTo.down('lg')} {
+    gap: 1rem;
+  }
+
+  & .ant-btn {
+    ${respondTo.down('lg')} {
+    }
+
+    padding: 0;
+  }
 `;

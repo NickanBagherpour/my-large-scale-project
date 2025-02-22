@@ -1,8 +1,12 @@
+import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox, Modal } from '@oxygen/ui-kit';
+import { Nullable } from '@oxygen/types';
+import { getValueOrDash } from '@oxygen/utils';
 
 import { useModalInfoQuery } from '../../../../services/second-tab/get-modal-data.api';
-import { Nullable } from '@oxygen/types';
+import { getDesktopColumns, getMobileColumns } from '../../../../utils/scope-information-table.utils';
+import { renderChip, renderTag } from '../../../../utils/helper.util';
 
 import * as S from './info-service-modal.style';
 
@@ -13,40 +17,51 @@ type Props = {
 };
 
 export default function DetailsModal(props: Props) {
-  //Hooks
   const { isOpen, toggle, name } = props;
   const [t] = useTr();
-  //Query
+
   const { data: modalDataQuery, isFetching: modalIsFetching } = useModalInfoQuery(name);
-  //Constats
-  const tags = modalDataQuery?.tags ? modalDataQuery?.tags.map((tag) => tag.title).join(', ') : [];
-  const progressPercent = modalDataQuery?.serviceProgress?.percent ?? '-';
-  //to do : do it with enum instead of solid number
-  const isOperational = modalDataQuery?.serviceProgress?.statusCode === 9;
-  const serviceProgress = modalDataQuery?.serviceProgress?.statusCode
-    ? isOperational
-      ? t('modal.operational')
-      : t(`modal.draft`, { progressPercent })
-    : '-';
-  const infoBoxData = [
-    { key: t('modal.english_name'), value: modalDataQuery?.serviceLatinName ?? '-' },
-    { key: t('modal.persian_name'), value: modalDataQuery?.servicePersianName ?? '-' },
-    { key: t('modal.action'), value: modalDataQuery?.routeMethod ?? '-' },
-    { key: t('modal.protocole'), value: modalDataQuery?.routeProtocol ?? '-' },
-    { key: t('modal.access'), value: modalDataQuery?.authenticationType?.title ?? '-' },
-    { key: t('modal.category'), value: modalDataQuery?.serviceCategoryTitle ?? '-' },
-    { key: t('modal.throughput'), value: modalDataQuery?.throughput?.title ?? '-' },
-    { key: t('modal.version'), value: modalDataQuery?.serviceVersion ?? '-' },
-    { key: t('modal.owner'), value: modalDataQuery?.ownerName ?? '-' },
-    { key: t('modal.tag'), value: tags?.length ? tags : '-' },
-    { key: t('modal.path'), value: modalDataQuery?.routePath ?? '-' },
-    { key: t('modal.host'), value: modalDataQuery?.routeHosts ?? '-' },
-    { key: t('modal.upstream'), value: modalDataQuery?.upstreamTitle ?? '-' },
+
+  const firstInfoBoxData = [
+    { key: t('modal.english_name'), value: getValueOrDash(modalDataQuery?.serviceenglishName) },
+    { key: t('modal.persian_name'), value: getValueOrDash(modalDataQuery?.servicePersianName) },
+    { key: t('modal.access'), value: getValueOrDash(modalDataQuery?.authenticationType?.title) },
+    { key: t('modal.category'), value: getValueOrDash(modalDataQuery?.serviceCategoryTitle) },
+    { key: t('modal.throughput'), value: getValueOrDash(modalDataQuery?.throughput?.title) },
+    { key: t('modal.version'), value: getValueOrDash(modalDataQuery?.serviceVersion) },
+    { key: t('modal.owner'), value: getValueOrDash(modalDataQuery?.ownerName) },
     {
-      key: t('modal.service_definition_status'),
-      value: <S.StyledSpan isOperational={isOperational}>{serviceProgress}</S.StyledSpan>,
+      key: t('modal.tag'),
+      value: modalDataQuery?.tags?.length && modalDataQuery?.tags.map((item) => renderChip(item?.title)),
+      fullwidth: true,
     },
   ];
+
+  const SecondInfoBoxData = [
+    {
+      key: t('modal.action'),
+      value: modalDataQuery?.routes[0]?.routeMethod?.map((item) => renderChip(item)),
+      fullwidth: true,
+    },
+    {
+      key: t('modal.protocol'),
+      value: modalDataQuery?.routes[0]?.routeProtocol?.map((item) => renderChip(item)),
+      fullwidth: true,
+    },
+    {
+      key: t('modal.path'),
+      value: modalDataQuery?.routes[0]?.routePath.map((item) => renderTag(item)),
+      fullwidth: true,
+    },
+    {
+      key: t('modal.host'),
+      value: modalDataQuery?.routes[0]?.routeHosts.map((item) => renderTag(item)),
+      fullwidth: true,
+    },
+  ];
+
+  const desktopColumns = getDesktopColumns({ t });
+  const mobileColumns = getMobileColumns({ t });
 
   return (
     <Modal
@@ -56,12 +71,27 @@ export default function DetailsModal(props: Props) {
       onCancel={toggle}
       width={1000}
       footer={[
-        <Button size='large' color='primary' variant='outlined' onClick={toggle}>
+        <Button key={'register_data'} size='large' color='primary' variant='outlined' onClick={toggle}>
           {t('register_data')}
         </Button>,
       ]}
     >
-      <InfoBox margin={0} data={infoBoxData} loading={modalIsFetching} />
+      <S.ItemWrapper>
+        <S.CaptionInfoBox>{t('table.general_info')}</S.CaptionInfoBox>
+        <InfoBox margin={'0 3.2rem'} data={firstInfoBoxData} loading={modalIsFetching} />
+        <S.CaptionInfoBox>{t('table.route')}</S.CaptionInfoBox>
+        <InfoBox margin={'0 3.2rem'} data={SecondInfoBoxData} loading={modalIsFetching} />
+        <S.CaptionInfoBox>{t('table.scope')}</S.CaptionInfoBox>
+        <S.Table
+          loading={modalIsFetching}
+          total={modalDataQuery?.scopes?.length}
+          dataSource={modalDataQuery?.scopes}
+          pagination={false}
+          columns={desktopColumns}
+          mobileColumns={mobileColumns}
+          rowKey={(row) => row.id}
+        />
+      </S.ItemWrapper>
     </Modal>
   );
 }

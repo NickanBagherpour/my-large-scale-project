@@ -4,6 +4,7 @@ import { Table } from '@oxygen/ui-kit';
 import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 
+import { uuid } from '@oxygen/utils';
 import CustomInfobox from '../custom-infobox/custom-infobox';
 import { getDesktopColumns, getMobileColumns } from '../../../utils/upstream-tab/table';
 
@@ -12,8 +13,8 @@ import * as S from './upstream-details.style';
 export type UpstreamDetailsPropsType = {
   tableLoading: boolean;
   tableData: any[] | undefined;
-  handleDeleteButton?: () => void;
-  infoBoxData: { latinName: Nullable<string>; persianName: Nullable<string> };
+  handleDeleteButton?: any;
+  infoBoxData: { englishName: Nullable<string>; persianName: Nullable<string> };
   infoBoxLoading: boolean;
 };
 export const UpstreamDetails = (props: UpstreamDetailsPropsType) => {
@@ -30,6 +31,7 @@ export const UpstreamDetails = (props: UpstreamDetailsPropsType) => {
       <S.Table>
         <S.Title>{t('upstream_tab.upstream_servers')}</S.Title>
         <Table
+          rowKey={() => uuid()}
           dataSource={tableData}
           columns={desktopColumns}
           mobileColumns={mobileColumns}

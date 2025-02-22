@@ -1,49 +1,54 @@
 import { Button, Progress } from '@oxygen/ui-kit';
 import * as S from './draft-card.style';
-import { useTr } from '@oxygen/translation';
-import { useQueryClient } from '@tanstack/react-query';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { ROUTES } from '@oxygen/utils';
+import { Draft } from '../../types';
+import { useDeleteDraft } from '../../services/delete-draft.api';
+import RemoveDraftModal from '../remove-draft-modal/remove-draft-modal';
+import { useState } from 'react';
 
-type DraftCardType = {
-  id: number;
-  name: string;
-  level: 1 | 2 | 3;
-};
+export default function DraftCard(props: Draft) {
+  const { stepName, clientName, progressPercent } = props;
+  const { mutate: removeDraft, isPending } = useDeleteDraft();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-export default function DraftCard(props: DraftCardType) {
-  const { name, level, id } = props;
-  const queryClient = useQueryClient();
-
-  const remove = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const openModal = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    queryClient.setQueryData([RQKEYS.CLIENTS_LIST.DRAFTS], (oldData: DraftCardType[]) => {
-      return oldData.filter((item) => item.id !== id);
-    });
+    setIsModalOpen(true);
   };
 
-  const [t] = useTr();
-  const levelsMap: Record<DraftCardType['level'], string> = {
-    1: t('get_info'),
-    2: t('add_service'),
-    3: t('add_plugin'),
+  const closeModal = () => {
+    if (isPending) return;
+    setIsModalOpen(false);
   };
 
-  const progressPercentage = level * 25;
+  const onRemoveDraft = () => {
+    removeDraft(clientName);
+  };
 
   return (
-    <S.Container href={ROUTES.BACKOFFICE.CLIENT_CREATION}>
-      <S.Header>
-        <S.Name>{name}</S.Name>
-        <Button onClick={remove} color='primary' variant='text' size='small'>
-          <S.Trash className='icon-trash' />
-        </Button>
-      </S.Header>
+    <>
+      <S.Container href={`${ROUTES.BACKOFFICE.CLIENT_CREATION}?client-name=${clientName}`}>
+        <S.Header>
+          <S.Name>{clientName}</S.Name>
+          <Button onClick={openModal} color='primary' variant='text' size='small'>
+            <S.Trash className='icon-trash' />
+          </Button>
+        </S.Header>
 
-      <Progress percent={progressPercentage} showInfo={false} isPrimary />
+        <Progress percent={progressPercent} showInfo={false} isPrimary />
 
-      <S.Footer>
-        ({levelsMap[level]}) {progressPercentage}%
-      </S.Footer>
-    </S.Container>
+        <S.Footer>
+          ({stepName}) {progressPercent}%
+        </S.Footer>
+      </S.Container>
+
+      <RemoveDraftModal
+        isOpen={isModalOpen}
+        close={closeModal}
+        name={clientName}
+        remove={onRemoveDraft}
+        isLoading={isPending}
+      />
+    </>
   );
 }

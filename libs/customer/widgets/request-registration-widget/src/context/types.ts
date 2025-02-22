@@ -11,7 +11,7 @@ export type PaginationType = {
   limit: number;
 };
 
-export type FirstStepType = {
+export type OrganizationDefineStepType = {
   aggregator_status?: 'isAggregator' | 'hasAggregator' | 'nothing' | undefined;
   aggregator_value?: string;
   legal_person_name?: string;
@@ -26,7 +26,7 @@ export type FirstStepType = {
   last_registration_address?: string;
 };
 
-export type SecondStepType = {
+export type RepresentativeDefineStepType = {
   persian_name?: string;
   mobile_number?: string;
   phone_number?: string;
@@ -47,10 +47,10 @@ export type WidgetStateType = {
   requestMode: RequestMode;
   organizationId: string;
   submissionId: string;
-  firstStepDisabledSubmit: boolean;
-  firstStep: FirstStepType;
-  secondStep: SecondStepType;
-  thirdStep: {
+  organizationDefineStepDisabledSubmit: boolean;
+  organizationDefineStep: OrganizationDefineStepType;
+  representativeDefineStep: RepresentativeDefineStepType;
+  serviceSelectStep: {
     table: FiltersType;
   };
   table: {
@@ -63,7 +63,7 @@ export type WidgetStateType = {
 
 export type WidgetActionType =
   | {
-      type: 'UPDATE_FIRST_STEP_FORM';
+      type: 'UPDATE_ORGANIZATION_DEFINE_STEP_FORM';
       payload: Partial<FiltersType>;
     }
   | {
@@ -71,15 +71,15 @@ export type WidgetActionType =
       payload: Partial<FiltersType>;
     }
   | {
-      type: 'UPDATE_SECOND_STEP';
+      type: 'UPDATE_REPRESENTATIVE_DEFINE_STEP';
       payload: Partial<FiltersType>;
     }
   | {
-      type: 'UPDATE_THIRD_STEP_TABLE';
+      type: 'UPDATE_SERVICE_SELECT_STEP_TABLE';
       payload: Partial<FiltersType>;
     }
   | {
-      type: 'UPDATE_THIRD_STEP_TABLE_AFTER_DELETE';
+      type: 'UPDATE_SERVICE_SELECT_STEP_TABLE_AFTER_DELETE';
       payload: Partial<FiltersType>;
     }
   | {

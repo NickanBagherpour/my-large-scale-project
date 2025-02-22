@@ -7,12 +7,15 @@ export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm:
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
+export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
+}
+export function updateErrorMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
+  dispatch({ type: 'UPDATE_ERROR_MESSAGE', payload: message });
 }
 
 export function resetMessageAction(dispatch: WidgetDispatchType) {

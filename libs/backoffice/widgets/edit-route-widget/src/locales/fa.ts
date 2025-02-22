@@ -1,8 +1,8 @@
 export default {
-  widget_name: 'سرویس دریافت کد‌های ملی متعلق به یک شماره موبایل',
+  widget_name: 'جزئیات سرویس',
   edit_route: 'ویرایش Route',
   method: 'اکشن/متود',
-  protocol: 'پروتوکل',
+  protocol: 'پروتکل',
   path: 'Path',
   host: 'Host',
   path_sample: 'api/sapta/v1/bale/customer-info/',

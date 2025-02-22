@@ -8,4 +8,5 @@ export const CONSTANTS = {
   CONTACT_US_LINK: 'https://bmi.ir/',
   REGISTER_LINK: 'https://my.bmi.ir/portalserver/signup',
   FORGET_PASS_LINK: 'https://my.bmi.ir/portalserver/signup#/forgotpass',
+  ROW_INDEX_WIDTH: '6.5rem',
 };

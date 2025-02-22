@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Form } from 'antd';
+
 import { useTr } from '@oxygen/translation';
-import * as S from './upstream-details-info.style';
-import { PageProps } from '@oxygen/types';
-import { Button, InfoBox } from '@oxygen/ui-kit';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
-import { queryClient } from '@oxygen/client';
 import { AddUpstreamModal } from '@oxygen/reusable-components';
+import { getValueOrDash, ROUTES, RQKEYS } from '@oxygen/utils';
+import { Button, InfoBox } from '@oxygen/ui-kit';
+import { queryClient } from '@oxygen/client';
+import { PageProps } from '@oxygen/types';
+
 import { useEditUpstreamMutation } from '../../services/get-upstream-details.api';
 import { updateMessageAction, useAppDispatch } from '../../context';
 
+import * as S from './upstream-details-info.style';
+
 type UpstreamDetailsInfoProps = PageProps & {
-  infoData?: { name: string; description: string };
+  infoData?: { name: string; description: string; id: number };
   loading?: boolean;
 };
 const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
@@ -19,8 +21,8 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
   const [t] = useTr();
 
   const upstreamInfoData = [
-    { key: t('english_upstream_name'), value: infoData?.name },
-    { key: t('persian_upstream_name'), value: infoData?.description },
+    { key: t('english_upstream_name'), value: getValueOrDash(infoData?.name) },
+    { key: t('persian_upstream_name'), value: getValueOrDash(infoData?.description) },
   ];
   const [openEditModal, setOpenEditModal] = useState(false);
 
@@ -34,18 +36,18 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
         description: values.description,
       };
 
-      await mutate(params, {
+      mutate(params, {
         onSuccess: () => {
           updateMessageAction(dispatch, {
             description: t('edit_upstream_success'),
             type: 'success',
             shouldTranslate: false,
           });
-          queryClient.invalidateQueries({ queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST] });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST] });
         },
       });
     } catch (error) {
-      // console.error('Validation failed:', error);
+      console.error('Validation failed:', error);
     }
   };
   return (
@@ -67,7 +69,7 @@ const UpstreamDetailsInfo: React.FC<UpstreamDetailsInfoProps> = (props) => {
           <S.TabName>{t('upstream_global_info')}</S.TabName>
           <S.Btns>
             <Button
-              href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?servicename=service-19`}
+              href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=${infoData?.name}`}
               color='primary'
               variant='filled'
             >

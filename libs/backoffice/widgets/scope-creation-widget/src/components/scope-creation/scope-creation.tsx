@@ -6,14 +6,17 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Button, Input, MarkText, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
-import { ROUTES, RQKEYS } from '@oxygen/utils';
+import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
+import { useAppTheme } from '@oxygen/hooks';
+
+import { CreateScopeType, createScopeType } from '../../types';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
-import { FormSchema } from '../../types';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
 import { useCreateScope } from '../../services/create-scope.api';
+import ConfirmModal from '../confirm-modal/confirm-modal';
 
 import * as S from './scope-creation.style';
 
@@ -24,20 +27,26 @@ type EditScopeProps = PageProps & {
 const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
+  const theme = useAppTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [form] = Form.useForm();
   const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
 
-  const rule = createSchemaFieldRule(FormSchema(t));
+  const [form] = Form.useForm<CreateScopeType>();
+
+  const rule = createSchemaFieldRule(createScopeType(t));
 
   const submitClick = () => {
     form.submit();
   };
 
   const showModal = async () => {
-    await form.validateFields();
-    setIsOpen(true);
+    try {
+      await form?.validateFields();
+      setIsOpen(true);
+    } catch (error) {
+      return false;
+    }
   };
 
   const onCancel = () => setIsOpen(false);
@@ -47,20 +56,17 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   };
 
   const onFinish = async (values: any) => {
-    const { latinNameScope, persianNameScope } = values;
-    const params: any = {
-      name: latinNameScope.trim(),
-      description: persianNameScope.trim(),
+    const { englishNameScope, persianNameScope } = values;
+    const params: CreateScopeType = {
+      name: englishNameScope,
+      description: persianNameScope,
     };
 
-    createScope(params, {
+    createScope(trimValues(params), {
       onSuccess: async () => {
         try {
           await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
-          });
-          await queryClient.refetchQueries({
-            queryKey: [RQKEYS.SCOPE_MANAGEMENT.GET_SCOPE_LIST],
+            queryKey: [RQKEYS.BACKOFFICE.SCOPE],
           });
 
           onCancel();
@@ -76,35 +82,31 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   };
 
   const SubmitModal = () => {
+    const englishNameScope = form.getFieldValue(FORM_ITEM_NAMES.englishNameScope) || '';
     return (
-      <Modal
-        open={isOpen}
-        centered={true}
-        title={t('create_scope')}
-        onCancel={onCancel}
-        confirmLoading={loadingCreateScope}
-        cancelText={t('button.cancel')}
-        okText={t('buttons.confirm')}
-        onOk={submitClick}
-      >
-        <p>{t('modal_text', { scope_name: form.getFieldValue(FORM_ITEM_NAMES.latinNameScope) })}</p>
-      </Modal>
+      <ConfirmModal
+        loading={loadingCreateScope}
+        onSubmit={submitClick}
+        englishNameScope={englishNameScope}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     );
   };
 
   return (
     <S.ScopeCreationContainer>
       <div className={'form-wrapper'}>
-        {SubmitModal()}
         <Form layout={'vertical'} onFinish={onFinish} form={form}>
+          {isOpen && SubmitModal()}
           <SearchItemsContainer>
             <Form.Item
-              name={FORM_ITEM_NAMES.latinNameScope}
+              name={FORM_ITEM_NAMES.englishNameScope}
               className={'span-2'}
-              label={t('form.latin_name_scope')}
+              label={t('form.english_name_scope')}
               rules={[rule]}
             >
-              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.latin_name')} />
+              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.english_name')} />
             </Form.Item>
             <Form.Item
               name={FORM_ITEM_NAMES.persianNameScope}
@@ -121,7 +123,7 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
         <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
           {t('button.cancel')}
         </ReturnButton>
-        <Button htmlType={'submit'} onClick={showModal}>
+        <Button htmlType={'button'} onClick={showModal}>
           {t('buttons.register_scope')}
         </Button>
       </FooterContainer>

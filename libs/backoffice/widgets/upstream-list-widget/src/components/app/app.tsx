@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Loading } from '@oxygen/ui-kit';
+import { getWidgetTitle } from '@oxygen/utils';
 import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 
-import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetMessageAction, updatePagination, useAppDispatch, useAppState } from '../../context';
 import { useGetUpstreamListQuery } from '../../services';
 import Upstreams from '../upstreams/upstreams';
 import Filters from '../filters/filters';
@@ -28,18 +28,27 @@ const App: React.FC<AppProps> = (props) => {
 
   const { data: upstreams, isFetching } = useGetUpstreamListQuery(prepareParams());
 
+  useEffect(() => {
+    if (upstreams?.empty === true && upstreams?.totalElements !== 0) {
+      updatePagination(dispatch, { page: pagination.page - 1 });
+    }
+  }, [upstreams]);
+
   function prepareParams() {
     const params = {
-      ...pagination,
+      page: pagination.page - 1,
       size: pagination.rowsPerPage,
-      ['search-field']: searchField,
+      ...(searchField ? { ['search-field']: searchField } : {}),
+      // sort:state.sort,
     };
     return params;
   }
+
+  const title = getWidgetTitle({ defaultTitle: t('upstream_management') });
   const upstreamSubTitle = upstreams?.totalElements ? `(${upstreams?.totalElements ?? 0})` : '';
 
   return (
-    <S.UpstreamContainer title={t('widget_name')} subtitle={upstreamSubTitle}>
+    <S.UpstreamContainer title={title} subtitle={upstreamSubTitle}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
@@ -47,13 +56,11 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Filters />
-      <Loading spinning={isFetching} size='default'>
-        {upstreams?.content?.length ? (
-          <Upstreams data={upstreams.content} total={upstreams.totalElements} isLoading={isFetching} />
-        ) : (
-          <NoResult isLoading={false} />
-        )}
-      </Loading>
+      {upstreams?.content?.length ? (
+        <Upstreams data={upstreams.content} total={upstreams.totalElements} isLoading={isFetching} />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.UpstreamContainer>
   );
 };

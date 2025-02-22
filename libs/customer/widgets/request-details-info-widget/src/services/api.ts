@@ -1,7 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType } from '../types';
-
 const Api = {
   geRequestData: async (submissionId: string) => {
     try {

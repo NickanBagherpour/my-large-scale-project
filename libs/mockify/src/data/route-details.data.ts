@@ -5,7 +5,7 @@ export const routeDetailsData = [
     type: 'text',
   },
   {
-    key: 'پروتوکل',
+    key: 'پروتکل',
     value: 'HTTP',
     type: 'text',
   },

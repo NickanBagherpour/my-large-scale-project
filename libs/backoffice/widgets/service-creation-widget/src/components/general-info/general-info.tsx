@@ -1,12 +1,10 @@
-import { Input, Select, Chip, Dropdown } from '@oxygen/ui-kit';
+import { Input, Select } from '@oxygen/ui-kit';
 import { Form, type FormProps } from 'antd';
-import { SERVICE_NAMES } from '../../utils/consts';
+import { SERVICE_NAMES, convertCodeTitles, convertTags } from '../../utils';
 import { useTr } from '@oxygen/translation';
 import { CodeTitle, createGeneralInfoSchema, GeneralInfoValuesType } from '../../types';
 import { createSchemaFieldRule } from 'antd-zod';
 import { nextStep, useAppDispatch, useAppState } from '../../context';
-import Footer from '../footer/footer';
-import Box from '../box/box';
 import FormItem from '../form-item/form-item';
 import { useRouter } from 'next/navigation';
 import { Container } from '../container/container.style';
@@ -18,9 +16,8 @@ import {
   useGetThroughput,
   usePostService,
 } from '../../services';
-import { convertCodeTitles, convertTags } from '../../utils/convert-enums';
-import CenteredLoading from '../centered-loading/centered-loading';
 import * as S from './general-info.style';
+import { BorderedSection, CenteredLoading, Footer, TagPicker } from '@oxygen/reusable-components';
 
 const findInList = (list: CodeTitle[], code: number) => list.find((item) => item.code === code);
 
@@ -31,9 +28,8 @@ export default function GeneralInfo() {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const router = useRouter();
-  const { data: service, isPending: isPendingService } = useGetService();
+  const { data: service, isFetching: isFetchingService } = useGetService();
   const { data: tags, isFetching: isFetchingTags } = useGetTags();
-  const selectedTags = Form.useWatch(SERVICE_NAMES.tags, form);
   const { data: categories, isFetching: isFetchingCategories } = useGetCategories();
   const { data: serviceAccesses, isFetching: isFetchingServiceAccesses } = useGetServiceAccess();
   const { data: throughputs, isFetching: isFetchingThroughput } = useGetThroughput();
@@ -55,7 +51,7 @@ export default function GeneralInfo() {
         persianName,
         version,
         ownerName: owner,
-        tagsIds: formTags.map((tag) => tag.value),
+        tagsIds: formTags.map((tag) => tag.code),
         categoryCode: currentCategory.code,
         throughput: currentThroughput,
         latinName: englishName,
@@ -71,14 +67,8 @@ export default function GeneralInfo() {
 
   const onRegister = () => form.submit();
 
-  const closeChip = (tag: { key: number; label: string; value: number }) => {
-    form.setFieldValue(
-      SERVICE_NAMES.tags,
-      selectedTags?.filter((t) => t.value !== tag.value)
-    );
-  };
-
-  if (isPendingService) {
+  if (isFetchingService) {
+    // Using `isFetching` to unmount the form while new data is being fetched, ensuring the form's initial values are updated once the data is received.
     return <CenteredLoading />;
   }
 
@@ -197,29 +187,11 @@ export default function GeneralInfo() {
           </S.Grid>
         </S.InputsBox>
 
-        <Box>
-          <S.TagPicker>
-            <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
-              <Dropdown.Select multiSelect loading={isFetchingTags} menu={convertTags(tags)}>
-                {t('add_tags')}
-              </Dropdown.Select>
-            </FormItem>
-
-            {selectedTags?.map((item) => (
-              <Chip
-                ellipsis
-                closeIcon
-                type='active'
-                key={item.key}
-                tooltipOnEllipsis
-                tooltipTitle={item.label}
-                onClose={() => closeChip(item)}
-              >
-                {item.label}
-              </Chip>
-            ))}
-          </S.TagPicker>
-        </Box>
+        <BorderedSection>
+          <FormItem name={SERVICE_NAMES.tags} rules={[rule]}>
+            <TagPicker title={t('add_tags')} isLoading={isFetchingTags} menu={convertTags(tags)} />
+          </FormItem>
+        </BorderedSection>
       </Form>
 
       <Footer onRegister={onRegister} onReturn={onReturn} />

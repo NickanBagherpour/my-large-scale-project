@@ -16,18 +16,22 @@ export const SearchItemsContainer = styled.div<{ $columnNumber?: string }>`
 
   display: grid;
   //grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr);
-  grid-template-columns: repeat(var(--grid-column-count), 1fr);
+  grid-template-columns: repeat(var(--grid-column-count), minmax(100px, 1fr));
   /* grid-template-columns: repeat(3, 1fr); */
   grid-column-gap: var(--grid-layout-gap);
   grid-row-gap: var(--grid-layout-gap);
 
   ${respondTo.down('lg')} {
-    /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: ${(props) => (props.$columnNumber ? `repeat(${props.$columnNumber}, 1fr)` : '1fr 1fr')};
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+    & > * {
+      grid-column: span 1 !important;
+      width: 100%;
+    }
   }
 
   ${respondTo.down('xs')} {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(100px, 1fr);
   }
 
   & .span-2,

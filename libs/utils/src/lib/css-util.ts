@@ -21,6 +21,7 @@ export const cssVar = {
   radiusLg: '--radius-lg',
   appbarZIndex: '--appbar-z-index',
   onAppbarZIndex: '--on-appbar-z-index',
+  iransansFont: '--font-iransans' as const,
 };
 
 export const respondTo = {

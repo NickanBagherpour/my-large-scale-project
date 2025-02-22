@@ -2,6 +2,9 @@ import styled, { css } from 'styled-components';
 import { Pagination as AntPagination } from 'antd';
 
 export const Pagination = styled(AntPagination)`
+  display: flex;
+  flex-wrap: wrap;
+
   .ant-pagination {
     padding: 0.5 2rem;
     position: relative;

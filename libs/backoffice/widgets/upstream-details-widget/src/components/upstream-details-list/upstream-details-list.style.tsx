@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { MarkText } from '@oxygen/ui-kit';
+import { Button, MarkText } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
 
 export const ServerContainer = styled.div`
   display: flex;
@@ -9,7 +10,20 @@ export const ServerContainer = styled.div`
   background-color: ${(props) => props.theme.onPrimary};
   padding: 1.6rem;
   border-radius: 1.6rem;
-  min-height: 55rem;
+
+  & tbody > tr > td:last-child {
+    width: 25rem;
+
+    ${respondTo.down('lg')} {
+      width: 20rem;
+    }
+
+    ${respondTo.down('md')} {
+      & i {
+        margin-left: 2rem;
+      }
+    }
+  }
 `;
 
 export const ServerContent = styled.div`
@@ -17,7 +31,7 @@ export const ServerContent = styled.div`
 `;
 
 export const TableContainer = styled.div`
-  margin-bottom: 3rem;
+  //
 `;
 
 export const Name = styled(MarkText)`
@@ -36,24 +50,18 @@ export const Details = styled.a`
   color: ${(p) => p.theme.primary.main};
 `;
 
-export const BtnContainer = styled.span`
-  align-items: center;
-  display: flex;
-  justify-content: center;
+export const TrashButton = styled(Button)`
+  padding: 0;
 
-  column-gap: 8rem;
+  & i {
+    font-size: 2.4rem;
+  }
 `;
 
-export const Trash = styled.i`
-  font-size: 2.4rem;
-  color: ${(p) => p.theme.error.main};
-`;
-
-export const Edit = styled.span`
-  font-size: 1.4rem;
+export const EditButton = styled(Button)`
   font-weight: 500;
-  line-height: 2.2rem;
-  color: ${(p) => p.theme.primary.main};
+  width: fit-content;
+  padding: 0;
 `;
 
 export const MobileTableItem = styled.div`
@@ -88,4 +96,9 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
+`;
+
+export const TableRow = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

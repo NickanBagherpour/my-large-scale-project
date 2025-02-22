@@ -8,22 +8,12 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 import { useGetServiceDetailsQuery } from '../../services';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
-import { Button, Chip, Container, InfoBox, Table, Tabs, TabsProps } from '@oxygen/ui-kit';
-import { useAppDispatch, useAppState } from '../../context';
-import { useGetRouteDetailsQuery } from '../../services';
+import { Button, Chip, InfoBox } from '@oxygen/ui-kit';
 import * as S from './service-info.style';
 
 export type Modal = {
   details: boolean;
   removeService: boolean;
-};
-
-type Props = {
-  t: (key: string) => string; // Assuming 't' is a function for translations
-  filteredClients: Service[];
-  pagination: { page: number; rowsPerPage: number };
-  isClientsFetching: boolean;
-  handlePageChange: (pagination: TablePaginationConfig) => void;
 };
 
 type AppProps = PageProps & {
@@ -39,23 +29,15 @@ const Route: React.FC<AppProps> = (props) => {
   const params = servicename;
   const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery(params);
 
-  const state = useAppState();
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const [t] = useTr();
-  const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
-
-  const [modals, setModals] = useState<Modal>({
-    details: false,
-    removeService: false,
-  });
 
   const transformServiceDetails = (serviceDetails) => {
     if (!serviceDetails) return [];
 
     return [
-      { key: t('latin_name'), value: getValueOrDash(serviceDetails?.name) },
+      { key: t('english_name'), value: getValueOrDash(serviceDetails?.name) },
       { key: t('persian_name'), value: getValueOrDash(serviceDetails?.persianName) },
       { key: t('access'), value: getValueOrDash(serviceDetails?.accessLevel?.title) },
       { key: t('category'), value: getValueOrDash(serviceDetails?.category?.title) },
@@ -75,8 +57,6 @@ const Route: React.FC<AppProps> = (props) => {
                 key={tag.id}
                 tooltipTitle={tag.title}
                 tooltipOnEllipsis={true}
-                // color='blue' // Optional: Customize color or remove for default styling
-                // style={{ marginBottom: 8 }}
               >
                 {tag.title}
               </Chip>
@@ -91,20 +71,6 @@ const Route: React.FC<AppProps> = (props) => {
 
   const transformedData = transformServiceDetails(serviceDetails);
 
-  const toggleModal = (modal: keyof Modal) => {
-    setModals((prev) => ({ ...prev, [modal]: !prev[modal] }));
-  };
-
-  const handlePageChange = (pagination: any) => {
-    setPagination({
-      page: pagination.current,
-      rowsPerPage: pagination.pageSize,
-    });
-  };
-
-  const desktopColumns = getDesktopColumns({ t, toggleModal });
-  const mobileColumns = getMobileColumns({ t, toggleModal });
-
   return (
     <>
       <div className='service-technical-details'>
@@ -115,7 +81,7 @@ const Route: React.FC<AppProps> = (props) => {
             color='primary'
             variant='filled'
             icon={<i className='icon-clock' />}
-            onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${servicename}&type=service`)}
+            onClick={() => router.push(`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?id=${serviceDetails?.serviceInfoId}`)}
           >
             {t('see_changes_history')}
           </Button>
@@ -130,8 +96,6 @@ const Route: React.FC<AppProps> = (props) => {
           </Button>
         </div>
       </div>
-
-      {/* {console.log(serviceDetails, 'service details')} */}
 
       <InfoBox data={transformedData} margin={0} loading={isServiceFetching} />
     </>

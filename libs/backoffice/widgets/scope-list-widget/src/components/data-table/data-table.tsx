@@ -3,6 +3,7 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { ScopeListData } from '../../types';
 import { Table } from '@oxygen/ui-kit';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
@@ -11,7 +12,7 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.uti
 import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
-  scopeListData: any;
+  scopeListData: ScopeListData | undefined;
   scopeListLoading: boolean;
 };
 
@@ -20,6 +21,10 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const { pagination } = useAppState();
   const { scopeListLoading, scopeListData } = props;
   const [t] = useTr();
+
+  const dataTableParams = { t, pagination };
+  const desktopColumns = getDesktopColumns(dataTableParams);
+  const mobileColumns = getMobileColumns(dataTableParams);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -30,10 +35,6 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       });
     }
   };
-
-  const dataTableParams = { t, pagination };
-  const desktopColumns = getDesktopColumns(dataTableParams);
-  const mobileColumns = getMobileColumns(dataTableParams);
 
   return (
     <S.DataTableContainer>
@@ -47,7 +48,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        rowKey={(row) => row.index}
+        rowKey={(row) => row.id}
       />
     </S.DataTableContainer>
   );

@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery, useMutation } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling, ApiUtil } from '@oxygen/utils';
-import { useAppDispatch } from '../context';
+import { useAppDispatch, updateErrorMessageAction, updateMessageAction } from '../context';
 import Api from './api';
 import { EditUpstreamParamsType } from '../types';
 
@@ -9,7 +9,7 @@ export const useGetUpstreamDetailsQuery = (upstreamName: string | null) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.UPSTREAM_DETAILS.GET_LIST, upstreamName],
+    queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_DETAILS.GET_LIST, upstreamName],
     queryFn: withErrorHandling(() => Api.getUpstreamDetailsList(upstreamName), dispatch),
     placeholderData: keepPreviousData,
   });
@@ -22,7 +22,9 @@ export const useAddServerToUpstreamMutationQuery = () => {
     mutationFn: (params: any) => Api.addServerToUpstream(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // updateErrorMessageAction(dispatch, err);
+      updateMessageAction(dispatch, err);
     },
   });
 };
@@ -34,7 +36,9 @@ export const useDeleteServerFromUpstreamMutationQuery = () => {
     mutationFn: (params: any) => Api.deleteServerFromUpstream(params),
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);
-      dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: err });
+      // updateErrorMessageAction(dispatch, err);
+      updateMessageAction(dispatch, err);
     },
   });
 };

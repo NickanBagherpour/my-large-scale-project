@@ -1,93 +1,163 @@
-import { useTr } from '@oxygen/translation';
-import * as S from './modal-delete-server.style';
-import { useAppTheme } from '@oxygen/hooks';
+import React, { useState, useEffect } from 'react';
+
+import { MutationStatus } from '@tanstack/react-query';
 import { Table } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
+
+import { CreateServerType } from './modal-delete-server.schema';
+import { AnimatedStatus } from '@oxygen/reusable-components';
 import {
   getDesktopColumnsDeleteServerModal,
   getMobileColumnsDeleteServerModal,
 } from '../../utils/upstream-details-list-util';
 import { UpstreamDetailsType } from '../../types';
 
-type Props = {
-  title: string;
+import * as S from './modal-delete-server.style';
+
+interface ReusableFormModalProps {
+  title?: string;
   open: boolean;
-  onOk: () => void;
-  confirmLoading: boolean;
-  onCancel: () => void;
-  headerDivider: boolean;
-  centered: boolean;
-  cancelText: string;
-  okText: string;
+  setOpen: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  status: MutationStatus;
+  initialData?: CreateServerType;
+  data?: UpstreamDetailsType[];
   okButtonProps: any;
   cancelButtonProps: any;
-  data?: UpstreamDetailsType[];
-};
+  okText: string;
+  cancelText: string;
+  centered: boolean;
+  onOk: () => void;
+  errorMessage?: string;
+}
 
-export default function ServerDeleteModal(props: Props) {
-  const [t] = useTr();
-  const theme = useAppTheme();
+const MainDeleteServerModal: React.FC<ReusableFormModalProps> = (props) => {
   const {
-    title,
+    title = 'add-upstream.create_upstream',
     open,
-    onOk,
-    confirmLoading,
-    onCancel,
-    headerDivider,
-    centered,
+    setOpen,
+    status,
+    initialData,
+    data,
     cancelText,
     okText,
     okButtonProps,
     cancelButtonProps,
-    data,
+    centered,
+    onOk,
+    errorMessage,
   } = props;
+
+  const [isCreateMode, setIsCreateMode] = useState(true);
+
+  const [t] = useTr();
+
+  const createStatus = {
+    success: 'success',
+    pending: 'loading',
+    idle: 'loading',
+    error: 'error',
+  } as const;
+
+  useEffect(() => {
+    if (!initialData && open) {
+      setIsCreateMode(true);
+    }
+  }, [open, initialData]);
+
+  const resetModal = () => {
+    setOpen(false);
+    setIsCreateMode(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+    setIsCreateMode(true);
+  };
+
+  const handleConfirmDelete = () => {
+    setIsCreateMode(false);
+    onOk();
+  };
+
   const desktopColumns = getDesktopColumnsDeleteServerModal({ t });
   const mobileColumns = getMobileColumnsDeleteServerModal({ t });
 
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
+  const renderModalContent = () => {
+    if (isCreateMode) {
+      return (
+        <>
+          <S.StyledHeader>
+            <S.StyledTitle>{t(title)}</S.StyledTitle>
+            <S.StyledCloseIcon className={'icon-close-square'} onClick={resetModal} />
+          </S.StyledHeader>
+          <S.Divider />
+          <S.StyledContainer>
+            <S.ModalMessage>{t('are_you_sure_delete_server_question')}</S.ModalMessage>
+            <S.TableContainer>
+              <Table
+                dataSource={tableData}
+                columns={desktopColumns}
+                mobileColumns={mobileColumns}
+                hasContainer={false}
+                pagination={false}
+                rowKey={(row) => row?.index || `fallback${uuid()}`}
+              />
+            </S.TableContainer>
+          </S.StyledContainer>
+        </>
+      );
+    } else {
+      return (
+        <S.DeleteResultContainer>
+          <AnimatedStatus
+            status={createStatus[status]}
+            errorProps={{
+              description: errorMessage ? t(errorMessage) : t('upstream_details.error__delete_server_description'),
+            }}
+            loadingProps={{ description: t('upstream_details.loading_description') }}
+            successProps={{ description: t('upstream_details.success_delete_server') }}
+          />
+          {!initialData && status !== 'pending' && status !== 'success' && (
+            <S.StyledButton icon={<i className={'icon-refresh'} />} onClick={() => setIsCreateMode(true)}>
+              {t('button.try_again')}
+            </S.StyledButton>
+          )}
+          {status !== 'pending' && (
+            <S.StyledButton color={'primary'} variant={'outlined'} onClick={resetModal}>
+              {t('button.return')}
+            </S.StyledButton>
+          )}
+          {status === 'pending' && (
+            <S.StyledButton color={'primary'} variant={'outlined'} onClick={resetModal}>
+              {t('button.cancellation')}
+            </S.StyledButton>
+          )}
+        </S.DeleteResultContainer>
+      );
+    }
+  };
   return (
-    <S.ModalContainer
-      centered={centered}
-      title={title}
+    <S.StyledModal
       open={open}
-      onOk={onOk}
-      confirmLoading={confirmLoading}
-      onCancel={onCancel}
-      headerDivider={headerDivider}
-      cancelText={cancelText}
-      okText={okText}
-      // closable={false}
-      keyboard={false}
-      // footer={[]}
+      onCancel={handleCancel}
+      confirmLoading={status === 'pending'}
+      destroyOnClose={true}
+      closeIcon={false}
+      headerDivider={false}
       okButtonProps={okButtonProps}
       cancelButtonProps={cancelButtonProps}
+      cancelText={cancelText}
+      okText={okText}
+      centered={centered}
+      footer={!isCreateMode ? null : undefined}
+      onOk={handleConfirmDelete}
+      keyboard={false}
     >
-      <S.ModalMessage>
-        {t('are_you_sure_delete_server_question')}
-        {/* <S.ServiceName
-          text={selectedServerName}
-          highlightColor={theme.error.main}
-          wordToHighlight={selectedServerName}
-        /> */}
-        {/* {t('are_you_sure')} */}
-      </S.ModalMessage>
-      <S.TableContainer>
-        <Table
-          // loading={isFetching}
-          // current={pagination.page}
-          // total={total}
-          dataSource={tableData}
-          columns={desktopColumns}
-          mobileColumns={mobileColumns}
-          hasContainer={false}
-          pagination={false}
-          // pagination={{ pageSize: pagination.rowsPerPage }}
-          // onChange={handlePageChange}
-          rowKey={() => uuid()}
-          showHeader
-        />
-      </S.TableContainer>
-    </S.ModalContainer>
+      {renderModalContent()}
+    </S.StyledModal>
   );
-}
+};
+export default MainDeleteServerModal;

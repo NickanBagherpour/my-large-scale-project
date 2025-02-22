@@ -1,9 +1,10 @@
-import { ColumnsType, Table } from '@oxygen/ui-kit';
-import Link from 'next/link';
+import React from 'react';
 import { TFunction } from 'i18next';
 
-import { getValueOrDash } from '@oxygen/utils';
+import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
+import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
+import { WithBadge } from '@oxygen/reusable-components';
 
 import * as S from './second-tab-table-util.style';
 
@@ -14,11 +15,12 @@ export type Modal = {
 
 type Props = {
   t: TFunction;
-  toggleModal: (modal: keyof Modal) => void;
+  toggleModal: (modal: keyof Modal, item: boolean) => void;
   updateServiceName: (serviceName: string) => void;
   page: number;
   rowsPerPage: number;
 };
+
 export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationService> {
   const { t, toggleModal, updateServiceName, page, rowsPerPage } = props;
 
@@ -27,7 +29,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.row'),
       align: 'center',
       key: 'index',
-      width: '5rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = page * rowsPerPage + 1;
         return start + index;
@@ -37,6 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.service_name'),
       dataIndex: 'name',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -45,67 +48,56 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
     },
     {
       title: t('second_tab.scope'),
-      dataIndex: 'scope',
+      dataIndex: 'scopes',
       align: 'center',
+      ellipsis: true,
       render: (value) => {
-        return getValueOrDash(value);
+        return <WithBadge items={value} />;
       },
     },
     {
       title: t('second_tab.url'),
-      dataIndex: 'path',
+      dataIndex: 'paths',
       align: 'center',
-      render: (value) =>
-        value ? (
-          <Link href={value} target='_blank' rel='noopener noreferrer'>
-            {value}
-          </Link>
-        ) : (
-          '-'
-        ),
+      ellipsis: true,
+      render: (value) => {
+        return <WithBadge items={value} />;
+      },
     },
     {
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      width: '7rem',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },
     },
     {
-      width: '7rem',
-      key: 'status',
+      width: widthByButtonCount(1),
+      align: 'left',
+      key: 'action',
       render: (value) => (
         <S.DetailsBtn
           variant='link'
           color='primary'
+          size={'small'}
           onClick={() => {
             updateServiceName(value?.name);
-            toggleModal('details');
+            toggleModal('details', true);
           }}
         >
           {t('details')}
         </S.DetailsBtn>
       ),
     },
-    //uncomment when remove service is needed
-
-    // {
-    //   width: '7rem',
-    //   key: 'remove',
-    //   render: (p) => (
-    //     <Button variant='link' color='error' onClick={() => toggleModal('removeService')}>
-    //       <S.TrashIcon className='icon-trash' />
-    //     </Button>
-    //   ),
-    // },
   ];
 }
 
@@ -116,48 +108,34 @@ export function getMobileColumns(props: Props): ColumnsType<ScopeInformationServ
     {
       title: '',
       key: 'mobile-columns',
-      render({ id, scope, path, version, persianName, name }: ScopeInformationService) {
+      render({ id, scopes, paths, version, persianName, name }: ScopeInformationService) {
         const data = [
           { title: t('second_tab.service_name'), value: getValueOrDash(name) },
           { title: t('second_tab.persian_name'), value: getValueOrDash(persianName) },
-          { title: t('second_tab.scope'), value: getValueOrDash(scope) },
+          { title: t('second_tab.scope'), value: <WithBadge items={scopes} /> },
           {
             title: t('second_tab.url'),
-            value: path ? (
-              <Link href={path} target='_blank' rel='noopener noreferrer'>
-                {path}
-              </Link>
-            ) : (
-              '-'
-            ),
+            value: <WithBadge items={paths} />,
           },
           { title: t('second_tab.version'), value: getValueOrDash(version) },
           {
-            title: t('details'),
+            title: '',
+            colon: false,
             value: (
               <S.DetailsBtn
                 className='item__btn'
                 variant='link'
+                size={'small'}
                 color='primary'
                 onClick={() => {
                   updateServiceName(name);
-                  toggleModal('details');
+                  toggleModal('details', true);
                 }}
               >
                 {t('details')}
               </S.DetailsBtn>
             ),
           },
-          //uncomment when remove service is needed
-
-          // {
-          //   title: t('remove'),
-          //   value: (
-          //     <Button className='item__btn' variant='link' color='error' onClick={() => toggleModal('removeService')}>
-          //       <S.TrashIcon className='icon-trash' />
-          //     </Button>
-          //   ),
-          // },
         ];
 
         return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;

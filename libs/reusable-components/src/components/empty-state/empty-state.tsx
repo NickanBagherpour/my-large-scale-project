@@ -15,7 +15,7 @@ const EmptyState = (props: Props) => {
   const { description, ...rest } = props;
   const { t } = useTr();
 
-  const displayDescription = description || t('no_result.there_is_no_data_to_show');
+  const displayDescription = description || t('message.there_is_no_data_to_show');
 
   return (
     <S.StyledContainer {...rest}>

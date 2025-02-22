@@ -1,43 +1,45 @@
 import React, { useEffect, useState } from 'react';
-
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { Button, Tabs } from '@oxygen/ui-kit';
+
 import { Nullable } from '@oxygen/types';
 import { PageProps } from '@oxygen/types';
-import { useTr } from '@oxygen/translation';
-import { ROUTES, uuid } from '@oxygen/utils';
-import { ReturnButton } from '@oxygen/reusable-components';
+
 import Route from '../route-info/route-info';
 import ServiceInfo from '../service-info/service-info';
 import { UpstreamList } from '../upstream-list/upstream-list';
-import { Button, InfoBox, Tabs, TabsProps } from '@oxygen/ui-kit';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
-import { useAssignToServiceScopeMutation } from '../../services/upstream-tab/post-assign-to-service-scope.api';
 import {
+  resetErrorMessageAction,
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
-  updateScopeTabCreationSubmitAction,
   useAppDispatch,
   useAppState,
 } from '../../context';
+import { getValidTab } from '../../utils/tabs.util';
 
 import * as S from './app.style';
+import { Documentation } from '../documentation/documentation';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useGetServiceDetailsQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const [t] = useTr();
   const { notification } = useApp();
-
-  // const [pagination, setPagination] = useState<Pagination>({ page: 1, rowsPerPage: 5 });
   const state = useAppState();
   const dispatch = useAppDispatch();
 
-  const [t] = useTr();
   const searchParams = useSearchParams();
+  const tab = getValidTab(searchParams.get('tab'));
 
   const router = useRouter();
   const handleReturn = () => {
@@ -45,70 +47,46 @@ const App: React.FC<AppProps> = (props) => {
   };
 
   const isButtonDisabled = () => {
-    if (activeTabKey === '3') {
-      return !state.scopeName; // Disable if scopeName is empty for "scopes" tab
-    } else if (activeTabKey === '4') {
-      return !state.upstreamTab.activeSelect.cardId; // Disable if upstreamTab cardId is empty for "upstream" tab
+    if (activeTabKey === 'scopes') {
+      return !state.scopeName;
+    } else if (activeTabKey === 'upstream') {
+      return !state.upstreamTab.activeSelect.cardId;
     }
-    return false; // Default: button enabled
+    return false;
   };
 
-  const [activeTabKey, setActiveTabKey] = useState('1');
-  const [scopeData, setScopeData] = useState(null);
-
+  const [activeTabKey, setActiveTabKey] = useState('general-information');
   const servicename: Nullable<string> = searchParams.get('servicename');
-
+  const title = servicename ? `${t('widget_name')} ${t(servicename)}` : t('widget_name');
+  const { mutate, isPending } = useAssignToServiceMutation();
+  const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery(servicename);
   useEffect(() => {
     updateServerNameAction(dispatch, servicename);
   }, [servicename]);
 
   if (!servicename) {
-    redirect('/not-found');
+    return <NoResult isLoading={false} hasReturnButton={true} />;
   }
-  const { mutate, isPending } = useAssignToServiceMutation();
-  const { mutate: mutateScope, isPending: isPendingScope } = useAssignToServiceScopeMutation();
 
   const items = [
     {
-      key: '1',
+      key: 'general-information',
       label: t('general_information'),
       children: <ServiceInfo />,
     },
     {
-      key: '2',
+      key: 'route',
       label: t('route'),
       children: <Route />,
     },
 
     {
-      key: '3',
+      key: 'scopes',
       label: t('scopes'),
-      children: (
-        <ScopeList
-        // updateData={(data) => {
-        //   setScopeData(data);
-        // }}
-        />
-      ),
-      // onSubmit: () => {
-      //   const params = { id: state.scopeName, serviceName: state.serviceName };
-      //   mutateScope(params, {
-      //     onSuccess: () => {
-      //       notification.success({
-      //         message: t('upstream_tab.success_notif'),
-      //       });
-      //       updateScopeTabCreationSubmitAction(dispatch);
-      //     },
-      //     onError: (error) => {
-      //       notification.error({
-      //         message: t(`${error}`),
-      //       });
-      //     },
-      //   });
-      // },
+      children: <ScopeList />,
     },
     {
-      key: '4',
+      key: 'upstream',
       label: t('upstream'),
       children: <UpstreamList />,
       onSubmit: () => {
@@ -128,6 +106,11 @@ const App: React.FC<AppProps> = (props) => {
         });
       },
     },
+    {
+      key: 'documentation',
+      label: t('documentation'),
+      children: <Documentation />,
+    },
   ];
 
   const footerButton = (
@@ -135,29 +118,32 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-
-      {activeTabKey === '4' && !state.upstreamTab.activeSelect.isInitialized && (
-        <Button
-          loading={isPending}
-          onClick={() => {
-            const currentTab = items.find((item) => item.key === activeTabKey);
-            currentTab?.onSubmit?.();
-          }}
-          disabled={isButtonDisabled()}
-        >
-          {t('save_changes')}
-        </Button>
-      )}
     </div>
   );
 
   return (
-    <S.AppContainer title={t('widget_name')} style={{ minHeight: '100%' }} footer={footerButton}>
+    <S.AppContainer
+      title={getWidgetTitle({
+        defaultTitle: t('widget_name'),
+        primaryTitle: serviceDetails?.persianName,
+        secondaryTitle: serviceDetails?.name,
+      })}
+      style={{ minHeight: '100%' }}
+      footer={footerButton}
+    >
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       <Tabs
-        defaultActiveKey='1'
+        defaultActiveKey='general-information'
         items={items}
         style={{ paddingTop: '3rem' }}
         onChange={(key) => setActiveTabKey(key)}
+        activeKey={tab}
+        onTabClick={(tab) => router.replace(`?servicename=${servicename}&tab=${tab}`)}
       />
     </S.AppContainer>
   );

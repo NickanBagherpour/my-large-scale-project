@@ -1,27 +1,36 @@
-export type RouteParams = {
+export type PostRouteParams = {
   serviceName: string;
-  method: {
+  name?: string;
+  methods: {
     code: number;
     title: string;
-  };
-  protocol: {
+  }[];
+  protocols: {
     code: number;
     title: string;
-  };
-  path: string;
-  host: string;
+  }[];
+  paths: string[];
+  hosts: string[];
+};
+
+export type PutRouteParams = PostRouteParams & {
+  id: number;
 };
 
 export type Route = {
-  method: {
-    code: number;
-    title: string;
+  route: {
+    id: number;
+    name: string;
+    methods: {
+      code: number;
+      title: string;
+    }[];
+    protocols: {
+      code: number;
+      title: string;
+    }[];
+    paths: string[];
+    hosts: string[];
   };
-  protocol: {
-    code: number;
-    title: string;
-  };
-  path: string;
-  host: string;
   isServiceInSso: boolean;
 };

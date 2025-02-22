@@ -1,10 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 import { Layout } from 'antd';
-import { signOut } from 'next-auth/react';
 
 import { useAuth, useConfig, useResponsive } from '@oxygen/hooks';
 
-import { Protected } from '@oxygen/reusable-components';
 import Appbar from '../components/appbar/appbar';
 import Drawer from '../components/drawer/drawer';
 import MainContent from '../components/main-content/main-content';
@@ -44,7 +42,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const handleLogout = async () => {
     // setOpenDrawer(false);
     // console.log('logout clicked');
-    await signOut({ redirect: false });
+    // await signOut({ redirect: false });
     logout();
   };
 

@@ -29,3 +29,7 @@ export const RowItem = styled.div`
     margin-inline-end: -15px;
   }
 `;
+
+export const Url = styled.p`
+  unicode-bidi: plaintext;
+`;

@@ -1,50 +1,95 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, InfoBox, Loading, Status } from '@oxygen/ui-kit';
+import { Button, Chip, InfoBox, Loading } from '@oxygen/ui-kit';
 import * as S from './client-info.style';
 import { useGetClientInfoQuery } from '../../services';
-import { Space } from 'antd';
-import { ROUTES } from '@oxygen/utils';
-import Footer from '../footer/footer';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { useClientName } from '../../utils/use-client-name';
+import { NoResult } from '@oxygen/reusable-components';
+import { useEffect } from 'react';
+import { PageTitle } from '../../types';
 
-export default function ClientInfo() {
+type Props = {
+  updateTitle: ({ persian, english }: PageTitle) => void;
+};
+
+export default function ClientInfo(props: Props) {
+  const { updateTitle } = props;
   const [t] = useTr();
-  const { data, isFetching, isLoading } = useGetClientInfoQuery();
+  const clientName = useClientName();
+  const { data: clientInfo, isError } = useGetClientInfoQuery(clientName);
 
-  if (!data) return <Loading />;
+  useEffect(() => {
+    if (clientInfo?.clientPersianName) {
+      const { clientPersianName, clientEnglishName } = clientInfo;
+      updateTitle({ english: clientEnglishName, persian: clientPersianName });
+    }
+  }, [clientInfo, updateTitle]);
+
+  if (isError) return <NoResult />;
+  if (!clientInfo) return <Loading />;
 
   const {
-    grantType,
-    tags,
-    clientStatus,
-    englishClientName,
-    persianClientName,
-    clientType,
     clientId,
-    authenticationId,
-    websiteAddress,
-    inputAddress,
-    clientReturnAddress,
-    aggregator,
-    applicantInfo,
-    username,
-    nationalCode,
-    organizationName,
-    mobile,
-    phone,
-    email,
-  } = data;
+    tagIds,
+    websiteUrl,
+    redirectUrl,
+    clientTypeName,
+    inboundAddress,
+    isClientFlow,
+    isImplicitFlow,
+    isPasswordFlow,
+    isAuthorizationFlow,
+    isRefreshToken,
+    authorizationKey,
+    organizationInfo,
+    clientEnglishName,
+    clientPersianName,
+  } = clientInfo;
+
+  const grantType = [
+    {
+      name: t('authorization_flow'),
+      isActive: isAuthorizationFlow,
+    },
+    {
+      name: t('client_flow'),
+      isActive: isClientFlow,
+    },
+    {
+      name: t('implicit_flow'),
+      isActive: isImplicitFlow,
+    },
+    {
+      name: t('password_flow'),
+      isActive: isPasswordFlow,
+    },
+    {
+      name: t('refresh_token'),
+      isActive: isRefreshToken,
+    },
+  ].reduce((acc, type) => (type.isActive ? acc.concat(type.name) : acc), [] as string[]);
 
   const clientInfoData = [
+    { key: t('english_client_name'), value: getValueOrDash(clientEnglishName) },
+    { key: t('persian_client_name'), value: getValueOrDash(clientPersianName) },
+    { key: t('client_type'), value: getValueOrDash(clientTypeName) },
+    { key: t('client_id'), value: getValueOrDash(clientId) },
+    { key: t('authentication_id'), value: getValueOrDash(authorizationKey) },
+    { key: t('website_address'), value: getValueOrDash(websiteUrl) },
+    { key: t('input_address'), value: getValueOrDash(inboundAddress) },
+    { key: t('client_return_address'), value: getValueOrDash(redirectUrl) },
     {
       fullwidth: true,
       key: t('grant_type'),
       value: (
         <S.Chips>
-          {grantType.map((t, idx) => (
-            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
-              {t}
-            </Chip>
-          ))}
+          {grantType?.length
+            ? grantType.map((name) => (
+                <Chip key={name} type='active'>
+                  {name}
+                </Chip>
+              ))
+            : '-'}
         </S.Chips>
       ),
     },
@@ -53,92 +98,81 @@ export default function ClientInfo() {
       key: t('tags'),
       value: (
         <S.Chips>
-          {tags.map((t, idx) => (
-            <Chip ellipsis tooltipOnEllipsis tooltipTitle={t} key={idx} type='active'>
-              {t}
-            </Chip>
-          ))}
+          {tagIds?.length
+            ? tagIds?.map((t, idx) => (
+                <Chip key={idx} type='active'>
+                  {t.title}
+                </Chip>
+              ))
+            : '-'}
         </S.Chips>
       ),
     },
-    {
-      key: t('client_status'),
-      value: (
-        <Space>
-          <Status status='active' />
-          {clientStatus}
-        </Space>
-      ),
-    },
-    { key: t('english_client_name'), value: englishClientName },
-    { key: t('persian_client_name'), value: persianClientName },
-    { key: t('client_type'), value: clientType },
-    { key: t('client_id'), value: clientId },
-    { key: t('authentication_id'), value: authenticationId },
-    { key: t('website_address'), value: websiteAddress },
-    { key: t('input_address'), value: inputAddress },
-    { key: t('client_return_address'), value: clientReturnAddress },
-    { key: t('aggregator'), value: aggregator },
-    { key: t('applicant_info'), value: applicantInfo },
   ];
 
-  const applicantInfoData = [
-    { key: t('username'), value: username },
-    { key: t('national_code'), value: nationalCode },
-    { key: t('organization_name'), value: organizationName },
-    { key: t('mobile'), value: mobile },
-    { key: t('phone'), value: phone },
-    { key: t('email'), value: email },
-  ];
+  let orgInfoData: { key: string; value: string }[] = [];
+  if (organizationInfo) {
+    const {
+      organizationName,
+      isAggregator,
+      aggregatorName,
+      organizationNationalId,
+      representative: { mobileNumber, nameAndLastName, fixedPhoneNumber },
+    } = organizationInfo;
+
+    const formattedAggregatorName = aggregatorName ? ` - ${aggregatorName}` : '';
+    const aggregatorStatus = isAggregator ? `${t('has')}${formattedAggregatorName}` : t('has_not');
+
+    orgInfoData = [
+      { key: t('organization_name'), value: getValueOrDash(organizationName) },
+      { key: t('organization_id'), value: getValueOrDash(organizationNationalId) },
+      { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus) },
+      { key: t('representative_name'), value: getValueOrDash(nameAndLastName) },
+      { key: t('mobile'), value: getValueOrDash(mobileNumber) },
+      { key: t('phone'), value: getValueOrDash(fixedPhoneNumber) },
+    ];
+  }
 
   return (
-    <Loading spinning={isFetching}>
-      <S.Container>
-        <section>
-          <S.Header>
-            <S.TabName>{t('client_info')}</S.TabName>
-            <S.Btns>
-              <Button href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientId=123`} color='primary' variant='filled'>
-                <S.Icon className='icon-clock' />
-                {t('display_change_history')}
-              </Button>
-              <Button
-                href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?requestId=123456789`}
-                color='primary'
-                variant='solid'
-              >
-                <S.Icon className='icon-edit' />
-                {t('edit')}
-              </Button>
-            </S.Btns>
-          </S.Header>
+    <S.Container>
+      <section>
+        <S.Header>
+          <S.TabName>{t('technical_information')}</S.TabName>
+          <S.Btns>
+            <Button
+              color='primary'
+              variant='filled'
+              href={`${ROUTES.BACKOFFICE.CLIENT_HISTORY}?clientName=${clientName}`}
+            >
+              <S.Icon className='icon-clock' />
+              {t('display_change_history')}
+            </Button>
+            <Button
+              color='primary'
+              variant='solid'
+              href={`${ROUTES.BACKOFFICE.EDIT_CLIENT_INFO}?clientName=${clientName}`}
+            >
+              <S.Icon className='icon-edit' />
+              {t('edit')}
+            </Button>
+          </S.Btns>
+        </S.Header>
 
-          <InfoBox margin={0} data={clientInfoData} />
-        </section>
-        <section>
-          <S.Header>
-            <S.TabName>{t('applicant_info')}</S.TabName>
-            <S.Btns>
-              <Button href={`${ROUTES.BACKOFFICE.APPLICANT_HISTORY}?applicantId=321`} color='primary' variant='filled'>
-                <S.Icon className='icon-clock' />
-                {t('display_change_history')}
-              </Button>
-              <Button
-                href={`${ROUTES.BACKOFFICE.EDIT_APPLICANT_INFO}?requestId=123456789`}
-                color='primary'
-                variant='solid'
-              >
-                <S.Icon className='icon-edit' />
-                {t('edit')}
-              </Button>
-            </S.Btns>
-          </S.Header>
+        <InfoBox margin={0} data={clientInfoData} />
+      </section>
 
-          <InfoBox margin={0} data={applicantInfoData} />
-        </section>
-      </S.Container>
-
-      <Footer isLoading={isLoading} />
-    </Loading>
+      <section>
+        <S.Header>
+          <S.TabName>{t('organization_info')}</S.TabName>
+        </S.Header>
+        {orgInfoData.length ? (
+          <InfoBox margin={0} data={orgInfoData} />
+        ) : (
+          <S.Box>
+            <NoResult isLoading={false} />
+          </S.Box>
+        )}
+      </section>
+    </S.Container>
   );
 }

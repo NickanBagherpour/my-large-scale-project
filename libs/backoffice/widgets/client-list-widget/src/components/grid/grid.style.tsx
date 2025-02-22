@@ -6,15 +6,15 @@ const Grid = styled.section`
   grid-template-columns: repeat(4, 1fr);
   gap: 1.6rem;
 
-  ${respondTo.down('xxl')} {
+  ${respondTo.down('xl')} {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  ${respondTo.down('xl')} {
+  ${respondTo.down('lg')} {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  ${respondTo.down('lg')} {
+  ${respondTo.down('sm')} {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

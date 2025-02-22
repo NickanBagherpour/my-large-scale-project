@@ -3,14 +3,14 @@ import { Form } from 'antd';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
+import { InquiryComponent } from '@oxygen/reusable-components';
 import { useBounce, useToggle } from '@oxygen/hooks';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
-import InquiryService from '../service-inquiry/inquiry-service';
 import { SERVICE_NAME } from '../../utils/consts';
 import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
-import * as S from './filters.sytle';
+import * as S from './filters.style';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -46,7 +46,7 @@ export default function Filters() {
             <Form.Item name={SERVICE_NAME.ServiceName} rules={[rule]} style={{ width: '100%' }}>
               <S.Input
                 value={value}
-                placeholder={t('search_by_english_name')}
+                placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
               />
@@ -94,8 +94,8 @@ export default function Filters() {
 
           <S.FilterPopover
             filters={[
-              { key: 'ascending', title: t('ascending'), icon: 'icon-arrow-ascending' },
-              { key: 'descending', title: t('descending'), icon: 'icon-arrow-descending' },
+              { key: 'ascending', title: t('common.ascending'), icon: 'icon-arrow-ascending' },
+              { key: 'descending', title: t('common.descending'), icon: 'icon-arrow-descending' },
             ]}
             initialValue={sort}
             onChange={(value) => updateSort(dispatch, value as Sort)}
@@ -103,7 +103,8 @@ export default function Filters() {
         </S.Indicators>
       </S.Container>
       {isUploadModalOpen && <UploadService toggle={toggleUploadModal} isOpen={isUploadModalOpen} />}
-      {isInquiryModalOpen && <InquiryService toggle={toggleInquiryModal} isOpen={isInquiryModalOpen} />}
+      {/* {isInquiryModalOpen && <InquiryService toggle={toggleInquiryModal} isOpen={isInquiryModalOpen} />} */}
+      {isInquiryModalOpen && <InquiryComponent type='service' dispatch={dispatch} toggle={toggleInquiryModal} />}
     </>
   );
 }

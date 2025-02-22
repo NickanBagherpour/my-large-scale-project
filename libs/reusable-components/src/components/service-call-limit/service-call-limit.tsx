@@ -39,14 +39,14 @@ const ServiceCallLimit: React.FC<AppProps> = ({
   // const { isOpen, toggle, services = `${t('step_three.all_services')}` } = props;
 
   const callRateOptions = [
-    { value: 'second', label: t('service_call.second') },
-    { value: 'minute', label: t('service_call.minute') },
-    { value: 'hour', label: t('service_call.hour') },
+    { value: 'second', label: t('common.second') },
+    { value: 'minute', label: t('common.minute') },
+    { value: 'hour', label: t('common.hour') },
   ];
 
   const totalCallLimitOptions = [
-    { value: 'month', label: t('service_call.in_month') },
-    { value: 'week', label: t('service_call.in_week') },
+    { value: 'month', label: t('common.in_month') },
+    { value: 'week', label: t('common.in_week') },
   ];
 
   return (
@@ -57,7 +57,7 @@ const ServiceCallLimit: React.FC<AppProps> = ({
       onCancel={onCancel}
       footer={[
         <S.FooterButton block={true} onClick={onApply} {...ApplyBtnProps}>
-          {applyButtonText ?? t('service_call.register_data')}
+          {applyButtonText ?? t('button.register_data')}
         </S.FooterButton>,
       ]}
       {...rest}
@@ -65,13 +65,13 @@ const ServiceCallLimit: React.FC<AppProps> = ({
       {!children ? (
         <S.Content>
           <S.Rate>
-            <S.RateTxt>{serviceRateText ?? t('service_call.service_call_rate')}:</S.RateTxt>
+            <S.RateTxt>{serviceRateText ?? t('field.service_call_rate')}:</S.RateTxt>
             <S.RateInput size='middle' {...rateInputProps} />
-            <S.RateTxt>{t('service_call.in')}</S.RateTxt>
+            <S.RateTxt>{t('common.in')}</S.RateTxt>
           </S.Rate>
           <Select options={callRateOptions} size='middle' {...callRateSelectProps} />
 
-          <Input placeholder={t('service_call.total_number_calls_limit')} size='middle' {...totalRateInputProps} />
+          <Input placeholder={t('field.total_number_calls_limit')} size='middle' {...totalRateInputProps} />
           <Select options={totalCallLimitOptions} size='middle' {...totalCallRateSelectProps} />
         </S.Content>
       ) : (

@@ -1,51 +1,98 @@
-import React, { useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useMemo, useState } from 'react';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { getWidgetTitle } from '@oxygen/utils';
+import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 
-import { resetErrorMessageAction, updateClientIdAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useGetClientHistoryQuery } from '../../services';
 import DataList from '../data-list/data-list';
-import { ClientId } from '../../types';
+import { ClientName } from '../../types';
 
 import * as S from './app.style';
 
 type AppProps = PageProps & {
-  //
+  updateHeaderTitle: (newTitles: string[] | string) => void;
 };
 
 const App: React.FC<AppProps> = (props) => {
+  const { updateHeaderTitle } = props;
+
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
 
-  const searchParams = useSearchParams();
-  const clientId: ClientId = searchParams.get('clientId');
+  const {
+    table: { pagination },
+  } = state;
 
-  useEffect(() => {
-    updateClientIdAction(dispatch, clientId);
-  }, [clientId]);
+  const searchParams = useSearchParams();
+  const clientName: ClientName = searchParams.get('clientName');
+  if (!clientName) {
+    notFound();
+  }
+  const [clientPrimaryName, setClientPrimaryName] = useState<string | null>(null);
 
   const router = useRouter();
   const handleReturn = () => {
     router.back();
   };
+
+  const preparedParams = useMemo(
+    () => ({
+      clientName,
+      page: pagination.page - 1,
+      size: pagination.limit,
+    }),
+    [clientName, pagination.page, pagination.limit]
+  );
+
+  const { data: historyData, isFetching } = useGetClientHistoryQuery(preparedParams);
+
+  const clientEnglishName = historyData?.commonClientInfoDto?.name;
+  const clientPersianName = historyData?.commonClientInfoDto?.lastPersianName;
+
+  useEffect(() => {
+    if (clientPersianName && !clientPrimaryName) {
+      setClientPrimaryName(clientPersianName);
+    }
+  }, [clientPersianName, clientPrimaryName]);
+
   const footerButton = (
     <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
       {t('button.return')}
     </ReturnButton>
   );
+
+  // Memoized title computation
+  const widgetTitle = useMemo(() => {
+    return getWidgetTitle({
+      defaultTitle: t('change_history'),
+      primaryTitle: clientPrimaryName,
+      secondaryTitle: clientEnglishName,
+    });
+  }, [t, clientPrimaryName, clientEnglishName]);
+
+  // // Update header title only when Persian name is first set
+  // useEffect(() => {
+  //   if (clientPrimaryName) {
+  //     updateHeaderTitle(widgetTitle);
+  //   }
+  // }, [clientPrimaryName, widgetTitle, updateHeaderTitle]);
+
   return (
-    <S.AppContainer title={t('widget_name')} footer={footerButton}>
-      {/*render widget name based on clientId*/}
+    <S.AppContainer title={widgetTitle} footer={footerButton}>
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <S.StyledBox>{clientId ? <DataList /> : <NoResult isLoading={false} />}</S.StyledBox>
+      <S.TableContainer>
+        <DataList data={historyData} isFetching={isFetching} />
+      </S.TableContainer>
     </S.AppContainer>
   );
 };

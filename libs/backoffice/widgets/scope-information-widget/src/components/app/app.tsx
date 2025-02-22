@@ -11,6 +11,8 @@ import SecondTab from '../second-tab/second-tab';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useGetFirstTabReportDataQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -24,10 +26,17 @@ const App: React.FC<AppProps> = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const scopeName: Nullable<string> = searchParams.get('name');
   const id: Nullable<string> = searchParams.get('id');
+
   if (!id) {
     redirect('/not-found');
   }
+
+  const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
+
+  const englishName = data?.name;
+  const farsiName = data?.description;
 
   const handleReturn = () => {
     router.back();
@@ -47,7 +56,13 @@ const App: React.FC<AppProps> = (props) => {
   ];
 
   return (
-    <S.AppContainer title={t('widget_name')}>
+    <S.AppContainer
+      title={getWidgetTitle({
+        defaultTitle: t('widget_name'),
+        primaryTitle: farsiName,
+        secondaryTitle: englishName,
+      })}
+    >
       <GlobalMessageContainer
         message={state.message}
         onClose={() => {

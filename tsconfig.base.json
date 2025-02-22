@@ -24,9 +24,6 @@
             "@oxygen/backoffice/layouts": [
                 "libs/backoffice/layouts/src/index.ts"
             ],
-            "@oxygen/backoffice/widgets/applicant-history-widget": [
-                "libs/backoffice/widgets/applicant-history-widget/src/index.ts"
-            ],
             "@oxygen/backoffice/widgets/auth-widget": [
                 "libs/backoffice/widgets/auth-widget/src/index.ts"
             ],
@@ -41,6 +38,12 @@
             ],
             "@oxygen/backoffice/widgets/client-list-widget": [
                 "libs/backoffice/widgets/client-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-report-widget": [
+                "libs/backoffice/widgets/client-report-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/client-service-history-widget": [
+                "libs/backoffice/widgets/client-service-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
                 "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"
@@ -72,11 +75,17 @@
             "@oxygen/backoffice/widgets/scope-list-widget": [
                 "libs/backoffice/widgets/scope-list-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/service-call-log-widget": [
+                "libs/backoffice/widgets/service-call-log-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/service-creation-widget": [
                 "libs/backoffice/widgets/service-creation-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-details-widget": [
                 "libs/backoffice/widgets/service-details-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/service-documentation-history-widget": [
+                "libs/backoffice/widgets/service-documentation-history-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/service-history-widget": [
                 "libs/backoffice/widgets/service-history-widget/src/index.ts"
@@ -89,6 +98,9 @@
             ],
             "@oxygen/backoffice/widgets/services-list-widget": [
                 "libs/backoffice/widgets/services-list-widget/src/index.ts"
+            ],
+            "@oxygen/backoffice/widgets/services-report-widget": [
+                "libs/backoffice/widgets/services-report-widget/src/index.ts"
             ],
             "@oxygen/backoffice/widgets/upstream-details-widget": [
                 "libs/backoffice/widgets/upstream-details-widget/src/index.ts"
@@ -106,11 +118,17 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/clients-report-widget": [
+                "libs/business/widgets/clients-report-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/dashboard-widget": [
                 "libs/business/widgets/dashboard-widget/src/index.ts"
             ],
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
+            ],
+            "@oxygen/business/widgets/meta-widget": [
+                "libs/business/widgets/meta-widget/src/index.ts"
             ],
             "@oxygen/business/widgets/request-details-widget": [
                 "libs/business/widgets/request-details-widget/src/index.ts"
@@ -118,8 +136,10 @@
             "@oxygen/business/widgets/request-list-widget": [
                 "libs/business/widgets/request-list-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/services-report-widget": [
+                "libs/business/widgets/services-report-widget/src/index.ts"
+            ],
             "@oxygen/client": ["libs/client/src/index.ts"],
-            "@oxygen/customer/auth": ["libs/customer/auth/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
             "@oxygen/customer/widgets/auth-widget": [
                 "libs/customer/widgets/auth-widget/src/index.ts"

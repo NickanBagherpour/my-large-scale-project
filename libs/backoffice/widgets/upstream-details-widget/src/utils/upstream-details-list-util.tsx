@@ -1,8 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { UpstreamDetailsType } from '../types';
 
 import * as S from '../components/upstream-details-list/upstream-details-list.style';
@@ -30,48 +30,57 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
   const { t, deleteUpstream, editUpstream } = props;
   return [
     {
-      title: `${t('domain')}`,
+      title: t('domain'),
       dataIndex: 'domain',
       key: 'domain',
+      align: 'center',
+      ellipsis: true,
       render: (domain) => getValueOrDash(domain),
     },
     {
-      title: `${t('health_status')}`,
+      title: t('health_status'),
       dataIndex: 'healthStatus',
       key: 'health_status',
+      align: 'center',
+      ellipsis: true,
       render: (value) => {
         return getValueOrDash(renderHealthStatus(t, value) ? renderHealthStatus(t, value) : t('health'));
       },
     },
     {
-      title: `${t('weight')}`,
+      title: t('weight'),
       dataIndex: 'weight',
       key: 'weight',
-      render: (weight) => getValueOrDash(weight),
+      align: 'center',
+      ellipsis: true,
+      render: (weight) => weight ?? getValueOrDash(weight),
     },
-    // {
-    //   title: '',
-    //   dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
-    //   key: 'edit',
-    //   render: (id: number, record: UpstreamDetailsType, index: number) => (
-    //     <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>{t('edit')}</S.Edit>
-    //   ),
-    // },
 
     {
       title: '',
       dataIndex: 'id', // This maps to the `id` value from `UpstreamDetailsType`
-      key: 'delete',
+      key: 'id',
+      width: widthByButtonCount(2),
+      align: 'left',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <S.BtnContainer>
-          <S.Edit onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
+          <S.EditButton
+            variant={'text'}
+            onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}
+            size={'small'}
+          >
             {t('edit')}
-          </S.Edit>
-          <S.Trash
-            className='icon-trash'
+          </S.EditButton>
+
+          <S.TrashButton
+            variant={'text'}
+            color={'error'}
+            size={'small'}
             onClick={() => deleteUpstream(id, record.domain, record.weight, record.healthStatus)}
-          />
-        </S.BtnContainer>
+          >
+            <i className={'icon-trash'} />
+          </S.TrashButton>
+        </Box>
       ),
     },
   ];
@@ -83,47 +92,48 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
     {
       title: '',
       dataIndex: '',
-      render: (value, record, index) => {
-        const columns: MobileColumnType[] = [
+      render: ({ id, domain, healthStatus, weight }) => {
+        const data: MobileColumnType[] = [
           {
             title: t('domain'),
-            value: getValueOrDash(value?.domain),
+            value: getValueOrDash(domain),
           },
           {
             title: t('health_status'),
             value: getValueOrDash(
-              renderHealthStatus(t, value?.healthStatus) ? renderHealthStatus(t, value) : t('health')
+              renderHealthStatus(t, healthStatus) ? renderHealthStatus(t, healthStatus) : t('health')
             ),
           },
           {
             title: t('weight'),
-            value: getValueOrDash(value?.weight),
+            value: weight ?? getValueOrDash(weight),
           },
-          // {
-          //   title: t('edit'),
-          //   value: (
-          //     <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
-          //       {t('edit')}
-          //     </S.Edit>
-          //   ),
-          // },
           {
             title: '',
-            value: (
-              <S.BtnContainer>
-                <S.Edit onClick={() => editUpstream(value.id, value.domain, value.weight, value.healthStatus)}>
-                  {t('edit')}
-                </S.Edit>
-                <S.Trash
-                  className='icon-trash'
-                  onClick={() => deleteUpstream(value.id, value.domain, value.weight, value.healthStatus)}
-                />
-              </S.BtnContainer>
-            ),
             colon: false,
+            value: (
+              <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'}>
+                <S.EditButton onClick={() => editUpstream(id, domain, weight, healthStatus)} variant={'text'}>
+                  {t('edit')}
+                </S.EditButton>
+                <S.TrashButton
+                  variant={'text'}
+                  color={'error'}
+                  onClick={() => deleteUpstream(id, domain, weight, healthStatus)}
+                >
+                  <i className={'icon-trash'} />
+                </S.TrashButton>
+              </Box>
+            ),
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return (
+          <S.TableRow>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
+            ))}
+          </S.TableRow>
+        );
       },
     },
   ];
@@ -133,13 +143,13 @@ export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps
   const { t } = props;
   return [
     {
-      title: `${t('domain')}`,
+      title: t('domain'),
       dataIndex: 'domain',
       key: 'domain',
       render: (domain) => getValueOrDash(domain),
     },
     {
-      title: `${t('health_status')}`,
+      title: t('health_status'),
       dataIndex: 'healthStatus',
       key: 'health_status',
       render: (value) => {
@@ -147,10 +157,10 @@ export function getDesktopColumnsDeleteServerModal(props: ServerDeleteModalProps
       },
     },
     {
-      title: `${t('weight')}`,
+      title: t('weight'),
       dataIndex: 'weight',
       key: 'weight',
-      render: (weight) => getValueOrDash(weight),
+      render: (weight) => weight ?? getValueOrDash(weight),
     },
   ];
 }
@@ -161,8 +171,8 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
     {
       title: '',
       dataIndex: '',
-      render: (value, record, index) => {
-        const columns: MobileColumnType[] = [
+      render: (value) => {
+        const data: MobileColumnType[] = [
           {
             title: t('domain'),
             value: getValueOrDash(value?.domain),
@@ -170,15 +180,24 @@ export function getMobileColumnsDeleteServerModal(props: ServerDeleteModalProps)
           {
             title: t('health_status'),
             value: getValueOrDash(
-              renderHealthStatus(t, value?.healthStatus) ? renderHealthStatus(t, value) : t('health')
+              renderHealthStatus(t, typeof value?.healthStatus === 'string' && value?.healthStatus !== '1')
+                ? renderHealthStatus(t, value?.healthStatus)
+                : t('health')
             ),
           },
           {
             title: t('weight'),
-            value: getValueOrDash(value?.weight),
+            value: value?.weight ?? getValueOrDash(value?.weight),
           },
         ];
-        return <Table.MobileColumns columns={columns} />;
+
+        return (
+          <S.TableRow>
+            {data.map((item, idx) => (
+              <Table.MobileColumn minHeight={'40px'} key={idx} {...item} />
+            ))}
+          </S.TableRow>
+        );
       },
     },
   ];
