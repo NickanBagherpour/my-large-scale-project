@@ -71,7 +71,11 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
               {t('confirm_question_last')}
             </S.ModalMessage>
           ) : (
-            <S.ModalMessage>{t('no_service_question')}</S.ModalMessage>
+            <S.ModalMessage>
+              {t('no_service_first')}
+              <S.ServiceCount>{upstreamName}</S.ServiceCount>
+              {t('no_service_last')}
+            </S.ModalMessage>
           )}
           <S.ServicesContainer>
             <S.ServiceList>
