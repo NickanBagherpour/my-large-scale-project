@@ -118,19 +118,6 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-
-      {activeTabKey === 'upstream' && (
-        <Button
-          loading={isPending}
-          onClick={() => {
-            const currentTab = items.find((item) => item.key === activeTabKey);
-            currentTab?.onSubmit?.();
-          }}
-          disabled={isButtonDisabled()}
-        >
-          {t('save_changes')}
-        </Button>
-      )}
     </div>
   );
 
