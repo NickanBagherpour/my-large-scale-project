@@ -10,6 +10,7 @@ export const REGEX_PATTERNS = {
   onlyDigit: /^[0-9]*$/,
   nationalCode: /^[0-9]{10}$/,
   positiveNumber: /^[+]?\d*\.?\d+$/,
+  version: /^[\d٫۰-۹]+(\.[\d٫۰-۹]+)?$/, // english and persian positive numbers
   phoneNumber: /^09\d{9}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   ipOrDomainAddress:
