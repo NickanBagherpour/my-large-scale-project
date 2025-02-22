@@ -6,25 +6,23 @@ import { Nullable } from '@oxygen/types';
 import { Loading } from '@oxygen/ui-kit';
 
 import { updateMessageAction, useAppDispatch } from '../../context';
-import { GetUpstreamServiceResponseType } from '../../types';
-import { useDeleteUpstream } from '../../services';
+import { useDeleteUpstream, useGetUpstreamServicesQuery } from '../../services';
 
 import * as S from './confirm-delete-modal.style';
 
 type Props = {
   openModal: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  services: GetUpstreamServiceResponseType;
   upstreamName: Nullable<string>;
-  isFetching: boolean;
 };
 const ConfirmDeleteModal: React.FC<Props> = (props) => {
-  const { openModal, setOpenModal, services, upstreamName, isFetching } = props;
+  const { openModal, setOpenModal, upstreamName } = props;
   const [t] = useTr();
   const theme = useAppTheme();
   const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useDeleteUpstream();
+  const { data: services, isFetching } = useGetUpstreamServicesQuery(upstreamName);
   const handleDeleteUpstream = async (params) => {
     await mutate(params, {
       onSuccess: () => {
