@@ -6,7 +6,7 @@ import { Box, Button, Chip, DatePicker, SearchItemsContainer } from '@oxygen/ui-
 import { useBounce, useToggle } from '@oxygen/hooks';
 // import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
-import { SERVICE_NAME } from '../../utils/consts';
+import { FILTERS } from '../../utils/consts';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 
 import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
@@ -14,9 +14,9 @@ import * as S from './filters.style';
 import { Services } from '@oxygen/reusable-components';
 import ServiceSelector from '../service-selector/service-selector';
 import { useGetClientServices } from '../../utils/get-client-services.api';
-import { useAssignServiceToClient } from '../../utils/assign-service-to-client';
-import { useUnassignServiceFromClient } from '../../utils/unassign-from-client';
+
 import { updateSearchTerm } from '../../context';
+import ClientSelector from '../client-selector/client-selector';
 
 // type Status = WidgetStateType['status'];
 // type Sort = WidgetStateType['sort'];
@@ -36,39 +36,41 @@ export default function Filters() {
   const [value, setValue] = useState('');
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
-  const { mutate: assignToClient } = useAssignServiceToClient(dispatch);
-  const { mutate: unassignFromClient } = useUnassignServiceFromClient(dispatch);
-  const { data, isFetching } = useGetClientServices(
-    {
-      size,
-      clientName,
-      page: page - 1,
-      sort: 'createDate,DESC',
-    },
-    dispatch
-  );
-  const [serviceToRemove, setServiceToRemove] = useState<any | null>(null);
-  const [serviceToView, setServiceToView] = useState<any | null>(null);
 
-  // useEffect(() => {
-  //   hasServices?.(!!data?.content.length);
-  // }, [data]);
+  const [selectedService, setSelectedService] = useState<any | null>(null);
+  const [selectedClient, setSelectedClient] = useState<any | null>(null);
 
-  const onAssignToClient = (service: any) => {
-    assignToClient({ clientName, serviceInfoId: service.id });
+  function handleSearch() {
+    form
+      .validateFields()
+      .then((values) => {
+        const queryParams = {
+          clientGatewayId: selectedClient || '',
+          serviceGatewayId: selectedService?.name || '',
+          fromDate: values[FILTERS.FromDate] || '',
+          toDate: values[FILTERS.Todate] || '',
+          size: size.toString(), // Convert number to string
+          page: (page - 1).toString(),
+          sort: 'createDate,DESC',
+        };
+
+        // Convert queryParams object into a query string
+        const queryString = new URLSearchParams(queryParams).toString();
+
+        // Update search term and trigger API call
+        updateSearchTerm(dispatch, queryString);
+      })
+      .catch(() => {
+        console.log('Search input validation failed');
+      });
+  }
+
+  const chooseService = (service: any) => {
+    setSelectedService(service);
   };
 
-  const onUnassignFromClient = () => {
-    if (serviceToRemove) {
-      unassignFromClient(
-        { clientName, serviceInfoId: serviceToRemove.id },
-        {
-          onSuccess() {
-            setServiceToRemove(null);
-          },
-        }
-      );
-    }
+  const chooseClient = (client: any) => {
+    setSelectedClient(client);
   };
 
   useBounce(async () => {
@@ -80,10 +82,6 @@ export default function Filters() {
     }
   }, [value]);
 
-  function handleSearch() {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <S.Container>
       <Box className='filter-container'>
@@ -91,25 +89,25 @@ export default function Filters() {
           {/* <S.Actions> */}
           <SearchItemsContainer>
             <Form.Item
-              label={t('field.from_date')}
-              name={SERVICE_NAME.ServiceName}
-              rules={[rule]}
+              label={t('field.services')}
+              name={FILTERS.Service}
+              // rules={[rule]}
               style={{ width: '100%' }}
             >
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
+              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={chooseService} />
+            </Form.Item>
+            <Form.Item
+              label={t('field.clients')}
+              name={FILTERS.Client}
+              // rules={[rule]}
+              style={{ width: '100%' }}
+            >
+              <ClientSelector dispatch={dispatch} disabled={false} onSelect={chooseClient} />
             </Form.Item>
             <Form.Item
               label={t('field.from_date')}
-              name={SERVICE_NAME.ServiceName}
-              rules={[rule]}
-              style={{ width: '100%' }}
-            >
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={onAssignToClient} />
-            </Form.Item>
-            <Form.Item
-              label={t('field.from_date')}
-              name={SERVICE_NAME.ServiceName}
-              rules={[rule]}
+              name={FILTERS.FromDate}
+              // rules={[rule]}
               style={{ display: '100%' }}
             >
               {/* <S.Input
@@ -125,8 +123,8 @@ export default function Filters() {
             </Form.Item>
             <Form.Item
               label={t('field.to_date')}
-              name={SERVICE_NAME.ServiceName}
-              rules={[rule]}
+              name={FILTERS.Todate}
+              // rules={[rule]}
               style={{ width: '100%' }}
             >
               <DatePicker />
@@ -134,10 +132,11 @@ export default function Filters() {
             {/* </S.Actions> */}
           </SearchItemsContainer>
           <S.Footer>
-            <Button variant={'outlined'}> {t('button.delete_all')}</Button>
-            <Button htmlType={'submit'} size='large'>
+            <Button variant={'outlined'} onClick={() => form.resetFields()}>
+              {t('button.delete_all')}
+            </Button>
+            <Button htmlType={'submit'} size='large' onClick={handleSearch} style={{ padding: '0 4rem' }}>
               {t('button.search')}
-              {/* <i className={'icon-arrow-left'}></i> */}
             </Button>
           </S.Footer>
         </Form>
