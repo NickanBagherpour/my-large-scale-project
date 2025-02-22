@@ -45,7 +45,7 @@ const DataTable = () => {
     },
     {
       title: t('column.user-name'),
-      dataIndex: 'modifyBy',
+      dataIndex: 'userName',
       ellipsis: true,
       render: (column) => {
         return <HistoryCell item={column} />;

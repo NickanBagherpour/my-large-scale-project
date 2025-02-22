@@ -18,5 +18,6 @@ export const useGetUpstreamServicesQuery = (params: FetchUpstreamServiceParamsTy
     // placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',
     enabled: !!params,
+    staleTime: 0,
   });
 };
