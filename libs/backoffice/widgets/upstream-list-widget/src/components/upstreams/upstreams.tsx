@@ -46,8 +46,6 @@ export default function Upstreams(props: Props) {
     }
   };
 
-  const { data: services, isFetching } = useGetUpstreamServicesQuery(upstreamName);
-
   const deleteUpstream = async (record: UpstreamItemType) => {
     await queryClient.invalidateQueries({
       queryKey: [RQKEYS.BACKOFFICE.UPSTREAM_LIST.GET_UPSTREAM_SERVICES, upstreamName],
@@ -82,14 +80,8 @@ export default function Upstreams(props: Props) {
           <NoResult isLoading={isLoading} />
         )}
       </S.TableContainer>
-      {services && openModal && (
-        <ConfirmDeleteModal
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          services={services}
-          upstreamName={upstreamName}
-          isFetching={isFetching}
-        />
+      {openModal && (
+        <ConfirmDeleteModal openModal={openModal} setOpenModal={setOpenModal} upstreamName={upstreamName} />
       )}
     </>
   );

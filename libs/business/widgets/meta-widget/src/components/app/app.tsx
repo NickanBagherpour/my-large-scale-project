@@ -19,12 +19,11 @@ const StyledIframe = styled.iframe`
 `;
 
 const App: React.FC<AppProps> = (props) => {
-
   const [t] = useTr();
   const [loading, setLoading] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const reportUrl = props.parentProps?.reportUrl as string;//getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
+  const reportUrl = props.parentProps?.reportUrl as string; //getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
 
   console.log('reportUrl', reportUrl);
 

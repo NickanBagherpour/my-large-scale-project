@@ -22,6 +22,7 @@ function renderGrantType(record) {
     { key: 'isClientFlow', label: 'Client Flow' },
     { key: 'isImplicitFlow', label: 'Implicit Flow' },
     { key: 'isPasswordFlow', label: 'Password Flow' },
+    { key: 'isRefreshToken', label: 'Refresh Token' },
   ];
 
   if (!record) return { value: getValueOrDash(''), hasDifference: false };
@@ -41,7 +42,8 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_date'),
       dataIndex: 'modifyDate',
       align: 'center',
-      width: 'min-content',
+      // width: 'min-content',
+      ellipsis: true,
       render: (column) => {
         return convertShamsiDateFormat(column?.value, true);
       },

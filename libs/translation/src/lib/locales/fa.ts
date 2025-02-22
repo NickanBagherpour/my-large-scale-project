@@ -121,6 +121,7 @@ export default {
     element_fa_name: 'نام فارسی {{element}}',
 
     services: 'سرویس‌ها',
+    clients: 'کلاینت ها',
     plugins: 'پلاگین‌ها',
     display_change_history: 'مشاهده تاریخچه تغییرات',
     tags: 'تگ‌ها',
@@ -262,6 +263,8 @@ export default {
   },
 
   field: {
+    services: 'سرویس‌ها',
+    clients: 'کلاینت ها',
     customer: 'مشتری',
     national_code: 'کد ملی',
     foreigner_code: 'کد اتباع',
@@ -361,6 +364,8 @@ export default {
     host: 'Openapis.bmi.ir',
     upstream: 'IAMS -XzxcZ',
     tag: ' اضافه‌کردن تگ‌ها ',
+    choose_service: 'انتخاب سرویس',
+    choose_client: 'انتخاب کلاینت',
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
   },

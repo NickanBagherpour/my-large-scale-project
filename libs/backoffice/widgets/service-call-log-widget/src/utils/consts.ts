@@ -22,3 +22,16 @@ export const SERVICE_DEFAULTS = {
   isActive: true,
   sort: 'createDate,DESC',
 } as const;
+
+export const CLIENT_DEFAULTS = {
+  size: 10,
+  isActive: true,
+  sort: 'createDate,DESC',
+} as const;
+
+export const FILTERS = {
+  Service: 'Service',
+  Client: 'Client',
+  FromDate: 'FromDate',
+  Todate: 'Todate',
+} as const;
