@@ -54,7 +54,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       align: 'center',
       ellipsis: true,
       render: (column) => {
-        return getValueOrDash(column?.value);
+        return <HistoryCell item={column} />;
       },
     },
     {

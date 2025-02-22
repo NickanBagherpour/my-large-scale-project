@@ -44,11 +44,7 @@ export default function Route(props: Props) {
 
   const onFinish: FormProps<RouteType>['onFinish'] = (values) => {
     if (serviceName && serviceHttpMethods && serviceProtocols) {
-      const { hosts, paths, protocols, methods } = values;
-
-      // TODO: see if values could be passed directly
-      const params: PostRouteParams = { hosts, paths, protocols, methods, serviceName };
-
+      const params: PostRouteParams = { ...values, serviceName };
       const mutateOptions = { onSuccess: () => nextStep() };
       if (routeData) putRoute({ ...params, id: routeData.route.id }, mutateOptions);
       else postRoute(params, mutateOptions);
