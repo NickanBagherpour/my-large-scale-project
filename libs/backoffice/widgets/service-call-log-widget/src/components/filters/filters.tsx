@@ -37,25 +37,16 @@ export default function Filters() {
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
 
-  const { data, isFetching } = useGetClientServices(
-    {
-      size,
-      clientName,
-      page: page - 1,
-      sort: 'createDate,DESC',
-    },
-    dispatch
-  );
-  const [serviceToRemove, setServiceToRemove] = useState<any | null>(null);
-  const [serviceToView, setServiceToView] = useState<any | null>(null);
+  const [selectedService, setSelectedService] = useState<any | null>(null);
+  const [selectedClient, setSelectedClient] = useState<any | null>(null);
 
   function handleSearch() {
     form
       .validateFields()
       .then((values) => {
         const queryParams = {
-          clientGatewayId: values[FILTERS.Client] || '',
-          serviceGatewayId: values[FILTERS.Service] || '',
+          clientGatewayId: selectedClient || '',
+          serviceGatewayId: selectedService?.name || '',
           fromDate: values[FILTERS.FromDate] || '',
           toDate: values[FILTERS.Todate] || '',
           size: size.toString(), // Convert number to string
@@ -74,9 +65,13 @@ export default function Filters() {
       });
   }
 
-  function test() {
-    //dsd
-  }
+  const chooseService = (service: any) => {
+    setSelectedService(service);
+  };
+
+  const chooseClient = (client: any) => {
+    setSelectedClient(client);
+  };
 
   useBounce(async () => {
     try {
@@ -99,7 +94,7 @@ export default function Filters() {
               // rules={[rule]}
               style={{ width: '100%' }}
             >
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={test} />
+              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={chooseService} />
             </Form.Item>
             <Form.Item
               label={t('field.clients')}
@@ -107,7 +102,7 @@ export default function Filters() {
               // rules={[rule]}
               style={{ width: '100%' }}
             >
-              <ClientSelector dispatch={dispatch} disabled={false} onSelect={test} />
+              <ClientSelector dispatch={dispatch} disabled={false} onSelect={chooseClient} />
             </Form.Item>
             <Form.Item
               label={t('field.from_date')}
@@ -140,7 +135,7 @@ export default function Filters() {
             <Button variant={'outlined'} onClick={() => form.resetFields()}>
               {t('button.delete_all')}
             </Button>
-            <Button htmlType={'submit'} size='large' onClick={handleSearch}>
+            <Button htmlType={'submit'} size='large' onClick={handleSearch} style={{ padding: '0 4rem' }}>
               {t('button.search')}
             </Button>
           </S.Footer>

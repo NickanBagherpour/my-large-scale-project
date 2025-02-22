@@ -10,19 +10,23 @@ import * as S from './app.style';
 
 const App = () => {
   const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
-  const prepareServiceParams = () => {
-    return {
-      isActive: status,
-      page: table.pagination.page - 1,
-      searchTerm: searchTerm,
-      size: table.pagination.rowsPerPage,
-      sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
-    };
-  };
-  const { data: services, isFetching: isServiceListFetching } = useGetServicesQuery(prepareServiceParams());
-
   const dispatch = useAppDispatch();
   const [t] = useTr();
+  const prepareServiceParams = () => {
+    const parsedSearchTerm = new URLSearchParams(searchTerm);
+
+    return {
+      clientGatewayId: parsedSearchTerm.get('clientGatewayId') || '',
+      serviceGatewayId: parsedSearchTerm.get('serviceGatewayId') || '',
+      fromDate: parsedSearchTerm.get('fromDate') || '',
+      toDate: parsedSearchTerm.get('toDate') || '',
+      page: table.pagination.page - 1,
+      size: table.pagination.rowsPerPage,
+      sort: 'createDate,' + (sort === 'ascending' ? 'ASC' : 'DESC'), // Corrected DESC/ASC logic
+    };
+  };
+
+  const { data: services, isFetching: isServiceListFetching } = useGetServicesQuery(prepareServiceParams());
 
   return (
     <>

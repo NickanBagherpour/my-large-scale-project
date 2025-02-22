@@ -35,8 +35,8 @@ const ServiceSelector = (props: Props) => {
         }
         value={searchTerm}
         onSelect={({ service }) => {
-          // setSearchTerm('');
-          // onSelect(service);
+          // setSearchTerm(service);
+          onSelect(service);
         }}
         onChange={(value) => setSearchTerm(value)}
         loading={isFetching}

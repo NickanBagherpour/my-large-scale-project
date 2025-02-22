@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
@@ -132,7 +132,7 @@ export function getMobileColumns(props: Props): any {
       render: (value, record, index) => {
         const columns: MobileColumnType[] = [
           {
-            title: t('name'),
+            title: t('client_id'),
             value: (
               <S.Name
                 text={getValueOrDash(value?.name)}
@@ -142,52 +142,28 @@ export function getMobileColumns(props: Props): any {
             ),
           },
           {
-            title: t('persian_name'),
+            title: t('utc'),
             value: getValueOrDash(value?.persianName),
           },
           {
-            title: t('scope'),
-            value: (
-              <WithBadge
-                items={value.scopes}
-                onRender={(value) => (
-                  <S.Name
-                    text={getValueOrDash(value)}
-                    highlightColor={highlightColor}
-                    wordToHighlight={wordToHighlight}
-                  />
-                )}
-              />
-            ),
+            title: t('request_date'),
+            value: getValueOrDash('1403/12/15'),
           },
           {
-            title: t('url'),
-            value: <WithBadge items={value?.paths} onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>} />,
+            title: t('request_time'),
+            value: getValueOrDash('12:00'),
+          },
+          {
+            title: t('service_id'),
+            value: getValueOrDash(value?.id),
+          },
+          {
+            title: t('service_name'),
+            value: getValueOrDash(value?.persianName),
           },
           {
             title: t('status'),
-            value: (
-              <span>
-                {t('operational')}
-                <span style={{ margin: '0 1.2rem' }}>
-                  <Switch checked={value?.isActive} disabled={true} />
-                </span>
-                {t('stopped')}
-              </span>
-            ),
-          },
-          {
-            title: '',
-            value: (
-              <S.Details
-                variant={'link'}
-                size={'small'}
-                href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
-              >
-                {t('detailed')}
-              </S.Details>
-            ),
-            colon: false,
+            value: getValueOrDash('فعال'),
           },
         ];
         return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;

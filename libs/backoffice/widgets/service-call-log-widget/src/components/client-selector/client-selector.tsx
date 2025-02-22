@@ -23,8 +23,6 @@ const ServiceSelector = (props: Props) => {
 
   const { data, isFetching, hasNextPage, fetchNextPage } = useGetClientsQuery(debouncedSearchTerm.trim(), dispatch);
   const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as Service[]);
-  console.log(allData, 'allData****');
-  console.log(searchTerm, 'searchTerm****');
 
   return (
     <div>
@@ -38,13 +36,10 @@ const ServiceSelector = (props: Props) => {
         }
         value={searchTerm}
         onSelect={({ title }) => {
-          console.log(title, 'serviceserviceservice');
-
           // setSearchTerm('');
-          // onSelect('');
+          // onSelect(client);
         }}
         onChange={(value) => {
-          console.log(value);
           setSearchTerm(value);
         }}
         // setSearchTerm(value)}
