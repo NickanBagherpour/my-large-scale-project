@@ -73,12 +73,16 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
                   <WithBadge
                     items={data?.[index]}
                     onRender={(value) => (
-                      <MarkText text={getValueOrDash(value)} highlightColor={theme.secondary.main} wordToHighlight='' />
+                      <MarkText
+                        text={getValueOrDash(value, '')}
+                        highlightColor={theme.secondary.main}
+                        wordToHighlight=''
+                      />
                     )}
                   />
                 </S.CenteredText>
               ) : (
-                <S.CenteredText>{getValueOrDash(data?.[index])}</S.CenteredText>
+                <S.CenteredText>{getValueOrDash(data?.[index], '')}</S.CenteredText>
               )}
             </div>
             {/* {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />} */}

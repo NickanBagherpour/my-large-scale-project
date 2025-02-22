@@ -126,7 +126,8 @@ function extractSpecificData(t: TFunction, data?: InquiryDto) {
           data.organizationInfo?.organizationName,
           data.organizationInfo?.organizationId,
           data.organizationInfo?.isAggregator
-            ? t('common.has') + '-' + data?.organizationInfo?.aggregatorName
+            ? t('common.has') +
+              (data?.organizationInfo?.aggregatorName ? '-' + data?.organizationInfo?.aggregatorName : '')
             : t('common.doesnt_have'),
           data.organizationInfo?.representative?.nameAndLastName,
         ];
