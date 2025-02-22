@@ -22,7 +22,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useDeleteUpstream();
-  const { data: services, isFetching } = useGetUpstreamServicesQuery(upstreamName);
+  const { data, isFetching } = useGetUpstreamServicesQuery(upstreamName);
   const handleDeleteUpstream = async (params) => {
     await mutate(params, {
       onSuccess: () => {
@@ -35,6 +35,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       },
     });
   };
+  const services = data ?? [];
   const handleOk = () => {
     handleDeleteUpstream(upstreamName);
   };
@@ -53,7 +54,10 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       centered
       cancelText={t('button.cancel')}
       okText={t('button.delete')}
-      okButtonProps={{ style: { backgroundColor: theme.error.main }, disabled: isFetching || services?.length >= 1 }}
+      okButtonProps={{
+        style: { backgroundColor: theme.error.main },
+        disabled: isFetching || services?.length >= 1,
+      }}
       cancelButtonProps={{ style: { color: theme.primary.main } }}
     >
       {isFetching ? (
