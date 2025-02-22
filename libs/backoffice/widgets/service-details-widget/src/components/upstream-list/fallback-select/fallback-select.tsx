@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
@@ -13,8 +13,11 @@ import * as S from './fallback-select.style';
 
 export const FallbackSelect = (props) => {
   const [t] = useTr();
+  const {
+    Query: { page, searchTerm },
+    setQuery,
+  } = props;
 
-  const [{ searchTerm, page }, setQuery] = useState({ page: 1, searchTerm: '' });
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
 
   const { data, isFetching } = useUpstreamCardsDetailQuery(queryParams());
@@ -36,6 +39,7 @@ export const FallbackSelect = (props) => {
   const handleChange = (e) => {
     setQuery((prev) => ({ ...prev, searchTerm: e.target.value.trimStart() }));
   };
+
   const changePage = (currentPage: number) => {
     setQuery((prev) => ({ ...prev, page: currentPage }));
   };

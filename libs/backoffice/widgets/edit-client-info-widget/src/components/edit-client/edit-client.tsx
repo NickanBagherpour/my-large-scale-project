@@ -72,11 +72,16 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
           await queryClient.invalidateQueries({
             queryKey: [RQKEYS.BACKOFFICE.CLIENT_PROFILE, RQKEYS.BACKOFFICE.CLIENT_DETAILS.CLIENT_INFO],
           });
+
           notification.success({
             message: t('message.success_alert', { element: '' }),
           });
-          await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
+
           router.back();
+
+          await queryClient.invalidateQueries({
+            queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
+          });
         } catch (error) {
           // console.error('Error invalidating queries:', error);
         }

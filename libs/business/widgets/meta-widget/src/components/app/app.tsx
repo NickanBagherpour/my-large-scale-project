@@ -1,37 +1,46 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
+// import { useAppDispatch, useAppState } from '../../context';
 
-import * as S from './app.style';
+import styled, { useTheme } from 'styled-components';
+import { Loading } from '@oxygen/ui-kit';
 
 type AppProps = PageProps & {
   //
 };
 
+const StyledIframe = styled.iframe`
+  width: 100%;
+  min-height: 1400px;
+  border: none;
+`;
+
 const App: React.FC<AppProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
+  const [loading, setLoading] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const reportUrl = props.parentProps?.reportUrl as string; //getReportUrl(1, theme.id === 'light' ? 'light' : 'night');
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  console.log('reportUrl', reportUrl);
 
-     return params;
-   }
- */
-
-  return <S.AppContainer title={'MetaWidget'}>MetaWidget</S.AppContainer>;
+  return (
+    <>
+      {loading && <Loading containerProps={{ display: 'flex', height: '100%' }} />}
+      <StyledIframe
+        ref={iframeRef}
+        src={reportUrl}
+        onLoad={() => {
+          // console.log('loaded');
+          setLoading(false);
+        }}
+        style={{ display: loading ? 'none' : 'block' }}
+      />
+    </>
+  );
 };
 
 export default App;

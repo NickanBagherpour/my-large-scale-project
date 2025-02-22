@@ -21,6 +21,7 @@ export type Route = {
   route: {
     id: number;
     name: string;
+    serviceName: string;
     methods: {
       code: number;
       title: string;

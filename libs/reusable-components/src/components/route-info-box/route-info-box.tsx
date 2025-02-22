@@ -48,7 +48,7 @@ export default function RouteInfoBox(props: Props) {
         fullwidth: true,
       },
       {
-        key: 'protocol',
+        key: 'uikit.protocole',
         value:
           protocols?.map((tag) => (
             <Chip ellipsis type='active' key={tag} tooltipOnEllipsis tooltipTitle={tag}>
@@ -57,8 +57,8 @@ export default function RouteInfoBox(props: Props) {
           )) ?? '-',
         fullwidth: true,
       },
-      { key: 'Path', value: paths?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
-      { key: 'host', value: hosts?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
+      { key: 'uikit.path', value: paths?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
+      { key: 'uikit.host', value: hosts?.map((item: string) => renderTag(item)) ?? '-', fullwidth: true },
     ];
   }
 

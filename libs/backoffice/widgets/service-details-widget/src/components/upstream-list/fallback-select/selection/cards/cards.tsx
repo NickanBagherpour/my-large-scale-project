@@ -42,26 +42,22 @@ export const Cards = (props: CardProps) => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Loading style={{ height: '5rem', marginTop: '3rem' }} />
-      ) : (
-        <S.CardContainer>
-          {cardData?.map((data, index) => (
-            <GridCard
-              serversCount={data.activeServerCount}
-              key={index}
-              title={data.name}
-              status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
-              hasSetting={false}
-              isSelected={+clickedCard === data.id}
-              onClick={() => handleClick(data)}
-              isHeaderLtr={true}
-              wordToHighlight={wordToHighlight}
-            />
-          ))}
-        </S.CardContainer>
-      )}
-    </>
+    <Loading spinning={loading}>
+      <S.CardContainer>
+        {cardData?.map((data, index) => (
+          <GridCard
+            serversCount={data.activeServerCount}
+            key={index}
+            title={data.name}
+            status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
+            hasSetting={false}
+            isSelected={+clickedCard === data.id}
+            onClick={() => handleClick(data)}
+            isHeaderLtr={true}
+            wordToHighlight={wordToHighlight}
+          />
+        ))}
+      </S.CardContainer>
+    </Loading>
   );
 };

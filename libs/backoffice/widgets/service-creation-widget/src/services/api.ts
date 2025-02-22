@@ -31,7 +31,7 @@ const Api = {
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ upstreamName, serviceName }: AssignUpstreamToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/assign-to-service/${serviceName}`),
+    client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/services/${serviceName}`),
   postAssignScopeToService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
     client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/services/${serviceName}`),
   deleteUnassignScopeFromService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
