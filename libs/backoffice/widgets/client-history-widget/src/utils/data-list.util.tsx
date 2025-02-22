@@ -42,7 +42,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_date'),
       dataIndex: 'modifyDate',
       align: 'center',
-      width: 'min-content',
+      // width: 'min-content',
       ellipsis: true,
       render: (column) => {
         return convertShamsiDateFormat(column?.value, true);
