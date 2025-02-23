@@ -17,7 +17,7 @@ export default {
   warning: 'هشدار!',
   confirm_question_first: 'این آپ‌استریم به ',
   confirm_question_last:
-    ' متصل است. لطفاً پیش از حذف آپ‌استریم، نسبت به جایگزینی آن با یک آپ‌استریم دیگر در سرویس(های) زیر اقدام نمایید:',
+    ' متصل است. لطفاً پیش از حذف آپ‌استریم، نسبت به جایگزینی آن با یک آپ‌استریم دیگر در سرویس(های) زیر اقدام نمایید.',
   no_service_first: 'آیا از حذف آپ‌استریم ',
   no_service_last: ' مطمئن هستید؟',
   service: 'سرویس',
@@ -28,4 +28,6 @@ export default {
   create_upstream_success: 'آپ‌استریم با موفقیت ایجاد شد.',
   delete_upstream_success: 'حذف آپ‌استریم با موفقیت انجام شد.',
   upstream: 'آپ‌استریم',
+  view_service_details: 'مشاهده جزئیات سرویس',
+  notice: 'توجه!',
 };
