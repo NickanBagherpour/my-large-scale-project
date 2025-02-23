@@ -1,6 +1,6 @@
 import { Switch } from '@oxygen/ui-kit';
 import * as S from './plugin-card.style';
-import { PluginConfig } from '../utils/plugins.type';
+import { PluginConfig } from '../../types/plugins.type';
 
 type Props = {
   plugin: PluginConfig;

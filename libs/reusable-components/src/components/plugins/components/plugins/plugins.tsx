@@ -1,12 +1,11 @@
 import { Divider, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import * as S from './plugins.style';
-import PluginServices from './plugin-services/plugin-services';
-import { useClientPlugins } from './utils/get-client-plugins.api';
-import { useClientServicePlugins } from './utils/get-client-service-plugins.api';
-import PluginList from './plugin-list/plugin-list';
-import NoResult from '../no-result/no-result';
 import { type Dispatch } from 'react';
+import { useClientPlugins, useClientServicePlugins } from '../../services';
+import PluginList from '../plugin-list/plugin-list';
+import PluginServices from '../plugin-services/plugin-services';
+import NoResult from '../../../no-result/no-result';
 
 type Props = {
   clientName: string;

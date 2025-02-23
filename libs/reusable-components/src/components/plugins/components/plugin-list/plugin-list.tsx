@@ -1,18 +1,20 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { PluginConfig } from '../utils/plugins.type';
-import { useClientPluginMutation } from '../utils/post-client-plugin.api';
-import { getPluginKeys } from '../utils/get-client-plugins.api';
 import * as S from './plugin-list.style';
 import PluginCard from '../plugin-card/plugin-card';
 import { type Dispatch, useState } from 'react';
 import TerminationsModal from '../termination-modal/termination-modal';
 import LimitationsModal from '../limitations-modal/limitations-modal';
-import { useServiceMutaionMutation } from '../utils/post-service-plugin.api';
 import { Loading } from '@oxygen/ui-kit';
-import { getServicePluginKeys } from '../utils/get-client-service-plugins.api';
 import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { NoResult } from '@oxygen/reusable-components';
+import { PluginConfig } from '../../types/plugins.type';
+import {
+  getPluginKeys,
+  getServicePluginKeys,
+  useClientPluginMutation,
+  useServiceMutaionMutation,
+} from '../../services';
 
 type Props = {
   plugins?: PluginConfig[];

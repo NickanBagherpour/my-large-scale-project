@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import Api from './api';
 import { ApiUtil } from '@oxygen/utils';
-import { ClientPluginParams } from './plugins.type';
 import { type Dispatch } from 'react';
+import { type ClientPluginParams } from '../types/plugins.type';
 
 export const useClientPluginMutation = (dispatch: Dispatch<any>) => {
   return useMutation({

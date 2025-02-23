@@ -35,7 +35,7 @@ export { default as StatusModal } from './components/status-modal/status-modal';
 export { default as withRoleCheck } from './hocs/withRoleCheck';
 export { default as InquiryComponent } from './components/inquiry/inquiry-component';
 export { default as Services } from './components/services/components/services/services';
-export { default as Plugins } from './components/plugins/plugins';
+export { default as Plugins } from './components/plugins/components/plugins/plugins';
 export { default as ConfirmRemoveModal } from './components/confirm-remove-modal/confirm-remove-modal';
 export { default as WithBadge } from './components/with-badge/with-badge';
 export { default as TagPicker } from './components/tag-picker/tag-picker';

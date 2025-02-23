@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import Api from './api';
 import { ApiUtil } from '@oxygen/utils';
-import { ServicePluginParams } from './plugins.type';
 import { type Dispatch } from 'react';
+import { ServicePluginParams } from '../types/plugins.type';
 
 export const useServiceMutaionMutation = (dispatch: Dispatch<any>) => {
   return useMutation({

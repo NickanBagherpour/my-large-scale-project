@@ -1,11 +1,11 @@
 import { useTr } from '@oxygen/translation';
 import { Input, Modal } from '@oxygen/ui-kit';
 import { Checkbox, Form, FormProps } from 'antd';
-import { TERMINATION_FORM_NAME } from '../utils/const';
 import { createSchemaFieldRule } from 'antd-zod';
 import * as S from './termination-modal.style';
-import { type TerminationType, termaintionSchema } from '../utils/termination-form.schema';
-import { PluginConfig, RequestTerminationConfig } from '../utils/plugins.type';
+import { PluginConfig, RequestTerminationConfig } from '../../types/plugins.type';
+import { termaintionSchema, TerminationType } from '../../types/termination-form.schema';
+import { TERMINATION_FORM_NAME } from '../../utils';
 
 type Props = {
   isOpen: boolean;

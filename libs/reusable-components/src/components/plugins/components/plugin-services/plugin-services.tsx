@@ -1,8 +1,8 @@
 import * as S from './plugin-services.style';
 import { useTr } from '@oxygen/translation';
 import { type ReactNode } from 'react';
-import { ServicePlugin } from '../utils/plugins.type';
 import { Tooltip } from 'antd';
+import { type ServicePlugin } from '../../types/plugins.type';
 
 type Props = {
   idx: number;

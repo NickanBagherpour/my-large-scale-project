@@ -1,5 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
-import { ClientPluginParams, ClientPlugins, ServicePlugin, ServicePluginParams } from './plugins.type';
+import { ClientPluginParams, ClientPlugins, ServicePlugin, ServicePluginParams } from '../types/plugins.type';
 
 const Api = {
   getClientPlugins: async (name: string) => client.get<ClientPlugins>(`${portalUrl}/v1/plugins/client/${name}`),
