@@ -2,8 +2,8 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import Api from './api';
-import { type ClientServicesParams } from './services.type';
 import { type Dispatch } from 'react';
+import { ClientServicesParams } from '../types/services';
 
 const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Tooltip } from 'antd';
 import { getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
 
-import { StyledList } from './badge.style';
-import * as S from './badge.style';
+import { StyledList } from './width-badge.style';
+import * as S from './width-badge.style';
 
 type Props = {
   items: string[];

@@ -4,8 +4,8 @@ import { type Dispatch, useState } from 'react';
 import { AdvanceSelector } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useDebouncedValue } from '@oxygen/hooks';
-import { Service } from '../utils/services.type';
-import { useGetServices } from '../utils/get-services.api';
+import type { Service } from '../../types/services';
+import { useGetServices } from '../../services';
 
 type Props = {
   onClear?: () => void;

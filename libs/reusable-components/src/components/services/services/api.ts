@@ -1,5 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
-import { ClientServicesParams, ServiceParams, Services, ServiceToClientParams, Pagination } from './services.type';
+import { ClientServicesParams, ServiceParams, Services, ServiceToClientParams, Pagination } from '../types/services';
 
 const Api = {
   getServices: async (params: ServiceParams & Pagination) =>
