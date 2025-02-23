@@ -26,7 +26,7 @@ export default function Services(props: Props) {
   const { page, size } = pagination;
   const { mutate: assignToClient } = useAssignServiceToClient(dispatch);
   const { mutate: unassignFromClient } = useUnassignServiceFromClient(dispatch);
-  const { data, isFetching } = useGetClientServices(
+  const { data: services, isFetching } = useGetClientServices(
     {
       size,
       clientName,
@@ -40,8 +40,14 @@ export default function Services(props: Props) {
   const { notification } = useApp();
 
   useEffect(() => {
-    hasServices?.(!!data?.content.length);
-  }, [data]);
+    hasServices?.(!!services?.content.length);
+  }, [services]);
+
+  useEffect(() => {
+    if (services?.empty === true && services?.totalElements !== 0) {
+      setPagination((prev) => ({ ...prev, page: pagination.page - 1 }));
+    }
+  }, [services]);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -106,8 +112,8 @@ export default function Services(props: Props) {
       <Table
         loading={isFetching}
         current={page}
-        total={data?.totalElements}
-        dataSource={data?.content}
+        total={services?.totalElements}
+        dataSource={services?.content}
         pagination={{ pageSize: size }}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
