@@ -76,7 +76,12 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
         fileType = 'unknown'; // Handle unknown file types
         break;
     }
-    await setFileInfo({ serviceDocumentId: file.serviceDocumentId, fileExtension: fileExtension, fileType: fileType });
+    await setFileInfo({
+      serviceDocumentId: file.serviceDocumentId,
+      fileExtension: fileExtension,
+      fileType: fileType,
+      fileName: file.name,
+    });
     downloadRefetch();
   };
 
@@ -123,7 +128,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
             <Button
               variant='filled'
               icon={<S.Icon className='icon-clock' />}
-              href={`${ROUTES.BACKOFFICE.SERVICE_HISTORY}?service-name=${serviceName}`}
+              href={`${ROUTES.BACKOFFICE.SERVICE_DOCUMENT_HISTORY}?service-name=${serviceName}`}
             >
               {t('see_changes_history')}
             </Button>

@@ -2,20 +2,20 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import Api from '../services/api';
 import { type Dispatch } from 'react';
-import { SERVICE_DEFAULTS } from './consts';
+import { CLIENT_DEFAULTS, SERVICE_DEFAULTS } from './consts';
 
-const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
+const { CLIENT, CLIENTS_LIST } = RQKEYS.BACKOFFICE;
 
-export const useGetServices = (searchTerm: string, dispatch: Dispatch<any>) => {
+export const useGetClientsQuery = (searchTerm: string, dispatch: Dispatch<any>) => {
   return useInfiniteQuery({
-    queryKey: [SERVICE, CLIENT_DETAILS.SERVICES, searchTerm],
+    queryKey: [CLIENT, CLIENTS_LIST.CLIENTS, searchTerm],
     queryFn: ({ pageParam }) =>
       withErrorHandling(
         () =>
-          Api.getServicesList({
+          Api.getClientsListData({
             'search-field': searchTerm,
             page: pageParam,
-            ...SERVICE_DEFAULTS,
+            ...CLIENT_DEFAULTS,
           }),
         dispatch
       )(),
