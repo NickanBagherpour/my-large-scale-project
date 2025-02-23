@@ -37,11 +37,12 @@ const App: React.FC<AppProps> = () => {
     upstreamName,
   });
 
-  const { title, description } = data?.content[0].upstream ?? {};
+  const { title, description, name } = data?.content[0].upstream ?? {};
 
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('subtitle'),
-    primaryTitle: t(description?.value),
+    // primaryTitle: t(description?.value),
+    primaryTitle: t(name?.value),
     secondaryTitle: t(title?.value),
   });
 

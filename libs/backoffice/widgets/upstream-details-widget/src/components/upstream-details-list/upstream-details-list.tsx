@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { queryClient } from '@oxygen/client';
 import { useAppTheme } from '@oxygen/hooks';
 import { RQKEYS } from '@oxygen/utils';
-import { Table, Button } from '@oxygen/ui-kit';
+import { Table, Button, Container } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, NoResult } from '@oxygen/reusable-components';
 import AddServerModal from '../modal-add-server/modal-add-server';
@@ -127,7 +127,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
 
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
   return (
-    <S.ServerContainer>
+    <Container marginTop={20}>
       {openAddServerModal && (
         <AddServerModal
           title={selectedServerId ? t('edit_server') : t('add_server')}
@@ -190,7 +190,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
           {t('return')}
         </Button>
       </FooterContainer>
-    </S.ServerContainer>
+    </Container>
   );
 };
 

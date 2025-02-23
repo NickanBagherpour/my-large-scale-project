@@ -1,30 +1,5 @@
 import styled from 'styled-components';
 import { Button, MarkText } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
-
-export const ServerContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  margin-top: 1rem;
-  background-color: ${(props) => props.theme.onPrimary};
-  padding: 1.6rem;
-  border-radius: 1.6rem;
-
-  & tbody > tr > td:last-child {
-    width: 25rem;
-
-    ${respondTo.down('lg')} {
-      width: 20rem;
-    }
-
-    ${respondTo.down('md')} {
-      & i {
-        margin-left: 2rem;
-      }
-    }
-  }
-`;
 
 export const ServerContent = styled.div`
   flex-grow: 1;
@@ -96,6 +71,7 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
+  margin-top: 2rem;
 `;
 
 export const TableRow = styled.div`
