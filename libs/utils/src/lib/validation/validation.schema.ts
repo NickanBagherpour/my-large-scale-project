@@ -147,7 +147,7 @@ export const createValidationSchema = (
       .max(limits.VERSION_MAX, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.positiveNumber, {
+      .regex(REGEX_PATTERNS.version, {
         message: t('validation.only_digit_message'),
       }),
 
