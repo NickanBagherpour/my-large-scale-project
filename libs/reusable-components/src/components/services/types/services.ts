@@ -1,4 +1,4 @@
-import { PaginatedData } from '@oxygen/types';
+import type { PaginatedData, Sort } from '@oxygen/types';
 
 export type Pagination = {
   page: number;
@@ -8,12 +8,12 @@ export type Pagination = {
 export type ServiceParams = {
   'search-field': string;
   isActive: boolean;
-  sort: 'createDate,DESC' | 'createDate,ASC';
+  sort: Sort;
 };
 
 export type ClientServicesParams = Pagination & {
   clientName: string;
-  sort: 'createDate,DESC' | 'createDate,ASC';
+  sort: Sort;
 };
 
 export type Service = {

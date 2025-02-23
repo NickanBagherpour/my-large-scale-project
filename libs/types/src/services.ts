@@ -26,3 +26,5 @@ export type PaginatedData<TContentItem extends object> = {
   };
   empty: boolean;
 };
+
+export type Sort = 'createDate,DESC' | 'createDate,ASC';
