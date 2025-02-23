@@ -44,25 +44,25 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: `${t('name')}`,
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'clientName',
+      key: 'clientName',
       align: 'center',
       ellipsis: true,
-      render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-          <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (clientName) => (
+        <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
+          <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },
     {
       title: `${t('persianName')}`,
-      dataIndex: 'persianName',
-      key: 'persianName',
+      dataIndex: 'organizationName',
+      key: 'organizationName',
       align: 'center',
       ellipsis: true,
-      render: (persianName) => (
-        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
-          {getValueOrDash(persianName)}
+      render: (organizationName) => (
+        <Tooltip placement='top' title={getValueOrDash(organizationName)} arrow={true}>
+          {getValueOrDash(organizationName)}
         </Tooltip>
       ),
     },
@@ -76,14 +76,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
             size={'small'}
           >
             {t('services_report')}
           </S.Details>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
             size={'small'}
           >
             {t('details')}
@@ -107,7 +107,7 @@ export function getMobileColumns(props: Props): any {
             title: t('name'),
             value: (
               <S.Name
-                text={getValueOrDash(value?.name)}
+                text={getValueOrDash(value?.clientName)}
                 highlightColor={highlightColor}
                 wordToHighlight={wordToHighlight}
               />
@@ -115,7 +115,7 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('persianName'),
-            value: getValueOrDash(value?.persianName),
+            value: getValueOrDash(value?.organizationName),
           },
           {
             title: '',
@@ -124,13 +124,13 @@ export function getMobileColumns(props: Props): any {
               <Box display={'flex'} alignItems={'center'}>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
                 >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${value?.name ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
                 >
                   {t('details')}
                 </S.Details>
