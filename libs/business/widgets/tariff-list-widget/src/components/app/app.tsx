@@ -7,6 +7,8 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
+import { TariffTable } from '../tariff-table/tariff-tabel';
+import { TopSection } from '../top-section/top-section';
 
 type AppProps = PageProps & {
   //
@@ -31,7 +33,12 @@ const App: React.FC<AppProps> = (props) => {
    }
  */
 
-  return <S.AppContainer title={'TariffListWidget'}>TariffListWidget</S.AppContainer>;
+  return (
+    <S.AppContainer title={t('widget_Title')}>
+      <TopSection />
+      <TariffTable />
+    </S.AppContainer>
+  );
 };
 
 export default App;
