@@ -3,8 +3,35 @@ import { Modal } from '@oxygen/ui-kit';
 import { withOpacity } from '@oxygen/utils';
 
 export const StyledModal = styled(Modal)`
+  .ant-modal-content {
+    padding: 1.6rem;
+
+    .ant-modal-close {
+      height: 2.4rem;
+      width: 2.4rem;
+      padding: 0;
+      top: 1.6rem;
+      right: 1.6rem;
+    }
+
+    .ant-modal-header {
+      padding: 0;
+
+      .ant-modal-title {
+        padding: 0.8rem;
+      }
+    }
+  }
+
+  .ant-modal-body {
+    margin: 0;
+  }
+
   .ant-divider {
-    margin-bottom: 1.6rem;
+    margin: 1.6rem 0;
+  }
+  .ant-modal-footer {
+    margin-top: 1.2rem;
   }
 
   button {
@@ -58,8 +85,37 @@ export const ServicesContainer = styled.div`
   color: ${(p) => p.theme.text.primary};
   max-height: 7.5rem;
   overflow-y: auto;
+  width: 100%;
 `;
 
 export const ServiceList = styled.ul`
-  padding-inline-start: 2rem;
+  //padding-inline-start: 2rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+`;
+
+export const ListItem = styled.li`
+  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+
+  &:not(:first-of-type) {
+    padding-top: 1rem;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid ${(p) => p.theme.border._100};
+  }
+
+  & button {
+    min-width: fit-content;
+  }
+
+  & i {
+    font-size: 1.8rem;
+  }
 `;
