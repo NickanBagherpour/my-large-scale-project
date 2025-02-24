@@ -8,6 +8,7 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  searchValue: '',
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -27,6 +28,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'UPDATE_SEARCH_VALUE': {
+      state.searchValue = action.payload;
+      return;
+    }
     case 'UPDATE_SUBMIT': {
       state.table.submit = { ...state.table.submit, ...action.payload };
       return;

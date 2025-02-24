@@ -21,17 +21,16 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const { data, isFetching } = useGetTariffListtDataQuery('prepareParams()');
+  const { data, isFetching } = useGetTariffListtDataQuery(prepareParams());
 
-  // function prepareParams() {
+  function prepareParams() {
+    const params = {
+      searchValue: state.searchValue,
+      pagination: state.table.pagination,
+    };
 
-  //    const params = {
-  //      searchValue: state.submit,
-  //      pagination: state.pagination,
-  //    };
-
-  //    return params;
-  //  }
+    return params;
+  }
 
   return (
     <S.AppContainer title={t('widget_Title')}>

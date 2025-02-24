@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as S from './top-section.style';
 import { PageProps } from '@oxygen/types';
 import { useBounce, useToggle } from '@oxygen/hooks';
-import { useAppDispatch } from '../../context';
+import { updateSearchValueAction, useAppDispatch } from '../../context';
 import { useTr } from '@oxygen/translation';
 import { InquiryComponent } from '@oxygen/reusable-components';
 type TopSectionPropsType = PageProps & {
@@ -16,7 +16,7 @@ export const TopSection: React.FC<TopSectionPropsType> = (props) => {
   const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
   useBounce(() => {
-    console.log(value.trim());
+    updateSearchValueAction(dispatch, value.trim());
   }, [value.trim()]);
 
   return (

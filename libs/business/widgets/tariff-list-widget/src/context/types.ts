@@ -12,6 +12,7 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
+  searchValue: Nullable<string>;
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -21,6 +22,10 @@ export type WidgetStateType = {
 };
 
 export type WidgetActionType =
+  | {
+      type: 'UPDATE_SEARCH_VALUE';
+      payload: WidgetStateType['searchValue'];
+    }
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
