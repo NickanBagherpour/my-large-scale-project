@@ -1,7 +1,7 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
+import { FiltersType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
 export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
   dispatch({ type: 'UPDATE_SORT', payload: sort });

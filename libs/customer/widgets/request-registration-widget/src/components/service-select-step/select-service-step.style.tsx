@@ -25,9 +25,6 @@ export const SearchField = styled.div`
   }
 `;
 export const Table = styled(antTable)`
-  /* & .ant-table-thead {
-    height: 7rem;
-  } */
   &.ant-table-wrapper {
     display: flex;
     flex-grow: 1;
@@ -38,9 +35,7 @@ export const Table = styled(antTable)`
   & .ant-table-content table {
     padding: 0;
   }
-  /* .ant-spin-nested-loading .ant-spin-container .ant-table .ant-table-container .ant-table-content table {
-    padding: 0;
-  } */
+
   ${respondTo.down('md')} {
     && tr:nth-child(odd) {
       background-color: ${(p) => p.theme.primary._50};
