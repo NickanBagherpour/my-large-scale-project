@@ -50,13 +50,13 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       width: widthByButtonCount(2),
       key: '',
       align: 'left',
-      render: () => (
+      render: (value, record) => (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button variant='link' color='primary' onClick={() => console.log('details')}>
+          <Button variant='link' color='primary' onClick={() => console.log('details', value.serviceName)}>
             {t('see_details')}
           </Button>
           <Button variant='link' color='error' onClick={() => console.log('removeService')}>
-            <i className='icon-trash' />
+            <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
           </Button>
         </div>
       ),

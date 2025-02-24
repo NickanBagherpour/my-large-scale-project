@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
+import { useTr } from '@oxygen/translation';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
+import { TopSection } from '../top-section/top-section';
+import { TariffTable } from '../tariff-table/tariff-tabel';
+import { useGetTariffListtDataQuery } from '../../services';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
-import { TariffTable } from '../tariff-table/tariff-tabel';
-import { TopSection } from '../top-section/top-section';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { useGetTariffListtDataQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
