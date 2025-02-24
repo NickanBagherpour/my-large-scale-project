@@ -3,14 +3,6 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { PaginationType, WidgetActionType, WidgetDispatchType, WidgetStateType } from './types';
 
-// export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
-//   dispatch({ type: 'UPDATE_SORT', payload: sort });
-// }
-
-// export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
-//   dispatch({ type: 'UPDATE_STATUS', payload: status });
-// }
-
 export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['searchTerm']) {
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }

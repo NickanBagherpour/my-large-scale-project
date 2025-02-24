@@ -1,12 +1,10 @@
-import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Box } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
-// import { ParamsType } from '../types';
 import { PaginationType } from '../context/types';
 
 import * as S from '../components/client-report/client-report.style';

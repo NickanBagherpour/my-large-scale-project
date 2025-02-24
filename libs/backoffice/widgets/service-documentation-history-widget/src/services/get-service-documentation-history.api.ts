@@ -1,4 +1,3 @@
-// import { serviceClientsListData } from './../../../../../mockify/src/data/service-clients-list.data';
 import { RQKEYS } from '@oxygen/utils';
 
 import { useAppDispatch } from '../context';
