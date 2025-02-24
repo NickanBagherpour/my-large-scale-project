@@ -138,8 +138,8 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _50: '#052c1d',
       _100: '#064e32',
       _300: '#0b8554',
-      _500: '#16a34a',
-      _600: '#22c55e',
+      _500: '#22c55e',
+      _600: '#16A34A',
     },
     error: {
       main: '#f87171',
