@@ -22,12 +22,12 @@ const DataTable = () => {
   } = useAppState();
   const searchParams = useSearchParams();
 
-  const upstreamName = searchParams.get('upstream-name') || '';
+  const serviceName = searchParams.get('service-name') || '';
 
   const { data, isFetching } = useGetServiceDocumentationHistory({
     page: page - 1,
     size: limit,
-    upstreamName,
+    serviceName,
   });
 
   const lastValidTotal = data?.totalElements;
@@ -51,30 +51,30 @@ const DataTable = () => {
       title: t('column.user-name'),
       dataIndex: 'userName',
       key: 'userName',
-      render: (column) => getValueOrDash(column.value),
+      render: (column) => {
+        return <HistoryCell item={column} />;
+      },
     },
     {
       title: t('column.revision-type'),
-      dataIndex: 'revision',
-
+      dataIndex: 'revisionDto',
+      key: 'revisionDto',
       render: (column) => {
         const variant = column.revType?.code?.value;
-        const isDeleted = column?.deleted?.value;
-        return (
-          <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {getValueOrDash(column?.revType?.title?.value)}
-          </S.RevisionType>
-        );
+
+        return <S.RevisionType variant={variant}>{getValueOrDash(column?.revType?.title?.value)}</S.RevisionType>;
       },
     },
     {
       title: t('column.file-name'),
-      dataIndex: 'upstream',
-      key: 'fileName',
+      dataIndex: 'serviceDocumentDto',
+      key: 'serviceDocumentDto',
       ellipsis: true,
       className: 'right-to-left',
 
-      render: (column) => getValueOrDash(column.value),
+      render: (column) => {
+        return getValueOrDash(column.fileName?.value);
+      },
     },
   ];
 

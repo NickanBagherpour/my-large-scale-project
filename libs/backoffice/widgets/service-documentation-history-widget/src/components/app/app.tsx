@@ -26,24 +26,15 @@ const App: React.FC<AppProps> = () => {
   const searchParams = useSearchParams();
   const [t] = useTr();
 
-  const upstreamName: Nullable<string> = searchParams.get('upstream-name');
-  if (!upstreamName) {
+  const serviceName: Nullable<string> = searchParams.get('service-name');
+
+  if (!serviceName) {
     notFound();
   }
 
-  const { data } = useGetServiceDocumentationHistory({
-    page: page - 1,
-    size: limit,
-    upstreamName,
-  });
-
-  const { title, description, name } = data?.content[0].upstream ?? {};
-
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('subtitle'),
-    // primaryTitle: t(description?.value),
-    primaryTitle: t(name?.value),
-    secondaryTitle: t(title?.value),
+    primaryTitle: `${t('service')} ${serviceName}`,
   });
 
   return (
