@@ -7,13 +7,15 @@ import { Table } from '@oxygen/ui-kit';
 import { getDesktopColumns } from '../../utils/table-data-list';
 
 export type TariffTablePropsType = PageProps & {
-  //
+  tableData: any[];
+  isLoading: boolean;
 };
 
 export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
+
   const handlePageChange = async () => {
     console.log('current');
   };

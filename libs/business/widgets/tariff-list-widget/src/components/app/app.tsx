@@ -10,6 +10,7 @@ import * as S from './app.style';
 import { TariffTable } from '../tariff-table/tariff-tabel';
 import { TopSection } from '../top-section/top-section';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { useGetTariffListtDataQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -20,25 +21,23 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const { data, isFetching } = useGetTariffListtDataQuery('prepareParams()');
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  // function prepareParams() {
 
-     return params;
-   }
- */
+  //    const params = {
+  //      searchValue: state.submit,
+  //      pagination: state.pagination,
+  //    };
+
+  //    return params;
+  //  }
 
   return (
     <S.AppContainer title={t('widget_Title')}>
       <GlobalMessageContainer message={state.message} onClose={() => resetErrorMessageAction(dispatch)} />
       <TopSection />
-      <TariffTable />
+      <TariffTable tableData={data} isLoading={isFetching} />
     </S.AppContainer>
   );
 };
