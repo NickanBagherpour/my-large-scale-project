@@ -103,6 +103,7 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
+  margin-top: 2rem;
 `;
 
 export const TableRow = styled.div`
