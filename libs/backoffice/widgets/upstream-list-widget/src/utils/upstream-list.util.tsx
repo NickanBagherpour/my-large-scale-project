@@ -76,7 +76,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
           </S.DetailsButton>
 
           <S.TrashButton
-            variant={'text'}
+            variant={'link'}
             color={'error'}
             size={'small'}
             onClick={() => {
@@ -124,7 +124,7 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamItemType> {
                 </S.DetailsButton>
 
                 <S.TrashButton
-                  variant={'text'}
+                  variant={'link'}
                   color={'error'}
                   onClick={() => {
                     deleteUpstream(record);

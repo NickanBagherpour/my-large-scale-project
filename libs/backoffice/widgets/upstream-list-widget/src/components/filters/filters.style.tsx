@@ -39,6 +39,10 @@ export const StyledButton = styled(Button)`
 `;
 export const StyledFormItem = styled(Form.Item)`
   margin-bottom: 0;
+
+  & .ant-form-item-label {
+    margin-inline-start: 1.6rem;
+  }
 `;
 export const StyledInput = styled(Input)`
   max-width: 42rem;
