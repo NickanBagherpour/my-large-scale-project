@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { uuid } from '@oxygen/utils';
 import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { useAppTheme } from '@oxygen/hooks';
+import { useAppTheme, useToggle } from '@oxygen/hooks';
 
 import { ParamsType, ServiceDto } from '../../types';
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-list.util';
+import ToggleStatus from '../toggle-status/toggle-status';
 
 import * as S from './services.style';
+import { ToggleActivationInfo } from '../../types/toggle-status.type';
 
 type ServicesProps = PageProps & {
   data?: ServiceDto[];
@@ -30,6 +32,8 @@ const Services: React.FC<ServicesProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const theme = useAppTheme();
+  const [showToggleStatusModal, changeShowToggleStatusModal] = useToggle(false);
+  const [selectedService, setSelectedService] = useState<ToggleActivationInfo>();
 
   const {
     table: { pagination },
@@ -46,28 +50,48 @@ const Services: React.FC<ServicesProps> = (props) => {
       updatePagination(dispatch, updatedPagination);
     }
   };
-
-  const mobileColumns = getMobileColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
-  const desktopColumns = getDesktopColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
+  const handleChangeShowToggleStatusModal = (info: ToggleActivationInfo) => {
+    setSelectedService(info);
+    changeShowToggleStatusModal();
+  };
+  const mobileColumns = getMobileColumns({
+    t,
+    changeStatus,
+    deleteService,
+    theme,
+    wordToHighlight,
+    onToggleActivationSwitchClick: handleChangeShowToggleStatusModal,
+  });
+  const desktopColumns = getDesktopColumns({
+    t,
+    changeStatus,
+    deleteService,
+    theme,
+    wordToHighlight,
+    onToggleActivationSwitchClick: handleChangeShowToggleStatusModal,
+  });
 
   const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
   return (
-    <S.TableContainer>
-      <Table
-        tableLayout='auto'
-        loading={isFetching}
-        current={pagination.page}
-        total={total}
-        dataSource={tableData}
-        columns={desktopColumns}
-        mobileColumns={mobileColumns}
-        hasContainer={false}
-        pagination={{ pageSize: pagination.rowsPerPage }}
-        onChange={handlePageChange}
-        rowKey={() => uuid()}
-      />
-    </S.TableContainer>
+    <>
+      <S.TableContainer>
+        <Table
+          // tableLayout='auto'
+          loading={isFetching}
+          current={pagination.page}
+          total={total}
+          dataSource={tableData}
+          columns={desktopColumns}
+          mobileColumns={mobileColumns}
+          hasContainer={false}
+          pagination={{ pageSize: pagination.rowsPerPage }}
+          onChange={handlePageChange}
+          rowKey={(row) => row.id}
+        />
+      </S.TableContainer>
+      {showToggleStatusModal && <ToggleStatus service={selectedService} toggleModal={changeShowToggleStatusModal} />}
+    </>
   );
 };
 

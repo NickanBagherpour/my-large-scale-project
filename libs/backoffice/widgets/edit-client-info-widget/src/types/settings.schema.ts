@@ -12,8 +12,6 @@ export const createFormSchema = (t: TFunction) => {
     [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalProtocolUrl,
     [FORM_ITEM_NAMES.inputAddress]: validationSchema.optionalProtocolUrl,
     [FORM_ITEM_NAMES.returnAddress]: validationSchema.optionalProtocolUrl,
-    [FORM_ITEM_NAMES.grantType]: validationSchema.objectMultipleSelection,
-    [FORM_ITEM_NAMES.tags]: validationSchema.objectMultipleSelection,
   });
 };
 

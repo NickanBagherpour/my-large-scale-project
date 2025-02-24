@@ -5,12 +5,12 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
-import { getValueOrDash } from '@oxygen/utils';
-import { Button, InfoBox } from '@oxygen/ui-kit';
+import { Button } from '@oxygen/ui-kit';
 
 import { useGetRouteDetailsQuery } from '../../services';
 
 import * as S from './route-info.style';
+import { RouteInfoBox } from '@oxygen/reusable-components';
 
 export type Modal = {
   details: boolean;
@@ -32,20 +32,26 @@ const Route: React.FC<AppProps> = () => {
   const { data: routeDetails, isFetching: isServiceFetching } = useGetRouteDetailsQuery(params);
   const router = useRouter();
 
-  const [t] = useTr();
-
-  const transformServiceDetails = (routeDetails) => {
-    if (!routeDetails) return [];
-
-    return [
-      { key: t('action_method'), value: getValueOrDash(routeDetails.methods[0]?.title) },
-      { key: t('protocol'), value: getValueOrDash(routeDetails.protocols[0]?.title) },
-      { key: t('path'), value: getValueOrDash(routeDetails.paths[0]) },
-      { key: t('host'), value: getValueOrDash(routeDetails.hosts[0]) },
-    ];
+  let route = {
+    methods: [] as string[],
+    protocols: [] as string[],
+    hosts: [] as string[],
+    paths: [] as string[],
   };
 
-  const transformedData = transformServiceDetails(routeDetails);
+  if (routeDetails) {
+    const {
+      route: { protocols, hosts, paths, methods },
+    } = routeDetails;
+    route = {
+      methods: methods.map((item) => item.title),
+      protocols: protocols.map((item) => item.title),
+      paths,
+      hosts,
+    };
+  }
+
+  const [t] = useTr();
 
   return (
     <S.ItemsContainer className='clients-list'>
@@ -57,7 +63,7 @@ const Route: React.FC<AppProps> = () => {
             color='primary'
             variant='filled'
             icon={<i className='icon-clock' />}
-            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?serviceId=${routeDetails?.id}`)}
+            onClick={() => router.push(`${ROUTES.BACKOFFICE.ROUTE_HISTORY}?serviceId=${routeDetails?.route?.id}`)}
           >
             {t('see_changes_history')}
           </Button>
@@ -72,7 +78,7 @@ const Route: React.FC<AppProps> = () => {
           </Button>
         </div>
       </div>
-      <InfoBox data={transformedData} margin={0} loading={isServiceFetching} />{' '}
+      <RouteInfoBox route={route} isLoading={isServiceFetching} />
     </S.ItemsContainer>
   );
 };

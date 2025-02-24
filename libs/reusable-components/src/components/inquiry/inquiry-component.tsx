@@ -35,7 +35,7 @@ export type ContentType = 'searching' | keyof typeof InquiryStatus;
 const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const [t] = useTr();
   const [form] = Form.useForm<InquiryItemNameType>();
-  const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<InputRef | null>(null);
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const [content, setContent] = useState<ContentType>('searching');
   const [fromSubmission, setFormSubmission] = useState({ isSubmitted: false, itemName: '' });
@@ -86,7 +86,7 @@ const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
       <ItemExists
         itemName={name}
         type={type}
-        data={specificData}
+        data={specificData as any}
         form={form}
         inputRef={inputRef}
         changeContent={changeContent}
@@ -121,12 +121,13 @@ export default InquiryComponent;
 function extractSpecificData(t: TFunction, data?: InquiryDto) {
   if (data) {
     return isServiceInquiryDto(data)
-      ? [data.serviceName, data.servicePersianName, data.scope?.name, data.scope?.description]
+      ? [data.serviceName, data.servicePersianName, data.scopes?.map((s) => s.name)]
       : [
           data.organizationInfo?.organizationName,
           data.organizationInfo?.organizationId,
           data.organizationInfo?.isAggregator
-            ? t('common.has') + '-' + data?.organizationInfo?.aggregatorName
+            ? t('common.has') +
+              (data?.organizationInfo?.aggregatorName ? '-' + data?.organizationInfo?.aggregatorName : '')
             : t('common.doesnt_have'),
           data.organizationInfo?.representative?.nameAndLastName,
         ];

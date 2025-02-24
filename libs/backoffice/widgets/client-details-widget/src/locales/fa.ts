@@ -30,6 +30,7 @@ export default {
   client_flow: 'Client Flow',
   implicit_flow: 'Implicit Flow',
   password_flow: 'Password Flow',
+  refresh_token: 'Refresh Token',
   status: 'وضعیت',
   plugins: 'پلاگین‌ها',
   services: 'سرویس‌ها',

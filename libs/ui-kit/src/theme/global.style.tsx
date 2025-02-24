@@ -12,13 +12,13 @@ const GlobalStyle = createGlobalStyle`
     ${cssVar.verticalGap}: 0px; //2.8rem;
     ${cssVar.radius}: 0.8rem;
     ${cssVar.radiusLg}: 1.2rem;
-    ${cssVar.appbarZIndex}: 10000;
-    ${cssVar.onAppbarZIndex}: 10001;
+    ${cssVar.appbarZIndex}: 1000;
+    ${cssVar.onAppbarZIndex}: 1001;
   }
 
   ${respondTo.down('md')} {
     :root {
-      ${cssVar.appbarZIndex}: 1000;
+      ${cssVar.appbarZIndex}: 100;
     }
   }
 
@@ -42,6 +42,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  /*
+  * this will be fixed in antd's future versions
+  * see: https://github.com/ant-design/ant-design/pull/52499/files
+  * see: https://github.com/ant-design/ant-design/issues/48608#issuecomment-2152404334
+  * */
+  .ant-notification-stack > .ant-notification-notice-wrapper {
+    transition: transform 0.3s, backdrop-filter 0s !important;
+    will-change: transform, opacity;
+  }
 
   @media only screen and (min-width: 150em) {
     :root {
@@ -138,6 +147,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
   }
 
+  .ant-notification-notice-wrapper .anticon svg {
+    color: ${(props) => props.theme.onPrimary};
+  }
 
   .ant-notification, .ant-notification-stack-expanded {
     font-family: inherit !important;

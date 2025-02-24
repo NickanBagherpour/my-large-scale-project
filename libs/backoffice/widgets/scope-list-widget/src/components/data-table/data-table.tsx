@@ -22,6 +22,10 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   const { scopeListLoading, scopeListData } = props;
   const [t] = useTr();
 
+  const dataTableParams = { t, pagination };
+  const desktopColumns = getDesktopColumns(dataTableParams);
+  const mobileColumns = getMobileColumns(dataTableParams);
+
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
@@ -31,10 +35,6 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       });
     }
   };
-
-  const dataTableParams = { t, pagination };
-  const desktopColumns = getDesktopColumns(dataTableParams);
-  const mobileColumns = getMobileColumns(dataTableParams);
 
   return (
     <S.DataTableContainer>
@@ -48,7 +48,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         onChange={changePage}
-        rowKey={(row) => row.index}
+        rowKey={(row) => row.id}
       />
     </S.DataTableContainer>
   );

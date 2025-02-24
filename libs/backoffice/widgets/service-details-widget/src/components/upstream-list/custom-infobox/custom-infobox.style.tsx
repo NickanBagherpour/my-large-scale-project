@@ -7,7 +7,6 @@ export const InfoboxContainer = styled.div`
   gap: 2rem;
   align-items: center;
   button {
-    width: 16rem;
     ${respondTo.down('sm')} {
       width: 100%;
     }

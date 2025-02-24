@@ -21,11 +21,6 @@ export const UpstreamDetailsContainer = styled(Container)`
   }
 `;
 
-export const BoxContainer = styled(Box)`
-  height: 100%;
-  flex-grow: 1;
-`;
-
 export const UpstreamDetailsContent = styled.div`
   height: 100%;
   margin-top: 2.4rem;

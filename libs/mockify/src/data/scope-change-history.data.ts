@@ -3,7 +3,7 @@ import { scopeHistoryData } from '@oxygen/types';
 export const scopeChangeHistoryData = [
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -16,7 +16,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -29,7 +29,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -42,7 +42,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -55,7 +55,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -68,7 +68,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -81,7 +81,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -94,7 +94,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -107,7 +107,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -120,7 +120,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -133,7 +133,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -146,7 +146,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -159,7 +159,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',
@@ -172,7 +172,7 @@ export const scopeChangeHistoryData = [
   },
   {
     modify_date: '1402/01/20 12:30',
-    admin_name: 'ادمین شماره 1',
+    user_name: 'کاربر شماره 1',
     english_name: 'Bale messenger',
     farsi_name: 'کلاینت بله',
     clientType: ' سامانه های اعتباردهی - اعتبار سنجی هویتی-صورتحساب مالیاتی و اعتباری',

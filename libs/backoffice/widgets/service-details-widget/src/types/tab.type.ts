@@ -1,1 +1,1 @@
-export type Tab = 'general-information' | 'route' | 'scopes' | 'upstream';
+export type Tab = 'general-information' | 'route' | 'scopes' | 'upstream' | 'documentation';

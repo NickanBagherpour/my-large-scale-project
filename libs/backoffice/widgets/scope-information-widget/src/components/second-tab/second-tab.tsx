@@ -4,15 +4,16 @@ import { TablePaginationConfig } from 'antd';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Table } from '@oxygen/ui-kit';
+import { Table } from '@oxygen/ui-kit';
 
-import DetailsModal from './modals/info-service-modal/info-service-modal';
 // import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
 import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
 import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
 import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
 
 import * as S from './second-tab.style';
+import { ServiceDetails } from '@oxygen/reusable-components';
+import { useAppDispatch } from '../../context';
 
 type SecondTabTypes = PageProps & {
   id: string;
@@ -22,6 +23,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
   const { id } = props;
   //Hooks
   const [t] = useTr();
+  const dispatch = useAppDispatch();
   //States
   const [serviceName, setServiceName] = useState(undefined);
   const [modals, setModals] = useState<Modal>({
@@ -117,8 +119,14 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
       /> */}
+
       {serviceName && (
-        <DetailsModal isOpen={modals['details']} toggle={() => toggleModal('details', false)} name={serviceName} />
+        <ServiceDetails
+          dispatch={dispatch}
+          isOpen={modals['details']}
+          serviceName={serviceName}
+          close={() => toggleModal('details', false)}
+        />
       )}
     </>
   );

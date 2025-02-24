@@ -3,7 +3,6 @@ import type {
   AssignUpstreamToServiceParams,
   CodeTitle,
   PostServiceParams,
-  PostRouteParams,
   Route,
   Service,
   Tags,
@@ -11,9 +10,8 @@ import type {
   UpstreamsParams,
   UpstreamWithTargets,
   ServiceInquiry,
-  PutRouteParams,
 } from '../types';
-import type { AssignScopeToServiceParams, Scope, ScopesData, ScopesParams } from '../types/scopes.type';
+import type { scopeToServiceParams, ScopesData, ScopesParams, ServiceScope } from '../types/scopes.type';
 
 const Api = {
   getService: async (name: string) => client.get<Service>(`${portalUrl}/v1/services/service-name/${name}`),
@@ -29,18 +27,15 @@ const Api = {
   getCategories: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/throughput`),
-  getServiceScope: async (name: string) =>
-    client.get<Scope & { isServiceInSso: boolean }>(`${portalUrl}/v1/scope/service-name/${name}`),
+  getServiceScope: async (name: string) => client.get<ServiceScope[]>(`${portalUrl}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${portalUrl}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ upstreamName, serviceName }: AssignUpstreamToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/assign-to-service/${serviceName}`),
-  postRoute: async ({ serviceName, ...otherParams }: PostRouteParams) =>
-    client.post(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
-  putRoute: async ({ serviceName, ...otherParams }: PutRouteParams) =>
-    client.put(`${portalUrl}/v1/routes/service-name/${serviceName}`, otherParams),
-  postAssignScopeToService: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/assign/${serviceName}`),
+    client.post<unknown>(`${portalUrl}/v1/upstreams/${upstreamName}/services/${serviceName}`),
+  postAssignScopeToService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
+    client.post<unknown>(`${portalUrl}/v1/scope/${scopeName}/services/${serviceName}`),
+  deleteUnassignScopeFromService: async ({ scopeName, serviceName }: scopeToServiceParams) =>
+    client.delete<unknown>(`${portalUrl}/v1/scope/${scopeName}/services/${serviceName}`),
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${portalUrl}/v1/enums/service-protocol`),
   postCofirmData: async (serviceName: string) => client.post(`${portalUrl}/v1/services/confirm-info/${serviceName}`),
@@ -48,8 +43,8 @@ const Api = {
     client.get<ServiceInquiry>(`${portalUrl}/v1/services/inquiry-service-status`, {
       params: { 'service-name': serviceName },
     }),
-  postRegisterToBaam: async ({ scopeName, serviceName }: AssignScopeToServiceParams) =>
-    client.post<unknown>(`${portalUrl}/v1/services/${serviceName}/register-to-bam/${scopeName}`),
+  postRegisterToSso: async (serviceName: string) =>
+    client.post<unknown>(`${portalUrl}/v1/services/register-to-sso/${serviceName}`),
 };
 
 export default Api;

@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 
 import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
 
-import { getValueOrDash } from '@oxygen/utils';
+import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 
 import * as S from '../components/data-list/data-list.style';
 
@@ -18,16 +18,16 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.edit_time'),
       dataIndex: 'clientServiceDto',
       render: (item) => {
-        return <div>{getValueOrDash(item?.modifyDate.value)}</div>;
+        return <div>{convertShamsiDateFormat(item?.modifyDate.value, true)}</div>;
       },
     },
     {
-      title: t('table.admin_name'),
+      title: t('table.user_name'),
       dataIndex: 'clientServiceDto',
-      key: 'modifyBy',
+      key: 'userName',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.modifyBy}></HistoryCell>;
+        return <HistoryCell item={item?.userName}></HistoryCell>;
       },
     },
     {
@@ -39,7 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         const revType = item.revType;
 
         return (
-          <S.OperationTypeStyle variant={revType?.code.value} isDeleted={record?.clientServiceDto.isDeleted.value}>
+          <S.OperationTypeStyle variant={revType?.code.value} $isDeleted={record?.clientServiceDto.isDeleted.value}>
             {getValueOrDash(revType?.title.value)}
           </S.OperationTypeStyle>
         );

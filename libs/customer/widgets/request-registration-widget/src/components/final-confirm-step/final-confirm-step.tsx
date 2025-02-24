@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+import { uuid } from '@oxygen/utils';
 import ConfirmModal from './modal-confirm/modal-confirm';
 import { Card, Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, SearchItemsContainer, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
+import { Button, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
 import { useQueryParams } from '@oxygen/hooks';
 
 import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
@@ -96,13 +97,6 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
     setCurrentStep((perv) => perv - 1);
   };
 
-  const isAggregator = requestData?.organization?.isAggregator;
-  const aggregatorName = requestData?.organization?.aggregatorName;
-  const aggregatorStatus = isAggregator
-    ? t('company_is_aggregator')
-    : aggregatorName
-    ? t(`company_has_aggregator_with_name`, { aggregatorName })
-    : t('company_has_not_aggregator');
   const sortedRepresentatives = requestData?.representativeSet.sort(
     (a, b) => a.representativeType - b.representativeType
   );
@@ -145,6 +139,7 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
                 <S.TitleTxt className={'cards-title'}>{t('requested_services')}</S.TitleTxt>
                 <Box flexGrow={1}>
                   <Table
+                    rowKey={() => uuid()}
                     dataSource={requestData?.services}
                     columns={desktopColumns}
                     mobileColumns={mobileColumns}

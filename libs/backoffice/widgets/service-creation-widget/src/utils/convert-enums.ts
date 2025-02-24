@@ -1,7 +1,7 @@
 import { CodeTitle, Tags } from '../types';
 
 export function convertTags(tags?: Tags) {
-  return tags?.map((tag) => ({ key: tag.id, label: tag.title, value: tag.id })) ?? [];
+  return tags?.map((t) => ({ ...t, code: t.id })) ?? [];
 }
 
 export function convertCodeTitles(items?: CodeTitle[]) {

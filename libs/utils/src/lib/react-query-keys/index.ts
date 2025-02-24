@@ -1,7 +1,10 @@
 /*--import-backoffice--*/
+import { KEYS as SERVICE_CALL_LOG_KEYS } from './portals/backoffice/service-call-log.key';
+import { KEYS as CLIENT_REPORT_KEYS } from './portals/backoffice/client-report.key';
 import { KEYS as SERVICES_REPORT_KEYS } from './portals/backoffice/services-report.key';
 import { KEYS as UPSTREAM_SERVICE_HISTORY_KEYS } from './portals/backoffice/upstream-service-history.key';
 import { KEYS as UPSTREAM_HISTORY_KEYS } from './portals/backoffice/upstream-history.key';
+import { KEYS as SERVICE_DOCUMENTATION_HISTORY_KEYS } from './portals/backoffice/service-documentation-history.key';
 import { KEYS as EDIT_REQUEST_LIST_KEYS } from './portals/backoffice/edit-request-list.key';
 import { KEYS as BACKOFFICE_AUTH_KEYS } from './portals/backoffice/backoffice-auth.key';
 import { KEYS as SERVICE_DETAILS_KEYS } from './portals/backoffice/service-details.key';
@@ -33,6 +36,7 @@ import { KEYS as GET_SCOPE } from './portals/backoffice/get-scope.key';
 import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.key';
 
 /*--import-business--*/
+import { KEYS as META_KEYS } from './portals/business/meta.key';
 import { KEYS as BUSINESS_DASHBOARD_KEYS } from './portals/business/business-dashboard.key';
 import { KEYS as REQUEST_DETAILS_KEYS } from './portals/business/request-details.key';
 import { KEYS as REQUEST_LIST_KEYS } from './portals/business/request-list.key';
@@ -58,6 +62,8 @@ export const RQKEYS = {
     CLIENT_PROFILE: 'CLIENT_PROFILE',
 
     /*--export-backoffice--*/
+    SERVICE_CALL_LOG: SERVICE_CALL_LOG_KEYS,
+    SERVICE_DOCUMENTATION_HISTORY: SERVICE_DOCUMENTATION_HISTORY_KEYS,
     SERVICES_REPORT: SERVICES_REPORT_KEYS,
     UPSTREAM_SERVICE_HISTORY: UPSTREAM_SERVICE_HISTORY_KEYS,
     UPSTREAM_HISTORY: UPSTREAM_HISTORY_KEYS,
@@ -66,6 +72,7 @@ export const RQKEYS = {
     EDIT_CLIENT_KEYS: EDIT_CLIENT_KEYS,
     CLIENT_DETAILS: CLIENT_DETAILS_KEYS,
     CLIENT_HISTORY: CLIENT_HISTORY_KEYS,
+    CLIENT_REPORT: CLIENT_REPORT_KEYS,
     CLIENT_SERVICE_HISTORY: CLIENT_SERVICE_HISTORY_KEYS,
     CLIENT_CREATION: CLIENT_CREATION_KEYS,
     CREATE_NEW_CLIENT: CREATE_NEW_CLIENT_KEYS,
@@ -102,6 +109,7 @@ export const RQKEYS = {
   BUSINESS: {
     REQUEST: 'request',
     /*--export-business--*/
+    META: META_KEYS,
     DASHBOARD: BUSINESS_DASHBOARD_KEYS,
     REQUEST_DETAILS_INFO: REQUEST_DETAILS_INFO_KEYS,
     EDIT_REQUEST_LIST: EDIT_REQUEST_LIST_KEYS,

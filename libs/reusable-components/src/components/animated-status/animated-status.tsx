@@ -9,7 +9,7 @@ export type StatusProps = {
   status: Status;
 } & {
   [K in Status as `${K}Props`]: {
-    description?: string;
+    description?: ReactNode;
     children?: ReactNode;
   };
 };

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 
@@ -19,5 +19,6 @@ export const useUpstreamCardsDetailQuery = (params: CardsDetailParamsType) => {
   return useQuery<UpstreamCardsData>({
     queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.UPSTREAM_TAB_CARD_DETAILS, params],
     queryFn: withErrorHandling(() => Api.getUpstreamCardsDetail(params), dispatch),
+    placeholderData: keepPreviousData,
   });
 };

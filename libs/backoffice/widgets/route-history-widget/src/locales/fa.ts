@@ -3,10 +3,12 @@ export default {
   subtitle: 'تاریخچه تغییرات',
   container_title: 'جزئیات سرویس',
   column: {
-    'edit-date': 'زمان ویرایش',
-    'admin-name': 'نام ادمین',
+    edit_date: 'زمان ویرایش',
+    user_name: 'نام کاربر',
+    revision_type: 'نوع عملیات',
     action: 'اکشن/متود',
     path: 'Path',
     host: 'Host',
+    protocol: 'پروتکل',
   },
 };

@@ -45,7 +45,6 @@ const App: React.FC<AppProps> = (props) => {
     setLoading(true);
   }, [theme.id]);
 
-
   const [url, setUrl] = useState('');
 
   useEffect(() => {
@@ -57,7 +56,6 @@ const App: React.FC<AppProps> = (props) => {
 
     fetchUrl();
   }, []);
-
 
   function getReportUrl(id: keyof typeof reportUrlList, theme = 'light') {
     const urlPostfix = `#theme=${theme}&bordered=false&titled=false`;
@@ -73,9 +71,6 @@ const App: React.FC<AppProps> = (props) => {
       }
     }
   }
-
-
-  console.log('url', url);
 
   return (
     <>

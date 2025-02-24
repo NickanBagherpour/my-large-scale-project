@@ -1,9 +1,7 @@
-import Box from '../box/box';
 import * as S from './upstream.style';
 import { useTr } from '@oxygen/translation';
-import { GridCard, NoResult } from '@oxygen/reusable-components';
-import { ColumnsType, InfoBox, Loading, Pagination, Table, Box as UiKitBox } from '@oxygen/ui-kit';
-import Footer from '../footer/footer';
+import { BorderedSection, CenteredLoading, Footer, GridCard, NoResult } from '@oxygen/reusable-components';
+import { ColumnsType, InfoBox, Loading, Pagination, Table } from '@oxygen/ui-kit';
 import { nextStep, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
 import {
@@ -16,8 +14,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { UpstreamTarget, UpstreamWithTargets } from '../../types';
 import { getValueOrDash } from '@oxygen/utils';
 import { useBounce } from '@oxygen/hooks';
-import { UPSTREAMS_PAGE_SIZE } from '../../utils/consts';
-import CenteredLoading from '../centered-loading/centered-loading';
+import { UPSTREAMS_PAGE_SIZE } from '../../utils';
 
 export default function Upstream() {
   const [t] = useTr();
@@ -35,7 +32,7 @@ export default function Upstream() {
   } = useGetUpstreams({
     page: page - 1, // backend pages starts from zero
     size: UPSTREAMS_PAGE_SIZE,
-    sort: '',
+    sort: 'createDate,DESC',
     'search-field': debouncedSearchTerm,
   });
   const [selectedUpstreamName, setSelectedUpstreamName] = useState<string | null>(null);
@@ -101,14 +98,13 @@ export default function Upstream() {
       title: null,
       key: 'mobileColumn',
       render: ({ domain, healthStatus, weight }: UpstreamTarget) => {
-        return (
-          <UiKitBox flexDirection='column'>
-            <Table.MobileColumn minHeight={'40px'} title={t('domain')} value={domain} />
-            {/* Use 'px' units for min-height to ensure consistency with the 22px height of the first row, as 'rem' units vary across screen sizes */}
-            <Table.MobileColumn minHeight={'40px'} title={t('health_status')} value={getValueOrDash(healthStatus)} />
-            <Table.MobileColumn minHeight={'40px'} title={t('weight')} value={weight} />
-          </UiKitBox>
-        );
+        const data = [
+          { title: t('domain'), value: domain },
+          { title: t('health_status'), value: getValueOrDash(healthStatus) },
+          { title: t('weight'), value: weight },
+        ];
+
+        return <Table.MobileColumns columns={data} minHeight={'40px'} />;
       },
     },
   ];
@@ -121,7 +117,7 @@ export default function Upstream() {
     <Container>
       <Loading spinning={isFetching}>
         <S.Title>{t('choose_upstream')}</S.Title>
-        <Box>
+        <BorderedSection>
           <S.Input
             value={searchTerm}
             placeholder={t('search_by_english_or_persian_name')}
@@ -157,11 +153,11 @@ export default function Upstream() {
           ) : (
             <NoResult isLoading={isFetchingUpstreams} />
           )}
-        </Box>
+        </BorderedSection>
       </Loading>
 
       {upstream && !!upstreams?.totalElements && (
-        <Box>
+        <BorderedSection>
           <InfoBox
             minColumnCount={2}
             margin={'0 0 2.8rem'}
@@ -175,10 +171,10 @@ export default function Upstream() {
             columns={desktopColumns}
             mobileColumns={mobileColumns}
             dataSource={upstream?.targets}
-            rowKey={(row) => row.idx}
+            rowKey={(row) => row.id}
             pagination={false}
           />
-        </Box>
+        </BorderedSection>
       )}
 
       {!isFetching && (

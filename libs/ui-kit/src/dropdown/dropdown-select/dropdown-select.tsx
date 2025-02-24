@@ -1,13 +1,12 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Checkbox, Dropdown, DropdownProps, Form } from 'antd';
 import { ItemType } from 'antd/lib/menu/interface';
 
 import { useAppTheme } from '@oxygen/hooks';
 import { Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { uuid } from '@oxygen/utils';
 
 import * as S from './dropdown-select.styles';
 
@@ -24,7 +23,7 @@ export type DropdownSelectProps = Omit<DropdownProps, ' menu'> & {
   firstIconClassName?: string;
 };
 
-export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
+export const DropdownSelect = (props: DropdownSelectProps) => {
   const {
     children,
     menu = [],
@@ -45,6 +44,7 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
   const theme = useAppTheme();
 
   const [open, setOpen] = React.useState<boolean>(false);
+  const uniqueId = React.useId();
 
   const hasError = () => {
     if (errors && errors.length > 0) return true;
@@ -53,7 +53,6 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
 
   const handleSelectAll = () => {
     if (!multiSelect) return;
-
     handleOnChange(null, true);
   };
 
@@ -89,8 +88,6 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
   };
 
   function handleMenuClick(info) {
-    info.domEvent.stopPropagation();
-
     if (info.key === '___selectAll') {
       handleSelectAll();
       return;
@@ -106,7 +103,10 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
   }
 
   function getOptionByKey(key: string) {
-    return menu.find((item) => item && item.key === key);
+    return menu.find(
+      (item) =>
+        item && item.key == key /* Using == to allow comparison between item.key and key even if their types differ */
+    );
   }
 
   const generateBaseItems = (): any[] => {
@@ -116,14 +116,9 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
           label: (
             <Checkbox
               checked={IS_SELECTED_ALL}
-              onClick={(e) => {
-                // checkboxClicked.current = true;
-                e.stopPropagation();
-              }}
-              onChange={handleSelectAll}
               indeterminate={checkedItems?.length > 0 && checkedItems?.length !== menu?.length}
             >
-              <span onClick={(e) => e.stopPropagation()}>{t('uikit.select_all')}</span>
+              <span>{t('uikit.select_all')}</span>
             </Checkbox>
           ),
           key: '___selectAll',
@@ -136,18 +131,11 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
     } else return [];
   };
 
-  const menuItems = menu?.map((option: any, index) => {
+  const menuItems = menu?.map((option: any) => {
     return {
       label: multiSelect ? (
-        <Checkbox
-          checked={checkedItems.some((item) => item && item?.key === option?.key)}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent dropdown from closing
-            // checkboxClicked.current = true; // Set flag to indicate checkbox click
-            handleMenuClick({ key: option.key, domEvent: e });
-          }}
-        >
-          <span onClick={(e) => e.stopPropagation()}>{option.label}</span>
+        <Checkbox checked={checkedItems.some((item) => item && item?.key === option?.key)}>
+          <span>{option.label}</span>
         </Checkbox>
       ) : (
         <span>{option.label}</span>
@@ -161,15 +149,11 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
 
   const items: any = [...generateBaseItems(), ...menuItems];
 
-  const menuProps = {
-    items,
-  };
-
-  const uniqueId = uuid();
+  const menuProps = { items, onClick: handleMenuClick };
 
   return (
     <S.DropdownSelectContainer $error={hasError()} $iconPosition={iconPosition}>
-      <S.DropdownContainer id={uniqueId}></S.DropdownContainer>
+      <S.DropdownContainer id={uniqueId} />
       <Dropdown
         menu={menuProps}
         trigger={['click']}
@@ -199,4 +183,4 @@ export const DropdownSelect = forwardRef((props: DropdownSelectProps, ref) => {
       </Dropdown>
     </S.DropdownSelectContainer>
   );
-});
+};

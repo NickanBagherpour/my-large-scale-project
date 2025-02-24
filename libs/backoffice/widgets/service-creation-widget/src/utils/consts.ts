@@ -20,8 +20,9 @@ export const SERVICE_NAMES = {
 } as const;
 
 export const ROUTE_NAMES = {
-  actionOrMethod: 'actionOrMethod',
-  protocol: 'protocol',
-  path: 'path',
-  host: 'host',
+  name: 'name',
+  methods: 'methods',
+  protocols: 'protocols',
+  paths: 'paths',
+  hosts: 'hosts',
 } as const;

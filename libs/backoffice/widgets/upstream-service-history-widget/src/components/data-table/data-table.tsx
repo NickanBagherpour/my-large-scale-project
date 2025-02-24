@@ -40,7 +40,7 @@ const DataTable: React.FC<AppProps> = () => {
       // width: 50,
     },
     {
-      title: t('column.admin-name'),
+      title: t('column.user-name'),
       dataIndex: 'adminName',
       // key: 'adminName',
       ellipsis: true,
@@ -84,7 +84,7 @@ const DataTable: React.FC<AppProps> = () => {
       // width: 50,
     },
     {
-      title: t('column.admin-name'),
+      title: t('column.user-name'),
       dataIndex: 'adminName',
       // key: 'adminName',
       ellipsis: true,

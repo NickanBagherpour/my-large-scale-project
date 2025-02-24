@@ -1,21 +1,23 @@
 import { useRouter } from 'next/navigation';
 import { Fragment, RefObject } from 'react';
-import { Flex, FormInstance, InputRef } from 'antd';
+import { Flex, FormInstance, InputRef, Tooltip } from 'antd';
 
 import { useTr } from '@oxygen/translation';
-import { Button } from '@oxygen/ui-kit';
+import { Button, MarkText } from '@oxygen/ui-kit';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 
 import { ContentType } from './inquiry-component';
 import { InquiryType } from './types';
 import * as S from './item-exists.style';
+import WithBadge from '../with-badge/with-badge';
+import { useAppTheme } from '@oxygen/hooks';
 
 type Props = {
   form: FormInstance<{
     name: string;
   }>;
   changeContent: (c: ContentType) => void;
-  inputRef: RefObject<InputRef>;
+  inputRef: RefObject<InputRef | null>;
   data?: (string | number | undefined)[];
   type: InquiryType;
   itemName: string;
@@ -24,18 +26,14 @@ type Props = {
 const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type, itemName }) => {
   const [t] = useTr();
   const router = useRouter();
+  const theme = useAppTheme();
   const inspectAnother = () => {
     form.resetFields();
     changeContent('searching');
-    inputRef.current?.focus();
+    inputRef?.current?.focus();
   };
   const titles: Record<InquiryType, string[]> = {
-    service: [
-      t('uikit.en_service_name'),
-      t('uikit.desc'),
-      t('uikit.element_en_name', { element: t('element.scope') }),
-      t('uikit.element_fa_name', { element: t('element.scope') }),
-    ],
+    service: [t('uikit.en_service_name'), t('uikit.desc'), t('uikit.element_en_name', { element: t('element.scope') })],
     client: [
       t('uikit.organization_name'),
       t('uikit.organization_id'),
@@ -64,15 +62,30 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
         <i className='icon-box-search' style={{ fontSize: '2.2rem' }} />
         <S.StyledText>{t('uikit.item_already_exists', { element: t(`element.${type}`) })}</S.StyledText>
       </S.TitleContainer>
-      <Flex justify='center' gap={'1rem'} style={{ width: '100%' }}>
+      <Flex justify='center' gap={'1rem'} style={{ width: '100%', direction: 'inherit' }}>
         {/* <S.Partition style={{ justifyContent: 'end' }}>  */}
         {titles[type].map((item, index) => (
           <Fragment key={item}>
-            <div style={{ flex: '1 1 0%' }}>
+            <div style={{ flex: '1 1 0%', direction: 'ltr' }}>
               <S.InfoTitle>{item}</S.InfoTitle>
-              <S.CenteredText>{getValueOrDash(data?.[index])}</S.CenteredText>
+              {typeof data?.[index] === 'object' ? (
+                <S.CenteredText>
+                  <WithBadge
+                    items={data?.[index]}
+                    onRender={(value) => (
+                      <MarkText
+                        text={getValueOrDash(value, '')}
+                        highlightColor={theme.secondary.main}
+                        wordToHighlight=''
+                      />
+                    )}
+                  />
+                </S.CenteredText>
+              ) : (
+                <S.CenteredText>{getValueOrDash(data?.[index], '')}</S.CenteredText>
+              )}
             </div>
-            {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />}
+            {/* {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />} */}
           </Fragment>
         ))}
       </Flex>

@@ -10,13 +10,12 @@ import { UpstreamListData } from '../../types';
 import Api from '../api';
 export type UseUpstreamListQueryParamsType = {
   serviceName: Nullable<string>;
-  id: Nullable<string | number>;
 };
 export const useUpstreamListQuery = (params: UseUpstreamListQueryParamsType) => {
-  const { serviceName, id } = params;
+  const { serviceName } = params;
   const dispatch = useAppDispatch();
   return useQuery<UpstreamListData>({
-    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST, serviceName, id],
+    queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST, serviceName],
     queryFn: withErrorHandling(() => Api.getUpstreamList(serviceName), dispatch),
   });
 };

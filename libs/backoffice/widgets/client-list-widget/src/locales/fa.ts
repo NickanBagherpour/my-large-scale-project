@@ -1,6 +1,6 @@
 export default {
   widget_name: 'لیست کلاینت‌ها',
-  search_by_name_or_id: 'جستجو براساس نام یا ID',
+  search_by_name_or_id: 'جستجو براساس نام',
   upload_client: 'بارگذاری کلاینت',
   create_new_client: 'ایجاد کلاینت جدید',
   all_clients: 'همه کلاینت‌ها',
@@ -20,4 +20,5 @@ export default {
   save_changes: 'ذخیره تغییرات',
   are_you_sure_to_remove: 'آیا از حذف پیش‌نویس {{name}} اطمینان دارید؟',
   remove_draft: 'حذف پیش‌نویس',
+  draft_was_remove: 'پیش‌نویس با موفقیت حذف شد',
 };

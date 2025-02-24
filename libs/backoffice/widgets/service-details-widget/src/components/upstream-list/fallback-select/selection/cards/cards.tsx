@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
-import * as S from './cards.style';
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
 import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
+
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
+
+import * as S from './cards.style';
+
 export type CardProps = PageProps & {
   name?: string;
   description?: string;
@@ -27,31 +30,34 @@ export const Cards = (props: CardProps) => {
 
   const [clickedCard, setClickedCard] = useState('');
 
+  useEffect(() => {
+    if (!state.upstreamTab.activeSelect.cardId) {
+      setClickedCard('');
+    }
+  }, [state.upstreamTab.activeSelect]);
+
   const handleClick = (data) => {
     setClickedCard(data.id);
     updateUpstreamAction(dispatch, { ...state.upstreamTab.activeSelect, cardId: data.name });
   };
+
   return (
-    <>
-      {loading ? (
-        <Loading style={{ height: '5rem', marginTop: '3rem' }} />
-      ) : (
-        <S.CardContainer>
-          {cardData?.map((data, index) => (
-            <GridCard
-              serversCount={data.activeServerCount}
-              key={index}
-              title={data.name}
-              status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
-              hasSetting={false}
-              isSelected={+clickedCard === data.id}
-              onClick={() => handleClick(data)}
-              isHeaderLtr={true}
-              wordToHighlight={wordToHighlight}
-            />
-          ))}
-        </S.CardContainer>
-      )}
-    </>
+    <Loading spinning={loading}>
+      <S.CardContainer>
+        {cardData?.map((data, index) => (
+          <GridCard
+            serversCount={data.activeServerCount}
+            key={index}
+            title={data.name}
+            status={data.activeServerCount !== 0 ? 'active' : 'inactive'}
+            hasSetting={false}
+            isSelected={+clickedCard === data.id}
+            onClick={() => handleClick(data)}
+            isHeaderLtr={true}
+            wordToHighlight={wordToHighlight}
+          />
+        ))}
+      </S.CardContainer>
+    </Loading>
   );
 };

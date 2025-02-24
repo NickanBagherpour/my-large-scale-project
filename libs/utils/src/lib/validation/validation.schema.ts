@@ -16,8 +16,8 @@ export const createValidationSchema = (
         invalid_type_error: t('validation.required') /* if value is null */,
       })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
-      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) }),
 
     simpleRequired: z
       .string({
@@ -25,7 +25,7 @@ export const createValidationSchema = (
         invalid_type_error: t('validation.required') /* if value is null */,
       })
       .trim()
-      .min(1, { message: t('validation.required') })
+      .min(1, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
 
     datePicker: z.preprocess(
@@ -71,18 +71,30 @@ export const createValidationSchema = (
     english: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.isLatinText, {
+      .regex(REGEX_PATTERNS.isenglishText, {
         message: t('validation.english_name_error'),
       }),
-
+    englishWithoutWhitespace: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.isenglishText, {
+        message: t('validation.english_name_error'),
+      })
+      .regex(REGEX_PATTERNS.noWhitespace, {
+        message: t('validation.no_whitespace'),
+      }),
     persian: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -93,7 +105,7 @@ export const createValidationSchema = (
     organizationNumber: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
-      .min(limits.ORGANIZATION_NUMBER, { message: t('validation.required') })
+      .min(limits.ORGANIZATION_NUMBER, { message: t('validation.min_length') })
       .max(limits.ORGANIZATION_NUMBER, {
         message: t('validation.max_length'),
       })
@@ -135,7 +147,7 @@ export const createValidationSchema = (
       .max(limits.VERSION_MAX, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.positiveNumber, {
+      .regex(REGEX_PATTERNS.version, {
         message: t('validation.only_digit_message'),
       }),
 
@@ -155,16 +167,17 @@ export const createValidationSchema = (
     defaultEnglishName: z // "-", "_‌", ".", numbers, only english alphabet
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.english_name_error')),
+      .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.english_name_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     defaultPersianName: z // "-", "_‌", ".", numbers, english and persian alphabet
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -174,7 +187,7 @@ export const createValidationSchema = (
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -186,7 +199,7 @@ export const createValidationSchema = (
     optionalProtocolUrl: z //optional Protocol Url
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -198,7 +211,7 @@ export const createValidationSchema = (
     nationalCode: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -207,7 +220,7 @@ export const createValidationSchema = (
     phoneNumber: z
       .string({ required_error: 'validation.required' })
       .trim()
-      .min(limits.PHONE_NUMBER, { message: t('validation.required') })
+      .min(limits.PHONE_NUMBER, { message: t('validation.min_length') })
       .max(limits.PHONE_NUMBER, {
         message: t('validation.max_length'),
       })
@@ -216,7 +229,7 @@ export const createValidationSchema = (
     email: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.required') })
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
@@ -225,7 +238,7 @@ export const createValidationSchema = (
     positiveNumber: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.positiveNumber, t('validation.field_error')),
 
@@ -235,38 +248,76 @@ export const createValidationSchema = (
       })
       .min(1, { message: t('validation.choose_at_least_one_option') }),
 
+    codeTitle: z
+      .array(
+        z.object({
+          code: z.number(),
+          title: z.string(),
+        }),
+        { message: t('validation.required') }
+      )
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    hostArray: z
+      .string()
+      .refine(
+        (value) => {
+          if (/^\d/.test(value)) {
+            return REGEX_PATTERNS.ip.test(value);
+          } else {
+            return REGEX_PATTERNS.notHttpUrlPattern.test(value) && REGEX_PATTERNS.defaultEnglishName.test(value);
+          }
+        },
+        { message: t('validation.field_error') }
+      )
+      .array()
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
+    pathArray: z
+      .string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required'),
+      })
+      .trim()
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) })
+      .regex(REGEX_PATTERNS.path, t('validation.field_error'))
+      .array()
+      .min(1, { message: t('validation.choose_at_least_one_option') }),
+
     path: z // "-", "_‌", ".", numbers, only english alphabet and starts with '/'
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.path, t('validation.url_error')),
 
     host: z // domain address without protocol or ip address
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.host, t('validation.url_error')),
 
     domain: z // domain address
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.DEFAULT_MAX_LENGTH, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }))
-      .regex(REGEX_PATTERNS.domain, t('validation.url_error')),
+      .regex(REGEX_PATTERNS.domain, t('validation.url_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     tel: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.tel, t('validation.tel_error')),
 
     description: z
       .string({ required_error: t('validation.phone_error') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.description, t('validation.field_error')),
 
@@ -279,7 +330,7 @@ export const createValidationSchema = (
     upstreamServerWeight: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(1, t('validation.required'))
+      .min(1, t('validation.min_length'))
       .max(
         limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH,
         t('validation.max_len', { val: limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH })
@@ -290,7 +341,7 @@ export const createValidationSchema = (
     upstreamServerDomain: z
       .string({ required_error: t('validation.required') })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, t('validation.required'))
+      .min(limits.DEFAULT_MIN_LENGTH, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.host_domain_error'))
       .refine((value) => value !== '', { message: t('validation.required') }),

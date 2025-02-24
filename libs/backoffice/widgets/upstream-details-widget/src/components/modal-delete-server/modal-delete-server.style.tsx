@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box, Button, Modal as UikitModal } from '@oxygen/ui-kit';
+import { Box, Button, Modal as UikitModal, Divider as UikitDivider } from '@oxygen/ui-kit';
 import { Form } from 'antd';
 
 export const StyledModal = styled(UikitModal)`
@@ -8,12 +8,8 @@ export const StyledModal = styled(UikitModal)`
     padding: 0;
   }
   .ant-modal-content {
-    padding: 2.4rem 1.6rem 3.2rem 1.6rem;
+    padding: 1.6rem;
     border-radius: 2.7rem;
-  }
-
-  .ant-modal-footer {
-    margin: 0 2.5rem;
   }
 
   .ant-modal-header {
@@ -32,13 +28,17 @@ export const StyledModal = styled(UikitModal)`
 export const StyledHeader = styled(Box)`
   display: flex;
   justify-content: space-between;
-  padding: 0 2.4rem;
+  //padding: 0 2.4rem;
 `;
 
+export const Divider = styled(UikitDivider)`
+  margin: 1.6rem 0;
+`;
 export const StyledTitle = styled('span')`
   font-size: 1.9rem;
   font-weight: 700;
   line-height: 3rem;
+  padding: 0.8rem;
 `;
 export const StyledCloseIcon = styled('i')`
   font-size: 2.4rem;
@@ -51,7 +51,10 @@ export const StyledCloseIcon = styled('i')`
 `;
 
 export const StyledContainer = styled('div')`
-  padding: 0 2.6rem;
+  //padding: 2.4rem;
+`;
+export const DeleteResultContainer = styled('div')`
+  padding: 1.6rem;
 `;
 export const StyledForm = styled(Form)`
   .ant-form-item:not(:last-of-type) {
@@ -67,6 +70,7 @@ export const StyledForm = styled(Form)`
 ` as typeof Form;
 
 export const StyledButton = styled(Button)`
+  min-height: 5.6rem;
   width: 100%;
   &:not(:last-of-type) {
     margin-bottom: 0.8rem;
@@ -79,6 +83,7 @@ export const ModalMessage = styled.div`
   align-items: center;
   padding: 1rem;
   margin-bottom: 1.6rem;
+  font-weight: 600;
 
   .delete-modal {
     background-color: red;
@@ -90,7 +95,7 @@ export const ModalMessage = styled.div`
 `;
 
 export const TableContainer = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 1.6rem;
 
   div.ant-table {
     min-height: fit-content;

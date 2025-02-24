@@ -2,8 +2,9 @@ import React from 'react';
 
 import { TFunction } from 'i18next';
 
-import { ColumnsType, Table, MobileColumnType, HistoryCell } from '@oxygen/ui-kit';
-import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
+import { convertShamsiDateFormat, getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
+import { ColumnsType, HistoryCell, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { WithBadge } from '@oxygen/reusable-components';
 import { Nullable } from '@oxygen/types';
 
 import { NormalizedClientHistoryItemType } from '../types';
@@ -21,18 +22,16 @@ function renderGrantType(record) {
     { key: 'isClientFlow', label: 'Client Flow' },
     { key: 'isImplicitFlow', label: 'Implicit Flow' },
     { key: 'isPasswordFlow', label: 'Password Flow' },
+    { key: 'isRefreshToken', label: 'Refresh Token' },
   ];
 
   if (!record) return { value: getValueOrDash(''), hasDifference: false };
 
   const hasDifference = grantTypes.some(({ key }) => record[key]?.hasDifference === true);
 
-  const grantTypeLabels = grantTypes
-    .filter(({ key }) => record[key]?.value === true)
-    .map(({ label }) => label)
-    .join(', ');
+  const grantTypeLabelsArray = grantTypes.filter(({ key }) => record[key]?.value === true).map(({ label }) => label);
 
-  return { value: getValueOrDash(grantTypeLabels), hasDifference: hasDifference };
+  return { value: grantTypeLabelsArray, hasDifference: hasDifference };
 }
 
 export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHistoryItemType> {
@@ -43,18 +42,19 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_date'),
       dataIndex: 'modifyDate',
       align: 'center',
-      width: 'min-content',
+      // width: 'min-content',
+      ellipsis: true,
       render: (column) => {
-        return convertShamsiDateFormat(column?.value);
+        return convertShamsiDateFormat(column?.value, true);
       },
     },
     {
       title: t('table.modify_by'),
-      dataIndex: 'modifyBy',
+      dataIndex: 'userName',
       align: 'center',
       ellipsis: true,
       render: (column) => {
-        return getValueOrDash(column?.value);
+        return <HistoryCell item={column} />;
       },
     },
     {
@@ -64,9 +64,9 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       width: 'min-content',
       render: (_value, record) => {
         const variant = record?.revType?.code?.value;
-        const isDeleted = record?.deleted?.value;
+        const isdeleted = record?.isDeleted?.value;
         return (
-          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+          <S.RevisionType variant={variant} $isdeleted={isdeleted}>
             {getValueOrDash(record?.revType?.title?.value)}
           </S.RevisionType>
         );
@@ -75,11 +75,20 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      ellipsis: true,
-      // className: 'right-to-left',
+      ellipsis: { showTitle: false },
+      width: '20rem',
       render: (_value, record) => {
         const grantType = renderGrantType(record);
-        return <HistoryCell item={grantType} />;
+
+        return (
+          <S.valueWrapper>
+            <WithBadge
+              items={grantType.value}
+              // onRender={() => <HistoryCell item={grantType} />}
+            />
+            <HistoryCell item={grantType} showValue={false} />
+          </S.valueWrapper>
+        );
       },
     },
     {
@@ -147,17 +156,14 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
       key: 'mobile-columns',
       render: (value) => {
         const columns: MobileColumnType[] = [
+          { title: t('table.edit_time'), value: getValueOrDash(value?.editTime) },
           {
-            title: t('table.edit_time'),
-            value: getValueOrDash(value?.editTime),
-          },
-          {
-            title: t('table.admin_name'),
+            title: t('table.user_name'),
             value: getValueOrDash(value?.adminName),
           },
           {
-            title: t('table.client_latin_name'),
-            value: getValueOrDash(value?.clientLatinName),
+            title: t('table.client_english_name'),
+            value: getValueOrDash(value?.clientenglishName),
           },
           {
             title: t('table.client_farsi_name'),

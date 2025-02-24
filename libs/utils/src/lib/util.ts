@@ -115,6 +115,10 @@ export function mergeObjects(obj1: any, obj2: any) {
   return result;
 }
 
+export const widthByButtonCount = (count = 1): string => {
+  return `${count * 7.5}rem`;
+};
+
 export const getValueByKey = (targetEnum: object, key: string) => {
   let value = null;
 
@@ -257,13 +261,12 @@ export function convertToEnglishNumbers(text) {
   return text.replace(/[٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹]/g, (match) => arabicPersianMap[match]);
 }
 
-export function convertShamsiDateFormat(dateString) {
+export function convertShamsiDateFormat(dateString, showSecond = false) {
   if (dateString) {
     const [datePart, timePart] = dateString.split(' ');
 
-    const [hours, minutes] = timePart.split(':');
-
-    const newFormat = `${datePart}\u00A0\u00A0\u00A0\u00A0${hours}:${minutes}`;
+    const [hours, minutes, seconds] = timePart.split(':');
+    const newFormat = `${datePart}\u00A0\u00A0\u00A0\u00A0${hours}:${minutes}${showSecond ? `:${seconds}` : ''}`;
 
     return newFormat;
   } else {

@@ -1,9 +1,14 @@
 import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, Modal } from '@oxygen/ui-kit';
+import { Button } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 
+import { FallbackSelect } from '../../fallback-select/fallback-select';
+
+import { useAppState } from '../../../../context';
+
 import * as S from './remove-service-modal.style';
+import { useEffect, useState } from 'react';
 
 type Props = {
   isOpen: boolean;
@@ -16,28 +21,43 @@ export default function RemoveServiceModal(props: Props) {
   const [t] = useTr();
   const { isOpen, cancelToggle, deleteToggle, id } = props;
   const theme = useAppTheme();
+  const state = useAppState();
+
+  const [Query, setQuery] = useState({ page: 1, searchTerm: '' });
+
+  useEffect(() => {
+    setQuery((prev) => ({ ...prev, page: 1 }));
+  }, [isOpen]);
 
   return (
-    <Modal
+    <S.Modal
       centered
-      title={t('upstream_tab.remove_upstream')}
+      title={
+        <S.MarkText
+          text={t('upstream_tab.description', { id })}
+          wordToHighlight={id ?? ''}
+          highlightColor={theme.error.main}
+        />
+      }
       open={isOpen}
-      closable={true}
-      onCancel={cancelToggle}
+      closeIcon={false}
       footer={[
-        <Button onClick={cancelToggle} color='primary' variant='outlined'>
+        <Button key={'cancelButton'} onClick={cancelToggle} color='primary' variant='outlined'>
           {t('button.cancel')}
         </Button>,
-        <Button onClick={deleteToggle} color='error'>
-          {t('remove')}
+        <Button
+          key={'deleteButton'}
+          disabled={Boolean(!state.upstreamTab.activeSelect.cardId)}
+          onClick={deleteToggle}
+          color='error'
+        >
+          {t('upstream_tab.replace_upstream')}
         </Button>,
       ]}
     >
-      <S.MarkText
-        text={t('upstream_tab.are_you_sure_to_remove', { id })}
-        wordToHighlight={id ?? ''}
-        highlightColor={theme.error.main}
-      />
-    </Modal>
+      <FallbackSelect isOpenModal={isOpen} setQuery={setQuery} Query={Query} />
+    </S.Modal>
   );
 }
+
+//checked

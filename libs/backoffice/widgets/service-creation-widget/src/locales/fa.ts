@@ -17,16 +17,14 @@ export default {
   enter_owner: 'مالک را وارد نمایید',
   tag: 'تگ',
   enter_tag: 'تگ مورد نظر را نتخاب نمایید',
-  register_info: 'ثبت اطلاعات',
 
   attention: 'توجه',
-  proceed_notice:
-    'توجه داشته باشید در صورت ثبت اطلاعات و رفتن به مرحله بعد، نام سرویس، نام اسکوپ و Path قابل تغییر و ویرایش نخواهد بود. ',
+  proceed_notice: 'توجه داشته باشید در صورت ثبت اطلاعات و رفتن به مرحله بعد، اسکوپ  قابل تغییر و ویرایش نخواهند بود.',
   service_name: 'نام سرویس',
 
   choose_scope: 'انتخاب اسکوپ',
   scope_name: 'نام اسکوپ',
-  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن (برای شروع جستجو حداقل سه حرف وارد کنید)',
+  scope_name_from_o2_or_scope: 'نام اسکوپ از SSO یا اکسیژن ',
   scope_library: 'کتابخانه اسکوپ',
   choose: 'انتخاب',
   add: 'افزودن',
@@ -41,6 +39,9 @@ export default {
   submit_and_add: 'تایید و افزودن',
   cancel: 'انصراف',
   continue: 'ادامه',
+  confirm_remove_msg: 'آیا از حذف اسکوپ {{name}} برای این سرویس اطمینان دارید؟',
+  remove_scope: 'حذف اسکوپ',
+  remove: 'حذف',
 
   upstream: 'آپ استریم',
   choose_upstream: 'انتخاب آپ‌استریم',
@@ -59,6 +60,7 @@ export default {
   path: 'Path',
   host: 'Host',
   route: 'Route',
+  route_name: 'نام Route',
 
   service_general_info: 'اطلاعات کلی سرویس',
   confirm_data: 'تایید اطلاعات',

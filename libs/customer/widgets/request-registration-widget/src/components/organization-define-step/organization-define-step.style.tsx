@@ -47,10 +47,6 @@ export const RepresentativesInfoItemContainer = styled.div`
 export const Divider = styled(KitDivider)`
   border-color: ${(p) => p.theme.background._200};
   margin-top: 1.6rem;
-
-  /* ${respondTo.down('lg')} {
-    display: none;
-  } */
 `;
 
 export const InfoItemContainer = styled.div`

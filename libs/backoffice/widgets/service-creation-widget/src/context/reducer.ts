@@ -1,4 +1,3 @@
-import { steps } from '../components/app/app';
 import { StepIndex, WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
@@ -17,13 +16,15 @@ export const initialStateValue: WidgetStateType = {
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
   switch (action.type) {
     case 'NEXT_STEP': {
-      if (state.step !== null && state.step < steps.length - 1) {
+      const stepsLength = initialStateValue.stepStatuses.length;
+
+      if (state.step !== null && state.step < stepsLength - 1) {
         state.stepStatuses[state.step].status = 'finish';
 
         const maybeNextStepIndex = state.stepStatuses.findIndex(
           (item) => item.status === 'wait' || item.status === 'error'
         );
-        const nextStepIndex = (maybeNextStepIndex !== -1 ? maybeNextStepIndex : steps.length - 1) as StepIndex;
+        const nextStepIndex = (maybeNextStepIndex !== -1 ? maybeNextStepIndex : stepsLength - 1) as StepIndex;
 
         state.step = nextStepIndex;
         const nextStepStatus = state.stepStatuses[nextStepIndex].status;

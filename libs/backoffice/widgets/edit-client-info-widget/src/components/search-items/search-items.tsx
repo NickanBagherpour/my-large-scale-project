@@ -6,8 +6,8 @@ import { CLIENT_NAME_LIMIT, TEXT_INPUT_LIMIT } from '../../utils/consts';
 
 const SearchItems = ({ rule, t, clientTypes, isClientTypesFetching, loadingUpdateClient, isSuccess }) => (
   <>
-    <Form.Item name={FORM_ITEM_NAMES.latinNameClient} label={t('form.latin_name_client')} rules={[rule]}>
-      <Input placeholder={t('placeholder.latin_name_client')} maxLength={CLIENT_NAME_LIMIT} disabled />
+    <Form.Item name={FORM_ITEM_NAMES.englishNameClient} label={t('form.english_name_client')} rules={[rule]}>
+      <Input placeholder={t('placeholder.english_name_client')} maxLength={CLIENT_NAME_LIMIT} disabled />
     </Form.Item>
     <Form.Item name={FORM_ITEM_NAMES.persianNameClient} label={t('form.persian_name_client')} rules={[rule]}>
       <Input placeholder={t('placeholder.persian_name_client')} maxLength={CLIENT_NAME_LIMIT} />
@@ -18,7 +18,6 @@ const SearchItems = ({ rule, t, clientTypes, isClientTypesFetching, loadingUpdat
     <Form.Item name={FORM_ITEM_NAMES.clientType} rules={[rule]} label={t('form.client_type')}>
       <Select
         disabled={loadingUpdateClient || isSuccess}
-        defaultValue={null}
         loading={isClientTypesFetching}
         size={'large'}
         placeholder={t('placeholder.credit_system')}

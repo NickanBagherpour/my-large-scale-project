@@ -25,10 +25,10 @@ export default function RemoveDraftModal(props: Props) {
       closable={true}
       onCancel={close}
       footer={[
-        <Button onClick={close} size='large' color='primary' variant='outlined' disabled={isLoading}>
+        <Button key={'cancel'} onClick={close} size='large' color='primary' variant='outlined' disabled={isLoading}>
           {t('button.cancel')}
         </Button>,
-        <Button onClick={remove} size='large' color='error' loading={isLoading} disabled={isLoading}>
+        <Button key={'delete'} onClick={remove} size='large' color='error' loading={isLoading} disabled={isLoading}>
           {t('button.delete')}
         </Button>,
       ]}

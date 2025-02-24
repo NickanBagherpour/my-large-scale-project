@@ -1,7 +1,7 @@
 export default {
   widget_name: 'Edit Scope',
   form: {
-    latin_name_scope: 'Scope Latin Name',
+    english_name_scope: 'Scope english Name',
     persian_name_scope: 'Scope Persian Name',
   },
 

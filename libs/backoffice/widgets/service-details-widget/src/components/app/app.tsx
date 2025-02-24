@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
-import { NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
 import { Button, Tabs } from '@oxygen/ui-kit';
 
 import { Nullable } from '@oxygen/types';
@@ -15,6 +15,7 @@ import { UpstreamList } from '../upstream-list/upstream-list';
 import ScopeList from '../scope-list/scope-list';
 import { useAssignToServiceMutation } from '../../services/upstream-tab/post-assign-to-service.api';
 import {
+  resetErrorMessageAction,
   updateServerNameAction,
   updateUpstreamTabCreationSubmitAction,
   useAppDispatch,
@@ -23,6 +24,9 @@ import {
 import { getValidTab } from '../../utils/tabs.util';
 
 import * as S from './app.style';
+import { Documentation } from '../documentation/documentation';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useGetServiceDetailsQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -55,7 +59,7 @@ const App: React.FC<AppProps> = (props) => {
   const servicename: Nullable<string> = searchParams.get('servicename');
   const title = servicename ? `${t('widget_name')} ${t(servicename)}` : t('widget_name');
   const { mutate, isPending } = useAssignToServiceMutation();
-
+  const { data: serviceDetails, isFetching: isServiceFetching } = useGetServiceDetailsQuery(servicename);
   useEffect(() => {
     updateServerNameAction(dispatch, servicename);
   }, [servicename]);
@@ -102,6 +106,11 @@ const App: React.FC<AppProps> = (props) => {
         });
       },
     },
+    {
+      key: 'documentation',
+      label: t('documentation'),
+      children: <Documentation />,
+    },
   ];
 
   const footerButton = (
@@ -109,24 +118,25 @@ const App: React.FC<AppProps> = (props) => {
       <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
         {t('button.return')}
       </ReturnButton>
-
-      {activeTabKey === 'upstream' && !state.upstreamTab.activeSelect.isInitialized && (
-        <Button
-          loading={isPending}
-          onClick={() => {
-            const currentTab = items.find((item) => item.key === activeTabKey);
-            currentTab?.onSubmit?.();
-          }}
-          disabled={isButtonDisabled()}
-        >
-          {t('save_changes')}
-        </Button>
-      )}
     </div>
   );
 
   return (
-    <S.AppContainer title={title} style={{ minHeight: '100%' }} footer={footerButton}>
+    <S.AppContainer
+      title={getWidgetTitle({
+        defaultTitle: t('widget_name'),
+        primaryTitle: serviceDetails?.persianName,
+        secondaryTitle: serviceDetails?.name,
+      })}
+      style={{ minHeight: '100%' }}
+      footer={footerButton}
+    >
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
       <Tabs
         defaultActiveKey='general-information'
         items={items}
