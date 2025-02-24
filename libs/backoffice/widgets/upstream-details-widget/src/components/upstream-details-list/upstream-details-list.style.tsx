@@ -1,11 +1,37 @@
 import styled from 'styled-components';
-import { Button, MarkText } from '@oxygen/ui-kit';
+import { Box, Button, MarkText } from '@oxygen/ui-kit';
+import { respondTo } from '@oxygen/utils';
+
+export const ServerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 1rem;
+  background-color: ${(props) => props.theme.onPrimary};
+  padding: 1.6rem;
+  border-radius: 1.6rem;
+
+  & tbody > tr > td:last-child {
+    width: 25rem;
+
+    ${respondTo.down('lg')} {
+      width: 20rem;
+    }
+
+    ${respondTo.down('md')} {
+      & i {
+        margin-left: 2rem;
+      }
+    }
+  }
+`;
 
 export const ServerContent = styled.div`
   flex-grow: 1;
 `;
 
 export const TableContainer = styled.div`
+  height: 100%;
   //
 `;
 
@@ -31,6 +57,12 @@ export const TrashButton = styled(Button)`
   & i {
     font-size: 2.4rem;
   }
+`;
+
+export const ActionBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: end;
 `;
 
 export const EditButton = styled(Button)`
