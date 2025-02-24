@@ -147,7 +147,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
   }
 
-  & .anticon svg {
+  .ant-notification-notice-wrapper .anticon svg {
     color: #e3e3e3;
   }
 
