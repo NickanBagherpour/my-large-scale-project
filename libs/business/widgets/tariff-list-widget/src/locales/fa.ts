@@ -3,4 +3,10 @@ export default {
   widget_Title: 'تنظیم تعرفه',
   search_placeholder: 'جستجو براساس نام انگلیسی سرویس',
   add_tariff: 'افزودن تعرفه',
+  service_name: 'نام سرویس',
+  banking_share: 'سهم بانکداری',
+  contribution_operational_team: 'سهم تیم عملیاتی',
+  tariff_type: 'نوع تعرفه',
+  tariff_amount: 'مبلغ تعرفه (ریال)',
+  see_details: 'مشاهده جزئیات',
 };
