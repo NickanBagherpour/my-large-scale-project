@@ -1,5 +1,5 @@
 import { client, portalUrl } from '@oxygen/client';
-import { cities, getAccountAmount, getCustomerAccounts } from '@oxygen/mockify';
+// import { cities, getAccountAmount, getCustomerAccounts } from '@oxygen/mockify';
 import { ApiUtil } from '@oxygen/utils';
 
 import { SaleParams } from './types';
