@@ -9,4 +9,10 @@ export default {
   tariff_type: 'نوع تعرفه',
   tariff_amount: 'مبلغ تعرفه (ریال)',
   see_details: 'مشاهده جزئیات',
+  remove_modal_title: 'حذف سرویس',
+  cancel: 'انصراف',
+  continue: 'ادامه',
+  confirm_remove_msg: 'آیا از حذف  {{name}}    اطمینان دارید؟',
+  remove_scope: 'حذف اسکوپ',
+  remove: 'حذف',
 };

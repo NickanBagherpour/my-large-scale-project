@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Table } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
@@ -8,6 +8,8 @@ import { useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns } from '../../utils/table-data-list';
 
 import * as S from './tariff-tabel.style';
+import { ConfirmRemoveModal } from '@oxygen/reusable-components';
+import { useToggle } from '@oxygen/hooks';
 
 export type TariffTablePropsType = PageProps & {
   tableData: any[];
@@ -20,6 +22,8 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
+  const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
+  const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
   const handlePageChange = async () => {
     console.log('current');
   };
@@ -50,18 +54,29 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
       version: 'Tariff 5',
     },
   ];
-  const desktopColumns = getDesktopColumns({ t });
-  const mobileColumns = getDesktopColumns({ t });
+  const desktopColumns = getDesktopColumns({ t, toggleRemoveModal, setServiceToUnassign });
   return (
     <S.TariffTableContainer>
       <Table
         loading={isLoading}
         dataSource={data}
         columns={desktopColumns}
-        mobileColumns={mobileColumns}
         onChange={handlePageChange}
         rowKey={(row) => row.id}
         showHeader={true}
+      />
+      <ConfirmRemoveModal
+        title={t('remove_modal_title')}
+        message={t('confirm_remove_msg', { name: serviceToUnassign })}
+        isOpen={isRemoveModalOpen}
+        close={() => {
+          toggleRemoveModal();
+        }}
+        isLoading={false}
+        onRemove={() => {
+          console.log('remove');
+        }}
+        wordToHighlight={serviceToUnassign || ''}
       />
     </S.TariffTableContainer>
   );

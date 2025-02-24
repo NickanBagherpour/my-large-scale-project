@@ -5,9 +5,11 @@ import { TFunction } from 'i18next';
 import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
 type Props = {
   t: TFunction;
+  toggleRemoveModal: () => void;
+  setServiceToUnassign: (serviceName: string) => void;
 };
 export function getDesktopColumns(props: Props): ColumnsType<Service> {
-  const { t } = props;
+  const { t, toggleRemoveModal, setServiceToUnassign } = props;
 
   return [
     {
@@ -55,7 +57,14 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
           <Button variant='link' color='primary' onClick={() => console.log('details', value.serviceName)}>
             {t('see_details')}
           </Button>
-          <Button variant='link' color='error' onClick={() => console.log('removeService')}>
+          <Button
+            variant='link'
+            color='error'
+            onClick={() => {
+              toggleRemoveModal();
+              setServiceToUnassign(record.serviceName);
+            }}
+          >
             <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
           </Button>
         </div>
