@@ -9,6 +9,9 @@ export type ServiceDocumentationHistory = {
   userName: string;
   fileName: string;
   isDeleted: boolean;
+  serviceDocumentDto: {
+    fileName: string;
+  };
   revisionDto: {
     revNumber: number;
     revType: {

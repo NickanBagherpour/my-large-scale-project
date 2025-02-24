@@ -9,7 +9,7 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { ContentType } from './inquiry-component';
 import { InquiryType } from './types';
 import * as S from './item-exists.style';
-import WithBadge from '../services/badge/badge';
+import WithBadge from '../with-badge/with-badge';
 import { useAppTheme } from '@oxygen/hooks';
 
 type Props = {
