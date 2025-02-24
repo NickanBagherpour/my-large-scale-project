@@ -7,7 +7,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, SearchItemsContainer, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
+import { Button, Box, Table, Loading, InfoBox } from '@oxygen/ui-kit';
 import { useQueryParams } from '@oxygen/hooks';
 
 import { InfoBoxType, requestRegistrationFormSchema } from '../../types';
@@ -97,13 +97,6 @@ const FinalConfirmStep: React.FC<FinalConfirmStepProps> = (props) => {
     setCurrentStep((perv) => perv - 1);
   };
 
-  const isAggregator = requestData?.organization?.isAggregator;
-  const aggregatorName = requestData?.organization?.aggregatorName;
-  const aggregatorStatus = isAggregator
-    ? t('company_is_aggregator')
-    : aggregatorName
-    ? t(`company_has_aggregator_with_name`, { aggregatorName })
-    : t('company_has_not_aggregator');
   const sortedRepresentatives = requestData?.representativeSet.sort(
     (a, b) => a.representativeType - b.representativeType
   );

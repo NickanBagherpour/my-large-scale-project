@@ -5,4 +5,5 @@ export const INITIAL_PAGE = 1;
 export enum REVISION_TYPE {
   ADD = 0,
   UPDATE = 1,
+  DELETE = 2,
 }
