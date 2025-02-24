@@ -148,7 +148,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-notification-notice-wrapper .anticon svg {
-    color: #e3e3e3;
+    color: ${(props) => props.theme.onPrimary};
   }
 
   .ant-notification, .ant-notification-stack-expanded {
