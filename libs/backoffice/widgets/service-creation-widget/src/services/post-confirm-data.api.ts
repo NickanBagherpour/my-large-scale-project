@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addStepErrors, ErrorPayload, StepNames, updateMessageAction, useAppDispatch, useAppState } from '../context';
+import { addStepErrors, ErrorPayload, StepNames, useAppDispatch, useAppState } from '../context';
 import Api from './api';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { AxiosError, isAxiosError } from 'axios';
+import { getErrorMsg } from '../utils/error-msg';
+import { useTr } from '@oxygen/translation';
+import { ErrorMsg } from '../types/shared.type';
 
 const errorsMap = {
   'service.name': { stepName: 'generalInfo', inputName: 'englishName' },
@@ -32,10 +35,11 @@ function isPublisherError(err: AxiosError<unknown>): err is AxiosError<Publisher
 
 const { SERVICES_LIST, SERVICE } = RQKEYS.BACKOFFICE;
 
-export const usePostConfirmData = () => {
+export const usePostConfirmData = (setErrorMsg: (err: ErrorMsg | null) => void) => {
   const dispatch = useAppDispatch();
   const { serviceName } = useAppState();
   const queryClient = useQueryClient();
+  const [t] = useTr();
 
   return useMutation({
     mutationFn: () => Api.postCofirmData(serviceName),
@@ -46,7 +50,7 @@ export const usePostConfirmData = () => {
     onError: (e) => {
       if (isAxiosError(e) && isPublisherError(e)) {
         const errorsObj = e?.response?.data?.errors;
-        if (errorsObj) {
+        if (errorsObj && Object.keys(errorsObj).length) {
           const stepErrors = Object.entries(errorsObj).reduce(
             (acc, [key, value]) => ({
               ...acc,
@@ -54,12 +58,11 @@ export const usePostConfirmData = () => {
             }),
             {} as ErrorPayload
           );
-          addStepErrors(dispatch, stepErrors);
+          return void addStepErrors(dispatch, stepErrors);
         }
-      } else {
-        const err = ApiUtil.getErrorMessage(e);
-        updateMessageAction(dispatch, err);
       }
+      const err = ApiUtil.getErrorMessage(e);
+      setErrorMsg(getErrorMsg({ msg: err, t }));
     },
   });
 };

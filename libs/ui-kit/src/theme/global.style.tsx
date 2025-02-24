@@ -147,6 +147,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
   }
 
+  .ant-notification-notice-wrapper .anticon svg {
+    color: #e3e3e3;
+  }
 
   .ant-notification, .ant-notification-stack-expanded {
     font-family: inherit !important;

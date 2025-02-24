@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { MessageType, Nullable } from '@oxygen/types';
-// import { steps } from '../components/app/app';
 import { StepProps } from 'antd';
 
 // Partial<T>["length"] gives a union of all possible lengths of the array when elements are optional.
 // T["length"] gives the exact length of the original array.
 // Exclude removes the exact length of the array from the union of possible lengths, leaving only values that represent valid indices for T
-// type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
+type Indices<T extends readonly unknown[]> = Exclude<Partial<T>['length'], T['length']>;
 
-export type StepNames = 'generalInfo' | 'scope' | 'upstream' | 'route' | 'confirmData';
-// export type StepIndex = Indices<typeof steps>;
-export type StepIndex = 0 | 1 | 2 | 3 | 4 | 5;
+export const stepNames = ['generalInfo', 'scope', 'upstream', 'route', 'confirmData'] as const;
+
+export type StepNames = (typeof stepNames)[number];
+export type StepIndex = Indices<typeof stepNames>;
 export type Statuses = StepProps['status'];
 
 export type WidgetStateType = {
@@ -24,7 +24,6 @@ export type WidgetStateType = {
   message: Nullable<MessageType>;
 };
 
-// TODO: extract this type from WidgetStateType
 export type ErrorPayload = { [K in StepNames]: Record<string, string> };
 
 export type WidgetActionType =
@@ -48,7 +47,7 @@ export type WidgetActionType =
     }
   | {
       type: 'ADD_STEP_ERRORS';
-      payload: ErrorPayload;
+      payload: NonNullable<ErrorPayload>;
     }
   | {
       type: 'GO_TO_FIRST_ERROR';
