@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';

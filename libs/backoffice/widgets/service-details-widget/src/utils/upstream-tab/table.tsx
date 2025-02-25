@@ -33,7 +33,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       align: 'center',
       ellipsis: true,
       render: (value, record) => {
-        return getValueOrDash(value ?? t('upstream_tab.healthy'));
+        return value ?? t('upstream_tab.healthy');
       },
     },
     {
