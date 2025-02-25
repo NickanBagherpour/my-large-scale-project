@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import * as S from './top-section.style';
+
 import { PageProps } from '@oxygen/types';
-import { useBounce, useToggle } from '@oxygen/hooks';
-import { updateSearchValueAction, useAppDispatch } from '../../context';
 import { useTr } from '@oxygen/translation';
+import { useBounce, useToggle } from '@oxygen/hooks';
 import { InquiryComponent } from '@oxygen/reusable-components';
+
+import { updateSearchValueAction, useAppDispatch } from '../../context';
+
+import * as S from './top-section.style';
+
 type TopSectionPropsType = PageProps & {
   //
 };

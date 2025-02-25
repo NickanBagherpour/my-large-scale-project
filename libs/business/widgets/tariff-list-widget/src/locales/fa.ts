@@ -15,4 +15,5 @@ export default {
   confirm_remove_msg: 'آیا از حذف  {{name}}    اطمینان دارید؟',
   remove_scope: 'حذف اسکوپ',
   remove: 'حذف',
+  error_notif: 'خطایی رخ داده است',
 };
