@@ -17,8 +17,6 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
 
   const queryParams = useQueryParams();

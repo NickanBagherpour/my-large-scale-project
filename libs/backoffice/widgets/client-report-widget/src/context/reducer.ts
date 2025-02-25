@@ -1,11 +1,5 @@
-import { FormFieldsType } from '../types';
 import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
-
-// const initialFilters: FormFieldsType = {
-//   name: null,
-//   code: null,
-// };
 
 export const initialStateValue: WidgetStateType = {
   searchTerm: '',
@@ -22,7 +16,6 @@ export const initialStateValue: WidgetStateType = {
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  //console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;

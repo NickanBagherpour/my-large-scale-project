@@ -26,3 +26,13 @@ export const Title = styled.h2`
   font-size: 1.6rem;
   margin-bottom: 2.4rem;
 `;
+
+export const Tags = styled.div`
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  && > span {
+    margin: 0;
+  }
+`;

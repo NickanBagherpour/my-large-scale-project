@@ -1,9 +1,9 @@
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import * as S from '../services.style';
+import * as S from '../components/services/services.style';
 import { TFunction } from 'i18next';
-import { Service } from './services.type';
-import WithBadge from '../badge/badge';
+import WithBadge from '../../with-badge/with-badge';
 import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
+import { Service } from '../types/services';
 
 type Props = {
   t: TFunction;

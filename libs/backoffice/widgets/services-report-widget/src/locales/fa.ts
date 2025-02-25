@@ -11,7 +11,9 @@ export default {
     persian_name: 'نام فارسی',
     scope: 'اسکوپ',
     status: 'وضعیت',
-    clients_report: 'گزارش کلاینت‌ها',
+    detail_report: 'گزارش تفصیلی',
+    inActive: 'متوقف',
+    active: 'عملیاتی',
   },
   filter: {
     newest: 'جدیدترین',
