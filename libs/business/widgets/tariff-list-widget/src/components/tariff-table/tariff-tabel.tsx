@@ -24,13 +24,14 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
 
   const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
   const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
+  //TODO: handle the pagination change
   const handlePageChange = async () => {
     console.log('current');
   };
   const data = [
     {
       id: 1,
-      serviceName: 'Tariff 1',
+      serviceName: 'Tariff 11',
       persianName: 'Tariff 2',
       scope: 'Tariff 3',
       url: 'Tariff 4',
@@ -38,7 +39,7 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
     },
     {
       id: 2,
-      serviceName: 'Tariff 1',
+      serviceName: 'Tariff 22',
       persianName: 'Tariff 2',
       scope: 'Tariff 3',
       url: 'Tariff 4',
@@ -47,7 +48,23 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
 
     {
       id: 3,
-      serviceName: 'Tariff 1',
+      serviceName: 'Tariff 33',
+      persianName: 'Tariff 2',
+      scope: 'Tariff 3',
+      url: 'Tariff 4',
+      version: 'Tariff 5',
+    },
+    {
+      id: 4,
+      serviceName: 'Tariff 44',
+      persianName: 'Tariff 2',
+      scope: 'Tariff 3',
+      url: 'Tariff 4',
+      version: 'Tariff 5',
+    },
+    {
+      id: 5,
+      serviceName: 'Tariff 55',
       persianName: 'Tariff 2',
       scope: 'Tariff 3',
       url: 'Tariff 4',

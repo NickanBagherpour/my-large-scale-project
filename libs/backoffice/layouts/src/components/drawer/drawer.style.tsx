@@ -70,9 +70,9 @@ export const MenuWrapper = styled.div`
     li.ant-menu-item,
     li.ant-menu-submenu {
       margin: 0 auto;
-      text-wrap: unset;
+      /* text-wrap: unset; */
       line-height: 1.5;
-      height: 4.4rem;
+      min-height: 4.4rem;
     }
 
     li.ant-menu-item i,
@@ -120,7 +120,6 @@ export const MenuWrapper = styled.div`
   }
 
   ${hideScrollbar()};
-
 `;
 
 export const SiderItemsWrapper = styled.div`
