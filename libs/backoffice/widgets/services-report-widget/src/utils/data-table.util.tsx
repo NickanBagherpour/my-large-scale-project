@@ -6,6 +6,8 @@ import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/u
 import { WithBadge } from '@oxygen/reusable-components';
 import { ITheme, Pagination } from '@oxygen/types';
 
+import { ServiceDto } from '../types';
+
 import * as S from '../components/data-table/data-table.style';
 
 type Props = {
@@ -17,7 +19,7 @@ type Props = {
   setServiceName: (value: ((prevState: string) => string) | string) => void;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<any> {
+export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
   const {
     t,
     pagination: { page, rowsPerPage },
@@ -101,21 +103,17 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       width: widthByButtonCount(2),
       render: (value, record) => (
         <S.ActionBox>
-          <Button
-            variant={'link'}
-            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-            size={'small'}
-          >
+          <Button variant={'link'} size={'small'} disabled={true}>
             {t('table.detail_report')}
           </Button>
           <Button
             variant={'link'}
             size={'small'}
-            href={''}
-            onClick={() => {
-              setOpenModal(true);
-              setServiceName(record?.name);
-            }}
+            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
+            // onClick={() => {
+            //   setOpenModal(true);
+            //   setServiceName(record?.name);
+            // }}
           >
             {t('button.detail')}
           </Button>
@@ -125,7 +123,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<any> {
+export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
   const {
     t,
     pagination: { page, rowsPerPage },
@@ -185,19 +183,20 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
+                  // href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
                   size={'small'}
+                  disabled={true}
                 >
                   {t('table.detail_report')}
                 </Button>
                 <Button
                   variant={'link'}
                   size={'small'}
-                  href={''}
-                  onClick={() => {
-                    setOpenModal(true);
-                    setServiceName(record?.name);
-                  }}
+                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
+                  // onClick={() => {
+                  //   setOpenModal(true);
+                  //   setServiceName(record?.name);
+                  // }}
                 >
                   {t('button.detail')}
                 </Button>
