@@ -1,48 +1,49 @@
 import { useState } from 'react';
+import { redirect, useSearchParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { ROUTES, RQKEYS } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { Nullable, PageProps } from '@oxygen/types';
 import { Button } from '@oxygen/ui-kit';
+import { useApp } from '@oxygen/hooks';
 
-import RemoveServiceModal from '../modals/remove-sevice-modal/remove-service-modal';
+import RemoveServiceModal from '../remove-service-modal/remove-service-modal';
 import { usePostAssignScopeToService, useUpstreamListQuery } from '../../../services';
 import { UpstreamDetails } from '../upstream-details/upstream-details';
 
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 
-import * as S from './active-select.style';
-import { useApp } from '@oxygen/hooks';
+import * as S from './upstream-list.style';
 
-type ActiveSelectType = PageProps & {
-  serviceName: string;
-};
+type ActiveSelectType = PageProps & {};
 
-export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
+export const UpstreamList: React.FC<ActiveSelectType> = (props) => {
   const [t] = useTr();
-  const { serviceName } = props;
+  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const state = useAppState();
   const dispatch = useAppDispatch();
   const { notification } = useApp();
 
+  const serviceName: Nullable<string> = searchParams.get('servicename');
+
+  if (!serviceName) {
+    redirect('/not-found');
+  }
+
   const [removeServiceModals, setRemoveServiceModals] = useState<boolean>(false);
 
   const { data: upStreamListData, isFetching: upStreamLoading } = useUpstreamListQuery({ serviceName });
+
   const { mutate } = usePostAssignScopeToService();
 
   const tableData = upStreamListData?.targets;
 
   const infoBoxData = { englishName: upStreamListData?.name, persianName: upStreamListData?.description };
 
-  const handleModalDeleteButton = async () => {
-    const assignUpstreamParams = {
-      serviceName: serviceName,
-      upstreamName: state?.upstreamTab?.activeSelect?.cardId,
-    };
-
-    mutate(assignUpstreamParams, {
+  const executePostAction = () => {
+    return {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
           queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.GET_UPSTREAM_LIST],
@@ -67,7 +68,16 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
           message: t('message.success_alert', { element: t('upstream') }),
         });
       },
-    });
+    };
+  };
+
+  const handleModalDeleteButton = async () => {
+    const assignUpstreamParams = {
+      serviceName: serviceName,
+      upstreamName: state?.upstreamTab?.activeSelect?.cardId,
+    };
+
+    mutate(assignUpstreamParams, executePostAction());
   };
 
   const handleModalCancelButton = () => {
@@ -103,5 +113,3 @@ export const ActiveSelect: React.FC<ActiveSelectType> = (props) => {
     </>
   );
 };
-
-//checked

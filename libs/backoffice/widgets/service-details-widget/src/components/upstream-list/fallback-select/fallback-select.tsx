@@ -1,11 +1,11 @@
-import { use, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useBounce } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Input, Pagination } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 
-import { Cards } from './selection/cards/cards';
+import { Cards } from './cards/cards';
 import { UPSTREAM_CARD_PAGE_SIZE } from '../../../utils/consts';
 import { useUpstreamCardsDetailQuery } from '../../../services/upstream-tab/get-upstream-cards-detail';
 

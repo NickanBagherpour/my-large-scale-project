@@ -1,14 +1,15 @@
+import { useEffect, useState } from 'react';
+
 import { Nullable } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 
-import { FallbackSelect } from '../../fallback-select/fallback-select';
+import { FallbackSelect } from '../fallback-select/fallback-select';
 
-import { useAppState } from '../../../../context';
+import { useAppState } from '../../../context';
 
 import * as S from './remove-service-modal.style';
-import { useEffect, useState } from 'react';
 
 type Props = {
   isOpen: boolean;
@@ -59,5 +60,3 @@ export default function RemoveServiceModal(props: Props) {
     </S.Modal>
   );
 }
-
-//checked
