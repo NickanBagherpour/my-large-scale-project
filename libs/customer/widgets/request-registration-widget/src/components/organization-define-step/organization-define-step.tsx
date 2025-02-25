@@ -362,7 +362,6 @@ const OrganizationDefineStep: React.FC<OrganizationDefineStepProps> = (props) =>
                   </S.ChipsContainer>
                 </SearchItemsContainer>
                 {state.organizationDefineStep.aggregator_status === 'hasAggregator' && (
-                  // ||state.organizationDefineStep.aggregator_status === 'isAggregator'
                   <SearchItemsContainer $columnNumber='3'>
                     <S.AggregatorContainer>
                       <Form.Item

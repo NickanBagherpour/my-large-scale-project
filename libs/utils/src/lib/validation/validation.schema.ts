@@ -16,8 +16,8 @@ export const createValidationSchema = (
         invalid_type_error: t('validation.required') /* if value is null */,
       })
       .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
-      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_length') }),
+      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_len', { val: limits.DEFAULT_MIN_LENGTH }) })
+      .max(limits.DEFAULT_MAX_LENGTH, { message: t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }) }),
 
     simpleRequired: z
       .string({

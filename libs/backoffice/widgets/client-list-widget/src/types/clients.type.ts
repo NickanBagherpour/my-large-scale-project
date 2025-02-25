@@ -1,9 +1,9 @@
-import { PaginatedData } from '@oxygen/types';
+import { PaginatedData, Sort } from '@oxygen/types';
 
 export type ParamsWithPagination = {
   page: number;
   size: number;
-  sort: 'createDate,DESC' | 'createDate,ASC';
+  sort: Sort;
 };
 
 export type Draft = {

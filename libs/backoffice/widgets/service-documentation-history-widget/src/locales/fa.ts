@@ -7,4 +7,5 @@ export default {
     'revision-type': 'نوع عملیات',
     'file-name': 'نام فایل',
   },
+  service: 'سرویس',
 };
