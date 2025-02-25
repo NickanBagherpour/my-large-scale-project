@@ -4,9 +4,9 @@ import { Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { GridCard } from '@oxygen/reusable-components';
 
-import { UpstreamContentData } from 'libs/backoffice/widgets/service-details-widget/src/types';
+import { UpstreamContentData } from '../../../../types';
 
-import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../../context';
+import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../../context';
 
 import * as S from './cards.style';
 
