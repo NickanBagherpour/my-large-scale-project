@@ -70,7 +70,7 @@ export const MenuWrapper = styled.div`
     li.ant-menu-item,
     li.ant-menu-submenu {
       margin: 0 auto;
-      /* text-wrap: unset; */
+      text-wrap: unset;
       line-height: 1.5;
       min-height: 4.4rem;
     }
