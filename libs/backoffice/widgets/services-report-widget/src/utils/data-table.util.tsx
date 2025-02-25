@@ -13,6 +13,8 @@ type Props = {
   pagination: Pagination;
   theme: ITheme;
   wordToHighlight: string;
+  setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  setServiceName: (value: ((prevState: string) => string) | string) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
@@ -21,6 +23,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     pagination: { page, rowsPerPage },
     theme,
     wordToHighlight,
+    setOpenModal,
+    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
 
@@ -109,7 +113,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
             size={'small'}
             href={''}
             onClick={() => {
-              console.log('details clicked');
+              setOpenModal(true);
+              setServiceName(record?.name);
             }}
           >
             {t('button.detail')}
@@ -126,6 +131,8 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
     pagination: { page, rowsPerPage },
     wordToHighlight,
     theme,
+    setOpenModal,
+    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
   return [
@@ -188,7 +195,8 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
                   size={'small'}
                   href={''}
                   onClick={() => {
-                    console.log('details clicked');
+                    setOpenModal(true);
+                    setServiceName(record?.name);
                   }}
                 >
                   {t('button.detail')}
