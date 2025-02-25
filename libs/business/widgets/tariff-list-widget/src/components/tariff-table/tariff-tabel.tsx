@@ -7,11 +7,10 @@ import { useTr } from '@oxygen/translation';
 import { ConfirmRemoveModal } from '@oxygen/reusable-components';
 
 import { useAppDispatch, useAppState } from '../../context';
-import { getDesktopColumns } from '../../utils/table-data-list';
+import { getDesktopColumns, getMobileColumns } from '../../utils/table-data-list';
 
 import * as S from './tariff-tabel.style';
 import { useDeleteServiceQuery } from '../../services';
-import { on } from 'events';
 
 export type TariffTablePropsType = PageProps & {
   tableData: any[];
@@ -92,15 +91,17 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
     },
   ];
   const desktopColumns = getDesktopColumns({ t, toggleRemoveModal, setServiceToUnassign });
+  const mobileColumns = getMobileColumns({ t, toggleRemoveModal, setServiceToUnassign });
   return (
     <S.TariffTableContainer>
       <Table
         loading={isLoading}
         dataSource={data}
         columns={desktopColumns}
+        mobileColumns={mobileColumns}
         onChange={handlePageChange}
         rowKey={(row) => row.id}
-        showHeader={true}
+        // showHeader={true}
       />
       <ConfirmRemoveModal
         title={t('remove_modal_title')}

@@ -16,4 +16,5 @@ export default {
   remove_scope: 'حذف اسکوپ',
   remove: 'حذف',
   error_notif: 'خطایی رخ داده است',
+  details: 'جزئیات',
 };

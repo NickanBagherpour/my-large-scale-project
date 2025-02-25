@@ -2,13 +2,14 @@ import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
-import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
-type Props = {
+import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
+import { WithBadge } from '@oxygen/reusable-components';
+type PropsType = {
   t: TFunction;
   toggleRemoveModal: () => void;
   setServiceToUnassign: (serviceName: string) => void;
 };
-export function getDesktopColumns(props: Props): ColumnsType<Service> {
+export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
   const { t, toggleRemoveModal, setServiceToUnassign } = props;
 
   return [
@@ -69,6 +70,61 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
           </Button>
         </div>
       ),
+    },
+  ];
+}
+
+export function getMobileColumns(props: PropsType): ColumnsType<any> {
+  const { t, toggleRemoveModal, setServiceToUnassign } = props;
+
+  return [
+    {
+      title: '',
+      key: 'mobile-columns',
+      render({ id, scopes, paths, serviceName, persianName, name }) {
+        const data = [
+          { title: t('service_name'), value: getValueOrDash(name) },
+          { title: t('banking_share'), value: getValueOrDash(persianName) },
+          { title: t('contribution_operational_team'), value: getValueOrDash(persianName) },
+          {
+            title: t('tariff_type'),
+            value: getValueOrDash(persianName),
+          },
+          {
+            title: t('tariff_amount'),
+            value: getValueOrDash(persianName),
+          },
+          {
+            title: t('details'),
+            value: (
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <Button variant='link' color='primary' onClick={() => console.log('details', serviceName)}>
+                  {t('see_details')}
+                </Button>
+              </div>
+            ),
+          },
+          {
+            title: t('remove'),
+            value: (
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <Button
+                  variant='link'
+                  color='error'
+                  onClick={() => {
+                    toggleRemoveModal();
+                    setServiceToUnassign(serviceName);
+                  }}
+                >
+                  <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
+                </Button>
+              </div>
+            ),
+          },
+        ];
+
+        return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
+      },
     },
   ];
 }
