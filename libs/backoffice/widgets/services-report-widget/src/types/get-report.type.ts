@@ -1,5 +1,5 @@
 import { PaginationType } from '../context/types';
-import { SORT_ORDER } from '../utils/consts';
+import { Nullable } from '@oxygen/types';
 
 export type ReportResponseType = {
   responseId: number;
@@ -29,7 +29,47 @@ export type PaginationResultType = {
 export type FetchParamsType = {
   page: PaginationType['page'];
   size: PaginationType['rowsPerPage'];
-  searchTerm: string;
-  sort: SORT_ORDER;
-  status: any;
+  ['search-field']?: string;
+  sort: string;
+  isActive: Nullable<boolean>;
 };
+
+export type ServiceDto = {
+  id: number;
+  name: string;
+  persianName: string;
+  scopes: string[];
+  version: string;
+  paths: string[];
+  isActive: boolean;
+};
+
+export interface ServicesReportResponseType {
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  last: boolean;
+  size: number;
+  content: ServiceDto[];
+
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+  numberOfElements: number;
+  pageable: {
+    offset: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  empty: boolean;
+}

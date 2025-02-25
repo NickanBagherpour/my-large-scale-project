@@ -39,6 +39,7 @@ export const ROUTES = {
     UPSTREAM_HISTORY: '/upstream-history',
     UPSTREAM_SERVICE_HISTORY: '/upstream-service-history',
     CLIENT_REPORT: '/client-report',
+    SERVICES_REPORT: '/services-report',
     SERVICE_DOCUMENT_HISTORY: '/service-documentation-history',
   },
   CUSTOMER: {
