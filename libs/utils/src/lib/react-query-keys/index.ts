@@ -60,7 +60,7 @@ export const RQKEYS = {
     UPSTREAM: 'upstream',
     SCOPE: 'scope',
     CLIENT: 'client',
-    CLIENT_PROFILE: 'CLIENT_PROFILE',
+    CLIENT_PROFILE: 'client_profile',
 
     /*--export-backoffice--*/
     SERVICE_CALL_LOG: SERVICE_CALL_LOG_KEYS,

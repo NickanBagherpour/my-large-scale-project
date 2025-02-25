@@ -6,7 +6,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
 
-// import RemoveServiceModal from './modals/remove-sevice-modal/remove-service-modal';
+// import RemoveServiceModal from './remove-service-modal/remove-sevice-modal/remove-service-modal-modal';
 import { useGetServicesQuery } from '../../services/second-tab/get-table-report.api';
 import { useExcelDownloadQuery } from '../../services/second-tab/get-excel-download.api';
 import { getDesktopColumns, getMobileColumns, Modal } from '../../utils/second-tab-table-utils';
@@ -115,7 +115,7 @@ const SecondTab: React.FC<SecondTabTypes> = (props) => {
       />
       {/* uncomment when remove service is needed */}
       {/* <RemoveServiceModal
-        isOpen={modals['removeService']}
+        isOpen={remove-service-modal['removeService']}
         toggle={() => toggleModal('removeService')}
         id={'samat-lc-gutr-del'}
       /> */}

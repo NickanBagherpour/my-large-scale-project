@@ -6,7 +6,7 @@ import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 import { respondTo } from '@oxygen/utils';
 
 export const Container = styled.section`
-  margin: 2.8rem 0 4rem;
+  margin: 2.4rem 0;
 `;
 
 export const FormItem = styled(Form.Item)`

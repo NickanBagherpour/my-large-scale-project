@@ -63,9 +63,9 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       width: widthByButtonCount(2),
       align: 'left',
       render: (id: number, record: UpstreamDetailsType, index: number) => (
-        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
+        <S.ActionBox>
           <S.EditButton
-            variant={'text'}
+            variant={'link'}
             onClick={() => editUpstream(id, record.domain, record.weight, record.healthStatus)}
             size={'small'}
           >
@@ -73,14 +73,14 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
           </S.EditButton>
 
           <S.TrashButton
-            variant={'text'}
+            variant={'link'}
             color={'error'}
             size={'small'}
             onClick={() => deleteUpstream(id, record.domain, record.weight, record.healthStatus)}
           >
             <i className={'icon-trash'} />
           </S.TrashButton>
-        </Box>
+        </S.ActionBox>
       ),
     },
   ];
@@ -113,11 +113,11 @@ export function getMobileColumns(props: Props): ColumnsType<UpstreamDetailsType>
             colon: false,
             value: (
               <Box display={'flex'} style={{ gap: '2rem' }} alignItems={'center'}>
-                <S.EditButton onClick={() => editUpstream(id, domain, weight, healthStatus)} variant={'text'}>
+                <S.EditButton onClick={() => editUpstream(id, domain, weight, healthStatus)} variant={'link'}>
                   {t('edit')}
                 </S.EditButton>
                 <S.TrashButton
-                  variant={'text'}
+                  variant={'link'}
                   color={'error'}
                   onClick={() => deleteUpstream(id, domain, weight, healthStatus)}
                 >

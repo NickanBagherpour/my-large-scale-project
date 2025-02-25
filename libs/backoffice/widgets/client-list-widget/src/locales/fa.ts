@@ -20,4 +20,5 @@ export default {
   save_changes: 'ذخیره تغییرات',
   are_you_sure_to_remove: 'آیا از حذف پیش‌نویس {{name}} اطمینان دارید؟',
   remove_draft: 'حذف پیش‌نویس',
+  draft_was_remove: 'پیش‌نویس با موفقیت حذف شد',
 };
