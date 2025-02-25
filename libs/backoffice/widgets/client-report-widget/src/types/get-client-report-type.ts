@@ -4,14 +4,15 @@ export type ClientReportDto = {
   national: string;
 };
 
-export interface ParamsType {
-  // isActive: boolean | null;
-  'search-field'?: string | null;
-  'scope-id'?: string;
+export type ParamsWithPagination = {
   page: number;
   size: number;
-  // sort: string;
-}
+  sort?: 'createDate,DESC' | 'createDate,ASC';
+};
+
+export type ClientReportParamsType = ParamsWithPagination & {
+  searchParam: string;
+};
 
 export interface ClientReportsDto {
   totalPages: number;

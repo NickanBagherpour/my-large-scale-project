@@ -36,20 +36,7 @@ export const useGetClientInfoQuery = (params) => {
         isImplicitFlow: clientInfo ? clientInfo.isImplicitFlow : ssoInfo.implicitFlow,
         isRefreshToken: clientInfo ? clientInfo.isRefreshToken : ssoInfo.getsRefreshToken,
         tagIds: clientInfo ? updatedTagIds : [],
-        organizationInfo: {
-          organizationId: clientInfo ? clientInfo.organizationInfo.organizationId : undefined,
-          organizationName: clientInfo ? clientInfo.organizationInfo.organizationName : undefined,
-          organizationNationalId: clientInfo ? clientInfo.organizationInfo.organizationNationalId : undefined,
-          isAggregator: clientInfo ? clientInfo.organizationInfo.isAggregator : undefined,
-          aggregatorId: clientInfo ? clientInfo.organizationInfo.aggregatorId : undefined,
-          aggregatorName: clientInfo ? clientInfo.organizationInfo.aggregatorName : undefined,
-          representative: {
-            nameAndLastName: clientInfo ? clientInfo.organizationInfo.representative.nameAndLastName : undefined,
-            mobileNumber: clientInfo ? clientInfo.organizationInfo.representative.mobileNumber : undefined,
-            fixedPhoneNumber: clientInfo ? clientInfo.organizationInfo.representative.fixedPhoneNumber : undefined,
-            representativeType: clientInfo ? clientInfo.organizationInfo.representative.representativeType : undefined,
-          },
-        },
+        organizationInfo: clientInfo ? clientInfo.organizationInfo : undefined,
       };
     },
   });

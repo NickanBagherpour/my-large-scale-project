@@ -1,4 +1,5 @@
-import { PaginatedData, ParamsWithPagaination } from './shared.type';
+import { PaginatedData } from '@oxygen/types';
+import { ParamsWithPagaination } from './shared.type';
 
 export type ScopesParams = ParamsWithPagaination<{
   'search-field': string;

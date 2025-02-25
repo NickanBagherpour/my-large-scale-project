@@ -5,11 +5,15 @@ import { Draft } from '../../types';
 import { useDeleteDraft } from '../../services/delete-draft.api';
 import RemoveDraftModal from '../remove-draft-modal/remove-draft-modal';
 import { useState } from 'react';
+import { useApp } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
 
 export default function DraftCard(props: Draft) {
   const { stepName, clientName, progressPercent } = props;
   const { mutate: removeDraft, isPending } = useDeleteDraft();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { notification } = useApp();
+  const [t] = useTr();
 
   const openModal = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -22,7 +26,11 @@ export default function DraftCard(props: Draft) {
   };
 
   const onRemoveDraft = () => {
-    removeDraft(clientName);
+    removeDraft(clientName, {
+      onSuccess() {
+        notification.success({ message: t('draft_was_remove') });
+      },
+    });
   };
 
   return (

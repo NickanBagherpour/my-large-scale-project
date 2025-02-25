@@ -9,6 +9,7 @@ import {
   previousStep,
   resetMessageAction,
   StepIndex,
+  StepNames,
   useAppDispatch,
   useAppState,
 } from '../../context';
@@ -19,7 +20,7 @@ import ConfirmData from '../confirm-data/confirm-data';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { getServiceNameFromUrl, InquiryStatus } from '../../utils';
 import { useServiceInquiry } from '../../services';
-import { useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { ROUTES } from '@oxygen/utils';
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
   const serviceName = getServiceNameFromUrl(maybeServiceName);
   const { data, isSuccess } = useServiceInquiry(serviceName);
 
-  const steps = [
+  const steps: Array<{ name: StepNames; title: string; component: ReactNode }> = [
     { name: 'generalInfo', title: 'general_info', component: <GeneralInfo /> },
     {
       name: 'route',
@@ -85,8 +86,7 @@ const App = () => {
               status: stepStatuses[idx].status,
             }))}
           />
-          {/* @ts-expect-error TODO: fix this */}
-          {steps[step]?.component}
+          {steps[step].component}
         </>
       )}
     </Container>
