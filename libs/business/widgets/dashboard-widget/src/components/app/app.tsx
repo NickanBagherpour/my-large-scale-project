@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 
 import { PageProps } from '@oxygen/types';
-
-//import { useGetReportDataQuery } from '../../services';
-
 import { Container } from '@oxygen/ui-kit';
+import { CallRateChart } from '@oxygen/reusable-components';
 
 import InfoCards from '../cards/info-cards';
-import { CallRateChart } from '@oxygen/reusable-components';
 import { useGetServiceChartDataQuery } from '../../services';
 
 type AppProps = PageProps & {

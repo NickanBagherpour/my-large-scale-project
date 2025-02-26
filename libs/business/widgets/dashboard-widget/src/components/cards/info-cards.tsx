@@ -1,7 +1,7 @@
+import { Flex } from 'antd';
 import { ROUTES } from '@oxygen/utils';
 import { DashboardCard, InnerDetailCard } from '@oxygen/reusable-components';
 import { TextPalette } from '@oxygen/types';
-import { Flex } from 'antd';
 import { useAppTheme } from '@oxygen/hooks';
 import * as S from './info-cards.style';
 

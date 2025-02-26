@@ -1,7 +1,9 @@
+import { Radio, RadioChangeEvent, Space } from 'antd';
+
 import { BasicComponentProps } from '@oxygen/types';
 import { BarChart, Button, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { Radio, RadioChangeEvent, Space } from 'antd';
+
 import * as S from './call-rate-chart.style';
 
 type Props = {
