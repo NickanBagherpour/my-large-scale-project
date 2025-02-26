@@ -2,7 +2,7 @@ import { TFunction } from 'i18next';
 
 import type { Service } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table } from '@oxygen/ui-kit';
 
 import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
 
@@ -33,7 +33,7 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       align: 'center',
       ellipsis: true,
       render: (value, record) => {
-        return getValueOrDash(value ?? t('upstream_tab.healthy'));
+        return value ?? t('upstream_tab.healthy');
       },
     },
     {

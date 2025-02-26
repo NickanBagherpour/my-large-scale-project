@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { updateMessageAction, useAppDispatch } from '../context';
 import Api from './api';
-import { ApiUtil, RQKEYS } from '@oxygen/utils';
+import { ApiUtil } from '@oxygen/utils';
 
 export const usePostAssignScopeToService = () => {
   const dispatch = useAppDispatch();

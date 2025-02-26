@@ -39,6 +39,7 @@ export const ROUTES = {
     UPSTREAM_HISTORY: '/upstream-history',
     UPSTREAM_SERVICE_HISTORY: '/upstream-service-history',
     CLIENT_REPORT: '/client-report',
+    SERVICES_REPORT: '/services-report',
     SERVICE_DOCUMENT_HISTORY: '/service-documentation-history',
   },
   CUSTOMER: {
@@ -61,6 +62,7 @@ export const ROUTES = {
     SERVICES_REPORT: '/services-report',
     META_CLIENTS_REPORT: '/meta/client',
     META_SERVICES_REPORT: '/meta/service',
+    TARIFF_LIST: '/tariff-list',
   },
 };
 
@@ -68,6 +70,7 @@ export const BUSINESS_ROUTE_GROUPS = [
   [ROUTES.BUSINESS.REQUEST_LIST, ROUTES.BUSINESS.REQUEST_DETAILS, ROUTES.BUSINESS.EDIT_REQUEST_LIST],
   [ROUTES.BUSINESS.CLIENTS_REPORT, ROUTES.BUSINESS.META_CLIENTS_REPORT],
   [ROUTES.BUSINESS.SERVICES_REPORT, ROUTES.BUSINESS.META_SERVICES_REPORT],
+  [ROUTES.BUSINESS.TARIFF_LIST],
 ];
 
 export const CUSTOMER_ROUTE_GROUPS = [

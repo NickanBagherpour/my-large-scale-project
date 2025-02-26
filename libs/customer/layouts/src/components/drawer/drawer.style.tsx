@@ -74,7 +74,7 @@ export const MenuWrapper = styled.div`
       width:100%;
       text-wrap: unset;
       line-height: 1.5;
-      height: 4.4rem;
+      min-height: 4.4rem;
     }
 
     li.ant-menu-item i,
