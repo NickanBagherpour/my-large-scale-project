@@ -62,17 +62,25 @@ const DetailsInfo: React.FC<DetailsInfoProps> = (props) => {
   ];
 
   const sortedRepresentatives = data?.representativeSet.sort((a, b) => a.representativeType - b.representativeType);
-  const representativeInfoData: InfoBoxType[] = [
-    { key: t('legal_name'), value: sortedRepresentatives && sortedRepresentatives[0].nameAndLastName },
-    { key: t('form.mobile_number'), value: sortedRepresentatives && sortedRepresentatives[0].mobileNumber },
-    {
-      key: t('telephone'),
-      value: sortedRepresentatives && sortedRepresentatives[0].fixedPhoneNumber,
-    },
-    { key: t('technical_name'), value: sortedRepresentatives && sortedRepresentatives[1].nameAndLastName },
-    { key: t('form.mobile_number'), value: sortedRepresentatives && sortedRepresentatives[1].mobileNumber },
-    { key: t('telephone'), value: sortedRepresentatives && sortedRepresentatives[1].fixedPhoneNumber },
-  ];
+  const representativeInfoData: InfoBoxType[] = [];
+
+  if (sortedRepresentatives?.length) {
+    const { nameAndLastName, mobileNumber, fixedPhoneNumber } = sortedRepresentatives[0];
+    representativeInfoData.push(
+      { key: t('legal_name'), value: nameAndLastName },
+      { key: t('form.mobile_number'), value: mobileNumber },
+      { key: t('telephone'), value: fixedPhoneNumber }
+    );
+  }
+
+  if (sortedRepresentatives?.[1]) {
+    const { nameAndLastName, mobileNumber, fixedPhoneNumber } = sortedRepresentatives[1];
+    representativeInfoData.push(
+      { key: t('technical_name'), value: nameAndLastName },
+      { key: t('form.mobile_number'), value: mobileNumber },
+      { key: t('telephone'), value: fixedPhoneNumber }
+    );
+  }
 
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
