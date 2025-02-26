@@ -250,6 +250,16 @@ export const Table = styled(AntTable)<TableProps>`
   & div.ant-table-empty table > tbody > tr.ant-table-placeholder > td {
     border-bottom: 0;
   }
+
+  /* Fixes a bug in Ant Design (antd) version 5.24.2 where the table row's background turns black on hover */
+  .ant-table-cell-row-hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+  /* Ensures proper coloring for SVG elements affected by the bug */
+  & ellipse,
+  & g path:last-child {
+    fill: rgba(0, 0, 0, 0.02) !important;
+  }
 `;
 
 export const Caption = styled.div`
