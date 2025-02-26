@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, MarkText } from '@oxygen/ui-kit';
+import { Box, Button, MarkText } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
 export const ServerContainer = styled.div`
@@ -31,6 +31,7 @@ export const ServerContent = styled.div`
 `;
 
 export const TableContainer = styled.div`
+  height: 100%;
   //
 `;
 
@@ -56,6 +57,12 @@ export const TrashButton = styled(Button)`
   & i {
     font-size: 2.4rem;
   }
+`;
+
+export const ActionBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: end;
 `;
 
 export const EditButton = styled(Button)`
@@ -96,6 +103,7 @@ export const Actions = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   margin-bottom: 2.3rem;
+  margin-top: 2rem;
 `;
 
 export const TableRow = styled.div`

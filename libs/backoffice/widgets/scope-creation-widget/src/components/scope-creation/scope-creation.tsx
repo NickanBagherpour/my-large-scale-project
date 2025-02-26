@@ -6,10 +6,10 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, MarkText, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
-import { useAppTheme } from '@oxygen/hooks';
+import { useApp } from '@oxygen/hooks';
 
 import { CreateScopeType, createScopeType } from '../../types';
 
@@ -27,10 +27,10 @@ type EditScopeProps = PageProps & {
 const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const [t] = useTr();
   const router = useRouter();
-  const theme = useAppTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
+  const { notification } = useApp();
 
   const [form] = Form.useForm<CreateScopeType>();
 
@@ -71,6 +71,10 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
 
           onCancel();
           router.push(ROUTES.BACKOFFICE.SCOPE_LIST);
+
+          notification.success({
+            message: t('success_message', { scope_name: params?.name }),
+          });
         } catch (error) {
           onCancel();
         }

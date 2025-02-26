@@ -32,6 +32,10 @@ export const RevisionType = styled.p<any>`
           : css`
               color: ${theme.primary.main};
             `;
+      case REVISION_TYPE.DELETE:
+        return css`
+          color: ${theme.error.main};
+        `;
       default:
         return css`
           color: ${theme.primary.main};
