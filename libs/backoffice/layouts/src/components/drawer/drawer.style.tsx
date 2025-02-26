@@ -112,6 +112,10 @@ export const MenuWrapper = styled.div`
     //}
   }
 
+  .ant-menu {
+    background: inherit;
+  }
+
   .menu-spin-container {
     height: 100%;
     display: flex;
