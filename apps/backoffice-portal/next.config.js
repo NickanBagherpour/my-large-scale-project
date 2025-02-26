@@ -6,7 +6,7 @@ const base_url = process.env.API_BASE_URL;
 const auth_prefix = process.env.NEXT_PUBLIC_AUTH_PREFIX || 'api2';
 const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
 const report_base_url = process.env.API_REPORT_BASE_URL || '';
-const report_prefix = process.env.API_REPORT_PREFIX || '';
+const report_prefix = process.env.NEXT_PUBLIC_REPORT_PREFIX || '';
 
 const rewritesConfig = [
   {
