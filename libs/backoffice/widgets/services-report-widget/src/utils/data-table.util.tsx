@@ -15,8 +15,6 @@ type Props = {
   pagination: Pagination;
   theme: ITheme;
   wordToHighlight: string;
-  setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  setServiceName: (value: ((prevState: string) => string) | string) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
@@ -25,8 +23,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
     pagination: { page, rowsPerPage },
     theme,
     wordToHighlight,
-    setOpenModal,
-    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
 
@@ -110,10 +106,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
             variant={'link'}
             size={'small'}
             href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-            // onClick={() => {
-            //   setOpenModal(true);
-            //   setServiceName(record?.name);
-            // }}
           >
             {t('button.detail')}
           </Button>
@@ -129,8 +121,6 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
     pagination: { page, rowsPerPage },
     wordToHighlight,
     theme,
-    setOpenModal,
-    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
   return [
@@ -193,10 +183,6 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
                   variant={'link'}
                   size={'small'}
                   href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-                  // onClick={() => {
-                  //   setOpenModal(true);
-                  //   setServiceName(record?.name);
-                  // }}
                 >
                   {t('button.detail')}
                 </Button>
