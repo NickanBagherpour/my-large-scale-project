@@ -30,7 +30,7 @@
         "@ant-design/v5-patch-for-react-19": "^1.0.3",
         "@tanstack/react-query": "^5.66.0",
         "@tanstack/react-query-devtools": "^5.66.0",
-        "antd": "5.22.7",
+        "antd": "^5.24.2",
         "antd-zod": "^5.20.5",
         "axios": "^1.7.3",
         "crypto-js": "^4.2.0",
