@@ -106,7 +106,7 @@ const Drawer = (props: DrawerProps) => {
       const item: MenuItem = getItem(
         getMenuLabelNode(menuItem),
         menuItem?.id?.toString(),
-        menuItem.icon ? <i className={menuItem.icon} /> : undefined,
+        menuItem.icon ? <i className={menuItem.icon + (menuItem.size ? ` size-${menuItem.size}` : '')} /> : undefined,
         !menuItem?.active,
         menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
