@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import { BasicComponentProps, TextPalette } from '@oxygen/types';
-import { Flex } from 'antd';
 import * as S from './dashboard-card.style';
 type Props = {
   icon?: string;
@@ -35,7 +34,11 @@ const DashboardCard: React.FC<Props> = ({
             </S.HeaderTitle>
             {hasNumber && linkHref && <S.Number $color={backgroundColor}>{cardNumber}</S.Number>}
           </div>
-          {linkHref && <S.CardLink href={linkHref}>{linkText}</S.CardLink>}
+          {linkHref && (
+            <S.CardLink $color={backgroundColor} href={linkHref}>
+              {linkText}
+            </S.CardLink>
+          )}
         </S.LinkHeader>
         {hasNumber && !linkHref && <S.Number $color={backgroundColor}>{cardNumber}</S.Number>}
       </S.HeaderContainer>

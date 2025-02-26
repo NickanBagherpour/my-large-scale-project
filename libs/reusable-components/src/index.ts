@@ -48,3 +48,4 @@ export { default as ServiceDetails } from './components/service-details-modal/se
 export { default as DashboardCard } from './components/dashboard-card/dashboard-card';
 export { default as InnerDetailCard } from './components/dashboard-card/inner-detail-card';
 export { default as InnerStatusCard } from './components/dashboard-card/inner-status-card';
+export { default as CallRateChart } from './components/dashboard-charts/call-rate-chart';
