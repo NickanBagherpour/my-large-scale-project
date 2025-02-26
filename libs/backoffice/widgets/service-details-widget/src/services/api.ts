@@ -11,10 +11,10 @@ const Api = {
     return client.delete<any>(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
   },
   getDownloadUploadedFile: async (params) => {
-    const { serviceName, serviceDocumentId, fileExtension, fileType } = params;
+    const { serviceName, serviceDocumentId, fileExtension, fileType, fileName } = params;
     const xhr = await ApiUtil.getFile(`${portalUrl}/v1/services/${serviceName}/files/${serviceDocumentId}`);
     if (xhr) {
-      ApiUtil.downloadFile(xhr, fileType, fileExtension, `success-${Date.now()}.xlsx`);
+      ApiUtil.downloadFile(xhr, fileType, fileExtension, `${fileName}`);
     }
     return { data: null };
   },

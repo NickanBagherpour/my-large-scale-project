@@ -18,7 +18,8 @@ export default {
   confirm_question_first: 'این آپ‌استریم به ',
   confirm_question_last:
     ' متصل است. لطفاً پیش از حذف آپ‌استریم، نسبت به جایگزینی آن با یک آپ‌استریم دیگر در سرویس های زیر اقدام نمایید:',
-  no_service_question: 'آیا از حذف آپ‌استریم مطمئن هستید؟',
+  no_service_first: 'آیا از حذف آپ‌استریم ',
+  no_service_last: ' مطمئن هستید؟',
   service: 'سرویس',
   validation: {
     min_len: 'مقدار این فیلد نباید کمتر از {{val}} کاراکتر باشد.',
