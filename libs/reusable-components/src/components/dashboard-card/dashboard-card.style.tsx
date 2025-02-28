@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { TextPalette } from '@oxygen/types';
 import styled from 'styled-components';
-import { cssVar } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 
 export const CardContainer = styled.div<{ $backgroundColor?: keyof TextPalette }>`
   display: flex;
@@ -27,7 +27,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0rem !important;
+  /* padding: 0.5rem 0rem !important; */
 `;
 export const Number = styled.span<{ $color?: keyof TextPalette }>`
   color: ${(p) => (p.$color ? p.theme[p.$color]?.main : 'inherit')} !important;
@@ -43,11 +43,16 @@ export const CardLink = styled(Link)<{ $color?: keyof TextPalette }>`
 `;
 export const ChildrenContainer = styled.div`
   flex-grow: 1;
+  margin-top: 0.5rem;
+  display: flex;
 `;
 export const LinkHeader = styled.div`
   width: 100%;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   display: flex;
   padding: 0.5rem 0rem;
+  ${respondTo.down('xl')} {
+    flex-direction: column;
+  }
 `;
