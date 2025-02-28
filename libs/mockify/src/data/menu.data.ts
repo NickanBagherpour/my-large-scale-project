@@ -87,7 +87,7 @@ export const backofficeMenu = [
         id: 503,
         title: 'گزارش فراخوانی سرویس',
         order: 3,
-        href: ROUTES.BACKOFFICE.SERVICES_REPORT,
+        href: ROUTES.BACKOFFICE.SERVICE_CALL_LOG,
         icon: 'icon-dot',
         size: 'small',
         active: true,

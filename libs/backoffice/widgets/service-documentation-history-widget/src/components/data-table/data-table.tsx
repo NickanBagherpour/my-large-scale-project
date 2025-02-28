@@ -69,7 +69,7 @@ const DataTable = () => {
       title: t('column.file-name'),
       dataIndex: 'serviceDocumentDto',
       key: 'serviceDocumentDto',
-      ellipsis: true,
+      // ellipsis: true,
       className: 'right-to-left',
 
       render: (column) => {
@@ -87,6 +87,8 @@ const DataTable = () => {
   return (
     <S.TableContainer>
       <Table
+        showHeader
+        scroll={{ x: 500 }}
         rowKey={() => uuid()}
         title={t('subtitle')}
         size='small'
@@ -102,7 +104,6 @@ const DataTable = () => {
           current: pagination.page,
           hideOnSinglePage: false,
         }}
-        scroll={undefined}
         onChange={handlePageChange}
       />
     </S.TableContainer>

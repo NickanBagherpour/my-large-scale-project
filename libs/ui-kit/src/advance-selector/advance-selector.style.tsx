@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 1.6rem;
+
   & .ant-select {
     flex: 1;
   }
@@ -26,6 +27,12 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   font-family: inherit;
+  justify-content: space-between;
+
+  .popup:has(&) {
+    container-type: inline-size;
+    container-name: item;
+  }
 
   .popup:has(&) .ant-select-item-option {
     padding: 0.8rem 1.6rem;
@@ -38,6 +45,12 @@ export const Item = styled.div`
 
   .popup:has(&) .ant-select-item-option-active .icon-plus {
     visibility: visible;
+  }
+
+  @container item (max-width: 40rem) {
+    .advanced-selector-box {
+      flex-direction: column;
+    }
   }
 `;
 
