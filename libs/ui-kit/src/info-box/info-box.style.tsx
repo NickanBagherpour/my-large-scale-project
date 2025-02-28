@@ -42,14 +42,14 @@ export const InfoBoxWrapper = styled.div<{
   row-gap: ${(p) => (p.dense === 'true' ? '1rem' : '2rem')};
   overflow: hidden;
 
-  .ant-tag {
-    width: fit-content;
-    padding: 0.3rem 0.8rem;
-    border-radius: 0.4rem;
-    //border-radius: 25px;
-    // background-color: ${(p) => p.theme.primary._100};
-    color: ${(p) => p.theme.text.primary};
-  }
+  // .ant-tag {
+  //   width: fit-content;
+  //   padding: 0.3rem 0.8rem;
+  //   border-radius: 0.4rem;
+  //   //border-radius: 25px;
+  //   // background-color: ${(p) => p.theme.primary._100};
+  //   color: ${(p) => p.theme.text.primary};
+  // }
 
   & .info-box__title {
     font-size: 1.4rem;

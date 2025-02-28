@@ -89,6 +89,7 @@ export const UpstreamList: React.FC<ActiveSelectType> = (props) => {
     <>
       <S.Header>
         <S.Title>{t('upstream_tab.tab_header')}</S.Title>
+        {/*
         <Button
           variant='filled'
           icon={<S.Icon className='icon-clock' />}
@@ -96,6 +97,7 @@ export const UpstreamList: React.FC<ActiveSelectType> = (props) => {
         >
           {t('see_changes_history')}
         </Button>
+        */}
       </S.Header>
       <UpstreamDetails
         tableLoading={upStreamLoading}
