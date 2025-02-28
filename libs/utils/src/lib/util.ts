@@ -74,8 +74,6 @@ export function getValueOrDash(value: any, emptyValue = ' - ') {
     return value.length ? value : emptyValue;
   }
 
-  if (typeof value === 'number') return value;
-
   const trimmed = value.toString().trim();
   return trimmed.length ? trimmed : emptyValue;
 }
