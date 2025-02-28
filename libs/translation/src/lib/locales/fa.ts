@@ -184,6 +184,7 @@ export default {
     minutes_ago: '{{time}} دقیقه گذشته',
     success_call: 'فراخوانی موفق {{element}}',
     please_wait: 'لطفا چند ثانیه صبر کنید',
+    rows_count: 'تعداد سطرها:',
   },
 
   button: {

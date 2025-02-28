@@ -9,6 +9,7 @@ import { Box } from '../box/box';
 import { Loading } from '../loading/loading';
 
 import * as S from './info-box.style';
+import { getValueOrDash } from '@oxygen/utils';
 
 export type InfoBoxProps = {
   data: InfoItemType[] | null;
@@ -63,7 +64,7 @@ export const InfoBox = (props: InfoBoxProps) => {
                 <S.Divider orientation='center' />
               ) : (
                 <Box className={'info-box__value-wrapper'}>
-                  <span className='info-box__value'>{item.value}</span>
+                  <span className='info-box__value'>{getValueOrDash(item.value)}</span>
                   <span className='info-box__sub-value'>{item.subValue}</span>
                 </Box>
               )

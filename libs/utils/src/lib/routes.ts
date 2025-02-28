@@ -41,6 +41,7 @@ export const ROUTES = {
     CLIENT_REPORT: '/client-report',
     SERVICES_REPORT: '/services-report',
     SERVICE_DOCUMENT_HISTORY: '/service-documentation-history',
+    SERVICE_CALL_LOG: '/service-call-log',
   },
   CUSTOMER: {
     LANDING: '/',
