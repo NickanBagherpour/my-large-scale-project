@@ -3,11 +3,16 @@ import { FetchParams } from './types';
 import { PaginatedData } from '@oxygen/types';
 
 export const api = {
-  async getList<TContent extends object>({ url, params }: { url: string; params: FetchParams }) {
+  async getList<TContent extends object>(props: { url: string; params: FetchParams }) {
+    const {
+      url,
+      params: { sortBy = 'modifyDate', page, size },
+    } = props;
     return client.get<PaginatedData<TContent>>(`${portalUrl}${url}`, {
       params: {
-        ...params,
-        sort: 'modifyDate,DESC',
+        page,
+        size,
+        sort: `${sortBy},DESC`,
       },
     });
   },
