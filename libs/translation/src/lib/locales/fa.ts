@@ -181,6 +181,7 @@ export default {
     days_ago: '{{time}} روز گذشته',
     hours_ago: '{{time}} ساعت گذشته',
     minutes_ago: '{{time}} دقیقه گذشته',
+    rows_count: 'تعداد سطرها:',
   },
 
   button: {

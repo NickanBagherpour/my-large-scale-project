@@ -110,10 +110,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
             variant={'link'}
             size={'small'}
             href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-            // onClick={() => {
-            //   setOpenModal(true);
-            //   setServiceName(record?.name);
-            // }}
           >
             {t('button.detail')}
           </Button>

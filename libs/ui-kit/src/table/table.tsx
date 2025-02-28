@@ -113,6 +113,7 @@ export const Table = (props: TableProps) => {
           // showQuickJumper:true,
           // showSizeChanger:false,
           showTitle: false,
+          simple: isMobileOrTablet,
 
           ...pagination,
         };
@@ -149,7 +150,9 @@ export const Table = (props: TableProps) => {
           expandable={_expandable}
           pagination={_pagination}
           showHeader={_showHeader}
-          scroll={{ x: variant === 'simple' ? 'fit-content' : '100vw' }}
+          // scroll={{ x: variant === 'simple' ? 'fit-content' : '100vw' }}
+          scroll={{ x: variant === 'simple' ? 'fit-content' : 700 }}
+          $paginationText={t('uikit.rows_count')}
           {...restProps}
         />
       </ConfigProvider>
