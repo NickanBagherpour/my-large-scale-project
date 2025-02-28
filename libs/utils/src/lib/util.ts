@@ -1,6 +1,7 @@
 import { LocalStorageKey, Nullable } from '@oxygen/types';
 import { storage } from './storage';
 import axios, { type AxiosError } from 'axios';
+import { isValidElement } from 'react';
 
 export const RE_DIGIT = new RegExp(/^\d+$/);
 
@@ -64,8 +65,19 @@ export function isNumberComma(value: string): boolean {
   return /^[0-9,,]*$/.test(value);
 }
 
-export function getValueOrDash(value: any, emptyValue?: string) {
-  return value && value?.toString()?.trim()?.length > 0 ? value?.toString()?.trim() : emptyValue ?? ' - ';
+export function getValueOrDash(value: any, emptyValue = ' - ') {
+  if (value === undefined || value === null) return emptyValue;
+
+  if (typeof value === 'number' || isValidElement(value)) return value;
+
+  if (Array.isArray(value)) {
+    return value.length ? value : emptyValue;
+  }
+
+  if (typeof value === 'number') return value;
+
+  const trimmed = value.toString().trim();
+  return trimmed.length ? trimmed : emptyValue;
 }
 
 export function isEmptyObject(obj: Record<string, unknown>) {
