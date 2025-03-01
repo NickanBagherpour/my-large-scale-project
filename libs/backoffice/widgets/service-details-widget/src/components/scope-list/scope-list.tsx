@@ -5,10 +5,9 @@ import { Nullable } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import { Box as UiKitBox, type ColumnsType, Table } from '@oxygen/ui-kit';
 
+import { CaptionWrapper } from '../app/app.style';
 import { useGetServiceScope } from '../../services';
 import { type Scope as ScopeType } from '../../types';
-
-import * as S from './scope-list.style';
 
 export default function Scope() {
   const [t] = useTr();
@@ -60,9 +59,11 @@ export default function Scope() {
 
   return (
     <>
-      <h3>{t('scope')}</h3>
+      <CaptionWrapper>
+        <p>{t('scope')}</p>
+      </CaptionWrapper>
 
-      <S.Table
+      <Table
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         dataSource={serviceScope}

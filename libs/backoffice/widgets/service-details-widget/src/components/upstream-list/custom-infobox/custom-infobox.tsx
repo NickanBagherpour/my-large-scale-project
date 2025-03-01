@@ -33,8 +33,9 @@ function CustomInfobox(props: CustomInfoboxProps) {
           </Box>
           {handleDeleteButton && (
             <S.ButtonContainer>
-              <Button variant={'text'} color='error' onClick={() => handleDeleteButton(true)}>
+              <Button variant={'outlined'} color='error' onClick={() => handleDeleteButton(true)}>
                 <S.TrashIcon className='icon-trash' />
+                <p>{t('upstream_tab.delete_button')}</p>
               </Button>
             </S.ButtonContainer>
           )}

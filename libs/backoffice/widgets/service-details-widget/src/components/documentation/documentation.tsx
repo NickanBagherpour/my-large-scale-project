@@ -19,6 +19,7 @@ import {
 } from '../../services/documentation-tab';
 
 import * as S from './documentation.style';
+import { CaptionWrapper } from '../app/app.style';
 
 type DocumentationType = PageProps & {
   //
@@ -123,8 +124,8 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
         <CenteredLoading />
       ) : (
         <>
-          <S.Header>
-            <S.Paragraph>{t('service_documentation')}</S.Paragraph>
+          <CaptionWrapper>
+            <p>{t('service_documentation')}</p>
             <Button
               variant='filled'
               icon={<S.Icon className='icon-clock' />}
@@ -132,7 +133,7 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
             >
               {t('see_changes_history')}
             </Button>
-          </S.Header>
+          </CaptionWrapper>
           <S.Card>
             <S.Dragger {...draggerProps}>
               <S.DraggerConatainer>
