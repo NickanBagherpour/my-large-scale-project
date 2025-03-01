@@ -1,9 +1,9 @@
 import { Form, InputRef } from 'antd';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import { LottieRefCurrentProps } from 'lottie-react';
-import LazyLottie from 'libs/reusable-components/src/components/animation-loader/lazy-lottie';
 
 import { useTr } from '@oxygen/translation';
+import { LazyLottie } from '@oxygen/reusable-components';
 
 import searchAnimation from '../../assets/media/searching-Services.json';
 import SearchBox from './search-box';
