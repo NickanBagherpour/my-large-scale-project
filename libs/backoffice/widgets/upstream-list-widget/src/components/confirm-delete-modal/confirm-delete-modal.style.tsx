@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Modal } from '@oxygen/ui-kit';
+import { Modal, MarkText as UiKitMarkText } from '@oxygen/ui-kit';
 import { withOpacity } from '@oxygen/utils';
 
 export const StyledModal = styled(Modal)`
@@ -57,22 +57,12 @@ export const ModalContent = styled.div`
     margin: 0;
   }
 `;
-
-export const ModalMessage = styled.p`
-  color: ${(p) => p.theme.text.primary}
-  text-align: right;
+export const MarkText = styled(UiKitMarkText)`
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.5rem;
+  color: ${(p) => p.theme.text.primary};
   margin: 0;
-`;
-
-export const ServiceCount = styled.span`
-  color: ${(p) => p.theme.error.main};
-  text-align: right;
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 2.5rem;
 `;
 
 export const ServicesContainer = styled.div`
@@ -83,7 +73,7 @@ export const ServicesContainer = styled.div`
   font-weight: 600;
   line-height: 2.5rem;
   color: ${(p) => p.theme.text.primary};
-  max-height: 7.5rem;
+  max-height: 10rem;
   overflow-y: auto;
   width: 100%;
 `;
