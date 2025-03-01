@@ -73,7 +73,7 @@ export const ServicesContainer = styled.div`
   font-weight: 600;
   line-height: 2.5rem;
   color: ${(p) => p.theme.text.primary};
-  max-height: 7.5rem;
+  max-height: 10rem;
   overflow-y: auto;
   width: 100%;
 `;
