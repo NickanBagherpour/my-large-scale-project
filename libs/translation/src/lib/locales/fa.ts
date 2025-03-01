@@ -53,6 +53,7 @@ export default {
     english_name: 'نام لاتین',
     persian_name: 'نام فارسی',
     index: 'ردیف',
+    count: 'تعداد',
   },
 
   app: {
@@ -181,6 +182,8 @@ export default {
     days_ago: '{{time}} روز گذشته',
     hours_ago: '{{time}} ساعت گذشته',
     minutes_ago: '{{time}} دقیقه گذشته',
+    success_call: 'فراخوانی موفق {{element}}',
+    please_wait: 'لطفا چند ثانیه صبر کنید',
     rows_count: 'تعداد سطرها:',
   },
 

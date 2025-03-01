@@ -12,4 +12,5 @@ export const Container = styled.div`
   flex-direction: column;
   border-radius: var(${cssVar.radius});
   padding: 1.5rem 1rem;
+  flex-grow: 1;
 `;
