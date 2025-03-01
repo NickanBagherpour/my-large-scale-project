@@ -93,7 +93,11 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
                 services.map((service) => (
                   <S.ListItem key={service}>
                     <span>{service}</span>
-                    <Button variant={'text'} href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${service}`}>
+                    <Button
+                      variant={'text'}
+                      href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${service}`}
+                      target={'_blank'}
+                    >
                       <i className={'icon-link'} />
                       {t('view_service_details')}
                     </Button>
