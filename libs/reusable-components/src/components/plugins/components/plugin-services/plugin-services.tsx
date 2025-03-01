@@ -3,6 +3,7 @@ import { useTr } from '@oxygen/translation';
 import { type ReactNode } from 'react';
 import { Tooltip } from 'antd';
 import { type ServicePlugin } from '../../types/plugins.type';
+import { Tag } from '@oxygen/ui-kit';
 
 type Props = {
   idx: number;
@@ -43,9 +44,9 @@ export default function PluginServices(props: Props) {
         <S.ItemName>{t('uikit.scope')}</S.ItemName>
         <S.Scopes>
           {scopes.map((scope, idx) => (
-            <S.Tag type='processing' key={idx}>
+            <Tag type='processing' key={idx}>
               {scope}
-            </S.Tag>
+            </Tag>
           ))}
         </S.Scopes>
 

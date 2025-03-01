@@ -3,11 +3,11 @@ import { UploadProps } from 'antd';
 
 import { useApp } from '@oxygen/hooks';
 import { ROUTES, RQKEYS } from '@oxygen/utils';
-import { Button } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { queryClient } from '@oxygen/client';
-import { CenteredLoading } from '@oxygen/reusable-components';
+import { CenteredLoading, ConfirmRemoveModal } from '@oxygen/reusable-components';
 
 import { isFileInvalid } from '../../utils/helper';
 import { useAppDispatch, useAppState } from '../../context';
@@ -23,6 +23,9 @@ import * as S from './documentation.style';
 type DocumentationType = PageProps & {
   //
 };
+
+const { DOCUMENTATION_TAB_DOCUMENT_LIST } = RQKEYS.BACKOFFICE.SERVICE_DETAILS;
+
 export const Documentation: React.FC<DocumentationType> = (props) => {
   const [t] = useTr();
   const state = useAppState();
@@ -30,13 +33,19 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
   const { notification } = useApp();
   //STATE
   const [fileInfo, setFileInfo] = useState({});
+  const [documentToRemove, setDocumentToRemove] = useState<any>(null);
   // CONSTANTS
   const serviceName = state.serviceName!;
   //MUTATIONS
   const { mutate } = usePostUploadDocumentMutation();
-  const { mutate: removeMutate } = useDeleteRemoveUploadedFileQuery();
+  const { mutate: removeMutate, isPending } = useDeleteRemoveUploadedFileQuery();
   //QUERIES
-  const { data: documentListData, isFetching: documentListIsFetching } = useGetDocumentListQuery(serviceName);
+  const {
+    data: documentListData,
+    isFetching: documentListIsFetching,
+    isPending: documentListIsPending,
+  } = useGetDocumentListQuery(serviceName);
+
   const { refetch: downloadRefetch } = useGetDownloadUploadedFileQuery({ serviceName, ...fileInfo });
   const handleFileUpload = async (options) => {
     const { onSuccess: uploaderOnSuccess, onError: uploaderOnError, onProgress: uploaderOnProgress, file } = options;
@@ -92,8 +101,15 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
       {
         onError() {
           queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.SERVICE_DETAILS.DOCUMENTATION_TAB_DOCUMENT_LIST],
+            queryKey: [DOCUMENTATION_TAB_DOCUMENT_LIST],
           });
+        },
+        async onSuccess() {
+          setDocumentToRemove(null);
+          await queryClient.invalidateQueries({
+            queryKey: [DOCUMENTATION_TAB_DOCUMENT_LIST],
+          });
+          notification.success({ message: t('document_was_removed_successfuly') });
         },
       }
     );
@@ -104,9 +120,11 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     multiple: true,
     listType: 'picture',
     accept: '.pdf,.docx,.doc',
-    defaultFileList: documentListData,
+    fileList: documentListData,
     customRequest: handleFileUpload,
-    onRemove: handleRemove,
+    onRemove: (file) => {
+      setDocumentToRemove(file);
+    },
     onDownload: handleFileDownload,
     iconRender: (file) => {
       if (!file?.name) return null; // Prevents errors if file or name is undefined
@@ -133,12 +151,12 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
     },
   };
 
+  if (documentListIsPending) return <CenteredLoading />;
+
   return (
-    <S.DocumentationContainer>
-      {documentListIsFetching || !documentListData ? (
-        <CenteredLoading />
-      ) : (
-        <>
+    <>
+      <S.DocumentationContainer>
+        <Loading spinning={documentListIsFetching}>
           <S.Header>
             <S.Paragraph>{t('service_documentation')}</S.Paragraph>
             <Button
@@ -166,8 +184,19 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
               </S.DraggerConatainer>
             </S.Dragger>
           </S.Card>
-        </>
+        </Loading>
+      </S.DocumentationContainer>
+      {!!documentToRemove && (
+        <ConfirmRemoveModal
+          title={t('remove_document')}
+          close={() => setDocumentToRemove(null)}
+          isOpen={true}
+          message={t('are_you_sure_to_remove_doc', { name: documentToRemove.name })}
+          onRemove={() => handleRemove(documentToRemove)}
+          isLoading={isPending}
+          wordToHighlight={documentToRemove.name}
+        />
       )}
-    </S.DocumentationContainer>
+    </>
   );
 };

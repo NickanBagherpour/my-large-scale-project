@@ -90,8 +90,7 @@ export const Scopes = styled.div`
   flex-wrap: wrap;
   gap: 1rem 0;
   margin-bottom: 3rem;
-`;
-
-export const Tag = styled(UikitTag)`
-  color: ${(p) => p.theme.text.tertiary};
+  .ant-tag {
+    color: ${(p) => p.theme.text.tertiary};
+  }
 `;

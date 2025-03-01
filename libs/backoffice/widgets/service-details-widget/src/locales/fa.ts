@@ -100,4 +100,7 @@ export default {
   version: 'نسخه',
   owner: 'مالک',
   tags: 'تگ ها',
+  remove_document: 'حذف مستند',
+  are_you_sure_to_remove_doc: 'آیا از حذف مستند {{name}} برای این سرویس اطمینان دارید؟',
+  document_was_removed_successfuly: 'مستند با موفقیت حذف شد',
 };
