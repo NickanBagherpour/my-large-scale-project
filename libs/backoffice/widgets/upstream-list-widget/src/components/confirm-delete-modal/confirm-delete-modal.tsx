@@ -3,28 +3,28 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
 import { Nullable } from '@oxygen/types';
-import { Loading } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
+import { ReturnButton } from '@oxygen/reusable-components';
+import { ROUTES } from '@oxygen/utils';
 
 import { updateMessageAction, useAppDispatch } from '../../context';
-import { GetUpstreamServiceResponseType } from '../../types';
-import { useDeleteUpstream } from '../../services';
+import { useDeleteUpstream, useGetUpstreamServicesQuery } from '../../services';
 
 import * as S from './confirm-delete-modal.style';
 
 type Props = {
   openModal: boolean;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  services: GetUpstreamServiceResponseType;
   upstreamName: Nullable<string>;
-  isFetching: boolean;
 };
 const ConfirmDeleteModal: React.FC<Props> = (props) => {
-  const { openModal, setOpenModal, services, upstreamName, isFetching } = props;
+  const { openModal, setOpenModal, upstreamName } = props;
   const [t] = useTr();
   const theme = useAppTheme();
   const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useDeleteUpstream();
+  const { data, isFetching } = useGetUpstreamServicesQuery(upstreamName);
   const handleDeleteUpstream = async (params) => {
     await mutate(params, {
       onSuccess: () => {
@@ -37,6 +37,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       },
     });
   };
+  const services = data ?? [];
   const handleOk = () => {
     handleDeleteUpstream(upstreamName);
   };
@@ -44,19 +45,28 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
     setOpenModal(false);
   };
 
+  const modalFooter =
+    services?.length > 0
+      ? [<ReturnButton style={{ minWidth: '100%' }} onClick={() => setOpenModal(false)} />]
+      : [
+          <Button variant={'outlined'} color={'primary'} onClick={handleCancel}>
+            {t('button.cancel')}
+          </Button>,
+          <Button variant={'solid'} color={'error'} disabled={isFetching || services?.length >= 1} onClick={handleOk}>
+            {t('button.delete')}
+          </Button>,
+        ];
+
   return (
     <S.StyledModal
-      title={t('warning')}
+      title={t('notice')}
       open={openModal}
-      onOk={() => handleOk()}
       confirmLoading={isPending}
-      onCancel={handleCancel}
       headerDivider={true}
       centered
-      cancelText={t('button.cancel')}
-      okText={t('button.delete')}
-      okButtonProps={{ style: { backgroundColor: theme.error.main }, disabled: isFetching || services?.length >= 1 }}
-      cancelButtonProps={{ style: { color: theme.primary.main } }}
+      onCancel={handleCancel}
+      destroyOnClose={true}
+      footer={modalFooter}
     >
       {isFetching ? (
         <Loading spinning={isFetching} style={{ margin: '2rem 0' }} />
@@ -69,11 +79,24 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
               {t('confirm_question_last')}
             </S.ModalMessage>
           ) : (
-            <S.ModalMessage>{t('no_service_question')}</S.ModalMessage>
+            <S.ModalMessage>
+              {t('no_service_first')}
+              <S.ServiceCount>{upstreamName}</S.ServiceCount>
+              {t('no_service_last')}
+            </S.ModalMessage>
           )}
           <S.ServicesContainer>
             <S.ServiceList>
-              {services?.length > 0 && services.map((service) => <li key={service}>{service}</li>)}
+              {services?.length > 0 &&
+                services.map((service) => (
+                  <S.ListItem key={service}>
+                    <span>{service}</span>
+                    <Button variant={'text'} href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${service}`}>
+                      <i className={'icon-link'} />
+                      {t('view_service_details')}
+                    </Button>
+                  </S.ListItem>
+                ))}
             </S.ServiceList>
           </S.ServicesContainer>
         </S.ModalContent>

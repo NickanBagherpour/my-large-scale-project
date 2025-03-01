@@ -11,7 +11,7 @@ export const RequestsContainer = styled(Container)`
 `;
 
 export const DraftsContainer = styled(Container)`
-  //margin-bottom: 1.6rem;
+  //
 `;
 
 export const Button = styled(KitButton)`

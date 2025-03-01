@@ -53,6 +53,7 @@ export default {
     english_name: 'نام لاتین',
     persian_name: 'نام فارسی',
     index: 'ردیف',
+    count: 'تعداد',
   },
 
   app: {
@@ -121,6 +122,7 @@ export default {
     element_fa_name: 'نام فارسی {{element}}',
 
     services: 'سرویس‌ها',
+    clients: 'کلاینت ها',
     plugins: 'پلاگین‌ها',
     display_change_history: 'مشاهده تاریخچه تغییرات',
     tags: 'تگ‌ها',
@@ -176,6 +178,13 @@ export default {
     service_was_removed_successfly: 'سرویس با موفقیت حذف شد',
     service_was_added_successfly: 'سرویس با موفقیت افزوده شد',
     edit_was_successful: 'ویرایش با موفقیت انجام شد',
+    call_rate: 'نرخ فراخوانی {{element}}',
+    days_ago: '{{time}} روز گذشته',
+    hours_ago: '{{time}} ساعت گذشته',
+    minutes_ago: '{{time}} دقیقه گذشته',
+    success_call: 'فراخوانی موفق {{element}}',
+    please_wait: 'لطفا چند ثانیه صبر کنید',
+    rows_count: 'تعداد سطرها:',
   },
 
   button: {
@@ -262,6 +271,8 @@ export default {
   },
 
   field: {
+    services: 'سرویس‌ها',
+    clients: 'کلاینت ها',
     customer: 'مشتری',
     national_code: 'کد ملی',
     foreigner_code: 'کد اتباع',
@@ -361,6 +372,8 @@ export default {
     host: 'Openapis.bmi.ir',
     upstream: 'IAMS -XzxcZ',
     tag: ' اضافه‌کردن تگ‌ها ',
+    choose_service: 'انتخاب سرویس',
+    choose_client: 'انتخاب کلاینت',
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
   },

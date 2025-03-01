@@ -9,7 +9,7 @@ import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { ContentType } from './inquiry-component';
 import { InquiryType } from './types';
 import * as S from './item-exists.style';
-import WithBadge from '../services/badge/badge';
+import WithBadge from '../with-badge/with-badge';
 import { useAppTheme } from '@oxygen/hooks';
 
 type Props = {
@@ -73,12 +73,16 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
                   <WithBadge
                     items={data?.[index]}
                     onRender={(value) => (
-                      <MarkText text={getValueOrDash(value)} highlightColor={theme.secondary.main} wordToHighlight='' />
+                      <MarkText
+                        text={getValueOrDash(value, '')}
+                        highlightColor={theme.secondary.main}
+                        wordToHighlight=''
+                      />
                     )}
                   />
                 </S.CenteredText>
               ) : (
-                <S.CenteredText>{getValueOrDash(data?.[index])}</S.CenteredText>
+                <S.CenteredText>{getValueOrDash(data?.[index], '')}</S.CenteredText>
               )}
             </div>
             {/* {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />} */}

@@ -60,12 +60,15 @@ export default function DetailsModal(props: Props) {
 
       {
         key: t('uikit.tag'),
-        value:
-          tags.map((tag) => (
-            <Chip tooltipTitle={tag.title} key={tag.id} type='active'>
-              {tag.title}
-            </Chip>
-          )) ?? [],
+        value: (
+          <S.Tags>
+            {tags.map((tag) => (
+              <Chip tooltipTitle={tag.title} key={tag.id} type='active'>
+                {tag.title}
+              </Chip>
+            )) ?? []}
+          </S.Tags>
+        ),
         fullwidth: true,
       },
     ];

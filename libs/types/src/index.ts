@@ -13,4 +13,4 @@ export * from './applicant-history';
 export * from './user.type';
 export * from './request-registration';
 export * from './scope-information';
-export * from './paginated-data';
+export * from './services';

@@ -1,47 +1,14 @@
 import { ApiUtil } from '@oxygen/utils';
 import { MessageType, Nullable } from '@oxygen/types';
 
-import {
-  FiltersType,
-  PaginationType,
-  ScopeMode,
-  initialActiveSelectType,
-  WidgetActionType,
-  WidgetDispatchType,
-} from './types';
-
-export function updateUpstreamTabCreationSubmitAction(dispatch: WidgetDispatchType) {
-  dispatch({ type: 'UPDATE_UPSTREAM_TAB_CREATION' });
-}
-export function updateScopeTabCreationSubmitAction(dispatch: WidgetDispatchType) {
-  dispatch({ type: 'UPDATE_SCOPE_TAB_CREATION' });
-}
+import { initialActiveSelectType, WidgetActionType, WidgetDispatchType } from './types';
 
 export function updateServerNameAction(dispatch: WidgetDispatchType, serviceName: Nullable<string>) {
   dispatch({ type: 'UPDATE_SERVICE_NAME', payload: serviceName });
 }
 
-export function updateScopeAction(dispatch: WidgetDispatchType, scopeName: Nullable<string>) {
-  dispatch({ type: 'UPDATE_SCOPE_NAME', payload: scopeName });
-}
-export function clearScopeAction(dispatch: WidgetDispatchType) {
-  dispatch({ type: 'CLEAR_SCOPE' });
-}
-
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
-}
-
 export function updateUpstreamAction(dispatch: WidgetDispatchType, initialupstream: initialActiveSelectType) {
   dispatch({ type: 'UPDATE_UPSTREAM', payload: initialupstream });
-}
-
-export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_SUBMIT', payload: submit });
-}
-
-export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
-  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
 export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMessage: Nullable<MessageType>) {
@@ -50,10 +17,6 @@ export function updateErrorMessageAction(dispatch: WidgetDispatchType, errorMess
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateErrorMessageAction(dispatch, null);
-}
-
-export function updateScopeMode(dispatch: WidgetDispatchType, payload: ScopeMode) {
-  dispatch({ type: 'UPDATE_SCOPE_MODE', payload });
 }
 
 function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {

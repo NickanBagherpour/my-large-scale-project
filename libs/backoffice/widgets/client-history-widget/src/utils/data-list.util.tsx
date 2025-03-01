@@ -22,6 +22,7 @@ function renderGrantType(record) {
     { key: 'isClientFlow', label: 'Client Flow' },
     { key: 'isImplicitFlow', label: 'Implicit Flow' },
     { key: 'isPasswordFlow', label: 'Password Flow' },
+    { key: 'isRefreshToken', label: 'Refresh Token' },
   ];
 
   if (!record) return { value: getValueOrDash(''), hasDifference: false };
@@ -41,7 +42,8 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_date'),
       dataIndex: 'modifyDate',
       align: 'center',
-      width: 'min-content',
+      // width: 'min-content',
+      // ellipsis: true,
       render: (column) => {
         return convertShamsiDateFormat(column?.value, true);
       },
@@ -50,16 +52,16 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.modify_by'),
       dataIndex: 'userName',
       align: 'center',
-      ellipsis: true,
+      // ellipsis: true,
       render: (column) => {
-        return getValueOrDash(column?.value);
+        return <HistoryCell item={column} />;
       },
     },
     {
       title: t('table.revision_type'),
       dataIndex: 'revisionDto',
       align: 'center',
-      width: 'min-content',
+      // width: 'min-content',
       render: (_value, record) => {
         const variant = record?.revType?.code?.value;
         const isdeleted = record?.isDeleted?.value;
@@ -73,8 +75,8 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      ellipsis: { showTitle: false },
-      width: '20rem',
+      // ellipsis: { showTitle: false },
+      // width: '20rem',
       render: (_value, record) => {
         const grantType = renderGrantType(record);
 
@@ -93,8 +95,9 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
+      // ellipsis: true,
       className: 'right-to-left',
+      minWidth: 100,
       render: (_value, record) => {
         const persianName = record?.persianName;
         return <HistoryCell item={persianName} />;
@@ -103,7 +106,8 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
-      ellipsis: true,
+      // ellipsis: true,
+      minWidth: 200,
       align: 'center',
       render: () => {
         return getValueOrDash(clientType ?? '');
@@ -112,7 +116,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.url'),
       dataIndex: 'url',
-      ellipsis: true,
+      // ellipsis: true,
       align: 'center',
       // className: 'right-to-left',
       render: (_value, record) => {
@@ -124,7 +128,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.inbound_url'),
       dataIndex: 'inboundUrl',
       align: 'center',
-      ellipsis: true,
+      // ellipsis: true,
       // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.inboundUrl;
@@ -135,7 +139,7 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
       title: t('table.redirect_url'),
       dataIndex: 'redirectUrl',
       align: 'center',
-      ellipsis: true,
+      // ellipsis: true,
       // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.redirectUrl;

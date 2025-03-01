@@ -14,7 +14,7 @@ export const Container = styled.div`
   border-radius: 1.2rem;
 `;
 
-export const Description = styled.p<{ status: StatusProps['status'] }>`
+export const Description = styled.div<{ status: StatusProps['status'] }>`
   ${(p) =>
     p.status === 'success'
       ? css`

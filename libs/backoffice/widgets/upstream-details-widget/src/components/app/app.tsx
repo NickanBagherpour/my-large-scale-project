@@ -70,16 +70,15 @@ const App = () => {
           />
         </Loading>
       </S.UpstreamDetailsContainer>
-      <S.BoxContainer className={'table-container'}>
-        {
-          <UpstreamDetailsList
-            isFetching={isUpstreamFetching}
-            data={upstreamServer?.list?.serverList}
-            total={upstreamServer?.list?.serverList.length}
-            upstreamName={upstreamName}
-          />
-        }
-      </S.BoxContainer>
+
+      {
+        <UpstreamDetailsList
+          isFetching={isUpstreamFetching}
+          data={upstreamServer?.list?.serverList}
+          total={upstreamServer?.list?.serverList.length}
+          upstreamName={upstreamName}
+        />
+      }
     </S.WidgetContainer>
   );
 };

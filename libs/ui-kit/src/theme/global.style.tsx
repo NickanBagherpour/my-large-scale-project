@@ -42,16 +42,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  /*
-  * this will be fixed in antd's future versions
-  * see: https://github.com/ant-design/ant-design/pull/52499/files
-  * see: https://github.com/ant-design/ant-design/issues/48608#issuecomment-2152404334
-  * */
-  .ant-notification-stack > .ant-notification-notice-wrapper {
-    transition: transform 0.3s, backdrop-filter 0s !important;
-    will-change: transform, opacity;
-  }
-
   @media only screen and (min-width: 150em) {
     :root {
       ${cssVar.drawerSideGap}: 0; //10vw;
@@ -147,6 +137,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 2rem;
   }
 
+  .ant-notification-notice-wrapper .anticon svg {
+    color: ${(props) => props.theme.onPrimary};
+  }
 
   .ant-notification, .ant-notification-stack-expanded {
     font-family: inherit !important;

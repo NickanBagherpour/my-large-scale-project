@@ -12,7 +12,7 @@ export const useGetServices = (searchTerm: string, dispatch: Dispatch<any>) => {
     queryFn: ({ pageParam }) =>
       withErrorHandling(
         () =>
-          Api.getServices({
+          Api.getServicesList({
             'search-field': searchTerm,
             page: pageParam,
             ...SERVICE_DEFAULTS,

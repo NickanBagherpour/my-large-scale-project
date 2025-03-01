@@ -22,12 +22,12 @@ const DataTable = () => {
   } = useAppState();
   const searchParams = useSearchParams();
 
-  const upstreamName = searchParams.get('upstream-name') || '';
+  const serviceName = searchParams.get('service-name') || '';
 
   const { data, isFetching } = useGetServiceDocumentationHistory({
     page: page - 1,
     size: limit,
-    upstreamName,
+    serviceName,
   });
 
   const lastValidTotal = data?.totalElements;
@@ -49,32 +49,32 @@ const DataTable = () => {
     },
     {
       title: t('column.user-name'),
-      dataIndex: 'modifyBy',
-      key: 'modifyBy',
-      render: (column) => getValueOrDash(column.value),
+      dataIndex: 'userName',
+      key: 'userName',
+      render: (column) => {
+        return <HistoryCell item={column} />;
+      },
     },
     {
       title: t('column.revision-type'),
-      dataIndex: 'revision',
-
+      dataIndex: 'revisionDto',
+      key: 'revisionDto',
       render: (column) => {
         const variant = column.revType?.code?.value;
-        const isDeleted = column?.deleted?.value;
-        return (
-          <S.RevisionType variant={variant} isDeleted={isDeleted}>
-            {getValueOrDash(column?.revType?.title?.value)}
-          </S.RevisionType>
-        );
+
+        return <S.RevisionType variant={variant}>{getValueOrDash(column?.revType?.title?.value)}</S.RevisionType>;
       },
     },
     {
       title: t('column.file-name'),
-      dataIndex: 'upstream',
-      key: 'fileName',
-      ellipsis: true,
+      dataIndex: 'serviceDocumentDto',
+      key: 'serviceDocumentDto',
+      // ellipsis: true,
       className: 'right-to-left',
-      // render: (column) => <HistoryCell item={column.description} />,
-      render: (column) => getValueOrDash(column.value),
+
+      render: (column) => {
+        return getValueOrDash(column.fileName?.value);
+      },
     },
   ];
 
@@ -87,6 +87,8 @@ const DataTable = () => {
   return (
     <S.TableContainer>
       <Table
+        showHeader
+        scroll={{ x: 500 }}
         rowKey={() => uuid()}
         title={t('subtitle')}
         size='small'
@@ -102,7 +104,6 @@ const DataTable = () => {
           current: pagination.page,
           hideOnSinglePage: false,
         }}
-        scroll={undefined}
         onChange={handlePageChange}
       />
     </S.TableContainer>

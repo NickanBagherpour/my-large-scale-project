@@ -38,7 +38,6 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
 
   return (
     <S.ResponsiveModal
-      width={'32vw'}
       open={true}
       centered={true}
       title={t('common.warning') + '!'}
@@ -61,7 +60,7 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
           {isActive && (
             <>
               {!!clientCount && (
-                <MarkText
+                <S.MarkText
                   text={
                     t('element.service') +
                     ' ' +
@@ -73,9 +72,9 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
                   }
                   wordToHighlight={wordToHighlight}
                   highlightColor={'error'}
-                ></MarkText>
+                />
               )}
-              {!clientCount && <p>{t('deactivation_confirm') + serviceName + t('are_u_sure')}</p>}
+              {!clientCount && <S.Title>{t('deactivation_confirm') + serviceName + t('are_u_sure')}</S.Title>}
             </>
           )}
           {!isActive && (

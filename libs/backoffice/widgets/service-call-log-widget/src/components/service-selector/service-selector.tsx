@@ -35,7 +35,7 @@ const ServiceSelector = (props: Props) => {
         }
         value={searchTerm}
         onSelect={({ service }) => {
-          setSearchTerm('');
+          // setSearchTerm(service);
           onSelect(service);
         }}
         onChange={(value) => setSearchTerm(value)}

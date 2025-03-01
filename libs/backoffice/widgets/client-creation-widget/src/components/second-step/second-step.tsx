@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button } from '@oxygen/ui-kit';
+import { Box, Button, Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Services } from '@oxygen/reusable-components';
@@ -45,12 +45,16 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
   return (
     <S.SecondStepContainer>
       <Box flexGrow={1}>
-        <Services
-          clientName={clientName!}
-          dispatch={dispatch}
-          pageType='creation'
-          hasServices={(hasData) => setHasValue(!hasData)}
-        />
+        {clientName ? (
+          <Services
+            clientName={clientName!}
+            dispatch={dispatch}
+            pageType='creation'
+            hasServices={(hasData) => setHasValue(!hasData)}
+          />
+        ) : (
+          <Loading />
+        )}
       </Box>
       <S.Footer>
         <Button variant={'outlined'} onClick={handleReturn}>

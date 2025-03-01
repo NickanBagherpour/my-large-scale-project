@@ -13,11 +13,11 @@ import { useThirdStepRequestRegistrationMutationQuery } from '../../services';
 
 import * as S from './select-service-step.style';
 
-type ServiceSelectStep = PageProps & {
+type ServiceSelectStepType = PageProps & {
   setCurrentStep: any;
 };
 
-const ServiceSelectStep: React.FC<ServiceSelectStep> = (props) => {
+const ServiceSelectStep: React.FC<ServiceSelectStepType> = (props) => {
   const { setCurrentStep } = props;
   const state = useAppState();
   const dispatch = useAppDispatch();

@@ -21,14 +21,14 @@ export async function GET(request: NextRequest) {
       dashboardId = 10; // Replace with actual client dashboard ID
       params = {
         // client_id: [id],
-        client_id: [],
+        client_id: ['2aba8f42-9f86-489f-a609-963c35260e02'],
       };
       break;
     case 'service':
       dashboardId = 11; // Replace with actual service dashboard ID
       params = {
         // client_id: [id],
-        client_id: [],
+        service_id: ['23d85074-afa4-4c18-bfe4-dbd67aeb4cd1'],
       };
       break;
     default:
@@ -42,9 +42,8 @@ export async function GET(request: NextRequest) {
   };
 
   const token = await signTokenForMetabase(payload, METABASE_SECRET_KEY);
-  const metaConfig = 'background=false&bordered=false&titled=false&hide_parameters=client_id';
+  const metaConfig = 'background=false&bordered=false&titled=false&hide_parameters=search_terms';
   const iframeUrl = `${METABASE_SITE_URL}/embed/dashboard/${token}#${metaConfig}`;
 
   return NextResponse.json({ url: iframeUrl });
 }
-

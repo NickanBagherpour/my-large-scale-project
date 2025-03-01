@@ -7,9 +7,10 @@ import { Container } from '../container/container.style';
 import { useToggle } from '@oxygen/hooks';
 import { useGetServiceScope, useGetService, useGetUpstream, usePostConfirmData, useGetRoute } from '../../services';
 import { CONSTANTS, getValueOrDash, ROUTES } from '@oxygen/utils';
-import { ServiceScope, UpstreamTarget } from '../../types';
+import { ErrorMsg, ServiceScope, UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
 import { Footer, StatusModal, RouteInfoBox } from '@oxygen/reusable-components';
+import { useState } from 'react';
 
 const mapStatuses = {
   success: 'success',
@@ -22,12 +23,13 @@ export default function ConfirmData() {
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
+  const [errorMsg, setErrorMsg] = useState<ErrorMsg | null>(null); // Using a custom state to manage non-Kong errors, allowing us to display them in a modal for better user feedback.
   const [isResultModalOpen, toggleIsResultModalOpen] = useToggle(false);
   const { data: service, isFetching: isFetchingService } = useGetService();
   const { data: routeData, isFetching: isFetchingRoute } = useGetRoute();
   const { data: scope, isFetching: isFetchingScope } = useGetServiceScope();
   const { data: upstream, isFetching: isFetchingUpstream } = useGetUpstream();
-  const { mutate: confirmData, status } = usePostConfirmData();
+  const { mutate: confirmData, status } = usePostConfirmData((err) => setErrorMsg(err));
 
   let generalInfoData: InfoItemType[] = [];
   let route = {
@@ -245,7 +247,14 @@ export default function ConfirmData() {
           ),
         }}
         errorProps={{
-          description: stepErrors?.length ? undefined : t('data_wasnt_registered'),
+          description: stepErrors?.length ? undefined : errorMsg ? (
+            <div>
+              <S.ErrTitle>{errorMsg.title}</S.ErrTitle>
+              <S.ErrDesc>{errorMsg.description}</S.ErrDesc>
+            </div>
+          ) : (
+            t('data_wasnt_registered')
+          ),
           children: (
             <S.ErrorsList>
               {stepErrors.map(({ message, code }, idx) => (
@@ -259,12 +268,13 @@ export default function ConfirmData() {
           ),
           footer: [
             <Button
+              key={'edit'}
               icon={<i className='icon-edit' />}
               onClick={() => (stepErrors?.length ? goToFirstError(dispatch) : toggleIsResultModalOpen())}
             >
               {t('edit_data')}
             </Button>,
-            <Button block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
+            <Button key={'save'} block variant='outlined' color='primary' href={ROUTES.BACKOFFICE.SERVICE_LIST}>
               {t('save_in_draft')}
             </Button>,
           ],
