@@ -16,7 +16,7 @@ const ClientList: React.FC<{ clients: { id: string; name: string }[] }> = ({ cli
     <S.ClientsContainer>
       <S.ClientList>
         {clients.map((client) => (
-          <li key={client.id}>{client.name}</li>
+          <li key={client?.id ?? crypto.randomUUID()}>{client.name}</li>
         ))}
       </S.ClientList>
     </S.ClientsContainer>
