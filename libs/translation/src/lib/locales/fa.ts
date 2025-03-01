@@ -177,6 +177,11 @@ export default {
     service_was_removed_successfly: 'سرویس با موفقیت حذف شد',
     service_was_added_successfly: 'سرویس با موفقیت افزوده شد',
     edit_was_successful: 'ویرایش با موفقیت انجام شد',
+    call_rate: 'نرخ فراخوانی {{element}}',
+    days_ago: '{{time}} روز گذشته',
+    hours_ago: '{{time}} ساعت گذشته',
+    minutes_ago: '{{time}} دقیقه گذشته',
+    rows_count: 'تعداد سطرها:',
   },
 
   button: {

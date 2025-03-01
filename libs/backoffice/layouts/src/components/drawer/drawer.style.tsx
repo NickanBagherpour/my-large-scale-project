@@ -75,9 +75,14 @@ export const MenuWrapper = styled.div`
       min-height: 4.4rem;
     }
 
-    li.ant-menu-item i,
-    div[role='menuitem'] i {
+    li.ant-menu-item i.size-default,
+    div[role='menuitem'] i.size-default {
       font-size: 1.6rem;
+    }
+
+    li.ant-menu-item i.size-small,
+    div[role='menuitem'] i.size-small {
+      font-size: 1.2rem;
     }
 
     .ant-menu-title-content {
@@ -105,6 +110,10 @@ export const MenuWrapper = styled.div`
     //li.ant-menu-submenu:hover {
     //  background-color: blue !important;
     //}
+  }
+
+  .ant-menu {
+    background: inherit;
   }
 
   .menu-spin-container {

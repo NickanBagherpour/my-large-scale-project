@@ -71,11 +71,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'left',
       width: widthByButtonCount(2),
       render: (value, record) => (
-        <Box display={'flex'} alignItems={'center'} justifyContent={'end'}>
+        <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.Details
             variant={'link'}
             href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
             size={'small'}
+            disabled
           >
             {t('services_report')}
           </S.Details>
@@ -123,6 +124,7 @@ export function getMobileColumns(props: Props): any {
                 <S.Details
                   variant={'link'}
                   href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
+                  disabled
                 >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>

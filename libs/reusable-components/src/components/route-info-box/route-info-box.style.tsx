@@ -17,11 +17,8 @@ export const Text = styled(Typography.Text)`
   align-items: center;
   flex-direction: row-reverse;
   color: ${(p) => p.theme.text.secondary};
-
+  gap: 0.8rem;
   unicode-bidi: plaintext;
-  button {
-    margin: 0 1rem;
-  }
 ` as typeof Typography.Text;
 
 export const Icon = styled.i`

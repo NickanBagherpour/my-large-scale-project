@@ -107,7 +107,6 @@ const DataTable = () => {
           current: pagination.page,
           hideOnSinglePage: false,
         }}
-        scroll={undefined}
         onChange={handlePageChange}
         showHeader={true}
       />

@@ -46,13 +46,13 @@ export function useChangeHistoryQuery<TContentItem extends object>(props: Props<
     queryKey,
     url,
     params,
-    params: { size, page },
+    params: { size, page, sortBy },
     dispatch,
     normalizer,
     nestedKeyAccessor,
   } = props;
 
-  const nextItemParams = { page: page * size + size, size: 1 };
+  const nextItemParams = { page: page * size + size, size: 1, sortBy };
 
   const { data: currentPageData, isFetching: isFetchingCurrentPage } = useQuery({
     queryKey: [...queryKey, params],
