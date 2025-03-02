@@ -8,10 +8,17 @@ import { Divider } from '@oxygen/ui-kit';
 import { tariffTypes } from '../../utils';
 import { TariffType } from '../../types';
 import Tiered from '../tiered/tiered';
+import Special from '../special/special';
+
+const inputs: Record<TariffType, React.JSX.Element> = {
+  fixed: <FixedTariff />,
+  tiered: <Tiered />,
+  special: <Special />,
+};
 
 export default function ServiceTarrif() {
   const [t] = useTr();
-  const [selectedTariff, setSelectedTariff] = useState<TariffType | null>(null);
+  const [selectedTariff, setSelectedTariff] = useState<TariffType | null>('special');
 
   const toggleTariffType = (value: TariffType) => {
     setSelectedTariff((prev) => (prev === value ? null : value));
@@ -29,7 +36,7 @@ export default function ServiceTarrif() {
           ))}
         </S.TariffType>
         <Divider />
-        {selectedTariff === 'fixed' ? <FixedTariff /> : <Tiered />}
+        {selectedTariff && inputs[selectedTariff]}
       </S.Section>
     </section>
   );

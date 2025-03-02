@@ -24,5 +24,6 @@ export default {
   from_transaction: 'از تراکنش',
   amount_irr: 'مبلغ (ریال)',
   min_tariff_irr: 'ریال، مشمول حداقل تعرفه:',
-  max_tariff_irr: 'و حداکثر تعرفه: محاسبه می‌گردد.',
+  max_tariff_irr: 'و حداکثر تعرفه:',
+  be_calculated: 'محاسبه می‌گردد.',
 };

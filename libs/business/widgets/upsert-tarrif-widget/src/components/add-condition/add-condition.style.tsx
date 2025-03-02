@@ -1,13 +1,28 @@
 import { Button as UikitButton } from '@oxygen/ui-kit';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { TariffType } from '../../types';
+import { gold } from '../../utils';
 
-export const Button = styled(UikitButton)`
-  background: ${(p) => p.theme.background.main};
+export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
   border-radius: 16rem;
-  border: ${(p) => `1px dashed ${p.theme.secondary.main}`};
   background: ${(p) => p.theme.background.main};
   font-size: 1.4rem;
+
   i {
     font-size: 1.8rem;
   }
+
+  ${(p) => {
+    if (p.$tariffType === 'tiered') {
+      return css`
+        color: ${p.theme.secondary.main} !important;
+        border: ${(p) => `1px dashed ${p.theme.secondary.main}`};
+      `;
+    } else {
+      return css`
+        color: ${gold.dark} !important;
+        border: ${() => `1px dashed ${gold.dark}`};
+      `;
+    }
+  }}
 `;

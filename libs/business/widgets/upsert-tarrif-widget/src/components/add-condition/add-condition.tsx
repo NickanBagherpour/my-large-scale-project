@@ -1,12 +1,18 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './add-condition.style';
+import { TariffType } from '../../types';
+
+type Props = {
+  tariffType: TariffType;
+};
 
 // TODO: ADD A BTN TO THIS COMPONENT
-export default function AddCondition() {
+export default function AddCondition(props: Props) {
+  const { tariffType } = props;
   const [t] = useTr();
 
   return (
-    <S.Button variant='link' color='secondary'>
+    <S.Button variant='link' $tariffType={tariffType}>
       <i className='icon-plus-circle' />
       {t('add_condition')}
     </S.Button>

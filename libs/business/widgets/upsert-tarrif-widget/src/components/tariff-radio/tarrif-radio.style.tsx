@@ -1,11 +1,6 @@
 import styled, { css } from 'styled-components';
 import { TariffType } from '../../types';
-
-const gold = {
-  bg: '#FFFBEB',
-  dark: '#D97706',
-  normal: '#F59E0B',
-};
+import { gold } from '../../utils';
 
 export const Label = styled.label<{ $checked: boolean; $type: TariffType }>`
   border: ${(p) => `1px solid ${p.theme.border._300}`};
