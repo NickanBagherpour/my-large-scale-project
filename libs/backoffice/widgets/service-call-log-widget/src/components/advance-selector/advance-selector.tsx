@@ -13,7 +13,8 @@ export type dataType = {
   id?: string | number;
   title: string;
   subTitle?: string;
-  client: string;
+  client?: any;
+  service?: any;
 };
 
 type Props<T> = Omit<AutoCompleteProps<string>, 'onSelect'> & {
@@ -53,7 +54,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
 
   return (
     <S.Container>
-      <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel>
+      {/* <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel> */}
       <AntAutoComplete
         prefix={loading ? <Loading size='small' /> : <i className='icon-search-normal' />}
         placeholder={placeholder}

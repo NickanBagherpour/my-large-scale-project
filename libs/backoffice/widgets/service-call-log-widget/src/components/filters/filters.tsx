@@ -33,7 +33,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
     if (field === 'fromDate') {
       setFromDate(date);
       if (toDate && date && toDate.isAfter(date.add(1, 'month'))) {
-        setToDate(null); // Reset `toDate` if out of range
+        setToDate(null);
       }
     } else if (field === 'toDate') {
       setToDate(date);
@@ -41,19 +41,19 @@ export default function Filters({ filters, setFilters, onSearch }) {
   };
 
   const disableFromDate = (current: Dayjs) => {
-    if (!toDate) return current.isAfter(dayjs()); // Only disable future if `toDate` is not set
+    if (!toDate) return current.isAfter(dayjs());
     return current.isAfter(dayjs(toDate)) || current.isBefore(dayjs(toDate).subtract(1, 'month'));
   };
 
   const disableToDate = (current: Dayjs) => {
-    if (!fromDate) return current.isAfter(dayjs()); // Only disable future if `fromDate` is not set
+    if (!fromDate) return current.isAfter(dayjs());
     return current.isBefore(dayjs(fromDate)) || current.isAfter(dayjs(fromDate).add(1, 'month'));
   };
 
   const handleSubmit = () => {
     const queryParams = {
-      clientGatewayId: selectedClient?.clientName || '',
-      serviceGatewayId: selectedService?.name || '',
+      clientGatewayId: selectedClient?.clientGatewayId || '',
+      serviceGatewayId: selectedService?.serviceGatewayId || '',
       fromDate: fromDate ? dayjs(fromDate).format('YYYY/MM/DD') : '',
       toDate: toDate ? dayjs(toDate).format('YYYY/MM/DD') : '',
       size: filters.size.toString(),

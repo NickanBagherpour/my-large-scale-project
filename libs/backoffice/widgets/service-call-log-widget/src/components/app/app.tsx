@@ -19,7 +19,6 @@ const App = () => {
   const customFilters = new URLSearchParams(useAppState().table.filters);
   const filterParams = Object.fromEntries(customFilters.entries());
 
-  // Define filters state with default values
   const [filters, setFilters] = useState({
     consumerId: filterParams.clientGatewayId || '',
     serviceId: filterParams.serviceGatewayId || '',
@@ -30,10 +29,8 @@ const App = () => {
     size: table.pagination.rowsPerPage || 10,
   });
 
-  // Fetch data using the filters
   const { data: servicesLogs, isFetching: isFetchingLogs, refetch } = useGetServicesLogsQuery(filters);
 
-  // Sync state with updated custom filters
   useEffect(() => {
     const updatedFilters = {
       consumerId: filterParams.clientGatewayId || '',
@@ -41,22 +38,21 @@ const App = () => {
       fromDate: filterParams.fromDate || '',
       toDate: filterParams.toDate || '',
       direction: 'DESC',
-      page: filters.page, // Preserve the current page
-      size: filters.size, // Preserve the current size
+      page: filters.page,
+      size: filters.size,
     };
     setFilters((prev) => (JSON.stringify(prev) !== JSON.stringify(updatedFilters) ? updatedFilters : prev));
   }, [filterParams]);
 
-  // Refetch data when filters change
   useEffect(() => {
+    if (!filters.consumerId && !filters.serviceId && !filters.fromDate && !filters.toDate) return;
     refetch();
   }, [filters, refetch]);
 
-  // Handle search action
   const handleSearch = () => {
     setFilters((prev) => ({
       ...prev,
-      page: 1, // Reset page on search
+      page: 1,
       size: table.pagination.rowsPerPage || 10,
     }));
   };
@@ -69,7 +65,7 @@ const App = () => {
         <Services
           isFetching={isFetchingLogs}
           data={servicesLogs?.response?.content}
-          total={servicesLogs?.totalElements}
+          total={servicesLogs?.page?.totalElements}
           searchTerm={searchTerm}
           isLoading={isFetchingLogs}
           wordToHighlight={searchTerm ?? ''}

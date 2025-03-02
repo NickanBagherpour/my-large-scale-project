@@ -57,11 +57,15 @@ export interface ServicesDto {
 
 export interface ServicesLogsDto {
   totalPages: number;
-  totalElements: number;
   first: boolean;
   last: boolean;
   size: number;
-  response: ServiceDto[];
+  response: {
+    content: ServiceDto[];
+  };
+  page: {
+    totalElements: number;
+  };
 
   number: number;
   sort: {
