@@ -47,6 +47,8 @@ export default {
     'مجاز به ثبت سرویس با این مشخصات نمی‌باشید. سرویس مورد نظر قبلاً با مشخصات زیر در سامانه ثبت شده است. ',
   placeholders: {
     search_service_inspection: 'جستجو بر‌اساس نام انگلیسی سرویس',
+    choose_client: 'انتخاب کلاینت',
+    choose_service: 'انتخاب سرویس',
   },
   buttons: {
     inspect: 'استعلام سرویس',

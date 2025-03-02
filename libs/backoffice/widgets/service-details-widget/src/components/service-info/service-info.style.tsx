@@ -1,22 +1,6 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import { Input as KitInput, Divider as KitDivider, Button as KitButton } from '@oxygen/ui-kit';
-import { Container } from '@oxygen/ui-kit';
-
-export const ItemsContainer = styled(Container)`
-  height: 100%;
-
-  /* .ant-pagination {
-    margin: 2rem 3rem;
-  } */
-`;
-
-export const DataTableContainer = styled.div`
-  display: flex;
-  margin-bottom: 2rem;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
+import { Input as KitInput, Button as KitButton } from '@oxygen/ui-kit';
 
 export const TagsContainer = styled.div`
   .infobox-tags {
@@ -29,18 +13,6 @@ export const TagsContainer = styled.div`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
-`;
-
-export const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-
-  ${respondTo.down('lg')} {
-    /* width: 100%; */
-    justify-content: end;
-    padding-left: 2rem;
   }
 `;
 

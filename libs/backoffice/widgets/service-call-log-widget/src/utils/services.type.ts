@@ -5,12 +5,6 @@ export type Pagination = {
   size: number;
 };
 
-export type ServiceParams = {
-  'search-field': string;
-  isActive: boolean;
-  sort: 'createDate,DESC' | 'createDate,ASC';
-};
-
 export type ClientServicesParams = Pagination & {
   clientName: string;
   sort: 'createDate,DESC' | 'createDate,ASC';

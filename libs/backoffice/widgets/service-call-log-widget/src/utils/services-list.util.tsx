@@ -33,38 +33,38 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     // },
     {
       title: `${t('client_id')}`,
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'clientName',
+      key: 'clientName',
       align: 'center',
       ellipsis: true,
-      render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-          <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (clientName) => (
+        <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
+          <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },
     {
       title: `${t('utc')}`,
-      dataIndex: 'persianName',
-      key: 'persianName',
+      dataIndex: 'utcTime',
+      key: 'utcTime',
       align: 'center',
       ellipsis: true,
-      render: (persian_name) => (
-        <Tooltip placement='top' title={getValueOrDash('1403/12/15')} arrow={true}>
-          {getValueOrDash('1403/12/15')}
+      render: (utcTime) => (
+        <Tooltip placement='top' title={getValueOrDash(utcTime)} arrow={true}>
+          {getValueOrDash(utcTime)}
         </Tooltip>
       ),
     },
     {
       title: `${t('request_date')}`,
-      dataIndex: 'scopes',
-      key: 'scopes',
+      dataIndex: 'requestDate',
+      key: 'requestDate',
       align: 'center',
       ellipsis: true,
-      render: (scopes) => (
-        <Tooltip placement='top' title={getValueOrDash('1403/05/09')} arrow={true}>
+      render: (requestDate) => (
+        <Tooltip placement='top' title={getValueOrDash(requestDate)} arrow={true}>
           <S.Name
-            text={getValueOrDash('1403/05/09')}
+            text={getValueOrDash(requestDate)}
             highlightColor={highlightColor}
             wordToHighlight={wordToHighlight}
           />
@@ -73,34 +73,38 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: `${t('request_time')}`,
-      dataIndex: 'paths',
-      key: 'paths',
+      dataIndex: 'requestTime',
+      key: 'requestTime',
       align: 'center',
       ellipsis: true,
-      render: (paths) => (
-        <Tooltip placement='top' title={getValueOrDash('12:00')} arrow={true}>
-          <S.Name text={getValueOrDash('12:00')} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (requestTime) => (
+        <Tooltip placement='top' title={getValueOrDash(requestTime)} arrow={true}>
+          <S.Name
+            text={getValueOrDash(requestTime)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
     {
       title: `${t('service_id')}`,
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'serviceGatewayId',
+      key: 'serviceGatewayId',
       align: 'center',
       ellipsis: true,
-      render: (id) => getValueOrDash(id),
+      render: (serviceGatewayId) => getValueOrDash(serviceGatewayId),
     },
     {
       title: `${t('service_name')}`,
-      dataIndex: 'persianName',
-      key: 'persianName',
+      dataIndex: 'serviceName',
+      key: 'serviceName',
       align: 'center',
       ellipsis: true,
-      render: (persianName) => (
-        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
+      render: (serviceName) => (
+        <Tooltip placement='top' title={getValueOrDash(serviceName)} arrow={true}>
           <S.Name
-            text={getValueOrDash(persianName)}
+            text={getValueOrDash(serviceName)}
             highlightColor={highlightColor}
             wordToHighlight={wordToHighlight}
           />
@@ -109,13 +113,13 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: `${t('status')}`,
-      dataIndex: 'isActive',
-      key: 'isActive',
+      dataIndex: 'status',
+      key: 'status',
       align: 'center',
       ellipsis: true,
-      render: (value, record) => (
-        <Tooltip placement='top' title={getValueOrDash('فعال')} arrow={true}>
-          <S.Name text={getValueOrDash('فعال')} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (status, record) => (
+        <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
+          <S.Name text={getValueOrDash(status)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },

@@ -1,5 +1,8 @@
 import { PaginatedData } from '@oxygen/types';
 
+export type TypeSubTitle = string;
+export type TextInputValue = string;
+
 export type ScopeListDataType = {
   id: number;
   description: null | string;
@@ -22,7 +25,6 @@ export type ScopeRequestParams = {
   'search-field'?: string;
   page?: number;
   size?: number;
-  sort?: string;
 };
 
 export type ScopeListItem = {

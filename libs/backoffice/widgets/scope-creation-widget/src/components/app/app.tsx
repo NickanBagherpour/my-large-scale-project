@@ -14,7 +14,7 @@ type AppProps = PageProps & {
   //
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
   const dispatch = useAppDispatch();
   const { message } = useAppState();
   const [t] = useTr();
