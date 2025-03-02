@@ -18,7 +18,7 @@ const inputs: Record<TariffType, React.JSX.Element> = {
 
 export default function ServiceTarrif() {
   const [t] = useTr();
-  const [selectedTariff, setSelectedTariff] = useState<TariffType | null>('special');
+  const [selectedTariff, setSelectedTariff] = useState<TariffType | null>('tiered');
 
   const toggleTariffType = (value: TariffType) => {
     setSelectedTariff((prev) => (prev === value ? null : value));

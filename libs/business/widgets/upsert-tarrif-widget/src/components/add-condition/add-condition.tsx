@@ -4,15 +4,16 @@ import { TariffType } from '../../types';
 
 type Props = {
   tariffType: TariffType;
+  onClick: () => void;
 };
 
 // TODO: ADD A BTN TO THIS COMPONENT
 export default function AddCondition(props: Props) {
-  const { tariffType } = props;
+  const { tariffType, onClick } = props;
   const [t] = useTr();
 
   return (
-    <S.Button variant='link' $tariffType={tariffType}>
+    <S.Button variant='link' $tariffType={tariffType} onClick={onClick}>
       <i className='icon-plus-circle' />
       {t('add_condition')}
     </S.Button>

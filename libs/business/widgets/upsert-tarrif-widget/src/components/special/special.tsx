@@ -30,7 +30,7 @@ export default function Special() {
         </S.Article>
       ))}
 
-      <AddCondition tariffType='special' />
+      <AddCondition tariffType='special' onClick={() => void 1} />
     </S.Container>
   );
 }
