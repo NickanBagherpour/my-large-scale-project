@@ -12,8 +12,8 @@ import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/services-list.util';
 import ToggleStatus from '../toggle-status/toggle-status';
 
-import * as S from './services.style';
 import { ToggleActivationInfo } from '../../types/toggle-status.type';
+import * as S from './services.style';
 
 type ServicesProps = PageProps & {
   data?: ServiceDto[];
@@ -24,10 +24,11 @@ type ServicesProps = PageProps & {
   wordToHighlight: string;
   changeStatus?: (status: boolean, name: string) => void;
   deleteService?: (name: string, status: ParamsType) => void;
+  offset: number;
 };
 
 const Services: React.FC<ServicesProps> = (props) => {
-  const { data, isFetching, total, wordToHighlight, changeStatus, deleteService } = props;
+  const { data, isFetching, total, wordToHighlight, changeStatus, deleteService, offset } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -71,7 +72,7 @@ const Services: React.FC<ServicesProps> = (props) => {
     onToggleActivationSwitchClick: handleChangeShowToggleStatusModal,
   });
 
-  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
+  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 + (offset ?? 0) }));
 
   return (
     <>

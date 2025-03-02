@@ -29,7 +29,7 @@ export default {
   service_documentation: 'مستندات سرویس',
   add_documentation: 'افزودن مستندات',
   file_format_error: 'فرمت فایل معتبر نیست',
-  file_size_limit_error: 'حجم فایل بیشتر از 6مگابایت است',
+  file_size_limit_error: 'حجم فایل بیشتر از 6 مگابایت است. لطفاً فایل کوچکتری انتخاب کنید.',
   stop: 'توقف',
   field: {
     row: 'ردیف',
@@ -100,4 +100,7 @@ export default {
   version: 'نسخه',
   owner: 'مالک',
   tags: 'تگ ها',
+  remove_document: 'حذف مستند',
+  are_you_sure_to_remove_doc: 'آیا از حذف مستند {{name}} برای این سرویس اطمینان دارید؟',
+  document_was_removed_successfuly: 'مستند با موفقیت حذف شد',
 };

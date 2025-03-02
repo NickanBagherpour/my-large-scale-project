@@ -29,7 +29,7 @@ export default function ClientInfo(props: Props) {
   if (!clientInfo) return <Loading />;
 
   const {
-    clientId,
+    clientKey,
     tagIds,
     websiteUrl,
     redirectUrl,
@@ -73,7 +73,7 @@ export default function ClientInfo(props: Props) {
     { key: t('english_client_name'), value: getValueOrDash(clientEnglishName) },
     { key: t('persian_client_name'), value: getValueOrDash(clientPersianName) },
     { key: t('client_type'), value: getValueOrDash(clientTypeName) },
-    { key: t('client_id'), value: getValueOrDash(clientId) },
+    { key: t('client_id'), value: getValueOrDash(clientKey) },
     { key: t('authentication_id'), value: getValueOrDash(authorizationKey) },
     { key: t('website_address'), value: getValueOrDash(websiteUrl) },
     { key: t('input_address'), value: getValueOrDash(inboundAddress) },

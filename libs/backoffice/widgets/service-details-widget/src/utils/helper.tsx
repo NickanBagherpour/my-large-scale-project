@@ -9,6 +9,8 @@ export const isFileInvalid = (file: File, notification, t) => {
   const isValidType = [
     'application/pdf',
     'application/vnd.ms-excel',
+    'application/msword', // For .doc
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // For .docx
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   ].includes(file.type);
 

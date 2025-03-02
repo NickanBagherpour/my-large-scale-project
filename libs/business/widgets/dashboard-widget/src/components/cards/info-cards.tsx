@@ -1,7 +1,7 @@
+import { Flex } from 'antd';
 import { ROUTES } from '@oxygen/utils';
 import { DashboardCard, InnerDetailCard } from '@oxygen/reusable-components';
 import { TextPalette } from '@oxygen/types';
-import { Flex } from 'antd';
 import { useAppTheme } from '@oxygen/hooks';
 import * as S from './info-cards.style';
 
@@ -70,7 +70,7 @@ const InfoCards: React.FC = () => {
   return (
     <S.Container>
       {/* First two cards inside Flex */}
-      <Flex gap={5} vertical justify='space-between'>
+      <Flex gap={12} vertical justify='space-between'>
         {mainCards.map(({ title, icon, code, link, linkText, color, iconColor }) => (
           <DashboardCard
             iconColor={iconColor}

@@ -1,21 +1,20 @@
-import { Chip, InfoBox } from '@oxygen/ui-kit';
+import { Chip, InfoBox, Tag } from '@oxygen/ui-kit';
 import * as S from './route-info-box.style';
 import { InfoItemType } from '@oxygen/types';
 
 const renderTag = (tag: string) => {
   return (
-    <S.Tag key={tag}>
+    <Tag className='route-info-box-tag' key={tag}>
       <S.Text
         copyable={{
           text: tag,
           tooltips: ['', ''],
           icon: [<S.Icon className='icon-copy' />, <S.Icon className='icon-tick-circle-outlined' />],
-          onCopy: (e) => void console.log('>>>', e),
         }}
       >
         {tag}
       </S.Text>
-    </S.Tag>
+    </Tag>
   );
 };
 
@@ -62,5 +61,9 @@ export default function RouteInfoBox(props: Props) {
     ];
   }
 
-  return <InfoBox loading={!!isLoading} data={routeData} margin={0} />;
+  return (
+    <S.Container>
+      <InfoBox loading={!!isLoading} data={routeData} margin={0} />
+    </S.Container>
+  );
 }

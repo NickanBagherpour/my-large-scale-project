@@ -4,7 +4,7 @@ import { respondTo } from '@oxygen/utils';
 import { FilterPopover as KitFilterPopover } from '@oxygen/reusable-components';
 
 export const Container = styled.section`
-  margin: 2.8rem 0 2.7rem;
+  margin: 2.8rem 0 0;
 `;
 
 export const Actions = styled.div`
@@ -12,7 +12,6 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-bottom: 2.3rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;

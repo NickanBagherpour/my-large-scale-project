@@ -17,6 +17,7 @@ export const useGetServiceDocumentationHistory = (params: { page: number; size: 
     params: {
       page,
       size,
+      sortBy: 'timestamp',
     },
   });
 };

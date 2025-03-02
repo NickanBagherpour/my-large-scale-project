@@ -116,7 +116,7 @@ export const DownloadIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
   font-size: 2rem;
 `;
-export const PDFIcon = styled.i`
+export const FileTypeIcon = styled.i`
   color: ${(p) => p.theme.error.main};
   font-size: 2.5rem;
 `;

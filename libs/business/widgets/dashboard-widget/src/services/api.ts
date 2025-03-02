@@ -8,7 +8,7 @@ const Api = {
     return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
   },
   getServiceChartData: async (type: number) => {
-    return client.get<ChartResponse>(`${reportUrl}/v1/chart?type=${type}`);
+    return client.get<ChartResponse>(`${reportUrl}/v1/chart`, { params: { type } });
   },
 };
 export default Api;

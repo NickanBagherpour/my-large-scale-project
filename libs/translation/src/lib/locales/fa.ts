@@ -53,6 +53,7 @@ export default {
     english_name: 'نام لاتین',
     persian_name: 'نام فارسی',
     index: 'ردیف',
+    count: 'تعداد',
   },
 
   app: {
@@ -181,6 +182,9 @@ export default {
     days_ago: '{{time}} روز گذشته',
     hours_ago: '{{time}} ساعت گذشته',
     minutes_ago: '{{time}} دقیقه گذشته',
+    success_call: 'فراخوانی موفق {{element}}',
+    please_wait: 'لطفا چند ثانیه صبر کنید',
+    rows_count: 'تعداد سطرها:',
   },
 
   button: {
@@ -398,6 +402,7 @@ export default {
     success_alert: 'ویرایش اطلاعات {{element}} با موفقیت اعمال شد.',
     are_you_sure: 'اطمینان دارید؟',
     delete_element_question: 'آیا از حذف {{element}}',
+    operation_successful: 'عملیات با موفقیت انجام شد.',
   },
 
   nav: {},
