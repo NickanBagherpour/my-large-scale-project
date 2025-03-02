@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Input as UikitInput, Button as UikitButton } from '@oxygen/ui-kit';
+import { Form as AntForm } from 'antd';
 
-export const Container = styled.div`
+export const Form = styled(AntForm)`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

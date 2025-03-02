@@ -5,22 +5,22 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { tieredTariff } from '../../types';
 
-const name = 'special';
+const name = 'tiered';
+
+const initialValues = {
+  [name]: [
+    {
+      from: '',
+      to: '',
+      minimum: '',
+      maximum: '',
+    },
+  ],
+};
 
 export default function Tiered() {
   const [t] = useTr();
   const rule = createSchemaFieldRule(tieredTariff(t));
-
-  const initialValues = {
-    special: [
-      {
-        from: '',
-        to: '',
-        minimum: '',
-        maximum: '',
-      },
-    ],
-  };
 
   return (
     <S.Form initialValues={initialValues}>
@@ -30,7 +30,7 @@ export default function Tiered() {
             return (
               <>
                 {childrenFields.map((child, idx) => (
-                  <Form.Item name={[child.name /* , 'title' if it is nested */]} /* rules={rule} */>
+                  <Form.Item name={[child.name /* , 'title' if it is nested */]} rules={[rule]}>
                     <S.Article key={child.key}>
                       <S.Index>{idx + 1}</S.Index>
                       <span>{t('from')}</span>
