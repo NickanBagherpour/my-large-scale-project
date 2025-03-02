@@ -1,5 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './tiered.style';
+import AddCondition from '../add-condition/add-condition';
 
 export default function Tiered() {
   const [t] = useTr();
@@ -21,6 +22,8 @@ export default function Tiered() {
           </S.TrashBtn>
         </S.Article>
       ))}
+
+      <AddCondition />
     </S.Container>
   );
 }
