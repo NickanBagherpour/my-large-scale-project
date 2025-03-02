@@ -42,7 +42,7 @@ const ServiceSelector = (props: Props) => {
         loading={isFetching}
         isLastPage={!hasNextPage}
         loadMore={() => fetchNextPage()}
-        placeholder={t('uikit.search_english_or_persian_name')}
+        placeholder={t('placeholder.choose_service')}
         disabled={disabled}
       />
     </div>

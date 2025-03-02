@@ -1,44 +1,77 @@
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-import { useGetServicesQuery } from '../../services';
-import Filters from '../filters/filters';
+import { useGetServicesLogsQuery } from '../../services';
+import Filter from '../filters/filters';
 import Services from '../services-list/services';
 
 import * as S from './app.style';
+import { useEffect, useState } from 'react';
+import { useDateLocaleListener } from '@oxygen/hooks';
 
 const App = () => {
-  const { message, searchTerm, status, sort, table, ...fetchState } = useAppState();
+  const { message, searchTerm, table } = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const prepareServiceParams = () => {
-    const parsedSearchTerm = new URLSearchParams(searchTerm);
 
-    return {
-      clientGatewayId: parsedSearchTerm.get('clientGatewayId') || '',
-      serviceGatewayId: parsedSearchTerm.get('serviceGatewayId') || '',
-      fromDate: parsedSearchTerm.get('fromDate') || '',
-      toDate: parsedSearchTerm.get('toDate') || '',
-      page: table.pagination.page - 1,
-      size: table.pagination.rowsPerPage,
-      sort: 'createDate,' + (sort === 'ascending' ? 'ASC' : 'DESC'), // Corrected DESC/ASC logic
+  useDateLocaleListener();
+
+  const customFilters = new URLSearchParams(useAppState().table.filters);
+  const filterParams = Object.fromEntries(customFilters.entries());
+
+  // Define filters state with default values
+  const [filters, setFilters] = useState({
+    consumerId: filterParams.clientGatewayId || '',
+    serviceId: filterParams.serviceGatewayId || '',
+    fromDate: filterParams.fromDate || '',
+    toDate: filterParams.toDate || '',
+    direction: 'DESC',
+    page: 1,
+    size: table.pagination.rowsPerPage || 10,
+  });
+
+  // Fetch data using the filters
+  const { data: servicesLogs, isFetching: isFetchingLogs, refetch } = useGetServicesLogsQuery(filters);
+
+  // Sync state with updated custom filters
+  useEffect(() => {
+    const updatedFilters = {
+      consumerId: filterParams.clientGatewayId || '',
+      serviceId: filterParams.serviceGatewayId || '',
+      fromDate: filterParams.fromDate || '',
+      toDate: filterParams.toDate || '',
+      direction: 'DESC',
+      page: filters.page, // Preserve the current page
+      size: filters.size, // Preserve the current size
     };
-  };
+    setFilters((prev) => (JSON.stringify(prev) !== JSON.stringify(updatedFilters) ? updatedFilters : prev));
+  }, [filterParams]);
 
-  const { data: services, isFetching: isServiceListFetching } = useGetServicesQuery(prepareServiceParams());
+  // Refetch data when filters change
+  useEffect(() => {
+    refetch();
+  }, [filters, refetch]);
+
+  // Handle search action
+  const handleSearch = () => {
+    setFilters((prev) => ({
+      ...prev,
+      page: 1, // Reset page on search
+      size: table.pagination.rowsPerPage || 10,
+    }));
+  };
 
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
       <S.ServicesContainer title={t('widget_name')}>
-        <Filters />
+        <Filter filters={filters} setFilters={setFilters} onSearch={handleSearch} />
         <Services
-          isFetching={isServiceListFetching}
-          data={services?.content}
-          total={services?.totalElements}
+          isFetching={isFetchingLogs}
+          data={servicesLogs?.response?.content}
+          total={servicesLogs?.totalElements}
           searchTerm={searchTerm}
-          isLoading={isServiceListFetching}
+          isLoading={isFetchingLogs}
           wordToHighlight={searchTerm ?? ''}
         />
       </S.ServicesContainer>
