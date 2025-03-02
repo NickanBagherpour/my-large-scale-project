@@ -131,17 +131,13 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
 
       const fileType = file.name.split('.').pop()?.toLowerCase() || '';
 
-      // File type mapping to icons
-      const fileTypeIcons = {
-        pdf: 'icon-pdf',
-        doc: 'icon-doc',
-        docx: 'icon-docx',
-      };
-
-      // Get the corresponding class, or use a default icon
-      const iconClass = fileTypeIcons[fileType] || 'icon-default';
-
-      return <S.FileTypeIcon className={iconClass} />;
+      switch (fileType) {
+        case 'pdf':
+          return <S.IconPdf className='icon-pdf' />;
+        case 'docx':
+        case 'doc':
+          return <S.IconWord className='icon-word' />;
+      }
     },
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
