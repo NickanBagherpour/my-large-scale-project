@@ -90,7 +90,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
-      ellipsis: true,
       render: (version) => getValueOrDash(version),
     },
     {

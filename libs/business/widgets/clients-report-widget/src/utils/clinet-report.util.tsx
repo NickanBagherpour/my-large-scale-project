@@ -12,19 +12,12 @@ import * as S from '../components/client-report/client-report.style';
 
 type Props = {
   t: TFunction;
-  // changeStatus?: (status: boolean, name: string) => void;
-  // deleteService?: (name: string, status: ParamsType) => void;
   theme: ITheme;
   wordToHighlight: string;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const {
-    t,
-    // , changeStatus, deleteService
-    theme,
-    wordToHighlight,
-  } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
@@ -33,7 +26,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientEnglishName',
       key: 'national',
       align: 'center',
-      // width: 150,
       ellipsis: {
         showTitle: false,
       },
@@ -87,12 +79,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 }
 
 export function getMobileColumns(props: Props): any {
-  const {
-    t,
-    // , changeStatus, deleteService
-    theme,
-    wordToHighlight,
-  } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
