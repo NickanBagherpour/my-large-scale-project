@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { UploadServiceType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
 
-export type FiltersType = UploadServiceType;
+export type FiltersType = any;
 
-export type SimpleFilters = Pick<UploadServiceType, 'code' | 'branchCode'>;
+export type SimpleFilters = Pick<any, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
@@ -12,7 +11,8 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
-  searchTerm: string;
+  filters: any;
+  searchTerm: any;
   sort: 'ascending' | 'descending';
   status: boolean | null;
   page: number;

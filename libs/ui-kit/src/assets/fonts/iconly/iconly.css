@@ -11,6 +11,7 @@
   src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1740899031319') format('woff2'),
     url('./iconly.woff?1740899031319') format('woff'), url('./iconly.ttf?1740899031319') format('truetype'),
     url('./iconly.svg?1740899031319#Iconly') format('svg');
+
 }
 
 [class='icon'],
