@@ -127,7 +127,23 @@ export const Documentation: React.FC<DocumentationType> = (props) => {
       setDocumentToRemove(file);
     },
     onDownload: handleFileDownload,
-    iconRender: () => <S.PDFIcon className='icon-pdf' />,
+    iconRender: (file) => {
+      if (!file?.name) return null; // Prevents errors if file or name is undefined
+
+      const fileType = file.name.split('.').pop()?.toLowerCase() || '';
+
+      // File type mapping to icons
+      const fileTypeIcons = {
+        pdf: 'icon-pdf',
+        doc: 'icon-doc',
+        docx: 'icon-docx',
+      };
+
+      // Get the corresponding class, or use a default icon
+      const iconClass = fileTypeIcons[fileType] || 'icon-default';
+
+      return <S.FileTypeIcon className={iconClass} />;
+    },
     showUploadList: {
       removeIcon: <S.TrashIcon className='icon-trash' />,
       showDownloadIcon: true,
