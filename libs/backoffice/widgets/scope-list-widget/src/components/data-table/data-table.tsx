@@ -17,10 +17,10 @@ type DataTableProps = PageProps & {
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
+  const [t] = useTr();
   const dispatch = useAppDispatch();
   const { pagination } = useAppState();
   const { scopeListLoading, scopeListData } = props;
-  const [t] = useTr();
 
   const dataTableParams = { t, pagination };
   const desktopColumns = getDesktopColumns(dataTableParams);

@@ -6,6 +6,10 @@ export type ScopeListDataType = {
   name: null | string;
 };
 
+export type TypeSubTitle = string;
+
+export type TextInputValue = string;
+
 export type TypeScopeListParams = {
   searchField: string;
   page: number;

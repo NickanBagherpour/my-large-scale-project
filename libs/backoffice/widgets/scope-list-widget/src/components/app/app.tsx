@@ -10,7 +10,7 @@ import Filter from '../filter/filter';
 import DataTable from '../data-table/data-table';
 import { useGetScopeListQuery } from '../../services';
 import { prepareScopeListParams } from '../../utils/scopes-list.util';
-import { TypeScopeListParams } from '../../types';
+import { TypeScopeListParams, TypeSubTitle } from '../../types';
 
 import * as S from './app.style';
 
@@ -18,14 +18,14 @@ type AppProps = PageProps & {
   //
 };
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = () => {
   const dispatch = useAppDispatch();
+  const [t] = useTr();
   const {
     pagination: { page, pageSize },
     searchField,
     message,
   } = useAppState();
-  const [t] = useTr();
 
   const scopeListParams: TypeScopeListParams = {
     searchField,
@@ -37,7 +37,7 @@ const App: React.FC<AppProps> = (props) => {
     prepareScopeListParams(scopeListParams)
   );
 
-  const subTitle = scopeListData?.totalElements ? `(${scopeListData?.totalElements ?? 0})` : '';
+  const subTitle: TypeSubTitle = scopeListData?.totalElements ? `(${scopeListData?.totalElements ?? 0})` : '';
 
   return (
     <S.AppContainer fillContainer={true} title={t('widget_name')} subtitle={subTitle}>
