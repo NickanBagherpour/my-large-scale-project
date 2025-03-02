@@ -22,7 +22,7 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalMessage = styled.p`
-  color: ${(p) => p.theme.text.primary}
+  color: ${(p) => p.theme.text.primary};
   text-align: right;
   font-size: 1.6rem;
   font-weight: 600;
@@ -32,20 +32,12 @@ export const ModalMessage = styled.p`
 `;
 
 export const MarkText = styled(UiKitMarkText)`
-  color: ${(p) => p.theme.text.primary}
+  color: ${(p) => p.theme.text.primary};
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.5rem;
   padding: 1rem;
 `;
-
-// export const ClientName = styled.span`
-//   color: ${(p) => p.theme.primary.main};
-//   text-align: right;
-//   font-size: 1.6rem;
-//   font-weight: 600;
-//   line-height: 2.5rem;
-// `;
 
 export const StyledTextarea = styled(Input.TextArea)`
   border-radius: 1.2rem;
