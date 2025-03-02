@@ -1,16 +1,15 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './tarrif-radio.style';
 import { Radio } from 'antd';
-
-export type Value = 'fixed' | 'tiered' | 'special';
+import { TariffType } from '../../types';
 
 type Props = {
-  value: Value;
+  value: TariffType;
   checked: boolean;
-  onChange: (value: Value) => void;
+  onChange: (value: TariffType) => void;
 };
 
-const icons: Record<Value, string> = {
+const icons: Record<TariffType, string> = {
   fixed: 'icon-folder',
   special: 'icon-star',
   tiered: 'icon-3square',
@@ -20,7 +19,7 @@ export default function TarrifRadio(props: Props) {
   const { value, checked, onChange } = props;
   const [t] = useTr();
 
-  const titles: Record<Value, string> = {
+  const titles: Record<TariffType, string> = {
     fixed: t('fixed_tariff'),
     tiered: t('tiered_tariff'),
     special: t('special_tariff'),

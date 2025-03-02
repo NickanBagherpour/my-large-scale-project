@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Value } from './tarrif-radio';
+import { TariffType } from '../../types';
 
 const gold = {
   bg: '#FFFBEB',
@@ -7,7 +7,7 @@ const gold = {
   normal: '#F59E0B',
 };
 
-export const Label = styled.label<{ $checked: boolean; $type: Value }>`
+export const Label = styled.label<{ $checked: boolean; $type: TariffType }>`
   border: ${(p) => `1px solid ${p.theme.border._300}`};
   border-radius: 1.2rem;
   display: flex;
@@ -58,7 +58,7 @@ export const Label = styled.label<{ $checked: boolean; $type: Value }>`
   }}
 `;
 
-export const Icon = styled.i<{ $value: Value }>`
+export const Icon = styled.i<{ $value: TariffType }>`
   font-size: 2.4rem;
   color: ${(p) =>
     p.$value === 'fixed'

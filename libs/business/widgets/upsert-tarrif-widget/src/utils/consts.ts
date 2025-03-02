@@ -3,3 +3,5 @@ export const GENERAL_INFO_NAMES = {
   bankingSharePct: 'bankingSharePct',
   opsTeamSharePct: 'opsTeamSharePct',
 };
+
+export const tariffTypes = ['fixed', 'tiered', 'special'] as const;

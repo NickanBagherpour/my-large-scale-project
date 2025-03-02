@@ -1,32 +1,34 @@
 import { useTr } from '@oxygen/translation';
 import Title from '../title/title';
 import * as S from './servcie-tariff.style';
-import TarrifRadio, { type Value } from '../tariff-radio/tarrif-radio';
+import TarrifRadio from '../tariff-radio/tarrif-radio';
 import { useState } from 'react';
+import FixedTariff from '../fixed-tariff/fixed-tariff';
+import { Divider } from '@oxygen/ui-kit';
+import { tariffTypes } from '../../utils';
+import { TariffType } from '../../types';
 
 export default function ServiceTarrif() {
   const [t] = useTr();
-  const [selectedTariff, setSelectedTariff] = useState<Value | null>(null);
+  const [selectedTariff, setSelectedTariff] = useState<TariffType | null>(null);
 
-  const toggleTariffType = (value: Value) => {
+  const toggleTariffType = (value: TariffType) => {
     setSelectedTariff((prev) => (prev === value ? null : value));
   };
-
-  const tariffs = [
-    { value: 'fixed', checked: selectedTariff === 'fixed', onChange: toggleTariffType },
-    { value: 'tiered', checked: selectedTariff === 'tiered', onChange: toggleTariffType },
-    { value: 'special', checked: selectedTariff === 'special', onChange: toggleTariffType },
-  ] as const;
 
   return (
     <section>
       <Title>{t('service_tariff')}</Title>
 
       <S.Section>
-        <S.Type>{t('tariff_type')}</S.Type>
-        {tariffs.map((item, key) => (
-          <TarrifRadio {...item} key={key} />
-        ))}
+        <S.TariffType>
+          <S.Type>{t('tariff_type')}</S.Type>
+          {tariffTypes.map((item, key) => (
+            <TarrifRadio value={item} checked={selectedTariff === item} onChange={toggleTariffType} key={key} />
+          ))}
+        </S.TariffType>
+        <Divider />
+        {selectedTariff === 'fixed' ? <FixedTariff /> : null}
       </S.Section>
     </section>
   );

@@ -19,7 +19,7 @@ export default function GeneralInfo() {
         <Form layout='vertical'>
           <SearchItemsContainer $columnNumber='3'>
             <S.FormItem name={GENERAL_INFO_NAMES.serviceName} label={t('service_name')} rules={[rule]}>
-              <Input placeholder={t('enter_share_pct')} />
+              <Input />
             </S.FormItem>
 
             <S.FormItem name={GENERAL_INFO_NAMES.bankingSharePct} label={t('banking_share_pct')} rules={[rule]}>
