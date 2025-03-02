@@ -142,6 +142,9 @@
             "@oxygen/business/widgets/tariff-list-widget": [
                 "libs/business/widgets/tariff-list-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/upsert-tarrif-widget": [
+                "libs/business/widgets/upsert-tarrif-widget/src/index.ts"
+            ],
             "@oxygen/client": ["libs/client/src/index.ts"],
             "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
             "@oxygen/customer/widgets/auth-widget": [
