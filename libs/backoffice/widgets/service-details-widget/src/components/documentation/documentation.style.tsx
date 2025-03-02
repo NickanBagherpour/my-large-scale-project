@@ -116,8 +116,12 @@ export const DownloadIcon = styled.i`
   color: ${(p) => p.theme.text.quaternary};
   font-size: 2rem;
 `;
-export const FileTypeIcon = styled.i`
+export const IconPdf = styled.i`
   color: ${(p) => p.theme.error.main};
+  font-size: 2.5rem;
+`;
+export const IconWord = styled.i`
+  color: ${(p) => p.theme.primary.main};
   font-size: 2.5rem;
 `;
 export const FileSize = styled.span`
