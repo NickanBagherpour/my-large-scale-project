@@ -3,8 +3,9 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { ScopeListData } from '../../types';
 import { Table } from '@oxygen/ui-kit';
+
+import { ScopeListData } from '../../types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';

@@ -19,8 +19,8 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = () => {
-  const dispatch = useAppDispatch();
   const [t] = useTr();
+  const dispatch = useAppDispatch();
   const {
     pagination: { page, pageSize },
     searchField,
