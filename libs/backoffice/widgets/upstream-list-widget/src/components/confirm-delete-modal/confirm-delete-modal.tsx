@@ -82,7 +82,7 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
             />
           ) : (
             <S.MarkText
-              wordToHighlight={upstreamName}
+              wordToHighlight={upstreamName || ''}
               highlightColor={theme.error.main}
               text={upstreamNoServiceDeleteMessage}
             />
