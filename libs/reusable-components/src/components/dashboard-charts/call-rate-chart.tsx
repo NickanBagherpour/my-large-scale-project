@@ -1,7 +1,7 @@
 import { Flex, Radio } from 'antd';
 
 import { BasicComponentProps } from '@oxygen/types';
-import { BarChart, Button, Select } from '@oxygen/ui-kit';
+import { BarChart, Button, Container, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
 
@@ -75,7 +75,7 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
     </S.SelectIcons>
   );
   return (
-    <>
+    <Container fillContainer={true}>
       <S.Header>
         <S.Title>{t('uikit.call_rate', { element: t('element.service') })}</S.Title>
         <S.Controls>
@@ -112,7 +112,7 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
         legendProps={{ content: renderLegend }}
         isLoading={isLoading}
       />
-    </>
+    </Container>
   );
 };
 export default CallRateChart;

@@ -4,6 +4,7 @@ import { DashboardCard, InnerDetailCard } from '@oxygen/reusable-components';
 import { TextPalette } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
 import * as S from './info-cards.style';
+import { Container } from '@oxygen/ui-kit';
 
 // Define TypeScript types for clarity
 interface Detail {
@@ -68,30 +69,32 @@ const InfoCards: React.FC = () => {
   const detailCards = cardList.slice(2);
 
   return (
-    <S.Container>
-      {/* First two cards inside Flex */}
-      <Flex gap={12} vertical justify='space-between'>
-        {mainCards.map(({ title, icon, code, link, linkText, color, iconColor }) => (
-          <DashboardCard
-            iconColor={iconColor}
-            key={title}
-            headerTitle={title}
-            backgroundColor={color}
-            cardNumber={code}
-            icon={icon}
-            linkHref={link}
-            linkText={linkText}
-          />
-        ))}
-      </Flex>
+    <Container fillContainer={false}>
+      <S.Container>
+        {/* First two cards inside Flex */}
+        <Flex gap={12} vertical justify='space-between'>
+          {mainCards.map(({ title, icon, code, link, linkText, color, iconColor }) => (
+            <DashboardCard
+              iconColor={iconColor}
+              key={title}
+              headerTitle={title}
+              backgroundColor={color}
+              cardNumber={code}
+              icon={icon}
+              linkHref={link}
+              linkText={linkText}
+            />
+          ))}
+        </Flex>
 
-      {/* Remaining cards rendered separately */}
-      {detailCards.map(({ title, icon, detail, iconColor }) => (
-        <DashboardCard key={title} iconColor={iconColor} headerTitle={title} icon={icon}>
-          {detail && <InnerDetailCard title={detail.title} description={detail.desc} />}
-        </DashboardCard>
-      ))}
-    </S.Container>
+        {/* Remaining cards rendered separately */}
+        {detailCards.map(({ title, icon, detail, iconColor }) => (
+          <DashboardCard key={title} iconColor={iconColor} headerTitle={title} icon={icon}>
+            {detail && <InnerDetailCard title={detail.title} description={detail.desc} />}
+          </DashboardCard>
+        ))}
+      </S.Container>
+    </Container>
   );
 };
 
