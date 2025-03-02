@@ -118,21 +118,26 @@ const ConfirmModal: React.FC<Props> = (props) => {
   const ModalMessage = ({ t, isConfirm, clientName, aggregatorName }) => {
     if (aggregatorName) {
       return (
-        <S.ModalMessage>
-          {t('confirm_question_first')}
-          <S.ClientName>{` "${clientName}" `}</S.ClientName>
-          {t(isConfirm ? 'confirm_question_second' : 'reject_question_second', {
+        <S.MarkText
+          wordToHighlight={clientName || ''}
+          highlightColor={theme.primary.main}
+          text={t('confirm_message_with_aggregator', {
+            clientName: ` "${clientName}" `,
             aggregatorName: getValueOrDash(aggregatorName),
+            messageType: t(isConfirm ? 'confirm' : 'reject'),
           })}
-        </S.ModalMessage>
+        />
       );
     } else {
       return (
-        <S.ModalMessage>
-          {t('confirm_question_first')}
-          <S.ClientName>{` "${clientName}" `}</S.ClientName>
-          {t(isConfirm ? 'confirm_question_no_aggregator' : 'reject_question_no_aggregator')}
-        </S.ModalMessage>
+        <S.MarkText
+          highlightColor={theme.primary.main}
+          wordToHighlight={clientName || ''}
+          text={t('confirm_message_no_aggregator', {
+            clientName: ` "${clientName}" `,
+            messageType: t(isConfirm ? 'confirm' : 'reject'),
+          })}
+        />
       );
     }
   };
