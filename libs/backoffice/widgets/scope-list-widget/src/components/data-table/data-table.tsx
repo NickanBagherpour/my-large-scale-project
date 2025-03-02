@@ -3,8 +3,9 @@ import type { TablePaginationConfig } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { ScopeListData } from '../../types';
 import { Table } from '@oxygen/ui-kit';
+
+import { ScopeListData } from '../../types';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/scopes-list.util';
@@ -17,10 +18,10 @@ type DataTableProps = PageProps & {
 };
 
 const DataTable: React.FC<DataTableProps> = (props) => {
+  const [t] = useTr();
   const dispatch = useAppDispatch();
   const { pagination } = useAppState();
   const { scopeListLoading, scopeListData } = props;
-  const [t] = useTr();
 
   const dataTableParams = { t, pagination };
   const desktopColumns = getDesktopColumns(dataTableParams);

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import type { Pagination, Service } from '@oxygen/types';
-import { TablePaginationConfig } from 'antd';
+
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Nullable } from '@oxygen/types';
 import { useGetServiceDetailsQuery } from '../../services';
-import { getDesktopColumns, getMobileColumns } from '../../utils/services-table.util';
+import { CaptionWrapper } from '../app/app.style';
 import { Button, Chip, InfoBox } from '@oxygen/ui-kit';
 import * as S from './service-info.style';
 
@@ -73,8 +72,8 @@ const Route: React.FC<AppProps> = (props) => {
 
   return (
     <>
-      <div className='service-technical-details'>
-        <h3>{t('general_information')}</h3>
+      <CaptionWrapper>
+        <p>{t('general_information')}</p>
         <div className='btn-group'>
           <Button
             type={'primary'}
@@ -95,7 +94,7 @@ const Route: React.FC<AppProps> = (props) => {
             {t('edit')}
           </Button>
         </div>
-      </div>
+      </CaptionWrapper>
 
       <InfoBox data={transformedData} margin={0} loading={isServiceFetching} />
     </>

@@ -1,4 +1,3 @@
-import Lottie from 'lottie-react';
 import {
   Bar,
   XAxis,
@@ -23,6 +22,7 @@ import { useTr } from '@oxygen/translation';
 import animation from '../assets/media/Chart Loader.json';
 
 import * as S from './bar-chart.style';
+import { LazyLottie } from '@oxygen/reusable-components';
 
 type Props = {
   isLoading: boolean;
@@ -55,9 +55,8 @@ export const BarChart: React.FC<Props> = ({
         {' '}
         {isLoading ? (
           <S.Loading>
-            {' '}
-            {/* <LazyLottie width={100} height={100} animationData={data} loop /> */}
-            <Lottie style={{ width: 100, height: 100 }} animationData={animation} loop />
+            <LazyLottie width={100} height={100} animationData={animation} loop />
+            {/* <Lottie style={{ width: 100, height: 100 }} animationData={animation} loop /> */}
             <S.LoadingTxt>{t('uikit.please_wait')}</S.LoadingTxt>
           </S.Loading>
         ) : (

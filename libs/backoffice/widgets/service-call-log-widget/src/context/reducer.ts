@@ -3,7 +3,7 @@ import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
   status: null,
-  searchTerm: '',
+  searchTerm: null,
   page: 1,
   sort: 'ascending',
   table: {
@@ -15,6 +15,7 @@ export const initialStateValue: WidgetStateType = {
     },
   },
   message: null,
+  filters: undefined,
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
@@ -37,7 +38,9 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_SEARCH_TERM': {
       state.table.pagination.page = initialStateValue['page'];
-      state.searchTerm = action.payload;
+      state.table.filters = action.payload;
+      console.log(action.payload, 'action.payloadaction.payload');
+
       return;
     }
 
