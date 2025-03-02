@@ -1,6 +1,10 @@
 import { Form } from 'antd';
 import styled from 'styled-components';
 
+export const Section = styled.section`
+  margin-bottom: 4.2rem;
+`;
+
 export const Icon = styled.i`
   font-size: 1.8rem;
   color: ${(p) => p.theme.primary.main};

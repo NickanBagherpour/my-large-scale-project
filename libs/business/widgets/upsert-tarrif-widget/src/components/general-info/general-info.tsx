@@ -13,7 +13,7 @@ export default function GeneralInfo() {
   const rule = createSchemaFieldRule(createGeneralInfoSchema(t));
 
   return (
-    <>
+    <S.Section>
       <Title>{t('general_info')}</Title>
       <BorderedSection>
         <Form layout='vertical'>
@@ -32,6 +32,6 @@ export default function GeneralInfo() {
           </SearchItemsContainer>
         </Form>
       </BorderedSection>
-    </>
+    </S.Section>
   );
 }
