@@ -23,7 +23,7 @@ export const tieredTariff = (t: TFunction) => {
   });
 };
 
-export type SpecialTariffType = z.infer<ReturnType<typeof tieredTariff>>;
+export type SpecialTariffFormType = z.infer<ReturnType<typeof tieredTariff>>;
 
 // TODO: ADD CREATE THE NAME OF THIS FUNCTION
 export const specialTariff = (t: TFunction) => {
@@ -45,4 +45,4 @@ export const specialTariff = (t: TFunction) => {
   });
 };
 
-export type TieredTariffType = z.infer<ReturnType<typeof specialTariff>>;
+export type TieredTariffFormType = z.infer<ReturnType<typeof specialTariff>>;
