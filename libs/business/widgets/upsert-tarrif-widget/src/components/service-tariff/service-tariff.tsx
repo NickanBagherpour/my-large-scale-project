@@ -7,6 +7,7 @@ import FixedTariff from '../fixed-tariff/fixed-tariff';
 import { Divider } from '@oxygen/ui-kit';
 import { tariffTypes } from '../../utils';
 import { TariffType } from '../../types';
+import Tiered from '../tiered/tiered';
 
 export default function ServiceTarrif() {
   const [t] = useTr();
@@ -28,7 +29,7 @@ export default function ServiceTarrif() {
           ))}
         </S.TariffType>
         <Divider />
-        {selectedTariff === 'fixed' ? <FixedTariff /> : null}
+        {selectedTariff === 'fixed' ? <FixedTariff /> : <Tiered />}
       </S.Section>
     </section>
   );

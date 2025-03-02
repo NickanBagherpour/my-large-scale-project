@@ -15,6 +15,7 @@ export default {
   tariff_amount_irr: 'مبلغ تعرفه (ریال):',
   enter_amount: 'مبلغ را وارد نمایید',
   count: 'تعداد',
+  from: 'از',
   to: 'تا',
   request_tariff_applies: 'درخواست، مشمول تعرفه',
   tariff_irr: 'تعرفه (ریال)',
