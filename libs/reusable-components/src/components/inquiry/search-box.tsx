@@ -14,12 +14,13 @@ type Props = {
   inputRef: RefObject<InputRef | null>;
   isLoading: boolean;
   type: InquiryType;
+  onFormValueChange: () => void;
 };
-const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type }) => {
+const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type, onFormValueChange }) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(CreateInquirySchema(t));
   return (
-    <Form layout={'vertical'} onFinish={onFinish} form={form}>
+    <Form onValuesChange={() => onFormValueChange()} layout={'vertical'} onFinish={onFinish} form={form}>
       <S.Container>
         <S.FormItem rules={[rule]} name={INQUIRY.ItemName}>
           <Input

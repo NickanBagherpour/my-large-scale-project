@@ -61,6 +61,11 @@ const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
     lottieRef.current?.play();
     setFormSubmission({ isSubmitted: true, itemName: values?.name?.trim() });
   };
+  const resetSearchResult = () => {
+    if (content !== 'searching') {
+      setContent('searching');
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       if (fromSubmission.isSubmitted) {
@@ -106,7 +111,14 @@ const InquiryComponent: React.FC<Props> = ({ toggle, dispatch, type }) => {
       onClose={toggle}
       onCancel={toggle}
     >
-      <SearchBox type={type} form={form} isLoading={loading} inputRef={inputRef} onFinish={handleFormSubmit} />
+      <SearchBox
+        type={type}
+        form={form}
+        isLoading={loading}
+        inputRef={inputRef}
+        onFinish={handleFormSubmit}
+        onFormValueChange={resetSearchResult}
+      />
       <S.MainContainer $content={content}>
         <div style={{ display: content === 'searching' ? '' : 'none' }}>
           <LazyLottie lottieRef={lottieRef} height={'20rem'} width={'18rem'} {...defaultOptions} />
