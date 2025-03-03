@@ -1,17 +1,16 @@
-import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Service } from '@oxygen/types';
-import Link from 'next/link';
 import { TFunction } from 'i18next';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
-import { WithBadge } from '@oxygen/reusable-components';
-import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
 type PropsType = {
   t: TFunction;
   toggleRemoveModal: () => void;
   setServiceToUnassign: (serviceName: string) => void;
   router: AppRouterInstance;
 };
+
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
   const { t, toggleRemoveModal, setServiceToUnassign, router } = props;
   const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?service-name=${serviceName}`);
@@ -19,7 +18,6 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
     {
       title: t('common.row_number'),
       align: 'center',
-
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
