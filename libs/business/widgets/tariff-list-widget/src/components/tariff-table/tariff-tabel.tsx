@@ -11,6 +11,7 @@ import { getDesktopColumns, getMobileColumns } from '../../utils/table-data-list
 
 import * as S from './tariff-tabel.style';
 import { useDeleteServiceQuery } from '../../services';
+import { useRouter } from 'next/navigation';
 
 export type TariffTablePropsType = PageProps & {
   tableData: any[];
@@ -23,6 +24,8 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const { notification } = useApp();
+  const router = useRouter();
+
   const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
   const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
   //MUTATION
@@ -90,8 +93,8 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
       version: 'Tariff 5',
     },
   ];
-  const desktopColumns = getDesktopColumns({ t, toggleRemoveModal, setServiceToUnassign });
-  const mobileColumns = getMobileColumns({ t, toggleRemoveModal, setServiceToUnassign });
+  const desktopColumns = getDesktopColumns({ t, toggleRemoveModal, setServiceToUnassign, router });
+  const mobileColumns = getMobileColumns({ t, toggleRemoveModal, setServiceToUnassign, router });
   return (
     <S.TariffTableContainer>
       <Table

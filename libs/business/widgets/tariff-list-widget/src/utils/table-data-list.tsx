@@ -2,16 +2,19 @@ import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import type { Service } from '@oxygen/types';
 import Link from 'next/link';
 import { TFunction } from 'i18next';
-import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { WithBadge } from '@oxygen/reusable-components';
+import { useRouter } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 type PropsType = {
   t: TFunction;
   toggleRemoveModal: () => void;
   setServiceToUnassign: (serviceName: string) => void;
+  router: AppRouterInstance;
 };
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
-  const { t, toggleRemoveModal, setServiceToUnassign } = props;
-
+  const { t, toggleRemoveModal, setServiceToUnassign, router } = props;
+  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?service-name=${serviceName}`);
   return [
     {
       title: t('common.row_number'),
@@ -55,7 +58,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       align: 'left',
       render: (value, record) => (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button variant='link' color='primary' onClick={() => console.log('details', value.serviceName)}>
+          <Button variant='link' color='primary' onClick={() => handleClick(value.serviceName)}>
             {t('see_details')}
           </Button>
           <Button
@@ -75,15 +78,15 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
 }
 
 export function getMobileColumns(props: PropsType): ColumnsType<any> {
-  const { t, toggleRemoveModal, setServiceToUnassign } = props;
-
+  const { t, toggleRemoveModal, setServiceToUnassign, router } = props;
+  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?service-name=${serviceName}`);
   return [
     {
       title: '',
       key: 'mobile-columns',
       render({ id, scopes, paths, serviceName, persianName, name }) {
         const data = [
-          { title: t('service_name'), value: getValueOrDash(name) },
+          { title: t('service_name'), value: getValueOrDash(serviceName) },
           { title: t('banking_share'), value: getValueOrDash(persianName) },
           { title: t('contribution_operational_team'), value: getValueOrDash(persianName) },
           {
@@ -98,7 +101,7 @@ export function getMobileColumns(props: PropsType): ColumnsType<any> {
             title: t('details'),
             value: (
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Button variant='link' color='primary' onClick={() => console.log('details', serviceName)}>
+                <Button variant='link' color='primary' onClick={() => handleClick(serviceName)}>
                   {t('see_details')}
                 </Button>
               </div>
