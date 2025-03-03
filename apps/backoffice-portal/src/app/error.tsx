@@ -1,12 +1,6 @@
 'use client';
+import { UnexpectedErrorFallback } from '@oxygen/reusable-components';
 
-import { ErrorFallback } from '@oxygen/reusable-components';
-
-type ErrorProps = {
-  error: Error;
-  reset: () => void;
-};
-
-export default function Error({ error, reset }: ErrorProps) {
-  return <ErrorFallback error={error} reset={reset} />;
+export default function GlobalError() {
+  return <UnexpectedErrorFallback />;
 }
