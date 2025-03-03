@@ -1,3 +1,4 @@
+import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
@@ -6,8 +7,6 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
-
-import React from 'react';
 
 type Props = {
   t: TFunction;
@@ -133,8 +132,6 @@ export const prepareScopeListParams = (item: TypeScopeListParams): ScopeRequestP
   if (pageSize) {
     reqObj.size = pageSize;
   }
-
-  reqObj.sort = '';
 
   return reqObj;
 };

@@ -9,8 +9,8 @@ import { Button } from '@oxygen/ui-kit';
 
 import { useGetRouteDetailsQuery } from '../../services';
 
-import * as S from './route-info.style';
 import { RouteInfoBox } from '@oxygen/reusable-components';
+import { CaptionWrapper } from '../app/app.style';
 
 export type Modal = {
   details: boolean;
@@ -54,9 +54,9 @@ const Route: React.FC<AppProps> = () => {
   const [t] = useTr();
 
   return (
-    <S.ItemsContainer className='clients-list'>
-      <div className='service-technical-details'>
-        <h3>{t('route')}</h3>
+    <>
+      <CaptionWrapper>
+        <p>{t('route')}</p>
         <div className='btn-group'>
           <Button
             type={'primary'}
@@ -77,9 +77,9 @@ const Route: React.FC<AppProps> = () => {
             {t('edit')}
           </Button>
         </div>
-      </div>
+      </CaptionWrapper>
       <RouteInfoBox route={route} isLoading={isServiceFetching} />
-    </S.ItemsContainer>
+    </>
   );
 };
 

@@ -5,10 +5,12 @@ import { PageProps } from '@oxygen/types';
 import { Button, MarkText, Modal } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 
+import { ModalStateType } from '../../types';
+
 type AppProps = PageProps & {
   englishNameScope: string;
-  isOpen: boolean;
-  setIsOpen: any;
+  isOpen: ModalStateType;
+  setIsOpen: React.Dispatch<React.SetStateAction<ModalStateType>>;
   onSubmit: () => void;
   loading: boolean;
 };

@@ -104,7 +104,7 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
             {clients?.length > 0 && (
               <S.ClientList>
                 {clients.map((client) => (
-                  <li key={client?.id ?? crypto.randomUUID()}>{client.name}</li>
+                  <li key={client?.clientInfoId}>{client.name}</li>
                 ))}
               </S.ClientList>
             )}
