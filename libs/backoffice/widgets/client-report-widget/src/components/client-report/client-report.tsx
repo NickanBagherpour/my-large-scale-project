@@ -20,18 +20,10 @@ type ServicesProps = PageProps & {
   searchTerm: string;
   isLoading: boolean;
   wordToHighlight: string;
-  // changeStatus?: (status: boolean, name: string) => void;
-  // deleteService?: (name: string, status: ParamsType) => void;
 };
 
 const Services: React.FC<ServicesProps> = (props) => {
-  const {
-    data,
-    isFetching,
-    total,
-    wordToHighlight,
-    // , changeStatus, deleteService
-  } = props;
+  const { data, isFetching, total, wordToHighlight } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
   const state = useAppState();
@@ -55,14 +47,12 @@ const Services: React.FC<ServicesProps> = (props) => {
 
   const mobileColumns = getMobileColumns({
     t,
-    // , changeStatus, deleteService
     theme,
     pagination,
     wordToHighlight,
   });
   const desktopColumns = getDesktopColumns({
     t,
-    // , changeStatus, deleteService
     theme,
     pagination,
     wordToHighlight,

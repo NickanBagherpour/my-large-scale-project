@@ -22,7 +22,7 @@ type Props = {
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
@@ -90,7 +90,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
-      ellipsis: true,
       render: (version) => getValueOrDash(version),
     },
     {

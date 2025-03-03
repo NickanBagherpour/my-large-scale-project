@@ -1,6 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
@@ -40,18 +42,22 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       dataIndex: 'name',
       align: 'center',
       ellipsis: true,
-      render: (value) => {
-        return getValueOrDash(value);
-      },
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
       ellipsis: true,
-      render: (value) => {
-        return getValueOrDash(value);
-      },
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('second_tab.scope'),

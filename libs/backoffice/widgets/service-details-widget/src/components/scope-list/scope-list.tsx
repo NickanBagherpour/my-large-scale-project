@@ -1,5 +1,7 @@
 import { useSearchParams } from 'next/navigation';
 
+import { Tooltip } from 'antd';
+
 import { useTr } from '@oxygen/translation';
 import { Nullable } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
@@ -29,14 +31,22 @@ export default function Scope() {
       dataIndex: 'name',
       align: 'center',
       ellipsis: true,
-      render: (name) => getValueOrDash(name),
+      render: (name) => (
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+          {getValueOrDash(name)}
+        </Tooltip>
+      ),
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
       ellipsis: true,
-      render: (description) => getValueOrDash(description),
+      render: (description) => (
+        <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
+          {getValueOrDash(description)}
+        </Tooltip>
+      ),
     },
   ];
 
