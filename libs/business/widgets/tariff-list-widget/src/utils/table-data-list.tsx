@@ -13,7 +13,7 @@ type PropsType = {
 
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
   const { t, toggleRemoveModal, setServiceToUnassign, router } = props;
-  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?service-name=${serviceName}`);
+  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
   return [
     {
       title: t('common.row_number'),
