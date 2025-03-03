@@ -14,7 +14,7 @@ export default function Scope() {
   const searchParams = useSearchParams();
   const serviceName: Nullable<string> = searchParams.get('servicename');
 
-  const { data: serviceScope } = useGetServiceScope(serviceName);
+  const { data: serviceScope, isFetching } = useGetServiceScope(serviceName);
 
   const desktopColumns: ColumnsType<ScopeType> = [
     {
@@ -56,14 +56,14 @@ export default function Scope() {
       ),
     },
   ];
-
   return (
     <>
       <CaptionWrapper>
         <p>{t('scope')}</p>
       </CaptionWrapper>
-
       <Table
+        // title={t('scope')}
+        loading={isFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         dataSource={serviceScope}
