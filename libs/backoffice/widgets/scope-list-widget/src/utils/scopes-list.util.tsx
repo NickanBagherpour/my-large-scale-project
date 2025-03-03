@@ -1,5 +1,7 @@
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
@@ -39,7 +41,12 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
-        return getValueOrDash(name);
+        // return getValueOrDash(name);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+            {getValueOrDash(name)}
+          </Tooltip>
+        );
       },
     },
     {
@@ -49,7 +56,12 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
-        return getValueOrDash(description);
+        // return getValueOrDash(description);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
+            {getValueOrDash(description)}
+          </Tooltip>
+        );
       },
     },
     {
