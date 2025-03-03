@@ -138,7 +138,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
   };
 
   return (
-    <div>
+    <>
       {displayTable ? (
         <Table
           title={t('subtitle')}
@@ -162,7 +162,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       ) : (
         <NoResult isLoading={isFetching} />
       )}
-    </div>
+    </>
   );
 };
 export default DataTable;
