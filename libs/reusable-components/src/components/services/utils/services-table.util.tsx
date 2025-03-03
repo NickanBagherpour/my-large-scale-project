@@ -2,8 +2,10 @@ import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import * as S from '../components/services/services.style';
 import { TFunction } from 'i18next';
 import WithBadge from '../../with-badge/with-badge';
-import { CONSTANTS, widthByButtonCount } from '@oxygen/utils';
+import { CONSTANTS, widthByButtonCount, getValueOrDash } from '@oxygen/utils';
 import { Service } from '../types/services';
+
+import { Tooltip } from 'antd';
 
 type Props = {
   t: TFunction;
@@ -36,12 +38,22 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       dataIndex: 'name',
       align: 'center',
       ellipsis: true,
+      render: (name) => (
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+          {getValueOrDash(name)}
+        </Tooltip>
+      ),
     },
     {
       title: t('uikit.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
       ellipsis: true,
+      render: (persianName) => (
+        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
+          {getValueOrDash(persianName)}
+        </Tooltip>
+      ),
     },
     {
       title: t('uikit.scope'),
@@ -61,7 +73,6 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.version'),
       dataIndex: 'version',
       align: 'center',
-      ellipsis: true,
     },
     {
       width: widthByButtonCount(2),
