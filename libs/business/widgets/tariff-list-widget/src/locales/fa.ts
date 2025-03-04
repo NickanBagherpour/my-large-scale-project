@@ -18,4 +18,7 @@ export default {
   remove: 'حذف',
   error_notif: 'خطایی رخ داده است',
   details: 'جزئیات',
+  fixed: 'ثابت',
+  step: 'پله ای',
+  range: 'خاص',
 };

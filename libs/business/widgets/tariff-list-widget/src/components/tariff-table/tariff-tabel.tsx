@@ -1,40 +1,44 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { TablePaginationConfig } from 'antd/lib';
 
 import { Table } from '@oxygen/ui-kit';
-import { useApp, useToggle } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { useApp, useToggle } from '@oxygen/hooks';
 import { ConfirmRemoveModal } from '@oxygen/reusable-components';
 
-import { useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/table-data-list';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
+import { useDeleteServiceQuery } from '../../services';
 
 import * as S from './tariff-tabel.style';
-import { useDeleteServiceQuery } from '../../services';
-import { useRouter } from 'next/navigation';
+import { useTheme } from 'styled-components';
 
 export type TariffTablePropsType = PageProps & {
-  tableData: any[];
+  tableData: any;
   isLoading: boolean;
 };
 
 export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
   const { tableData, isLoading } = props;
-  const state = useAppState();
+  const {
+    table: { pagination },
+  } = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const { notification } = useApp();
   const router = useRouter();
-
-  const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
-  const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
+  const theme = useTheme();
   //MUTATION
   const { mutate, isPending } = useDeleteServiceQuery();
 
-  //TODO: handle the pagination change
-  const handlePageChange = async () => {
-    console.log('current');
-  };
+  const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
+  const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
+  const lastValidTotal = tableData?.totalElements;
+  const [lastTotal, setLastTotal] = useState(lastValidTotal);
+
   const handleRemove = async () => {
     mutate(serviceToUnassign!, {
       onSuccess: () => {
@@ -45,65 +49,32 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
       },
     });
   };
-  const data = [
-    {
-      id: 1,
-      serviceName: 'Tariff 11',
-      persianName: 'Tariff 2',
-      scope: 'Tariff 3',
-      status: 1,
-      url: 'Tariff 4',
-      version: 'Tariff 5',
-    },
-    {
-      id: 2,
-      serviceName: 'Tariff 22',
-      persianName: 'Tariff 2',
-      scope: 'Tariff 3',
-      status: 2,
-      url: 'Tariff 4',
-      version: 'Tariff 5',
-    },
+  const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
+    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
+    const updatedPagination = { page: current, limit: pageSize };
+    updatePagination(dispatch, updatedPagination);
+  };
+  const tableColumnsParams = { t, toggleRemoveModal, setServiceToUnassign, router, theme };
+  const desktopColumns = getDesktopColumns(tableColumnsParams);
+  const mobileColumns = getMobileColumns(tableColumnsParams);
 
-    {
-      id: 3,
-      serviceName: 'Tariff 33',
-      persianName: 'Tariff 2',
-      scope: 'Tariff 3',
-      status: 3,
-      url: 'Tariff 4',
-      version: 'Tariff 5',
-    },
-    {
-      id: 4,
-      serviceName: 'Tariff 44',
-      persianName: 'Tariff 2',
-      scope: 'Tariff 3',
-      status: 1,
-      url: 'Tariff 4',
-      version: 'Tariff 5',
-    },
-    {
-      id: 5,
-      serviceName: 'Tariff 55',
-      persianName: 'Tariff 2',
-      scope: 'Tariff 3',
-      status: 1,
-      url: 'Tariff 4',
-      version: 'Tariff 5',
-    },
-  ];
-  const desktopColumns = getDesktopColumns({ t, toggleRemoveModal, setServiceToUnassign, router });
-  const mobileColumns = getMobileColumns({ t, toggleRemoveModal, setServiceToUnassign, router });
   return (
     <S.TariffTableContainer>
       <Table
         loading={isLoading}
-        dataSource={data}
+        dataSource={tableData?.content}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
+        pagination={{
+          ...pagination,
+          total: tableData?.totalElements || lastTotal,
+          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+          pageSize: pagination?.limit,
+          current: pagination?.page,
+          hideOnSinglePage: false,
+        }}
         onChange={handlePageChange}
-        rowKey={(row) => row.id}
+        rowKey={(row) => row.serviceName}
         // showHeader={true}
       />
       <ConfirmRemoveModal
