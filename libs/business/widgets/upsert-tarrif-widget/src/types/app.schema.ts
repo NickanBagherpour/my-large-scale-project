@@ -1,16 +1,7 @@
 import z from 'zod';
 import { createValidationSchema } from '@oxygen/utils';
 import { TFunction } from 'i18next';
-import {
-  GENERAL_INFO_NAMES,
-  serviceTariffName,
-  TIERED_TARIFF_NAMES,
-  tariffName,
-  SPECIAL_TARIFF_NAMES,
-  tiered,
-  tariffPrice,
-  special,
-} from '../utils';
+import { GENERAL_INFO_NAMES, TIERED_TARIFF_NAMES, SPECIAL_TARIFF_NAMES, tariff } from '../utils';
 
 export const createAppSchema = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
@@ -23,17 +14,17 @@ export const createAppSchema = (t: TFunction) => {
     [GENERAL_INFO_NAMES.fieldNameInElastic]: validationSchema.required,
     [GENERAL_INFO_NAMES.transactionTypeInElastic]: validationSchema.required,
 
-    [serviceTariffName]: z.discriminatedUnion(tariffName, [
+    [tariff.serviceTariffName]: z.discriminatedUnion(tariff.tariffName, [
       z.object({
-        [tariffName]: z.literal('fixed'),
-        [tiered]: z.object({
-          [tariffPrice]: validationSchema.required,
+        [tariff.tariffName]: z.literal('fixed'),
+        [tariff.fixed]: z.object({
+          [tariff.tariffPrice]: validationSchema.required,
         }),
       }),
 
       z.object({
-        [tariffName]: z.literal('special'),
-        [special]: z
+        [tariff.tariffName]: z.literal('special'),
+        [tariff.special]: z
           .array(
             z.object(
               {
@@ -49,8 +40,8 @@ export const createAppSchema = (t: TFunction) => {
       }),
 
       z.object({
-        [tariffName]: z.literal('tiered', { required_error: t('validation.required') }),
-        [tiered]: z
+        [tariff.tariffName]: z.literal('tiered', { required_error: t('validation.required') }),
+        [tariff.tiered]: z
           .array(
             z.object(
               {

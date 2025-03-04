@@ -3,7 +3,7 @@ import * as S from './tiered.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
-import { tiered, serviceTariffName, TIERED_TARIFF_NAMES } from '../../utils';
+import { tariff, TIERED_TARIFF_NAMES } from '../../utils';
 
 type Props = {
   rule: RuleRender;
@@ -14,8 +14,8 @@ export default function Tiered(props: Props) {
   const [t] = useTr();
 
   return (
-    <Form.Item name={[serviceTariffName, tiered]} rules={[rule]}>
-      <Form.List name={[serviceTariffName, tiered]}>
+    <Form.Item name={[tariff.serviceTariffName, tariff.tiered]} rules={[rule]}>
+      <Form.List name={[tariff.serviceTariffName, tariff.tiered]}>
         {(childrenFields, { add, remove }) => {
           return (
             <>

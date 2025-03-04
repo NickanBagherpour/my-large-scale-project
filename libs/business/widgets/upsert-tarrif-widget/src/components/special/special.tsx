@@ -3,7 +3,7 @@ import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
-import { serviceTariffName, SPECIAL_TARIFF_NAMES, special } from '../../utils';
+import { SPECIAL_TARIFF_NAMES, tariff } from '../../utils';
 
 type Props = {
   rule: RuleRender;
@@ -14,8 +14,8 @@ export default function Special(props: Props) {
   const [t] = useTr();
 
   return (
-    <Form.Item name={[serviceTariffName, special]} rules={[rule]}>
-      <Form.List name={[serviceTariffName, special]}>
+    <Form.Item name={[tariff.serviceTariffName, tariff.special]} rules={[rule]}>
+      <Form.List name={[tariff.serviceTariffName, tariff.special]}>
         {(childrenFields, { add, remove }) => {
           return (
             <>

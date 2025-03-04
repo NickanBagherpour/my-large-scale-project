@@ -28,9 +28,11 @@ export const TIERED_TARIFF_NAMES = {
   tariff: 'tariff',
 } as const;
 
-// TODO: create an object for this
-export const serviceTariffName = 'serviceTariff';
-export const tariffName = 'tariff';
-export const tiered = 'tiered';
-export const special = 'special';
-export const tariffPrice = 'tariffPrice';
+export const tariff = {
+  serviceTariffName: 'serviceTariff',
+  tariffName: 'tariff',
+  tiered: 'tiered',
+  fixed: 'fixed',
+  special: 'special',
+  tariffPrice: 'tariffPrice',
+};

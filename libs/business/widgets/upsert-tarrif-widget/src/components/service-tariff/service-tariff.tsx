@@ -4,18 +4,13 @@ import * as S from './servcie-tariff.style';
 import TarrifRadio from '../tariff-radio/tarrif-radio';
 import FixedTariff from '../fixed-tariff/fixed-tariff';
 import { Divider } from '@oxygen/ui-kit';
-import { tariffTypes, serviceTariffName, tariffName, tiered } from '../../utils';
+import { tariff, tariffTypes } from '../../utils';
 import { TariffType } from '../../types';
 import Tiered from '../tiered/tiered';
 import Special from '../special/special';
 import { Form } from 'antd';
 import { FormInstance, RuleRender } from 'antd/es/form';
 import { AppSchemaType } from '../../types/app.schema';
-import { useEffect } from 'react';
-
-// have multiple forms -> easy, dirty
-// have one form with discriminated unions -> hard, clean
-// have one form with different values -> medium (validation hard), medium
 
 type Props = {
   rule: RuleRender;
@@ -25,16 +20,7 @@ type Props = {
 export default function ServiceTarrif(props: Props) {
   const { rule, form } = props;
   const [t] = useTr();
-  const tariffType = Form.useWatch([serviceTariffName, tariffName], form);
-  const tariff = Form.useWatch([serviceTariffName], form);
-
-  useEffect(() => {
-    console.log('>>> serviceTariff', tariffType);
-  }, [tariffType]);
-
-  useEffect(() => {
-    console.log('>>> tariffData', tariff);
-  }, [tariff]);
+  const tariffType = Form.useWatch([tariff.serviceTariffName, tariff.tariffName], form);
 
   const inputs: Record<TariffType, React.JSX.Element> = {
     fixed: <FixedTariff rule={rule} />,
@@ -46,7 +32,7 @@ export default function ServiceTarrif(props: Props) {
     <section>
       <Title>{t('service_tariff')}</Title>
       <S.Section>
-        <Form.Item rules={[rule]} name={[serviceTariffName, tariffName]}>
+        <Form.Item rules={[rule]} name={[tariff.serviceTariffName, tariff.tariffName]}>
           <Tarrifs />
         </Form.Item>
         <Divider />
