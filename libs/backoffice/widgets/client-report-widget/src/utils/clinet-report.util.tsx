@@ -66,8 +66,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: '',
-      dataIndex: 'servicesReport',
-      key: 'servicesReport',
+      dataIndex: 'clientsReport',
+      key: 'clientsReport',
       align: 'left',
       width: widthByButtonCount(2),
       render: (value, record) => (

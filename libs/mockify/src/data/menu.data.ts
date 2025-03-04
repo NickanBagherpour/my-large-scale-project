@@ -129,7 +129,7 @@ export const businessMenu = [
     title: 'راهبری',
     order: 3,
     href: null,
-    icon: 'icon-cube',
+    icon: 'icon-3dcube',
     size: 'default',
     active: true,
     description: null,

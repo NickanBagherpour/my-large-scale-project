@@ -7,7 +7,7 @@ import { useAppTheme } from '@oxygen/hooks';
 import { RQKEYS } from '@oxygen/utils';
 import { Table, Button, Container } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
-import { FooterContainer, NoResult } from '@oxygen/reusable-components';
+import { FooterContainer } from '@oxygen/reusable-components';
 import AddServerModal from '../modal-add-server/modal-add-server';
 import MainDeleteServerModal from '../modal-delete-server/modal-delete-server';
 import { useAddServerToUpstreamMutationQuery, useDeleteServerFromUpstreamMutationQuery } from '../../services';
@@ -181,7 +181,7 @@ const UpstreamDetailsList: React.FC<UpstreamDetailsProps> = (props) => {
               variant={'simple'}
             />
           ) : (
-            <NoResult isLoading={isFetching} />
+            <S.CustomNoResult isLoading={isFetching} />
           )}
         </S.TableContainer>
       </S.ServerContent>
