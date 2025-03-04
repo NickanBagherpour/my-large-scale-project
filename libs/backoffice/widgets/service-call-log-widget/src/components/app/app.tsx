@@ -45,7 +45,7 @@ const App = () => {
   }, [filterParams]);
 
   useEffect(() => {
-    if (!filters.consumerId && !filters.serviceId && !filters.fromDate && !filters.toDate) return;
+    if (!filters.consumerId || !filters.serviceId || !filters.fromDate || !filters.toDate) return;
     refetch();
   }, [filters, refetch]);
 
