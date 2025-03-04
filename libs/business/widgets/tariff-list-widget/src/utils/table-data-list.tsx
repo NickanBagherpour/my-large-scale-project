@@ -26,7 +26,12 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       },
     },
     {
-      title: t('service_name'),
+      title: t('service_persian_name'),
+      dataIndex: 'persianName',
+      align: 'center',
+    },
+    {
+      title: t('service_english_name'),
       dataIndex: 'serviceName',
       align: 'center',
     },
@@ -45,11 +50,12 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       dataIndex: 'url',
       align: 'center',
     },
-    {
-      title: t('tariff_amount'),
-      dataIndex: 'version',
-      align: 'center',
-    },
+    // deleted from table
+    // {
+    //   title: t('tariff_amount'),
+    //   dataIndex: 'version',
+    //   align: 'center',
+    // },
     {
       width: widthByButtonCount(2),
       key: '',
@@ -77,7 +83,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
 
 export function getMobileColumns(props: PropsType): ColumnsType<any> {
   const { t, toggleRemoveModal, setServiceToUnassign, router } = props;
-  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?service-name=${serviceName}`);
+  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
   return [
     {
       title: '',
