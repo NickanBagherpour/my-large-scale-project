@@ -268,6 +268,7 @@ export default {
     upload_item: 'بارگذاری {{element}} در اکسیژن',
     register_info: 'ثبت اطلاعات',
     add: 'افزودن',
+    view_changes_history: 'مشاهده تاریخچه تغییرات',
     contact_support: 'تماس با پشتیبانی',
   },
 
