@@ -93,7 +93,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 dispatch={dispatch}
                 disabled={false}
                 onSelect={(selectedClient) => {
-                  form.setFieldsValue({ client: selectedClient?.name });
+                  form.setFieldsValue({ client: selectedClient?.clientName });
                   form.validateFields(['client']);
                   setSelectedClient(selectedClient);
                 }}
