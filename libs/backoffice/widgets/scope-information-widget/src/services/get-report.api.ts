@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
-import { FetchParamsType, Service } from '../types';
+import { Service } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
 export type useGetFirstTabReportDataQueryPropsType = {
