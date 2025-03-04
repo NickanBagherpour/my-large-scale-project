@@ -37,8 +37,8 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       align: 'center',
       ellipsis: true,
       render: (value) => {
-        // return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
+        // return getValueOrDash(value);
       },
     },
     {
@@ -47,8 +47,8 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       align: 'center',
       ellipsis: true,
       render: (value) => {
-        // return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
+        // return getValueOrDash(value);
       },
     },
 

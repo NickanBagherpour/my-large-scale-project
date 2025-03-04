@@ -1,6 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { WithBadge } from '@oxygen/reusable-components';
@@ -49,11 +51,13 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       ellipsis: true,
       render: (_val, record) => {
         return (
-          <MarkText
-            text={getValueOrDash(record?.name)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
+          <Tooltip placement='top' title={getValueOrDash(record?.name)} arrow={true}>
+            <MarkText
+              text={getValueOrDash(record?.name)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
+          </Tooltip>
         );
       },
     },
@@ -63,7 +67,11 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       align: 'center',
       ellipsis: true,
       render: (_val, record) => {
-        return getValueOrDash(record?.persianName);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(record?.persianName)} arrow={true}>
+            {getValueOrDash(record?.persianName)}
+          </Tooltip>
+        );
       },
     },
     {

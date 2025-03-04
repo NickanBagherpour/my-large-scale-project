@@ -7,7 +7,7 @@ import * as S from '../components/second-tab/modals/info-service-modal/info-serv
 
 export const renderChip = (tag) => (
   <Chip key={tag} tooltipTitle={tag.label} ellipsis={true} tooltipOnEllipsis={true} type='active'>
-    <span>{tag}</span>
+    <span>{getValueOrDash(tag)}</span>
   </Chip>
 );
 

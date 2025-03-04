@@ -10,6 +10,8 @@ type Props = {
   backgroundColor?: keyof TextPalette;
   linkHref?: string;
   linkText?: string;
+  containerStyle?: React.CSSProperties;
+  headerStyle?: React.CSSProperties;
 } & BasicComponentProps;
 const DashboardCard: React.FC<Props> = ({
   children,
@@ -20,11 +22,13 @@ const DashboardCard: React.FC<Props> = ({
   backgroundColor,
   linkHref,
   linkText,
+  containerStyle,
+  headerStyle,
 }) => {
   const hasNumber = (cardNumber ?? 0) >= 0;
   return (
-    <S.CardContainer $backgroundColor={backgroundColor}>
-      <S.HeaderContainer>
+    <S.CardContainer style={containerStyle} $backgroundColor={backgroundColor}>
+      <S.HeaderContainer style={headerStyle}>
         <S.LinkHeader>
           <div>
             <S.HeaderIcon className={icon} $iconColor={iconColor} />

@@ -71,7 +71,7 @@ const DataTable = () => {
       key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
-      render: (column) => <HistoryCell item={column.name} />,
+      render: (column) => <HistoryCell item={column?.name} />,
     },
     {
       title: t('column.fa-name'),
@@ -79,7 +79,7 @@ const DataTable = () => {
       key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (column) => <HistoryCell item={column.description} />,
+      render: (column) => <HistoryCell item={column?.description} />,
     },
   ];
 
