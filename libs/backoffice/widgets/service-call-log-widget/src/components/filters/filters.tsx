@@ -18,24 +18,24 @@ import { useGetClientServices } from '../../utils/get-client-services.api';
 import { updateSearchTerm } from '../../context';
 import ClientSelector from '../client-selector/client-selector';
 import dayjs, { Dayjs } from 'dayjs';
+import { FormSchema } from '../../types/filters.schema';
 
 export default function Filters({ filters, setFilters, onSearch }) {
   const [form] = Form.useForm<ServiceNameType>();
   const dispatch = useAppDispatch();
   const [t] = useTr();
+  const rule = createSchemaFieldRule(FormSchema(t));
 
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
-  const [fromDate, setFromDate] = useState<Dayjs | null>(null);
-  const [toDate, setToDate] = useState<Dayjs | null>(null);
+  const [fromDate, setFromDate] = useState<dayjs.Dayjs | null>(null);
+  const [toDate, setToDate] = useState<dayjs.Dayjs | null>(null);
 
-  const handleDateChange = (field: 'fromDate' | 'toDate', date: Dayjs | null) => {
+  const handleDateChange = (field: 'fromDate' | 'toDate', date: dayjs.Dayjs | null) => {
     if (field === 'fromDate') {
       setFromDate(date);
-      if (toDate && date && toDate.isAfter(date.add(1, 'month'))) {
-        setToDate(null);
-      }
-    } else if (field === 'toDate') {
+      setToDate(null); // Reset 'toDate' when 'fromDate' changes
+    } else {
       setToDate(date);
     }
   };
@@ -61,7 +61,11 @@ export default function Filters({ filters, setFilters, onSearch }) {
       sort: 'createDate,DESC',
     };
 
-    console.log('selectedClient:', selectedClient);
+    // const validation = FormSchema.safeParse(queryParams);
+
+    // if (!validation.success) {
+    //   return; // Stop
+    // }
 
     updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
     onSearch();
@@ -72,33 +76,37 @@ export default function Filters({ filters, setFilters, onSearch }) {
       <Box className='filter-container'>
         <Form form={form} layout='vertical'>
           <SearchItemsContainer>
-            <Form.Item label={t('field.services')} name='service'>
+            <Form.Item label={t('field.services')} name='service' rules={[rule]}>
               <ServiceSelector dispatch={dispatch} disabled={false} onSelect={setSelectedService} />
             </Form.Item>
 
-            <Form.Item label={t('field.clients')} name='client'>
+            <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
               <ClientSelector dispatch={dispatch} disabled={false} onSelect={setSelectedClient} />
             </Form.Item>
 
-            <Form.Item name='fromDate' label={t('field.from_date')}>
+            <Form.Item name='fromDate' label={t('field.from_date')} rules={[rule]}>
               <DatePicker
                 placeholder={t('field.from_date')}
+                fromDate={fromDate}
+                toDate={toDate}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
                 value={fromDate}
                 onChange={(date) => handleDateChange('fromDate', date)}
-                disabledDate={disableFromDate}
                 suffixIcon={<i className={'icon-calendar-2'} />}
-                disableFuture={true}
               />
             </Form.Item>
 
-            <Form.Item name='toDate' label={t('field.to_date')}>
+            <Form.Item name='toDate' label={t('field.to_date')} rules={[rule]}>
               <DatePicker
                 placeholder={t('field.to_date')}
+                fromDate={fromDate}
+                toDate={toDate}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
                 value={toDate}
                 onChange={(date) => handleDateChange('toDate', date)}
-                disabledDate={disableToDate}
                 suffixIcon={<i className={'icon-calendar-2'} />}
-                disableFuture={true}
               />
             </Form.Item>
           </SearchItemsContainer>
