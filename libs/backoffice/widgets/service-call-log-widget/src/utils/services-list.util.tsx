@@ -36,7 +36,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientName',
       key: 'clientName',
       align: 'center',
-      ellipsis: true,
       render: (clientName) => (
         <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
           <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -48,7 +47,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'utcTime',
       key: 'utcTime',
       align: 'center',
-      ellipsis: true,
       render: (utcTime) => (
         <Tooltip placement='top' title={getValueOrDash(utcTime)} arrow={true}>
           {getValueOrDash(utcTime)}
@@ -60,7 +58,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'requestDate',
       key: 'requestDate',
       align: 'center',
-      ellipsis: true,
       render: (requestDate) => (
         <Tooltip placement='top' title={getValueOrDash(requestDate)} arrow={true}>
           <S.Name
@@ -76,7 +73,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'requestTime',
       key: 'requestTime',
       align: 'center',
-      ellipsis: true,
       render: (requestTime) => (
         <Tooltip placement='top' title={getValueOrDash(requestTime)} arrow={true}>
           <S.Name
@@ -92,7 +88,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'serviceGatewayId',
       key: 'serviceGatewayId',
       align: 'center',
-      ellipsis: true,
       render: (serviceGatewayId) => getValueOrDash(serviceGatewayId),
     },
     {
@@ -100,7 +95,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'serviceName',
       key: 'serviceName',
       align: 'center',
-      ellipsis: true,
       render: (serviceName) => (
         <Tooltip placement='top' title={getValueOrDash(serviceName)} arrow={true}>
           <S.Name
@@ -116,7 +110,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'status',
       key: 'status',
       align: 'center',
-      ellipsis: true,
       render: (status, record) => (
         <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
           <S.Name text={getValueOrDash(status)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />

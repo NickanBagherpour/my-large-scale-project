@@ -66,7 +66,6 @@ export default function Scope() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
@@ -79,7 +78,6 @@ export default function Scope() {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>

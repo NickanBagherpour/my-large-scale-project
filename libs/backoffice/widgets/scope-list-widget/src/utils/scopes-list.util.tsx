@@ -37,7 +37,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.english_name_scope'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
         return (
@@ -51,7 +50,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.persian_name_scope'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
         return (

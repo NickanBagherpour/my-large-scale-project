@@ -93,7 +93,6 @@ export default function ConfirmData() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (value) => (
         <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}
@@ -104,7 +103,6 @@ export default function ConfirmData() {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (value) => (
         <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}
@@ -151,7 +149,6 @@ export default function ConfirmData() {
       title: t('domain'),
       dataIndex: 'domain',
       align: 'center',
-      ellipsis: true,
       render: (value) => (
         <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}

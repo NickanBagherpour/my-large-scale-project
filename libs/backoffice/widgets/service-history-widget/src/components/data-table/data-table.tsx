@@ -36,7 +36,6 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('field.user_name'),
       dataIndex: 'userName',
-      ellipsis: true,
       render: (column) => {
         return <HistoryCell item={column} />;
       },
@@ -59,7 +58,6 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('field.en_name'),
       dataIndex: 'service',
-      ellipsis: true,
       render: (item) => {
         const value = item?.name.value;
         const hasDifference = item?.name?.hasDifference;
@@ -69,7 +67,6 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('field.fa_name'),
       dataIndex: 'service',
-      ellipsis: true,
       render: (item) => {
         const value = item?.persianName.value;
         const hasDifference = item?.persianName.hasDifference;
