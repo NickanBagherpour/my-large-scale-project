@@ -81,7 +81,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },

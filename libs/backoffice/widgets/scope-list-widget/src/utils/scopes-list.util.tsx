@@ -40,7 +40,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
-        // return getValueOrDash(name);
         return (
           <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
             {getValueOrDash(name)}
@@ -55,7 +54,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
-        // return getValueOrDash(description);
         return (
           <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
             {getValueOrDash(description)}
