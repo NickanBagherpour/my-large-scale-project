@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { getWidgetTitle } from '@oxygen/utils';
+import { useSearchParams } from 'next/navigation';
+import { Nullable, PageProps } from '@oxygen/types';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
-import { useAppDispatch, useAppState } from '../../context';
-//import { useGetReportDataQuery } from '../../services';
+import { SERVICE_NAME } from '../../utils/consts';
+import { GeneralInformation } from '../general-nformation/general-information';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
 
@@ -16,22 +20,26 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
+  const searchParams = useSearchParams();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
+  const serviceName: Nullable<string> = searchParams.get(SERVICE_NAME);
 
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
+  const widgetTitle = getWidgetTitle({
+    defaultTitle: t('widget_title'),
+    secondaryTitle: serviceName,
+  });
 
-     return params;
-   }
- */
-
-  return <S.AppContainer title={'TariffDetailsWidget'}>TariffDetailsWidget</S.AppContainer>;
+  return (
+    <S.AppContainer title={widgetTitle}>
+      <GlobalMessageContainer
+        message={state.message}
+        onClose={() => {
+          resetErrorMessageAction(dispatch);
+        }}
+      />
+      <GeneralInformation isLoading={false} data={[]} serviceName={serviceName} />
+    </S.AppContainer>
+  );
 };
 
 export default App;
