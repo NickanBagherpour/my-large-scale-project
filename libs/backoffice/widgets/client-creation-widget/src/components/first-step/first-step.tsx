@@ -131,9 +131,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   }, [state.firstStep]);
 
   //Handlers
-  const handleReturn = () => {
-    router.back();
-  };
   const handleChange = (e) => {
     setSearchValue({ orgNationalId: e.target.value });
   };
@@ -292,9 +289,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
             </S.Card>
           </Form>
           <S.Footer>
-            <Button variant={'outlined'} onClick={handleReturn}>
-              {t('return')}
-            </Button>
+            <S.ReturnButton />
             <Button htmlType={'submit'} onClick={form.submit} loading={submitClientLoading} disabled={isBtnDisabled}>
               {t('submit_info')}
               <i className={'icon-arrow-left'}></i>

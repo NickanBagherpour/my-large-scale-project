@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
 import { Divider as KitDivider, Dropdown, Input as KitInput } from '@oxygen/ui-kit';
+import { ReturnButton as UiKitReturnButton } from '@oxygen/reusable-components';
 import { Card as AntCatd } from 'antd';
+
+export const ReturnButton = styled(UiKitReturnButton)`
+  min-width: 12.8rem;
+`;
+
 export const TitleTxt = styled.p`
   font-weight: bold;
   font-size: 1.6rem;
@@ -56,23 +62,27 @@ export const TagPicker = styled.div`
   ${respondTo.down('xs')} {
     flex-direction: column;
   }
+
   .ant-form-item {
     margin: 0;
     padding: 0 1.6rem 0 0;
     border-right: 1px solid ${(p) => p.theme.border.main};
     width: min-content;
+
     ${respondTo.down('xs')} {
       width: 100%;
       border-right: none;
       padding: 0;
     }
   }
+
   .ant-btn {
     ${respondTo.down('xs')} {
       width: 100%;
       margin-bottom: 1rem;
     }
   }
+
   .ant-tag {
     margin: 0.5rem 0 0.5rem 1.6rem !important;
   }
@@ -87,6 +97,7 @@ export const Footer = styled.div`
 `;
 export const Card = styled(AntCatd)`
   padding: 1.6rem;
+
   .ant-card-body {
     padding: 0;
   }
