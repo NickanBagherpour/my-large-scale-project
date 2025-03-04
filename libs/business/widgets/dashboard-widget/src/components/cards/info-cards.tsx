@@ -87,8 +87,20 @@ const InfoCards: React.FC = () => {
 
       {/* Remaining cards rendered separately */}
       {detailCards.map(({ title, icon, detail, iconColor }) => (
-        <DashboardCard key={title} iconColor={iconColor} headerTitle={title} icon={icon}>
-          {detail && <InnerDetailCard title={detail.title} description={detail.desc} />}
+        <DashboardCard
+          key={title}
+          iconColor={iconColor}
+          headerTitle={title}
+          icon={icon}
+          headerStyle={{ paddingInlineStart: '3rem' }}
+        >
+          {detail && (
+            <InnerDetailCard
+              containerStyle={{ paddingInlineStart: '3rem' }}
+              title={detail.title}
+              description={detail.desc}
+            />
+          )}
         </DashboardCard>
       ))}
     </S.Container>

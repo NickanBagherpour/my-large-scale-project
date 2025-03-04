@@ -27,6 +27,9 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* ${respondTo.down('sm')} {
+    padding: 0 !important;
+  } */
   /* padding: 0.5rem 0rem !important; */
 `;
 export const Number = styled.span<{ $color?: keyof TextPalette }>`
