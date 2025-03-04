@@ -125,8 +125,7 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
       })
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     organizationEconomyCodeNumber: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -140,8 +139,7 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.onlyDigit, {
         message: t('validation.english_name_error'),
       })
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     version: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -174,8 +172,7 @@ export const createValidationSchema = (
         message: t('validation.max_length'),
       })
       .regex(REGEX_PATTERNS.defaultEnglishName, t('validation.english_name_error'))
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     defaultPersianName: z // "-", "_‌", ".", numbers, english and persian alphabet
       .string({ required_error: t('validation.required') })
@@ -185,8 +182,7 @@ export const createValidationSchema = (
         message: t('validation.max_length'),
       })
       .regex(REGEX_PATTERNS.defaultPersianName, t('validation.persian_name_error'))
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     url: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
@@ -198,8 +194,7 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.url, {
         message: t('validation.url_error'),
       })
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     optionalProtocolUrl: z //optional Protocol Url
       .string({ required_error: t('validation.required') })
@@ -311,8 +306,7 @@ export const createValidationSchema = (
       .min(1, t('validation.min_length'))
       .max(limits.DEFAULT_MAX_LENGTH, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.domain, t('validation.url_error'))
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     tel: z
       .string({ required_error: t('validation.required') })
@@ -343,8 +337,7 @@ export const createValidationSchema = (
         t('validation.max_len', { val: limits.UPSTREAM_SERVER_WEIGHT_MAX_LENGTH })
       )
       .regex(REGEX_PATTERNS.upstreamServerWeight, t('validation.field_error'))
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     upstreamServerDomain: z
       .string({ required_error: t('validation.required') })
@@ -352,8 +345,7 @@ export const createValidationSchema = (
       .min(limits.DEFAULT_MIN_LENGTH, t('validation.min_length'))
       .max(limits.UPSTREAM_MAX_LENGTH, t('validation.max_len', { val: limits.UPSTREAM_MAX_LENGTH }))
       .regex(REGEX_PATTERNS.ipOrDomainAddress, t('validation.host_domain_error'))
-      .nullable()
-      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     statusCode: z
       .string({ required_error: t('validation.required') })
