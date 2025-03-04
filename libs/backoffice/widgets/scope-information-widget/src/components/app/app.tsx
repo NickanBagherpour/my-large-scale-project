@@ -5,14 +5,15 @@ import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 import { Button, Tabs, TabsProps } from '@oxygen/ui-kit';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { getWidgetTitle } from '@oxygen/utils';
 
 import FirstTab from '../first-tab/first-tab';
 import SecondTab from '../second-tab/second-tab';
+import { useGetFirstTabReportDataQuery } from '../../services';
+
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import { getWidgetTitle } from '@oxygen/utils';
-import { useGetFirstTabReportDataQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -33,7 +34,7 @@ const App: React.FC<AppProps> = (props) => {
     redirect('/not-found');
   }
 
-  const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
+  const { data } = useGetFirstTabReportDataQuery({ id });
 
   const englishName = data?.name;
   const farsiName = data?.description;
