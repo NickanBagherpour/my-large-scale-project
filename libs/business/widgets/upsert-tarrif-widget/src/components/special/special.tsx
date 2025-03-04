@@ -2,64 +2,60 @@ import { useTr } from '@oxygen/translation';
 import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
-import { createSchemaFieldRule } from 'antd-zod';
-import { specialTariff } from '../../types';
+import { RuleRender } from 'antd/es/form';
+import { serviceTariffName, SPECIAL_TARIFF_NAMES, special } from '../../utils';
 
-const name = 'tiered';
-
-const initialValues = {
-  [name]: [
-    {
-      from: '',
-      to: '',
-      tariff: '',
-    },
-  ],
+type Props = {
+  rule: RuleRender;
 };
 
-export default function Special() {
+export default function Special(props: Props) {
+  const { rule } = props;
   const [t] = useTr();
-  const rule = createSchemaFieldRule(specialTariff(t));
 
   return (
-    <S.Form initialValues={initialValues}>
-      <Form.Item name={name} rules={[rule]}>
-        <Form.List name={name}>
-          {(childrenFields, { add, remove }) => {
-            return (
-              <>
-                {childrenFields.map((child, idx) => (
-                  <Form.Item key={child.name} name={[child.name /* , 'title' if it is nested */]} rules={[rule]}>
-                    <S.Article key={idx}>
-                      <S.Index>{idx + 1}</S.Index>
+    <Form.Item name={[serviceTariffName, special]} rules={[rule]}>
+      <Form.List name={[serviceTariffName, special]}>
+        {(childrenFields, { add, remove }) => {
+          return (
+            <>
+              {childrenFields.map((child, idx) => (
+                <S.Article key={idx}>
+                  <S.Index>{idx + 1}</S.Index>
 
-                      <span>{t('from_transaction')}</span>
-                      <S.Input placeholder={t('amount_irr')} />
-
-                      <span>{t('to')}</span>
-                      <S.Input placeholder={t('amount_irr')} />
-
-                      <span>{t('request_tariff_applies')}</span>
-                      <S.Input placeholder={t('tariff_irr')} />
-
-                      <span>{t('max_tariff_irr')}</span>
-                      <S.Input placeholder={t('tariff_irr')} />
-
-                      <span>{t('be_calculated')}</span>
-
-                      <S.TrashBtn variant='link' color='error' onClick={() => remove(child.name)}>
-                        <i className='icon-trash' />
-                      </S.TrashBtn>
-                    </S.Article>
+                  <span>{t('from_transaction')}</span>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]}>
+                    <S.Input placeholder={t('amount_irr')} />
                   </Form.Item>
-                ))}
 
-                <AddCondition tariffType='tiered' onClick={() => add('')} />
-              </>
-            );
-          }}
-        </Form.List>
-      </Form.Item>
-    </S.Form>
+                  <span>{t('to')}</span>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]}>
+                    <S.Input placeholder={t('amount_irr')} />
+                  </Form.Item>
+
+                  <span>{t('request_tariff_applies')}</span>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
+                    <S.Input placeholder={t('tariff_irr')} />
+                  </Form.Item>
+
+                  <span>{t('max_tariff_irr')}</span>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
+                    <S.Input placeholder={t('tariff_irr')} />
+                  </Form.Item>
+
+                  <span>{t('be_calculated')}</span>
+
+                  <S.TrashBtn variant='link' color='error' onClick={() => remove(child.name)}>
+                    <i className='icon-trash' />
+                  </S.TrashBtn>
+                </S.Article>
+              ))}
+
+              <AddCondition tariffType='tiered' onClick={() => add('')} />
+            </>
+          );
+        }}
+      </Form.List>
+    </Form.Item>
   );
 }

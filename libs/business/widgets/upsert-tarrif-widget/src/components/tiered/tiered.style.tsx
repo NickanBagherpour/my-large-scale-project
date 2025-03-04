@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 import { Input as UikitInput, Button as UikitButton } from '@oxygen/ui-kit';
-import { Form as AntForm } from 'antd';
-
-export const Form = styled(AntForm)`
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
 
 export const Article = styled.article`
   display: flex;
