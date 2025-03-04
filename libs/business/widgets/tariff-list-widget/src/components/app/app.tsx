@@ -6,7 +6,7 @@ import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import { TopSection } from '../top-section/top-section';
 import { TariffTable } from '../tariff-table/tariff-tabel';
-import { useGetTariffListtDataQuery } from '../../services';
+import { useGetTariffListDataQuery } from '../../services';
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
@@ -20,14 +20,16 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  const { data, isFetching } = useGetTariffListtDataQuery(prepareParams());
+  const { data, isFetching } = useGetTariffListDataQuery(prepareParams());
 
   function prepareParams() {
     const params = {
-      searchValue: state.searchValue,
-      pagination: state.table.pagination,
+      page: state.table.pagination.page - 1,
+      size: state.table.pagination.limit,
     };
-
+    if (state.searchValue) {
+      params['search-field'] = state.searchValue;
+    }
     return params;
   }
 
