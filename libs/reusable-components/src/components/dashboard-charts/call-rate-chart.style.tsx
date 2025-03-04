@@ -28,6 +28,7 @@ export const CallRate = styled.div`
   gap: 0.5rem;
   font-size: 1.4rem;
   color: ${(p) => p.theme.secondary.main};
+  align-items: center;
 `;
 export const LegendContainer = styled.div`
   direction: ltr;
@@ -35,6 +36,7 @@ export const LegendContainer = styled.div`
   gap: 2rem;
   justify-content: center;
   margin-top: 1rem;
+  align-items: center;
 `;
 export const Label = styled.span`
   margin-inline-start: 1rem;
@@ -44,14 +46,27 @@ export const SelectIcons = styled.div`
   color: ${(p) => p.theme.primary.main};
   background-color: ${(p) => p.theme.primary._100};
   font-size: 1.8rem;
-  padding: 0.5rem;
+  padding: 0.7rem;
   border-radius: var(${cssVar.radius});
   transform: none !important;
   margin-inline-end: -0.5rem;
+  gap: 1rem;
+  align-items: center;
 `;
 export const Select = styled(UikitSelect)`
   min-width: 20rem;
   &.ant-select-arrow {
     transform: none !important;
   }
+`;
+export const Subtitle = styled.span`
+  font-size: 12px;
+`;
+export const Date = styled.div`
+  font-size: 1.8rem;
+  display: flex;
+  gap: 1.5rem;
+`;
+export const TotalCount = styled.span`
+  font-size: 1.2rem;
 `;
