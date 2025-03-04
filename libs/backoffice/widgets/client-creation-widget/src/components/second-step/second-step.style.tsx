@@ -1,5 +1,7 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
+import { ReturnButton as UiKitReturnButton } from '@oxygen/reusable-components';
+import { Button } from '@oxygen/ui-kit';
 
 export const SecondStepContainer = styled.div`
   margin-top: 2.4rem;
@@ -15,4 +17,22 @@ export const Footer = styled.div`
   justify-content: end;
   border-top: 1px solid ${(p) => p.theme.border._100};
   gap: 1.2rem;
+
+  ${respondTo.down('sm')} {
+    flex-direction: column;
+  }
+`;
+
+export const ReturnButton = styled(UiKitReturnButton)`
+  min-width: 12.8rem;
+
+  ${respondTo.down('sm')} {
+    width: 100%;
+  }
+`;
+export const RegisterButton = styled(Button)`
+  ${respondTo.down('sm')} {
+    width: 100%;
+    order: -1;
+  }
 `;
