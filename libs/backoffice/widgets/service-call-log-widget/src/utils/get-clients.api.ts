@@ -13,7 +13,7 @@ export const useGetClientsQuery = (searchTerm: string, dispatch: Dispatch<any>) 
       withErrorHandling(
         () =>
           Api.getClientsListData({
-            'search-field': searchTerm,
+            searchParam: searchTerm,
             page: pageParam,
             ...CLIENT_DEFAULTS,
           }),

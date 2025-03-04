@@ -52,7 +52,7 @@ const App = () => {
   const handleSearch = () => {
     setFilters((prev) => ({
       ...prev,
-      page: 1,
+      page: 1, // Reset
       size: table.pagination.rowsPerPage || 10,
     }));
   };

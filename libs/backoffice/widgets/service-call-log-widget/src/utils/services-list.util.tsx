@@ -32,7 +32,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     //   className: 'row-number',
     // },
     {
-      title: `${t('client_id')}`,
+      title: `${t('client_name')}`,
       dataIndex: 'clientName',
       key: 'clientName',
       align: 'center',
@@ -44,70 +44,26 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ),
     },
     {
-      title: `${t('utc')}`,
-      dataIndex: 'utcTime',
-      key: 'utcTime',
-      align: 'center',
-      ellipsis: true,
-      render: (utcTime) => (
-        <Tooltip placement='top' title={getValueOrDash(utcTime)} arrow={true}>
-          {getValueOrDash(utcTime)}
-        </Tooltip>
-      ),
-    },
-    {
-      title: `${t('request_date')}`,
-      dataIndex: 'requestDate',
-      key: 'requestDate',
-      align: 'center',
-      ellipsis: true,
-      render: (requestDate) => (
-        <Tooltip placement='top' title={getValueOrDash(requestDate)} arrow={true}>
-          <S.Name
-            text={getValueOrDash(requestDate)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
-        </Tooltip>
-      ),
-    },
-    {
-      title: `${t('request_time')}`,
-      dataIndex: 'requestTime',
-      key: 'requestTime',
-      align: 'center',
-      ellipsis: true,
-      render: (requestTime) => (
-        <Tooltip placement='top' title={getValueOrDash(requestTime)} arrow={true}>
-          <S.Name
-            text={getValueOrDash(requestTime)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
-        </Tooltip>
-      ),
-    },
-    {
-      title: `${t('service_id')}`,
-      dataIndex: 'serviceGatewayId',
-      key: 'serviceGatewayId',
-      align: 'center',
-      ellipsis: true,
-      render: (serviceGatewayId) => getValueOrDash(serviceGatewayId),
-    },
-    {
       title: `${t('service_name')}`,
-      dataIndex: 'serviceName',
-      key: 'serviceName',
+      dataIndex: 'service_name',
+      key: 'service_name',
       align: 'center',
       ellipsis: true,
-      render: (serviceName) => (
-        <Tooltip placement='top' title={getValueOrDash(serviceName)} arrow={true}>
-          <S.Name
-            text={getValueOrDash(serviceName)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
+      render: (service_name) => (
+        <Tooltip placement='top' title={getValueOrDash(service_name)} arrow={true}>
+          {getValueOrDash(service_name)}
+        </Tooltip>
+      ),
+    },
+    {
+      title: `${t('count')}`,
+      dataIndex: 'count',
+      key: 'count',
+      align: 'center',
+      ellipsis: true,
+      render: (count) => (
+        <Tooltip placement='top' title={getValueOrDash(count)} arrow={true}>
+          <S.Name text={getValueOrDash(count)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },
