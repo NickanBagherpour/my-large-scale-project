@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { Button } from '@oxygen/ui-kit';
-import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
+import { Nullable, PageProps } from '@oxygen/types';
 
 import * as S from './service-tariff.style';
 
 export type ServiceTariffPropsType = PageProps & {
-  //
+  serviceName: Nullable<string>;
 };
 
 export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
