@@ -50,3 +50,4 @@ export { default as InnerDetailCard } from './components/dashboard-card/inner-de
 export { default as InnerStatusCard } from './components/dashboard-card/inner-status-card';
 export { default as CallRateChart } from './components/dashboard-charts/call-rate-chart';
 export { default as LazyLottie } from './components/animation-loader/lazy-lottie';
+export { default as TooltipWrapper } from './components/tooltip-wrapper/tooltip-wrapper';

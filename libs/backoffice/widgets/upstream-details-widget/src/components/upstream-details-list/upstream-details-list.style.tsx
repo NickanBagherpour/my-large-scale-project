@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Box, Button, MarkText } from '@oxygen/ui-kit';
+import { NoResult } from '@oxygen/reusable-components';
 import { respondTo } from '@oxygen/utils';
 
 export const ServerContainer = styled.div`
@@ -33,6 +34,12 @@ export const ServerContent = styled.div`
 export const TableContainer = styled.div`
   height: 100%;
   //
+`;
+
+export const CustomNoResult = styled(NoResult)`
+  > div:first-of-type {
+    margin-bottom: 7.3rem;
+  }
 `;
 
 export const Name = styled(MarkText)`
