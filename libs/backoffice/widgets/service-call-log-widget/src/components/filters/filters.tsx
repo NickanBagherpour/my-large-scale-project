@@ -77,11 +77,27 @@ export default function Filters({ filters, setFilters, onSearch }) {
         <Form form={form} layout='vertical'>
           <SearchItemsContainer>
             <Form.Item label={t('field.services')} name='service' rules={[rule]}>
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={setSelectedService} />
+              <ServiceSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedService) => {
+                  form.setFieldsValue({ service: selectedService?.name });
+                  form.validateFields(['service']);
+                  setSelectedService(selectedService);
+                }}
+              />
             </Form.Item>
 
             <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
-              <ClientSelector dispatch={dispatch} disabled={false} onSelect={setSelectedClient} />
+              <ClientSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedClient) => {
+                  form.setFieldsValue({ client: selectedClient?.name });
+                  form.validateFields(['client']);
+                  setSelectedClient(selectedClient);
+                }}
+              />
             </Form.Item>
 
             <Form.Item name='fromDate' label={t('field.from_date')} rules={[rule]}>
