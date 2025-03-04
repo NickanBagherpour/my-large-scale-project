@@ -57,9 +57,7 @@ export const ThirdStep: React.FC<ThirdStepProps> = (props) => {
     <S.ThirdStepContainer>
       <Box flexGrow={1}>{clientName ? <Plugins clientName={clientName} dispatch={dispatch} /> : <Loading />}</Box>
       <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
-          {t('return')}
-        </Button>
+        <S.ReturnButton onClick={handleReturn} />
         <Button htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>

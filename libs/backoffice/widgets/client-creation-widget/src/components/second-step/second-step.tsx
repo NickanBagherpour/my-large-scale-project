@@ -57,9 +57,7 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
         )}
       </Box>
       <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
-          {t('return')}
-        </Button>
+        <S.ReturnButton onClick={handleReturn} />
         <Button htmlType={'submit'} onClick={handleSubmit} disabled={hasValue} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
