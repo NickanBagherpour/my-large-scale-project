@@ -6,14 +6,19 @@ export const DatePickerContainer = styled.div`
   }
 
   & .anticon {
-    font-size: 2.4rem;
+    font-size: 1.2rem;
   }
 
   & .ant-picker-suffix {
-    position: absolute;
-    margin: 0;
-    right: 0;
+    font-size: 2.4rem;
+    color: ${(props) => props.theme.text.quaternary};
   }
+
+  //& .ant-picker-suffix {
+  //  position: absolute;
+  //  margin: 0;
+  //  right: 0;
+  //}
 
   & .ant-picker-clear {
     position: absolute;

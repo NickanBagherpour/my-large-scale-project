@@ -86,7 +86,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 value={fromDate}
                 onChange={(date) => handleDateChange('fromDate', date)}
                 disabledDate={disableFromDate}
-                suffixIcon={<Icons.Calender />}
+                suffixIcon={<i className={'icon-calendar-2'} />}
                 disableFuture={true}
               />
             </Form.Item>
@@ -97,7 +97,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 value={toDate}
                 onChange={(date) => handleDateChange('toDate', date)}
                 disabledDate={disableToDate}
-                suffixIcon={<Icons.Calender />}
+                suffixIcon={<i className={'icon-calendar-2'} />}
                 disableFuture={true}
               />
             </Form.Item>
