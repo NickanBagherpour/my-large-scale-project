@@ -1,11 +1,22 @@
 import styled from 'styled-components';
 import { respondTo } from '@oxygen/utils';
-import { Divider as KitDivider, Dropdown, Input as KitInput } from '@oxygen/ui-kit';
+import { Button, Divider as KitDivider, Dropdown, Input as KitInput } from '@oxygen/ui-kit';
 import { ReturnButton as UiKitReturnButton } from '@oxygen/reusable-components';
 import { Card as AntCatd } from 'antd';
 
 export const ReturnButton = styled(UiKitReturnButton)`
   min-width: 12.8rem;
+
+  ${respondTo.down('sm')} {
+    width: 100%;
+  }
+`;
+
+export const RegisterButton = styled(Button)`
+  ${respondTo.down('sm')} {
+    width: 100%;
+    order: -1;
+  }
 `;
 
 export const TitleTxt = styled.p`
@@ -94,6 +105,10 @@ export const Footer = styled.div`
   justify-content: end;
   border-top: 1px solid ${(p) => p.theme.border._100};
   gap: 1.2rem;
+
+  ${respondTo.down('sm')} {
+    flex-direction: column;
+  }
 `;
 export const Card = styled(AntCatd)`
   padding: 1.6rem;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Loading } from '@oxygen/ui-kit';
+import { Box, Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { Services } from '@oxygen/reusable-components';
@@ -58,10 +58,10 @@ export const SecondStep: React.FC<SecondStep> = (props) => {
       </Box>
       <S.Footer>
         <S.ReturnButton onClick={handleReturn} />
-        <Button htmlType={'submit'} onClick={handleSubmit} disabled={hasValue} loading={isPending}>
+        <S.RegisterButton htmlType={'submit'} onClick={handleSubmit} disabled={hasValue} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
-        </Button>
+        </S.RegisterButton>
       </S.Footer>
     </S.SecondStepContainer>
   );

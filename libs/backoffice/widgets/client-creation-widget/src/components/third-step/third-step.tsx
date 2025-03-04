@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
 import { useApp } from '@oxygen/hooks';
-import { Box, Button, Loading } from '@oxygen/ui-kit';
+import { Box, Loading } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { queryClient } from '@oxygen/client';
@@ -58,10 +58,10 @@ export const ThirdStep: React.FC<ThirdStepProps> = (props) => {
       <Box flexGrow={1}>{clientName ? <Plugins clientName={clientName} dispatch={dispatch} /> : <Loading />}</Box>
       <S.Footer>
         <S.ReturnButton onClick={handleReturn} />
-        <Button htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
+        <S.RegisterButton htmlType={'submit'} onClick={handleSubmit} loading={isPending}>
           {t('submit_info')}
           <i className={'icon-arrow-left'}></i>
-        </Button>
+        </S.RegisterButton>
       </S.Footer>
     </S.ThirdStepContainer>
   );

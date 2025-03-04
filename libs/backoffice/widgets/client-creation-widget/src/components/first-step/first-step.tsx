@@ -290,10 +290,15 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
           </Form>
           <S.Footer>
             <S.ReturnButton />
-            <Button htmlType={'submit'} onClick={form.submit} loading={submitClientLoading} disabled={isBtnDisabled}>
+            <S.RegisterButton
+              htmlType={'submit'}
+              onClick={form.submit}
+              loading={submitClientLoading}
+              disabled={isBtnDisabled}
+            >
               {t('submit_info')}
               <i className={'icon-arrow-left'}></i>
-            </Button>
+            </S.RegisterButton>
           </S.Footer>
         </>
       )}
