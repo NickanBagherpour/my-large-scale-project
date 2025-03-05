@@ -7,15 +7,15 @@ import { useTr } from '@oxygen/translation';
 import { useAppDispatch, useAppState } from '../../context';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { useRouter } from 'next/navigation';
+import { TariffDetailsType } from '../../types';
 
 export type GeneralInformationProps = PageProps & {
-  //TODO: update the data type
-  data: unknown;
+  data: Nullable<TariffDetailsType>;
   isLoading: boolean;
   serviceName: Nullable<string>;
 };
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
-  const { serviceName } = props;
+  const { data, isLoading, serviceName } = props;
 
   const state = useAppState();
   const dispatch = useAppDispatch();
@@ -31,9 +31,9 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
     console.log('delete clicked');
   };
   const generalInfoData = [
-    { key: t('service_english_name'), value: getValueOrDash('ٰsvc-gfg-bhhj-ngdc-zxzxc-zxc') },
-    { key: t('banking_share'), value: getValueOrDash('30٪') },
-    { key: t('contribution_operational_team'), value: getValueOrDash('30٪') },
+    { key: t('service_english_name'), value: getValueOrDash(data?.serviceName) },
+    { key: t('banking_share'), value: `${getValueOrDash(data?.bankingShare)}٪` },
+    { key: t('contribution_operational_team'), value: `${getValueOrDash(data?.operationShare)}٪` },
   ];
 
   return (
@@ -51,7 +51,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
           </Button>
         </S.BTNContainer>
       </S.HeaderContainer>
-      <InfoBox data={generalInfoData} margin={0} loading={false} minColumnCount={3} />
+      <InfoBox data={generalInfoData} margin={0} loading={isLoading} minColumnCount={3} />
     </S.GeneralInformationContainer>
   );
 };
