@@ -8,20 +8,16 @@ export type PostTariffParams = {
   type: string;
 
   fee?: number;
-  feeSteps?: [
-    {
-      fromRate: number;
-      toRate: number;
-      fee: number;
-    }
-  ];
-  transactionFees?: [
-    {
-      fromRate: number;
-      toRate: number;
-      percent: number;
-      min: number;
-      max: number;
-    }
-  ];
+  feeSteps?: {
+    fromRate: number;
+    toRate: number;
+    fee: number;
+  }[];
+  transactionFees?: {
+    fromRate: number;
+    toRate: number;
+    percent: number;
+    min: number;
+    max: number;
+  }[];
 };
