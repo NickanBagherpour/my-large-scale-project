@@ -8,7 +8,7 @@ export const useGetClientInfo = (reqId) => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
+    queryKey: [RQKEYS.BACKOFFICE.EDIT_CLIENT_KEYS.CLIENT_INFO],
     queryFn: withErrorHandling(() => Api.getClientInfo(reqId), dispatch),
     enabled: !!reqId,
     select: (data) => convertApi(data),

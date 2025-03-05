@@ -204,7 +204,8 @@ export const createValidationSchema = (
         message: t('validation.max_length'),
       })
       .regex(REGEX_PATTERNS.optionalProtocolUrl, t('validation.url_error'))
-      .refine((value) => value !== '', { message: t('validation.required') }),
+      .nullable()
+      .refine((value) => value !== null && value !== '', { message: t('validation.required') }),
 
     boolean: z.boolean({ required_error: t('validation.required') }),
 

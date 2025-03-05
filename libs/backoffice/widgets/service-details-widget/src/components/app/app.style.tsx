@@ -1,6 +1,15 @@
 import { respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 import { Container } from '@oxygen/ui-kit';
+import { ReturnButton as UiKitReturnButton } from '@oxygen/reusable-components';
+
+export const ReturnButton = styled(UiKitReturnButton)`
+  min-width: 12.8rem;
+
+  ${respondTo.down('sm')} {
+    width: 100%;
+  }
+`;
 
 export const AppContainer = styled(Container)`
   min-height: 100%;

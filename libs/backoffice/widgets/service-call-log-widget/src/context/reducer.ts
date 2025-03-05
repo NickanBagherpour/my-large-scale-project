@@ -39,7 +39,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     case 'UPDATE_SEARCH_TERM': {
       state.table.pagination.page = initialStateValue['page'];
       state.table.filters = action.payload;
-      console.log(action.payload, 'action.payloadaction.payload');
 
       return;
     }

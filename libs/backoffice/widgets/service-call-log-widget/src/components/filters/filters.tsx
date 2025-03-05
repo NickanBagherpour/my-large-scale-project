@@ -74,14 +74,36 @@ export default function Filters({ filters, setFilters, onSearch }) {
   return (
     <S.Container>
       <Box className='filter-container'>
-        <Form form={form} layout='vertical'>
+        <Form
+          form={form}
+          layout='vertical'
+          initialValues={{
+            toDate: dayjs(),
+          }}
+        >
           <SearchItemsContainer>
             <Form.Item label={t('field.services')} name='service' rules={[rule]}>
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={setSelectedService} />
+              <ServiceSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedService) => {
+                  form.setFieldsValue({ service: selectedService?.name });
+                  form.validateFields(['service']);
+                  setSelectedService(selectedService);
+                }}
+              />
             </Form.Item>
 
             <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
-              <ClientSelector dispatch={dispatch} disabled={false} onSelect={setSelectedClient} />
+              <ClientSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedClient) => {
+                  form.setFieldsValue({ client: selectedClient?.clientName });
+                  form.validateFields(['client']);
+                  setSelectedClient(selectedClient);
+                }}
+              />
             </Form.Item>
 
             <Form.Item name='fromDate' label={t('field.from_date')} rules={[rule]}>
@@ -101,6 +123,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
               <DatePicker
                 placeholder={t('field.to_date')}
                 fromDate={fromDate}
+                // defaultValue={dayjs()}
                 toDate={toDate}
                 setFromDate={setFromDate}
                 setToDate={setToDate}

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { getValueOrDash } from '@oxygen/utils';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { Button, InfoBox } from '@oxygen/ui-kit';
+import { InfoBox } from '@oxygen/ui-kit';
 
-import { useGetFirstTabReportDataQuery } from '../../services/get-report.api';
+import { useGetFirstTabReportDataQuery } from '../../services';
 
 import * as S from './first-tab.style';
 
@@ -18,11 +18,6 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
   const [t] = useTr();
 
   const { data, isFetching } = useGetFirstTabReportDataQuery({ id });
-
-  // const [{ editLoading, historyLoadign }, setLoading] = useState({
-  //   editLoading: false,
-  //   historyLoadign: false,
-  // });
 
   const englishName = data?.name;
   const farsiName = data?.description;
@@ -38,41 +33,10 @@ const FirstTab: React.FC<FirstTabType> = (props) => {
     },
   ];
 
-  // const handleEdit = () => {
-  //   setLoading((prev) => ({
-  //     ...prev,
-  //     editLoading: true,
-  //   }));
-  // };
-  // const handleHistory = () => {
-  //   setLoading((prev) => ({
-  //     ...prev,
-  //     historyLoadign: true,
-  //   }));
-  // };
   return (
     <S.Firststep>
       <S.FirstStepHeader>
         <S.FirstStepTitle>{t('first_tab.title')}</S.FirstStepTitle>
-        {/* <S.ButtonContainer>
-          <Button
-            href={`${ROUTES.BACKOFFICE.SCOPE_HISTORY}?id=${id}`}
-            variant='filled'
-            icon={<S.Icon className={'icon-clock'}></S.Icon>}
-            onClick={handleHistory}
-            loading={historyLoadign}
-          >
-            {t('first_tab.view_history_changes')}
-          </Button>
-          <Button
-            href={`${ROUTES.BACKOFFICE.EDIT_SCOPE}?id=${id}`}
-            icon={<S.Icon className={'icon-edit'} />}
-            onClick={handleEdit}
-            loading={editLoading}
-          >
-            {t('first_tab.edit')}
-          </Button>
-        </S.ButtonContainer> */}
       </S.FirstStepHeader>
       <InfoBox loading={isFetching} data={item} margin={'1.6rem 0 0 0'} minColumnCount={2} />
     </S.Firststep>

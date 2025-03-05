@@ -80,7 +80,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
           router.back();
 
           await queryClient.invalidateQueries({
-            queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_INFO],
+            queryKey: [RQKEYS.BACKOFFICE.EDIT_CLIENT_KEYS.CLIENT_INFO],
           });
         } catch (error) {
           // console.error('Error invalidating queries:', error);

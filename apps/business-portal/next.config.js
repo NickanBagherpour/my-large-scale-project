@@ -8,6 +8,8 @@ const auth_prefix = process.env.NEXT_PUBLIC_AUTH_PREFIX || 'api2';
 const portal_prefix = process.env.NEXT_PUBLIC_PORTAL_PREFIX || '';
 const report_base_url = process.env.API_REPORT_BASE_URL || '';
 const report_prefix = process.env.NEXT_PUBLIC_REPORT_PREFIX || '';
+const invoice_base_url = process.env.API_INVOICE_BASE_URL || '';
+const invoice_prefix = process.env.NEXT_PUBLIC_INVOICE_PREFIX || '';
 
 const rewritesConfig = [
   {
@@ -21,6 +23,10 @@ const rewritesConfig = [
   {
     source: `/${report_prefix}/:path*`,
     destination: `${report_base_url}/${report_prefix}/:path*`,
+  },
+  {
+    source: `/${invoice_prefix}/:path*`,
+    destination: `${invoice_base_url}/${invoice_prefix}/:path*`,
   },
 ];
 
