@@ -1,2 +1,2 @@
 export * from './sample.schema';
-export * from './get-report.type';
+export * from './get-tariff-list.type';
