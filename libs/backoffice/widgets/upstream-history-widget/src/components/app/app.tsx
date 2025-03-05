@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { notFound, useSearchParams } from 'next/navigation';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
@@ -30,6 +30,7 @@ const App: React.FC<AppProps> = () => {
   if (!upstreamName) {
     notFound();
   }
+  const [upstreamPrimaryName, setUpstreamPrimaryName] = useState<string | null>(null);
 
   const { data } = useGetUpstreamHistory({
     page: page - 1,
@@ -37,13 +38,23 @@ const App: React.FC<AppProps> = () => {
     upstreamName,
   });
 
-  const { title, description } = data?.content[0]?.upstream ?? {};
+  const { name, description } = data?.content[0]?.upstream ?? {};
+  const upstreamPersianName = description?.value;
+  const upstreamEnglishName = name?.value;
 
-  const widgetTitle = getWidgetTitle({
-    defaultTitle: t('change_history'),
-    primaryTitle: t(description?.value),
-    secondaryTitle: t(title?.value),
-  });
+  useEffect(() => {
+    if (upstreamPersianName && !upstreamPrimaryName) {
+      setUpstreamPrimaryName(upstreamPersianName);
+    }
+  }, [upstreamPersianName, upstreamPrimaryName]);
+
+  const widgetTitle = useMemo(() => {
+    return getWidgetTitle({
+      defaultTitle: t('change_history'),
+      primaryTitle: upstreamPrimaryName,
+      secondaryTitle: upstreamEnglishName,
+    });
+  }, [t, upstreamPrimaryName, upstreamEnglishName]);
 
   return (
     <Container title={widgetTitle} footer={<ReturnButton />}>

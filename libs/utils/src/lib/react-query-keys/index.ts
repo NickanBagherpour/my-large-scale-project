@@ -37,6 +37,7 @@ import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.k
 
 /*--import-business--*/
 import { KEYS as UPSERT_TARRIF_KEYS } from './portals/business/upsert-tarrif.key';
+import { KEYS as TARIFF_DETAILS_KEYS } from './portals/business/tariff-details.key';
 import { KEYS as TARIFF_LIST_KEYS } from './portals/business/tariff-list.key';
 import { KEYS as META_KEYS } from './portals/business/meta.key';
 import { KEYS as BUSINESS_DASHBOARD_KEYS } from './portals/business/business-dashboard.key';
@@ -112,6 +113,7 @@ export const RQKEYS = {
     REQUEST: 'request',
     /*--export-business--*/
     UPSERT_TARRIF: UPSERT_TARRIF_KEYS,
+    TARIFF_DETAILS: TARIFF_DETAILS_KEYS,
     TARIFF_LIST: TARIFF_LIST_KEYS,
     META: META_KEYS,
     DASHBOARD: BUSINESS_DASHBOARD_KEYS,

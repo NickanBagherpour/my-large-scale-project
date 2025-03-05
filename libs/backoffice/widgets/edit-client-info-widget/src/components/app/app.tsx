@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = () => {
 
   const requestId: Nullable<string> = searchParams.get(CLIENT_NAME);
 
-  const { data, isFetching } = useGetClientInfo(requestId);
+  const { data: clientInfo, isFetching: isClientInfoFetching } = useGetClientInfo(requestId);
 
   const { data: tags, isFetching: isTagsFetching } = useGetTags();
 
@@ -55,8 +55,8 @@ const App: React.FC<AppProps> = () => {
       fillContainer={true}
       title={getWidgetTitle({
         defaultTitle: t('edit_information'),
-        primaryTitle: data?.clientPersianName,
-        secondaryTitle: data?.clientEnglishName,
+        primaryTitle: clientInfo?.clientPersianName,
+        secondaryTitle: clientInfo?.clientEnglishName,
       })}
     >
       <GlobalMessageContainer
@@ -66,7 +66,7 @@ const App: React.FC<AppProps> = () => {
         }}
       />
 
-      {checkParams(data, requestId, isFetching)}
+      {checkParams(clientInfo, requestId, isClientInfoFetching)}
     </S.AppContainer>
   );
 };

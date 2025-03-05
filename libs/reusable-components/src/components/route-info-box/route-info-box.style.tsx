@@ -3,7 +3,7 @@ import { Typography } from '@oxygen/ui-kit';
 import { withOpacity } from '@oxygen/utils';
 
 export const Container = styled.div`
-  .ant-tag {
+  .route-info-box-tag {
     display: inline-flex;
     background-color: ${(p) => withOpacity(p.theme.secondary._200, 50)};
     color: ${(p) => p.theme.success.main};

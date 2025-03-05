@@ -23,6 +23,11 @@ const ServiceSelector = (props: Props) => {
   const { data, isFetching, hasNextPage, fetchNextPage } = useGetServices(debouncedSearchTerm.trim(), dispatch);
   const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as any[]);
 
+  const handleSelect = ({ service }: { service: Service }) => {
+    // When a service is selected, do not update the search term to avoid triggering an API request
+    onSelect(service);
+  };
+
   return (
     <div>
       <AdvanceSelector
@@ -34,10 +39,7 @@ const ServiceSelector = (props: Props) => {
           })) ?? []
         }
         value={searchTerm}
-        onSelect={({ service }) => {
-          // setSearchTerm(service);
-          onSelect(service);
-        }}
+        onSelect={handleSelect}
         onChange={(value) => setSearchTerm(value)}
         loading={isFetching}
         isLastPage={!hasNextPage}

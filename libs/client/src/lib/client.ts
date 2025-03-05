@@ -14,6 +14,7 @@ const baseUrl = '/';
 
 export const portalUrl = process.env.NEXT_PUBLIC_PORTAL_PREFIX;
 export const reportUrl = process.env.NEXT_PUBLIC_REPORT_PREFIX;
+export const invoiceUrl = process.env.NEXT_PUBLIC_INVOICE_PREFIX;
 
 const client = axios.create({
   baseURL: baseUrl,

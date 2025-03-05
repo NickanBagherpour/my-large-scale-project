@@ -35,17 +35,17 @@ const InfoCards: React.FC = () => {
       title: t('service_total'),
       code: serviceReport?.totalCount ?? 0,
       link: ROUTES.BUSINESS.SERVICES_REPORT,
-      color: 'secondary',
+      color: 'primary',
       icon: 'icon-cloud',
-      iconColor: theme.secondary.main,
+      iconColor: theme.primary.main,
       linkText: t('service_list_link'),
     },
     {
       title: t('customer_total'),
       code: clientReport?.totalCount ?? 0,
       link: ROUTES.BUSINESS.CLIENTS_REPORT,
-      color: 'primary',
-      iconColor: theme.primary.main,
+      color: 'secondary',
+      iconColor: theme.secondary.main,
       icon: 'icon-buliding',
       linkText: t('customer_list_link'),
     },
@@ -56,7 +56,7 @@ const InfoCards: React.FC = () => {
         title: getValueOrDash(mostValuedConsumer?.name),
         desc: getValueOrDash(mostValuedConsumer?.persianName),
       },
-      iconColor: theme.primary.main,
+      iconColor: theme.secondary.main,
     },
     {
       icon: 'icon-trend-up',
@@ -99,8 +99,20 @@ const InfoCards: React.FC = () => {
 
       {/* Remaining cards rendered separately */}
       {detailCards.map(({ title, icon, detail, iconColor }) => (
-        <DashboardCard key={title} iconColor={iconColor} headerTitle={title} icon={icon}>
-          {detail && <InnerDetailCard title={detail.title} description={detail.desc} />}
+        <DashboardCard
+          key={title}
+          iconColor={iconColor}
+          headerTitle={title}
+          icon={icon}
+          headerStyle={{ paddingInlineStart: '3rem' }}
+        >
+          {detail && (
+            <InnerDetailCard
+              containerStyle={{ paddingInlineStart: '3rem' }}
+              title={detail.title}
+              description={detail.desc}
+            />
+          )}
         </DashboardCard>
       ))}
     </S.Container>

@@ -48,7 +48,6 @@ export const BarChart: React.FC<Props> = ({
   const { ref: _, ...filteredLegendProps } = legendProps || {};
   const theme = useAppTheme();
   const [t] = useTr();
-  console.log('isLoading', isLoading);
   return (
     <>
       <S.Container>
@@ -71,14 +70,15 @@ export const BarChart: React.FC<Props> = ({
               }}
             >
               <CartesianGrid {...cartesianProps} strokeDasharray='3 3' />
-              <XAxis {...xAxisProps} includeHidden />
-              <YAxis {...yAxisProps} />
+              <XAxis {...xAxisProps} includeHidden fontSize={'1.2rem'} />
+              <YAxis {...yAxisProps} fontSize='1.2rem' />
               <Tooltip
                 {...tooltipProps}
                 contentStyle={{
                   borderRadius: '12px',
                   border: '1px solid transparent',
                   backgroundColor: theme.secondary._50,
+                  boxShadow: '0px 1px 3px 0px #0000004D, 0px 4px 8px 3px #00000026',
                 }}
               />
               <Legend {...filteredLegendProps} />

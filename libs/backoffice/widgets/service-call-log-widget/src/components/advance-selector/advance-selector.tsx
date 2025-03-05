@@ -94,7 +94,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
               />
               <S.Subtitle>{data.item.subTitle}</S.Subtitle>
             </Box>
-            <S.Icon className='icon-plus' />
+            {/* <S.Icon className='icon-plus' /> */}
           </S.Item>
         )}
         {...rest}
