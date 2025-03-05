@@ -12,7 +12,7 @@ export const useGetServicesReportQuery = (params: FetchParamsType) => {
 
   return useQuery({
     queryKey: [GET_LIST, params],
-    // queryFn: withErrorHandling(() => Api.getServicesReport(params), dispatch),
+    queryFn: withErrorHandling(() => Api.getServicesReport(params), dispatch),
     placeholderData: keepPreviousData,
     networkMode: 'offlineFirst',
     // staleTime: 5 * 1000,
