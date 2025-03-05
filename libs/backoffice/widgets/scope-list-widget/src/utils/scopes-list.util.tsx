@@ -37,10 +37,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.english_name_scope'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
-        // return getValueOrDash(name);
         return (
           <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
             {getValueOrDash(name)}
@@ -52,10 +50,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.persian_name_scope'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
-        // return getValueOrDash(description);
         return (
           <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
             {getValueOrDash(description)}

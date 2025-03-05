@@ -30,7 +30,6 @@ export default function Scope() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           {getValueOrDash(name)}
@@ -41,7 +40,6 @@ export default function Scope() {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (description) => (
         <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
           {getValueOrDash(description)}

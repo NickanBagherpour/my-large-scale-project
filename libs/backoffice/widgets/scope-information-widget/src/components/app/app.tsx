@@ -39,10 +39,6 @@ const App: React.FC<AppProps> = (props) => {
   const englishName = data?.name;
   const farsiName = data?.description;
 
-  const handleReturn = () => {
-    router.back();
-  };
-
   const items: TabsProps['items'] = [
     {
       key: 'scop-info',
@@ -74,9 +70,7 @@ const App: React.FC<AppProps> = (props) => {
         <Tabs defaultActiveKey='scop-info' items={items}></Tabs>
       </S.Content>
       <S.Footer>
-        <Button variant={'outlined'} onClick={handleReturn}>
-          {t('button.return')}
-        </Button>
+        <S.ReturnButton />
       </S.Footer>
     </S.AppContainer>
   );

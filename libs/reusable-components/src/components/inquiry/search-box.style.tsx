@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const FormItem = styled(Form.Item)`
   flex-basis: 100%;
+  margin-bottom: 0;
 `;
 export const Container = styled.div`
   display: flex;

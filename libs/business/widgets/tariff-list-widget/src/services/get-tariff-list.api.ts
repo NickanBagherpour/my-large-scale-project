@@ -4,7 +4,7 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { useAppDispatch } from '../context';
 import Api from './api';
 
-export const useGetTariffListtDataQuery = (params) => {
+export const useGetTariffListDataQuery = (params) => {
   const dispatch = useAppDispatch();
 
   return useQuery({

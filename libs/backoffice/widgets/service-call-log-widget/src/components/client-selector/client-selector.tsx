@@ -1,7 +1,7 @@
 'use client';
 import { type Dispatch, useState } from 'react';
 
-import { AdvanceSelector } from '../advance-selector/advance-selector';
+import { AdvanceSelector, dataType } from '../advance-selector/advance-selector';
 import { useTr } from '@oxygen/translation';
 import { useDebouncedValue } from '@oxygen/hooks';
 import { Service } from '../../utils/services.type';
@@ -24,6 +24,12 @@ const ServiceSelector = (props: Props) => {
   const { data, isFetching, hasNextPage, fetchNextPage } = useGetClientsQuery(debouncedSearchTerm.trim(), dispatch);
   const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as any[]);
 
+  const handleSelect = (item: dataType) => {
+    // if (item.client) {
+    onSelect(item.client);
+    // }
+  };
+
   return (
     <div>
       <AdvanceSelector
@@ -35,10 +41,7 @@ const ServiceSelector = (props: Props) => {
           })) ?? []
         }
         value={searchTerm}
-        onSelect={({ client }) => {
-          // setSearchTerm('');
-          onSelect(client);
-        }}
+        onSelect={handleSelect}
         onChange={(value) => {
           setSearchTerm(value);
         }}

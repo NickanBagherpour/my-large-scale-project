@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useTr } from '@oxygen/translation';
-import { GlobalMessageContainer, NoResult, ReturnButton } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 import { Tabs } from '@oxygen/ui-kit';
 import { getWidgetTitle } from '@oxygen/utils';
 
@@ -30,9 +30,6 @@ const App: React.FC<AppProps> = (props) => {
   const tab = getValidTab(searchParams.get('tab'));
 
   const router = useRouter();
-  const handleReturn = () => {
-    router.back();
-  };
 
   const serviceName: Nullable<string> = searchParams.get('servicename');
 
@@ -46,13 +43,7 @@ const App: React.FC<AppProps> = (props) => {
     return <NoResult isLoading={false} hasReturnButton={true} />;
   }
 
-  const footerButton = (
-    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-      <ReturnButton size={'large'} variant={'outlined'} onClick={handleReturn}>
-        {t('button.return')}
-      </ReturnButton>
-    </div>
-  );
+  const footerButton = <S.ReturnButton />;
 
   return (
     <S.AppContainer
