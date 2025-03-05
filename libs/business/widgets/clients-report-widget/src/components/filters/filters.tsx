@@ -32,7 +32,7 @@ export default function Filters() {
           <Form.Item name={CLIENT_REPORT_NAME.clientReportName} rules={[rule]} style={{ width: '100%' }}>
             <S.Input
               value={value}
-              placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
+              placeholder={t('placeholder.search_by_english_name', { element: t('element.client') })}
               prefix={<i className='icon-search-normal' />}
               onChange={(e) => setValue(e.target.value)}
             />
