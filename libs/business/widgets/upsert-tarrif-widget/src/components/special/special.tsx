@@ -18,7 +18,7 @@ export default function Special(props: Props) {
       <Form.List name={[tariff.serviceTariff, tariff.special]}>
         {(childrenFields, { add, remove }) => {
           return (
-            <>
+            <S.Container>
               {childrenFields.map((child, idx) => (
                 <S.Article key={idx}>
                   <S.Index>{idx + 1}</S.Index>
@@ -52,7 +52,7 @@ export default function Special(props: Props) {
               ))}
 
               <AddCondition tariffType='tiered' onClick={() => add('')} />
-            </>
+            </S.Container>
           );
         }}
       </Form.List>

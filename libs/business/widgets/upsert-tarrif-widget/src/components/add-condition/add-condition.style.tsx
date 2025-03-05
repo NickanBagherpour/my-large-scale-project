@@ -8,6 +8,7 @@ export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
   background: ${(p) => p.theme.background.main};
   font-size: 1.4rem;
   width: 100%;
+  height: 6.4rem;
 
   i {
     font-size: 1.8rem;

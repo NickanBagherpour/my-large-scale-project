@@ -23,6 +23,7 @@ export default function ServiceTarrif(props: Props) {
   const tariffType = Form.useWatch([tariff.serviceTariff, tariff.tariff], form);
 
   const inputs: Record<TariffType, React.JSX.Element> = {
+    // TODO: add tariff to all components or remove it from all.
     fixed: <FixedTariff rule={rule} />,
     tiered: <Tiered rule={rule} />,
     special: <Special rule={rule} />,
@@ -47,6 +48,7 @@ type TariffProps = {
   onChange?: (value: TariffType) => void;
 };
 
+// TODO: create a new file for this???
 function Tarrifs(props: TariffProps) {
   const { value, onChange } = props;
   const [t] = useTr();

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { Input as UikitInput, Button as UikitButton } from '@oxygen/ui-kit';
-import { Form as AntForm } from 'antd';
 
-export const Form = styled(AntForm)`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -16,12 +15,18 @@ export const Article = styled.article`
   padding: 1.2rem;
   border: ${(p) => `1px solid ${p.theme.border._100}`};
   border-radius: 1.6rem;
+  padding: 2rem 1.2rem; /* need padding for inputs validation errors */
 
   /* make the specifity of this lower than the Index styles */
   :where(span) {
     font-size: 1.4rem;
     font-weight: 700;
     color: ${(p) => p.theme.text.tertiary};
+  }
+
+  .ant-form-item {
+    /* reset the margin and add extra padding to the container for the input validation errors */
+    margin-bottom: 0;
   }
 `;
 

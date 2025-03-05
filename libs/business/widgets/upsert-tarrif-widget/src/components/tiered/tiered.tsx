@@ -18,7 +18,7 @@ export default function Tiered(props: Props) {
       <Form.List name={[tariff.serviceTariff, tariff.tiered]}>
         {(childrenFields, { add, remove }) => {
           return (
-            <>
+            <S.Container>
               {childrenFields.map((child, idx) => (
                 <S.Article key={child.key}>
                   <S.Index>{idx + 1}</S.Index>
@@ -49,7 +49,7 @@ export default function Tiered(props: Props) {
               ))}
 
               <AddCondition tariffType='tiered' onClick={() => add('')} />
-            </>
+            </S.Container>
           );
         }}
       </Form.List>
