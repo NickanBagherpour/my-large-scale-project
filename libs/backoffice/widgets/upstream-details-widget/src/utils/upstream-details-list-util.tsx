@@ -36,7 +36,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'domain',
       key: 'domain',
       align: 'center',
-      ellipsis: true,
       render: (domain) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(domain)} arrow={true}>
