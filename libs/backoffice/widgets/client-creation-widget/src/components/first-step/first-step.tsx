@@ -75,12 +75,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
-  const {
-    data: clientData,
-    isFetching: clientFetching,
-    refetch: clientRefetch,
-    isSuccess: isClientSuccess,
-  } = useGetClientInfoQuery(clientName!);
+  const { data: clientData, isFetching: clientFetching, refetch: clientRefetch } = useGetClientInfoQuery(clientName!);
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
