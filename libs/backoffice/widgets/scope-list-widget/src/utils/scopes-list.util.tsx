@@ -1,9 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
@@ -39,11 +37,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       align: 'center',
       render: (_val, _record, index) => {
         const { name } = _record;
-        return (
-          <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-            {getValueOrDash(name)}
-          </Tooltip>
-        );
+        return <Tooltip title={getValueOrDash(name)}>{getValueOrDash(name)}</Tooltip>;
       },
     },
     {
@@ -52,17 +46,14 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       align: 'center',
       render: (_val, _record, index) => {
         const { description } = _record;
-        return (
-          <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
-            {getValueOrDash(description)}
-          </Tooltip>
-        );
+        return <Tooltip title={getValueOrDash(description)}>{getValueOrDash(description)}</Tooltip>;
       },
     },
     {
       width: widthByButtonCount(1),
       key: 'action',
       align: 'left',
+      ellipsis: false,
       render: (_val, _record, index) => (
         <Button
           variant={'text'}
