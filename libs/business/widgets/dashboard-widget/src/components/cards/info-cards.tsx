@@ -1,8 +1,10 @@
 import { Flex } from 'antd';
-import { ROUTES } from '@oxygen/utils';
+import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { DashboardCard, InnerDetailCard } from '@oxygen/reusable-components';
 import { TextPalette } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
+import { useTr } from '@oxygen/translation';
+import { useGetReportCardsDataQuery } from '../../services/get-report-cards.api';
 import * as S from './info-cards.style';
 
 // Define TypeScript types for clarity
@@ -23,42 +25,52 @@ interface CardItem {
 }
 
 const InfoCards: React.FC = () => {
+  const [t] = useTr();
   const theme = useAppTheme();
+  const { data } = useGetReportCardsDataQuery();
+  if (!data?.response) return null;
+  const { serviceReport, clientReport, mostValuedService, mostFinancialConsumer, mostValuedConsumer } = data.response;
   const cardList: CardItem[] = [
     {
-      title: 'تعداد کل سرویس‌ها',
-      code: 365,
+      title: t('service_total'),
+      code: serviceReport?.totalCount ?? 0,
       link: ROUTES.BUSINESS.SERVICES_REPORT,
-      color: 'secondary',
+      color: 'primary',
       icon: 'icon-cloud',
-      iconColor: theme.secondary.main,
-      linkText: 'مشاهده لیست سرویس‌ها',
+      iconColor: theme.primary.main,
+      linkText: t('service_list_link'),
     },
     {
-      title: 'تعداد کل مشتری‌ها',
-      code: 200,
+      title: t('customer_total'),
+      code: clientReport?.totalCount ?? 0,
       link: ROUTES.BUSINESS.CLIENTS_REPORT,
-      color: 'primary',
-      iconColor: theme.primary.main,
+      color: 'secondary',
+      iconColor: theme.secondary.main,
       icon: 'icon-buliding',
-      linkText: 'مشاهده لیست مشتری‌ها',
+      linkText: t('customer_list_link'),
     },
     {
       icon: 'icon-max-service-call',
-      title: 'مشتری با بیشترین فراخوانی سرویس',
-      detail: { title: 'app bale', desc: 'اپلیکیشن پیام‌رسان بله' },
-      iconColor: theme.primary.main,
+      title: t('customer_with_most_service_call'),
+      detail: {
+        title: getValueOrDash(mostValuedConsumer?.name),
+        desc: getValueOrDash(mostValuedConsumer?.persianName),
+      },
+      iconColor: theme.secondary.main,
     },
     {
       icon: 'icon-trend-up',
-      title: 'سرویس با بیشترین فراخوانی',
-      detail: { title: 'samat-lc-gutr-del', desc: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
+      title: t('most_called_service'),
+      detail: { title: getValueOrDash(mostValuedService?.name), desc: getValueOrDash(mostValuedService?.persianName) },
       iconColor: theme.info.main,
     },
     {
       icon: 'icon-trend-down',
-      title: 'مشتری با بیشترین تراکنش مالی',
-      detail: { title: 'samat-lc-gutr-del', desc: 'دریافت کد‌های ملی متعلق به یک شماره موبایل' },
+      title: t('customer_with_most_transactions'),
+      detail: {
+        title: getValueOrDash(mostFinancialConsumer?.name),
+        desc: getValueOrDash(mostFinancialConsumer?.persianName),
+      },
       iconColor: theme.warning.main,
     },
   ];
@@ -70,7 +82,7 @@ const InfoCards: React.FC = () => {
   return (
     <S.Container>
       {/* First two cards inside Flex */}
-      <Flex gap={5} vertical justify='space-between'>
+      <Flex gap={12} vertical justify='space-between'>
         {mainCards.map(({ title, icon, code, link, linkText, color, iconColor }) => (
           <DashboardCard
             iconColor={iconColor}
@@ -87,8 +99,20 @@ const InfoCards: React.FC = () => {
 
       {/* Remaining cards rendered separately */}
       {detailCards.map(({ title, icon, detail, iconColor }) => (
-        <DashboardCard key={title} iconColor={iconColor} headerTitle={title} icon={icon}>
-          {detail && <InnerDetailCard title={detail.title} description={detail.desc} />}
+        <DashboardCard
+          key={title}
+          iconColor={iconColor}
+          headerTitle={title}
+          icon={icon}
+          headerStyle={{ paddingInlineStart: '3rem' }}
+        >
+          {detail && (
+            <InnerDetailCard
+              containerStyle={{ paddingInlineStart: '3rem' }}
+              title={detail.title}
+              description={detail.desc}
+            />
+          )}
         </DashboardCard>
       ))}
     </S.Container>

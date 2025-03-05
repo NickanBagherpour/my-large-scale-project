@@ -40,7 +40,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return getValueOrDash(record?.persianName);
       },

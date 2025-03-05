@@ -3,14 +3,14 @@ export default {
   add_scope: 'Add Scope',
   search: 'Search',
   table: {
-    index: 'Row',
-    persian_name_scope: 'Persian Name of Scope',
-    english_name_scope: 'english Name of Scope',
+    index: 'Index',
+    persian_name_scope: 'Persian Scope Name',
+    english_name_scope: 'English Scope Name',
     details: 'Details',
-    title: 'Scope Service List',
+    title: 'Scope List',
   },
   placeholder: {
-    search_by_name: 'Search by english name of scope',
+    search_by_name: 'Search by English Scope Name',
   },
   error: {
     english_character: 'Please enter values in English',

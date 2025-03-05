@@ -1,6 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { UpstreamDetailsType } from '../types';
@@ -34,15 +36,19 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'domain',
       key: 'domain',
       align: 'center',
-      ellipsis: true,
-      render: (domain) => getValueOrDash(domain),
+      render: (domain) => {
+        return (
+          <Tooltip placement='top' title={getValueOrDash(domain)} arrow={true}>
+            {getValueOrDash(domain)}
+          </Tooltip>
+        );
+      },
     },
     {
       title: t('health_status'),
       dataIndex: 'healthStatus',
       key: 'health_status',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return getValueOrDash(renderHealthStatus(t, value) ? renderHealthStatus(t, value) : t('health'));
       },
@@ -52,7 +58,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       dataIndex: 'weight',
       key: 'weight',
       align: 'center',
-      ellipsis: true,
       render: (weight) => weight ?? getValueOrDash(weight),
     },
 

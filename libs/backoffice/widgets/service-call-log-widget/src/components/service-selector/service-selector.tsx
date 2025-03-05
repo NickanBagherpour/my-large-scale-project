@@ -1,7 +1,7 @@
 'use client';
 import { type Dispatch, useState } from 'react';
 
-import { AdvanceSelector } from '@oxygen/ui-kit';
+import { AdvanceSelector } from '../advance-selector/advance-selector';
 import { useTr } from '@oxygen/translation';
 import { useDebouncedValue } from '@oxygen/hooks';
 import { Service } from '../../utils/services.type';
@@ -9,7 +9,7 @@ import { useGetServices } from '../../utils/get-services.api';
 
 type Props = {
   onClear?: () => void;
-  onSelect: (scope: Service) => void;
+  onSelect: (scope: any) => void;
   disabled: boolean;
   dispatch: Dispatch<any>;
 };
@@ -21,7 +21,12 @@ const ServiceSelector = (props: Props) => {
   const [debouncedSearchTerm] = useDebouncedValue(searchTerm);
 
   const { data, isFetching, hasNextPage, fetchNextPage } = useGetServices(debouncedSearchTerm.trim(), dispatch);
-  const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as Service[]);
+  const allData = data?.pages.reduce((acc, pageData) => [...acc, ...pageData.content], [] as any[]);
+
+  const handleSelect = ({ service }: { service: Service }) => {
+    // When a service is selected, do not update the search term to avoid triggering an API request
+    onSelect(service);
+  };
 
   return (
     <div>
@@ -34,15 +39,12 @@ const ServiceSelector = (props: Props) => {
           })) ?? []
         }
         value={searchTerm}
-        onSelect={({ service }) => {
-          // setSearchTerm(service);
-          onSelect(service);
-        }}
+        onSelect={handleSelect}
         onChange={(value) => setSearchTerm(value)}
         loading={isFetching}
         isLastPage={!hasNextPage}
         loadMore={() => fetchNextPage()}
-        placeholder={t('uikit.search_english_or_persian_name')}
+        placeholder={t('placeholder.choose_service')}
         disabled={disabled}
       />
     </div>

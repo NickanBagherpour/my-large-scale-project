@@ -41,20 +41,14 @@ export default function WithBadge(props: Props) {
     return <span>{formattedFirstItem}</span>;
   };
 
-  return (
-    <>
-      {count > 1 ? (
-        <Tooltip
-          title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>}
-          arrow={false}
-          styles={{ root: { maxWidth: 'unset' } }}
-        >
-          {<S.Badge count={`+${count - 1}`} />}
-          {renderFirstItem()}
-        </Tooltip>
-      ) : (
-        renderFirstItem()
-      )}
-    </>
+  return count > 1 ? (
+    <Tooltip title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>} arrow={false}>
+      {renderFirstItem()}
+      <S.Badge count={`+${count - 1}`} />
+    </Tooltip>
+  ) : (
+    <Tooltip placement='top' title={getValueOrDash(listItems)} arrow={true}>
+      {renderFirstItem()}
+    </Tooltip>
   );
 }

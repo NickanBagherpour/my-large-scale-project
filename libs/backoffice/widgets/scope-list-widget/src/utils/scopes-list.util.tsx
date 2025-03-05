@@ -1,11 +1,12 @@
+import React from 'react';
 import { TFunction } from 'i18next';
+
+import { Tooltip } from 'antd';
 
 import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { ScopeListDataType, ScopeRequestParams, TypeScopeListParams } from '../types';
-
-import React from 'react';
 
 type Props = {
   t: TFunction;
@@ -36,20 +37,26 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
       title: t('table.english_name_scope'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { name } = _record;
-        return getValueOrDash(name);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+            {getValueOrDash(name)}
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.persian_name_scope'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (_val, _record, index) => {
         const { description } = _record;
-        return getValueOrDash(description);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
+            {getValueOrDash(description)}
+          </Tooltip>
+        );
       },
     },
     {
@@ -121,8 +128,6 @@ export const prepareScopeListParams = (item: TypeScopeListParams): ScopeRequestP
   if (pageSize) {
     reqObj.size = pageSize;
   }
-
-  reqObj.sort = '';
 
   return reqObj;
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { WithBadge } from '@oxygen/reusable-components';
@@ -42,14 +44,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
-          <MarkText
-            text={getValueOrDash(record?.name)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
+          <Tooltip placement='top' title={getValueOrDash(record?.name)} arrow={true}>
+            <MarkText
+              text={getValueOrDash(record?.name)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
+          </Tooltip>
         );
       },
     },
@@ -57,16 +60,18 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
-        return getValueOrDash(record?.persianName);
+        return (
+          <Tooltip placement='top' title={getValueOrDash(record?.persianName)} arrow={true}>
+            {getValueOrDash(record?.persianName)}
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
           <WithBadge
@@ -86,7 +91,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: t('table.status'),
       dataIndex: 'isActive',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
         return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;

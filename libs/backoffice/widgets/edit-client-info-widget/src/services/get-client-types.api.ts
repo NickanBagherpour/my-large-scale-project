@@ -8,7 +8,7 @@ export const useGetClientTypes = () => {
   const dispatch = useAppDispatch();
 
   return useQuery<any>({
-    queryKey: [RQKEYS.BACKOFFICE.EDIT_APPLICANT_INFO.CLIENT_TYPES],
+    queryKey: [RQKEYS.BACKOFFICE.EDIT_CLIENT_KEYS.CLIENT_TYPES],
     queryFn: withErrorHandling(() => Api.getClientType(), dispatch),
     select: (data) => {
       return data.map((item) => ({

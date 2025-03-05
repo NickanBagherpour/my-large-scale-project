@@ -2,7 +2,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
-import { Box, Button, Chip, DatePicker, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Box, Button, Chip, SearchItemsContainer, DatePicker, Icons } from '@oxygen/ui-kit';
 import { useBounce, useToggle } from '@oxygen/hooks';
 // import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
@@ -17,125 +17,128 @@ import { useGetClientServices } from '../../utils/get-client-services.api';
 
 import { updateSearchTerm } from '../../context';
 import ClientSelector from '../client-selector/client-selector';
+import dayjs, { Dayjs } from 'dayjs';
+import { FormSchema } from '../../types/filters.schema';
 
-// type Status = WidgetStateType['status'];
-// type Sort = WidgetStateType['sort'];
-
-function getChipType(currentStatus: any, chipStatus: any) {
-  return currentStatus === chipStatus ? 'active' : 'unActive';
-}
-
-export default function Filters() {
-  const [t] = useTr();
-  const clientName = '333';
-  const hasServices = true;
-  const rule = createSchemaFieldRule(CreateServiceNameSchema(t));
+export default function Filters({ filters, setFilters, onSearch }) {
   const [form] = Form.useForm<ServiceNameType>();
   const dispatch = useAppDispatch();
-  // const { status, sort } = useAppState();
-  const [value, setValue] = useState('');
-  const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
-  const { page, size } = pagination;
+  const [t] = useTr();
+  const rule = createSchemaFieldRule(FormSchema(t));
 
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
+  const [fromDate, setFromDate] = useState<dayjs.Dayjs | null>(null);
+  const [toDate, setToDate] = useState<dayjs.Dayjs | null>(null);
 
-  function handleSearch() {
-    form
-      .validateFields()
-      .then((values) => {
-        const queryParams = {
-          clientGatewayId: selectedClient || '',
-          serviceGatewayId: selectedService?.name || '',
-          fromDate: values[FILTERS.FromDate] || '',
-          toDate: values[FILTERS.Todate] || '',
-          size: size.toString(), // Convert number to string
-          page: (page - 1).toString(),
-          sort: 'createDate,DESC',
-        };
-
-        // Convert queryParams object into a query string
-        const queryString = new URLSearchParams(queryParams).toString();
-
-        // Update search term and trigger API call
-        updateSearchTerm(dispatch, queryString);
-      })
-      .catch(() => {
-        console.log('Search input validation failed');
-      });
-  }
-
-  const chooseService = (service: any) => {
-    setSelectedService(service);
-  };
-
-  const chooseClient = (client: any) => {
-    setSelectedClient(client);
-  };
-
-  useBounce(async () => {
-    try {
-      await form.validateFields();
-      updateSearchTerm(dispatch, value?.trim());
-    } catch {
-      console.log('search input validation failed');
+  const handleDateChange = (field: 'fromDate' | 'toDate', date: dayjs.Dayjs | null) => {
+    if (field === 'fromDate') {
+      setFromDate(date);
+      setToDate(null); // Reset 'toDate' when 'fromDate' changes
+    } else {
+      setToDate(date);
     }
-  }, [value]);
+  };
+
+  const disableFromDate = (current: Dayjs) => {
+    if (!toDate) return current.isAfter(dayjs());
+    return current.isAfter(dayjs(toDate)) || current.isBefore(dayjs(toDate).subtract(1, 'month'));
+  };
+
+  const disableToDate = (current: Dayjs) => {
+    if (!fromDate) return current.isAfter(dayjs());
+    return current.isBefore(dayjs(fromDate)) || current.isAfter(dayjs(fromDate).add(1, 'month'));
+  };
+
+  const handleSubmit = () => {
+    const queryParams = {
+      clientGatewayId: selectedClient?.clientGatewayId || '',
+      serviceGatewayId: selectedService?.serviceGatewayId || '',
+      fromDate: fromDate ? dayjs(fromDate).format('YYYY/MM/DD') : '',
+      toDate: toDate ? dayjs(toDate).format('YYYY/MM/DD') : '',
+      size: filters.size.toString(),
+      page: (filters.page - 1).toString(),
+      sort: 'createDate,DESC',
+    };
+
+    // const validation = FormSchema.safeParse(queryParams);
+
+    // if (!validation.success) {
+    //   return; // Stop
+    // }
+
+    updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
+    onSearch();
+  };
 
   return (
     <S.Container>
       <Box className='filter-container'>
-        <Form form={form} layout={'vertical'}>
-          {/* <S.Actions> */}
+        <Form
+          form={form}
+          layout='vertical'
+          initialValues={{
+            toDate: dayjs(),
+          }}
+        >
           <SearchItemsContainer>
-            <Form.Item
-              label={t('field.services')}
-              name={FILTERS.Service}
-              // rules={[rule]}
-              style={{ width: '100%' }}
-            >
-              <ServiceSelector dispatch={dispatch} disabled={false} onSelect={chooseService} />
-            </Form.Item>
-            <Form.Item
-              label={t('field.clients')}
-              name={FILTERS.Client}
-              // rules={[rule]}
-              style={{ width: '100%' }}
-            >
-              <ClientSelector dispatch={dispatch} disabled={false} onSelect={chooseClient} />
-            </Form.Item>
-            <Form.Item
-              label={t('field.from_date')}
-              name={FILTERS.FromDate}
-              // rules={[rule]}
-              style={{ display: '100%' }}
-            >
-              {/* <S.Input
-                value={value}
-                placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
-                prefix={<i className='icon-search-normal' />}
-                onChange={(e) => setValue(e.target.value)}
-              /> */}
-              <DatePicker
-              // placeholder={t('field.from_date', { element: t('element.service') })}
-              // prefix={<i className='icon-search-normal' />}
+            <Form.Item label={t('field.services')} name='service' rules={[rule]}>
+              <ServiceSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedService) => {
+                  form.setFieldsValue({ service: selectedService?.name });
+                  form.validateFields(['service']);
+                  setSelectedService(selectedService);
+                }}
               />
             </Form.Item>
-            <Form.Item
-              label={t('field.to_date')}
-              name={FILTERS.Todate}
-              // rules={[rule]}
-              style={{ width: '100%' }}
-            >
-              <DatePicker />
+
+            <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
+              <ClientSelector
+                dispatch={dispatch}
+                disabled={false}
+                onSelect={(selectedClient) => {
+                  form.setFieldsValue({ client: selectedClient?.clientName });
+                  form.validateFields(['client']);
+                  setSelectedClient(selectedClient);
+                }}
+              />
             </Form.Item>
-            {/* </S.Actions> */}
+
+            <Form.Item name='fromDate' label={t('field.from_date')} rules={[rule]}>
+              <DatePicker
+                placeholder={t('field.from_date')}
+                fromDate={fromDate}
+                toDate={toDate}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
+                value={fromDate}
+                onChange={(date) => handleDateChange('fromDate', date)}
+                suffixIcon={<i className={'icon-calendar-2'} />}
+              />
+            </Form.Item>
+
+            <Form.Item name='toDate' label={t('field.to_date')} rules={[rule]}>
+              <DatePicker
+                placeholder={t('field.to_date')}
+                fromDate={fromDate}
+                // defaultValue={dayjs()}
+                toDate={toDate}
+                setFromDate={setFromDate}
+                setToDate={setToDate}
+                value={toDate}
+                onChange={(date) => handleDateChange('toDate', date)}
+                suffixIcon={<i className={'icon-calendar-2'} />}
+              />
+            </Form.Item>
           </SearchItemsContainer>
+
           <S.Footer>
-            <Button variant={'outlined'} onClick={() => form.resetFields()}>
+            <Button variant='outlined' onClick={() => form.resetFields()}>
               {t('button.delete_all')}
             </Button>
-            <Button htmlType={'submit'} size='large' onClick={handleSearch} style={{ padding: '0 4rem' }}>
+            <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }} onClick={handleSubmit}>
               {t('button.search')}
             </Button>
           </S.Footer>

@@ -29,7 +29,7 @@ export default {
   service_documentation: 'Service Documentation',
   add_documentation: 'Add Documentation',
   file_format_error: 'Invalid file format',
-  file_size_limit_error: 'File size exceeds 5 MB',
+  file_size_limit_error: 'File size exceeds 6 MB. Please select a smaller file.',
   stop: 'Stop',
   field: {
     row: 'Row',

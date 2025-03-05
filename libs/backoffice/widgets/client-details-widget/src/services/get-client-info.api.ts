@@ -9,7 +9,7 @@ const { CLIENT_PROFILE, CLIENT_DETAILS } = RQKEYS.BACKOFFICE;
 export const useGetClientInfoQuery = (clientName: string) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [CLIENT_PROFILE, CLIENT_DETAILS.CLIENT_INFO],
+    queryKey: [CLIENT_PROFILE, CLIENT_DETAILS.CLIENT_INFO, clientName],
     queryFn: withErrorHandling(() => Api.getClientInfo(clientName), dispatch),
   });
 };

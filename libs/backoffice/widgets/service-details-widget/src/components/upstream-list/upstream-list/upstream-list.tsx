@@ -15,6 +15,7 @@ import { UpstreamDetails } from '../upstream-details/upstream-details';
 import { updateUpstreamAction, useAppDispatch, useAppState } from '../../../context';
 
 import * as S from './upstream-list.style';
+import { CaptionWrapper } from '../../app/app.style';
 
 type ActiveSelectType = PageProps & {};
 
@@ -87,18 +88,9 @@ export const UpstreamList: React.FC<ActiveSelectType> = (props) => {
 
   return (
     <>
-      <S.Header>
-        <S.Title>{t('upstream_tab.tab_header')}</S.Title>
-        {/*
-        <Button
-          variant='filled'
-          icon={<S.Icon className='icon-clock' />}
-          href={`${ROUTES.BACKOFFICE.UPSTREAM_HISTORY}?upstream-name=${upStreamListData?.name}`}
-        >
-          {t('see_changes_history')}
-        </Button>
-        */}
-      </S.Header>
+      <CaptionWrapper>
+        <p>{t('upstream_tab.tab_header')}</p>
+      </CaptionWrapper>
       <UpstreamDetails
         tableLoading={upStreamLoading}
         tableData={tableData}

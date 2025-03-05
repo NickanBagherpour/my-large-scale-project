@@ -1,12 +1,13 @@
 export default {
   widget_name: 'گزارش فراخوانی سرویس',
-  client_id: 'Client ID',
+  client_name: 'نام کلاینت',
   application_name: 'نام اپلیکیشن',
   utc: 'تاریخ درخواست (UTC)',
   request_date: 'تاریخ درخواست',
   request_time: 'زمان درخواست',
   service_id: 'شناسه سرویس',
   service_name: 'نام سرویس',
+  count: 'تعداد',
   status: 'وضعیت',
   upload_service: 'بارگذاری سرویس',
   create_new_service: 'ایجاد سرویس جدید',
@@ -47,6 +48,8 @@ export default {
     'مجاز به ثبت سرویس با این مشخصات نمی‌باشید. سرویس مورد نظر قبلاً با مشخصات زیر در سامانه ثبت شده است. ',
   placeholders: {
     search_service_inspection: 'جستجو بر‌اساس نام انگلیسی سرویس',
+    choose_client: 'انتخاب کلاینت',
+    choose_service: 'انتخاب سرویس',
   },
   buttons: {
     inspect: 'استعلام سرویس',

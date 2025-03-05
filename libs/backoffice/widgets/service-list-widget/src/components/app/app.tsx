@@ -25,7 +25,7 @@ const App = () => {
     };
   };
   const { data: services, isFetching: isServiceListFetching } = useGetServicesQuery(prepareServiceParams());
-
+  const offset = (services?.pageable?.offset ?? 0) + 1;
   const dispatch = useAppDispatch();
   const [t] = useTr();
 
@@ -69,6 +69,7 @@ const App = () => {
       <S.ServicesContainer title={t('widget_name')} subtitle={servicesSubTitle}>
         <Filters />
         <Services
+          offset={offset}
           isFetching={isServiceListFetching}
           data={services?.content}
           total={services?.totalElements}
