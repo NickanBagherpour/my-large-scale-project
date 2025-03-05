@@ -48,7 +48,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(record?.name)} arrow={true}>
@@ -65,7 +64,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: t('table.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(record?.persianName)} arrow={true}>
@@ -78,7 +76,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: t('table.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
           <WithBadge
@@ -98,7 +95,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: t('table.status'),
       dataIndex: 'isActive',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
         return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
