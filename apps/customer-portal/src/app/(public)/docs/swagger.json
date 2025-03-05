@@ -8,12 +8,6 @@
     },
     "version": "v1.0"
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000/api/auth/proxy",
-      "description": "Proxy through Next.js for custom request handling"
-    }
-  ],
   "paths": {
     "/api/v1/auth/token": {
       "post": {

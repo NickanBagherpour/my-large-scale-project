@@ -1,57 +1,76 @@
 'use client';
 
-// import { useState, useEffect } from 'react';
-// import { API } from '@stoplight/elements';
-import '@stoplight/elements/styles.min.css';
-import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 
 import swagger from './swagger.json';
 import * as S from './style';
 
+export default function ApiDocsPage() {
+  const [isReady, setIsReady] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null)
 
-interface APIProps {
-  httpClient?: (url: string, options: RequestInit) => Promise<Response>;
-}
+/*  useEffect(() => {
+    // Add Stoplight Elements styles
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/@stoplight/elements/styles.min.css';
+    document.head.appendChild(link);
 
-const API = dynamic(() => import('@stoplight/elements').then((mod) => mod.API), {
-  ssr: false,
-});
+    return () => {
+      // Clean up on unmount
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+    };
+  }, []);*/
 
 
-const Index = () => {
-  // const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (isReady && containerRef.current) {
+      // Create the elements-api element programmatically
+      const elementsApi = document.createElement("elements-api")
+      elementsApi.setAttribute("layout", "responsive")
+      elementsApi.setAttribute("router", "hash")
+      elementsApi.setAttribute("apiDescriptionDocument", JSON.stringify(swagger))
 
-  const customHttpClient = async (url: string, options: RequestInit) => {
-
-    console.log('1312312313131313131313131', url);
-
-    const proxyUrl = `${window.location.origin}/api/auth/proxy?url=${encodeURIComponent(url)}`;
-    const response = await fetch(proxyUrl, options);
-    return response;
-  };
+      // Clear and append
+      containerRef.current.innerHTML = ""
+      containerRef.current.appendChild(elementsApi)
+    }
+  }, [isReady])
 
 
   return (
-    <S.Container className="container">
-      <API
-        layout={'responsive'}
-        apiDescriptionDocument={swagger}
-        hideSchemas={true}
-        router="history"
-        // layout="sidebar"
-        // outerRouter={true}
-        // tryItCredentialsPolicy="include"
-        basePath="/docs"
-        // tryItCorsProxy={'http://localhost:3000/api/auth/proxy?'}
-        // tryItCorsProxy={`${window.location.origin}/api/auth/proxy?`}
-        // tryItCredentialsPolicy={'same-origin'}
-        // httpClient={customHttpClient}
-        // staticRouterPath={'/docs'}
-        // httpClient={customHttpClient}
+    <S.ApiDocsContainer>
+      <S.Header>
+        <h1>API Documentation</h1>
+      </S.Header>
 
-      />
-    </S.Container>
+      <S.Main>
+        {/* Load Stoplight Elements script */}
+        <Script
+          src="https://unpkg.com/@stoplight/elements/web-components.min.js"
+          onLoad={() => setIsReady(true)}
+          strategy="afterInteractive"
+        />
+
+        {/* Render the elements-api component once the script is loaded */}
+   {/*     {isReady && (
+          <elements-api
+            // apiDescriptionUrl="https://raw.githubusercontent.com/stoplightio/studio-demo/master/reference/todos/openapi.yaml"
+            apiDescriptionDocument={JSON.stringify(swagger)}
+            layout="responsive"
+            hideSchemas={true}
+            basePath="/docs"
+            router="memory"
+          />
+        )}*/}
+
+        {/* Container for the elements-api component */}
+        <div ref={containerRef} id="elements-container" />
+      </S.Main>
+    </S.ApiDocsContainer>
   );
-};
+}
 
-export default Index;
