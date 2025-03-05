@@ -36,9 +36,9 @@ export const prepareSubmitClientParams: any = (item, orgId, ssoId) => {
     clientTypeCode: item.clientTypeCode,
     clientKey: item.clientKey,
     authorizationKey: item.authorizationKey,
-    websiteUrl: item.websiteUrl,
-    inboundAddress: item.inboundAddress,
-    redirectUrl: item.redirectUrl,
+    websiteUrl: item.websiteUrl === '' ? null : item.websiteUrl,
+    inboundAddress: item.inboundAddress === '' ? null : item.inboundAddress,
+    redirectUrl: item.redirectUrl === '' ? null : item.redirectUrl,
     organizationNationalId: orgId,
     tagIds: item.tagIds.length ? item.tagIds.map((tag) => tag.key) : [],
   };
