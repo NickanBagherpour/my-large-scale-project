@@ -1,31 +1,29 @@
 import { FiltersType, PaginationType } from '../context/types';
 
-export type ReportResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
+interface FeeStepType {
+  fromRate: number;
+  toRate: number;
+  fee: number;
+}
 
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
+interface TransactionFeeType {
+  fromRate: number;
+  toRate: number;
+  percent: number;
+  min: number;
+  max: number;
+}
 
-export type OperationStatusType = {
-  title: string;
-  code: string;
-};
-
-export type PaginationResultType = {
-  pageNumber: number;
-  pageSize: number;
-  totalNumberOfEntries: number;
-};
-
-export type FetchParamsType = {
-  filters?: FiltersType;
-  pagination: PaginationType;
+export type TariffDetailsType = {
+  serviceName: string;
+  servicePersianName: string;
+  bankingShare: number;
+  operationShare: number;
+  feeType: string;
+  fee: number;
+  feeSteps: FeeStepType[];
+  transactionFees: TransactionFeeType[];
+  aggregationType: string;
+  fieldName: string;
+  type: string;
 };
