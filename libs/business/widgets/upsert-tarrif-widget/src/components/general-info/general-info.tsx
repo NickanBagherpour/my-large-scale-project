@@ -24,7 +24,7 @@ export default function GeneralInfo(props: Props) {
       <BorderedSection>
         <SearchItemsContainer $columnNumber='3'>
           <S.FormItem name={GENERAL_INFO_NAMES.serviceName} label={t('service_name')} rules={[rule]}>
-            <Input />
+            <Input disabled />
           </S.FormItem>
 
           <S.FormItem name={GENERAL_INFO_NAMES.bankingSharePct} label={t('banking_share_pct')} rules={[rule]}>

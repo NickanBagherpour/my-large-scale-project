@@ -8,12 +8,22 @@ import { createAppSchema, type AppSchemaType } from '../../types';
 import { Footer } from '@oxygen/reusable-components';
 import { usePostServiceFee } from '../../services';
 import { feeTypeMap } from '../../utils';
+import { notFound, useSearchParams } from 'next/navigation';
 
 const App = () => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createAppSchema(t));
   const [form] = Form.useForm<AppSchemaType>();
   const { mutate: postFee, isPending: isPendingPostFee } = usePostServiceFee();
+  const serviceName = useSearchParams().get('service-name');
+
+  if (!serviceName) {
+    return void notFound();
+  }
+
+  const initialValues = {
+    serviceName,
+  };
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
     const {
@@ -52,7 +62,7 @@ const App = () => {
 
   return (
     <S.AppContainer title={t('add_tarrif_setting')}>
-      <Form layout='vertical' onFinish={onFinish} form={form}>
+      <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
         <ServiceTarrif rule={rule} form={form} />
       </Form>
