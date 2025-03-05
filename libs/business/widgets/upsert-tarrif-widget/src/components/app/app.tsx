@@ -6,24 +6,68 @@ import { Form, FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
 import { Footer } from '@oxygen/reusable-components';
-import { usePostServiceFee } from '../../services';
-import { feeTypeMap } from '../../utils';
+import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
+import { feeTypeMap, feeTypeMapReverse } from '../../utils';
 import { notFound, useSearchParams } from 'next/navigation';
+import { Loading } from '@oxygen/ui-kit';
 
 const App = () => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createAppSchema(t));
   const [form] = Form.useForm<AppSchemaType>();
-  const { mutate: postFee, isPending: isPendingPostFee } = usePostServiceFee();
   const serviceName = useSearchParams().get('service-name');
+  const { data, isFetching } = useGetFee(serviceName);
+  const { mutate: createTariff, isPending: isPendingCreate } = usePostServiceFee();
+  const { mutate: updateTarrif, isPending: isPendingEdit } = usePutServiceFee();
 
   if (!serviceName) {
     return void notFound();
   }
 
-  const initialValues = {
+  let initialValues: Partial<AppSchemaType> = {
     serviceName,
   };
+
+  if (data) {
+    const {
+      serviceName,
+      feeSteps,
+      fee,
+      type,
+      feeType,
+      fieldName,
+      bankingShare,
+      operationShare,
+      aggregationType,
+      transactionFees,
+      servicePersianName,
+    } = data;
+
+    initialValues = {
+      serviceName,
+      serviceType: aggregationType,
+      bankingSharePct: bankingShare + '', // TODO: see if this should exist or not
+      opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
+      fieldNameInElastic: fieldName,
+      transactionTypeInElastic: type,
+    };
+
+    if (feeTypeMapReverse[feeType] === 'fixed') {
+      initialValues = {
+        ...initialValues,
+        serviceTariff: {
+          tariff: 'fixed',
+          fixed: {
+            tariffPrice: fee + '',
+          },
+        },
+      };
+    } else if (feeTypeMapReverse[feeType] === 'tiered') {
+      console.log('>>>', 'the type is tiered');
+    } else {
+      console.log('>>>', 'the type is special');
+    }
+  }
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
     console.log('>>> onFinish', values);
@@ -80,8 +124,11 @@ const App = () => {
     }
 
     console.log('>>> posting fees', params);
-    postFee(params);
+    if (data) updateTarrif(params);
+    else createTariff(params);
   };
+
+  if (!data) return <Loading spinning />;
 
   return (
     <S.AppContainer title={t('add_tarrif_setting')}>
@@ -99,7 +146,7 @@ const App = () => {
       <Footer
         onRegister={() => form.submit()}
         onReturn={() => void console.log('>>> returning')}
-        registerButtonProps={{ loading: isPendingPostFee }}
+        registerButtonProps={{ loading: isPendingCreate }}
       />
     </S.AppContainer>
   );

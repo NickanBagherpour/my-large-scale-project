@@ -21,3 +21,17 @@ export type PostTariffParams = {
     max: number;
   }[];
 };
+
+export type Fee = {
+  serviceName: string;
+  servicePersianName: string;
+  bankingShare: number;
+  operationShare: number;
+  feeType: number;
+  fee: number;
+  feeSteps: unknown;
+  transactionFees: unknown;
+  aggregationType: number;
+  fieldName: string;
+  type: string;
+};

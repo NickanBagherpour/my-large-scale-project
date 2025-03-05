@@ -1,4 +1,4 @@
 import { createQueryKeys } from '../../create-query-keys';
 
 const prefix = 'UPSERT_TARRIF';
-export const KEYS = createQueryKeys(prefix, ['GET_LIST', 'SEARCH']);
+export const KEYS = createQueryKeys(prefix, ['TARIFF']);

@@ -37,8 +37,13 @@ export const tariff = {
   tariffPrice: 'tariffPrice',
 } as const;
 
-export const feeTypeMap: Record<(typeof tariffTypes)[number], string> = {
+export const feeTypeMap = {
   fixed: '1',
   tiered: '2',
   special: '3',
-};
+} as const satisfies Record<(typeof tariffTypes)[number], string>;
+
+export const feeTypeMapReverse = Object.entries(feeTypeMap).reduce(
+  (acc, [key, value]) => ({ ...acc, [value]: key }),
+  {} as { [K in keyof typeof feeTypeMap as (typeof feeTypeMap)[K]]: K }
+);
