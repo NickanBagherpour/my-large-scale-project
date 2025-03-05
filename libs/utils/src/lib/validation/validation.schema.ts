@@ -196,6 +196,18 @@ export const createValidationSchema = (
       })
       .refine((value) => value !== '', { message: t('validation.required') }),
 
+    optionalUrl: z
+      .string()
+      .trim()
+      .max(limits.DEFAULT_MAX_LENGTH, {
+        message: t('validation.max_length'),
+      })
+      .regex(REGEX_PATTERNS.optionalUrl, {
+        message: t('validation.url_error'),
+      })
+      .optional()
+      .nullable(),
+
     optionalProtocolUrl: z //optional Protocol Url
       .string({ required_error: t('validation.required') })
       .trim()
