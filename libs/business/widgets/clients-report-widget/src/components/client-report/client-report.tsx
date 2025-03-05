@@ -55,14 +55,14 @@ const Services: React.FC<ServicesProps> = (props) => {
 
   const mobileColumns = getMobileColumns({
     t,
-    // , changeStatus, deleteService
     theme,
+    pagination,
     wordToHighlight,
   });
   const desktopColumns = getDesktopColumns({
     t,
-    // , changeStatus, deleteService
     theme,
+    pagination,
     wordToHighlight,
   });
 
@@ -71,7 +71,6 @@ const Services: React.FC<ServicesProps> = (props) => {
   return (
     <S.TableContainer>
       <Table
-        // tableLayout='auto'
         loading={isFetching}
         current={pagination.page}
         total={total}
