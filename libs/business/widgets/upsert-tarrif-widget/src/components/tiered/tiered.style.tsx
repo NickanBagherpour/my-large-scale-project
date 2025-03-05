@@ -10,6 +10,7 @@ export const Container = styled.section`
 export const Article = styled.article`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 1rem;
   background: ${(p) => p.theme.background.main};
   padding: 2rem 1.2rem; /* need padding for inputs validation errors */

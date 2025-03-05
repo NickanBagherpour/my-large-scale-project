@@ -30,7 +30,7 @@ export default function ServiceTarrif(props: Props) {
   };
 
   return (
-    <section>
+    <>
       <Title>{t('service_tariff')}</Title>
       <S.Section>
         <Form.Item rules={[rule]} name={[tariff.serviceTariff, tariff.tariff]}>
@@ -39,14 +39,16 @@ export default function ServiceTarrif(props: Props) {
         <Divider />
         {tariffType && inputs[tariffType]}
       </S.Section>
-    </section>
+    </>
   );
 }
 
-type TariffProps = {
-  value?: TariffType | null;
-  onChange?: (value: TariffType) => void;
-};
+type TariffProps =
+  | {
+      value?: TariffType | null;
+      onChange?: (value: TariffType) => void;
+    }
+  | Record<string, never>;
 
 // TODO: create a new file for this???
 function Tarrifs(props: TariffProps) {

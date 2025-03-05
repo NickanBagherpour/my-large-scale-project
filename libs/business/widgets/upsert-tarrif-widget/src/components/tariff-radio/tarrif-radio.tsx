@@ -6,7 +6,7 @@ import { TariffType } from '../../types';
 type Props = {
   value: TariffType;
   checked: boolean;
-  onChange: (value: TariffType) => void;
+  onChange?: (value: TariffType) => void;
 };
 
 const icons: Record<TariffType, string> = {
@@ -29,7 +29,7 @@ export default function TarrifRadio(props: Props) {
     <S.Label $checked={checked} $type={value}>
       <S.Icon $value={value} className={icons[value]} />
       <S.Txt>{titles[value]}</S.Txt>
-      <Radio checked={checked} value={value} onChange={(e) => onChange(e.target.value)} />
+      <Radio checked={checked} value={value} onChange={(e) => onChange?.(e.target.value)} />
     </S.Label>
   );
 }

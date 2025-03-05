@@ -8,6 +8,7 @@ export const Section = styled(BorderedSection)`
 export const TariffType = styled.div`
   display: flex;
   gap: 2.4rem;
+  flex-wrap: wrap;
 `;
 
 export const Type = styled.h3`
