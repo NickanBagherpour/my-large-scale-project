@@ -8,17 +8,24 @@ import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../typ
 import { Footer } from '@oxygen/reusable-components';
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { feeTypeMap, feeTypeMapReverse } from '../../utils';
-import { notFound, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading } from '@oxygen/ui-kit';
+import { getWidgetTitle } from '@oxygen/utils';
 
 const App = () => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(createAppSchema(t));
   const [form] = Form.useForm<AppSchemaType>();
   const serviceName = useSearchParams().get('service-name');
-  const { data, isFetching } = useGetFee(serviceName);
+  const router = useRouter();
+  const { data: feeData, isPending: isPendingFeeData } = useGetFee(serviceName);
   const { mutate: createTariff, isPending: isPendingCreate } = usePostServiceFee();
   const { mutate: updateTarrif, isPending: isPendingEdit } = usePutServiceFee();
+  const widgetTitle = getWidgetTitle({
+    primaryTitle: feeData?.servicePersianName,
+    secondaryTitle: feeData?.serviceName,
+    defaultTitle: t('add_tarrif_setting'),
+  });
 
   if (!serviceName) {
     return void notFound();
@@ -28,10 +35,10 @@ const App = () => {
     serviceName,
   };
 
-  if (data) {
+  if (feeData) {
     const {
       serviceName,
-      feeSteps,
+      // feeSteps,
       fee,
       type,
       feeType,
@@ -39,9 +46,9 @@ const App = () => {
       bankingShare,
       operationShare,
       aggregationType,
-      transactionFees,
-      servicePersianName,
-    } = data;
+      // transactionFees,
+      // servicePersianName,
+    } = feeData;
 
     initialValues = {
       serviceName,
@@ -63,9 +70,9 @@ const App = () => {
         },
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
-      console.log('>>>', 'the type is tiered');
+      // console.log('>>>', 'the type is tiered');
     } else {
-      console.log('>>>', 'the type is special');
+      // console.log('>>>', 'the type is special');
     }
   }
 
@@ -123,30 +130,23 @@ const App = () => {
       params = { ...params, transactionFees };
     }
 
-    console.log('>>> posting fees', params);
-    if (data) updateTarrif(params);
+    if (feeData) updateTarrif(params);
     else createTariff(params);
   };
 
-  if (!data) return <Loading spinning />;
+  if (isPendingFeeData) return <Loading spinning />;
 
   return (
-    <S.AppContainer title={t('add_tarrif_setting')}>
-      <Form
-        layout='vertical'
-        onFinish={onFinish}
-        form={form}
-        initialValues={initialValues}
-        onFinishFailed={(e) => void console.log('>>> onFinishFailed', e)}
-      >
+    <S.AppContainer title={widgetTitle}>
+      <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
         <ServiceTarrif rule={rule} form={form} />
       </Form>
 
       <Footer
         onRegister={() => form.submit()}
-        onReturn={() => void console.log('>>> returning')}
-        registerButtonProps={{ loading: isPendingCreate }}
+        onReturn={() => router.back()}
+        registerButtonProps={{ loading: isPendingCreate || isPendingEdit }}
       />
     </S.AppContainer>
   );
