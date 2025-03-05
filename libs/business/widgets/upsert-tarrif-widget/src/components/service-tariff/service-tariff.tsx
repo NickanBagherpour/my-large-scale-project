@@ -20,7 +20,7 @@ type Props = {
 export default function ServiceTarrif(props: Props) {
   const { rule, form } = props;
   const [t] = useTr();
-  const tariffType = Form.useWatch([tariff.serviceTariffName, tariff.tariffName], form);
+  const tariffType = Form.useWatch([tariff.serviceTariff, tariff.tariff], form);
 
   const inputs: Record<TariffType, React.JSX.Element> = {
     fixed: <FixedTariff rule={rule} />,
@@ -32,7 +32,7 @@ export default function ServiceTarrif(props: Props) {
     <section>
       <Title>{t('service_tariff')}</Title>
       <S.Section>
-        <Form.Item rules={[rule]} name={[tariff.serviceTariffName, tariff.tariffName]}>
+        <Form.Item rules={[rule]} name={[tariff.serviceTariff, tariff.tariff]}>
           <Tarrifs />
         </Form.Item>
         <Divider />

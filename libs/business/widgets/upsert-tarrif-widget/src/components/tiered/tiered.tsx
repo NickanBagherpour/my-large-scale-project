@@ -14,8 +14,8 @@ export default function Tiered(props: Props) {
   const [t] = useTr();
 
   return (
-    <Form.Item name={[tariff.serviceTariffName, tariff.tiered]} rules={[rule]}>
-      <Form.List name={[tariff.serviceTariffName, tariff.tiered]}>
+    <Form.Item name={[tariff.serviceTariff, tariff.tiered]} rules={[rule]}>
+      <Form.List name={[tariff.serviceTariff, tariff.tiered]}>
         {(childrenFields, { add, remove }) => {
           return (
             <>

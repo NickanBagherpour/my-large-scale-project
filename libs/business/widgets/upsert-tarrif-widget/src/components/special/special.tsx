@@ -14,8 +14,8 @@ export default function Special(props: Props) {
   const [t] = useTr();
 
   return (
-    <Form.Item name={[tariff.serviceTariffName, tariff.special]} rules={[rule]}>
-      <Form.List name={[tariff.serviceTariffName, tariff.special]}>
+    <Form.Item name={[tariff.serviceTariff, tariff.special]} rules={[rule]}>
+      <Form.List name={[tariff.serviceTariff, tariff.special]}>
         {(childrenFields, { add, remove }) => {
           return (
             <>
