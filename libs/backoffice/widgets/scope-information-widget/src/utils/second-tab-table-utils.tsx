@@ -41,7 +41,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.service_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (value) => (
         <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}
@@ -52,7 +51,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (value) => (
         <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
           {getValueOrDash(value)}
@@ -63,7 +61,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -72,7 +69,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.url'),
       dataIndex: 'paths',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -81,7 +77,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },

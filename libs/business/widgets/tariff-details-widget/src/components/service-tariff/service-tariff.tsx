@@ -5,9 +5,12 @@ import { useTr } from '@oxygen/translation';
 import { Nullable, PageProps } from '@oxygen/types';
 
 import * as S from './service-tariff.style';
+import { TariffDetailsType } from '../../types';
 
 export type ServiceTariffPropsType = PageProps & {
   serviceName: Nullable<string>;
+  data: Nullable<TariffDetailsType>;
+  isLoading: boolean;
 };
 
 export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {

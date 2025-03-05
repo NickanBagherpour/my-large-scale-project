@@ -1,4 +1,5 @@
 import * as S from './scope.style';
+import { Tooltip } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { useAppDispatch, previousStep, nextStep, useAppState } from '../../context';
 import { Button, type ColumnsType, Table } from '@oxygen/ui-kit';
@@ -65,14 +66,25 @@ export default function Scope() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
+      render: (value) => {
+        return (
+          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+            {getValueOrDash(value)}
+          </Tooltip>
+        );
+      },
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
-      render: (value) => getValueOrDash(value),
+      render: (value) => {
+        return (
+          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+            {getValueOrDash(value)}
+          </Tooltip>
+        );
+      },
     },
     {
       dataIndex: 'isServiceInSso',

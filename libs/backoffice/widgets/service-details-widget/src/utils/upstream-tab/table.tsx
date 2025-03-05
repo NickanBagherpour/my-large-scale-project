@@ -24,7 +24,6 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('upstream_tab.table.range'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN],
       align: 'center',
-      ellipsis: true,
       render: (value, record) => {
         // return getValueOrDash(value);
         return (
