@@ -33,17 +33,22 @@ export default function Special(props: Props) {
                     <S.Input placeholder={t('amount_irr')} />
                   </Form.Item>
 
-                  <span>{t('request_tariff_applies')}</span>
+                  <span>{t('rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
-                    <S.Input placeholder={t('tariff_irr')} />
+                    <S.Input placeholder={t('percent')} />
                   </Form.Item>
 
-                  <span>{t('max_tariff_irr')}</span>
+                  <span>{t('tariff_percent_min')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
                     <S.Input placeholder={t('tariff_irr')} />
                   </Form.Item>
 
-                  <span>{t('be_calculated')}</span>
+                  <span>{t('max_tariff')}</span>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
+                    <S.Input placeholder={t('tariff_irr')} />
+                  </Form.Item>
+
+                  <span>{t('calculated')}</span>
 
                   <S.TrashBtn variant='link' color='error' onClick={() => remove(child.name)}>
                     <i className='icon-trash' />
