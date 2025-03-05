@@ -6,7 +6,7 @@ export const REGEX_PATTERNS = {
   defaultEnglishName: /^[A-Za-z][A-Za-z0-9._-]*$/,
   defaultPersianName: /^(?![0-9._-])[A-Za-z\u0600-\u06FF][A-Za-z\u0600-\u06FF0-9._\-\s]*(?<![\s])$/,
   url: /^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  optionalUrl: /^$|^https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  optionalUrl: /^(?:https?:\/\/)?(?=[^/]*[A-Za-z])(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}(?::\d{1,5})?$|^$/,
   optionalProtocolUrl: /^(http:\/\/|https:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:\d{1,5})?$/,
   onlyDigit: /^[0-9]*$/,
   nationalCode: /^[0-9]{10}$/,
