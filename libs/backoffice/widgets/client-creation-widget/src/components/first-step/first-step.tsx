@@ -15,7 +15,7 @@ import { createFormSchema } from '../../types';
 import TagPicker from './tag-picker/tag-picker';
 import { TagInterface } from '../../types/first-step/general';
 import CenteredLoading from '../centered-loading/centered-loading';
-import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
+import { prepareGrantTypes, prepareSubmitClientParams } from '../../utils/helper';
 import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import {
   updateFirstStepAction,
@@ -30,8 +30,6 @@ import {
   useGetClientTypesQuery,
   useGetTagsDataQuery,
   useGetOrganizationInfoQuery,
-  useGetClientDraftInfoQuery,
-  useGetClientInquirySSOQuery,
   useGetClientInfoQuery,
 } from '../../services/first-step';
 
