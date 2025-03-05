@@ -24,7 +24,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     {
       title: t('table.index'),
       key: 'id',
-      align: 'center',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * pageSize + 1;
@@ -34,7 +33,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     {
       title: t('table.english_name_scope'),
       dataIndex: 'name',
-      align: 'center',
       render: (_val, _record, index) => {
         const { name } = _record;
         return <Tooltip title={getValueOrDash(name)}>{getValueOrDash(name)}</Tooltip>;
@@ -43,7 +41,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeListDataType> 
     {
       title: t('table.persian_name_scope'),
       dataIndex: 'description',
-      align: 'center',
       render: (_val, _record, index) => {
         const { description } = _record;
         return <Tooltip title={getValueOrDash(description)}>{getValueOrDash(description)}</Tooltip>;
