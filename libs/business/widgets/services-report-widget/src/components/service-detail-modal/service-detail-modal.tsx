@@ -4,55 +4,37 @@ import { Button, Chip, InfoBox, Loading, Modal, type InfoBoxProps } from '@oxyge
 import { useTr } from '@oxygen/translation';
 import { getValueOrDash } from '@oxygen/utils';
 
-import { useGetServiceDetails } from '../../services';
+import { useGetServiceClients } from '../../services';
 
 import * as S from './service-detail-modal.style';
+import { ServicesReportResponseType } from '../../types';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
   serviceName: string;
   dispatch: Dispatch<any>;
+  data: ServicesReportResponseType['content'];
 };
 
 export default function DetailsModal(props: Props) {
-  const { isOpen, close, serviceName, dispatch } = props;
+  const { isOpen, close, serviceName, dispatch, data } = props;
   const [t] = useTr();
-  const { data: service, isFetching } = useGetServiceDetails(serviceName, dispatch);
+
+  const { data: clients, isFetching } = useGetServiceClients(serviceName, dispatch);
+
+  const serviceInfo = data.find((v) => v.serviceName === serviceName) || null;
 
   let generalData: InfoBoxProps['data'] = [];
 
-  if (service) {
-    const {
-      throughput,
-      tags,
-      ownerName,
-      serviceVersion,
-      serviceLatinName,
-      authenticationType,
-      servicePersianName,
-      serviceCategoryTitle,
-    } = service;
+  if (serviceInfo) {
+    const { category, isActive, owner, serviceName, servicePersianName } = serviceInfo;
 
     generalData = [
-      { key: t('common.english_name'), value: serviceLatinName },
-      { key: t('common.persian_name'), value: servicePersianName },
-      { key: t('uikit.access'), value: authenticationType.title },
-      { key: t('uikit.category'), value: getValueOrDash(serviceCategoryTitle) },
-      { key: t('uikit.throughout'), value: throughput.title },
-      { key: t('uikit.version'), value: serviceVersion },
-      { key: t('uikit.owner'), value: ownerName },
-
-      {
-        key: t('uikit.tag'),
-        value:
-          tags.map((tag) => (
-            <Chip tooltipTitle={tag.title} key={tag.id} type='active'>
-              {tag.title}
-            </Chip>
-          )) ?? [],
-        fullwidth: true,
-      },
+      { key: t('common.english_name'), value: getValueOrDash(serviceName) },
+      { key: t('common.persian_name'), value: getValueOrDash(servicePersianName) },
+      { key: t('uikit.category'), value: getValueOrDash(category) },
+      { key: t('uikit.owner'), value: getValueOrDash(owner) },
     ];
   }
 
@@ -70,16 +52,13 @@ export default function DetailsModal(props: Props) {
         </Button>,
       ]}
     >
-      {isFetching ? (
-        <Loading />
-      ) : (
-        <S.Container>
-          <div>
-            <S.Title>{t('uikit.general_info')}</S.Title>
-            <InfoBox margin={0} data={generalData} />
-          </div>
-        </S.Container>
-      )}
+      <S.Container>
+        <div>
+          <S.Title>{t('uikit.general_info')}</S.Title>
+          <InfoBox margin={0} data={generalData} />
+        </div>
+      </S.Container>
+      {isFetching ? <Loading /> : <span>fdgfdg</span>}
     </Modal>
   );
 }

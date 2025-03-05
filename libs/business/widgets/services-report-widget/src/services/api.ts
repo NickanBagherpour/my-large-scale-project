@@ -1,11 +1,11 @@
-import { client, portalUrl, reportUrl } from '@oxygen/client';
+import { client, reportUrl } from '@oxygen/client';
 
-import { FetchParamsType, ReportResponseType, ServiceDetails, ServicesReportResponseType } from '../types';
+import { FetchParamsType, ReportResponseType, ServiceClientsResponse } from '../types';
 
 const Api = {
   getServicesReport: async (params: FetchParamsType) =>
     client.get<ReportResponseType>(`${reportUrl}/v1/reports/services`, { params }),
-  getServiceDetails: async (name: string) =>
-    client.get<ServiceDetails>(`${reportUrl}/v1/reports/services/${name}/clients`),
+  getServiceClients: async (name: string) =>
+    client.get<ServiceClientsResponse>(`${reportUrl}/v1/reports/services/${name}/clients`),
 };
 export default Api;

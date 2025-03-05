@@ -61,6 +61,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       )}
       {openModal && (
         <DetailsModal
+          data={data?.content}
           isOpen={openModal}
           close={() => setOpenModal(false)}
           serviceName={serviceName}
