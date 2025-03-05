@@ -38,7 +38,7 @@ const App = () => {
   if (feeData) {
     const {
       serviceName,
-      // feeSteps,
+      feeSteps,
       fee,
       type,
       feeType,
@@ -46,7 +46,7 @@ const App = () => {
       bankingShare,
       operationShare,
       aggregationType,
-      // transactionFees,
+      transactionFees,
       // servicePersianName,
     } = feeData;
 
@@ -70,6 +70,17 @@ const App = () => {
         },
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
+      initialValues = {
+        ...initialValues,
+        serviceTariff: {
+          tariff: 'tiered',
+          tiered: feeSteps.map(({ fee, fromRate, toRate }) => ({
+            tariff: fee + '',
+            from: fromRate + '',
+            to: toRate + '',
+          })),
+        },
+      };
       // console.log('>>>', 'the type is tiered');
     } else {
       // console.log('>>>', 'the type is special');

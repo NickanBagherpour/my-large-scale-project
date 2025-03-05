@@ -29,7 +29,11 @@ export type Fee = {
   operationShare: number;
   feeType: number;
   fee: number;
-  feeSteps: unknown;
+  feeSteps: {
+    fromRate: number;
+    toRate: number;
+    fee: number;
+  }[];
   transactionFees: unknown;
   aggregationType: number;
   fieldName: string;
