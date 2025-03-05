@@ -114,7 +114,9 @@ export const Table = (props: TableProps) => {
           // showSizeChanger:false,
           showTitle: false,
           simple: isMobileOrTablet,
-
+          ellipsis: {
+            showTitle: false,
+          },
           ...pagination,
         };
   const caption =

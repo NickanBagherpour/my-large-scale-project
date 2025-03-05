@@ -13,6 +13,7 @@ import { ServiceTariff } from '../service-tariff/service-tariff';
 import { SERVICE_NAME } from '../../utils/consts';
 
 import * as S from './app.style';
+import { useGetReportDataQuery } from '../../services';
 
 type AppProps = PageProps & {
   //
@@ -32,14 +33,16 @@ const App: React.FC<AppProps> = (props) => {
     secondaryTitle: serviceName,
   });
 
+  const { data, isFetching } = useGetReportDataQuery(serviceName!);
+
   const renderPage = () => {
     if (!serviceName) {
       return <NoResult />;
     }
     return (
       <>
-        <GeneralInformation isLoading={false} data={[]} serviceName={serviceName} />
-        <ServiceTariff serviceName={serviceName} />
+        <GeneralInformation isLoading={isFetching} data={data} serviceName={serviceName} />
+        <ServiceTariff isLoading={isFetching} data={data} serviceName={serviceName} />
       </>
     );
   };

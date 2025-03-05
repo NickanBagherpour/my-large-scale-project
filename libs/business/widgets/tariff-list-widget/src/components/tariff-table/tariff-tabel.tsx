@@ -43,6 +43,7 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
     mutate(serviceToUnassign!, {
       onSuccess: () => {
         toggleRemoveModal();
+        notification.success({ message: t(`success_message`) });
       },
       onError: () => {
         toggleRemoveModal();
