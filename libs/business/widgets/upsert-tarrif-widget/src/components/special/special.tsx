@@ -34,7 +34,7 @@ export default function Special(props: Props) {
                   </Form.Item>
 
                   <span>{t('rial_applicable')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]}>
                     <S.Input placeholder={t('percent')} />
                   </Form.Item>
 
@@ -44,7 +44,7 @@ export default function Special(props: Props) {
                   </Form.Item>
 
                   <span>{t('max_tariff')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
                     <S.Input placeholder={t('tariff_irr')} />
                   </Form.Item>
 
@@ -56,7 +56,7 @@ export default function Special(props: Props) {
                 </S.Article>
               ))}
 
-              <AddCondition tariffType='tiered' onClick={() => add('')} />
+              <AddCondition tariffType='special' onClick={() => add('')} />
             </S.Container>
           );
         }}

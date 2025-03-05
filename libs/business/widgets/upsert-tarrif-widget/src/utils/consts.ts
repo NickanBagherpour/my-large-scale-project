@@ -20,6 +20,7 @@ export const SPECIAL_TARIFF_NAMES = {
   to: 'to',
   minimum: 'minimum',
   maximum: 'maximum',
+  percent: 'percent',
 } as const;
 
 export const TIERED_TARIFF_NAMES = {
