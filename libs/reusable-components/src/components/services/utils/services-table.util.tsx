@@ -37,7 +37,6 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.service_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           {getValueOrDash(name)}
@@ -48,7 +47,6 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (persianName) => (
         <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
           {getValueOrDash(persianName)}
@@ -59,14 +57,12 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (scopes) => <WithBadge items={scopes} />,
     },
     {
       title: t('uikit.url'),
       dataIndex: 'paths',
       align: 'center',
-      ellipsis: true,
       render: (paths) => <WithBadge items={paths} />,
     },
     {

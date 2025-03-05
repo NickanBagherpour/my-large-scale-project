@@ -36,7 +36,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientName',
       key: 'clientName',
       align: 'center',
-      ellipsis: true,
       render: (clientName) => (
         <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
           <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -48,7 +47,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'service_name',
       key: 'service_name',
       align: 'center',
-      ellipsis: true,
       render: (service_name) => (
         <Tooltip placement='top' title={getValueOrDash(service_name)} arrow={true}>
           {getValueOrDash(service_name)}
@@ -60,7 +58,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'count',
       key: 'count',
       align: 'center',
-      ellipsis: true,
       render: (count) => (
         <Tooltip placement='top' title={getValueOrDash(count)} arrow={true}>
           <S.Name text={getValueOrDash(count)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -72,7 +69,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'status',
       key: 'status',
       align: 'center',
-      ellipsis: true,
       render: (status, record) => (
         <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
           <S.Name text={getValueOrDash(status)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />

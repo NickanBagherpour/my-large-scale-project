@@ -12,6 +12,8 @@ import { Button } from '@oxygen/ui-kit';
 import { Footer, StatusModal, RouteInfoBox } from '@oxygen/reusable-components';
 import { useState } from 'react';
 
+import { Tooltip } from 'antd';
+
 const mapStatuses = {
   success: 'success',
   pending: 'loading',
@@ -91,14 +93,21 @@ export default function ConfirmData() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
-      render: (value) => getValueOrDash(value),
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
   ];
 
@@ -140,19 +149,21 @@ export default function ConfirmData() {
       title: t('domain'),
       dataIndex: 'domain',
       align: 'center',
-      ellipsis: true,
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('health_status'),
       dataIndex: 'healthStatus',
       align: 'center',
-      ellipsis: true,
     },
     {
       title: t('weight'),
       dataIndex: 'weight',
       align: 'center',
-      ellipsis: true,
     },
   ];
 
