@@ -21,4 +21,5 @@ export default {
   fixed: 'ثابت',
   step: 'پله ای',
   range: 'خاص',
+  success_message: 'سرویس با موفقیت حذف شد',
 };
