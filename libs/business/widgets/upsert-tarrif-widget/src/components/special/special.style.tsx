@@ -43,6 +43,8 @@ export const Input = styled(UikitInput)`
 `;
 
 export const TrashBtn = styled(UikitButton)`
-  font-size: 1.8rem;
-  margin-inline-start: auto;
+  && {
+    font-size: 1.8rem;
+    margin-inline-start: auto;
+  }
 `;
