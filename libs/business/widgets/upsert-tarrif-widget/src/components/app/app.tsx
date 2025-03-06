@@ -142,13 +142,13 @@ const App = () => {
 
     if (serviceTariff.tariff === 'special') {
       const transactionFees: PostTariffParams['transactionFees'] = serviceTariff.special.map(
-        ({ to, from, maximum, minimum }) => ({
+        ({ to, from, maximum, minimum, percent }) => ({
           // TODO: think of something for these type conversions
           toRate: +to,
           fromRate: +from,
           max: +maximum,
           min: +minimum,
-          percent: 12, // TODO: see if this should exist or not
+          percent: +percent, // TODO: see if this should exist or not
         })
       );
       params = { ...params, transactionFees };
