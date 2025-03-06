@@ -1,8 +1,8 @@
 import { useTr } from '@oxygen/translation';
-import { Input } from 'antd';
 import * as S from './fixed-tariff.style';
 import { RuleRender } from 'antd/es/form';
 import { tariff } from '../../utils';
+import { Input } from '@oxygen/ui-kit';
 
 type Props = {
   rule: RuleRender;
@@ -18,7 +18,7 @@ export default function FixedTariff(props: Props) {
       label={t('tariff_amount_irr')}
       rules={[rule]}
     >
-      <Input placeholder={t('enter_amount')} />
+      <Input.Money placeholder={t('enter_amount')} showLetter={false} />
     </S.FormItem>
   );
 }

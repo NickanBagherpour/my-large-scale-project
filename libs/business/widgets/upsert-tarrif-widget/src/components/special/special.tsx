@@ -4,6 +4,7 @@ import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { SPECIAL_TARIFF_NAMES, tariff } from '../../utils';
+import { Input } from '@oxygen/ui-kit';
 
 type Props = {
   rule: RuleRender;
@@ -25,27 +26,27 @@ export default function Special(props: Props) {
 
                   <span>{t('from_transaction')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]}>
-                    <S.Input placeholder={t('amount_irr')} />
+                    <Input.Money placeholder={t('amount_irr')} allowClear={false} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('to')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]}>
-                    <S.Input placeholder={t('amount_irr')} />
+                    <Input.Money placeholder={t('amount_irr')} allowClear={false} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]}>
-                    <S.Input placeholder={t('percent')} />
+                    <Input placeholder={t('percent')} />
                   </Form.Item>
 
                   <span>{t('tariff_percent_min')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
-                    <S.Input placeholder={t('tariff_irr')} />
+                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('max_tariff')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
-                    <S.Input placeholder={t('tariff_irr')} />
+                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('calculated')}</span>

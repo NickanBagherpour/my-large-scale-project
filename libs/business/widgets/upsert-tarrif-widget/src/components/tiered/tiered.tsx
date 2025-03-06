@@ -4,6 +4,7 @@ import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { tariff, TIERED_TARIFF_NAMES } from '../../utils';
+import { Input } from '@oxygen/ui-kit';
 
 type Props = {
   rule: RuleRender;
@@ -25,19 +26,19 @@ export default function Tiered(props: Props) {
                   <span>{t('from')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={[rule]}>
-                    <S.Input placeholder={t('count')} />
+                    <Input placeholder={t('count')} />
                   </Form.Item>
 
                   <span>{t('to')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.to]} rules={[rule]}>
-                    <S.Input placeholder={t('count')} />
+                    <Input placeholder={t('count')} />
                   </Form.Item>
 
                   <span>{t('request_tariff_applies')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.tariff]} rules={[rule]}>
-                    <S.Input placeholder={t('tariff_irr')} />
+                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('calculated_in_irr')}</span>

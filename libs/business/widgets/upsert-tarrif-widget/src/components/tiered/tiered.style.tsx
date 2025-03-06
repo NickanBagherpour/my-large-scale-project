@@ -28,6 +28,11 @@ export const Article = styled.article`
     /* reset the margin and add extra padding to the container for the input validation errors */
     margin-bottom: 0;
   }
+
+  input {
+    width: 12rem;
+    height: 4rem;
+  }
 `;
 
 export const Index = styled.span`
@@ -35,10 +40,6 @@ export const Index = styled.span`
   color: ${(p) => p.theme.primary.main};
   background: ${(p) => p.theme.primary._50};
   border-radius: 0.8rem;
-`;
-
-export const Input = styled(UikitInput)`
-  width: 12rem;
 `;
 
 export const TrashBtn = styled(UikitButton)`
