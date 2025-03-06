@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Container } from '@oxygen/ui-kit';
+import { Footer as AppFooter } from '@oxygen/reusable-components';
 
-export const AppContainer = styled(Container)`
-  // background-color: pink;
+export const Footer = styled(AppFooter)`
+  margin-top: 12rem;
 `;

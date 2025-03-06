@@ -5,11 +5,11 @@ import ServiceTarrif from '../service-tariff/service-tariff';
 import { Form, FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
-import { Footer, GlobalMessageContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { feeTypeMap, feeTypeMapReverse } from '../../utils';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { Loading } from '@oxygen/ui-kit';
+import { Loading, Container } from '@oxygen/ui-kit';
 import { getWidgetTitle } from '@oxygen/utils';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 
@@ -50,7 +50,6 @@ const App = () => {
       operationShare,
       aggregationType,
       transactionFees,
-      // servicePersianName,
     } = feeData;
 
     initialValues = {
@@ -162,7 +161,7 @@ const App = () => {
   if (isPendingFeeData) return <Loading spinning />;
 
   return (
-    <S.AppContainer title={widgetTitle}>
+    <Container title={widgetTitle}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
 
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
@@ -170,12 +169,12 @@ const App = () => {
         <ServiceTarrif rule={rule} form={form} />
       </Form>
 
-      <Footer
+      <S.Footer
         onRegister={() => form.submit()}
         onReturn={() => router.back()}
         registerButtonProps={{ loading: isPendingCreate || isPendingEdit }}
       />
-    </S.AppContainer>
+    </Container>
   );
 };
 
