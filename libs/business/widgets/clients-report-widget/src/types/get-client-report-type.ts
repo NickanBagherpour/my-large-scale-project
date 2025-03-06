@@ -14,31 +14,39 @@ export interface ParamsType {
 }
 
 export interface ClientReportsDto {
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  last: boolean;
-  size: number;
-  content: ClientReportDto[];
+  response: {
+    page: {
+      number: number;
+      size: number;
+      totalElements: number;
+      totalPages: number;
+    };
+    totalPages: number;
+    totalElements: number;
+    first: boolean;
+    last: boolean;
+    size: number;
+    content: ClientReportDto[];
 
-  number: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  };
-  numberOfElements: number;
-  pageable: {
-    offset: number;
+    number: number;
     sort: {
       empty: boolean;
       sorted: boolean;
       unsorted: boolean;
     };
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    empty: boolean;
   };
-  empty: boolean;
 }

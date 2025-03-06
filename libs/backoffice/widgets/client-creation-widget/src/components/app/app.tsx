@@ -10,11 +10,11 @@ import { CLIENT_NAME } from '../../utils/consts';
 import { FirstStep } from '../first-step/first-step';
 import { ThirdStep } from '../third-step/third-step';
 import { SecondStep } from '../second-step/second-step';
+import CenteredLoading from '../centered-loading/centered-loading';
 import { useGetClientInquiryStatusQuery } from '../../services/first-step/get-client-inquiry-status.api';
 import { addClientName, addClientStatus, resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './app.style';
-import CenteredLoading from '../centered-loading/centered-loading';
 type AppProps = PageProps & {
   //
 };

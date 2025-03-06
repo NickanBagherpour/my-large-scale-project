@@ -12,7 +12,6 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1.2rem;
-  margin-bottom: 2.3rem;
 
   ${respondTo.down('lg')} {
     flex-direction: column;

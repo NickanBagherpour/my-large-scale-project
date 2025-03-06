@@ -12,7 +12,7 @@ export const createFormSchema = (t: TFunction) => {
     [FORM_ITEM.CLIENT_KEY]: validationSchema.required,
     [FORM_ITEM.CLIENT_TYPE_CODE]: validationSchema.idSelection,
     [FORM_ITEM.AUTHORIZATION_KEY]: validationSchema.required,
-    [FORM_ITEM.WEBSITE_URL]: validationSchema.url,
+    [FORM_ITEM.WEBSITE_URL]: validationSchema.optionalUrl,
     [FORM_ITEM.INBOUND_ADDRESS]: validationSchema.optionalUrl,
     [FORM_ITEM.REDIRECT_URL]: validationSchema.optionalUrl,
   });
