@@ -4,12 +4,20 @@ import { cssVar } from '@oxygen/utils';
 // Styled components for the API docs
 export const ApiDocsContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
 
   /* Custom styling for Stoplight Elements */
+
+ & elements-api > div {
+    min-height: 100vh !important;
+  }
+
+  div#mosaic-provider-react-aria-0-1 {
+    min-height: 100vh;
+  }
 
   .sl-font-prose, .sl-font-ui, .sl-prose {
     font-family: var(${cssVar.iransansFont});
@@ -57,6 +65,9 @@ export const ApiDocsContainer = styled.div`
     direction: ltr;
   }
 
+  .sl-panel__content-wrapper {
+    text-align-last: right;
+  }
 
 `;
 
@@ -76,6 +87,11 @@ export const Header = styled.header`
 export  const Main = styled.main`
   flex: 1;
   overflow: hidden;
+
+  & div#elements-container {
+    min-height: 100vh;
+  }
+
 `;
 
 export const Container = styled.div`

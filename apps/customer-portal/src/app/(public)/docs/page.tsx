@@ -8,9 +8,9 @@ import * as S from './style';
 
 export default function ApiDocsPage() {
   const [isReady, setIsReady] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
 
-/*  useEffect(() => {
+  useEffect(() => {
     // Add Stoplight Elements styles
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -23,29 +23,32 @@ export default function ApiDocsPage() {
         document.head.removeChild(link);
       }
     };
-  }, []);*/
+  }, []);
 
 
   useEffect(() => {
     if (isReady && containerRef.current) {
       // Create the elements-api element programmatically
-      const elementsApi = document.createElement("elements-api")
-      elementsApi.setAttribute("layout", "responsive")
-      elementsApi.setAttribute("router", "hash")
-      elementsApi.setAttribute("apiDescriptionDocument", JSON.stringify(swagger))
+      const elementsApi = document.createElement('elements-api');
+      elementsApi.setAttribute('layout', 'responsive');
+      elementsApi.setAttribute('router', 'memory');
+      elementsApi.setAttribute('apiDescriptionDocument', JSON.stringify(swagger));
+      elementsApi.setAttribute('hideSchemas', 'true');
+      elementsApi.setAttribute('hideTryIt', 'true');
+      elementsApi.setAttribute('hideExport', 'true');
 
       // Clear and append
-      containerRef.current.innerHTML = ""
-      containerRef.current.appendChild(elementsApi)
+      containerRef.current.innerHTML = '';
+      containerRef.current.appendChild(elementsApi);
     }
-  }, [isReady])
+  }, [isReady]);
 
 
   return (
     <S.ApiDocsContainer>
-      <S.Header>
-        <h1>API Documentation</h1>
-      </S.Header>
+      {/*<S.Header>*/}
+      {/*  <h1>API Documentation</h1>*/}
+      {/*</S.Header>*/}
 
       <S.Main>
         {/* Load Stoplight Elements script */}
@@ -54,18 +57,6 @@ export default function ApiDocsPage() {
           onLoad={() => setIsReady(true)}
           strategy="afterInteractive"
         />
-
-        {/* Render the elements-api component once the script is loaded */}
-   {/*     {isReady && (
-          <elements-api
-            // apiDescriptionUrl="https://raw.githubusercontent.com/stoplightio/studio-demo/master/reference/todos/openapi.yaml"
-            apiDescriptionDocument={JSON.stringify(swagger)}
-            layout="responsive"
-            hideSchemas={true}
-            basePath="/docs"
-            router="memory"
-          />
-        )}*/}
 
         {/* Container for the elements-api component */}
         <div ref={containerRef} id="elements-container" />
