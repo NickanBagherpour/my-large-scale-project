@@ -5,12 +5,13 @@ import ServiceTarrif from '../service-tariff/service-tariff';
 import { Form, FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
-import { Footer } from '@oxygen/reusable-components';
+import { Footer, GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { feeTypeMap, feeTypeMapReverse } from '../../utils';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading } from '@oxygen/ui-kit';
 import { getWidgetTitle } from '@oxygen/utils';
+import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 
 const App = () => {
   const [t] = useTr();
@@ -18,6 +19,8 @@ const App = () => {
   const [form] = Form.useForm<AppSchemaType>();
   const serviceName = useSearchParams().get('service-name');
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { message } = useAppState();
   const { data: feeData, isPending: isPendingFeeData } = useGetFee(serviceName);
   const { mutate: createTariff, isPending: isPendingCreate } = usePostServiceFee();
   const { mutate: updateTarrif, isPending: isPendingEdit } = usePutServiceFee();
@@ -160,6 +163,8 @@ const App = () => {
 
   return (
     <S.AppContainer title={widgetTitle}>
+      <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
+
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
         <ServiceTarrif rule={rule} form={form} />
