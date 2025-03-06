@@ -2,6 +2,8 @@ export default {
   widget_name: 'ساخت اسکوپ جدید',
   modal_text:
     'شما در حال افزودن اسکوپ {{scope_name}} هستید و پس از ثبت اطلاعات در SSO امکان تغییر آن‌ها وجود ندارد، آیا اطمینان دارید؟',
+
+  success_message: 'اسکوپ {{scope_name}} با موفقیت ایجاد شد',
   create_scope: 'ایجاد اسکوپ',
   form: {
     english_name_scope: 'نام انگلیسی اسکوپ',

@@ -35,20 +35,16 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: t('table.english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
-        // return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
     {
       title: t('table.persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
-        // return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
-        return getValueOrDash(value);
+        return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
     },
 

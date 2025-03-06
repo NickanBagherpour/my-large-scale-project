@@ -1,21 +1,22 @@
 import { useSearchParams } from 'next/navigation';
 
+import { Tooltip } from 'antd';
+
 import { useTr } from '@oxygen/translation';
 import { Nullable } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import { Box as UiKitBox, type ColumnsType, Table } from '@oxygen/ui-kit';
 
+import { CaptionWrapper } from '../app/app.style';
 import { useGetServiceScope } from '../../services';
 import { type Scope as ScopeType } from '../../types';
-
-import * as S from './scope-list.style';
 
 export default function Scope() {
   const [t] = useTr();
   const searchParams = useSearchParams();
   const serviceName: Nullable<string> = searchParams.get('servicename');
 
-  const { data: serviceScope } = useGetServiceScope(serviceName);
+  const { data: serviceScope, isFetching } = useGetServiceScope(serviceName);
 
   const desktopColumns: ColumnsType<ScopeType> = [
     {
@@ -29,15 +30,21 @@ export default function Scope() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
-      render: (name) => getValueOrDash(name),
+      render: (name) => (
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+          {getValueOrDash(name)}
+        </Tooltip>
+      ),
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      ellipsis: true,
-      render: (description) => getValueOrDash(description),
+      render: (description) => (
+        <Tooltip placement='top' title={getValueOrDash(description)} arrow={true}>
+          {getValueOrDash(description)}
+        </Tooltip>
+      ),
     },
   ];
 
@@ -57,12 +64,14 @@ export default function Scope() {
       ),
     },
   ];
-
   return (
     <>
-      <h3>{t('scope')}</h3>
-
-      <S.Table
+      <CaptionWrapper>
+        <p>{t('scope')}</p>
+      </CaptionWrapper>
+      <Table
+        // title={t('scope')}
+        loading={isFetching}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         dataSource={serviceScope}

@@ -1,5 +1,3 @@
-import { Nullable } from '@oxygen/types';
-
 export interface Sort {
   empty: boolean;
   unsorted: boolean;

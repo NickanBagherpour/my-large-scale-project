@@ -35,33 +35,28 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
       title: t('uikit.service_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
     },
     {
       title: t('uikit.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
     },
     {
       title: t('uikit.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (scopes) => <WithBadge items={scopes} />,
     },
     {
       title: t('uikit.url'),
       dataIndex: 'paths',
       align: 'center',
-      ellipsis: true,
       render: (paths) => <WithBadge items={paths} />,
     },
     {
       title: t('uikit.version'),
       dataIndex: 'version',
       align: 'center',
-      ellipsis: true,
     },
     {
       width: widthByButtonCount(2),

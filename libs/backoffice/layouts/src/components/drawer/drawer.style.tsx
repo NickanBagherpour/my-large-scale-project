@@ -72,12 +72,17 @@ export const MenuWrapper = styled.div`
       margin: 0 auto;
       text-wrap: unset;
       line-height: 1.5;
-      height: 4.4rem;
+      min-height: 4.4rem;
     }
 
-    li.ant-menu-item i,
-    div[role='menuitem'] i {
+    li.ant-menu-item i.size-default,
+    div[role='menuitem'] i.size-default {
       font-size: 1.6rem;
+    }
+
+    li.ant-menu-item i.size-small,
+    div[role='menuitem'] i.size-small {
+      font-size: 1.2rem;
     }
 
     .ant-menu-title-content {
@@ -107,6 +112,10 @@ export const MenuWrapper = styled.div`
     //}
   }
 
+  .ant-menu {
+    background: inherit;
+  }
+
   .menu-spin-container {
     height: 100%;
     display: flex;
@@ -120,7 +129,6 @@ export const MenuWrapper = styled.div`
   }
 
   ${hideScrollbar()};
-
 `;
 
 export const SiderItemsWrapper = styled.div`

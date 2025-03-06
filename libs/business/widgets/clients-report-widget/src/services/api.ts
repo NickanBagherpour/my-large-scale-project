@@ -1,8 +1,7 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client, portalUrl, reportUrl } from '@oxygen/client';
 
 import { FetchParamsType, ReportResponseType } from '../types';
 import { ParamsType, ClientReportsDto } from '../types';
-import Mockify from '@oxygen/mockify';
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
@@ -10,9 +9,7 @@ const Api = {
   },
 
   getClientReportList: async (params: ParamsType) => {
-    // return client.get<ClientReportsDto>(`${portalUrl}/v1/services`, { params });
-
-    return Mockify.getClientsReport();
+    return client.get<ClientReportsDto>(`${reportUrl}/v1/reports/clients`, { params });
   },
 };
 export default Api;

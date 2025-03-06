@@ -106,7 +106,7 @@ const Drawer = (props: DrawerProps) => {
       const item: MenuItem = getItem(
         getMenuLabelNode(menuItem),
         menuItem?.id?.toString(),
-        menuItem.icon ? <i className={menuItem.icon} /> : undefined,
+        menuItem.icon ? <i className={menuItem.icon + (menuItem.size ? ` size-${menuItem.size}` : '')} /> : undefined,
         !menuItem?.active,
         menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
@@ -182,6 +182,7 @@ const Drawer = (props: DrawerProps) => {
                   onOpenChange={(newOpenKeys: string[]) => setOpenKeys(newOpenKeys)}
                   items={filteredMenuItems /*?? items*/}
                   getPopupContainer={(node) => node.parentNode as HTMLElement}
+                  inlineIndent={12}
                 />
                 {menu && !filteredMenuItems && <Empty style={{ marginTop: '6rem' }} description={false}></Empty>}
               </>

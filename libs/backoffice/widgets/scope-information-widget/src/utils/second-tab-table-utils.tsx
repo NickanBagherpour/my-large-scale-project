@@ -1,6 +1,8 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
+import { Tooltip } from 'antd';
+
 import { ColumnsType, Table } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
@@ -39,25 +41,26 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.service_name'),
       dataIndex: 'name',
       align: 'center',
-      ellipsis: true,
-      render: (value) => {
-        return getValueOrDash(value);
-      },
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
       align: 'center',
-      ellipsis: true,
-      render: (value) => {
-        return getValueOrDash(value);
-      },
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('second_tab.scope'),
       dataIndex: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -66,7 +69,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.url'),
       dataIndex: 'paths',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -75,7 +77,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       title: t('second_tab.version'),
       dataIndex: 'version',
       align: 'center',
-      ellipsis: true,
       render: (value) => {
         return getValueOrDash(value);
       },

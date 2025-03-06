@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input, Modal } from '@oxygen/ui-kit';
+import { Input, Modal, MarkText as UiKitMarkText } from '@oxygen/ui-kit';
 
 export const StyledModal = styled(Modal)`
   & .ant-modal-content {
@@ -22,7 +22,7 @@ export const ModalContent = styled.div`
 `;
 
 export const ModalMessage = styled.p`
-  color: ${(p) => p.theme.text.primary}
+  color: ${(p) => p.theme.text.primary};
   text-align: right;
   font-size: 1.6rem;
   font-weight: 600;
@@ -31,12 +31,12 @@ export const ModalMessage = styled.p`
   margin: 0;
 `;
 
-export const ClientName = styled.span`
-  color: ${(p) => p.theme.primary.main};
-  text-align: right;
+export const MarkText = styled(UiKitMarkText)`
+  color: ${(p) => p.theme.text.primary};
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 2.5rem;
+  padding: 1rem;
 `;
 
 export const StyledTextarea = styled(Input.TextArea)`

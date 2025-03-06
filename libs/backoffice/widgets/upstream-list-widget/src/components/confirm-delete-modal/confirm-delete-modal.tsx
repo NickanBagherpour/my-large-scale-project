@@ -56,7 +56,9 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
             {t('button.delete')}
           </Button>,
         ];
-
+  const servicesCount = ` ${services?.length} ${t('service')}`;
+  const upstreamNoServiceDeleteMessage = t('confirm_remove_msg', { name: upstreamName });
+  const upstreamWithServiceDeleteMessage = t('confirm_multi_remove_msg', { name: servicesCount });
   return (
     <S.StyledModal
       title={t('notice')}
@@ -73,17 +75,17 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
       ) : (
         <S.ModalContent>
           {services?.length > 0 ? (
-            <S.ModalMessage>
-              {t('confirm_question_first')}
-              <S.ServiceCount>{` ${services?.length} ${t('service')}`}</S.ServiceCount>
-              {t('confirm_question_last')}
-            </S.ModalMessage>
+            <S.MarkText
+              wordToHighlight={servicesCount}
+              highlightColor={theme.error.main}
+              text={upstreamWithServiceDeleteMessage}
+            />
           ) : (
-            <S.ModalMessage>
-              {t('no_service_first')}
-              <S.ServiceCount>{upstreamName}</S.ServiceCount>
-              {t('no_service_last')}
-            </S.ModalMessage>
+            <S.MarkText
+              wordToHighlight={upstreamName || ''}
+              highlightColor={theme.error.main}
+              text={upstreamNoServiceDeleteMessage}
+            />
           )}
           <S.ServicesContainer>
             <S.ServiceList>
@@ -91,7 +93,11 @@ const ConfirmDeleteModal: React.FC<Props> = (props) => {
                 services.map((service) => (
                   <S.ListItem key={service}>
                     <span>{service}</span>
-                    <Button variant={'text'} href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${service}`}>
+                    <Button
+                      variant={'text'}
+                      href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${service}`}
+                      target={'_blank'}
+                    >
                       <i className={'icon-link'} />
                       {t('view_service_details')}
                     </Button>

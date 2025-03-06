@@ -22,7 +22,7 @@ type Props = {
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
@@ -38,7 +38,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'name',
       key: 'name',
       align: 'center',
-      ellipsis: true,
       render: (name) => (
         <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
@@ -50,7 +49,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'persianName',
       key: 'persianName',
       align: 'center',
-      ellipsis: true,
       render: (persian_name) => (
         <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
           {getValueOrDash(persian_name)}
@@ -62,7 +60,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'scopes',
       key: 'scopes',
       align: 'center',
-      ellipsis: true,
       render: (scopes) => (
         <WithBadge
           items={scopes}
@@ -77,7 +74,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'paths',
       key: 'paths',
       align: 'center',
-      ellipsis: true,
       render: (paths) => (
         <WithBadge
           items={[...paths, ...paths, ...paths]}
@@ -90,7 +86,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'version',
       key: 'version',
       align: 'center',
-      ellipsis: true,
       render: (version) => getValueOrDash(version),
     },
     {

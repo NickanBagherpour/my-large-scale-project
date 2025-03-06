@@ -4,7 +4,7 @@ import { CSSProperties } from 'react';
 import { AutoComplete as AntAutoComplete, AutoCompleteProps } from 'antd';
 
 import { useAppTheme } from '@oxygen/hooks';
-import { Button, Loading } from '@oxygen/ui-kit';
+import { Box, Button, Loading } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 
 import * as S from './advance-selector.style';
@@ -54,7 +54,7 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
     <S.Container>
       <S.SelectLabel htmlFor={id ?? 'autocomplete'}>{label}</S.SelectLabel>
       <AntAutoComplete
-        prefix={loading ? <Loading /> : <i className='icon-search-normal' />}
+        prefix={loading ? <Loading size='small' /> : <i className='icon-search-normal' />}
         placeholder={placeholder}
         size='large'
         id={id ?? 'autocomplete'}
@@ -84,8 +84,14 @@ export const AdvanceSelector = <T extends dataType>(props: Props<T>) => {
         )}
         optionRender={({ value, data }) => (
           <S.Item>
-            <S.Title text={value as string} wordToHighlight={props.value ?? ''} highlightColor={theme.secondary.main} />
-            <S.Subtitle>{data.item.subTitle}</S.Subtitle>
+            <Box display='flex' className='advanced-selector-box'>
+              <S.Title
+                text={value as string}
+                wordToHighlight={props.value ?? ''}
+                highlightColor={theme.secondary.main}
+              />
+              <S.Subtitle>{data.item.subTitle}</S.Subtitle>
+            </Box>
             <S.Icon className='icon-plus' />
           </S.Item>
         )}

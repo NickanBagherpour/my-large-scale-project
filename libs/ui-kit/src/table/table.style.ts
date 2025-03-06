@@ -13,7 +13,7 @@ export const Wrapper = styled(Panel)`
 
 const borderRadius = '1.2rem';
 
-export const Table = styled(AntTable)<TableProps>`
+export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
   --table-min-height: 20rem;
   caption {
     div {
@@ -111,14 +111,14 @@ export const Table = styled(AntTable)<TableProps>`
     padding: ${(p) => (p.variant === 'simple' ? '1.6rem' : '0.8rem')};
     text-align: center;
     border-color: ${(p) => p.theme.border._100};
-    font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1rem')};
+    font-size: ${(p) => (p.variant === 'simple' ? '1.2rem' : '1.1rem')};
     font-weight: 400;
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
-    ${respondTo.down('md')} {
-      text-align: start;
-    }
+    // ${respondTo.down('md')} {
+    // 	text-align: start;
+    // }
     &.ant-table-cell-ellipsis {
       unicode-bidi: plaintext;
     }
@@ -151,19 +151,37 @@ export const Table = styled(AntTable)<TableProps>`
   }
 
   .ant-pagination {
-    padding: 0.5 2rem;
     position: relative;
+    margin-inline-start: 8rem;
+
+    ${respondTo.down('md')} {
+      margin-inline-start: 0;
+      align-items: center;
+    }
+
     ${respondTo.down('sm')} {
       display: flex;
-      align-items: center;
 
-      li:not(:last-child) {
-        flex: 1;
-      }
+      // li:not(:last-child) {
+      // 	flex: 1;
+      // }
+      //
+      // li:last-child {
+      // 	justify-content: flex-start;
+      // 	flex: 11;
+      // }
+    }
 
-      li:last-child {
-        justify-content: flex-start;
-        flex: 11;
+    &::before {
+      content: '${(p) => p.$paginationText}';
+      position: absolute;
+      inset-inline-start: -7.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: ${(p) => p.theme.primary.main};
+
+      ${respondTo.down('md')} {
+        content: '';
       }
     }
   }
@@ -239,8 +257,8 @@ export const Table = styled(AntTable)<TableProps>`
 
     ${respondTo.down('sm')} {
       position: static;
-      display: flex;
-      justify-content: center;
+      display: block;
+      margin-inline-end: auto;
     }
   }
   .ant-btn-icon {
@@ -249,6 +267,16 @@ export const Table = styled(AntTable)<TableProps>`
 
   & div.ant-table-empty table > tbody > tr.ant-table-placeholder > td {
     border-bottom: 0;
+  }
+
+  /* Fixes a bug in Ant Design (antd) version 5.24.2 where the table row's background turns black on hover */
+  .ant-table-cell-row-hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+  /* Ensures proper coloring for SVG elements affected by the bug */
+  & ellipse,
+  & g path:last-child {
+    fill: rgba(0, 0, 0, 0.02) !important;
   }
 `;
 

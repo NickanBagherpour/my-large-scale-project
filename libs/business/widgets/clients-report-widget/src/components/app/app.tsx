@@ -26,8 +26,7 @@ const App: React.FC<AppProps> = (props) => {
 
   const prepareServiceParams = () => {
     return {
-      // isActive: status,
-      // 'search-field': searchTerm ? searchTerm : null,
+      searchParam: searchTerm,
       page: table.pagination.page - 1,
       ...(searchTerm && { 'search-field': searchTerm }),
       size: table.pagination.rowsPerPage,
@@ -38,7 +37,6 @@ const App: React.FC<AppProps> = (props) => {
   const { data: clientReport, isFetching: isClientReportListFetching } = useGetClientReportQuery(
     prepareServiceParams()
   );
-
   const title = getWidgetTitle({
     defaultTitle: t('widget_name_client_detail'),
   });
@@ -49,15 +47,14 @@ const App: React.FC<AppProps> = (props) => {
 
       <S.ClientReportContainer title={title}>
         <Filters />
-        {/* <ClientReport
+        <ClientReport
           isFetching={isClientReportListFetching}
-          data={clientReport?.content}
-          total={clientReport?.totalElements}
+          data={clientReport?.response.content}
+          total={clientReport?.response.page.totalElements}
           searchTerm={searchTerm}
           isLoading={isClientReportListFetching}
           wordToHighlight={searchTerm ?? ''}
-          // changeStatus={(status, name) => changeStatusHandler(status, name)}
-        /> */}
+        />
       </S.ClientReportContainer>
     </>
   );

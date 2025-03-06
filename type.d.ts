@@ -4,8 +4,7 @@ import 'styled-components';
 import { ITheme } from './libs/types/src';
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends ITheme {
-  }
+  export interface DefaultTheme extends ITheme {}
 }
 
 declare global {
@@ -15,6 +14,8 @@ declare global {
       NEXT_PUBLIC_PROFILE_DELAY: string;
       NEXT_PUBLIC_AUTH_MODE: string;
       NEXT_PUBLIC_PORTAL_PREFIX: string;
+      NEXT_PUBLIC_INVOICE_PREFIX: string;
+      API_INVOICE_BASE_URL: string;
       API_REPORT_BASE_URL: string;
       NEXT_PUBLIC_REPORT_PREFIX: string;
       NEXT_PUBLIC_SECURE_LOCAL_STORAGE_HASH_KEY: string;
@@ -42,8 +43,4 @@ declare global {
   //     'elements-api': any;
   //   }
   // }
-
 }
-
-
-

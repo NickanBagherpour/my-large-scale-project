@@ -47,3 +47,5 @@ export * from './tag/tag';
 export * from './pagination/pagination';
 export * from './advance-selector/advance-selector';
 export * from './history-cell/history-cell';
+export * from './chart/bar-chart';
+export * from './tooltip/tooltip';

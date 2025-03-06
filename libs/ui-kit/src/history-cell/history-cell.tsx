@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function HistoryCell(props: Props) {
-  const { item: { value, hasDifference } = {}, showValue = true } = props;
+  const { item: { value, hasDifference } = {}, showValue = true, ...rest } = props;
 
   const theme = useTheme();
 
@@ -22,7 +22,7 @@ export function HistoryCell(props: Props) {
   if (hasDifference) {
     const badgeColor = theme.error._600;
     return (
-      <HistoryCellContainer $isPersian={valueIsString ? isPersian(value) : false}>
+      <HistoryCellContainer {...rest} $isPersian={valueIsString ? isPersian(value) : false}>
         <span className='badge-wrapper'>
           <Badge color={badgeColor} />
         </span>
@@ -31,5 +31,5 @@ export function HistoryCell(props: Props) {
     );
   }
 
-  return showValue && getValueOrDash(value);
+  return <span {...rest}>{showValue && getValueOrDash(value)}</span>;
 }

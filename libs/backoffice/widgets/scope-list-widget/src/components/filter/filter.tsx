@@ -11,7 +11,7 @@ import { updateSearchTerm, useAppDispatch } from '../../context';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
-import { createFormSchema } from '../../types';
+import { createFormSchema, TextInputValue } from '../../types';
 
 import * as S from './filter.style';
 
@@ -19,13 +19,13 @@ type FilterProps = PageProps & {
   //
 };
 
-const Filter: React.FC<FilterProps> = (props) => {
+const Filter: React.FC<FilterProps> = () => {
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const [form] = Form.useForm();
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<TextInputValue>('');
 
-  const rule = createSchemaFieldRule(createFormSchema(t));
+  const rule: ReturnType<typeof createSchemaFieldRule> = createSchemaFieldRule(createFormSchema(t));
 
   useBounce(() => {
     updateSearchTerm(dispatch, value.trim());

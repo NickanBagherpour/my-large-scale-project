@@ -21,7 +21,7 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   return null;
 }
 
-export function updateStatusAction(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+export function updateStatusAction(dispatch: WidgetDispatchType, status: WidgetStateType['isActive']) {
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 

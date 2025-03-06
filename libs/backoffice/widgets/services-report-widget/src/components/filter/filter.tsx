@@ -27,7 +27,7 @@ type FilterProps = PageProps & {
 const Filters: React.FC<FilterProps> = (props) => {
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { status, sort } = useAppState();
+  const { isActive, sort } = useAppState();
 
   const [value, setValue] = useState('');
 
@@ -54,7 +54,7 @@ const Filters: React.FC<FilterProps> = (props) => {
       </Form>
 
       <S.Indicators>
-        {renderChips(status, dispatch, t)}
+        {renderChips(isActive, dispatch, t)}
         <S.FilterPopover
           filters={[
             { key: SORT_ORDER.ASCENDING, title: t('filter.newest'), icon: 'icon-arrow-ascending' },

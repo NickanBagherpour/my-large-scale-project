@@ -1,3 +1,5 @@
+'use client';
+import { notification } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Loading, MarkText } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
@@ -14,7 +16,13 @@ type Props = {
 const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
   const serviceName = service?.serviceName;
   const isActive = service?.isActive;
-  const { isPending, mutate } = useToggleServiceAtivationMutation(toggleModal);
+  const handleSuccess = () => {
+    toggleModal();
+    notification.success({
+      message: t('message.operation_successful'),
+    });
+  };
+  const { isPending, mutate } = useToggleServiceAtivationMutation(handleSuccess);
   const { isFetching, data } = useGetClientsQuery(serviceName);
   const [t] = useTr();
   const theme = useAppTheme();
@@ -27,9 +35,9 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
   const handleToggleStatus = () => {
     mutate({ serviceName, enabled: !isActive });
   };
+
   return (
     <S.ResponsiveModal
-      width={'32vw'}
       open={true}
       centered={true}
       title={t('common.warning') + '!'}
@@ -52,7 +60,7 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
           {isActive && (
             <>
               {!!clientCount && (
-                <MarkText
+                <S.MarkText
                   text={
                     t('element.service') +
                     ' ' +
@@ -64,9 +72,9 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
                   }
                   wordToHighlight={wordToHighlight}
                   highlightColor={'error'}
-                ></MarkText>
+                />
               )}
-              {!clientCount && <p>{t('deactivation_confirm') + serviceName + t('are_u_sure')}</p>}
+              {!clientCount && <S.Title>{t('deactivation_confirm') + serviceName + t('are_u_sure')}</S.Title>}
             </>
           )}
           {!isActive && (
@@ -96,7 +104,7 @@ const ToggleStatusComponent: React.FC<Props> = ({ toggleModal, service }) => {
             {clients?.length > 0 && (
               <S.ClientList>
                 {clients.map((client) => (
-                  <li key={client.id}>{client.name}</li>
+                  <li key={client?.clientInfoId}>{client.name}</li>
                 ))}
               </S.ClientList>
             )}

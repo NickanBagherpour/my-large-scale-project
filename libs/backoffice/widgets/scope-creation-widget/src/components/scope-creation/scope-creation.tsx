@@ -6,12 +6,12 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
-import { Button, Input, MarkText, Modal, SearchItemsContainer } from '@oxygen/ui-kit';
+import { Button, Input, SearchItemsContainer } from '@oxygen/ui-kit';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 import { ROUTES, RQKEYS, trimValues } from '@oxygen/utils';
-import { useAppTheme } from '@oxygen/hooks';
+import { useApp } from '@oxygen/hooks';
 
-import { CreateScopeType, createScopeType } from '../../types';
+import { CreateScopeType, createScopeType, ModalStateType } from '../../types';
 
 import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 import { MAX_LENGTH_INPUT } from '../../utils/consts';
@@ -26,15 +26,23 @@ type EditScopeProps = PageProps & {
 
 const ScopeCreation: React.FC<EditScopeProps> = (props) => {
   const [t] = useTr();
+  const { notification } = useApp();
   const router = useRouter();
-  const theme = useAppTheme();
-  const [isOpen, setIsOpen] = useState(false);
-  const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
   const queryClient = useQueryClient();
+
+  const [isOpen, setIsOpen] = useState<ModalStateType>(false);
+
+  const { mutate: createScope, isPending: loadingCreateScope } = useCreateScope();
 
   const [form] = Form.useForm<CreateScopeType>();
 
   const rule = createSchemaFieldRule(createScopeType(t));
+
+  const handleReturn = () => {
+    router.back();
+  };
+
+  const onCancel = () => setIsOpen(false);
 
   const submitClick = () => {
     form.submit();
@@ -47,12 +55,6 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
     } catch (error) {
       return false;
     }
-  };
-
-  const onCancel = () => setIsOpen(false);
-
-  const handleReturn = () => {
-    router.back();
   };
 
   const onFinish = async (values: any) => {
@@ -71,6 +73,10 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
 
           onCancel();
           router.push(ROUTES.BACKOFFICE.SCOPE_LIST);
+
+          notification.success({
+            message: t('success_message', { scope_name: params?.name }),
+          });
         } catch (error) {
           onCancel();
         }

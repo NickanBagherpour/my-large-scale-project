@@ -44,6 +44,7 @@ export interface BoxProps {
   lineHeight?: CSSProperties['lineHeight'];
   letterSpacing?: CSSProperties['letterSpacing'];
   textAlign?: CSSProperties['textAlign'];
+  gap?: CSSProperties['gap'];
 }
 
 type TransientBoxProps = {
@@ -90,6 +91,7 @@ const StyledBox = styled.div<TransientBoxProps>`
   ${(props) => props.$lineHeight && `line-height: ${props.$lineHeight}`};
   ${(props) => props.$letterSpacing && `letter-spacing: ${props.$letterSpacing}`};
   ${(props) => props.$textAlign && `text-align: ${props.$textAlign}`};
+  ${(props) => props.$gap && `gap: ${props.$gap}`};
   ${(props) =>
     props.$fillChildren === 'true'
       ? `

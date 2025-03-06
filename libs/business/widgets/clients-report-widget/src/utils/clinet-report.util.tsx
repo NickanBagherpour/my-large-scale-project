@@ -1,87 +1,88 @@
-import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box, Switch } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { ColumnsType, MobileColumnType, Table, Box } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
-// import { ParamsType } from '../types';
+import { PaginationType } from '../context/types';
 
 import * as S from '../components/client-report/client-report.style';
 
 type Props = {
   t: TFunction;
-  // changeStatus?: (status: boolean, name: string) => void;
-  // deleteService?: (name: string, status: ParamsType) => void;
+
+  pagination: Omit<PaginationType, 'sort'>;
   theme: ITheme;
   wordToHighlight: string;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const {
-    t,
-    // , changeStatus, deleteService
-    theme,
-    wordToHighlight,
-  } = props;
+  const { t, pagination, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
+
+  const { page, rowsPerPage } = pagination;
+
   return [
-    { title: `${t('row')}`, dataIndex: 'index', key: 'index', align: 'center', width: 70, className: 'row-number' },
     {
-      title: `${t('national')}`,
-      dataIndex: 'clientEnglishName',
-      key: 'national',
+      title: t('row'),
       align: 'center',
-      // width: 150,
-      ellipsis: {
-        showTitle: false,
+      key: 'index',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
+      render: (_val, _record, index) => {
+        const start = (page - 1) * rowsPerPage + 1;
+        return start + index;
       },
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
     },
     {
       title: `${t('name')}`,
-      dataIndex: 'clientPersianName',
-      key: 'clientPersianName',
+      dataIndex: 'clientEnName',
+      key: 'clientEnName',
       align: 'center',
-      // width: 150,
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          <S.Name text={getValueOrDash(value)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (clientEnName) => (
+        <Tooltip placement='top' title={getValueOrDash(clientEnName)} arrow={true}>
+          <S.Name
+            text={getValueOrDash(clientEnName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
-
+    {
+      title: `${t('persianName')}`,
+      dataIndex: 'clientPersianName',
+      key: 'clientPersianName',
+      align: 'center',
+      render: (clientPersianName) => (
+        <Tooltip placement='top' title={getValueOrDash(clientPersianName)} arrow={true}>
+          {getValueOrDash(clientPersianName)}
+        </Tooltip>
+      ),
+    },
     {
       title: '',
-      dataIndex: '',
-      key: 'actions',
+      dataIndex: 'clientsReport',
+      key: 'clientsReport',
       align: 'left',
-      // width: 10,
+      width: widthByButtonCount(2),
       render: (value, record) => (
-        <Box display={'flex'} style={{ gap: '0.8rem' }}>
-          <S.DetailsButton
-            size={'small'}
+        <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
+          <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientEnName ?? ''}`}
+            size={'small'}
+            disabled
           >
             {t('services_report')}
-          </S.DetailsButton>
-
-          <S.DetailsButton
-            size={'small'}
+          </S.Details>
+          <S.Details
             variant={'link'}
-            href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?name=${record.clientEnglishName ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientEnName ?? ''}`}
+            size={'small'}
           >
             {t('details')}
-          </S.DetailsButton>
+          </S.Details>
         </Box>
       ),
     },
@@ -89,12 +90,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 }
 
 export function getMobileColumns(props: Props): any {
-  const {
-    t,
-    // , changeStatus, deleteService
-    theme,
-    wordToHighlight,
-  } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
@@ -106,47 +102,39 @@ export function getMobileColumns(props: Props): any {
             title: t('name'),
             value: (
               <S.Name
-                text={getValueOrDash(value?.clientEnglishName)}
+                text={getValueOrDash(value?.clientEnName)}
                 highlightColor={highlightColor}
                 wordToHighlight={wordToHighlight}
               />
             ),
           },
           {
-            title: t('national'),
+            title: t('persianName'),
             value: getValueOrDash(value?.clientPersianName),
           },
-
           {
             title: '',
             value: (
-              <Box display={'flex'} style={{ gap: '0.8rem' }}>
-                <S.DetailsButton
-                  size={'small'}
+              <Box display={'flex'} alignItems={'center'}>
+                <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?name=${record.name ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientEnName ?? ''}`}
+                  disabled
                 >
-                  {t('services_report')}
-                </S.DetailsButton>
-
-                <S.DetailsButton
-                  size={'small'}
+                  <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
+                </S.Details>
+                <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?name=${record.clientEnglishName ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientEnName ?? ''}`}
                 >
                   {t('details')}
-                </S.DetailsButton>
+                </S.Details>
               </Box>
             ),
             colon: false,
           },
-          // {
-          //   title: '',
-          //   value: <S.Trash className='icon-trash' onClick={() => deleteService(value.name, value.status)} />,
-          //   colon: false,
-          // },
         ];
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];

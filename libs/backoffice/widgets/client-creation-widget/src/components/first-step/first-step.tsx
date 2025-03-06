@@ -15,7 +15,7 @@ import { createFormSchema } from '../../types';
 import TagPicker from './tag-picker/tag-picker';
 import { TagInterface } from '../../types/first-step/general';
 import CenteredLoading from '../centered-loading/centered-loading';
-import { prepareGrantTypes, prepareSubmitClientParams, prepareTags } from '../../utils/helper';
+import { prepareGrantTypes, prepareSubmitClientParams } from '../../utils/helper';
 import { ClientInquiryStatus, FORM_ITEM, GrantValue, MAX_INPUTE_LENGTH } from '../../utils/consts';
 import {
   updateFirstStepAction,
@@ -30,8 +30,6 @@ import {
   useGetClientTypesQuery,
   useGetTagsDataQuery,
   useGetOrganizationInfoQuery,
-  useGetClientDraftInfoQuery,
-  useGetClientInquirySSOQuery,
   useGetClientInfoQuery,
 } from '../../services/first-step';
 
@@ -75,12 +73,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   //Queries
   const { data: NameTagData, isFetching: nameTagFetching } = useGetTagsDataQuery();
   const { data: clientTypes, isFetching: clientTypesFetching } = useGetClientTypesQuery();
-  const {
-    data: clientData,
-    isFetching: clientFetching,
-    refetch: clientRefetch,
-    isSuccess: isClientSuccess,
-  } = useGetClientInfoQuery(clientName!);
+  const { data: clientData, isFetching: clientFetching, refetch: clientRefetch } = useGetClientInfoQuery(clientName!);
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
@@ -131,9 +124,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   }, [state.firstStep]);
 
   //Handlers
-  const handleReturn = () => {
-    router.back();
-  };
   const handleChange = (e) => {
     setSearchValue({ orgNationalId: e.target.value });
   };
@@ -292,13 +282,16 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
             </S.Card>
           </Form>
           <S.Footer>
-            <Button variant={'outlined'} onClick={handleReturn}>
-              {t('return')}
-            </Button>
-            <Button htmlType={'submit'} onClick={form.submit} loading={submitClientLoading} disabled={isBtnDisabled}>
+            <S.ReturnButton />
+            <S.RegisterButton
+              htmlType={'submit'}
+              onClick={form.submit}
+              loading={submitClientLoading}
+              disabled={isBtnDisabled}
+            >
               {t('submit_info')}
               <i className={'icon-arrow-left'}></i>
-            </Button>
+            </S.RegisterButton>
           </S.Footer>
         </>
       )}
