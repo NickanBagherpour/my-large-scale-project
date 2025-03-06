@@ -34,7 +34,13 @@ export type Fee = {
     toRate: number;
     fee: number;
   }[];
-  transactionFees: unknown;
+  transactionFees: {
+    fromRate: number;
+    toRate: number;
+    percent: number;
+    min: number;
+    max: number;
+  }[];
   aggregationType: number;
   fieldName: string;
   type: string;

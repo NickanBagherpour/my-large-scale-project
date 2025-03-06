@@ -34,6 +34,7 @@ export const createAppSchema = (t: TFunction) => {
                 [SPECIAL_TARIFF_NAMES.to]: validationSchema.required,
                 [SPECIAL_TARIFF_NAMES.minimum]: validationSchema.required,
                 [SPECIAL_TARIFF_NAMES.maximum]: validationSchema.required,
+                [SPECIAL_TARIFF_NAMES.percent]: validationSchema.required,
               },
               { message: t('validation.required') }
             )

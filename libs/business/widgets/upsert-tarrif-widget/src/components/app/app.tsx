@@ -81,9 +81,20 @@ const App = () => {
           })),
         },
       };
-      // console.log('>>>', 'the type is tiered');
     } else {
-      // console.log('>>>', 'the type is special');
+      initialValues = {
+        ...initialValues,
+        serviceTariff: {
+          tariff: 'special',
+          special: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
+            to: toRate + '',
+            from: fromRate + '',
+            maximum: max + '',
+            minimum: min + '',
+            percent: percent + '',
+          })),
+        },
+      };
     }
   }
 
