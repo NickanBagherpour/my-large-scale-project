@@ -2,7 +2,7 @@ import { useTr } from '@oxygen/translation';
 import Title from '../title/title';
 import * as S from './servcie-tariff.style';
 import TarrifRadio from '../tariff-radio/tarrif-radio';
-import FixedTariff from '../fixed-tariff/fixed-tariff';
+import Fixed from '../fixed/fixed';
 import { Divider } from '@oxygen/ui-kit';
 import { newTariff, tariffTypes } from '../../utils';
 import { TariffType } from '../../types';
@@ -23,8 +23,7 @@ export default function ServiceTarrif(props: Props) {
   const tariffType = Form.useWatch([newTariff.type], form);
 
   const inputs: Record<TariffType, React.JSX.Element> = {
-    // TODO: add tariff to all components or remove it from all.
-    fixed: <FixedTariff rule={rule} />,
+    fixed: <Fixed rule={rule} />,
     tiered: <Tiered rule={rule} />,
     special: <Special rule={rule} />,
   };

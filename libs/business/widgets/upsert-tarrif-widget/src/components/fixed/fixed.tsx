@@ -1,5 +1,5 @@
 import { useTr } from '@oxygen/translation';
-import * as S from './fixed-tariff.style';
+import * as S from './fixed.style';
 import { RuleRender } from 'antd/es/form';
 import { newTariff } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
