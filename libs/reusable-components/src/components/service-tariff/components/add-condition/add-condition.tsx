@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './add-condition.style';
-import { TariffType } from '../../types';
+import { TariffType } from '../../type';
 
 type Props = {
   tariffType: TariffType;

@@ -3,7 +3,7 @@ import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
-import { SPECIAL_TARIFF_NAMES, newTariff } from '../../utils';
+import { SPECIAL_TARIFF_NAMES, TARIFF } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
 
 type Props = {
@@ -15,8 +15,8 @@ export default function Special(props: Props) {
   const [t] = useTr();
 
   return (
-    <Form.Item name={[newTariff.special]} rules={[rule]}>
-      <Form.List name={[newTariff.special]}>
+    <Form.Item name={[TARIFF.special]} rules={[rule]}>
+      <Form.List name={[TARIFF.special]}>
         {(childrenFields, { add, remove }) => {
           return (
             <S.Container>

@@ -1,7 +1,7 @@
 import { Button as UikitButton } from '@oxygen/ui-kit';
 import styled, { css } from 'styled-components';
-import { TariffType } from '../../types';
 import { gold } from '../../utils';
+import { TariffType } from '../../type';
 
 export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
   border-radius: 16rem;

@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './tarrif-radio.style';
 import { Radio } from 'antd';
-import { TariffType } from '../../types';
+import { TariffType } from '../../type';
 
 type Props = {
   value: TariffType;

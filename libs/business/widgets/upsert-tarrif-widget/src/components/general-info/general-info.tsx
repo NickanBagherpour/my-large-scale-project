@@ -1,5 +1,4 @@
 import { useTr } from '@oxygen/translation';
-import Title from '../title/title';
 import { BorderedSection } from '@oxygen/reusable-components';
 import { SearchItemsContainer, Input, Select } from '@oxygen/ui-kit';
 import { GENERAL_INFO_NAMES } from '../../utils';
@@ -20,7 +19,7 @@ export default function GeneralInfo(props: Props) {
 
   return (
     <S.Section>
-      <Title>{t('general_info')}</Title>
+      <S.Title>{t('general_info')}</S.Title>
       <BorderedSection>
         <SearchItemsContainer $columnNumber='3'>
           <S.FormItem name={GENERAL_INFO_NAMES.serviceName} label={t('service_name')} rules={[rule]}>

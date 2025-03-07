@@ -1,26 +1,24 @@
 import { useTr } from '@oxygen/translation';
-import Title from '../title/title';
 import * as S from './servcie-tariff.style';
-import TarrifRadio from '../tariff-radio/tarrif-radio';
-import Fixed from '../fixed/fixed';
 import { Divider } from '@oxygen/ui-kit';
-import { newTariff, tariffTypes } from '../../utils';
-import { TariffType } from '../../types';
-import Tiered from '../tiered/tiered';
-import Special from '../special/special';
+import { TARIFF, tariffTypes } from '../utils';
 import { Form } from 'antd';
 import { FormInstance, RuleRender } from 'antd/es/form';
-import { AppSchemaType } from '../../types/app.schema';
+import Fixed from './fixed/fixed';
+import Tiered from './tiered/tiered';
+import Special from './special/special';
+import TarrifRadio from './tariff-radio/tarrif-radio';
+import { TariffType } from '../type';
 
 type Props = {
   rule: RuleRender;
-  form: FormInstance<AppSchemaType>;
+  form: FormInstance<any>; // TODO: FIX THIS
 };
 
-export default function ServiceTarrif(props: Props) {
+export function ServiceTariff(props: Props) {
   const { rule, form } = props;
   const [t] = useTr();
-  const tariffType = Form.useWatch([newTariff.type], form);
+  const tariffType = Form.useWatch([TARIFF.type], form);
 
   const inputs: Record<TariffType, React.JSX.Element> = {
     fixed: <Fixed rule={rule} />,
@@ -30,9 +28,9 @@ export default function ServiceTarrif(props: Props) {
 
   return (
     <>
-      <Title>{t('service_tariff')}</Title>
+      <S.Title>{t('service_tariff')}</S.Title>
       <S.Section>
-        <Form.Item rules={[rule]} name={[newTariff.type]}>
+        <Form.Item rules={[rule]} name={[TARIFF.type]}>
           <Tarrifs />
         </Form.Item>
         <Divider />

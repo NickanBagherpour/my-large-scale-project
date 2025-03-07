@@ -1,26 +1,23 @@
 import { useTr } from '@oxygen/translation';
 import GeneralInfo from '../general-info/general-info';
 import * as S from './app.style';
-import ServiceTarrif from '../service-tariff/service-tariff';
 import { Form, FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import {
   emptySpecialTariff,
   emptyTieredTariff,
   feeTypeMap,
   feeTypeMapReverse,
-  newTariff,
-  SPECIAL_TARIFF_NAMES,
-  TIERED_TARIFF_NAMES,
-} from '../../utils';
+  GlobalMessageContainer,
+  TARIFF,
+  ServiceTariff,
+} from '@oxygen/reusable-components';
+import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading, Container } from '@oxygen/ui-kit';
 import { getWidgetTitle } from '@oxygen/utils';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
-import { useEffect } from 'react';
 
 const App = () => {
   const [t] = useTr();
@@ -103,8 +100,8 @@ const App = () => {
     }
   } else {
     initialValues = {
-      [newTariff.special]: emptySpecialTariff,
-      [newTariff.tiered]: emptyTieredTariff,
+      [TARIFF.special]: emptySpecialTariff,
+      [TARIFF.tiered]: emptyTieredTariff,
     };
   }
 
@@ -181,7 +178,7 @@ const App = () => {
         onFinishFailed={(e) => console.log('>>> onFinishFailed', e)}
       >
         <GeneralInfo rule={rule} />
-        <ServiceTarrif rule={rule} form={form} />
+        <ServiceTariff rule={rule} form={form} />
       </Form>
 
       <S.Footer
