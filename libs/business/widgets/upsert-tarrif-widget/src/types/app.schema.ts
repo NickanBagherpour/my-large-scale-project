@@ -17,31 +17,49 @@ export const createAppSchema = (t: TFunction) => {
     [GENERAL_INFO_NAMES.transactionTypeInElastic]: validationSchema.required,
 
     [newTariff.type]: validationSchema.required,
+
     [newTariff.fixed]: z.number({
       required_error: t('validation.required'),
       invalid_type_error: t('validation.only_digit_message'),
     }),
+
     [newTariff.special]: z
       .array(
         z.object(
           {
-            [SPECIAL_TARIFF_NAMES.from]: validationSchema.required,
-            [SPECIAL_TARIFF_NAMES.to]: validationSchema.required,
-            [SPECIAL_TARIFF_NAMES.minimum]: validationSchema.required,
-            [SPECIAL_TARIFF_NAMES.maximum]: validationSchema.required,
+            [SPECIAL_TARIFF_NAMES.from]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
+            [SPECIAL_TARIFF_NAMES.to]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
+            [SPECIAL_TARIFF_NAMES.minimum]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
+            [SPECIAL_TARIFF_NAMES.maximum]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
             [SPECIAL_TARIFF_NAMES.percent]: validationSchema.required,
           },
           { message: t('validation.required') }
         )
       )
       .min(1, { message: t('validation.required') }),
+
     [newTariff.tiered]: z
       .array(
         z.object(
           {
             [TIERED_TARIFF_NAMES.from]: validationSchema.required,
             [TIERED_TARIFF_NAMES.to]: validationSchema.required,
-            [TIERED_TARIFF_NAMES.tariff]: validationSchema.required,
+            [TIERED_TARIFF_NAMES.tariff]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
           },
           { message: t('validation.required') }
         )

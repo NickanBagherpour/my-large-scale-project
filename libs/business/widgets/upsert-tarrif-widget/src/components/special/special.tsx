@@ -25,28 +25,28 @@ export default function Special(props: Props) {
                   <S.Index>{idx + 1}</S.Index>
 
                   <span>{t('from_transaction')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]}>
-                    <Input.Money placeholder={t('amount_irr')} allowClear={false} showLetter={false} />
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]} rules={[rule]}>
+                    <Input.Money placeholder={t('amount_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('to')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]}>
-                    <Input.Money placeholder={t('amount_irr')} allowClear={false} showLetter={false} />
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]} rules={[rule]}>
+                    <Input.Money placeholder={t('amount_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('rial_applicable')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={[rule]}>
                     <Input placeholder={t('percent')} />
                   </Form.Item>
 
                   <span>{t('tariff_percent_min')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]}>
-                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]} rules={[rule]}>
+                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('max_tariff')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]}>
-                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]} rules={[rule]}>
+                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('calculated')}</span>
@@ -57,7 +57,18 @@ export default function Special(props: Props) {
                 </S.Article>
               ))}
 
-              <AddCondition tariffType='special' onClick={() => add('')} />
+              <AddCondition
+                tariffType='special'
+                onClick={() =>
+                  add({
+                    [SPECIAL_TARIFF_NAMES.to]: null,
+                    [SPECIAL_TARIFF_NAMES.from]: null,
+                    [SPECIAL_TARIFF_NAMES.percent]: null,
+                    [SPECIAL_TARIFF_NAMES.minimum]: null,
+                    [SPECIAL_TARIFF_NAMES.maximum]: null,
+                  })
+                }
+              />
             </S.Container>
           );
         }}

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as UikitInput, Button as UikitButton } from '@oxygen/ui-kit';
+import { Button as UikitButton } from '@oxygen/ui-kit';
 
 export const Container = styled.section`
   display: flex;
@@ -11,11 +11,16 @@ export const Article = styled.article`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 3rem 1rem;
   background: ${(p) => p.theme.background.main};
   padding: 2rem 1.2rem; /* need padding for inputs validation errors */
   border: ${(p) => `1px solid ${p.theme.border._100}`};
   border-radius: 1.6rem;
+
+  & > * {
+    height: 40px;
+    line-height: 40px;
+  }
 
   /* make the specifity of this lower than the Index styles */
   :where(span) {

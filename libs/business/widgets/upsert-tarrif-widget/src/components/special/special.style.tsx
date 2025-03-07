@@ -11,12 +11,17 @@ export const Article = styled.article`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 3rem 1rem;
   background: ${(p) => p.theme.background.main};
   padding: 1.2rem;
   border: ${(p) => `1px solid ${p.theme.border._100}`};
   border-radius: 1.6rem;
   padding: 2rem 1.2rem; /* need padding for inputs validation errors */
+
+  & > * {
+    height: 40px;
+    line-height: 40px;
+  }
 
   /* make the specifity of this lower than the Index styles */
   :where(span) {

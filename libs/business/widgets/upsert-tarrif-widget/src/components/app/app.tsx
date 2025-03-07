@@ -65,14 +65,14 @@ const App = () => {
       initialValues = {
         ...initialValues,
         type: 'fixed',
-        fixed: fee + '',
+        fixed: fee,
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
       initialValues = {
         ...initialValues,
         type: 'tiered',
         tiered: feeSteps.map(({ fee, fromRate, toRate }) => ({
-          tariff: fee + '',
+          tariff: fee,
           from: fromRate + '',
           to: toRate + '',
         })),
@@ -82,10 +82,10 @@ const App = () => {
         ...initialValues,
         type: 'special',
         special: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-          to: toRate + '',
-          from: fromRate + '',
-          maximum: max + '',
-          minimum: min + '',
+          to: toRate,
+          from: fromRate,
+          maximum: max,
+          minimum: min,
           percent: percent + '',
         })),
       };
@@ -93,6 +93,8 @@ const App = () => {
   }
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
+    console.log('>>> onFinish', values);
+
     const {
       serviceName,
       serviceType,
@@ -100,8 +102,6 @@ const App = () => {
       opsTeamSharePct,
       fieldNameInElastic,
       transactionTypeInElastic,
-      // serviceTariff,
-
       special,
       tiered,
       fixed,
@@ -139,10 +139,10 @@ const App = () => {
       const transactionFees: PostTariffParams['transactionFees'] = special.map(
         ({ to, from, maximum, minimum, percent }) => ({
           // TODO: think of something for these type conversions
-          toRate: +to,
-          fromRate: +from,
-          max: +maximum,
-          min: +minimum,
+          toRate: to,
+          fromRate: from,
+          max: maximum,
+          min: minimum,
           percent: +percent, // TODO: see if this should exist or not
         })
       );

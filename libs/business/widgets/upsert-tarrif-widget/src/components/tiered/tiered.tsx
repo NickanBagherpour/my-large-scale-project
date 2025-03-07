@@ -38,7 +38,7 @@ export default function Tiered(props: Props) {
                   <span>{t('request_tariff_applies')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.tariff]} rules={[rule]}>
-                    <Input.Money placeholder={t('tariff_irr')} allowClear={false} showLetter={false} />
+                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('calculated_in_irr')}</span>
@@ -49,7 +49,16 @@ export default function Tiered(props: Props) {
                 </S.Article>
               ))}
 
-              <AddCondition tariffType='tiered' onClick={() => add('')} />
+              <AddCondition
+                tariffType='tiered'
+                onClick={() =>
+                  add({
+                    [TIERED_TARIFF_NAMES.from]: null,
+                    [TIERED_TARIFF_NAMES.to]: null,
+                    [TIERED_TARIFF_NAMES.tariff]: null,
+                  })
+                }
+              />
             </S.Container>
           );
         }}
