@@ -8,15 +8,24 @@ import { INQUIRY } from './consts';
 import { InquiryType } from './types';
 import * as S from './search-box.style';
 
-type Props = {
+export type SearchBoxProps = {
   form: FormInstance<{ name: string }>;
   onFinish: ((values: { name: string }) => void) | undefined;
   inputRef: RefObject<InputRef | null>;
-  isLoading: boolean;
-  type: InquiryType;
+  isLoading?: boolean;
   onFormValueChange: () => void;
+  buttonText?: string;
+  placeholderText?: string;
 };
-const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type, onFormValueChange }) => {
+const SearchBox: React.FC<SearchBoxProps> = ({
+  form,
+  inputRef,
+  onFinish,
+  isLoading,
+  onFormValueChange,
+  buttonText,
+  placeholderText,
+}) => {
   const [t] = useTr();
   const rule = createSchemaFieldRule(CreateInquirySchema(t));
   return (
@@ -26,13 +35,13 @@ const SearchBox: React.FC<Props> = ({ form, inputRef, onFinish, isLoading, type,
           <Input
             autoFocus={true}
             ref={inputRef}
-            placeholder={t('placeholder.search_by_english_name', { element: t(`element.${type}`) })}
+            placeholder={placeholderText ?? t('placeholder.search_by_english_name', { element: t(`element.service`) })}
             prefix={<i className='search-normal' />}
             allowClear
           />
         </S.FormItem>
         <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
-          {t('button.inquire_item', { element: t(`element.${type}`) })}
+          {buttonText ?? t('button.inquire_item', { element: t(`element.service`) })}
         </Button>
       </S.Container>
     </Form>

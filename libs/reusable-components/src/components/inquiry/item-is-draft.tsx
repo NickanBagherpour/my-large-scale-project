@@ -1,22 +1,24 @@
 import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, Progress } from '@oxygen/ui-kit';
-import { GeneralItemInfo, InquiryType } from './types';
+import { GeneralItemInfo } from './types';
 import { NAVIGATION_URLS } from './consts';
-import * as S from './item-incomplete.style';
+import * as S from './item-is-draft.style';
 
-type Props = {
-  data?: GeneralItemInfo;
-  type: InquiryType;
+export type IsDraftProps = {
+  data: GeneralItemInfo;
+  buttonText: string;
+  message: string;
+  buttonHref: string;
 };
-const ItemIncomplete: React.FC<Props> = ({ data, type }) => {
+const ItemIsDraft: React.FC<IsDraftProps> = ({ data, buttonText, buttonHref, message }) => {
   const [t] = useTr();
   const progress = data?.progress ?? 0;
   return (
     <Flex vertical align='center' justify='center' gap={'2rem'}>
       <Flex align='center' gap={'1rem'}>
         <S.TickIcon className='icon-tick-circle-outlined' />
-        <S.StyledText>{t('uikit.complete_item_info', { element: t(`element.${type}`) })}</S.StyledText>
+        <S.StyledText>{message}</S.StyledText>
       </Flex>
       <S.ServiceCompletenessBox>
         <S.ItemName>{data?.itemName}</S.ItemName>
@@ -24,15 +26,15 @@ const ItemIncomplete: React.FC<Props> = ({ data, type }) => {
         <S.Percent>{progress + '%'}</S.Percent>
       </S.ServiceCompletenessBox>
       <Button
-        href={`${NAVIGATION_URLS[type]}${data?.itemName ?? ''}`}
+        href={buttonHref}
         color='primary'
         style={{ width: 'fit-content', marginBottom: '2rem' }}
         icon={<i className='icon-arrow-left' />}
         iconPosition='end'
       >
-        {t('button.complete_item_info', { element: t(`element.${type}`) })}
+        {buttonText}
       </Button>
     </Flex>
   );
 };
-export default ItemIncomplete;
+export default ItemIsDraft;

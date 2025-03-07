@@ -33,7 +33,6 @@ export * from './components/add-upstream-modal/add-upstream-modal.schema';
 export { default as AnimatedStatus } from './components/animated-status/animated-status';
 export { default as StatusModal } from './components/status-modal/status-modal';
 export { default as withRoleCheck } from './hocs/withRoleCheck';
-export { default as InquiryComponent } from './components/inquiry/inquiry-component';
 export { default as Services } from './components/services/components/services/services';
 export { default as Plugins } from './components/plugins/components/plugins/plugins';
 export { default as ConfirmRemoveModal } from './components/confirm-remove-modal/confirm-remove-modal';
@@ -50,3 +49,4 @@ export { default as InnerDetailCard } from './components/dashboard-card/inner-de
 export { default as InnerStatusCard } from './components/dashboard-card/inner-status-card';
 export { default as CallRateChart } from './components/dashboard-charts/call-rate-chart';
 export { default as LazyLottie } from './components/animation-loader/lazy-lottie';
+export { default as ServiceClientInquiry } from './components/inquiry/service-client-inquriy';

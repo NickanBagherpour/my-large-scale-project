@@ -3,8 +3,8 @@ import { ROUTES } from '@oxygen/utils';
 import { DashboardCard, InnerDetailCard } from '@oxygen/reusable-components';
 import { TextPalette } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
-import * as S from './info-cards.style';
 import { Container } from '@oxygen/ui-kit';
+import * as S from './info-cards.style';
 
 // Define TypeScript types for clarity
 interface Detail {
