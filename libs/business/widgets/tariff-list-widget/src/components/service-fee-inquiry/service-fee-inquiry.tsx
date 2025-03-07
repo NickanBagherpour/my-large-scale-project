@@ -1,6 +1,5 @@
-import { Inquiry } from '@oxygen/reusable-components';
+import { ContentType, Inquiry } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { ContentType } from 'libs/reusable-components/src/components/inquiry/types';
 import { useEffect, useState } from 'react';
 import { useServiceFeeInquiry } from '../../services/inquire-service-fee.api';
 import { useRouter } from 'next/navigation';
@@ -11,14 +10,14 @@ type Props = {
   dispatch: any;
 };
 const ServiceFeeInquiry: React.FC<Props> = ({ toggle, dispatch }) => {
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>();
   const changeSearchValue = (val?: string) => setSearchValue(val ?? '');
   const [content, setContent] = useState<ContentType | null>(null);
   const resetContent = () => setContent(null);
   const [t] = useTr();
   const router = useRouter();
   const { data, isSuccess, refetch, isFetching, isFetched } = useServiceFeeInquiry(
-    { 'service-name': searchValue },
+    { 'service-name': searchValue ?? '' },
     dispatch
   );
   useEffect(() => {

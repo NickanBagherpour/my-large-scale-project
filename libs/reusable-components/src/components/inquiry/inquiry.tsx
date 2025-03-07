@@ -19,7 +19,7 @@ type Props = {
   operationalData: any[];
   content: ContentType | null;
   resetContent: () => void;
-  searchValue: string;
+  searchValue?: string;
   changeSearchValue: (val?: string) => void;
   modalTitle: string;
   toggle: () => void;
