@@ -64,45 +64,35 @@ const App = () => {
     if (feeTypeMapReverse[feeType] === 'fixed') {
       initialValues = {
         ...initialValues,
-        serviceTariff: {
-          tariff: 'fixed',
-          fixed: {
-            tariffPrice: fee + '',
-          },
-        },
+        type: 'fixed',
+        fixed: fee + '',
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
       initialValues = {
         ...initialValues,
-        serviceTariff: {
-          tariff: 'tiered',
-          tiered: feeSteps.map(({ fee, fromRate, toRate }) => ({
-            tariff: fee + '',
-            from: fromRate + '',
-            to: toRate + '',
-          })),
-        },
+        type: 'tiered',
+        tiered: feeSteps.map(({ fee, fromRate, toRate }) => ({
+          tariff: fee + '',
+          from: fromRate + '',
+          to: toRate + '',
+        })),
       };
     } else {
       initialValues = {
         ...initialValues,
-        serviceTariff: {
-          tariff: 'special',
-          special: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-            to: toRate + '',
-            from: fromRate + '',
-            maximum: max + '',
-            minimum: min + '',
-            percent: percent + '',
-          })),
-        },
+        type: 'special',
+        special: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
+          to: toRate + '',
+          from: fromRate + '',
+          maximum: max + '',
+          minimum: min + '',
+          percent: percent + '',
+        })),
       };
     }
   }
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
-    console.log('>>> onFinish', values);
-
     const {
       serviceName,
       serviceType,
@@ -110,7 +100,12 @@ const App = () => {
       opsTeamSharePct,
       fieldNameInElastic,
       transactionTypeInElastic,
-      serviceTariff,
+      // serviceTariff,
+
+      special,
+      tiered,
+      fixed,
+      type,
     } = values;
 
     let params: PostTariffParams = {
@@ -122,16 +117,16 @@ const App = () => {
       aggregationType: serviceType + '',
       fieldName: fieldNameInElastic,
 
-      feeType: feeTypeMap[serviceTariff.tariff],
+      feeType: feeTypeMap[type],
     };
 
-    if (serviceTariff.tariff === 'fixed') {
+    if (type === 'fixed') {
       // TODO: think of something for these type conversions
-      params = { ...params, fee: +serviceTariff.fixed.tariffPrice };
+      params = { ...params, fee: fixed };
     }
 
-    if (serviceTariff.tariff === 'tiered') {
-      const feeSteps: PostTariffParams['feeSteps'] = serviceTariff.tiered.map(({ tariff, to, from }) => ({
+    if (type === 'tiered') {
+      const feeSteps: PostTariffParams['feeSteps'] = tiered.map(({ tariff, to, from }) => ({
         // TODO: think of something for these type conversions
         fee: +tariff,
         fromRate: +from,
@@ -140,8 +135,8 @@ const App = () => {
       params = { ...params, feeSteps };
     }
 
-    if (serviceTariff.tariff === 'special') {
-      const transactionFees: PostTariffParams['transactionFees'] = serviceTariff.special.map(
+    if (type === 'special') {
+      const transactionFees: PostTariffParams['transactionFees'] = special.map(
         ({ to, from, maximum, minimum, percent }) => ({
           // TODO: think of something for these type conversions
           toRate: +to,

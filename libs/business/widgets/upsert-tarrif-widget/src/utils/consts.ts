@@ -29,13 +29,20 @@ export const TIERED_TARIFF_NAMES = {
   tariff: 'tariff',
 } as const;
 
-export const tariff = {
-  serviceTariff: 'serviceTariff',
-  tariff: 'tariff',
-  tiered: 'tiered',
+// export const tariff = {
+//   serviceTariff: 'serviceTariff',
+//   tariff: 'tariff',
+//   tiered: 'tiered',
+//   fixed: 'fixed',
+//   special: 'special',
+//   tariffPrice: 'tariffPrice',
+// } as const;
+
+export const newTariff = {
+  type: 'type',
   fixed: 'fixed',
+  tiered: 'tiered',
   special: 'special',
-  tariffPrice: 'tariffPrice',
 } as const;
 
 export const feeTypeMap = {
