@@ -7,11 +7,20 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
-import { feeTypeMap, feeTypeMapReverse } from '../../utils';
+import {
+  emptySpecialTariff,
+  emptyTieredTariff,
+  feeTypeMap,
+  feeTypeMapReverse,
+  newTariff,
+  SPECIAL_TARIFF_NAMES,
+  TIERED_TARIFF_NAMES,
+} from '../../utils';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading, Container } from '@oxygen/ui-kit';
 import { getWidgetTitle } from '@oxygen/utils';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useEffect } from 'react';
 
 const App = () => {
   const [t] = useTr();
@@ -71,30 +80,35 @@ const App = () => {
       initialValues = {
         ...initialValues,
         type: 'tiered',
-        tiered: feeSteps.map(({ fee, fromRate, toRate }) => ({
-          tariff: fee,
-          from: fromRate + '',
-          to: toRate + '',
-        })),
+        tiered:
+          feeSteps.map(({ fee, fromRate, toRate }) => ({
+            tariff: fee,
+            from: fromRate + '',
+            to: toRate + '',
+          })) ?? emptyTieredTariff,
       };
     } else {
       initialValues = {
         ...initialValues,
         type: 'special',
-        special: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-          to: toRate,
-          from: fromRate,
-          maximum: max,
-          minimum: min,
-          percent: percent + '',
-        })),
+        special:
+          transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
+            to: toRate,
+            from: fromRate,
+            maximum: max,
+            minimum: min,
+            percent: percent + '',
+          })) ?? emptySpecialTariff,
       };
     }
+  } else {
+    initialValues = {
+      [newTariff.special]: emptySpecialTariff,
+      [newTariff.tiered]: emptyTieredTariff,
+    };
   }
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
-    console.log('>>> onFinish', values);
-
     const {
       serviceName,
       serviceType,

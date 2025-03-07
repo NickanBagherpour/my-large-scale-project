@@ -29,6 +29,24 @@ export const TIERED_TARIFF_NAMES = {
   tariff: 'tariff',
 } as const;
 
+export const emptySpecialTariff = [
+  {
+    [SPECIAL_TARIFF_NAMES.to]: null,
+    [SPECIAL_TARIFF_NAMES.from]: null,
+    [SPECIAL_TARIFF_NAMES.percent]: null,
+    [SPECIAL_TARIFF_NAMES.minimum]: null,
+    [SPECIAL_TARIFF_NAMES.maximum]: null,
+  },
+];
+
+export const emptyTieredTariff = [
+  {
+    [TIERED_TARIFF_NAMES.from]: null,
+    [TIERED_TARIFF_NAMES.to]: null,
+    [TIERED_TARIFF_NAMES.tariff]: null,
+  },
+];
+
 // export const tariff = {
 //   serviceTariff: 'serviceTariff',
 //   tariff: 'tariff',
