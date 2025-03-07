@@ -5,12 +5,12 @@ import { Button } from '@oxygen/ui-kit';
 import * as S from './item-exists-in-BAAM.style';
 
 export type ExistsInBamProps = {
-  itemName: string;
-  dispatch: any;
-  message: string;
-  buttonText: string;
-  buttonAction: () => void;
-  buttonLoading: boolean;
+  itemName?: string;
+  dispatch?: any;
+  message?: string;
+  buttonText?: string;
+  buttonAction?: () => void;
+  buttonLoading?: boolean;
 };
 const ItemExistsInBAAM: React.FC<ExistsInBamProps> = ({ buttonLoading, message, buttonText, buttonAction }) => {
   return (

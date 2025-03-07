@@ -22,4 +22,8 @@ export default {
   step: 'پله ای',
   range: 'خاص',
   success_message: 'سرویس با موفقیت حذف شد',
+  en_name: 'نام انگلیسی',
+  fa_name: 'نام فارسی',
+  add_tarrif_settings: 'افزودن تنظیمات تعرفه',
+  allowed_creation: 'مجاز به ثبت تنظیمات تعرفه برای این سرویس هستید.',
 };

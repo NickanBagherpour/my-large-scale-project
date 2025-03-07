@@ -6,10 +6,10 @@ import { NAVIGATION_URLS } from './consts';
 import * as S from './item-is-draft.style';
 
 export type IsDraftProps = {
-  data: GeneralItemInfo;
-  buttonText: string;
-  message: string;
-  buttonHref: string;
+  data?: GeneralItemInfo;
+  buttonText?: string;
+  message?: string;
+  buttonHref?: string;
 };
 const ItemIsDraft: React.FC<IsDraftProps> = ({ data, buttonText, buttonHref, message }) => {
   const [t] = useTr();

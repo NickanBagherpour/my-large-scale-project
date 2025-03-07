@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
-import { InquiryType } from './types';
+import { ContentType, InquiryType } from './types';
 import { useInquiry } from './get-inquiry.api';
 import { InquiryStatus, NAVIGATION_URLS } from './consts';
 import { extractSpecificData } from './utils';
@@ -19,18 +19,13 @@ type Props = {
   toggle: () => void;
   dispatch: any;
 };
-export type ContentType = keyof typeof InquiryStatus;
 
 const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const [t] = useTr();
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
-  const [content, setContent] = useState<ContentType | null>();
-  const { data, isSuccess, refetch, isFetching, isFetched, isStale } = useInquiry(
-    type,
-    { name: searchValue },
-    dispatch
-  );
+  const [content, setContent] = useState<ContentType | null>(null);
+  const { data, isSuccess, refetch, isFetching, isFetched } = useInquiry(type, { name: searchValue }, dispatch);
   const resetContent = () => setContent(null);
   const changeSearchValue = (val?: string) => setSearchValue(val ?? '');
   let draftData;

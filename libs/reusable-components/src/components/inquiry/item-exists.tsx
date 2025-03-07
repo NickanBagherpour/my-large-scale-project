@@ -22,7 +22,7 @@ export type ItemExistsProps = {
   message?: string;
   buttonInfo?: {
     title: string;
-    icon: JSX.Element;
+    icon?: JSX.Element;
     action?: () => void;
   };
 };

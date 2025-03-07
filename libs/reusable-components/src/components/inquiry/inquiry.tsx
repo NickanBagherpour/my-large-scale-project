@@ -4,31 +4,31 @@ import { ReactElement, useEffect, useRef } from 'react';
 import searchAnimation from '../../assets/media/searching-Services.json';
 import LazyLottie from '../animation-loader/lazy-lottie';
 import { InquiryItemNameType } from './inquiry.schema';
-import SearchBox from './search-box';
-import { InquiryStatus } from './consts';
+import SearchBox, { SearchBoxProps } from './search-box';
 import ItemNotFound, { ItemNotFoundProps } from './item-not-found';
-import ItemExists from './item-exists';
-import ItemExistsInBAAM from './item-exists-in-BAAM';
-import ItemIsDraft from './item-is-draft';
+import ItemExists, { ItemExistsProps } from './item-exists';
+import ItemExistsInBAAM, { ExistsInBamProps } from './item-exists-in-BAAM';
+import ItemIsDraft, { IsDraftProps } from './item-is-draft';
+import { ContentType } from './types';
 import * as S from './inquiry.style';
 
 type Props = {
   refetch?: any;
   dataLoading?: boolean;
-  draftData: { itemName: string; progress: number };
+  draftData?: { itemName: string; progress: number };
   operationalData: any[];
-  content?: ContentType | null;
+  content: ContentType | null;
   resetContent: () => void;
   searchValue: string;
   changeSearchValue: (val?: string) => void;
   modalTitle: string;
   toggle: () => void;
   dispatch: (string | number | undefined)[];
-  notFoundComponentProps: any;
-  ItemExistsComponentProps: any;
-  existsInBamComponentProps: any;
-  draftComponentProps: any;
-  searchBoxProps: any;
+  notFoundComponentProps?: Partial<ItemNotFoundProps>;
+  ItemExistsComponentProps?: Partial<ItemExistsProps>;
+  existsInBamComponentProps?: Partial<ExistsInBamProps>;
+  draftComponentProps?: Partial<IsDraftProps>;
+  searchBoxProps?: Partial<SearchBoxProps>;
   searchboxForm?: any;
 };
 const defaultOptions = {
@@ -39,7 +39,6 @@ const defaultOptions = {
     preserveAspectRatio: 'xMidYMid slice',
   },
 };
-export type ContentType = 'searching' | keyof typeof InquiryStatus;
 
 const Inquiry: React.FC<Props> = ({
   refetch,
@@ -103,7 +102,6 @@ const Inquiry: React.FC<Props> = ({
     ),
     IS_DRAFT: <ItemIsDraft data={draftData} {...draftComponentProps} />,
     EXISTS_IN_BAM: <ItemExistsInBAAM dispatch={dispatch} itemName={name} {...existsInBamComponentProps} />,
-    searching: <></>,
   };
   return (
     <S.ResponsiveModal

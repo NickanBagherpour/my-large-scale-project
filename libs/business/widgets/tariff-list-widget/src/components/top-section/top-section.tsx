@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { useBounce, useToggle } from '@oxygen/hooks';
-import { InquiryComponent } from '@oxygen/reusable-components';
 
 import { updateSearchValueAction, useAppDispatch } from '../../context';
 
 import * as S from './top-section.style';
+import ServiceFeeInquiry from '../service-fee-inquiry/service-fee-inquiry';
 
 type TopSectionPropsType = PageProps & {
   //
@@ -36,7 +36,7 @@ export const TopSection: React.FC<TopSectionPropsType> = (props) => {
           {t('add_tariff')}
         </S.Button>
       </S.ButtonContainer>
-      {isInquiryModalOpen && <InquiryComponent type='client' dispatch={dispatch} toggle={toggleInquiryModal} />}
+      {isInquiryModalOpen && <ServiceFeeInquiry dispatch={dispatch} toggle={toggleInquiryModal} />}
     </S.TopSectionContainer>
   );
 };

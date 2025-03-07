@@ -51,3 +51,5 @@ export { default as CallRateChart } from './components/dashboard-charts/call-rat
 export { default as LazyLottie } from './components/animation-loader/lazy-lottie';
 export { default as ServiceClientInquiry } from './components/inquiry/service-client-inquriy';
 export { default as TooltipWrapper } from './components/tooltip-wrapper/tooltip-wrapper';
+export { default as Inquiry } from './components/inquiry/inquiry';
+export { ContentType } from './components/inquiry/types';
