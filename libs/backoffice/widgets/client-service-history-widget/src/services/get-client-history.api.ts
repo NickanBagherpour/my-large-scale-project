@@ -17,6 +17,7 @@ export const useGetsClientHistoryDataQuery = (params: GetClientParamsType) => {
     params: {
       page,
       size,
+      sortBy: 'timestamp',
     },
   });
 };

@@ -1,22 +1,28 @@
-import { Box, Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Box, Button, ColumnsType, getTheme, Table } from '@oxygen/ui-kit';
 import type { Service } from '@oxygen/types';
-import Link from 'next/link';
 import { TFunction } from 'i18next';
-import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
-import { WithBadge } from '@oxygen/reusable-components';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { FEETYPE } from './consts';
+import { DefaultTheme } from 'styled-components';
+import { JSX } from 'react';
+
 type PropsType = {
   t: TFunction;
   toggleRemoveModal: () => void;
   setServiceToUnassign: (serviceName: string) => void;
+  router: AppRouterInstance;
+  theme: DefaultTheme;
 };
-export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
-  const { t, toggleRemoveModal, setServiceToUnassign } = props;
 
+export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
+  const { t, toggleRemoveModal, setServiceToUnassign, router, theme } = props;
+
+  const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
   return [
     {
       title: t('common.row_number'),
       align: 'center',
-
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -25,29 +31,62 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       },
     },
     {
-      title: t('service_name'),
+      title: t('service_persian_name'),
+      dataIndex: 'servicePersianName',
+      align: 'center',
+    },
+    {
+      title: t('service_english_name'),
       dataIndex: 'serviceName',
       align: 'center',
     },
     {
       title: t('banking_share'),
-      dataIndex: 'persianName',
+      dataIndex: 'bankingShare',
       align: 'center',
+      render: (value, record, index) => <>{`${getValueOrDash(value)}%`}</>,
     },
     {
       title: t('contribution_operational_team'),
-      dataIndex: 'scope',
+      dataIndex: 'operationShare',
       align: 'center',
+      render: (value, record, index) => <>{`${getValueOrDash(value)}%`}</>,
     },
     {
       title: t('tariff_type'),
-      dataIndex: 'url',
+      dataIndex: 'feeType',
       align: 'center',
-    },
-    {
-      title: t('tariff_amount'),
-      dataIndex: 'version',
-      align: 'center',
+      render: (value) => {
+        let icon;
+        let text;
+
+        switch (value) {
+          case FEETYPE.FIXED:
+            icon = <i className='icon-folder' style={{ fontSize: '2rem', color: theme.primary.main }} />;
+            text = t('fixed');
+            break;
+          case FEETYPE.STEP:
+            icon = <i className='icon-3square' style={{ fontSize: '2rem', color: theme.secondary.main }} />;
+            text = t('step');
+
+            break;
+          case FEETYPE.RANGE:
+            //TODO:add gold color to theme and then use it in here
+            icon = <i className='icon-star' style={{ fontSize: '2rem', color: theme.warning._500 }} />;
+            text = t(`range`);
+
+            break;
+          default:
+            text = '-';
+            break;
+        }
+        return (
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+            {icon}
+            <span>{text}</span>
+          </div>
+        );
+      },
     },
     {
       width: widthByButtonCount(2),
@@ -55,7 +94,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       align: 'left',
       render: (value, record) => (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button variant='link' color='primary' onClick={() => console.log('details', value.serviceName)}>
+          <Button variant='link' color='primary' onClick={() => handleClick(value.serviceName)}>
             {t('see_details')}
           </Button>
           <Button
@@ -73,32 +112,73 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
     },
   ];
 }
+export function getMobileColumns(props: PropsType): ColumnsType<Service> {
+  const { t, toggleRemoveModal, setServiceToUnassign, router, theme } = props;
 
-export function getMobileColumns(props: PropsType): ColumnsType<any> {
-  const { t, toggleRemoveModal, setServiceToUnassign } = props;
+  const handleClick = (serviceName: string) =>
+    router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
 
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render({ id, scopes, paths, serviceName, persianName, name }) {
+      render({
+        servicePersianName,
+        bankingShare,
+        serviceName,
+        operationShare,
+        feeType, // <--- Make sure to destructure feeType here
+      }) {
+        // Same icon/text logic
+        let icon;
+        let text = '-';
+
+        switch (feeType) {
+          case FEETYPE.FIXED:
+            icon = <i className='icon-folder' style={{ fontSize: '2rem', color: theme.primary.main }} />;
+            text = t('fixed');
+            break;
+          case FEETYPE.STEP:
+            icon = <i className='icon-3square' style={{ fontSize: '2rem', color: theme.secondary.main }} />;
+            text = t('step');
+            break;
+          case FEETYPE.RANGE:
+            icon = <i className='icon-star' style={{ fontSize: '2rem', color: theme.warning._500 }} />;
+            text = t('range');
+            break;
+        }
+
         const data = [
-          { title: t('service_name'), value: getValueOrDash(name) },
-          { title: t('banking_share'), value: getValueOrDash(persianName) },
-          { title: t('contribution_operational_team'), value: getValueOrDash(persianName) },
           {
-            title: t('tariff_type'),
-            value: getValueOrDash(persianName),
+            title: t('service_persian_name'),
+            value: getValueOrDash(servicePersianName),
           },
           {
-            title: t('tariff_amount'),
-            value: getValueOrDash(persianName),
+            title: t('service_english_name'),
+            value: getValueOrDash(serviceName),
+          },
+          {
+            title: t('banking_share'),
+            value: `${getValueOrDash(bankingShare)}%`,
+          },
+          {
+            title: t('contribution_operational_team'),
+            value: `${getValueOrDash(operationShare)}%`,
+          },
+          {
+            title: t('tariff_type'),
+            value: (
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+                {icon}
+                <span>{text}</span>
+              </div>
+            ),
           },
           {
             title: t('details'),
             value: (
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Button variant='link' color='primary' onClick={() => console.log('details', serviceName)}>
+                <Button variant='link' color='primary' onClick={() => handleClick(serviceName)}>
                   {t('see_details')}
                 </Button>
               </div>
@@ -107,23 +187,21 @@ export function getMobileColumns(props: PropsType): ColumnsType<any> {
           {
             title: t('remove'),
             value: (
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Button
-                  variant='link'
-                  color='error'
-                  onClick={() => {
-                    toggleRemoveModal();
-                    setServiceToUnassign(serviceName);
-                  }}
-                >
-                  <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
-                </Button>
-              </div>
+              <Button
+                variant='link'
+                color='error'
+                onClick={() => {
+                  toggleRemoveModal();
+                  setServiceToUnassign(serviceName);
+                }}
+              >
+                <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
+              </Button>
             ),
           },
         ];
 
-        return <Table.MobileColumns columns={data} minHeight={'44px'}></Table.MobileColumns>;
+        return <Table.MobileColumns columns={data} minHeight={'44px'} />;
       },
     },
   ];

@@ -7,11 +7,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url('./iconly.eot?1740899031319');
-  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1740899031319') format('woff2'),
-    url('./iconly.woff?1740899031319') format('woff'), url('./iconly.ttf?1740899031319') format('truetype'),
-    url('./iconly.svg?1740899031319#Iconly') format('svg');
-
+  src: url('./iconly.eot?1740923352208');
+  src: url('./iconly.eot?#iefix') format('embedded-opentype'), url('./iconly.woff2?1740923352208') format('woff2'),
+    url('./iconly.woff?1740923352208') format('woff'), url('./iconly.ttf?1740923352208') format('truetype'),
+    url('./iconly.svg?1740923352208#Iconly') format('svg');
 }
 
 [class='icon'],
@@ -304,7 +303,7 @@
   content: '\e044';
 }
 
-.icon-calendar-2:before {
+.icon-3dcube:before {
   content: '\e045';
 }
 
@@ -346,4 +345,8 @@
 
 .icon-word:before {
   content: '\e04f';
+}
+
+.icon-calendar-2:before {
+  content: '\e050';
 }

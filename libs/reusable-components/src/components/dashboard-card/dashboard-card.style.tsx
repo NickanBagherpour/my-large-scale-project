@@ -27,6 +27,9 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* ${respondTo.down('sm')} {
+    padding: 0 !important;
+  } */
   /* padding: 0.5rem 0rem !important; */
 `;
 export const Number = styled.span<{ $color?: keyof TextPalette }>`
@@ -49,7 +52,7 @@ export const ChildrenContainer = styled.div`
 export const LinkHeader = styled.div`
   width: 100%;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center;
   display: flex;
   padding: 0.5rem 0rem;
   ${respondTo.down('xl')} {

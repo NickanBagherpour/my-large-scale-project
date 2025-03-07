@@ -182,7 +182,7 @@ export default {
     days_ago: '{{time}} روز گذشته',
     hours_ago: '{{time}} ساعت گذشته',
     minutes_ago: '{{time}} دقیقه گذشته',
-    success_call: 'فراخوانی موفق {{element}}',
+    success_call: 'فراخوانی  {{element}}',
     please_wait: 'لطفا چند ثانیه صبر کنید',
     rows_count: 'تعداد سطرها:',
   },
@@ -268,6 +268,8 @@ export default {
     upload_item: 'بارگذاری {{element}} در اکسیژن',
     register_info: 'ثبت اطلاعات',
     add: 'افزودن',
+    view_changes_history: 'مشاهده تاریخچه تغییرات',
+    contact_support: 'تماس با پشتیبانی',
   },
 
   field: {

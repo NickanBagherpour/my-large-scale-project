@@ -3,7 +3,8 @@ export default {
   widget_Title: 'تنظیم تعرفه',
   search_placeholder: 'جستجو براساس نام انگلیسی سرویس',
   add_tariff: 'افزودن تعرفه',
-  service_name: 'نام سرویس',
+  service_persian_name: 'نام فارسی سرویس',
+  service_english_name: 'نام انگلیسی سرویس',
   banking_share: 'سهم بانکداری',
   contribution_operational_team: 'سهم تیم عملیاتی',
   tariff_type: 'نوع تعرفه',
@@ -17,4 +18,8 @@ export default {
   remove: 'حذف',
   error_notif: 'خطایی رخ داده است',
   details: 'جزئیات',
+  fixed: 'ثابت',
+  step: 'پله ای',
+  range: 'خاص',
+  success_message: 'سرویس با موفقیت حذف شد',
 };

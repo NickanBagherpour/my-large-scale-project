@@ -139,6 +139,9 @@
             "@oxygen/business/widgets/services-report-widget": [
                 "libs/business/widgets/services-report-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/tariff-details-widget": [
+                "libs/business/widgets/tariff-details-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/tariff-list-widget": [
                 "libs/business/widgets/tariff-list-widget/src/index.ts"
             ],

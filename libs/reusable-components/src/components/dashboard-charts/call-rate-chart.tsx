@@ -49,17 +49,17 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
     if (data) {
       return (
         <S.LegendContainer>
-          <Flex gap={15}>
+          <S.Date>
             <span>{data?.fromDate}</span>
             <span>{t('common.to')}</span>
             <span>{data?.toDate}</span>
-          </Flex>
+          </S.Date>
           <S.CallRate>
-            <span>
+            <span style={{ fontSize: '2rem' }}>
               <i className='icon-tick-circle-outlined' />
             </span>
-            <span>{data?.totalCount}</span>
-            <span>{t('uikit.success_call', { element: t('element.service') })}</span>
+            <S.TotalCount>{data?.totalCount}</S.TotalCount>
+            <S.Subtitle>{t('uikit.success_call', { element: t('element.service') })}</S.Subtitle>
           </S.CallRate>
         </S.LegendContainer>
       );

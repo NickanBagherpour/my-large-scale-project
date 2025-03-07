@@ -9,11 +9,11 @@ import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
 import { getValueOrDash, convertShamsiDateFormat } from '@oxygen/utils';
 
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { useGetServiceDocumentationHistory } from '../../services';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
+import { HistoryDifferenceObj } from '../../types';
 
 import * as S from './data-table.style';
-import { useGetServiceDocumentationHistory } from '../../services';
-import { HistoryDifferenceObj } from '../../types';
 
 const DataTable = () => {
   const {
@@ -44,7 +44,7 @@ const DataTable = () => {
       dataIndex: 'modifyDate',
       key: 'modifyDate',
       render: (column) => {
-        return convertShamsiDateFormat(column.value);
+        return convertShamsiDateFormat(column.value, true);
       },
     },
     {
@@ -69,8 +69,8 @@ const DataTable = () => {
       title: t('column.file-name'),
       dataIndex: 'serviceDocumentDto',
       key: 'serviceDocumentDto',
-      // ellipsis: true,
-      className: 'right-to-left',
+      ellipsis: true,
+      // className: 'right-to-left',
 
       render: (column) => {
         return getValueOrDash(column.fileName?.value);

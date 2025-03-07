@@ -4,12 +4,12 @@ import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { ParamsType } from '../types';
 import { useAppDispatch } from '../context';
 import Api from './api';
-const backofficeKey = RQKEYS.BACKOFFICE;
+const businesseKey = RQKEYS.BUSINESS;
 export const useGetClientReportQuery = (params: ParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [backofficeKey.SERVICE, backofficeKey.SERVICES_LIST.GET_LIST, params],
+    queryKey: [businesseKey.CLIENTS_REPORT, params],
     queryFn: withErrorHandling(() => Api.getClientReportList(params), dispatch),
     placeholderData: keepPreviousData,
   });

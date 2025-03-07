@@ -1,6 +1,6 @@
 'use client';
 
-import { Table as AntTable, TableProps as AntTableProps, ConfigProvider, TablePaginationConfig } from 'antd';
+import { Table as AntTable, TableProps as AntTableProps, ConfigProvider, TablePaginationConfig, Tooltip } from 'antd';
 import { ColumnsType as AntColumnsType } from 'antd/lib/table';
 import React from 'react';
 
@@ -15,6 +15,7 @@ import { MobileColumns } from './mobile-columns';
 import { ExpandButton } from '../button/expand-button';
 
 import * as S from './table.style';
+import { getValueOrDash } from '@oxygen/utils';
 
 export type ColumnsType<T> = AntColumnsType<T> & {
   //
@@ -76,7 +77,15 @@ export const Table = (props: TableProps) => {
   };
   const _showHeader = showHeader ?? (isMobileOrTablet ? false : true);
 
-  const _columns: ColumnsType<any> = [...(columns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
+  const editedColumns = (columns ?? []).map((column) => {
+    return {
+      align: column.align ?? 'center',
+      ellipsis: column.ellipsis ?? { showTitle: false },
+      ...column,
+    };
+  });
+
+  const _columns: ColumnsType<any> = [...(editedColumns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
 
   const _mcolumns: ColumnsType<any> = [...(mobileColumns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
   const _expandable = expandable
@@ -114,7 +123,9 @@ export const Table = (props: TableProps) => {
           // showSizeChanger:false,
           showTitle: false,
           simple: isMobileOrTablet,
-
+          ellipsis: {
+            showTitle: false,
+          },
           ...pagination,
         };
   const caption =
