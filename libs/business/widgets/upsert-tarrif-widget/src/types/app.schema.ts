@@ -1,16 +1,7 @@
 import z from 'zod';
 import { createValidationSchema } from '@oxygen/utils';
 import { TFunction } from 'i18next';
-import { GENERAL_INFO_NAMES, TIERED_TARIFF_NAMES, SPECIAL_TARIFF_NAMES, tariff, newTariff } from '../utils';
-
-/*
- *  {
- *    type: 'fixed' | 'tiered' | 'special',
- *    fixed: number | undefined,
- *    special: special | undefined,
- *    tiered: tiered | undefined,
- *  }
- * */
+import { GENERAL_INFO_NAMES, TIERED_TARIFF_NAMES, SPECIAL_TARIFF_NAMES, newTariff } from '../utils';
 
 // TODO: SHARE THE TYPES IN THIS
 export const createAppSchema = (t: TFunction) => {
@@ -26,7 +17,10 @@ export const createAppSchema = (t: TFunction) => {
     [GENERAL_INFO_NAMES.transactionTypeInElastic]: validationSchema.required,
 
     [newTariff.type]: validationSchema.required,
-    [newTariff.fixed]: validationSchema.required,
+    [newTariff.fixed]: z.number({
+      required_error: t('validation.required'),
+      invalid_type_error: t('validation.only_digit_message'),
+    }),
     [newTariff.special]: z
       .array(
         z.object(

@@ -159,7 +159,13 @@ const App = () => {
     <Container title={widgetTitle}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
 
-      <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
+      <Form
+        layout='vertical'
+        onFinish={onFinish}
+        form={form}
+        initialValues={initialValues}
+        onFinishFailed={(e) => console.log('>>> onFinishFailed', e)}
+      >
         <GeneralInfo rule={rule} />
         <ServiceTarrif rule={rule} form={form} />
       </Form>
