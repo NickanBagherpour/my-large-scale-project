@@ -7,7 +7,7 @@ import { ClientReportDto } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-services.util';
 import { useAppState, updateModalTablePagination } from '../../context';
 import { useAppTheme } from '@oxygen/hooks';
-
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { TablePaginationConfig } from 'antd';
 
 type Props = {
@@ -51,6 +51,8 @@ export default function ClientDetailsModal(props: Props) {
     { key: t('info.websiteUrl'), value: client.websiteUrl },
   ];
 
+  const hasPagination = service && service?.response?.length > AVAILABLE_ROWS_PER_PAGE[0];
+
   const mobileColumns = getMobileColumns({
     t,
     modalTablePagination,
@@ -86,15 +88,19 @@ export default function ClientDetailsModal(props: Props) {
             <S.Title>{t('element.service')}</S.Title>
             <Table
               loading={isFetching}
-              current={modalTablePagination.page}
-              total={service?.response.length}
               dataSource={service?.response}
               hasContainer={false}
-              pagination={{ pageSize: modalTablePagination.rowsPerPage }}
               columns={desktopColumns}
               mobileColumns={mobileColumns}
               rowKey={(row) => `${row.serviceName}-${row.serviceEnglishName}`}
-              onChange={handlePageChange}
+              {...(hasPagination
+                ? {
+                    pagination: { pageSize: modalTablePagination.rowsPerPage },
+                    onChange: handlePageChange,
+                    current: modalTablePagination.page,
+                    total: service?.response?.length,
+                  }
+                : { pagination: false })}
             />
           </div>
         </S.Container>

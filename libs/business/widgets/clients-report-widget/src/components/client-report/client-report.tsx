@@ -10,7 +10,7 @@ import { ClientReportDto } from '../../types';
 import { updatePagination, updateModalTablePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-report.util';
 
-import ClientDetailsModal from '../clients-details-modal/clients-details-modal';
+import ClientDetailsModal from '../client-details-modal/client-details-modal';
 import * as S from './client-report.style';
 
 type ClientReportsProps = PageProps & {
