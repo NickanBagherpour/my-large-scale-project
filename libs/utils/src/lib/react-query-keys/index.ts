@@ -43,6 +43,7 @@ import { KEYS as BUSINESS_DASHBOARD_KEYS } from './portals/business/business-das
 import { KEYS as REQUEST_DETAILS_KEYS } from './portals/business/request-details.key';
 import { KEYS as REQUEST_LIST_KEYS } from './portals/business/request-list.key';
 import { KEYS as BUSINESS_AUTH_KEYS } from './portals/business/business-auth.key';
+import { KEYS as CLIENTS_REPORT_KEYS } from './portals/business/clients-report.key';
 
 /*--import-customer--*/
 import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './portals/customer/customer-dashboard.key';
@@ -120,6 +121,7 @@ export const RQKEYS = {
     REQUEST_DETAILS: REQUEST_DETAILS_KEYS,
     REQUEST_LIST: REQUEST_LIST_KEYS,
     AUTH: BUSINESS_AUTH_KEYS,
+    CLIENTS_REPORT: CLIENTS_REPORT_KEYS,
   },
 
   CUSTOMER: {
