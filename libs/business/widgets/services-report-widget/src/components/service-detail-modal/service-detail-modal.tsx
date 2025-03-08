@@ -5,7 +5,7 @@ import { Button, InfoBox, Modal, type InfoBoxProps, Table } from '@oxygen/ui-kit
 import { useTr } from '@oxygen/translation';
 import { getValueOrDash } from '@oxygen/utils';
 
-import { getDesktopColumns, getMobileColumns } from '../../utils/cliens-list.util';
+import { getDesktopColumns, getMobileColumns } from '../../utils/clients-list.util';
 import { ServiceItemType } from '../../types';
 import { useGetServiceClients } from '../../services';
 
