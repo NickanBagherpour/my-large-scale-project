@@ -33,25 +33,33 @@ export const DatePicker = (props: DatePickerProps) => {
 
   const defaultValue = defaultValueStr ? dayjs(defaultValueStr) : null;
 
-  const handleDisableDate = (current) => {
-    if (disabledPast && current < dayjs().subtract(1, 'day').endOf('day')) {
+  const handleDisableDate = (current: dayjs.Dayjs) => {
+    const today = dayjs().endOf('day');
+
+    if (disabledPast && current.isBefore(today.subtract(1, 'day'))) {
       return true;
     }
-    if (disableFuture && current > dayjs().endOf('day')) {
+
+    if (disableFuture && current.isAfter(today)) {
       return true;
     }
+
     if (fromDate) {
-      const maxToDate = fromDate.add(1, 'month');
-      if (current.isAfter(maxToDate, 'day') || current.isBefore(fromDate, 'day')) {
+      const minDate = fromDate.startOf('day');
+      const maxDate = fromDate.add(1, 'month').endOf('day');
+      if (current.isBefore(minDate, 'day') || current.isAfter(maxDate, 'day')) {
         return true;
       }
     }
+
     if (toDate) {
-      const minFromDate = toDate.subtract(1, 'month');
-      if (current.isBefore(minFromDate, 'day') || current.isAfter(toDate, 'day')) {
+      const minFromDate = toDate.subtract(1, 'month').startOf('day');
+      const maxToDate = toDate.endOf('day');
+      if (current.isBefore(minFromDate, 'day') || current.isAfter(maxToDate, 'day')) {
         return true;
       }
     }
+
     return false;
   };
 
@@ -61,15 +69,15 @@ export const DatePicker = (props: DatePickerProps) => {
         format={dateFormat}
         defaultValue={defaultValue as any}
         disabledDate={handleDisableDate}
-        onChange={(date: Dayjs | null, dateString: string | string[]) => {
+        onChange={(date: Dayjs | null) => {
           if (setFromDate && date) {
             setFromDate(date);
-          }
-          if (setToDate) {
-            setToDate(null);
+            if (setToDate) {
+              setToDate(date.add(1, 'month'));
+            }
           }
         }}
-        {...rest} // Pass other props from AntDatePickerProps
+        {...rest}
       />
     </S.DatePickerContainer>
   );
