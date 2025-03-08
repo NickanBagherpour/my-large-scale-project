@@ -1,10 +1,8 @@
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-
 import type { Service } from '@oxygen/types';
 import { getValueOrDash } from '@oxygen/utils';
-import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 
 import { ADD_SERVER_MODAL_FORM_ITEM } from '../consts';
 
@@ -23,28 +21,24 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     {
       title: t('upstream_tab.table.range'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.DOMAIN],
-      align: 'center',
-      render: (value, record) => {
-        // return getValueOrDash(value);
-        return (
-          <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-            {getValueOrDash(value)}
-          </Tooltip>
-        );
+      render: (value) => {
+        return <Tooltip title={getValueOrDash(value)}>{getValueOrDash(value)}</Tooltip>;
       },
     },
     {
       title: t('upstream_tab.table.health_status'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.HEALTH],
-      align: 'center',
       render: (value, record) => {
-        return value ?? t('upstream_tab.healthy');
+        return <Tooltip title={value ?? t('upstream_tab.healthy')}>{value ?? t('upstream_tab.healthy')}</Tooltip>;
       },
     },
     {
       title: t('upstream_tab.table.weight'),
       dataIndex: [ADD_SERVER_MODAL_FORM_ITEM.WEIGHT],
       align: 'center',
+      render: (value) => {
+        return <Tooltip title={getValueOrDash(value)}>{value}</Tooltip>;
+      },
     },
   ];
 }
