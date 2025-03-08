@@ -65,7 +65,7 @@ export const ROUTES = {
     META_SERVICES_REPORT: '/meta/service',
     TARIFF_LIST: '/tariff-list',
     TARIFF_DETAILS: '/tariff-details',
-    UPSERT_TARIFF: '/upsert-tarrif',
+    UPSERT_TARIFF: '/upsert-tariff',
   },
 };
 
