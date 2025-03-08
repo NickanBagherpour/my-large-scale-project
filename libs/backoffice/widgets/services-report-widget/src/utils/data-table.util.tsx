@@ -5,7 +5,6 @@ import { Tooltip } from 'antd';
 
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
-import { WithBadge } from '@oxygen/reusable-components';
 import { ITheme, Pagination } from '@oxygen/types';
 
 import { ServiceDto } from '../types';
@@ -42,7 +41,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
     {
       title: t('table.service_name'),
       dataIndex: 'name',
-      key: 'name',
       align: 'center',
       render: (_val, record) => {
         return (
@@ -93,7 +91,11 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       align: 'center',
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
-        return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
+        return (
+          <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
+            <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>
+          </Tooltip>
+        );
       },
     },
     {
@@ -136,16 +138,22 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
           {
             title: t('table.service_name'),
             value: (
-              <MarkText
-                text={getValueOrDash(record?.name)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
-              />
+              <Tooltip placement='top' title={getValueOrDash(record?.name)} arrow={true}>
+                <MarkText
+                  text={getValueOrDash(record?.name)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
             ),
           },
           {
             title: t('table.persian_name'),
-            value: getValueOrDash(value?.persianName),
+            value: (
+              <Tooltip placement='top' title={getValueOrDash(value?.persianName)} arrow={true}>
+                {getValueOrDash(value?.persianName)}
+              </Tooltip>
+            ),
           },
           // {
           //   title: t('table.scope'),
