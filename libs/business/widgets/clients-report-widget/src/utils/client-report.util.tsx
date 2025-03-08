@@ -41,7 +41,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientEnName',
       align: 'center',
       render: (clientEnName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientEnName)} arrow={true}>
+        <Tooltip placement="top" title={getValueOrDash(clientEnName)} arrow={true}>
           <S.Name
             text={getValueOrDash(clientEnName)}
             highlightColor={highlightColor}
@@ -56,7 +56,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientPersianName',
       align: 'center',
       render: (clientPersianName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientPersianName)} arrow={true}>
+        <Tooltip placement="top" title={getValueOrDash(clientPersianName)} arrow={true}>
           {getValueOrDash(clientPersianName)}
         </Tooltip>
       ),
@@ -68,8 +68,10 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'left',
       width: widthByButtonCount(2.5),
       render: (clientEnName, record) => (
-        <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
-          <S.Details variant={'link'} size={'small'} disabled>
+        <Box gap="1.6rem" display={'flex'} alignItems={'center'} justifyContent={'end'}>
+          <S.Details variant={'link'} size={'small'}
+                     href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
+          >
             {t('services_report')}
           </S.Details>
           <S.Details variant={'link'} onClick={() => addClientDetailsToView(record)} size={'small'}>
@@ -82,7 +84,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 }
 
 export function getMobileColumns(props: Props): any {
-  const { t, theme, wordToHighlight } = props;
+  const { t, theme, wordToHighlight, addClientDetailsToView } = props;
   const highlightColor = theme.secondary.main;
   return [
     {
@@ -110,14 +112,13 @@ export function getMobileColumns(props: Props): any {
               <Box display={'flex'} alignItems={'center'}>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientEnName ?? ''}`}
-                  disabled
+                  href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
                 >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientEnName ?? ''}`}
+                  onClick={() => addClientDetailsToView(record)}
                 >
                   {t('details')}
                 </S.Details>

@@ -1,5 +1,4 @@
-import { FormFieldsType } from '../types';
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, MODAL_INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 // const initialFilters: FormFieldsType = {
@@ -18,7 +17,7 @@ export const initialStateValue: WidgetStateType = {
       page: INITIAL_PAGE,
     },
     modalTablePagination: {
-      rowsPerPage: INITIAL_ROW_PER_PAGE,
+      rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },

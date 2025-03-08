@@ -29,7 +29,6 @@ export default function ClientDetailsModal(props: Props) {
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
-
     if (pageSize && current) {
       const updatedPagination = {
         page: pageSize === modalTablePagination.rowsPerPage ? current : 1,
@@ -69,7 +68,7 @@ export default function ClientDetailsModal(props: Props) {
       width={1000}
       headerDivider
       footer={[
-        <Button key='close' size='large' color='primary' variant='outlined' onClick={close}>
+        <Button key="close" size="large" color="primary" variant="outlined" onClick={close}>
           {t('common.close')}
         </Button>,
       ]}
@@ -86,11 +85,16 @@ export default function ClientDetailsModal(props: Props) {
             <S.Title>{t('element.service')}</S.Title>
             <Table
               loading={isFetching}
+              minHeight={'auto'}
               current={modalTablePagination.page}
               total={service?.response.length}
               dataSource={service?.response}
               hasContainer={false}
-              pagination={{ pageSize: modalTablePagination.rowsPerPage }}
+              pagination={{
+                pageSize: modalTablePagination.rowsPerPage,
+                showSizeChanger: false,
+                hideOnSinglePage: true,
+              }}
               columns={desktopColumns}
               mobileColumns={mobileColumns}
               rowKey={(row) => `${row.serviceName}-${row.serviceEnglishName}`}
