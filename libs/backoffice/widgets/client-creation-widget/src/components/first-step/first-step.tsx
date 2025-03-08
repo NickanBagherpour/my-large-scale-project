@@ -50,7 +50,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const router = useRouter();
   const [form] = Form.useForm();
-  const rule = createSchemaFieldRule(createFormSchema(t));
   //Constants
   const clientName = state.firstStep.clientEnglishName;
   const clientStatus = state.clientStatus;
@@ -68,6 +67,10 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [searchValue, setSearchValue] = useState({
     orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
   });
+  const [isAuthorizationFlowSelected, setIsAuthorizationFlowSelected] = useState(false);
+  //Validations
+  const rule = createSchemaFieldRule(createFormSchema(t, isAuthorizationFlowSelected));
+
   //Mutatuions
   const { mutate: submitClient, isPending: submitClientLoading, isSuccess } = usePostSubmitClient();
   //Queries
@@ -79,8 +82,14 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
   } = useGetOrganizationInfoQuery(searchValue);
+  //UseEffects
+  useEffect(() => {
+    const isSelected = selectedGrantTypes.some(
+      (grantType: { key: string; label: string }) => grantType.key === 'AuthorizationFlow'
+    );
+    setIsAuthorizationFlowSelected(isSelected);
+  }, [selectedGrantTypes]);
 
-  //Effects
   useEffect(() => {
     clientRefetch();
     if (clientData) {
@@ -140,6 +149,9 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const onGrantTypeClose = (item) => {
     const updatedGrantTypes = selectedGrantTypes.filter((grantType: any) => grantType.key !== item);
     setSelectedGrantTypes(updatedGrantTypes);
+    // if (item === 'AuthorizationFlow') {
+    //   setIsAuthorizationFlowSelected(false);
+    // }
     form.setFieldsValue({
       [FORM_ITEM.GRANT_TYPE]: updatedGrantTypes,
     });
@@ -278,6 +290,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 onGrantTypeClose={onGrantTypeClose}
                 onGrantTypeChange={onGrantTypeChange}
                 selectedGrantTypes={selectedGrantTypes}
+                isAuthorizationFlowSelected={isAuthorizationFlowSelected}
               />
             </S.Card>
           </Form>
