@@ -1,4 +1,4 @@
-import { Box, Button, ColumnsType, getTheme, Table } from '@oxygen/ui-kit';
+import { Box, Button, ColumnsType, getTheme, Table, Tooltip } from '@oxygen/ui-kit';
 import type { Service } from '@oxygen/types';
 import { TFunction } from 'i18next';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
@@ -13,12 +13,15 @@ type PropsType = {
   setServiceToUnassign: (serviceName: string) => void;
   router: AppRouterInstance;
   theme: DefaultTheme;
+  page: number;
+  limit: number;
 };
 
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
-  const { t, toggleRemoveModal, setServiceToUnassign, router, theme } = props;
+  const { t, toggleRemoveModal, setServiceToUnassign, router, theme, page, limit } = props;
 
   const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
+
   return [
     {
       title: t('common.row_number'),
@@ -26,7 +29,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
-        const start = 1;
+        const start = 1 + (page - 1) * limit;
         return start + index;
       },
     },
@@ -34,23 +37,45 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       title: t('service_persian_name'),
       dataIndex: 'servicePersianName',
       align: 'center',
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
       title: t('service_english_name'),
       dataIndex: 'serviceName',
       align: 'center',
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)}>
+          {getValueOrDash(value)}
+        </Tooltip>
+      ),
     },
     {
-      title: t('banking_share'),
+      title: (
+        <Tooltip placement='top' title={getValueOrDash(t('banking_share'))}>
+          {t('banking_share')}
+        </Tooltip>
+      ),
       dataIndex: 'bankingShare',
       align: 'center',
-      render: (value, record, index) => <>{`${getValueOrDash(value)}%`}</>,
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)}>
+          {`${getValueOrDash(value)}%`}
+        </Tooltip>
+      ),
     },
     {
       title: t('contribution_operational_team'),
       dataIndex: 'operationShare',
       align: 'center',
-      render: (value, record, index) => <>{`${getValueOrDash(value)}%`}</>,
+      render: (value) => (
+        <Tooltip placement='top' title={getValueOrDash(value)}>
+          {`${getValueOrDash(value)}%`}
+        </Tooltip>
+      ),
     },
     {
       title: t('tariff_type'),
@@ -71,7 +96,6 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
 
             break;
           case FEETYPE.RANGE:
-            //TODO:add gold color to theme and then use it in here
             icon = <i className='icon-star' style={{ fontSize: '2rem', color: theme.warning._500 }} />;
             text = t(`range`);
 
@@ -81,7 +105,15 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
             break;
         }
         return (
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '1rem',
+              justifyContent: 'center',
+            }}
+          >
             {icon}
             <span>{text}</span>
           </div>
@@ -89,12 +121,18 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       },
     },
     {
-      width: widthByButtonCount(2),
+      width: '20rem',
       key: '',
       align: 'left',
+      ellipsis: false,
       render: (value, record) => (
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <Button variant='link' color='primary' onClick={() => handleClick(value.serviceName)}>
+        <Box display='flex' alignItems='center' justifyContent='end'>
+          <Button
+            style={{ padding: '0' }}
+            variant='link'
+            color='primary'
+            onClick={() => handleClick(value.serviceName)}
+          >
             {t('see_details')}
           </Button>
           <Button
@@ -107,7 +145,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
           >
             <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
           </Button>
-        </div>
+        </Box>
       ),
     },
   ];
@@ -175,28 +213,24 @@ export function getMobileColumns(props: PropsType): ColumnsType<Service> {
             ),
           },
           {
-            title: t('details'),
+            title: '',
+            colon: false,
             value: (
               <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <Button variant='link' color='primary' onClick={() => handleClick(serviceName)}>
                   {t('see_details')}
                 </Button>
+                <Button
+                  variant='link'
+                  color='error'
+                  onClick={() => {
+                    toggleRemoveModal();
+                    setServiceToUnassign(serviceName);
+                  }}
+                >
+                  <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
+                </Button>
               </div>
-            ),
-          },
-          {
-            title: t('remove'),
-            value: (
-              <Button
-                variant='link'
-                color='error'
-                onClick={() => {
-                  toggleRemoveModal();
-                  setServiceToUnassign(serviceName);
-                }}
-              >
-                <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
-              </Button>
             ),
           },
         ];
