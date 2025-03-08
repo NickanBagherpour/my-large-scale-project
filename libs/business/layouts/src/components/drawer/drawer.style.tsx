@@ -77,6 +77,11 @@ export const MenuWrapper = styled.div`
       font-size: 1.6rem;
     }
 
+    li.ant-menu-item i.size-small,
+    div[role='menuitem'] i.size-small {
+      font-size: 1.2rem;
+    }
+
     .ant-menu-title-content {
       font-size: 1.4rem;
       font-weight: 500;
@@ -102,6 +107,10 @@ export const MenuWrapper = styled.div`
     //li.ant-menu-submenu:hover {
     //  background-color: blue !important;
     //}
+  }
+
+  .ant-menu {
+    background: inherit;
   }
 
   .menu-spin-container {

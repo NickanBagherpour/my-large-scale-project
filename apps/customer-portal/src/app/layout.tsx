@@ -5,6 +5,7 @@ import { iransans } from '@oxygen/ui-kit';
 
 import { StyledComponentsRegistry } from './registry';
 import { getInitialConfig } from '@oxygen/utils';
+import '@ant-design/v5-patch-for-react-19';
 
 export const metadata = {
   title: 'Oxygen Pro',
