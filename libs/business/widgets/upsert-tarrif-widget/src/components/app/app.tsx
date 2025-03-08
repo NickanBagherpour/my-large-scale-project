@@ -65,6 +65,8 @@ const App = () => {
       opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
       fieldNameInElastic: fieldName,
       transactionTypeInElastic: type,
+      [TARIFF.tiered]: emptyTieredTariff,
+      [TARIFF.special]: emptySpecialTariff,
     };
 
     if (feeTypeMapReverse[feeType] === 'fixed') {
@@ -163,6 +165,8 @@ const App = () => {
     if (feeData) updateTarrif(params);
     else createTariff(params);
   };
+
+  console.log('>>> initialValues are', initialValues);
 
   if (isPendingFeeData) return <Loading spinning />;
 
