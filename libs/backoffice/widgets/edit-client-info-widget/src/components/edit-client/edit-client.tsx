@@ -64,6 +64,16 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     const isSelected = selectedGrantTypes.some(
       (grantType: { key: string; label: string }) => grantType.key === GrantValue[2].key
     );
+
+    if (!isSelected) {
+      form.setFields([
+        {
+          name: FORM_ITEM_NAMES.returnAddress,
+          errors: [],
+        },
+      ]);
+    }
+
     setIsAuthorizationFlowSelected(isSelected);
   }, [selectedGrantTypes]);
 

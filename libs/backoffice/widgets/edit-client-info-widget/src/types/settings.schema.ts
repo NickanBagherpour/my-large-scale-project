@@ -12,6 +12,7 @@ export const createFormSchema = (t: TFunction, IsAuthorizationFlowSelected) => {
     [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalUrl,
     [FORM_ITEM_NAMES.inputAddress]: validationSchema.optionalUrl,
     [FORM_ITEM_NAMES.returnAddress]: IsAuthorizationFlowSelected ? validationSchema.url : validationSchema.optionalUrl,
+    [FORM_ITEM_NAMES.grantType]: validationSchema.objectMultipleSelection,
   });
 };
 
