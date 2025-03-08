@@ -3,16 +3,17 @@ import { TFunction } from 'i18next';
 
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
-import { ITheme, Pagination } from '@oxygen/types';
+import { Pagination } from '@oxygen/types';
 
 import { ServiceItemType } from '../types';
 
 import * as S from '../components/data-table/data-table.style';
+import { DefaultTheme } from 'styled-components';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
-  theme: ITheme;
+  theme: DefaultTheme;
   wordToHighlight: string;
   setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
   setServiceName: (value: ((prevState: string) => string) | string) => void;
@@ -66,7 +67,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
     },
     {
       title: t('table.status'),
-      dataIndex: 'isActive',
+      dataIndex: 'status',
       align: 'center',
       ellipsis: true,
       render: (_val, record) => {
@@ -155,7 +156,6 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
                 <Button
                   variant={'link'}
                   size={'small'}
-                  // href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
                   onClick={() => {
                     setOpenModal(true);
                     setServiceName(record?.serviceName);

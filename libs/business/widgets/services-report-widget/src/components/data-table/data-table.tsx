@@ -15,7 +15,7 @@ import * as S from './data-table.style';
 
 type DataTableProps = PageProps & {
   isLoading: boolean;
-  data: ServicesReportResponseType;
+  data: ServicesReportResponseType['response'];
   wordToHighlight: string;
 };
 

@@ -1,25 +1,32 @@
-import { type Dispatch } from 'react';
+import { type Dispatch, useState } from 'react';
+import { TablePaginationConfig } from 'antd';
 
-import { Button, Chip, InfoBox, Loading, Modal, type InfoBoxProps } from '@oxygen/ui-kit';
+import { Button, InfoBox, Modal, type InfoBoxProps, Table } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { getValueOrDash } from '@oxygen/utils';
 
+import { getDesktopColumns, getMobileColumns } from '../../utils/cliens-list.util';
+import { ServiceItemType } from '../../types';
 import { useGetServiceClients } from '../../services';
 
 import * as S from './service-detail-modal.style';
-import { ServicesReportResponseType } from '../../types';
 
 type Props = {
   isOpen: boolean;
   close: () => void;
   serviceName: string;
   dispatch: Dispatch<any>;
-  data: ServicesReportResponseType['content'];
+  data: ServiceItemType[];
 };
 
 export default function DetailsModal(props: Props) {
   const { isOpen, close, serviceName, dispatch, data } = props;
   const [t] = useTr();
+
+  const [pagination, setPagination] = useState<{ page: number; rowsPerPage: number }>({
+    page: 0,
+    rowsPerPage: 5,
+  });
 
   const { data: clients, isFetching } = useGetServiceClients(serviceName, dispatch);
 
@@ -28,15 +35,30 @@ export default function DetailsModal(props: Props) {
   let generalData: InfoBoxProps['data'] = [];
 
   if (serviceInfo) {
-    const { category, isActive, owner, serviceName, servicePersianName } = serviceInfo;
+    const { serviceName, servicePersianName, isActive, category, owner } = serviceInfo;
 
     generalData = [
-      { key: t('common.english_name'), value: getValueOrDash(serviceName) },
-      { key: t('common.persian_name'), value: getValueOrDash(servicePersianName) },
-      { key: t('uikit.category'), value: getValueOrDash(category) },
-      { key: t('uikit.owner'), value: getValueOrDash(owner) },
+      { key: t('table.service_name'), value: getValueOrDash(serviceName) },
+      { key: t('table.persian_name'), value: getValueOrDash(servicePersianName) },
+      { key: t('table.category'), value: getValueOrDash(category) },
+      { key: t('table.owner'), value: getValueOrDash(owner) },
     ];
   }
+
+  const handlePageChange = async (currentPagination: TablePaginationConfig) => {
+    const { pageSize, current } = currentPagination;
+    if (pageSize && current) {
+      setPagination({
+        page: pageSize === pagination.rowsPerPage ? current - 1 : 0,
+        rowsPerPage: pageSize,
+      });
+    }
+  };
+
+  const hasPagination = clients && clients?.response?.length > 5;
+
+  const desktopColumns = getDesktopColumns({ t, pagination });
+  const mobileColumns = getMobileColumns({ t, pagination });
 
   return (
     <Modal
@@ -57,8 +79,25 @@ export default function DetailsModal(props: Props) {
           <S.Title>{t('uikit.general_info')}</S.Title>
           <InfoBox margin={0} data={generalData} />
         </div>
+        <div>
+          <S.Title>{t('table.client')}</S.Title>
+          <Table
+            loading={isFetching}
+            dataSource={clients?.response}
+            columns={desktopColumns}
+            mobileColumns={mobileColumns}
+            rowKey={(row) => row?.clientName}
+            {...(hasPagination
+              ? {
+                  pagination: { pageSize: pagination.rowsPerPage },
+                  onChange: handlePageChange,
+                  current: pagination.page + 1,
+                  total: clients?.response?.length,
+                }
+              : { pagination: false })}
+          />
+        </div>
       </S.Container>
-      {isFetching ? <Loading /> : <span>fdgfdg</span>}
     </Modal>
   );
 }

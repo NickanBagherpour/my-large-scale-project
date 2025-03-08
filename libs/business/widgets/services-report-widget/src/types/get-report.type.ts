@@ -1,24 +1,6 @@
 import { PaginationType } from '../context/types';
 import { Nullable } from '@oxygen/types';
 
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
-
-export type OperationStatusType = {
-  title: string;
-  code: string;
-};
-
-export type PaginationResultType = {
-  pageNumber: number;
-  pageSize: number;
-  totalNumberOfEntries: number;
-};
-
 export type FetchParamsType = {
   page: PaginationType['page'];
   size: PaginationType['rowsPerPage'];
@@ -27,63 +9,32 @@ export type FetchParamsType = {
   isActive: Nullable<boolean>;
 };
 
-export type ReportResponseType = {
+export type ServicesReportResponseType = {
   error: ErrorInfo;
-  response: ServicesReportResponseType;
-  additionalProperties: Record<string, unknown>;
+  response: {
+    content: ServiceItemType[];
+    page: PageInfo;
+  };
 };
 
-type ErrorInfo = {
+export type ErrorInfo = {
   code: string;
   message: string;
   timestamp: string;
-  domain: string;
-  errors: ErrorDetail[];
+  domain: Nullable<string>;
+  errors: any | null;
 };
-
-type ErrorDetail = {
-  name: string;
-  summary: string;
-  detail: string;
-};
-
-export type ServicesReportResponseType = {
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  first: boolean;
-  numberOfElements: number;
-  pageable: Pageable;
-  size: number;
-  content: ServiceItemType[];
-  number: number;
-  sort: SortOption[];
-  empty: boolean;
-};
-
-export type Pageable = {
-  unpaged: boolean;
-  paged: boolean;
-  pageNumber: number;
-  pageSize: number;
-  offset: number;
-  sort: SortOption[];
-};
-
-export type SortOption = {
-  direction: string;
-  nullHandling: string;
-  ascending: boolean;
-  property: string;
-  ignoreCase: boolean;
-};
-
 export type ServiceItemType = {
-  id: string;
-  datetime: string;
-  serviceId: string;
   serviceName: string;
-  consumerUsername: string;
-  appName: string;
-  status: string;
+  servicePersianName: string;
+  isActive: boolean;
+  category: string;
+  owner: string;
+};
+
+export type PageInfo = {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
 };
