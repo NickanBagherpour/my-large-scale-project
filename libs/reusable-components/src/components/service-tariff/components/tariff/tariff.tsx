@@ -47,7 +47,7 @@ export default function Tarrif(props: TariffProps) {
         <S.Label key={key} $checked={value === item} $type={value}>
           <S.Icon $type={item} className={icons[value]} />
           <S.Txt>{titles[item]}</S.Txt>
-          <Radio checked={value === item} value={value} onChange={(e) => onChange?.(e.target.value)} />
+          <Radio checked={value === item} value={item} onChange={(e) => onChange?.(e.target.value)} />
         </S.Label>
       ))}
     </S.RadioRow>
