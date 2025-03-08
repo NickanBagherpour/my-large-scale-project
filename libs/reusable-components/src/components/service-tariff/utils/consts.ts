@@ -1,12 +1,5 @@
 export const tariffTypes = ['fixed', 'tiered', 'special'] as const;
 
-// TODO: MOVE THIS TO THEME
-export const gold = {
-  bg: '#FFFBEB',
-  dark: '#D97706',
-  normal: '#F59E0B',
-};
-
 export const SPECIAL_TARIFF_NAMES = {
   from: 'from',
   to: 'to',

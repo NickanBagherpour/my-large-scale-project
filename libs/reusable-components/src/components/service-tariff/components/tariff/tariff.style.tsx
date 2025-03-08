@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { gold } from '../../utils';
 import { TariffType } from '../../type';
 
 export const RadioRow = styled.div`
@@ -46,7 +45,7 @@ export const Badge = styled.div<{ $type: TariffType | null | undefined }>`
       case 'tiered':
         return theme.primary._50;
       case 'special':
-        return gold.bg;
+        return p.theme.warning._50;
     }
   }};
 `;
@@ -95,12 +94,12 @@ export const Label = styled.label<{ $checked: boolean; $type: TariffType | null 
 
       case 'special': {
         return css`
-          border: 1px solid ${gold.dark};
-          background: ${gold.bg};
+          border: 1px solid ${p.theme.warning.main};
+          background: ${p.theme.warning._50};
 
           .ant-radio-inner {
-            border-color: ${gold.dark};
-            background-color: ${gold.dark};
+            border-color: ${p.theme.warning.main};
+            background-color: ${p.theme.warning.main};
           }
         `;
       }
@@ -112,7 +111,7 @@ export const Icon = styled.i<{ $type: TariffType | null | undefined }>`
   font-size: 2.4rem;
   color: ${(p) => {
     const {
-      theme: { primary, secondary },
+      theme: { primary, secondary, warning },
       $type,
     } = p;
 
@@ -122,7 +121,7 @@ export const Icon = styled.i<{ $type: TariffType | null | undefined }>`
       case 'tiered':
         return secondary.main;
       case 'special':
-        return gold.normal; /* TODO: USE  A THEME COLOR FOR THIS */
+        return warning._500;
     }
   }};
 `;

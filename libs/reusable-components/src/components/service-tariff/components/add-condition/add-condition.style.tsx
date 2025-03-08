@@ -1,6 +1,5 @@
 import { Button as UikitButton } from '@oxygen/ui-kit';
 import styled, { css } from 'styled-components';
-import { gold } from '../../utils';
 import { TariffType } from '../../type';
 
 export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
@@ -26,8 +25,8 @@ export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
       `;
     } else {
       return css`
-        color: ${gold.dark} !important;
-        border: ${() => `1px dashed ${gold.dark}`};
+        color: ${p.theme.warning.main} !important;
+        border: ${() => `1px dashed ${p.theme.warning.main}`};
       `;
     }
   }}
