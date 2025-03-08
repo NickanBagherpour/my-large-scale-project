@@ -82,8 +82,8 @@ const App = () => {
         [TARIFF.tiered]:
           feeSteps.map(({ fee, fromRate, toRate }) => ({
             tariff: fee,
-            from: fromRate + '',
-            to: toRate + '',
+            from: fromRate,
+            to: toRate,
           })) ?? emptyTieredTariff,
       };
     } else {
@@ -96,7 +96,7 @@ const App = () => {
             from: fromRate,
             maximum: max,
             minimum: min,
-            percent: percent + '',
+            percent: percent,
           })) ?? emptySpecialTariff,
       };
     }
@@ -165,8 +165,6 @@ const App = () => {
     if (feeData) updateTarrif(params);
     else createTariff(params);
   };
-
-  console.log('>>> initialValues are', initialValues);
 
   if (isPendingFeeData) return <Loading spinning />;
 

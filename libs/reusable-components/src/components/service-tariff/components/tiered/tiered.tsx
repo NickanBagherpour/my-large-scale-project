@@ -17,6 +17,12 @@ export default function Tiered(props: Props) {
   const [t] = useTr();
   const disabled = use(DisabledContext);
 
+  const emptyCondition = {
+    [TIERED_TARIFF_NAMES.from]: null,
+    [TIERED_TARIFF_NAMES.to]: null,
+    [TIERED_TARIFF_NAMES.tariff]: null,
+  };
+
   return (
     <Form.Item name={[TARIFF.tiered]} rules={[rule]}>
       <Form.List name={[TARIFF.tiered]}>
@@ -46,22 +52,18 @@ export default function Tiered(props: Props) {
 
                   <span>{t('reusable.calculated_in_irr')}</span>
 
-                  <S.TrashBtn disabled={disabled} variant='link' color='error' onClick={() => remove(child.name)}>
+                  <S.TrashBtn
+                    disabled={disabled || childrenFields.length === 1}
+                    variant='link'
+                    color='error'
+                    onClick={() => remove(child.name)}
+                  >
                     <i className='icon-trash' />
                   </S.TrashBtn>
                 </S.Article>
               ))}
 
-              <AddCondition
-                tariffType='tiered'
-                onClick={() =>
-                  add({
-                    [TIERED_TARIFF_NAMES.from]: null,
-                    [TIERED_TARIFF_NAMES.to]: null,
-                    [TIERED_TARIFF_NAMES.tariff]: null,
-                  })
-                }
-              />
+              <AddCondition tariffType='tiered' onClick={() => add(emptyCondition)} />
             </S.Container>
           );
         }}

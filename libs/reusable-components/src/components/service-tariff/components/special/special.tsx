@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
-import { Form } from 'antd';
+import { Form, InputNumber } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { SPECIAL_TARIFF_NAMES, TARIFF } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
@@ -16,6 +16,14 @@ export default function Special(props: Props) {
   const { rule } = props;
   const [t] = useTr();
   const disabled = use(DisabledContext);
+
+  const emptyCondition = {
+    [SPECIAL_TARIFF_NAMES.to]: null,
+    [SPECIAL_TARIFF_NAMES.from]: null,
+    [SPECIAL_TARIFF_NAMES.percent]: null,
+    [SPECIAL_TARIFF_NAMES.minimum]: null,
+    [SPECIAL_TARIFF_NAMES.maximum]: null,
+  };
 
   return (
     <Form.Item name={[TARIFF.special]} rules={[rule]}>
@@ -39,7 +47,7 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={[rule]}>
-                    <Input placeholder={t('reusable.percent')} />
+                    <InputNumber placeholder={t('reusable.percent')} />
                   </Form.Item>
 
                   <span>{t('reusable.tariff_percent_min')}</span>
@@ -54,24 +62,18 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.calculated')}</span>
 
-                  <S.TrashBtn disabled={disabled} variant='link' color='error' onClick={() => remove(child.name)}>
+                  <S.TrashBtn
+                    disabled={disabled || childrenFields.length === 1}
+                    variant='link'
+                    color='error'
+                    onClick={() => remove(child.name)}
+                  >
                     <i className='icon-trash' />
                   </S.TrashBtn>
                 </S.Article>
               ))}
 
-              <AddCondition
-                tariffType='special'
-                onClick={() =>
-                  add({
-                    [SPECIAL_TARIFF_NAMES.to]: null,
-                    [SPECIAL_TARIFF_NAMES.from]: null,
-                    [SPECIAL_TARIFF_NAMES.percent]: null,
-                    [SPECIAL_TARIFF_NAMES.minimum]: null,
-                    [SPECIAL_TARIFF_NAMES.maximum]: null,
-                  })
-                }
-              />
+              <AddCondition tariffType='special' onClick={() => add(emptyCondition)} />
             </S.Container>
           );
         }}

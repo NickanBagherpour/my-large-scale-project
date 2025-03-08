@@ -44,7 +44,10 @@ export const createAppSchema = (t: TFunction) => {
               required_error: t('validation.required'),
               invalid_type_error: t('validation.only_digit_message'),
             }),
-            [SPECIAL_TARIFF_NAMES.percent]: validationSchema.required,
+            [SPECIAL_TARIFF_NAMES.percent]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
           },
           { message: t('validation.required') }
         )
@@ -55,8 +58,14 @@ export const createAppSchema = (t: TFunction) => {
       .array(
         z.object(
           {
-            [TIERED_TARIFF_NAMES.from]: validationSchema.required,
-            [TIERED_TARIFF_NAMES.to]: validationSchema.required,
+            [TIERED_TARIFF_NAMES.from]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
+            [TIERED_TARIFF_NAMES.to]: z.number({
+              required_error: t('validation.required'),
+              invalid_type_error: t('validation.only_digit_message'),
+            }),
             [TIERED_TARIFF_NAMES.tariff]: z.number({
               required_error: t('validation.required'),
               invalid_type_error: t('validation.only_digit_message'),
