@@ -11,13 +11,3 @@ export const Title = styled.h2`
   font-weight: 600;
   margin: 3.4rem 0 2.4rem;
 `;
-
-export const TariffType = styled.div`
-  display: flex;
-  gap: 2.4rem;
-  flex-wrap: wrap;
-`;
-
-export const Type = styled.h3`
-  color: ${(p) => p.theme.text.primary};
-`;

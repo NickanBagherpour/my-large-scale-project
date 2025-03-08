@@ -12,10 +12,10 @@ export default function FixedTariff(props: Props) {
   const { rule } = props;
   const [t] = useTr();
   return (
-    <S.FormItem name={[TARIFF.fixed]} colon label={t('tariff_amount_irr')} rules={[rule]}>
+    <S.FormItem name={[TARIFF.fixed]} colon label={t('reusable.tariff_amount_irr')} rules={[rule]}>
       <Input.Money
         changeOnBlur={false}
-        placeholder={t('enter_amount')}
+        placeholder={t('reusable.enter_amount')}
         showLetter={false}
         formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '')}
         parser={(value) => value?.replace(/,/g, '') as unknown as number}

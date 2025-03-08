@@ -52,4 +52,8 @@ export const TrashBtn = styled(UikitButton)`
     font-size: 1.8rem;
     margin-inline-start: auto;
   }
+
+  &:disabled {
+    display: none;
+  }
 ` as typeof UikitButton;

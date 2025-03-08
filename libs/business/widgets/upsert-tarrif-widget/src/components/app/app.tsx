@@ -70,14 +70,14 @@ const App = () => {
     if (feeTypeMapReverse[feeType] === 'fixed') {
       initialValues = {
         ...initialValues,
-        type: 'fixed',
-        fixed: fee,
+        [TARIFF.type]: 'fixed',
+        [TARIFF.fixed]: fee,
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
       initialValues = {
         ...initialValues,
-        type: 'tiered',
-        tiered:
+        [TARIFF.type]: 'tiered',
+        [TARIFF.tiered]:
           feeSteps.map(({ fee, fromRate, toRate }) => ({
             tariff: fee,
             from: fromRate + '',
@@ -87,8 +87,8 @@ const App = () => {
     } else {
       initialValues = {
         ...initialValues,
-        type: 'special',
-        special:
+        [TARIFF.type]: 'special',
+        [TARIFF.special]:
           transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
             to: toRate,
             from: fromRate,
@@ -170,15 +170,9 @@ const App = () => {
     <Container title={widgetTitle}>
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
 
-      <Form
-        layout='vertical'
-        onFinish={onFinish}
-        form={form}
-        initialValues={initialValues}
-        onFinishFailed={(e) => console.log('>>> onFinishFailed', e)}
-      >
+      <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
-        <ServiceTariff rule={rule} form={form} />
+        <ServiceTariff rule={rule} form={form} type='upsert' />
       </Form>
 
       <S.Footer

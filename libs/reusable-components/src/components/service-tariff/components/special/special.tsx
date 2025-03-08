@@ -5,6 +5,8 @@ import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { SPECIAL_TARIFF_NAMES, TARIFF } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
+import DisabledContext from 'antd/es/config-provider/DisabledContext';
+import { use } from 'react';
 
 type Props = {
   rule: RuleRender;
@@ -13,6 +15,7 @@ type Props = {
 export default function Special(props: Props) {
   const { rule } = props;
   const [t] = useTr();
+  const disabled = use(DisabledContext);
 
   return (
     <Form.Item name={[TARIFF.special]} rules={[rule]}>
@@ -24,34 +27,34 @@ export default function Special(props: Props) {
                 <S.Article key={idx}>
                   <S.Index>{idx + 1}</S.Index>
 
-                  <span>{t('from_transaction')}</span>
+                  <span>{t('reusable.from_transaction')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]} rules={[rule]}>
-                    <Input.Money placeholder={t('amount_irr')} showLetter={false} />
+                    <Input.Money placeholder={t('reusable.amount_irr')} showLetter={false} />
                   </Form.Item>
 
-                  <span>{t('to')}</span>
+                  <span>{t('reusable.to')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]} rules={[rule]}>
-                    <Input.Money placeholder={t('amount_irr')} showLetter={false} />
+                    <Input.Money placeholder={t('reusable.amount_irr')} showLetter={false} />
                   </Form.Item>
 
-                  <span>{t('rial_applicable')}</span>
+                  <span>{t('reusable.rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={[rule]}>
-                    <Input placeholder={t('percent')} />
+                    <Input placeholder={t('reusable.percent')} />
                   </Form.Item>
 
-                  <span>{t('tariff_percent_min')}</span>
+                  <span>{t('reusable.tariff_percent_min')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]} rules={[rule]}>
-                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
+                    <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 
-                  <span>{t('max_tariff')}</span>
+                  <span>{t('reusable.max_tariff')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]} rules={[rule]}>
-                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
+                    <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 
-                  <span>{t('calculated')}</span>
+                  <span>{t('reusable.calculated')}</span>
 
-                  <S.TrashBtn variant='link' color='error' onClick={() => remove(child.name)}>
+                  <S.TrashBtn disabled={disabled} variant='link' color='error' onClick={() => remove(child.name)}>
                     <i className='icon-trash' />
                   </S.TrashBtn>
                 </S.Article>

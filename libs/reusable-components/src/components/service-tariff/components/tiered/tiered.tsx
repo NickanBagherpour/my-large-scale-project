@@ -5,6 +5,8 @@ import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { TARIFF, TIERED_TARIFF_NAMES } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
+import { use } from 'react';
+import DisabledContext from 'antd/es/config-provider/DisabledContext';
 
 type Props = {
   rule: RuleRender;
@@ -13,6 +15,7 @@ type Props = {
 export default function Tiered(props: Props) {
   const { rule } = props;
   const [t] = useTr();
+  const disabled = use(DisabledContext);
 
   return (
     <Form.Item name={[TARIFF.tiered]} rules={[rule]}>
@@ -23,27 +26,27 @@ export default function Tiered(props: Props) {
               {childrenFields.map((child, idx) => (
                 <S.Article key={child.key}>
                   <S.Index>{idx + 1}</S.Index>
-                  <span>{t('from')}</span>
+                  <span>{t('reusable.from')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={[rule]}>
-                    <Input placeholder={t('count')} />
+                    <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
-                  <span>{t('to')}</span>
+                  <span>{t('reusable.to')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.to]} rules={[rule]}>
-                    <Input placeholder={t('count')} />
+                    <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
-                  <span>{t('request_tariff_applies')}</span>
+                  <span>{t('reusable.request_tariff_applies')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.tariff]} rules={[rule]}>
-                    <Input.Money placeholder={t('tariff_irr')} showLetter={false} />
+                    <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 
-                  <span>{t('calculated_in_irr')}</span>
+                  <span>{t('reusable.calculated_in_irr')}</span>
 
-                  <S.TrashBtn variant='link' color='error' onClick={() => remove(child.name)}>
+                  <S.TrashBtn disabled={disabled} variant='link' color='error' onClick={() => remove(child.name)}>
                     <i className='icon-trash' />
                   </S.TrashBtn>
                 </S.Article>

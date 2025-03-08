@@ -10,6 +10,10 @@ export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
   width: 100%;
   height: 6.4rem;
 
+  &:disabled {
+    display: none;
+  }
+
   i {
     font-size: 1.8rem;
   }
