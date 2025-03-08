@@ -3,22 +3,16 @@ import GeneralInfo from '../general-info/general-info';
 import * as S from './app.style';
 import { Form, FormProps } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
-import { createAppSchema, PostTariffParams, type AppSchemaType } from '../../types';
-import {
-  emptySpecialTariff,
-  emptyTieredTariff,
-  feeTypeMap,
-  feeTypeMapReverse,
-  GlobalMessageContainer,
-  TARIFF,
-  ServiceTariff,
-} from '@oxygen/reusable-components';
+import { createAppSchema, type AppSchemaType } from '../../types';
+import { GlobalMessageContainer, ServiceTariff } from '@oxygen/reusable-components';
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading, Container } from '@oxygen/ui-kit';
 import { getWidgetTitle, ROUTES } from '@oxygen/utils';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useApp } from '@oxygen/hooks';
+import { prepareParams } from '../../utils';
+import { getInitialValues } from '../../utils/get-initial-data';
 
 const App = () => {
   const [t] = useTr();
@@ -42,129 +36,10 @@ const App = () => {
     return void notFound();
   }
 
-  let initialValues: Partial<AppSchemaType> = {
-    serviceName,
-  };
-
-  if (feeData) {
-    const {
-      serviceName,
-      feeSteps,
-      fee,
-      type,
-      feeType,
-      fieldName,
-      bankingShare,
-      operationShare,
-      aggregationType,
-      transactionFees,
-    } = feeData;
-
-    initialValues = {
-      serviceName,
-      serviceType: aggregationType,
-      bankingSharePct: bankingShare + '', // TODO: see if this should exist or not
-      opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
-      fieldNameInElastic: fieldName,
-      transactionTypeInElastic: type,
-      // @ts-expect-error fix this later
-      [TARIFF.tiered]: emptyTieredTariff,
-      // @ts-expect-error fix this later
-      [TARIFF.special]: emptySpecialTariff,
-    };
-
-    if (feeTypeMapReverse[feeType] === 'fixed') {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'fixed',
-        [TARIFF.fixed]: fee,
-      };
-    } else if (feeTypeMapReverse[feeType] === 'tiered') {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'tiered',
-        [TARIFF.tiered]:
-          feeSteps.map(({ fee, fromRate, toRate }) => ({
-            tariff: fee,
-            from: fromRate,
-            to: toRate,
-          })) ?? emptyTieredTariff,
-      };
-    } else {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'special',
-        [TARIFF.special]:
-          transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-            to: toRate,
-            from: fromRate,
-            maximum: max,
-            minimum: min,
-            percent: percent,
-          })) ?? emptySpecialTariff,
-      };
-    }
-  } else {
-    initialValues = {
-      serviceName,
-      // @ts-expect-error fix this later
-      [TARIFF.special]: emptySpecialTariff,
-      // @ts-expect-error fix this later
-      [TARIFF.tiered]: emptyTieredTariff,
-    };
-  }
+  const initialValues = getInitialValues(serviceName, feeData);
 
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
-    const {
-      serviceName,
-      serviceType,
-      bankingSharePct,
-      opsTeamSharePct,
-      fieldNameInElastic,
-      transactionTypeInElastic,
-      special,
-      tiered,
-      fixed,
-      type,
-    } = values;
-
-    let params: PostTariffParams = {
-      serviceName,
-      bankingShare: +bankingSharePct,
-      operationShare: +opsTeamSharePct,
-
-      type: transactionTypeInElastic + '',
-      aggregationType: serviceType + '',
-      fieldName: fieldNameInElastic,
-
-      feeType: feeTypeMap[type],
-    };
-
-    if (type === 'fixed') {
-      params = { ...params, fee: fixed };
-    }
-
-    if (type === 'tiered') {
-      const feeSteps: PostTariffParams['feeSteps'] = tiered.map(({ tariff, to, from }) => ({
-        fee: tariff,
-        fromRate: from,
-        toRate: to,
-      }));
-      params = { ...params, feeSteps };
-    }
-
-    if (type === 'special') {
-      const transactionFees: PostTariffParams['transactionFees'] = special.map(
-        ({ to, from, maximum, minimum, percent }) => ({
-          toRate: to,
-          fromRate: from,
-          max: maximum,
-          min: minimum,
-          percent,
-        })
-      );
-      params = { ...params, transactionFees };
-    }
+    const params = prepareParams(values);
 
     if (feeData) {
       updateTarrif(params, {
