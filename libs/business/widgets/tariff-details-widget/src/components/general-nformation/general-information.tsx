@@ -15,26 +15,36 @@ export type GeneralInformationProps = PageProps & {
   serviceName: Nullable<string>;
 };
 export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => {
-  const { data, isLoading, serviceName } = props;
+  const { data, isLoading } = props;
 
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const router = useRouter();
 
-  const handleEdit = () => {
-    console.log('clicked');
-    //TODO: change the TARIFF_LIST after the route added
-    //  router.push(`${ROUTES.BUSINESS.TARIFF_LIST}?name=${serviceName}`)
+  const typeMap = {
+    1: t('single'),
+    2: t('group'),
   };
+
   const handleHistory = () => {
     console.log('delete clicked');
   };
-  const generalInfoData = [
-    { key: t('service_english_name'), value: getValueOrDash(data?.serviceName) },
-    { key: t('banking_share'), value: `${getValueOrDash(data?.bankingShare)}٪` },
-    { key: t('contribution_operational_team'), value: `${getValueOrDash(data?.operationShare)}٪` },
-  ];
+
+  let generalInfoData: { key: string; value: string }[] = [];
+
+  if (data) {
+    const { serviceName, fieldName, bankingShare, operationShare, aggregationType, type } = data;
+
+    generalInfoData = [
+      { key: t('service_english_name'), value: getValueOrDash(serviceName) },
+      { key: t('banking_share'), value: `${getValueOrDash(bankingShare)}٪` },
+      { key: t('contribution_operational_team'), value: `${getValueOrDash(operationShare)}٪` },
+      { key: t('service_type'), value: aggregationType ? typeMap[aggregationType] : null },
+      { key: t('field_name_in_elastic'), value: fieldName },
+      { key: t('transaction_type_in_elastic'), value: type },
+    ];
+  }
 
   return (
     <S.GeneralInformationContainer>
@@ -45,7 +55,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
             <S.DetailIcon className='icon-clock' />
             {t('button.view_changes_history')}
           </Button>
-          <Button variant='solid' onClick={handleEdit}>
+          <Button variant='solid' href={`${ROUTES.BUSINESS.UPSERT_TARIFF}?service-name=${data?.serviceName}`}>
             <S.EditIcon className='icon-edit' />
             {t('common.edit')}
           </Button>

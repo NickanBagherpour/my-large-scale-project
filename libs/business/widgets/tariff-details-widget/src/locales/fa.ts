@@ -6,4 +6,10 @@ export default {
   banking_share: 'سهم بانکداری',
   contribution_operational_team: 'سهم تیم عملیاتی',
   service_tariff: 'تعرفه سرویس',
+
+  service_type: 'نوع سرویس',
+  field_name_in_elastic: 'نام فیلد در elastic',
+  transaction_type_in_elastic: 'نوع تراکنش در elastic',
+  single: 'تک',
+  group: 'گروهی',
 };
