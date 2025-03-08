@@ -38,15 +38,17 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const queryClient = useQueryClient();
 
-  const rule = createSchemaFieldRule(createFormSchema(t));
-
   const [selectedGrantTypes, setSelectedGrantTypes] = useState<GrantType[]>(userData?.activeGrantType);
 
   const [selectedTags, setSelectedTags] = useState<Tag[]>(userData?.activeTagIds);
 
+  const [IsAuthorizationFlowSelected, setIsAuthorizationFlowSelected] = useState<boolean>();
+
   const { notification } = useApp();
 
   const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
+
+  const rule = createSchemaFieldRule(createFormSchema(t, IsAuthorizationFlowSelected));
 
   useEffect(() => {
     form.setFieldsValue({
@@ -57,6 +59,13 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
       [FORM_ITEM_NAMES.grantType]: selectedGrantTypes,
     });
   }, [userData]);
+
+  useEffect(() => {
+    const isSelected = selectedGrantTypes.some(
+      (grantType: { key: string; label: string }) => grantType.key === GrantValue[2].key
+    );
+    setIsAuthorizationFlowSelected(isSelected);
+  }, [selectedGrantTypes]);
 
   const submitClick = () => form.submit();
 
