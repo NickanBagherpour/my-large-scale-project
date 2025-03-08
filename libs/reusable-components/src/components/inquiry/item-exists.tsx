@@ -51,7 +51,7 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
       title: t('button.observe_client_detail'),
       icon: <i className='icon-document' />,
       action: () => {
-        router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?client-name=${itemName}`);
+        router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?name=${itemName}`);
       },
     },
   };

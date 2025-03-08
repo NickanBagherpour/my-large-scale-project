@@ -7,10 +7,9 @@ import { getWidgetTitle } from '@oxygen/utils';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import Filters from '../filters/filters';
-import ClientReport from '../client-report/client-report';
+import ClientReports from '../client-report/client-report';
 
 import { useGetClientReportQuery } from '../../services';
-//import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
 
@@ -20,9 +19,8 @@ type AppProps = PageProps & {
 
 const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
-  const { message, searchTerm, table, ...fetchState } = useAppState();
+  const { message, searchTerm, table } = useAppState();
 
   const prepareServiceParams = () => {
     return {
@@ -47,7 +45,7 @@ const App: React.FC<AppProps> = (props) => {
 
       <S.ClientReportContainer title={title}>
         <Filters />
-        <ClientReport
+        <ClientReports
           isFetching={isClientReportListFetching}
           data={clientReport?.response.content}
           total={clientReport?.response.page.totalElements}

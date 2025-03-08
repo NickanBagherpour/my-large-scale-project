@@ -1,9 +1,7 @@
-export type ServiceDetails = {
-  scopes: {
-    id: number;
-    ssoScopeId: number;
+export type ClientDetails = {
+  services: {
     name: string;
-    description: string;
+    persianName: string;
   }[];
   serviceInfoId: number;
   serviceLatinName: string;
@@ -42,3 +40,30 @@ export type ServiceDetails = {
     step: number;
   };
 };
+
+export interface ClientServicesDto {
+  error: {
+    code: string;
+    message: string;
+    timestamp: string;
+    domain: string;
+    errors: [
+      {
+        name: string;
+        summary: string;
+        detail: string;
+      }
+    ];
+  };
+  response: [
+    {
+      serviceName: string;
+      serviceEnglishName: string;
+    }
+  ];
+  additionalProperties: {
+    additionalProp1: any;
+    additionalProp2: any;
+    additionalProp3: any;
+  };
+}
