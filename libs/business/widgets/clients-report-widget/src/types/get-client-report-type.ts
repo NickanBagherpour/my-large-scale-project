@@ -1,10 +1,8 @@
 export interface ParamsType {
-  // isActive: boolean | null;
   'search-field'?: string | null;
   'scope-id'?: string;
   page: number;
   size: number;
-  // sort: string;
 }
 
 export interface ClientReportsDto {

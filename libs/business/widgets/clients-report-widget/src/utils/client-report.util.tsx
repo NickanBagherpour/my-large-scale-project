@@ -15,7 +15,6 @@ type Props = {
   pagination: Omit<PaginationType, 'sort'>;
   theme: ITheme;
   wordToHighlight: string;
-  // addClientDetailsToView: (client: Client | null) => void;
   addClientDetailsToView: (client: ClientReportDto | null) => void;
 };
 
