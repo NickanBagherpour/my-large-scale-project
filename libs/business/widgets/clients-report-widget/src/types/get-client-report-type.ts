@@ -1,16 +1,8 @@
-export type ClientReportDto = {
-  id: number;
-  name: string;
-  national: string;
-};
-
 export interface ParamsType {
-  // isActive: boolean | null;
   'search-field'?: string | null;
   'scope-id'?: string;
   page: number;
   size: number;
-  // sort: string;
 }
 
 export interface ClientReportsDto {
@@ -50,3 +42,42 @@ export interface ClientReportsDto {
     empty: boolean;
   };
 }
+
+// export interface ClientServicesDto {
+//   error: {
+//     code: string;
+//     message: string;
+//     timestamp: string;
+//     domain: string;
+//     errors: [
+//       {
+//         name: string;
+//         summary: string;
+//         detail: string;
+//       }
+//     ];
+//   };
+//   response: [
+//     {
+//       serviceName: string;
+//       serviceEnglishName: string;
+//     }
+//   ];
+//   additionalProperties: {
+//     additionalProp1: any;
+//     additionalProp2: any;
+//     additionalProp3: any;
+//   };
+// }
+
+export type ClientReportDto = {
+  clientEnName: string;
+  clientPersianName: string;
+  isActive: true;
+  clientKey: number;
+  authKey: number;
+  websiteUrl: string;
+  createDate: string;
+  organizationNationalId: number;
+  organizationName: string;
+};

@@ -6,19 +6,20 @@ import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/u
 import { ITheme } from '@oxygen/types';
 
 import { PaginationType } from '../context/types';
+import { ClientReportDto } from '../types';
 
 import * as S from '../components/client-report/client-report.style';
 
 type Props = {
   t: TFunction;
-
   pagination: Omit<PaginationType, 'sort'>;
   theme: ITheme;
   wordToHighlight: string;
+  addClientDetailsToView: (client: ClientReportDto | null) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const { t, pagination, theme, wordToHighlight } = props;
+  const { t, pagination, theme, wordToHighlight, addClientDetailsToView } = props;
   const highlightColor = theme.secondary.main;
 
   const { page, rowsPerPage } = pagination;
@@ -62,25 +63,16 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
     },
     {
       title: '',
-      dataIndex: 'clientsReport',
-      key: 'clientsReport',
+      dataIndex: 'clientEnName',
+      key: 'clientEnName',
       align: 'left',
-      width: widthByButtonCount(2),
-      render: (value, record) => (
+      width: widthByButtonCount(2.5),
+      render: (clientEnName, record) => (
         <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
-          <S.Details
-            variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientEnName ?? ''}`}
-            size={'small'}
-            disabled
-          >
+          <S.Details variant={'link'} size={'small'} disabled>
             {t('services_report')}
           </S.Details>
-          <S.Details
-            variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientEnName ?? ''}`}
-            size={'small'}
-          >
+          <S.Details variant={'link'} onClick={() => addClientDetailsToView(record)} size={'small'}>
             {t('details')}
           </S.Details>
         </Box>
