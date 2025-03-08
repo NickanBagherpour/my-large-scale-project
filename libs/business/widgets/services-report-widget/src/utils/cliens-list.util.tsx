@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 
 import { ClientInfo } from '../types';
@@ -32,13 +32,21 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfo> {
       title: t('table.client_name'),
       dataIndex: 'clientName',
       align: 'center',
-      render: (name) => getValueOrDash(name),
+      render: (name) => (
+        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+          {getValueOrDash(name)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.client_persian_name'),
       dataIndex: 'clientPersianName',
       align: 'center',
-      render: (persianName) => getValueOrDash(persianName),
+      render: (persianName) => (
+        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
+          {getValueOrDash(persianName)}
+        </Tooltip>
+      ),
     },
   ];
 }
