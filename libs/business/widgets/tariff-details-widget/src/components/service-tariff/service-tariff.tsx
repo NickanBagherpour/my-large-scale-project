@@ -6,14 +6,9 @@ import { Nullable, PageProps } from '@oxygen/types';
 
 import * as S from './service-tariff.style';
 import { TariffDetailsType } from '../../types';
-import {
-  emptySpecialTariff,
-  emptyTieredTariff,
-  feeTypeMapReverse,
-  TARIFF,
-  ServiceTariff as Tariff,
-} from '@oxygen/reusable-components';
+import { feeTypeMapReverse, TARIFF, ServiceTariff as Tariff } from '@oxygen/reusable-components';
 import { Form } from 'antd';
+import { getInitialValues } from '../../utils/get-initial-values';
 
 export type ServiceTariffPropsType = PageProps & {
   serviceName: Nullable<string>;
@@ -30,43 +25,7 @@ export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
     console.log('clicked');
   };
 
-  let initialValues = {};
-
-  if (data) {
-    const { feeSteps, fee, feeType, transactionFees } = data;
-
-    initialValues = {};
-
-    if (feeTypeMapReverse[feeType] === 'fixed') {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'fixed',
-        [TARIFF.fixed]: fee,
-      };
-    } else if (feeTypeMapReverse[feeType] === 'tiered') {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'tiered',
-        [TARIFF.tiered]: feeSteps.map(({ fee, fromRate, toRate }) => ({
-          tariff: fee,
-          from: fromRate + '',
-          to: toRate + '',
-        })),
-      };
-    } else {
-      initialValues = {
-        ...initialValues,
-        [TARIFF.type]: 'special',
-        [TARIFF.special]: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-          to: toRate,
-          from: fromRate,
-          maximum: max,
-          minimum: min,
-          percent: percent + '',
-        })),
-      };
-    }
-  }
+  const initialValues = getInitialValues(data);
 
   if (!data) return null;
 
