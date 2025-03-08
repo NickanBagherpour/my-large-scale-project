@@ -4,6 +4,7 @@ export default {
   service_name: 'نام سرویس',
   banking_share_pct: 'سهم بانکداری (درصد)',
   ops_team_share_pct: 'سهم تیم عملیاتی (درصد)',
+  banking_ops_combined_limit: 'جمع سهم بانکداری و تیم عملیاتی باید برابر ۱۰۰ باشد',
   enter_share_pct: 'درصد سهم را وارد نمایید',
   service_type: 'نوع سرویس',
   field_name_in_elastic: 'نام فیلد در elastic',

@@ -173,7 +173,7 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
 
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
-        <GeneralInfo rule={rule} />
+        <GeneralInfo rule={rule} form={form} />
         <ServiceTariff rule={rule} form={form} type='upsert' />
       </Form>
 
