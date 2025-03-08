@@ -68,25 +68,25 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
         );
       },
     },
-    {
-      title: t('table.scope'),
-      dataIndex: 'scopes',
-      align: 'center',
-      render: (_val, record) => {
-        return (
-          <WithBadge
-            items={record?.scopes}
-            onRender={(value) => (
-              <MarkText
-                text={getValueOrDash(value)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
-              />
-            )}
-          />
-        );
-      },
-    },
+    // {
+    //   title: t('table.scope'),
+    //   dataIndex: 'scopes',
+    //   align: 'center',
+    //   render: (_val, record) => {
+    //     return (
+    //       <WithBadge
+    //         items={record?.scopes}
+    //         onRender={(value) => (
+    //           <MarkText
+    //             text={getValueOrDash(value)}
+    //             highlightColor={highlightColor}
+    //             wordToHighlight={wordToHighlight}
+    //           />
+    //         )}
+    //       />
+    //     );
+    //   },
+    // },
     {
       title: t('table.status'),
       dataIndex: 'isActive',
@@ -100,7 +100,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: widthByButtonCount(2),
+      width: widthByButtonCount(3),
       render: (value, record) => (
         <S.ActionBox>
           <Button variant={'link'} size={'small'} disabled={true}>
@@ -147,21 +147,21 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
             title: t('table.persian_name'),
             value: getValueOrDash(value?.persianName),
           },
-          {
-            title: t('table.scope'),
-            value: (
-              <WithBadge
-                items={record?.scopes}
-                onRender={(value) => (
-                  <MarkText
-                    text={getValueOrDash(value)}
-                    highlightColor={highlightColor}
-                    wordToHighlight={wordToHighlight}
-                  />
-                )}
-              />
-            ),
-          },
+          // {
+          //   title: t('table.scope'),
+          //   value: (
+          //     <WithBadge
+          //       items={record?.scopes}
+          //       onRender={(value) => (
+          //         <MarkText
+          //           text={getValueOrDash(value)}
+          //           highlightColor={highlightColor}
+          //           wordToHighlight={wordToHighlight}
+          //         />
+          //       )}
+          //     />
+          //   ),
+          // },
           {
             title: t('table.status'),
             value: (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TFunction } from 'i18next';
+import { DefaultTheme } from 'styled-components';
 
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
@@ -8,7 +9,6 @@ import { Pagination } from '@oxygen/types';
 import { ServiceItemType } from '../types';
 
 import * as S from '../components/data-table/data-table.style';
-import { DefaultTheme } from 'styled-components';
 
 type Props = {
   t: TFunction;
@@ -79,7 +79,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: widthByButtonCount(2),
+      width: widthByButtonCount(3),
       render: (value, record) => (
         <S.ActionBox>
           <Button variant={'link'} size={'small'} disabled={true}>
