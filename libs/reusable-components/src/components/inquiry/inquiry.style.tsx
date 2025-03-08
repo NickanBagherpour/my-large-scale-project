@@ -7,10 +7,10 @@ export const MainContainer = styled.div<{ $showSearch: any }>`
   align-items: center;
   border-radius: 1.6rem;
   background-color: ${(p) => (p.$showSearch ? p.theme.background._100 : p.theme.info._50)};
-  border: 1px solid ${(p) => p.theme.primary.main};
+  border: 1px solid ${(p) => (p.$showSearch ? p.theme.background._100 : p.theme.primary.main)};
   width: 100%;
   padding: 1.2rem;
-  min-height: 31rem;
+  min-height: 28rem;
 `;
 export const ResponsiveModal = styled(Modal)`
   min-width: 290px;

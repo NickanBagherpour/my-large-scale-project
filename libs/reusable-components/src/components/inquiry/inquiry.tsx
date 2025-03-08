@@ -14,7 +14,7 @@ import * as S from './inquiry.style';
 
 type Props = {
   refetch?: any;
-  dataLoading?: boolean;
+  dataLoading: boolean;
   draftData?: { itemName: string; progress: number };
   operationalData: any[];
   content: ContentType | null;
@@ -82,11 +82,14 @@ const Inquiry: React.FC<Props> = ({
     }
   };
   useEffect(() => {
-    if (!dataLoading) {
-      lottieRef?.current?.stop();
-    } else {
+    if (dataLoading) {
       lottieRef?.current?.play();
+      console.log('start');
+    } else {
+      lottieRef?.current?.stop();
+      console.log('stop');
     }
+    // return () => lottieRef?.current?.pause();
   }, [dataLoading]);
 
   const contentDictionary: { [key in ContentType]: ReactElement } = {
@@ -105,7 +108,7 @@ const Inquiry: React.FC<Props> = ({
   };
   return (
     <S.ResponsiveModal
-      width={'42vw'}
+      width={'50vw'}
       open={true}
       centered={true}
       title={modalTitle}
@@ -122,7 +125,7 @@ const Inquiry: React.FC<Props> = ({
         {...searchBoxProps}
       />
       <S.MainContainer $showSearch={!content}>
-        <div style={{ display: !content ? '' : 'none' }}>
+        <div style={{ display: !content ? 'block' : 'none' }}>
           <LazyLottie lottieRef={lottieRef} height={'20rem'} width={'18rem'} {...defaultOptions} />
         </div>
         {content && contentDictionary[content]}

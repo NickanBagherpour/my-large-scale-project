@@ -8,6 +8,7 @@ export const useServiceFeeInquiry = (params: ServiceFeeInquiryParams, dispatch: 
   return useQuery({
     staleTime: 0,
     gcTime: 0,
+    enabled: !!params['service-name'],
     queryKey: [RQKEYS.BUSINESS.TARIFF_LIST.INQUIRY, params],
     queryFn: withErrorHandling(() => Api.getServiceFeeInquiry(params), dispatch),
   });

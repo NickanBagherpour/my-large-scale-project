@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button } from '@oxygen/ui-kit';
-import { InquiryType } from './types';
-import { NAVIGATION_URLS } from './consts';
 import * as S from './item-not-found.style';
 export type ItemNotFoundProps = {
   title: string;
@@ -24,7 +22,7 @@ const ItemNotFound: React.FC<ItemNotFoundProps> = ({ buttonText, title, buttonHr
         style={{ width: 'fit-content' }}
         block={false}
         color='secondary'
-        icon={<i className='icon-plus' />}
+        icon={<i className='icon-plus' style={{ fontSize: '2rem' }} />}
         onClick={() => setLoading(true)}
         loading={loading}
       >

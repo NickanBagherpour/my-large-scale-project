@@ -1,12 +1,10 @@
-import { useRouter } from 'next/navigation';
-import { Fragment, JSX, ReactElement, RefObject } from 'react';
+import { Fragment, JSX, RefObject } from 'react';
 import { Flex, FormInstance, InputRef } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { Button, MarkText } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
 
-import { InquiryType } from './types';
 import WithBadge from '../with-badge/with-badge';
 import { useAppTheme } from '@oxygen/hooks';
 import * as S from './item-exists.style';
@@ -47,7 +45,7 @@ const ItemExists: React.FC<ItemExistsProps> = ({
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
       <S.TitleContainer>
-        <i className='icon-box-search' style={{ fontSize: '2.2rem' }} />
+        <i className='icon-box-search' style={{ fontSize: '2.5rem' }} />
         <S.StyledText>{message}</S.StyledText>
       </S.TitleContainer>
       <Flex justify='center' gap={'1rem'} style={{ width: '100%', direction: 'inherit' }}>

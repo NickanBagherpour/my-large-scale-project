@@ -5,7 +5,6 @@ import { useTr } from '@oxygen/translation';
 import { Button, Input } from '@oxygen/ui-kit';
 import { CreateInquirySchema } from './inquiry.schema';
 import { INQUIRY } from './consts';
-import { InquiryType } from './types';
 import * as S from './search-box.style';
 
 export type SearchBoxProps = {
@@ -37,7 +36,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
             ref={inputRef}
             placeholder={placeholderText ?? t('placeholder.search_by_english_name', { element: t(`element.service`) })}
             prefix={<i className='search-normal' />}
-            allowClear
+            allowClear={!isLoading}
           />
         </S.FormItem>
         <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
