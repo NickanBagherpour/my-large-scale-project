@@ -33,27 +33,9 @@ export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
   let initialValues = {};
 
   if (data) {
-    const {
-      serviceName,
-      feeSteps,
-      fee,
-      type,
-      feeType,
-      fieldName,
-      bankingShare,
-      operationShare,
-      aggregationType,
-      transactionFees,
-    } = data;
+    const { feeSteps, fee, feeType, transactionFees } = data;
 
-    initialValues = {
-      // serviceName,
-      // serviceType: aggregationType,
-      // bankingSharePct: bankingShare + '', // TODO: see if this should exist or not
-      // opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
-      // fieldNameInElastic: fieldName,
-      // transactionTypeInElastic: type,
-    };
+    initialValues = {};
 
     if (feeTypeMapReverse[feeType] === 'fixed') {
       initialValues = {
@@ -101,7 +83,7 @@ export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
       </S.HeaderContainer>
 
       <Form initialValues={initialValues} disabled form={form}>
-        <Tariff rule={null} form={form} />
+        <Tariff type='details' rule={null} form={form} />
       </Form>
     </S.ServiceTariffContainer>
   );

@@ -9,11 +9,11 @@ import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { use } from 'react';
 
 type Props = {
-  rule: RuleRender;
+  rules: RuleRender[];
 };
 
 export default function Special(props: Props) {
-  const { rule } = props;
+  const { rules } = props;
   const [t] = useTr();
   const disabled = use(DisabledContext);
 
@@ -26,7 +26,7 @@ export default function Special(props: Props) {
   };
 
   return (
-    <Form.Item name={[TARIFF.special]} rules={[rule]}>
+    <Form.Item name={[TARIFF.special]} rules={rules}>
       <Form.List name={[TARIFF.special]}>
         {(childrenFields, { add, remove }) => {
           return (
@@ -36,27 +36,27 @@ export default function Special(props: Props) {
                   <S.Index>{idx + 1}</S.Index>
 
                   <span>{t('reusable.from_transaction')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]} rules={[rule]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]} rules={rules}>
                     <Input.Money placeholder={t('reusable.amount_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('reusable.to')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]} rules={[rule]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.to]} rules={rules}>
                     <Input.Money placeholder={t('reusable.amount_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('reusable.rial_applicable')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={[rule]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={rules}>
                     <InputNumber placeholder={t('reusable.percent')} />
                   </Form.Item>
 
                   <span>{t('reusable.tariff_percent_min')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]} rules={[rule]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.minimum]} rules={rules}>
                     <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 
                   <span>{t('reusable.max_tariff')}</span>
-                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]} rules={[rule]}>
+                  <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.maximum]} rules={rules}>
                     <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 

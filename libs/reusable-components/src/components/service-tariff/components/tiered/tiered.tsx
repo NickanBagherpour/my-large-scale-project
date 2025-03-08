@@ -9,11 +9,11 @@ import { use } from 'react';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 
 type Props = {
-  rule: RuleRender;
+  rules: RuleRender[];
 };
 
 export default function Tiered(props: Props) {
-  const { rule } = props;
+  const { rules } = props;
   const [t] = useTr();
   const disabled = use(DisabledContext);
 
@@ -24,7 +24,7 @@ export default function Tiered(props: Props) {
   };
 
   return (
-    <Form.Item name={[TARIFF.tiered]} rules={[rule]}>
+    <Form.Item name={[TARIFF.tiered]} rules={rules}>
       <Form.List name={[TARIFF.tiered]}>
         {(childrenFields, { add, remove }) => {
           return (
@@ -34,19 +34,19 @@ export default function Tiered(props: Props) {
                   <S.Index>{idx + 1}</S.Index>
                   <span>{t('reusable.from')}</span>
 
-                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={[rule]}>
+                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={rules}>
                     <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
                   <span>{t('reusable.to')}</span>
 
-                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.to]} rules={[rule]}>
+                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.to]} rules={rules}>
                     <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
                   <span>{t('reusable.request_tariff_applies')}</span>
 
-                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.tariff]} rules={[rule]}>
+                  <Form.Item name={[child.name, TIERED_TARIFF_NAMES.tariff]} rules={rules}>
                     <Input.Money placeholder={t('reusable.tariff_irr')} showLetter={false} />
                   </Form.Item>
 
