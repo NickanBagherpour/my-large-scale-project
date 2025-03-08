@@ -3,12 +3,10 @@ import { BorderedSection } from '@oxygen/reusable-components';
 import { SearchItemsContainer, Input, Select } from '@oxygen/ui-kit';
 import { GENERAL_INFO_NAMES } from '../../utils';
 import * as S from './general-info.style';
-import { Form, FormInstance } from 'antd';
-import { AppSchemaType } from '../../types';
+import { RuleRender } from 'antd/es/form';
 
 type Props = {
-  rule: any;
-  form: FormInstance<AppSchemaType>;
+  rule: RuleRender;
 };
 
 // TODO: find a better name for this
@@ -23,11 +21,8 @@ const compareTo100 = (a: string, b: string): boolean => {
 };
 
 export default function GeneralInfo(props: Props) {
-  const { rule, form } = props;
+  const { rule } = props;
   const [t] = useTr();
-  const bankingSharePct = Form.useWatch([GENERAL_INFO_NAMES.bankingSharePct], form);
-
-  console.log('>>> bankingSharePct', bankingSharePct);
 
   const options = [
     { label: t('single'), value: 1 },

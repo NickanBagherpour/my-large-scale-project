@@ -30,14 +30,12 @@ export default function Tarrif(props: TariffProps) {
     special: t('reusable.special_tariff'),
   };
 
-  if (!value) return null;
-
   return disabled ? (
     <>
       <S.DisabledTitle>{t('reusable.tariff_type')}</S.DisabledTitle>
       <S.Badge $type={value}>
-        <S.Icon $type={value} className={icons[value]} />
-        <S.DisabledTxt>{titles[value]}</S.DisabledTxt>
+        <S.Icon $type={value} className={value ? icons[value] : ''} />
+        <S.DisabledTxt>{value ? titles[value] : '-'}</S.DisabledTxt>
       </S.Badge>
     </>
   ) : (
@@ -45,7 +43,7 @@ export default function Tarrif(props: TariffProps) {
       <S.RadioTitle>{t('reusable.tariff_type')}:</S.RadioTitle>
       {tariffTypes.map((item, key) => (
         <S.Label key={key} $checked={value === item} $type={value}>
-          <S.Icon $type={item} className={icons[value]} />
+          <S.Icon $type={item} className={icons[item]} />
           <S.Txt>{titles[item]}</S.Txt>
           <Radio checked={value === item} value={item} onChange={(e) => onChange?.(e.target.value)} />
         </S.Label>

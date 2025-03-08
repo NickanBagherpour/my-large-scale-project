@@ -16,8 +16,9 @@ import {
 import { useGetFee, usePostServiceFee, usePutServiceFee } from '../../services';
 import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { Loading, Container } from '@oxygen/ui-kit';
-import { getWidgetTitle } from '@oxygen/utils';
+import { getWidgetTitle, ROUTES } from '@oxygen/utils';
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
+import { useApp } from '@oxygen/hooks';
 
 const App = () => {
   const [t] = useTr();
@@ -35,6 +36,7 @@ const App = () => {
     secondaryTitle: feeData?.serviceName,
     defaultTitle: t('add_tarrif_setting'),
   });
+  const { notification } = useApp();
 
   if (!serviceName) {
     return void notFound();
@@ -65,7 +67,9 @@ const App = () => {
       opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
       fieldNameInElastic: fieldName,
       transactionTypeInElastic: type,
+      // @ts-expect-error fix this later
       [TARIFF.tiered]: emptyTieredTariff,
+      // @ts-expect-error fix this later
       [TARIFF.special]: emptySpecialTariff,
     };
 
@@ -102,7 +106,10 @@ const App = () => {
     }
   } else {
     initialValues = {
+      serviceName,
+      // @ts-expect-error fix this later
       [TARIFF.special]: emptySpecialTariff,
+      // @ts-expect-error fix this later
       [TARIFF.tiered]: emptyTieredTariff,
     };
   }
@@ -134,16 +141,14 @@ const App = () => {
     };
 
     if (type === 'fixed') {
-      // TODO: think of something for these type conversions
       params = { ...params, fee: fixed };
     }
 
     if (type === 'tiered') {
       const feeSteps: PostTariffParams['feeSteps'] = tiered.map(({ tariff, to, from }) => ({
-        // TODO: think of something for these type conversions
-        fee: +tariff,
-        fromRate: +from,
-        toRate: +to,
+        fee: tariff,
+        fromRate: from,
+        toRate: to,
       }));
       params = { ...params, feeSteps };
     }
@@ -151,19 +156,31 @@ const App = () => {
     if (type === 'special') {
       const transactionFees: PostTariffParams['transactionFees'] = special.map(
         ({ to, from, maximum, minimum, percent }) => ({
-          // TODO: think of something for these type conversions
           toRate: to,
           fromRate: from,
           max: maximum,
           min: minimum,
-          percent: +percent, // TODO: see if this should exist or not
+          percent,
         })
       );
       params = { ...params, transactionFees };
     }
 
-    if (feeData) updateTarrif(params);
-    else createTariff(params);
+    if (feeData) {
+      updateTarrif(params, {
+        onSuccess: () => {
+          notification.success({ message: t('edit_was_successful') });
+          router.push(ROUTES.BUSINESS.TARIFF_LIST);
+        },
+      });
+    } else {
+      createTariff(params, {
+        onSuccess: () => {
+          notification.success({ message: t('create_was_successful') });
+          router.push(ROUTES.BUSINESS.TARIFF_LIST);
+        },
+      });
+    }
   };
 
   if (isPendingFeeData) return <Loading spinning />;
@@ -173,7 +190,7 @@ const App = () => {
       <GlobalMessageContainer message={message} onClose={() => resetMessageAction(dispatch)} />
 
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
-        <GeneralInfo rule={rule} form={form} />
+        <GeneralInfo rule={rule} />
         <ServiceTariff rule={rule} form={form} type='upsert' />
       </Form>
 

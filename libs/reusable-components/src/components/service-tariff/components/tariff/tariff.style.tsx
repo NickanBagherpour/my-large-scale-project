@@ -26,7 +26,7 @@ export const DisabledTitle = styled.h3`
   font-size: 1.4rem;
 `;
 
-export const Badge = styled.div<{ $type: TariffType }>`
+export const Badge = styled.div<{ $type: TariffType | null | undefined }>`
   border-radius: 2.4rem;
   display: flex;
   align-items: center;
@@ -38,36 +38,20 @@ export const Badge = styled.div<{ $type: TariffType }>`
     font-size: 2.4rem;
   }
 
-  ${(p) => {
+  background: ${(p) => {
     const { theme, $type } = p;
-
-    if ($type === 'fixed') {
-      return css`
-        background: ${theme.primary._50};
-      `;
-    } else if ($type === 'tiered') {
-      return css`
-        background: ${theme.primary._50};
-      `;
-    } else {
-      return css`
-        background: ${gold.bg};
-      `;
+    switch ($type) {
+      case 'fixed':
+        return theme.primary._50;
+      case 'tiered':
+        return theme.primary._50;
+      case 'special':
+        return gold.bg;
     }
-  }}
+  }};
 `;
 
-// export const Icon = styled.i<{ $type: TariffType }>`
-//   font-size: 2.4rem;
-//   color: ${(p) =>
-//     p.$type === 'fixed'
-//       ? p.theme.primary.main
-//       : p.$type === 'tiered'
-//       ? p.theme.secondary.main
-//       : gold.normal};
-// `;
-
-export const Label = styled.label<{ $checked: boolean; $type: TariffType }>`
+export const Label = styled.label<{ $checked: boolean; $type: TariffType | null | undefined }>`
   border: ${(p) => `1px solid ${p.theme.border._300}`};
   border-radius: 1.2rem;
   display: flex;
@@ -84,48 +68,63 @@ export const Label = styled.label<{ $checked: boolean; $type: TariffType }>`
     const { theme, $checked, $type } = p;
     if (!$checked) return;
 
-    if ($type === 'fixed') {
-      return css`
-        border: 1px solid ${theme.primary.main};
-        background: ${theme.primary._50};
+    switch ($type) {
+      case 'fixed': {
+        return css`
+          border: 1px solid ${theme.primary.main};
+          background: ${theme.primary._50};
 
-        .ant-radio-inner {
-          border-color: #4f46e5;
-          background-color: #4f46e5;
-        }
-      `;
-    } else if ($type === 'tiered') {
-      return css`
-        border: 1px solid ${p.theme.secondary.main};
-        background: ${theme.primary._50};
+          .ant-radio-inner {
+            border-color: #4f46e5;
+            background-color: #4f46e5;
+          }
+        `;
+      }
 
-        .ant-radio-inner {
-          border-color: ${p.theme.secondary.main};
-          background-color: ${p.theme.secondary.main};
-        }
-      `;
-    } else {
-      return css`
-        border: 1px solid ${gold.dark};
-        background: ${gold.bg};
+      case 'tiered': {
+        return css`
+          border: 1px solid ${p.theme.secondary.main};
+          background: ${theme.primary._50};
 
-        .ant-radio-inner {
-          border-color: ${gold.dark};
-          background-color: ${gold.dark};
-        }
-      `;
+          .ant-radio-inner {
+            border-color: ${p.theme.secondary.main};
+            background-color: ${p.theme.secondary.main};
+          }
+        `;
+      }
+
+      case 'special': {
+        return css`
+          border: 1px solid ${gold.dark};
+          background: ${gold.bg};
+
+          .ant-radio-inner {
+            border-color: ${gold.dark};
+            background-color: ${gold.dark};
+          }
+        `;
+      }
     }
   }}
 `;
 
-export const Icon = styled.i<{ $type: TariffType }>`
+export const Icon = styled.i<{ $type: TariffType | null | undefined }>`
   font-size: 2.4rem;
-  color: ${(p) =>
-    p.$type === 'fixed'
-      ? p.theme.primary.main
-      : p.$type === 'tiered'
-      ? p.theme.secondary.main
-      : gold.normal}; /* TODO: USE  A THEME COLOR FOR THIS */
+  color: ${(p) => {
+    const {
+      theme: { primary, secondary },
+      $type,
+    } = p;
+
+    switch ($type) {
+      case 'fixed':
+        return primary.main;
+      case 'tiered':
+        return secondary.main;
+      case 'special':
+        return gold.normal; /* TODO: USE  A THEME COLOR FOR THIS */
+    }
+  }};
 `;
 
 export const Txt = styled.span`

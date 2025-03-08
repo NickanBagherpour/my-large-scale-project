@@ -11,4 +11,6 @@ export default {
   transaction_type_in_elastic: 'نوع تراکنش در elastic',
   single: 'تک',
   group: 'گروهی',
+  edit_was_successful: 'تعرفه با موفقیت ویرایش شد',
+  create_was_successful: 'تعرفه با موفقیت ایجاد شد',
 };
