@@ -1,13 +1,11 @@
 import { useTr } from '@oxygen/translation';
 import { Button, InfoBox, Loading, Modal, Table, type InfoBoxProps } from '@oxygen/ui-kit';
-import { type Dispatch } from 'react';
+import { type Dispatch, useState } from 'react';
 import * as S from './client-details-modal.style';
 import { useGetClientServicesQuery } from '../../services';
 import { ClientReportDto } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-services.util';
-import { useAppState, updateModalTablePagination } from '../../context';
-import { useAppTheme } from '@oxygen/hooks';
-
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 import { TablePaginationConfig } from 'antd';
 
 type Props = {
@@ -18,23 +16,23 @@ type Props = {
 };
 
 export default function ClientDetailsModal(props: Props) {
-  const { isOpen, close, client, dispatch } = props;
+  const { isOpen, close, client } = props;
   const [t] = useTr();
-  const state = useAppState();
-  const theme = useAppTheme();
-  const {
-    table: { modalTablePagination },
-  } = state;
+
   const { data: service, isFetching } = useGetClientServicesQuery(client);
+
+  const [pagination, setPagination] = useState<{ page: number; rowsPerPage: number }>({
+    page: 0,
+    rowsPerPage: AVAILABLE_ROWS_PER_PAGE[0],
+  });
 
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
-      const updatedPagination = {
-        page: pageSize === modalTablePagination.rowsPerPage ? current : 1,
+      setPagination({
+        page: pageSize === pagination.rowsPerPage ? current - 1 : 0,
         rowsPerPage: pageSize,
-      };
-      updateModalTablePagination(dispatch, updatedPagination);
+      });
     }
   };
 
@@ -52,11 +50,11 @@ export default function ClientDetailsModal(props: Props) {
 
   const mobileColumns = getMobileColumns({
     t,
-    modalTablePagination,
+    pagination,
   });
   const desktopColumns = getDesktopColumns({
     t,
-    modalTablePagination,
+    pagination,
   });
 
   return (
@@ -85,19 +83,15 @@ export default function ClientDetailsModal(props: Props) {
             <S.Title>{t('element.service')}</S.Title>
             <Table
               loading={isFetching}
-              minHeight={'auto'}
-              current={modalTablePagination.page}
-              total={service?.response.length}
               dataSource={service?.response}
               hasContainer={false}
-              pagination={{
-                pageSize: modalTablePagination.rowsPerPage,
-                showSizeChanger: false,
-                hideOnSinglePage: true,
-              }}
+              minHeight={'auto'}
               columns={desktopColumns}
               mobileColumns={mobileColumns}
               rowKey={(row) => `${row.serviceName}-${row.serviceEnglishName}`}
+              current={pagination.page + 1}
+              total={service?.response?.length}
+              pagination={{ pageSize: AVAILABLE_ROWS_PER_PAGE[0], showSizeChanger: false, hideOnSinglePage: true }}
               onChange={handlePageChange}
             />
           </div>

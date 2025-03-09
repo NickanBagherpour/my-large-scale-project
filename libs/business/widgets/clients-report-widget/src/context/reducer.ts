@@ -1,4 +1,4 @@
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, MODAL_INITIAL_ROW_PER_PAGE } from '../utils/consts';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 // const initialFilters: FormFieldsType = {
@@ -14,10 +14,6 @@ export const initialStateValue: WidgetStateType = {
     submit: {},
     pagination: {
       rowsPerPage: INITIAL_ROW_PER_PAGE,
-      page: INITIAL_PAGE,
-    },
-    modalTablePagination: {
-      rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
@@ -40,11 +36,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_MODAL_TABLE_PAGINATION': {
-      state.table.modalTablePagination = { ...state.table.modalTablePagination, ...action.payload };
       return;
     }
 
