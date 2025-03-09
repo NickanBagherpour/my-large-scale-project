@@ -47,7 +47,7 @@ const App = () => {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.GET_LIST] }),
       queryClient.invalidateQueries({ queryKey: [TARIFF_DETAILS.GET_LIST, serviceName], refetchType: 'inactive' }),
-      queryClient.invalidateQueries({ queryKey: [UPSERT_TARRIF.TARIFF, serviceName], refetchType: 'none' }),
+      queryClient.invalidateQueries({ queryKey: [UPSERT_TARRIF.TARIFF, serviceName], refetchType: 'active' }),
     ]);
     router.push(ROUTES.BUSINESS.TARIFF_LIST);
   };
