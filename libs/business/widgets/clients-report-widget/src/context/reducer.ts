@@ -17,10 +17,6 @@ export const initialStateValue: WidgetStateType = {
       rowsPerPage: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
-    modalTablePagination: {
-      rowsPerPage: INITIAL_ROW_PER_PAGE,
-      page: INITIAL_PAGE,
-    },
   },
   message: null,
 };
@@ -41,11 +37,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
-      return;
-    }
-
-    case 'UPDATE_MODAL_TABLE_PAGINATION': {
-      state.table.modalTablePagination = { ...state.table.modalTablePagination, ...action.payload };
       return;
     }
 
