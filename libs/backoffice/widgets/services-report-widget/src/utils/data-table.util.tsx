@@ -1,9 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-
-import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, MarkText, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme, Pagination } from '@oxygen/types';
 

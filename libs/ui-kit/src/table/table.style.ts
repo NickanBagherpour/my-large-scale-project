@@ -57,6 +57,13 @@ export const Table = styled(AntTable)<StyledTableProps>`
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
         box-sizing: border-box;
+
+        & th {
+          text-wrap: wrap;
+          text-overflow: inherit;
+          word-break: auto-phrase;
+        }
+
         /* remove the last row's border */
 
         & tr:last-child td {

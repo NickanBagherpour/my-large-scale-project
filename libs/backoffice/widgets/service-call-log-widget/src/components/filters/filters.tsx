@@ -97,7 +97,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 setToDate={setToDate}
                 value={fromDate}
                 onChange={(date) => handleDateChange('fromDate', date)}
-                suffixIcon={<i className={'icon-calendar-2'} />}
+                suffixIcon={<Icons.Calender />}
               />
             </Form.Item>
 
@@ -110,7 +110,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 setToDate={setToDate}
                 value={toDate}
                 onChange={(date) => handleDateChange('toDate', date)}
-                suffixIcon={<i className={'icon-calendar-2'} />}
+                suffixIcon={<Icons.Calender />}
               />
             </Form.Item>
           </SearchItemsContainer>

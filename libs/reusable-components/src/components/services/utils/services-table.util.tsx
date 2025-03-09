@@ -1,11 +1,9 @@
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import * as S from '../components/services/services.style';
 import { TFunction } from 'i18next';
 import WithBadge from '../../with-badge/with-badge';
 import { CONSTANTS, widthByButtonCount, getValueOrDash } from '@oxygen/utils';
 import { Service } from '../types/services';
-
-import { Tooltip } from 'antd';
 
 type Props = {
   t: TFunction;
@@ -25,7 +23,6 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
   return [
     {
       title: t('uikit.index'),
-      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -36,43 +33,31 @@ export function getDesktopColumns(props: Props): ColumnsType<Service> {
     {
       title: t('uikit.service_name'),
       dataIndex: 'name',
-      align: 'center',
-      render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-          {getValueOrDash(name)}
-        </Tooltip>
-      ),
+      render: (name) => <Tooltip title={getValueOrDash(name)}>{getValueOrDash(name)}</Tooltip>,
     },
     {
       title: t('uikit.persian_name'),
       dataIndex: 'persianName',
-      align: 'center',
-      render: (persianName) => (
-        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
-          {getValueOrDash(persianName)}
-        </Tooltip>
-      ),
+      render: (persianName) => <Tooltip title={getValueOrDash(persianName)}>{getValueOrDash(persianName)}</Tooltip>,
     },
     {
       title: t('uikit.scope'),
       dataIndex: 'scopes',
-      align: 'center',
       render: (scopes) => <WithBadge items={scopes} />,
     },
     {
       title: t('uikit.url'),
       dataIndex: 'paths',
-      align: 'center',
       render: (paths) => <WithBadge items={paths} />,
     },
     {
       title: t('uikit.version'),
       dataIndex: 'version',
-      align: 'center',
     },
     {
       width: widthByButtonCount(2),
       key: 'action',
+      ellipsis: false,
       render: (_, service) => (
         <S.Btns>
           <S.DetailsBtn variant='link' color='primary' onClick={() => addServiceToView(service)}>

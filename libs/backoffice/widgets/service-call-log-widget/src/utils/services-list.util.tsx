@@ -38,29 +38,29 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       render: (clientName) => (
         <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
-          <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+          <S.Name text={clientName} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },
     {
       title: `${t('service_name')}`,
-      dataIndex: 'service_name',
-      key: 'service_name',
+      dataIndex: 'serviceName',
+      key: 'serviceName',
       align: 'center',
-      render: (service_name) => (
-        <Tooltip placement='top' title={getValueOrDash(service_name)} arrow={true}>
-          {getValueOrDash(service_name)}
+      render: (serviceName) => (
+        <Tooltip placement='top' title={getValueOrDash(serviceName)} arrow={true}>
+          {getValueOrDash(serviceName)}
         </Tooltip>
       ),
     },
     {
       title: `${t('count')}`,
-      dataIndex: 'count',
-      key: 'count',
+      dataIndex: 'responseBody',
+      key: 'responseBody',
       align: 'center',
-      render: (count) => (
-        <Tooltip placement='top' title={getValueOrDash(count)} arrow={true}>
-          <S.Name text={getValueOrDash(count)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+      render: (responseBody) => (
+        <Tooltip placement='top' title={getValueOrDash(responseBody)} arrow={true}>
+          {getValueOrDash(JSON.parse(responseBody).amount)}
         </Tooltip>
       ),
     },
@@ -71,7 +71,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       render: (status, record) => (
         <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
-          <S.Name text={getValueOrDash(status)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+          {getValueOrDash(status)}
         </Tooltip>
       ),
     },
