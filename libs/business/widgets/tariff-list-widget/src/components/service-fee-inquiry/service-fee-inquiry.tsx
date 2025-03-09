@@ -20,6 +20,7 @@ const ServiceFeeInquiry: React.FC<Props> = ({ toggle, dispatch }) => {
     { 'service-name': searchValue ?? '' },
     dispatch
   );
+  const name = data?.serviceName ?? searchValue;
   useEffect(() => {
     if (isSuccess && !isFetching && isFetched) {
       if (data.serviceName) {
@@ -29,23 +30,22 @@ const ServiceFeeInquiry: React.FC<Props> = ({ toggle, dispatch }) => {
       }
     }
   }, [isFetching, isFetched, data]);
-  const itemTranslation = { element: t(`element.service`) };
   const searchboxProps = {
     buttonText: t('service_search'),
-    placeholderText: t('placeholder.search_by_english_name', itemTranslation),
+    placeholderText: t('placeholder.search_by_english_name', { element: t(`element.service`) }),
   };
   const ItemExistsComponentProps = {
     titles: [t('en_name'), t('fa_name'), t('banking_share')],
     buttonInfo: {
       title: t('see_details'),
-      action: () => router.push(ROUTES.BUSINESS.TARIFF_DETAILS + '?service-name='),
+      action: () => router.push(ROUTES.BUSINESS.TARIFF_DETAILS + `?service-name=${name}`),
     },
     message: t('operational_message'),
   };
   const notFoundComponentProps = {
     buttonText: t('add_tarrif_settings'),
     title: t('allowed_creation'),
-    buttonHref: ROUTES.BUSINESS.TARIFF_DETAILS,
+    buttonHref: ROUTES.BUSINESS.UPSERT_TARIFF + `?service-name=${name}`,
   };
   const operationalData = [
     data?.serviceName,
