@@ -51,9 +51,10 @@ export const InputWrapper = styled<any>(AntInput)`
   ${inputStyles};
 `;
 
-export const InputMoney = styled(AntInputNumber)`
+// TODO: USE UIKIT INPUT
+export const InputMoney = styled(AntInput)`
   ${inputStyles}
-` as typeof AntInputNumber;
+` as typeof AntInput;
 
 export const PasswordWrapper = styled(AntInput.Password)``;
 
