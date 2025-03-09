@@ -1,4 +1,4 @@
-import { Fragment, JSX, RefObject } from 'react';
+import { Fragment, JSX, RefObject, useState } from 'react';
 import { Flex, FormInstance, InputRef } from 'antd';
 
 import { useTr } from '@oxygen/translation';
@@ -34,12 +34,22 @@ const ItemExists: React.FC<ItemExistsProps> = ({
   titles,
   message,
 }) => {
+  const [loading, setLoading] = useState(false);
   const [t] = useTr();
   const theme = useAppTheme();
   const inspectAnother = () => {
+    setLoading(false);
     form?.resetFields();
     changeShowSearching?.();
     inputRef?.current?.focus();
+  };
+  const handleClick = () => {
+    setLoading(true);
+    if (buttonInfo?.action) {
+      buttonInfo?.action();
+    } else {
+      inspectAnother();
+    }
   };
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
@@ -80,7 +90,8 @@ const ItemExists: React.FC<ItemExistsProps> = ({
           block={false}
           icon={buttonInfo?.icon}
           variant='outlined'
-          onClick={buttonInfo?.action ?? inspectAnother}
+          onClick={handleClick}
+          loading={loading}
         >
           {buttonInfo?.title}
         </Button>

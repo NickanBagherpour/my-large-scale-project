@@ -80,4 +80,5 @@ export type ClientReportDto = {
   createDate: string;
   organizationNationalId: number;
   organizationName: string;
+  gateWayId: string;
 };

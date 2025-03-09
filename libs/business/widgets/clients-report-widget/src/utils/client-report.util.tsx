@@ -72,7 +72,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
           <S.Details
             variant={'link'}
             size={'small'}
-            href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
+            href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record?.gateWayId}`}
           >
             {t('services_report')}
           </S.Details>
@@ -112,7 +112,7 @@ export function getMobileColumns(props: Props): any {
             title: '',
             value: (
               <Box display={'flex'} alignItems={'center'}>
-                <S.Details variant={'link'} href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}>
+                <S.Details variant={'link'} href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record?.gateWayId}`}>
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
                 <S.Details variant={'link'} onClick={() => addClientDetailsToView(record)}>
