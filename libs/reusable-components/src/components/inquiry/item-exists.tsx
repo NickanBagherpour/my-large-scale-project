@@ -1,70 +1,55 @@
-import { useRouter } from 'next/navigation';
-import { Fragment, RefObject } from 'react';
-import { Flex, FormInstance, InputRef, Tooltip } from 'antd';
+import { Fragment, JSX, RefObject } from 'react';
+import { Flex, FormInstance, InputRef } from 'antd';
 
 import { useTr } from '@oxygen/translation';
 import { Button, MarkText } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { getValueOrDash } from '@oxygen/utils';
 
-import { ContentType } from './inquiry-component';
-import { InquiryType } from './types';
-import * as S from './item-exists.style';
 import WithBadge from '../with-badge/with-badge';
 import { useAppTheme } from '@oxygen/hooks';
+import * as S from './item-exists.style';
 
-type Props = {
-  form: FormInstance<{
+export type ItemExistsProps = {
+  form?: FormInstance<{
     name: string;
   }>;
-  changeContent: (c: ContentType) => void;
-  inputRef: RefObject<InputRef | null>;
+  changeShowSearching?: () => void;
+  inputRef?: RefObject<InputRef | null>;
   data?: (string | number | undefined)[];
-  type: InquiryType;
-  itemName: string;
+  titles?: string[];
+  message?: string;
+  buttonInfo?: {
+    title: string;
+    icon?: JSX.Element;
+    action?: () => void;
+  };
 };
 
-const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type, itemName }) => {
+const ItemExists: React.FC<ItemExistsProps> = ({
+  form,
+  changeShowSearching,
+  inputRef,
+  data,
+  buttonInfo,
+  titles,
+  message,
+}) => {
   const [t] = useTr();
-  const router = useRouter();
   const theme = useAppTheme();
   const inspectAnother = () => {
-    form.resetFields();
-    changeContent('searching');
+    form?.resetFields();
+    changeShowSearching?.();
     inputRef?.current?.focus();
   };
-  const titles: Record<InquiryType, string[]> = {
-    service: [t('uikit.en_service_name'), t('uikit.desc'), t('uikit.element_en_name', { element: t('element.scope') })],
-    client: [
-      t('uikit.organization_name'),
-      t('uikit.organization_id'),
-      t('uikit.aggrigator_status'),
-      t('uikit.representative_name'),
-    ],
-  };
-  const buttonInfo = {
-    service: {
-      title: t('button.inspect_another_service'),
-      icon: <i className='icon-reload' />,
-      action: inspectAnother,
-    },
-    client: {
-      title: t('button.observe_client_detail'),
-      icon: <i className='icon-document' />,
-      action: () => {
-        router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?name=${itemName}`);
-      },
-    },
-  };
-  const currentButtonInfo = buttonInfo[type];
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
       <S.TitleContainer>
-        <i className='icon-box-search' style={{ fontSize: '2.2rem' }} />
-        <S.StyledText>{t('uikit.item_already_exists', { element: t(`element.${type}`) })}</S.StyledText>
+        <i className='icon-box-search' style={{ fontSize: '2.5rem' }} />
+        <S.StyledText>{message}</S.StyledText>
       </S.TitleContainer>
       <Flex justify='center' gap={'1rem'} style={{ width: '100%', direction: 'inherit' }}>
         {/* <S.Partition style={{ justifyContent: 'end' }}>  */}
-        {titles[type].map((item, index) => (
+        {titles?.map((item, index) => (
           <Fragment key={item}>
             <div style={{ flex: '1 1 0%', direction: 'ltr' }}>
               <S.InfoTitle>{item}</S.InfoTitle>
@@ -82,7 +67,7 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
                   />
                 </S.CenteredText>
               ) : (
-                <S.CenteredText>{getValueOrDash(data?.[index], '')}</S.CenteredText>
+                <S.CenteredText>{getValueOrDash(data?.[index])}</S.CenteredText>
               )}
             </div>
             {/* {index === 1 && <S.StyledDivider orientation='center' type='vertical' variant='solid' />} */}
@@ -93,11 +78,11 @@ const ItemExists: React.FC<Props> = ({ form, changeContent, inputRef, data, type
         <Button
           style={{ width: 'fit-content' }}
           block={false}
-          icon={currentButtonInfo.icon}
+          icon={buttonInfo?.icon}
           variant='outlined'
-          onClick={currentButtonInfo?.action}
+          onClick={buttonInfo?.action ?? inspectAnother}
         >
-          {currentButtonInfo.title}
+          {buttonInfo?.title}
         </Button>
       </Flex>
     </Flex>
