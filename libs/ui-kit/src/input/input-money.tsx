@@ -24,7 +24,7 @@ const formatter = (value?: string) => {
 const parser = (value: string) => value?.replace(/,/g, '') as unknown as string;
 
 export const InputMoney = (props: InputMoneyProps) => {
-  const { children, addonAfter, value, onChange, showLetter = true, subtitle, ...rest } = props;
+  const { addonAfter, value, onChange, showLetter = true, subtitle, ...rest } = props;
 
   const formattedValue = formatter(value);
 
@@ -56,11 +56,9 @@ export const InputMoney = (props: InputMoneyProps) => {
   };
 
   return (
-    <S.InputWrapper>
-      <Input addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest}>
-        {children}
-      </Input>
+    <S.InputMoneyWrapper>
+      <Input addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest} />
       {getSubtitle()}
-    </S.InputWrapper>
+    </S.InputMoneyWrapper>
   );
 };
