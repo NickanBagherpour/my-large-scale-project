@@ -1,11 +1,11 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client, reportUrl } from '@oxygen/client';
 
-import { FetchParamsType } from '../types';
-// import { GetUpstreamListResponseType } from '../../../upstream-list-widget/src/types';
+import { FetchParamsType, ServiceClientsResponse, ServicesReportResponseType } from '../types';
 
 const Api = {
-  getServicesReport: async (params: FetchParamsType) => {
-    // return client.get<GetUpstreamListResponseType>(`${portalUrl}/v1/upstreams`, { params });
-  },
+  getServicesReport: async (params: FetchParamsType) =>
+    client.get<ServicesReportResponseType>(`${reportUrl}/v1/reports/services`, { params }),
+  getServiceClients: async (name: string) =>
+    client.get<ServiceClientsResponse>(`${reportUrl}/v1/reports/services/${name}/clients`),
 };
 export default Api;

@@ -15,8 +15,6 @@ type Props = {
   pagination: Pagination;
   theme: ITheme;
   wordToHighlight: string;
-  setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  setServiceName: (value: ((prevState: string) => string) | string) => void;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
@@ -25,8 +23,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
     pagination: { page, rowsPerPage },
     theme,
     wordToHighlight,
-    setOpenModal,
-    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
 
@@ -94,7 +90,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       dataIndex: '',
       align: 'left',
       width: widthByButtonCount(2),
-      ellipsis: false,
       render: (value, record) => (
         <S.ActionBox>
           <Button variant={'link'} size={'small'} disabled={true}>
@@ -119,8 +114,6 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
     pagination: { page, rowsPerPage },
     wordToHighlight,
     theme,
-    setOpenModal,
-    setServiceName,
   } = props;
   const highlightColor = theme.secondary.main;
   return [
@@ -143,21 +136,21 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
             title: t('table.persian_name'),
             value: getValueOrDash(value?.persianName),
           },
-          {
-            title: t('table.scope'),
-            value: (
-              <WithBadge
-                items={record?.scopes}
-                onRender={(value) => (
-                  <MarkText
-                    text={getValueOrDash(value)}
-                    highlightColor={highlightColor}
-                    wordToHighlight={wordToHighlight}
-                  />
-                )}
-              />
-            ),
-          },
+          // {
+          //   title: t('table.scope'),
+          //   value: (
+          //     <WithBadge
+          //       items={record?.scopes}
+          //       onRender={(value) => (
+          //         <MarkText
+          //           text={getValueOrDash(value)}
+          //           highlightColor={highlightColor}
+          //           wordToHighlight={wordToHighlight}
+          //         />
+          //       )}
+          //     />
+          //   ),
+          // },
           {
             title: t('table.status'),
             value: (

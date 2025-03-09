@@ -1,100 +1,56 @@
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { addThousandSeparator, removeLettersFromNumber, numberToPersian, rialToToman } from '@oxygen/utils';
-
-import { InputProps } from './input';
-// import { Text } from '../text/text';
+import { numberToPersian, rialToToman } from '@oxygen/utils';
 
 import * as S from './input.style';
+import { InputNumberProps } from 'antd';
 
-export type InputMoneyProps = InputProps & {
+export type InputMoneyProps = InputNumberProps<number> & {
   showLetter?: boolean;
   subtitle?: ReactNode;
-  onValue?: (value?: string, formattedValue?: string) => void;
 };
 
 export const InputMoney = (props: InputMoneyProps) => {
-  const {
-    children,
-    addonAfter,
-    value,
-    onChange,
-    onValue,
-    allowClear = true,
-    showLetter = true,
-    subtitle,
-    ...rest
-  } = props;
+  const { children, addonAfter, value, showLetter = true, subtitle, ...rest } = props;
 
   const [t] = useTr();
-  const [formattedValue, setFormattedValue] = useState(value);
 
   const _addonAfter = addonAfter ?? t('common.rial');
 
-  // console.log('money', value, formattedValue);
-
-  useEffect(() => {
-    if (value) {
-      setFormattedValue(addThousandSeparator(removeLettersFromNumber(value?.toString())));
-    }
-  }, [value]);
-
   function getSubtitle() {
     if (!showLetter) return null;
+    if (value === undefined || value === null) return null;
 
     let _subtitle: ReactNode = '';
-    const number = +removeLettersFromNumber(formattedValue?.toString() ?? '0');
 
     if (subtitle !== null && subtitle !== undefined) {
       _subtitle = subtitle;
     } else {
-      _subtitle = `${numberToPersian(rialToToman(number))} ${t('common.toman')}`;
+      _subtitle = `${numberToPersian(rialToToman(value))} ${t('common.toman')}`;
     }
 
-    if (number.toString().length > 3 && number > 100) {
+    if (value.toString().length > 3 && value > 100) {
       return <S.SubtitleText>{_subtitle}</S.SubtitleText>;
     }
 
     return null;
   }
 
-  function handleOnChange(event) {
-    if (onChange) {
-      onChange(event);
-    }
-
-    const newValue = removeLettersFromNumber(event.target.value);
-    // Only allow numbers.
-    if (newValue && !newValue.match(/^[0-9]+$/)) {
-      return;
-    }
-    const formatted = addThousandSeparator(newValue);
-
-    setFormattedValue(formatted);
-    handleOnValue(newValue, formatted);
-  }
-
-  function handleOnValue(value, formatted) {
-    if (onValue) {
-      onValue(value, formatted);
-    }
-  }
-
   return (
     <S.InputMoneyWrapper>
-      <S.InputWrapper
-        value={formattedValue}
+      <S.InputMoney
         addonAfter={_addonAfter}
         maxLength={19}
-        allowClear={allowClear}
-        onChange={handleOnChange}
+        formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '')}
+        parser={(value) => value?.replace(/,/g, '') as unknown as number}
+        value={value}
         {...rest}
       >
         {children}
-      </S.InputWrapper>
+      </S.InputMoney>
       {getSubtitle()}
     </S.InputMoneyWrapper>
   );

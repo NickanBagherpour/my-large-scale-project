@@ -4,7 +4,7 @@ import { WidgetActionType, WidgetStateType } from './types';
 export const initialStateValue: WidgetStateType = {
   searchTerm: '',
   sort: SORT_ORDER.ASCENDING,
-  status: 'all',
+  isActive: null,
   pagination: {
     page: INITIAL_PAGE,
     rowsPerPage: INITIAL_ROW_PER_PAGE,
@@ -13,7 +13,7 @@ export const initialStateValue: WidgetStateType = {
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
-  //console.log(action.type, state, action);
+  // console.log(action.type, state, action);
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE': {
       state.message = action.payload;
@@ -28,7 +28,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_STATUS': {
       state.pagination.page = initialStateValue.pagination.page;
-      state.status = action.payload;
+      state.isActive = action.payload;
       return;
     }
 
