@@ -28,14 +28,14 @@ export function prepareParams(values: AppSchemaType) {
   };
 
   if (type === 'fixed') {
-    params = { ...params, fee: fixed };
+    params = { ...params, fee: +fixed };
   }
 
   if (type === 'tiered') {
     const feeSteps: PostTariffParams['feeSteps'] = tiered.map(({ tariff, to, from }) => ({
-      fee: tariff,
-      fromRate: from,
-      toRate: to,
+      fee: +tariff,
+      fromRate: +from,
+      toRate: +to,
     }));
     params = { ...params, feeSteps };
   }
@@ -43,11 +43,11 @@ export function prepareParams(values: AppSchemaType) {
   if (type === 'special') {
     const transactionFees: PostTariffParams['transactionFees'] = special.map(
       ({ to, from, maximum, minimum, percent }) => ({
-        toRate: to,
-        fromRate: from,
-        max: maximum,
-        min: minimum,
-        percent,
+        toRate: +to,
+        fromRate: +from,
+        max: +maximum,
+        min: +minimum,
+        percent: +percent,
       })
     );
     params = { ...params, transactionFees };
