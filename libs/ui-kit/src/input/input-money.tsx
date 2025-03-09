@@ -1,17 +1,18 @@
 'use client';
 
-import { ChangeEvent, ReactNode, useState } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { addThousandSeparator, convertToEnglishNumbers, numberToPersian, rialToToman } from '@oxygen/utils';
 
 import * as S from './input.style';
 import { InputProps } from 'antd';
+import { Input } from './input';
 
 export type InputMoneyProps = Omit<InputProps, 'value'> & {
   showLetter?: boolean;
   subtitle?: ReactNode;
-  value?: string; // TODO: see if you could remove this
+  value?: string;
 };
 
 const formatter = (value?: string) => {
@@ -55,11 +56,11 @@ export const InputMoney = (props: InputMoneyProps) => {
   };
 
   return (
-    <S.InputMoneyWrapper>
-      <S.InputMoney addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest}>
+    <S.InputWrapper>
+      <Input addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest}>
         {children}
-      </S.InputMoney>
+      </Input>
       {getSubtitle()}
-    </S.InputMoneyWrapper>
+    </S.InputWrapper>
   );
 };

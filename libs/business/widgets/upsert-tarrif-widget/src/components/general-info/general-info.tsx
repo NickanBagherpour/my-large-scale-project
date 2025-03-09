@@ -9,7 +9,6 @@ type Props = {
   rule: RuleRender;
 };
 
-// TODO: find a better name for this
 const compareTo100 = (a: string, b: string): boolean => {
   if (a === '' || b === '') return true;
 

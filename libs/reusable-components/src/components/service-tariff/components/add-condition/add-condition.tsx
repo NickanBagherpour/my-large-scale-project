@@ -9,7 +9,6 @@ type Props = {
   onClick: () => void;
 };
 
-// TODO: ADD A BTN TO THIS COMPONENT'S NAME
 export default function AddCondition(props: Props) {
   const { tariffType, onClick } = props;
   const [t] = useTr();

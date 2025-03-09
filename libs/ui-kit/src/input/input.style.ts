@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input as AntInput, InputNumber as AntInputNumber } from 'antd';
+import { Input as AntInput } from 'antd';
 
 function getSize(p: any) {
   switch (p.size) {
@@ -18,7 +18,7 @@ function getSize(p: any) {
   }
 }
 
-const inputStyles = css`
+export const InputWrapper = styled(AntInput)`
   ${(p) => getSize(p)};
 
   .ant-input-prefix {
@@ -46,15 +46,6 @@ const inputStyles = css`
     font-size: 1.4rem;
   }
 `;
-
-export const InputWrapper = styled<any>(AntInput)`
-  ${inputStyles};
-`;
-
-// TODO: USE UIKIT INPUT
-export const InputMoney = styled(AntInput)`
-  ${inputStyles}
-` as typeof AntInput;
 
 export const PasswordWrapper = styled(AntInput.Password)``;
 
