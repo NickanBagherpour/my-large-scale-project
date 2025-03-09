@@ -7,12 +7,6 @@ export enum SORT_ORDER {
   DESCENDING = 'descending',
 }
 
-export const SERVICE_STATUS = {
-  ISACTIVE: true,
-  NOTACTIVE: false,
-  ALLSTATES: null,
-} as const;
-
 export const FILTER_FORM_ITEM_NAMES = {
   search_by_name: 'search_by_name',
 };
