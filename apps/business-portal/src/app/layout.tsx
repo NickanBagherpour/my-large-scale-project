@@ -5,6 +5,7 @@ import 'normalize.css';
 import { iransans } from './fonts';
 import '../../public/assets/fonts/iconly/iconly.css';
 import { getInitialConfig } from '@oxygen/utils';
+import '@ant-design/v5-patch-for-react-19';
 
 export const metadata = {
   title: 'Oxygen Pro',

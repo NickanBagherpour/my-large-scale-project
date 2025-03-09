@@ -1,8 +1,13 @@
 import { Form } from 'antd';
-import * as S from './tag-picker.style';
-import { renderChip } from '../../../utils/helper';
+import { createSchemaFieldRule } from 'antd-zod';
+
 import { useTr } from '@oxygen/translation';
+
 import { FORM_ITEM } from '../../../utils/consts';
+import { createFormSchema } from '../../../types';
+import { renderChip } from '../../../utils/helper';
+
+import * as S from './tag-picker.style';
 
 const TagPicker = (props) => {
   const {
@@ -18,13 +23,15 @@ const TagPicker = (props) => {
     onGrantTypeChange,
     onGrantTypeClose,
     loadingUpdateClient,
+    isAuthorizationFlowSelected,
   } = props;
   const [t] = useTr();
+  const rule = createSchemaFieldRule(createFormSchema(t, isAuthorizationFlowSelected));
 
   return (
     <>
       <S.TagPicker>
-        <Form.Item name={FORM_ITEM.GRANT_TYPE}>
+        <Form.Item name={FORM_ITEM.GRANT_TYPE} rules={[rule]}>
           <S.Select
             disabled={loadingUpdateClient || isSuccess || isDisabled}
             menu={GrantValue}

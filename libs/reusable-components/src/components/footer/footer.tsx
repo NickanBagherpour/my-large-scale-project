@@ -6,14 +6,15 @@ type Props = {
   onRegister: () => void;
   onReturn: () => void;
   registerButtonProps?: ButtonProps;
+  className?: string;
 };
 
 export default function Footer(props: Props) {
-  const { onRegister, onReturn, registerButtonProps = {} } = props;
+  const { onRegister, onReturn, registerButtonProps = {}, className } = props;
   const [t] = useTr();
 
   return (
-    <S.FooterContainer>
+    <S.FooterContainer className={className}>
       <Button variant={'outlined'} onClick={onReturn}>
         {t('button.return')}
       </Button>

@@ -10,6 +10,7 @@ import { ServiceItemType } from '../../types';
 import { useGetServiceClients } from '../../services';
 
 import * as S from './service-detail-modal.style';
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
 
 type Props = {
   isOpen: boolean;
@@ -55,7 +56,7 @@ export default function DetailsModal(props: Props) {
     }
   };
 
-  const hasPagination = clients && clients?.response?.length > 5;
+  // const hasPagination = clients && clients?.response?.length > 5;
 
   const desktopColumns = getDesktopColumns({ t, pagination });
   const mobileColumns = getMobileColumns({ t, pagination });
@@ -84,17 +85,15 @@ export default function DetailsModal(props: Props) {
           <Table
             loading={isFetching}
             dataSource={clients?.response}
+            minHeight={'auto'}
             columns={desktopColumns}
             mobileColumns={mobileColumns}
             rowKey={(row) => row?.clientName}
-            {...(hasPagination
-              ? {
-                  pagination: { pageSize: pagination.rowsPerPage },
-                  onChange: handlePageChange,
-                  current: pagination.page + 1,
-                  total: clients?.response?.length,
-                }
-              : { pagination: false })}
+            // pagination: { pageSize: pagination.rowsPerPage },
+            pagination={{ pageSize: AVAILABLE_ROWS_PER_PAGE[0], showSizeChanger: false, hideOnSinglePage: true }}
+            onChange={handlePageChange}
+            current={pagination.page + 1}
+            total={clients?.response?.length}
           />
         </div>
       </S.Container>
