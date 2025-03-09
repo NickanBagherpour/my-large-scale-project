@@ -12,7 +12,7 @@ export default function FixedTariff(props: Props) {
   const { rules } = props;
   const [t] = useTr();
   return (
-    <S.FormItem name={[TARIFF.fixed]} colon label={t('reusable.tariff_amount_irr')} rules={rules}>
+    <S.FormItem layout='horizontal' name={[TARIFF.fixed]} colon label={t('reusable.tariff_amount_irr')} rules={rules}>
       <Input.Money placeholder={t('reusable.enter_amount')} showLetter={false} />
     </S.FormItem>
   );
