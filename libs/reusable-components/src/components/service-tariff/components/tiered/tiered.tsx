@@ -35,13 +35,13 @@ export default function Tiered(props: Props) {
                   <span>{t('reusable.from')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={rules}>
-                    <InputNumber placeholder={t('reusable.count')} />
+                    <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
                   <span>{t('reusable.to')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.to]} rules={rules}>
-                    <InputNumber placeholder={t('reusable.count')} />
+                    <Input placeholder={t('reusable.count')} />
                   </Form.Item>
 
                   <span>{t('reusable.request_tariff_applies')}</span>

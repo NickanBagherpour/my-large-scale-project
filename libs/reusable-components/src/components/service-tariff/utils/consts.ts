@@ -16,19 +16,19 @@ export const TIERED_TARIFF_NAMES = {
 
 export const emptySpecialTariff = [
   {
-    [SPECIAL_TARIFF_NAMES.to]: null,
-    [SPECIAL_TARIFF_NAMES.from]: null,
-    [SPECIAL_TARIFF_NAMES.percent]: null,
-    [SPECIAL_TARIFF_NAMES.minimum]: null,
-    [SPECIAL_TARIFF_NAMES.maximum]: null,
+    [SPECIAL_TARIFF_NAMES.to]: '',
+    [SPECIAL_TARIFF_NAMES.from]: '',
+    [SPECIAL_TARIFF_NAMES.percent]: '',
+    [SPECIAL_TARIFF_NAMES.minimum]: '',
+    [SPECIAL_TARIFF_NAMES.maximum]: '',
   },
 ];
 
 export const emptyTieredTariff = [
   {
-    [TIERED_TARIFF_NAMES.from]: null,
-    [TIERED_TARIFF_NAMES.to]: null,
-    [TIERED_TARIFF_NAMES.tariff]: null,
+    [TIERED_TARIFF_NAMES.from]: '',
+    [TIERED_TARIFF_NAMES.to]: '',
+    [TIERED_TARIFF_NAMES.tariff]: '',
   },
 ];
 
