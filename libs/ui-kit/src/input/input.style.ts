@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input as AntInput } from 'antd';
+import { Input as AntInput, InputNumber as AntInputNumber } from 'antd';
 
 function getSize(p: any) {
   switch (p.size) {
@@ -18,12 +18,8 @@ function getSize(p: any) {
   }
 }
 
-export const InputWrapper = styled<any>(AntInput)`
-  //line-height: 0;
-
+const inputStyles = css`
   ${(p) => getSize(p)};
-
-  font-size: 1.4rem;
 
   .ant-input-prefix {
     padding-right: 0.8rem;
@@ -44,7 +40,20 @@ export const InputWrapper = styled<any>(AntInput)`
     padding-right: 6px;
     font-size: 1.2rem;
   }
+
+  &,
+  & .ant-input-number-group-addon {
+    font-size: 1.4rem;
+  }
 `;
+
+export const InputWrapper = styled<any>(AntInput)`
+  ${inputStyles};
+`;
+
+export const InputMoney = styled(AntInputNumber)`
+  ${inputStyles}
+` as typeof AntInputNumber;
 
 export const PasswordWrapper = styled(AntInput.Password)``;
 

@@ -28,12 +28,13 @@ const App: React.FC<AppProps> = (props) => {
 
   const serviceName: Nullable<string> = searchParams.get(SERVICE_NAME);
 
+  const { data, isFetching } = useGetReportDataQuery(serviceName!);
+
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('widget_title'),
+    primaryTitle: data?.servicePersianName,
     secondaryTitle: serviceName,
   });
-
-  const { data, isFetching } = useGetReportDataQuery(serviceName!);
 
   const renderPage = () => {
     if (!serviceName) {

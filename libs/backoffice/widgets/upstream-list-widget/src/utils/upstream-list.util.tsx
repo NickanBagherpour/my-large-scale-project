@@ -1,8 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
-import { Tooltip } from 'antd';
 
-import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 
 import { UpstreamItemType } from '../types';
@@ -23,7 +22,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
   return [
     {
       title: t('table.index'),
-      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -34,7 +32,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: t('table.english_name'),
       dataIndex: 'name',
-      align: 'center',
       render: (value) => {
         return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
@@ -42,7 +39,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: t('table.persian_name'),
       dataIndex: 'description',
-      align: 'center',
       render: (value) => {
         return <Tooltip title={value}>{getValueOrDash(value)}</Tooltip>;
       },
@@ -51,7 +47,6 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
     {
       title: t('table.active_servers'),
       dataIndex: 'activeServerCount',
-      align: 'center',
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -60,6 +55,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamItemType> {
       title: '',
       dataIndex: '',
       align: 'left',
+      ellipsis: false,
       width: widthByButtonCount(2),
       render: (value, record) => (
         <S.ActionBox>

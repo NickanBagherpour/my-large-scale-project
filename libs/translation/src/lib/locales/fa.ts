@@ -187,6 +187,32 @@ export default {
     rows_count: 'تعداد سطرها:',
   },
 
+  reusable: {
+    service_tariff: 'تعرفه سرویس',
+    tariff_type: 'نوع تعرفه',
+    fixed_tariff: 'تعرفه ثابت',
+    tiered_tariff: 'تعرفه پله‌ای',
+    special_tariff: 'تعرفه خاص',
+    save_info: 'ثبت اطلاعات',
+    back: 'بازگشت',
+    tariff_amount_irr: 'مبلغ تعرفه (ریال):',
+    enter_amount: 'مبلغ را وارد نمایید',
+    count: 'تعداد',
+    from: 'از',
+    to: 'تا',
+    request_tariff_applies: 'درخواست، مشمول تعرفه',
+    tariff_irr: 'تعرفه',
+    calculated_in_irr: 'محاسبه می‌گردد.',
+    add_condition: 'افزودن شرط',
+    amount_irr: 'مبلغ',
+    percent: 'درصد',
+    from_transaction: 'از تراکنش',
+    rial_applicable: 'مشمول',
+    tariff_percent_min: 'درصد تعرفه، حداقل تعرفه',
+    max_tariff: 'و حداکثر تعرفه',
+    calculated: 'محاسبه می‌گردد',
+  },
+
   button: {
     register: 'ثبت',
     login: 'ورود',
@@ -440,6 +466,7 @@ export default {
   },
 
   validation: {
+    date_range_error: 'بازه زمانی انتخاب شده معتبر نیست',
     required: 'این فیلد اجباریست',
     incorrect: 'خطا',
     max_len: 'حداکثر طول مجاز {{val}} کاراکتر می باشد',

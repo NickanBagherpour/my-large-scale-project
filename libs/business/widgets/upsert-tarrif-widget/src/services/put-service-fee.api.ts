@@ -1,0 +1,17 @@
+import { useMutation } from '@tanstack/react-query';
+import { updateMessageAction, useAppDispatch } from '../context';
+import Api from './api';
+import { PostTariffParams } from '../types';
+import { ApiUtil } from '@oxygen/utils';
+
+export const usePutServiceFee = () => {
+  const dispatch = useAppDispatch();
+
+  return useMutation({
+    mutationFn: (params: PostTariffParams) => Api.putServiceFee(params),
+    onError(e) {
+      const err = ApiUtil.getErrorMessage(e);
+      updateMessageAction(dispatch, err);
+    },
+  });
+};

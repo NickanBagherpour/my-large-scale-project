@@ -87,6 +87,7 @@ export default function ClientDetailsModal(props: Props) {
               loading={isFetching}
               dataSource={service?.response}
               hasContainer={false}
+              minHeight={'auto'}
               columns={desktopColumns}
               mobileColumns={mobileColumns}
               rowKey={(row) => `${row.serviceName}-${row.serviceEnglishName}`}
@@ -96,6 +97,8 @@ export default function ClientDetailsModal(props: Props) {
                     onChange: handlePageChange,
                     current: pagination.page + 1,
                     total: service?.response?.length,
+                    showSizeChanger: false,
+                    hideOnSinglePage: true,
                   }
                 : { pagination: false })}
             />

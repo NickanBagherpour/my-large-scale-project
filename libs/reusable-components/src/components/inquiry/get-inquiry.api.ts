@@ -14,7 +14,7 @@ const keys = {
 export const useInquiry = (type: InquiryType, params: InquiryParams, dispatch: any) => {
   return useQuery({
     placeholderData: keepPreviousData,
-    enabled: false,
+    enabled: !!params.name,
     queryFn: withErrorHandling(async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return client.get<InquiryDto>(`${portalUrl}${API_URLS[type]}`, { params: { [`${type}-name`]: params.name } });

@@ -1,12 +1,12 @@
+import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Chip } from '@oxygen/ui-kit';
-import * as S from './filters.sytle';
-import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
-import { useState } from 'react';
 import { useBounce, useToggle } from '@oxygen/hooks';
+import { ServiceClientInquiry } from '@oxygen/reusable-components';
+import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import UploadClient from '../upload-client/upload-client';
-import { InquiryComponent } from '@oxygen/reusable-components';
+import * as S from './filters.sytle';
 
 type Status = WidgetStateType['status'];
 type Sort = WidgetStateType['sort'];
@@ -78,7 +78,7 @@ export default function Filters() {
       </S.Container>
 
       <UploadClient toggle={toggleUploadModal} isOpen={isUploadModalOpen} />
-      {isInquiryModalOpen && <InquiryComponent type='client' dispatch={dispatch} toggle={toggleInquiryModal} />}
+      {isInquiryModalOpen && <ServiceClientInquiry type='client' dispatch={dispatch} toggle={toggleInquiryModal} />}
     </>
   );
 }

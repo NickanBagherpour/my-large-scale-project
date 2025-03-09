@@ -55,10 +55,12 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
     const updatedPagination = { page: current, limit: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
-  const tableColumnsParams = { t, toggleRemoveModal, setServiceToUnassign, router, theme };
+
+  const limit = pagination?.limit || AVAILABLE_ROWS_PER_PAGE[0];
+  const page = pagination?.page || 1;
+  const tableColumnsParams = { t, toggleRemoveModal, setServiceToUnassign, router, theme, limit, page };
   const desktopColumns = getDesktopColumns(tableColumnsParams);
   const mobileColumns = getMobileColumns(tableColumnsParams);
-
   return (
     <S.TariffTableContainer>
       <Table
@@ -68,7 +70,7 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
         mobileColumns={mobileColumns}
         pagination={{
           ...pagination,
-          total: tableData?.totalElements || lastTotal,
+          total: tableData?.page?.totalElements || lastTotal,
           pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
           pageSize: pagination?.limit,
           current: pagination?.page,

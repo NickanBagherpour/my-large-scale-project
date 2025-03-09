@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Box, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
@@ -32,7 +31,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   return [
     {
       title: t('row'),
-      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -44,9 +42,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: `${t('name')}`,
       dataIndex: 'clientName',
       key: 'clientName',
-      align: 'center',
       render: (clientName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
+        <Tooltip title={getValueOrDash(clientName)}>
           <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
@@ -55,11 +52,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: `${t('persianName')}`,
       dataIndex: 'organizationName',
       key: 'organizationName',
-      align: 'center',
       render: (organizationName) => (
-        <Tooltip placement='top' title={getValueOrDash(organizationName)} arrow={true}>
-          {getValueOrDash(organizationName)}
-        </Tooltip>
+        <Tooltip title={getValueOrDash(organizationName)}>{getValueOrDash(organizationName)}</Tooltip>
       ),
     },
     {
@@ -67,6 +61,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientsReport',
       key: 'clientsReport',
       align: 'left',
+      ellipsis: false,
       width: widthByButtonCount(2),
       render: (value, record) => (
         <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>

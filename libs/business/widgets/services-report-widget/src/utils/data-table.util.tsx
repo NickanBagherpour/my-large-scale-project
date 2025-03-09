@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
 import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { Pagination } from '@oxygen/types';
 
 import { ServiceItemType } from '../types';
@@ -80,24 +80,29 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       dataIndex: '',
       align: 'left',
       width: widthByButtonCount(3),
-      render: (value, record) => (
-        <S.ActionBox>
-          <Button variant={'link'} size={'small'} disabled={true}>
-            {t('table.detail_report')}
-          </Button>
-          <Button
-            variant={'link'}
-            size={'small'}
-            // href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-            onClick={() => {
-              setOpenModal(true);
-              setServiceName(record?.serviceName);
-            }}
-          >
-            {t('button.detail')}
-          </Button>
-        </S.ActionBox>
-      ),
+      render: (value, record) => {
+        return (
+          <S.ActionBox>
+            <Button
+              variant={'link'}
+              size={'small'}
+              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+            >
+              {t('table.detail_report')}
+            </Button>
+            <Button
+              variant={'link'}
+              size={'small'}
+              onClick={() => {
+                setOpenModal(true);
+                setServiceName(record?.serviceName);
+              }}
+            >
+              {t('button.detail')}
+            </Button>
+          </S.ActionBox>
+        );
+      },
     },
   ];
 }
@@ -147,9 +152,8 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  // href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
                   size={'small'}
-                  disabled={true}
                 >
                   {t('table.detail_report')}
                 </Button>

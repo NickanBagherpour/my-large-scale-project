@@ -1,4 +1,4 @@
-import { ClientInquiryStatus, ServiceInquiryStatus } from './consts';
+import { ClientInquiryStatus, InquiryStatus, ServiceInquiryStatus } from './consts';
 
 export type InquiryDto = ServiceInquiryDto | ClientInquiryDto;
 export interface ClientInquiryDto {
@@ -57,3 +57,4 @@ export interface GeneralItemInfo {
   progress?: number;
 }
 export type InquiryType = 'service' | 'client';
+export type ContentType = keyof typeof InquiryStatus;

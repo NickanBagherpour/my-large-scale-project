@@ -1,9 +1,10 @@
-import { Flex, Radio } from 'antd';
+import { Radio } from 'antd';
 
 import { BasicComponentProps } from '@oxygen/types';
-import { BarChart, Button, Select } from '@oxygen/ui-kit';
+import { BarChart, Button, Container, Select } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
+import NoResult from '../no-result/no-result';
 
 import * as S from './call-rate-chart.style';
 
@@ -75,7 +76,7 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
     </S.SelectIcons>
   );
   return (
-    <>
+    <Container fillContainer={true}>
       <S.Header>
         <S.Title>{t('uikit.call_rate', { element: t('element.service') })}</S.Title>
         <S.Controls>
@@ -104,15 +105,19 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
           </Button>
         </S.Controls>
       </S.Header>
-      <BarChart
-        data={chartData}
-        xAxisProps={{ dataKey: 'time', padding: { right: 0, left: 0 } }}
-        barProps={[{ dataKey: 'count', fill: theme.secondary.main, name: t('common.count') }]}
-        cartesianProps={{ vertical: false }}
-        legendProps={{ content: renderLegend }}
-        isLoading={isLoading}
-      />
-    </>
+      {chartData.length > 0 ? (
+        <BarChart
+          data={chartData}
+          xAxisProps={{ dataKey: 'time', padding: { right: 0, left: 0 } }}
+          barProps={[{ dataKey: 'count', fill: theme.secondary.main, name: t('common.count') }]}
+          cartesianProps={{ vertical: false }}
+          legendProps={{ content: renderLegend }}
+          isLoading={isLoading}
+        />
+      ) : (
+        <NoResult isLoading={isLoading} />
+      )}
+    </Container>
   );
 };
 export default CallRateChart;
