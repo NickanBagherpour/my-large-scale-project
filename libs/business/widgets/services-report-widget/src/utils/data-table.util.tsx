@@ -91,7 +91,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
             <Button
               variant={'link'}
               size={'small'}
-              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
             >
               {t('table.detail_report')}
             </Button>
@@ -163,7 +163,7 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                   size={'small'}
                 >
                   {t('table.detail_report')}

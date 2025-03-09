@@ -8,13 +8,13 @@ import { PaginationType } from '../context/types';
 
 type Props = {
   t: TFunction;
-  pagination: PaginationType;
+  modalTablePagination: Omit<PaginationType, 'sort'>;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<ClientInfo> {
   const {
     t,
-    pagination: { page, rowsPerPage },
+    modalTablePagination: { page, rowsPerPage },
   } = props;
 
   return [
