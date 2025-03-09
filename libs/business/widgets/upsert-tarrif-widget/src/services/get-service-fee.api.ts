@@ -9,7 +9,7 @@ export const useGetFee = (serviceName: string | null) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [UPSERT_TARRIF.TARIFF],
+    queryKey: [UPSERT_TARRIF.TARIFF, serviceName],
     queryFn: withErrorHandling(() => Api.getServiceFee(serviceName!), dispatch, { ignore404Errors: true }),
     enabled: !!serviceName,
   });
