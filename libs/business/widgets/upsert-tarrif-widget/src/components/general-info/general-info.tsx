@@ -76,11 +76,11 @@ export default function GeneralInfo(props: Props) {
           </S.FormItem>
 
           <S.FormItem name={GENERAL_INFO_NAMES.serviceType} label={t('service_type')} rules={[rule]}>
-            <Select id={'hello'} options={options} />
+            <Select options={options} placeholder={t('choose_service_type')} />
           </S.FormItem>
 
           <S.FormItem name={GENERAL_INFO_NAMES.fieldNameInElastic} label={t('field_name_in_elastic')} rules={[rule]}>
-            <Input />
+            <Input placeholder={t('enter_field_name')} />
           </S.FormItem>
 
           <S.FormItem
@@ -88,7 +88,7 @@ export default function GeneralInfo(props: Props) {
             label={t('transaction_type_in_elastic')}
             rules={[rule]}
           >
-            <Input />
+            <Input placeholder={t('enter_transaction_type')} />
           </S.FormItem>
         </SearchItemsContainer>
       </BorderedSection>
