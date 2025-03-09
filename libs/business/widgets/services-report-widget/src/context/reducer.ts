@@ -1,4 +1,4 @@
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, SORT_ORDER } from '../utils/consts';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, MODAL_INITIAL_ROW_PER_PAGE, SORT_ORDER } from '../utils/consts';
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
@@ -8,6 +8,10 @@ export const initialStateValue: WidgetStateType = {
   pagination: {
     page: INITIAL_PAGE,
     rowsPerPage: INITIAL_ROW_PER_PAGE,
+  },
+  modalTablePagination: {
+    rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
+    page: INITIAL_PAGE,
   },
   message: null,
 };
@@ -40,6 +44,11 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_PAGINATION': {
       state.pagination = { ...state.pagination, ...action.payload };
+      return;
+    }
+
+    case 'UPDATE_MODAL_TABLE_PAGINATION': {
+      state.modalTablePagination = { ...state.modalTablePagination, ...action.payload };
       return;
     }
 

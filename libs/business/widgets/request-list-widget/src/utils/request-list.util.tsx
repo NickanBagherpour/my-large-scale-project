@@ -1,11 +1,14 @@
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { Pagination } from '@oxygen/types';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
-import * as S from '../components/data-table/data-table.style';
+
+import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
+import { getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
+import { Pagination } from '@oxygen/types';
+
 import { statusBadgeRenderer } from './status-badge.util';
 import { BusinessStatusBadge } from './consts';
 import { RequestListType } from '../types/common-types';
+
+import * as S from '../components/data-table/data-table.style';
 
 type Props = {
   t: TFunction;
@@ -34,33 +37,42 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
       title: t('table.organization_name'),
       dataIndex: 'organizationName',
       align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.organizationName);
-      },
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.organizationName)} arrow={true}>
+          {getValueOrDash(record?.organizationName)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.client_name'),
       dataIndex: 'clientName',
       align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.clientName);
-      },
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.clientName)} arrow={true}>
+          {getValueOrDash(record?.clientName)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.status'),
       dataIndex: 'submissionStatus',
       align: 'center',
-      render: (_val, record) => {
-        return statusBadgeRenderer(record?.submissionStatus, userRole, t);
-      },
+      // width: widthByButtonCount(3),
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.submissionStatus?.title)} arrow={true}>
+          {statusBadgeRenderer(record?.submissionStatus, userRole, t)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.registration_date'),
       dataIndex: 'createDate',
       align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.createDate);
-      },
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.createDate)} arrow={true}>
+          {getValueOrDash(record?.createDate)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.requested_service_count'),
@@ -74,13 +86,16 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
       title: t('table.companyRepresentativeName'),
       dataIndex: 'representative',
       align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.representative);
-      },
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.representative)} arrow={true}>
+          {getValueOrDash(record?.representative)}
+        </Tooltip>
+      ),
     },
     {
-      width: '11.8rem',
+      // width: '11.8rem',
       key: 'details',
+      width: widthByButtonCount(2),
       render: (item, record) => {
         const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
         const colorButton = isApproved ? 'secondary' : 'primary';

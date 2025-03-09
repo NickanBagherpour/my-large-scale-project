@@ -7,8 +7,9 @@ import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/data-table.util';
-import { updatePaginationAction, useAppDispatch, useAppState } from '../../context';
+import { updateModalTablePagination, updatePaginationAction, useAppDispatch, useAppState } from '../../context';
 import DetailsModal from '../service-detail-modal/service-detail-modal';
+import { MODAL_INITIAL_ROW_PER_PAGE } from '../../utils/consts';
 import { ServicesReportResponseType } from '../../types';
 
 import * as S from './data-table.style';
@@ -38,6 +39,13 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     }
   };
 
+  const resetModalTablePage = () => {
+    const updatedModalTablePagination = {
+      page: 1,
+      rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
+    };
+    updateModalTablePagination(dispatch, updatedModalTablePagination);
+  };
   const dataTableParams = { t, pagination, wordToHighlight, theme, setOpenModal, setServiceName };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
@@ -62,8 +70,11 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       {openModal && (
         <DetailsModal
           data={data?.content}
-          isOpen={openModal}
-          close={() => setOpenModal(false)}
+          isOpen={!!openModal}
+          close={() => {
+            setOpenModal(false);
+            resetModalTablePage();
+          }}
           serviceName={serviceName}
           dispatch={dispatch}
         />

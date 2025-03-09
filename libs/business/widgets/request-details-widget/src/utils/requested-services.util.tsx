@@ -4,7 +4,7 @@ import { TFunction } from 'i18next';
 import { Tooltip } from 'antd';
 
 import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 
 import { PaginationType } from '../context/types';
 
@@ -25,7 +25,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
-      width: 70,
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -35,10 +35,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t(`table.service_name`),
       dataIndex: 'name',
       align: 'center',
-      width: 200,
-      ellipsis: {
-        showTitle: false,
-      },
       render: (value) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(value)}>
@@ -51,10 +47,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t(`table.persian_name`),
       dataIndex: 'persianName',
       align: 'center',
-      width: 300,
-      ellipsis: {
-        showTitle: false,
-      },
       render: (value) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(value)}>
@@ -78,16 +70,17 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
       dataIndex: '',
       // align: 'center',
       render: (value, record, index) => {
+        console.log('value', value);
         const columns: MobileColumnType[] = [
-          {
-            title: t('table.index'),
-            value: (page - 1) * rowsPerPage + 1 + index,
-          },
+          // {
+          //   title: t('table.index'),
+          //   value: (page - 1) * rowsPerPage + 1 + index,
+          // },
           {
             title: t('table.service_name'),
             value: (
-              <Tooltip title={getValueOrDash(value?.serviceName)} placement={'top'}>
-                <S.EllipsisContainer width={150}>{getValueOrDash(value?.serviceName)}</S.EllipsisContainer>
+              <Tooltip title={getValueOrDash(value?.name)} placement={'top'}>
+                {getValueOrDash(value?.name)}
               </Tooltip>
             ),
           },
@@ -95,7 +88,7 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
             title: t('table.persian_name'),
             value: (
               <Tooltip title={getValueOrDash(value?.persianName)} placement={'top'}>
-                <S.EllipsisContainer width={150}>{getValueOrDash(value?.persianName)}</S.EllipsisContainer>
+                {getValueOrDash(value?.persianName)}
               </Tooltip>
             ),
           },

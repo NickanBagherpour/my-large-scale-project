@@ -62,7 +62,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
       title: t('button.observe_client_detail'),
       icon: <i className='icon-document' />,
       action: () => {
-        Router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?client-name=${name}`);
+        router.push(ROUTES.BACKOFFICE.CLIENT_DETAILS + `?client-name=${name}`);
       },
     },
   };

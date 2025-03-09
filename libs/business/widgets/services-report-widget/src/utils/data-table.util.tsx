@@ -2,7 +2,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 import { DefaultTheme } from 'styled-components';
 
-import { Button, ColumnsType, MarkText, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType, MarkText, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { Pagination } from '@oxygen/types';
 
@@ -45,14 +45,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       title: t('table.service_name'),
       dataIndex: 'serviceName',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         return (
-          <MarkText
-            text={getValueOrDash(record?.serviceName)}
-            highlightColor={highlightColor}
-            wordToHighlight={wordToHighlight}
-          />
+          <Tooltip placement='top' title={getValueOrDash(record?.serviceName)} arrow={true}>
+            <MarkText
+              text={getValueOrDash(record?.serviceName)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
+          </Tooltip>
         );
       },
     },
@@ -60,19 +61,23 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       title: t('table.persian_name'),
       dataIndex: 'servicePersianName',
       align: 'center',
-      ellipsis: true,
-      render: (_val, record) => {
-        return getValueOrDash(record?.servicePersianName);
-      },
+      render: (_val, record) => (
+        <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
+          {getValueOrDash(record?.servicePersianName)}
+        </Tooltip>
+      ),
     },
     {
       title: t('table.status'),
       dataIndex: 'status',
       align: 'center',
-      ellipsis: true,
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
-        return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
+        return (
+          <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
+            <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>
+          </Tooltip>
+        );
       },
     },
     {
@@ -86,7 +91,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
             <Button
               variant={'link'}
               size={'small'}
-              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
             >
               {t('table.detail_report')}
             </Button>
@@ -126,16 +131,22 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
           {
             title: t('table.service_name'),
             value: (
-              <MarkText
-                text={getValueOrDash(record?.serviceName)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
-              />
+              <Tooltip placement='top' title={getValueOrDash(record?.serviceName)} arrow={true}>
+                <MarkText
+                  text={getValueOrDash(record?.serviceName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
             ),
           },
           {
             title: t('table.persian_name'),
-            value: getValueOrDash(value?.servicePersianName),
+            value: (
+              <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
+                {getValueOrDash(value?.servicePersianName)}
+              </Tooltip>
+            ),
           },
           {
             title: t('table.status'),
@@ -152,7 +163,7 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                   size={'small'}
                 >
                   {t('table.detail_report')}

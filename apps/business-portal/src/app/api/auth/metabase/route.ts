@@ -20,15 +20,15 @@ export async function GET(request: NextRequest) {
     case 'client':
       dashboardId = 10; // Replace with actual client dashboard ID
       params = {
-        // client_id: [id],
-        client_id: ['2aba8f42-9f86-489f-a609-963c35260e02'],
+        client_id: [id],
+        // client_id: ['2aba8f42-9f86-489f-a609-963c35260e02'],
       };
       break;
     case 'service':
       dashboardId = 11; // Replace with actual service dashboard ID
       params = {
-        // client_id: [id],
-        service_id: ['23d85074-afa4-4c18-bfe4-dbd67aeb4cd1'],
+        service_id: [id],
+        // service_id: ['23d85074-afa4-4c18-bfe4-dbd67aeb4cd1'],
       };
       break;
     default:
