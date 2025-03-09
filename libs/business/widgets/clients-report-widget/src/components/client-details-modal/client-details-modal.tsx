@@ -94,7 +94,7 @@ export default function ClientDetailsModal(props: Props) {
                 ? {
                     pagination: { pageSize: pagination.rowsPerPage },
                     onChange: handlePageChange,
-                    current: pagination.page,
+                    current: pagination.page + 1,
                     total: service?.response?.length,
                   }
                 : { pagination: false })}

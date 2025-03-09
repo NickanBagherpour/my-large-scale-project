@@ -57,7 +57,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       render: (clientPersianName) => (
         <Tooltip placement='top' title={getValueOrDash(clientPersianName)} arrow={true}>
-          {getValueOrDash(clientPersianName)}
+          <S.Name
+            text={getValueOrDash(clientPersianName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
