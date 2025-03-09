@@ -13,6 +13,10 @@ import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import { useApp } from '@oxygen/hooks';
 import { prepareParams } from '../../utils';
 import { getInitialValues } from '../../utils/get-initial-data';
+import { useQueryClient } from '@tanstack/react-query';
+import { RQKEYS } from '@oxygen/utils';
+
+const { TARIFF_LIST, TARIFF_DETAILS, UPSERT_TARRIF } = RQKEYS.BUSINESS;
 
 const App = () => {
   const [t] = useTr();
@@ -31,6 +35,7 @@ const App = () => {
     defaultTitle: t('add_tarrif_setting'),
   });
   const { notification } = useApp();
+  const queryClient = useQueryClient();
 
   if (!serviceName) {
     return void notFound();
@@ -38,21 +43,30 @@ const App = () => {
 
   const initialValues = getInitialValues(serviceName, feeData);
 
+  const invalidateAndRedirect = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.GET_LIST] }),
+      queryClient.invalidateQueries({ queryKey: [TARIFF_DETAILS.GET_LIST, serviceName], refetchType: 'inactive' }),
+      queryClient.invalidateQueries({ queryKey: [UPSERT_TARRIF.TARIFF, serviceName], refetchType: 'none' }),
+    ]);
+    router.push(ROUTES.BUSINESS.TARIFF_LIST);
+  };
+
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
     const params = prepareParams(values);
 
     if (feeData) {
       updateTarrif(params, {
-        onSuccess: () => {
+        async onSuccess() {
           notification.success({ message: t('edit_was_successful') });
-          router.push(ROUTES.BUSINESS.TARIFF_LIST);
+          await invalidateAndRedirect();
         },
       });
     } else {
       createTariff(params, {
-        onSuccess: () => {
+        async onSuccess() {
           notification.success({ message: t('create_was_successful') });
-          router.push(ROUTES.BUSINESS.TARIFF_LIST);
+          await invalidateAndRedirect();
         },
       });
     }
