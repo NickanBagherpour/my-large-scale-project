@@ -6,7 +6,7 @@ import { useTr } from '@oxygen/translation';
 import { getValueOrDash } from '@oxygen/utils';
 
 import { getDesktopColumns, getMobileColumns } from '../../utils/clients-list.util';
-import { MODAL_INITIAL_ROW_PER_PAGE } from '../../utils/consts';
+import { updateModalTablePagination, useAppState } from '../../context';
 import { useGetServiceClients } from '../../services';
 import { ServiceItemType } from '../../types';
 
@@ -24,10 +24,7 @@ export default function DetailsModal(props: Props) {
   const { isOpen, close, serviceName, dispatch, data } = props;
   const [t] = useTr();
 
-  const [modalTablePagination, setModalTablePagination] = useState<{ page: number; rowsPerPage: number }>({
-    page: 0,
-    rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
-  });
+  const { modalTablePagination } = useAppState();
 
   const { data: clients, isFetching } = useGetServiceClients(serviceName, dispatch);
 
@@ -49,10 +46,11 @@ export default function DetailsModal(props: Props) {
   const handlePageChange = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
-      setModalTablePagination({
-        page: pageSize === modalTablePagination.rowsPerPage ? current - 1 : 0,
+      const updatedPagination = {
+        page: pageSize === modalTablePagination.rowsPerPage ? current : 1,
         rowsPerPage: pageSize,
-      });
+      };
+      updateModalTablePagination(dispatch, updatedPagination);
     }
   };
 

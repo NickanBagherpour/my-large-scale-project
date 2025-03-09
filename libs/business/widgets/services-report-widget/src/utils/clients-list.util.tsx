@@ -24,7 +24,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfo> {
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
-        const start = page * rowsPerPage + 1;
+        const start = (page - 1) * rowsPerPage + 1;
         return start + index;
       },
     },
