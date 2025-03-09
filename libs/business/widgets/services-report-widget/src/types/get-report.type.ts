@@ -30,6 +30,7 @@ export type ServiceItemType = {
   isActive: boolean;
   category: string;
   owner: string;
+  gateWayId: string;
 };
 
 export type PageInfo = {

@@ -7,10 +7,11 @@ import { PageProps } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
 
 import { ClientReportDto } from '../../types';
+import ClientDetailsModal from '../clients-details-modal/clients-details-modal';
 import { updatePagination, updateModalTablePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-report.util';
+import { MODAL_INITIAL_ROW_PER_PAGE } from '../../utils/consts';
 
-import ClientDetailsModal from '../clients-details-modal/clients-details-modal';
 import * as S from './client-report.style';
 
 type ClientReportsProps = PageProps & {
@@ -50,7 +51,7 @@ const ClientReports: React.FC<ClientReportsProps> = (props) => {
   const resetModalTablePage = () => {
     const updatedModalTablePagination = {
       page: 1,
-      rowsPerPage: pagination.rowsPerPage,
+      rowsPerPage: MODAL_INITIAL_ROW_PER_PAGE,
     };
     updateModalTablePagination(dispatch, updatedModalTablePagination);
   };
