@@ -6,7 +6,7 @@ import { Nullable, PageProps } from '@oxygen/types';
 
 import * as S from './service-tariff.style';
 import { TariffDetailsType } from '../../types';
-import { feeTypeMapReverse, TARIFF, ServiceTariff as Tariff } from '@oxygen/reusable-components';
+import { ServiceTariff as Tariff } from '@oxygen/reusable-components';
 import { Form } from 'antd';
 import { getInitialValues } from '../../utils/get-initial-values';
 
