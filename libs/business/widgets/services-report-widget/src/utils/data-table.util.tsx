@@ -81,11 +81,13 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       align: 'left',
       width: widthByButtonCount(3),
       render: (value, record) => {
-
         return (
           <S.ActionBox>
-            <Button variant={'link'} size={'small'}
-                    href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}>
+            <Button
+              variant={'link'}
+              size={'small'}
+              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record.serviceName}`}
+            >
               {t('table.detail_report')}
             </Button>
             <Button

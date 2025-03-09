@@ -68,7 +68,7 @@ export default function ClientDetailsModal(props: Props) {
       width={1000}
       headerDivider
       footer={[
-        <Button key="close" size="large" color="primary" variant="outlined" onClick={close}>
+        <Button key='close' size='large' color='primary' variant='outlined' onClick={close}>
           {t('common.close')}
         </Button>,
       ]}

@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { ColumnsType, HistoryCell } from '@oxygen/ui-kit';
+import { ColumnsType, HistoryCell, Tooltip } from '@oxygen/ui-kit';
 
 import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
 
@@ -18,7 +18,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.edit_time'),
       dataIndex: 'clientServiceDto',
       render: (item) => {
-        return <div>{convertShamsiDateFormat(item?.modifyDate.value, true)}</div>;
+        return (
+          <Tooltip title={convertShamsiDateFormat(item?.modifyDate.value, true)}>
+            <div> {convertShamsiDateFormat(item?.modifyDate.value, true)}</div>
+          </Tooltip>
+        );
       },
     },
     {
@@ -27,7 +31,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'userName',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.userName}></HistoryCell>;
+        return (
+          <Tooltip title={item?.userName.value}>
+            <HistoryCell item={item?.userName}></HistoryCell>
+          </Tooltip>
+        );
       },
     },
     {
@@ -52,7 +60,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       ellipsis: true,
       className: 'right-to-left',
       render: (item) => {
-        return <HistoryCell item={item?.serviceName}></HistoryCell>;
+        return (
+          <Tooltip title={item?.serviceName?.value}>
+            <HistoryCell item={item?.serviceName}></HistoryCell>
+          </Tooltip>
+        );
       },
     },
     {
@@ -61,7 +73,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'host',
       ellipsis: true,
       render: (item) => {
-        return <HistoryCell item={item?.persianServiceName}></HistoryCell>;
+        return (
+          <Tooltip title={item?.persianServiceName?.value}>
+            <HistoryCell item={item?.persianServiceName}></HistoryCell>
+          </Tooltip>
+        );
       },
     },
   ];
