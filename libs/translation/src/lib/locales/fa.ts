@@ -403,6 +403,7 @@ export default {
     choose_service: 'انتخاب سرویس',
     choose_client: 'انتخاب کلاینت',
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
+    search_by_persian_name_and_english_name: 'جستجو براساس نام فارسی و انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
   },
 

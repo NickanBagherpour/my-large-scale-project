@@ -8,22 +8,21 @@ import { PaginationType } from '../context/types';
 
 type Props = {
   t: TFunction;
-  modalTablePagination: Omit<PaginationType, 'sort'>;
+  pagination: Omit<PaginationType, 'sort'>;
 };
 
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const { t, modalTablePagination } = props;
-
-  const { page, rowsPerPage } = modalTablePagination;
+  const { t, pagination } = props;
+  const { page, rowsPerPage } = pagination;
 
   return [
     {
-      title: t('row'),
+      title: t('uikit.index'),
       align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
-        const start = (page - 1) * rowsPerPage + 1;
+        const start = page * rowsPerPage + 1;
         return start + index;
       },
     },

@@ -19,10 +19,6 @@ export function updatePagination(dispatch: WidgetDispatchType, pagination: Pagin
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
-export function updateModalTablePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
-  dispatch({ type: 'UPDATE_MODAL_TABLE_PAGINATION', payload: pagination });
-}
-
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }

@@ -18,7 +18,6 @@ export type WidgetStateType = {
     filters: FiltersType;
     pagination: PaginationType;
     submit: FiltersType;
-    modalTablePagination: PaginationType;
   };
   message: Nullable<MessageType>;
 };
@@ -42,10 +41,6 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_PAGINATION';
-      payload: Partial<PaginationType>;
-    }
-  | {
-      type: 'UPDATE_MODAL_TABLE_PAGINATION';
       payload: Partial<PaginationType>;
     };
 
