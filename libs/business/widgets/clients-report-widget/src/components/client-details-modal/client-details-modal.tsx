@@ -48,8 +48,6 @@ export default function ClientDetailsModal(props: Props) {
     { key: t('info.websiteUrl'), value: client.websiteUrl },
   ];
 
-  const hasPagination = service && service?.response?.length > AVAILABLE_ROWS_PER_PAGE[0];
-
   const mobileColumns = getMobileColumns({
     t,
     pagination,
@@ -91,16 +89,10 @@ export default function ClientDetailsModal(props: Props) {
               columns={desktopColumns}
               mobileColumns={mobileColumns}
               rowKey={(row) => `${row.serviceName}-${row.serviceEnglishName}`}
-              {...(hasPagination
-                ? {
-                    pagination: { pageSize: pagination.rowsPerPage },
-                    onChange: handlePageChange,
-                    current: pagination.page + 1,
-                    total: service?.response?.length,
-                    showSizeChanger: false,
-                    hideOnSinglePage: true,
-                  }
-                : { pagination: false })}
+              current={pagination.page + 1}
+              total={service?.response?.length}
+              pagination={{ pageSize: AVAILABLE_ROWS_PER_PAGE[0], showSizeChanger: false, hideOnSinglePage: true }}
+              onChange={handlePageChange}
             />
           </div>
         </S.Container>
