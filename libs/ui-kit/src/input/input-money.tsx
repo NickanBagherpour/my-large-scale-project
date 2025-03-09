@@ -56,7 +56,7 @@ export const InputMoney = (props: InputMoneyProps) => {
 
   return (
     <S.InputMoneyWrapper>
-      <S.InputMoney addonAfter={_addonAfter} maxLength={19} onChange={handleOnChange} value={formattedValue} {...rest}>
+      <S.InputMoney addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest}>
         {children}
       </S.InputMoney>
       {getSubtitle()}

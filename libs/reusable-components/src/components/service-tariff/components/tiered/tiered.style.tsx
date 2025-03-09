@@ -34,7 +34,7 @@ export const Article = styled.article`
     margin-bottom: 0;
   }
 
-  input {
+  .ant-form-item-control-input-content {
     width: 12rem;
     height: 4rem;
   }

@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './tiered.style';
 import AddCondition from '../add-condition/add-condition';
-import { Form, InputNumber } from 'antd';
+import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { TARIFF, TIERED_TARIFF_NAMES } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
