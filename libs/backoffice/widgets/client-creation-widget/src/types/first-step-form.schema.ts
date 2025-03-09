@@ -3,7 +3,7 @@ import { FORM_ITEM } from '../utils/consts';
 import { TFunction } from 'i18next';
 import { createValidationSchema } from '@oxygen/utils';
 
-export const createFormSchema = (t: TFunction) => {
+export const createFormSchema = (t: TFunction, isAuthorizationFlowSelected: boolean) => {
   const validationSchema = createValidationSchema(t);
 
   return z.object({
@@ -14,7 +14,8 @@ export const createFormSchema = (t: TFunction) => {
     [FORM_ITEM.AUTHORIZATION_KEY]: validationSchema.required,
     [FORM_ITEM.WEBSITE_URL]: validationSchema.optionalUrl,
     [FORM_ITEM.INBOUND_ADDRESS]: validationSchema.optionalUrl,
-    [FORM_ITEM.REDIRECT_URL]: validationSchema.optionalUrl,
+    [FORM_ITEM.REDIRECT_URL]: isAuthorizationFlowSelected ? validationSchema.url : validationSchema.optionalUrl,
+    [FORM_ITEM.GRANT_TYPE]: validationSchema.objectMultipleSelection,
   });
 };
 

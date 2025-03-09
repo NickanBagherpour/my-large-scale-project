@@ -36,6 +36,7 @@ import { KEYS as GET_SCOPE } from './portals/backoffice/get-scope.key';
 import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.key';
 
 /*--import-business--*/
+import { KEYS as UPSERT_TARRIF_KEYS } from './portals/business/upsert-tarrif.key';
 import { KEYS as TARIFF_DETAILS_KEYS } from './portals/business/tariff-details.key';
 import { KEYS as TARIFF_LIST_KEYS } from './portals/business/tariff-list.key';
 import { KEYS as META_KEYS } from './portals/business/meta.key';
@@ -44,6 +45,7 @@ import { KEYS as REQUEST_DETAILS_KEYS } from './portals/business/request-details
 import { KEYS as REQUEST_LIST_KEYS } from './portals/business/request-list.key';
 import { KEYS as BUSINESS_AUTH_KEYS } from './portals/business/business-auth.key';
 import { KEYS as CLIENTS_REPORT_KEYS } from './portals/business/clients-report.key';
+import { KEYS as CLIENT_SERVICES } from './portals/business/client-services.key';
 
 /*--import-customer--*/
 import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './portals/customer/customer-dashboard.key';
@@ -112,6 +114,7 @@ export const RQKEYS = {
   BUSINESS: {
     REQUEST: 'request',
     /*--export-business--*/
+    UPSERT_TARRIF: UPSERT_TARRIF_KEYS,
     TARIFF_DETAILS: TARIFF_DETAILS_KEYS,
     TARIFF_LIST: TARIFF_LIST_KEYS,
     META: META_KEYS,
@@ -122,6 +125,7 @@ export const RQKEYS = {
     REQUEST_LIST: REQUEST_LIST_KEYS,
     AUTH: BUSINESS_AUTH_KEYS,
     CLIENTS_REPORT: CLIENTS_REPORT_KEYS,
+    CLIENT_SERVICES: CLIENT_SERVICES,
   },
 
   CUSTOMER: {

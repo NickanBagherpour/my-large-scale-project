@@ -7,10 +7,10 @@ import Api from './api';
 
 const { CLIENT_DETAILS, SERVICE } = RQKEYS.BACKOFFICE;
 
-export const useGetServiceDetails = (serviceName: string, dispatch: Dispatch<any>) => {
+export const useGetServiceClients = (serviceName: string, dispatch: Dispatch<any>) => {
   return useQuery({
     queryKey: [SERVICE, CLIENT_DETAILS.SERVICE, serviceName],
-    queryFn: withErrorHandling(() => Api.getServiceDetails(serviceName), dispatch),
+    queryFn: withErrorHandling(() => Api.getServiceClients(serviceName), dispatch),
     enabled: !!serviceName,
   });
 };

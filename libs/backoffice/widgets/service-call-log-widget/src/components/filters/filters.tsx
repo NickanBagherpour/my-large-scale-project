@@ -1,23 +1,18 @@
 import { createSchemaFieldRule } from 'antd-zod';
 import { Form } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
-import { Box, Button, Chip, SearchItemsContainer, DatePicker, Icons } from '@oxygen/ui-kit';
-import { useBounce, useToggle } from '@oxygen/hooks';
-// import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
-import { WidgetStateType } from '../../context/types';
-import { FILTERS } from '../../utils/consts';
-import { updatePagination, useAppDispatch, useAppState } from '../../context';
+import { Box, Button, SearchItemsContainer, DatePicker, Icons } from '@oxygen/ui-kit';
+import { useAppDispatch } from '../../context';
 
-import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
+import { ServiceNameType } from '../../types/search-service.schema';
 import * as S from './filters.style';
-import { Services } from '@oxygen/reusable-components';
 import ServiceSelector from '../service-selector/service-selector';
-import { useGetClientServices } from '../../utils/get-client-services.api';
 
 import { updateSearchTerm } from '../../context';
 import ClientSelector from '../client-selector/client-selector';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
 
 export default function Filters({ filters, setFilters, onSearch }) {
@@ -26,30 +21,22 @@ export default function Filters({ filters, setFilters, onSearch }) {
   const [t] = useTr();
   const rule = createSchemaFieldRule(FormSchema(t));
 
+  const today = dayjs();
+  const oneMonthAgo = dayjs().subtract(1, 'month');
+
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
-  const [fromDate, setFromDate] = useState<dayjs.Dayjs | null>(null);
-  const [toDate, setToDate] = useState<dayjs.Dayjs | null>(null);
+  const [fromDate, setFromDate] = useState<dayjs.Dayjs | null>(oneMonthAgo);
+  const [toDate, setToDate] = useState<dayjs.Dayjs | null>(today);
 
   const handleDateChange = (field: 'fromDate' | 'toDate', date: dayjs.Dayjs | null) => {
     if (field === 'fromDate') {
       setFromDate(date);
-      setToDate(null); // Reset 'toDate' when 'fromDate' changes
+      setToDate(null);
     } else {
       setToDate(date);
     }
   };
-
-  const disableFromDate = (current: Dayjs) => {
-    if (!toDate) return current.isAfter(dayjs());
-    return current.isAfter(dayjs(toDate)) || current.isBefore(dayjs(toDate).subtract(1, 'month'));
-  };
-
-  const disableToDate = (current: Dayjs) => {
-    if (!fromDate) return current.isAfter(dayjs());
-    return current.isBefore(dayjs(fromDate)) || current.isAfter(dayjs(fromDate).add(1, 'month'));
-  };
-
   const handleSubmit = () => {
     const queryParams = {
       clientGatewayId: selectedClient?.clientGatewayId || '',
@@ -60,12 +47,6 @@ export default function Filters({ filters, setFilters, onSearch }) {
       page: (filters.page - 1).toString(),
       sort: 'createDate,DESC',
     };
-
-    // const validation = FormSchema.safeParse(queryParams);
-
-    // if (!validation.success) {
-    //   return; // Stop
-    // }
 
     updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
     onSearch();
@@ -78,6 +59,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
           form={form}
           layout='vertical'
           initialValues={{
+            fromDate: dayjs().subtract(1, 'month'),
             toDate: dayjs(),
           }}
         >
@@ -115,7 +97,7 @@ export default function Filters({ filters, setFilters, onSearch }) {
                 setToDate={setToDate}
                 value={fromDate}
                 onChange={(date) => handleDateChange('fromDate', date)}
-                suffixIcon={<i className={'icon-calendar-2'} />}
+                suffixIcon={<Icons.Calender />}
               />
             </Form.Item>
 
@@ -123,13 +105,12 @@ export default function Filters({ filters, setFilters, onSearch }) {
               <DatePicker
                 placeholder={t('field.to_date')}
                 fromDate={fromDate}
-                // defaultValue={dayjs()}
                 toDate={toDate}
                 setFromDate={setFromDate}
                 setToDate={setToDate}
                 value={toDate}
                 onChange={(date) => handleDateChange('toDate', date)}
-                suffixIcon={<i className={'icon-calendar-2'} />}
+                suffixIcon={<Icons.Calender />}
               />
             </Form.Item>
           </SearchItemsContainer>

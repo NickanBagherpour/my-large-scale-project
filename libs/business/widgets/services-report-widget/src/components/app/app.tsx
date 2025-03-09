@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer, NoResult } from '@oxygen/reusable-components';
 import { getValueOrDash, getWidgetTitle } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
@@ -23,7 +23,7 @@ const App: React.FC<AppProps> = (props) => {
   const {
     searchTerm,
     pagination: { page, rowsPerPage },
-    status,
+    isActive,
     sort,
     message,
   } = useAppState();
@@ -32,11 +32,11 @@ const App: React.FC<AppProps> = (props) => {
 
   function prepareParams() {
     return {
-      searchTerm: searchTerm,
-      status: status,
-      page: page,
+      ...(searchTerm ? { ['search-field']: searchTerm } : {}),
+      isActive,
+      page: page - 1,
       size: rowsPerPage,
-      sort: sort,
+      sort: 'createDate,' + (sort === 'ascending' ? 'DESC' : 'ASC'),
     };
   }
 
@@ -44,7 +44,7 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer
       fillContainer={true}
       title={getWidgetTitle({ defaultTitle: t('widget_name') })}
-      // subtitle={`( ${getValueOrDash(data?.totalElements)} )`}
+      subtitle={`( ${getValueOrDash(data?.response?.page?.totalElements)} )`}
     >
       <GlobalMessageContainer
         message={message}
@@ -53,7 +53,11 @@ const App: React.FC<AppProps> = (props) => {
         }}
       />
       <Filters />
-      <DataTable data={data} isLoading={isFetching} />
+      {data ? (
+        <DataTable data={data?.response} isLoading={isFetching} wordToHighlight={searchTerm} />
+      ) : (
+        <NoResult isLoading={isFetching} />
+      )}
     </S.AppContainer>
   );
 };

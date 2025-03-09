@@ -17,6 +17,11 @@ function makeTheme(themeBase: ITheme, antTheme: any) {
         colorTextPlaceholder: themeBase.text.quaternary,
         inputFontSizeLG: 14,
       },
+      InputNumber: {
+        colorBorder: themeBase.border.main,
+        colorTextPlaceholder: themeBase.text.quaternary,
+        inputFontSizeLG: 14,
+      },
       Select: {
         colorBorder: themeBase.border.main,
         colorTextPlaceholder: themeBase.text.quaternary,

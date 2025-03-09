@@ -53,3 +53,4 @@ export { default as ServiceClientInquiry } from './components/inquiry/service-cl
 export { default as TooltipWrapper } from './components/tooltip-wrapper/tooltip-wrapper';
 export { default as Inquiry } from './components/inquiry/inquiry';
 export type { ContentType } from './components/inquiry/types';
+export * from './components/service-tariff';

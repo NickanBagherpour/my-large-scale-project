@@ -41,7 +41,6 @@ const ItemExists: React.FC<ItemExistsProps> = ({
     changeShowSearching?.();
     inputRef?.current?.focus();
   };
-
   return (
     <Flex vertical gap={'3rem'} justify='center' align='center'>
       <S.TitleContainer>

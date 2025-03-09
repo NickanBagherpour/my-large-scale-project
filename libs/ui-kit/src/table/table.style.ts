@@ -6,15 +6,22 @@ import { cssVar, respondTo } from '@oxygen/utils';
 import { Panel } from '../panel/panel';
 import { TableProps } from './table';
 
+const borderRadius = '1.2rem';
+
+type StyledTableProps = TableProps & {
+  $paginationText: string;
+  $hasPaginationSizeChanger: string;
+  $minHeight?: string;
+};
+
 export const Wrapper = styled(Panel)`
   padding: 0;
   // min-height: 40rem;
 `;
 
-const borderRadius = '1.2rem';
+export const Table = styled(AntTable)<StyledTableProps>`
+  --table-min-height: ${(p) => p.$minHeight};
 
-export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
-  --table-min-height: 20rem;
   caption {
     div {
       padding-left: 0.8rem;
@@ -36,6 +43,7 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
   tr.ant-table-placeholder {
     height: var(--table-min-height);
   }
+
   .ant-table-content {
     overflow: auto;
     scrollbar-width: thin;
@@ -49,25 +57,39 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
         box-sizing: border-box;
+
+        & th {
+          text-wrap: wrap;
+          text-overflow: inherit;
+          word-break: auto-phrase;
+        }
+
         /* remove the last row's border */
+
         & tr:last-child td {
           border: none;
         }
+
         /* add border-radius to table's corners */
+
         & tr:last-child td:first-child {
           border-end-start-radius: ${borderRadius};
         }
+
         & tr:last-child td:last-child {
           border-end-end-radius: ${borderRadius};
         }
+
         & thead th:first-child {
           border-start-start-radius: ${borderRadius};
         }
+
         & thead th:last-child {
           border-start-end-radius: ${borderRadius};
         }
 
         /* add border radius to the first row in mobile devices */
+
         ${respondTo.down('md')} {
           & .ant-table-row:nth-of-type(2) td {
             border-start-start-radius: ${borderRadius};
@@ -76,7 +98,6 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
         }
       }
     `}
-
   thead {
     border-color: ${(p) => p.theme.border._100};
   }
@@ -119,6 +140,7 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
     // ${respondTo.down('md')} {
     // 	text-align: start;
     // }
+
     &.ant-table-cell-ellipsis {
       unicode-bidi: plaintext;
     }
@@ -152,7 +174,7 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
 
   .ant-pagination {
     position: relative;
-    margin-inline-start: 8rem;
+    margin-inline-start: ${(p) => (p.$hasPaginationSizeChanger === 'true' ? '8rem' : '0')};
 
     ${respondTo.down('md')} {
       margin-inline-start: 0;
@@ -172,31 +194,52 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
       // }
     }
 
-    &::before {
-      content: '${(p) => p.$paginationText}';
-      position: absolute;
-      inset-inline-start: -7.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: ${(p) => p.theme.primary.main};
+    // &::before {
+    //   content: '${(p) => p.$paginationText}';
+    //   position: absolute;
+    //   inset-inline-start: -7.5rem;
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    //   color: ${(p) => p.theme.primary.main};
+    //
+    //   ${respondTo.down('md')} {
+    //     content: '';
+    //   }
+    // }
 
-      ${respondTo.down('md')} {
-        content: '';
-      }
-    }
+    ${(p) =>
+      p.$hasPaginationSizeChanger === 'true' &&
+      css`
+        &::before {
+          content: '${p.$paginationText}';
+          position: absolute;
+          inset-inline-start: -7.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: ${p.theme.primary.main};
+
+          ${respondTo.down('md')} {
+            content: '${p.$paginationText}';
+            inset-inline-start: -7.5rem;
+          }
+        }
+      `}
   }
 
   li.ant-pagination-item > a {
     color: ${(p) => p.theme.primary.main};
   }
+
   .ant-pagination-prev,
   .ant-pagination-next,
   .ant-pagination-item-link .anticon {
     color: ${(p) => p.theme.primary.main};
   }
+
   .ant-pagination-item-ellipsis {
     color: ${(p) => p.theme.primary.main};
   }
+
   .ant-pagination {
     .ant-select-selector {
       background-color: ${(p) => p.theme.primary.main};
@@ -204,17 +247,21 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
       /* padding: ${(p) => (p.size === 'small' ? ' 1rem 1rem' : 0)}; */
       min-width: 7rem;
     }
+
     .ant-select-selection-search {
       padding-top: 0rem;
     }
   }
+
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
     /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
+
   .ant-pagination .anticon-search {
     /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
+
   .ant-pagination-item:not(.ant-pagination-disabled):hover,
   .ant-pagination-prev:not(.ant-pagination-disabled):hover,
   .ant-pagination-next:not(.ant-pagination-disabled):hover {
@@ -223,32 +270,41 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
     border-color: transparent;
     transition: none !important;
   }
+
   .ant-pagination-item-link:hover {
     background-color: transparent;
   }
+
   .ant-pagination-mini .ant-pagination-item {
     margin: 0 0.3rem;
   }
+
   .ant-pagination-disabled .ant-pagination-item-link .anticon {
     color: ${(p) => p.theme.primary._400} !important;
   }
+
   .ant-pagination-disabled .ant-pagination-item-link :hover {
     background-color: transparent !important;
   }
+
   .ant-pagination .ant-select-selection-item {
     color: ${(p) => p.theme.onPrimary};
   }
+
   .ant-pagination .ant-select-suffix {
     color: ${(p) => p.theme.onPrimary};
   }
+
   .ant-pagination .ant-select-item-option-active {
     background-color: ${(p) => p.theme.primary._100};
   }
+
   .ant-pagination-item-active {
     border-radius: 50% !important;
     border-color: transparent;
     background-color: ${(p) => p.theme.primary._100};
   }
+
   .ant-pagination-options {
     order: -1;
     margin: 0 1.6rem 0 0;
@@ -261,6 +317,7 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
       margin-inline-end: auto;
     }
   }
+
   .ant-btn-icon {
     margin: 0;
   }
@@ -270,10 +327,13 @@ export const Table = styled(AntTable)<TableProps & { $paginationText: string }>`
   }
 
   /* Fixes a bug in Ant Design (antd) version 5.24.2 where the table row's background turns black on hover */
+
   .ant-table-cell-row-hover {
     background: rgba(0, 0, 0, 0.02);
   }
+
   /* Ensures proper coloring for SVG elements affected by the bug */
+
   & ellipse,
   & g path:last-child {
     fill: rgba(0, 0, 0, 0.02) !important;

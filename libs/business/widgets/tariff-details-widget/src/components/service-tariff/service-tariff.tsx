@@ -6,6 +6,9 @@ import { Nullable, PageProps } from '@oxygen/types';
 
 import * as S from './service-tariff.style';
 import { TariffDetailsType } from '../../types';
+import { feeTypeMapReverse, TARIFF, ServiceTariff as Tariff } from '@oxygen/reusable-components';
+import { Form } from 'antd';
+import { getInitialValues } from '../../utils/get-initial-values';
 
 export type ServiceTariffPropsType = PageProps & {
   serviceName: Nullable<string>;
@@ -14,11 +17,18 @@ export type ServiceTariffPropsType = PageProps & {
 };
 
 export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
+  const { data } = props;
   const [t] = useTr();
+  const [form] = Form.useForm();
 
   const handleDetail = () => {
     console.log('clicked');
   };
+
+  const initialValues = getInitialValues(data);
+
+  if (!data) return null;
+
   return (
     <S.ServiceTariffContainer>
       <S.HeaderContainer>
@@ -30,6 +40,10 @@ export const ServiceTariff: React.FC<ServiceTariffPropsType> = (props) => {
           </Button>
         </S.BTNContainer>
       </S.HeaderContainer>
+
+      <Form initialValues={initialValues} disabled form={form}>
+        <Tariff type='details' rule={null} form={form} />
+      </Form>
     </S.ServiceTariffContainer>
   );
 };
