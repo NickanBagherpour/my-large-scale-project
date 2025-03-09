@@ -23,13 +23,11 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
     initialValues = {
       serviceName,
       serviceType: aggregationType,
-      bankingSharePct: bankingShare + '', // TODO: see if this should exist or not
-      opsTeamSharePct: operationShare + '', // TODO: see if this should exist or not
+      bankingSharePct: String(bankingShare),
+      opsTeamSharePct: String(operationShare),
       fieldNameInElastic: fieldName,
       transactionTypeInElastic: type,
-      // @ts-expect-error fix this later
       [TARIFF.tiered]: emptyTieredTariff,
-      // @ts-expect-error fix this later
       [TARIFF.special]: emptySpecialTariff,
     };
 
@@ -37,7 +35,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
       initialValues = {
         ...initialValues,
         [TARIFF.type]: 'fixed',
-        [TARIFF.fixed]: fee,
+        [TARIFF.fixed]: String(fee),
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
       initialValues = {
@@ -45,9 +43,9 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
         [TARIFF.type]: 'tiered',
         [TARIFF.tiered]:
           feeSteps.map(({ fee, fromRate, toRate }) => ({
-            tariff: fee,
-            from: fromRate,
-            to: toRate,
+            tariff: String(fee),
+            from: String(fromRate),
+            to: String(toRate),
           })) ?? emptyTieredTariff,
       };
     } else {
@@ -56,20 +54,18 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
         [TARIFF.type]: 'special',
         [TARIFF.special]:
           transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-            to: toRate,
-            from: fromRate,
-            maximum: max,
-            minimum: min,
-            percent: percent,
+            to: String(toRate),
+            from: String(fromRate),
+            maximum: String(max),
+            minimum: String(min),
+            percent: String(percent),
           })) ?? emptySpecialTariff,
       };
     }
   } else {
     initialValues = {
       serviceName,
-      // @ts-expect-error fix this later
       [TARIFF.special]: emptySpecialTariff,
-      // @ts-expect-error fix this later
       [TARIFF.tiered]: emptyTieredTariff,
     };
   }
