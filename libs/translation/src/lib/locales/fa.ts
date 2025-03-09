@@ -465,6 +465,7 @@ export default {
   },
 
   validation: {
+    date_range_error: 'بازه زمانی انتخاب شده معتبر نیست',
     required: 'این فیلد اجباریست',
     incorrect: 'خطا',
     max_len: 'حداکثر طول مجاز {{val}} کاراکتر می باشد',

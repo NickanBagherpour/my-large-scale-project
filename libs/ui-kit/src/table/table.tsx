@@ -92,12 +92,12 @@ export const Table = (props: TableProps) => {
   const _mcolumns: ColumnsType<any> = [...(mobileColumns ?? []), ...(expandable ? [AntTable.EXPAND_COLUMN] : [])];
   const _expandable = expandable
     ? {
-      // expandedRowRender,
-      expandIcon: ExpandIcon,
-      rowExpandable: () => true,
-      expandRowByClick: true,
-      ...expandable,
-    }
+        // expandedRowRender,
+        expandIcon: ExpandIcon,
+        rowExpandable: () => true,
+        expandRowByClick: true,
+        ...expandable,
+      }
     : undefined;
   const pageSizeList = pagination && pagination.pageSizeOptions ? pagination.pageSizeOptions : [5, 10, 20, 50, 100];
   const pageSizeOptions = pageSizeList.map((s: string | number) => ({ value: s, label: s }));
@@ -106,24 +106,24 @@ export const Table = (props: TableProps) => {
     pagination === false || paginationType === PaginationType.INCREMENTAL
       ? false
       : {
-        total,
-        current: current < 1 ? 1 : current,
-        responsive: true,
-        showSizeChanger: {
-          variant: 'filled',
-          size: 'default',
-          options: pageSizeOptions,
-        },
-        hideOnSinglePage: false,
-        // showQuickJumper:true,
-        // showSizeChanger:false,
-        showTitle: false,
-        simple: isMobileOrTablet,
-        ellipsis: {
+          total,
+          current: current < 1 ? 1 : current,
+          responsive: true,
+          showSizeChanger: {
+            variant: 'filled',
+            size: 'default',
+            options: pageSizeOptions,
+          },
+          hideOnSinglePage: false,
+          // showQuickJumper:true,
+          // showSizeChanger:false,
           showTitle: false,
-        },
-        ...pagination,
-      };
+          simple: isMobileOrTablet,
+          ellipsis: {
+            showTitle: false,
+          },
+          ...pagination,
+        };
   const caption =
     title || captionChildren ? (
       <S.Caption>
@@ -148,7 +148,6 @@ export const Table = (props: TableProps) => {
     // If _pagination is not an object or is null, return false
     return false;
   }
-
 
   function handleClickMoreItems() {
     if (props?.onChange) {

@@ -41,7 +41,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientEnName',
       align: 'center',
       render: (clientEnName) => (
-        <Tooltip placement="top" title={getValueOrDash(clientEnName)} arrow={true}>
+        <Tooltip placement='top' title={getValueOrDash(clientEnName)} arrow={true}>
           <S.Name
             text={getValueOrDash(clientEnName)}
             highlightColor={highlightColor}
@@ -56,7 +56,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientPersianName',
       align: 'center',
       render: (clientPersianName) => (
-        <Tooltip placement="top" title={getValueOrDash(clientPersianName)} arrow={true}>
+        <Tooltip placement='top' title={getValueOrDash(clientPersianName)} arrow={true}>
           {getValueOrDash(clientPersianName)}
         </Tooltip>
       ),
@@ -68,9 +68,11 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'left',
       width: widthByButtonCount(2.5),
       render: (clientEnName, record) => (
-        <Box gap="1.6rem" display={'flex'} alignItems={'center'} justifyContent={'end'}>
-          <S.Details variant={'link'} size={'small'}
-                     href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
+        <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
+          <S.Details
+            variant={'link'}
+            size={'small'}
+            href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
           >
             {t('services_report')}
           </S.Details>
@@ -110,16 +112,10 @@ export function getMobileColumns(props: Props): any {
             title: '',
             value: (
               <Box display={'flex'} alignItems={'center'}>
-                <S.Details
-                  variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}
-                >
+                <S.Details variant={'link'} href={`${ROUTES.BUSINESS.META_CLIENTS_REPORT}?id=${record.clientEnName}`}>
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
-                <S.Details
-                  variant={'link'}
-                  onClick={() => addClientDetailsToView(record)}
-                >
+                <S.Details variant={'link'} onClick={() => addClientDetailsToView(record)}>
                   {t('details')}
                 </S.Details>
               </Box>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { loadTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/business/layouts';

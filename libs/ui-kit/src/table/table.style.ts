@@ -9,9 +9,9 @@ import { TableProps } from './table';
 const borderRadius = '1.2rem';
 
 type StyledTableProps = TableProps & {
-  $paginationText: string,
-  $hasPaginationSizeChanger: string,
-  $minHeight?: string
+  $paginationText: string;
+  $hasPaginationSizeChanger: string;
+  $minHeight?: string;
 };
 
 export const Wrapper = styled(Panel)`
@@ -20,7 +20,7 @@ export const Wrapper = styled(Panel)`
 `;
 
 export const Table = styled(AntTable)<StyledTableProps>`
-  --table-min-height: ${p => p.$minHeight};
+  --table-min-height: ${(p) => p.$minHeight};
 
   caption {
     div {
@@ -57,6 +57,13 @@ export const Table = styled(AntTable)<StyledTableProps>`
         border: 1px solid ${p.theme.border._100};
         border-radius: ${borderRadius};
         box-sizing: border-box;
+
+        & th {
+          text-wrap: wrap;
+          text-overflow: inherit;
+          word-break: auto-phrase;
+        }
+
         /* remove the last row's border */
 
         & tr:last-child td {
@@ -130,7 +137,7 @@ export const Table = styled(AntTable)<StyledTableProps>`
     line-height: ${(p) => (p.variant === 'simple' ? '1.8rem' : '1.6rem')};
     border-right: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
     border-left: ${(p) => (p.variant === 'simple' ? 0 : 'unset')};
-      // ${respondTo.down('md')} {
+    // ${respondTo.down('md')} {
     // 	text-align: start;
     // }
 
@@ -167,7 +174,7 @@ export const Table = styled(AntTable)<StyledTableProps>`
 
   .ant-pagination {
     position: relative;
-    margin-inline-start: ${p => p.$hasPaginationSizeChanger === 'true' ? '8rem' : '0'};
+    margin-inline-start: ${(p) => (p.$hasPaginationSizeChanger === 'true' ? '8rem' : '0')};
 
     ${respondTo.down('md')} {
       margin-inline-start: 0;
@@ -188,18 +195,17 @@ export const Table = styled(AntTable)<StyledTableProps>`
     }
 
     // &::before {
-      //   content: '${(p) => p.$paginationText}';
+    //   content: '${(p) => p.$paginationText}';
     //   position: absolute;
     //   inset-inline-start: -7.5rem;
     //   top: 50%;
     //   transform: translateY(-50%);
-      //   color: ${(p) => p.theme.primary.main};
+    //   color: ${(p) => p.theme.primary.main};
     //
-      //   ${respondTo.down('md')} {
+    //   ${respondTo.down('md')} {
     //     content: '';
     //   }
     // }
-
 
     ${(p) =>
       p.$hasPaginationSizeChanger === 'true' &&
@@ -218,7 +224,6 @@ export const Table = styled(AntTable)<StyledTableProps>`
           }
         }
       `}
-
   }
 
   li.ant-pagination-item > a {
@@ -239,7 +244,7 @@ export const Table = styled(AntTable)<StyledTableProps>`
     .ant-select-selector {
       background-color: ${(p) => p.theme.primary.main};
       color: ${(p) => p.theme.onPrimary};
-        /* padding: ${(p) => (p.size === 'small' ? ' 1rem 1rem' : 0)}; */
+      /* padding: ${(p) => (p.size === 'small' ? ' 1rem 1rem' : 0)}; */
       min-width: 7rem;
     }
 
@@ -250,11 +255,11 @@ export const Table = styled(AntTable)<StyledTableProps>`
 
   .ant-pagination .anticon-down {
     transform: rotate(180deg);
-      /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
 
   .ant-pagination .anticon-search {
-      /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
+    /* margin-top: ${(p) => (p.size === 'small' ? '0.5rem' : 0)}; */
   }
 
   .ant-pagination-item:not(.ant-pagination-disabled):hover,
