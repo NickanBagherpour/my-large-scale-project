@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { RedocStandalone } from 'redoc';
+import { useEffect, useState } from 'react';
+import { RedocStandalone, SideNavStyleEnum } from 'redoc';
 import { cssVar } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 
@@ -26,9 +26,13 @@ export default function ApiDocs() {
     <S.DocsContainer>
       {spec ? (
         <RedocStandalone
+          i18nIsDynamicList={false}
           spec={spec}
           options={{
             nativeScrollbars: true,
+            hideDownloadButton: true,
+            disableSearch: true,
+            sideNavStyle: SideNavStyleEnum.SummaryOnly,
             theme: {
               colors: {
                 primary: {
@@ -37,14 +41,13 @@ export default function ApiDocs() {
                 text: {
                   primary: theme.text.primary,
                   secondary: theme.text.secondary,
-                }
+                },
               },
               typography: {
-                fontSize: '16px',
+                fontSize: '14px',
                 headings: {
                   fontFamily: `var(${cssVar.iransansFont}), system-ui, sans-serif`,
                 },
-
                 fontFamily: `var(${cssVar.iransansFont}), system-ui, sans-serif`,
                 optimizeSpeed: true,
                 smoothing: 'antialiased',

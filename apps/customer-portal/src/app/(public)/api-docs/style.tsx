@@ -17,16 +17,15 @@ export const DocsContainer = styled.div`
     /* Override Redoc's internal layout for RTL compatibility */
     .menu-content {
       direction: ${direction};
-      padding-right: 0;
-      width: 300px;
+      padding: 0 5px 0 0;
 
       label {
         padding: 12px 20px 12px 0;
       }
 
       ul {
-        padding-right: 6px;
-        padding-left: 6px;
+        //padding-right: 6px;
+        //padding-left: 6px;
       }
     }
 

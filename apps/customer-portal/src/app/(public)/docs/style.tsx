@@ -11,6 +11,7 @@ export const ApiDocsContainer = styled.div`
   overflow: hidden;
 
   /* Custom styling for Stoplight Elements using CSS variables */
+
   & elements-api {
     /* Core variables */
     --elements-border-radius: 8px;
@@ -44,6 +45,10 @@ export const ApiDocsContainer = styled.div`
 
   div#mosaic-provider-react-aria-0-1 {
     min-height: 100vh;
+  }
+
+  .sl-prose {
+    font-size: 14px;
   }
 
   .sl-font-prose, .sl-font-ui, .sl-prose {
@@ -95,12 +100,14 @@ export const ApiDocsContainer = styled.div`
   }
 
   /* Additional styling for better appearance */
+
   .sl-elements-api {
     border: none !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   /* Improve scrolling behavior */
+
   .sl-overflow-y-auto {
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
@@ -121,6 +128,7 @@ export const ApiDocsContainer = styled.div`
 
   /* Fix sidebar scroll issue */
   /* Target the sidebar container */
+
   .sl-flex.sl-flex-col.sl-h-full {
     height: auto !important;
     min-height: 0 !important;
@@ -128,6 +136,7 @@ export const ApiDocsContainer = styled.div`
   }
 
   /* Target the sidebar navigation */
+
   nav.sl-px-5.sl-overflow-y-auto {
     height: auto !important;
     min-height: 0 !important;
@@ -136,18 +145,21 @@ export const ApiDocsContainer = styled.div`
   }
 
   /* Target the sidebar items container */
+
   .sl-flex.sl-flex-col.sl-mt-5 {
     height: auto !important;
     overflow: visible !important;
   }
 
   /* Only show scrollbar when content overflows viewport height */
+
   .sl-overflow-y-auto {
     overflow-y: auto !important;
     max-height: calc(100vh - 60px) !important; /* Adjust based on header height */
   }
 
   /* Fix for sidebar layout */
+
   .sl-elements-api > div > div:first-child {
     height: 100% !important;
   }
