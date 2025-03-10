@@ -5,7 +5,7 @@ export default {
     operational: 'سرویس‌های عملیاتی',
     stopped: 'سرویس‌های متوقف شده',
   },
-  search_by_service_english_name: 'جستجو براساس نام انگلیسی سرویس',
+  search_by_service_english_name: 'جستجو براساس نام فارسی و انگلیسی سرویس',
   table: {
     service_name: 'نام سرویس',
     persian_name: 'نام فارسی',

@@ -59,30 +59,15 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       render: (_val, record) => {
         return (
           <Tooltip placement='top' title={getValueOrDash(record?.persianName)} arrow={true}>
-            {getValueOrDash(record?.persianName)}
+            <MarkText
+              text={getValueOrDash(record?.persianName)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
           </Tooltip>
         );
       },
     },
-    // {
-    //   title: t('table.scope'),
-    //   dataIndex: 'scopes',
-    //   align: 'center',
-    //   render: (_val, record) => {
-    //     return (
-    //       <WithBadge
-    //         items={record?.scopes}
-    //         onRender={(value) => (
-    //           <MarkText
-    //             text={getValueOrDash(value)}
-    //             highlightColor={highlightColor}
-    //             wordToHighlight={wordToHighlight}
-    //           />
-    //         )}
-    //       />
-    //     );
-    //   },
-    // },
     {
       title: t('table.status'),
       dataIndex: 'isActive',
@@ -148,26 +133,15 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
           {
             title: t('table.persian_name'),
             value: (
-              <Tooltip placement='top' title={getValueOrDash(value?.persianName)} arrow={true}>
-                {getValueOrDash(value?.persianName)}
+              <Tooltip placement='top' title={getValueOrDash(record?.persianName)} arrow={true}>
+                <MarkText
+                  text={getValueOrDash(record?.persianName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
               </Tooltip>
             ),
           },
-          // {
-          //   title: t('table.scope'),
-          //   value: (
-          //     <WithBadge
-          //       items={record?.scopes}
-          //       onRender={(value) => (
-          //         <MarkText
-          //           text={getValueOrDash(value)}
-          //           highlightColor={highlightColor}
-          //           wordToHighlight={wordToHighlight}
-          //         />
-          //       )}
-          //     />
-          //   ),
-          // },
           {
             title: t('table.status'),
             value: (
