@@ -1,70 +1,73 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { RedocStandalone, SideNavStyleEnum } from 'redoc';
-import { cssVar } from '@oxygen/utils';
-import { useAppTheme } from '@oxygen/hooks';
+import styled from 'styled-components';
 
-import * as S from './style';
+import { Loading } from '@oxygen/ui-kit';
+
+import { EnhancedRedoc } from './components/enhanced-redoc';
+import { ApiSelector, type ApiOption } from './components/api-selector';
+import { useApiSpecs } from './hooks/use-api-specs';
+
+// Define available API versions
+const API_OPTIONS: ApiOption[] = [
+  {
+    label: 'Oxygen Services v1.0',
+    value: 'OXYGEN_SERVICES',
+  },
+  {
+    label: 'Oxygen Services v2.0',
+    value: 'OXYGEN_SERVICES_V2',
+  },
+  {
+    label: 'User Management API',
+    value: 'USER_MANAGEMENT',
+  },
+  {
+    label: 'External API v1',
+    value: 'external-v1',
+  },
+];
+
+const PageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+`;
+
+const RedocContainer = styled.div`
+    flex: 1;
+    overflow: auto;
+`;
+
+const ErrorMessage = styled.div`
+    padding: 2rem;
+    color: #e53935;
+    text-align: center;
+    font-weight: 500;
+`;
 
 export default function ApiDocs() {
-  const [spec, setSpec] = useState(null);
-  const theme = useAppTheme();
-
-  useEffect(() => {
-    // Import the JSON file directly
-    import('./swagger.json')
-      .then((module) => {
-        setSpec(module.default);
-      })
-      .catch((error) => {
-        console.error('Error loading OpenAPI spec:', error);
-      });
-  }, []);
+  const { selectedOption, spec, loading, error, selectApiOption, refreshSpec } = useApiSpecs(API_OPTIONS[0]);
 
   return (
-    <S.DocsContainer>
-      {spec ? (
-        <RedocStandalone
-          i18nIsDynamicList={false}
-          spec={spec}
-          options={{
-            nativeScrollbars: true,
-            hideDownloadButton: true,
-            disableSearch: true,
-            sideNavStyle: SideNavStyleEnum.SummaryOnly,
-            theme: {
-              colors: {
-                primary: {
-                  main: theme.primary.main,
-                },
-                text: {
-                  primary: theme.text.primary,
-                  secondary: theme.text.secondary,
-                },
-              },
-              typography: {
-                fontSize: '14px',
-                headings: {
-                  fontFamily: `var(${cssVar.iransansFont}), system-ui, sans-serif`,
-                },
-                fontFamily: `var(${cssVar.iransansFont}), system-ui, sans-serif`,
-                optimizeSpeed: true,
-                smoothing: 'antialiased',
-              },
-              sidebar: {
-                width: '260px',
-              },
-              rightPanel: {
-                // backgroundColor: "#f6f8fa",
-              },
-            },
-          }}
-        />
-      ) : (
-        <p>Loading API documentation...</p>
-      )}
-    </S.DocsContainer>
+    <PageContainer>
+      <ApiSelector
+        options={API_OPTIONS}
+        selectedOption={selectedOption}
+        onSelectChange={selectApiOption}
+        onRefresh={refreshSpec}
+      />
+      <RedocContainer>
+        {loading ? (
+          <Loading containerProps={{ display: 'flex', alignItems: 'center', height: '100%' }} />
+        ) : error ? (
+          <ErrorMessage>{error}</ErrorMessage>
+        ) : (
+          <EnhancedRedoc specObject={spec} />
+        )}
+      </RedocContainer>
+    </PageContainer>
   );
 }
 
