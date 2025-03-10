@@ -69,6 +69,7 @@ export type InfoItemType = {
   type?: 'text' | 'file' | 'divider';
   files?: any;
   fullwidth?: boolean;
+  doubleWidth?: boolean;
 };
 
 export interface WidgetHeaderType {
