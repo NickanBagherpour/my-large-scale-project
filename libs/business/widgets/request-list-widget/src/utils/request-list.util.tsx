@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next';
 
 import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { Pagination } from '@oxygen/types';
 
 import { statusBadgeRenderer } from './status-badge.util';
@@ -28,6 +28,7 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
       title: t('table.index'),
       align: 'center',
       key: 'index',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -57,7 +58,7 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
       title: t('table.status'),
       dataIndex: 'submissionStatus',
       align: 'center',
-      // width: widthByButtonCount(3),
+      width: widthByButtonCount(2),
       render: (_val, record) => (
         <Tooltip placement='top' title={getValueOrDash(record?.submissionStatus?.title)} arrow={true}>
           {statusBadgeRenderer(record?.submissionStatus, userRole, t)}
@@ -96,12 +97,14 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
       // width: '11.8rem',
       key: 'details',
       width: widthByButtonCount(2),
+      align: 'left',
       render: (item, record) => {
         const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
         const colorButton = isApproved ? 'secondary' : 'primary';
         return (
           <Button
-            variant={'text'}
+            variant={'link'}
+            size={'small'}
             className={colorButton}
             href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
             color={colorButton}
@@ -147,7 +150,8 @@ export function getMobileColumns(props: Props) {
               <Button
                 className={isApproved ? 'secondary' : 'primary'}
                 href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${submissionId}`}
-                variant={'text'}
+                variant={'link'}
+                size={'small'}
                 color={colorButton}
               >
                 <i className={'icon-document'} />
