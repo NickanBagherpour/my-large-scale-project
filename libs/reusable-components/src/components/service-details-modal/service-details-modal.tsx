@@ -79,7 +79,7 @@ export default function DetailsModal(props: Props) {
       title: t('common.index'),
       align: 'center',
       dataIndex: 'id',
-      width: '1rem',
+      width: '10rem',
       render: (_val: number, _record: ServiceDetails['scopes'][number], index: number) => index + 1,
     },
     {

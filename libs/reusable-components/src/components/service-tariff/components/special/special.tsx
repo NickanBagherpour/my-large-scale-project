@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
-import { Form, InputNumber } from 'antd';
+import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
 import { SPECIAL_TARIFF_NAMES, TARIFF } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
@@ -47,7 +47,7 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={rules}>
-                    <InputNumber placeholder={t('reusable.percent')} />
+                    <Input placeholder={t('reusable.percent')} />
                   </Form.Item>
 
                   <span>{t('reusable.tariff_percent_min')}</span>

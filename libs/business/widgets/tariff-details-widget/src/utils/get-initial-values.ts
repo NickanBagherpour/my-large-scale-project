@@ -14,16 +14,16 @@ export function getInitialValues(data: Nullable<TariffDetailsType>) {
       initialValues = {
         ...initialValues,
         [TARIFF.type]: 'fixed',
-        [TARIFF.fixed]: fee,
+        [TARIFF.fixed]: String(fee),
       };
     } else if (feeTypeMapReverse[feeType] === 'tiered') {
       initialValues = {
         ...initialValues,
         [TARIFF.type]: 'tiered',
         [TARIFF.tiered]: feeSteps.map(({ fee, fromRate, toRate }) => ({
-          tariff: fee,
-          from: fromRate + '',
-          to: toRate + '',
+          tariff: String(fee),
+          from: String(fromRate),
+          to: String(toRate),
         })),
       };
     } else {
@@ -31,11 +31,11 @@ export function getInitialValues(data: Nullable<TariffDetailsType>) {
         ...initialValues,
         [TARIFF.type]: 'special',
         [TARIFF.special]: transactionFees.map(({ toRate, fromRate, max, min, percent }) => ({
-          to: toRate,
-          from: fromRate,
-          maximum: max,
-          minimum: min,
-          percent: percent + '',
+          to: String(toRate),
+          from: String(fromRate),
+          maximum: String(max),
+          minimum: String(min),
+          percent: String(percent),
         })),
       };
     }

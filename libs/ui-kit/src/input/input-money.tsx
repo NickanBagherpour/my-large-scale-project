@@ -1,20 +1,32 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 import { useTr } from '@oxygen/translation';
-import { numberToPersian, rialToToman } from '@oxygen/utils';
+import { addThousandSeparator, convertToEnglishNumbers, numberToPersian, rialToToman } from '@oxygen/utils';
 
 import * as S from './input.style';
-import { InputNumberProps } from 'antd';
+import { InputProps } from 'antd';
+import { Input } from './input';
 
-export type InputMoneyProps = InputNumberProps<number> & {
+export type InputMoneyProps = Omit<InputProps, 'value'> & {
   showLetter?: boolean;
   subtitle?: ReactNode;
+  value?: string;
 };
 
+const formatter = (value?: string) => {
+  if (value === null || value === undefined) return value;
+  const englishValue = convertToEnglishNumbers(value);
+  return addThousandSeparator(englishValue);
+};
+
+const parser = (value: string) => value?.replace(/,/g, '') as unknown as string;
+
 export const InputMoney = (props: InputMoneyProps) => {
-  const { children, addonAfter, value, showLetter = true, subtitle, ...rest } = props;
+  const { addonAfter, value, onChange, showLetter = true, subtitle, ...rest } = props;
+
+  const formattedValue = formatter(value);
 
   const [t] = useTr();
 
@@ -32,25 +44,20 @@ export const InputMoney = (props: InputMoneyProps) => {
       _subtitle = `${numberToPersian(rialToToman(value))} ${t('common.toman')}`;
     }
 
-    if (value.toString().length > 3 && value > 100) {
+    if (value.toString().length > 3 && +value > 100) {
       return <S.SubtitleText>{_subtitle}</S.SubtitleText>;
     }
 
     return null;
   }
 
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.({ ...e, target: { ...e.target, value: parser(e.target.value) } });
+  };
+
   return (
     <S.InputMoneyWrapper>
-      <S.InputMoney
-        addonAfter={_addonAfter}
-        maxLength={19}
-        formatter={(value) => (value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '')}
-        parser={(value) => value?.replace(/,/g, '') as unknown as number}
-        value={value}
-        {...rest}
-      >
-        {children}
-      </S.InputMoney>
+      <Input addonAfter={_addonAfter} onChange={handleOnChange} value={formattedValue} {...rest} />
       {getSubtitle()}
     </S.InputMoneyWrapper>
   );
