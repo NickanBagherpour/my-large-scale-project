@@ -13,4 +13,7 @@ export default {
   group: 'گروهی',
   edit_was_successful: 'تعرفه با موفقیت ویرایش شد',
   create_was_successful: 'تعرفه با موفقیت ایجاد شد',
+  enter_field_name: 'نام فیلد را وارد کنید',
+  enter_transaction_type: 'نوع تراکنش در elastic را وارد کنید',
+  choose_service_type: 'نوع سرویس را انتخاب کنید',
 };

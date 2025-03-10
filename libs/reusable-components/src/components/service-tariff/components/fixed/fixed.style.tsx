@@ -16,7 +16,7 @@ export const FormItem = styled(Form.Item)`
     line-height: 38px; /* Center label vertically regardless of input's error text */
   }
 
-  .ant-input-number-group-wrapper {
+  .ant-form-item-control-input-content {
     max-width: 55.2rem;
   }
 `;

@@ -147,7 +147,7 @@ export const createValidationSchema = (
       .max(limits.VERSION_MAX, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.version, {
+      .regex(REGEX_PATTERNS.englishOrPersianPositiveNumber, {
         message: t('validation.only_digit_message'),
       }),
 
@@ -364,6 +364,33 @@ export const createValidationSchema = (
       .refine((value) => +value >= 300 && +value <= 599, {
         message: t('validation.status_code'),
       }),
+
+    englishOrPersianPositiveNumber: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .regex(REGEX_PATTERNS.englishOrPersianPositiveNumber, {
+        message: t('validation.only_digit_message'),
+      }),
+
+    money: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .regex(REGEX_PATTERNS.englishOrPersianPositiveNumber, {
+        message: t('validation.only_digit_message'),
+      })
+      .max(limits.MONEY, t('validation.max_len', { val: limits.MONEY })),
+
+    percent: z.string({ required_error: t('validation.required') }).refine((value) => +value <= 100, {
+      message: t('validation.field_error'),
+    }),
+
+    count: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .regex(REGEX_PATTERNS.englishOrPersianPositiveNumber, {
+        message: t('validation.only_digit_message'),
+      })
+      .max(limits.MONEY, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH })),
   };
 
   return validationSchema;
