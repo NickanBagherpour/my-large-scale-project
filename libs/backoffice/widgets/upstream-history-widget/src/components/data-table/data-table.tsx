@@ -2,7 +2,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
-import { ColumnsType, Table, HistoryCell } from '@oxygen/ui-kit';
+import { ColumnsType, Table, HistoryCell, Tooltip } from '@oxygen/ui-kit';
 import { NoResult } from '@oxygen/reusable-components';
 import { convertShamsiDateFormat, getValueOrDash, uuid } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
@@ -41,20 +41,24 @@ const DataTable = () => {
     {
       title: t('column.edit-date'),
       dataIndex: 'modifyDate',
-      render: (column) => convertShamsiDateFormat(column.value, true),
+      render: (column) => (
+        <Tooltip title={getValueOrDash(column?.value)}>{convertShamsiDateFormat(column?.value, true)}</Tooltip>
+      ),
     },
     {
       title: t('column.user-name'),
       dataIndex: 'userName',
       ellipsis: true,
-      render: (column) => {
-        return <HistoryCell item={column} />;
-      },
+      render: (column) => (
+        <Tooltip title={getValueOrDash(column?.value)}>
+          <HistoryCell item={column} />
+        </Tooltip>
+      ),
     },
     {
       title: t('column.revision-type'),
       dataIndex: 'revision',
-
+      ellipsis: false,
       render: (column) => {
         const variant = column.revType?.code?.value;
         const isDeleted = column?.deleted?.value;
@@ -71,7 +75,11 @@ const DataTable = () => {
       key: 'enName',
       ellipsis: true,
       className: 'left-to-right',
-      render: (column) => <HistoryCell item={column?.name} />,
+      render: (column) => (
+        <Tooltip title={getValueOrDash(column?.name?.value)}>
+          <HistoryCell item={column?.name} />
+        </Tooltip>
+      ),
     },
     {
       title: t('column.fa-name'),
@@ -79,7 +87,11 @@ const DataTable = () => {
       key: 'faName',
       ellipsis: true,
       className: 'right-to-left',
-      render: (column) => <HistoryCell item={column?.description} />,
+      render: (column) => (
+        <Tooltip title={getValueOrDash(column?.description?.value)}>
+          <HistoryCell item={column?.description} />
+        </Tooltip>
+      ),
     },
   ];
 
