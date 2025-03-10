@@ -3,7 +3,7 @@ import { Chip } from '@oxygen/ui-kit';
 
 const transformData = (data) => {
   return GrantValue.reduce((acc, item) => {
-    acc[`is${item.key}`] = data.some((d) => d.key === item.key);
+    acc[`is${item.code}`] = data.some((d) => d.code === item.code);
     return acc;
   }, {});
 };
@@ -65,7 +65,7 @@ export const prepareParams = (item, OrganizationNationalId) => {
 
   const grantType = transformData(item.grantType);
 
-  const extractKeys = (data) => data.map((item) => item.key);
+  const extractKeys = (data) => data.map((item) => item.code);
 
   obj.tagIds = Array.isArray(item.tags) ? extractKeys(item.tags) : [];
 
@@ -77,16 +77,16 @@ export const convertApi = (data) => {
 
   const activeTagIds =
     data.tagIds.map((tag) => ({
-      key: tag.code,
-      label: tag.title,
+      code: tag.code,
+      title: tag.title,
     })) ?? [];
 
   const activeGrantType =
     Object.entries(data)
       .filter(([key, value]) => key.startsWith('is') && value === true)
       .map(([key]) => ({
-        key: key.replace(/^is/, ''),
-        label: key.replace(/^is/, ''),
+        code: key.replace(/^is/, ''),
+        title: key.replace(/^is/, ''),
       })) ?? [];
 
   for (const key in data) {
