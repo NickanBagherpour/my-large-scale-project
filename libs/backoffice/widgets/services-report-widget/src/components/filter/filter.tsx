@@ -45,7 +45,7 @@ const Filters: React.FC<FilterProps> = (props) => {
         <S.FormItem name={FILTER_FORM_ITEM_NAMES.search_by_name} rules={[rule]}>
           <S.Input
             value={value}
-            placeholder={t('search_by_service_english_name')}
+            placeholder={t('placeholder.search_by_persian_name_and_english_name', { element: t('element.service') })}
             prefix={<i className='icon-search-normal' />}
             onChange={(e) => setValue(e.target.value)}
             maxLength={limits.DEFAULT_MAX_LENGTH}

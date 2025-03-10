@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
 
-export default function Filters({ filters, setFilters, onSearch }) {
+export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const [form] = Form.useForm<ServiceNameType>();
   const dispatch = useAppDispatch();
   const [t] = useTr();
@@ -116,9 +116,16 @@ export default function Filters({ filters, setFilters, onSearch }) {
           </SearchItemsContainer>
 
           <S.Footer>
-            <Button variant='outlined' onClick={() => form.resetFields()}>
+            <Button
+              variant='outlined'
+              onClick={() => {
+                form.resetFields();
+                onReset();
+              }}
+            >
               {t('button.delete_all')}
             </Button>
+
             <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }} onClick={handleSubmit}>
               {t('button.search')}
             </Button>
