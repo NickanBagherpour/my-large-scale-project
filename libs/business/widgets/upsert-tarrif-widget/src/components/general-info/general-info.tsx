@@ -42,11 +42,13 @@ export default function GeneralInfo(props: Props) {
           <S.FormItem
             name={GENERAL_INFO_NAMES.bankingSharePct}
             label={t('banking_share_pct')}
+            dependencies={[GENERAL_INFO_NAMES.opsTeamSharePct]} // revalidate this field when opsTeamSharePct changes
             rules={[
               rule,
               ({ getFieldValue }) => ({
                 validator(_, bankingSharePctValue) {
-                  const opsTeamSharePctValue = getFieldValue(GENERAL_INFO_NAMES.opsTeamSharePct);
+                  const { opsTeamSharePct } = GENERAL_INFO_NAMES;
+                  const opsTeamSharePctValue = getFieldValue(opsTeamSharePct);
                   if (compareTo100(bankingSharePctValue, opsTeamSharePctValue)) {
                     return Promise.resolve();
                   }
@@ -61,11 +63,13 @@ export default function GeneralInfo(props: Props) {
           <S.FormItem
             name={GENERAL_INFO_NAMES.opsTeamSharePct}
             label={t('ops_team_share_pct')}
+            dependencies={[GENERAL_INFO_NAMES.bankingSharePct]} // revalidate this field when bankingSharePct changes
             rules={[
               rule,
               ({ getFieldValue }) => ({
                 validator(_, opsTeamSharePctValue) {
-                  const bankingSharePctValue = getFieldValue(GENERAL_INFO_NAMES.bankingSharePct);
+                  const { bankingSharePct } = GENERAL_INFO_NAMES;
+                  const bankingSharePctValue = getFieldValue(bankingSharePct);
                   if (compareTo100(bankingSharePctValue, opsTeamSharePctValue)) {
                     return Promise.resolve();
                   }
