@@ -63,7 +63,11 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       align: 'center',
       render: (_val, record) => (
         <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
-          {getValueOrDash(record?.servicePersianName)}
+          <MarkText
+            text={getValueOrDash(record?.servicePersianName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
@@ -144,7 +148,11 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
             title: t('table.persian_name'),
             value: (
               <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
-                {getValueOrDash(value?.servicePersianName)}
+                <MarkText
+                  text={getValueOrDash(record?.servicePersianName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
               </Tooltip>
             ),
           },
@@ -163,8 +171,8 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                   size={'small'}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                 >
                   {t('table.detail_report')}
                 </Button>

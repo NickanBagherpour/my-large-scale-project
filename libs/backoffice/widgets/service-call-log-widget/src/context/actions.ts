@@ -15,6 +15,10 @@ export function updateSearchTerm(dispatch: WidgetDispatchType, searchTerm: Widge
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
+export function resetFiltersAction(dispatch: any) {
+  dispatch({ type: 'RESET_FILTERS' });
+}
+
 export function updatePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }

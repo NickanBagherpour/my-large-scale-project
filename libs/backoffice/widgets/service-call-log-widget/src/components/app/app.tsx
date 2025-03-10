@@ -1,6 +1,6 @@
 import { GlobalMessageContainer } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
-import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, resetFiltersAction, useAppDispatch, useAppState } from '../../context';
 import { useGetServicesLogsQuery } from '../../services';
 import Filter from '../filters/filters';
 import Services from '../services-list/services';
@@ -57,11 +57,30 @@ const App = () => {
     }));
   };
 
+  const handleReset = () => {
+    // console.log('Before reset:', filters);
+    resetFiltersAction(dispatch);
+
+    // Directly update the filters state in the parent component
+    setFilters({
+      consumerId: '',
+      serviceId: '',
+      fromDate: '',
+      toDate: '',
+      direction: 'DESC',
+      page: 1,
+      size: table.pagination.rowsPerPage || 10,
+    });
+
+    // console.log('After reset:', filters);
+    refetch();
+  };
+
   return (
     <>
       <GlobalMessageContainer message={message} onClose={() => resetErrorMessageAction(dispatch)} />
       <S.ServicesContainer title={t('widget_name')}>
-        <Filter filters={filters} setFilters={setFilters} onSearch={handleSearch} />
+        <Filter filters={filters} setFilters={setFilters} onSearch={handleSearch} onReset={handleReset} />
         <Services
           isFetching={isFetchingLogs}
           data={servicesLogs?.response?.content}
