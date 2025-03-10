@@ -4,6 +4,7 @@ import { SearchItemsContainer, Input, Select } from '@oxygen/ui-kit';
 import { GENERAL_INFO_NAMES } from '../../utils';
 import * as S from './general-info.style';
 import { RuleRender } from 'antd/es/form';
+import { convertToEnglishNumbers } from '@oxygen/utils';
 
 type Props = {
   rule: RuleRender;
@@ -12,8 +13,8 @@ type Props = {
 const compareTo100 = (a: string, b: string): boolean => {
   if (a === '' || b === '') return true;
 
-  const aNum = Number(a);
-  const bNum = Number(b);
+  const aNum = Number(convertToEnglishNumbers(a));
+  const bNum = Number(convertToEnglishNumbers(b));
 
   if (Number.isNaN(aNum) || Number.isNaN(bNum)) return true;
   else return aNum + bNum === 100;
