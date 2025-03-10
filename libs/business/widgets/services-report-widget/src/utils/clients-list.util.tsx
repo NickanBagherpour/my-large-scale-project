@@ -32,21 +32,13 @@ export function getDesktopColumns(props: Props): ColumnsType<ClientInfo> {
       title: t('table.client_name'),
       dataIndex: 'clientName',
       align: 'center',
-      render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
-          {getValueOrDash(name)}
-        </Tooltip>
-      ),
+      render: (name) => <Tooltip title={getValueOrDash(name)}>{getValueOrDash(name)}</Tooltip>,
     },
     {
       title: t('table.client_persian_name'),
       dataIndex: 'clientPersianName',
       align: 'center',
-      render: (persianName) => (
-        <Tooltip placement='top' title={getValueOrDash(persianName)} arrow={true}>
-          {getValueOrDash(persianName)}
-        </Tooltip>
-      ),
+      render: (persianName) => <Tooltip title={getValueOrDash(persianName)}>{getValueOrDash(persianName)}</Tooltip>,
     },
   ];
 }

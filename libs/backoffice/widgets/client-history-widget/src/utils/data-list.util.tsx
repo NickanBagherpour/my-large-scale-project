@@ -203,7 +203,7 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
           },
         ];
 
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];
