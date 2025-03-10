@@ -6,23 +6,23 @@ export const nonExistentNationalId = '0';
 
 export const GrantValue = [
   {
-    key: 'ClientFlow',
-    label: 'ClientFlow',
+    code: 'ClientFlow',
+    title: 'ClientFlow',
   },
   {
-    key: 'PasswordFlow',
-    label: 'PasswordFlow',
+    code: 'PasswordFlow',
+    title: 'PasswordFlow',
   },
   {
-    key: 'AuthorizationFlow',
-    label: 'AuthorizationFlow',
+    code: 'AuthorizationFlow',
+    title: 'AuthorizationFlow',
   },
   {
-    key: 'ImplicitFlow',
-    label: 'ImplicitFlow',
+    code: 'ImplicitFlow',
+    title: 'ImplicitFlow',
   },
   {
-    key: 'RefreshToken',
-    label: 'RefreshToken',
+    code: 'RefreshToken',
+    title: 'RefreshToken',
   },
 ];
