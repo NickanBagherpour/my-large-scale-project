@@ -88,7 +88,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: widthByButtonCount(3),
+      ellipsis: false,
+      width: widthByButtonCount(2),
       render: (value, record) => {
         return (
           <S.ActionBox>

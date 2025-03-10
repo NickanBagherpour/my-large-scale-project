@@ -85,7 +85,8 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: widthByButtonCount(3),
+      ellipsis: false,
+      width: widthByButtonCount(2),
       render: (value, record) => (
         <S.ActionBox>
           <Button variant={'link'} size={'small'} disabled={true}>
