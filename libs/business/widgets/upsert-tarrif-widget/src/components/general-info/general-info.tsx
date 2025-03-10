@@ -16,7 +16,8 @@ const compareTo100 = (a: string, b: string): boolean => {
   const aNum = Number(convertToEnglishNumbers(a));
   const bNum = Number(convertToEnglishNumbers(b));
 
-  if (Number.isNaN(aNum) || Number.isNaN(bNum)) return true;
+  if (aNum < 0 || bNum < 0) return true; // let the positive rule handle it
+  if (Number.isNaN(aNum) || Number.isNaN(bNum)) return true; // let the number rule handle it
   else return aNum + bNum === 100;
 };
 
