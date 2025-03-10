@@ -47,8 +47,7 @@ export default function GeneralInfo(props: Props) {
               rule,
               ({ getFieldValue }) => ({
                 validator(_, bankingSharePctValue) {
-                  const { opsTeamSharePct } = GENERAL_INFO_NAMES;
-                  const opsTeamSharePctValue = getFieldValue(opsTeamSharePct);
+                  const opsTeamSharePctValue = getFieldValue(GENERAL_INFO_NAMES.opsTeamSharePct);
                   if (compareTo100(bankingSharePctValue, opsTeamSharePctValue)) {
                     return Promise.resolve();
                   }
@@ -68,8 +67,7 @@ export default function GeneralInfo(props: Props) {
               rule,
               ({ getFieldValue }) => ({
                 validator(_, opsTeamSharePctValue) {
-                  const { bankingSharePct } = GENERAL_INFO_NAMES;
-                  const bankingSharePctValue = getFieldValue(bankingSharePct);
+                  const bankingSharePctValue = getFieldValue(GENERAL_INFO_NAMES.bankingSharePct);
                   if (compareTo100(bankingSharePctValue, opsTeamSharePctValue)) {
                     return Promise.resolve();
                   }
