@@ -42,6 +42,7 @@ export default function GeneralInfo(props: Props) {
           <S.FormItem
             name={GENERAL_INFO_NAMES.bankingSharePct}
             label={t('banking_share_pct')}
+            dependencies={[GENERAL_INFO_NAMES.opsTeamSharePct]} // revalidate this field when opsTeamSharePct changes
             rules={[
               rule,
               ({ getFieldValue }) => ({
@@ -61,6 +62,7 @@ export default function GeneralInfo(props: Props) {
           <S.FormItem
             name={GENERAL_INFO_NAMES.opsTeamSharePct}
             label={t('ops_team_share_pct')}
+            dependencies={[GENERAL_INFO_NAMES.bankingSharePct]} // revalidate this field when bankingSharePct changes
             rules={[
               rule,
               ({ getFieldValue }) => ({
