@@ -90,7 +90,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const existsInBamComponentProps = {
     message: t('uikit.allowed_creation_BAAM', itemTranslation),
     buttonAction: handleExistsInBamAction,
-    buttonLoading: uploadPending,
+    ...(type === 'service' && { buttonLoading: uploadPending }),
     buttonText: t('button.upload_item', itemTranslation),
   } satisfies Partial<ExistsInBamProps>;
   const draftComponentProps = {
