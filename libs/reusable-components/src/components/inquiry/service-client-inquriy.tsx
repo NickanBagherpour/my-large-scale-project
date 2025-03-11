@@ -1,6 +1,8 @@
+import { createSchemaFieldRule } from 'antd-zod';
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { ContentType, InquiryType } from './types';
+import { CreateClientInquirySchema } from './client-inquiry.schema';
 import { useInquiry } from './get-inquiry.api';
 import { NAVIGATION_URLS } from './consts';
 import { extractSpecificData } from './utils';
@@ -51,7 +53,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
       }
     }
   }, [isFetching, isFetched, data]);
-
+  const clientRule = createSchemaFieldRule(CreateClientInquirySchema(t));
   const buttonInfo = {
     service: {
       title: t('button.inspect_another_service'),
@@ -83,6 +85,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const searchboxProps = {
     buttonText: t('button.inquire_item', itemTranslation),
     placeholderText: t('placeholder.search_by_english_name', itemTranslation),
+    ...(type === 'client' && { rule: clientRule }),
   } satisfies Partial<SearchBoxProps>;
   const existsInBamComponentProps = {
     message: t('uikit.allowed_creation_BAAM', itemTranslation),

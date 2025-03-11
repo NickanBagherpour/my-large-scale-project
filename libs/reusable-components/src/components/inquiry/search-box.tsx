@@ -1,5 +1,6 @@
+import { RuleRender } from 'antd/es/form';
 import { Form, FormInstance, InputRef } from 'antd';
-import { RefObject } from 'react';
+import { RefObject, useEffect } from 'react';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useTr } from '@oxygen/translation';
 import { Button, Input } from '@oxygen/ui-kit';
@@ -15,6 +16,7 @@ export type SearchBoxProps = {
   onFormValueChange: () => void;
   buttonText?: string;
   placeholderText?: string;
+  rule?: RuleRender;
 };
 const SearchBox: React.FC<SearchBoxProps> = ({
   form,
@@ -24,13 +26,19 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onFormValueChange,
   buttonText,
   placeholderText,
+  rule,
 }) => {
   const [t] = useTr();
-  const rule = createSchemaFieldRule(CreateInquirySchema(t));
+  const defaultRule = createSchemaFieldRule(CreateInquirySchema(t));
+  const finalRule = rule ?? defaultRule;
+  useEffect(() => {
+    inputRef?.current?.focus();
+  }, []);
+
   return (
     <Form onValuesChange={() => onFormValueChange()} layout={'vertical'} onFinish={onFinish} form={form}>
       <S.Container>
-        <S.FormItem rules={[rule]} name={INQUIRY.ItemName}>
+        <S.FormItem rules={[finalRule]} name={INQUIRY.ItemName}>
           <Input
             autoFocus={true}
             ref={inputRef}
