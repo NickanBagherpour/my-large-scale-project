@@ -85,6 +85,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       width: widthByButtonCount(1),
       align: 'left',
       key: 'action',
+      ellipsis: false,
       render: (value) => (
         <S.DetailsBtn
           variant='link'
