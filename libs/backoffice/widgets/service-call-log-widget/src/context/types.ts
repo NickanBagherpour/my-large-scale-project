@@ -44,6 +44,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_PAGINATION';
       payload: PaginationType;
+    }
+  | {
+      type: 'RESET_FILTERS';
+      payload: WidgetStateType['searchTerm'];
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

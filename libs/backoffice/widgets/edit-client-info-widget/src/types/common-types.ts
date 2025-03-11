@@ -18,8 +18,8 @@ export type ClientInfoType = {
 };
 
 export type Tag = {
-  key: number;
-  label: string;
+  code: number;
+  title: string;
 };
 
 export type Client = {
@@ -32,6 +32,6 @@ export type TagType = Tag[];
 export type clientType = Client[];
 
 export type GrantType = {
-  key: GrantValueType;
-  label: GrantValueType;
+  code: GrantValueType;
+  title: GrantValueType;
 };

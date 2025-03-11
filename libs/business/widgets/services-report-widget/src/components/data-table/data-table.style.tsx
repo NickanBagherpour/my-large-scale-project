@@ -18,7 +18,7 @@ export const Table = styled(KitTable)`
   }
 `;
 
-export const StatusContainer = styled.p<{ $status: boolean }>`
+export const StatusContainer = styled.span<{ $status: boolean }>`
   font-weight: 700;
   color: ${(p) => (p.$status ? p.theme.secondary.main : p.theme.error.main)};
 `;

@@ -46,9 +46,11 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     };
     updateModalTablePagination(dispatch, updatedModalTablePagination);
   };
+
   const dataTableParams = { t, pagination, wordToHighlight, theme, setOpenModal, setServiceName };
   const desktopColumns = getDesktopColumns(dataTableParams);
   const mobileColumns = getMobileColumns(dataTableParams);
+
   return (
     <S.TableContainer>
       {data?.content?.length ? (
@@ -70,7 +72,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
       {openModal && (
         <DetailsModal
           data={data?.content}
-          isOpen={!!openModal}
+          isOpen={openModal}
           close={() => {
             setOpenModal(false);
             resetModalTablePage();

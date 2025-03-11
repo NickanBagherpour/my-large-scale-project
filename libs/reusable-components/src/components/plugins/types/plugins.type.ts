@@ -31,7 +31,7 @@ export type ClientServicePlugins = PluginConfig[];
 
 type BasePluginConfigParams = {
   name: string;
-  config: object; // TODO: use the real type
+  config: object;
   enabled: boolean;
 };
 

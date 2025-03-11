@@ -196,7 +196,7 @@ export default {
     special_tariff: 'تعرفه خاص',
     save_info: 'ثبت اطلاعات',
     back: 'بازگشت',
-    tariff_amount_irr: 'مبلغ تعرفه (ریال):',
+    tariff_amount_irr: 'مبلغ تعرفه (ریال)',
     enter_amount: 'مبلغ را وارد نمایید',
     count: 'تعداد',
     from: 'از',

@@ -47,7 +47,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       align: 'center',
       render: (_val, record) => {
         return (
-          <Tooltip placement='top' title={getValueOrDash(record?.serviceName)} arrow={true}>
+          <Tooltip title={getValueOrDash(record?.serviceName)}>
             <MarkText
               text={getValueOrDash(record?.serviceName)}
               highlightColor={highlightColor}
@@ -62,8 +62,12 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       dataIndex: 'servicePersianName',
       align: 'center',
       render: (_val, record) => (
-        <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
-          {getValueOrDash(record?.servicePersianName)}
+        <Tooltip title={getValueOrDash(record?.servicePersianName)}>
+          <MarkText
+            text={getValueOrDash(record?.servicePersianName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
@@ -71,20 +75,18 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
       title: t('table.status'),
       dataIndex: 'status',
       align: 'center',
+      ellipsis: false,
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
-        return (
-          <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
-            <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>
-          </Tooltip>
-        );
+        return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
       },
     },
     {
       title: '',
       dataIndex: '',
       align: 'left',
-      width: widthByButtonCount(3),
+      ellipsis: false,
+      width: widthByButtonCount(2),
       render: (value, record) => {
         return (
           <S.ActionBox>
@@ -131,7 +133,7 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
           {
             title: t('table.service_name'),
             value: (
-              <Tooltip placement='top' title={getValueOrDash(record?.serviceName)} arrow={true}>
+              <Tooltip title={getValueOrDash(record?.serviceName)}>
                 <MarkText
                   text={getValueOrDash(record?.serviceName)}
                   highlightColor={highlightColor}
@@ -143,8 +145,12 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
           {
             title: t('table.persian_name'),
             value: (
-              <Tooltip placement='top' title={getValueOrDash(record?.servicePersianName)} arrow={true}>
-                {getValueOrDash(value?.servicePersianName)}
+              <Tooltip title={getValueOrDash(record?.servicePersianName)}>
+                <MarkText
+                  text={getValueOrDash(record?.servicePersianName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
               </Tooltip>
             ),
           },
@@ -163,8 +169,8 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
               <S.ActionBox>
                 <Button
                   variant={'link'}
-                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                   size={'small'}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
                 >
                   {t('table.detail_report')}
                 </Button>
@@ -183,7 +189,7 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
           },
         ];
 
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];
