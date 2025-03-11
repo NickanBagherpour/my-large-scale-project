@@ -156,6 +156,7 @@ export default {
     stop_service: 'توقف سرویس',
     remove: 'حذف',
     service_detail: 'جزئیات سرویس',
+    client_detail: 'جزئیات کلاینت',
     general_info: 'اطلاعات کلی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',
