@@ -1,9 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-
-import { Box, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { Box, ColumnsType, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { UpstreamDetailsType } from '../types';
 
@@ -37,11 +35,7 @@ export function getDesktopColumns(props: Props): ColumnsType<UpstreamDetailsType
       key: 'domain',
       align: 'center',
       render: (domain) => {
-        return (
-          <Tooltip placement='top' title={getValueOrDash(domain)} arrow={true}>
-            {getValueOrDash(domain)}
-          </Tooltip>
-        );
+        return <Tooltip title={getValueOrDash(domain)}>{getValueOrDash(domain)}</Tooltip>;
       },
     },
     {

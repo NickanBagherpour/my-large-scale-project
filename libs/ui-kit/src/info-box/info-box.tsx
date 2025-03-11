@@ -57,7 +57,10 @@ export const InfoBox = (props: InfoBoxProps) => {
     >
       {data?.map((item: InfoItemType, index) => {
         return (
-          <div key={index} className={`${item?.fullwidth ? 'fullwidth' : ''} grid-item`}>
+          <div
+            key={index}
+            className={`${item?.fullwidth ? 'fullwidth' : item?.doubleWidth ? 'doubleWidth' : ''} grid-item`}
+          >
             <Box className='info-box__title'>{t(item.key)}</Box>
             {item.type !== 'file' ? (
               item.type === 'divider' ? (

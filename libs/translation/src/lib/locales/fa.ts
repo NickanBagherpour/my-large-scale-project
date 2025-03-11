@@ -195,7 +195,7 @@ export default {
     special_tariff: 'تعرفه خاص',
     save_info: 'ثبت اطلاعات',
     back: 'بازگشت',
-    tariff_amount_irr: 'مبلغ تعرفه (ریال):',
+    tariff_amount_irr: 'مبلغ تعرفه (ریال)',
     enter_amount: 'مبلغ را وارد نمایید',
     count: 'تعداد',
     from: 'از',
@@ -410,6 +410,7 @@ export default {
     choose_service: 'انتخاب سرویس',
     choose_client: 'انتخاب کلاینت',
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
+    search_by_persian_name_and_english_name: 'جستجو براساس نام فارسی و انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
   },
 

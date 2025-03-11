@@ -3,7 +3,6 @@ import { TFunction } from 'i18next';
 
 import { Button, ColumnsType, MarkText, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
-import { WithBadge } from '@oxygen/reusable-components';
 import { ITheme, Pagination } from '@oxygen/types';
 
 import { ServiceDto } from '../types';
@@ -29,6 +28,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
   return [
     {
       title: t('uikit.index'),
+      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -39,7 +39,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
     {
       title: t('table.service_name'),
       dataIndex: 'name',
-      key: 'name',
+      align: 'center',
       render: (_val, record) => {
         return (
           <Tooltip title={getValueOrDash(record?.name)}>
@@ -55,31 +55,24 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
     {
       title: t('table.persian_name'),
       dataIndex: 'persianName',
-      render: (_val, record) => {
-        return <Tooltip title={getValueOrDash(record?.persianName)}>{getValueOrDash(record?.persianName)}</Tooltip>;
-      },
-    },
-    {
-      title: t('table.scope'),
-      dataIndex: 'scopes',
+      align: 'center',
       render: (_val, record) => {
         return (
-          <WithBadge
-            items={record?.scopes}
-            onRender={(value) => (
-              <MarkText
-                text={getValueOrDash(value)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
-              />
-            )}
-          />
+          <Tooltip title={getValueOrDash(record?.persianName)}>
+            <MarkText
+              text={getValueOrDash(record?.persianName)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
+          </Tooltip>
         );
       },
     },
     {
       title: t('table.status'),
       dataIndex: 'isActive',
+      align: 'center',
+      ellipsis: false,
       render: (_val, record) => {
         const status = record?.isActive ? t('table.active') : t('table.inActive');
         return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
@@ -89,6 +82,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ServiceDto> {
       title: '',
       dataIndex: '',
       align: 'left',
+      ellipsis: false,
       width: widthByButtonCount(2),
       render: (value, record) => (
         <S.ActionBox>
@@ -125,32 +119,27 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
           {
             title: t('table.service_name'),
             value: (
-              <MarkText
-                text={getValueOrDash(record?.name)}
-                highlightColor={highlightColor}
-                wordToHighlight={wordToHighlight}
-              />
+              <Tooltip title={getValueOrDash(record?.name)}>
+                <MarkText
+                  text={getValueOrDash(record?.name)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
             ),
           },
           {
             title: t('table.persian_name'),
-            value: getValueOrDash(value?.persianName),
+            value: (
+              <Tooltip title={getValueOrDash(record?.persianName)}>
+                <MarkText
+                  text={getValueOrDash(record?.persianName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
+            ),
           },
-          // {
-          //   title: t('table.scope'),
-          //   value: (
-          //     <WithBadge
-          //       items={record?.scopes}
-          //       onRender={(value) => (
-          //         <MarkText
-          //           text={getValueOrDash(value)}
-          //           highlightColor={highlightColor}
-          //           wordToHighlight={wordToHighlight}
-          //         />
-          //       )}
-          //     />
-          //   ),
-          // },
           {
             title: t('table.status'),
             value: (
@@ -176,10 +165,6 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
                   variant={'link'}
                   size={'small'}
                   href={`${ROUTES.BACKOFFICE.SERVICE_DETAILS}?servicename=${record.name}`}
-                  // onClick={() => {
-                  //   setOpenModal(true);
-                  //   setServiceName(record?.name);
-                  // }}
                 >
                   {t('button.detail')}
                 </Button>
@@ -188,7 +173,7 @@ export function getMobileColumns(props: Props): ColumnsType<ServiceDto> {
           },
         ];
 
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];

@@ -7,10 +7,10 @@ import { PageProps } from '@oxygen/types';
 import { useAppTheme } from '@oxygen/hooks';
 
 import { ClientReportDto } from '../../types';
-import { updatePagination, updateModalTablePagination, useAppDispatch, useAppState } from '../../context';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-report.util';
 
-import ClientDetailsModal from '../clients-details-modal/clients-details-modal';
+import ClientDetailsModal from '../client-details-modal/client-details-modal';
 import * as S from './client-report.style';
 
 type ClientReportsProps = PageProps & {
@@ -45,14 +45,6 @@ const ClientReports: React.FC<ClientReportsProps> = (props) => {
       };
       updatePagination(dispatch, updatedPagination);
     }
-  };
-
-  const resetModalTablePage = () => {
-    const updatedModalTablePagination = {
-      page: 1,
-      rowsPerPage: pagination.rowsPerPage,
-    };
-    updateModalTablePagination(dispatch, updatedModalTablePagination);
   };
 
   const mobileColumns = getMobileColumns({
@@ -93,10 +85,7 @@ const ClientReports: React.FC<ClientReportsProps> = (props) => {
           dispatch={dispatch}
           client={clientDetailsToView}
           isOpen={!!clientDetailsToView}
-          close={() => {
-            setClientDetailsToView(null);
-            resetModalTablePage();
-          }}
+          close={() => setClientDetailsToView(null)}
         />
       )}
     </S.TableContainer>

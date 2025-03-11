@@ -14,6 +14,7 @@ export type WidgetStateType = {
   sort: SORT_ORDER;
   isActive: Nullable<boolean>;
   pagination: PaginationType;
+  modalTablePagination: PaginationType;
   message: Nullable<MessageType>;
 };
 
@@ -37,6 +38,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_SORT';
       payload: WidgetStateType['sort'];
+    }
+  | {
+      type: 'UPDATE_MODAL_TABLE_PAGINATION';
+      payload: Partial<PaginationType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

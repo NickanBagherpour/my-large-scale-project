@@ -43,6 +43,20 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       return;
     }
 
+    case 'RESET_FILTERS': {
+      return {
+        ...state,
+        table: {
+          ...state.table,
+          filters: {},
+          pagination: {
+            ...state.table.pagination,
+            page: 1,
+          },
+        },
+      };
+    }
+
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
