@@ -219,6 +219,7 @@ export default function ConfirmData() {
               columns={scopeDesktopColumns}
               rowKey={(row) => row.id}
               mobileColumns={scopeMobileColumns}
+              minHeight={'auto'}
             />
           </S.Section>
 
@@ -232,6 +233,7 @@ export default function ConfirmData() {
               columns={desktopColumns}
               rowKey={(row) => row.idx}
               mobileColumns={mobileColumns}
+              minHeight={'auto'}
             />
           </S.Section>
         </div>
