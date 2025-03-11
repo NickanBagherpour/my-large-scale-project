@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Box, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
@@ -41,7 +40,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientEnName',
       align: 'center',
       render: (clientEnName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientEnName)} arrow={true}>
+        <Tooltip title={getValueOrDash(clientEnName)}>
           <S.Name
             text={getValueOrDash(clientEnName)}
             highlightColor={highlightColor}
@@ -56,7 +55,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       key: 'clientPersianName',
       align: 'center',
       render: (clientPersianName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientPersianName)} arrow={true}>
+        <Tooltip title={getValueOrDash(clientPersianName)}>
           <S.Name
             text={getValueOrDash(clientPersianName)}
             highlightColor={highlightColor}

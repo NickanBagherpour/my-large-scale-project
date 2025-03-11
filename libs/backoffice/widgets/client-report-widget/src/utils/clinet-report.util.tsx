@@ -53,7 +53,13 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'organizationName',
       key: 'organizationName',
       render: (organizationName) => (
-        <Tooltip title={getValueOrDash(organizationName)}>{getValueOrDash(organizationName)}</Tooltip>
+        <Tooltip title={getValueOrDash(organizationName)}>
+          <S.Name
+            text={getValueOrDash(organizationName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
+        </Tooltip>
       ),
     },
     {
@@ -107,11 +113,16 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('persianName'),
-            value: getValueOrDash(value?.organizationName),
+            value: (
+              <S.Name
+                text={getValueOrDash(value?.organizationName)}
+                highlightColor={highlightColor}
+                wordToHighlight={wordToHighlight}
+              />
+            ),
           },
           {
             title: '',
-
             value: (
               <Box display={'flex'} alignItems={'center'}>
                 <S.Details
