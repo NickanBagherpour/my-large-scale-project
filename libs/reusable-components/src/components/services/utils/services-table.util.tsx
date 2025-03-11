@@ -90,24 +90,23 @@ export function getMobileColumns(props: Props) {
           },
           { title: t('uikit.version'), value: version },
           {
-            title: t('uikit.details'),
+            title: '',
+            colon: false,
             value: (
-              <S.DetailsBtn
-                variant='link'
-                color='primary'
-                className='item__btn'
-                onClick={() => addServiceToView(service)}
-              >
-                {t('uikit.details')}
-              </S.DetailsBtn>
-            ),
-          },
-          {
-            title: t('uikit.remove'),
-            value: (
-              <Button className='item__btn' variant='link' color='error' onClick={() => addServiceToRemove(service)}>
-                <S.TrashIcon className='icon-trash' />
-              </Button>
+              <>
+                <S.DetailsBtn
+                  variant='link'
+                  color='primary'
+                  className='item__btn'
+                  onClick={() => addServiceToView(service)}
+                >
+                  {t('uikit.details')}
+                </S.DetailsBtn>
+
+                <Button className='item__btn' variant='link' color='error' onClick={() => addServiceToRemove(service)}>
+                  <S.TrashIcon className='icon-trash' />
+                </Button>
+              </>
             ),
           },
         ];
