@@ -13,7 +13,8 @@ type Props = {
 export default function WithBadge(props: Props) {
   const { items, onRender } = props;
 
-  const count = items.length;
+  const count = items?.length;
+  if (!count) return;
   const firstItem = items[0];
 
   const formattedFirstItem = getValueOrDash(firstItem && firstItem.replace(/[{}]/g, ''));

@@ -23,3 +23,4 @@ export * from './lib/server-side/create-middleware';
 export * from './lib/server-side/auth-api-helper';
 export * from './lib/server-side/server-util';
 export * from './lib/validation/constants';
+export * from './lib/aggregator-status';

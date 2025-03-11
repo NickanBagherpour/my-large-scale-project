@@ -25,7 +25,7 @@ const ItemIsDraft: React.FC<IsDraftProps> = ({ data, buttonText, buttonHref, mes
       <S.ServiceCompletenessBox>
         <S.ItemName>{data?.itemName}</S.ItemName>
         <Progress isPrimary={true} showInfo={false} percent={progress} />
-        <S.Percent>{progress + '%'}</S.Percent>
+        <S.Percent>{progress + '%' + ' ' + t('reusable.fetching_data')}</S.Percent>
       </S.ServiceCompletenessBox>
       <Button
         href={buttonHref}

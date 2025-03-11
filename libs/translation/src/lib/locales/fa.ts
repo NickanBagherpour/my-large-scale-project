@@ -211,6 +211,13 @@ export default {
     tariff_percent_min: 'درصد تعرفه، حداقل تعرفه',
     max_tariff: 'و حداکثر تعرفه',
     calculated: 'محاسبه می‌گردد',
+    fetching_data: '(دریافت اطلاعات)',
+    latin_name: 'نام لاتین',
+    landline: 'تلفن ثابت ',
+    company_is_aggregator: 'شرکت اگریگیتور است',
+    company_has_aggregator: 'شرکت اگریگیتور دارد',
+    company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+    company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   },
 
   button: {

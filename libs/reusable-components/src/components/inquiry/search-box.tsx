@@ -35,8 +35,9 @@ const SearchBox: React.FC<SearchBoxProps> = ({
             autoFocus={true}
             ref={inputRef}
             placeholder={placeholderText ?? t('placeholder.search_by_english_name', { element: t(`element.service`) })}
-            prefix={<i className='search-normal' />}
+            prefix={<i className='icon-search-normal' />}
             allowClear={!isLoading}
+            maxLength={100}
           />
         </S.FormItem>
         <Button htmlType='submit' onClick={form.submit} disabled={isLoading}>
