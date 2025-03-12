@@ -44,8 +44,8 @@ export default function WithBadge(props: Props) {
 
   return count > 1 ? (
     <Tooltip title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>}>
-      {renderFirstItem()}
       <S.Badge count={`+${count - 1}`} />
+      {renderFirstItem()}
     </Tooltip>
   ) : (
     <Tooltip title={getValueOrDash(listItems)}>{renderFirstItem()}</Tooltip>
