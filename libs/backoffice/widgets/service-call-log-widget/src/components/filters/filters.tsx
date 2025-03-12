@@ -125,6 +125,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
                 }}
                 format='YYYY/MM/DD HH:mm'
                 disabledDate={disabled30DaysDate}
+                suffixIcon={<Icons.Calender />}
               />
             </Form.Item>
 
