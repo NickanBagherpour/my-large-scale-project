@@ -1,4 +1,5 @@
 import { client } from '@oxygen/client';
+import { Discription } from 'libs/reusable-components/src/components/advance-grid-card/advance-grid-card.style';
 
 export default {
   create_new_client: 'ایجاد کلاینت جدید',
@@ -108,6 +109,7 @@ export default {
     mobile_number: 'تلفن همراه',
     telephone: 'تلفن (اختیاری)',
     email: 'ایمیل (اختیاری)',
+    discription: 'توضیحات',
   },
   placeholder: {
     english_name_client: ' نام انگلیسی کلاینت',

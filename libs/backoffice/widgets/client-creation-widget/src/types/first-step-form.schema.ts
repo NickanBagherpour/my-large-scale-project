@@ -16,6 +16,8 @@ export const createFormSchema = (t: TFunction, isAuthorizationFlowSelected: bool
     [FORM_ITEM.INBOUND_ADDRESS]: validationSchema.optionalUrl,
     [FORM_ITEM.REDIRECT_URL]: isAuthorizationFlowSelected ? validationSchema.url : validationSchema.optionalUrl,
     [FORM_ITEM.GRANT_TYPE]: validationSchema.objectMultipleSelection,
+    //TODO : ADD VALIDATION FOR DISCRIPTION IF ITS NEEDED
+    // [FORM_ITEM.DISCRIPTION]: validationSchema.
   });
 };
 
