@@ -9,4 +9,5 @@ export const FORM_ITEM_NAMES = {
   returnAddress: 'returnAddress',
   grantType: 'grantType',
   tags: 'tags',
+  description: 'description',
 };

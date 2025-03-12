@@ -48,6 +48,14 @@ const SearchItems = ({ rule, t, clientTypes, isClientTypesFetching, loadingUpdat
       >
         <Input placeholder={t('placeholder.return_address')} maxLength={TEXT_INPUT_LIMIT} />
       </Form.Item>
+      <Form.Item
+        rules={[rule]}
+        name={FORM_ITEM_NAMES.description}
+        label={t('form.description')}
+        className={'half-width'}
+      >
+        <Input placeholder={t('placeholder.description')} maxLength={TEXT_INPUT_LIMIT} />
+      </Form.Item>
     </>
   );
 };
