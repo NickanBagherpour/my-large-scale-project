@@ -59,6 +59,7 @@ const Services: React.FC<ServicesProps> = (props) => {
         loading={isFetching}
         current={pagination.page}
         total={total}
+        // size='middle'
         dataSource={data}
         columns={desktopColumns}
         mobileColumns={mobileColumns}

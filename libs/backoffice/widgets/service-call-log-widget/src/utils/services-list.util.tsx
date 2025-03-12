@@ -74,7 +74,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       render: (status: number) => (
         <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
-          <p style={{ color: getStatusColor(status, theme), fontWeight: 'bold' }}>{getValueOrDash(status)}</p>
+          <span style={{ color: getStatusColor(status, theme), fontWeight: 'bold' }}>{getValueOrDash(status)}</span>
         </Tooltip>
       ),
     },
