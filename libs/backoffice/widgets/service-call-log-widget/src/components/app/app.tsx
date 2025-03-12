@@ -24,7 +24,8 @@ const App = () => {
     serviceId: filterParams.serviceGatewayId || '',
     fromDate: filterParams.fromDate || '',
     toDate: filterParams.toDate || '',
-    direction: 'DESC',
+    status: filterParams.status || '',
+    sort: 'desc',
     page: 1,
     size: table.pagination.rowsPerPage || 10,
   });
@@ -37,7 +38,8 @@ const App = () => {
       serviceId: filterParams.serviceGatewayId || '',
       fromDate: filterParams.fromDate || '',
       toDate: filterParams.toDate || '',
-      direction: 'DESC',
+      status: filterParams.status || '',
+      sort: 'desc',
       page: filters.page,
       size: filters.size,
     };
@@ -67,7 +69,8 @@ const App = () => {
       serviceId: '',
       fromDate: '',
       toDate: '',
-      direction: 'DESC',
+      status: '',
+      sort: 'desc',
       page: 1,
       size: table.pagination.rowsPerPage || 10,
     });

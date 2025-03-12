@@ -50,6 +50,7 @@ export default {
     search_service_inspection: 'جستجو بر‌اساس نام انگلیسی سرویس',
     choose_client: 'انتخاب کلاینت',
     choose_service: 'انتخاب سرویس',
+    choose_status: 'انتخاب وضعیت',
   },
   buttons: {
     inspect: 'استعلام سرویس',
