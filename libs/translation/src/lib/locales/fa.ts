@@ -156,6 +156,7 @@ export default {
     stop_service: 'توقف سرویس',
     remove: 'حذف',
     service_detail: 'جزئیات سرویس',
+    client_detail: 'جزئیات کلاینت',
     general_info: 'اطلاعات کلی',
     action: 'اکشن/متود',
     protocole: 'پروتکل',
@@ -211,6 +212,13 @@ export default {
     tariff_percent_min: 'درصد تعرفه، حداقل تعرفه',
     max_tariff: 'و حداکثر تعرفه',
     calculated: 'محاسبه می‌گردد',
+    fetching_data: '(دریافت اطلاعات)',
+    latin_name: 'نام لاتین',
+    landline: 'تلفن ثابت ',
+    company_is_aggregator: 'شرکت اگریگیتور است',
+    company_has_aggregator: 'شرکت اگریگیتور دارد',
+    company_is_not_aggregator: 'شرکت اگریگیتور نیست',
+    company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
   },
 
   button: {
@@ -505,6 +513,7 @@ export default {
     status_code: 'کد وضعیت باید بین ۳۰۰ و ۵۹۹ باشد',
     host_domain_error: 'آدرس host نامعتبر است',
     tel_error: 'لطفا شماره تلفن معتبر وارد کنید',
+    no_capital: 'نام {{element}} باید حروف کوچک باشد',
   },
   element: {
     service: 'سرویس',

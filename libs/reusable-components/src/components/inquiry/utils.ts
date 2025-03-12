@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import { InquiryDto, ServiceInquiryDto } from './types';
+import { aggregatorStatusDisplay } from '@oxygen/utils';
 
 export function isServiceInquiryDto(data: InquiryDto): data is ServiceInquiryDto {
   return 'serviceInquiryStatus' in data;
@@ -12,10 +13,7 @@ export function extractSpecificData(t: TFunction, data?: InquiryDto) {
       : [
           data.organizationInfo?.organizationName,
           data.organizationInfo?.organizationId,
-          data.organizationInfo?.isAggregator
-            ? t('common.has') +
-              (data?.organizationInfo?.aggregatorName ? '-' + data?.organizationInfo?.aggregatorName : '')
-            : t('common.doesnt_have'),
+          aggregatorStatusDisplay(t, data?.organizationInfo),
           data.organizationInfo?.representative?.nameAndLastName,
         ];
   } else return [];

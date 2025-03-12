@@ -27,6 +27,7 @@ export const StyledDivider = styled(Divider)`
 `;
 export const StyledText = styled.p`
   color: ${(p) => p.theme.error.main};
+  font-size: 1.2rem;
 `;
 export const CenteredText = styled.p`
   text-align: center;
