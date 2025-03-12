@@ -29,6 +29,7 @@ export const useGetClientInfoQuery = (params) => {
         websiteUrl: clientInfo ? clientInfo.websiteUrl : ssoInfo.uri,
         inboundAddress: clientInfo ? clientInfo.inboundAddress : ssoInfo.inboundAddress,
         redirectUrl: clientInfo ? clientInfo.redirectUrl : ssoInfo.redirectingUri,
+        discription: clientInfo ? clientInfo.discription : null,
         isClientFlow: clientInfo ? clientInfo.isClientFlow : ssoInfo.clientFlow,
         isPasswordFlow: clientInfo ? clientInfo.isPasswordFlow : ssoInfo.passwordFlow,
         isAuthorizationFlow: clientInfo ? clientInfo.isAuthorizationFlow : ssoInfo.authorizationCodeFlow,

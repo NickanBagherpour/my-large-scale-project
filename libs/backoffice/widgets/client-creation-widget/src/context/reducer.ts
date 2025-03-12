@@ -18,6 +18,7 @@ export const initialStateValue: WidgetStateType = {
     websiteUrl: undefined,
     inboundAddress: undefined,
     redirectUrl: undefined,
+    discription: undefined,
     isClientFlow: undefined,
     isPasswordFlow: undefined,
     isAuthorizationFlow: undefined,
@@ -71,7 +72,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.clientName = action.payload;
       return;
     }
-
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload };
       return;
