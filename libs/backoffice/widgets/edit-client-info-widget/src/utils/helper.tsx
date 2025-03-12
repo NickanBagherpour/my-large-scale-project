@@ -61,6 +61,10 @@ export const prepareParams = (item, OrganizationNationalId) => {
     obj.authorizationKey = item.identityAuth;
   }
 
+  if (item.description) {
+    obj.description = item.description;
+  }
+
   obj.organizationNationalId = OrganizationNationalId ?? nonExistentNationalId;
 
   const grantType = transformData(item.grantType);
