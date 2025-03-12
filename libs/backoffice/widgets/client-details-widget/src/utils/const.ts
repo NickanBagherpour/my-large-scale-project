@@ -4,3 +4,8 @@ export const LIMITAION_FORM_NAME = {
   totalCallLimit: 'totalCallLimit',
   callLimitOptions: 'callLimitOptions',
 };
+
+export const repTypeMap = {
+  1: 'legal',
+  2: 'technical',
+} as const;
