@@ -8,6 +8,7 @@ import Services from '../services-list/services';
 import * as S from './app.style';
 import { useEffect, useState } from 'react';
 import { useDateLocaleListener } from '@oxygen/hooks';
+import { ServiceDto } from '../../types';
 
 const App = () => {
   const { message, searchTerm, table } = useAppState();
@@ -18,6 +19,8 @@ const App = () => {
 
   const customFilters = new URLSearchParams(useAppState().table.filters);
   const filterParams = Object.fromEntries(customFilters.entries());
+  const [localData, setLocalData] = useState<ServiceDto[]>([]);
+  const [localTotal, setLocalTotal] = useState<number>(0);
 
   const [filters, setFilters] = useState({
     consumerId: filterParams.clientGatewayId || '',
@@ -31,6 +34,13 @@ const App = () => {
   });
 
   const { data: servicesLogs, isFetching: isFetchingLogs, refetch } = useGetServicesLogsQuery(filters);
+
+  useEffect(() => {
+    if (servicesLogs) {
+      setLocalData(servicesLogs?.response?.content || []);
+      setLocalTotal(servicesLogs?.page?.totalElements || 0);
+    }
+  }, [servicesLogs]);
 
   useEffect(() => {
     const updatedFilters = {
@@ -60,7 +70,6 @@ const App = () => {
   };
 
   const handleReset = () => {
-    // console.log('Before reset:', filters);
     resetFiltersAction(dispatch);
 
     // Directly update the filters state in the parent component
@@ -75,8 +84,8 @@ const App = () => {
       size: table.pagination.rowsPerPage || 10,
     });
 
-    // console.log('After reset:', filters);
-    refetch();
+    setLocalData([]);
+    setLocalTotal(0);
   };
 
   return (
@@ -86,8 +95,8 @@ const App = () => {
         <Filter filters={filters} setFilters={setFilters} onSearch={handleSearch} onReset={handleReset} />
         <Services
           isFetching={isFetchingLogs}
-          data={servicesLogs?.response?.content}
-          total={servicesLogs?.page?.totalElements}
+          data={localData}
+          total={localTotal}
           searchTerm={searchTerm}
           isLoading={isFetchingLogs}
           wordToHighlight={searchTerm ?? ''}
