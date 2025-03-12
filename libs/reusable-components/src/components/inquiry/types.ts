@@ -17,10 +17,10 @@ export interface ClientInquiryDto {
   organizationInfo?: {
     organizationId?: number;
     organizationName?: string;
-    organizationNationalId?: string;
-    isAggregator?: true;
-    aggregatorId?: number;
-    aggregatorName?: string;
+    organizationNationalId?: string | null;
+    isAggregator?: true | null;
+    aggregatorId?: number | null;
+    aggregatorName?: string | null;
     representative?: {
       nameAndLastName?: string;
       mobileNumber?: string;

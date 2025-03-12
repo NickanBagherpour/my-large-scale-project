@@ -1,12 +1,13 @@
+import { createSchemaFieldRule } from 'antd-zod';
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { ContentType, InquiryType } from './types';
+import { CreateClientInquirySchema } from './client-inquiry.schema';
 import { useInquiry } from './get-inquiry.api';
-import { InquiryStatus, NAVIGATION_URLS } from './consts';
+import { NAVIGATION_URLS } from './consts';
 import { extractSpecificData } from './utils';
 import Inquiry from './inquiry';
 import { ROUTES } from '@oxygen/utils';
-import Router from 'next/router';
 import { ItemNotFoundProps } from './item-not-found';
 import { SearchBoxProps } from './search-box';
 import { useRouter } from 'next/navigation';
@@ -52,7 +53,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
       }
     }
   }, [isFetching, isFetched, data]);
-
+  const clientRule = createSchemaFieldRule(CreateClientInquirySchema(t));
   const buttonInfo = {
     service: {
       title: t('button.inspect_another_service'),
@@ -68,7 +69,7 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
   };
   const currentButtonInfo = buttonInfo[type];
   const titles: Record<InquiryType, string[]> = {
-    service: [t('uikit.en_service_name'), t('uikit.desc'), t('uikit.element_en_name', { element: t('element.scope') })],
+    service: [t('reusable.latin_name'), t('uikit.desc'), t('element.scope')],
     client: [
       t('uikit.organization_name'),
       t('uikit.organization_id'),
@@ -84,11 +85,12 @@ const ServiceClientInquiry: React.FC<Props> = ({ toggle, dispatch, type }) => {
   const searchboxProps = {
     buttonText: t('button.inquire_item', itemTranslation),
     placeholderText: t('placeholder.search_by_english_name', itemTranslation),
+    ...(type === 'client' && { rule: clientRule }),
   } satisfies Partial<SearchBoxProps>;
   const existsInBamComponentProps = {
     message: t('uikit.allowed_creation_BAAM', itemTranslation),
     buttonAction: handleExistsInBamAction,
-    buttonLoading: uploadPending,
+    ...(type === 'service' && { buttonLoading: uploadPending }),
     buttonText: t('button.upload_item', itemTranslation),
   } satisfies Partial<ExistsInBamProps>;
   const draftComponentProps = {

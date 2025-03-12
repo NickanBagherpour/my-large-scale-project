@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const StyledText = styled.p`
   color: ${(p) => p.theme.primary.main};
+  font-size: 1.2rem;
 `;
 export const ItemName = styled.p`
   font-size: 1.6rem;
+  text-align: start;
 `;
 export const ServiceCompletenessBox = styled.div`
   border: 1px solid ${(p) => p.theme.border._300};
@@ -13,7 +15,6 @@ export const ServiceCompletenessBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   min-width: 35%;
 `;
 export const Percent = styled.p`
@@ -21,6 +22,7 @@ export const Percent = styled.p`
   text-align: start;
   width: 100%;
   margin-top: -0.2rem;
+  font-size: 1.2rem;
 `;
 export const TickIcon = styled.i`
   color: ${(p) => p.theme.primary.main};

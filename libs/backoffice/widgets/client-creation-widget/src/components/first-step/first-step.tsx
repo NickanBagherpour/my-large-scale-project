@@ -7,7 +7,7 @@ import { createSchemaFieldRule } from 'antd-zod';
 import { useApp } from '@oxygen/hooks';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { aggregatorStatusDisplay, getValueOrDash, RQKEYS } from '@oxygen/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
@@ -172,16 +172,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
       [FORM_ITEM.TAG_IDS]: updatedTags,
     });
   };
-
-  const aggregatorStatus = (aggregatorStatusParams) => {
-    return aggregatorStatusParams?.organizationNationalId
-      ? aggregatorStatusParams?.isAggregator
-        ? t('company_is_aggregator')
-        : aggregatorStatusParams?.aggregatorId
-        ? `${t('company_has_aggregator')} - ${aggregatorStatusParams?.aggregatorName}`
-        : t('company_is_not_aggregator')
-      : null;
-  };
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
       onSuccess: async () => {
@@ -197,7 +187,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const infoBoxData = [
     { key: t('organization_name'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationName) },
     { key: t('organization_id'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationNationalId) },
-    { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus(aggregatorStatusParams)) },
+    { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatusDisplay(t, aggregatorStatusParams)) },
     {
       key: t('representative_name'),
       value: getValueOrDash(state.firstStep.organizationInfo?.representative?.nameAndLastName),

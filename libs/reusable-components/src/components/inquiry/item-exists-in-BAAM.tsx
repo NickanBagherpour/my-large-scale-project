@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Flex } from 'antd';
 
 import { Button } from '@oxygen/ui-kit';
@@ -13,10 +14,15 @@ export type ExistsInBamProps = {
   buttonLoading?: boolean;
 };
 const ItemExistsInBAAM: React.FC<ExistsInBamProps> = ({ buttonLoading, message, buttonText, buttonAction }) => {
+  const [loading, setLoading] = useState(false);
+  const handleClick = () => {
+    setLoading(true);
+    buttonAction?.();
+  };
   return (
     <Flex vertical gap={'2rem'} justify='center' align='center'>
       <Flex justify='center' align='center' gap={'1rem'}>
-        <S.TickIcon className='icon-tick-circle-outlined'> </S.TickIcon>
+        <S.TickIcon className='icon-tick-circle-outlined' />
         <S.StyledText>{message}</S.StyledText>
       </Flex>
       <Button
@@ -25,8 +31,8 @@ const ItemExistsInBAAM: React.FC<ExistsInBamProps> = ({ buttonLoading, message, 
         color='primary'
         icon={<i className='icon-arrow-left' />}
         iconPosition='end'
-        onClick={buttonAction}
-        loading={buttonLoading}
+        onClick={handleClick}
+        loading={buttonLoading ?? loading}
       >
         {buttonText}
       </Button>
