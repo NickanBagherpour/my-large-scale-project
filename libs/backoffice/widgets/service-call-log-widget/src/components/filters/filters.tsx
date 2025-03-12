@@ -11,7 +11,7 @@ import ServiceSelector from '../service-selector/service-selector';
 
 import { updateSearchTerm } from '../../context';
 import ClientSelector from '../client-selector/client-selector';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
 
@@ -38,12 +38,13 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
       fromDate = dateRange[0].format('YYYY/MM/DD HH:mm:ss');
       toDate = dateRange[1].format('YYYY/MM/DD HH:mm:ss');
     }
+
     const queryParams = {
-      clientGatewayId: selectedClient.clientGatewayId,
-      serviceGatewayId: selectedService.serviceGatewayId,
-      fromDate: fromDate,
-      toDate: toDate,
-      status: status,
+      clientGatewayId: selectedClient?.clientGatewayId || '',
+      serviceGatewayId: selectedService?.serviceGatewayId || '',
+      fromDate: fromDate || '',
+      toDate: toDate || '',
+      status: status || '',
       size: filters.size.toString(),
       page: (filters.page - 1).toString(),
       sort: 'createDate,DESC',
@@ -52,30 +53,24 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
     onSearch();
 
-    console.log('date range:', dateRange);
-    console.log('From Date:', fromDate);
-    console.log('To Date:', toDate);
-    console.log('Status:', status);
+    // console.log('date range:', dateRange);
+    // console.log('From Date:', fromDate);
+    // console.log('To Date:', toDate);
+    // console.log('Status:', status);
 
     // Use these values (e.g., send them to an API)
   };
 
   const getYearMonth = (date) => date.year() * 12 + date.month();
 
-  const disabled30DaysDate = (current, { from, type }) => {
-    if (from) {
-      const minDate = from.add(-31, 'days');
-      const maxDate = from.add(31, 'days');
-      switch (type) {
-        case 'year':
-          return current.year() < minDate.year() || current.year() > maxDate.year();
-        case 'month':
-          return getYearMonth(current) < getYearMonth(minDate) || getYearMonth(current) > getYearMonth(maxDate);
-        default:
-          return Math.abs(current.diff(from, 'days')) >= 30;
-      }
-    }
-    return false;
+  const disabled30DaysDate = (current: Dayjs | null): boolean => {
+    if (!current) return false;
+
+    const today = dayjs();
+    const minDate = today.subtract(30, 'days');
+    const maxDate = today.add(30, 'days');
+
+    return current.isBefore(minDate.startOf('day')) || current.isAfter(maxDate.endOf('day'));
   };
 
   const statusOptions = [
