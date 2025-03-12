@@ -275,7 +275,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                   <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.DESCRIPTION} label={t('form.discription')} className='half-width-grow'>
-                  <Input maxLength={MAX_INPUTE_LENGTH} />
+                  <Input maxLength={MAX_INPUTE_LENGTH} placeholder={t('form.discription')} />
                 </Form.Item>
               </SearchItemsContainer>
               <S.Divider />
