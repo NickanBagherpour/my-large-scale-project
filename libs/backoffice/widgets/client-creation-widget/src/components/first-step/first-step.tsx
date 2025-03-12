@@ -265,10 +265,14 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 </Form.Item>
 
                 <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} />
+                  <Input maxLength={MAX_INPUTE_LENGTH} placeholder={t(`placeholder.farsi_name_client`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.CLIENT_KEY} label={t('form.client_id')} rules={[rule]}>
-                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    disabled={isDraft || isImportClient || isFormDisabeled}
+                    maxLength={MAX_INPUTE_LENGTH}
+                    placeholder={t(`placeholder.client_key`)}
+                  />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.CLIENT_TYPE_CODE} label={t('form.client_type')} rules={[rule]}>
                   <Select
@@ -280,16 +284,20 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                   ></Select>
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.AUTHORIZATION_KEY} label={t('form.identity_auth')} rules={[rule]}>
-                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    disabled={isDraft || isImportClient || isFormDisabeled}
+                    maxLength={MAX_INPUTE_LENGTH}
+                    placeholder={t(`placeholder.authentication_key`)}
+                  />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.WEBSITE_URL} label={t('form.website_url')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.website_address`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.INBOUND_ADDRESS} label={t('form.input_address')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.input_address`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.REDIRECT_URL} label={t('form.client_return_address')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.return_address`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.DESCRIPTION} label={t('form.discription')} className='half-width-grow'>
                   <Input maxLength={MAX_INPUTE_LENGTH} placeholder={t('form.discription')} />

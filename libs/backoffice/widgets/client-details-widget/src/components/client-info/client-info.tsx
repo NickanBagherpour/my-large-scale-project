@@ -2,11 +2,13 @@ import { useTr } from '@oxygen/translation';
 import { Button, Chip, InfoBox, Loading } from '@oxygen/ui-kit';
 import * as S from './client-info.style';
 import { useGetClientInfoQuery } from '../../services';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { aggregatorStatusDisplay, ROUTES } from '@oxygen/utils';
 import { useClientName } from '../../utils/use-client-name';
 import { NoResult } from '@oxygen/reusable-components';
 import { useEffect } from 'react';
 import { PageTitle } from '../../types';
+import type { InfoItemType } from '@oxygen/types';
+import { repTypeMap } from '../../utils/const';
 
 type Props = {
   updateTitle: ({ persian, english }: PageTitle) => void;
@@ -44,6 +46,7 @@ export default function ClientInfo(props: Props) {
     organizationInfo,
     clientEnglishName,
     clientPersianName,
+    description,
   } = clientInfo;
 
   const grantType = [
@@ -70,14 +73,15 @@ export default function ClientInfo(props: Props) {
   ].reduce((acc, type) => (type.isActive ? acc.concat(type.name) : acc), [] as string[]);
 
   const clientInfoData = [
-    { key: t('english_client_name'), value: getValueOrDash(clientEnglishName) },
-    { key: t('persian_client_name'), value: getValueOrDash(clientPersianName) },
-    { key: t('client_type'), value: getValueOrDash(clientTypeName) },
-    { key: t('client_id'), value: getValueOrDash(clientKey) },
-    { key: t('authentication_id'), value: getValueOrDash(authorizationKey) },
-    { key: t('website_address'), value: getValueOrDash(websiteUrl) },
-    { key: t('input_address'), value: getValueOrDash(inboundAddress) },
-    { key: t('client_return_address'), value: getValueOrDash(redirectUrl) },
+    { key: t('english_client_name'), value: clientEnglishName },
+    { key: t('persian_client_name'), value: clientPersianName },
+    { key: t('client_type'), value: clientTypeName },
+    { key: t('client_id'), value: clientKey },
+    { key: t('authentication_id'), value: authorizationKey },
+    { key: t('website_address'), value: websiteUrl },
+    { key: t('input_address'), value: inboundAddress },
+    { key: t('client_return_address'), value: redirectUrl },
+    { key: t('description'), value: description },
     {
       fullwidth: true,
       key: t('grant_type'),
@@ -110,26 +114,29 @@ export default function ClientInfo(props: Props) {
     },
   ];
 
-  let orgInfoData: { key: string; value: string }[] = [];
+  let orgInfoData: InfoItemType[] = [];
   if (organizationInfo) {
-    const {
-      organizationName,
-      isAggregator,
-      aggregatorName,
-      organizationNationalId,
-      representative: { mobileNumber, nameAndLastName, fixedPhoneNumber },
-    } = organizationInfo;
+    const { organizationName, organizationNationalId, representative } = organizationInfo;
 
-    const formattedAggregatorName = aggregatorName ? ` - ${aggregatorName}` : '';
-    const aggregatorStatus = isAggregator ? `${t('has')}${formattedAggregatorName}` : t('has_not');
+    const aggregator = aggregatorStatusDisplay(t, organizationInfo);
 
     orgInfoData = [
-      { key: t('organization_name'), value: getValueOrDash(organizationName) },
-      { key: t('organization_id'), value: getValueOrDash(organizationNationalId) },
-      { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus) },
-      { key: t('representative_name'), value: getValueOrDash(nameAndLastName) },
-      { key: t('mobile'), value: getValueOrDash(mobileNumber) },
-      { key: t('phone'), value: getValueOrDash(fixedPhoneNumber) },
+      { key: t('organization_name'), value: organizationName },
+      { key: t('organization_id'), value: organizationNationalId },
+      { key: t('aggregator_status'), value: aggregator, doubleWidth: true },
+
+      { key: '', value: '', type: 'divider', fullwidth: true },
+
+      ...representative.reduce(
+        (acc, { nameAndLastName, mobileNumber, fixedPhoneNumber, representativeType }) => [
+          ...acc,
+          { key: t('representative_name'), value: nameAndLastName },
+          { key: t('mobile'), value: mobileNumber },
+          { key: t('phone'), value: fixedPhoneNumber },
+          { key: t('representative_type'), value: t(repTypeMap[representativeType]) },
+        ],
+        [] as InfoItemType[]
+      ),
     ];
   }
 

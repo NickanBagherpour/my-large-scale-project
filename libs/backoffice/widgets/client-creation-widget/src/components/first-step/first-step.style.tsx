@@ -107,7 +107,9 @@ export const Footer = styled.div`
   gap: 1.2rem;
 
   ${respondTo.down('sm')} {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    margin-top: 2rem;
+    height: auto;
   }
 `;
 export const Card = styled(AntCatd)`

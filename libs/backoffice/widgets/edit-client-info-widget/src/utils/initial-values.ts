@@ -10,6 +10,7 @@ export const initialValues = (userData) => {
     [FORM_ITEM_NAMES.websiteUrl]: userData?.websiteUrl,
     [FORM_ITEM_NAMES.inputAddress]: userData?.inboundAddress,
     [FORM_ITEM_NAMES.returnAddress]: userData?.redirectUrl,
+    [FORM_ITEM_NAMES.description]: userData?.description,
     [FORM_ITEM_NAMES.grantType]: userData?.activeGrantType,
     [FORM_ITEM_NAMES.tags]: userData?.activeTagIds,
   };

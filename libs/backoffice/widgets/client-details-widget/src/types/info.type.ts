@@ -16,6 +16,7 @@ export type ClientInfo = {
   isImplicitFlow: boolean;
   isRefreshToken: boolean;
   tagIds: { code: number; title: string }[];
+  description: string;
   organizationInfo: {
     organizationId: number;
     organizationName: string;
@@ -28,7 +29,7 @@ export type ClientInfo = {
       mobileNumber: string;
       fixedPhoneNumber: string;
       representativeType: number;
-    };
+    }[];
   } | null;
 };
 
