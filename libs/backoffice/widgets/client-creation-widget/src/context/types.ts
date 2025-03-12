@@ -43,7 +43,7 @@ export type OrganizationInfo = {
   isAggregator?: boolean;
   aggregatorId?: Nullable<number>;
   aggregatorName?: Nullable<string>;
-  representative: Representative;
+  representative: Representative[];
 };
 
 export type Representative = {

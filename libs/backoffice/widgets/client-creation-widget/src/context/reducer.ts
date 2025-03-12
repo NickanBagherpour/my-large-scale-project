@@ -32,12 +32,14 @@ export const initialStateValue: WidgetStateType = {
       isAggregator: undefined,
       aggregatorId: undefined,
       aggregatorName: undefined,
-      representative: {
-        nameAndLastName: undefined,
-        mobileNumber: undefined,
-        fixedPhoneNumber: undefined,
-        representativeType: undefined,
-      },
+      representative: [
+        {
+          nameAndLastName: undefined,
+          mobileNumber: undefined,
+          fixedPhoneNumber: undefined,
+          representativeType: undefined,
+        },
+      ],
     },
   },
   secondStep: { table: [] },

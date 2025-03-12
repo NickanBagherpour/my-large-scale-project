@@ -32,6 +32,7 @@ export default {
   success_notif: 'شناسه با موفقیت اضافه گردید.',
   tooltip_txt: 'به منظور دریافت اطلاعات سازمان، شناسه ملی سازمان را وارد نمایید.',
   re_search: 'جستجو مجدد',
+  representative_type: 'تایپ نماینده',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
@@ -82,6 +83,8 @@ export default {
     tariff: 'تعرفه',
     final_client_registration: 'ثبت نهایی کلاینت',
   },
+  technical: 'فنی',
+  legal: 'حقوقی',
 
   progress_bar: {
     first_step: 'دریافت اطلاعات',

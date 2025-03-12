@@ -5,7 +5,7 @@ import { Form, message, Tooltip } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useApp } from '@oxygen/hooks';
-import { PageProps } from '@oxygen/types';
+import { InfoItemType, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { aggregatorStatusDisplay, getValueOrDash, RQKEYS } from '@oxygen/utils';
 import { useQueryClient } from '@tanstack/react-query';
@@ -184,16 +184,33 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const representative = state.firstStep.organizationInfo.representative;
+  const repTypeMap = {
+    1: 'legal',
+    2: 'technical',
+  };
   const infoBoxData = [
     { key: t('organization_name'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationName) },
     { key: t('organization_id'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationNationalId) },
-    { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatusDisplay(t, aggregatorStatusParams)) },
     {
-      key: t('representative_name'),
-      value: getValueOrDash(state.firstStep.organizationInfo?.representative?.nameAndLastName),
+      key: t('aggregator_status'),
+      value: getValueOrDash(aggregatorStatusDisplay(t, aggregatorStatusParams)),
+      doubleWidth: true,
     },
-    { key: t('mobile_phone'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.mobileNumber) },
-    { key: t('landline'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.fixedPhoneNumber) },
+    { key: '', value: '', type: 'divider' as const, fullwidth: true },
+    ...representative.reduce(
+      (acc, { nameAndLastName, mobileNumber, fixedPhoneNumber, representativeType }) => [
+        ...acc,
+        { key: t('representative_name'), value: nameAndLastName },
+        { key: t('mobile_phone'), value: mobileNumber },
+        { key: t('landline'), value: fixedPhoneNumber },
+        {
+          key: t('representative_type'),
+          value: getValueOrDash(t(representativeType ? repTypeMap[representativeType] : null)),
+        },
+      ],
+      [] as InfoItemType[]
+    ),
   ];
 
   return (
