@@ -1,4 +1,5 @@
 import { client } from '@oxygen/client';
+import { Discription } from 'libs/reusable-components/src/components/advance-grid-card/advance-grid-card.style';
 
 export default {
   create_new_client: 'ایجاد کلاینت جدید',
@@ -31,6 +32,7 @@ export default {
   success_notif: 'شناسه با موفقیت اضافه گردید.',
   tooltip_txt: 'به منظور دریافت اطلاعات سازمان، شناسه ملی سازمان را وارد نمایید.',
   re_search: 'جستجو مجدد',
+  representative_type: 'تایپ نماینده',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
@@ -81,6 +83,8 @@ export default {
     tariff: 'تعرفه',
     final_client_registration: 'ثبت نهایی کلاینت',
   },
+  technical: 'فنی',
+  legal: 'حقوقی',
 
   progress_bar: {
     first_step: 'دریافت اطلاعات',
@@ -108,6 +112,7 @@ export default {
     mobile_number: 'تلفن همراه',
     telephone: 'تلفن (اختیاری)',
     email: 'ایمیل (اختیاری)',
+    discription: 'توضیحات',
   },
   placeholder: {
     english_name_client: ' نام انگلیسی کلاینت',

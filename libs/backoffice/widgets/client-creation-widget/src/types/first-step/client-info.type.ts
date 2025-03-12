@@ -87,9 +87,10 @@ export type ConvertedClientInfoResponseType = {
   clientTypeName: Nullable<string>;
   clientKey: string;
   authorizationKey: string;
-  websiteUrl: string;
-  inboundAddress: string;
-  redirectUrl: string;
+  websiteUrl: Nullable<string>;
+  inboundAddress: Nullable<string>;
+  redirectUrl: Nullable<string>;
+  description: Nullable<string>;
   isClientFlow: boolean;
   isPasswordFlow: boolean;
   isAuthorizationFlow: boolean;

@@ -27,6 +27,7 @@ export type FirstStepType = {
   websiteUrl?: string;
   inboundAddress?: string;
   redirectUrl?: string;
+  description?: string;
   isClientFlow?: boolean;
   isPasswordFlow?: boolean;
   isAuthorizationFlow?: boolean;
@@ -42,7 +43,7 @@ export type OrganizationInfo = {
   isAggregator?: boolean;
   aggregatorId?: Nullable<number>;
   aggregatorName?: Nullable<string>;
-  representative: Representative;
+  representative: Representative[];
 };
 
 export type Representative = {
