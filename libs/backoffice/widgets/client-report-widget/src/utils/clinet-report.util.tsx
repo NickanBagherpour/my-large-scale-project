@@ -73,7 +73,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${record.clientName ?? ''}`}
             size={'small'}
             disabled
           >
@@ -81,7 +81,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
           </S.Details>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${record.clientName ?? ''}`}
             size={'small'}
           >
             {t('details')}
@@ -127,14 +127,14 @@ export function getMobileColumns(props: Props): any {
               <Box display={'flex'} alignItems={'center'}>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${value?.clientName ?? ''}`}
                   disabled
                 >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${value?.clientName ?? ''}`}
                 >
                   {t('details')}
                 </S.Details>

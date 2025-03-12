@@ -64,12 +64,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: 'url',
       dataIndex: 'paths',
       key: 'paths',
-      render: (paths) => (
-        <WithBadge
-          items={[...paths, ...paths, ...paths]}
-          onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>}
-        />
-      ),
+      render: (paths) => <WithBadge items={paths} onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>} />,
     },
     {
       title: `${t('version')}`,

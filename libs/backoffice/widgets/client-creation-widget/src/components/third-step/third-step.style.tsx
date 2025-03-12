@@ -16,7 +16,8 @@ export const Footer = styled.div`
   border-top: 1px solid ${(p) => p.theme.border._100};
   gap: 1.2rem;
   ${respondTo.down('sm')} {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    height: auto;
   }
 `;
 
