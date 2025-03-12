@@ -106,6 +106,10 @@ export const InfoBoxWrapper = styled.div<{
 
   & .doubleWidth {
     grid-column: span 2;
+
+    ${respondTo.down('sm')} {
+      grid-column: span 1;
+    }
   }
 
   & .info-box__footer {
