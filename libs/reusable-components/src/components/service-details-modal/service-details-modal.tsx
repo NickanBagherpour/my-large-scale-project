@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
-import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, type InfoBoxProps } from '@oxygen/ui-kit';
-import { getValueOrDash } from '@oxygen/utils';
+import { Button, Chip, ColumnsType, InfoBox, Loading, Modal, Table, type InfoBoxProps, Tooltip } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import { type Dispatch } from 'react';
 import * as S from './details-modal-modal.style';
 import { useGetServiceDetails } from './service';
@@ -42,12 +42,23 @@ export default function DetailsModal(props: Props) {
       serviceCategoryTitle,
     } = service;
 
-    routes.forEach(({ routePath, routeHosts, routeMethod, routeProtocol }) => {
-      route.methods.push(...routeMethod);
-      route.protocols.push(...routeProtocol);
-      route.hosts.push(...routeHosts);
-      route.paths.push(...routePath);
-    });
+    // routes.forEach(({ routePath, routeHosts, routeMethod, routeProtocol }) => {
+    //   route.methods.push(...routeMethod);
+    //   route.protocols.push(...routeProtocol);
+    //   route.hosts.push(...routeHosts);
+    //   route.paths.push(...routePath);
+    // });
+
+    if (Array.isArray(routes)) {
+      routes.forEach(({ routePath, routeHosts, routeMethod, routeProtocol }) => {
+        route.methods.push(...(routeMethod || []));
+        route.protocols.push(...(routeProtocol || []));
+        route.hosts.push(...(routeHosts || []));
+        route.paths.push(...(routePath || []));
+      });
+    } else {
+      console.warn('Warning: routes is null or not an array');
+    }
 
     generalData = [
       { key: t('common.english_name'), value: serviceLatinName },
@@ -79,20 +90,22 @@ export default function DetailsModal(props: Props) {
       title: t('common.index'),
       align: 'center',
       dataIndex: 'id',
-      width: '10rem',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val: number, _record: ServiceDetails['scopes'][number], index: number) => index + 1,
     },
     {
       title: t('common.english_name'),
       align: 'center',
       dataIndex: 'name',
-      render: (name: string) => name,
+      render: (name: string) => <Tooltip title={getValueOrDash(name)}>{getValueOrDash(name)}</Tooltip>,
     },
     {
       title: t('common.persian_name'),
       align: 'center',
       dataIndex: 'description',
-      render: (description: string) => description,
+      render: (description: string) => (
+        <Tooltip title={getValueOrDash(description)}>{getValueOrDash(description)}</Tooltip>
+      ),
     },
   ] as const;
 
@@ -105,7 +118,7 @@ export default function DetailsModal(props: Props) {
           { title: t('common.english_name'), value: getValueOrDash(name) },
           { title: t('common.persian_name'), value: getValueOrDash(description) },
         ];
-        return <Table.MobileColumns columns={data} />;
+        return <Table.MobileColumns columns={data} minHeight={'4rem'} />;
       },
     },
   ];

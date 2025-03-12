@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { TablePaginationConfig } from 'antd';
 
 import { NoResult } from '@oxygen/reusable-components';
-import { getValueOrDash } from '@oxygen/utils';
-import { ColumnsType, HistoryCell, Table } from '@oxygen/ui-kit';
+import { convertShamsiDateFormat, getValueOrDash } from '@oxygen/utils';
+import { ColumnsType, HistoryCell, Table, Tooltip } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
 import { PageProps, PaginatedData } from '@oxygen/types';
 
@@ -29,22 +29,25 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
     {
       title: t('field.edit_date'),
       dataIndex: 'modifyDate',
-      render: (column) => {
-        return <div>{getValueOrDash(column?.value)}</div>;
-      },
+      render: (column) => (
+        <Tooltip title={convertShamsiDateFormat(column?.value)}>{convertShamsiDateFormat(column?.value, true)}</Tooltip>
+      ),
     },
     {
       title: t('field.user_name'),
       dataIndex: 'userName',
-      render: (column) => {
-        return <HistoryCell item={column} />;
-      },
+      render: (column) => (
+        <Tooltip title={column?.value}>
+          <HistoryCell item={column} />
+        </Tooltip>
+      ),
     },
     {
       title: t('field.revision_type'),
       dataIndex: 'revisionDto',
       align: 'center',
       width: 'min-content',
+      ellipsis: false,
       render: (_value, record) => {
         const variant = record?.revisionDto?.revType?.code?.value;
         const isDeleted = record?.isDeleted?.value;
@@ -61,7 +64,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
       render: (item) => {
         const value = item?.name?.value;
         const hasDifference = item?.name?.hasDifference;
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -71,7 +78,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.persianName?.value;
         const hasDifference = item?.persianName?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -81,7 +92,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.accessLevel?.title?.value;
         const hasDifference = item?.accessLevel?.title?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -91,7 +106,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.category?.title?.value;
         const hasDifference = item?.category?.title?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -101,7 +120,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.throughput?.title?.value;
         const hasDifference = item?.throughput?.title?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -111,7 +134,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.version?.value;
         const hasDifference = item?.version?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
     {
@@ -121,7 +148,11 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
         const value = item?.owner?.value;
         const hasDifference = item?.owner?.hasDifference;
 
-        return <HistoryCell item={{ value, hasDifference }} />;
+        return (
+          <Tooltip title={value}>
+            <HistoryCell item={{ value, hasDifference }} />
+          </Tooltip>
+        );
       },
     },
   ];
@@ -153,6 +184,7 @@ const DataTable: React.FC<AppProps> = ({ data, isFetching }) => {
           rowKey={(row) => row?.revisionDto?.revNumber?.value || row?.modifyDate?.value + row?.userName?.value}
           onChange={handlePageChange}
           showHeader={true}
+          minHeight={'auto'}
         />
       ) : (
         <NoResult isLoading={isFetching} />
