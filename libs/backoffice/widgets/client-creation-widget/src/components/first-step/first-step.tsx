@@ -274,7 +274,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 <Form.Item name={FORM_ITEM.REDIRECT_URL} label={t('form.client_return_address')} rules={[rule]}>
                   <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
                 </Form.Item>
-                <Form.Item name={FORM_ITEM.DISCRIPTION} label={t('form.discription')} className='half-width-grow'>
+                <Form.Item name={FORM_ITEM.DESCRIPTION} label={t('form.discription')} className='half-width-grow'>
                   <Input maxLength={MAX_INPUTE_LENGTH} />
                 </Form.Item>
               </SearchItemsContainer>

@@ -18,7 +18,7 @@ export const initialStateValue: WidgetStateType = {
     websiteUrl: undefined,
     inboundAddress: undefined,
     redirectUrl: undefined,
-    discription: undefined,
+    description: undefined,
     isClientFlow: undefined,
     isPasswordFlow: undefined,
     isAuthorizationFlow: undefined,

@@ -90,7 +90,7 @@ export type ConvertedClientInfoResponseType = {
   websiteUrl: Nullable<string>;
   inboundAddress: Nullable<string>;
   redirectUrl: Nullable<string>;
-  discription: Nullable<string>;
+  description: Nullable<string>;
   isClientFlow: boolean;
   isPasswordFlow: boolean;
   isAuthorizationFlow: boolean;

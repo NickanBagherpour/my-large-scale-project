@@ -39,7 +39,7 @@ export const prepareSubmitClientParams: any = (item, orgId, ssoId) => {
     websiteUrl: item.websiteUrl === '' ? null : item.websiteUrl,
     inboundAddress: item.inboundAddress === '' ? null : item.inboundAddress,
     redirectUrl: item.redirectUrl === '' ? null : item.redirectUrl,
-    discription: item.sidcription === '' ? null : item.sidcription,
+    description: item.description === '' ? null : item.description,
     organizationNationalId: orgId,
     tagIds: item.tagIds.length ? item.tagIds.map((tag) => tag.key) : [],
   };

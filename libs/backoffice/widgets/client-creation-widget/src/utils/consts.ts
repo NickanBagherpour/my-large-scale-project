@@ -18,7 +18,7 @@ export const FORM_ITEM = {
   WEBSITE_URL: 'websiteUrl',
   INBOUND_ADDRESS: 'inboundAddress',
   REDIRECT_URL: 'redirectUrl',
-  DISCRIPTION: 'discription',
+  DESCRIPTION: 'description',
 };
 
 export const dropdownOptions: MenuItemType[] = [

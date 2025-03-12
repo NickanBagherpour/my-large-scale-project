@@ -27,7 +27,7 @@ export type FirstStepType = {
   websiteUrl?: string;
   inboundAddress?: string;
   redirectUrl?: string;
-  discription?: string;
+  description?: string;
   isClientFlow?: boolean;
   isPasswordFlow?: boolean;
   isAuthorizationFlow?: boolean;
