@@ -1,8 +1,6 @@
+import { cssVar, getRelatedColor, hideScrollbar, respondTo } from '@oxygen/utils';
 import { Drawer as AntDrawer, Layout } from 'antd';
 import styled from 'styled-components';
-
-import { cssVar, getRelatedColor, hideScrollbar, respondTo } from '@oxygen/utils';
-import { Button, Divider } from '@oxygen/ui-kit';
 
 const { Sider: AntSider } = Layout;
 
@@ -14,6 +12,9 @@ export const Sider = styled(AntSider)`
   left: var(${cssVar.drawerSideGap});
   bottom: 0;
   background: ${(p) => p.theme.surface} !important;
+  @media print {
+    display: none;
+  }
 `;
 
 export const Drawer = styled(AntDrawer)`
@@ -27,7 +28,7 @@ export const MenuWrapper = styled.div`
   margin-bottom: var(${cssVar.verticalGap});
   background: ${(p) => p.theme.surface};
   height: 100%;
-    // border-radius: var(${cssVar.radius});
+  // border-radius: var(${cssVar.radius});
 
   .menu-search-input-container {
     margin-top: 2.4rem;
@@ -43,25 +44,31 @@ export const MenuWrapper = styled.div`
     background-color: transparent;
     border-inline-end: none !important;
     color: ${(p) => p.theme.text.secondary};
-    //padding: 1.6rem;
-    padding: 0;
+    padding: 1.6rem;
 
     & li.ant-menu-item:not(last-of-type) {
       margin-bottom: 1.2rem;
     }
 
-    li.ant-menu-item-selected {
+    .ant-menu-submenu-selected li.ant-menu-item-selected {
+      background-color: transparent;
+    }
+
+    .ant-menu-submenu-selected .ant-menu-submenu-title,
+    li.ant-menu-item-selected:not(.ant-menu-submenu-selected li.ant-menu-item-selected) {
       background-color: ${(p) => p.theme.primary._100};
       font-weight: bold;
       color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.text.primary)};
       position: relative;
     }
 
-    li.ant-menu-item-selected::before {
+    .ant-menu-submenu-selected .ant-menu-submenu-title::before,
+    li.ant-menu-item-selected:not(.ant-menu-submenu-selected li.ant-menu-item-selected)::before {
       content: '';
       display: inline-block;
       position: absolute;
       left: 0;
+      top: 0;
       width: 0.5rem;
       height: 100%;
       background-color: ${(props) => props.theme.primary.main};
@@ -69,27 +76,48 @@ export const MenuWrapper = styled.div`
 
     li.ant-menu-item,
     li.ant-menu-submenu {
-      margin:0;
-      //margin: 0 auto;
-      width:100%;
+      margin: 0 auto;
       text-wrap: unset;
-      line-height: 1.5;
-      min-height: 4.4rem;
     }
 
-    li.ant-menu-item i,
-    div[role='menuitem'] i {
+    li.ant-menu-item {
+      height: 4.2rem;
+      line-height: 1;
+      padding-block: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    li.ant-menu-submenu li.ant-menu-item {
+      margin-bottom: 0.2rem;
+    }
+
+    li.ant-menu-item i.size-default,
+    div[role='menuitem'] i.size-default {
       font-size: 1.6rem;
+
+      ${respondTo.between('lg', 'md')} {
+        font-size: 2rem;
+      }
+    }
+
+    li.ant-menu-item i.size-small,
+    div[role='menuitem'] i.size-small {
+      font-size: 1.2rem;
     }
 
     .ant-menu-title-content {
       font-size: 1.4rem;
       font-weight: 500;
       line-height: 2.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-inline-start: 1.2rem;
+      display: block;
+
+      a {
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+      }
 
       .menu-item-badge {
         color: white;
@@ -99,6 +127,19 @@ export const MenuWrapper = styled.div`
         }
       }
     }
+
+    //li.ant-menu-item:hover {
+    //  background-color: blue !important;
+    //}
+
+    //li.ant-menu-submenu:hover {
+    //  background-color: blue !important;
+    //}
+  }
+
+  .ant-menu {
+    background: inherit;
+  }
 
   .menu-spin-container {
     height: 100%;
@@ -112,7 +153,7 @@ export const MenuWrapper = styled.div`
     color: ${(p) => p.theme.error.main};
   }
 
-  ${hideScrollbar()}
+  ${hideScrollbar()};
 `;
 
 export const SiderItemsWrapper = styled.div`
@@ -122,7 +163,6 @@ export const SiderItemsWrapper = styled.div`
   flex-direction: column;
   gap: 2.4rem;
   background: transparent;
-
   ${respondTo.down('sm')} {
     gap: 0;
   }
@@ -133,5 +173,4 @@ export const MenuButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.6rem;
 `;
