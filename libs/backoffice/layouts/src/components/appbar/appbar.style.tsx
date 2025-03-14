@@ -19,6 +19,10 @@ export const AppBar = styled(Header)`
   line-height: 1.5;
   border-bottom: 1px solid ${(p) => p.theme.border._100};
 
+  .appbar-title-logo-date svg {
+    display: block;
+  }
+
   /* span[role='img'] {
     font-size: 2.4rem;
   } */
@@ -57,8 +61,7 @@ export const AppBar = styled(Header)`
     }
 
     ${respondTo.down('md')} {
-      display: inline-flex;
-      margin: 1rem;
+      display: block;
     }
   }
 
@@ -90,7 +93,6 @@ export const styleIcon = styled.i`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
+  font-size: 3rem;
   color: ${(p) => p.theme.text.primary};
 `;
