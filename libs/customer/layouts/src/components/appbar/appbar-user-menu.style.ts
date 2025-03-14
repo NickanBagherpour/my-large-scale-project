@@ -1,14 +1,10 @@
-import { cssVar } from '@oxygen/utils';
 import { Dropdown } from 'antd';
 import styled from 'styled-components';
 
 export const StyleDropDown = styled(Dropdown)`
   color: ${(p) => p.theme.primary._700};
   font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2rem;
-  align-items: start;
+  font-weight: 600;
 `;
 
 export const Overlay = styled.div`
@@ -22,20 +18,26 @@ export const Overlay = styled.div`
   }
 `;
 
-export const StyleParagraph = styled('div')`
+export const StyleParagraph = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.6rem;
+
+  & .avatar-icon {
+    font-size: 2rem;
+  }
 `;
 
-export const StyleSpan = styled('span')`
+export const StyleSpan = styled.span`
   margin: 0 auto;
+
   .menu-header {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
   }
+
   .menu-span {
     margin: 0 auto;
     color: ${(p) => p.theme.text.quaternary};
@@ -44,6 +46,7 @@ export const StyleSpan = styled('span')`
     font-weight: 500;
     line-height: 1.6rem;
   }
+
   .menu-p {
     color: ${(p) => p.theme.text.primary};
     margin: 0 auto;
@@ -54,7 +57,7 @@ export const StyleSpan = styled('span')`
   }
 `;
 
-export const StyleDiv = styled('div')`
+export const StyleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,8 +71,6 @@ export const StyleDivider = styled.div`
   background: ${(p) => p.theme.border._100};
 `;
 export const StyleIcon = styled.i`
-  height: 2.4rem;
-  width: 2.4rem;
   font-size: 3rem;
   display: flex;
   justify-content: center;
