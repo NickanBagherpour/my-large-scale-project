@@ -205,7 +205,7 @@ const Drawer = (props: DrawerProps) => {
           collapsed={isTablet}
           breakpoint={'md'}
           onBreakpoint={onBreakpoint}
-          collapsedWidth={100}
+          collapsedWidth={`var(${cssVar.drawerWidth})`}
           width={`var(${cssVar.drawerWidth})`}
         >
           {getMenuContainer()}

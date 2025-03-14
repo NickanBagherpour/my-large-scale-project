@@ -95,6 +95,10 @@ export const MenuWrapper = styled.div`
     li.ant-menu-item i.size-default,
     div[role='menuitem'] i.size-default {
       font-size: 1.6rem;
+
+      ${respondTo.between('lg', 'md')} {
+        font-size: 2rem;
+      }
     }
 
     li.ant-menu-item i.size-small,
