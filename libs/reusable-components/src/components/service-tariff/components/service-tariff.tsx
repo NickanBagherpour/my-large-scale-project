@@ -21,7 +21,7 @@ export function ServiceTariff(props: Props) {
   const rules: RuleRender[] = rule ? [rule] : [];
   const [t] = useTr();
   const tariffType = Form.useWatch([TARIFF.type], form) as TariffType;
-  const hasNotice = type === 'upsert' && tariffType !== 'fixed';
+  const hasNotice = type === 'upsert' && (tariffType === 'tiered' || tariffType === 'special');
 
   const inputs: Record<TariffType, React.JSX.Element> = {
     fixed: <Fixed rules={rules} />,

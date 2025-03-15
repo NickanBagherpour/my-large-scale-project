@@ -19,5 +19,5 @@ export default {
   enter_field_name: 'نام فیلد را وارد کنید',
   enter_transaction_type: 'نوع تراکنش در elastic را وارد کنید',
   choose_service_type: 'نوع سرویس را انتخاب کنید',
-  enter_infinity_value: 'لطفاً به منظور وارد کردن مقدار “ بی‌نهایت” از کاراکتر * استفاده نمایید.',
+  enter_infinity_value: 'لطفاً به منظور وارد کردن مقدار “بی‌نهایت” از کاراکتر * استفاده نمایید.',
 };

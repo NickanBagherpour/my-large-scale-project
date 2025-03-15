@@ -51,7 +51,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
             to: String(toRate),
           })) ?? emptyTieredTariff,
       };
-    } else {
+    } else if (feeTypeMapReverse[feeType] === 'special') {
       initialValues = {
         ...initialValues,
         [TARIFF.type]: 'special',

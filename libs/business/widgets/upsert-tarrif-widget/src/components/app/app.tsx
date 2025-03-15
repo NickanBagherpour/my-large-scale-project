@@ -26,16 +26,18 @@ const App = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { message } = useAppState();
-  const { data: feeData, isPending: isPendingFeeData } = useGetFee(serviceName);
+  const inquiryParams = { 'service-name': serviceName };
+  const { data: feeData, isPending: isPendingFeeData } = useGetFee(inquiryParams);
   const { mutate: createTariff, isPending: isPendingCreate } = usePostServiceFee();
   const { mutate: updateTarrif, isPending: isPendingEdit } = usePutServiceFee();
+  const { notification } = useApp();
+  const queryClient = useQueryClient();
+
   const widgetTitle = getWidgetTitle({
     primaryTitle: feeData?.servicePersianName,
     secondaryTitle: feeData?.serviceName,
     defaultTitle: t('add_tarrif_setting'),
   });
-  const { notification } = useApp();
-  const queryClient = useQueryClient();
 
   if (!serviceName) {
     return void notFound();
@@ -47,7 +49,7 @@ const App = () => {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.GET_LIST] }),
       queryClient.invalidateQueries({ queryKey: [TARIFF_DETAILS.GET_LIST, serviceName], refetchType: 'inactive' }),
-      queryClient.invalidateQueries({ queryKey: [UPSERT_TARRIF.TARIFF, serviceName], refetchType: 'active' }),
+      queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.INQUIRY, inquiryParams], refetchType: 'active' }),
     ]);
     router.push(ROUTES.BUSINESS.TARIFF_LIST);
   };

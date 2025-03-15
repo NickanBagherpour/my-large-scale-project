@@ -45,3 +45,7 @@ export type Fee = {
   fieldName: string;
   type: string;
 };
+
+export type GetServiceParams = {
+  'service-name': string | null;
+};
