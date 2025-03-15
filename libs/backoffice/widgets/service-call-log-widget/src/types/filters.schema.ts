@@ -17,13 +17,6 @@ export const FormSchema = (t: (key: string) => string) =>
       .refine((val) => val.trim().length > 0, {
         message: t('validation.invalid_client'),
       }),
-    status: z
-      .string({ required_error: t('validation.required') })
-      .trim()
-      .min(1, { message: t('validation.required') })
-      .refine((val) => val.trim().length > 0, {
-        message: t('validation.invalid_client'),
-      }),
     fromDate: z
       .custom<Dayjs>((val) => (dayjs.isDayjs(val) && val.isValid() ? val : false), {
         message: t('validation.required'),
