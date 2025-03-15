@@ -4,7 +4,7 @@ export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
-export const MAX_INPUTE_LENGTH = 75;
+export const MAX_INPUTE_LENGTH = 225;
 export const MAX_MOBILE_NUMBER_LENGTH = 11;
 
 export const FORM_ITEM = {
@@ -18,6 +18,7 @@ export const FORM_ITEM = {
   WEBSITE_URL: 'websiteUrl',
   INBOUND_ADDRESS: 'inboundAddress',
   REDIRECT_URL: 'redirectUrl',
+  DESCRIPTION: 'description',
 };
 
 export const dropdownOptions: MenuItemType[] = [

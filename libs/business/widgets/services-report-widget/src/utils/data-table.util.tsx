@@ -1,28 +1,41 @@
 import React from 'react';
 import { TFunction } from 'i18next';
+import { DefaultTheme } from 'styled-components';
 
-import { Button, ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
+import { Button, ColumnsType, MarkText, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { Pagination } from '@oxygen/types';
+
+import { ServiceItemType } from '../types';
 
 import * as S from '../components/data-table/data-table.style';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
+  theme: DefaultTheme;
+  wordToHighlight: string;
+  setOpenModal: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  setServiceName: (value: ((prevState: string) => string) | string) => void;
 };
 
-export function getDesktopColumns(props: Props): ColumnsType<any> {
+export function getDesktopColumns(props: Props): ColumnsType<ServiceItemType> {
   const {
     t,
     pagination: { page, rowsPerPage },
+    theme,
+    wordToHighlight,
+    setOpenModal,
+    setServiceName,
   } = props;
+  const highlightColor = theme.secondary.main;
 
   return [
     {
       title: t('uikit.index'),
       align: 'center',
       key: 'index',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -33,69 +46,84 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'serviceName',
       align: 'center',
       render: (_val, record) => {
-        return getValueOrDash(record?.serviceName);
+        return (
+          <Tooltip title={getValueOrDash(record?.serviceName)}>
+            <MarkText
+              text={getValueOrDash(record?.serviceName)}
+              highlightColor={highlightColor}
+              wordToHighlight={wordToHighlight}
+            />
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.persian_name'),
-      dataIndex: 'persianName',
+      dataIndex: 'servicePersianName',
       align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.persianName);
-      },
-    },
-    {
-      title: t('table.scope'),
-      dataIndex: 'scope',
-      align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.scope);
-      },
+      render: (_val, record) => (
+        <Tooltip title={getValueOrDash(record?.servicePersianName)}>
+          <MarkText
+            text={getValueOrDash(record?.servicePersianName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
+        </Tooltip>
+      ),
     },
     {
       title: t('table.status'),
       dataIndex: 'status',
       align: 'center',
+      ellipsis: false,
       render: (_val, record) => {
-        const status = record?.status;
-        return <S.StatusContainer status={status}>{getValueOrDash(status)}</S.StatusContainer>;
+        const status = record?.isActive ? t('table.active') : t('table.inActive');
+        return <S.StatusContainer $status={record?.isActive}>{getValueOrDash(status)}</S.StatusContainer>;
       },
     },
     {
-      key: 'clients_report',
-      render: (item, record) => {
+      title: '',
+      dataIndex: '',
+      align: 'left',
+      ellipsis: false,
+      width: widthByButtonCount(2),
+      render: (value, record) => {
         return (
-          <S.TableLink
-            // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-            href={''}
-          >
-            {t('table.clients_report')}
-          </S.TableLink>
-        );
-      },
-    },
-    {
-      key: 'details',
-      render: (item, record) => {
-        return (
-          <S.TableLink
-            // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-            href={''}
-          >
-            {t('uikit.details')}
-          </S.TableLink>
+          <S.ActionBox>
+            <Button
+              variant={'link'}
+              size={'small'}
+              href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
+            >
+              {t('table.detail_report')}
+            </Button>
+            <Button
+              variant={'link'}
+              size={'small'}
+              onClick={() => {
+                setOpenModal(true);
+                setServiceName(record?.serviceName);
+              }}
+            >
+              {t('button.detail')}
+            </Button>
+          </S.ActionBox>
         );
       },
     },
   ];
 }
 
-export function getMobileColumns(props: Props): ColumnsType<any> {
+export function getMobileColumns(props: Props): ColumnsType<ServiceItemType> {
   const {
     t,
     pagination: { page, rowsPerPage },
+    wordToHighlight,
+    theme,
+    setOpenModal,
+    setServiceName,
   } = props;
-
+  const highlightColor = theme.secondary.main;
   return [
     {
       title: '',
@@ -103,50 +131,65 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
       render: (value, record, index) => {
         const columns: MobileColumnType[] = [
           {
-            title: t('uikit.index'),
-            value: (page - 1) * rowsPerPage + 1 + index,
-          },
-          {
             title: t('table.service_name'),
-            value: getValueOrDash(value?.serviceName),
-          },
-          {
-            title: t('table.persian_name'),
-            value: getValueOrDash(value?.persianName),
-          },
-          {
-            title: t('table.scope'),
-            value: getValueOrDash(value?.scope),
-          },
-          {
-            title: t('table.status'),
-            value: <S.StatusContainer status={record?.status}>{getValueOrDash(record?.status)}</S.StatusContainer>,
-          },
-          {
-            title: t('table.clients_report'),
             value: (
-              <S.TableLink
-                // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-                href={''}
-              >
-                {t('table.clients_report')}
-              </S.TableLink>
+              <Tooltip title={getValueOrDash(record?.serviceName)}>
+                <MarkText
+                  text={getValueOrDash(record?.serviceName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
             ),
           },
           {
-            title: t('uikit.details'),
+            title: t('table.persian_name'),
             value: (
-              <S.TableLink
-                // href={`${ROUTES.BACKOFFICE.UPSTREAM_DETAILS}?upstreamName=${record.name}`}
-                href={''}
-              >
-                {t('uikit.details')}
-              </S.TableLink>
+              <Tooltip title={getValueOrDash(record?.servicePersianName)}>
+                <MarkText
+                  text={getValueOrDash(record?.servicePersianName)}
+                  highlightColor={highlightColor}
+                  wordToHighlight={wordToHighlight}
+                />
+              </Tooltip>
+            ),
+          },
+          {
+            title: t('table.status'),
+            value: (
+              <S.StatusContainer $status={record?.isActive}>
+                {getValueOrDash(record?.isActive ? t('table.active') : t('table.inActive'))}
+              </S.StatusContainer>
+            ),
+          },
+          {
+            title: t(''),
+            colon: false,
+            value: (
+              <S.ActionBox>
+                <Button
+                  variant={'link'}
+                  size={'small'}
+                  href={`${ROUTES.BUSINESS.META_SERVICES_REPORT}?id=${record?.gateWayId}`}
+                >
+                  {t('table.detail_report')}
+                </Button>
+                <Button
+                  variant={'link'}
+                  size={'small'}
+                  onClick={() => {
+                    setOpenModal(true);
+                    setServiceName(record?.serviceName);
+                  }}
+                >
+                  {t('button.detail')}
+                </Button>
+              </S.ActionBox>
             ),
           },
         ];
 
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];

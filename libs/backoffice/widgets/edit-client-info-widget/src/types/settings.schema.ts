@@ -9,9 +9,10 @@ export const createFormSchema = (t: TFunction) => {
   return z.object({
     [FORM_ITEM_NAMES.persianNameClient]: validationSchema.defaultPersianName,
     [FORM_ITEM_NAMES.clientType]: validationSchema.selectNumberRequired,
-    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalProtocolUrl,
+    [FORM_ITEM_NAMES.websiteUrl]: validationSchema.optionalUrl,
     [FORM_ITEM_NAMES.inputAddress]: validationSchema.optionalUrl,
     [FORM_ITEM_NAMES.returnAddress]: validationSchema.optionalUrl,
+    [FORM_ITEM_NAMES.grantType]: validationSchema.objectMultipleSelection,
   });
 };
 

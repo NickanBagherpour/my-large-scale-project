@@ -35,4 +35,8 @@ export default {
   plugins: 'پلاگین‌ها',
   services: 'سرویس‌ها',
   display_change_history: 'مشاهده تاریخچه تغییرات',
+  representative_type: 'نوع نماینده',
+  legal: 'حقوقی',
+  technical: 'فنی',
+  description: 'توضیحات',
 };

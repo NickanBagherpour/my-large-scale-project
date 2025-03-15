@@ -5,7 +5,7 @@ export type OrganizationInfoResponceType = {
   isAggregator: boolean;
   aggregatorId: number;
   aggregatorName: string;
-  representative: RepresentativeType;
+  representative: RepresentativeType[];
 };
 
 export type RepresentativeType = {

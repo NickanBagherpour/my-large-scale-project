@@ -1,16 +1,8 @@
-export type ClientReportDto = {
-  id: number;
-  name: string;
-  national: string;
-};
-
 export interface ParamsType {
-  // isActive: boolean | null;
   'search-field'?: string | null;
   'scope-id'?: string;
   page: number;
   size: number;
-  // sort: string;
 }
 
 export interface ClientReportsDto {
@@ -50,3 +42,16 @@ export interface ClientReportsDto {
     empty: boolean;
   };
 }
+
+export type ClientReportDto = {
+  clientEnName: string;
+  clientPersianName: string;
+  isActive: true;
+  clientKey: number;
+  authKey: number;
+  websiteUrl: string;
+  createDate: string;
+  organizationNationalId: number;
+  organizationName: string;
+  gateWayId: string;
+};

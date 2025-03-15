@@ -27,6 +27,7 @@ export default {
     website_url: 'Website URL',
     input_address: 'Input Address',
     return_address: 'Return Address',
+    description: 'description',
   },
   error: {
     persian_character: 'Please enter the values in Persian',

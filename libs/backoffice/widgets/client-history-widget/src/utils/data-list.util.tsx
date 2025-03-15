@@ -3,7 +3,7 @@ import React from 'react';
 import { TFunction } from 'i18next';
 
 import { convertShamsiDateFormat, getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
-import { ColumnsType, HistoryCell, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, HistoryCell, MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { WithBadge } from '@oxygen/reusable-components';
 import { Nullable } from '@oxygen/types';
 
@@ -41,27 +41,28 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.modify_date'),
       dataIndex: 'modifyDate',
-      align: 'center',
-      // width: 'min-content',
-      // ellipsis: true,
       render: (column) => {
-        return convertShamsiDateFormat(column?.value, true);
+        return (
+          <Tooltip title={convertShamsiDateFormat(column?.value, true)}>
+            {convertShamsiDateFormat(column?.value, true)}
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.modify_by'),
       dataIndex: 'userName',
-      align: 'center',
-      // ellipsis: true,
       render: (column) => {
-        return <HistoryCell item={column} />;
+        return (
+          <Tooltip title={column.value}>
+            <HistoryCell item={column} />
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.revision_type'),
       dataIndex: 'revisionDto',
-      align: 'center',
-      // width: 'min-content',
       render: (_value, record) => {
         const variant = record?.revType?.code?.value;
         const isdeleted = record?.isDeleted?.value;
@@ -75,8 +76,6 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.grant_type'),
       dataIndex: 'grantType',
-      // ellipsis: { showTitle: false },
-      // width: '20rem',
       render: (_value, record) => {
         const grantType = renderGrantType(record);
 
@@ -94,56 +93,59 @@ export function getDesktopColumns(props: Props): ColumnsType<NormalizedClientHis
     {
       title: t('table.persian_name'),
       dataIndex: 'persianName',
-      align: 'center',
-      // ellipsis: true,
       className: 'right-to-left',
       minWidth: 100,
       render: (_value, record) => {
         const persianName = record?.persianName;
-        return <HistoryCell item={persianName} />;
+        return (
+          <Tooltip title={persianName.value}>
+            <HistoryCell item={persianName} />
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.client_type'),
       dataIndex: 'clientType',
-      // ellipsis: true,
       minWidth: 200,
-      align: 'center',
       render: () => {
-        return getValueOrDash(clientType ?? '');
+        return <Tooltip title={clientType}>{getValueOrDash(clientType)}</Tooltip>;
       },
     },
     {
       title: t('table.url'),
       dataIndex: 'url',
-      // ellipsis: true,
-      align: 'center',
-      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.url;
-        return <HistoryCell item={item} />;
+        return (
+          <Tooltip title={item?.value}>
+            <HistoryCell item={item} />
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.inbound_url'),
       dataIndex: 'inboundUrl',
-      align: 'center',
-      // ellipsis: true,
-      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.inboundUrl;
-        return <HistoryCell item={item} />;
+        return (
+          <Tooltip title={item?.value}>
+            <HistoryCell item={item} />
+          </Tooltip>
+        );
       },
     },
     {
       title: t('table.redirect_url'),
       dataIndex: 'redirectUrl',
-      align: 'center',
-      // ellipsis: true,
-      // className: 'right-to-left',
       render: (_value, record) => {
         const item = record?.redirectUrl;
-        return <HistoryCell item={item} />;
+        return (
+          <Tooltip title={item.value}>
+            <HistoryCell item={item} />
+          </Tooltip>
+        );
       },
     },
   ];
@@ -201,7 +203,7 @@ export function getMobileColumns(props: Props): ColumnsType<any> {
           },
         ];
 
-        return <Table.MobileColumns columns={columns} />;
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
       },
     },
   ];

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { useAsync, useMenu } from '@oxygen/hooks';
+import { useAsync, useMenu, useResponsive } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
@@ -49,7 +49,6 @@ const Drawer = (props: DrawerProps) => {
     direction,
     shouldDisplaySider = false,
     shouldDisplayDrawer = false,
-    siderCollapsed = false,
     openDrawer = false,
     onBreakpoint,
     onClose,
@@ -60,8 +59,8 @@ const Drawer = (props: DrawerProps) => {
   const [t] = useTr();
   const [searchQuery, setSearchQuery] = useState('');
   const [openKeys, setOpenKeys] = useState<string[]>();
-  const router = useRouter();
   const pathname = usePathname();
+  const { isTablet } = useResponsive();
 
   const filteredItems = useMemo(() => searchMenuItems(menu, searchQuery), [menu, searchQuery]);
   const filteredMenuItems = useMemo(() => generateMenuItems(filteredItems?.result), [filteredItems]);
@@ -115,7 +114,7 @@ const Drawer = (props: DrawerProps) => {
       const item: MenuItem = getItem(
         getMenuLabelNode(menuItem),
         menuItem?.id?.toString(),
-        menuItem.icon ? <i className={menuItem.icon} /> : undefined,
+        menuItem.icon ? <i className={menuItem.icon + (menuItem.size ? ` size-${menuItem.size}` : '')} /> : undefined,
         !menuItem?.active,
         menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
@@ -190,7 +189,7 @@ const Drawer = (props: DrawerProps) => {
                   selectedKeys={menuSelectedKeys}
                   onOpenChange={(newOpenKeys: string[]) => setOpenKeys(newOpenKeys)}
                   items={filteredMenuItems /*?? items*/}
-                  getPopupContainer={(node) => node.parentNode as HTMLElement}
+                  inlineIndent={10}
                 />
                 {menu && !filteredMenuItems && <Empty style={{ marginTop: '6rem' }} description={false}></Empty>}
               </>
@@ -217,10 +216,10 @@ const Drawer = (props: DrawerProps) => {
           trigger={null}
           theme={'light'}
           collapsible
-          collapsed={siderCollapsed}
+          collapsed={isTablet}
           breakpoint={'md'}
           onBreakpoint={onBreakpoint}
-          collapsedWidth={0}
+          collapsedWidth={`var(${cssVar.drawerWidth})`}
           width={`var(${cssVar.drawerWidth})`}
         >
           {getMenuContainer()}

@@ -1,9 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-
-import { ColumnsType, Table } from '@oxygen/ui-kit';
+import { ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import { ScopeInformationService } from '@oxygen/types';
 import { CONSTANTS, getValueOrDash, widthByButtonCount } from '@oxygen/utils';
 import { WithBadge } from '@oxygen/reusable-components';
@@ -29,7 +27,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
   return [
     {
       title: t('second_tab.row'),
-      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -40,27 +37,16 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
     {
       title: t('second_tab.service_name'),
       dataIndex: 'name',
-      align: 'center',
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
+      render: (value) => <Tooltip title={getValueOrDash(value)}>{getValueOrDash(value)}</Tooltip>,
     },
     {
       title: t('second_tab.persian_name'),
       dataIndex: 'persianName',
-      align: 'center',
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
+      render: (value) => <Tooltip title={getValueOrDash(value)}>{getValueOrDash(value)}</Tooltip>,
     },
     {
       title: t('second_tab.scope'),
       dataIndex: 'scopes',
-      align: 'center',
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -68,7 +54,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
     {
       title: t('second_tab.url'),
       dataIndex: 'paths',
-      align: 'center',
       render: (value) => {
         return <WithBadge items={value} />;
       },
@@ -76,7 +61,6 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
     {
       title: t('second_tab.version'),
       dataIndex: 'version',
-      align: 'center',
       render: (value) => {
         return getValueOrDash(value);
       },
@@ -85,6 +69,7 @@ export function getDesktopColumns(props: Props): ColumnsType<ScopeInformationSer
       width: widthByButtonCount(1),
       align: 'left',
       key: 'action',
+      ellipsis: false,
       render: (value) => (
         <S.DetailsBtn
           variant='link'

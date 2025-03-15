@@ -11,8 +11,8 @@ export const useGetTags = () => {
     queryFn: withErrorHandling(() => Api.getTagsInfo(), dispatch),
     select: (data) => {
       return data.map((tag) => ({
-        key: tag.id,
-        label: tag.title,
+        code: tag.id,
+        title: tag.title,
       }));
     },
     networkMode: 'offlineFirst',

@@ -17,7 +17,7 @@ export const useGetClientInfoQuery = (params) => {
         key: tag.code,
         label: tag.title,
       }));
-      return {
+      const test = {
         ssoClientId: ssoInfo ? ssoInfo.id : undefined,
         clientId: undefined,
         clientEnglishName: clientInfo ? clientInfo.clientEnglishName : ssoInfo.applicationName,
@@ -29,6 +29,7 @@ export const useGetClientInfoQuery = (params) => {
         websiteUrl: clientInfo ? clientInfo.websiteUrl : ssoInfo.uri,
         inboundAddress: clientInfo ? clientInfo.inboundAddress : ssoInfo.inboundAddress,
         redirectUrl: clientInfo ? clientInfo.redirectUrl : ssoInfo.redirectingUri,
+        description: clientInfo ? clientInfo.description : ssoInfo.description,
         isClientFlow: clientInfo ? clientInfo.isClientFlow : ssoInfo.clientFlow,
         isPasswordFlow: clientInfo ? clientInfo.isPasswordFlow : ssoInfo.passwordFlow,
         isAuthorizationFlow: clientInfo ? clientInfo.isAuthorizationFlow : ssoInfo.authorizationCodeFlow,
@@ -37,6 +38,8 @@ export const useGetClientInfoQuery = (params) => {
         tagIds: clientInfo ? updatedTagIds : [],
         organizationInfo: clientInfo ? clientInfo.organizationInfo : undefined,
       };
+      console.log('this is the test', test);
+      return test;
     },
   });
 };

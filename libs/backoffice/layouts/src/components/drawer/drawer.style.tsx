@@ -50,18 +50,25 @@ export const MenuWrapper = styled.div`
       margin-bottom: 1.2rem;
     }
 
-    li.ant-menu-item-selected {
+    .ant-menu-submenu-selected li.ant-menu-item-selected {
+      background-color: transparent;
+    }
+
+    .ant-menu-submenu-selected .ant-menu-submenu-title,
+    li.ant-menu-item-selected:not(.ant-menu-submenu-selected li.ant-menu-item-selected) {
       background-color: ${(p) => p.theme.primary._100};
       font-weight: bold;
       color: ${(p) => getRelatedColor(p.theme.id, p.theme.primary.main, p.theme.text.primary)};
       position: relative;
     }
 
-    li.ant-menu-item-selected::before {
+    .ant-menu-submenu-selected .ant-menu-submenu-title::before,
+    li.ant-menu-item-selected:not(.ant-menu-submenu-selected li.ant-menu-item-selected)::before {
       content: '';
       display: inline-block;
       position: absolute;
       left: 0;
+      top: 0;
       width: 0.5rem;
       height: 100%;
       background-color: ${(props) => props.theme.primary.main};
@@ -71,13 +78,27 @@ export const MenuWrapper = styled.div`
     li.ant-menu-submenu {
       margin: 0 auto;
       text-wrap: unset;
-      line-height: 1.5;
-      min-height: 4.4rem;
+    }
+
+    li.ant-menu-item {
+      height: 4.2rem;
+      line-height: 1;
+      padding-block: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    li.ant-menu-submenu li.ant-menu-item {
+      margin-bottom: 0.2rem;
     }
 
     li.ant-menu-item i.size-default,
     div[role='menuitem'] i.size-default {
       font-size: 1.6rem;
+
+      ${respondTo.between('lg', 'md')} {
+        font-size: 2rem;
+      }
     }
 
     li.ant-menu-item i.size-small,
@@ -89,10 +110,14 @@ export const MenuWrapper = styled.div`
       font-size: 1.4rem;
       font-weight: 500;
       line-height: 2.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-inline-start: 1.2rem;
+      display: block;
+
+      a {
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+      }
 
       .menu-item-badge {
         color: white;

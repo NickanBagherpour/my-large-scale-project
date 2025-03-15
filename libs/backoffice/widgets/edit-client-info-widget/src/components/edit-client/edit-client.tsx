@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Form } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -11,15 +11,14 @@ import { Button, Divider, SearchItemsContainer } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { FooterContainer, ReturnButton } from '@oxygen/reusable-components';
 
-import { ClientInfoType, clientType, createFormSchema, GrantType, Tag, TagType } from '../../types';
-import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
+import { ClientInfoType, clientType, createFormSchema, TagType } from '../../types';
 import { initialValues } from '../../utils/initial-values';
 import { GrantValue } from '../../utils/consts';
 
 import { useUpdateClient } from '../../services/post-client.api';
 import { prepareParams } from '../../utils/helper';
 import SearchItems from '../search-items/search-items';
-import TagPicker from '../tag-picker/tag-picker';
+import TagPickerContainer from '../tag-picker/tag-picker';
 
 import * as S from './edit-client.style';
 
@@ -38,25 +37,11 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
   const queryClient = useQueryClient();
 
-  const rule = createSchemaFieldRule(createFormSchema(t));
-
-  const [selectedGrantTypes, setSelectedGrantTypes] = useState<GrantType[]>(userData?.activeGrantType);
-
-  const [selectedTags, setSelectedTags] = useState<Tag[]>(userData?.activeTagIds);
-
   const { notification } = useApp();
 
   const { mutate, isPending: loadingUpdateClient, isSuccess } = useUpdateClient();
 
-  useEffect(() => {
-    form.setFieldsValue({
-      [FORM_ITEM_NAMES.tags]: selectedTags,
-    });
-
-    form.setFieldsValue({
-      [FORM_ITEM_NAMES.grantType]: selectedGrantTypes,
-    });
-  }, [userData]);
+  const rule = createSchemaFieldRule(createFormSchema(t));
 
   const submitClick = () => form.submit();
 
@@ -89,40 +74,6 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
     });
   };
 
-  const onGrantTypeChange = (value: GrantType[]) => {
-    setSelectedGrantTypes(value);
-  };
-
-  const onTagsChange = (value: Tag[]) => {
-    setSelectedTags(value);
-  };
-
-  const onGrantTypeClose = (item) => {
-    if (loadingUpdateClient || isSuccess) {
-      return;
-    }
-
-    const updatedGrantTypes = selectedGrantTypes.filter((grantType: GrantType) => grantType.key !== item);
-
-    setSelectedGrantTypes(updatedGrantTypes);
-
-    form.setFieldsValue({
-      [FORM_ITEM_NAMES.grantType]: updatedGrantTypes,
-    });
-  };
-
-  const onTagsClose = (option) => {
-    if (loadingUpdateClient || isSuccess) {
-      return;
-    }
-
-    const updatedTags = selectedTags.filter((tag: Tag) => tag.key !== option);
-    setSelectedTags(updatedTags);
-    form.setFieldsValue({
-      [FORM_ITEM_NAMES.tags]: updatedTags,
-    });
-  };
-
   return (
     <S.EditClientContainer>
       <div className={'form-wrapper'}>
@@ -137,6 +88,7 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
         >
           <SearchItemsContainer>
             <SearchItems
+              form={form}
               clientTypes={clientTypes}
               isClientTypesFetching={isClientTypesFetching}
               loadingUpdateClient={loadingUpdateClient}
@@ -148,20 +100,15 @@ const EditClient: React.FC<FirstStepProps> = (props) => {
 
           <Divider />
 
-          <TagPicker
-            t={t}
-            rule={rule}
-            selectedGrantTypes={selectedGrantTypes}
-            selectedTags={selectedTags}
-            onGrantTypeChange={onGrantTypeChange}
-            onTagsChange={onTagsChange}
+          <TagPickerContainer
+            GrantValue={GrantValue}
             loadingUpdateClient={loadingUpdateClient}
             isSuccess={isSuccess}
             isTagsFetching={isTagsFetching}
             tags={tags}
-            GrantValue={GrantValue}
-            onTagsClose={onTagsClose}
-            onGrantTypeClose={onGrantTypeClose}
+            t={t}
+            form={form}
+            rule={rule}
           />
         </S.Form>
       </div>

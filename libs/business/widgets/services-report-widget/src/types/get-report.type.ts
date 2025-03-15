@@ -1,35 +1,41 @@
 import { PaginationType } from '../context/types';
-import { SORT_ORDER } from '../utils/consts';
-
-export type ReportResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
-
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
-
-export type OperationStatusType = {
-  title: string;
-  code: string;
-};
-
-export type PaginationResultType = {
-  pageNumber: number;
-  pageSize: number;
-  totalNumberOfEntries: number;
-};
+import { Nullable } from '@oxygen/types';
 
 export type FetchParamsType = {
   page: PaginationType['page'];
   size: PaginationType['rowsPerPage'];
-  searchTerm: string;
-  sort: SORT_ORDER;
-  status: any;
+  ['search-field']?: string;
+  sort: string;
+  isActive: Nullable<boolean>;
+};
+
+export type ServicesReportResponseType = {
+  error: ErrorInfo;
+  response: {
+    content: ServiceItemType[];
+    page: PageInfo;
+  };
+};
+
+export type ErrorInfo = {
+  code: string;
+  message: string;
+  timestamp: string;
+  domain: Nullable<string>;
+  errors: any | null;
+};
+export type ServiceItemType = {
+  serviceName: string;
+  servicePersianName: string;
+  isActive: boolean;
+  category: string;
+  owner: string;
+  gateWayId: string;
+};
+
+export type PageInfo = {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
 };

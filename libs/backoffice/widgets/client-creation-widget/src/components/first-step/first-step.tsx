@@ -5,9 +5,9 @@ import { Form, message, Tooltip } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 
 import { useApp } from '@oxygen/hooks';
-import { PageProps } from '@oxygen/types';
+import { InfoItemType, PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { getValueOrDash, RQKEYS } from '@oxygen/utils';
+import { aggregatorStatusDisplay, getValueOrDash, RQKEYS } from '@oxygen/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button, InfoBox, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 
@@ -34,6 +34,7 @@ import {
 } from '../../services/first-step';
 
 import * as S from './first-step.style';
+import { error } from 'console';
 
 type FirstStepProps = PageProps & {
   setCurrentStep: (prev) => void;
@@ -50,7 +51,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
 
   const router = useRouter();
   const [form] = Form.useForm();
-  const rule = createSchemaFieldRule(createFormSchema(t));
   //Constants
   const clientName = state.firstStep.clientEnglishName;
   const clientStatus = state.clientStatus;
@@ -68,6 +68,10 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const [searchValue, setSearchValue] = useState({
     orgNationalId: state.firstStep.organizationInfo?.organizationNationalId,
   });
+  const [isAuthorizationFlowSelected, setIsAuthorizationFlowSelected] = useState(false);
+  //Validations
+  const rule = createSchemaFieldRule(createFormSchema(t, isAuthorizationFlowSelected));
+
   //Mutatuions
   const { mutate: submitClient, isPending: submitClientLoading, isSuccess } = usePostSubmitClient();
   //Queries
@@ -79,8 +83,22 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
   } = useGetOrganizationInfoQuery(searchValue);
+  //UseEffects
+  useEffect(() => {
+    const isSelected = selectedGrantTypes.some(
+      (grantType: { key: string; label: string }) => grantType.key === GrantValue[2].key
+    );
+    setIsAuthorizationFlowSelected(isSelected);
+    if (!isSelected) {
+      form.setFields([
+        {
+          name: FORM_ITEM.REDIRECT_URL,
+          errors: [],
+        },
+      ]);
+    }
+  }, [selectedGrantTypes]);
 
-  //Effects
   useEffect(() => {
     clientRefetch();
     if (clientData) {
@@ -140,6 +158,9 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
   const onGrantTypeClose = (item) => {
     const updatedGrantTypes = selectedGrantTypes.filter((grantType: any) => grantType.key !== item);
     setSelectedGrantTypes(updatedGrantTypes);
+    // if (item === 'AuthorizationFlow') {
+    //   setIsAuthorizationFlowSelected(false);
+    // }
     form.setFieldsValue({
       [FORM_ITEM.GRANT_TYPE]: updatedGrantTypes,
     });
@@ -150,16 +171,6 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     form.setFieldsValue({
       [FORM_ITEM.TAG_IDS]: updatedTags,
     });
-  };
-
-  const aggregatorStatus = (aggregatorStatusParams) => {
-    return aggregatorStatusParams?.organizationNationalId
-      ? aggregatorStatusParams?.isAggregator
-        ? t('company_is_aggregator')
-        : aggregatorStatusParams?.aggregatorId
-        ? `${t('company_has_aggregator')} - ${aggregatorStatusParams?.aggregatorName}`
-        : t('company_is_not_aggregator')
-      : null;
   };
   const onFinish = async (values) => {
     submitClient(prepareSubmitClientParams(values, orgNationalId, ssoClientId), {
@@ -173,16 +184,33 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
+  const representative = state.firstStep.organizationInfo.representative;
+  const repTypeMap = {
+    1: 'legal',
+    2: 'technical',
+  };
   const infoBoxData = [
     { key: t('organization_name'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationName) },
     { key: t('organization_id'), value: getValueOrDash(state.firstStep.organizationInfo?.organizationNationalId) },
-    { key: t('aggregator_status'), value: getValueOrDash(aggregatorStatus(aggregatorStatusParams)) },
     {
-      key: t('representative_name'),
-      value: getValueOrDash(state.firstStep.organizationInfo?.representative?.nameAndLastName),
+      key: t('aggregator_status'),
+      value: getValueOrDash(aggregatorStatusDisplay(t, aggregatorStatusParams)),
+      doubleWidth: true,
     },
-    { key: t('mobile_phone'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.mobileNumber) },
-    { key: t('landline'), value: getValueOrDash(state.firstStep.organizationInfo?.representative?.fixedPhoneNumber) },
+    { key: '', value: '', type: 'divider' as const, fullwidth: true },
+    ...representative.reduce(
+      (acc, { nameAndLastName, mobileNumber, fixedPhoneNumber, representativeType }) => [
+        ...acc,
+        { key: t('representative_name'), value: nameAndLastName },
+        { key: t('mobile_phone'), value: mobileNumber },
+        { key: t('landline'), value: fixedPhoneNumber },
+        {
+          key: t('representative_type'),
+          value: getValueOrDash(t(representativeType ? repTypeMap[representativeType] : null)),
+        },
+      ],
+      [] as InfoItemType[]
+    ),
   ];
 
   return (
@@ -237,10 +265,14 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 </Form.Item>
 
                 <Form.Item name={FORM_ITEM.CLIENT_PERSIAN_NAME} label={t('form.persian_name_client')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} />
+                  <Input maxLength={MAX_INPUTE_LENGTH} placeholder={t(`placeholder.farsi_name_client`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.CLIENT_KEY} label={t('form.client_id')} rules={[rule]}>
-                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    disabled={isDraft || isImportClient || isFormDisabeled}
+                    maxLength={MAX_INPUTE_LENGTH}
+                    placeholder={t(`placeholder.client_key`)}
+                  />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.CLIENT_TYPE_CODE} label={t('form.client_type')} rules={[rule]}>
                   <Select
@@ -252,16 +284,23 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                   ></Select>
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.AUTHORIZATION_KEY} label={t('form.identity_auth')} rules={[rule]}>
-                  <Input disabled={isDraft || isImportClient || isFormDisabeled} maxLength={MAX_INPUTE_LENGTH} />
+                  <Input
+                    disabled={isDraft || isImportClient || isFormDisabeled}
+                    maxLength={MAX_INPUTE_LENGTH}
+                    placeholder={t(`placeholder.authentication_key`)}
+                  />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.WEBSITE_URL} label={t('form.website_url')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.website_address`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.INBOUND_ADDRESS} label={t('form.input_address')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.input_address`)} />
                 </Form.Item>
                 <Form.Item name={FORM_ITEM.REDIRECT_URL} label={t('form.client_return_address')} rules={[rule]}>
-                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' />
+                  <Input maxLength={MAX_INPUTE_LENGTH} type='url' placeholder={t(`placeholder.return_address`)} />
+                </Form.Item>
+                <Form.Item name={FORM_ITEM.DESCRIPTION} label={t('form.discription')} className='half-width-grow'>
+                  <Input maxLength={MAX_INPUTE_LENGTH} placeholder={t('form.discription')} />
                 </Form.Item>
               </SearchItemsContainer>
               <S.Divider />
@@ -278,6 +317,7 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
                 onGrantTypeClose={onGrantTypeClose}
                 onGrantTypeChange={onGrantTypeChange}
                 selectedGrantTypes={selectedGrantTypes}
+                isAuthorizationFlowSelected={isAuthorizationFlowSelected}
               />
             </S.Card>
           </Form>

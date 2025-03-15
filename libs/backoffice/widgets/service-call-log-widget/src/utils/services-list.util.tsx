@@ -1,13 +1,10 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import { TFunction } from 'i18next';
 
 import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Switch } from '@oxygen/ui-kit';
-import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
+import { ColumnsType, MobileColumnType, Table } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
-import { WithBadge } from '@oxygen/reusable-components';
-
-// import { ParamsType } from '../types';
 
 import * as S from '../components/services-list/services.style';
 
@@ -19,18 +16,25 @@ type Props = {
   wordToHighlight: string;
 };
 
+const getStatusColor = (status: number, theme: ITheme): string => {
+  if (status >= 200 && status < 300) return theme.success.main; // Success
+  if (status >= 300 && status < 400) return theme.warning.main; // Redirects
+  if (status >= 400 && status < 500) return theme.error.main; // Client errors
+  if (status >= 500) return theme.error._600; // Server errors
+  return theme.secondary.main; // Default for unknown statuses
+};
+
+const renderWithTooltip = (value: string | number) => (
+  <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
+    {getValueOrDash(value)}
+  </Tooltip>
+);
+
 export function getDesktopColumns(props: Props): ColumnsType<any> {
-  const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
+
   return [
-    // {
-    //   title: `${t('row')}`,
-    //   width: CONSTANTS.ROW_INDEX_WIDTH,
-    //   dataIndex: 'index',
-    //   key: 'index',
-    //   align: 'center',
-    //   className: 'row-number',
-    // },
     {
       title: `${t('client_name')}`,
       dataIndex: 'clientName',
@@ -38,40 +42,39 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'center',
       render: (clientName) => (
         <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
-          <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+          <S.Name text={clientName} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
     },
     {
       title: `${t('service_name')}`,
-      dataIndex: 'service_name',
-      key: 'service_name',
+      dataIndex: 'serviceName',
+      key: 'serviceName',
       align: 'center',
-      render: (service_name) => (
-        <Tooltip placement='top' title={getValueOrDash(service_name)} arrow={true}>
-          {getValueOrDash(service_name)}
-        </Tooltip>
-      ),
+      render: renderWithTooltip,
     },
     {
-      title: `${t('count')}`,
-      dataIndex: 'count',
-      key: 'count',
+      title: `${t('request_date')}`,
+      dataIndex: 'requestDate',
+      key: 'requestDate',
       align: 'center',
-      render: (count) => (
-        <Tooltip placement='top' title={getValueOrDash(count)} arrow={true}>
-          <S.Name text={getValueOrDash(count)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
-        </Tooltip>
-      ),
+      render: renderWithTooltip,
+    },
+    {
+      title: `${t('request_time')}`,
+      dataIndex: 'requestTime',
+      key: 'requestTime',
+      align: 'center',
+      render: renderWithTooltip,
     },
     {
       title: `${t('status')}`,
       dataIndex: 'status',
       key: 'status',
       align: 'center',
-      render: (status, record) => (
+      render: (status: number) => (
         <Tooltip placement='top' title={getValueOrDash(status)} arrow={true}>
-          <S.Name text={getValueOrDash(status)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
+          <span style={{ color: getStatusColor(status, theme), fontWeight: 'bold' }}>{getValueOrDash(status)}</span>
         </Tooltip>
       ),
     },
@@ -79,47 +82,44 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
 }
 
 export function getMobileColumns(props: Props): any {
-  const { t, changeStatus, deleteService, theme, wordToHighlight } = props;
+  const { t, theme, wordToHighlight } = props;
   const highlightColor = theme.secondary.main;
+
   return [
     {
       title: '',
       dataIndex: '',
-      render: (value, record, index) => {
+      render: (value) => {
         const columns: MobileColumnType[] = [
           {
-            title: t('client_id'),
+            title: t('client_name'),
+            value: getValueOrDash(value?.clientName),
+          },
+          {
+            title: t('service_name'),
             value: (
               <S.Name
-                text={getValueOrDash(value?.name)}
+                text={getValueOrDash(value?.serviceName)}
                 highlightColor={highlightColor}
                 wordToHighlight={wordToHighlight}
               />
             ),
           },
           {
-            title: t('utc'),
-            value: getValueOrDash(value?.persianName),
-          },
-          {
             title: t('request_date'),
-            value: getValueOrDash('1403/12/15'),
+            value: getValueOrDash(value?.requestDate),
           },
           {
             title: t('request_time'),
-            value: getValueOrDash('12:00'),
-          },
-          {
-            title: t('service_id'),
-            value: getValueOrDash(value?.id),
-          },
-          {
-            title: t('service_name'),
-            value: getValueOrDash(value?.persianName),
+            value: getValueOrDash(value?.requestTime),
           },
           {
             title: t('status'),
-            value: getValueOrDash('فعال'),
+            value: (
+              <p style={{ color: getStatusColor(value?.status, theme), fontWeight: 'bold' }}>
+                {getValueOrDash(value?.status)}
+              </p>
+            ),
           },
         ];
         return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;

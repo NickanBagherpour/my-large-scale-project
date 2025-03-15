@@ -18,12 +18,8 @@ function getSize(p: any) {
   }
 }
 
-export const InputWrapper = styled<any>(AntInput)`
-  //line-height: 0;
-
+export const InputWrapper = styled(AntInput)`
   ${(p) => getSize(p)};
-
-  font-size: 1.4rem;
 
   .ant-input-prefix {
     padding-right: 0.8rem;
@@ -43,6 +39,11 @@ export const InputWrapper = styled<any>(AntInput)`
     padding-left: 6px;
     padding-right: 6px;
     font-size: 1.2rem;
+  }
+
+  &,
+  & .ant-input-number-group-addon {
+    font-size: 1.4rem;
   }
 `;
 

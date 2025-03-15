@@ -19,7 +19,7 @@ export type WidgetStateType = {
   stepStatuses: Array<{
     name: StepNames;
     status: Statuses;
-    error?: Record<string /* TODO: change this type to each step input names */, string>;
+    error?: Record<string, string>;
   }>;
   message: Nullable<MessageType>;
 };

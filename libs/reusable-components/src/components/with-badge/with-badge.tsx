@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tooltip } from 'antd';
 import { getValueOrDash, REGEX_PATTERNS } from '@oxygen/utils';
+import { Tooltip } from '@oxygen/ui-kit';
 
 import { StyledList } from './width-badge.style';
 import * as S from './width-badge.style';
@@ -13,7 +13,8 @@ type Props = {
 export default function WithBadge(props: Props) {
   const { items, onRender } = props;
 
-  const count = items.length;
+  const count = items?.length;
+  if (!count) return;
   const firstItem = items[0];
 
   const formattedFirstItem = getValueOrDash(firstItem && firstItem.replace(/[{}]/g, ''));
@@ -42,13 +43,11 @@ export default function WithBadge(props: Props) {
   };
 
   return count > 1 ? (
-    <Tooltip title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>} arrow={false}>
-      {renderFirstItem()}
+    <Tooltip title={<StyledList $isPersian={isPersianContent}>{listItems}</StyledList>}>
       <S.Badge count={`+${count - 1}`} />
+      {renderFirstItem()}
     </Tooltip>
   ) : (
-    <Tooltip placement='top' title={getValueOrDash(listItems)} arrow={true}>
-      {renderFirstItem()}
-    </Tooltip>
+    <Tooltip title={getValueOrDash(listItems)}>{renderFirstItem()}</Tooltip>
   );
 }

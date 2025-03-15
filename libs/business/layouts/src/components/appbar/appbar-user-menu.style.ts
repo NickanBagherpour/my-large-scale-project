@@ -5,7 +5,6 @@ export const StyleDropDown = styled(Dropdown)`
   color: ${(p) => p.theme.primary._700};
   font-size: 1.4rem;
   font-weight: 600;
-  align-items: start;
 `;
 
 export const Overlay = styled.div`
@@ -30,7 +29,7 @@ export const StyleParagraph = styled.div`
   }
 `;
 
-export const StyleSpan = styled('span')`
+export const StyleSpan = styled.span`
   margin: 0 auto;
 
   .menu-header {
@@ -58,7 +57,7 @@ export const StyleSpan = styled('span')`
   }
 `;
 
-export const StyleDiv = styled('div')`
+export const StyleDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,8 +71,6 @@ export const StyleDivider = styled.div`
   background: ${(p) => p.theme.border._100};
 `;
 export const StyleIcon = styled.i`
-  height: 2.4rem;
-  width: 2.4rem;
   font-size: 3rem;
   display: flex;
   justify-content: center;

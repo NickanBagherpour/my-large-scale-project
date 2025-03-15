@@ -16,6 +16,7 @@ export default {
     input_address: 'آدرس ورودی',
     return_address: 'آدرس برگشت کلاینت',
     save_changes: 'ثبت اطلاعات',
+    description: 'توضیحات',
     return: 'بازگشت',
   },
   placeholder: {
@@ -27,6 +28,7 @@ export default {
     website_url: 'آدرس وبسایت',
     input_address: 'آدرس ورودی',
     return_address: 'آدرس برگشت',
+    description: 'توضیحات',
   },
   error: {
     persian_character: 'لطفا مقادیر را به فارسی وارد کنید',

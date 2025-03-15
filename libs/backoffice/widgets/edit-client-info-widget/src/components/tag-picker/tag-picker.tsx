@@ -1,56 +1,31 @@
 import { Form } from 'antd';
-import * as S from '../edit-client/edit-client.style';
-import { renderChip } from '../../utils/helper';
+import { TagPicker } from '@oxygen/reusable-components';
+import { FORM_ITEM_NAMES } from '../../utils/form-item-name';
 
-const TagPicker = (props) => {
-  const {
-    onTagsClose,
-    onGrantTypeClose,
-    GrantValue,
-    selectedGrantTypes,
-    selectedTags,
-    onGrantTypeChange,
-    onTagsChange,
-    loadingUpdateClient,
-    isSuccess,
-    isTagsFetching,
-    tags,
-    t,
-    rule,
-  } = props;
+const TagPickerContainer = (props) => {
+  const { GrantValue, loadingUpdateClient, isSuccess, isTagsFetching, tags, t, rule } = props;
 
   return (
     <>
-      <S.TagPicker>
-        <Form.Item name='grantType' rules={[rule]}>
-          <S.Select
-            disabled={loadingUpdateClient || isSuccess}
-            menu={GrantValue}
-            multiSelect={true}
-            onChange={onGrantTypeChange}
-          >
-            {t('form.grant_type')}
-          </S.Select>
-        </Form.Item>
-        <div>{selectedGrantTypes.map((tag) => renderChip(tag, onGrantTypeClose))}</div>
-      </S.TagPicker>
+      <Form.Item name={FORM_ITEM_NAMES.grantType} rules={[rule]}>
+        <TagPicker
+          dropdownMinWidth={'20rem'}
+          isLoading={loadingUpdateClient || isSuccess}
+          title={t('form.grant_type')}
+          menu={GrantValue}
+        />
+      </Form.Item>
 
-      <S.TagPicker>
-        <Form.Item name='tags' rules={[rule]}>
-          <S.Select
-            loading={isTagsFetching}
-            disabled={loadingUpdateClient || isSuccess}
-            menu={tags}
-            multiSelect={true}
-            onChange={onTagsChange}
-          >
-            {t('form.add_tags')}
-          </S.Select>
-        </Form.Item>
-        <div>{selectedTags.map((tag) => renderChip(tag, onTagsClose))}</div>
-      </S.TagPicker>
+      <Form.Item name={FORM_ITEM_NAMES.tags} rules={[rule]}>
+        <TagPicker
+          dropdownMinWidth={'20rem'}
+          isLoading={isTagsFetching || loadingUpdateClient || isSuccess}
+          menu={tags}
+          title={t('form.add_tags')}
+        />
+      </Form.Item>
     </>
   );
 };
 
-export default TagPicker;
+export default TagPickerContainer;

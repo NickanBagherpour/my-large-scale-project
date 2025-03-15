@@ -1,4 +1,5 @@
 import { client } from '@oxygen/client';
+import { Discription } from 'libs/reusable-components/src/components/advance-grid-card/advance-grid-card.style';
 
 export default {
   create_new_client: 'ایجاد کلاینت جدید',
@@ -31,6 +32,7 @@ export default {
   success_notif: 'شناسه با موفقیت اضافه گردید.',
   tooltip_txt: 'به منظور دریافت اطلاعات سازمان، شناسه ملی سازمان را وارد نمایید.',
   re_search: 'جستجو مجدد',
+  representative_type: 'تایپ نماینده',
   step_two: {
     client_services: 'سرویس‌های کلاینت',
     row: 'ردیف',
@@ -81,6 +83,8 @@ export default {
     tariff: 'تعرفه',
     final_client_registration: 'ثبت نهایی کلاینت',
   },
+  technical: 'فنی',
+  legal: 'حقوقی',
 
   progress_bar: {
     first_step: 'دریافت اطلاعات',
@@ -108,16 +112,17 @@ export default {
     mobile_number: 'تلفن همراه',
     telephone: 'تلفن (اختیاری)',
     email: 'ایمیل (اختیاری)',
+    discription: 'توضیحات',
   },
   placeholder: {
     english_name_client: ' نام انگلیسی کلاینت',
-    farsi_name_client: 'نام فارسی کلاینت',
-    client_type: 'نوع کلاینت',
+    farsi_name_client: ' نام فارسی کلاینت',
+    client_key: 'شناسه کلاینت',
     client_id: 'شناسه کلاینت',
-    authentication_id: 'شناسه احراز (ID)',
-    website_address: 'آدرس وبسایت (اختیاری)',
-    input_address: 'آدرس ورودی(اختیاری)',
-    return_address: 'آدرس برگشت',
+    authentication_key: '1234',
+    website_address: 'http://example.com:8080',
+    input_address: 'http://example.com:8080',
+    return_address: 'http://example.com:8080',
     Aggregator: 'اگریگیتور',
     user_name: 'نام کاربر',
     national_code: 'کد ملی (اختیاری)',

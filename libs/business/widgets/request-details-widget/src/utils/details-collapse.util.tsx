@@ -77,6 +77,7 @@ export const getOrganizationInfo = (organization: SubmissionDetailType['organiza
     {
       key: t('registered_address'),
       value: getValueOrDash(organization?.registeredAddress),
+      doubleWidth: true,
     },
     {
       key: t('postal_code'),
@@ -120,7 +121,7 @@ export const getRepresentativeInfo = (representativeSet, t) => {
         details.push({
           fullwidth: true,
           key: '',
-          value: '',
+          value: <div></div>,
         });
       }
 

@@ -18,7 +18,7 @@ type DashboardLayoutProps = {
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-  const { isMobile, isMobileOrTablet, isUndefined } = useResponsive();
+  const { isMobile, isUndefined } = useResponsive();
 
   const toggleDrawer = () => {
     if (isMobile) {
@@ -53,9 +53,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <Drawer
           shouldDisplaySider={!isUndefined && !isMobile}
           shouldDisplayDrawer={isMobile}
-          // direction={config.direction}
           openDrawer={openDrawer}
-          siderCollapsed={collapsed}
           onBreakpoint={handleOnBreakpoint}
           onClose={onClose}
         />

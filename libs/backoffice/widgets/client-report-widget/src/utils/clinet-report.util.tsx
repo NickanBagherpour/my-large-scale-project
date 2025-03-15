@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Box } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Box, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 
@@ -32,7 +31,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
   return [
     {
       title: t('row'),
-      align: 'center',
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
@@ -44,9 +42,8 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: `${t('name')}`,
       dataIndex: 'clientName',
       key: 'clientName',
-      align: 'center',
       render: (clientName) => (
-        <Tooltip placement='top' title={getValueOrDash(clientName)} arrow={true}>
+        <Tooltip title={getValueOrDash(clientName)}>
           <S.Name text={getValueOrDash(clientName)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
@@ -55,10 +52,13 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: `${t('persianName')}`,
       dataIndex: 'organizationName',
       key: 'organizationName',
-      align: 'center',
       render: (organizationName) => (
-        <Tooltip placement='top' title={getValueOrDash(organizationName)} arrow={true}>
-          {getValueOrDash(organizationName)}
+        <Tooltip title={getValueOrDash(organizationName)}>
+          <S.Name
+            text={getValueOrDash(organizationName)}
+            highlightColor={highlightColor}
+            wordToHighlight={wordToHighlight}
+          />
         </Tooltip>
       ),
     },
@@ -67,12 +67,13 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'clientsReport',
       key: 'clientsReport',
       align: 'left',
+      ellipsis: false,
       width: widthByButtonCount(2),
       render: (value, record) => (
         <Box gap='1.6rem' display={'flex'} alignItems={'center'} justifyContent={'end'}>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${record.clientName ?? ''}`}
             size={'small'}
             disabled
           >
@@ -80,7 +81,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
           </S.Details>
           <S.Details
             variant={'link'}
-            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${record.clientName ?? ''}`}
+            href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${record.clientName ?? ''}`}
             size={'small'}
           >
             {t('details')}
@@ -112,23 +113,28 @@ export function getMobileColumns(props: Props): any {
           },
           {
             title: t('persianName'),
-            value: getValueOrDash(value?.organizationName),
+            value: (
+              <S.Name
+                text={getValueOrDash(value?.organizationName)}
+                highlightColor={highlightColor}
+                wordToHighlight={wordToHighlight}
+              />
+            ),
           },
           {
             title: '',
-
             value: (
               <Box display={'flex'} alignItems={'center'}>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${value?.clientName ?? ''}`}
                   disabled
                 >
                   <S.ServicesReportOnMobile>{t('services_report')}</S.ServicesReportOnMobile>
                 </S.Details>
                 <S.Details
                   variant={'link'}
-                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?name=${value?.clientName ?? ''}`}
+                  href={`${ROUTES.BACKOFFICE.CLIENT_DETAILS}?client-name=${value?.clientName ?? ''}`}
                 >
                   {t('details')}
                 </S.Details>

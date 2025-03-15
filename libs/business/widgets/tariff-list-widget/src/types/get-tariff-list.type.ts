@@ -62,3 +62,30 @@ export type TariffListQueryParamsType = {
   size: number;
   'search-field'?: string;
 };
+export interface ServiceFeeInuiryResponse {
+  serviceName: string;
+  servicePersianName: string;
+  bankingShare: number;
+  operationShare: number;
+  feeType: string;
+  fee: number;
+  feeSteps: [
+    {
+      fromRate: number;
+      toRate: number;
+      fee: number;
+    }
+  ];
+  transactionFees: [
+    {
+      fromRate: number;
+      toRate: number;
+      percent: number;
+      min: number;
+      max: number;
+    }
+  ];
+  aggregationType: string;
+  fieldName: string;
+  type: string;
+}

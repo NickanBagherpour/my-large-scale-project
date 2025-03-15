@@ -12,8 +12,9 @@ export type PaginationType = {
 export type WidgetStateType = {
   searchTerm: string;
   sort: SORT_ORDER;
-  status: string;
+  isActive: Nullable<boolean>;
   pagination: PaginationType;
+  modalTablePagination: PaginationType;
   message: Nullable<MessageType>;
 };
 
@@ -28,7 +29,7 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_STATUS';
-      payload: WidgetStateType['status'];
+      payload: WidgetStateType['isActive'];
     }
   | {
       type: 'UPDATE_SEARCH_TERM';
@@ -37,6 +38,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_SORT';
       payload: WidgetStateType['sort'];
+    }
+  | {
+      type: 'UPDATE_MODAL_TABLE_PAGINATION';
+      payload: Partial<PaginationType>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

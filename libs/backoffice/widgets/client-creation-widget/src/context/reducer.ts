@@ -18,6 +18,7 @@ export const initialStateValue: WidgetStateType = {
     websiteUrl: undefined,
     inboundAddress: undefined,
     redirectUrl: undefined,
+    description: undefined,
     isClientFlow: undefined,
     isPasswordFlow: undefined,
     isAuthorizationFlow: undefined,
@@ -31,12 +32,14 @@ export const initialStateValue: WidgetStateType = {
       isAggregator: undefined,
       aggregatorId: undefined,
       aggregatorName: undefined,
-      representative: {
-        nameAndLastName: undefined,
-        mobileNumber: undefined,
-        fixedPhoneNumber: undefined,
-        representativeType: undefined,
-      },
+      representative: [
+        {
+          nameAndLastName: undefined,
+          mobileNumber: undefined,
+          fixedPhoneNumber: undefined,
+          representativeType: undefined,
+        },
+      ],
     },
   },
   secondStep: { table: [] },
@@ -71,7 +74,6 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.clientName = action.payload;
       return;
     }
-
     case 'UPDATE_FIRST_STEP_FORM': {
       state.firstStep = { ...action.payload };
       return;

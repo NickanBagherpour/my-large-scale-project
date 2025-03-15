@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { useAsync, useMenu } from '@oxygen/hooks';
+import { useAsync, useMenu, useResponsive } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import { Direction } from '@oxygen/types';
 import { Box, Button, Loading } from '@oxygen/ui-kit';
@@ -62,6 +62,7 @@ const Drawer = (props: DrawerProps) => {
   const [openKeys, setOpenKeys] = useState<string[]>();
   const router = useRouter();
   const pathname = usePathname();
+  const { isTablet } = useResponsive();
 
   const registerButtonHref = ROUTES.CUSTOMER.REQUEST_REGISTRATION;
   const isCurrentRoute = pathname === registerButtonHref;
@@ -118,7 +119,7 @@ const Drawer = (props: DrawerProps) => {
       const item: MenuItem = getItem(
         getMenuLabelNode(menuItem),
         menuItem?.id?.toString(),
-        menuItem.icon ? <i className={menuItem.icon} /> : undefined,
+        menuItem.icon ? <i className={menuItem.icon + (menuItem.size ? ` size-${menuItem.size}` : '')} /> : undefined,
         !menuItem?.active,
         menuItem.children && menuItem.children.length > 0 ? generateMenuItems(menuItem.children) : undefined
       );
@@ -193,7 +194,7 @@ const Drawer = (props: DrawerProps) => {
                   selectedKeys={menuSelectedKeys}
                   onOpenChange={(newOpenKeys: string[]) => setOpenKeys(newOpenKeys)}
                   items={filteredMenuItems /*?? items*/}
-                  getPopupContainer={(node) => node.parentNode as HTMLElement}
+                  // getPopupContainer={(node) => node.parentNode as HTMLElement}
                 />
                 {menu && !filteredMenuItems && <Empty style={{ marginTop: '6rem' }} description={false}></Empty>}
               </>
@@ -220,10 +221,10 @@ const Drawer = (props: DrawerProps) => {
           trigger={null}
           theme={'light'}
           collapsible
-          collapsed={siderCollapsed}
+          collapsed={isTablet}
           breakpoint={'md'}
           onBreakpoint={onBreakpoint}
-          collapsedWidth={0}
+          collapsedWidth={`var(${cssVar.drawerWidth})`}
           width={`var(${cssVar.drawerWidth})`}
         >
           {getMenuContainer()}

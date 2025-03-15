@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { Layout, Switch as AntSwitch, Dropdown as AntDropdown, Dropdown } from 'antd';
+import styled from 'styled-components';
+import { Layout } from 'antd';
 import { cssVar, respondTo } from '@oxygen/utils';
 
 const { Header } = Layout;
@@ -15,9 +15,13 @@ export const AppBar = styled(Header)`
   padding: 1.2rem 1.6rem;
   z-index: var(${cssVar.appbarZIndex});
   color: ${(p) => p.theme.onPrimary};
-  background-color: ${(p) => p.theme.background.main};
+  background-color: ${(p) => p.theme.surface};
   line-height: 1.5;
   border-bottom: 1px solid ${(p) => p.theme.border._100};
+
+  .appbar-title-logo-date svg {
+    display: block;
+  }
 
   /* span[role='img'] {
     font-size: 2.4rem;
@@ -57,8 +61,7 @@ export const AppBar = styled(Header)`
     }
 
     ${respondTo.down('md')} {
-      display: inline-flex;
-      margin: 1rem;
+      display: block;
     }
   }
 
@@ -73,6 +76,10 @@ export const AppBar = styled(Header)`
       line-height: 0;
     }
   }
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const Divider = styled.div`
@@ -81,11 +88,11 @@ export const Divider = styled.div`
   margin: 0 1.6rem;
   background-color: ${(p) => p.theme.border._100};
 `;
+
 export const styleIcon = styled.i`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
+  font-size: 3rem;
   color: ${(p) => p.theme.text.primary};
 `;

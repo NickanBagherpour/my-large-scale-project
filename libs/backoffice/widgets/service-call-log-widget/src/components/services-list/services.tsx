@@ -50,7 +50,7 @@ const Services: React.FC<ServicesProps> = (props) => {
   const mobileColumns = getMobileColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
   const desktopColumns = getDesktopColumns({ t, changeStatus, deleteService, theme, wordToHighlight });
 
-  const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
+  // const tableData = data?.map((item, index) => ({ ...item, index: index + 1 }));
 
   return (
     <S.TableContainer>
@@ -59,13 +59,14 @@ const Services: React.FC<ServicesProps> = (props) => {
         loading={isFetching}
         current={pagination.page}
         total={total}
-        dataSource={tableData}
+        // size='middle'
+        dataSource={data}
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         hasContainer={false}
         pagination={{ pageSize: pagination.rowsPerPage }}
         onChange={handlePageChange}
-        rowKey={(row) => row.id}
+        rowKey={() => uuid()}
       />
     </S.TableContainer>
   );

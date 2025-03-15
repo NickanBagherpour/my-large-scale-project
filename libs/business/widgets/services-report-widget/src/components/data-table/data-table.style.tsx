@@ -1,9 +1,7 @@
-import styled, { css } from 'styled-components';
-import Link from 'next/link';
+import styled from 'styled-components';
 
 import { Box, Table as KitTable } from '@oxygen/ui-kit';
-
-import { SERVICE_STATUS_LIST } from '../../utils/consts';
+import { respondTo } from '@oxygen/utils';
 
 export const TableContainer = styled(Box)`
   height: 100%;
@@ -20,30 +18,18 @@ export const Table = styled(KitTable)`
   }
 `;
 
-export const TableLink = styled(Link)`
-  color: ${(p) => p.theme.primary.main};
-  font-size: 1.4rem;
+export const StatusContainer = styled.span<{ $status: boolean }>`
+  font-weight: 700;
+  color: ${(p) => (p.$status ? p.theme.secondary.main : p.theme.error.main)};
 `;
 
-export const StatusContainer = styled.p<any>`
-  font-weight: 700;
+export const ActionBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  margin-inline-end: 2rem;
+  gap: 1rem;
 
-  ${({ status, theme }) => {
-    switch (status) {
-      case SERVICE_STATUS_LIST.ACTIVE:
-        return css`
-          color: ${theme.secondary.main};
-        `;
-
-      case SERVICE_STATUS_LIST.UNACTIVE:
-        return css`
-          color: ${theme.error.main};
-        `;
-
-      default:
-        return css`
-          color: ${theme.primary.main};
-        `;
-    }
-  }}
+  ${respondTo.down('md')} {
+    margin-inline-end: 0;
+  }
 `;

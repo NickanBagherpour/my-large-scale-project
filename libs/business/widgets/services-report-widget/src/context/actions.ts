@@ -7,6 +7,10 @@ export function updatePaginationAction(dispatch: WidgetDispatchType, pagination:
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
 }
 
+export function updateModalTablePagination(dispatch: WidgetDispatchType, pagination: PaginationType) {
+  dispatch({ type: 'UPDATE_MODAL_TABLE_PAGINATION', payload: pagination });
+}
+
 export function updateMessageAction(dispatch: WidgetDispatchType, message: Nullable<MessageType>) {
   dispatch({ type: 'UPDATE_GLOBAL_MESSAGE', payload: message });
 }
@@ -21,7 +25,7 @@ function handleError(dispatch, actionType: WidgetActionType['type'], reason, ext
   return null;
 }
 
-export function updateStatusAction(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
+export function updateStatusAction(dispatch: WidgetDispatchType, status: WidgetStateType['isActive']) {
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
 

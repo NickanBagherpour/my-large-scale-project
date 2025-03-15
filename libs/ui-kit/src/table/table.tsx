@@ -41,6 +41,7 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
   mobileColumns?: ColumnsType<any>;
   isLastPage?: boolean;
   paginationType?: PaginationType;
+  minHeight?: string;
 };
 
 const ExpandIcon = ({ expanded, onExpand, record }) => (
@@ -62,6 +63,7 @@ export const Table = (props: TableProps) => {
     paginationType = PaginationType.PAGINATED,
     showHeader,
     size,
+    minHeight = '20rem',
     ...restProps
   } = props;
 
@@ -104,18 +106,12 @@ export const Table = (props: TableProps) => {
     pagination === false || paginationType === PaginationType.INCREMENTAL
       ? false
       : {
-          //onChange: onPaginationUpdate,
-          // pageSizeOptions: [5, 10, 20, 50, 100],
-          // showTotal: (total, range) => `${range[0]} - ${range[1]} ${t('common.of')} ${total}`,
-          // pageSize: paginationInfo.limit,
-          // current: paginationInfo.current,
           total,
           current: current < 1 ? 1 : current,
-          // size: 'small',
           responsive: true,
           showSizeChanger: {
             variant: 'filled',
-            size: 'large',
+            size: 'default',
             options: pageSizeOptions,
           },
           hideOnSinglePage: false,
@@ -138,21 +134,38 @@ export const Table = (props: TableProps) => {
       <></>
     );
 
+  function hasPaginationSizeChanger(): boolean {
+    // Check if _pagination is an object and not null
+    if (typeof _pagination === 'object' && _pagination !== null) {
+      // If showSizeChanger is explicitly false, return false
+      if (_pagination['showSizeChanger'] === false) {
+        return false;
+      }
+      // Otherwise, return the truthy value of showSizeChanger, if it exists
+      // return !!_pagination['showSizeChanger'];
+      return true;
+    }
+    // If _pagination is not an object or is null, return false
+    return false;
+  }
+
   function handleClickMoreItems() {
     if (props?.onChange) {
       props.onChange({}, {}, {}, {} as any);
     }
   }
+
   const table = (
     <>
       <ConfigProvider
         theme={{
-          components: { Table: { borderColor: 'transparent', headerBorderRadius: variant == 'complex' ? 0 : 8 } },
+          components: { Table: { borderColor: 'transparent', headerBorderRadius: variant === 'complex' ? 0 : 8 } },
         }}
       >
         <S.Table
           bordered={variant === 'simple'}
           caption={caption}
+          $minHeight={minHeight}
           variant={variant}
           size={size}
           // dataSource={dataSource}
@@ -164,6 +177,7 @@ export const Table = (props: TableProps) => {
           // scroll={{ x: variant === 'simple' ? 'fit-content' : '100vw' }}
           scroll={{ x: variant === 'simple' ? 'fit-content' : 700 }}
           $paginationText={t('uikit.rows_count')}
+          $hasPaginationSizeChanger={hasPaginationSizeChanger().toString()}
           {...restProps}
         />
       </ConfigProvider>

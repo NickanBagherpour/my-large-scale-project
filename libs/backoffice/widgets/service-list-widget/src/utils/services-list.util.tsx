@@ -1,8 +1,7 @@
 import React from 'react';
 import { TFunction } from 'i18next';
 
-import { Tooltip } from 'antd';
-import { ColumnsType, MobileColumnType, Table, Switch } from '@oxygen/ui-kit';
+import { ColumnsType, MobileColumnType, Table, Switch, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
 import { ITheme } from '@oxygen/types';
 import { WithBadge } from '@oxygen/reusable-components';
@@ -30,16 +29,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       width: CONSTANTS.ROW_INDEX_WIDTH,
       dataIndex: 'index',
       key: 'index',
-      align: 'center',
       className: 'row-number',
     },
     {
       title: `${t('name')}`,
       dataIndex: 'name',
       key: 'name',
-      align: 'center',
       render: (name) => (
-        <Tooltip placement='top' title={getValueOrDash(name)} arrow={true}>
+        <Tooltip title={getValueOrDash(name)}>
           <S.Name text={getValueOrDash(name)} highlightColor={highlightColor} wordToHighlight={wordToHighlight} />
         </Tooltip>
       ),
@@ -48,18 +45,12 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: `${t('persian_name')}`,
       dataIndex: 'persianName',
       key: 'persianName',
-      align: 'center',
-      render: (persian_name) => (
-        <Tooltip placement='top' title={getValueOrDash(persian_name)} arrow={true}>
-          {getValueOrDash(persian_name)}
-        </Tooltip>
-      ),
+      render: (persian_name) => <Tooltip title={getValueOrDash(persian_name)}>{getValueOrDash(persian_name)}</Tooltip>,
     },
     {
       title: `${t('scope')}`,
       dataIndex: 'scopes',
       key: 'scopes',
-      align: 'center',
       render: (scopes) => (
         <WithBadge
           items={scopes}
@@ -73,26 +64,19 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: 'url',
       dataIndex: 'paths',
       key: 'paths',
-      align: 'center',
-      render: (paths) => (
-        <WithBadge
-          items={[...paths, ...paths, ...paths]}
-          onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>}
-        />
-      ),
+      render: (paths) => <WithBadge items={paths} onRender={(value) => <S.Url>{getValueOrDash(value)}</S.Url>} />,
     },
     {
       title: `${t('version')}`,
       dataIndex: 'version',
       key: 'version',
-      align: 'center',
       render: (version) => getValueOrDash(version),
     },
     {
       title: `${t('status')}`,
       dataIndex: 'isActive',
       key: 'isActive',
-      align: 'center',
+      ellipsis: false,
       render: (isActive, record) => (
         <S.SwitchContainer>
           <S.DesktopSpan>{t('operational')}</S.DesktopSpan>
@@ -117,6 +101,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'details',
       key: 'details',
       align: 'left',
+      ellipsis: false,
       width: widthByButtonCount(1),
       render: (value, record) => (
         <S.Details

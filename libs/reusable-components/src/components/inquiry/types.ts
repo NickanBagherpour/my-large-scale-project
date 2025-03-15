@@ -1,4 +1,4 @@
-import { ClientInquiryStatus, ServiceInquiryStatus } from './consts';
+import { ClientInquiryStatus, InquiryStatus, ServiceInquiryStatus } from './consts';
 
 export type InquiryDto = ServiceInquiryDto | ClientInquiryDto;
 export interface ClientInquiryDto {
@@ -17,10 +17,10 @@ export interface ClientInquiryDto {
   organizationInfo?: {
     organizationId?: number;
     organizationName?: string;
-    organizationNationalId?: string;
-    isAggregator?: true;
-    aggregatorId?: number;
-    aggregatorName?: string;
+    organizationNationalId?: string | null;
+    isAggregator?: true | null;
+    aggregatorId?: number | null;
+    aggregatorName?: string | null;
     representative?: {
       nameAndLastName?: string;
       mobileNumber?: string;
@@ -57,3 +57,4 @@ export interface GeneralItemInfo {
   progress?: number;
 }
 export type InquiryType = 'service' | 'client';
+export type ContentType = keyof typeof InquiryStatus;

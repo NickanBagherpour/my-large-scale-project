@@ -1,11 +1,14 @@
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
-import { Pagination } from '@oxygen/types';
-import { getValueOrDash, ROUTES } from '@oxygen/utils';
 import { TFunction } from 'i18next';
-import * as S from '../components/data-table/data-table.style';
+
+import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
+import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
+import { Pagination } from '@oxygen/types';
+
 import { statusBadgeRenderer } from './status-badge.util';
 import { BusinessStatusBadge } from './consts';
 import { RequestListType } from '../types/common-types';
+
+import * as S from '../components/data-table/data-table.style';
 
 type Props = {
   t: TFunction;
@@ -23,8 +26,8 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
   return [
     {
       title: t('table.index'),
-      align: 'center',
       key: 'index',
+      width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
         const start = (page - 1) * rowsPerPage + 1;
         return start + index;
@@ -33,39 +36,34 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
     {
       title: t('table.organization_name'),
       dataIndex: 'organizationName',
-      align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.organizationName);
-      },
+      render: (_val, record) => (
+        <Tooltip title={getValueOrDash(record?.organizationName)}>{getValueOrDash(record?.organizationName)}</Tooltip>
+      ),
     },
     {
       title: t('table.client_name'),
       dataIndex: 'clientName',
-      align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.clientName);
-      },
+      render: (_val, record) => (
+        <Tooltip title={getValueOrDash(record?.clientName)}>{getValueOrDash(record?.clientName)}</Tooltip>
+      ),
     },
     {
       title: t('table.status'),
       dataIndex: 'submissionStatus',
-      align: 'center',
-      render: (_val, record) => {
-        return statusBadgeRenderer(record?.submissionStatus, userRole, t);
-      },
+      ellipsis: false,
+      width: widthByButtonCount(2),
+      render: (_val, record) => statusBadgeRenderer(record?.submissionStatus, userRole, t),
     },
     {
       title: t('table.registration_date'),
       dataIndex: 'createDate',
-      align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.createDate);
-      },
+      render: (_val, record) => (
+        <Tooltip title={getValueOrDash(record?.createDate)}>{getValueOrDash(record?.createDate)}</Tooltip>
+      ),
     },
     {
       title: t('table.requested_service_count'),
       dataIndex: 'serviceCount',
-      align: 'center',
       render: (_val, record) => {
         return getValueOrDash(record?.serviceCount);
       },
@@ -73,20 +71,22 @@ export function getDesktopColumns(props: Props): ColumnsType<RequestListType> {
     {
       title: t('table.companyRepresentativeName'),
       dataIndex: 'representative',
-      align: 'center',
-      render: (_val, record) => {
-        return getValueOrDash(record?.representative);
-      },
+      render: (_val, record) => (
+        <Tooltip title={getValueOrDash(record?.representative)}>{getValueOrDash(record?.representative)}</Tooltip>
+      ),
     },
     {
-      width: '11.8rem',
       key: 'details',
+      width: widthByButtonCount(2),
+      align: 'left',
+      ellipsis: false,
       render: (item, record) => {
         const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
         const colorButton = isApproved ? 'secondary' : 'primary';
         return (
           <Button
-            variant={'text'}
+            variant={'link'}
+            size={'small'}
             className={colorButton}
             href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.submissionId}`}
             color={colorButton}
@@ -132,7 +132,8 @@ export function getMobileColumns(props: Props) {
               <Button
                 className={isApproved ? 'secondary' : 'primary'}
                 href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${submissionId}`}
-                variant={'text'}
+                variant={'link'}
+                size={'small'}
                 color={colorButton}
               >
                 <i className={'icon-document'} />
