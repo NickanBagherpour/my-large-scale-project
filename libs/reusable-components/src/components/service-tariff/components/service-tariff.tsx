@@ -31,20 +31,17 @@ export function ServiceTariff(props: Props) {
 
   return (
     <>
-      {type === 'upsert' && <S.Title>{t('reusable.service_tariff')}</S.Title>}
-      <S.Section>
-        <Form.Item rules={rules} name={[TARIFF.type]}>
-          <Tarrif />
-        </Form.Item>
-        {hasNotice && (
-          <S.Notice>
-            <S.Icon className='icon-info-circle' />
-            <span>{t('enter_infinity_value')}</span>
-          </S.Notice>
-        )}
-        <Divider />
-        {tariffType && inputs[tariffType]}
-      </S.Section>
+      <Form.Item rules={rules} name={[TARIFF.type]}>
+        <Tarrif />
+      </Form.Item>
+      {hasNotice && (
+        <S.Notice>
+          <S.Icon className='icon-info-circle' />
+          <span>{t('enter_infinity_value')}</span>
+        </S.Notice>
+      )}
+      <Divider />
+      {tariffType && inputs[tariffType]}
     </>
   );
 }

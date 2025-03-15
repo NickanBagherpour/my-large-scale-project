@@ -9,7 +9,6 @@ import { FooterContainer, GlobalMessageContainer, NoResult } from '@oxygen/reusa
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import { GeneralInformation } from '../general-nformation/general-information';
-import { ServiceTariff } from '../service-tariff/service-tariff';
 import { SERVICE_NAME } from '../../utils/consts';
 
 import * as S from './app.style';
@@ -40,12 +39,7 @@ const App: React.FC<AppProps> = (props) => {
     if (!serviceName) {
       return <NoResult />;
     }
-    return (
-      <>
-        <GeneralInformation isLoading={isFetching} data={data} serviceName={serviceName} />
-        <ServiceTariff isLoading={isFetching} data={data} serviceName={serviceName} />
-      </>
-    );
+    return <GeneralInformation isLoading={isFetching} data={data} serviceName={serviceName} />;
   };
   const handleReturn = () => {
     router.back();

@@ -80,7 +80,10 @@ const App = () => {
 
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
-        <ServiceTariff rule={rule} form={form} type='upsert' />
+        <S.Title>{t('reusable.service_tariff')}</S.Title>
+        <S.Section>
+          <ServiceTariff rule={rule} form={form} type='upsert' />
+        </S.Section>
       </Form>
 
       <S.Footer
