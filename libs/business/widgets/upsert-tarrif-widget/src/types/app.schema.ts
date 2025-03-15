@@ -14,6 +14,7 @@ export const createAppSchema = (t: TFunction) => {
 
   return z.object({
     [GENERAL_INFO_NAMES.serviceName]: validationSchema.english,
+    [GENERAL_INFO_NAMES.persianServiceName]: validationSchema.english,
     [GENERAL_INFO_NAMES.bankingSharePct]: num,
     [GENERAL_INFO_NAMES.opsTeamSharePct]: num,
 

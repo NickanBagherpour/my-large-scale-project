@@ -1,5 +1,6 @@
 import { emptySpecialTariff, emptyTieredTariff, feeTypeMapReverse, TARIFF } from '@oxygen/reusable-components';
 import { AppSchemaType, Fee } from '../types';
+import { GENERAL_INFO_NAMES } from './consts';
 
 export function getInitialValues(serviceName: string, feeData: Fee | undefined) {
   let initialValues: Partial<AppSchemaType> = {
@@ -9,6 +10,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
   if (feeData) {
     const {
       serviceName,
+      servicePersianName,
       feeSteps,
       fee,
       type,
@@ -21,12 +23,13 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
     } = feeData;
 
     initialValues = {
-      serviceName,
-      serviceType: aggregationType,
-      bankingSharePct: String(bankingShare),
-      opsTeamSharePct: String(operationShare),
-      fieldNameInElastic: fieldName,
-      transactionTypeInElastic: type,
+      [GENERAL_INFO_NAMES.serviceName]: serviceName,
+      [GENERAL_INFO_NAMES.persianServiceName]: servicePersianName,
+      [GENERAL_INFO_NAMES.serviceType]: aggregationType,
+      [GENERAL_INFO_NAMES.bankingSharePct]: String(bankingShare),
+      [GENERAL_INFO_NAMES.opsTeamSharePct]: String(operationShare),
+      [GENERAL_INFO_NAMES.fieldNameInElastic]: fieldName,
+      [GENERAL_INFO_NAMES.transactionTypeInElastic]: type,
       [TARIFF.tiered]: emptyTieredTariff,
       [TARIFF.special]: emptySpecialTariff,
     };
@@ -64,7 +67,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
     }
   } else {
     initialValues = {
-      serviceName,
+      [GENERAL_INFO_NAMES.serviceName]: serviceName,
       [TARIFF.special]: emptySpecialTariff,
       [TARIFF.tiered]: emptyTieredTariff,
     };
