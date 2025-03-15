@@ -42,7 +42,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('table.operation_type'),
       dataIndex: 'revisionDto',
       key: 'method',
-      ellipsis: true,
+      ellipsis: false,
       render: (item, record) => {
         const revType = item.revType;
 
