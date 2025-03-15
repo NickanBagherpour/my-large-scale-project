@@ -40,15 +40,14 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       title: t('column.revision_type'),
       dataIndex: 'revisionDto',
       key: 'actionType',
+      ellipsis: false,
       render: (value, record) => {
         const variant = value.revType?.code?.value;
         const isDeleted = record?.isDeleted?.value;
         return (
-          <Tooltip title={value?.revType?.title?.value}>
-            <S.RevisionType variant={variant} isDeleted={isDeleted}>
-              {getValueOrDash(value?.revType?.title?.value)}
-            </S.RevisionType>
-          </Tooltip>
+          <S.RevisionType variant={variant} isDeleted={isDeleted}>
+            {getValueOrDash(value?.revType?.title?.value)}
+          </S.RevisionType>
         );
       },
     },

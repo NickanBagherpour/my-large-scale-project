@@ -50,6 +50,20 @@ export const Table = styled(AntTable)<StyledTableProps>`
     scrollbar-color: ${(p) => p.theme.border._300} ${(p) => p.theme.background.main};
   }
 
+  ${respondTo.down('md')} {
+    & .ant-pagination::before {
+      inset-inline-start: 0rem !important;
+    }
+
+    & .ant-pagination.ant-pagination-mini .ant-pagination-options-size-changer {
+      left: 10rem;
+    }
+
+    & .ant-pagination .ant-pagination-options-size-changer {
+      left: 10rem;
+    }
+  }
+
   ${(p) =>
     p.variant === 'simple' &&
     css`
