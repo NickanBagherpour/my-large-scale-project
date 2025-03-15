@@ -1,15 +1,11 @@
-'use client';
-
-import type React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { cssVar } from '@oxygen/utils';
-
 
 const direction = 'rtl';
 const directionRTL = 'ltr';
 
 // Global styles to override Redoc's default styles
-const RedocGlobalStyles = createGlobalStyle`
+export const RedocGlobalStyles = createGlobalStyle`
   /* Keep code blocks ${direction} */
   .redoc-wrap pre,
   .redoc-wrap code,
@@ -120,7 +116,7 @@ const RedocGlobalStyles = createGlobalStyle`
   }
 `;
 
-const StyledRedocContainer = styled.div`
+export const StyledRedocContainer = styled.div`
   height: 100%;
   width: 100%;
   font-family: var(${cssVar.iransansFont}), system-ui, sans-serif;
@@ -130,7 +126,7 @@ const StyledRedocContainer = styled.div`
   .redoc-wrap {
     direction: ${directionRTL};
 
-      /* Customize scrollbars for better ${directionRTL} experience */
+    /* Customize scrollbars for better ${directionRTL} experience */
 
     ::-webkit-scrollbar {
       width: 8px;
@@ -151,13 +147,3 @@ const StyledRedocContainer = styled.div`
     }
   }
 `;
-
-export function RedocWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <StyledRedocContainer>
-      <RedocGlobalStyles />
-      {children}
-    </StyledRedocContainer>
-  );
-}
-

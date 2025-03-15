@@ -2,7 +2,7 @@
 ARG portalName="business"
 ARG ENVIRONMENT="production"
 
-FROM node:20-alpine AS base
+FROM repo.sadad.ir/node:20-alpine AS base
 
 ARG portalName
 ARG ENVIRONMENT

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { RedocStandalone, SideNavStyleEnum } from 'redoc';
 import { cssVar } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
-import { RedocWrapper } from './redoc-wrapper';
-import { useRtlRedoc } from '../hooks/use-rtl-redoc';
+import { RedocWrapper } from '../redoc-wrapper/redoc-wrapper';
+import { useRtlRedoc } from '../../hooks/use-rtl-redoc';
 
 interface EnhancedRedocProps {
   specUrl?: string;

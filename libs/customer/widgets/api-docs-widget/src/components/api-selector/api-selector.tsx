@@ -26,7 +26,7 @@ const HeaderTitle = styled.h1`
   margin: 0;
   color: ${(p) => p.theme.primary.main};
   //margin-left: 1.5rem;
-    //font-family: var(${cssVar.iransansFont}), system-ui, sans-serif;
+  //font-family: var(${cssVar.iransansFont}), system-ui, sans-serif;
 `;
 
 const SelectWrapper = styled.div`
@@ -52,7 +52,6 @@ interface ApiSelectorProps {
   selectedOption: ApiOption;
   onSelectChange: (option: ApiOption) => void;
   onRefresh?: () => void; // Added refresh capability
-
 }
 
 export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSelectorProps) {
@@ -71,10 +70,9 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
           value={selectedOption.value}
           options={options}
           onChange={handleChange}
-          aria-label="انتخاب نسخه API"
+          aria-label='انتخاب نسخه API'
           size={'middle'}
           variant={'outlined'}
-
         />
       </SelectWrapper>
     </HeaderContainer>
