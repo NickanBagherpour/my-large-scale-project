@@ -7,6 +7,7 @@ import { TARIFF, TIERED_TARIFF_NAMES } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
 import { use } from 'react';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
+import { Index, Article, TrashBtn, Container } from '../input-row/input-row.style';
 
 type Props = {
   rules: RuleRender[];
@@ -28,10 +29,10 @@ export default function Tiered(props: Props) {
       <Form.List name={[TARIFF.tiered]}>
         {(childrenFields, { add, remove }) => {
           return (
-            <S.Container>
+            <Container>
               {childrenFields.map((child, idx) => (
-                <S.Article key={child.key}>
-                  <S.Index>{idx + 1}</S.Index>
+                <Article key={child.key}>
+                  <Index>{idx + 1}</Index>
                   <span>{t('reusable.from')}</span>
 
                   <Form.Item name={[child.name, TIERED_TARIFF_NAMES.from]} rules={rules}>
@@ -52,19 +53,19 @@ export default function Tiered(props: Props) {
 
                   <span>{t('reusable.calculated_in_irr')}</span>
 
-                  <S.TrashBtn
+                  <TrashBtn
                     disabled={disabled || childrenFields.length === 1}
                     variant='link'
                     color='error'
                     onClick={() => remove(child.name)}
                   >
                     <i className='icon-trash' />
-                  </S.TrashBtn>
-                </S.Article>
+                  </TrashBtn>
+                </Article>
               ))}
 
               <AddCondition tariffType='tiered' onClick={() => add(emptyCondition)} />
-            </S.Container>
+            </Container>
           );
         }}
       </Form.List>

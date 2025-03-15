@@ -7,6 +7,8 @@ export const Container = styled.section`
   gap: 1.2rem;
 `;
 
+const rowHeight = '40px';
+
 export const Article = styled.article`
   display: flex;
   align-items: center;
@@ -18,8 +20,8 @@ export const Article = styled.article`
   border-radius: 1.6rem;
 
   & > * {
-    height: 40px;
-    line-height: 40px;
+    height: ${rowHeight};
+    line-height: ${rowHeight};
   }
 
   /* make the specifity of this lower than the Index styles */
@@ -36,15 +38,23 @@ export const Article = styled.article`
 
   .ant-form-item-control-input-content {
     width: 12rem;
-    height: 4rem;
+  }
+
+  .ant-input-wrapper,
+  .ant-input-wrapper input {
+    height: ${rowHeight};
   }
 `;
 
 export const Index = styled.span`
+  min-width: ${rowHeight};
   padding: 0.4rem 1.2rem;
   color: ${(p) => p.theme.primary.main};
   background: ${(p) => p.theme.primary._50};
   border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TrashBtn = styled(UikitButton)`
