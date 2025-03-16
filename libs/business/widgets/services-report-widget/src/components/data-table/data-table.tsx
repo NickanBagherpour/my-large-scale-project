@@ -65,6 +65,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
           variant={'simple'}
           onChange={handlePageChange}
           rowKey={'id'}
+          minHeight={'auto'}
         />
       ) : (
         <NoResult isLoading={isLoading} />
