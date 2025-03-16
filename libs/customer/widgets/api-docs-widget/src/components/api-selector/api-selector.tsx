@@ -2,8 +2,12 @@
 
 import type React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { ROUTES } from '@oxygen/utils';
+import { ThemeID } from '@oxygen/types';
+import { useAppTheme } from '@oxygen/hooks';
 
-import { Select } from '@oxygen/ui-kit';
+import { Select, Icons } from '@oxygen/ui-kit';
 import { cssVar } from '@oxygen/utils';
 
 const HeaderContainer = styled.header`
@@ -25,6 +29,9 @@ const HeaderTitle = styled.h1`
   font-weight: 600;
   margin: 0;
   color: ${(p) => p.theme.primary.main};
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
   //margin-left: 1.5rem;
   //font-family: var(${cssVar.iransansFont}), system-ui, sans-serif;
 `;
@@ -62,9 +69,18 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
     }
   };
 
+  const theme = useAppTheme();
+
   return (
     <HeaderContainer>
-      <HeaderTitle>مستندات API</HeaderTitle>
+      <HeaderTitle>
+        <span className={'appbar-title-oxygen-logo'}>
+          <Link href={ROUTES.CUSTOMER.DASHBOARD}>
+            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
+          </Link>
+        </span>
+        مستندات API
+      </HeaderTitle>
       <SelectWrapper>
         <Select
           value={selectedOption.value}
