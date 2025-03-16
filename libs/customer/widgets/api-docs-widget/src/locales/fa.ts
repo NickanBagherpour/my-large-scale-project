@@ -2,7 +2,7 @@ export default {
   widget_name: 'api-docs-widget',
   choose_api_version: 'انتخاب نسخه API',
   statement: 'مبتنی بر حساب',
-  loan_service: 'سرویس های تسهیلات',
+  loan_service: 'تسهیلات',
   transfer: 'انتقال پول',
   auth: 'احراز هویت',
   example: 'مثال',

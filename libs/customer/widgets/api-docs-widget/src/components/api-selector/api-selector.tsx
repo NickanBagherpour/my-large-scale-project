@@ -38,7 +38,11 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
       <S.HeaderTitle>
         <span className={'appbar-title-oxygen-logo'}>
           <Link href={ROUTES.CUSTOMER.DASHBOARD}>
-            {theme.id !== ThemeID.DARK ? <Icons.OxygenTextLogo /> : <Icons.OxygenDarkTextLogo />}
+            {theme.id !== ThemeID.DARK ? (
+              <Icons.OxygenLogo width={40} height={56} />
+            ) : (
+              <Icons.OxygenDarkLogo width={40} height={56} />
+            )}
           </Link>
         </span>
         مستندات API
