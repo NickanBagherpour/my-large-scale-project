@@ -16,25 +16,23 @@ type AppProps = PageProps & {
 };
 
 const App: React.FC<AppProps> = (props) => {
-  const dispatch = useAppDispatch();
-  const state = useAppState();
   const [t] = useTr();
 
   const API_OPTIONS: ApiOption[] = [
     {
-      label: 'مبتنی بر حساب',
+      label: t('statement'),
       value: 'STATEMENT',
     },
     {
-      label: 'سرویس های تسهیلات',
+      label: t('loan_service'),
       value: 'LOAN_SERVICE',
     },
     {
-      label: 'انتقال پول',
+      label: t('transfer'),
       value: 'TRANSFER',
     },
     {
-      label: 'احراز هویت',
+      label: t('auth'),
       value: 'AUTH',
     },
   ];
