@@ -1,0 +1,259 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "سرویس های تسهیلات",
+        "description": "...",
+        "termsOfService": "",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "url": "http://uat.developer.oxygenpro.ir/api"
+        },
+        "version": "1.0.0"
+    },
+    "externalDocs": {
+        "description": "Find out more about spec",
+        "url": ""
+    },
+    "servers": [],
+    "tags": [
+        {
+            "name": "سرویس های استعلام تسهیلات و چک و اعتبارسنجی",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/api/samat/v2/loan/balance": {
+            "post": {
+                "description": "\r\nاین سرویس به منظور ارسال اطلاعات تغییر و تسویه اطلاعات تسهیلات به سرویسهای سمات بانک مرکزی میباشد\r\n\r\n- Scope:svc-mgmt-samat-loan-bal",
+                "operationId": "0002",
+                "tags": ["سرویس های استعلام تسهیلات و چک و اعتبارسنجی"],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "برای استفاده از این سرویس ها بایستی ابتدا توکن دسترسی را از سرورهای احراز هویت بانک ملی دریافت نموده و سپس در بخش هدر درخواست های خو ارسال نمایید",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type ",
+                        "description": "نوع محتوا",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "description": "این کد به صورت رشته میباشد، به عنوان مثال: \r\nCONSTRAINT_VIOLATION_EXCEPTION"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "timestamp": {
+                                                    "type": "string",
+                                                    "description": "تاریخ با فرمت\r\nyyyy-MM-dd'T'HH:mm:ss.SSS'Z'\r\n"
+                                                },
+                                                "domain": {
+                                                    "type": "string",
+                                                    "description": "\"GLOBAL\""
+                                                },
+                                                "errors": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "description": "نام فیلدی که در اعتبار سنجی با خطا مواجه شده است"
+                                                            },
+                                                            "summery": {
+                                                                "type": "string",
+                                                                "description": "خلاصه خطا"
+                                                            },
+                                                            "detail": {
+                                                                "type": "string",
+                                                                "description": "جزئیات خطا"
+                                                            }
+                                                        }
+                                                    },
+                                                    "description": "جزئیات خطا"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": {
+                                                "code": "string",
+                                                "message": "string",
+                                                "timestamp": "string",
+                                                "domain": "string",
+                                                "errors": [
+                                                    {
+                                                        "name": "string",
+                                                        "summery": "string",
+                                                        "detail": "string"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "requestIdentifier": {
+                                        "type": "string",
+                                        "description": "شماره درخواست"
+                                    },
+                                    "lastDateChange": {
+                                        "type": "string",
+                                        "description": "تاریخ تغییر و تسویه"
+                                    },
+                                    "bankCode": {
+                                        "type": "string",
+                                        "description": "کد بانک"
+                                    },
+                                    "branchCode": {
+                                        "type": "string",
+                                        "description": "کد شعبه"
+                                    },
+                                    "actionCode": {
+                                        "type": "string",
+                                        "description": "کد عمل"
+                                    },
+                                    "originalDebtBalance": {
+                                        "type": "number",
+                                        "description": "مانده بدهی کل- اصل"
+                                    },
+                                    "profitDebtBalance": {
+                                        "type": "number",
+                                        "description": "مانده بدهی کل- سود"
+                                    },
+                                    "originalOverDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده معوق- اصل"
+                                    },
+                                    "originalPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده سررسید گذشته - اصل"
+                                    },
+                                    "originalDoubtfulBalance": {
+                                        "type": "number",
+                                        "description": "مانده مشکوک الوصول- اصل"
+                                    },
+                                    "profitDoubtfulBalance": {
+                                        "type": "number",
+                                        "description": "مانده مشکوک الوصول- سود"
+                                    },
+                                    "profitOverDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده معوق-سود"
+                                    },
+                                    "destroyBalance": {
+                                        "type": "number",
+                                        "description": "مانده سوخت اصل"
+                                    },
+                                    "profitPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده سررسید گذشته-- سود"
+                                    },
+                                    "defermentPenaltyBalance": {
+                                        "type": "number",
+                                        "description": "وجه التزام تاخیر تادیه دین"
+                                    },
+                                    "latePaymentPenalties": {
+                                        "type": "number",
+                                        "description": "هزینه پیگیری و وصول مطالبات(جریمه دیرکرد)"
+                                    },
+                                    "profitRemainedGovernmentBalance": {
+                                        "type": "number",
+                                        "description": "سود مانده تعهد دولت براساس قرارداد تسهیلات"
+                                    },
+                                    "originalGovernmentRemainedBalance": {
+                                        "type": "number",
+                                        "description": "اصل مانده تعهد دولت براساس قرارداد تسهیلات"
+                                    },
+                                    "remainedInstallmentsPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ کل اقساط سررسید شده پرداخت نشده"
+                                    },
+                                    "remainedInstallmentsPastDueCount": {
+                                        "type": "number",
+                                        "description": "تعداد کل اقساط سررسید شده پرداخت نشده"
+                                    },
+                                    "originalProfitPaidBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ بازپرداخت مشتری از سود"
+                                    },
+                                    "originalPaidBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ بازپرداخت مشتری از اصل"
+                                    },
+                                    "remainedInstallmentBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ اقساط باقیمانده \n(سررسید نشده)"
+                                    },
+                                    "profitWatchBalance": {
+                                        "type": "number",
+                                        "description": "سود مانده بدهی سررسید شده و پرداخت نشده قبل از 2 ماه"
+                                    },
+                                    "originalWatchBalance": {
+                                        "type": "number",
+                                        "description": "اصل مانده بدهی سررسید شده و پرداخت نشده قبل از 2 ماه"
+                                    },
+                                    "remainedInstallmentCount": {
+                                        "type": "number",
+                                        "description": "تعداد اقساط باقیمانده (سررسید نشده)"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": ""
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "summary": "سرویس ارسال اطلاعات و تسویه تسهیلات"
+            }
+        }
+    },
+    "components": {
+        "schemas": {},
+        "securitySchemes": {}
+    }
+}

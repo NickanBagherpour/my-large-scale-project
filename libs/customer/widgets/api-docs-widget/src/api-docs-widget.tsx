@@ -13,11 +13,11 @@ const ApiDocsWidget: React.FC<PageProps> = (props) => {
   loadTr({ en, fa });
 
   return (
-    <WidgetWrapper>
-      <AppProvider>
-        <App parentProps={props.parentProps} />
-      </AppProvider>
-    </WidgetWrapper>
+    // <WidgetWrapper>
+    <AppProvider>
+      <App parentProps={props.parentProps} />
+    </AppProvider>
+    // </WidgetWrapper>
   );
 };
 
