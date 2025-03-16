@@ -79,6 +79,7 @@ const ClientReports: React.FC<ClientReportsProps> = (props) => {
         pagination={{ pageSize: pagination.rowsPerPage }}
         onChange={handlePageChange}
         rowKey={(row) => row.clientKey}
+        minHeight={'auto'}
       />
       {!!clientDetailsToView && (
         <ClientDetailsModal

@@ -72,7 +72,8 @@ const Services: React.FC<ServicesProps> = (props) => {
         hasContainer={false}
         pagination={{ pageSize: pagination.rowsPerPage }}
         onChange={handlePageChange}
-        rowKey={() => uuid()}
+        rowKey={(row) => `${row?.clientId}-${row?.clientGatewayId}`}
+        minHeight={'auto'}
       />
     </S.TableContainer>
   );
