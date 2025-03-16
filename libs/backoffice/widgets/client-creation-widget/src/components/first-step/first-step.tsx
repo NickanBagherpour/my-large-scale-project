@@ -184,7 +184,14 @@ export const FirstStep: React.FC<FirstStepProps> = (props) => {
     });
   };
 
-  const representative = state.firstStep.organizationInfo.representative;
+  const representative = state.firstStep.organizationInfo?.representative ?? [
+    {
+      nameAndLastName: undefined,
+      mobileNumber: undefined,
+      fixedPhoneNumber: undefined,
+      representativeType: undefined,
+    },
+  ];
   const repTypeMap = {
     1: 'legal',
     2: 'technical',
