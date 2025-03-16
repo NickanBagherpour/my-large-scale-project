@@ -16,13 +16,16 @@ export const HeaderContainer = styled.header`
 `;
 
 export const HeaderTitle = styled.h1`
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 600;
   margin: 0;
   color: ${(p) => p.theme.primary.main};
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  a {
+    display: flex;
+  }
   ${respondTo.down('md')} {
     span {
       display: none;

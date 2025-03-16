@@ -20,20 +20,20 @@ const App: React.FC<AppProps> = (props) => {
 
   const API_OPTIONS: ApiOption[] = [
     {
-      label: t('statement'),
-      value: 'STATEMENT',
+      label: t('auth'),
+      value: 'AUTH',
     },
     {
-      label: t('loan_service'),
-      value: 'LOAN_SERVICE',
+      label: t('statement'),
+      value: 'STATEMENT',
     },
     {
       label: t('transfer'),
       value: 'TRANSFER',
     },
     {
-      label: t('auth'),
-      value: 'AUTH',
+      label: t('loan_service'),
+      value: 'LOAN_SERVICE',
     },
   ];
 
