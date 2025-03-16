@@ -1,3 +1,4 @@
+import type React from 'react';
 import 'styled-components';
 
 import { ITheme } from './libs/types/src';
@@ -36,4 +37,10 @@ declare global {
       METABASE_SECRET_KEY: string;
     }
   }
+
+  // declare namespace JSX {
+  //   interface IntrinsicElements {
+  //     'elements-api': any;
+  //   }
+  // }
 }
