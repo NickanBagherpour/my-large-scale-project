@@ -118,9 +118,9 @@ const ScopeCreation: React.FC<EditScopeProps> = (props) => {
               name={FORM_ITEM_NAMES.persianNameScope}
               className={'span-2'}
               label={t('form.persian_name_scope')}
-              rules={[rule]}
+              // rules={[rule]}
             >
-              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.persian_name')} />
+              <Input maxLength={MAX_LENGTH_INPUT} placeholder={t('placeholder.persian_name')} disabled />
             </Form.Item>
           </SearchItemsContainer>
         </Form>
