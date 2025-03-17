@@ -32,7 +32,7 @@ export const createAppSchema = (t: TFunction) => {
         z.object(
           {
             [SPECIAL_TARIFF_NAMES.from]: validationSchema.money,
-            [SPECIAL_TARIFF_NAMES.to]: validationSchema.money,
+            [SPECIAL_TARIFF_NAMES.to]: validationSchema.countOrStar,
             [SPECIAL_TARIFF_NAMES.minimum]: validationSchema.money,
             [SPECIAL_TARIFF_NAMES.maximum]: validationSchema.money,
             [SPECIAL_TARIFF_NAMES.percent]: validationSchema.percent,
@@ -47,7 +47,7 @@ export const createAppSchema = (t: TFunction) => {
         z.object(
           {
             [TIERED_TARIFF_NAMES.from]: validationSchema.count,
-            [TIERED_TARIFF_NAMES.to]: validationSchema.count,
+            [TIERED_TARIFF_NAMES.to]: validationSchema.countOrStar,
             [TIERED_TARIFF_NAMES.tariff]: validationSchema.money,
           },
           { message: t('validation.required') }

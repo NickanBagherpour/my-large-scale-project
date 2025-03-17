@@ -34,7 +34,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
     initialValues = {
       [GENERAL_INFO_NAMES.serviceName]: serviceName,
       [GENERAL_INFO_NAMES.persianServiceName]: servicePersianName,
-      [GENERAL_INFO_NAMES.serviceType]: defaultStrNum(aggregationType) as any,
+      [GENERAL_INFO_NAMES.serviceType]: +defaultStrNum(aggregationType),
       [GENERAL_INFO_NAMES.bankingSharePct]: defaultStrNum(bankingShare),
       [GENERAL_INFO_NAMES.opsTeamSharePct]: defaultStrNum(operationShare),
       [GENERAL_INFO_NAMES.fieldNameInElastic]: defaultStr(fieldName),

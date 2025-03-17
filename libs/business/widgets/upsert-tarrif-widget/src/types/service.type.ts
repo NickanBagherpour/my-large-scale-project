@@ -1,5 +1,3 @@
-import { Nullable } from '@oxygen/types';
-
 export type PostTariffParams = {
   serviceName: string;
   bankingShare: number;
@@ -13,12 +11,12 @@ export type PostTariffParams = {
   fee?: number;
   feeSteps?: {
     fromRate: number;
-    toRate: number;
+    toRate: string;
     fee: number;
   }[];
   transactionFees?: {
     fromRate: number;
-    toRate: number;
+    toRate: string;
     percent: number;
     min: number;
     max: number;
