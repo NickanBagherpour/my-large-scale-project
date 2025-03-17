@@ -57,7 +57,7 @@ const App = () => {
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
     const params = prepareParams(values);
 
-    if (feeData) {
+    if (feeData?.feeType) {
       updateTarrif(params, {
         async onSuccess() {
           notification.success({ message: t('edit_was_successful') });
