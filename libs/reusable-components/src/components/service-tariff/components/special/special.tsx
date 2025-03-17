@@ -1,5 +1,4 @@
 import { useTr } from '@oxygen/translation';
-import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
