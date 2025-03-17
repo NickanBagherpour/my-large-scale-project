@@ -7,6 +7,7 @@ import { Input } from '@oxygen/ui-kit';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { use } from 'react';
 import { Container, TrashBtn, Article, Index } from '../input-row/input-row.style';
+import * as S from './special.style';
 
 type Props = {
   rules: RuleRender[];
@@ -47,7 +48,10 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={rules}>
-                    <Input placeholder={t('reusable.percent')} />
+                    <Input
+                      placeholder={t('reusable.percent')}
+                      addonAfter={<S.Icon className='icon-percentage-circle' />}
+                    />
                   </Form.Item>
 
                   <span>{t('reusable.tariff_percent_min')}</span>
