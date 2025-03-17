@@ -1,0 +1,879 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "",
+        "description": "",
+        "version": ""
+    },
+    "servers": [
+        {
+            "url": "http://uat.developer.oxygenpro.ir/api"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Account-based",
+            "description": "",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
+        },
+        {
+            "name": "transfer",
+            "description": "",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
+        }
+    ],
+    "paths": {
+        "/mq-statement/v2/online-statement": {
+            "post": {
+                "summary": "سرویس صورتحساب آنلاین",
+                "description": "این سرویس به منظور دریافت اطلاعات تراکنش های حساب میباشد\r\nبرای تراکنش های روز جاری اطلاعات از بستر \r\nMQ\r\nشرکت خدمات انفورماتیک و برای سایر تراکنش ها اطلاعات از انبار داده استخراج میشود.\r\n\r\n Scope: svc-mgmt-mq-stmt-info",
+                "tags": ["Account-based"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Authorization",
+                        "description": "برای استفاده از این سرویس ها بایستی ابتدا توکن دسترسی را از سرورهای احراز هویت بانک ملی دریافت نموده و سپس در بخش هدر درخواست ها خود ارسال نمایید.\n",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "Content-Type",
+                        "description": "نوع محتوا",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "null"
+                                        },
+                                        "response": {
+                                            "type": "object",
+                                            "properties": {
+                                                "accountStatementResponse": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "transactionDateTime": {
+                                                                "type": "string",
+                                                                "description": "تاریخ و زمان تراکنش"
+                                                            },
+                                                            "transactionTraceCode": {
+                                                                "type": "string",
+                                                                "description": "شماره پیگیری تراکنش"
+                                                            },
+                                                            "creditDebit": {
+                                                                "type": "string",
+                                                                "description": "نوع تراکنش از نظر واریز/ برداشت\r\nDEBIT/CREDIT"
+                                                            },
+                                                            "branchCode": {
+                                                                "type": "number",
+                                                                "description": "کد شعبه عامل"
+                                                            },
+                                                            "operatorCode": {
+                                                                "type": "string",
+                                                                "description": "کد اپراتور"
+                                                            },
+                                                            "additionalData1": {
+                                                                "type": "string",
+                                                                "description": "اطلاعات تکمیلی اول"
+                                                            },
+                                                            "additionalData2": {
+                                                                "type": "string",
+                                                                "description": "اطلاعات تکمیلی دوم"
+                                                            },
+                                                            "transactionCode": {
+                                                                "type": "string",
+                                                                "description": "کد تراکنش"
+                                                            },
+                                                            "realDateTime": {
+                                                                "type": "string",
+                                                                "description": "تاریخ و زمان مالی تراکنش"
+                                                            },
+                                                            "amount": {
+                                                                "type": "number",
+                                                                "description": "مبلغ تراکنش"
+                                                            },
+                                                            "balance": {
+                                                                "type": "number",
+                                                                "description": "مانده تراکنش"
+                                                            },
+                                                            "channelType": {
+                                                                "type": "string",
+                                                                "description": "درگاه تراکنش"
+                                                            },
+                                                            "categoryId": {
+                                                                "type": "string",
+                                                                "description": "شناسه دسته تراکنش در سامانه بام"
+                                                            },
+                                                            "comment": {
+                                                                "type": "string",
+                                                                "description": "توضیحات ثبت شده توسط مشتری"
+                                                            },
+                                                            "hyperLinkType": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "0": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "1": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های سرجمع سدادی"
+                                                                    },
+                                                                    "2": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های برداشت پایا"
+                                                                    },
+                                                                    "3": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز پایا"
+                                                                    },
+                                                                    "4": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های برگشتی پایا"
+                                                                    },
+                                                                    "5": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های خرید توسط کارت از درگاه اینترنتی یا دستگاه \r\nPOS"
+                                                                    },
+                                                                    "6": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز پایا"
+                                                                    },
+                                                                    "7": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های سرجممع شاپرکی غیر سدادی"
+                                                                    },
+                                                                    "8": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز و برداشت ساتننا"
+                                                                    },
+                                                                    "field_0": {
+                                                                        "type": "string",
+                                                                        "description": "در تراکنش های روز جاری مقدار این فیلد \r\nNULL\r\n نمایش داده میشود."
+                                                                    }
+                                                                },
+                                                                "description": "نوع لینک تراکنش",
+                                                                "required": [
+                                                                    "1",
+                                                                    "2",
+                                                                    "3",
+                                                                    "4",
+                                                                    "5",
+                                                                    "6",
+                                                                    "7",
+                                                                    "8",
+                                                                    "0",
+                                                                    "field_0"
+                                                                ]
+                                                            },
+                                                            "rowNumber": {
+                                                                "type": "number",
+                                                                "description": "شماره ردیف"
+                                                            },
+                                                            "origKey": {
+                                                                "type": "string",
+                                                                "description": "کلید تراکنش \r\n(از دو مقدار زمان، کد پیگیری تشکیل شده است که تنها برای تراکنش های روز جاری مقدار داشته و درباقی موارد مقدار آن \r\nNULL\r\nمیباشد)"
+                                                            },
+                                                            "channelDateTime": {
+                                                                "type": "string",
+                                                                "description": "زمان تراکنش در کانال"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "transactionDateTime",
+                                                            "transactionTraceCode",
+                                                            "creditDebit",
+                                                            "branchCode",
+                                                            "رودبارجنوب ",
+                                                            "operatorCode",
+                                                            "additionalData1",
+                                                            "additionalData2",
+                                                            "transactionCode",
+                                                            "انتقالی ازکارت ",
+                                                            "realDateTime",
+                                                            "amount",
+                                                            "balance",
+                                                            "channelType",
+                                                            "categoryId",
+                                                            "comment",
+                                                            "hyperLinkType",
+                                                            "rowNumber",
+                                                            "origKey",
+                                                            "channelDateTime",
+                                                            "field_0"
+                                                        ]
+                                                    }
+                                                },
+                                                "outputRecordCount": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": null,
+                                            "response": {
+                                                "accountStatementResponse": [
+                                                    {
+                                                        "transactionDateTime": "string",
+                                                        "transactionTraceCode": "string",
+                                                        "creditDebit": "string",
+                                                        "branchCode": 0,
+                                                        "operatorCode": "string",
+                                                        "additionalData1": "string",
+                                                        "additionalData2": "string",
+                                                        "transactionCode": "string",
+                                                        "realDateTime": "string",
+                                                        "amount": 0,
+                                                        "balance": 0,
+                                                        "channelType": "string",
+                                                        "categoryId": "string",
+                                                        "comment": "string",
+                                                        "hyperLinkType": {
+                                                            "0": "string",
+                                                            "1": "string",
+                                                            "2": "string",
+                                                            "3": "string",
+                                                            "4": "string",
+                                                            "5": "string",
+                                                            "6": "string",
+                                                            "7": "string",
+                                                            "8": "string",
+                                                            "field_0": "string"
+                                                        },
+                                                        "rowNumber": 0,
+                                                        "origKey": "string",
+                                                        "channelDateTime": "string"
+                                                    }
+                                                ],
+                                                "outputRecordCount": 0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "headers": {
+                            "Number": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Code": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Message": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Timestamp": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Errors": {
+                                "description": "",
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "description": "این کد به صورت رشته میباشد\r\nبه عنوان مثال:\r\nCONSTRAINT_VIOLATION_EXCEPTION"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "timestamp": {
+                                                    "type": "string",
+                                                    "description": "تاریخ با فرمت \r\nyyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                                                },
+                                                "errors": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Name": {
+                                                            "type": "string",
+                                                            "description": "نام فیلدی که در اعتبارسنجی با خطا مواجه شده است"
+                                                        },
+                                                        "Summary": {
+                                                            "type": "string",
+                                                            "description": "خلاصه خطا"
+                                                        },
+                                                        "Detail": {
+                                                            "type": "string",
+                                                            "description": "جزئیات خطا"
+                                                        }
+                                                    },
+                                                    "description": "این فیلد در هنگام ایجاد خطا در اعتبارسنجی مقادیر ورودی پر میشود",
+                                                    "required": [
+                                                        "Name",
+                                                        "Summary",
+                                                        "Detail"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": {
+                                                "code": "string",
+                                                "message": "string",
+                                                "timestamp": "string",
+                                                "domain": "string",
+                                                "errors": ["string"]
+                                            },
+                                            "response": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "offsetNumber": {
+                                        "type": "number",
+                                        "description": "شماره آفست \r\nپیش فرض : 1"
+                                    },
+                                    "offsetLength": {
+                                        "type": "number",
+                                        "description": "طول آفست \r\nپیش فرض : 20"
+                                    },
+                                    "accountNumber": {
+                                        "type": "string",
+                                        "description": "شماره حساب"
+                                    },
+                                    "dateTimeRange": {
+                                        "type": "object",
+                                        "properties": {
+                                            "fromDateTime": {
+                                                "type": "string"
+                                            },
+                                            "toDateTime": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "description": "بازه تاریخ و زمان "
+                                    },
+                                    "traceNumber": {
+                                        "type": "string",
+                                        "description": "شماره پیگیری تراکنش"
+                                    },
+                                    "amountRange": {
+                                        "type": "object",
+                                        "properties": {
+                                            "fromAmount": {
+                                                "type": "integer",
+                                                "description": "از مبلغ"
+                                            },
+                                            "toAmount": {
+                                                "type": "integer",
+                                                "description": "تا مبلغ"
+                                            }
+                                        },
+                                        "description": "بازه مبلغ",
+                                        "required": ["fromAmount", "toAmount"]
+                                    },
+                                    "channel": {
+                                        "type": "string",
+                                        "description": "کانال، یکی از مقادیر \r\npos/internet/teller/atm/pinpad/UNKN\r\nOWN"
+                                    },
+                                    "creditDebit": {
+                                        "type": "string",
+                                        "description": "نوع تراکنش از نظر واریز/برداشت، یکی از مقادیر: \r\nDEBIT/CREDIT"
+                                    },
+                                    "branchCode": {
+                                        "type": "integer",
+                                        "description": "کد شعبه"
+                                    },
+                                    "sortType": {
+                                        "type": "integer",
+                                        "description": "نوع مرتب سازی تراکنش ها جهت ارائه خروجی \r\n)در حالت پیش فرض یا صفر: نزولی، مقدار یک: \r\nصعودی("
+                                    },
+                                    "categoryId": {
+                                        "type": "integer",
+                                        "description": "شناسه دسته تراکنش"
+                                    },
+                                    "languageType": {
+                                        "type": "string",
+                                        "description": "نوع زبان، یکی از مقادیر \r\nFARSI فارسی\r\nENGLISH انگلیسی"
+                                    }
+                                },
+                                "required": [
+                                    "accountNumber",
+                                    "creditDebit",
+                                    "field_0"
+                                ]
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "offsetNumber": 0,
+                                        "offsetLength": 0,
+                                        "accountNumber": "string",
+                                        "dateTimeRange": {
+                                            "fromDateTime": "string",
+                                            "toDateTime": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "0003"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Statement-Request": {
+                "type": "object",
+                "properties": {
+                    "offsetNumber": {
+                        "type": "string",
+                        "description": "شماره آفست "
+                    },
+                    "offsetLength": {
+                        "type": "string",
+                        "description": "طول آفست"
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "description": "شماره حساب"
+                    },
+                    "dateTimeRange": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "description": "از تاریخ و زمان"
+                            },
+                            {
+                                "type": "string",
+                                "description": "تا تاریخ و زمان"
+                            }
+                        ],
+                        "description": "بازه تاریخ و زمان"
+                    },
+                    "traceNumber": {
+                        "type": "string",
+                        "description": "شماره پیگی ری تراکنش "
+                    },
+                    "amountRange": {
+                        "type": "string",
+                        "description": "بازه مبلغ"
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "کانال، یکی از مقادیر: \r\npos/internet/teller/atm/pinpad/UNKN\r\nOWN"
+                    },
+                    "creditDebit": {
+                        "type": "string",
+                        "description": "نوع تراکنش از نظر واریز/برداشت، یکی از مقادیر: \r\nDEBIT/CREDIT"
+                    },
+                    "branchCode": {
+                        "type": "integer"
+                    },
+                    "sortType": {
+                        "type": "integer",
+                        "description": "وع مرتب سازی تراکنش ها جهت ارائه خروجی \r\n)در حالت پیش فرض یا صفر: نزولی، مقدار یک: \r\nصعودی)"
+                    },
+                    "categoryId": {
+                        "type": "string",
+                        "description": "شناسه دسته تراکنش "
+                    },
+                    "languageType": {
+                        "type": "string",
+                        "description": "نوع زبان، یکی از مقادیر FARSI(فارسی(/\r\nENGLISH(انگلیسی)"
+                    }
+                },
+                "required": [
+                    "offsetNumber",
+                    "offsetLength",
+                    "accountNumber",
+                    "dateTimeRange",
+                    "traceNumber",
+                    "amountRange",
+                    "channel",
+                    "creditDebit",
+                    "branchCode",
+                    "sortType",
+                    "categoryId",
+                    "languageType",
+                    "field_0"
+                ],
+                "description": "ساختار Request"
+            },
+            "DateTimeRange": {
+                "type": "object",
+                "properties": {
+                    "dateTimeRange": {
+                        "type": "string",
+                        "enum": ["fromDateTime", "toDateTime"]
+                    }
+                },
+                "required": ["dateTimeRange"]
+            },
+            "AmountRange": {
+                "type": "object",
+                "properties": {
+                    "AmountRange": {
+                        "type": "string",
+                        "enum": ["fromAmount", "toAmount"],
+                        "description": "از مبلغ/ تا مبلغ"
+                    }
+                },
+                "required": ["AmountRange"]
+            },
+            "AccountStatementResponse": {
+                "type": "object",
+                "properties": {
+                    "transactionDateTime": {
+                        "type": "string",
+                        "description": "تاریخ و زمان تراکنش"
+                    },
+                    "transactionTraceCode": {
+                        "type": "string",
+                        "description": "شماره پیگیری تراکنش"
+                    },
+                    "creditDebit": {
+                        "type": "string",
+                        "enum": ["DEBIT", "CREDIT"],
+                        "description": "نوع تراکنش: واریز/ برداشت"
+                    },
+                    "branchCode": {
+                        "type": "integer",
+                        "description": "کد شعبه عامل"
+                    },
+                    "branchName": {
+                        "type": "string",
+                        "description": "نام شعبه عامل"
+                    },
+                    "operatorCode": {
+                        "type": "string",
+                        "description": "کد اپراتور"
+                    },
+                    "additionalData1": {
+                        "type": "string",
+                        "description": "اطلاعات تکمیلی اول"
+                    },
+                    "additionalData2": {
+                        "type": "string",
+                        "description": "اطلاعات تکمیلی دوم"
+                    },
+                    "transactionCode": {
+                        "type": "string",
+                        "description": "کد تراکنش"
+                    },
+                    "transactionDescription": {
+                        "type": "string",
+                        "description": "شرح تراکنش"
+                    },
+                    "realDateTime": {
+                        "type": "string",
+                        "description": "تاریخ و زممان مالی تراکنش"
+                    },
+                    "amount": {
+                        "type": "string",
+                        "description": "مبلغ تراکنش"
+                    },
+                    "balance": {
+                        "type": "string",
+                        "description": "مانده تراکنش"
+                    },
+                    "channelType": {
+                        "type": "string",
+                        "description": "درگاه تراکنش"
+                    },
+                    "categoryId": {
+                        "type": "integer",
+                        "description": "شناسه دسته تراکنش در سامانه بام"
+                    },
+                    "comment": {
+                        "type": "string",
+                        "description": "توضیحات ثبت شده توسط مشتری"
+                    },
+                    "hyperLinkType": {
+                        "type": "string",
+                        "description": "1= تراکنش های سرجمع سدادی، 2=تراکنش های برداشت پایا، 3=تراکنش های واریز پایا، 4=تراکنش های برگشتی پایا،5- تراکنش های خرید توسط کارت از درگاه اینترنتی یا دستگاه پوز،6=تراکنش های واریز پایا،7-تراکنش های سرجمع شاپرکی غیرسدادی،8-تراکنش های واریز و برداشت ساتنا،0= در تراکنش های روز جاری مقدار این فیلد نال نمایش داده میشود",
+                        "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "0"]
+                    },
+                    "rowNumber": {
+                        "type": "string",
+                        "description": "شماره ردیف"
+                    },
+                    "origKey": {
+                        "type": "string",
+                        "description": "کلید تراکنش \r\n(از دو مقدار زمان، کد پیگیری تشکیل شده است که تنها برای تراکنش های روز جاری مقدار داشته و در باقی موارد مقدار آن null)میباشد"
+                    },
+                    "channelDateTime": {
+                        "type": "string",
+                        "description": "زمان تراکنش در کانال"
+                    }
+                },
+                "required": [
+                    "transactionDateTime",
+                    "transactionTraceCode",
+                    "creditDebit",
+                    "branchCode",
+                    "branchName",
+                    "operatorCode",
+                    "additionalData2",
+                    "transactionCode",
+                    "additionalData1",
+                    "transactionDescription",
+                    "realDateTime",
+                    "amount",
+                    "balance",
+                    "channelType",
+                    "categoryId",
+                    "comment",
+                    "hyperLinkType",
+                    "rowNumber",
+                    "origKey",
+                    "channelDateTime"
+                ]
+            },
+            "ErrorData": {
+                "type": "object",
+                "properties": {
+                    "Name": {
+                        "type": "string",
+                        "description": "نام فیلد"
+                    },
+                    "Summary": {
+                        "type": "string",
+                        "description": "خلاصه خطا "
+                    },
+                    "Detail": {
+                        "type": "string",
+                        "description": "جزئیات خطا"
+                    }
+                },
+                "required": ["Name", "Summary", "Detail"]
+            },
+            "Tracking a Money Transfer": {
+                "type": "object",
+                "properties": {
+                    "Items": {
+                        "type": "string",
+                        "description": "لیست تراکنش \r\nbatch ,recurring"
+                    },
+                    "scheduledTransfer": {
+                        "type": "string",
+                        "description": "نوع تراکنش"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "GUID"
+                    },
+                    "alias": {
+                        "type": "string",
+                        "description": "عنوان"
+                    },
+                    "accountId": {
+                        "type": "string",
+                        "description": "شماره حساب مبدا"
+                    },
+                    "instructedAmount": {
+                        "type": "integer",
+                        "description": "مبلغ"
+                    },
+                    "instructedCurrency": {
+                        "type": "string",
+                        "description": "IRR"
+                    },
+                    "counterpartyName": {
+                        "type": "string",
+                        "description": "نام صاحب مقصد"
+                    },
+                    "counterpartyAccount": {
+                        "type": "string",
+                        "description": "شماره حساب مقصد"
+                    },
+                    "paymentReference": {
+                        "type": "string",
+                        "description": "شنناسه واریز"
+                    },
+                    "paymentDescription": {
+                        "type": "string",
+                        "description": "توضیحات"
+                    },
+                    "method": {
+                        "type": "string",
+                        "enum": [
+                            "PAYA",
+                            "SATNA",
+                            "POL",
+                            "INTER_ACCOUNTS",
+                            "INTRA_BANK"
+                        ],
+                        "description": "نوع انتقال پول"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "حالت انتقال پول",
+                        "enum": ["SINGLE"]
+                    },
+                    "totalAmount": {
+                        "type": "integer",
+                        "description": "مبلغ کل انتقالی"
+                    },
+                    "totalCount": {
+                        "type": "integer",
+                        "description": "تعداد تراکنش ها"
+                    },
+                    "creatorName": {
+                        "type": "string",
+                        "description": "نام ایجادکننده انتتقال پول"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "وضعیت انتقال پول",
+                        "enum": [
+                            "FAILED",
+                            "SUCCEEDED",
+                            "REGISTERED",
+                            "RECEIVED",
+                            "PROCESSING"
+                        ]
+                    },
+                    "initiationDateTime": {
+                        "type": "string",
+                        "description": "تاریخ ایجاد تراکنش"
+                    },
+                    "updateDateTime": {
+                        "type": "string",
+                        "description": "تاریخ آخرین تغییرات"
+                    },
+                    "onDate": {
+                        "type": "string",
+                        "description": "تاریخ روز"
+                    },
+                    "confirmationDateTime": {
+                        "type": "string",
+                        "description": "زمان تایید تراکنش"
+                    },
+                    "traceNo": {
+                        "type": "string",
+                        "description": "شماره پیگیری"
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "description": "کد پاسخ"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "description": "پیغام پاسخ"
+                    },
+                    "archived": {
+                        "type": "boolean",
+                        "description": "بایگانی شده"
+                    },
+                    "creatorSSN": {
+                        "type": "string",
+                        "description": "کدملی ایجادکننده انتقال پول"
+                    }
+                },
+                "required": [
+                    "Items",
+                    "scheduledTransfer",
+                    "id",
+                    "alias",
+                    "accountId",
+                    "instructedAmount",
+                    "instructedCurrency",
+                    "counterpartyName",
+                    "counterpartyAccount",
+                    "paymentReference",
+                    "paymentDescription",
+                    "method",
+                    "mode",
+                    "totalAmount",
+                    "totalCount",
+                    "creatorName",
+                    "status",
+                    "initiationDateTime",
+                    "updateDateTime",
+                    "onDate",
+                    "confirmationDateTime",
+                    "traceNo",
+                    "responseCode",
+                    "responseMessage",
+                    "archived",
+                    "creatorSSN"
+                ]
+            }
+        },
+        "requestBodies": {},
+        "securitySchemes": {
+            "petstore_auth": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+                        "scopes": {
+                            "write:pets": "modify pets in your account",
+                            "read:pets": "read your pets"
+                        }
+                    }
+                }
+            },
+            "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+            }
+        }
+    }
+}

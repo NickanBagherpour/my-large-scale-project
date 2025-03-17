@@ -213,4 +213,16 @@ export const customerMenu = [
     parentId: null,
     children: [],
   },
+  {
+    id: 2,
+    title: 'مستندات API',
+    order: 2,
+    href: ROUTES.CUSTOMER.DOCS_API,
+    icon: 'icon-cloud',
+    size: 'default',
+    active: true,
+    description: null,
+    parentId: null,
+    children: [],
+  },
 ];

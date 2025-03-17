@@ -48,6 +48,7 @@ import { KEYS as CLIENTS_REPORT_KEYS } from './portals/business/clients-report.k
 import { KEYS as CLIENT_SERVICES } from './portals/business/client-services.key';
 
 /*--import-customer--*/
+import { KEYS as API_DOCS_KEYS } from './portals/customer/api-docs.key';
 import { KEYS as CUSTOMER_DASHBOARD_KEYS } from './portals/customer/customer-dashboard.key';
 import { KEYS as REQUEST_DETAILS_INFO_KEYS } from './portals/customer/request-details-info.key';
 import { KEYS as REQUEST_MANAGEMENT_KEYS } from './portals/customer/request-management.key';
@@ -131,6 +132,7 @@ export const RQKEYS = {
   CUSTOMER: {
     REQUEST: 'request',
     /*--export-customer--*/
+    API_DOCS: API_DOCS_KEYS,
     LANDING: LANDING_KEYS,
     DASHBOARD: CUSTOMER_DASHBOARD_KEYS,
     AUTH: CUSTOMER_AUTH_KEYS,

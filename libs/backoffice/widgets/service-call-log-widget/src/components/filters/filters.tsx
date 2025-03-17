@@ -66,19 +66,21 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const disabled30DaysDate = (current: Dayjs | null): boolean => {
     if (!current) return false;
 
+    // console.log(current, 'current');
+
     const today = dayjs();
     const minDate = today.subtract(30, 'days');
-    const maxDate = today.add(30, 'days');
+    const maxDate = today.add(0, 'days');
 
     return current.isBefore(minDate.startOf('day')) || current.isAfter(maxDate.endOf('day'));
   };
 
   const statusOptions = [
-    { value: '1', label: 'range (100, 199)' },
-    { value: '2', label: 'range (200, 299)' },
-    { value: '3', label: 'range (300, 499)' },
-    { value: '4', label: 'range (400, 499)' },
-    { value: '5', label: 'range (500, 599)' },
+    { value: '1', label: t('range_100_to_199') },
+    { value: '2', label: t('range_200_to_299') },
+    { value: '3', label: t('range_300_to_399') },
+    { value: '4', label: t('range_400_to_499') },
+    { value: '5', label: t('range_500_to_599') },
   ];
 
   return (
