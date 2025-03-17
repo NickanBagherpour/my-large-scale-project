@@ -14,13 +14,14 @@ export const createAppSchema = (t: TFunction) => {
 
   return z.object({
     [GENERAL_INFO_NAMES.serviceName]: validationSchema.english,
-    [GENERAL_INFO_NAMES.persianServiceName]: validationSchema.english,
+    [GENERAL_INFO_NAMES.persianServiceName]: validationSchema.required,
     [GENERAL_INFO_NAMES.bankingSharePct]: num,
     [GENERAL_INFO_NAMES.opsTeamSharePct]: num,
 
     [GENERAL_INFO_NAMES.serviceType]: validationSchema.idSelection,
     [GENERAL_INFO_NAMES.fieldNameInElastic]: validationSchema.required,
     [GENERAL_INFO_NAMES.transactionTypeInElastic]: validationSchema.required,
+    [GENERAL_INFO_NAMES.transferTypeParamElastic]: validationSchema.required,
 
     [TARIFF.type]: validationSchema.required,
 

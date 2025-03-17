@@ -16,7 +16,7 @@ import { getInitialValues } from '../../utils/get-initial-data';
 import { useQueryClient } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
 
-const { TARIFF_LIST, TARIFF_DETAILS, UPSERT_TARRIF } = RQKEYS.BUSINESS;
+const { TARIFF_LIST, TARIFF_DETAILS } = RQKEYS.BUSINESS;
 
 const App = () => {
   const [t] = useTr();

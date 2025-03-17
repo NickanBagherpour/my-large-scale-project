@@ -13,6 +13,7 @@ export function prepareParams(values: AppSchemaType) {
     tiered,
     fixed,
     type,
+    transferTypeParamElastic,
   } = values;
 
   let params: PostTariffParams = {
@@ -23,6 +24,7 @@ export function prepareParams(values: AppSchemaType) {
     type: transactionTypeInElastic + '',
     aggregationType: serviceType + '',
     fieldName: fieldNameInElastic,
+    typeFieldName: transferTypeParamElastic,
 
     feeType: feeTypeMap[type],
   };

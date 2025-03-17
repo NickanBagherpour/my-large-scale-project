@@ -6,6 +6,7 @@ export type PostTariffParams = {
   aggregationType: string;
   fieldName: string;
   type: string;
+  typeFieldName: string;
 
   fee?: number;
   feeSteps?: {
@@ -44,6 +45,7 @@ export type Fee = {
   aggregationType: number;
   fieldName: string;
   type: string;
+  typeFieldName: string;
 };
 
 export type GetServiceParams = {

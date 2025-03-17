@@ -20,6 +20,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
       operationShare,
       aggregationType,
       transactionFees,
+      typeFieldName,
     } = feeData;
 
     initialValues = {
@@ -30,6 +31,7 @@ export function getInitialValues(serviceName: string, feeData: Fee | undefined) 
       [GENERAL_INFO_NAMES.opsTeamSharePct]: String(operationShare),
       [GENERAL_INFO_NAMES.fieldNameInElastic]: fieldName,
       [GENERAL_INFO_NAMES.transactionTypeInElastic]: type,
+      [GENERAL_INFO_NAMES.transferTypeParamElastic]: typeFieldName,
       [TARIFF.tiered]: emptyTieredTariff,
       [TARIFF.special]: emptySpecialTariff,
     };
