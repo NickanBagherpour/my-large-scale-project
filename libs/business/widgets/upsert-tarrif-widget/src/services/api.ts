@@ -1,5 +1,5 @@
 import { client, invoiceUrl } from '@oxygen/client';
-import { Fee, PostTariffParams } from '../types';
+import { Fee, GetServiceParams, PostTariffParams } from '../types';
 
 const Api = {
   postServiceFee: async ({ serviceName, ...params }: PostTariffParams) => {
@@ -10,8 +10,10 @@ const Api = {
     return client.put(`${invoiceUrl}/v1/service-fees/service-name/${serviceName}`, params);
   },
 
-  getServiceFee: async (serviceName: string) => {
-    return client.get<Fee>(`${invoiceUrl}/v1/service-fees/service-name/${serviceName}`);
+  getServiceFee: async (params: GetServiceParams) => {
+    return client.get<Fee>(`${invoiceUrl}/v1/service-fees/inquiry`, {
+      params,
+    });
   },
 };
 

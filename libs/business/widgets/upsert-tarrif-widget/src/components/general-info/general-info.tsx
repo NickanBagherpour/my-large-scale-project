@@ -34,8 +34,12 @@ export default function GeneralInfo(props: Props) {
     <S.Section>
       <S.Title>{t('general_info')}</S.Title>
       <BorderedSection>
-        <SearchItemsContainer $columnNumber='3'>
+        <SearchItemsContainer $columnNumber='4'>
           <S.FormItem name={GENERAL_INFO_NAMES.serviceName} label={t('service_name')} rules={[rule]}>
+            <Input disabled />
+          </S.FormItem>
+
+          <S.FormItem name={GENERAL_INFO_NAMES.persianServiceName} label={t('persian_service_name')} rules={[rule]}>
             <Input disabled />
           </S.FormItem>
 
@@ -93,6 +97,14 @@ export default function GeneralInfo(props: Props) {
             rules={[rule]}
           >
             <Input placeholder={t('enter_transaction_type')} />
+          </S.FormItem>
+
+          <S.FormItem
+            name={GENERAL_INFO_NAMES.transferTypeParamElastic}
+            label={t('transfer_type_param_elastic')}
+            rules={[rule]}
+          >
+            <Input placeholder={t('enter_transfer_type_param_elastic')} />
           </S.FormItem>
         </SearchItemsContainer>
       </BorderedSection>

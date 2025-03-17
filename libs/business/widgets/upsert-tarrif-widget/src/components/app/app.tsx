@@ -16,7 +16,7 @@ import { getInitialValues } from '../../utils/get-initial-data';
 import { useQueryClient } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
 
-const { TARIFF_LIST, TARIFF_DETAILS, UPSERT_TARRIF } = RQKEYS.BUSINESS;
+const { TARIFF_LIST, TARIFF_DETAILS } = RQKEYS.BUSINESS;
 
 const App = () => {
   const [t] = useTr();
@@ -26,16 +26,18 @@ const App = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { message } = useAppState();
-  const { data: feeData, isPending: isPendingFeeData } = useGetFee(serviceName);
+  const inquiryParams = { 'service-name': serviceName };
+  const { data: feeData, isPending: isPendingFeeData } = useGetFee(inquiryParams);
   const { mutate: createTariff, isPending: isPendingCreate } = usePostServiceFee();
   const { mutate: updateTarrif, isPending: isPendingEdit } = usePutServiceFee();
+  const { notification } = useApp();
+  const queryClient = useQueryClient();
+
   const widgetTitle = getWidgetTitle({
     primaryTitle: feeData?.servicePersianName,
     secondaryTitle: feeData?.serviceName,
     defaultTitle: t('add_tarrif_setting'),
   });
-  const { notification } = useApp();
-  const queryClient = useQueryClient();
 
   if (!serviceName) {
     return void notFound();
@@ -47,7 +49,7 @@ const App = () => {
     await Promise.all([
       queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.GET_LIST] }),
       queryClient.invalidateQueries({ queryKey: [TARIFF_DETAILS.GET_LIST, serviceName], refetchType: 'inactive' }),
-      queryClient.invalidateQueries({ queryKey: [UPSERT_TARRIF.TARIFF, serviceName], refetchType: 'active' }),
+      queryClient.invalidateQueries({ queryKey: [TARIFF_LIST.INQUIRY, inquiryParams], refetchType: 'active' }),
     ]);
     router.push(ROUTES.BUSINESS.TARIFF_LIST);
   };
@@ -55,7 +57,7 @@ const App = () => {
   const onFinish: FormProps<AppSchemaType>['onFinish'] = (values) => {
     const params = prepareParams(values);
 
-    if (feeData) {
+    if (feeData?.feeType) {
       updateTarrif(params, {
         async onSuccess() {
           notification.success({ message: t('edit_was_successful') });
@@ -80,7 +82,10 @@ const App = () => {
 
       <Form layout='vertical' onFinish={onFinish} form={form} initialValues={initialValues}>
         <GeneralInfo rule={rule} />
-        <ServiceTariff rule={rule} form={form} type='upsert' />
+        <S.Title>{t('reusable.service_tariff')}</S.Title>
+        <S.Section>
+          <ServiceTariff rule={rule} form={form} type='upsert' />
+        </S.Section>
       </Form>
 
       <S.Footer

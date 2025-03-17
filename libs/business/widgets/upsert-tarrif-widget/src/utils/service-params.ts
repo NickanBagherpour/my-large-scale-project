@@ -13,6 +13,7 @@ export function prepareParams(values: AppSchemaType) {
     tiered,
     fixed,
     type,
+    transferTypeParamElastic,
   } = values;
 
   let params: PostTariffParams = {
@@ -23,6 +24,7 @@ export function prepareParams(values: AppSchemaType) {
     type: transactionTypeInElastic + '',
     aggregationType: serviceType + '',
     fieldName: fieldNameInElastic,
+    typeFieldName: transferTypeParamElastic,
 
     feeType: feeTypeMap[type],
   };
@@ -35,7 +37,7 @@ export function prepareParams(values: AppSchemaType) {
     const feeSteps: PostTariffParams['feeSteps'] = tiered.map(({ tariff, to, from }) => ({
       fee: +tariff,
       fromRate: +from,
-      toRate: +to,
+      toRate: to,
     }));
     params = { ...params, feeSteps };
   }
@@ -43,7 +45,7 @@ export function prepareParams(values: AppSchemaType) {
   if (type === 'special') {
     const transactionFees: PostTariffParams['transactionFees'] = special.map(
       ({ to, from, maximum, minimum, percent }) => ({
-        toRate: +to,
+        toRate: to,
         fromRate: +from,
         max: +maximum,
         min: +minimum,
