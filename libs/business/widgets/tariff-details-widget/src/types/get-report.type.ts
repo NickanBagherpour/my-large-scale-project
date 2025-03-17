@@ -1,5 +1,3 @@
-import { FiltersType, PaginationType } from '../context/types';
-
 interface FeeStepType {
   fromRate: number;
   toRate: number;
@@ -26,4 +24,5 @@ export type TariffDetailsType = {
   aggregationType: string;
   fieldName: string;
   type: string;
+  typeFieldName: string;
 };

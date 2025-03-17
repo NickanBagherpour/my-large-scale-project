@@ -4,9 +4,7 @@ import * as S from './general-information.style';
 import { InfoItemType, Nullable, PageProps } from '@oxygen/types';
 import { Button, InfoBox } from '@oxygen/ui-kit';
 import { useTr } from '@oxygen/translation';
-import { useAppDispatch, useAppState } from '../../context';
 import { getValueOrDash, ROUTES } from '@oxygen/utils';
-import { useRouter } from 'next/navigation';
 import { TariffDetailsType } from '../../types';
 import { Form } from 'antd';
 import { getInitialValues } from '../../utils/get-initial-values';
@@ -36,7 +34,16 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
   let generalInfoData: InfoItemType[] = [];
 
   if (data) {
-    const { serviceName, fieldName, bankingShare, operationShare, aggregationType, type, servicePersianName } = data;
+    const {
+      serviceName,
+      fieldName,
+      bankingShare,
+      operationShare,
+      aggregationType,
+      type,
+      servicePersianName,
+      typeFieldName,
+    } = data;
 
     generalInfoData = [
       { key: t('service_english_name'), value: getValueOrDash(serviceName) },
@@ -46,7 +53,7 @@ export const GeneralInformation: React.FC<GeneralInformationProps> = (props) => 
       { key: t('service_type'), value: aggregationType ? typeMap[aggregationType] : null },
       { key: t('field_name_in_elastic'), value: fieldName },
       { key: t('transaction_type_in_elastic'), value: type },
-      { key: t('transfer_type_param_elastic'), value: '****' },
+      { key: t('transfer_type_param_elastic'), value: typeFieldName },
       {
         key: '',
         fullwidth: true,
