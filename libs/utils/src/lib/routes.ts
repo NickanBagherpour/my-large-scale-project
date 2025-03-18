@@ -50,6 +50,7 @@ export const ROUTES = {
     REQUEST_MANAGEMENT: '/request-management',
     REQUEST_REGISTRATION: '/request-registration',
     REQUEST_DETAILS_INFO: '/request-details-info',
+    DOCS_API: '/docs/api',
   },
   BUSINESS: {
     AUTH: '/auth',

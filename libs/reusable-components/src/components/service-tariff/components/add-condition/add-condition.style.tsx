@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { TariffType } from '../../type';
 
 export const Button = styled(UikitButton)<{ $tariffType: TariffType }>`
-  border-radius: 16rem;
+  border-radius: 1.6rem;
   background: ${(p) => p.theme.background.main};
   font-size: 1.4rem;
   width: 100%;

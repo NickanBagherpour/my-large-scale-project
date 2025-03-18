@@ -416,6 +416,18 @@ export const createValidationSchema = (
         message: t('validation.only_digit_message'),
       })
       .max(limits.MONEY, t('validation.max_len', { val: limits.DEFAULT_MAX_LENGTH })),
+
+    countOrStar: z
+      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+      .trim()
+      .refine(
+        (val) => {
+          if (val === '*' || REGEX_PATTERNS.englishOrPersianPositiveNumber.test(val)) {
+            return true;
+          } else return false;
+        },
+        { message: t('validation.only_digit_message') }
+      ),
   };
 
   return validationSchema;

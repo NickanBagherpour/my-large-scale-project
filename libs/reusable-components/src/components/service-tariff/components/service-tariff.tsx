@@ -20,7 +20,8 @@ export function ServiceTariff(props: Props) {
   const { rule, form, type } = props;
   const rules: RuleRender[] = rule ? [rule] : [];
   const [t] = useTr();
-  const tariffType = Form.useWatch([TARIFF.type], form);
+  const tariffType = Form.useWatch([TARIFF.type], form) as TariffType;
+  const hasNotice = type === 'upsert' && (tariffType === 'tiered' || tariffType === 'special');
 
   const inputs: Record<TariffType, React.JSX.Element> = {
     fixed: <Fixed rules={rules} />,
@@ -30,14 +31,17 @@ export function ServiceTariff(props: Props) {
 
   return (
     <>
-      {type === 'upsert' && <S.Title>{t('reusable.service_tariff')}</S.Title>}
-      <S.Section>
-        <Form.Item rules={rules} name={[TARIFF.type]}>
-          <Tarrif />
-        </Form.Item>
-        <Divider />
-        {tariffType && inputs[tariffType]}
-      </S.Section>
+      <Form.Item rules={rules} name={[TARIFF.type]}>
+        <Tarrif />
+      </Form.Item>
+      {hasNotice && (
+        <S.Notice>
+          <S.Icon className='icon-info-circle' />
+          <span>{t('enter_infinity_value')}</span>
+        </S.Notice>
+      )}
+      <Divider />
+      {tariffType && inputs[tariffType]}
     </>
   );
 }

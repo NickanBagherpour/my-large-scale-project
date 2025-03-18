@@ -2,6 +2,7 @@ export default {
   add_tarrif_setting: 'افزودن تنظیمات تعرفه',
   general_info: 'اطلاعات کلی',
   service_name: 'نام سرویس',
+  persian_service_name: 'نام فارسی سرویس',
   banking_share_pct: 'سهم بانکداری (درصد)',
   ops_team_share_pct: 'سهم تیم عملیاتی (درصد)',
   banking_ops_combined_limit: 'جمع سهم بانکداری و تیم عملیاتی باید برابر ۱۰۰ باشد',
@@ -9,6 +10,8 @@ export default {
   service_type: 'نوع سرویس',
   field_name_in_elastic: 'نام فیلد در elastic',
   transaction_type_in_elastic: 'نوع تراکنش در elastic',
+  transfer_type_param_elastic: 'پارامتر نوع انتقال در elastic',
+  enter_transfer_type_param_elastic: 'پارامتر نوع انتقال در elastic را وارد کنید',
   single: 'تک',
   group: 'گروهی',
   edit_was_successful: 'تعرفه با موفقیت ویرایش شد',
@@ -16,4 +19,5 @@ export default {
   enter_field_name: 'نام فیلد را وارد کنید',
   enter_transaction_type: 'نوع تراکنش در elastic را وارد کنید',
   choose_service_type: 'نوع سرویس را انتخاب کنید',
+  enter_infinity_value: 'لطفاً به منظور وارد کردن مقدار “بی‌نهایت” از کاراکتر * استفاده نمایید.',
 };

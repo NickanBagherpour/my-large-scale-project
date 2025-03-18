@@ -6,6 +6,7 @@ import { cssVar } from '@oxygen/utils';
 import { useAppTheme } from '@oxygen/hooks';
 import { RedocWrapper } from '../redoc-wrapper/redoc-wrapper';
 import { useRtlRedoc } from '../../hooks/use-rtl-redoc';
+import { useTr } from '@oxygen/translation';
 
 interface EnhancedRedocProps {
   specUrl?: string;
@@ -15,12 +16,9 @@ interface EnhancedRedocProps {
 export function EnhancedRedoc({ specUrl, specObject }: EnhancedRedocProps) {
   const [spec, setSpec] = useState<any>(specObject);
   const theme = useAppTheme();
-
-  // Use the RTL hook to apply additional fixes
-  // useRtlRedoc()
+  const [t] = useTr();
 
   useEffect(() => {
-    // Update spec when specObject changes
     if (specObject) {
       setSpec(specObject);
       return;
@@ -52,20 +50,16 @@ export function EnhancedRedoc({ specUrl, specObject }: EnhancedRedocProps) {
           disableSearch: true,
           hideLoading: true,
           sideNavStyle: SideNavStyleEnum.SummaryOnly,
-          // expandDefaultServerVariables : false,
           sortRequiredPropsFirst: true,
           labels: {
-            example: 'مثال',
-            examples: 'مثال‌ها',
-            noResultsFound: 'پاسخی یافت نشد',
-            download: 'دانلود',
-            responses: 'پاسخ‌ها',
-
-            // callbackResponses: string,
-            requestSamples: 'نمونه‌ درخواست',
-            responseSamples: 'نمونه‌ پاسخ',
+            example: t('example'),
+            examples: t('examples'),
+            noResultsFound: t('no_results_found'),
+            download: t('download'),
+            responses: t('responses'),
+            requestSamples: t('request_samples'),
+            responseSamples: t('response_samples'),
           },
-          // scrollYOffset: 60, // Offset for the header
           theme: {
             colors: {
               primary: {

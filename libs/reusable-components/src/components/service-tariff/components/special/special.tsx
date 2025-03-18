@@ -1,5 +1,4 @@
 import { useTr } from '@oxygen/translation';
-import * as S from './special.style';
 import AddCondition from '../add-condition/add-condition';
 import { Form } from 'antd';
 import { RuleRender } from 'antd/es/form';
@@ -7,6 +6,8 @@ import { SPECIAL_TARIFF_NAMES, TARIFF } from '../../utils';
 import { Input } from '@oxygen/ui-kit';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { use } from 'react';
+import { Container, TrashBtn, Article, Index } from '../input-row/input-row.style';
+import * as S from './special.style';
 
 type Props = {
   rules: RuleRender[];
@@ -30,10 +31,10 @@ export default function Special(props: Props) {
       <Form.List name={[TARIFF.special]}>
         {(childrenFields, { add, remove }) => {
           return (
-            <S.Container>
+            <Container>
               {childrenFields.map((child, idx) => (
-                <S.Article key={idx}>
-                  <S.Index>{idx + 1}</S.Index>
+                <Article key={idx}>
+                  <Index>{idx + 1}</Index>
 
                   <span>{t('reusable.from_transaction')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.from]} rules={rules}>
@@ -47,7 +48,10 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.rial_applicable')}</span>
                   <Form.Item name={[child.name, SPECIAL_TARIFF_NAMES.percent]} rules={rules}>
-                    <Input placeholder={t('reusable.percent')} />
+                    <Input
+                      placeholder={t('reusable.percent')}
+                      addonAfter={<S.Icon className='icon-percentage-circle' />}
+                    />
                   </Form.Item>
 
                   <span>{t('reusable.tariff_percent_min')}</span>
@@ -62,19 +66,19 @@ export default function Special(props: Props) {
 
                   <span>{t('reusable.calculated')}</span>
 
-                  <S.TrashBtn
+                  <TrashBtn
                     disabled={disabled || childrenFields.length === 1}
                     variant='link'
                     color='error'
                     onClick={() => remove(child.name)}
                   >
                     <i className='icon-trash' />
-                  </S.TrashBtn>
-                </S.Article>
+                  </TrashBtn>
+                </Article>
               ))}
 
               <AddCondition tariffType='special' onClick={() => add(emptyCondition)} />
-            </S.Container>
+            </Container>
           );
         }}
       </Form.List>
