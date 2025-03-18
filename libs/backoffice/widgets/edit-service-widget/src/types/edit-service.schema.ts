@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { FORM_ITEM_NAMES } from '../utils/consts';
 import { TFunction } from 'i18next';
-import { createValidationSchema, REGEX_PATTERNS } from '@oxygen/utils';
+import { createValidationSchema } from '@oxygen/utils';
+import { FORM_ITEM_NAMES } from '../utils/consts';
 
 const MAX_LENGTH = 200;
 
@@ -21,11 +21,11 @@ export const createEditServiceFormSchema = (t: TFunction) => {
   const validationSchema = createValidationSchema(t);
   return z.object({
     [FORM_ITEM_NAMES.enName]: validationSchema.defaultEnglishName,
-    [FORM_ITEM_NAMES.faName]: validationSchema.defaultPersianName,
+    [FORM_ITEM_NAMES.faName]: validationSchema.validPersianName,
     [FORM_ITEM_NAMES.access]: validationSchema.objectSingleSelection,
     [FORM_ITEM_NAMES.category]: validationSchema.idSelection,
     [FORM_ITEM_NAMES.version]: validationSchema.version,
-    [FORM_ITEM_NAMES.owner]: validationSchema.defaultPersianName,
+    [FORM_ITEM_NAMES.owner]: validationSchema.owner,
     [FORM_ITEM_NAMES.tags]: validationSchema.tagsList,
   });
 };

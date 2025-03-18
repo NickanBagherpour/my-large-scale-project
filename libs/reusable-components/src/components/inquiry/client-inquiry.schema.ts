@@ -7,7 +7,7 @@ export const CreateClientInquirySchema = (t: TFunction<'translation', undefined>
   const validationSchema = createValidationSchema(t);
 
   return z.object({
-    [INQUIRY.ItemName]: validationSchema.englishWithoutSpaceAndCapitalLetters,
+    [INQUIRY.ItemName]: validationSchema.validEnglishLowercaseName(t('element.client')),
   });
 };
 export type InquiryItemNameType = z.infer<ReturnType<typeof CreateClientInquirySchema>>;

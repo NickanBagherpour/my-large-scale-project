@@ -1,13 +1,13 @@
 import { createSchemaFieldRule } from 'antd-zod';
 import { useEffect, useState } from 'react';
 import { useTr } from '@oxygen/translation';
+import { ROUTES } from '@oxygen/utils';
 import { ContentType, InquiryType } from './types';
 import { CreateClientInquirySchema } from './client-inquiry.schema';
 import { useInquiry } from './get-inquiry.api';
 import { NAVIGATION_URLS } from './consts';
 import { extractSpecificData } from './utils';
 import Inquiry from './inquiry';
-import { ROUTES } from '@oxygen/utils';
 import { ItemNotFoundProps } from './item-not-found';
 import { SearchBoxProps } from './search-box';
 import { useRouter } from 'next/navigation';
