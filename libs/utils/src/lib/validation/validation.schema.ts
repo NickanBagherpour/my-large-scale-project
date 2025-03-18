@@ -78,37 +78,39 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.isenglishText, {
         message: t('validation.english_name_error'),
       }),
-    englishWithoutWhitespace: z
-      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+    validPersianName: z // "-", "_‌", ".", numbers, english and persian alphabet
+      .string({ required_error: t('validation.required') })
       .trim()
       .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
       .max(limits.DEFAULT_MAX_LENGTH, {
         message: t('validation.max_length'),
       })
-      .regex(REGEX_PATTERNS.isenglishText, {
-        message: t('validation.english_name_error'),
-      })
-      .regex(REGEX_PATTERNS.noWhitespace, {
-        message: t('validation.no_whitespace'),
-      })
+      .regex(REGEX_PATTERNS.validPersianName, t('validation.persian_name_error'))
       .refine((value) => value !== '', { message: t('validation.required') }),
-    englishWithoutSpaceAndCapitalLetters: z
-      .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
-      .trim()
-      .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
-      .max(limits.DEFAULT_MAX_LENGTH, {
-        message: t('validation.max_length'),
-      })
-      .regex(REGEX_PATTERNS.validWithNoCapitalLetters, {
-        message: t('validation.no_capital', { element: t('element.client') }),
-      })
-      .regex(REGEX_PATTERNS.noWhitespace, {
-        message: t('validation.no_whitespace'),
-      })
-      .regex(REGEX_PATTERNS.isenglishText, {
-        message: t('validation.english_name_error'),
-      })
-      .refine((value) => value !== '', { message: t('validation.required') }),
+    validEnglishName: (elementTranslation?: string) =>
+      z
+        .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+        .trim()
+        .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
+        .max(limits.DEFAULT_MAX_LENGTH, {
+          message: t('validation.max_length'),
+        })
+        .regex(REGEX_PATTERNS.validEnglishName, {
+          message: t('validation.invalid_element_name', { element: elementTranslation }),
+        })
+        .refine((value) => value !== '', { message: t('validation.required') }),
+    validEnglishLowercaseName: (elementTranslation?: string) =>
+      z
+        .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
+        .trim()
+        .min(limits.DEFAULT_MIN_LENGTH, { message: t('validation.min_length') })
+        .max(limits.DEFAULT_MAX_LENGTH, {
+          message: t('validation.max_length'),
+        })
+        .regex(REGEX_PATTERNS.validWithNoCapitalLetters, {
+          message: t('validation.invalid_element_name', { element: elementTranslation }),
+        })
+        .refine((value) => value !== '', { message: t('validation.required') }),
     persian: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })
       .trim()
@@ -168,6 +170,11 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.englishOrPersianPositiveNumber, {
         message: t('validation.only_digit_message'),
       }),
+    owner: z
+      .string({ required_error: t('validation.required') })
+      .trim()
+      .regex(REGEX_PATTERNS.owner, t('validation.owner_error'))
+      .refine((value) => value !== '', { message: t('validation.required') }),
 
     postalCode: z
       .string({ required_error: t('validation.required'), invalid_type_error: t('validation.required') })

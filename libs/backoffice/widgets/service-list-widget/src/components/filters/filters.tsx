@@ -8,7 +8,7 @@ import { useBounce, useToggle } from '@oxygen/hooks';
 import { updateSearchTerm, updateSort, updateStatus, useAppDispatch, useAppState } from '../../context';
 import { WidgetStateType } from '../../context/types';
 import UploadService from '../upload-service/upload-service';
-import { SERVICE_NAME } from '../../utils/consts';
+import { INPUT_MAX_LENGTH, SERVICE_NAME } from '../../utils/consts';
 import { CreateServiceNameSchema, ServiceNameType } from '../../types/search-service.schema';
 import * as S from './filters.style';
 
@@ -46,9 +46,10 @@ export default function Filters() {
             <Form.Item name={SERVICE_NAME.ServiceName} rules={[rule]} style={{ width: '100%' }}>
               <S.Input
                 value={value}
-                placeholder={t('placeholder.search_by_english_name', { element: t('element.service') })}
+                placeholder={t('placeholder.search_by_name', { element: t('element.service') })}
                 prefix={<i className='icon-search-normal' />}
                 onChange={(e) => setValue(e.target.value)}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
 

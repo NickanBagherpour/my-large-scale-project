@@ -1,6 +1,9 @@
 export const REGEX_PATTERNS = {
   isenglishText: /^[^\u0600-\u06FF]*$/,
   validWithNoCapitalLetters: /^(?![0-9])[a-z0-9_.-]+$/,
+  validEnglishName: /^(?![0-9])[A-Za-z0-9_.-]+$/,
+  validPersianName: /^(?![ \-_.])[A-Za-z\u0600-\u06FF0-9][A-Za-z\u0600-\u06FF0-9\-_. ]*[\S]$/,
+  owner: /^[A-Za-z\u0600-\u06FF0-9\u06F0-\u06F9_.\- ]+$/,
   noWhitespace: /^(?:\s*|[^\s\s]+(?:\S+[^\s]+)*\S*)$/,
   isPersianText: /^[^a-zA-Z]*$/,
   PersianIdentifier: /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/,
