@@ -1,5 +1,5 @@
 import { createSchemaFieldRule } from 'antd-zod';
-import { Form, DatePicker } from 'antd';
+import { Form, DatePicker, DatePickerProps } from 'antd';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Box, Button, SearchItemsContainer, Icons, Select } from '@oxygen/ui-kit';
@@ -14,6 +14,7 @@ import ClientSelector from '../client-selector/client-selector';
 import dayjs, { Dayjs } from 'dayjs';
 import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
+import { RangePickerProps } from 'antd/es/date-picker';
 
 export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const { RangePicker } = DatePicker;
@@ -24,6 +25,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
+  const [confirmedDates, setConfirmedDates] = useState<any | null>(null);
 
   const onFinish = (values) => {
     const dateRange = values['date'];
@@ -52,27 +54,36 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
     updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
     onSearch();
-
-    // console.log('date range:', dateRange);
-    // console.log('From Date:', fromDate);
-    // console.log('To Date:', toDate);
-    // console.log('Status:', status);
-
-    // Use these values (e.g., send them to an API)
   };
 
-  const getYearMonth = (date) => date.year() * 12 + date.month();
-
   const disabled30DaysDate = (current: Dayjs | null): boolean => {
+    const formValues = form.getFieldsValue();
     if (!current) return false;
 
-    // console.log(current, 'current');
+    if (confirmedDates) {
+      const [fromDatee, toDatee] = confirmedDates;
 
-    const today = dayjs();
-    const minDate = today.subtract(30, 'days');
-    const maxDate = today.add(0, 'days');
+      if (fromDatee && !toDatee) {
+        const maxAllowedDate = fromDatee.add(30, 'days');
+        return current.isBefore(fromDatee.startOf('day')) || current.isAfter(maxAllowedDate.endOf('day'));
+      }
 
-    return current.isBefore(minDate.startOf('day')) || current.isAfter(maxDate.endOf('day'));
+      if (!fromDatee && toDatee) {
+        const minAllowedDate = toDatee.subtract(30, 'days');
+        return current.isAfter(toDatee.endOf('day')) || current.isBefore(minAllowedDate.startOf('day'));
+      }
+    }
+
+    const dateRange = formValues['date'];
+
+    if (dateRange) {
+      const fromDate = dateRange[0];
+      const toDate = dateRange[1];
+
+      return current.isBefore(fromDate.startOf('day')) || current.isAfter(toDate.endOf('day'));
+    } else {
+      return false;
+    }
   };
 
   const statusOptions = [
@@ -82,6 +93,10 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     { value: '4', label: t('range_400_to_499') },
     { value: '5', label: t('range_500_to_599') },
   ];
+
+  const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
+    setConfirmedDates(value);
+  };
 
   return (
     <S.Container>
@@ -121,6 +136,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
             <Form.Item name='date' label={t('common.date')} rules={[rule]}>
               <RangePicker
+                onOk={onOk}
                 showTime={{
                   format: 'HH:mm',
                   defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')], // Default start and end times
@@ -132,7 +148,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
             </Form.Item>
 
             <Form.Item name='status' label={t('uikit.status')} rules={[rule]}>
-              <Select options={statusOptions} size='large' placeholder={t('placeholders.choose_status')} />
+              <Select options={statusOptions} allowClear size='large' placeholder={t('placeholders.choose_status')} />
             </Form.Item>
           </SearchItemsContainer>
 
