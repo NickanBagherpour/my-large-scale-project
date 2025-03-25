@@ -16,3 +16,4 @@ export enum InquiryStatus {
   'SERVICE_NOT_FOUND' = 3,
   'SERVICE_EXISTS_IN_BAAM' = 4,
 }
+export const INPUT_MAX_LENGTH = 225;

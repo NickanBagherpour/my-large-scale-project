@@ -413,6 +413,7 @@ export default {
     search_by_english_name: 'جستجو براساس نام انگلیسی {{element}}',
     search_by_persian_name_and_english_name: 'جستجو براساس نام فارسی و انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
+    search_by_name: 'جستجو بر اساس نام انگلیسی یا فارسی {{element}}',
   },
 
   message: {
@@ -514,6 +515,11 @@ export default {
     host_domain_error: 'آدرس host نامعتبر است',
     tel_error: 'لطفا شماره تلفن معتبر وارد کنید',
     no_capital: 'نام {{element}} باید حروف کوچک باشد',
+    invalid_element_name: 'نام {{element}} معتبر نیست.',
+    invalid_element_english_name: 'نام انگلیسی {{element}} معتبر نیست',
+    invalid_element_persian_name: 'نام فارسی {{element}} معتبر نیست',
+    invalid_persian_name: 'نام فارسی نامعتبر است',
+    owner_error: 'مالک نامعتبر است',
   },
   element: {
     service: 'سرویس',
