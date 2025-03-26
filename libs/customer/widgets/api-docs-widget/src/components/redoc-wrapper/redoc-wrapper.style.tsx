@@ -37,6 +37,10 @@ export const RedocGlobalStyles = createGlobalStyle`
       label {
         padding: 12px;
         text-align: left;
+
+        svg {
+          transform: rotateZ(90deg);
+        }
       }
 
       button {
@@ -74,23 +78,6 @@ export const RedocGlobalStyles = createGlobalStyle`
     text-align: center;
   }
 
-  /* Fix schema tables */
-  .redoc-wrap table {
-    direction: ${directionRTL};
-    text-align: left;
-
-    th, td {
-      text-align: left;
-    }
-
-      /* Keep code in tables ${direction} */
-
-    code {
-      direction: ${direction};
-      text-align: right;
-    }
-  }
-
   /* Fix endpoint URLs */
   .redoc-wrap [data-section-id] [class*="OperationEndpoint"] {
     direction: ${direction};
@@ -98,13 +85,12 @@ export const RedocGlobalStyles = createGlobalStyle`
   }
 
   button {
-
     /*! @noflip */
     direction: ltr;
     text-align-last: start;
     gap: 1rem;
 
-    svg {
+    svg:not(table svg) {
       margin-left: 0px !important;
       margin-right: -25px !important;
     }
@@ -113,6 +99,52 @@ export const RedocGlobalStyles = createGlobalStyle`
   div[role="button"] {
     font-size: 12px;
     text-align: end;
+  }
+
+  .redoc-json {
+    /*! @noflip */
+    direction: ltr;
+    text-align: start;
+  }
+
+  .collapsible {
+    margin-inline: 2em 0 !important;
+  }
+
+  .collapser {
+    inset-inline-start: -1.5em !important;
+  }
+
+  h5 /* h5:has(~ table) */ {
+    /*! @noflip */
+    direction: ltr;
+    text-align: start;
+  }
+
+  .redoc-wrap.redoc-wrap table {
+    /*! @noflip */
+    direction: ltr;
+    text-align: start;
+
+    td[kind="field"] {
+      padding-inline-start: 0;
+      padding-inline-end: 10px;
+      text-align: start;
+
+      & > span:first-child {
+        margin-inline-end: 10px;
+        margin-inline-start: 0;
+      }
+    }
+
+    td {
+      background-position: right top;
+      border-inline-end: none;
+    }
+
+    tr:not(:is(:first-child, :last-child)) > td:first-of-type {
+      border-inline-start: 1px solid rgb(124, 124, 187);
+    }
   }
 `;
 
