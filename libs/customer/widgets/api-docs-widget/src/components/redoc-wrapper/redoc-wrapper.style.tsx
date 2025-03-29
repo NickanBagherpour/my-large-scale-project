@@ -146,6 +146,10 @@ export const RedocGlobalStyles = createGlobalStyle`
       border-inline-start: 1px solid rgb(124, 124, 187);
     }
   }
+
+  td p {
+    unicode-bidi: plaintext;
+  }
 `;
 
 export const StyledRedocContainer = styled.div`
