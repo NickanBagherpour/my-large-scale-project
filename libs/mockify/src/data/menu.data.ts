@@ -214,9 +214,9 @@ export const customerMenu = [
     children: [],
   },
   {
-    id: 2,
+    id: 3,
     title: 'مستندات API',
-    order: 2,
+    order: 3,
     href: ROUTES.CUSTOMER.DOCS_API,
     icon: 'icon-cloud',
     size: 'default',
