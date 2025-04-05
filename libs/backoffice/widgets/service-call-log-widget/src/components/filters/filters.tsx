@@ -56,33 +56,26 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     onSearch();
   };
 
-  const disabled30DaysDate = (current: Dayjs | null): boolean => {
-    const formValues = form.getFieldsValue();
-    if (!current) return false;
+  const disabled30DaysDate = (current: Dayjs): boolean => {
+    const [fromDate, toDate] = form.getFieldsValue().date || [null, null];
+    const [confirmedFrom, confirmedTo] = confirmedDates || [null, null];
 
-    if (confirmedDates) {
-      const [fromDatee, toDatee] = confirmedDates;
-
-      if (fromDatee && !toDatee) {
-        const maxAllowedDate = fromDatee.add(30, 'days');
-        return current.isBefore(fromDatee.startOf('day')) || current.isAfter(maxAllowedDate.endOf('day'));
+    switch (true) {
+      case !!confirmedFrom: {
+        const maxDate = confirmedFrom.add(30, 'days');
+        return current.isBefore(confirmedFrom.startOf('day')) || current.isAfter(maxDate.endOf('day'));
       }
 
-      if (!fromDatee && toDatee) {
-        const minAllowedDate = toDatee.subtract(30, 'days');
-        return current.isAfter(toDatee.endOf('day')) || current.isBefore(minAllowedDate.startOf('day'));
+      case !!confirmedTo: {
+        const minDate = confirmedTo.subtract(30, 'days');
+        return current.isAfter(confirmedTo.endOf('day')) || current.isBefore(minDate.startOf('day'));
       }
-    }
 
-    const dateRange = formValues['date'];
+      case !!fromDate && !!toDate:
+        return current.isBefore(fromDate.startOf('day')) || current.isAfter(toDate.endOf('day'));
 
-    if (dateRange) {
-      const fromDate = dateRange[0];
-      const toDate = dateRange[1];
-
-      return current.isBefore(fromDate.startOf('day')) || current.isAfter(toDate.endOf('day'));
-    } else {
-      return false;
+      default:
+        return false;
     }
   };
 
@@ -137,9 +130,15 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
             <Form.Item name='date' label={t('common.date')} rules={[rule]}>
               <RangePicker
                 onOk={onOk}
+                onChange={(dates) => {
+                  if (dates === null) {
+                    form.setFieldsValue({ date: undefined });
+                    setConfirmedDates(undefined);
+                  }
+                }}
                 showTime={{
                   format: 'HH:mm',
-                  defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')], // Default start and end times
+                  defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')],
                 }}
                 format='YYYY/MM/DD HH:mm'
                 disabledDate={disabled30DaysDate}
