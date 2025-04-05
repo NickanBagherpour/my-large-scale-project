@@ -14,11 +14,7 @@
 			"defaultConfiguration": "production",
 			"options": {
 				"root": "apps/customer-portal",
-				"outputPath": "dist/apps/customer-portal",
-				"envFile": [
-					"../../.env",
-					"apps/customer-portal/.env.production"
-				]
+				"outputPath": "dist/apps/customer-portal"
 			}
 		}
 	}
