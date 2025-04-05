@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'service-management-widget',
+  widget_name: 'تنظیم تعرفه',
 };

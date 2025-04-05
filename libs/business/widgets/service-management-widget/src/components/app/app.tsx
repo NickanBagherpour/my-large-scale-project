@@ -17,21 +17,7 @@ const App: React.FC<AppProps> = (props) => {
   const state = useAppState();
   const [t] = useTr();
 
-  /* Sample Query Usage
-  const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
-
-  function prepareParams() {
-     const { filters,submit,pagination,...rest } = state;
-     const params = {
-       form: submit,
-       pagination: pagination,
-     };
-
-     return params;
-   }
- */
-
-  return <S.AppContainer title={'ServiceManagementWidget'}>ServiceManagementWidget</S.AppContainer>;
+  return <S.AppContainer title={t('widget_name')}>ServiceManagementWidget</S.AppContainer>;
 };
 
 export default App;
