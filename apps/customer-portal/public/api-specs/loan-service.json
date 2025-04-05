@@ -1,25 +1,22 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "سرویس های تسهیلات",
-        "description": "...",
+        "title": "",
+        "description": "",
         "termsOfService": "",
         "contact": {
             "email": ""
         },
-        "license": {
-            "url": "http://uat.developer.oxygenpro.ir/api"
-        },
-        "version": "1.0.0"
+        "version": ""
     },
     "externalDocs": {
-        "description": "Find out more about spec",
+        "description": "",
         "url": ""
     },
     "servers": [],
     "tags": [
         {
-            "name": "سرویس های استعلام تسهیلات و چک و اعتبارسنجی",
+            "name": "تسهیلات (Loan)",
             "description": ""
         }
     ],
@@ -28,7 +25,7 @@
             "post": {
                 "description": "\r\nاین سرویس به منظور ارسال اطلاعات تغییر و تسویه اطلاعات تسهیلات به سرویسهای سمات بانک مرکزی میباشد\r\n\r\n- Scope:svc-mgmt-samat-loan-bal",
                 "operationId": "0002",
-                "tags": ["سرویس های استعلام تسهیلات و چک و اعتبارسنجی"],
+                "tags": ["تسهیلات (Loan)"],
                 "parameters": [
                     {
                         "in": "header",

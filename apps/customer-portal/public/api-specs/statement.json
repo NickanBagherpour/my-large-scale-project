@@ -12,15 +12,7 @@
     ],
     "tags": [
         {
-            "name": "Account-based",
-            "description": "",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
-        },
-        {
-            "name": "transfer",
+            "name": "مبتنی بر حساب (Account Based)",
             "description": "",
             "externalDocs": {
                 "description": "",
@@ -33,7 +25,7 @@
             "post": {
                 "summary": "سرویس صورتحساب آنلاین",
                 "description": "این سرویس به منظور دریافت اطلاعات تراکنش های حساب میباشد\r\nبرای تراکنش های روز جاری اطلاعات از بستر \r\nMQ\r\nشرکت خدمات انفورماتیک و برای سایر تراکنش ها اطلاعات از انبار داده استخراج میشود.\r\n\r\n Scope: svc-mgmt-mq-stmt-info",
-                "tags": ["Account-based"],
+                "tags": ["مبتنی بر حساب (Account Based)"],
                 "parameters": [
                     {
                         "in": "path",
