@@ -135,6 +135,10 @@ export const RedocGlobalStyles = createGlobalStyle`
         margin-inline-end: 10px;
         margin-inline-start: 0;
       }
+
+      & > div {
+        margin-inline-start: 20px;
+      }
     }
 
     td {
