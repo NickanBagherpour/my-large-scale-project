@@ -185,6 +185,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
                 variant='outlined'
                 onClick={() => {
                   form.resetFields();
+                  setConfirmedDates(undefined);
                   onReset();
                 }}
               >
