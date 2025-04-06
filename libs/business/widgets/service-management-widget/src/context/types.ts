@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormFieldsType } from '../types';
 import { MessageType, Nullable } from '@oxygen/types';
+import { SORT_ORDER } from '../utils/consts';
 
 export type FiltersType = FormFieldsType;
 
@@ -11,7 +12,16 @@ export type PaginationType = {
   limit: number;
 };
 
+export enum SERVICE_MANAGEMENT_STATUS {
+  ALL = 'All',
+  NONCOMMERCIAL = 'Non-commercial',
+  COMMERCIAL = 'Commercial',
+}
+
 export type WidgetStateType = {
+  searchValue: Nullable<string>;
+  status: SERVICE_MANAGEMENT_STATUS;
+  sort: SORT_ORDER;
   table: {
     filters: FiltersType;
     pagination: PaginationType;
@@ -26,12 +36,12 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
-      type: 'UPDATE_FILTERS';
-      payload: Partial<FiltersType>;
+      type: 'UPDATE_SEARCH_VALUE';
+      payload: WidgetStateType['searchValue'];
     }
   | {
-      type: 'UPDATE_SUBMIT';
-      payload: Partial<FiltersType>;
+      type: 'UPDATE_STATUS';
+      payload: WidgetStateType['status'];
     }
   | {
       type: 'UPDATE_PAGINATION';

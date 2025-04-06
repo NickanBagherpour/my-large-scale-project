@@ -1,6 +1,6 @@
 import { FormFieldsType } from '../types';
-import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE } from '../utils/consts';
-import { WidgetActionType, WidgetStateType } from './types';
+import { INITIAL_PAGE, INITIAL_ROW_PER_PAGE, SORT_ORDER } from '../utils/consts';
+import { SERVICE_MANAGEMENT_STATUS, WidgetActionType, WidgetStateType } from './types';
 
 const initialFilters: FormFieldsType = {
   name: null,
@@ -8,6 +8,9 @@ const initialFilters: FormFieldsType = {
 };
 
 export const initialStateValue: WidgetStateType = {
+  searchValue: '',
+  status: SERVICE_MANAGEMENT_STATUS.ALL,
+  sort: SORT_ORDER.ASCENDING,
   table: {
     filters: initialFilters,
     submit: initialFilters,
@@ -26,17 +29,15 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.message = action.payload;
       return;
     }
-
-    case 'UPDATE_SUBMIT': {
-      state.table.submit = { ...state.table.submit, ...action.payload };
+    case 'UPDATE_STATUS': {
+      state.table.pagination.page = initialStateValue.table.pagination.page;
+      state.status = action.payload;
       return;
     }
-
-    case 'UPDATE_FILTERS': {
-      state.table.filters = { ...state.table.filters, ...action.payload };
+    case 'UPDATE_SEARCH_VALUE': {
+      state.searchValue = action.payload;
       return;
     }
-
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;
