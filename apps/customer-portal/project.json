@@ -1,7 +1,7 @@
 {
 	"name": "customer-portal",
 	"version": "0.0.17",
-	"tryCount": "24",
+	"tryCount": "25",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "apps/customer-portal",
 	"projectType": "application",
@@ -14,11 +14,7 @@
 			"defaultConfiguration": "production",
 			"options": {
 				"root": "apps/customer-portal",
-				"outputPath": "dist/apps/customer-portal",
-				"envFile": [
-					"../../.env",
-					"apps/customer-portal/.env.production"
-				]
+				"outputPath": "dist/apps/customer-portal"
 			}
 		}
 	}

@@ -3,7 +3,7 @@ export default {
   choose_api_version: 'انتخاب نسخه API',
   statement: 'مبتنی بر حساب',
   loan_service: 'تسهیلات',
-  transfer: 'انتقال پول',
+  transfer: 'انتقال وجه',
   auth: 'احراز هویت',
   example: 'مثال',
   examples: 'مثال‌ها',
