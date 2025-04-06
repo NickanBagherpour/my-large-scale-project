@@ -1,6 +1,6 @@
 import { FiltersType, PaginationType } from '../context/types';
 
-export type ReportResponseType = {
+export type TableResponseType = {
   responseId: number;
   serviceTypeCode: number;
   items: ItemType[];

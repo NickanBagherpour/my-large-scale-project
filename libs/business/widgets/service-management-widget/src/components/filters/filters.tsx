@@ -4,7 +4,7 @@ import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
 import { useBounce, useToggle } from '@oxygen/hooks';
 
-import { updateSearchValueAction, useAppDispatch, useAppState } from '../../context';
+import { updateSearchValueAction, updateSort, useAppDispatch, useAppState } from '../../context';
 
 import * as S from './filters.style';
 import { SORT_ORDER } from '../../utils/consts';
@@ -50,7 +50,7 @@ export const Filters: React.FC<FiltersPropsType> = (props) => {
             { key: SORT_ORDER.DESCENDING, title: t('oldest'), icon: 'icon-arrow-descending' },
           ]}
           initialValue={state.sort}
-          onChange={(value) => console.log(value)}
+          onChange={(value) => updateSort(dispatch, value as SORT_ORDER)}
         />
       </S.Indicators>
       {/* {isInquiryModalOpen && <ServiceFeeInquiry dispatch={dispatch} toggle={toggleInquiryModal} />} */}

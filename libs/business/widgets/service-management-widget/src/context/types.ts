@@ -36,6 +36,10 @@ export type WidgetActionType =
       payload: Nullable<MessageType>;
     }
   | {
+      type: 'UPDATE_SORT';
+      payload: WidgetStateType['sort'];
+    }
+  | {
       type: 'UPDATE_SEARCH_VALUE';
       payload: WidgetStateType['searchValue'];
     }

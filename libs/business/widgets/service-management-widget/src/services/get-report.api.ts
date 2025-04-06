@@ -9,7 +9,7 @@ export const useGetReportDataQuery = (params: FetchParamsType) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.SERVICE_MANAGEMENT.GET_LIST, params],
+    queryKey: [RQKEYS.BUSINESS.BUSINESS_SERVICE_MANAGEMENT.GET_TABLE, params],
     queryFn: withErrorHandling(() => Api.getReportData(params), dispatch),
   });
 };

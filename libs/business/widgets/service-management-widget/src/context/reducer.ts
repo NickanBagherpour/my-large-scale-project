@@ -38,6 +38,10 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
       state.searchValue = action.payload;
       return;
     }
+    case 'UPDATE_SORT': {
+      state.sort = action.payload;
+      return;
+    }
     case 'UPDATE_PAGINATION': {
       state.table.pagination = { ...state.table.pagination, ...action.payload };
       return;

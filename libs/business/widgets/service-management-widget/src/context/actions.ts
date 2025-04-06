@@ -9,6 +9,9 @@ export function updateSearchValueAction(dispatch: WidgetDispatchType, searchValu
 export function updateStatus(dispatch: WidgetDispatchType, status: WidgetStateType['status']) {
   dispatch({ type: 'UPDATE_STATUS', payload: status });
 }
+export function updateSort(dispatch: WidgetDispatchType, sort: WidgetStateType['sort']) {
+  dispatch({ type: 'UPDATE_SORT', payload: sort });
+}
 
 export function updatePagination(dispatch: WidgetDispatchType, pagination: Partial<PaginationType>) {
   dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
