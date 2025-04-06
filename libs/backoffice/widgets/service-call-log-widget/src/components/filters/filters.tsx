@@ -99,7 +99,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const dynamicLocale = useMemo(() => {
     const locale = JSON.parse(JSON.stringify(faIR));
 
-    const okText = activePickerIndex === 0 ? 'انتخاب تاریخ شروع' : 'انتخاب تاریخ پایان';
+    const okText = activePickerIndex === 0 ? t('choose_start_date') : t('choose_end_date');
 
     return {
       ...locale,

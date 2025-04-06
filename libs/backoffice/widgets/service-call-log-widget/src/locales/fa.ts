@@ -65,4 +65,6 @@ export default {
   range_300_to_399: 'بازه 300 تا 399',
   range_400_to_499: 'بازه 400 تا 499',
   range_500_to_599: 'بازه 500 تا 599',
+  choose_start_date: 'انتخاب تاریخ شروع',
+  choose_end_date: 'انتخاب تاریخ پایان',
 };
