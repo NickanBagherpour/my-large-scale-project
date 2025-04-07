@@ -63,7 +63,7 @@ const ItemExists: React.FC<ItemExistsProps> = ({
           <Fragment key={item}>
             <div style={{ flex: '1 1 0%', direction: 'ltr' }}>
               <S.InfoTitle>{item}</S.InfoTitle>
-              {typeof data?.[index] === 'object' ? (
+              {data?.[index] && typeof data?.[index] === 'object' ? (
                 <S.CenteredText>
                   <WithBadge
                     items={data?.[index]}
