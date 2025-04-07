@@ -90,11 +90,16 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     { value: '5', label: t('range_500_to_599') },
   ];
 
+  const [activePickerIndex, setActivePickerIndex] = useState<0 | 1>(0);
+
   const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
+    if (activePickerIndex === 0) {
+      setActivePickerIndex(1);
+    } else {
+      setActivePickerIndex(0);
+    }
     setConfirmedDates(value);
   };
-
-  const [activePickerIndex, setActivePickerIndex] = useState<0 | 1>(0);
 
   const dynamicLocale = useMemo(() => {
     const locale = JSON.parse(JSON.stringify(faIR));
@@ -115,6 +120,11 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
   const handleCalendarChange: RangePickerProps['onCalendarChange'] = (dates, _, info) => {
     setActivePickerIndex(info.range === 'start' ? 0 : 1);
+  };
+  const handleOpenChange: RangePickerProps['onOpenChange'] = (open) => {
+    if (open) {
+      setActivePickerIndex(0);
+    }
   };
 
   return (
@@ -157,6 +167,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
               <Form.Item name='date' label={t('common.date')} rules={[rule]}>
                 <RangePicker
                   className='range-picker'
+                  onOpenChange={handleOpenChange}
                   onOk={onOk}
                   onCalendarChange={handleCalendarChange}
                   onChange={(dates) => {
