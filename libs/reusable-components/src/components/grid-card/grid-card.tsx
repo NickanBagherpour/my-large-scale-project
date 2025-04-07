@@ -1,5 +1,4 @@
-import { Tooltip } from 'antd';
-import { Status, type ButtonProps } from '@oxygen/ui-kit';
+import { Status, type ButtonProps, Tooltip } from '@oxygen/ui-kit';
 
 import { useAppTheme } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
