@@ -38,7 +38,7 @@ const Filter: React.FC<FilterProps> = () => {
           <Form.Item name={FORM_ITEM_NAMES.scopesName} rules={[rule]} label={t('search')}>
             <S.Input
               value={value}
-              placeholder={t('placeholder.search_by_name')}
+              placeholder={t('placeholder.search_by_name', { element: t('element.scope') })}
               maxLength={MAX_LENGTH_INPUT}
               prefix={<i className='icon-search-normal' />}
               onChange={(e) => setValue(e.target.value)}

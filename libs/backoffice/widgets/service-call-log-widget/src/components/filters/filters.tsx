@@ -1,5 +1,5 @@
 import { createSchemaFieldRule } from 'antd-zod';
-import { Form, DatePicker } from 'antd';
+import { Form, DatePicker, DatePickerProps } from 'antd';
 import { useState } from 'react';
 import { useTr } from '@oxygen/translation';
 import { Box, Button, SearchItemsContainer, Icons, Select } from '@oxygen/ui-kit';
@@ -14,6 +14,10 @@ import ClientSelector from '../client-selector/client-selector';
 import dayjs, { Dayjs } from 'dayjs';
 import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
+import { useMemo } from 'react';
+import { ConfigProvider } from 'antd';
+import faIR from 'antd/locale/fa_IR';
+import type { RangePickerProps } from 'antd/es/date-picker';
 
 export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const { RangePicker } = DatePicker;
@@ -24,6 +28,7 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
+  const [confirmedDates, setConfirmedDates] = useState<any | null>(null);
 
   const onFinish = (values) => {
     const dateRange = values['date'];
@@ -52,27 +57,29 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
 
     updateSearchTerm(dispatch, new URLSearchParams(queryParams).toString());
     onSearch();
-
-    // console.log('date range:', dateRange);
-    // console.log('From Date:', fromDate);
-    // console.log('To Date:', toDate);
-    // console.log('Status:', status);
-
-    // Use these values (e.g., send them to an API)
   };
 
-  const getYearMonth = (date) => date.year() * 12 + date.month();
+  const disabled30DaysDate = (current: Dayjs): boolean => {
+    const [fromDate, toDate] = form.getFieldsValue().date || [null, null];
+    const [confirmedFrom, confirmedTo] = confirmedDates || [null, null];
 
-  const disabled30DaysDate = (current: Dayjs | null): boolean => {
-    if (!current) return false;
+    switch (true) {
+      case !!confirmedFrom: {
+        const maxDate = confirmedFrom.add(30, 'days');
+        return current.isBefore(confirmedFrom.startOf('day')) || current.isAfter(maxDate.endOf('day'));
+      }
 
-    // console.log(current, 'current');
+      case !!confirmedTo: {
+        const minDate = confirmedTo.subtract(30, 'days');
+        return current.isAfter(confirmedTo.endOf('day')) || current.isBefore(minDate.startOf('day'));
+      }
 
-    const today = dayjs();
-    const minDate = today.subtract(30, 'days');
-    const maxDate = today.add(0, 'days');
+      case !!fromDate && !!toDate:
+        return current.isBefore(fromDate.startOf('day')) || current.isAfter(toDate.endOf('day'));
 
-    return current.isBefore(minDate.startOf('day')) || current.isAfter(maxDate.endOf('day'));
+      default:
+        return false;
+    }
   };
 
   const statusOptions = [
@@ -83,75 +90,125 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     { value: '5', label: t('range_500_to_599') },
   ];
 
+  const [activePickerIndex, setActivePickerIndex] = useState<0 | 1>(0);
+
+  const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
+    if (activePickerIndex === 0) {
+      setActivePickerIndex(1);
+    } else {
+      setActivePickerIndex(0);
+    }
+    setConfirmedDates(value);
+  };
+
+  const dynamicLocale = useMemo(() => {
+    const locale = JSON.parse(JSON.stringify(faIR));
+
+    const okText = activePickerIndex === 0 ? t('choose_start_date') : t('choose_end_date');
+
+    return {
+      ...locale,
+      Calendar: {
+        ...locale.Calendar,
+        lang: {
+          ...locale.Calendar?.lang,
+          ok: okText,
+        },
+      },
+    };
+  }, [activePickerIndex]);
+
+  const handleCalendarChange: RangePickerProps['onCalendarChange'] = (dates, _, info) => {
+    setActivePickerIndex(info.range === 'start' ? 0 : 1);
+  };
+  const handleOpenChange: RangePickerProps['onOpenChange'] = (open) => {
+    if (open) {
+      setActivePickerIndex(0);
+    }
+  };
+
   return (
     <S.Container>
       <Box className='filter-container'>
-        <Form
-          form={form}
-          layout='vertical'
-          onFinish={onFinish}
-          initialValues={{
-            date: [dayjs().subtract(1, 'month').startOf('day'), dayjs().endOf('day')],
-          }}
-        >
-          <SearchItemsContainer>
-            <Form.Item label={t('field.services')} name='service' rules={[rule]}>
-              <ServiceSelector
-                dispatch={dispatch}
-                disabled={false}
-                onSelect={(selectedService) => {
-                  form.setFieldsValue({ service: selectedService?.name });
-                  form.validateFields(['service']);
-                  setSelectedService(selectedService);
+        <ConfigProvider locale={dynamicLocale}>
+          <Form
+            form={form}
+            layout='vertical'
+            onFinish={onFinish}
+            initialValues={{
+              date: [dayjs().subtract(1, 'month').startOf('day'), dayjs().endOf('day')],
+            }}
+          >
+            <SearchItemsContainer>
+              <Form.Item label={t('field.services')} name='service' rules={[rule]}>
+                <ServiceSelector
+                  dispatch={dispatch}
+                  disabled={false}
+                  onSelect={(selectedService) => {
+                    form.setFieldsValue({ service: selectedService?.name });
+                    form.validateFields(['service']);
+                    setSelectedService(selectedService);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
+                <ClientSelector
+                  dispatch={dispatch}
+                  disabled={false}
+                  onSelect={(selectedClient) => {
+                    form.setFieldsValue({ client: selectedClient?.clientName });
+                    form.validateFields(['client']);
+                    setSelectedClient(selectedClient);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item name='date' label={t('common.date')} rules={[rule]}>
+                <RangePicker
+                  className='range-picker'
+                  onOpenChange={handleOpenChange}
+                  onOk={onOk}
+                  onCalendarChange={handleCalendarChange}
+                  onChange={(dates) => {
+                    if (dates === null) {
+                      form.setFieldsValue({ date: undefined });
+                      setConfirmedDates(undefined);
+                    }
+                  }}
+                  showTime={{
+                    format: 'HH:mm',
+                    defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')],
+                  }}
+                  format='YYYY/MM/DD HH:mm'
+                  disabledDate={disabled30DaysDate}
+                  suffixIcon={<Icons.Calender />}
+                />
+              </Form.Item>
+
+              <Form.Item name='status' label={t('uikit.status')} rules={[rule]}>
+                <Select options={statusOptions} allowClear size='large' placeholder={t('placeholders.choose_status')} />
+              </Form.Item>
+            </SearchItemsContainer>
+
+            <S.Footer>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  form.resetFields();
+                  setConfirmedDates(undefined);
+                  onReset();
                 }}
-              />
-            </Form.Item>
+              >
+                {t('button.delete_all')}
+              </Button>
 
-            <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
-              <ClientSelector
-                dispatch={dispatch}
-                disabled={false}
-                onSelect={(selectedClient) => {
-                  form.setFieldsValue({ client: selectedClient?.clientName });
-                  form.validateFields(['client']);
-                  setSelectedClient(selectedClient);
-                }}
-              />
-            </Form.Item>
-
-            <Form.Item name='date' label={t('common.date')} rules={[rule]}>
-              <RangePicker
-                showTime={{
-                  format: 'HH:mm',
-                  defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')], // Default start and end times
-                }}
-                format='YYYY/MM/DD HH:mm'
-                disabledDate={disabled30DaysDate}
-                suffixIcon={<Icons.Calender />}
-              />
-            </Form.Item>
-
-            <Form.Item name='status' label={t('uikit.status')} rules={[rule]}>
-              <Select options={statusOptions} size='large' placeholder={t('placeholders.choose_status')} />
-            </Form.Item>
-          </SearchItemsContainer>
-
-          <S.Footer>
-            <Button
-              variant='outlined'
-              onClick={() => {
-                form.resetFields();
-                onReset();
-              }}
-            >
-              {t('button.delete_all')}
-            </Button>
-
-            <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }}>
-              {t('button.search')}
-            </Button>
-          </S.Footer>
-        </Form>
+              <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }}>
+                {t('button.search')}
+              </Button>
+            </S.Footer>
+          </Form>
+        </ConfigProvider>
       </Box>
     </S.Container>
   );
