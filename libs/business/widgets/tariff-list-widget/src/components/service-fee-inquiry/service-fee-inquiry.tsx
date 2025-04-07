@@ -23,7 +23,7 @@ const ServiceFeeInquiry: React.FC<Props> = ({ toggle, dispatch }) => {
   const name = data?.serviceName ?? searchValue;
   useEffect(() => {
     if (isSuccess && !isFetching && isFetched) {
-      if (data.serviceName) {
+      if (data.feeType) {
         setContent('IS_OPERATIONAL');
       } else {
         setContent('NOT_FOUND');
