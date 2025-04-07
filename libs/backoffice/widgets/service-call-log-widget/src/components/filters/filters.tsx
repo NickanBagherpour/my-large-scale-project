@@ -14,7 +14,10 @@ import ClientSelector from '../client-selector/client-selector';
 import dayjs, { Dayjs } from 'dayjs';
 import jalaliday from 'jalaliday';
 import { FormSchema } from '../../types/filters.schema';
-import { RangePickerProps } from 'antd/es/date-picker';
+import { useMemo } from 'react';
+import { ConfigProvider } from 'antd';
+import faIR from 'antd/locale/fa_IR';
+import type { RangePickerProps } from 'antd/es/date-picker';
 
 export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const { RangePicker } = DatePicker;
@@ -91,82 +94,110 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
     setConfirmedDates(value);
   };
 
+  const [activePickerIndex, setActivePickerIndex] = useState<0 | 1>(0);
+
+  const dynamicLocale = useMemo(() => {
+    const locale = JSON.parse(JSON.stringify(faIR));
+
+    const okText = activePickerIndex === 0 ? t('choose_start_date') : t('choose_end_date');
+
+    return {
+      ...locale,
+      Calendar: {
+        ...locale.Calendar,
+        lang: {
+          ...locale.Calendar?.lang,
+          ok: okText,
+        },
+      },
+    };
+  }, [activePickerIndex]);
+
+  const handleCalendarChange: RangePickerProps['onCalendarChange'] = (dates, _, info) => {
+    setActivePickerIndex(info.range === 'start' ? 0 : 1);
+  };
+
   return (
     <S.Container>
       <Box className='filter-container'>
-        <Form
-          form={form}
-          layout='vertical'
-          onFinish={onFinish}
-          initialValues={{
-            date: [dayjs().subtract(1, 'month').startOf('day'), dayjs().endOf('day')],
-          }}
-        >
-          <SearchItemsContainer>
-            <Form.Item label={t('field.services')} name='service' rules={[rule]}>
-              <ServiceSelector
-                dispatch={dispatch}
-                disabled={false}
-                onSelect={(selectedService) => {
-                  form.setFieldsValue({ service: selectedService?.name });
-                  form.validateFields(['service']);
-                  setSelectedService(selectedService);
+        <ConfigProvider locale={dynamicLocale}>
+          <Form
+            form={form}
+            layout='vertical'
+            onFinish={onFinish}
+            initialValues={{
+              date: [dayjs().subtract(1, 'month').startOf('day'), dayjs().endOf('day')],
+            }}
+          >
+            <SearchItemsContainer>
+              <Form.Item label={t('field.services')} name='service' rules={[rule]}>
+                <ServiceSelector
+                  dispatch={dispatch}
+                  disabled={false}
+                  onSelect={(selectedService) => {
+                    form.setFieldsValue({ service: selectedService?.name });
+                    form.validateFields(['service']);
+                    setSelectedService(selectedService);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
+                <ClientSelector
+                  dispatch={dispatch}
+                  disabled={false}
+                  onSelect={(selectedClient) => {
+                    form.setFieldsValue({ client: selectedClient?.clientName });
+                    form.validateFields(['client']);
+                    setSelectedClient(selectedClient);
+                  }}
+                />
+              </Form.Item>
+
+              <Form.Item name='date' label={t('common.date')} rules={[rule]}>
+                <RangePicker
+                  className='range-picker'
+                  onOk={onOk}
+                  onCalendarChange={handleCalendarChange}
+                  onChange={(dates) => {
+                    if (dates === null) {
+                      form.setFieldsValue({ date: undefined });
+                      setConfirmedDates(undefined);
+                    }
+                  }}
+                  showTime={{
+                    format: 'HH:mm',
+                    defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')],
+                  }}
+                  format='YYYY/MM/DD HH:mm'
+                  disabledDate={disabled30DaysDate}
+                  suffixIcon={<Icons.Calender />}
+                />
+              </Form.Item>
+
+              <Form.Item name='status' label={t('uikit.status')} rules={[rule]}>
+                <Select options={statusOptions} allowClear size='large' placeholder={t('placeholders.choose_status')} />
+              </Form.Item>
+            </SearchItemsContainer>
+
+            <S.Footer>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  form.resetFields();
+                  setConfirmedDates(undefined);
+                  onReset();
                 }}
-              />
-            </Form.Item>
+              >
+                {t('button.delete_all')}
+              </Button>
 
-            <Form.Item label={t('field.clients')} name='client' rules={[rule]}>
-              <ClientSelector
-                dispatch={dispatch}
-                disabled={false}
-                onSelect={(selectedClient) => {
-                  form.setFieldsValue({ client: selectedClient?.clientName });
-                  form.validateFields(['client']);
-                  setSelectedClient(selectedClient);
-                }}
-              />
-            </Form.Item>
-
-            <Form.Item name='date' label={t('common.date')} rules={[rule]}>
-              <RangePicker
-                onOk={onOk}
-                onChange={(dates) => {
-                  if (dates === null) {
-                    form.setFieldsValue({ date: undefined });
-                    setConfirmedDates(undefined);
-                  }
-                }}
-                showTime={{
-                  format: 'HH:mm',
-                  defaultValue: [dayjs().startOf('day'), dayjs().endOf('day')],
-                }}
-                format='YYYY/MM/DD HH:mm'
-                disabledDate={disabled30DaysDate}
-                suffixIcon={<Icons.Calender />}
-              />
-            </Form.Item>
-
-            <Form.Item name='status' label={t('uikit.status')} rules={[rule]}>
-              <Select options={statusOptions} allowClear size='large' placeholder={t('placeholders.choose_status')} />
-            </Form.Item>
-          </SearchItemsContainer>
-
-          <S.Footer>
-            <Button
-              variant='outlined'
-              onClick={() => {
-                form.resetFields();
-                onReset();
-              }}
-            >
-              {t('button.delete_all')}
-            </Button>
-
-            <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }}>
-              {t('button.search')}
-            </Button>
-          </S.Footer>
-        </Form>
+              <Button htmlType='submit' size='large' style={{ padding: '0 4rem' }}>
+                {t('button.search')}
+              </Button>
+            </S.Footer>
+          </Form>
+        </ConfigProvider>
       </Box>
     </S.Container>
   );
