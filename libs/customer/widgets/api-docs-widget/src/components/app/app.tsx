@@ -23,22 +23,22 @@ const App: React.FC<AppProps> = (props) => {
       label: t('all'),
       value: 'ALL',
     },
-    {
-      label: t('auth'),
-      value: 'AUTH',
-    },
-    {
-      label: t('statement'),
-      value: 'STATEMENT',
-    },
-    {
-      label: t('transfer'),
-      value: 'TRANSFER',
-    },
-    {
-      label: t('loan_service'),
-      value: 'LOAN_SERVICE',
-    },
+    // {
+    //   label: t('auth'),
+    //   value: 'AUTH',
+    // },
+    // {
+    //   label: t('statement'),
+    //   value: 'STATEMENT',
+    // },
+    // {
+    //   label: t('transfer'),
+    //   value: 'TRANSFER',
+    // },
+    // {
+    //   label: t('loan_service'),
+    //   value: 'LOAN_SERVICE',
+    // },
   ];
 
   const { selectedOption, spec, loading, error, selectApiOption, refreshSpec } = useApiSpecs(API_OPTIONS[0]);
