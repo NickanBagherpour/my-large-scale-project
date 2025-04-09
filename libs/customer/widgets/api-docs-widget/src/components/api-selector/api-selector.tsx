@@ -45,7 +45,7 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
             )}
           </Link>
         </span>
-        مستندات API
+        {t('widget_name')}
       </S.HeaderTitle>
       <S.SelectWrapper>
         <Select

@@ -8,6 +8,7 @@ const API_SPEC_MAPPING: Record<string, string> = {
   LOAN_SERVICE: 'public/api-specs/loan-service.json',
   TRANSFER: 'public/api-specs/transfer.json',
   AUTH: 'public/api-specs/auth.json',
+  ALL: 'public/api-specs/all.json',
 };
 
 // External API endpoints (optional)

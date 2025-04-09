@@ -1,0 +1,2246 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "description": "به پلتفرم اکسیژن خوش آمدید!\r\n\r\n در این مستندات، اطلاعات جامعی درباره APIهای مربوط به احراز هویت، انتقال وجه، مدیریت چک، صورتحساب و سایر خدمات مالی ارائه شده است.\r\n\r\n هدف این راهنما تسهیل درک و پیاده‌سازی این سرویس‌ها به شیوه‌ای کارآمد و یکپارچه است.",
+        "title": ""
+    },
+    "servers": [
+        {
+            "url": "/api/v3"
+        }
+    ],
+    "tags": [
+        {
+            "name": "احراز هویت",
+            "description": "",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
+        },
+        {
+            "name": "حساب‌ها",
+            "description": "",
+            "externalDocs": {
+                "description": "حساب، حساب سازمانی، استعلام حساب، صورتحساب",
+                "url": ""
+            }
+        },
+        {
+            "name": "انتقال وجه",
+            "description": "",
+            "externalDocs": {
+                "description": "انتقال وجه، واریز مستقیم، واریز خاص، برداشت مستقیم",
+                "url": ""
+            }
+        },
+        {
+            "name": "کارت‌ها",
+            "description": "",
+            "externalDocs": {
+                "description": "کارت، کارت اعتباری، تراکنش مجازی",
+                "url": ""
+            }
+        },
+        {
+            "name": "پرداخت‌ها",
+            "description": "",
+            "externalDocs": {
+                "description": "فیش، خیریه، عوارض",
+                "url": ""
+            }
+        },
+        {
+            "name": "تسهیلات",
+            "description": "",
+            "externalDocs": {
+                "description": "وام، اعتبار، ضمانت",
+                "url": ""
+            }
+        },
+        {
+            "name": "چک و سفته",
+            "description": "",
+            "externalDocs": {
+                "description": "چک، سفته",
+                "url": ""
+            }
+        },
+        {
+            "name": "سرویس‌های ویژه",
+            "description": "",
+            "externalDocs": {
+                "description": "سما، سمات، ناجی، رهسام، سجام، آر تی جی اس",
+                "url": ""
+            }
+        },
+        {
+            "name": "مدیریت مالی",
+            "description": "",
+            "externalDocs": {
+                "description": "اقتصادی، تجمعی، تبادل ارز",
+                "url": ""
+            }
+        },
+        {
+            "name": "سایر سرویس‌ها",
+            "description": "",
+            "externalDocs": {
+                "description": "پرسنل، گروهی، نشان، سایه، دولتی، سپتا",
+                "url": ""
+            }
+        }
+    ],
+    "paths": {
+        "/identity/oauth2/auth/token": {
+            "post": {
+                "summary": "دریافت توکن",
+                "description": "برای استفاده در سایر سرویس های سداد با استفاده از روش (access_token)\r\n\r\n**هدف:** دریافت توکن دسترسی  client_credentils.\r\n\r\n**نکات کلیدی:**\r\n\r\nاین سرویس اولین مرحله برای دسترسی به سایر سرویس ها است.\r\n\r\nتوکن دریافتی دارای زمان انقضاء است و پس از انقضا باید مجددا دریافت شود.\r\n\r\nاحراز هویت  استفاده از clientKey و clientSecret انجام میشود.",
+                "operationId": "0001",
+                "tags": ["احراز هویت"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Authorization",
+                        "description": "از ترکیب Base64 و با کدگذاری Basic Auth \r\n\r\n**توضیح:** مقدار این هدر باید به صورت clientKey:clientSecret باشد.\r\n\r\n**مثال:**\r\n\r\nplaintext\r\n\r\napplication/x-www-form-urlencoded",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "Content-Type",
+                        "description": "**توضیح:** Basic Auth تولید شده با توجه به ClientSecret, ClientKey",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "headers": {},
+                        "description": "توکن با موفقیت ایجاد شد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string"
+                                                },
+                                                "timestamps": {
+                                                    "type": "string"
+                                                },
+                                                "errors": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "detail": {
+                                                                "type": "string"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "summary": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": []
+                                                    }
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "number": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        },
+                                        "response": {
+                                            "type": "object",
+                                            "properties": {
+                                                "nationalCodes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "successful": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "last_logins": "[]",
+                                            "token_type": "bearer",
+                                            "expires_in": 86400,
+                                            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJncmFudCI6IkNMSUVOVCIsImlzcyI6Imh0dHA6Ly9hcGkuYm1pLmlyL3NlY3VyaXR5XXXXXXXXXXXXXXXXXXXXXXXXXXXGVzIjpbImxvYW4tYXNzZXQtaW5xLWdvbGQiXX0=.LXAAxYt6zXomW4QV28sCxjLBgMQ2aLzqamMJq6YwzVI"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "پارامترهای ورودی ناقص یا نامعتبر.",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "description": "پاسخ خطا(کد 4XX/5XX)"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": "CLIENT_NOT_AUTHORIZED",
+                                            "error_description": "کلید یا رمز مشتری معتبر نیست."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "عدم احراز هویت صحیح (مثلاً ClientKey یا ClientSecret نادرست)",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        },
+                                        "error_description": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "description": "پاسخ خطا(کد 4XX/5XX)"
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": "CLIENT_NOT_AUTHORIZED",
+                                            "error_description": "کلید یا رمز مشتری معتبر نیست."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "scope": {
+                                        "type": "number",
+                                        "description": "مقدار پیش فرض: scope-client-test (در محیط تست) یا مقدار اختصاصی در محیط عملیاتی"
+                                    },
+                                    "grant_type": {
+                                        "type": "number",
+                                        "description": "مقدار ثابت: client-credentials"
+                                    }
+                                },
+                                "required": [
+                                    "accountNumber",
+                                    "creditDebit",
+                                    "field_0"
+                                ],
+                                "description": "بدنه درخواست"
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "error": {
+                                            "code": "کد خطای سیستمی (مثلاً GENERAL_ERROR)",
+                                            "timestamp": "2023-11-20T12:00:00Z",
+                                            "errors": [
+                                                {
+                                                    "detail": "توضیح خطای خاص",
+                                                    "name": "نام خطا (مثلاً VALIDATION_ERROR)",
+                                                    "summary": "خلاصه خطا (مثلاً مقدار ورودی نامعتبر است)"
+                                                }
+                                            ],
+                                            "message": "پیام کلی خطا به زبان خوانا",
+                                            "error_number": 1001
+                                        },
+                                        "response": {
+                                            "nationalCodes": [
+                                                "1234567890",
+                                                "0987654321"
+                                            ]
+                                        },
+                                        "successful": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-extension1": {
+                    "source": "curl --location --request POST 'http://[Host:port]/identity/oauth2/auth/token' \\\n  --header 'Content-Type: application/x-www-form-urlencoded' \\\n  --header 'Authorization: Basic **********' \\\n  --data-urlencode 'scope=scope-client-test' \\\n  --data-urlencode 'grant_type=client_credentials'"
+                }
+            }
+        },
+        "/mq-statement/v2/online-statement": {
+            "post": {
+                "summary": "سرویس صورتحساب آنلاین",
+                "description": "این سرویس به منظور دریافت اطلاعات تراکنش های حساب میباشد\r\nبرای تراکنش های روز جاری اطلاعات از بستر \r\nMQ\r\nشرکت خدمات انفورماتیک و برای سایر تراکنش ها اطلاعات از انبار داده استخراج میشود.\r\n\r\n Scope: svc-mgmt-mq-stmt-info",
+                "tags": ["حساب‌ها"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Authorization",
+                        "description": "برای استفاده از این سرویس ها بایستی ابتدا توکن دسترسی را از سرورهای احراز هویت بانک ملی دریافت نموده و سپس در بخش هدر درخواست ها خود ارسال نمایید.\n",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "Content-Type",
+                        "description": "نوع محتوا",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "null"
+                                        },
+                                        "response": {
+                                            "type": "object",
+                                            "properties": {
+                                                "accountStatementResponse": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "transactionDateTime": {
+                                                                "type": "string",
+                                                                "description": "تاریخ و زمان تراکنش"
+                                                            },
+                                                            "transactionTraceCode": {
+                                                                "type": "string",
+                                                                "description": "شماره پیگیری تراکنش"
+                                                            },
+                                                            "creditDebit": {
+                                                                "type": "string",
+                                                                "description": "نوع تراکنش از نظر واریز/ برداشت\r\nDEBIT/CREDIT"
+                                                            },
+                                                            "branchCode": {
+                                                                "type": "number",
+                                                                "description": "کد شعبه عامل"
+                                                            },
+                                                            "operatorCode": {
+                                                                "type": "string",
+                                                                "description": "کد اپراتور"
+                                                            },
+                                                            "additionalData1": {
+                                                                "type": "string",
+                                                                "description": "اطلاعات تکمیلی اول"
+                                                            },
+                                                            "additionalData2": {
+                                                                "type": "string",
+                                                                "description": "اطلاعات تکمیلی دوم"
+                                                            },
+                                                            "transactionCode": {
+                                                                "type": "string",
+                                                                "description": "کد تراکنش"
+                                                            },
+                                                            "realDateTime": {
+                                                                "type": "string",
+                                                                "description": "تاریخ و زمان مالی تراکنش"
+                                                            },
+                                                            "amount": {
+                                                                "type": "number",
+                                                                "description": "مبلغ تراکنش"
+                                                            },
+                                                            "balance": {
+                                                                "type": "number",
+                                                                "description": "مانده تراکنش"
+                                                            },
+                                                            "channelType": {
+                                                                "type": "string",
+                                                                "description": "درگاه تراکنش"
+                                                            },
+                                                            "categoryId": {
+                                                                "type": "string",
+                                                                "description": "شناسه دسته تراکنش در سامانه بام"
+                                                            },
+                                                            "comment": {
+                                                                "type": "string",
+                                                                "description": "توضیحات ثبت شده توسط مشتری"
+                                                            },
+                                                            "hyperLinkType": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "0": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "1": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های سرجمع سدادی"
+                                                                    },
+                                                                    "2": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های برداشت پایا"
+                                                                    },
+                                                                    "3": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز پایا"
+                                                                    },
+                                                                    "4": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های برگشتی پایا"
+                                                                    },
+                                                                    "5": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های خرید توسط کارت از درگاه اینترنتی یا دستگاه \r\nPOS"
+                                                                    },
+                                                                    "6": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز پایا"
+                                                                    },
+                                                                    "7": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های سرجممع شاپرکی غیر سدادی"
+                                                                    },
+                                                                    "8": {
+                                                                        "type": "string",
+                                                                        "description": "تراکنش های واریز و برداشت ساتننا"
+                                                                    },
+                                                                    "field_0": {
+                                                                        "type": "string",
+                                                                        "description": "در تراکنش های روز جاری مقدار این فیلد \r\nNULL\r\n نمایش داده میشود."
+                                                                    }
+                                                                },
+                                                                "description": "نوع لینک تراکنش",
+                                                                "required": [
+                                                                    "1",
+                                                                    "2",
+                                                                    "3",
+                                                                    "4",
+                                                                    "5",
+                                                                    "6",
+                                                                    "7",
+                                                                    "8",
+                                                                    "0",
+                                                                    "field_0"
+                                                                ]
+                                                            },
+                                                            "rowNumber": {
+                                                                "type": "number",
+                                                                "description": "شماره ردیف"
+                                                            },
+                                                            "origKey": {
+                                                                "type": "string",
+                                                                "description": "کلید تراکنش \r\n(از دو مقدار زمان، کد پیگیری تشکیل شده است که تنها برای تراکنش های روز جاری مقدار داشته و درباقی موارد مقدار آن \r\nNULL\r\nمیباشد)"
+                                                            },
+                                                            "channelDateTime": {
+                                                                "type": "string",
+                                                                "description": "زمان تراکنش در کانال"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "transactionDateTime",
+                                                            "transactionTraceCode",
+                                                            "creditDebit",
+                                                            "branchCode",
+                                                            "رودبارجنوب ",
+                                                            "operatorCode",
+                                                            "additionalData1",
+                                                            "additionalData2",
+                                                            "transactionCode",
+                                                            "انتقالی ازکارت ",
+                                                            "realDateTime",
+                                                            "amount",
+                                                            "balance",
+                                                            "channelType",
+                                                            "categoryId",
+                                                            "comment",
+                                                            "hyperLinkType",
+                                                            "rowNumber",
+                                                            "origKey",
+                                                            "channelDateTime",
+                                                            "field_0"
+                                                        ]
+                                                    }
+                                                },
+                                                "outputRecordCount": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": null,
+                                            "response": {
+                                                "accountStatementResponse": [
+                                                    {
+                                                        "transactionDateTime": "string",
+                                                        "transactionTraceCode": "string",
+                                                        "creditDebit": "string",
+                                                        "branchCode": 0,
+                                                        "operatorCode": "string",
+                                                        "additionalData1": "string",
+                                                        "additionalData2": "string",
+                                                        "transactionCode": "string",
+                                                        "realDateTime": "string",
+                                                        "amount": 0,
+                                                        "balance": 0,
+                                                        "channelType": "string",
+                                                        "categoryId": "string",
+                                                        "comment": "string",
+                                                        "hyperLinkType": {
+                                                            "0": "string",
+                                                            "1": "string",
+                                                            "2": "string",
+                                                            "3": "string",
+                                                            "4": "string",
+                                                            "5": "string",
+                                                            "6": "string",
+                                                            "7": "string",
+                                                            "8": "string",
+                                                            "field_0": "string"
+                                                        },
+                                                        "rowNumber": 0,
+                                                        "origKey": "string",
+                                                        "channelDateTime": "string"
+                                                    }
+                                                ],
+                                                "outputRecordCount": 0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "headers": {
+                            "Number": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Code": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Message": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Timestamp": {
+                                "description": "",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Errors": {
+                                "description": "",
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "description": "این کد به صورت رشته میباشد\r\nبه عنوان مثال:\r\nCONSTRAINT_VIOLATION_EXCEPTION"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "timestamp": {
+                                                    "type": "string",
+                                                    "description": "تاریخ با فرمت \r\nyyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                                                },
+                                                "errors": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Name": {
+                                                            "type": "string",
+                                                            "description": "نام فیلدی که در اعتبارسنجی با خطا مواجه شده است"
+                                                        },
+                                                        "Summary": {
+                                                            "type": "string",
+                                                            "description": "خلاصه خطا"
+                                                        },
+                                                        "Detail": {
+                                                            "type": "string",
+                                                            "description": "جزئیات خطا"
+                                                        }
+                                                    },
+                                                    "description": "این فیلد در هنگام ایجاد خطا در اعتبارسنجی مقادیر ورودی پر میشود",
+                                                    "required": [
+                                                        "Name",
+                                                        "Summary",
+                                                        "Detail"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": {
+                                                "code": "string",
+                                                "message": "string",
+                                                "timestamp": "string",
+                                                "domain": "string",
+                                                "errors": ["string"]
+                                            },
+                                            "response": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "offsetNumber": {
+                                        "type": "number",
+                                        "description": "شماره آفست \r\nپیش فرض : 1"
+                                    },
+                                    "offsetLength": {
+                                        "type": "number",
+                                        "description": "طول آفست \r\nپیش فرض : 20"
+                                    },
+                                    "accountNumber": {
+                                        "type": "string",
+                                        "description": "شماره حساب"
+                                    },
+                                    "dateTimeRange": {
+                                        "type": "object",
+                                        "properties": {
+                                            "fromDateTime": {
+                                                "type": "string"
+                                            },
+                                            "toDateTime": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "description": "بازه تاریخ و زمان "
+                                    },
+                                    "traceNumber": {
+                                        "type": "string",
+                                        "description": "شماره پیگیری تراکنش"
+                                    },
+                                    "amountRange": {
+                                        "type": "object",
+                                        "properties": {
+                                            "fromAmount": {
+                                                "type": "integer",
+                                                "description": "از مبلغ"
+                                            },
+                                            "toAmount": {
+                                                "type": "integer",
+                                                "description": "تا مبلغ"
+                                            }
+                                        },
+                                        "description": "بازه مبلغ",
+                                        "required": ["fromAmount", "toAmount"]
+                                    },
+                                    "channel": {
+                                        "type": "string",
+                                        "description": "کانال، یکی از مقادیر \r\npos/internet/teller/atm/pinpad/UNKN\r\nOWN"
+                                    },
+                                    "creditDebit": {
+                                        "type": "string",
+                                        "description": "نوع تراکنش از نظر واریز/برداشت، یکی از مقادیر: \r\nDEBIT/CREDIT"
+                                    },
+                                    "branchCode": {
+                                        "type": "integer",
+                                        "description": "کد شعبه"
+                                    },
+                                    "sortType": {
+                                        "type": "integer",
+                                        "description": "نوع مرتب سازی تراکنش ها جهت ارائه خروجی \r\n)در حالت پیش فرض یا صفر: نزولی، مقدار یک: \r\nصعودی("
+                                    },
+                                    "categoryId": {
+                                        "type": "integer",
+                                        "description": "شناسه دسته تراکنش"
+                                    },
+                                    "languageType": {
+                                        "type": "string",
+                                        "description": "نوع زبان، یکی از مقادیر \r\nFARSI فارسی\r\nENGLISH انگلیسی"
+                                    }
+                                },
+                                "required": [
+                                    "accountNumber",
+                                    "creditDebit",
+                                    "field_0"
+                                ]
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "offsetNumber": 0,
+                                        "offsetLength": 0,
+                                        "accountNumber": "string",
+                                        "dateTimeRange": {
+                                            "fromDateTime": "string",
+                                            "toDateTime": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "0003",
+                "x-extension1": {
+                    "source": "curl --location --request POST 'http://[hostname]:[port]/api/mq-statement/v2/online-statement' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJncmFudCI6IkNMSUVOVCIsImlzcyI6Imh0dHA6Ly9hcGkuYm1pLmlyL3NlY3VyaXR5IiwiYXVkIjoic2VydmljZS1tYW5hZ2VtZW50LWdyb3VwLWNsaWVudCIsImV4cCI6MTY2OTYxNjk4NTg0NywibmJmIjoxNjY5NTMwNTg1ODQ3LCJyb2xlIjoiIiwic2VyaWFsIjoiYzFiMmEyZjUtZjY5My0zOTI1LWE1OWUtOGZjMzcyM2E4ZGZkIiwic3NuIjoiMTI3MyIsImNsaWVudF9pZCI6IjEyNzMiLCJzY29wZXMiOlsic2VydmljZXMtdGVzdC1zY29wZSJdfQ==.vesWaLBnNeanC30p065xbRB76iTLY9N8TvUqrrh0gnk' --header 'Content-Type: application/json' --data-raw '{\"offsetNumber\":1,\"offsetLength\":3,\"accountNumber\":\"0110008020006\",\"dateTimeRange\":{\"fromDateTime\":\"2020-10-22T00:00:01.000Z\",\"toDateTime\":\"2021-03-15T17:00:00.000Z\"}}'"
+                }
+            }
+        },
+        "/transfer/single/create": {
+            "post": {
+                "summary": "سرویس درخواست انتقال وجه",
+                "description": "این سرویس امکان انتقال وجه بین حساب‌های داخلی، درون بانکی و بین بانکی را فراهم می‌کند. کاربران می‌توانند با استفاده از این سرویس، تراکنش‌های مالی خود را به صورت تکی یادسته ای  ثبت و اجرا کنند\r\n**انواع انتقال:**\r\n- انتقال بین حساب‌های خود\r\n- انتقال درون بانکی\r\n- انتقال بین بانکی از طریق سامانه پایا برای مبالغ کمتر از ۵۰۰ میلیون ریال\r\n- انتقال بین بانکی از طریق سامانه ساتنا  برای مبالغ بیشتر از ۵۰۰ میلیون ریال\r\n- انتقال از طریق بستر پل \r\n**نیازمندی‌ها:**\r\n- کاربر باید توکن دسترسی معتبر داشته باشد.\r\n- برای انتقال‌های بین بانکی، فیلد purpose اجباری است.\r\nscope: money-transfer",
+                "tags": ["انتقال وجه"],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "submit",
+                        "description": "False(Default)",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "ignoreHints",
+                        "description": "True(Default)",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "Channel",
+                        "description": "ISC_TM یا ISC_MB",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultSet": {
+                                            "type": "object",
+                                            "properties": {
+                                                "innerResponse": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "string",
+                                                            "description": "لیست تراکنش \r\n(مخصوص انتقال\r\nbatch,recurring)"
+                                                        },
+                                                        "scheduledTransfer": {
+                                                            "type": "string",
+                                                            "description": "نوع تراکنش"
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "GUID"
+                                                        },
+                                                        "alias": {
+                                                            "type": "string",
+                                                            "description": "عنوان"
+                                                        },
+                                                        "accountId": {
+                                                            "type": "string",
+                                                            "description": "شماره حساب مبدا"
+                                                        },
+                                                        "instructedAmount": {
+                                                            "type": "number",
+                                                            "description": "مبلغ"
+                                                        },
+                                                        "instructedCurrency": {
+                                                            "type": "string",
+                                                            "description": "IRR\r\n(ثابت)"
+                                                        },
+                                                        "counterpartyName": {
+                                                            "type": "string",
+                                                            "description": "نام صاحب حساب مقصد"
+                                                        },
+                                                        "counterpartyAccount": {
+                                                            "type": "string",
+                                                            "description": "شماره حساب مقصد"
+                                                        },
+                                                        "paymentReference": {
+                                                            "type": "string",
+                                                            "description": "شناسه واریز"
+                                                        },
+                                                        "paymentDescription": {
+                                                            "type": "string",
+                                                            "description": "توضیحات"
+                                                        },
+                                                        "causeDescription": {
+                                                            "type": "string",
+                                                            "description": "شرح دلیل"
+                                                        },
+                                                        "method": {
+                                                            "type": "string",
+                                                            "description": "نوع انتقال پول"
+                                                        },
+                                                        "mode": {
+                                                            "type": "string",
+                                                            "description": "حالت انتقال پول \r\n(ثابت single)",
+                                                            "enum": [
+                                                                "INTER_ACCOUNTS",
+                                                                "INTRA_BANK",
+                                                                "PAYA",
+                                                                "SATNA",
+                                                                "POL"
+                                                            ]
+                                                        },
+                                                        "totalAmount": {
+                                                            "type": "number",
+                                                            "description": "مبلغ کل انتقالی "
+                                                        },
+                                                        "totalCount": {
+                                                            "type": "number",
+                                                            "description": "تعداد تراکنش ها"
+                                                        },
+                                                        "creatorName": {
+                                                            "type": "string",
+                                                            "description": "نام ایجاد کننده انتقال پول "
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "description": "وضعیت اتقال پول ",
+                                                            "enum": [
+                                                                "FAILED",
+                                                                "SUCCEEDED",
+                                                                "REGISTERED",
+                                                                "PROCESSING",
+                                                                "RECEIVED"
+                                                            ]
+                                                        },
+                                                        "initiationDateTime": {
+                                                            "type": "string",
+                                                            "description": "تاریخ ایجاد تراکنش"
+                                                        },
+                                                        "updateDateTime": {
+                                                            "type": "string",
+                                                            "description": "تاریخ آخرین تغییرات "
+                                                        },
+                                                        "onDate": {
+                                                            "type": "string",
+                                                            "description": "تاریخ روز"
+                                                        },
+                                                        "confirmationDateTime": {
+                                                            "type": "string",
+                                                            "description": "زمان تایید تراکنش"
+                                                        },
+                                                        "traceNo": {
+                                                            "type": "string",
+                                                            "description": "شماره پیگیری"
+                                                        },
+                                                        "extraTraceNo": {
+                                                            "type": "string"
+                                                        },
+                                                        "responseCode": {
+                                                            "type": "string",
+                                                            "description": "کد پاسخ"
+                                                        },
+                                                        "responseMessage": {
+                                                            "type": "boolean",
+                                                            "description": "پیغام پاسخ"
+                                                        },
+                                                        "archived": {
+                                                            "type": "boolean",
+                                                            "description": "بایگانی"
+                                                        },
+                                                        "creatorSSN": {
+                                                            "type": "string",
+                                                            "description": "کد ملی ایجادکننده انتقال پول"
+                                                        },
+                                                        "creditPayId": {
+                                                            "type": "string",
+                                                            "description": "شناسه واریز"
+                                                        },
+                                                        "debitPayId": {
+                                                            "type": "string",
+                                                            "description": "شناسه برداشت"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "metaData": {
+                                            "type": "object",
+                                            "properties": {
+                                                "notifications": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "message": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "resultSet": {
+                                                "innerResponse": {
+                                                    "items": null,
+                                                    "scheduledTransfer": null,
+                                                    "id": "string",
+                                                    "alias": "string",
+                                                    "accountId": "string",
+                                                    "instructedAmount": 0,
+                                                    "instructedCurrency": "string",
+                                                    "counterpartyName": "string",
+                                                    "counterpartyAccount": "string",
+                                                    "paymentReference": "string",
+                                                    "paymentDescription": "string",
+                                                    "causeDescription": null,
+                                                    "method": "string",
+                                                    "mode": "string",
+                                                    "totalAmount": 0,
+                                                    "totalCount": 0,
+                                                    "creatorName": null,
+                                                    "status": "string",
+                                                    "initiationDateTime": "string",
+                                                    "updateDateTime": null,
+                                                    "onDate": "string",
+                                                    "confirmationDateTime": null,
+                                                    "traceNo": null,
+                                                    "extraTraceNo": null,
+                                                    "responseCode": null,
+                                                    "responseMessage": null,
+                                                    "archived": true,
+                                                    "creatorSSN": "string",
+                                                    "creditPayId": null,
+                                                    "debitPayId": null
+                                                }
+                                            },
+                                            "metaData": {
+                                                "notifications": [
+                                                    {
+                                                        "code": "string",
+                                                        "type": "string",
+                                                        "message": "string"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "notifications": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "description": "لیست تراکنش",
+                                                "required": []
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "notifications": [
+                                                {
+                                                    "code": "string",
+                                                    "type": "string",
+                                                    "message": "string"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "alias": {
+                                        "type": "string",
+                                        "description": "عنوان تراکنش"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "GUID"
+                                    },
+                                    "accountId": {
+                                        "type": "string",
+                                        "description": "شماره حساب مبدا"
+                                    },
+                                    "instructedAmount": {
+                                        "type": "number",
+                                        "description": "مبلغ"
+                                    },
+                                    "instructedCurrency": {
+                                        "type": "string",
+                                        "description": "نوع ارز\r\n(ثابت IRR)"
+                                    },
+                                    "counterpartyName": {
+                                        "type": "string",
+                                        "description": "نام صاحب حساب مقصد"
+                                    },
+                                    "counterpartyAccount": {
+                                        "type": "string",
+                                        "description": "شماره تسهیالت/شماره حساب مقصد"
+                                    },
+                                    "paymentReference": {
+                                        "type": "string",
+                                        "description": "شماره ارجاع"
+                                    },
+                                    "paymentDescription": {
+                                        "type": "string",
+                                        "description": "توضیحات پرداخت"
+                                    },
+                                    "onDate": {
+                                        "type": "number",
+                                        "description": "بر حسب میلی ثانیه تاریخ روز"
+                                    },
+                                    "creditPayId": {
+                                        "type": "string",
+                                        "description": "شناسه واریز"
+                                    },
+                                    "debitPayId": {
+                                        "type": "string",
+                                        "description": "شناسه برداشت"
+                                    },
+                                    "causeDescription": {
+                                        "type": "string",
+                                        "description": "شرح دلیل"
+                                    },
+                                    "transferMethod": {
+                                        "type": "object",
+                                        "properties": {
+                                            " ACCOUNTS_INT": {
+                                                "type": "string",
+                                                "description": "تراکنش انتقال پول بین حسابهای خود"
+                                            },
+                                            "INTRA_BANK": {
+                                                "type": "string",
+                                                "description": "تراکنش انتقال پول درون بانکی"
+                                            },
+                                            "PAYA": {
+                                                "type": "string",
+                                                "description": "تراکنش های انتقال پول بین بانکی کمتر از 500 میلیون ریال"
+                                            },
+                                            "SATNA": {
+                                                "type": "string",
+                                                "description": "تراکنش های انتقال پول بین بانکی بیشتر از 500 میلیون ریال"
+                                            },
+                                            "POL": {
+                                                "type": "string",
+                                                "description": "تراکنش های انتقال پول بین بانکی از بستر پل"
+                                            },
+                                            "mode": {
+                                                "type": "string",
+                                                "description": "single\r\nتراکنش تکی"
+                                            }
+                                        },
+                                        "description": "روش انتقال",
+                                        "required": [
+                                            " ACCOUNTS_INT",
+                                            "INTRA_BANK",
+                                            "PAYA",
+                                            "SATNA",
+                                            "POL",
+                                            "mode"
+                                        ]
+                                    },
+                                    "purpose": {
+                                        "type": "object",
+                                        "properties": {
+                                            "DRPA": {
+                                                "type": "string",
+                                                "description": "تادیه دیون"
+                                            },
+                                            "POSA": {
+                                                "type": "string",
+                                                "description": "واریز حقوق"
+                                            },
+                                            "IOSP": {
+                                                "type": "string",
+                                                "description": "امور بیمه خدمات"
+                                            },
+                                            "HIPA": {
+                                                "type": "string",
+                                                "description": "امور درمانی"
+                                            },
+                                            "ISAP": {
+                                                "type": "string",
+                                                "description": "امور سرمایه گذاری و بورس"
+                                            },
+                                            "FXAP": {
+                                                "type": "string",
+                                                "description": "امور ارزی"
+                                            },
+                                            "RTAP": {
+                                                "type": "string",
+                                                "description": "امور بازنشستگی"
+                                            },
+                                            "MPTP": {
+                                                "type": "string",
+                                                "description": "معاملات اموال منقول"
+                                            },
+                                            "IMPT": {
+                                                "type": "string",
+                                                "description": "معامالت اموال غیرمنقول"
+                                            },
+                                            "LMAP": {
+                                                "type": "string",
+                                                "description": "مدیریت نقدینگی"
+                                            },
+                                            "CDAP": {
+                                                "type": "string",
+                                                "description": "عوارض گمرکی"
+                                            },
+                                            "TCAP": {
+                                                "type": "string",
+                                                "description": "تسویه مالی"
+                                            },
+                                            "GEAC": {
+                                                "type": "string",
+                                                "description": "سایرخدمات دولتی"
+                                            },
+                                            "LRPA": {
+                                                "type": "string",
+                                                "description": "بازپرداخت تسهیلات"
+                                            },
+                                            "CCPA": {
+                                                "type": "string",
+                                                "description": "تودیع وثیقه"
+                                            },
+                                            "GPAC": {
+                                                "type": "string",
+                                                "description": "هزینه عمومی و امور روزمره"
+                                            },
+                                            "CPAC": {
+                                                "type": "string",
+                                                "description": "کمک های نقدی و خیریه"
+                                            }
+                                        },
+                                        "description": "برای انتقال درون بانکی اختیاری\r\nبرای انتقال درون حسابی اختیاری \r\nبرای انتقال بین بانکی اجباری",
+                                        "required": [
+                                            "DRPA",
+                                            "POSA",
+                                            "IOSP",
+                                            "HIPA",
+                                            "ISAP",
+                                            "FXAP",
+                                            "RTAP",
+                                            "MPTP",
+                                            "IMPT",
+                                            "LMAP",
+                                            "CDAP",
+                                            "TCAP",
+                                            "GEAC",
+                                            "LRPA",
+                                            "CCPA",
+                                            "GPAC",
+                                            "CPAC"
+                                        ]
+                                    },
+                                    "shahabCode": {
+                                        "type": "string",
+                                        "description": "کد شهاب"
+                                    },
+                                    "postalCode": {
+                                        "type": "string",
+                                        "description": "کد پستی"
+                                    },
+                                    "smtCode": {
+                                        "type": "string",
+                                        "description": "نوع واریز"
+                                    }
+                                },
+                                "required": [
+                                    "id",
+                                    "accountId",
+                                    "instructedAmount",
+                                    "instructedCurrency",
+                                    "counterpartyName",
+                                    "counterpartyAccount",
+                                    "onDate",
+                                    "purpose",
+                                    "field_0"
+                                ]
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": {
+                                        "alias": "string",
+                                        "id": "string",
+                                        "accountId": "string",
+                                        "instructedAmount": 0,
+                                        "instructedCurrency": "string",
+                                        "counterpartyName": "string",
+                                        "counterpartyAccount": "string",
+                                        "paymentReference": "string",
+                                        "paymentDescription": "string",
+                                        "onDate": 0,
+                                        "creditPayId": "string",
+                                        "debitPayId": "string",
+                                        "causeDescription": "string",
+                                        "transferMethod": 0,
+                                        "purpose": 0,
+                                        "shahabCode": "string",
+                                        "postalCode": "string",
+                                        "smtCode": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "0004",
+                "x-extension1": {
+                    "source": "curl --location --request POST 'http://[Host:port]/services/rest/api/transfer/single/create' --header 'Content-Type: application/json' --header 'Authorization: Bearer ***' --data-raw '{\"alias\":\"test\",\"id\":\"183dc0e9-Af9a-4d73-aH48-8d2bed2d9Kaa\",\"accountId\":\"1234567895111\",\"instructedAmount\":10000,\"instructedCurrency\":\"IRR\",\"counterpartyName\":\"test\",\"counterpartyAccount\":\"1234567895113\",\"paymentReference\":\"123987\",\"paymentDescription\":\"\",\"onDate\":87978978}'"
+                }
+            }
+        },
+        "/services/rest/api/transfer/{id}/submit": {
+            "post": {
+                "description": "\r\nبا استفاده از این سرویس امکان انتقال پول ایجاد شده در سرویس درخواست انتقال پول فراهم می شود. ضمن اینکه در سرویس \r\nایجاد درخواست انتقال پول امکان ایجاد و انجام انتقال پول به طور همزمان وجود دارد",
+                "operationId": "0005",
+                "tags": ["انتقال وجه"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Authentication",
+                        "description": "رای استفاده از این سرویس بایستی ابتدا توکن دسترسی را از سرورهای احزار هویت بانک ملی دریافت نموده و \nسپس در سرآیند درخواست های خود ارسال فرمایید",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "branchCode",
+                        "description": "کد شعبه عامل",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "userName",
+                        "description": "نام کاربر عامل",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "authorizationCode",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultSet": {
+                                            "type": "object",
+                                            "properties": {
+                                                "innerResponse": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "null",
+                                                            "description": "لیست تراکنش )مخصوص انتقال recurring,batch )"
+                                                        },
+                                                        "scheduledTransfer": {
+                                                            "type": "null",
+                                                            "description": "نوع تراکنش"
+                                                        },
+                                                        "id": {
+                                                            "type": "string",
+                                                            "description": "GUID"
+                                                        },
+                                                        "alias": {
+                                                            "type": "string",
+                                                            "description": "عنوان"
+                                                        },
+                                                        "accountId": {
+                                                            "type": "string",
+                                                            "description": "شماره حساب مبدأ"
+                                                        },
+                                                        "instructedAmount": {
+                                                            "type": "number",
+                                                            "description": "مبلغ"
+                                                        },
+                                                        "instructedCurrency": {
+                                                            "type": "string",
+                                                            "description": "IRR"
+                                                        },
+                                                        "counterpartyName": {
+                                                            "type": "string",
+                                                            "description": "نام صاحب حساب مقصد"
+                                                        },
+                                                        "counterpartyAccount": {
+                                                            "type": "string",
+                                                            "description": "شماره حساب مقصد"
+                                                        },
+                                                        "paymentReference": {
+                                                            "type": "string",
+                                                            "description": "شناسه واریز"
+                                                        },
+                                                        "paymentDescription": {
+                                                            "type": "string",
+                                                            "description": "توضیحات"
+                                                        },
+                                                        "method": {
+                                                            "type": "string",
+                                                            "description": "نوع انتقال پول",
+                                                            "enum": [
+                                                                "INTRA_ACCOUNTS",
+                                                                " INTRA_BANK",
+                                                                "PAYA",
+                                                                "SATNA",
+                                                                "POL"
+                                                            ]
+                                                        },
+                                                        "mode": {
+                                                            "type": "string",
+                                                            "enum": ["SINGLE"]
+                                                        },
+                                                        "totalAmount": {
+                                                            "type": "number"
+                                                        },
+                                                        "totalCount": {
+                                                            "type": "number"
+                                                        },
+                                                        "creatorName": {
+                                                            "type": "null"
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "FAILED",
+                                                                "PROCESSING",
+                                                                "RECEIVED",
+                                                                "REGISTERED",
+                                                                "SUCCEEDED"
+                                                            ]
+                                                        },
+                                                        "initiationDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "updateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "onDate": {
+                                                            "type": "string"
+                                                        },
+                                                        "confirmationDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "traceNo": {
+                                                            "type": "string"
+                                                        },
+                                                        "extraTraceNo": {
+                                                            "type": "null"
+                                                        },
+                                                        "responseCode": {
+                                                            "type": "string"
+                                                        },
+                                                        "archived": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "creatorSSN": {
+                                                            "type": "string"
+                                                        },
+                                                        "creditPayId": {
+                                                            "type": "null"
+                                                        },
+                                                        "debitPayId": {
+                                                            "type": "null"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "metaData": {
+                                            "type": "object",
+                                            "properties": {
+                                                "notifications": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "resultSet": {
+                                                "innerResponse": {
+                                                    "items": null,
+                                                    "scheduledTransfer": null,
+                                                    "id": "string",
+                                                    "alias": "string",
+                                                    "accountId": "string",
+                                                    "instructedAmount": 0,
+                                                    "instructedCurrency": "string",
+                                                    "زهرا محمدی": "string",
+                                                    "counterpartyAccount": "string",
+                                                    "paymentReference": "string",
+                                                    "paymentDescription": "string",
+                                                    "causeDescription": null,
+                                                    "method": "string",
+                                                    "mode": "string",
+                                                    "totalAmount": 0,
+                                                    "totalCount": 0,
+                                                    "creatorName": null,
+                                                    "status": "string",
+                                                    "initiationDateTime": "string",
+                                                    "updateDateTime": "string",
+                                                    "onDate": "string",
+                                                    "confirmationDateTime": "string",
+                                                    "traceNo": "string",
+                                                    "extraTraceNo": null,
+                                                    "responseCode": "string",
+                                                    "تراکنش با موفقیت انجام شد": "string",
+                                                    "archived": true,
+                                                    "creatorSSN": "string",
+                                                    "creditPayId": null,
+                                                    "debitPayId": null
+                                                }
+                                            },
+                                            "metaData": {
+                                                "notifications": ["string"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "سرویس تأیید انتقال وجه",
+                "requestBody": {},
+                "x-extension1": {
+                    "source": "curl --location --request POST 'http://[HOST:PORT]/services/rest/api/transfer/9c110546-0da8-4678-bab9-c3970e5f5c75/submit' --header 'Content-Type: application/json' --header 'Authorization: Bearer ****'"
+                }
+            }
+        },
+        "/services/rest/api/transfer/{id}": {
+            "get": {
+                "summary": "سرویس پیگیری انتقال وجه",
+                "description": "با استفاده از این سرویس امکان بررسی نتیجه انتقال پول انجام شده فراهم می گردد\r\n- scope: money-transfer",
+                "operationId": "0006",
+                "tags": ["انتقال وجه"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "(UUID) in path param",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultSet": {
+                                            "type": "object",
+                                            "properties": {
+                                                "innerResponse": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "null"
+                                                        },
+                                                        "scheduledTransfer": {
+                                                            "type": "null"
+                                                        },
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "alias": {
+                                                            "type": "string"
+                                                        },
+                                                        "accountId": {
+                                                            "type": "string"
+                                                        },
+                                                        "instructedAmount": {
+                                                            "type": "number"
+                                                        },
+                                                        "instructedCurrency": {
+                                                            "type": "string"
+                                                        },
+                                                        "counterpartyName": {
+                                                            "type": "string"
+                                                        },
+                                                        "counterpartyAccount": {
+                                                            "type": "string"
+                                                        },
+                                                        "paymentReference": {
+                                                            "type": "string"
+                                                        },
+                                                        "paymentDescription": {
+                                                            "type": "string"
+                                                        },
+                                                        "causeDescription": {
+                                                            "type": "null"
+                                                        },
+                                                        "method": {
+                                                            "type": "string"
+                                                        },
+                                                        "mode": {
+                                                            "type": "string"
+                                                        },
+                                                        "totalAmount": {
+                                                            "type": "number"
+                                                        },
+                                                        "totalCount": {
+                                                            "type": "number"
+                                                        },
+                                                        "creatorName": {
+                                                            "type": "null"
+                                                        },
+                                                        "status": {
+                                                            "type": "string"
+                                                        },
+                                                        "initiationDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "updateDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "onDate": {
+                                                            "type": "string"
+                                                        },
+                                                        "confirmationDateTime": {
+                                                            "type": "string"
+                                                        },
+                                                        "traceNo": {
+                                                            "type": "null"
+                                                        },
+                                                        "extraTraceNo": {
+                                                            "type": "null"
+                                                        },
+                                                        "responseCode": {
+                                                            "type": "null"
+                                                        },
+                                                        "responseMessage": {
+                                                            "type": "null"
+                                                        },
+                                                        "archived": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "creatorSSN": {
+                                                            "type": "null"
+                                                        },
+                                                        "creditPayId": {
+                                                            "type": "null"
+                                                        },
+                                                        "debitPayId": {
+                                                            "type": "null"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "metaData": {
+                                            "type": "object",
+                                            "properties": {
+                                                "notifications": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "message": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "resultSet": {
+                                                "innerResponse": {
+                                                    "items": null,
+                                                    "scheduledTransfer": null,
+                                                    "id": "string",
+                                                    "alias": "string",
+                                                    "accountId": "string",
+                                                    "instructedAmount": 0,
+                                                    "instructedCurrency": "string",
+                                                    "counterpartyName": "string",
+                                                    "counterpartyAccount": "string",
+                                                    "paymentReference": "string",
+                                                    "paymentDescription": "string",
+                                                    "causeDescription": null,
+                                                    "method": "string",
+                                                    "mode": "string",
+                                                    "totalAmount": 0,
+                                                    "totalCount": 0,
+                                                    "creatorName": null,
+                                                    "status": "string",
+                                                    "initiationDateTime": "string",
+                                                    "updateDateTime": "string",
+                                                    "onDate": "string",
+                                                    "confirmationDateTime": "string",
+                                                    "traceNo": null,
+                                                    "extraTraceNo": null,
+                                                    "responseCode": null,
+                                                    "responseMessage": null,
+                                                    "archived": true,
+                                                    "creatorSSN": null,
+                                                    "creditPayId": null,
+                                                    "debitPayId": null
+                                                }
+                                            },
+                                            "metaData": {
+                                                "notifications": [
+                                                    {
+                                                        "code": "string",
+                                                        "type": "string",
+                                                        "message": "string"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "notifications": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": []
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {}
+                },
+                "x-extension1": {
+                    "source": "curl --location --request GET 'http://[HOST:PORT]/services/rest/api/transfer/273b991d-0e9c-47ac-bd7a-c1a2426e3274' --header 'Content-Type: application/json' --header 'Authorization: Bearer ***'"
+                }
+            }
+        },
+        "/services/rest/api/transfer/{id}/delete": {
+            "delete": {
+                "summary": "سرویس حذف درخواست انتقال وجه",
+                "description": "با استفاده از این سرویس امکان حذف انتقال پول ایجاد شده در سرویس درخواست انتقال پول فراهم می شود. شایان ذکر است در \r\nصورتیکه اگر در سرویس ایجاد درخواست انتقال پول تایید همزمان صورت گرفته باشد حذف درخواست ممکن نیست\r\n- scope: money-transfer\r\nاین سرویس فاقد خروجی بوده و پاسخ صرفا با کد 200 )موفق و فاقد محتوا( دریافت می گردد",
+                "operationId": "0007",
+                "tags": ["انتقال وجه"],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "UUID",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resultSet": {
+                                            "type": "object",
+                                            "properties": {
+                                                "innerResponse": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "metaData": {
+                                            "type": "object",
+                                            "properties": {
+                                                "notifications": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "code": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": {
+                                                                "type": "string"
+                                                            },
+                                                            "message": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "resultSet": {
+                                                "innerResponse": "string"
+                                            },
+                                            "metaData": {
+                                                "notifications": [
+                                                    {
+                                                        "code": "string",
+                                                        "type": "string",
+                                                        "message": "string"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "notifications": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    },
+                                                    ".شناسه ارسالی انتقال پول نامعتبر است، لطفا شناسه صحیحی وارد کنید": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "notifications": [
+                                                {
+                                                    "code": "string",
+                                                    "type": "string",
+                                                    ".شناسه ارسالی انتقال پول نامعتبر است، لطفا شناسه صحیحی وارد کنید": "string"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/samat/v2/loan/balance": {
+            "post": {
+                "description": "\r\nاین سرویس به منظور ارسال اطلاعات تغییر و تسویه اطلاعات تسهیلات به سرویسهای سمات بانک مرکزی میباشد\r\n\r\n- Scope:svc-mgmt-samat-loan-bal",
+                "operationId": "0002",
+                "tags": ["تسهیلات"],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "برای استفاده از این سرویس ها بایستی ابتدا توکن دسترسی را از سرورهای احراز هویت بانک ملی دریافت نموده و سپس در بخش هدر درخواست های خو ارسال نمایید",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "header",
+                        "name": "Content-Type ",
+                        "description": "نوع محتوا",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "",
+                        "headers": {},
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "description": "این کد به صورت رشته میباشد، به عنوان مثال: \r\nCONSTRAINT_VIOLATION_EXCEPTION"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "timestamp": {
+                                                    "type": "string",
+                                                    "description": "تاریخ با فرمت\r\nyyyy-MM-dd'T'HH:mm:ss.SSS'Z'\r\n"
+                                                },
+                                                "domain": {
+                                                    "type": "string",
+                                                    "description": "\"GLOBAL\""
+                                                },
+                                                "errors": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "description": "نام فیلدی که در اعتبار سنجی با خطا مواجه شده است"
+                                                            },
+                                                            "summery": {
+                                                                "type": "string",
+                                                                "description": "خلاصه خطا"
+                                                            },
+                                                            "detail": {
+                                                                "type": "string",
+                                                                "description": "جزئیات خطا"
+                                                            }
+                                                        }
+                                                    },
+                                                    "description": "جزئیات خطا"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "example1": {
+                                        "value": {
+                                            "error": {
+                                                "code": "string",
+                                                "message": "string",
+                                                "timestamp": "string",
+                                                "domain": "string",
+                                                "errors": [
+                                                    {
+                                                        "name": "string",
+                                                        "summery": "string",
+                                                        "detail": "string"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "requestIdentifier": {
+                                        "type": "string",
+                                        "description": "شماره درخواست"
+                                    },
+                                    "lastDateChange": {
+                                        "type": "string",
+                                        "description": "تاریخ تغییر و تسویه"
+                                    },
+                                    "bankCode": {
+                                        "type": "string",
+                                        "description": "کد بانک"
+                                    },
+                                    "branchCode": {
+                                        "type": "string",
+                                        "description": "کد شعبه"
+                                    },
+                                    "actionCode": {
+                                        "type": "string",
+                                        "description": "کد عمل"
+                                    },
+                                    "originalDebtBalance": {
+                                        "type": "number",
+                                        "description": "مانده بدهی کل- اصل"
+                                    },
+                                    "profitDebtBalance": {
+                                        "type": "number",
+                                        "description": "مانده بدهی کل- سود"
+                                    },
+                                    "originalOverDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده معوق- اصل"
+                                    },
+                                    "originalPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده سررسید گذشته - اصل"
+                                    },
+                                    "originalDoubtfulBalance": {
+                                        "type": "number",
+                                        "description": "مانده مشکوک الوصول- اصل"
+                                    },
+                                    "profitDoubtfulBalance": {
+                                        "type": "number",
+                                        "description": "مانده مشکوک الوصول- سود"
+                                    },
+                                    "profitOverDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده معوق-سود"
+                                    },
+                                    "destroyBalance": {
+                                        "type": "number",
+                                        "description": "مانده سوخت اصل"
+                                    },
+                                    "profitPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مانده سررسید گذشته-- سود"
+                                    },
+                                    "defermentPenaltyBalance": {
+                                        "type": "number",
+                                        "description": "وجه التزام تاخیر تادیه دین"
+                                    },
+                                    "latePaymentPenalties": {
+                                        "type": "number",
+                                        "description": "هزینه پیگیری و وصول مطالبات(جریمه دیرکرد)"
+                                    },
+                                    "profitRemainedGovernmentBalance": {
+                                        "type": "number",
+                                        "description": "سود مانده تعهد دولت براساس قرارداد تسهیلات"
+                                    },
+                                    "originalGovernmentRemainedBalance": {
+                                        "type": "number",
+                                        "description": "اصل مانده تعهد دولت براساس قرارداد تسهیلات"
+                                    },
+                                    "remainedInstallmentsPastDueBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ کل اقساط سررسید شده پرداخت نشده"
+                                    },
+                                    "remainedInstallmentsPastDueCount": {
+                                        "type": "number",
+                                        "description": "تعداد کل اقساط سررسید شده پرداخت نشده"
+                                    },
+                                    "originalProfitPaidBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ بازپرداخت مشتری از سود"
+                                    },
+                                    "originalPaidBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ بازپرداخت مشتری از اصل"
+                                    },
+                                    "remainedInstallmentBalance": {
+                                        "type": "number",
+                                        "description": "مبلغ اقساط باقیمانده \n(سررسید نشده)"
+                                    },
+                                    "profitWatchBalance": {
+                                        "type": "number",
+                                        "description": "سود مانده بدهی سررسید شده و پرداخت نشده قبل از 2 ماه"
+                                    },
+                                    "originalWatchBalance": {
+                                        "type": "number",
+                                        "description": "اصل مانده بدهی سررسید شده و پرداخت نشده قبل از 2 ماه"
+                                    },
+                                    "remainedInstallmentCount": {
+                                        "type": "number",
+                                        "description": "تعداد اقساط باقیمانده (سررسید نشده)"
+                                    }
+                                }
+                            },
+                            "examples": {
+                                "example1": {
+                                    "value": ""
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "summary": "سرویس ارسال اطلاعات و تسویه تسهیلات",
+                "x-extension1": {
+                    "source": "curl --location --request POST 'http://[host]:[port]/api/samat/v2/loan/balance' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJncmFudCI6IkNMSUVOVCIsImlzcyI6Imh0dHA6Ly9hcGkuYm1pLmlyL3NlY3VyaXR5IiwiYXVkIjoic2VydmljZS1tYW5hZ2VtZW50LWdyb3VwLWNsaWVudCIsImV4cCI6MTcyNDc1OTY0ODY4NywibmJmIjoxNzI0NjczMjQ4Njg3LCJyb2xlIjoiIiwic2VyaWFsIjoiNGFmOWU2MDUtOTNlYi0zZDkzLWFjNGQtMWZiZjBiNjFjOWJiIiwic3NuIjoiMTI3MyIsImNsaWVudF9pZCI6IjEyNzMiLCJzY29wZXMiOlsic2VydmljZXMtdGVzdC1zY29wZSJdfQ==.tT9_aTQRSsCS-ZU1l-IYO1_G7W2U3pfZfdNQ9IxAueI' --header 'Content-Type: application/json' --data-raw '{\"requestIdentifier\":\"9001003000887747\",\"lastDateChange\":\"2019-06-26\",\"bankCode\":\"17\",\"branchCode\":\"01033\",\"actionCode\":\"1\",\"originalDebtBalance\":405877384,\"profitDebtBalance\":176249171,\"originalOverDueBalance\":0,\"originalPastDueBalance\":0,\"originalDoubtfulBalance\":0,\"profitDoubtfulBalance\":0,\"profitOverDueBalance\":0,\"destroyBalance\":0,\"profitPastDueBalance\":0,\"defermentPenaltyBalance\":0,\"latePaymentPenalties\":0,\"profitRemainedGovernmentBalance\":0,\"originalGovernmentRemainedBalance\":0,\"remainedInstallmentsPastDueBalance\":0,\"remainedInstallmentsPastDueCount\":\"0\",\"originalProfitPaidBalance\":0,\"originalPaidBalance\":0,\"remainedInstallmentBalance\":0,\"profitWatchBalance\":0,\"originalWatchBalance\":0,\"remainedInstallmentCount\":\"10\"}'"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StructureStatementRequest": {
+                "type": "object",
+                "properties": {
+                    "offsetNumber": {
+                        "type": "string",
+                        "description": "شماره آفست "
+                    },
+                    "offsetLength": {
+                        "type": "string",
+                        "description": "طول آفست"
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "description": "شماره حساب"
+                    },
+                    "dateTimeRange": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "description": "از تاریخ و زمان"
+                            },
+                            {
+                                "type": "string",
+                                "description": "تا تاریخ و زمان"
+                            }
+                        ],
+                        "description": "بازه تاریخ و زمان"
+                    },
+                    "traceNumber": {
+                        "type": "string",
+                        "description": "شماره پیگی ری تراکنش "
+                    },
+                    "amountRange": {
+                        "type": "string",
+                        "description": "بازه مبلغ"
+                    },
+                    "channel": {
+                        "type": "string",
+                        "description": "کانال، یکی از مقادیر: \r\npos/internet/teller/atm/pinpad/UNKN\r\nOWN"
+                    },
+                    "creditDebit": {
+                        "type": "string",
+                        "description": "نوع تراکنش از نظر واریز/برداشت، یکی از مقادیر: \r\nDEBIT/CREDIT"
+                    },
+                    "branchCode": {
+                        "type": "integer"
+                    },
+                    "sortType": {
+                        "type": "integer",
+                        "description": "وع مرتب سازی تراکنش ها جهت ارائه خروجی \r\n)در حالت پیش فرض یا صفر: نزولی، مقدار یک: \r\nصعودی)"
+                    },
+                    "categoryId": {
+                        "type": "string",
+                        "description": "شناسه دسته تراکنش "
+                    },
+                    "languageType": {
+                        "type": "string",
+                        "description": "نوع زبان، یکی از مقادیر FARSI(فارسی(/\r\nENGLISH(انگلیسی)"
+                    }
+                },
+                "required": [
+                    "offsetNumber",
+                    "offsetLength",
+                    "accountNumber",
+                    "dateTimeRange",
+                    "traceNumber",
+                    "amountRange",
+                    "channel",
+                    "creditDebit",
+                    "branchCode",
+                    "sortType",
+                    "categoryId",
+                    "languageType",
+                    "field_0"
+                ],
+                "description": "ساختار Request"
+            }
+        },
+        "requestBodies": {},
+        "securitySchemes": {
+            "petstore_auth": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+                        "scopes": {
+                            "write:pets": "modify pets in your account",
+                            "read:pets": "read your pets"
+                        }
+                    }
+                }
+            },
+            "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+            }
+        }
+    }
+}
