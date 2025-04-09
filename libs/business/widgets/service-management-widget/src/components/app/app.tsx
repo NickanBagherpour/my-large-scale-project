@@ -3,7 +3,7 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import { Filters } from '../filters/filters';
@@ -11,6 +11,7 @@ import { TableContainer } from '../table-container/table-container';
 
 import * as S from './app.style';
 import { useGetReportDataQuery } from '../../services';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //
@@ -28,6 +29,7 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')}>
+      <GlobalMessageContainer message={state.message} onClose={() => resetErrorMessageAction(dispatch)} />
       <Filters />
       <TableContainer data={tableData} loading={tableFetching} />
     </S.AppContainer>
