@@ -668,7 +668,8 @@
                                                 }
                                             }
                                         }
-                                    }
+                                    },
+                                    "description": "test"
                                 },
                                 "examples": {
                                     "example1": {

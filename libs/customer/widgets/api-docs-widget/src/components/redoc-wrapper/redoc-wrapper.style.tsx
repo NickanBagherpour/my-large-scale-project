@@ -118,6 +118,13 @@ export const RedocGlobalStyles = createGlobalStyle`
   .collapser {
     inset-inline-start: -1.5em !important;
   }
+/* .kZsbKD {
+  text-align: right!important;
+
+} */
+     caption {
+      text-align: right!important;
+    }
 
   h5 /* h5:has(~ table) */ {
     /*! @noflip */
@@ -130,9 +137,7 @@ export const RedocGlobalStyles = createGlobalStyle`
     direction: ltr;
     text-align: start;
 
-    caption {
-      text-align: left;
-    }
+ 
 
     td[kind="field"] {
       padding-inline-start: 0;
