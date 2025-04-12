@@ -9,13 +9,13 @@ export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
+  size: number;
 };
 
 export enum SERVICE_MANAGEMENT_STATUS {
   ALL = 'All',
-  NONCOMMERCIAL = 'Non-commercial',
-  COMMERCIAL = 'Commercial',
+  NONCOMMERCIAL = 'false',
+  COMMERCIAL = 'true',
 }
 
 export type WidgetStateType = {
