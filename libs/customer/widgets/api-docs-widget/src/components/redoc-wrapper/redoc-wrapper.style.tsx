@@ -83,6 +83,9 @@ export const RedocGlobalStyles = createGlobalStyle`
     direction: ${direction};
     text-align: right;
   }
+  button[disabled]::before {
+    display: none
+  }
 
   button {
     /*! @noflip */
@@ -93,8 +96,9 @@ export const RedocGlobalStyles = createGlobalStyle`
     svg:not(table svg) {
       margin-left: 0px !important;
       margin-right: -25px !important;
-    }
+    } 
   }
+
 
   div[role="button"] {
     font-size: 12px;
@@ -125,6 +129,10 @@ export const RedocGlobalStyles = createGlobalStyle`
     /*! @noflip */
     direction: ltr;
     text-align: start;
+
+    caption {
+      text-align: left;
+    }
 
     td[kind="field"] {
       padding-inline-start: 0;

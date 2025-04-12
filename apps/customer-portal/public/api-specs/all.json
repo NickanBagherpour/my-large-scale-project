@@ -516,38 +516,73 @@
                                             "response": {
                                                 "accountStatementResponse": [
                                                     {
-                                                        "transactionDateTime": "string",
-                                                        "transactionTraceCode": "string",
-                                                        "creditDebit": "string",
-                                                        "branchCode": 0,
-                                                        "operatorCode": "string",
-                                                        "additionalData1": "string",
-                                                        "additionalData2": "string",
-                                                        "transactionCode": "string",
-                                                        "realDateTime": "string",
-                                                        "amount": 0,
-                                                        "balance": 0,
-                                                        "channelType": "string",
-                                                        "categoryId": "string",
-                                                        "comment": "string",
-                                                        "hyperLinkType": {
-                                                            "0": "string",
-                                                            "1": "string",
-                                                            "2": "string",
-                                                            "3": "string",
-                                                            "4": "string",
-                                                            "5": "string",
-                                                            "6": "string",
-                                                            "7": "string",
-                                                            "8": "string",
-                                                            "field_0": "string"
-                                                        },
-                                                        "rowNumber": 0,
-                                                        "origKey": "string",
-                                                        "channelDateTime": "string"
+                                                        "transactionDateTime": "2021-03-15T12:40:32Z",
+                                                        "transactionTraceCode": "02751671",
+                                                        "creditDebit": "CREDIT",
+                                                        "branchCode": 8268,
+                                                        "branchName": "رودبارجنوب",
+                                                        "operatorCode": "ATM 0005",
+                                                        "additionalData1": "6037998170091598 82680005 36",
+                                                        "additionalData2": "701000000219351",
+                                                        "transactionCode": "053",
+                                                        "transactionDescription": "انتقالی ازکارت",
+                                                        "realDateTime": "2021-03-15T12:40:32Z",
+                                                        "amount": 6333500,
+                                                        "balance": 364026636,
+                                                        "channelType": "ATM",
+                                                        "categoryId": null,
+                                                        "comment": null,
+                                                        "hyperLinkType": 0,
+                                                        "rowNumber": 1,
+                                                        "origKey": null,
+                                                        "channelDateTime": null
+                                                    },
+                                                    {
+                                                        "transactionDateTime": "2021-03-15T12:39:01Z",
+                                                        "transactionTraceCode": "02527223",
+                                                        "creditDebit": "CREDIT",
+                                                        "branchCode": 8268,
+                                                        "branchName": "رودبارجنوب",
+                                                        "operatorCode": "ATM 0003",
+                                                        "additionalData1": "6037998170091598 82680003 43",
+                                                        "additionalData2": "701000000219361",
+                                                        "transactionCode": "053",
+                                                        "transactionDescription": "انتقالی ازکارت",
+                                                        "realDateTime": "2021-03-15T12:39:01Z",
+                                                        "amount": 6333500,
+                                                        "balance": 357693136,
+                                                        "channelType": "ATM",
+                                                        "categoryId": null,
+                                                        "comment": null,
+                                                        "hyperLinkType": 0,
+                                                        "rowNumber": 2,
+                                                        "origKey": null,
+                                                        "channelDateTime": null
+                                                    },
+                                                    {
+                                                        "transactionDateTime": "2021-03-15T12:38:12Z",
+                                                        "transactionTraceCode": "02527222",
+                                                        "creditDebit": "CREDIT",
+                                                        "branchCode": 8268,
+                                                        "branchName": "رودبارجنوب",
+                                                        "operatorCode": "ATM 0003",
+                                                        "additionalData1": "6037998170091598 82680003 70",
+                                                        "additionalData2": "701000000219337",
+                                                        "transactionCode": "053",
+                                                        "transactionDescription": "انتقالی ازکارت",
+                                                        "realDateTime": "2021-03-15T12:38:12Z",
+                                                        "amount": 1260228,
+                                                        "balance": 351359636,
+                                                        "channelType": "ATM",
+                                                        "categoryId": null,
+                                                        "comment": null,
+                                                        "hyperLinkType": 0,
+                                                        "rowNumber": 3,
+                                                        "origKey": null,
+                                                        "channelDateTime": null
                                                     }
                                                 ],
-                                                "outputRecordCount": 0
+                                                "outputRecordCount": 27901
                                             }
                                         }
                                     }
@@ -639,11 +674,11 @@
                                     "example1": {
                                         "value": {
                                             "error": {
-                                                "code": "string",
-                                                "message": "string",
-                                                "timestamp": "string",
-                                                "domain": "string",
-                                                "errors": ["string"]
+                                                "code": "AUTHENTICATION_EXCEPTION",
+                                                "message": "Authentication Exception occurred: token expired",
+                                                "timestamp": "2021-07-06T12:04:14.186Z",
+                                                "domain": "GLOBAL",
+                                                "errors": []
                                             },
                                             "response": null
                                         }
@@ -842,11 +877,11 @@
                                                         },
                                                         "method": {
                                                             "type": "string",
-                                                            "description": "نوع انتقال پول"
+                                                            "description": "نوع انتقال وجه"
                                                         },
                                                         "mode": {
                                                             "type": "string",
-                                                            "description": "حالت انتقال پول \r\n(ثابت single)",
+                                                            "description": "حالت انتقال وجه \r\n(ثابت single)",
                                                             "enum": [
                                                                 "INTER_ACCOUNTS",
                                                                 "INTRA_BANK",
@@ -865,11 +900,11 @@
                                                         },
                                                         "creatorName": {
                                                             "type": "string",
-                                                            "description": "نام ایجاد کننده انتقال پول "
+                                                            "description": "نام ایجاد کننده انتقال وجه "
                                                         },
                                                         "status": {
                                                             "type": "string",
-                                                            "description": "وضعیت اتقال پول ",
+                                                            "description": "وضعیت اتقال وجه ",
                                                             "enum": [
                                                                 "FAILED",
                                                                 "SUCCEEDED",
@@ -915,7 +950,7 @@
                                                         },
                                                         "creatorSSN": {
                                                             "type": "string",
-                                                            "description": "کد ملی ایجادکننده انتقال پول"
+                                                            "description": "کد ملی ایجادکننده انتقال وجه"
                                                         },
                                                         "creditPayId": {
                                                             "type": "string",
@@ -1114,23 +1149,23 @@
                                         "properties": {
                                             " ACCOUNTS_INT": {
                                                 "type": "string",
-                                                "description": "تراکنش انتقال پول بین حسابهای خود"
+                                                "description": "تراکنش انتقال وجه بین حسابهای خود"
                                             },
                                             "INTRA_BANK": {
                                                 "type": "string",
-                                                "description": "تراکنش انتقال پول درون بانکی"
+                                                "description": "تراکنش انتقال وجه درون بانکی"
                                             },
                                             "PAYA": {
                                                 "type": "string",
-                                                "description": "تراکنش های انتقال پول بین بانکی کمتر از 500 میلیون ریال"
+                                                "description": "تراکنش های انتقال وجه بین بانکی کمتر از 500 میلیون ریال"
                                             },
                                             "SATNA": {
                                                 "type": "string",
-                                                "description": "تراکنش های انتقال پول بین بانکی بیشتر از 500 میلیون ریال"
+                                                "description": "تراکنش های انتقال وجه بین بانکی بیشتر از 500 میلیون ریال"
                                             },
                                             "POL": {
                                                 "type": "string",
-                                                "description": "تراکنش های انتقال پول بین بانکی از بستر پل"
+                                                "description": "تراکنش های انتقال وجه بین بانکی از بستر پل"
                                             },
                                             "mode": {
                                                 "type": "string",
@@ -1280,7 +1315,7 @@
         },
         "/services/rest/api/transfer/{id}/submit": {
             "post": {
-                "description": "سرویس تایید انتقال پول یک سرویس RESTful است که به کاربران این امکان را می‌دهد تا درخواست‌های انتقال پول را به‌صورت آنلاین ارسال و تایید کنند\r\nدر این سرویس، پارامترهای ورودی مانند شناسه یکتای تراکنش (UUID) و کد تایید تراکنش (Authorization Code) ارسال می‌شوند و سپس داده‌های مربوط به تراکنش، مانند مبلغ، شماره حساب‌های مبدا و مقصد، و وضعیت تراکنش به‌طور مفصل در خروجی سرویس باز می‌گردد\r\n برای اطمینان از امنیت و کنترل دسترسی، از توکن‌های احراز هویت استفاده می‌شود و در صورت بروز خطا، کدهای خطا و پیام‌های مرتبط برای کاربران ارسال می‌گردد",
+                "description": "سرویس تایید انتقال وجه یک سرویس RESTful است که به کاربران این امکان را می‌دهد تا درخواست‌های انتقال وجه را به‌صورت آنلاین ارسال و تایید کنند\r\nدر این سرویس، پارامترهای ورودی مانند شناسه یکتای تراکنش (UUID) و کد تایید تراکنش (Authorization Code) ارسال می‌شوند و سپس داده‌های مربوط به تراکنش، مانند مبلغ، شماره حساب‌های مبدا و مقصد، و وضعیت تراکنش به‌طور مفصل در خروجی سرویس باز می‌گردد\r\n برای اطمینان از امنیت و کنترل دسترسی، از توکن‌های احراز هویت استفاده می‌شود و در صورت بروز خطا، کدهای خطا و پیام‌های مرتبط برای کاربران ارسال می‌گردد",
                 "operationId": "0005",
                 "tags": ["انتقال وجه"],
                 "parameters": [
@@ -1385,7 +1420,7 @@
                                                         },
                                                         "method": {
                                                             "type": "string",
-                                                            "description": "نوع انتقال پول",
+                                                            "description": "نوع انتقال وجه",
                                                             "enum": [
                                                                 "INTRA_ACCOUNTS",
                                                                 " INTRA_BANK",
@@ -1528,7 +1563,7 @@
         "/services/rest/api/transfer/{id}": {
             "get": {
                 "summary": "سرویس پیگیری انتقال وجه",
-                "description": "با استفاده از این سرویس امکان بررسی نتیجه انتقال پول انجام شده فراهم می گردد\r\n- scope: money-transfer",
+                "description": "با استفاده از این سرویس امکان بررسی نتیجه انتقال وجه انجام شده فراهم می گردد\r\n- scope: money-transfer",
                 "operationId": "0006",
                 "tags": ["انتقال وجه"],
                 "parameters": [
@@ -1774,7 +1809,7 @@
         "/services/rest/api/transfer/{id}/delete": {
             "delete": {
                 "summary": "سرویس حذف درخواست انتقال وجه",
-                "description": "با استفاده از این سرویس امکان حذف انتقال پول ایجاد شده در سرویس درخواست انتقال پول فراهم می شود. شایان ذکر است در \r\nصورتیکه اگر در سرویس ایجاد درخواست انتقال پول تایید همزمان صورت گرفته باشد حذف درخواست ممکن نیست\r\n- Scope: money-transfer\r\n\r\nاین سرویس فاقد خروجی بوده و پاسخ صرفا با کد 200 )موفق و فاقد محتوا( دریافت می گردد",
+                "description": "با استفاده از این سرویس امکان حذف انتقال وجه ایجاد شده در سرویس درخواست انتقال وجه فراهم می شود. شایان ذکر است در \r\nصورتیکه اگر در سرویس ایجاد درخواست انتقال وجه تایید همزمان صورت گرفته باشد حذف درخواست ممکن نیست\r\n- Scope: money-transfer\r\n\r\nاین سرویس فاقد خروجی بوده و پاسخ صرفا با کد 200 (موفق و فاقد محتوا) دریافت می گردد",
                 "operationId": "0007",
                 "tags": ["انتقال وجه"],
                 "parameters": [
@@ -1868,7 +1903,7 @@
                                                     "type": {
                                                         "type": "string"
                                                     },
-                                                    ".شناسه ارسالی انتقال پول نامعتبر است، لطفا شناسه صحیحی وارد کنید": {
+                                                    ".شناسه ارسالی انتقال وجه نامعتبر است، لطفا شناسه صحیحی وارد کنید": {
                                                         "type": "string"
                                                     }
                                                 }
@@ -1883,7 +1918,7 @@
                                                 {
                                                     "code": "string",
                                                     "type": "string",
-                                                    ".شناسه ارسالی انتقال پول نامعتبر است، لطفا شناسه صحیحی وارد کنید": "string"
+                                                    ".شناسه ارسالی انتقال وجه نامعتبر است، لطفا شناسه صحیحی وارد کنید": "string"
                                                 }
                                             ]
                                         }
@@ -1929,7 +1964,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "headers": {}
                     },
                     "500": {
                         "description": "",
