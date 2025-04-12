@@ -1,10 +1,11 @@
 export default {
-  widget_name: 'api-docs-widget',
+  widget_name: 'مستندات API',
   choose_api_version: 'انتخاب نسخه API',
   statement: 'مبتنی بر حساب',
   loan_service: 'تسهیلات',
-  transfer: 'انتقال پول',
+  transfer: 'انتقال وجه',
   auth: 'احراز هویت',
+  all: 'جامع',
   example: 'مثال',
   examples: 'مثال‌ها',
   no_results_found: 'پاسخی یافت نشد',

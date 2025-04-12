@@ -20,6 +20,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const API_OPTIONS: ApiOption[] = [
     {
+      label: t('all'),
+      value: 'ALL',
+    },
+    {
       label: t('auth'),
       value: 'AUTH',
     },

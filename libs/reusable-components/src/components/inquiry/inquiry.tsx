@@ -84,10 +84,8 @@ const Inquiry: React.FC<Props> = ({
   useEffect(() => {
     if (dataLoading) {
       lottieRef?.current?.play();
-      console.log('start');
     } else {
       lottieRef?.current?.stop();
-      console.log('stop');
     }
     // return () => lottieRef?.current?.pause();
   }, [dataLoading]);
