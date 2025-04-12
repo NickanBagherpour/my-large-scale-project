@@ -118,6 +118,9 @@
             "@oxygen/business/widgets/auth-widget": [
                 "libs/business/widgets/auth-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/billing-details-widget": [
+                "libs/business/widgets/billing-details-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/clients-report-widget": [
                 "libs/business/widgets/clients-report-widget/src/index.ts"
             ],
