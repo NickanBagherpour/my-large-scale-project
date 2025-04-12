@@ -1,3 +1,4 @@
+import { Nullable } from '@oxygen/types';
 import { FiltersType, PaginationType } from '../context/types';
 
 export type TableResponseType = {
@@ -26,6 +27,9 @@ export type PaginationResultType = {
 };
 
 export type FetchParamsType = {
-  filters?: FiltersType;
-  pagination: PaginationType;
+  serviceName?: Nullable<string>;
+  isCommercial?: boolean;
+  sort: 'asc' | 'desc';
+  page: number;
+  size: number;
 };
