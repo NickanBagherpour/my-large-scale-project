@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { useBounce, useToggle } from '@oxygen/hooks';
+import { useBounce } from '@oxygen/hooks';
 
 import { updateSearchValueAction, updateSort, useAppDispatch, useAppState } from '../../context';
 
@@ -20,7 +20,6 @@ export const Filters: React.FC<FiltersPropsType> = (props) => {
   const [t] = useTr();
 
   const [value, setValue] = useState('');
-  const [isInquiryModalOpen, toggleInquiryModal] = useToggle(false);
 
   useBounce(() => {
     updateSearchValueAction(dispatch, value.trim());
@@ -35,11 +34,6 @@ export const Filters: React.FC<FiltersPropsType> = (props) => {
           prefix={<i className='icon-search-normal' />}
           onChange={(e) => setValue(e.target.value)}
         />
-        <S.ButtonContainer>
-          <S.Button onClick={toggleInquiryModal} color='primary' variant='solid'>
-            {t('add_tariff')}
-          </S.Button>
-        </S.ButtonContainer>
       </S.SearchContainer>
 
       <S.Indicators>
@@ -53,7 +47,6 @@ export const Filters: React.FC<FiltersPropsType> = (props) => {
           onChange={(value) => updateSort(dispatch, value as SORT_ORDER)}
         />
       </S.Indicators>
-      {/* {isInquiryModalOpen && <ServiceFeeInquiry dispatch={dispatch} toggle={toggleInquiryModal} />} */}
     </S.FiltersContainer>
   );
 };
