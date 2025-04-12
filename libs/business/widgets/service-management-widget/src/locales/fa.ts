@@ -5,6 +5,7 @@ export default {
   oldest: 'قدیمی ترین',
   newest: 'جدیدترین',
   commercialization_status: 'وضعیت تجاری‌سازی',
+  warning: 'هشدار!',
   chips: {
     all_status: 'همه وضعیت‌ها',
     commercial: 'تجاری',
