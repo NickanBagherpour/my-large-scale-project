@@ -23,34 +23,34 @@ const App: React.FC<AppProps> = (props) => {
       label: t('all'),
       value: 'ALL',
     },
-    // {
-    //   label: t('auth'),
-    //   value: 'AUTH',
-    // },
-    // {
-    //   label: t('statement'),
-    //   value: 'STATEMENT',
-    // },
-    // {
-    //   label: t('transfer'),
-    //   value: 'TRANSFER',
-    // },
-    // {
-    //   label: t('loan_service'),
-    //   value: 'LOAN_SERVICE',
-    // },
+    {
+      label: t('auth'),
+      value: 'AUTH',
+    },
+    {
+      label: t('statement'),
+      value: 'STATEMENT',
+    },
+    {
+      label: t('transfer'),
+      value: 'TRANSFER',
+    },
+    {
+      label: t('loan_service'),
+      value: 'LOAN_SERVICE',
+    },
   ];
 
   const { selectedOption, spec, loading, error, selectApiOption, refreshSpec } = useApiSpecs(API_OPTIONS[0]);
 
   return (
     <S.PageContainer>
-      <ApiSelector
+      {/* <ApiSelector
         options={API_OPTIONS}
         selectedOption={selectedOption}
         onSelectChange={selectApiOption}
         onRefresh={refreshSpec}
-      />
+      /> */}
       <S.RedocContainer>
         {loading ? (
           <Loading containerProps={{ display: 'flex', alignItems: 'center', height: '100%' }} />
