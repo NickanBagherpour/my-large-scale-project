@@ -127,6 +127,9 @@
             "@oxygen/business/widgets/dashboard-widget": [
                 "libs/business/widgets/dashboard-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/detailed-bill-report-widget": [
+                "libs/business/widgets/detailed-bill-report-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
             ],
