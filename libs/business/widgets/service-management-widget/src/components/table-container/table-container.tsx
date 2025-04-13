@@ -28,8 +28,6 @@ export const TableContainer = (props: TableContainerPropsType) => {
 
   const pagination = state.table.pagination;
   const tableData = data?.content ?? [];
-  console.log('this is the data :', data);
-  console.log('and this one is data.page :', data?.page);
 
   const lastValidTotal = data?.page?.totalElements;
   const [lastTotal, setLastTotal] = useState(lastValidTotal);
@@ -42,7 +40,7 @@ export const TableContainer = (props: TableContainerPropsType) => {
   const size = pagination?.size || AVAILABLE_ROWS_PER_PAGE[1];
   const page = pagination?.page || 1;
 
-  const prepareColumnsParams = { data, t, pagination };
+  const prepareColumnsParams = { data, t, pagination, setModalIsOpen };
   const tableDesctopColumns = getDesktopColumns(prepareColumnsParams);
   // const tableMobileColumns = getMobileColumns(prepareColumnsParams);
 
@@ -64,6 +62,7 @@ export const TableContainer = (props: TableContainerPropsType) => {
         rowKey={(row) => row.name}
         minHeight={'auto'}
       ></S.Table>
+
       <Modal
         centered
         title={t('warning')}
@@ -75,7 +74,7 @@ export const TableContainer = (props: TableContainerPropsType) => {
             {t('button.cancel')}
           </Button>,
           <Button
-            key={'delete'}
+            key={'tegister'}
             onClick={() => console.log('you click on register button')}
             size='large'
             color='primary'

@@ -1,15 +1,14 @@
 import { Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import * as S from '../components/table-container/table-container.style';
-import { TableResponseType } from '../types';
-import { Nullable } from '@oxygen/types';
+
 export type TableColumnsPropsType = {
   t: any;
-  data?: Nullable<TableResponseType>;
   pagination: any;
+  setModalIsOpen: any;
 };
 export const getDesktopColumns = (props: TableColumnsPropsType) => {
-  const { t, pagination } = props;
+  const { t, pagination, setModalIsOpen } = props;
   const statusOptions = [
     { value: 'true', label: t('chips.commercial') },
     { value: 'false', label: t('chips.noncommercial') },
@@ -53,10 +52,11 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
         return (
           <S.CustomeSelect
             options={statusOptions}
-            defaultValue={_val.isCommercial ? statusOptions[0] : statusOptions[1]}
+            value={_val?.isCommercial ? statusOptions[0] : statusOptions[1]}
             size='middle'
+            onSelect={() => console.log('selected')}
             onChange={() => {
-              console.log('clicked');
+              setModalIsOpen(_val);
             }}
             $isCommercial={_val.isCommercial}
           />
