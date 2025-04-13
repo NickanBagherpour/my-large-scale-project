@@ -1,4 +1,4 @@
-import { client, portalUrl } from '@oxygen/client';
+import { API_PREFIX, client } from '@oxygen/client';
 // import { ENV_CONSTANTS } from '@oxygen/utils';
 import Mockify from '@oxygen/mockify';
 
@@ -8,7 +8,7 @@ const Api = {
     return response.data;
   },
   getUserPhoto: async () => {
-    const response = await client.get(`${portalUrl}/profile/photo`);
+    const response = await client.get(`${API_PREFIX.AUTH}/profile/photo`);
     return response.data;
   },
   getUserProfile: async () => {
