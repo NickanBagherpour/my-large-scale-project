@@ -9,7 +9,6 @@ export type TableColumnsPropsType = {
   pagination: any;
 };
 export const getDesktopColumns = (props: TableColumnsPropsType) => {
-  console.log('props', props);
   const { t, pagination } = props;
   const statusOptions = [
     { value: 'true', label: t('chips.commercial') },
@@ -22,7 +21,7 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
-        const start = page * size + 1;
+        const start = (page - 1) * size + 1;
         return start + index;
       },
     },
@@ -51,7 +50,6 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
       width: '20rem',
       ellipsis: false,
       render: (_val, _record) => {
-        console.log('_val', _val);
         return (
           <S.CustomeSelect
             options={statusOptions}

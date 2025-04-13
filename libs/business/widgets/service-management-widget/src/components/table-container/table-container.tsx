@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import * as S from './table-container.style';
 import { Nullable } from '@oxygen/types';
-import { TableResponseType } from '../../types';
-import { getDesktopColumns } from '../../utils/table-list';
 import { useTr } from '@oxygen/translation';
-import { useAppState } from '../../context';
 import { Button, Modal } from '@oxygen/ui-kit';
+
+import { getDesktopColumns } from '../../utils/table-list';
+import { TableResponseType } from '../../types';
+import { updatePagination, useAppDispatch, useAppState } from '../../context';
+
+import { TablePaginationConfig } from 'antd';
+import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
+
+import * as S from './table-container.style';
 
 export type TableContainerPropsType = {
   data: Nullable<TableResponseType>;
@@ -15,21 +20,50 @@ export type TableContainerPropsType = {
 export const TableContainer = (props: TableContainerPropsType) => {
   const { data, loading } = props;
   const state = useAppState();
+  const dispatch = useAppDispatch();
   const [t] = useTr();
 
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const close = () => setModalIsOpen(false);
 
   const pagination = state.table.pagination;
-  const tableData = [];
+  const tableData = data?.content ?? [];
   console.log('this is the data :', data);
-  const prepareColumnsParams = { tableData, t, pagination };
+  console.log('and this one is data.page :', data?.page);
+
+  const lastValidTotal = data?.page?.totalElements;
+  const [lastTotal, setLastTotal] = useState(lastValidTotal);
+
+  const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
+    if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
+    const updatedPagination = { page: current, size: pageSize };
+    updatePagination(dispatch, updatedPagination);
+  };
+  const size = pagination?.size || AVAILABLE_ROWS_PER_PAGE[1];
+  const page = pagination?.page || 1;
+
+  const prepareColumnsParams = { data, t, pagination };
   const tableDesctopColumns = getDesktopColumns(prepareColumnsParams);
   // const tableMobileColumns = getMobileColumns(prepareColumnsParams);
 
   return (
     <S.TableContainer>
-      <S.Table dataSource={tableData} columns={tableDesctopColumns} loading={loading}></S.Table>
+      <S.Table
+        loading={loading}
+        dataSource={tableData}
+        columns={tableDesctopColumns}
+        /*mobileColumns={mobileColumns}*/
+        pagination={{
+          total: data?.page?.totalElements || lastTotal,
+          pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
+          pageSize: size,
+          current: page,
+          hideOnSinglePage: false,
+        }}
+        onChange={handlePageChange}
+        rowKey={(row) => row.name}
+        minHeight={'auto'}
+      ></S.Table>
       <Modal
         centered
         title={t('warning')}
