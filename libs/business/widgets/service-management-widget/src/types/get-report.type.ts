@@ -1,12 +1,26 @@
 import { Nullable } from '@oxygen/types';
-import { FiltersType, PaginationType } from '../context/types';
 
-export type TableResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
+export interface TableResponseType {
+  content: TableDataContentType[];
+  page: TableDataPaginationType;
+}
+
+interface TableDataContentType {
+  id: number;
+  name: string;
+  persianName: string;
+  fee: number | null;
+  version: string;
+  isCommercial: boolean;
+  isFinancial: boolean;
+}
+
+interface TableDataPaginationType {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
+}
 
 export type ItemType = {
   uid: number;
@@ -26,7 +40,7 @@ export type PaginationResultType = {
   totalNumberOfEntries: number;
 };
 
-export type FetchParamsType = {
+export type getTableReportParamsType = {
   serviceName?: Nullable<string>;
   isCommercial?: boolean;
   sort: 'asc' | 'desc';
