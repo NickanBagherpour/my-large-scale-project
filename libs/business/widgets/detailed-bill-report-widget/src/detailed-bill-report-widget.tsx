@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { loadTr } from '@oxygen/translation';
 import { WidgetWrapper } from '@oxygen/business/layouts';
@@ -9,13 +9,13 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const DetailedBillReportWidget: React.FC<PageProps> = (props) => {
+const DetailedBillReportWidget: React.FC<PageProps> = (_) => {
   loadTr({ en, fa });
 
   return (
     <WidgetWrapper>
       <AppProvider>
-        <App parentProps={props.parentProps} />
+        <App />
       </AppProvider>
     </WidgetWrapper>
   );

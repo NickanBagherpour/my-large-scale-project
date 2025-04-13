@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'detailed-bill-report-widget',
+  widget_name: 'گزارش ریز صورت حساب',
 };
