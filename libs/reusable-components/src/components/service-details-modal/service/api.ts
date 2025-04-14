@@ -1,4 +1,4 @@
-import { client,API_PREFIX } from '@oxygen/client';
+import { client, API_PREFIX } from '@oxygen/client';
 import { ServiceDetails } from '../types/type';
 
 const Api = {

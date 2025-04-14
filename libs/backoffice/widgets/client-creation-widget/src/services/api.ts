@@ -12,9 +12,11 @@ const Api = {
 
   getNameTagData: async () => client.get(`${API_PREFIX.PUBLISHER}/v1/tags/client`),
   getClientTypes: async () => client.get(`${API_PREFIX.PUBLISHER}/v1/enums/client-types`),
-  getClientInfo: async (params) => client.get<ClientInfoResponseType>(`${API_PREFIX.PUBLISHER}/v1/clients/${params}/integrations`),
+  getClientInfo: async (params) =>
+    client.get<ClientInfoResponseType>(`${API_PREFIX.PUBLISHER}/v1/clients/${params}/integrations`),
   getClientDraftInfo: async (params) => client.get<ClientDraftDataType>(`${API_PREFIX.PUBLISHER}/v1/clients/${params}`),
-  getClientInquirySSO: async (params) => client.get(`${API_PREFIX.PUBLISHER}/v1/clients/inquiry-client-sso`, { params }),
+  getClientInquirySSO: async (params) =>
+    client.get(`${API_PREFIX.PUBLISHER}/v1/clients/inquiry-client-sso`, { params }),
   getClientInquiryStatus: async (params) =>
     client.get<InquiryStatusResponceType>(`${API_PREFIX.PUBLISHER}/v1/clients/inquiry-client-status`, { params }),
   getOrganizationInfo: async (params) =>

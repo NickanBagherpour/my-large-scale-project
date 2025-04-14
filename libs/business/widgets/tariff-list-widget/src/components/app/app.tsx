@@ -25,7 +25,7 @@ const App: React.FC<AppProps> = (props) => {
   function prepareParams() {
     const params = {
       page: state.table.pagination.page - 1,
-      size: state.table.pagination.limit,
+      size: state.table.pagination.size,
     };
     if (state.searchValue) {
       params['search-field'] = state.searchValue;

@@ -8,7 +8,7 @@ export type SimpleFilters = Pick<FormFieldsType, 'code' | 'branchCode'>;
 
 export type PaginationType = {
   page: number;
-  limit: number;
+  size: number;
 };
 
 export type WidgetStateType = {

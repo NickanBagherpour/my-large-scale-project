@@ -26,9 +26,13 @@ const Api = {
     const { file, serviceName } = params;
     const formData = new FormData();
     formData.append('file', file, file.name);
-    return client.post<UploadDocumentResponseType>(`${API_PREFIX.PUBLISHER}/v1/services/${serviceName}/files`, formData, {
-      headers: { 'content-type': 'multipart/form-data' },
-    });
+    return client.post<UploadDocumentResponseType>(
+      `${API_PREFIX.PUBLISHER}/v1/services/${serviceName}/files`,
+      formData,
+      {
+        headers: { 'content-type': 'multipart/form-data' },
+      }
+    );
   },
 
   getUpstreamList: async (params) => {

@@ -2,7 +2,8 @@ import { client, API_PREFIX } from '@oxygen/client';
 import { ClientPluginParams, ClientPlugins, ServicePlugin, ServicePluginParams } from '../types/plugins.type';
 
 const Api = {
-  getClientPlugins: async (name: string) => client.get<ClientPlugins>(`${API_PREFIX.PUBLISHER}/v1/plugins/client/${name}`),
+  getClientPlugins: async (name: string) =>
+    client.get<ClientPlugins>(`${API_PREFIX.PUBLISHER}/v1/plugins/client/${name}`),
 
   getClientServicePlugins: async (name: string) =>
     client.get<ServicePlugin[]>(`${API_PREFIX.PUBLISHER}/v1/plugins/client-service/${name}`),

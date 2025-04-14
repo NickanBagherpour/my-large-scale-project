@@ -28,37 +28,20 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
   } = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
-  const { notification } = useApp();
   const router = useRouter();
   const theme = useTheme();
-  //MUTATION
-  const { mutate, isPending } = useDeleteServiceQuery();
 
-  const [isRemoveModalOpen, toggleRemoveModal] = useToggle(false);
-  const [serviceToUnassign, setServiceToUnassign] = useState<string | null>(null);
   const lastValidTotal = tableData?.totalElements;
   const [lastTotal, setLastTotal] = useState(lastValidTotal);
 
-  const handleRemove = async () => {
-    mutate(serviceToUnassign!, {
-      onSuccess: () => {
-        toggleRemoveModal();
-        notification.success({ message: t(`success_message`) });
-      },
-      onError: () => {
-        toggleRemoveModal();
-      },
-    });
-  };
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
     if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
-    const updatedPagination = { page: current, limit: pageSize };
+    const updatedPagination = { page: current, size: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
-
-  const limit = pagination?.limit || AVAILABLE_ROWS_PER_PAGE[0];
+  const size = pagination?.size || AVAILABLE_ROWS_PER_PAGE[0];
   const page = pagination?.page || 1;
-  const tableColumnsParams = { t, toggleRemoveModal, setServiceToUnassign, router, theme, limit, page };
+  const tableColumnsParams = { t, router, theme, size, page };
   const desktopColumns = getDesktopColumns(tableColumnsParams);
   const mobileColumns = getMobileColumns(tableColumnsParams);
   return (
@@ -69,29 +52,14 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         pagination={{
-          ...pagination,
-          total: tableData?.page?.totalElements || lastTotal,
+          total: tableData?.totalElements || lastTotal,
           pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-          pageSize: pagination?.limit,
+          pageSize: pagination?.size,
           current: pagination?.page,
           hideOnSinglePage: false,
         }}
         onChange={handlePageChange}
         rowKey={(row) => row.serviceName}
-        // showHeader={true}
-      />
-      <ConfirmRemoveModal
-        title={t('remove_modal_title')}
-        message={t('confirm_remove_msg', { name: serviceToUnassign })}
-        isOpen={isRemoveModalOpen}
-        close={() => {
-          toggleRemoveModal();
-        }}
-        isLoading={false}
-        onRemove={() => {
-          handleRemove();
-        }}
-        wordToHighlight={serviceToUnassign || ''}
       />
     </S.TariffTableContainer>
   );

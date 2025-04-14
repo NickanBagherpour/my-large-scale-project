@@ -22,12 +22,14 @@ const Api = {
     client.get<Upstreams>(`${API_PREFIX.PUBLISHER}/v1/upstreams`, {
       params,
     }),
-  getUpstreamWithTargets: async (name: string) => client.get<UpstreamWithTargets>(`${API_PREFIX.PUBLISHER}/v1/upstreams/${name}`),
+  getUpstreamWithTargets: async (name: string) =>
+    client.get<UpstreamWithTargets>(`${API_PREFIX.PUBLISHER}/v1/upstreams/${name}`),
   getTags: async () => client.get<Tags>(`${API_PREFIX.PUBLISHER}/v1/tags/service`),
   getCategories: async () => client.get<CodeTitle[]>(`${API_PREFIX.PUBLISHER}/v1/service-categories`),
   getServiceAccess: async () => client.get<CodeTitle[]>(`${API_PREFIX.PUBLISHER}/v1/enums/service-access`),
   getThroughput: async () => client.get<CodeTitle[]>(`${API_PREFIX.PUBLISHER}/v1/enums/throughput`),
-  getServiceScope: async (name: string) => client.get<ServiceScope[]>(`${API_PREFIX.PUBLISHER}/v1/scope/service-name/${name}`),
+  getServiceScope: async (name: string) =>
+    client.get<ServiceScope[]>(`${API_PREFIX.PUBLISHER}/v1/scope/service-name/${name}`),
   getUpstream: async (name: string) =>
     client.get<UpstreamWithTargets & { id: number }>(`${API_PREFIX.PUBLISHER}/v1/upstreams/service-name/${name}`),
   postAssignUpstreamToService: async ({ upstreamName, serviceName }: AssignUpstreamToServiceParams) =>
@@ -38,7 +40,8 @@ const Api = {
     client.delete<unknown>(`${API_PREFIX.PUBLISHER}/v1/scope/${scopeName}/services/${serviceName}`),
   getServiceHttpMethod: async () => client.get<CodeTitle[]>(`${API_PREFIX.PUBLISHER}/v1/enums/service-http-method`),
   getServiceProtocol: async () => client.get<CodeTitle[]>(`${API_PREFIX.PUBLISHER}/v1/enums/service-protocol`),
-  postCofirmData: async (serviceName: string) => client.post(`${API_PREFIX.PUBLISHER}/v1/services/confirm-info/${serviceName}`),
+  postCofirmData: async (serviceName: string) =>
+    client.post(`${API_PREFIX.PUBLISHER}/v1/services/confirm-info/${serviceName}`),
   getServiceInquiry: async (serviceName: string) =>
     client.get<ServiceInquiry>(`${API_PREFIX.PUBLISHER}/v1/services/inquiry-service-status`, {
       params: { 'service-name': serviceName },

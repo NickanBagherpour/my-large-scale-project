@@ -65,9 +65,13 @@ const Api = {
   requestRegistrationOrganizationDefineStep: async (params: FirstStepParams) => {
     const { organizationId, submissionId, ...restParams } = params;
     if (organizationId && submissionId) {
-      return client.put(`${API_PREFIX.CUSTOMER}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
-        headers: {},
-      });
+      return client.put(
+        `${API_PREFIX.CUSTOMER}/v1/organizations/${organizationId}/submissions/${submissionId}`,
+        restParams,
+        {
+          headers: {},
+        }
+      );
     } else {
       return client.post(`${API_PREFIX.CUSTOMER}/v1/organizations`, restParams, {
         headers: {},
