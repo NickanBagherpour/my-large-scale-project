@@ -32,8 +32,8 @@ export default function Summary() {
     <S.Container>
       <S.Grid>
         {info.map(({ key, value }, idx) => (
-          <S.Item>
-            <S.Key key={idx}>{key}</S.Key>
+          <S.Item key={idx}>
+            <S.Key>{key}</S.Key>
             <S.Value>{value}</S.Value>
           </S.Item>
         ))}

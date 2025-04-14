@@ -13,4 +13,11 @@ export default {
   client: 'کلاینت',
   non_financial_services_invoice: 'صورتحساب سرویس‌های غیر مالی',
   financial_services_invoice: 'صورتحساب سرویس‌های مالی',
+
+  period: 'بازه',
+  successful_transaction: 'تراکنش موفق',
+  unsuccessful_transaction: 'تراکنش ناموفق',
+  total_transaction_count: 'مجموع تعداد تراکنش',
+  commission_fee_price: 'قیمت کارمزد (ریال)',
+  total_amount: 'مبلغ کل (ریال)',
 };
