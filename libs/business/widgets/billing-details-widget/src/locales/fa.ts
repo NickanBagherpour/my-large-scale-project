@@ -1,3 +1,4 @@
 export default {
-  widget_name: 'جزییات صورتحساب',
+  widget_title: 'جزییات صورتحساب',
+  general_info: 'اطلاعات کلی صورتحساب',
 };
