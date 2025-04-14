@@ -6,6 +6,6 @@ const Api = {
   getServicesReport: async (params: FetchParamsType) =>
     client.get<ServicesReportResponseType>(`${API_PREFIX.REPORT}/v1/reports/services`, { params }),
   getServiceClients: async (name: string) =>
-    client.get<ServiceClientsResponse>(`${API_PREFIX.PORTAL}/v1/reports/services/${name}/clients`),
+    client.get<ServiceClientsResponse>(`${API_PREFIX.REPORT}/v1/reports/services/${name}/clients`),
 };
 export default Api;

@@ -3,7 +3,7 @@ import { API_PREFIX, client } from '@oxygen/client';
 const Api = {
   geRequestData: async (submissionId: string) => {
     try {
-      const res = await client.get(`${API_PREFIX.PUBLISHER}/v1/submissions/${submissionId}`);
+      const res = await client.get(`${API_PREFIX.PORTAL}/v1/submissions/${submissionId}`);
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);

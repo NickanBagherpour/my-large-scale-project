@@ -1,7 +1,7 @@
 {
     "name": "business-portal",
     "version": "0.0.22",
-    "tryCount": "0",
+    "tryCount": "1",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/business-portal",
     "projectType": "application",

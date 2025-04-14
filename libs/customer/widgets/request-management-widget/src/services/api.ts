@@ -5,7 +5,7 @@ import { FetchParamsType, ReportResponseType } from '../types';
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
-    return client.post<ReportResponseType>(`${API_PREFIX.CLIENT}/v1/redemption/report`, params);
+    return client.post<ReportResponseType>(`${API_PREFIX.CUSTOMER}/v1/redemption/report`, params);
   },
 
   getRequestsListData: async (params: RequestParamsType) => {
@@ -17,7 +17,7 @@ const Api = {
     };
 
     try {
-      const res = await client.get(`${API_PREFIX.CLIENT}/v1/submissions/search?`, { params: filteredParams });
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
       return res;
     } catch (error) {
       console.error('Error fetching request list:', error);
@@ -27,7 +27,7 @@ const Api = {
 
   getRequestDraftListData: async () => {
     try {
-      const res = await client.get(`${API_PREFIX.CLIENT}/v1/submissions/drafts`);
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/drafts`);
       return res;
     } catch (error) {
       console.error('Error fetching requests drafts list:', error);
@@ -37,7 +37,7 @@ const Api = {
 
   deleteSelectedRequest: async (submissionId: number) => {
     try {
-      const res = await client.delete(`${API_PREFIX.CLIENT}/v1/submissions/${submissionId}`);
+      const res = await client.delete(`${API_PREFIX.CUSTOMER}/v1/submissions/${submissionId}`);
       return res;
     } catch (error) {
       console.error('Error fetching request list:', error);
