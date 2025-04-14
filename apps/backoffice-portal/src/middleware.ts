@@ -1,6 +1,7 @@
 import { createMiddleware, ROUTES } from '@oxygen/utils';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { API_PREFIX } from '@oxygen/client';
 
 // Enhanced logger configuration
 const logger = {
@@ -12,7 +13,7 @@ const logger = {
           level: 'INFO',
           message,
           ...data,
-        })
+        }),
       );
     }
   },
@@ -24,7 +25,7 @@ const logger = {
         message,
         error: error instanceof Error ? error.message : String(error),
         stack: process.env.NODE_ENV !== 'production' && error instanceof Error ? error.stack : undefined,
-      })
+      }),
     );
   },
 };
@@ -32,7 +33,7 @@ const logger = {
 // Create the original Oxygen middleware instance
 const oxygenMiddleware = createMiddleware({
   publicPaths: [ROUTES.BACKOFFICE.AUTH],
-  apiPrefixes: ['/api/', '/publisher/api/'],
+  apiPrefixes: ['/api/', `/${API_PREFIX.PORTAL}/`],
   authRoute: ROUTES.BACKOFFICE.AUTH,
   baseProtectedRoute: ROUTES.BACKOFFICE.HOME,
   useOnlineValidation: false,
