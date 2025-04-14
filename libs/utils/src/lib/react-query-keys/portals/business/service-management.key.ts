@@ -1,4 +1,4 @@
 import { createQueryKeys } from '../../create-query-keys';
 
 const prefix = 'BUSINESS_SERVICE_MANAGEMENT_KEYS';
-export const KEYS = createQueryKeys(prefix, ['GET_TABLE']);
+export const KEYS = createQueryKeys(prefix, ['GET_TABLE', 'GET_SERVICE_CLIENTS']);
