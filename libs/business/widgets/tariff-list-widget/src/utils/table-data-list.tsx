@@ -9,8 +9,6 @@ import { JSX } from 'react';
 
 type PropsType = {
   t: TFunction;
-  toggleRemoveModal: () => void;
-  setServiceToUnassign: (serviceName: string) => void;
   router: AppRouterInstance;
   theme: DefaultTheme;
   page: number;
@@ -18,7 +16,7 @@ type PropsType = {
 };
 
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
-  const { t, toggleRemoveModal, setServiceToUnassign, router, theme, page, limit } = props;
+  const { t, router, theme, page, limit } = props;
 
   const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
 
@@ -135,23 +133,13 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
           >
             {t('see_details')}
           </Button>
-          <Button
-            variant='link'
-            color='error'
-            onClick={() => {
-              toggleRemoveModal();
-              setServiceToUnassign(record.serviceName);
-            }}
-          >
-            <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
-          </Button>
         </Box>
       ),
     },
   ];
 }
 export function getMobileColumns(props: PropsType): ColumnsType<Service> {
-  const { t, toggleRemoveModal, setServiceToUnassign, router, theme } = props;
+  const { t, router, theme } = props;
 
   const handleClick = (serviceName: string) =>
     router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
@@ -220,22 +208,12 @@ export function getMobileColumns(props: PropsType): ColumnsType<Service> {
                 <Button variant='link' color='primary' onClick={() => handleClick(serviceName)}>
                   {t('see_details')}
                 </Button>
-                <Button
-                  variant='link'
-                  color='error'
-                  onClick={() => {
-                    toggleRemoveModal();
-                    setServiceToUnassign(serviceName);
-                  }}
-                >
-                  <i style={{ fontSize: '2.4rem' }} className='icon-trash' />
-                </Button>
               </div>
             ),
           },
         ];
 
-        return <Table.MobileColumns columns={data} minHeight={'44px'} />;
+        return <Table.MobileColumns columns={data} minHeight={'4.4rem'} />;
       },
     },
   ];
