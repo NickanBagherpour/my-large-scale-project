@@ -55,9 +55,15 @@ const nextConfig = {
       },
     ];
   },
+  productionBrowserSourceMaps: true,
   compiler: {
-    // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
     styledComponents: true,
+    removeConsole:
+      process.env.ENABLE_PROD_LOGS === 'true'
+        ? false
+        : {
+            exclude: ['error'], // Always keep errors
+          },
   },
 };
 

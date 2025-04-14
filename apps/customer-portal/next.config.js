@@ -1,5 +1,3 @@
-//@ts-check
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
 
@@ -66,8 +64,16 @@ const nextConfig = {
     ];
   },
   compiler: {
-    // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
     styledComponents: true,
+    removeConsole: {
+      exclude: ['error', 'warn'], // Keep errors and warnings in production
+    },
+  },
+  experimental: {
+    logging: {
+      level: 'verbose', // Next.js 14+ experimental feature
+      fullUrl: true,
+    },
   },
 };
 
