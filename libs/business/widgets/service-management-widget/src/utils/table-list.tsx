@@ -53,8 +53,7 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
           <S.CustomeSelect
             options={statusOptions}
             value={_val?.isCommercial ? statusOptions[0] : statusOptions[1]}
-            size='middle'
-            onSelect={() => console.log('selected')}
+            size='large'
             onChange={() => {
               setModalIsOpen(_val);
             }}
@@ -66,7 +65,7 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
   ];
 };
 export const getMobileColumns = (props: TableColumnsPropsType) => {
-  const { t, pagination, setModalIsOpen } = props;
+  const { t, setModalIsOpen } = props;
 
   const statusOptions = [
     { value: 'true', label: t('chips.commercial') },
@@ -94,7 +93,6 @@ export const getMobileColumns = (props: TableColumnsPropsType) => {
                 options={statusOptions}
                 value={_val?.isCommercial ? statusOptions[0] : statusOptions[1]}
                 size='middle'
-                onSelect={() => console.log('selected')}
                 onChange={() => {
                   setModalIsOpen(_val);
                 }}

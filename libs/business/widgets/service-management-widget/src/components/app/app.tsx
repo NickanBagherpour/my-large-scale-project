@@ -6,12 +6,11 @@ import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 import { TableContainer } from '../table-container/table-container';
+import { SERVICE_MANAGEMENT_STATUS } from '../../context/types';
 import { useGetReportDataQuery } from '../../services';
-import { TableResponseType } from '../../types';
 import { Filters } from '../filters/filters';
 
 import * as S from './app.style';
-import { SERVICE_MANAGEMENT_STATUS } from '../../context/types';
 
 type AppProps = PageProps & {
   //
