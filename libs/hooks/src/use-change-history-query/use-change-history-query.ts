@@ -1,8 +1,9 @@
+import { cache } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { deepCopy, withErrorHandling } from '@oxygen/utils';
 import { DifferenceMap, Props } from './types';
+
 import { api } from './api';
-import { cache } from 'react';
 
 const calculateDifference = cache(function calculateDifference<ObjectType extends object>(
   baseObject: ObjectType,

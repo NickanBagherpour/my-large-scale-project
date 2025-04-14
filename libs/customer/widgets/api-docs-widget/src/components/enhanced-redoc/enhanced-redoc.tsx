@@ -80,7 +80,7 @@ export function EnhancedRedoc({ specUrl, specObject }: EnhancedRedocProps) {
               smoothing: 'antialiased',
             },
             sidebar: {
-              width: '260px',
+              width: '300px',
             },
             rightPanel: {
               // backgroundColor: "#f6f8fa",

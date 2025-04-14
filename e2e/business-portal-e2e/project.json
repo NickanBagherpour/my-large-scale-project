@@ -1,0 +1,9 @@
+{
+    "name": "business-portal-e2e",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "e2e/business-portal-e2e/src",
+    "tags": [],
+    "implicitDependencies": ["apps/business-portal"],
+    "// targets": "to see all targets run: nx show project business-portal-e2e --web",
+    "targets": {}
+}

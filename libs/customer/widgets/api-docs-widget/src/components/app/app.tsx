@@ -20,6 +20,10 @@ const App: React.FC<AppProps> = (props) => {
 
   const API_OPTIONS: ApiOption[] = [
     {
+      label: t('all'),
+      value: 'ALL',
+    },
+    {
       label: t('auth'),
       value: 'AUTH',
     },
@@ -41,12 +45,12 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.PageContainer>
-      <ApiSelector
+      {/* <ApiSelector
         options={API_OPTIONS}
         selectedOption={selectedOption}
         onSelectChange={selectApiOption}
         onRefresh={refreshSpec}
-      />
+      /> */}
       <S.RedocContainer>
         {loading ? (
           <Loading containerProps={{ display: 'flex', alignItems: 'center', height: '100%' }} />

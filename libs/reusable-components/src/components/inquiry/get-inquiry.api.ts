@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
-import { client, portalUrl } from '@oxygen/client';
+import { client } from '@oxygen/client';
 import { RQKEYS, withErrorHandling } from '@oxygen/utils';
 import { API_URLS } from './consts';
 import { InquiryDto, InquiryParams, InquiryType } from './types';
@@ -17,7 +17,7 @@ export const useInquiry = (type: InquiryType, params: InquiryParams, dispatch: a
     enabled: !!params.name,
     queryFn: withErrorHandling(async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      return client.get<InquiryDto>(`${portalUrl}${API_URLS[type]}`, { params: { [`${type}-name`]: params.name } });
+      return client.get<InquiryDto>(`${API_URLS[type]}`, { params: { [`${type}-name`]: params.name } });
     }, dispatch),
     queryKey: [keys[type], params.name],
   });

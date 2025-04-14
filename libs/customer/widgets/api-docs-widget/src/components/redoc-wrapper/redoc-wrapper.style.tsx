@@ -83,6 +83,9 @@ export const RedocGlobalStyles = createGlobalStyle`
     direction: ${direction};
     text-align: right;
   }
+  button[disabled]::before {
+    display: none
+  }
 
   button {
     /*! @noflip */
@@ -93,8 +96,9 @@ export const RedocGlobalStyles = createGlobalStyle`
     svg:not(table svg) {
       margin-left: 0px !important;
       margin-right: -25px !important;
-    }
+    } 
   }
+
 
   div[role="button"] {
     font-size: 12px;
@@ -114,6 +118,13 @@ export const RedocGlobalStyles = createGlobalStyle`
   .collapser {
     inset-inline-start: -1.5em !important;
   }
+/* .kZsbKD {
+  text-align: right!important;
+
+} */
+     caption {
+      text-align: right!important;
+    }
 
   h5 /* h5:has(~ table) */ {
     /*! @noflip */
@@ -125,6 +136,8 @@ export const RedocGlobalStyles = createGlobalStyle`
     /*! @noflip */
     direction: ltr;
     text-align: start;
+
+ 
 
     td[kind="field"] {
       padding-inline-start: 0;

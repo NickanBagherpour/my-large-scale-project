@@ -1,5 +1,6 @@
 import { MessageType, Nullable, UserRole } from '@oxygen/types';
 import { getCookie, isEmptyObject } from './util';
+import { API_PREFIX } from '@oxygen/client';
 
 export const ApiUtil = {
   downloadFile: function (data, type, extension, preferredName?) {
@@ -133,6 +134,6 @@ export const ApiUtil = {
     if (!role) {
       return '';
     }
-    return role === UserRole.COMMERCIAL_BANKING_ADMIN ? 'commercial/api' : 'business/api';
+    return role === UserRole.COMMERCIAL_BANKING_ADMIN ? API_PREFIX.COMMERCIAL : API_PREFIX.BUSINESS;
   },
 };

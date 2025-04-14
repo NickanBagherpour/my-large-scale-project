@@ -1,6 +1,6 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './confirm-data.style';
-import { Chip, ColumnsType, InfoBox, Table } from '@oxygen/ui-kit';
+import { Chip, ColumnsType, InfoBox, Table, Tooltip } from '@oxygen/ui-kit';
 import type { InfoItemType } from '@oxygen/types';
 import { goToFirstError, previousStep, useAppDispatch, useAppState } from '../../context';
 import { Container } from '../container/container.style';
@@ -11,8 +11,6 @@ import { ErrorMsg, ServiceScope, UpstreamTarget } from '../../types';
 import { Button } from '@oxygen/ui-kit';
 import { Footer, StatusModal, RouteInfoBox } from '@oxygen/reusable-components';
 import { useState } from 'react';
-
-import { Tooltip } from 'antd';
 
 const mapStatuses = {
   success: 'success',
@@ -93,21 +91,13 @@ export default function ConfirmData() {
       title: t('scope_english_name'),
       dataIndex: 'name',
       align: 'center',
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
+      render: (value) => <Tooltip title={getValueOrDash(value)}>{getValueOrDash(value)}</Tooltip>,
     },
     {
       title: t('scope_persian_name'),
       dataIndex: 'description',
       align: 'center',
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
+      render: (value) => <Tooltip title={getValueOrDash(value)}>{getValueOrDash(value)}</Tooltip>,
     },
   ];
 
@@ -149,11 +139,7 @@ export default function ConfirmData() {
       title: t('domain'),
       dataIndex: 'domain',
       align: 'center',
-      render: (value) => (
-        <Tooltip placement='top' title={getValueOrDash(value)} arrow={true}>
-          {getValueOrDash(value)}
-        </Tooltip>
-      ),
+      render: (value) => getValueOrDash(value),
     },
     {
       title: t('health_status'),

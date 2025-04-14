@@ -1,13 +1,14 @@
-import { client, portalUrl } from '@oxygen/client';
+import { API_PREFIX, client } from '@oxygen/client';
 import { ApiUtil, RQKEYS } from '@oxygen/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 const backofficeKey = RQKEYS.BACKOFFICE;
 export const useUploadItemMutation = (onSuccess: () => void, dispatch: any) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (serviceName: string) => {
-      return client.post(`${portalUrl}/v1/services/import-service?service-name=${serviceName}`);
+      return client.post(`${API_PREFIX.PUBLISHER}/v1/services/import-service?service-name=${serviceName}`);
     },
     onError: (e) => {
       const err = ApiUtil.getErrorMessage(e);

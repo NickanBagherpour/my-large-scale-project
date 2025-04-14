@@ -1,188 +1,219 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "plugins": [
-            {
-                "name": "typescript-styled-plugin"
-            }
-        ],
-        "rootDir": ".",
-        "sourceMap": true,
-        "declaration": false,
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "noImplicitAny": false,
-        "target": "es2015",
-        "module": "esnext",
-        "lib": ["es2020", "dom"],
-        "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
-        "baseUrl": ".",
-        "paths": {
-            "@oxygen/backoffice/layouts": [
-                "libs/backoffice/layouts/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/auth-widget": [
-                "libs/backoffice/widgets/auth-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-creation-widget": [
-                "libs/backoffice/widgets/client-creation-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-details-widget": [
-                "libs/backoffice/widgets/client-details-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-history-widget": [
-                "libs/backoffice/widgets/client-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-list-widget": [
-                "libs/backoffice/widgets/client-list-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-report-widget": [
-                "libs/backoffice/widgets/client-report-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/client-service-history-widget": [
-                "libs/backoffice/widgets/client-service-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
-                "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/edit-client-info-widget": [
-                "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/edit-route-widget": [
-                "libs/backoffice/widgets/edit-route-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/edit-scope-widget": [
-                "libs/backoffice/widgets/edit-scope-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/edit-service-widget": [
-                "libs/backoffice/widgets/edit-service-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/route-history-widget": [
-                "libs/backoffice/widgets/route-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/scope-creation-widget": [
-                "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/scope-history-widget": [
-                "libs/backoffice/widgets/scope-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/scope-information-widget": [
-                "libs/backoffice/widgets/scope-information-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/scope-list-widget": [
-                "libs/backoffice/widgets/scope-list-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-call-log-widget": [
-                "libs/backoffice/widgets/service-call-log-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-creation-widget": [
-                "libs/backoffice/widgets/service-creation-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-details-widget": [
-                "libs/backoffice/widgets/service-details-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-documentation-history-widget": [
-                "libs/backoffice/widgets/service-documentation-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-history-widget": [
-                "libs/backoffice/widgets/service-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-list-widget": [
-                "libs/backoffice/widgets/service-list-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/service-management-widget": [
-                "libs/widgets/service-management-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/services-list-widget": [
-                "libs/backoffice/widgets/services-list-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/services-report-widget": [
-                "libs/backoffice/widgets/services-report-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/upstream-details-widget": [
-                "libs/backoffice/widgets/upstream-details-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/upstream-history-widget": [
-                "libs/backoffice/widgets/upstream-history-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/upstream-list-widget": [
-                "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
-            ],
-            "@oxygen/backoffice/widgets/upstream-service-history-widget": [
-                "libs/backoffice/widgets/upstream-service-history-widget/src/index.ts"
-            ],
-            "@oxygen/business/layouts": ["libs/business/layouts/src/index.ts"],
-            "@oxygen/business/widgets/auth-widget": [
-                "libs/business/widgets/auth-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/clients-report-widget": [
-                "libs/business/widgets/clients-report-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/dashboard-widget": [
-                "libs/business/widgets/dashboard-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/edit-request-list-widget": [
-                "libs/business/widgets/edit-request-list-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/meta-widget": [
-                "libs/business/widgets/meta-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/request-details-widget": [
-                "libs/business/widgets/request-details-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/request-list-widget": [
-                "libs/business/widgets/request-list-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/services-report-widget": [
-                "libs/business/widgets/services-report-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/tariff-details-widget": [
-                "libs/business/widgets/tariff-details-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/tariff-list-widget": [
-                "libs/business/widgets/tariff-list-widget/src/index.ts"
-            ],
-            "@oxygen/business/widgets/upsert-tarrif-widget": [
-                "libs/business/widgets/upsert-tarrif-widget/src/index.ts"
-            ],
-            "@oxygen/client": ["libs/client/src/index.ts"],
-            "@oxygen/customer/layouts": ["libs/customer/layouts/src/index.ts"],
-            "@oxygen/customer/widgets/api-docs-widget": [
-                "libs/customer/widgets/api-docs-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/auth-widget": [
-                "libs/customer/widgets/auth-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/dashboard-widget": [
-                "libs/customer/widgets/dashboard-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/landing-widget": [
-                "libs/customer/widgets/landing-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/request-details-info-widget": [
-                "libs/customer/widgets/request-details-info-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/request-management-widget": [
-                "libs/customer/widgets/request-management-widget/src/index.ts"
-            ],
-            "@oxygen/customer/widgets/request-registration-widget": [
-                "libs/customer/widgets/request-registration-widget/src/index.ts"
-            ],
-            "@oxygen/hooks": ["libs/hooks/src/index.ts"],
-            "@oxygen/mockify": ["libs/mockify/src/index.ts"],
-            "@oxygen/reusable-components": [
-                "libs/reusable-components/src/index.ts"
-            ],
-            "@oxygen/storybook-host": ["libs/storybook-host/src/index.ts"],
-            "@oxygen/translation": ["libs/translation/src/index.ts"],
-            "@oxygen/types": ["libs/types/src/index.ts"],
-            "@oxygen/ui-kit": ["libs/ui-kit/src/index.ts"],
-            "@oxygen/utils": ["libs/utils/src/index.ts"],
-            "@oxygen/workspace-plugin": ["tools/workspace-plugin/src/index.ts"]
-        }
-    },
-    "exclude": ["node_modules", "tmp"]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noImplicitAny": false,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@oxygen/backoffice/layouts": [
+        "libs/backoffice/layouts/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/auth-widget": [
+        "libs/backoffice/widgets/auth-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-creation-widget": [
+        "libs/backoffice/widgets/client-creation-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-details-widget": [
+        "libs/backoffice/widgets/client-details-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-history-widget": [
+        "libs/backoffice/widgets/client-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-list-widget": [
+        "libs/backoffice/widgets/client-list-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-report-widget": [
+        "libs/backoffice/widgets/client-report-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/client-service-history-widget": [
+        "libs/backoffice/widgets/client-service-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/edit-applicant-info-widget": [
+        "libs/backoffice/widgets/edit-applicant-info-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/edit-client-info-widget": [
+        "libs/backoffice/widgets/edit-client-info-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/edit-route-widget": [
+        "libs/backoffice/widgets/edit-route-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/edit-scope-widget": [
+        "libs/backoffice/widgets/edit-scope-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/edit-service-widget": [
+        "libs/backoffice/widgets/edit-service-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/route-history-widget": [
+        "libs/backoffice/widgets/route-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/scope-creation-widget": [
+        "libs/backoffice/widgets/scope-creation-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/scope-history-widget": [
+        "libs/backoffice/widgets/scope-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/scope-information-widget": [
+        "libs/backoffice/widgets/scope-information-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/scope-list-widget": [
+        "libs/backoffice/widgets/scope-list-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-call-log-widget": [
+        "libs/backoffice/widgets/service-call-log-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-creation-widget": [
+        "libs/backoffice/widgets/service-creation-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-details-widget": [
+        "libs/backoffice/widgets/service-details-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-documentation-history-widget": [
+        "libs/backoffice/widgets/service-documentation-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-history-widget": [
+        "libs/backoffice/widgets/service-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-list-widget": [
+        "libs/backoffice/widgets/service-list-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/service-management-widget": [
+        "libs/widgets/service-management-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/services-list-widget": [
+        "libs/backoffice/widgets/services-list-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/services-report-widget": [
+        "libs/backoffice/widgets/services-report-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/upstream-details-widget": [
+        "libs/backoffice/widgets/upstream-details-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/upstream-history-widget": [
+        "libs/backoffice/widgets/upstream-history-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/upstream-list-widget": [
+        "libs/backoffice/widgets/upstream-list-widget/src/index.ts"
+      ],
+      "@oxygen/backoffice/widgets/upstream-service-history-widget": [
+        "libs/backoffice/widgets/upstream-service-history-widget/src/index.ts"
+      ],
+      "@oxygen/business/layouts": [
+        "libs/business/layouts/src/index.ts"
+      ],
+      "@oxygen/business/widgets/auth-widget": [
+        "libs/business/widgets/auth-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/billing-details-widget": [
+        "libs/business/widgets/billing-details-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/clients-report-widget": [
+        "libs/business/widgets/clients-report-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/dashboard-widget": [
+        "libs/business/widgets/dashboard-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/edit-request-list-widget": [
+        "libs/business/widgets/edit-request-list-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/meta-widget": [
+        "libs/business/widgets/meta-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/request-details-widget": [
+        "libs/business/widgets/request-details-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/request-list-widget": [
+        "libs/business/widgets/request-list-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/services-report-widget": [
+        "libs/business/widgets/services-report-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/tariff-details-widget": [
+        "libs/business/widgets/tariff-details-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/tariff-list-widget": [
+        "libs/business/widgets/tariff-list-widget/src/index.ts"
+      ],
+      "@oxygen/business/widgets/upsert-tarrif-widget": [
+        "libs/business/widgets/upsert-tarrif-widget/src/index.ts"
+      ],
+      "@oxygen/client": [
+        "libs/client/src/index.ts"
+      ],
+      "@oxygen/customer/layouts": [
+        "libs/customer/layouts/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/api-docs-widget": [
+        "libs/customer/widgets/api-docs-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/auth-widget": [
+        "libs/customer/widgets/auth-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/dashboard-widget": [
+        "libs/customer/widgets/dashboard-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/landing-widget": [
+        "libs/customer/widgets/landing-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/request-details-info-widget": [
+        "libs/customer/widgets/request-details-info-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/request-management-widget": [
+        "libs/customer/widgets/request-management-widget/src/index.ts"
+      ],
+      "@oxygen/customer/widgets/request-registration-widget": [
+        "libs/customer/widgets/request-registration-widget/src/index.ts"
+      ],
+      "@oxygen/hooks": [
+        "libs/hooks/src/index.ts"
+      ],
+      "@oxygen/mockify": [
+        "libs/mockify/src/index.ts"
+      ],
+      "@oxygen/reusable-components": [
+        "libs/reusable-components/src/index.ts"
+      ],
+      "@oxygen/storybook-host": [
+        "libs/storybook-host/src/index.ts"
+      ],
+      "@oxygen/translation": [
+        "libs/translation/src/index.ts"
+      ],
+      "@oxygen/types": [
+        "libs/types/src/index.ts"
+      ],
+      "@oxygen/ui-kit": [
+        "libs/ui-kit/src/index.ts"
+      ],
+      "@oxygen/utils": [
+        "libs/utils/src/index.ts"
+      ],
+      "@oxygen/workspace-plugin": [
+        "tools/workspace-plugin/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
