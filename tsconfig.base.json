@@ -60,6 +60,9 @@
             "@oxygen/backoffice/widgets/edit-service-widget": [
                 "libs/backoffice/widgets/edit-service-widget/src/index.ts"
             ],
+            "@oxygen/backoffice/widgets/organization-management-widget": [
+                "libs/backoffice/widgets/organization-management-widget/src/index.ts"
+            ],
             "@oxygen/backoffice/widgets/route-history-widget": [
                 "libs/backoffice/widgets/route-history-widget/src/index.ts"
             ],
