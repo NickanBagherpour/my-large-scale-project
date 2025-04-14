@@ -36,13 +36,12 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
 
   const handlePageChange = async ({ current, pageSize }: TablePaginationConfig) => {
     if (lastValidTotal) setLastTotal(lastValidTotal); //in case one page has error still let it paginate
-    const updatedPagination = { page: current, limit: pageSize };
+    const updatedPagination = { page: current, size: pageSize };
     updatePagination(dispatch, updatedPagination);
   };
-
-  const limit = pagination?.limit || AVAILABLE_ROWS_PER_PAGE[0];
+  const size = pagination?.size || AVAILABLE_ROWS_PER_PAGE[0];
   const page = pagination?.page || 1;
-  const tableColumnsParams = { t, router, theme, limit, page };
+  const tableColumnsParams = { t, router, theme, size, page };
   const desktopColumns = getDesktopColumns(tableColumnsParams);
   const mobileColumns = getMobileColumns(tableColumnsParams);
   return (
@@ -53,10 +52,9 @@ export const TariffTable: React.FC<TariffTablePropsType> = (props) => {
         columns={desktopColumns}
         mobileColumns={mobileColumns}
         pagination={{
-          ...pagination,
-          total: tableData?.page?.totalElements || lastTotal,
+          total: tableData?.totalElements || lastTotal,
           pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
-          pageSize: pagination?.limit,
+          pageSize: pagination?.size,
           current: pagination?.page,
           hideOnSinglePage: false,
         }}

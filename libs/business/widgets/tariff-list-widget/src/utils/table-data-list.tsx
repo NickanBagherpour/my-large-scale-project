@@ -12,11 +12,11 @@ type PropsType = {
   router: AppRouterInstance;
   theme: DefaultTheme;
   page: number;
-  limit: number;
+  size: number;
 };
 
 export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
-  const { t, router, theme, page, limit } = props;
+  const { t, router, theme, page, size } = props;
 
   const handleClick = (serviceName) => router.push(`${ROUTES.BUSINESS.TARIFF_DETAILS}?service-name=${serviceName}`);
 
@@ -27,7 +27,7 @@ export function getDesktopColumns(props: PropsType): ColumnsType<Service> {
       key: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
-        const start = 1 + (page - 1) * limit;
+        const start = 1 + (page - 1) * size;
         return start + index;
       },
     },
