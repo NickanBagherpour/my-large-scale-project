@@ -121,6 +121,9 @@
             "@oxygen/business/widgets/billing-details-widget": [
                 "libs/business/widgets/billing-details-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/clients-detailed-bill-widget": [
+                "libs/business/widgets/clients-detailed-bill-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/clients-report-widget": [
                 "libs/business/widgets/clients-report-widget/src/index.ts"
             ],
