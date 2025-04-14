@@ -1,3 +1,17 @@
 export default {
-  widget_name: 'clients-detailed-bill-widget',
+  issue_invoice: 'صدور صورت‌حساب',
+  search_by_aggregator_or_client: 'جستجو براساس نام اگریگیتور یا کلاینت',
+  all: 'همه',
+  aggregator: 'اگریگیتور',
+  client: 'کلاینت',
+  oldest: 'قدیمی‌ترین',
+  newest: 'جدیدترین',
+  row: 'ردیف',
+  aggregator_or_client_name: 'نام اگریگیتور یا کلاینت',
+  year: 'سال',
+  month: 'ماه',
+  successful_transaction: 'تراکنش موفق',
+  unsuccessful_transaction: 'تراکنش ناموفق',
+  total_transaction_count: 'مجموع تعداد تراکنش',
+  view_details: 'مشاهده جزئیات',
 };
