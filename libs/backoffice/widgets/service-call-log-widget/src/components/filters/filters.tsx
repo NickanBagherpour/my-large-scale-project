@@ -93,12 +93,14 @@ export default function Filters({ filters, setFilters, onSearch, onReset }) {
   const [activePickerIndex, setActivePickerIndex] = useState<0 | 1>(0);
 
   const onOk = (value: DatePickerProps['value'] | RangePickerProps['value']) => {
+    setConfirmedDates(value);
     if (activePickerIndex === 0) {
       setActivePickerIndex(1);
     } else {
-      setActivePickerIndex(0);
+      window.setTimeout(() => {
+        setActivePickerIndex(0);
+      }, 2000);
     }
-    setConfirmedDates(value);
   };
 
   const dynamicLocale = useMemo(() => {

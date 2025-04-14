@@ -4,9 +4,9 @@ import { Flex, FormInstance, InputRef } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Button, MarkText } from '@oxygen/ui-kit';
 import { getValueOrDash } from '@oxygen/utils';
+import { useAppTheme } from '@oxygen/hooks';
 
 import WithBadge from '../with-badge/with-badge';
-import { useAppTheme } from '@oxygen/hooks';
 import * as S from './item-exists.style';
 
 export type ItemExistsProps = {

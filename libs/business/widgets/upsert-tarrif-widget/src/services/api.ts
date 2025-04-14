@@ -1,17 +1,17 @@
-import { client, invoiceUrl } from '@oxygen/client';
+import { API_PREFIX, client } from '@oxygen/client';
 import { Fee, GetServiceParams, PostTariffParams } from '../types';
 
 const Api = {
   postServiceFee: async ({ serviceName, ...params }: PostTariffParams) => {
-    return client.post(`${invoiceUrl}/v1/service-fees/service-name/${serviceName}`, params);
+    return client.post(`${API_PREFIX.INVOICE}/v1/service-fees/service-name/${serviceName}`, params);
   },
 
   putServiceFee: async ({ serviceName, ...params }: PostTariffParams) => {
-    return client.put(`${invoiceUrl}/v1/service-fees/service-name/${serviceName}`, params);
+    return client.put(`${API_PREFIX.INVOICE}/v1/service-fees/service-name/${serviceName}`, params);
   },
 
   getServiceFee: async (params: GetServiceParams) => {
-    return client.get<Fee>(`${invoiceUrl}/v1/service-fees/inquiry`, {
+    return client.get<Fee>(`${API_PREFIX.INVOICE}/v1/service-fees/inquiry`, {
       params,
     });
   },

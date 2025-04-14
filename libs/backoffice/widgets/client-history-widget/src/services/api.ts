@@ -1,4 +1,4 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client, API_PREFIX } from '@oxygen/client';
 import Mockify from '@oxygen/mockify';
 import { ClientHistoryResponseType, FetchClientHistoryParamsType } from '../types';
 

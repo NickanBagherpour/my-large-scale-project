@@ -1,4 +1,4 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client } from '@oxygen/client';
 import { FetchParams } from './types';
 import { PaginatedData } from '@oxygen/types';
 
@@ -8,7 +8,7 @@ export const api = {
       url,
       params: { sortBy = 'modifyDate', page, size },
     } = props;
-    return client.get<PaginatedData<TContent>>(`${portalUrl}${url}`, {
+    return client.get<PaginatedData<TContent>>(`${url}`, {
       params: {
         page,
         size,

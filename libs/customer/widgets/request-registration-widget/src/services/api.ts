@@ -1,12 +1,12 @@
-import { client, portalUrl } from '@oxygen/client';
-
-import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, ThirdStepParams } from '../types';
+import { client, API_PREFIX } from '@oxygen/client';
 import type { OrganizationParamsType, AggregatorsParamsType } from '@oxygen/types';
 import Mockify from '@oxygen/mockify';
 
+import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, ThirdStepParams } from '../types';
+
 const Api = {
   getReportData: async (params: FetchParamsType) => {
-    return client.post<ReportResponseType>(`${portalUrl}/v1/redemption/report`, params);
+    return client.post<ReportResponseType>(`${API_PREFIX.CUSTOMER}/v1/redemption/report`, params);
   },
   getSelectData: async () => Mockify.getSelectOptions(),
 
@@ -22,7 +22,7 @@ const Api = {
 
   getOrganizationsListData: async () => {
     try {
-      const res = await client.get(`${portalUrl}/v1/organizations`);
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/organizations`);
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);
@@ -32,7 +32,7 @@ const Api = {
 
   geRequestData: async (submissionId: string) => {
     try {
-      const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/${submissionId}`);
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);
@@ -42,7 +42,7 @@ const Api = {
 
   getRequestDataFromDrafts: async (submissionId: string | null) => {
     try {
-      const res = await client.get(`${portalUrl}/v1/submissions/${submissionId}`);
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/${submissionId}`);
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);
@@ -54,7 +54,7 @@ const Api = {
     const { page, size, sort } = params;
     const filteredParams = { page, size, sort: 'asc' };
     try {
-      const res = await client.get(`${portalUrl}/v1/aggregators`, { params: filteredParams });
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/aggregators`, { params: filteredParams });
       return res;
     } catch (error) {
       console.error('Error fetching aggregator list:', error);
@@ -65,11 +65,15 @@ const Api = {
   requestRegistrationOrganizationDefineStep: async (params: FirstStepParams) => {
     const { organizationId, submissionId, ...restParams } = params;
     if (organizationId && submissionId) {
-      return client.put(`${portalUrl}/v1/organizations/${organizationId}/submissions/${submissionId}`, restParams, {
-        headers: {},
-      });
+      return client.put(
+        `${API_PREFIX.CUSTOMER}/v1/organizations/${organizationId}/submissions/${submissionId}`,
+        restParams,
+        {
+          headers: {},
+        }
+      );
     } else {
-      return client.post(`${portalUrl}/v1/organizations`, restParams, {
+      return client.post(`${API_PREFIX.CUSTOMER}/v1/organizations`, restParams, {
         headers: {},
       });
     }
@@ -78,7 +82,7 @@ const Api = {
   requestRegistrationFirstStepWithSelectedOrganization: async (params: { organizationId: number }) => {
     const { organizationId } = params;
 
-    return client.post(`${portalUrl}/v1/submissions/organizations/${organizationId}`, {
+    return client.post(`${API_PREFIX.CUSTOMER}/v1/submissions/organizations/${organizationId}`, {
       headers: {},
     });
   },
@@ -102,7 +106,7 @@ const Api = {
         },
       ],
     };
-    return client.post(`${portalUrl}/v1/representative`, apiPrams, {
+    return client.post(`${API_PREFIX.CUSTOMER}/v1/representative`, apiPrams, {
       headers: {},
     });
   },
@@ -112,14 +116,14 @@ const Api = {
       submissionId: params.submissionId,
       servicesIdSet: params.servicesIdSet,
     };
-    return client.post(`${portalUrl}/v1/submissions/services`, apiPrams, {
+    return client.post(`${API_PREFIX.CUSTOMER}/v1/submissions/services`, apiPrams, {
       headers: {},
     });
   },
 
   requestRegistrationFourthStepWithSelectedOrganization: async (params: { submissionId: number }) => {
     const { submissionId } = params;
-    return client.post(`${portalUrl}/v1/submissions/${submissionId}`, {
+    return client.post(`${API_PREFIX.CUSTOMER}/v1/submissions/${submissionId}`, {
       headers: {},
     });
   },

@@ -1,8 +1,8 @@
 import { RQKEYS } from '@oxygen/utils';
+import { useChangeHistoryQuery } from '@oxygen/hooks';
+import { API_PREFIX } from '@oxygen/client';
 
 import { useAppDispatch } from '../context';
-
-import { useChangeHistoryQuery } from '@oxygen/hooks';
 
 export const useGetsServiceHistoryDataQuery = (params) => {
   const { serviceId, page, size } = params;
@@ -10,7 +10,7 @@ export const useGetsServiceHistoryDataQuery = (params) => {
 
   return useChangeHistoryQuery({
     queryKey: [RQKEYS.BACKOFFICE.SERVICE_HISTORY.GET_LIST],
-    url: `/v1/routes/${serviceId}/history`,
+    url: `${API_PREFIX.PUBLISHER}/v1/routes/${serviceId}/history`,
     dispatch,
     params: {
       page,

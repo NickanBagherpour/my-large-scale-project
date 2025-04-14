@@ -1,9 +1,7 @@
-import { headers } from 'next/headers';
-import { config } from './../../../../../apps/customer-portal/src/middleware';
 import { withErrorHandling } from '@oxygen/utils';
 import { useQuery } from '@tanstack/react-query';
 import { RQKEYS } from '@oxygen/utils';
-import { client, portalUrl } from '@oxygen/client';
+import { client, API_PREFIX } from '@oxygen/client';
 
 type params = {
   name?: string;
@@ -137,7 +135,7 @@ const Api = {
       });
     } else {
       return client.get(
-        /*<ReportResponseType>*/ `${portalUrl}/v1/services/search?query=${query}`,
+        /*<ReportResponseType>*/ `${API_PREFIX.PUBLISHER}/v1/services/search?query=${query}`,
         // {},
         {
           headers: {},
