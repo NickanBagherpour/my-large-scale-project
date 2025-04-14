@@ -6,10 +6,10 @@ import { useBounce } from '@oxygen/hooks';
 
 import { updateSearchValueAction, updateSort, useAppDispatch, useAppState } from '../../context';
 
-import * as S from './filters.style';
-import { SORT_ORDER } from '../../utils/consts';
 import { renderChips } from '../../utils/helper';
-// import ServiceFeeInquiry from '../service-fee-inquiry/service-fee-inquiry';
+import { SORT_ORDER } from '../../utils/consts';
+
+import * as S from './filters.style';
 
 type FiltersPropsType = PageProps & {
   //

@@ -1,5 +1,5 @@
 export default {
-  widget_name: 'تنظیم تعرفه',
+  widget_name: 'مدیریت سرویس',
   add_tariff: 'افزودن تعرفه',
   search_placeholder: 'جستجو براساس نام فارسی و انگلیسی سرویس',
   oldest: 'قدیمی ترین',
