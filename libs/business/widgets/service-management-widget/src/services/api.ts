@@ -9,7 +9,7 @@ const Api = {
   getServiceClients: async (serviceName: string) => {
     return client.get<string[]>(`${portalUrl}/management/api/v1/services/${serviceName}/organizations`);
   },
-  putClientCommercialStatus: async (serviceName: string) => {
+  putServiceCommercialStatus: async (serviceName: string) => {
     return client.put(`${portalUrl}/management/api/v1/services/${serviceName}`);
   },
 };
