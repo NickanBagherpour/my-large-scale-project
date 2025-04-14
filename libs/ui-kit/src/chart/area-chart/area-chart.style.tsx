@@ -11,6 +11,7 @@ export const Loading = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 `;
 export const LoadingTxt = styled.span`
   font-size: 1.2rem;

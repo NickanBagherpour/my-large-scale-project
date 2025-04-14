@@ -6,10 +6,10 @@
   font-family: 'Iconly';
   font-style: normal;
   font-weight: 400;
-  src: url(./iconly.eot?1741602031747);
-  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1741602031747) format('woff2'),
-    url(./iconly.woff?1741602031747) format('woff'), url(./iconly.ttf?1741602031747) format('truetype'),
-    url(./iconly.svg?1741602031747#Iconly) format('svg');
+  src: url(./iconly.eot?1744455878893);
+  src: url(./iconly.eot?#iefix) format('embedded-opentype'), url(./iconly.woff2?1744455878893) format('woff2'),
+    url(./iconly.woff?1744455878893) format('woff'), url(./iconly.ttf?1744455878893) format('truetype'),
+    url(./iconly.svg?1744455878893#Iconly) format('svg');
 }
 [class*=' icon-'],
 [class='icon'],
@@ -266,4 +266,19 @@
 }
 .icon-calendar-2:before {
   content: '\e050';
+}
+.icon-linear-chart:before {
+  content: '\e051';
+}
+.icon-bar-chart:before {
+  content: '\e052';
+}
+.icon-award:before {
+  content: '\e053';
+}
+.icon-cup:before {
+  content: '\e054';
+}
+.icon-crown-2:before {
+  content: '\e055';
 }

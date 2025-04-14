@@ -7,4 +7,9 @@ export default {
   customer_with_most_service_call: 'مشتری با بیشترین فراخوانی سرویس',
   most_called_service: 'سرویس با بیشترین فراخوانی',
   customer_with_most_transactions: 'مشتری با بیشترین تراکنش مالی',
+  service_report: 'گزارش سرویس',
+  client_report: 'گزارش مشتری ها',
+  bank_most_valuable_client: 'باارزش ترین مشتری بانک',
+  most_valuable_aggrigator: 'با ارزش‌‌ترین اگریگیتور',
+  service_call: 'فراخوانی',
 };

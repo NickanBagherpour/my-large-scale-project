@@ -39,6 +39,15 @@ export type TextPalette = {
 
 type BackgroundPalette = Pick<Palette, 'main' | '_50' | '_100' | '_200' | '_600'>;
 type AlertPalette = Pick<Palette, 'main' | '_50' | '_100' | '_300' | '_500' | '_600'>;
+type DashboardPalette = {
+  cyan: string;
+  lightRed: string;
+  emerald: { _100: string; _600: string };
+  pink: { _100: string; _600: string };
+  violet: { _100: string; _600: string };
+  orange: string;
+  blue: { _50: string; _500: string };
+};
 
 export interface ITheme {
   id: string;
@@ -59,6 +68,7 @@ export interface ITheme {
   divider: string;
   border: AlertPalette;
   appbar: string;
+  dashboard: DashboardPalette;
 }
 
 export type InfoItemType = {

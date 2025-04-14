@@ -90,6 +90,15 @@ const getLightTheme = (direction: Direction): ITheme => {
       _600: '#64748B',
     },
     appbar: '#30398b',
+    dashboard: {
+      cyan: '#06B6D4',
+      lightRed: '#FECACA',
+      emerald: { _100: '#ECFDF5', _600: '#059669' },
+      pink: { _100: '#FDF2F8', _600: '#DB2777' },
+      violet: { _100: '#F5F3FF', _600: '#7C3AED' },
+      orange: '#F97316',
+      blue: { _50: '#EFF6FF', _500: '#3B82F6' },
+    },
   };
 };
 
@@ -183,6 +192,15 @@ const getDarkTheme = (direction: Direction): ITheme => {
       _600: '#64748b',
     },
     appbar: '#1f2366',
+    dashboard: {
+      cyan: '#06B6D4',
+      lightRed: '#FECACA',
+      emerald: { _100: '#ECFDF5', _600: '#059669' },
+      pink: { _100: '#FDF2F8', _600: '#DB2777' },
+      violet: { _100: '#F5F3FF', _600: '#7C3AED' },
+      orange: '#F97316',
+      blue: { _50: '#EFF6FF', _500: '#3B82F6' },
+    },
   };
 };
 
