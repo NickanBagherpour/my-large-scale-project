@@ -1,3 +1,3 @@
 export default {
-  widget_name: 'billing-details-widget',
+  widget_name: 'جزییات صورتحساب',
 };
