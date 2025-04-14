@@ -8,5 +8,5 @@ export const CustomeSelect = styled(Select)<{ $isCommercial: boolean }>`
     border-color: ${(p) => (p.$isCommercial ? p.theme.info._300 : p.theme.warning._300)};
   }
   background-color: ${(p) => (p.$isCommercial ? p.theme.info._50 : p.theme.warning._50)};
-  min-width: 10rem;
+  min-width: 12rem;
 `;

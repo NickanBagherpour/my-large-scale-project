@@ -1,4 +1,4 @@
-import { Tooltip } from '@oxygen/ui-kit';
+import { MobileColumnType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash } from '@oxygen/utils';
 import * as S from '../components/table-container/table-container.style';
 
@@ -65,4 +65,47 @@ export const getDesktopColumns = (props: TableColumnsPropsType) => {
     },
   ];
 };
-// export const getMobileColumns = (props: TableColumnsPropsType) => {};
+export const getMobileColumns = (props: TableColumnsPropsType) => {
+  const { t, pagination, setModalIsOpen } = props;
+
+  const statusOptions = [
+    { value: 'true', label: t('chips.commercial') },
+    { value: 'false', label: t('chips.noncommercial') },
+  ];
+
+  return [
+    {
+      title: '',
+      dataIndex: '',
+      render: (_val, record, index) => {
+        const columns: MobileColumnType[] = [
+          {
+            title: t('field.service_fa_name'),
+            value: `${getValueOrDash(_val.persianName)}`,
+          },
+          {
+            title: t('field.service_en_name'),
+            value: `${getValueOrDash(_val.name)}`,
+          },
+          {
+            title: t('commercialization_status'),
+            value: (
+              <S.CustomeSelect
+                options={statusOptions}
+                value={_val?.isCommercial ? statusOptions[0] : statusOptions[1]}
+                size='middle'
+                onSelect={() => console.log('selected')}
+                onChange={() => {
+                  setModalIsOpen(_val);
+                }}
+                $isCommercial={_val.isCommercial}
+              />
+            ),
+            colon: false,
+          },
+        ];
+        return <Table.MobileColumns columns={columns} minHeight={'4rem'} />;
+      },
+    },
+  ];
+};

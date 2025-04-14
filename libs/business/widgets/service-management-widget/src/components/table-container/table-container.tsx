@@ -10,7 +10,7 @@ import { useGetServiceClientsQuery, usePutServiceCommercialStatusMutation } from
 import { updatePagination, useAppDispatch, useAppState } from '../../context';
 import { TableRowValueType } from '../../types/table-row-value.type';
 import { AVAILABLE_ROWS_PER_PAGE } from '../../utils/consts';
-import { getDesktopColumns } from '../../utils/table-list';
+import { getDesktopColumns, getMobileColumns } from '../../utils/table-list';
 import { TableResponseType } from '../../types';
 
 import * as S from './table-container.style';
@@ -75,7 +75,7 @@ export const TableContainer = (props: TableContainerPropsType) => {
 
   const prepareColumnsParams = { data, t, pagination, setModalIsOpen };
   const tableDesctopColumns = getDesktopColumns(prepareColumnsParams);
-  // const tableMobileColumns = getMobileColumns(prepareColumnsParams);
+  const tableMobileColumns = getMobileColumns(prepareColumnsParams);
 
   return (
     <S.TableContainer>
@@ -83,7 +83,7 @@ export const TableContainer = (props: TableContainerPropsType) => {
         loading={loading}
         dataSource={tableData}
         columns={tableDesctopColumns}
-        /*mobileColumns={mobileColumns}*/
+        mobileColumns={tableMobileColumns}
         pagination={{
           total: data?.page?.totalElements || lastTotal,
           pageSizeOptions: AVAILABLE_ROWS_PER_PAGE,
