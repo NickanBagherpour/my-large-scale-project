@@ -1,3 +1,29 @@
 export const AVAILABLE_ROWS_PER_PAGE = [5, 10, 25, 50, 100];
 export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
+
+export const INPUTE_MAX_LENGTH = 100;
+
+export const FORM_NAME = {
+  LEGAL_ENTITY_NAME: 'legal_entity_name',
+  LEGAL_ENTITY_TYPE: 'legal_entity_type',
+  REGISTRATION_NUMBER: 'registration_number',
+  REGISTRATION_DATE: 'registration_date',
+  NATIONAL_ID: 'national_id',
+  ECONOMY_CODE: 'economy_code',
+  ACTIVITY_FIELD: 'activity_field',
+  ZIP_CODE: 'zip_code',
+  TELEPHONE: 'telephone',
+  LAST_REGISTERED_ADDRESS: 'last_registered_address',
+
+  TECHNICAL_REPRESENTATIVE: {
+    FIRST_AND_LAST_NAME: 'first_and_last_name',
+    MOBILE_NUMBER: 'mobile_number',
+    LANDLINE_NUMBER: 'landline_number',
+  },
+  REPRESENTATIVE: {
+    FIRST_AND_LAST_NAME: 'first_and_last_name',
+    MOBILE_NUMBER: 'mobile_number',
+    LANDLINE_NUMBER: 'landline_number',
+  },
+};
