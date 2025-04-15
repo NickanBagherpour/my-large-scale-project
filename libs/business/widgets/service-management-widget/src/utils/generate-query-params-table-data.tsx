@@ -1,7 +1,8 @@
 import { SERVICE_MANAGEMENT_STATUS } from '../context/types';
+import { SORT_ORDER } from './consts';
 
 type GenerateQueryParamsType = {
-  sort: 'asc' | 'desc';
+  sort: SORT_ORDER;
   page: number;
   size: number;
   serviceName?: string;
