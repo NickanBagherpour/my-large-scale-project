@@ -3,11 +3,12 @@ import React from 'react';
 import { useTr } from '@oxygen/translation';
 import { PageProps } from '@oxygen/types';
 
-import { useAppDispatch, useAppState } from '../../context';
+import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
 import { OrganizationForm } from '../organization-form/organization-form';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //
@@ -34,6 +35,7 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <S.AppContainer title={t('widget_name')}>
+      <GlobalMessageContainer message={state.message} onClose={() => resetErrorMessageAction(dispatch)} />
       <OrganizationForm />
     </S.AppContainer>
   );
