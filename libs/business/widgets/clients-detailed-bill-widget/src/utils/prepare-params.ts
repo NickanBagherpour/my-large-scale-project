@@ -10,7 +10,7 @@ export const prepareParams = (state: WidgetStateType): ReportsParams => {
     year,
     sort: (sort === 'newest' ? 'createDate,DESC' : 'createDate,ASC') as Sort,
     month,
-    page,
+    page: page - 1,
     size,
     'client-type': clientTypeMap[clientType],
     'search-field': searchTerm,

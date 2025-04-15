@@ -1,7 +1,7 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
-  page: 0,
+  page: 1,
   size: 5,
   sort: 'newest',
   clientType: 'all',

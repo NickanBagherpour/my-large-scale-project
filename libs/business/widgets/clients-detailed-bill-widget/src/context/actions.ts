@@ -24,6 +24,12 @@ export function updateMonthAction(dispatch: WidgetDispatchType, month: WidgetSta
 export function updateYearAction(dispatch: WidgetDispatchType, year: WidgetStateType['year']) {
   dispatch({ type: 'UPDATE_YEAR_FILTER', payload: year });
 }
+export function updatePaginationAction(
+  dispatch: WidgetDispatchType,
+  pagination: Pick<WidgetStateType, 'page' | 'size'>
+) {
+  dispatch({ type: 'UPDATE_PAGINATION', payload: pagination });
+}
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);

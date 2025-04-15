@@ -1,22 +1,31 @@
 import { useTr } from '@oxygen/translation';
 import { Button, ColumnsType } from '@oxygen/ui-kit';
 import type { TablePaginationConfig } from 'antd';
-import { useState } from 'react';
 import { clients, months, years } from '../../utils/consts';
-import { ROUTES } from '@oxygen/utils';
+import { addThousandSeparator, getValueOrDash, ROUTES } from '@oxygen/utils';
 import * as S from './data-table.style';
-import { updateMonthAction, updateYearAction, useAppDispatch } from '../../context';
+import {
+  updateMonthAction,
+  updatePaginationAction,
+  updateYearAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
+import { prepareParams } from '../../utils';
+import { useGetReportsQuery } from '../../services';
 
 export default function DataTable() {
-  const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
-  const { page, size } = pagination;
   const [t] = useTr();
   const dispatch = useAppDispatch();
+  const state = useAppState();
+  const { page, size } = state;
+  const params = prepareParams(state);
+  const { data, isPending, isFetching } = useGetReportsQuery(params);
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
-      setPagination({
+      updatePaginationAction(dispatch, {
         page: pageSize === size ? current : 1,
         size: pageSize,
       });
@@ -29,6 +38,10 @@ export default function DataTable() {
       title: t('row'),
       dataIndex: 'index',
       width: '8rem',
+      render: (_val, _record, index) => {
+        const start = (page - 1) * size + 1;
+        return start + index;
+      },
     },
     {
       title: t('aggregator_or_client_name'),
@@ -88,39 +101,43 @@ export default function DataTable() {
     },
     {
       title: t('successful_transaction'),
-      dataIndex: 'successfulTransaction',
-      render: (tr) => <S.Success>{tr}</S.Success>,
+      dataIndex: 'successCount',
+      render: (count) => <S.Success>{getValueOrDash(addThousandSeparator(count))}</S.Success>,
     },
     {
       title: t('unsuccessful_transaction'),
-      dataIndex: 'unsuccessfulTransaction',
-      render: (tr) => <S.Failure>{tr}</S.Failure>,
+      dataIndex: 'failedCount',
+      render: (count) => <S.Failure>{getValueOrDash(addThousandSeparator(count))}</S.Failure>,
     },
     {
       title: t('total_transaction_count'),
-      dataIndex: 'totalTransactionCount',
+      dataIndex: 'allCount',
+      render: (count) => getValueOrDash(addThousandSeparator(count)),
     },
     {
       title: '',
       key: 'details',
       width: '15rem',
-      render: () => (
-        <Button variant='link' href={ROUTES.BUSINESS.DETAILED_BILL_REPORT}>
-          <i className='icon-document' />
-          <span>{t('view_details')}</span>
-        </Button>
-      ),
+      render: (record) => {
+        // TODO: get the client type from api
+        return (
+          <Button variant='link' href={`${ROUTES.BUSINESS.DETAILED_BILL_REPORT}?id=${record.id}&client-type=${2}`}>
+            <i className='icon-document' />
+            <span>{t('view_details')}</span>
+          </Button>
+        );
+      },
     },
   ];
 
   return (
     <S.Table
-      loading={false}
       current={page}
-      total={30}
-      dataSource={clients}
+      total={data?.totalElements}
+      dataSource={data?.content}
       pagination={{ pageSize: size }}
       columns={columns}
+      loading={isFetching}
       // mobileColumns={mobileColumns}
       onChange={changePage}
       rowKey={(row) => row.index}
