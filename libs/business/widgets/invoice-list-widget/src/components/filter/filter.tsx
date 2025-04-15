@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+
+import { useTr } from '@oxygen/translation';
+import { useBounce } from '@oxygen/hooks';
+import { PageProps } from '@oxygen/types';
+
+import { renderChips } from '../../utils/helper';
+import { MAX_LENGTH, SORT_ORDER } from '../../utils/consts';
+import { Sort, UserRoleType } from '../../types/common-types';
+
+import { updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
+
+import * as S from './filter.style';
+
+type FilterProps = PageProps & {
+  userRole: UserRoleType;
+};
+
+const Filters: React.FC<FilterProps> = (props) => {
+  const { userRole } = props;
+
+  const [t] = useTr();
+  const dispatch = useAppDispatch();
+  const { status, sort } = useAppState();
+  const [value, setValue] = useState('');
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  useBounce(() => {
+    updateSearchTerm(dispatch, value);
+  }, [value]);
+
+  return (
+    <S.Container>
+      <S.Actions>
+        <S.Input
+          value={value}
+          placeholder={t('search_by_client_aggregator_name')}
+          prefix={<i className='icon-search-normal' />}
+          onChange={(e) => setValue(e.target.value)}
+          allow={'letter'}
+          type='text'
+          maxLength={MAX_LENGTH}
+        />
+        <S.InvoiceRequestButton onClick={() => setOpenModal(true)} color='primary' variant='solid'>
+          {t('invoice_issuance_request')}
+        </S.InvoiceRequestButton>
+      </S.Actions>
+
+      <S.Indicators>
+        {renderChips(userRole, status, dispatch, t)}
+        <S.FilterPopover
+          filters={[
+            { key: SORT_ORDER.ASCENDING, title: t('filter.newest'), icon: 'icon-arrow-ascending' },
+            { key: SORT_ORDER.DESCENDING, title: t('filter.oldest'), icon: 'icon-arrow-descending' },
+          ]}
+          initialValue={sort}
+          onChange={(value) => {
+            console.log('value', value);
+            updateSort(dispatch, value as Sort);
+          }}
+        />
+      </S.Indicators>
+    </S.Container>
+  );
+};
+
+export default Filters;

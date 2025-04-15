@@ -139,6 +139,9 @@
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/invoice-list-widget": [
+                "libs/business/widgets/invoice-list-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/meta-widget": [
                 "libs/business/widgets/meta-widget/src/index.ts"
             ],
