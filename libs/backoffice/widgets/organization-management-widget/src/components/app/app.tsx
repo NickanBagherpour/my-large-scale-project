@@ -7,6 +7,7 @@ import { useAppDispatch, useAppState } from '../../context';
 //import { useGetReportDataQuery } from '../../services';
 
 import * as S from './app.style';
+import { OrganizationForm } from '../organization-form/organization-form';
 
 type AppProps = PageProps & {
   //
@@ -31,7 +32,11 @@ const App: React.FC<AppProps> = (props) => {
    }
  */
 
-  return <S.AppContainer title={'OrganizationManagementWidget'}>OrganizationManagementWidget</S.AppContainer>;
+  return (
+    <S.AppContainer title={t('widget_name')}>
+      <OrganizationForm />
+    </S.AppContainer>
+  );
 };
 
 export default App;
