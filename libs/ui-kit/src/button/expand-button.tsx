@@ -43,10 +43,12 @@ const getSizeStyles = (size: ExpandButtonProps['size']) => {
 };
 
 const StyledExpandButton = styled(Button)<ExpandButtonProps>`
-  background-color: ${(p) => p.theme.background.main};
+  background-color: ${(p) => p.theme.info._50} !important;
   border-color: ${(p) => p.theme.background.main};
+
   // margin: ${(p) => p.margin || `${p.marginY || 0} ${p.marginX || 0}`};
   // padding: ${(p) => p.padding || `${p.paddingY || 0} ${p.paddingX || 0}`};
+
   ${(p) => getSizeStyles(p.size)};
 
   i {
@@ -54,7 +56,7 @@ const StyledExpandButton = styled(Button)<ExpandButtonProps>`
     margin: 0;
     font-weight: bold;
     display: block;
-    color: ${(p) => p.theme.onPrimary};
+    color: ${(p) => p.theme.primary._400};
   }
 `;
 

@@ -23,9 +23,9 @@ export default function Summary() {
     { key: t('aggregator_name'), value: clientInfo.aggregatorName },
     { key: t('national_id'), value: clientInfo.nationalId },
     { key: t('time_range'), value: clientInfo.timeSpan },
-    { key: t('time_range'), value: clientInfo.timeSpan },
-    { key: t('cumulative_successful_tx'), value: clientInfo.successfulTransactionsCnt },
-    { key: t('cumulative_unsuccessful_tx'), value: clientInfo.unsuccessfulTransactionsCnt },
+    { key: t('cumulative_successful_tx'), value: addThousandSeparator(clientInfo.successfulTransactionsCnt) },
+    { key: t('cumulative_unsuccessful_tx'), value: addThousandSeparator(clientInfo.unsuccessfulTransactionsCnt) },
+    { key: t('cumulative_total_transactions'), value: addThousandSeparator(clientInfo.totalTransactionsCnt) },
   ];
 
   return (
@@ -40,8 +40,8 @@ export default function Summary() {
       </S.Grid>
 
       <S.Total>
-        <span>{t('cumulative_total_transactions')}</span>
-        <S.Count>{addThousandSeparator(clientInfo.totalTransactionsCnt)}</S.Count>
+        <span>{t('total_amount_of_commission')}</span>
+        <S.Count>{addThousandSeparator(clientInfo.totalAmountRiyal)}</S.Count>
       </S.Total>
     </S.Container>
   );

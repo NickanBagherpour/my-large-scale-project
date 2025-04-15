@@ -29,23 +29,11 @@ export default function DataTable() {
     },
     {
       title: t('client'),
-      key: 'client0',
       dataIndex: 'name',
     },
     {
-      title: t('client'),
-      key: 'client1',
-      dataIndex: 'name',
-    },
-    {
-      title: t('client'),
-      key: 'client2',
-      dataIndex: 'name',
-    },
-    {
-      title: t('client'),
-      key: 'client3',
-      dataIndex: 'name',
+      title: t('national_id'),
+      dataIndex: 'nationalId',
     },
   ];
 
