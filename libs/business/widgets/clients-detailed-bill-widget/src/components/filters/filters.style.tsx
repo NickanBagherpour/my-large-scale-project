@@ -19,6 +19,7 @@ export const Row = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2.7rem;
 `;
 
 export const Chips = styled.div`

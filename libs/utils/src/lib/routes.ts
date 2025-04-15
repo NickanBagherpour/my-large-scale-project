@@ -68,6 +68,8 @@ export const ROUTES = {
     TARIFF_DETAILS: '/tariff-details',
     UPSERT_TARIFF: '/upsert-tariff',
     SERVICE_MANAGEMENT: '/service-management',
+    CLIENTS_DETAILED_BILL: '/clients-detailed-bill',
+    DETAILED_BILL_REPORT: '/detailed-bill-report',
   },
 };
 
