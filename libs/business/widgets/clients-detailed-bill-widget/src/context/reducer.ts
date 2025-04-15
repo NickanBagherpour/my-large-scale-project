@@ -1,6 +1,8 @@
 import { WidgetActionType, WidgetStateType } from './types';
 
 export const initialStateValue: WidgetStateType = {
+  page: 0,
+  size: 5,
   sort: 'newest',
   clientType: 'all',
   searchTerm: '',
@@ -28,6 +30,13 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
 
     case 'UPDATE_YEAR_FILTER':
       return void (state.year = action.payload);
+
+    case 'UPDATE_PAGINATION': {
+      const { size, page } = action.payload;
+      state.size = size;
+      state.page = page;
+      return;
+    }
 
     default:
       throw new Error(`this action type is not supported => ${action['type']}`);

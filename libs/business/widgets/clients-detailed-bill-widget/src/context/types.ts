@@ -9,8 +9,10 @@ export type WidgetStateType = {
   clientType: ClientType;
   sort: Sort;
   searchTerm: string;
-  month: string;
-  year: string;
+  month: number;
+  year: number;
+  page: number;
+  size: number;
   message: Nullable<MessageType>;
 };
 
@@ -38,6 +40,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_YEAR_FILTER';
       payload: string;
+    }
+  | {
+      type: 'UPDATE_PAGINATION';
+      payload: Pick<WidgetStateType, 'page' | 'size'>;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;
