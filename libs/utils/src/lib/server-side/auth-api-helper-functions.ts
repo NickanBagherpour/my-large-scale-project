@@ -62,7 +62,7 @@ export async function signin(code: string, config: AuthConfig): Promise<Response
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch token');
+      throw new Error(`Failed to fetch token >>  ${JSON.stringify(response)}`);
     }
     const data = await response.json();
 
