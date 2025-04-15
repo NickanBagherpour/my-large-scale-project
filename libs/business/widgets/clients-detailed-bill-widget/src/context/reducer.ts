@@ -6,8 +6,8 @@ export const initialStateValue: WidgetStateType = {
   sort: 'newest',
   clientType: 'all',
   searchTerm: '',
-  month: '',
-  year: '',
+  month: 0,
+  year: 0,
   message: null,
 };
 

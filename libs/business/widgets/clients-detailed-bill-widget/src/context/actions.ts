@@ -17,12 +17,12 @@ export function updateSearchTermAction(dispatch: WidgetDispatchType, searchTerm:
   dispatch({ type: 'UPDATE_SEARCH_TERM', payload: searchTerm });
 }
 
-export function updateMonthAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['month']) {
-  dispatch({ type: 'UPDATE_MONTH_FILTER', payload: searchTerm });
+export function updateMonthAction(dispatch: WidgetDispatchType, month: WidgetStateType['month']) {
+  dispatch({ type: 'UPDATE_MONTH_FILTER', payload: month });
 }
 
-export function updateYearAction(dispatch: WidgetDispatchType, searchTerm: WidgetStateType['year']) {
-  dispatch({ type: 'UPDATE_YEAR_FILTER', payload: searchTerm });
+export function updateYearAction(dispatch: WidgetDispatchType, year: WidgetStateType['year']) {
+  dispatch({ type: 'UPDATE_YEAR_FILTER', payload: year });
 }
 
 export function resetErrorMessageAction(dispatch: WidgetDispatchType) {

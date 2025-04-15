@@ -48,7 +48,7 @@ export default function DataTable() {
                   color='primary'
                   onClick={() => {
                     close();
-                    updateYearAction(dispatch, filter.value as string);
+                    updateYearAction(dispatch, filter.value as number);
                   }}
                 >
                   {filter.text}
@@ -74,7 +74,7 @@ export default function DataTable() {
                   color='primary'
                   onClick={() => {
                     close();
-                    updateMonthAction(dispatch, filter.value as string);
+                    updateMonthAction(dispatch, filter.value as number);
                   }}
                 >
                   {filter.text}

@@ -35,11 +35,11 @@ export type WidgetActionType =
     }
   | {
       type: 'UPDATE_MONTH_FILTER';
-      payload: string;
+      payload: number;
     }
   | {
       type: 'UPDATE_YEAR_FILTER';
-      payload: string;
+      payload: number;
     }
   | {
       type: 'UPDATE_PAGINATION';
