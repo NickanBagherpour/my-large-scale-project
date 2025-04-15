@@ -1,1 +1,1 @@
-export * from './get-report.type';
+export * from './report.type';
