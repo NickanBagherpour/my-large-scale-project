@@ -9,8 +9,9 @@ export const Table = styled(UikitTable)`
 
 export const Dropdown = styled.ul`
   max-height: 25rem;
-  padding: 0;
+  padding: 0.8rem;
   list-style-type: none;
+  margin: 0;
 
   div:has(&) {
     background: white;
@@ -19,11 +20,18 @@ export const Dropdown = styled.ul`
   & button {
     width: 100%;
     padding: 0.8rem 1.6rem;
+    color: ${(p) => p.theme.text.primary} !important;
   }
 `;
 
-export const ChevIcon = styled.i<{ $filtered: boolean }>`
-  transform: ${(p) => (p.$filtered ? 'rotate(0deg)' : 'rotate(180deg)')};
+export const ChevIcon = styled.i`
+  transform: rotate(0deg);
+  color: ${(p) => p.theme.text.primary};
+  transition: transform 200ms;
+
+  .ant-dropdown-open:has(&) i {
+    transform: rotate(180deg);
+  }
 `;
 
 export const Success = styled.span`

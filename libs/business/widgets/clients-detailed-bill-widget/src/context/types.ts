@@ -9,6 +9,8 @@ export type WidgetStateType = {
   clientType: ClientType;
   sort: Sort;
   searchTerm: string;
+  month: string;
+  year: string;
   message: Nullable<MessageType>;
 };
 
@@ -28,6 +30,14 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_SEARCH_TERM';
       payload: SearchTerm;
+    }
+  | {
+      type: 'UPDATE_MONTH_FILTER';
+      payload: string;
+    }
+  | {
+      type: 'UPDATE_YEAR_FILTER';
+      payload: string;
     };
 
 export type WidgetDispatchType = React.Dispatch<WidgetActionType>;

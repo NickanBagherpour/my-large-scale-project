@@ -1,15 +1,17 @@
 import { useTr } from '@oxygen/translation';
-import { Button, ColumnsType, Table } from '@oxygen/ui-kit';
+import { Button, ColumnsType } from '@oxygen/ui-kit';
 import type { TablePaginationConfig } from 'antd';
 import { useState } from 'react';
-import { clients } from '../../utils/consts';
+import { clients, months, years } from '../../utils/consts';
 import { ROUTES } from '@oxygen/utils';
 import * as S from './data-table.style';
+import { updateMonthAction, updateYearAction, useAppDispatch } from '../../context';
 
 export default function DataTable() {
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
   const [t] = useTr();
+  const dispatch = useAppDispatch();
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -35,39 +37,20 @@ export default function DataTable() {
     {
       title: t('year'),
       dataIndex: 'year',
-      /////
-      filters: [
-        {
-          text: '1404',
-          value: '1404',
-        },
-        {
-          text: '1403',
-          value: '1403',
-        },
-        {
-          text: '1402',
-          value: '1402',
-        },
-        {
-          text: '1401',
-          value: '1401',
-        },
-        {
-          text: '1400',
-          value: '1400',
-        },
-        {
-          text: '1399',
-          value: '1399',
-        },
-      ],
-      filterDropdown: ({ filters }) => {
+      filters: years,
+      filterDropdown: ({ filters, close }) => {
         return (
           <S.Dropdown>
             {filters?.map((filter, idx) => (
               <li key={idx}>
-                <Button variant='text' color='primary'>
+                <Button
+                  variant='text'
+                  color='primary'
+                  onClick={() => {
+                    close();
+                    updateYearAction(dispatch, filter.value as string);
+                  }}
+                >
                   {filter.text}
                 </Button>
               </li>
@@ -75,17 +58,33 @@ export default function DataTable() {
           </S.Dropdown>
         );
       },
-      onFilter: (value, record) => {
-        return value === record.year;
-      },
-      filterIcon: (filtered: boolean) => {
-        return <S.ChevIcon className='icon-chev-down' $filtered={filtered} />;
-      },
-      /////
+      filterIcon: () => <S.ChevIcon className='icon-chev-down' />,
     },
     {
       title: t('month'),
       dataIndex: 'month',
+      filters: months,
+      filterDropdown: ({ filters, close }) => {
+        return (
+          <S.Dropdown>
+            {filters?.map((filter, idx) => (
+              <li key={idx}>
+                <Button
+                  variant='text'
+                  color='primary'
+                  onClick={() => {
+                    close();
+                    updateMonthAction(dispatch, filter.value as string);
+                  }}
+                >
+                  {filter.text}
+                </Button>
+              </li>
+            ))}
+          </S.Dropdown>
+        );
+      },
+      filterIcon: () => <S.ChevIcon className='icon-chev-down' />,
     },
     {
       title: t('successful_transaction'),
