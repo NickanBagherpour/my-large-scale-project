@@ -1,31 +1,32 @@
 import { addThousandSeparator } from '@oxygen/utils';
 import * as S from './summary.style';
 import { useTr } from '@oxygen/translation';
+import { InfoData } from '../../types';
+import { jalliMonths } from '../../utils/consts';
 
-const clientInfo = {
-  aggregatorName: 'شرکت گروه صنایع گلرنگ',
-  nationalId: '123456789',
-  timeSpan: '1403/11/08 - 1403/12/08',
-  totalTransactionsCount: '456789',
-  commercialBankingShare: '25%',
-  operationalTeamShare: '16%',
-
-  successfulTransactionsCnt: 5465136,
-  unsuccessfulTransactionsCnt: 465465,
-  totalTransactionsCnt: 123456789,
-  totalAmountRiyal: 5456789212000,
-};
+type Props = Omit<InfoData, 'clientDataList'>;
 
 // TODO: SEE IF YOU COULD USE Infobox FOR THIS.
-export default function Summary() {
+export default function Summary(props: Props) {
+  const {
+    name,
+    sumAmount,
+    billingYear,
+    billingMonth,
+    nationalCode,
+    totalTransactions,
+    failedTransactions,
+    successTransactions,
+  } = props;
+
   const [t] = useTr();
   const info = [
-    { key: t('aggregator_name'), value: clientInfo.aggregatorName },
-    { key: t('national_id'), value: clientInfo.nationalId },
-    { key: t('time_range'), value: clientInfo.timeSpan },
-    { key: t('cumulative_successful_tx'), value: addThousandSeparator(clientInfo.successfulTransactionsCnt) },
-    { key: t('cumulative_unsuccessful_tx'), value: addThousandSeparator(clientInfo.unsuccessfulTransactionsCnt) },
-    { key: t('cumulative_total_transactions'), value: addThousandSeparator(clientInfo.totalTransactionsCnt) },
+    { key: t('aggregator_name'), value: name },
+    { key: t('national_id'), value: nationalCode },
+    { key: t('time_range'), value: `${jalliMonths[billingMonth]} ${billingYear}` },
+    { key: t('cumulative_successful_tx'), value: addThousandSeparator(successTransactions) },
+    { key: t('cumulative_unsuccessful_tx'), value: addThousandSeparator(failedTransactions) },
+    { key: t('cumulative_total_transactions'), value: addThousandSeparator(totalTransactions) },
   ];
 
   return (
@@ -41,7 +42,7 @@ export default function Summary() {
 
       <S.Total>
         <span>{t('total_amount_of_commission')}</span>
-        <S.Count>{addThousandSeparator(clientInfo.totalAmountRiyal)}</S.Count>
+        <S.Count>{addThousandSeparator(sumAmount)}</S.Count>
       </S.Total>
     </S.Container>
   );

@@ -3,9 +3,14 @@ import { Table } from '@oxygen/ui-kit';
 import { TablePaginationConfig } from 'antd';
 import { useState } from 'react';
 import Expandable from '../expandable/expandable';
-import { clients } from '../../utils/consts';
+import { InfoData } from '../../types';
 
-export default function DataTable() {
+type Props = {
+  list: InfoData['clientDataList'];
+};
+
+export default function DataTable(props: Props) {
+  const { list } = props;
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
   const [t] = useTr();
@@ -33,7 +38,7 @@ export default function DataTable() {
     },
     {
       title: t('national_id'),
-      dataIndex: 'nationalId',
+      dataIndex: 'gatewayId', // TODO: get nationalId instead of this
     },
   ];
 
@@ -41,9 +46,10 @@ export default function DataTable() {
     <Table
       loading={false}
       current={page}
-      total={30}
-      dataSource={clients}
-      pagination={{ pageSize: size }}
+      // total={30}
+      dataSource={list}
+      // pagination={{ pageSize: size }}
+      pagination={false}
       columns={columns}
       // mobileColumns={mobileColumns}
       onChange={changePage}
