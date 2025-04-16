@@ -26,4 +26,4 @@ export const createFormSchema = (t: TFunction) => {
   });
 };
 
-export type FormValues = z.infer<ReturnType<typeof createFormSchema>>;
+export type FormFieldsType = z.infer<ReturnType<typeof createFormSchema>>;
