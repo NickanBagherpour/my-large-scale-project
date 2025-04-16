@@ -41,6 +41,8 @@ RUN npm run build-${portalName}
 # Production image, copy all the files and run next
 FROM base AS runner
 
+RUN apk add --no-cache curl
+
 #ARG portalName # Re-declare portalName to use in subsequent stages
 WORKDIR /app
 
