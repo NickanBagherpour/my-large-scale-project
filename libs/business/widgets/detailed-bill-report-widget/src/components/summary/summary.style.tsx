@@ -1,4 +1,4 @@
-import { cssVar } from '@oxygen/utils';
+import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
 
 export const Container = styled.article`
@@ -9,6 +9,12 @@ export const Container = styled.article`
   margin: 2.4rem 0 2.4rem;
   display: flex;
   align-items: end;
+
+  ${respondTo.down('sm')} {
+    flex-direction: column;
+    align-items: start;
+    gap: 2.4rem;
+  }
 `;
 
 export const Grid = styled.section`
@@ -16,6 +22,14 @@ export const Grid = styled.section`
   grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
   flex: 1;
+
+  ${respondTo.down('lg')} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${respondTo.down('md')} {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const Item = styled.div`
