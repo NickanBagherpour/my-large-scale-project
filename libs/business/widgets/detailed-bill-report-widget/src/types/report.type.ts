@@ -1,6 +1,6 @@
 export type InfoParams = {
-  'client-type': number;
-  id: number;
+  'client-type': string;
+  id: string;
 };
 
 export type InfoData = {
@@ -21,7 +21,6 @@ export type InfoData = {
 };
 
 export type ReportParams = {
-  gatewayId: number;
   'client-gateway-id': string;
   month: number;
   year: number;

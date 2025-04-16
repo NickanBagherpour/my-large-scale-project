@@ -4,13 +4,16 @@ import { TablePaginationConfig } from 'antd';
 import { useState } from 'react';
 import Expandable from '../expandable/expandable';
 import { InfoData } from '../../types';
+import { getDesktopColumns, getMobileColumns } from '../../utils/client-table';
 
 type Props = {
-  list: InfoData['clientDataList'];
+  data: InfoData;
 };
 
 export default function DataTable(props: Props) {
-  const { list } = props;
+  const {
+    data: { clientDataList, billingYear, billingMonth },
+  } = props;
   const [pagination, setPagination] = useState<{ page: number; size: number }>({ page: 1, size: 5 });
   const { page, size } = pagination;
   const [t] = useTr();
@@ -25,37 +28,21 @@ export default function DataTable(props: Props) {
     }
   };
 
-  // TODO: handle responsivness, tooltip, etc.
-  const columns = [
-    {
-      title: t('index'),
-      dataIndex: 'index',
-      width: '8rem',
-    },
-    {
-      title: t('client'),
-      dataIndex: 'name',
-    },
-    {
-      title: t('national_id'),
-      dataIndex: 'gatewayId', // TODO: get nationalId instead of this
-    },
-  ];
+  const desktopColumns = getDesktopColumns({ page, t, size });
+  const mobileColumns = getMobileColumns({ t });
 
   return (
     <Table
       loading={false}
       current={page}
-      // total={30}
-      dataSource={list}
-      // pagination={{ pageSize: size }}
+      dataSource={clientDataList}
       pagination={false}
-      columns={columns}
-      // mobileColumns={mobileColumns}
+      columns={desktopColumns}
+      mobileColumns={mobileColumns}
       onChange={changePage}
-      rowKey={(row) => row.index}
+      rowKey={(row) => row.gatewayId}
       expandable={{
-        expandedRowRender: (record) => <Expandable record={record} />,
+        expandedRowRender: (record) => <Expandable year={billingYear} month={billingMonth} record={record} />,
       }}
     />
   );

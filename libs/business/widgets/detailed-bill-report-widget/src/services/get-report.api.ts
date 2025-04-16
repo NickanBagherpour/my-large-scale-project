@@ -11,5 +11,6 @@ export const useGetInfoQuery = (params: InfoParams) => {
   return useQuery({
     queryKey: [RQKEYS.BUSINESS.DETAILED_BILL_REPORT.INFO, params],
     queryFn: withErrorHandling(() => Api.getInfo(params), dispatch),
+    enabled: !!params.id && !!params['client-type'],
   });
 };

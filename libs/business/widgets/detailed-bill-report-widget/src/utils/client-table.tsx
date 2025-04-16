@@ -1,0 +1,68 @@
+import { ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
+import { TFunction } from 'i18next';
+import { InfoData } from '../types';
+import { getValueOrDash } from '@oxygen/utils';
+
+type Props = {
+  t: TFunction;
+  size: number;
+  page: number;
+};
+
+export const getDesktopColumns = (props: Props): ColumnsType<InfoData['clientDataList'][number]> => {
+  const { t, size, page } = props;
+  // TODO: handle responsivness, tooltip, etc.
+  return [
+    {
+      title: t('index'),
+      dataIndex: 'index',
+      width: '8rem',
+      render: (_val, _record, index) => {
+        const start = (page - 1) * size + 1;
+        return start + index;
+      },
+    },
+    {
+      title: t('client'),
+      dataIndex: 'name',
+      render: (name) => {
+        const value = getValueOrDash(name);
+        return <Tooltip title={value}>{value}</Tooltip>;
+      },
+    },
+    {
+      title: t('national_id'),
+      dataIndex: 'gatewayId', // TODO: get nationalId instead of this
+      render: (id) => {
+        const value = getValueOrDash(id);
+        return <Tooltip title={value}>{value}</Tooltip>;
+      },
+    },
+  ];
+};
+
+export const getMobileColumns = (props: { t: TFunction }) => {
+  const { t } = props;
+
+  return [
+    {
+      title: '',
+      key: 'mobile-columns',
+      render(record: InfoData['clientDataList'][number]) {
+        const data = [
+          {
+            title: t('client'),
+            value: record.name,
+          },
+          {
+            title: t('national_id'),
+            value: record.gatewayId, // TODO: get nationalId instead of this
+          },
+        ];
+
+        /* using rem to have a constant height acorss all user devices */
+        return <Table.MobileColumns columns={data} minHeight={'40px'} />;
+      },
+    },
+  ];
+};
