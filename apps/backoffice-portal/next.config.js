@@ -58,12 +58,12 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   compiler: {
     styledComponents: true,
-    removeConsole:
-      process.env.ENABLE_PROD_LOGS === 'true'
-        ? false
-        : {
-            exclude: ['error'], // Always keep errors
-          },
+    //   removeConsole:
+    //     process.env.ENABLE_PROD_LOGS === 'true'
+    //       ? false
+    //       : {
+    //           exclude: ['error'], // Always keep errors
+    //         },
   },
 };
 
