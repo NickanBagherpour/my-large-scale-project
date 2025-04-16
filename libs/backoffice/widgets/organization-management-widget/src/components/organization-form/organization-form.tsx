@@ -9,7 +9,7 @@ import { Form } from 'antd';
 import { Button, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
 import { useGetReportDataQuery } from '../../services';
 import { useApp } from '@oxygen/hooks';
-import { FORM_NAME, INPUTE_MAX_LENGTH } from '../../utils/consts';
+import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH } from '../../utils/consts';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createFormSchema } from '../../types';
 
@@ -64,7 +64,7 @@ export const OrganizationForm = () => {
         <S.Card>
           <SearchItemsContainer>
             <Form.Item
-              name={FORM_NAME.LEGAL_ENTITY_NAME}
+              name={FORM_ITEMS_NAME.LEGAL_ENTITY_NAME}
               label={t('organization_form_lable.legal_entity_name')}
               rules={[rule]}
             >
@@ -75,7 +75,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.LEGAL_ENTITY_TYPE}
+              name={FORM_ITEMS_NAME.LEGAL_ENTITY_TYPE}
               label={t('organization_form_lable.legal_entity_type')}
               rules={[rule]}
             >
@@ -88,7 +88,7 @@ export const OrganizationForm = () => {
               ></Select>
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.REGISTRATION_NUMBER}
+              name={FORM_ITEMS_NAME.REGISTRATION_NUMBER}
               label={t('organization_form_lable.registration_number')}
               rules={[rule]}
             >
@@ -99,7 +99,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.REGISTRATION_DATE}
+              name={FORM_ITEMS_NAME.REGISTRATION_DATE}
               label={t('organization_form_lable.Registration_date')}
               rules={[rule]}
             >
@@ -109,7 +109,11 @@ export const OrganizationForm = () => {
                 maxLength={INPUTE_MAX_LENGTH}
               />
             </Form.Item>
-            <Form.Item name={FORM_NAME.ECONOMY_CODE} label={t('organization_form_lable.economy_code')} rules={[rule]}>
+            <Form.Item
+              name={FORM_ITEMS_NAME.ECONOMY_CODE}
+              label={t('organization_form_lable.economy_code')}
+              rules={[rule]}
+            >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.economy_code')}
@@ -117,7 +121,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.ACTIVITY_FIELD}
+              name={FORM_ITEMS_NAME.ACTIVITY_FIELD}
               label={t('organization_form_lable.activity_field')}
               rules={[rule]}
             >
@@ -127,14 +131,14 @@ export const OrganizationForm = () => {
                 maxLength={INPUTE_MAX_LENGTH}
               />
             </Form.Item>
-            <Form.Item name={FORM_NAME.ZIP_CODE} label={t('organization_form_lable.zip_code')} rules={[rule]}>
+            <Form.Item name={FORM_ITEMS_NAME.ZIP_CODE} label={t('organization_form_lable.zip_code')} rules={[rule]}>
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.zip_code')}
                 maxLength={INPUTE_MAX_LENGTH}
               />
             </Form.Item>
-            <Form.Item name={FORM_NAME.TELEPHONE} label={t('organization_form_lable.telephone')} rules={[rule]}>
+            <Form.Item name={FORM_ITEMS_NAME.TELEPHONE} label={t('organization_form_lable.telephone')} rules={[rule]}>
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.telephone')}
@@ -142,7 +146,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.LAST_REGISTERED_ADDRESS}
+              name={FORM_ITEMS_NAME.LAST_REGISTERED_ADDRESS}
               rules={[rule]}
               label={t('organization_form_lable.last_registered_address')}
               className='full-width '
@@ -161,7 +165,7 @@ export const OrganizationForm = () => {
         <S.Card>
           <SearchItemsContainer $columnNumber='3'>
             <Form.Item
-              name={FORM_NAME.REPRESENTATIVE.FIRST_AND_LAST_NAME}
+              name={FORM_ITEMS_NAME.REPRESENTATIVE.FIRST_AND_LAST_NAME}
               label={t('organization_form_lable.first_and_last_name')}
               rules={[rule]}
             >
@@ -172,7 +176,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.REPRESENTATIVE.MOBILE_NUMBER}
+              name={FORM_ITEMS_NAME.REPRESENTATIVE.MOBILE_NUMBER}
               label={t('organization_form_lable.mobile_number')}
               rules={[rule]}
             >
@@ -183,7 +187,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.REPRESENTATIVE.LANDLINE_NUMBER}
+              name={FORM_ITEMS_NAME.REPRESENTATIVE.LANDLINE_NUMBER}
               label={t('organization_form_lable.landline_number')}
               rules={[rule]}
             >
@@ -201,7 +205,7 @@ export const OrganizationForm = () => {
         <S.Card>
           <SearchItemsContainer $columnNumber='3'>
             <Form.Item
-              name={FORM_NAME.TECHNICAL_REPRESENTATIVE.FIRST_AND_LAST_NAME}
+              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.FIRST_AND_LAST_NAME}
               label={t('organization_form_lable.first_and_last_name')}
               rules={[rule]}
             >
@@ -212,7 +216,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.TECHNICAL_REPRESENTATIVE.MOBILE_NUMBER}
+              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.MOBILE_NUMBER}
               label={t('organization_form_lable.mobile_number')}
               rules={[rule]}
             >
@@ -223,7 +227,7 @@ export const OrganizationForm = () => {
               />
             </Form.Item>
             <Form.Item
-              name={FORM_NAME.TECHNICAL_REPRESENTATIVE.LANDLINE_NUMBER}
+              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.LANDLINE_NUMBER}
               label={t('organization_form_lable.landline_number')}
               rules={[rule]}
             >
@@ -232,6 +236,17 @@ export const OrganizationForm = () => {
                 placeholder={t('organization_form_placeholder.landline_number')}
                 maxLength={INPUTE_MAX_LENGTH}
               />
+            </Form.Item>
+          </SearchItemsContainer>
+        </S.Card>
+        <S.TitleContainer>
+          <S.TitleText>{t('technical_representative_information')}</S.TitleText>
+        </S.TitleContainer>
+        <S.Card>
+          <S.AlertContainer description={t('client_key_note')} />
+          <SearchItemsContainer $columnNumber='2'>
+            <Form.Item name={FORM_ITEMS_NAME.CLIENT_KEY.CLIENT_KEY} label='ClientKey' rules={[rule]}>
+              <Input size='large' placeholder={'ClientKey'} maxLength={INPUTE_MAX_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </S.Card>

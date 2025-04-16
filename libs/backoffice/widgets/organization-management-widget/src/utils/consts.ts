@@ -4,7 +4,7 @@ export const INITIAL_PAGE = 1;
 
 export const INPUTE_MAX_LENGTH = 100;
 
-export const FORM_NAME = {
+export const FORM_ITEMS_NAME = {
   LEGAL_ENTITY_NAME: 'legal_entity_name',
   LEGAL_ENTITY_TYPE: 'legal_entity_type',
   REGISTRATION_NUMBER: 'registration_number',
@@ -25,5 +25,8 @@ export const FORM_NAME = {
     FIRST_AND_LAST_NAME: 'first_and_last_name',
     MOBILE_NUMBER: 'mobile_number',
     LANDLINE_NUMBER: 'landline_number',
+  },
+  CLIENT_KEY: {
+    CLIENT_KEY: 'client_key',
   },
 };
