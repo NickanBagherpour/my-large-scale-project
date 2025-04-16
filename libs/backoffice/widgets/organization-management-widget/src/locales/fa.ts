@@ -56,7 +56,12 @@ export default {
     aggregator_status: 'وضعیت اگریگیتور',
     representative_name: 'نام نماینده',
   },
-  note: 'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
+  tooltip: {
+    technical_representative_name: ' اطلاعات نماینده فنی را وارد کنید',
+    representative_name: ' اطلاعات نماینده را وارد کنید',
+  },
+  client_key_note:
+    'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
   organization_information_registration: 'ثبت اطلاعات سازمان',
   success_notif: 'سازمان با موفقیت ایجاد شد.',
 };
