@@ -11,9 +11,10 @@ const App = () => {
   const state = useAppState();
   const params = prepareParams(state);
   const { data, isFetching } = useGetReportsQuery(params);
+  const subtitle = data?.totalElements ? `(${data?.totalElements})` : '';
 
   return (
-    <Container title={t('issue_invoice')} subtitle={`(${data?.totalElements})`}>
+    <Container title={t('issue_invoice')} subtitle={subtitle}>
       <Filters />
       <DataTable data={data} isFetching={isFetching} />
     </Container>
