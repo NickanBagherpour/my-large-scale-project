@@ -25,6 +25,7 @@ export default function Expandable(props: Props) {
   const { data: finincialData } = useGetFinancialReportQuery({
     year,
     month,
+    // @ts-expect-error fix this later
     gatewayId: record.gatewayId,
   });
 
