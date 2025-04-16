@@ -1,10 +1,27 @@
 import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import * as S from '../components/data-table/data-table.style';
 import { TFunction } from 'i18next';
-import { months, years } from './consts';
+import { getMonths, getMonthsWithValues, months, years } from './consts';
 import { updateMonthAction, updateYearAction, WidgetDispatchType } from '../context';
 import { addThousandSeparator, CONSTANTS, getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Reports } from '../types';
+
+export const getJalalliMonths = (t: TFunction) => {
+  return {
+    1: t('months.farvardin'),
+    2: t('months.ordibehesht'),
+    3: t('months.khordad'),
+    4: t('months.tir'),
+    5: t('months.mordad'),
+    6: t('months.shahrivar'),
+    7: t('months.mehr'),
+    8: t('months.aban'),
+    9: t('months.azar'),
+    10: t('months.dey'),
+    11: t('months.bahman'),
+    12: t('months.esfand'),
+  };
+};
 
 type DesktopProps = {
   size: number;
@@ -15,6 +32,7 @@ type DesktopProps = {
 
 export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['content'][number]> => {
   const { page, size, t, dispatch } = props;
+  const jalliMonths = getJalalliMonths(t);
 
   return [
     {
@@ -67,10 +85,10 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
     {
       title: t('month'),
       dataIndex: 'month',
-      filters: months,
+      filters: getMonthsWithValues(t),
       render: (month) => {
         const value = getValueOrDash(month);
-        return <Tooltip title={value}>{value}</Tooltip>;
+        return <Tooltip title={value}>{jalliMonths[value]}</Tooltip>;
       },
       filterDropdown: ({ filters, close }) => {
         return (

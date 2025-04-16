@@ -1,30 +1,18 @@
-export const clients = Array.from({ length: 30 }, (_, idx) => ({
-  name: 'تاکسی اینترنتی تپسی',
-  nationalId: '10101942864',
-  index: idx + 1,
-  data: Array.from({ length: 4 }, (_, idx) => ({
-    index: idx + 1,
-    range: 'تا 10 میلیون ریال',
-    successfulTransaction: 10000,
-    unsuccessfulTransaction: 52,
-    totalTransactionsCountAll: 1052,
-    feePriceRiyal: 10000,
-    totalAmountRiyal: 1250000000,
-  })),
-}));
+import { TFunction } from 'i18next';
 
-// TODO: make this multi language
-export const jalliMonths = {
-  1: 'فروردین',
-  2: 'اردیبهشت',
-  3: 'خرداد',
-  4: 'تیر',
-  5: 'مرداد',
-  6: 'شهریور',
-  7: 'مهر',
-  8: 'آبان',
-  9: 'آذر',
-  10: 'دی',
-  11: 'بهمن',
-  12: 'اسفند',
+export const getJalalliMonths = (t: TFunction) => {
+  return {
+    1: t('months.farvardin'),
+    2: t('months.ordibehesht'),
+    3: t('months.khordad'),
+    4: t('months.tir'),
+    5: t('months.mordad'),
+    6: t('months.shahrivar'),
+    7: t('months.mehr'),
+    8: t('months.aban'),
+    9: t('months.azar'),
+    10: t('months.dey'),
+    11: t('months.bahman'),
+    12: t('months.esfand'),
+  };
 };

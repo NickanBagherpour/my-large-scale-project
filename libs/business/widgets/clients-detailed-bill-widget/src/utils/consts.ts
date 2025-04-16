@@ -1,60 +1,52 @@
-export const clients = Array.from({ length: 30 }, (_, idx) => ({
-  index: idx + 1,
-  name: 'گروه صنایع گلرنگ',
-  year: '1403',
-  month: '01 / فروردین',
-  successfulTransaction: '8,456,154',
-  unsuccessfulTransaction: '52,000',
-  totalTransactionCount: '1052',
-}));
+import { TFunction } from 'i18next';
 
-export const months = [
+export const getMonthsWithValues = (t: TFunction) => [
   {
-    text: 'فروردین',
+    text: t('months.farvardin'),
     value: 1,
   },
   {
-    text: 'اردیبهشت',
+    text: t('months.ordibehesht'),
     value: 2,
   },
   {
-    text: 'خرداد',
+    text: t('months.khordad'),
     value: 3,
   },
   {
-    text: 'تیر',
+    text: t('months.tir'),
     value: 4,
   },
   {
-    text: 'مرداد',
+    text: t('months.mordad'),
     value: 5,
   },
   {
-    text: 'شهریور',
+    text: t('months.shahrivar'),
     value: 6,
   },
   {
-    text: 'مهر',
+    text: t('months.mehr'),
     value: 7,
   },
   {
-    text: 'آبان',
+    text: t('months.aban'),
     value: 8,
   },
   {
-    text: 'آذر',
+    text: t('months.azar'),
     value: 9,
   },
   {
-    text: 'دی',
+    text: t('months.dey'),
     value: 10,
   },
   {
-    text: 'بهمن',
+    text: t('months.bahman'),
     value: 11,
   },
   {
-    text: 'اسفند',
+    text: t('months.esfand'),
     value: 12,
   },
 ];

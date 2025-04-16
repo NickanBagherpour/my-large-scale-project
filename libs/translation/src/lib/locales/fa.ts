@@ -73,6 +73,21 @@ export default {
     edit_info: 'ویرایش مشخصات ',
   },
 
+  months: {
+    farvardin: 'فروردین',
+    ordibehesht: 'اردیبهشت',
+    khordad: 'خرداد',
+    tir: 'تیر',
+    mordad: 'مرداد',
+    shahrivar: 'شهریور',
+    mehr: 'مهر',
+    aban: 'آبان',
+    azar: 'آذر',
+    dey: 'دی',
+    bahman: 'بهمن',
+    esfand: 'اسفند',
+  },
+
   uikit: {
     error_count: 'تعداد خطاها',
     dragger_title: 'برای بارگذاری می‌توانید فایل خود را در این قسمت رها کنید.',

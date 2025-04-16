@@ -2,7 +2,7 @@ import { addThousandSeparator } from '@oxygen/utils';
 import * as S from './summary.style';
 import { useTr } from '@oxygen/translation';
 import { InfoData } from '../../types';
-import { jalliMonths } from '../../utils/consts';
+import { getJalalliMonths } from '../../utils/consts';
 
 type Props = Omit<InfoData, 'clientDataList'>;
 
@@ -18,8 +18,9 @@ export default function Summary(props: Props) {
     failedTransactions,
     successTransactions,
   } = props;
-
   const [t] = useTr();
+
+  const jalliMonths = getJalalliMonths(t);
   const info = [
     { key: t('aggregator_name'), value: name },
     { key: t('national_id'), value: nationalCode },
