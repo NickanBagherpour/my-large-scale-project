@@ -2,60 +2,42 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
-import { clients } from '../../utils/consts';
+import { useGetFinancialReportQuery /* , useGetNonFinancialReportQuery */ } from '../../services';
+import { InfoData } from '../../types';
+import { getDesktopColumns } from '../../utils/expandable-table';
 
 const onChange = (key: string) => {
   console.log(key);
 };
 
 type Props = {
-  record: (typeof clients)[number];
+  record: InfoData['clientDataList'][number];
+  year: number;
+  month: number;
 };
 
 export default function Expandable(props: Props) {
-  const { record } = props;
+  const { record, year, month } = props;
   const [t] = useTr();
+  console.log('>>> record', record.gatewayId);
 
-  const dataSource = record.data;
+  const { data: finincialData } = useGetFinancialReportQuery({
+    year,
+    month,
+    gatewayId: record.gatewayId,
+  });
+
+  // const { data: nonfinancialData } = useGetNonFinancialReportQuery();
 
   // TODO: handle responsivness, tooltip, etc.
-  const columns = [
-    {
-      title: t('index'),
-      dataIndex: 'index',
-    },
-    {
-      title: t('period'),
-      dataIndex: 'range',
-    },
-    {
-      title: t('successful_transaction'),
-      dataIndex: 'successfulTransaction',
-    },
-    {
-      title: t('unsuccessful_transaction'),
-      dataIndex: 'unsuccessfulTransaction',
-    },
-    {
-      title: t('total_transaction_count'),
-      dataIndex: 'totalTransactionsCountAll',
-    },
-    {
-      title: t('commission_fee_price'),
-      dataIndex: 'feePriceRiyal',
-    },
-    {
-      title: t('total_amount'),
-      dataIndex: 'totalAmountRiyal',
-    },
-  ];
+  const columns = getDesktopColumns({ t });
 
   const table = (
     <Table
       loading={false}
       // current={page}
       total={30}
-      dataSource={dataSource}
+      dataSource={finincialData}
       // pagination={{ pageSize: size }}
       columns={columns}
       // mobileColumns={mobileColumns}

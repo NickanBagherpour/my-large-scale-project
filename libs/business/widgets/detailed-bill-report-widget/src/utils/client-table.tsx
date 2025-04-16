@@ -11,7 +11,6 @@ type Props = {
 
 export const getDesktopColumns = (props: Props): ColumnsType<InfoData['clientDataList'][number]> => {
   const { t, size, page } = props;
-  // TODO: handle responsivness, tooltip, etc.
   return [
     {
       title: t('index'),
