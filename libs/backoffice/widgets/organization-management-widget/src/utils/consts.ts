@@ -3,6 +3,7 @@ export const INITIAL_ROW_PER_PAGE = AVAILABLE_ROWS_PER_PAGE[0];
 export const INITIAL_PAGE = 1;
 
 export const INPUTE_MAX_LENGTH = 100;
+export const INQUERY_MAX_LENGTH = 11;
 
 export const FORM_ITEMS_NAME = {
   LEGAL_ENTITY_NAME: 'legal_entity_name',
@@ -17,9 +18,9 @@ export const FORM_ITEMS_NAME = {
   LAST_REGISTERED_ADDRESS: 'last_registered_address',
 
   TECHNICAL_REPRESENTATIVE: {
-    FIRST_AND_LAST_NAME: 'first_and_last_name',
-    MOBILE_NUMBER: 'mobile_number',
-    LANDLINE_NUMBER: 'landline_number',
+    FIRST_AND_LAST_NAME: 'technical_first_and_last_name',
+    MOBILE_NUMBER: 'technical_mobile_number',
+    LANDLINE_NUMBER: 'technical_landline_number',
   },
   REPRESENTATIVE: {
     FIRST_AND_LAST_NAME: 'first_and_last_name',
