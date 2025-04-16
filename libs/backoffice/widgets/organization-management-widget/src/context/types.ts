@@ -13,9 +13,7 @@ export type PaginationType = {
 
 export type WidgetStateType = {
   table: {
-    filters: FiltersType;
     pagination: PaginationType;
-    submit: FiltersType;
   };
   message: Nullable<MessageType>;
 };
