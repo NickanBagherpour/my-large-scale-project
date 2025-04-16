@@ -5,36 +5,51 @@ import { useTr } from '@oxygen/translation';
 import { useAppDispatch, useAppState } from '../../context';
 
 import * as S from './organization-form.styel';
-import { Form } from 'antd';
-import { Button, Input, Loading, SearchItemsContainer, Select } from '@oxygen/ui-kit';
-import { useGetReportDataQuery } from '../../services';
-import { useApp } from '@oxygen/hooks';
-import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH } from '../../utils/consts';
+import { Form, theme } from 'antd';
+import { Button, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
+import { useGetOrganizationInfoQuery, useGetReportDataQuery } from '../../services';
+import { useApp, useAppTheme } from '@oxygen/hooks';
+import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH, INQUERY_MAX_LENGTH } from '../../utils/consts';
 import { createSchemaFieldRule } from 'antd-zod';
 import { createFormSchema } from '../../types';
+import { Footer } from '@oxygen/reusable-components';
+import { useRouter } from 'next/navigation';
 
 export const OrganizationForm = () => {
+  //Hooks
   const state = useAppState();
   const dispatch = useAppDispatch();
   const [t] = useTr();
   const [form] = Form.useForm();
   const { notification } = useApp();
+  const router = useRouter();
+  const theme = useAppTheme();
 
   //Validations
   const rule = createSchemaFieldRule(createFormSchema(t));
+  //States
+  const [searchValue, setSearchValue] = useState({
+    orgNationalId: undefined,
+  });
+  //Queries
+  const {
+    data: orgInfo,
+    isFetching: orgInfoFetching,
+    refetch: searchRefetch,
+  } = useGetOrganizationInfoQuery(searchValue!);
+  console.log('orgInfo', orgInfo);
+  //Constants
+  const isFormDisabeled = true;
 
+  //Handlers
   const onFinish = async (values) => {
     console.log(':)', values);
   };
-  const [searchValue, setSearchValue] = useState();
-  const isFormDisabeled = !!(state.table.filters.name ?? undefined);
-  const { data: orgInfo, isFetching: orgInfoFetching, refetch: searchRefetch } = useGetReportDataQuery(searchValue);
   const handleSearch = () => {
     searchRefetch();
   };
-
   const handleChange = (e) => {
-    setSearchValue(e.target.value);
+    setSearchValue({ orgNationalId: e.target.value });
   };
   return (
     <S.OrganizationFormContainer>
@@ -45,10 +60,11 @@ export const OrganizationForm = () => {
       <S.SearchContainer>
         <S.Input
           size='large'
-          value={searchValue}
+          value={searchValue.orgNationalId}
           prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
           placeholder={t('organization_form_placeholder.national_id')}
           onChange={(e) => handleChange(e)}
+          maxLength={INQUERY_MAX_LENGTH}
         />
 
         <Button onClick={handleSearch} loading={orgInfoFetching}>
@@ -161,6 +177,9 @@ export const OrganizationForm = () => {
         </S.Card>
         <S.TitleContainer>
           <S.TitleText>{t('representative_information')}</S.TitleText>
+          <Tooltip color={theme.primary.main} title={t('tooltip.representative_name')}>
+            <S.Icon className={'icon-info-circle'} />
+          </Tooltip>
         </S.TitleContainer>
         <S.Card>
           <SearchItemsContainer $columnNumber='3'>
@@ -201,6 +220,9 @@ export const OrganizationForm = () => {
         </S.Card>
         <S.TitleContainer>
           <S.TitleText>{t('technical_representative_information')}</S.TitleText>
+          <Tooltip color={theme.primary.main} title={t('tooltip.technical_representative_name')}>
+            <S.Icon className={'icon-info-circle'} />
+          </Tooltip>
         </S.TitleContainer>
         <S.Card>
           <SearchItemsContainer $columnNumber='3'>
@@ -240,7 +262,7 @@ export const OrganizationForm = () => {
           </SearchItemsContainer>
         </S.Card>
         <S.TitleContainer>
-          <S.TitleText>{t('technical_representative_information')}</S.TitleText>
+          <S.TitleText>{t('client_key')}</S.TitleText>
         </S.TitleContainer>
         <S.Card>
           <S.AlertContainer description={t('client_key_note')} />
@@ -250,6 +272,11 @@ export const OrganizationForm = () => {
             </Form.Item>
           </SearchItemsContainer>
         </S.Card>
+        <S.Footer>
+          <Button htmlType='submit' onClick={() => form.submit()} disabled={false} loading={false}>
+            {t('organization_information_registration')}
+          </Button>
+        </S.Footer>
       </Form>
     </S.OrganizationFormContainer>
   );
