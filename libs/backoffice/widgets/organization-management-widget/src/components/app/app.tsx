@@ -8,7 +8,7 @@ import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../cont
 
 import * as S from './app.style';
 import { OrganizationForm } from '../organization-form/organization-form';
-import { Footer, GlobalMessageContainer } from '@oxygen/reusable-components';
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
 
 type AppProps = PageProps & {
   //
@@ -18,7 +18,6 @@ const App: React.FC<AppProps> = (props) => {
   const dispatch = useAppDispatch();
   const state = useAppState();
   const [t] = useTr();
-
   /* Sample Query Usage
   const { data, isFetching, isError } = useGetReportDataQuery(prepareParams());
 
@@ -37,7 +36,6 @@ const App: React.FC<AppProps> = (props) => {
     <S.AppContainer title={t('widget_name')}>
       <GlobalMessageContainer message={state.message} onClose={() => resetErrorMessageAction(dispatch)} />
       <OrganizationForm />
-      <Footer onRegister={() => console.log('register')} onReturn={() => console.log('return')} />
     </S.AppContainer>
   );
 };
