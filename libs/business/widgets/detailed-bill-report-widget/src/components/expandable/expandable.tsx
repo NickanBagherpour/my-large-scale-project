@@ -5,6 +5,7 @@ import { Table } from '@oxygen/ui-kit';
 import { useGetFinancialReportQuery /* , useGetNonFinancialReportQuery */ } from '../../services';
 import { InfoData } from '../../types';
 import { getDesktopColumns } from '../../utils/expandable-table';
+import * as S from './expandable.style';
 
 const onChange = (key: string) => {
   console.log(key);
@@ -33,18 +34,21 @@ export default function Expandable(props: Props) {
   const columns = getDesktopColumns({ t });
 
   const table = (
-    <Table
-      loading={false}
-      // current={page}
-      total={30}
-      dataSource={finincialData}
-      // pagination={{ pageSize: size }}
-      columns={columns}
-      // mobileColumns={mobileColumns}
-      // onChange={changePage}
-      rowKey={(row) => row.index}
-      pagination={false}
-    />
+    <>
+      <Table
+        loading={false}
+        // current={page}
+        total={30}
+        dataSource={finincialData}
+        // pagination={{ pageSize: size }}
+        columns={columns}
+        // mobileColumns={mobileColumns}
+        // onChange={changePage}
+        rowKey={(row) => row.index}
+        pagination={false}
+      />
+      <S.Sum>5,456,789,212,000</S.Sum>
+    </>
   );
 
   const items: TabsProps['items'] = [

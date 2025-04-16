@@ -45,7 +45,7 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
 };
 
 const ExpandIcon = ({ expanded, onExpand, record }) => (
-  <ExpandButton shape='circle' open={expanded} marginX={'1rem'} onClick={(e) => onExpand(record, e)} />
+  <ExpandButton shape='circle' open={expanded} onClick={(e) => onExpand(record, e)} />
 );
 export const Table = (props: TableProps) => {
   const {
