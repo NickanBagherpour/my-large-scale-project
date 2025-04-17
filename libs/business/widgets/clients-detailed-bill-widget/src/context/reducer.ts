@@ -12,24 +12,44 @@ export const initialStateValue: WidgetStateType = {
 };
 
 export const reducer = (state: WidgetStateType, action: WidgetActionType): WidgetStateType | undefined => {
+  function resetPagination() {
+    state.page = initialStateValue['page'];
+    state.size = initialStateValue['size'];
+  }
+
   switch (action.type) {
     case 'UPDATE_GLOBAL_MESSAGE':
       return void (state.message = action.payload);
 
-    case 'UPDATE_SORT':
-      return void (state.sort = action.payload);
+    case 'UPDATE_SORT': {
+      state.sort = action.payload;
+      resetPagination();
+      break;
+    }
 
-    case 'UPDATE_CLIENT_TYPE':
-      return void (state.clientType = action.payload);
+    case 'UPDATE_CLIENT_TYPE': {
+      resetPagination();
+      state.clientType = action.payload;
+      break;
+    }
 
-    case 'UPDATE_SEARCH_TERM':
-      return void (state.searchTerm = action.payload);
+    case 'UPDATE_SEARCH_TERM': {
+      resetPagination();
+      state.searchTerm = action.payload;
+      break;
+    }
 
-    case 'UPDATE_MONTH_FILTER':
-      return void (state.month = action.payload);
+    case 'UPDATE_MONTH_FILTER': {
+      resetPagination();
+      state.month = action.payload;
+      break;
+    }
 
-    case 'UPDATE_YEAR_FILTER':
-      return void (state.year = action.payload);
+    case 'UPDATE_YEAR_FILTER': {
+      resetPagination();
+      state.year = action.payload;
+      break;
+    }
 
     case 'UPDATE_PAGINATION': {
       const { size, page } = action.payload;
