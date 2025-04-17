@@ -1,6 +1,6 @@
-import { ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
-import { TFunction } from 'i18next';
-import { InfoData } from '../types';
+import { type ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
+import { type TFunction } from 'i18next';
+import { type InfoData } from '../types';
 import { getValueOrDash } from '@oxygen/utils';
 
 type Props = {
@@ -31,7 +31,7 @@ export const getDesktopColumns = (props: Props): ColumnsType<InfoData['clientDat
     },
     {
       title: t('national_id'),
-      dataIndex: 'gatewayId', // TODO: get nationalId instead of this
+      dataIndex: 'nationalCode',
       render: (id) => {
         const value = getValueOrDash(id);
         return <Tooltip title={value}>{value}</Tooltip>;
@@ -55,7 +55,7 @@ export const getMobileColumns = (props: { t: TFunction }) => {
           },
           {
             title: t('national_id'),
-            value: record.gatewayId, // TODO: get nationalId instead of this
+            value: record.nationalCode,
           },
         ];
 

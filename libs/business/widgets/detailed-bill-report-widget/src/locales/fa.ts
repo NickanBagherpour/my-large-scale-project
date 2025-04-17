@@ -20,4 +20,6 @@ export default {
   total_transaction_count: 'مجموع تعداد تراکنش',
   commission_fee_price: 'قیمت کارمزد (ریال)',
   total_amount: 'مبلغ کل (ریال)',
+  from: 'از',
+  to: 'تا',
 };

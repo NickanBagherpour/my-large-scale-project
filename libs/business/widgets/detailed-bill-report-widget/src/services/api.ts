@@ -6,14 +6,14 @@ const Api = {
     return client.get<InfoData>(`${API_PREFIX.INVOICE}/v1/reports/info`, { params });
   },
 
-  getFinancialReport: async ({ gatewayId, ...params }: ReportParams) => {
-    return client.get<FinancialReportData>(`${API_PREFIX.INVOICE}/v1/reports/clients/${gatewayId}/financial`, {
+  getFinancialReport: async (params: ReportParams) => {
+    return client.get<FinancialReportData>(`${API_PREFIX.INVOICE}/v1/reports/financial`, {
       params,
     });
   },
 
-  getNonfinancialReport: async ({ gatewayId, ...params }: ReportParams) => {
-    return client.get<NonfinancialReportData>(`${API_PREFIX.INVOICE}/v1/reports/clients/${gatewayId}/non-financial`, {
+  getNonfinancialReport: async (params: ReportParams) => {
+    return client.get<NonfinancialReportData>(`${API_PREFIX.INVOICE}/v1/reports/non-financial`, {
       params,
     });
   },

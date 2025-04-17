@@ -16,6 +16,7 @@ export type InfoData = {
     {
       name: string;
       gatewayId: string;
+      nationalCode: string;
     }
   ];
 };
@@ -35,7 +36,7 @@ export type NonfinancialReportData = {
 }[];
 
 export type FinancialReportData = {
-  id: number;
+  id: number | null;
   clientGatewayId: string;
   successCount: number;
   failedCount: number;

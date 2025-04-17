@@ -2,14 +2,14 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { Table } from '@oxygen/ui-kit';
-import { useGetFinancialReportQuery /* , useGetNonFinancialReportQuery */ } from '../../services';
+import {
+  useGetFinancialReportQuery /* , useGetNonFinancialReportQuery */,
+  useGetNonFinancialReportQuery,
+} from '../../services';
 import { InfoData } from '../../types';
-import { getDesktopColumns } from '../../utils/expandable-table';
+import { getDesktopColumns, getMobileColumns } from '../../utils/expandable-table';
 import * as S from './expandable.style';
-
-const onChange = (key: string) => {
-  console.log(key);
-};
+import { useState } from 'react';
 
 type Props = {
   record: InfoData['clientDataList'][number];
@@ -17,35 +17,49 @@ type Props = {
   month: number;
 };
 
+type TabKey = 'non_financial' | 'financial';
+
 export default function Expandable(props: Props) {
   const { record, year, month } = props;
   const [t] = useTr();
-  console.log('>>> record', record.gatewayId);
+  const [activeTab, setActiveTab] = useState<TabKey>('financial');
+
+  const onChange = (key: string) => {
+    setActiveTab(key as TabKey);
+  };
 
   const { data: finincialData } = useGetFinancialReportQuery({
-    year,
-    month,
-    // @ts-expect-error fix this later
-    gatewayId: record.gatewayId,
+    params: {
+      year,
+      month,
+      'client-gateway-id': record.gatewayId,
+    },
+    enabled: activeTab === 'financial',
   });
 
-  // const { data: nonfinancialData } = useGetNonFinancialReportQuery();
+  const { data: nonfinancialData } = useGetNonFinancialReportQuery({
+    params: {
+      year,
+      month,
+      'client-gateway-id': record.gatewayId,
+    },
+    enabled: activeTab === 'non_financial',
+  });
+
+  const activeData = activeTab === 'financial' ? finincialData : nonfinancialData;
 
   // TODO: handle responsivness, tooltip, etc.
-  const columns = getDesktopColumns({ t });
+  const desktopColumns = getDesktopColumns({ t });
+  const mobileColumns = getMobileColumns({ t });
 
   const table = (
     <>
       <Table
         loading={false}
-        // current={page}
-        total={30}
-        dataSource={finincialData}
-        // pagination={{ pageSize: size }}
-        columns={columns}
-        // mobileColumns={mobileColumns}
-        // onChange={changePage}
-        rowKey={(row) => row.index}
+        dataSource={activeData?.slice(0, 10)} // TODO: REMOVE THIS AND ADD PAGINATION
+        columns={desktopColumns}
+        mobileColumns={mobileColumns}
+        rowKey={(row) => JSON.stringify(row)} // TODO: get a unique key from backend, now id is always null
         pagination={false}
       />
       <S.Sum>5,456,789,212,000</S.Sum>
@@ -54,16 +68,16 @@ export default function Expandable(props: Props) {
 
   const items: TabsProps['items'] = [
     {
-      key: '1',
+      key: 'non_financial',
       label: t('non_financial_services_invoice'),
       children: table,
     },
     {
-      key: '2',
+      key: 'financial',
       label: t('financial_services_invoice'),
       children: table,
     },
   ];
 
-  return <Tabs size='small' defaultActiveKey='1' items={items} onChange={onChange} />;
+  return <Tabs size='small' items={items} onChange={onChange} activeKey={activeTab} />;
 }
