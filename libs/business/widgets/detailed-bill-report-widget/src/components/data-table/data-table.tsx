@@ -43,6 +43,7 @@ export default function DataTable(props: Props) {
       rowKey={(row) => row.gatewayId}
       expandable={{
         expandedRowRender: (record) => <Expandable year={billingYear} month={billingMonth} record={record} />,
+        columnWidth: '7rem',
       }}
     />
   );

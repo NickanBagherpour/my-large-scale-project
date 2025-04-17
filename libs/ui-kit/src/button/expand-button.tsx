@@ -46,6 +46,10 @@ const StyledExpandButton = styled(Button)<ExpandButtonProps>`
   background-color: ${(p) => p.theme.info._50} !important;
   border-color: ${(p) => p.theme.background.main};
 
+  td:has(&) {
+    padding: 0 !important;
+  }
+
   // margin: ${(p) => p.margin || `${p.marginY || 0} ${p.marginX || 0}`};
   // padding: ${(p) => p.padding || `${p.paddingY || 0} ${p.paddingX || 0}`};
 

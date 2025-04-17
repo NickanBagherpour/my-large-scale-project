@@ -23,8 +23,10 @@ const App = () => {
 
   const { clientDataList, ...summary } = data;
 
+  const clientName = data.name ?? '';
+
   return (
-    <S.AppContainer title={t('widget_name')}>
+    <S.AppContainer title={`${t('widget_name')} - ${clientName}`}>
       <Summary {...summary} />
       <DataTable data={data} />
     </S.AppContainer>

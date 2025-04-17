@@ -8,8 +8,8 @@ import {
 } from '../../services';
 import { InfoData } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/expandable-table';
-import * as S from './expandable.style';
 import { useState } from 'react';
+import * as S from './expandable.style';
 
 type Props = {
   record: InfoData['clientDataList'][number];
@@ -54,7 +54,7 @@ export default function Expandable(props: Props) {
 
   const table = (
     <>
-      <Table
+      <S.Table
         loading={false}
         dataSource={activeData?.slice(0, 10)} // TODO: REMOVE THIS AND ADD PAGINATION
         columns={desktopColumns}

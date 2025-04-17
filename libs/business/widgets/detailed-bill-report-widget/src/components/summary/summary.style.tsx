@@ -55,12 +55,30 @@ export const Total = styled.div`
   gap: 1.2rem;
   border: ${(p) => `1px solid ${p.theme.secondary.main}`};
   border-radius: 1rem;
-  padding: 1.2rem 1.6rem;
+  padding-block: 1.2rem;
+  padding-inline-start: 1.6rem;
+  padding-inline-end: 8rem;
   background: ${(p) => p.theme.background.main};
+`;
+
+export const TotalTitle = styled.span`
+  font-weight: 700;
 `;
 
 export const Count = styled.span`
   color: ${(p) => p.theme.secondary.main};
   font-size: 2.4rem;
   font-weight: 700;
+`;
+
+export const Icon = styled.i`
+  color: ${(p) => p.theme.warning.main};
+  font-size: 2rem;
+`;
+
+export const Name = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.4rem;
 `;

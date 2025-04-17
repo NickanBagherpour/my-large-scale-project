@@ -1,4 +1,13 @@
 import styled from 'styled-components';
+import { Table as UikitTable } from '@oxygen/ui-kit';
+
+export const Table = styled(UikitTable)`
+  tr,
+  th,
+  thead {
+    background: inherit !important;
+  }
+`;
 
 export const Sum = styled.div`
   background: ${(p) => p.theme.secondary.main};
