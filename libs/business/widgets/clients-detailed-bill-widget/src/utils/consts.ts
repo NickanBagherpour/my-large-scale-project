@@ -81,4 +81,4 @@ export const years = [
 export const clientTypeMap = {
   client: 1,
   aggregator: 2,
-};
+} as const;

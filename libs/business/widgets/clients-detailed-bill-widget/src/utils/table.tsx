@@ -1,7 +1,7 @@
 import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import * as S from '../components/data-table/data-table.style';
 import { TFunction } from 'i18next';
-import { getMonths, getMonthsWithValues, months, years } from './consts';
+import { clientTypeMap, getMonthsWithValues, years } from './consts';
 import { updateMonthAction, updateYearAction, WidgetDispatchType } from '../context';
 import { addThousandSeparator, CONSTANTS, getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Reports } from '../types';
@@ -46,10 +46,19 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
     },
     {
       title: t('aggregator_or_client_name'),
-      dataIndex: 'name',
-      render: (name) => {
-        const value = getValueOrDash(name);
-        return <Tooltip title={value}>{value}</Tooltip>;
+      dataIndex: '',
+      key: 'name',
+      render: (record: Reports['content'][number]) => {
+        const isAggregator = record.clientType === clientTypeMap['aggregator'];
+        const value = getValueOrDash(record.name);
+        return (
+          <Tooltip title={value}>
+            <S.Name>
+              {isAggregator && <S.Icon className='icon-award' />}
+              {value}
+            </S.Name>
+          </Tooltip>
+        );
       },
     },
     {

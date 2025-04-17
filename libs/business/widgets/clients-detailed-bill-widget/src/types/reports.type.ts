@@ -18,4 +18,5 @@ export type Reports = PaginatedData<{
   successCount: number;
   failedCount: number;
   allCount: number;
+  clientType: number;
 }>;

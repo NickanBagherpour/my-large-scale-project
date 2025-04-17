@@ -48,3 +48,14 @@ export const Total = styled.span`
   color: ${(p) => p.theme.error.main};
   font-weight: 700;
 `;
+
+export const Name = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
+export const Icon = styled.i`
+  color: ${(p) => p.theme.warning.main};
+  font-size: 2rem;
+`;
