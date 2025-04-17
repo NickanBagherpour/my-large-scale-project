@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Table as UikitTable } from '@oxygen/ui-kit';
+import { Button, Table as UikitTable } from '@oxygen/ui-kit';
 
 export const Table = styled(UikitTable)`
   tr > *:nth-last-child(2) {
@@ -22,6 +22,10 @@ export const Dropdown = styled.ul`
     padding: 0.8rem 1.6rem;
     color: ${(p) => p.theme.text.primary} !important;
   }
+`;
+
+export const FilterBtn = styled(Button)<{ $active: boolean }>`
+  background: ${(p) => (p.$active ? p.theme.primary._50 : 'inherit')};
 `;
 
 export const ChevIcon = styled.i`

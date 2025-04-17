@@ -2,7 +2,7 @@ import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import * as S from '../components/data-table/data-table.style';
 import { TFunction } from 'i18next';
 import { clientTypeMap, getMonthsWithValues, years } from './consts';
-import { updateMonthAction, updateYearAction, WidgetDispatchType } from '../context';
+import { updateMonthAction, updateYearAction, WidgetDispatchType, WidgetStateType } from '../context';
 import { addThousandSeparator, CONSTANTS, getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Reports } from '../types';
 
@@ -28,10 +28,12 @@ type DesktopProps = {
   page: number;
   t: TFunction;
   dispatch: WidgetDispatchType;
+  year: WidgetStateType['year'];
+  month: WidgetStateType['month'];
 };
 
 export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['content'][number]> => {
-  const { page, size, t, dispatch } = props;
+  const { page, size, t, dispatch, year, month } = props;
   const jalliMonths = getJalalliMonths(t);
 
   return [
@@ -74,16 +76,17 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
           <S.Dropdown>
             {filters?.map((filter, idx) => (
               <li key={idx}>
-                <Button
+                <S.FilterBtn
                   variant='text'
                   color='primary'
+                  $active={filter.value === year}
                   onClick={() => {
                     close();
                     updateYearAction(dispatch, filter.value as number);
                   }}
                 >
                   {filter.text}
-                </Button>
+                </S.FilterBtn>
               </li>
             ))}
           </S.Dropdown>
@@ -104,16 +107,17 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
           <S.Dropdown>
             {filters?.map((filter, idx) => (
               <li key={idx}>
-                <Button
+                <S.FilterBtn
                   variant='text'
                   color='primary'
+                  $active={filter.value === month}
                   onClick={() => {
                     close();
                     updateMonthAction(dispatch, filter.value as number);
                   }}
                 >
                   {filter.text}
-                </Button>
+                </S.FilterBtn>
               </li>
             ))}
           </S.Dropdown>

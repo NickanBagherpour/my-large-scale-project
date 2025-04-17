@@ -14,7 +14,7 @@ export default function DataTable(props: Props) {
   const { data, isFetching } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { page, size } = useAppState();
+  const { page, size, year, month } = useAppState();
 
   const changePage = async (currentPagination: TablePaginationConfig) => {
     const { pageSize, current } = currentPagination;
@@ -31,6 +31,8 @@ export default function DataTable(props: Props) {
     size,
     page,
     dispatch,
+    year,
+    month,
   });
 
   const mobileColumns = getMobileColumns({ t });
