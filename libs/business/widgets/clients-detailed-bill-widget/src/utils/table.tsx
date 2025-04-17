@@ -160,7 +160,10 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
       render: (record) => {
         // TODO: get the client type from api
         return (
-          <Button variant='link' href={`${ROUTES.BUSINESS.DETAILED_BILL_REPORT}?id=${record.id}&client-type=${1}`}>
+          <Button
+            variant='link'
+            href={`${ROUTES.BUSINESS.DETAILED_BILL_REPORT}?id=${record.id}&client-type=${record.clientType}`}
+          >
             <i className='icon-document' />
             <span>{t('view_details')}</span>
           </Button>
