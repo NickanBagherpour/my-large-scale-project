@@ -1,11 +1,6 @@
-import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { useTr } from '@oxygen/translation';
-import { Table } from '@oxygen/ui-kit';
-import {
-  useGetFinancialReportQuery /* , useGetNonFinancialReportQuery */,
-  useGetNonFinancialReportQuery,
-} from '../../services';
+import { useGetFinancialReportQuery, useGetNonFinancialReportQuery } from '../../services';
 import { InfoData } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/expandable-table';
 import { useState } from 'react';
@@ -78,5 +73,5 @@ export default function Expandable(props: Props) {
     },
   ];
 
-  return <Tabs size='small' items={items} onChange={onChange} activeKey={activeTab} />;
+  return <S.Tabs size='small' items={items} onChange={onChange} activeKey={activeTab} />;
 }

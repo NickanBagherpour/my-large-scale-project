@@ -1,11 +1,22 @@
 import styled from 'styled-components';
 import { Table as UikitTable } from '@oxygen/ui-kit';
+import { Tabs as AntTabs } from 'antd';
 
 export const Table = styled(UikitTable)`
   tr,
   th,
   thead {
     background: inherit !important;
+  }
+`;
+
+export const Tabs = styled(AntTabs)`
+  .ant-tabs-tab-btn {
+    font-weight: 700;
+  }
+
+  .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-btn {
+    color: ${(p) => p.theme.text.quaternary};
   }
 `;
 
