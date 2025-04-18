@@ -6,7 +6,6 @@ import { getJalalliMonths } from '../../utils/consts';
 
 type Props = Omit<InfoData, 'clientDataList'>;
 
-// TODO: SEE IF YOU COULD USE Infobox FOR THIS.
 export default function Summary(props: Props) {
   const {
     name,
@@ -23,10 +22,10 @@ export default function Summary(props: Props) {
   const jalalliMonths = getJalalliMonths(t);
   const info = [
     {
-      key: t('aggregator_name'), // TODO: see if this should be always aggregator_name or client_name
+      key: t('aggregator_name'),
       value: (
         <S.Name>
-          <S.Icon className='icon-award' /> {name} {/* TODO: see if icon should be added to all names */}
+          <S.Icon className='icon-award' /> {name}
         </S.Name>
       ),
     },

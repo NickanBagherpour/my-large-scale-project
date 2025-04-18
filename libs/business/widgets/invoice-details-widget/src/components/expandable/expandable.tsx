@@ -48,7 +48,6 @@ export default function Expandable(props: Props) {
 
   const activeData = activeTab === 'financial' ? finincialData : nonfinancialData;
 
-  // TODO: handle responsivness, tooltip, etc.
   const desktopColumns = getDesktopColumns({ t });
   const mobileColumns = getMobileColumns({ t });
 

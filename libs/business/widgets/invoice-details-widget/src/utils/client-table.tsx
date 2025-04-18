@@ -13,7 +13,7 @@ export const getDesktopColumns = (props: Props): ColumnsType<InfoData['clientDat
   const { t, size, page } = props;
   return [
     {
-      title: t('index'),
+      title: t('common.index'),
       dataIndex: 'index',
       width: '8rem',
       render: (_val, _record, index) => {

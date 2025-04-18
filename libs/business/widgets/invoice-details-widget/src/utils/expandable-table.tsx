@@ -9,8 +9,8 @@ const getRange = (report: FinancialReportData[number], t: TFunction) => {
   // TODO: see how this should be handled
   // TODO: consider all of the edge cases, like not having to, from, etc.
   const { fromRate, toRate } = report;
-  const fromTxt = fromRate > 0 ? `${t('from')} ${fromRate}` : '';
-  const range = `${fromTxt} ${t('to')} ${addThousandSeparator(toRate)}`;
+  const fromTxt = fromRate > 0 ? `${t('common.from')} ${fromRate}` : '';
+  const range = `${fromTxt} ${t('common.to')} ${addThousandSeparator(toRate)}`;
   return range;
 };
 
@@ -22,7 +22,7 @@ export const getDesktopColumns = (props: Props): ColumnsType<FinancialReportData
   const { t } = props;
   return [
     {
-      title: t('index'),
+      title: t('common.index'),
       dataIndex: 'index',
       width: CONSTANTS.ROW_INDEX_WIDTH,
       render: (_val, _record, index) => {
