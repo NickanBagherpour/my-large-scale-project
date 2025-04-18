@@ -9,6 +9,8 @@ import {
   useAppState,
 } from '../../context';
 import type { ClientType, Sort } from '../../context/types';
+import { useState } from 'react';
+import { useBounce } from '@oxygen/hooks';
 
 const getChipProps = (currentStatus: ClientType, chipStatus: ClientType) =>
   currentStatus === chipStatus
@@ -17,14 +19,19 @@ const getChipProps = (currentStatus: ClientType, chipStatus: ClientType) =>
 
 export default function Filters() {
   const [t] = useTr();
-  const { searchTerm, clientType, sort } = useAppState();
+  const { clientType, sort } = useAppState();
   const dispatch = useAppDispatch();
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useBounce(() => {
+    updateSearchTermAction(dispatch, searchTerm.trim());
+  }, [searchTerm.trim()]);
 
   return (
     <>
       <S.Input
         value={searchTerm}
-        onChange={(e) => updateSearchTermAction(dispatch, e.target.value)}
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder={t('search_by_aggregator_or_client')}
         prefix={<i className='icon-search-normal' />}
       />
