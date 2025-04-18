@@ -42,7 +42,7 @@ export default function DataTable(props: Props) {
       current={page}
       total={data?.totalElements}
       dataSource={data?.content}
-      pagination={{ pageSize: size }}
+      pagination={{ pageSize: size, hideOnSinglePage: true }}
       columns={desktopColumns}
       loading={isFetching}
       mobileColumns={mobileColumns}
