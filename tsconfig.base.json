@@ -127,11 +127,11 @@
             "@oxygen/business/widgets/dashboard-widget": [
                 "libs/business/widgets/dashboard-widget/src/index.ts"
             ],
-            "@oxygen/business/widgets/detailed-bill-report-widget": [
-                "libs/business/widgets/detailed-bill-report-widget/src/index.ts"
-            ],
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
+            ],
+            "@oxygen/business/widgets/invoice-details-widget": [
+                "libs/business/widgets/invoice-details-widget/src/index.ts"
             ],
             "@oxygen/business/widgets/invoice-list-widget": [
                 "libs/business/widgets/invoice-list-widget/src/index.ts"

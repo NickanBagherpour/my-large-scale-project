@@ -162,11 +162,10 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
       key: 'details',
       width: '15rem',
       render: (record) => {
-        // TODO: get the client type from api
         return (
           <Button
             variant='link'
-            href={`${ROUTES.BUSINESS.DETAILED_BILL_REPORT}?id=${record.id}&client-type=${record.clientType}`}
+            href={`${ROUTES.BUSINESS.INVOICE_DETAILS}?id=${record.id}&client-type=${record.clientType}`}
           >
             <i className='icon-document' />
             <span>{t('view_details')}</span>
@@ -220,7 +219,7 @@ export function getMobileColumns(props: MobileProps) {
               <Button
                 variant='link'
                 className='item__btn'
-                href={`${ROUTES.BUSINESS.DETAILED_BILL_REPORT}?id=${record.id}&client-type=${1}`}
+                href={`${ROUTES.BUSINESS.INVOICE_DETAILS}?id=${record.id}&client-type=${record.clientType}`}
               >
                 <i className='icon-document' />
                 <span>{t('view_details')}</span>

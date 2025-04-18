@@ -9,7 +9,7 @@ import { AppProvider } from './context';
 import en from './locales/en';
 import fa from './locales/fa';
 
-const DetailedBillReportWidget: React.FC<PageProps> = (_) => {
+const InvoiceDetailsWidget: React.FC<PageProps> = (_) => {
   loadTr({ en, fa });
 
   return (
@@ -21,4 +21,4 @@ const DetailedBillReportWidget: React.FC<PageProps> = (_) => {
   );
 };
 
-export default DetailedBillReportWidget;
+export default InvoiceDetailsWidget;

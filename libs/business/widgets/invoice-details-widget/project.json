@@ -1,7 +1,7 @@
 {
-    "name": "detailed-bill-report-widget",
+    "name": "invoice-details-widget",
     "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "libs/widgets/detailed-bill-report-widget/src",
+    "sourceRoot": "libs/widgets/invoice-details-widget/src",
     "projectType": "library",
     "tags": [],
     "// targets": "to see all targets run: nx show project test --web",

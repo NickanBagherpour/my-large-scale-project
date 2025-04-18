@@ -69,7 +69,7 @@ export const ROUTES = {
     UPSERT_TARIFF: '/upsert-tariff',
     SERVICE_MANAGEMENT: '/service-management',
     INVOICE_LIST: '/invoice-list',
-    DETAILED_BILL_REPORT: '/detailed-bill-report',
+    INVOICE_DETAILS: '/invoice-details',
   },
 };
 
