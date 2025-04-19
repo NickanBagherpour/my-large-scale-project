@@ -1,10 +1,10 @@
 import { useTr } from '@oxygen/translation';
-import { Table } from '@oxygen/ui-kit';
 import { TablePaginationConfig } from 'antd';
 import { useState } from 'react';
 import Expandable from '../expandable/expandable';
 import { InfoData } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/client-table';
+import * as S from './data-table.style';
 
 type Props = {
   data: InfoData;
@@ -32,7 +32,7 @@ export default function DataTable(props: Props) {
   const mobileColumns = getMobileColumns({ t });
 
   return (
-    <Table
+    <S.Table
       loading={false}
       current={page}
       dataSource={clientDataList}
