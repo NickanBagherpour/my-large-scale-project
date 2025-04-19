@@ -9,10 +9,11 @@ import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Toolt
 
 import { createFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
-import { useGetOrganizationInfoQuery, useGetReportDataQuery } from '../../services';
+import { useGetOrganizationInfoQuery, useGetReportDataQuery, usePostNewOrganizationMutation } from '../../services';
 import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH, INQUERY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 
 import * as S from './organization-form.styel';
+import { prepateSubmitOrganizationParams } from '../../utils/helper';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -37,13 +38,18 @@ export const OrganizationForm = () => {
     refetch: searchRefetch,
   } = useGetOrganizationInfoQuery(searchValue!);
   console.log('orgInfo', orgInfo);
+  //Mutations
+  const { mutate: mutateNewOrganization, isPending } = usePostNewOrganizationMutation();
   //Constants
   const isFormDisabeled = false;
   const selectOptions = selectLegalTypeOptions;
-
   //Handlers
   const onFinish = async (values) => {
-    console.log(':)', values);
+    mutateNewOrganization(prepateSubmitOrganizationParams(values, searchValue.orgNationalId), {
+      onSuccess: async () => {
+        notification.success({ message: t('success_notif') });
+      },
+    });
   };
   const handleSearch = () => {
     searchRefetch();

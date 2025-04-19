@@ -1,3 +1,5 @@
+import { Nullable } from '@oxygen/types';
+
 export type OrganizationInfoParamsType = {
-  orgNationalId?: string;
+  orgNationalId?: Nullable<string>;
 };
