@@ -1,19 +1,18 @@
+import { Form, theme } from 'antd';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createSchemaFieldRule } from 'antd-zod';
 
 import { useTr } from '@oxygen/translation';
+import { useApp, useAppTheme } from '@oxygen/hooks';
+import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
 
+import { createFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
+import { useGetOrganizationInfoQuery, useGetReportDataQuery } from '../../services';
+import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH, INQUERY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 
 import * as S from './organization-form.styel';
-import { Form, theme } from 'antd';
-import { Button, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
-import { useGetOrganizationInfoQuery, useGetReportDataQuery } from '../../services';
-import { useApp, useAppTheme } from '@oxygen/hooks';
-import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH, INQUERY_MAX_LENGTH } from '../../utils/consts';
-import { createSchemaFieldRule } from 'antd-zod';
-import { createFormSchema } from '../../types';
-import { Footer } from '@oxygen/reusable-components';
-import { useRouter } from 'next/navigation';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -39,7 +38,8 @@ export const OrganizationForm = () => {
   } = useGetOrganizationInfoQuery(searchValue!);
   console.log('orgInfo', orgInfo);
   //Constants
-  const isFormDisabeled = true;
+  const isFormDisabeled = false;
+  const selectOptions = selectLegalTypeOptions;
 
   //Handlers
   const onFinish = async (values) => {
@@ -99,7 +99,7 @@ export const OrganizationForm = () => {
                 placeholder={t('organization_form_placeholder.legal_entity_type')}
                 disabled={isFormDisabeled}
                 size={'large'}
-                options={[]}
+                options={selectOptions}
                 loading={false}
               ></Select>
             </Form.Item>
@@ -119,10 +119,10 @@ export const OrganizationForm = () => {
               label={t('organization_form_lable.Registration_date')}
               rules={[rule]}
             >
-              <Input
-                size='large'
+              <DatePicker
                 placeholder={t('organization_form_placeholder.Registration_date')}
-                maxLength={INPUTE_MAX_LENGTH}
+                suffixIcon={<i className='icon-calendar-2' />}
+                disableFuture={true}
               />
             </Form.Item>
             <Form.Item
