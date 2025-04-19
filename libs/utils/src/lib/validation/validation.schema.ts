@@ -38,7 +38,7 @@ export const createValidationSchema = (
         return input == null ? ' ' : input; // Return as is if it's already a string
       },
       z
-        .string({ required_error: t('error.required') })
+        .string({ required_error: t('validation.required') })
         .refine((value) => value !== '', { message: t('validation.required') })
     ),
 
@@ -256,7 +256,7 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.nationalCode, t('validation.national_code_error')),
 
     phoneNumber: z
-      .string({ required_error: 'validation.required' })
+      .string({ required_error: t('validation.required') })
       .trim()
       .min(limits.PHONE_NUMBER, { message: t('validation.min_length') })
       .max(limits.PHONE_NUMBER, {
