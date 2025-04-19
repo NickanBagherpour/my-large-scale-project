@@ -5,21 +5,24 @@ type Props = {
   color: string;
   iconClassName: string;
   title: string;
+  subtitle: string;
+  active: number;
+  inactive: number;
+  total: number;
 };
-const ReportSection: React.FC<Props> = ({ color, iconClassName, title }) => {
+const ReportSection: React.FC<Props> = ({ color, iconClassName, title, subtitle, active, inactive, total }) => {
   const [t] = useTr();
-
-  const active = 10;
-  const inactive = 20;
-  const total = 213;
 
   const subText = '(' + 30 + t('common.days_ago') + ')';
   return (
     <S.Container $color={color}>
       <Flex justify='space-between' align='center'>
-        <Flex gap={10} align='center'>
+        <Flex gap={18} align='center'>
           <S.Icon $color={color} className={iconClassName} />
-          <S.Title>{title}</S.Title>
+          <Flex vertical gap={15}>
+            <S.Title>{title}</S.Title>
+            <S.Subtitle>{subtitle}</S.Subtitle>
+          </Flex>
         </Flex>
         <S.Link $color={color}>
           <i style={{ fontSize: '2.4rem' }} className='icon-arrow-left' />

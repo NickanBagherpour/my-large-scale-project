@@ -1,12 +1,13 @@
 import { Typography } from 'antd';
 import styled from 'styled-components';
 import { cssVar } from '@oxygen/utils';
+import { Divider as kitDivider } from '@oxygen/ui-kit';
 
 export const Container = styled.div`
   display: grid;
   /* padding: 1.5rem; */
   grid-template-columns: auto 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   max-width: 100%;
   width: 100%;
 `;
@@ -46,6 +47,7 @@ export const ClientInfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
   justify-content: space-between;
+  gap: 0.7rem;
   align-items: center;
   overflow: hidden;
   max-width: 100%;
@@ -78,4 +80,8 @@ export const CustomTooltip = styled.div`
     box-shadow: 0px 1px 3px 0px #0000004d;
     box-shadow: 0px 4px 8px 3px #00000026;
   }
+`;
+export const Divider = styled(kitDivider)`
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;

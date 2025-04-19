@@ -42,7 +42,7 @@ export const SelectIcons = styled.div`
   align-items: center;
 `;
 export const Select = styled(UikitSelect)`
-  min-width: 20rem;
+  min-width: 22rem;
   &.ant-select-arrow {
     transform: none !important;
   }

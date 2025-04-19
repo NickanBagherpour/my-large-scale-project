@@ -12,4 +12,12 @@ export default {
   bank_most_valuable_client: 'باارزش ترین مشتری بانک',
   most_valuable_aggrigator: 'با ارزش‌‌ترین اگریگیتور',
   service_call: 'فراخوانی',
+  fee_status: 'وضعیت کارمزد',
+  sadad_share: 'سهم هلدینگ داده‌ورزی سداد',
+  bank_share: 'سهم بانکداری تجاری',
+  request_status: 'وضعیت درخواست‌ها',
+  final_confirmation: 'تایید نهایی',
+  waiting_to_confirm: 'در انتظار بررسی',
+  rejected: 'رد شده',
+  total: 'مجموع',
 };

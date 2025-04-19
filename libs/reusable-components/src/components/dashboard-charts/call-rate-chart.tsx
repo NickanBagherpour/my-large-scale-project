@@ -34,7 +34,7 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
     data: chartData,
   };
   return (
-    <Container fillContainer={true}>
+    <Container style={{ minHeight: '400px' }} fillContainer={true}>
       <ChartHeader
         refetchData={refetchData}
         onChangeTimeSelection={onChangeTimeSelection}

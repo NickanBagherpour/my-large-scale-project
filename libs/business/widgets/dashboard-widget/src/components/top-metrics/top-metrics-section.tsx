@@ -50,7 +50,7 @@ const TopMetricsSection: React.FC<Props> = ({
             {timeRange && <span className='subtitle'>{'(' + timeRange + t('common.days_ago') + ')'}</span>}
           </S.Value>
         </S.ClientInfoContainer>
-        {showDivider && <Divider />}
+        {showDivider && <S.Divider />}
       </span>
     </S.Container>
   );

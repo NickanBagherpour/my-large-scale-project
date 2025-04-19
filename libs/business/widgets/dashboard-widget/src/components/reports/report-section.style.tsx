@@ -1,5 +1,5 @@
+import { cssVar } from '@oxygen/utils';
 import styled from 'styled-components';
-import { cssVar, withOpacity } from '@oxygen/utils';
 
 export const Container = styled.div<{ $color: string }>`
   background-color: ${(p) => p.theme[p.$color]._50};
@@ -8,7 +8,7 @@ export const Container = styled.div<{ $color: string }>`
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 export const Link = styled.div<{ $color: string }>`
   background-color: ${(p) => p.theme[p.$color].main};
@@ -28,8 +28,10 @@ export const Title = styled.span`
   font-size: 1.8rem;
   font-weight: 500;
 `;
+export const Subtitle = styled.span`
+  font-size: 1.2rem;
+`;
 export const Body = styled.div<{ $color: string }>`
-  padding: 1rem;
   background-color: ${(p) => p.theme[p.$color]._100};
   border-radius: var(${cssVar.radius});
   padding: 1rem 2rem 3rem 1rem;
@@ -47,7 +49,7 @@ export const ActiveFlag = styled(BaseFlag)`
 `;
 export const InactiveFlag = styled(BaseFlag)`
   background-color: ${(p) => p.theme.error.main};
-  border-color: ${(p) => p.theme.error._300};
+  border-color: ${(p) => p.theme.dashboard.lightRed};
 `;
 export const Text = styled.span`
   font-size: 16px;

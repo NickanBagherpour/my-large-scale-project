@@ -4,7 +4,6 @@ export const Container = styled.div`
   direction: rtl;
   width: 100%;
   height: 100%;
-  min-height: 20rem;
 `;
 export const Loading = styled.div`
   display: flex;

@@ -50,3 +50,4 @@ export * from './history-cell/history-cell';
 export * from './chart/bar-chart/bar-chart';
 export * from './chart/area-chart/area-chart';
 export * from './tooltip/tooltip';
+export * from './chart/pie-chart/pie-chart';
