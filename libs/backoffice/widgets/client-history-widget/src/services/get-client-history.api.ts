@@ -1,4 +1,7 @@
 import { RQKEYS } from '@oxygen/utils';
+import { API_PREFIX } from '@oxygen/client';
+import { PaginatedData } from '@oxygen/types';
+import { useChangeHistoryQuery } from '@oxygen/hooks';
 
 import { useAppDispatch } from '../context';
 import {
@@ -7,8 +10,6 @@ import {
   NormalizedClientHistoryItemType,
   NormalizedClientHistoryResponse,
 } from '../types';
-import { useChangeHistoryQuery } from '@oxygen/hooks';
-import { PaginatedData } from '@oxygen/types';
 
 const normalizer = (
   data: PaginatedData<any> //ClientHistoryResponseType,
@@ -50,7 +51,7 @@ export const useGetClientHistoryQuery = (params: FetchClientHistoryParamsType) =
 
   return useChangeHistoryQuery<any>({
     queryKey: [CLIENT, GET_LIST],
-    url: `/v1/clients/history/${clientName}`,
+    url: `${API_PREFIX.PUBLISHER}/v1/clients/history/${clientName}`,
     dispatch,
     // nestedKeyAccessor: 'clientInfoHistoryItemDtos',
     params: {

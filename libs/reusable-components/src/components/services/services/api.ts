@@ -1,17 +1,17 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client, API_PREFIX } from '@oxygen/client';
 import { ClientServicesParams, ServiceParams, Services, ServiceToClientParams, Pagination } from '../types/services';
 
 const Api = {
   getServices: async (params: ServiceParams & Pagination) =>
-    client.get<Services>(`${portalUrl}/v1/services`, { params }),
+    client.get<Services>(`${API_PREFIX.PUBLISHER}/v1/services`, { params }),
 
   postAssignServiceToClient: async ({ clientName, serviceInfoId }: ServiceToClientParams) =>
-    client.post(`${portalUrl}/v1/clients/${clientName}/services/${serviceInfoId}`),
+    client.post(`${API_PREFIX.PUBLISHER}/v1/clients/${clientName}/services/${serviceInfoId}`),
 
   deleteUnassignServiceFromClient: async ({ clientName, serviceInfoId }: ServiceToClientParams) =>
-    client.delete(`${portalUrl}/v1/clients/${clientName}/services/${serviceInfoId}`),
+    client.delete(`${API_PREFIX.PUBLISHER}/v1/clients/${clientName}/services/${serviceInfoId}`),
 
   getClientServices: async ({ clientName, ...params }: ClientServicesParams) =>
-    client.get<Services>(`${portalUrl}/v1/clients/${clientName}/services`, { params }),
+    client.get<Services>(`${API_PREFIX.PUBLISHER}/v1/clients/${clientName}/services`, { params }),
 };
 export default Api;

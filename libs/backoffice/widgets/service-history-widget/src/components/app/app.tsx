@@ -7,10 +7,12 @@ import { Container } from '@oxygen/ui-kit';
 import { GlobalMessageContainer, ReturnButton } from '@oxygen/reusable-components';
 import { useChangeHistoryQuery } from '@oxygen/hooks';
 import { getWidgetTitle, RQKEYS } from '@oxygen/utils';
+import { API_PREFIX } from '@oxygen/client';
 
 import { resetMessageAction, useAppDispatch, useAppState } from '../../context';
 import DataTable from '../data-table/data-table';
 import { ServiceHistoryContent } from '../../types';
+
 import * as S from './app.style';
 
 type AppProps = PageProps & {
@@ -47,7 +49,7 @@ const App: React.FC<AppProps> = () => {
   // };
   function prepareParams() {
     const params = {
-      url: `/v1/services/${id}/history`,
+      url: `${API_PREFIX.PUBLISHER}/v1/services/${id}/history`,
       queryKey: [backofficeKey.SERVICE, backofficeKey.SERVICE_HISTORY.GET_LIST, id],
       params: { page: table?.pagination.page - 1, size: table?.pagination.limit },
       dispatch,

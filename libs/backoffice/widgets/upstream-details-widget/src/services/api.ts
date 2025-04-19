@@ -1,10 +1,10 @@
-import { client, portalUrl } from '@oxygen/client';
+import { client, API_PREFIX } from '@oxygen/client';
 import { EditUpstreamParamsType } from '../types';
 
 const Api = {
   getUpstreamDetailsList: async (upstreamName: string | null) => {
     try {
-      const res = await client.get(`${portalUrl}/v1/upstreams/${upstreamName}`);
+      const res = await client.get(`${API_PREFIX.PUBLISHER}/v1/upstreams/${upstreamName}`);
       return res;
     } catch (error) {
       console.error('Error fetching organization list:', error);
@@ -17,22 +17,22 @@ const Api = {
     const editParams = { id: id, domain: restParams.domain, weight: restParams.weight };
 
     if (id) {
-      return client.put(`${portalUrl}/v1/targets`, editParams, {
+      return client.put(`${API_PREFIX.PUBLISHER}/v1/targets`, editParams, {
         headers: {},
       });
     } else {
-      return client.post(`${portalUrl}/v1/targets/upstream-name/${upstreamName}`, restParams, {
+      return client.post(`${API_PREFIX.PUBLISHER}/v1/targets/upstream-name/${upstreamName}`, restParams, {
         headers: {},
       });
     }
   },
 
   deleteServerFromUpstream: async (id: number) => {
-    return client.delete(`${portalUrl}/v1/targets/${id}`);
+    return client.delete(`${API_PREFIX.PUBLISHER}/v1/targets/${id}`);
   },
 
   putEditUpstream: async (params: EditUpstreamParamsType) => {
-    return client.put(`${portalUrl}/v1/upstreams`, { ...params });
+    return client.put(`${API_PREFIX.PUBLISHER}/v1/upstreams`, { ...params });
   },
 };
 export default Api;

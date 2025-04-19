@@ -1,13 +1,13 @@
-import { client, portalUrl } from '@oxygen/client';
+import { API_PREFIX, client } from '@oxygen/client';
 
 const Api = {
   updateServiceDetails: async (params) => {
     const { submissionId, ...rest } = params;
-    return client.get(`${portalUrl}/business/api/v1/services/${submissionId}`, { params: { ...rest } });
+    return client.get(`${API_PREFIX.BUSINESS}/v1/services/${submissionId}`, { params: { ...rest } });
   },
 
   deleteService: async (params) => {
-    return client.delete(`${portalUrl}/business/api/v1/services/${params}`);
+    return client.delete(`${API_PREFIX.BUSINESS}/v1/services/${params}`);
   },
 };
 export default Api;

@@ -1,4 +1,5 @@
 import { ROUTES } from '@oxygen/utils';
+import { API_PREFIX } from '@oxygen/client';
 
 export enum InquiryStatus {
   'IS_OPERATIONAL' = 1,
@@ -22,8 +23,8 @@ export const INQUIRY = {
   ItemName: 'name',
 } as const;
 export const API_URLS = {
-  service: '/v1/services/inquiry-service-status',
-  client: '/v1/clients/inquiry-client-status',
+  service: `${API_PREFIX.PUBLISHER}/v1/services/inquiry-service-status`,
+  client: `${API_PREFIX.PUBLISHER}/v1/clients/inquiry-client-status`,
 } as const;
 export const UPLOAD_URLS = {
   service: '/v1/services/import-service?service-name=',

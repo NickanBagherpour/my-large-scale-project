@@ -67,6 +67,7 @@ export const ROUTES = {
     TARIFF_LIST: '/tariff-list',
     TARIFF_DETAILS: '/tariff-details',
     UPSERT_TARIFF: '/upsert-tariff',
+    SERVICE_MANAGEMENT: '/service-management',
   },
 };
 
