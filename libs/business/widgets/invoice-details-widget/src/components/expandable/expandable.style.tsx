@@ -18,7 +18,11 @@ export const Tabs = styled(AntTabs)`
   .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-btn {
     color: ${(p) => p.theme.text.quaternary};
   }
-`;
+
+  body:has(&) .ant-tabs-dropdown-menu {
+    background: ${(p) => p.theme.background.main};
+  }
+` as typeof AntTabs;
 
 export const Sum = styled.div`
   background: ${(p) => p.theme.secondary.main};
