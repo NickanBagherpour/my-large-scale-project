@@ -16,3 +16,8 @@ export const getJalalliMonths = (t: TFunction) => {
     12: t('months.esfand'),
   };
 };
+
+export const clientTypeMap = {
+  1: 'client',
+  2: 'aggregator',
+} as const;

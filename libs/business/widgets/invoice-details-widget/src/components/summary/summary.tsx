@@ -2,9 +2,11 @@ import { addThousandSeparator } from '@oxygen/utils';
 import * as S from './summary.style';
 import { useTr } from '@oxygen/translation';
 import { InfoData } from '../../types';
-import { getJalalliMonths } from '../../utils/consts';
+import { clientTypeMap, getJalalliMonths } from '../../utils/consts';
 
-type Props = Omit<InfoData, 'clientDataList'>;
+type Props = {
+  clientType: string;
+} & Omit<InfoData, 'clientDataList'>;
 
 export default function Summary(props: Props) {
   const {
@@ -16,16 +18,18 @@ export default function Summary(props: Props) {
     totalTransactions,
     failedTransactions,
     successTransactions,
+    clientType,
   } = props;
   const [t] = useTr();
+  const isAggregator = clientTypeMap[clientType] === 'aggregator';
 
   const jalalliMonths = getJalalliMonths(t);
   const info = [
     {
-      key: t('aggregator_name'),
+      key: isAggregator ? t('aggregator_name') : t('client_name'),
       value: (
         <S.Name>
-          <S.Icon className='icon-award' /> {name}
+          {isAggregator && <S.Icon className='icon-award' />} {name}
         </S.Name>
       ),
     },
