@@ -6,7 +6,7 @@ import { clientTypeMap, getJalalliMonths } from '../../utils/consts';
 
 type Props = {
   clientType: string;
-} & Omit<InfoData, 'clientDataList'>;
+} & InfoData;
 
 export default function Summary(props: Props) {
   const {
