@@ -10,6 +10,7 @@ const CustomTooltip = (props: IProps) => {
   // console.log('rev pay',payload.reverse());
   const { payload, active, label } = props;
   const reversedPayload = [...payload].reverse();
+  console.log('payload', payload);
   if (active && payload && payload.length) {
     return (
       <div
@@ -28,7 +29,7 @@ const CustomTooltip = (props: IProps) => {
           <div key={`item-${index}`} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             {/* Add a circle with the same color as the line */}
             <svg width='12' height='12'>
-              <circle cx='5' cy='5' r='5' fill={entry.color} />
+              <circle cx='6' cy='6' r='6' fill={entry.color || entry?.payload?.fill} />
             </svg>
             <span style={{ color: entry.color, marginLeft: '0.5rem' }}>{entry.value}</span>
           </div>
