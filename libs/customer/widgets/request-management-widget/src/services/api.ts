@@ -9,22 +9,24 @@ const Api = {
   },
 
   getRequestsListData: async (params: RequestParamsType) => {
-    // Initialize filteredParams with the searchTerm
-    const filteredParams: { [key: string]: string | number | string[] | number[] } = {
-      orgName: params.searchTerm,
-      sort: params.sort,
-    };
-    // If params.status is an array, append each value of the array to searchStatusSet
+    const filteredParams: { [key: string]: string | number | string[] | number[] } = {};
+
+    if (params.searchTerm) {
+      filteredParams.orgName = params.searchTerm;
+    }
+
+    if (params.sort) {
+      filteredParams.sort = params.sort;
+    }
+
     if (Array.isArray(params.status)) {
       params.status.forEach((status) => {
-        // Add each status as a separate searchStatusSet query parameter
         if (!filteredParams.searchStatusSet) {
           filteredParams.searchStatusSet = [];
         }
-        filteredParams.searchStatusSet.push(status);
+        (filteredParams.searchStatusSet as string[]).push(status);
       });
     } else {
-      // If it's not an array, just add the single value of searchStatusSet
       filteredParams.searchStatusSet = params.status;
     }
 
