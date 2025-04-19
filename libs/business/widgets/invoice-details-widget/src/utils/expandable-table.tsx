@@ -1,17 +1,20 @@
 import { Table, type ColumnsType } from '@oxygen/ui-kit';
 import { TFunction } from 'i18next';
 import { FinancialReportData } from '../types';
-import { addThousandSeparator, CONSTANTS, getValueOrDash } from '@oxygen/utils';
+import { addThousandSeparator, CONSTANTS, getValueOrDash, numberToPersian } from '@oxygen/utils';
 import { Tooltip } from 'antd';
 import * as S from '../components/expandable/expandable.style';
 
 const getRange = (report: FinancialReportData[number], t: TFunction) => {
-  // TODO: see how this should be handled
-  // TODO: consider all of the edge cases, like not having to, from, etc.
   const { fromRate, toRate } = report;
-  const fromTxt = fromRate > 0 ? `${t('common.from')} ${fromRate}` : '';
-  const range = `${fromTxt} ${t('common.to')} ${addThousandSeparator(toRate)}`;
-  return range;
+
+  if (!fromRate && !toRate) return '-';
+
+  if (!fromRate) return `${t('common.to')} ${numberToPersian(toRate)} ${t('common.rial')}`;
+
+  if (!toRate) return `${t('more_than')} ${numberToPersian(fromRate)} ${t('common.rial')}`;
+
+  return `${t('between')} ${numberToPersian(fromRate)} ${t('and')} ${numberToPersian(toRate)} ${t('common.rial')}`;
 };
 
 type Props = {
@@ -33,7 +36,12 @@ export const getDesktopColumns = (props: Props): ColumnsType<FinancialReportData
       title: t('period'),
       key: 'range',
       render: (record: FinancialReportData[number]) => {
-        return getRange(record, t);
+        const value = getRange(record, t);
+        return (
+          <Tooltip arrow={false} placement='topRight' title={value}>
+            {value}
+          </Tooltip>
+        );
       },
     },
     {

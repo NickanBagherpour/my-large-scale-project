@@ -1,6 +1,7 @@
 export default {
   widget_name: 'گزارش ریز صورت حساب',
   aggregator_name: 'نام اگریگیتور',
+  client_name: 'نام کلاینت',
   national_id: 'شناسه ملی',
   time_range: 'بازه زمانی',
   cumulative_successful_tx: 'تعداد تجمیعی تراکنش موفق',
@@ -16,4 +17,7 @@ export default {
   total_transaction_count: 'مجموع تعداد تراکنش',
   commission_fee_price: 'قیمت کارمزد (ریال)',
   total_amount: 'مبلغ کل (ریال)',
+  between: 'بین',
+  more_than: 'بیش از',
+  and: 'و',
 };
