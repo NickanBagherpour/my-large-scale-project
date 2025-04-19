@@ -37,9 +37,10 @@ export const createValidationSchema = (
         }
         return input;
       },
-      z
-        .string({ required_error: t('validation.required') })
-        .refine((value) => value !== '', { message: t('validation.required') })
+      z.string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required') /* if value is null */,
+      })
     ),
 
     searchField: z
