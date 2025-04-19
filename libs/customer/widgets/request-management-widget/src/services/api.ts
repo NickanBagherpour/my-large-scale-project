@@ -10,26 +10,35 @@ const Api = {
 
   getRequestsListData: async (params: RequestParamsType) => {
     // Initialize filteredParams with the searchTerm
-    const filteredParams: { [key: string]: string | number | string[] | number[] } = {
-      orgName: params.searchTerm,
-      sort: params.sort,
-    };
-    // If params.status is an array, append each value of the array to searchStatusSet
-    if (Array.isArray(params.status)) {
-      params.status.forEach((status) => {
-        // Add each status as a separate searchStatusSet query parameter
-        if (!filteredParams.searchStatusSet) {
-          filteredParams.searchStatusSet = [];
-        }
-        filteredParams.searchStatusSet.push(status);
-      });
-    } else {
-      // If it's not an array, just add the single value of searchStatusSet
+    const filteredParams: any = {};
+
+    if (params.searchTerm) {
+      filteredParams.orgName = params.searchTerm;
+    }
+
+    if (params.sort) {
+      filteredParams.sort = params.sort;
+    }
+
+    if (params.status) {
       filteredParams.searchStatusSet = params.status;
     }
 
+    // if (Array.isArray(params.status)) {
+    //   params.status.forEach((status) => {
+    //     if (!filteredParams.searchStatusSet) {
+    //       filteredParams.searchStatusSet = [];
+    //     }
+    //     (filteredParams.searchStatusSet as string[]).push(status);
+    //   });
+    // } else {
+    //   filteredParams.searchStatusSet = params.status;
+    // }
+
     try {
-      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
+      const queryString = new URLSearchParams(filteredParams).toString();
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?${queryString}`);
+      // const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
       return res;
     } catch (error) {
       console.error('Error fetching request list:', error);
