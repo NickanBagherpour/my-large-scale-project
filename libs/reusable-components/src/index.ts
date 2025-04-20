@@ -15,7 +15,6 @@ export { default as NoResult } from './components/no-result/no-result';
 export { default as GlobalMessageContainer } from './components/global-message-container/global-message-container';
 export * from './components/filter-popover/filter-popover';
 export { default as GridCard } from './components/grid-card/grid-card';
-export { default as AdvanceSelector } from './components/advance-selector/advance-selector';
 export { default as CardWithToggle } from './components/card-with-toggle/card-with-toggle';
 export { default as StorybookLayout } from './components/storybook-layout/storybook-layout';
 export { default as Anonymous } from './components/anonymous/anonymous';
