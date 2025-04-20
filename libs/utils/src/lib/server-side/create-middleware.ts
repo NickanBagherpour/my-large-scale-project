@@ -13,7 +13,7 @@ export function createMiddleware(config: IMiddlewareConfig) {
     const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
     const { pathname } = request.nextUrl;
 
-    console.log("request.nextUrl-------------> ",request.nextUrl);
+    console.log('request.nextUrl-------------> ', request.nextUrl);
     const isProtectedRoute = !config.publicPaths.some((path) => pathname === path);
     const isApiRoute = config.apiPrefixes.some((prefix) => pathname.startsWith(prefix));
 
