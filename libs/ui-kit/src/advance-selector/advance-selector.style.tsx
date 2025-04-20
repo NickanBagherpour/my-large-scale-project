@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MarkText } from '@oxygen/ui-kit';
-import { respondTo } from '@oxygen/utils';
+import { breakpoints, respondTo } from '@oxygen/utils';
 
 export const Container = styled.div`
   width: 100%;
@@ -47,7 +47,7 @@ export const Item = styled.div`
     visibility: visible;
   }
 
-  @container item (max-width: 40rem) {
+  @container item (max-width: ${breakpoints['md']}) {
     .advanced-selector-box {
       flex-direction: column;
     }
