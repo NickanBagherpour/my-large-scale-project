@@ -38,6 +38,7 @@ import { KEYS as ROUTE_DETAILS_KEYS } from './portals/backoffice/route-details.k
 /*--import-business--*/
 import { KEYS as BUSINESS_SERVICE_MANAGEMENT_KEYS } from './portals/business/service-management.key';
 import { KEYS as BILLING_DETAILS_KEYS } from './portals/business/billing-details.key';
+import { KEYS as INVOICE_LIST_KEYS } from './portals/business/invoice-list.key';
 import { KEYS as UPSERT_TARRIF_KEYS } from './portals/business/upsert-tarrif.key';
 import { KEYS as TARIFF_DETAILS_KEYS } from './portals/business/tariff-details.key';
 import { KEYS as TARIFF_LIST_KEYS } from './portals/business/tariff-list.key';
@@ -117,6 +118,7 @@ export const RQKEYS = {
   BUSINESS: {
     REQUEST: 'request',
     /*--export-business--*/
+    INVOICE_LIST: INVOICE_LIST_KEYS,
     BUSINESS_SERVICE_MANAGEMENT: BUSINESS_SERVICE_MANAGEMENT_KEYS,
     BILLING_DETAILS: BILLING_DETAILS_KEYS,
     UPSERT_TARRIF: UPSERT_TARRIF_KEYS,
