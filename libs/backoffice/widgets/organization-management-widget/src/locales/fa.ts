@@ -2,13 +2,13 @@ export default {
   widget_name: 'مدیریت سازمان‌',
   create_new_organization: 'ایجاد سازمان جدید',
   organization_info: 'مشخصات سازمان',
-  rganization_inquiry: 'استعلام سازمان',
+  organization_inquiry: 'استعلام سازمان',
   client_key: 'ClientKey',
   technical_representative_information: 'اطلاعات نماینده فنی',
   representative_information: 'اطلاعات نماینده',
   representatives_information: 'اطلاعات نمایندگان',
   organization_information: 'اطلاعات سازمان',
-  organization_form_lable: {
+  organization_form_label: {
     legal_entity_name: 'نام شخص حقوقی',
     legal_entity_type: 'نوع شخص حقوقی',
     registration_number: 'شماره ثبت',
@@ -63,7 +63,7 @@ export default {
   client_key_note:
     'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
   organization_information_registration: 'ثبت اطلاعات سازمان',
-  success_notif: 'سازمان با موفقیت ایجاد شد.',
-  error_notif: 'سازمان با این شناسه وجود دارد.',
-  info_notif: 'سازمان با این شناسه وجود ندارد.',
+  success_notification: 'سازمان با موفقیت ایجاد شد.',
+  error_notification: 'سازمان با این شناسه وجود دارد.',
+  info_notification: 'سازمان با این شناسه وجود ندارد.',
 };

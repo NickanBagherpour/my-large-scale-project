@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
-import { OrganizationParamsType } from '../types';
 import { FORM_ITEMS_NAME } from './consts';
 
-export const prepateSubmitOrganizationParams = (_values, orgNationalID) => {
+export const prepareSubmitOrganizationParams = (_values, orgNationalID) => {
   const test = FORM_ITEMS_NAME;
   const params = {
     organization: {

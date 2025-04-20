@@ -9,7 +9,7 @@ import { OrganizationInfoParamsType } from '../types/get-organization-info.type'
 export const useGetOrganizationInfoQuery = (params: OrganizationInfoParamsType, setIsError) => {
   const dispatch = useAppDispatch();
   return useQuery({
-    queryKey: [RQKEYS.BACKOFFICE.ORGANIZATION_MANAGEMENT.INQUERY],
+    queryKey: [RQKEYS.BACKOFFICE.ORGANIZATION_MANAGEMENT.INQUIRY],
     queryFn: async () => {
       try {
         const res = await withErrorHandling(() => Api.getOrganizationInfo(params), dispatch, {

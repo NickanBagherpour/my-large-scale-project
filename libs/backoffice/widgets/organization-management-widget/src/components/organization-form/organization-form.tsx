@@ -1,7 +1,7 @@
 import { Form, theme } from 'antd';
-import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
+import React, { useEffect, useState } from 'react';
 
 import { useTr } from '@oxygen/translation';
 import { useApp, useAppTheme } from '@oxygen/hooks';
@@ -9,11 +9,11 @@ import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Toolt
 
 import { createFormSchema } from '../../types';
 import { useAppDispatch, useAppState } from '../../context';
-import { useGetOrganizationInfoQuery, useGetReportDataQuery, usePostNewOrganizationMutation } from '../../services';
-import { FORM_ITEMS_NAME, INPUTE_MAX_LENGTH, INQUERY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import { prepareSubmitOrganizationParams } from '../../utils/helper';
+import { useGetOrganizationInfoQuery, usePostNewOrganizationMutation } from '../../services';
+import { FORM_ITEMS_NAME, INPUT_MAX_LENGTH, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 
-import * as S from './organization-form.styel';
-import { prepateSubmitOrganizationParams } from '../../utils/helper';
+import * as S from './organization-form.style';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -41,27 +41,27 @@ export const OrganizationForm = () => {
   //Mutations
   const { mutate: mutateNewOrganization, isPending } = usePostNewOrganizationMutation();
   //Constants
-  const isFormDisabeled = isError === 404 ? false : true;
+  const isFormDisabled = isError === 404 ? false : true;
   const selectOptions = selectLegalTypeOptions;
 
   useEffect(() => {
     if (orgInfo?.organizationName) {
-      notification.error({ message: t('error_notif') });
+      notification.error({ message: t('error_notification') });
     }
   }, [orgInfo]);
 
   useEffect(() => {
     if (isError === 404) {
-      notification.success({ message: t('info_notif') });
+      notification.success({ message: t('info_notification') });
     }
   }, [isError]);
 
   //Handlers
 
   const onFinish = async (values) => {
-    mutateNewOrganization(prepateSubmitOrganizationParams(values, searchValue.orgNationalId), {
+    mutateNewOrganization(prepareSubmitOrganizationParams(values, searchValue.orgNationalId), {
       onSuccess: async () => {
-        notification.success({ message: t('success_notif') });
+        notification.success({ message: t('success_notification') });
       },
     });
   };
@@ -74,7 +74,7 @@ export const OrganizationForm = () => {
   return (
     <S.OrganizationFormContainer>
       <S.TitleContainer>
-        <S.TitleText>{t('rganization_inquiry')}</S.TitleText>
+        <S.TitleText>{t('organization_inquiry')}</S.TitleText>
       </S.TitleContainer>
 
       <S.SearchContainer>
@@ -84,7 +84,7 @@ export const OrganizationForm = () => {
           prefix={orgInfoFetching ? <Loading /> : <i className='icon-search-normal' />}
           placeholder={t('organization_form_placeholder.national_id')}
           onChange={(e) => handleChange(e)}
-          maxLength={INQUERY_MAX_LENGTH}
+          maxLength={INQUIRY_MAX_LENGTH}
         />
 
         <Button onClick={handleSearch} loading={orgInfoFetching}>
@@ -96,28 +96,28 @@ export const OrganizationForm = () => {
         <S.TitleText>{t('organization_info')}</S.TitleText>
       </S.TitleContainer>
 
-      <Form style={{ flexGrow: 1 }} layout={'vertical'} onFinish={onFinish} form={form} disabled={isFormDisabeled}>
+      <Form style={{ flexGrow: 1 }} layout={'vertical'} onFinish={onFinish} form={form} disabled={isFormDisabled}>
         <S.Card>
           <SearchItemsContainer>
             <Form.Item
               name={FORM_ITEMS_NAME.LEGAL_ENTITY_NAME}
-              label={t('organization_form_lable.legal_entity_name')}
+              label={t('organization_form_label.legal_entity_name')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.legal_entity_name')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.LEGAL_ENTITY_TYPE}
-              label={t('organization_form_lable.legal_entity_type')}
+              label={t('organization_form_label.legal_entity_type')}
               rules={[rule]}
             >
               <Select
                 placeholder={t('organization_form_placeholder.legal_entity_type')}
-                disabled={isFormDisabeled}
+                disabled={isFormDisabled}
                 size={'large'}
                 options={selectOptions}
                 loading={false}
@@ -125,18 +125,18 @@ export const OrganizationForm = () => {
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.REGISTRATION_NUMBER}
-              label={t('organization_form_lable.registration_number')}
+              label={t('organization_form_label.registration_number')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.registration_number')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.REGISTRATION_DATE}
-              label={t('organization_form_lable.Registration_date')}
+              label={t('organization_form_label.Registration_date')}
               rules={[rule]}
             >
               <DatePicker
@@ -147,50 +147,50 @@ export const OrganizationForm = () => {
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.ECONOMY_CODE}
-              label={t('organization_form_lable.economy_code')}
+              label={t('organization_form_label.economy_code')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.economy_code')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.ACTIVITY_FIELD}
-              label={t('organization_form_lable.activity_field')}
+              label={t('organization_form_label.activity_field')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.activity_field')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
-            <Form.Item name={FORM_ITEMS_NAME.ZIP_CODE} label={t('organization_form_lable.zip_code')} rules={[rule]}>
+            <Form.Item name={FORM_ITEMS_NAME.ZIP_CODE} label={t('organization_form_label.zip_code')} rules={[rule]}>
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.zip_code')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
-            <Form.Item name={FORM_ITEMS_NAME.TELEPHONE} label={t('organization_form_lable.telephone')} rules={[rule]}>
+            <Form.Item name={FORM_ITEMS_NAME.TELEPHONE} label={t('organization_form_label.telephone')} rules={[rule]}>
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.telephone')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.LAST_REGISTERED_ADDRESS}
               rules={[rule]}
-              label={t('organization_form_lable.last_registered_address')}
+              label={t('organization_form_label.last_registered_address')}
               className='full-width '
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.last_registered_address')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -205,35 +205,35 @@ export const OrganizationForm = () => {
           <SearchItemsContainer $columnNumber='3'>
             <Form.Item
               name={FORM_ITEMS_NAME.REPRESENTATIVE.FIRST_AND_LAST_NAME}
-              label={t('organization_form_lable.first_and_last_name')}
+              label={t('organization_form_label.first_and_last_name')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.first_and_last_name')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.REPRESENTATIVE.MOBILE_NUMBER}
-              label={t('organization_form_lable.mobile_number')}
+              label={t('organization_form_label.mobile_number')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.mobile_number')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.REPRESENTATIVE.LANDLINE_NUMBER}
-              label={t('organization_form_lable.landline_number')}
+              label={t('organization_form_label.landline_number')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.landline_number')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -248,35 +248,35 @@ export const OrganizationForm = () => {
           <SearchItemsContainer $columnNumber='3'>
             <Form.Item
               name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.FIRST_AND_LAST_NAME}
-              label={t('organization_form_lable.first_and_last_name')}
+              label={t('organization_form_label.first_and_last_name')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.first_and_last_name')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.MOBILE_NUMBER}
-              label={t('organization_form_lable.mobile_number')}
+              label={t('organization_form_label.mobile_number')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.mobile_number')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
               name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.LANDLINE_NUMBER}
-              label={t('organization_form_lable.landline_number')}
+              label={t('organization_form_label.landline_number')}
               rules={[rule]}
             >
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.landline_number')}
-                maxLength={INPUTE_MAX_LENGTH}
+                maxLength={INPUT_MAX_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -288,7 +288,7 @@ export const OrganizationForm = () => {
           <S.AlertContainer description={t('client_key_note')} />
           <SearchItemsContainer $columnNumber='2'>
             <Form.Item name={FORM_ITEMS_NAME.CLIENT_KEY.CLIENT_KEY} label='ClientKey' rules={[rule]}>
-              <Input size='large' placeholder={'ClientKey'} maxLength={INPUTE_MAX_LENGTH} />
+              <Input size='large' placeholder={'ClientKey'} maxLength={INPUT_MAX_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </S.Card>
