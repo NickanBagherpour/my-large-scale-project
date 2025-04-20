@@ -8,7 +8,7 @@ import { useApp, useAppTheme } from '@oxygen/hooks';
 import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
 
 import { createFormSchema } from '../../types';
-import { useAppDispatch, useAppState } from '../../context';
+import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from '../../context';
 import { prepareSubmitOrganizationParams } from '../../utils/helper';
 import { useGetOrganizationInfoQuery, usePostNewOrganizationMutation } from '../../services';
 import { FORM_ITEMS_NAME, INPUT_MAX_LENGTH, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
@@ -53,13 +53,14 @@ export const OrganizationForm = () => {
   useEffect(() => {
     if (isError === 404) {
       notification.success({ message: t('info_notification') });
+      updateOrganizationNationalIDAction(dispatch, searchValue.orgNationalId);
     }
   }, [isError]);
 
   //Handlers
 
   const onFinish = async (values) => {
-    mutateNewOrganization(prepareSubmitOrganizationParams(values, searchValue.orgNationalId), {
+    mutateNewOrganization(prepareSubmitOrganizationParams(values, state.organizationNationalID), {
       onSuccess: async () => {
         notification.success({ message: t('success_notification') });
       },
