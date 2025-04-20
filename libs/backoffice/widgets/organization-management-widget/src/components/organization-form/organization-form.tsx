@@ -1,5 +1,5 @@
 import { Form, theme } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createSchemaFieldRule } from 'antd-zod';
 
@@ -31,19 +31,33 @@ export const OrganizationForm = () => {
   const [searchValue, setSearchValue] = useState({
     orgNationalId: undefined,
   });
+  const [isError, setIsError] = useState(null);
   //Queries
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
-  } = useGetOrganizationInfoQuery(searchValue!);
-  console.log('orgInfo', orgInfo);
+  } = useGetOrganizationInfoQuery(searchValue!, setIsError);
   //Mutations
   const { mutate: mutateNewOrganization, isPending } = usePostNewOrganizationMutation();
   //Constants
-  const isFormDisabeled = false;
+  const isFormDisabeled = isError === 404 ? false : true;
   const selectOptions = selectLegalTypeOptions;
+
+  useEffect(() => {
+    if (orgInfo?.organizationName) {
+      notification.error({ message: t('error_notif') });
+    }
+  }, [orgInfo]);
+
+  useEffect(() => {
+    if (isError === 404) {
+      notification.success({ message: t('info_notif') });
+    }
+  }, [isError]);
+
   //Handlers
+
   const onFinish = async (values) => {
     mutateNewOrganization(prepateSubmitOrganizationParams(values, searchValue.orgNationalId), {
       onSuccess: async () => {
