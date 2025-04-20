@@ -1,5 +1,4 @@
-import { Form, theme } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import React, { useEffect, useState } from 'react';
 
@@ -7,11 +6,17 @@ import { useTr } from '@oxygen/translation';
 import { useApp, useAppTheme } from '@oxygen/hooks';
 import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
 
-import { createFormSchema } from '../../types';
-import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from '../../context';
+import { ApiErrorResponseType, createFormSchema } from '../../types';
 import { prepareSubmitOrganizationParams } from '../../utils/helper';
 import { useGetOrganizationInfoQuery, usePostNewOrganizationMutation } from '../../services';
-import { FORM_ITEMS_NAME, INPUT_MAX_LENGTH, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from '../../context';
+import {
+  FORM_INPUT_VALIDATION,
+  FORM_ITEMS_NAME,
+  INPUT_MAX_LENGTH,
+  INQUIRY_MAX_LENGTH,
+  selectLegalTypeOptions,
+} from '../../utils/consts';
 
 import * as S from './organization-form.style';
 
@@ -22,7 +27,6 @@ export const OrganizationForm = () => {
   const [t] = useTr();
   const [form] = Form.useForm();
   const { notification } = useApp();
-  const router = useRouter();
   const theme = useAppTheme();
 
   //Validations
@@ -31,38 +35,45 @@ export const OrganizationForm = () => {
   const [searchValue, setSearchValue] = useState({
     orgNationalId: undefined,
   });
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState<ApiErrorResponseType | null>(null);
+  const [isFormDisabled, setIsFormDisabled] = useState<boolean>(true);
   //Queries
   const {
     data: orgInfo,
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
+    isSuccess,
   } = useGetOrganizationInfoQuery(searchValue!, setIsError);
   //Mutations
   const { mutate: mutateNewOrganization, isPending } = usePostNewOrganizationMutation();
   //Constants
-  const isFormDisabled = isError === 404 ? false : true;
+  // const isFormDisabled = isError?.status === 404 ? false : true;
   const selectOptions = selectLegalTypeOptions;
-
+  //UseEffects
   useEffect(() => {
-    if (orgInfo?.organizationName) {
+    if (orgInfo?.organizationName && orgInfoFetching == false && isSuccess == true) {
       notification.error({ message: t('error_notification') });
+      setIsFormDisabled(true);
     }
-  }, [orgInfo]);
+  }, [orgInfo, orgInfoFetching]);
 
   useEffect(() => {
-    if (isError === 404) {
+    if (isError?.status === 404) {
+      setIsFormDisabled(false);
       notification.success({ message: t('info_notification') });
       updateOrganizationNationalIDAction(dispatch, searchValue.orgNationalId);
     }
   }, [isError]);
 
   //Handlers
-
   const onFinish = async (values) => {
     mutateNewOrganization(prepareSubmitOrganizationParams(values, state.organizationNationalID), {
       onSuccess: async () => {
         notification.success({ message: t('success_notification') });
+        form.resetFields();
+        setSearchValue({
+          orgNationalId: undefined,
+        });
       },
     });
   };
@@ -108,7 +119,8 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.legal_entity_name')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
+                minLength={FORM_INPUT_VALIDATION.MIN_LEGAL_PERSON_NAME_LENGTH}
               />
             </Form.Item>
             <Form.Item
@@ -121,7 +133,6 @@ export const OrganizationForm = () => {
                 disabled={isFormDisabled}
                 size={'large'}
                 options={selectOptions}
-                loading={false}
               ></Select>
             </Form.Item>
             <Form.Item
@@ -132,7 +143,8 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.registration_number')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_REGISTRATION_NUMBER_LENGTH}
+                allow={'number'}
               />
             </Form.Item>
             <Form.Item
@@ -154,7 +166,8 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.economy_code')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_ECONOMY_CODE_NUMBER_LENGTH}
+                allow={'number'}
               />
             </Form.Item>
             <Form.Item
@@ -165,21 +178,23 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.activity_field')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item name={FORM_ITEMS_NAME.ZIP_CODE} label={t('organization_form_label.zip_code')} rules={[rule]}>
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.zip_code')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_POSTAL_CODE_NUMBER_LENGTH}
+                allow={'number'}
               />
             </Form.Item>
             <Form.Item name={FORM_ITEMS_NAME.TELEPHONE} label={t('organization_form_label.telephone')} rules={[rule]}>
               <Input
                 size='large'
-                placeholder={t('organization_form_placeholder.telephone')}
-                maxLength={INPUT_MAX_LENGTH}
+                placeholder={t(`${t('organization_form_placeholder.telephone')} (0210000000)`)}
+                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
+                allow={'number'}
               />
             </Form.Item>
             <Form.Item
@@ -191,7 +206,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.last_registered_address')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_LAST_REGISTRATION_ADDRESS_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -212,7 +227,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.first_and_last_name')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
@@ -223,7 +238,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.mobile_number')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
               />
             </Form.Item>
             <Form.Item
@@ -234,7 +249,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.landline_number')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -255,7 +270,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.first_and_last_name')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
               />
             </Form.Item>
             <Form.Item
@@ -266,7 +281,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.mobile_number')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
               />
             </Form.Item>
             <Form.Item
@@ -277,7 +292,7 @@ export const OrganizationForm = () => {
               <Input
                 size='large'
                 placeholder={t('organization_form_placeholder.landline_number')}
-                maxLength={INPUT_MAX_LENGTH}
+                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
               />
             </Form.Item>
           </SearchItemsContainer>
@@ -289,12 +304,12 @@ export const OrganizationForm = () => {
           <S.AlertContainer description={t('client_key_note')} />
           <SearchItemsContainer $columnNumber='2'>
             <Form.Item name={FORM_ITEMS_NAME.CLIENT_KEY.CLIENT_KEY} label='ClientKey' rules={[rule]}>
-              <Input size='large' placeholder={'ClientKey'} maxLength={INPUT_MAX_LENGTH} />
+              <Input size='large' placeholder={t('clientKey')} maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH} />
             </Form.Item>
           </SearchItemsContainer>
         </S.Card>
         <S.Footer>
-          <Button htmlType='submit' onClick={() => form.submit()} disabled={false} loading={false}>
+          <Button htmlType='submit' onClick={() => onFinish} disabled={isPending || isFormDisabled} loading={isPending}>
             {t('organization_information_registration')}
           </Button>
         </S.Footer>

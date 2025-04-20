@@ -31,7 +31,7 @@ export const FORM_ITEMS_NAME = {
     CLIENT_KEY: 'client_key',
   },
 };
-export const INPUTS_LENGTH = {
+export const FORM_INPUT_VALIDATION = {
   INQUIRY_MAX_LENGTH: 11,
   INPUT_MAX_LENGTH: 255,
   MAX_LEGAL_PERSON_NAME_LENGTH: 255,

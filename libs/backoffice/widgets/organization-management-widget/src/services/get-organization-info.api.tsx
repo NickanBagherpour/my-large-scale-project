@@ -17,8 +17,8 @@ export const useGetOrganizationInfoQuery = (params: OrganizationInfoParamsType, 
         })();
         setIsError(null);
         return res;
-      } catch (e: any) {
-        setIsError(e?.response?.status);
+      } catch (e) {
+        setIsError(e);
       }
     },
     // queryFn: withErrorHandling(async () => Api.getOrganizationInfo(params), dispatch),
