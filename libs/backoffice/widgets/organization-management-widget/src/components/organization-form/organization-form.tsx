@@ -10,13 +10,7 @@ import { ApiErrorResponseType, createFormSchema } from '../../types';
 import { prepareSubmitOrganizationParams } from '../../utils/helper';
 import { useGetOrganizationInfoQuery, usePostNewOrganizationMutation } from '../../services';
 import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from '../../context';
-import {
-  FORM_INPUT_VALIDATION,
-  FORM_ITEMS_NAME,
-  INPUT_MAX_LENGTH,
-  INQUIRY_MAX_LENGTH,
-  selectLegalTypeOptions,
-} from '../../utils/consts';
+import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 
 import * as S from './organization-form.style';
 
@@ -43,11 +37,10 @@ export const OrganizationForm = () => {
     isFetching: orgInfoFetching,
     refetch: searchRefetch,
     isSuccess,
-  } = useGetOrganizationInfoQuery(searchValue!, setIsError);
+  } = useGetOrganizationInfoQuery(searchValue, setIsError);
   //Mutations
   const { mutate: mutateNewOrganization, isPending } = usePostNewOrganizationMutation();
   //Constants
-  // const isFormDisabled = isError?.status === 404 ? false : true;
   const selectOptions = selectLegalTypeOptions;
   //UseEffects
   useEffect(() => {
