@@ -1,9 +1,10 @@
 import { Table, type ColumnsType } from '@oxygen/ui-kit';
 import { TFunction } from 'i18next';
-import { FinancialReportData } from '../types';
+import { FinancialReportData, NonfinancialReportData } from '../types';
 import { addThousandSeparator, CONSTANTS, getValueOrDash, numberToPersian } from '@oxygen/utils';
 import { Tooltip } from 'antd';
 import * as S from '../components/expandable/expandable.style';
+import { TabKey } from '../types/tabs.type';
 
 const getRange = (report: FinancialReportData[number], t: TFunction) => {
   const { fromRate, toRate } = report;
@@ -17,12 +18,15 @@ const getRange = (report: FinancialReportData[number], t: TFunction) => {
   return `${t('between')} ${numberToPersian(fromRate)} ${t('and')} ${numberToPersian(toRate)} ${t('common.rial')}`;
 };
 
-type Props = {
+type DesktopProps = {
   t: TFunction;
+  activeTab: TabKey;
 };
 
-export const getDesktopColumns = (props: Props): ColumnsType<FinancialReportData[number]> => {
-  const { t } = props;
+export const getDesktopColumns = (
+  props: DesktopProps
+): ColumnsType<FinancialReportData[number] | NonfinancialReportData[number]> => {
+  const { t, activeTab } = props;
   return [
     {
       title: t('common.index'),
@@ -33,10 +37,10 @@ export const getDesktopColumns = (props: Props): ColumnsType<FinancialReportData
       },
     },
     {
-      title: t('period'),
-      key: 'range',
-      render: (record: FinancialReportData[number]) => {
-        const value = getRange(record, t);
+      title: activeTab === 'financial' ? t('period') : t('servcie_name'),
+      key: 'first_column',
+      render: (record: FinancialReportData[number] | NonfinancialReportData[number]) => {
+        const value = 'persianName' in record ? record.persianName : getRange(record, t);
         return (
           <Tooltip arrow={false} placement='topRight' title={value}>
             {value}
@@ -105,18 +109,29 @@ export const getDesktopColumns = (props: Props): ColumnsType<FinancialReportData
   ];
 };
 
-export const getMobileColumns = (props: { t: TFunction }) => {
+type MobileProps = {
+  t: TFunction;
+};
+
+export const getMobileColumns = (props: MobileProps) => {
   const { t } = props;
 
   return [
     {
       title: '',
       key: 'mobile-columns',
-      render(record: FinancialReportData[number]) {
+      render(record: FinancialReportData[number] | NonfinancialReportData[number]) {
         const data = [
           {
-            title: t('period'),
-            value: getRange(record, t),
+            ...('persianName' in record
+              ? {
+                  title: t('servcie_name'),
+                  value: record.persianName,
+                }
+              : {
+                  title: t('period'),
+                  value: getRange(record, t),
+                }),
           },
           {
             title: t('successful_transaction'),
@@ -128,7 +143,8 @@ export const getMobileColumns = (props: { t: TFunction }) => {
           },
           {
             title: t('total_transaction_count'),
-            value: <S.TotalCount>{getValueOrDash(addThousandSeparator(record.totalAmount))}</S.TotalCount>,
+            // @ts-expect-error fix me
+            value: <S.TotalCount>{getValueOrDash(addThousandSeparator(record?.totalAmount))}</S.TotalCount>,
           },
           {
             title: t('commission_fee_price'),

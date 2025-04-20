@@ -5,14 +5,13 @@ import { InfoData } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils/expandable-table';
 import { useState } from 'react';
 import * as S from './expandable.style';
+import { TabKey } from '../../types/tabs.type';
 
 type Props = {
   record: InfoData['clientDataList'][number];
   year: number;
   month: number;
 };
-
-type TabKey = 'non_financial' | 'financial';
 
 export default function Expandable(props: Props) {
   const { record, year, month } = props;
@@ -36,6 +35,7 @@ export default function Expandable(props: Props) {
     params: {
       year,
       month,
+      // 'client-gateway-id': '3d44bf7e-c850-4c83-b815-5fdb936ebe9e',
       'client-gateway-id': record.gatewayId,
     },
     enabled: activeTab === 'non_financial',
@@ -43,7 +43,7 @@ export default function Expandable(props: Props) {
 
   const activeData = activeTab === 'financial' ? finincialData : nonfinancialData;
 
-  const desktopColumns = getDesktopColumns({ t });
+  const desktopColumns = getDesktopColumns({ t, activeTab });
   const mobileColumns = getMobileColumns({ t });
 
   const table = (

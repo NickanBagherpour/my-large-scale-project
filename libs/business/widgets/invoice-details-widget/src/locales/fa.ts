@@ -20,4 +20,5 @@ export default {
   between: 'بین',
   more_than: 'بیش از',
   and: 'و',
+  servcie_name: 'نام سرویس',
 };
