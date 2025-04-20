@@ -1,6 +1,6 @@
 import { cssVar, respondTo } from '@oxygen/utils';
 import styled from 'styled-components';
-import { Card as AntCatd } from 'antd';
+import { Card as AntCard } from 'antd';
 import { Button, Divider as KitDivider, Dropdown, Input as KitInput, Alert } from '@oxygen/ui-kit';
 
 export const OrganizationFormContainer = styled.div``;
@@ -22,7 +22,7 @@ export const BorderedContainer = styled.div`
   border-radius: var(${cssVar.radiusLg});
 `;
 
-export const Card = styled(AntCatd)`
+export const Card = styled(AntCard)`
   padding: 1.6rem;
 
   .ant-card-body {
