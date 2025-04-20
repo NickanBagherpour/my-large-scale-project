@@ -3,6 +3,7 @@ import type { OrganizationParamsType, AggregatorsParamsType } from '@oxygen/type
 import Mockify from '@oxygen/mockify';
 
 import { FetchParamsType, ReportResponseType, FirstStepParams, SecondStepParams, ThirdStepParams } from '../types';
+import { ServicesResponse } from '../types/services';
 
 const Api = {
   getReportData: async (params: FetchParamsType) => {
@@ -126,6 +127,10 @@ const Api = {
     return client.post(`${API_PREFIX.CUSTOMER}/v1/submissions/${submissionId}`, {
       headers: {},
     });
+  },
+
+  getClientService: async (params: { size: number; page: number; sort: string; query: string }) => {
+    return client.get<ServicesResponse>(`${API_PREFIX.CUSTOMER}/v1/services/search`, { params });
   },
 };
 export default Api;

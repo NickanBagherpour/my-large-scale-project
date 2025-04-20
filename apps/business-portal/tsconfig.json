@@ -26,7 +26,8 @@
         "../../apps/business-portal/.next/types/**/*.ts",
         "../../dist/apps/business-portal/.next/types/**/*.ts",
         "next-env.d.ts",
-        ".next/types/**/*.ts"
+        ".next/types/**/*.ts",
+        "../../type.d.ts"
     ],
     "exclude": [
         "node_modules",

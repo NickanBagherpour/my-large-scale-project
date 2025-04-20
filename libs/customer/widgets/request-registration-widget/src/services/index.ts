@@ -13,3 +13,4 @@ export {
 } from './organization-define-step/organization-define-step-data';
 
 export { useThirdStepRequestRegistrationMutationQuery } from './service-select-step/service-select-step-data';
+export { useGetClientService } from './service-select-step/use-get-client-services';
