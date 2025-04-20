@@ -165,7 +165,7 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
         return (
           <Button
             variant='link'
-            href={`${ROUTES.BUSINESS.INVOICE_DETAILS}?id=${record.id}&client-type=${record.clientType}`}
+            href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?id=${record.id}&client-type=${record.clientType}`}
           >
             <i className='icon-document' />
             <span>{t('view_details')}</span>
@@ -219,7 +219,7 @@ export function getMobileColumns(props: MobileProps) {
               <Button
                 variant='link'
                 className='item__btn'
-                href={`${ROUTES.BUSINESS.INVOICE_DETAILS}?id=${record.id}&client-type=${record.clientType}`}
+                href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?id=${record.id}&client-type=${record.clientType}`}
               >
                 <i className='icon-document' />
                 <span>{t('view_details')}</span>
