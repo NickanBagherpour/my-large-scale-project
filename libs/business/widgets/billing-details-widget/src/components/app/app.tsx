@@ -32,8 +32,8 @@ const App: React.FC<AppProps> = (props) => {
 
   const widgetTitle = getWidgetTitle({
     defaultTitle: t('widget_title'),
-    primaryTitle: data?.servicePersianName,
-    secondaryTitle: serviceName,
+    // primaryTitle: data?.servicePersianName,
+    // secondaryTitle: serviceName,
   });
 
   const renderPage = () => {
@@ -57,6 +57,9 @@ const App: React.FC<AppProps> = (props) => {
       <FooterContainer>
         <Button variant='outlined' onClick={handleReturn}>
           {t('button.return')}
+        </Button>
+        <Button variant='outlined' onClick={handleReturn}>
+          {t('button.register_data')}
         </Button>
       </FooterContainer>
     </S.AppContainer>

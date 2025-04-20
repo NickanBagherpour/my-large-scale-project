@@ -1,4 +1,3 @@
-import type React from 'react';
 import 'styled-components';
 
 import { ITheme } from './libs/types/src';

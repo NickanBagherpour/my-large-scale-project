@@ -1,15 +1,15 @@
 import { createMiddleware, ROUTES } from '@oxygen/utils';
+import { API_PREFIX } from '@oxygen/client';
 
 const middleware = createMiddleware({
   publicPaths: [ROUTES.BUSINESS.AUTH],
-  apiPrefixes: ['/api/', '/commercial/api/', '/business/api/', '/back-api/'],
+  apiPrefixes: ['/api/', `/${API_PREFIX.PORTAL}/`],
   authRoute: ROUTES.BUSINESS.AUTH,
   baseProtectedRoute: ROUTES.BUSINESS.DASHBOARD,
   useOnlineValidation: false,
 });
 
 export default middleware;
-
 
 export const config = {
   matcher: [

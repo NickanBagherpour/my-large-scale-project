@@ -13,7 +13,7 @@ export const initialStateValue: WidgetStateType = {
     filters: initialFilters,
     submit: initialFilters,
     pagination: {
-      limit: INITIAL_ROW_PER_PAGE,
+      size: INITIAL_ROW_PER_PAGE,
       page: INITIAL_PAGE,
     },
   },
@@ -29,6 +29,7 @@ export const reducer = (state: WidgetStateType, action: WidgetActionType): Widge
     }
 
     case 'UPDATE_SEARCH_VALUE': {
+      state.table.pagination.page = initialStateValue.table.pagination.page;
       state.searchValue = action.payload;
       return;
     }

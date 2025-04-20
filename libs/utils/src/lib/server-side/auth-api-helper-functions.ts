@@ -62,7 +62,7 @@ export async function signin(code: string, config: AuthConfig): Promise<Response
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch token');
+      throw new Error(`Failed to fetch token >>  ${JSON.stringify(response)}`);
     }
     const data = await response.json();
 
@@ -73,7 +73,6 @@ export async function signin(code: string, config: AuthConfig): Promise<Response
   }
 }
 
-
 /**
  * Performs signout by invalidating the session ticket
  *
@@ -83,7 +82,6 @@ export async function signin(code: string, config: AuthConfig): Promise<Response
  * @returns {Promise<Response>} Signout response
  */
 export async function signout(sessionTicket: string, token: string, config: AuthConfig): Promise<Response> {
-
   try {
     const url = `${config.ssoUrl}/identity/oauth2/auth/session/signout?sessionTicket=${sessionTicket}`;
 
@@ -99,13 +97,10 @@ export async function signout(sessionTicket: string, token: string, config: Auth
       console.log('-------------------SSO signout failed-------------------------');
     }
 
-
     const cookieStore = await cookies();
 
     // Filter out the CONFIG cookie
-    const cookiesToClear = cookieStore
-      .getAll()
-      .filter((cookie) => cookie.name !== CookieKey.CONFIG);
+    const cookiesToClear = cookieStore.getAll().filter((cookie) => cookie.name !== CookieKey.CONFIG);
 
     // Create the response with success and clear the cookies
     const res = createResponse({ success: true });
@@ -116,7 +111,6 @@ export async function signout(sessionTicket: string, token: string, config: Auth
     });
 
     return res;
-
   } catch (error: unknown) {
     return createErrorResponse(error);
   }
@@ -130,9 +124,7 @@ export async function signout(sessionTicket: string, token: string, config: Auth
  * @returns {Promise<Response>} Validation response
  */
 export async function validateAccessToken(bearerToken: string | null, config: AuthConfig): Promise<Response> {
-
   try {
-
     const url = `${config.ssoUrl}/identity/oauth2/auth/token/validate`;
 
     if (!bearerToken) {
@@ -162,7 +154,6 @@ export async function validateAccessToken(bearerToken: string | null, config: Au
     }
 
     return createResponse({ success: true });
-
   } catch (error: unknown) {
     return createErrorResponse(error, {
       error: 'Error during token validation',
@@ -177,7 +168,6 @@ export async function validateAccessToken(bearerToken: string | null, config: Au
  * * @returns {Promise<Response>} User info response
  */
 export async function getUserInfo(bearerToken: string | null, config: AuthConfig): Promise<Response> {
-
   if (ENV_CONSTANTS.IS_DEMO /*ENV_CONSTANTS.IS_DEV && !ENV_CONSTANTS.DEV_WITH_SSO*/) {
     return createResponse({
       success: true,

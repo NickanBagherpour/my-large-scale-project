@@ -13,7 +13,7 @@ const Api = {
     }
   },
   getCaptcha: async () => {
-    const response = await client.get(`${API_PREFIX.CLIENT}/v1/captcha`, {
+    const response = await client.get(`${API_PREFIX.CUSTOMER}/v1/captcha`, {
       responseType: 'blob', // Important for handling binary data
     });
 
@@ -25,7 +25,7 @@ const Api = {
   postRegisterUser: async (params: any) => {
     const { captchaToken, ...restParams } = params;
 
-    return client.post(/*<ReportResponseType>*/ `${API_PREFIX.CLIENT}/v1/client/register`, restParams, {
+    return client.post(/*<ReportResponseType>*/ `${API_PREFIX.CUSTOMER}/v1/client/register`, restParams, {
       headers: { 'Captcha-Token': captchaToken },
     });
   },
@@ -33,7 +33,7 @@ const Api = {
     const { otpKey, otpValue } = params;
 
     return client.post(
-      /*<ReportResponseType>*/ `${API_PREFIX.CLIENT}/v1/otp/verify/register`,
+      /*<ReportResponseType>*/ `${API_PREFIX.CUSTOMER}/v1/otp/verify/register`,
       {},
       {
         headers: {
@@ -46,7 +46,7 @@ const Api = {
   postLoginUser: async (params: any) => {
     const { captchaToken, ...restParams } = params;
 
-    return client.post(/*<ReportResponseType>*/ `${API_PREFIX.CLIENT}/v1/client/login`, restParams, {
+    return client.post(/*<ReportResponseType>*/ `${API_PREFIX.CUSTOMER}/v1/client/login`, restParams, {
       headers: { 'Captcha-Token': captchaToken },
     });
   },
@@ -54,7 +54,7 @@ const Api = {
     const { otpKey, otpValue } = params;
 
     return client.post(
-      /*<ReportResponseType>*/ `${API_PREFIX.CLIENT}/v1/otp/verify/login`,
+      /*<ReportResponseType>*/ `${API_PREFIX.CUSTOMER}/v1/otp/verify/login`,
       {},
       {
         headers: {
