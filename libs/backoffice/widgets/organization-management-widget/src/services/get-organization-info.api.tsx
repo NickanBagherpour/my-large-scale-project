@@ -15,6 +15,7 @@ export const useGetOrganizationInfoQuery = (params: OrganizationInfoParamsType, 
         const res = await withErrorHandling(() => Api.getOrganizationInfo(params), dispatch, {
           ignore404Errors: true,
         })();
+        setIsError(null);
         return res;
       } catch (e: any) {
         setIsError(e?.response?.status);

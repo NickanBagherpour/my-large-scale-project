@@ -12,6 +12,7 @@ export type PaginationType = {
 };
 
 export type WidgetStateType = {
+  organizationNationalID: Nullable<string>;
   table: {
     pagination: PaginationType;
   };
@@ -22,6 +23,10 @@ export type WidgetActionType =
   | {
       type: 'UPDATE_GLOBAL_MESSAGE';
       payload: Nullable<MessageType>;
+    }
+  | {
+      type: 'UPDATE_ORG_NATIONAL_ID';
+      payload: Nullable<string>;
     }
   | {
       type: 'UPDATE_FILTERS';

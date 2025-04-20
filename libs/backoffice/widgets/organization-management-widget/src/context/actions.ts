@@ -3,8 +3,8 @@ import { MessageType, Nullable } from '@oxygen/types';
 
 import { FiltersType, PaginationType, WidgetActionType, WidgetDispatchType } from './types';
 
-export function updateFiltersAction(dispatch: WidgetDispatchType, filters: Partial<FiltersType>) {
-  dispatch({ type: 'UPDATE_FILTERS', payload: filters });
+export function updateOrganizationNationalIDAction(dispatch: WidgetDispatchType, orgNationalID: Nullable<string>) {
+  dispatch({ type: 'UPDATE_ORG_NATIONAL_ID', payload: orgNationalID });
 }
 
 export function updateSubmitAction(dispatch: WidgetDispatchType, submit: Partial<FiltersType>) {
