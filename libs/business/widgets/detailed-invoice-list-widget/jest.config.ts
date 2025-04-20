@@ -1,10 +1,10 @@
 export default {
-  displayName: 'clients-detailed-bill-widget',
+  displayName: 'detailed-invoice-widget',
   preset: '../../../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/widgets/clients-detailed-bill-widget',
+  coverageDirectory: '../../../../coverage/libs/widgets/detailed-invoice-list',
 };
