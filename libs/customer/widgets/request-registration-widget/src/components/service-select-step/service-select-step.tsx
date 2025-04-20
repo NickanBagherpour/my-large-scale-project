@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
-import { Box, Button, Table } from '@oxygen/ui-kit';
+import { Box, Button, Table, AdvanceSelector } from '@oxygen/ui-kit';
 import { PageProps } from '@oxygen/types';
 import { useTr } from '@oxygen/translation';
-import { AdvanceSelector } from '@oxygen/reusable-components';
 
 import { Modal } from '../../types';
 import RemoveModal from './modal-confirm-remove/modal-confirm-remove';
 import { updateServiceSelectStepTableAction, useAppDispatch, useAppState } from '../../context';
 import { getDesktopColumns, getMobileColumns } from '../../utils/service-select-table-utils';
-import { useThirdStepRequestRegistrationMutationQuery } from '../../services';
+import { useGetClientService, useThirdStepRequestRegistrationMutationQuery } from '../../services';
 
 import * as S from './select-service-step.style';
+import { ServicesResponse } from '../../types/services';
+import { useDebouncedValue } from '@oxygen/hooks';
 
 type ServiceSelectStepType = PageProps & {
   setCurrentStep: any;
@@ -29,6 +30,19 @@ const ServiceSelectStep: React.FC<ServiceSelectStepType> = (props) => {
     serviceName: '',
   });
   const { mutate: thirdMutate, isPending: ThirdIsPending } = useThirdStepRequestRegistrationMutationQuery();
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm] = useDebouncedValue(searchTerm);
+  const {
+    data: allPages,
+    isFetching: isFetchingService,
+    hasNextPage,
+    fetchNextPage,
+  } = useGetClientService(debouncedSearchTerm.trim());
+  const allServices = allPages?.pages.reduce(
+    (acc, pageData) => [...acc, ...pageData.content],
+    [] as Array<ServicesResponse['content'][number]>
+  );
 
   const toggleModal = (modal: keyof Modal, serviceName?: string, serviceId?: number) => {
     setModals((prev) => ({
@@ -77,11 +91,25 @@ const ServiceSelectStep: React.FC<ServiceSelectStepType> = (props) => {
     <S.ServiceSelectStepContainer>
       <S.SearchField>
         <AdvanceSelector
-          onSelect={handleSelect}
-          label={t('search_services')}
           placeholder={t('search_by_service_name_and_code')}
-          callServerAPI
-        ></AdvanceSelector>
+          label={t('search_services')}
+          loading={isFetchingService}
+          data={
+            allServices?.map((service) => ({
+              title: service.name,
+              subTitle: service.persianName ?? '',
+              service,
+            })) ?? []
+          }
+          onSelect={({ service }) => {
+            setSearchTerm('');
+            handleSelect(service);
+          }}
+          value={searchTerm}
+          onChange={(value) => setSearchTerm(value)}
+          isLastPage={!hasNextPage}
+          loadMore={() => fetchNextPage()}
+        />
       </S.SearchField>
       <Box flexGrow={1}>
         <Table dataSource={revertData} columns={desktopColumns} mobileColumns={mobileColumns} pagination={false} />
