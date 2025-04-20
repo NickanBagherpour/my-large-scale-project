@@ -26,7 +26,7 @@ export const useGetClientService = (query: string) => {
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       const { number, totalPages } = lastPage.page;
-      const isLastPage = number >= totalPages;
+      const isLastPage = number + 1 >= totalPages;
 
       if (isLastPage) return null;
       else return number + 1;
