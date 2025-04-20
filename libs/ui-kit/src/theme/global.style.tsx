@@ -89,7 +89,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) =>
       props.theme.direction === Direction.RTL ? 'var(--font-iransans)' : 'Tahoma'}, sans-serif;
     font-size: 1.4rem;
-    background-color: ${(props) => props.theme.background.main};
+    background-color: ${(props) => props.theme.background._100};
     color: ${(props) => props.theme.text.primary};
     /*! @noflip */
     direction: ${(props) => (props.theme.direction === Direction.RTL ? Direction.RTL : Direction.LTR)};

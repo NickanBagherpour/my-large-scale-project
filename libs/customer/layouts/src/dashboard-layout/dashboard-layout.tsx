@@ -54,7 +54,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     // <Protected>
-    <Layout>
+    <S.MainLayout>
       <Appbar
         onToggleDrawer={toggleDrawer}
         onLogout={handleLogout}
@@ -77,7 +77,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <MainContent>{children}</MainContent>
         </S.MainContentLayout>
       </Layout>
-    </Layout>
+    </S.MainLayout>
     // </Protected>
   );
 };

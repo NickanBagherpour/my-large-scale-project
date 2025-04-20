@@ -9,7 +9,10 @@ export const WidgetWrapper = styled.div`
   background-color: transparent;
   gap: 1.6rem;
   padding: 1.6rem;
-  /* background-color: ${(props) => props.theme.background._100}; */
+
+  @media (min-width: ${cssVar.maxWidth}) {
+    padding-inline-end: 0;
+  }
 `;
 
 export const HeaderContainer = styled.div`

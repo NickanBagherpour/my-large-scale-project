@@ -22,6 +22,7 @@ export const cssVar = {
   appbarZIndex: '--appbar-z-index',
   onAppbarZIndex: '--on-appbar-z-index',
   iransansFont: '--font-iransans' as const,
+  maxWidth: '2000px',
 };
 
 export const respondTo = {

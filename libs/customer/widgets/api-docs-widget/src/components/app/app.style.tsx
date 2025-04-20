@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container } from '@oxygen/ui-kit';
+import { cssVar } from '@oxygen/utils';
 
 export const AppContainer = styled(Container)`
   // background-color: pink;
@@ -10,6 +11,9 @@ export const PageContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+
+  max-width: ${cssVar.maxWidth};
+  margin-inline: auto;
 `;
 
 export const RedocContainer = styled.div`
