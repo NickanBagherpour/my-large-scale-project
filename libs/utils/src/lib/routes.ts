@@ -68,6 +68,7 @@ export const ROUTES = {
     TARIFF_DETAILS: '/tariff-details',
     UPSERT_TARIFF: '/upsert-tariff',
     SERVICE_MANAGEMENT: '/service-management',
+    BILLING_DETAILS: '/billing-details',
   },
 };
 
