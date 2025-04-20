@@ -47,7 +47,7 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
         </span>
         {t('widget_name')}
       </S.HeaderTitle>
-      <S.SelectWrapper>
+      {/* <S.SelectWrapper>
         <Select
           value={selectedOption.value}
           options={options}
@@ -56,7 +56,7 @@ export function ApiSelector({ options, selectedOption, onSelectChange }: ApiSele
           size={'middle'}
           variant={'outlined'}
         />
-      </S.SelectWrapper>
+      </S.SelectWrapper> */}
     </S.HeaderContainer>
   );
 }
