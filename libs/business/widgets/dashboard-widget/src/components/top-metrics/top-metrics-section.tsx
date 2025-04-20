@@ -1,5 +1,6 @@
+import { ReactElement } from 'react';
 import { Flex } from 'antd';
-import { Divider, Tooltip } from '@oxygen/ui-kit';
+import { Tooltip } from '@oxygen/ui-kit';
 import { useAppTheme } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
 import * as S from './top-metrics-section.style';
@@ -7,7 +8,7 @@ type Props = {
   icon: string;
   title: string;
   name: string;
-  value: string;
+  value: string | ReactElement;
   backgroundColor: string;
   color: string;
   timeRange?: number;

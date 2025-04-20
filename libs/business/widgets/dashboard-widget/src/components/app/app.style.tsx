@@ -15,10 +15,8 @@ export const CardsWrapper = styled.div`
     grid-template-columns: 1fr;
   }
   ${respondTo.between('xxl', 'lg')} {
-    grid-template-rows: auto auto;
     grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-    row-gap: 1rem;
+    grid-auto-rows: rows;
   }
 `;
 export const StackedCards = styled.div`
@@ -28,8 +26,7 @@ export const StackedCards = styled.div`
   ${respondTo.between('xxl', 'lg')} {
     grid-template-columns: minmax(20px, 1fr) minmax(20px, 1fr);
     grid-template-rows: auto;
-    grid-column: 1 / span2;
-    padding-right: 1rem;
+    grid-column: 1 / span 2;
   }
   ${respondTo.down('lg')} {
     grid-template-columns: 1fr;

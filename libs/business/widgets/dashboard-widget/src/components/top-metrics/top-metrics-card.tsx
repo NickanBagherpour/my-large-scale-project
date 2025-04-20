@@ -1,7 +1,9 @@
+import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
 import { useAppTheme } from '@oxygen/hooks';
 import TopMetricsSection from './top-metrics-section';
 import * as S from './top-metrics-card.style';
+import TopMetricsSkeleton from './top-metrics-skeleton';
 // type Props = {
 
 //   //
@@ -9,12 +11,18 @@ import * as S from './top-metrics-card.style';
 const TopMetricsCard: React.FC = () => {
   const [t] = useTr();
   const theme = useAppTheme();
+  const isLoading = false;
   const topMertricItems = [
     {
       icon: 'icon-crown-2',
       title: t('customer_with_most_transactions'),
       name: 'اپلیکیشن پیام‌رسان بله',
-      value: '22,230,560,475' + ' IRR',
+      value: (
+        <Flex gap={2}>
+          <span>IRR</span>
+          <span>22,230,560,475</span>
+        </Flex>
+      ),
       color: theme.dashboard.emerald._600,
       backgroundColor: theme.dashboard.emerald._100,
     },
@@ -55,9 +63,11 @@ const TopMetricsCard: React.FC = () => {
   ];
   return (
     <S.Container>
-      {topMertricItems.map((t, index) => (
-        <TopMetricsSection {...t} showDivider={index !== topMertricItems.length - 1} />
-      ))}
+      {!isLoading &&
+        topMertricItems.map((t, index) => (
+          <TopMetricsSection {...t} showDivider={index !== topMertricItems.length - 1} />
+        ))}
+      {isLoading && <TopMetricsSkeleton />}
     </S.Container>
   );
 };

@@ -8,8 +8,8 @@ export const useGetReportCardsDataQuery = () => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [dashboardKey.REPORT_CARD],
-    queryFn: withErrorHandling(() => Api.getReportCardData(), dispatch),
+    queryKey: [dashboardKey.AGGRIGATOR],
+    queryFn: withErrorHandling(() => Api.getMostValuableAggrigator(), dispatch),
     placeholderData: keepPreviousData,
   });
 };

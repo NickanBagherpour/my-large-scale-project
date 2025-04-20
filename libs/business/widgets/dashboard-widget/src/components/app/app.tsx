@@ -11,6 +11,7 @@ import FeeStatus from '../status-cards/fee-status';
 import RequestStatus from '../status-cards/request-status';
 
 import * as S from './app.style';
+import { Skeleton } from 'antd';
 
 type AppProps = PageProps & {
   //

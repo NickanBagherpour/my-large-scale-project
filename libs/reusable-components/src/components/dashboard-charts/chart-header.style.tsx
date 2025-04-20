@@ -5,7 +5,7 @@ import { cssVar, respondTo } from '@oxygen/utils';
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2rem 5rem 2rem 1rem;
+  padding: 2rem 1rem;
   ${respondTo.down('lg')} {
     flex-direction: column;
     gap: 2rem;

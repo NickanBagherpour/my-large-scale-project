@@ -7,7 +7,7 @@ export const Container = styled.div`
   grid-template-columns: auto auto;
   padding: 0rem 3.5rem;
   ${respondTo.between('xl', 'lg')} {
-    padding: 0rem 1rem;
+    padding: 1rem 0rem;
   }
 `;
 export const Title = styled.div`
