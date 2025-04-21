@@ -1,0 +1,29 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../../../dist/out-tsc",
+        "types": [
+            "node",
+            "@nx/react/typings/cssmodule.d.ts",
+            "@nx/react/typings/image.d.ts"
+        ]
+    },
+    "exclude": [
+        "../detailed-invoice-widget/jest.config.ts.template",
+        "../detailed-invoice-widget/src/**/*.spec.ts",
+        "../detailed-invoice-widget/src/**/*.test.ts",
+        "../detailed-invoice-widget/src/**/*.spec.tsx",
+        "../detailed-invoice-widget/src/**/*.test.tsx",
+        "../detailed-invoice-widget/src/**/*.spec.js",
+        "../detailed-invoice-widget/src/**/*.test.js",
+        "../detailed-invoice-widget/src/**/*.spec.jsx",
+        "../detailed-invoice-widget/src/**/*.test.jsx"
+    ],
+    "include": [
+        "../detailed-invoice-widget/src/**/*.js",
+        "../detailed-invoice-widget/src/**/*.jsx",
+        "../detailed-invoice-widget/src/**/*.ts",
+        "../detailed-invoice-widget/src/**/*.tsx",
+        "../../../../type.d.ts"
+    ]
+}

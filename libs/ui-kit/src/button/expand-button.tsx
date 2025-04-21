@@ -43,17 +43,24 @@ const getSizeStyles = (size: ExpandButtonProps['size']) => {
 };
 
 const StyledExpandButton = styled(Button)<ExpandButtonProps>`
-  background-color: ${(p) => p.theme.background.main};
+  background-color: ${(p) => p.theme.info._50} !important;
   border-color: ${(p) => p.theme.background.main};
-  margin: ${(p) => p.margin || `${p.marginY || 0} ${p.marginX || 0}`};
-  padding: ${(p) => p.padding || `${p.paddingY || 0} ${p.paddingX || 0}`};
+
+  td:has(&) {
+    padding: 0 !important;
+  }
+
+  // margin: ${(p) => p.margin || `${p.marginY || 0} ${p.marginX || 0}`};
+  // padding: ${(p) => p.padding || `${p.paddingY || 0} ${p.paddingX || 0}`};
+
   ${(p) => getSizeStyles(p.size)};
 
   i {
     font-size: 1.4rem;
     margin: 0;
     font-weight: bold;
-    color: ${(p) => p.theme.primary.main};
+    display: block;
+    color: ${(p) => p.theme.primary._400};
   }
 `;
 
@@ -67,8 +74,8 @@ export const ExpandButton = (props: ExpandButtonProps) => {
   }
 
   return open ? (
-    <StyledExpandButton icon={<i className='ri-arrow-up-s-line' />} onClick={handleClick} size={size} {...rest} />
+    <StyledExpandButton icon={<i className='icon-arrow-up' />} onClick={handleClick} size={size} {...rest} />
   ) : (
-    <StyledExpandButton icon={<i className='ri-arrow-down-s-line' />} onClick={handleClick} size={size} {...rest} />
+    <StyledExpandButton icon={<i className='icon-chev-down' />} onClick={handleClick} size={size} {...rest} />
   );
 };
