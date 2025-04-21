@@ -18,7 +18,12 @@ export default async function middleware(request: NextRequest) {
   // const session = await auth();
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
-  const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH, ROUTES.CUSTOMER.DOCS_API]; // Define public paths here
+  const publicPaths = [
+    ROUTES.CUSTOMER.LANDING,
+    ROUTES.CUSTOMER.AUTH,
+    ROUTES.CUSTOMER.DOCS_API,
+    '/assets/images/service-categories.jpg',
+  ]; // Define public paths here
 
   // Get the current pathname
   const { pathname } = request.nextUrl;
