@@ -367,6 +367,22 @@
   content: '\e054';
 }
 
+.icon-linear-chart:before {
+  content: '\e051';
+}
+
+.icon-bar-chart:before {
+  content: '\e052';
+}
+
+.icon-award:before {
+  content: '\e053';
+}
+
+.icon-cup:before {
+  content: '\e054';
+}
+
 .icon-crown-2:before {
   content: '\e055';
 }

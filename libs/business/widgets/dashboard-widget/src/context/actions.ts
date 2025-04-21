@@ -23,8 +23,8 @@ export function resetErrorMessageAction(dispatch: WidgetDispatchType) {
   updateMessageAction(dispatch, null);
 }
 
-function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
-  const message = ApiUtil.getErrorMessage(reason);
-  dispatch({ type: actionType, payload: { message, ...extraPayload } });
-  return null;
-}
+// function handleError(dispatch, actionType: WidgetActionType['type'], reason, extraPayload) {
+//   const message = ApiUtil.getErrorMessage(reason);
+//   dispatch({ type: actionType, payload: { message, ...extraPayload } });
+//   return null;
+// }

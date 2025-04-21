@@ -7,7 +7,6 @@ test('has title', async ({ page }) => {
   expect(await page.locator('h1').innerText()).toContain('Welcome');
 });
 
-
 export async function readCodeAndTicketFromURLE2E(page) {
   const targetUrl = 'http://uat.bo.oxygenpro.ir';
   const ssoUrlRegex = /sso\.oxygenpro\.ir/;
@@ -64,8 +63,6 @@ export async function readCodeAndTicketFromURLE2E(page) {
   await expect(page.locator('text=نیکان باقرپور')).toBeVisible();
 }
 
-
 test('client details test', async ({ page }) => {
   await readCodeAndTicketFromURLE2E(page);
-
 });

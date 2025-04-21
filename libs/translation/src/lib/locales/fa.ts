@@ -54,6 +54,8 @@ export default {
     persian_name: 'نام فارسی',
     index: 'ردیف',
     count: 'تعداد',
+    s: ' ها',
+    days_ago: ' روز گذشته',
   },
 
   app: {
@@ -194,13 +196,15 @@ export default {
     service_was_removed_successfly: 'سرویس با موفقیت حذف شد',
     service_was_added_successfly: 'سرویس با موفقیت افزوده شد',
     edit_was_successful: 'ویرایش با موفقیت انجام شد',
-    call_rate: 'نرخ فراخوانی {{element}}',
-    days_ago: '{{time}} روز گذشته',
+    call_rate_report: 'گزارش فراخوانی {{element}}',
     hours_ago: '{{time}} ساعت گذشته',
     minutes_ago: '{{time}} دقیقه گذشته',
-    success_call: 'فراخوانی  {{element}}',
+    success_call: ' فراخوانی موفق  {{element}}',
+    unsuccessfull_call: 'فراخوانی ناموفق  {{element}}',
     please_wait: 'لطفا چند ثانیه صبر کنید',
     rows_count: 'تعداد سطرها:',
+    bar_chart_type: 'ستونی',
+    line_chart_type: 'خطی',
   },
 
   reusable: {
