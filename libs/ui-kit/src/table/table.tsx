@@ -16,6 +16,7 @@ import { ExpandButton } from '../button/expand-button';
 
 import * as S from './table.style';
 import { getValueOrDash } from '@oxygen/utils';
+import { FilterIcon, getDropdown } from './filter-dropdown';
 
 export type ColumnsType<T> = AntColumnsType<T> & {
   //
@@ -45,7 +46,7 @@ export type TableProps = Omit<AntTableProps<any>, 'title'> & {
 };
 
 const ExpandIcon = ({ expanded, onExpand, record }) => (
-  <ExpandButton open={expanded} marginX={'1rem'} onClick={(e) => onExpand(record, e)} />
+  <ExpandButton shape='circle' open={expanded} onClick={(e) => onExpand(record, e)} />
 );
 export const Table = (props: TableProps) => {
   const {
@@ -83,6 +84,14 @@ export const Table = (props: TableProps) => {
     return {
       align: column.align ?? 'center',
       ellipsis: column.ellipsis ?? { showTitle: false },
+
+      ...(column.filters
+        ? {
+            filters: column.filters,
+            filterIcon: <FilterIcon />,
+            filterDropdown: getDropdown,
+          }
+        : {}),
       ...column,
     };
   });

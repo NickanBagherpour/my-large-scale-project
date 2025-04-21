@@ -187,7 +187,7 @@ export const businessMenu = [
         id: 403,
         title: 'گزارش ریز صورت‌حساب',
         order: 3,
-        href: null,
+        href: ROUTES.BUSINESS.DETAILED_INVOICE_LIST,
         size: 'small',
         icon: 'icon-dot',
         active: false,
