@@ -4,18 +4,7 @@ import type { NextRequest } from 'next/server';
 import { ROUTES } from '@oxygen/utils';
 import { CookieKey } from '@oxygen/types';
 
-// Function to check if a URL has the same origin as the request
-function isSameOrigin(request: NextRequest, url: string | null): boolean {
-  if (!url) return false;
-  try {
-    return new URL(url).origin === request.nextUrl.origin;
-  } catch {
-    return false;
-  }
-}
-
 export default async function middleware(request: NextRequest) {
-  // const session = await auth();
   const token = request.cookies.get(CookieKey.SESSION_ID)?.value;
 
   const publicPaths = [ROUTES.CUSTOMER.LANDING, ROUTES.CUSTOMER.AUTH]; // Define public paths here
@@ -25,24 +14,6 @@ export default async function middleware(request: NextRequest) {
 
   // Check if the user is trying to access a protected route
   const isProtectedRoute = !publicPaths.some((path) => pathname === path);
-
-  /*
-    // Handle API routes
-    if (pathname.startsWith('/api/')) {
-      const token = decrypt(session?.user?.accessToken ?? '');
-      // If token exists, set it in the Authorization header
-      // if (token) {
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>hi middleware  with /api/<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', token);
-      const modifiedRequest = request.clone(); // Clone the request to modify it
-      modifiedRequest.headers.set('Authorization', `Bearer ${token}`);
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>hi middleware  with /api/ modified<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', modifiedRequest);
-      return NextResponse.next(modifiedRequest); // Proceed with the modified request
-      // }
-
-      // Optionally, you might want to handle unauthorized access for API routes
-      // return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
-    */
 
   // Handle non-API routes
   if (isProtectedRoute) {
