@@ -35,11 +35,12 @@ export const createValidationSchema = (
         if (input instanceof Object) {
           return input.toString(); // Convert Date object to ISO string
         }
-        return input == null ? ' ' : input; // Return as is if it's already a string
+        return input;
       },
-      z
-        .string({ required_error: t('error.required') })
-        .refine((value) => value !== '', { message: t('validation.required') })
+      z.string({
+        required_error: t('validation.required'),
+        invalid_type_error: t('validation.required') /* if value is null */,
+      })
     ),
 
     searchField: z
@@ -256,7 +257,7 @@ export const createValidationSchema = (
       .regex(REGEX_PATTERNS.nationalCode, t('validation.national_code_error')),
 
     phoneNumber: z
-      .string({ required_error: 'validation.required' })
+      .string({ required_error: t('validation.required') })
       .trim()
       .min(limits.PHONE_NUMBER, { message: t('validation.min_length') })
       .max(limits.PHONE_NUMBER, {

@@ -9,12 +9,26 @@ const Api = {
   },
 
   getRequestsListData: async (params: RequestParamsType) => {
-    // Initialize filteredParams with the searchTerm
-    const filteredParams: { [key: string]: string | number | string[] | number[] } = {
-      orgName: params.searchTerm,
-      sort: params.sort,
-      searchStatusSet: params.status,
-    };
+    const filteredParams: { [key: string]: string | number | string[] | number[] } = {};
+
+    if (params.searchTerm) {
+      filteredParams.orgName = params.searchTerm;
+    }
+
+    if (params.sort) {
+      filteredParams.sort = params.sort;
+    }
+
+    if (Array.isArray(params.status)) {
+      params.status.forEach((status) => {
+        if (!filteredParams.searchStatusSet) {
+          filteredParams.searchStatusSet = [];
+        }
+        (filteredParams.searchStatusSet as string[]).push(status);
+      });
+    } else {
+      filteredParams.searchStatusSet = params.status;
+    }
 
     try {
       const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
