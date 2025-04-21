@@ -16,6 +16,7 @@ import * as S from './organization-form.style';
 import { OrganizationInfoSection } from '../organization-info-section/organization-info-section';
 import { RepresentativeInfoSection } from '../representative-info/representative-info';
 import { TechnicalRepresentativeInfoSection } from '../technical-representative-info/technical-representative-info';
+import { ClientKeySection } from '../client-key-section/client-key-section';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -105,18 +106,8 @@ export const OrganizationForm = () => {
         <OrganizationInfoSection rule={rule} selectOptions={selectOptions} isFormDisabled={isFormDisabled} />
         <RepresentativeInfoSection rule={rule} />
         <TechnicalRepresentativeInfoSection rule={rule} />
+        <ClientKeySection rule={rule} />
 
-        <S.TitleContainer>
-          <S.TitleText>{t('client_key')}</S.TitleText>
-        </S.TitleContainer>
-        <S.Card>
-          <S.AlertContainer description={t('client_key_note')} />
-          <SearchItemsContainer $columnNumber='2'>
-            <Form.Item name={FORM_ITEMS_NAME.CLIENT_KEY.CLIENT_KEY} label='ClientKey' rules={[rule]}>
-              <Input size='large' placeholder={t('clientKey')} maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH} />
-            </Form.Item>
-          </SearchItemsContainer>
-        </S.Card>
         <S.Footer>
           <Button htmlType='submit' onClick={() => onFinish} disabled={isPending || isFormDisabled} loading={isPending}>
             {t('organization_information_registration')}
