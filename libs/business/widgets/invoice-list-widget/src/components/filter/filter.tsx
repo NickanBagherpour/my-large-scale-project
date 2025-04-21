@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 
+import { BillingRequestModal } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
-import { PageProps } from '@oxygen/types';
+import { PageProps, UserRole } from '@oxygen/types';
 
-import { renderChips } from '../../utils/helper';
+import { queryClient } from '@oxygen/client';
+import { RQKEYS } from '@oxygen/utils';
+
+import { updateMessageAction, updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
+import { useCreateBillingRequestMutation } from '../../services';
+import { Sort } from '../../types/common-types';
 import { MAX_LENGTH, SORT_ORDER } from '../../utils/consts';
-import { Sort, UserRoleType } from '../../types/common-types';
-
-import { updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
+import { renderChips } from '../../utils/helper';
 
 import * as S from './filter.style';
 
 type FilterProps = PageProps & {
-  userRole: UserRoleType;
+  userRole: UserRole;
 };
 
 const Filters: React.FC<FilterProps> = (props) => {
@@ -25,6 +29,35 @@ const Filters: React.FC<FilterProps> = (props) => {
   const [value, setValue] = useState('');
 
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const { mutate, status: createStatus } = useCreateBillingRequestMutation();
+
+  const handleCreateBillingRequest = async (values) => {
+    try {
+      const params = {
+        name: values.name,
+        description: values.description,
+      };
+
+      setOpenModal(true);
+      mutate(params, {
+        onSuccess: () => {
+          setOpenModal(false);
+          updateMessageAction(dispatch, {
+            description: t('create_bill_request_success'),
+            type: 'success',
+            shouldTranslate: false,
+          });
+          queryClient.invalidateQueries({ queryKey: [RQKEYS.BUSINESS.INVOICE_LIST], refetchType: 'none' });
+        },
+        onError: (error) => {
+          // console.log('error', error);
+        },
+      });
+    } catch (error) {
+      // console.error('error:', error);
+    }
+  };
 
   useBounce(() => {
     updateSearchTerm(dispatch, value);
@@ -61,6 +94,16 @@ const Filters: React.FC<FilterProps> = (props) => {
           }}
         />
       </S.Indicators>
+
+      {openModal && (
+        <BillingRequestModal
+          dispatch={dispatch}
+          open={openModal}
+          setOpen={setOpenModal}
+          onConfirm={handleCreateBillingRequest}
+          status={createStatus}
+        />
+      )}
     </S.Container>
   );
 };

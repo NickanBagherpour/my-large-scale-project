@@ -1,31 +1,60 @@
-import { FiltersType, PaginationType } from '../context/types';
+// export type FetchParamsType = {
+//   filters?: FiltersType;
+//   pagination: PaginationType;
+// };
 
-export type ReportResponseType = {
-  responseId: number;
-  serviceTypeCode: number;
-  items: ItemType[];
-  paginationResult: PaginationResultType;
-};
+/////
 
-export type ItemType = {
-  uid: number;
-  count: number;
-  amount: number;
-  operationStatus: OperationStatusType;
-};
-
-export type OperationStatusType = {
-  title: string;
-  code: string;
-};
-
-export type PaginationResultType = {
+type Pageable = {
+  paged: boolean;
   pageNumber: number;
   pageSize: number;
-  totalNumberOfEntries: number;
+  unpaged: boolean;
+  offset: number;
+  sort: {
+    unsorted: boolean;
+    sorted: boolean;
+    empty: boolean;
+  };
 };
 
-export type FetchParamsType = {
-  filters?: FiltersType;
-  pagination: PaginationType;
+type Sort = {
+  unsorted: boolean;
+  sorted: boolean;
+  empty: boolean;
+};
+
+export type SubmissionStatusType = {
+  code: number;
+  title: string;
+};
+
+export type CodeTitle = {
+  code: number;
+  title: string;
+};
+
+export type InvoiceListItemType = {
+  id: number;
+  name: string;
+  year: string;
+  month: SubmissionStatusType;
+  billGenerator: string;
+  state: CodeTitle;
+  isDeleted: boolean;
+  clientType: string;
+};
+
+export type GetInvoiceListResponseType = {
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  first: boolean;
+  pageable: Pageable;
+  numberOfElements: number;
+  size: number;
+  content: InvoiceListItemType[];
+  number: number;
+  sort: Sort;
+  empty: boolean;
 };

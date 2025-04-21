@@ -7,9 +7,16 @@ const { Sider: AntSider } = Layout;
 export const Sider = styled(AntSider)`
   overflow: auto;
   // height: 100vh',
-  position: fixed !important;
+  position: fixed !important; /* Use absolute positioning (vs. fixed) so the element stays within our 2000px‑wide container and allows extra margins on ultra‑wide screens */
   top: calc(var(${cssVar.appBarHeight}) + var(${cssVar.verticalGap}));
-  left: var(${cssVar.drawerSideGap});
+  /* left: var(${cssVar.drawerSideGap}); */
+  /*
+    left: clamp(
+      0px,
+      calc((100vw - 2000px) / 2),
+      1000px
+    );
+  */
   bottom: 0;
   background: ${(p) => p.theme.surface} !important;
   @media print {

@@ -1,0 +1,18 @@
+import { useMutation } from '@tanstack/react-query';
+import Api from './api';
+
+import { ApiUtil } from '@oxygen/utils';
+
+import { updateMessageAction, useAppDispatch } from '../context';
+
+export const useCreateBillingRequestMutation = () => {
+  const dispatch = useAppDispatch();
+  return useMutation({
+    mutationFn: (params: any) => Api.postCreateBill(params),
+    onError: (e) => {
+      const err = ApiUtil.getErrorMessage(e);
+      updateMessageAction(dispatch, err);
+    },
+    networkMode: 'offlineFirst',
+  });
+};
