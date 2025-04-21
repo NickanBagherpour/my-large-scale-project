@@ -234,6 +234,15 @@ export default {
     company_has_aggregator: 'شرکت اگریگیتور دارد',
     company_is_not_aggregator: 'شرکت اگریگیتور نیست',
     company_has_not_aggregator: 'شرکت اگریگیتور ندارد',
+    billing_request: {
+      create_request: 'درخواست صدور صورت‌حساب',
+      edit_request: 'ویرایش درخواست صدور صورت‌حساب',
+      client_or_aggregator_name: 'نام اگریگیتور یا کلاینت',
+      year: 'سال دوره',
+      month: 'ماه دوره',
+      discount_type: 'نوع تخفیف',
+      discount_amount: 'میزان تخفیف',
+    },
   },
 
   button: {
@@ -302,6 +311,7 @@ export default {
     revert_transaction: 'برگشت تراکنش',
     print_receipt: 'چاپ رسید',
     register_new_request: 'ثبت درخواست جدید',
+    register_request: 'ثبت درخواست',
     display_more_items: 'بیشتر',
     view_request: 'مشاهده درخواست',
     try_again: 'تلاش دوباره',
@@ -429,6 +439,7 @@ export default {
     search_by_persian_name_and_english_name: 'جستجو براساس نام فارسی و انگلیسی {{element}}',
     client_inquiry: 'جستجو بر‌اساس نام انگلیسی و شناسه سازمان کلاینت',
     search_by_name: 'جستجو بر اساس نام انگلیسی یا فارسی {{element}}',
+    dont_have: 'ندارد',
   },
 
   message: {

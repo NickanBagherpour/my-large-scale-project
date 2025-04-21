@@ -15,5 +15,8 @@ const Api = {
     const response = await client.post(`${API_PREFIX.PORTAL}/v1/${url}`, { transactionId });
     return response.data;
   },
+  getClientsListData: async (params: any) => {
+    return client.get<any>(`${API_PREFIX.PUBLISHER}/v1/clients`);
+  },
 };
 export default Api;

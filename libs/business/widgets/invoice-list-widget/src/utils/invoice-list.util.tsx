@@ -1,47 +1,26 @@
 import { TFunction } from 'i18next';
+import { DefaultTheme } from 'styled-components';
 
-import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import { CONSTANTS, getValueOrDash, ROUTES, widthByButtonCount } from '@oxygen/utils';
-import { Pagination } from '@oxygen/types';
+import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
+import { Pagination, UserRole } from '@oxygen/types';
 
 import { statusBadgeRenderer } from './status-badge.util';
+import { WidgetStateType } from '../context/types';
+import { InvoiceListItemType } from '../types';
+import { BillingIssueStatus, ClientType, months, years } from './consts';
 
 import * as S from '../components/data-table/data-table.style';
-import { DefaultTheme } from 'styled-components';
-import { WidgetStateType } from '../context/types';
 
 type Props = {
   t: TFunction;
   pagination: Pagination;
-  userRole: string;
+  userRole: UserRole;
   filters: WidgetStateType['filters'];
   theme: DefaultTheme;
 };
 
-const years = Array.from({ length: 1405 - 1394 }, (_, index) => {
-  const year = (1394 + index).toString();
-  return { text: year, value: year };
-});
-
-const months = [
-  'فروردین',
-  'اردیبهشت',
-  'خرداد',
-  'تیر',
-  'مرداد',
-  'شهریور',
-  'مهر',
-  'آبان',
-  'آذر',
-  'دی',
-  'بهمن',
-  'اسفند',
-].map((month, index) => ({
-  text: `${String(index + 1).padStart(2, '0')} / ${month}`,
-  value: String(index + 1).padStart(2, '0'),
-}));
-
-export function getDesktopColumns(props: Props): ColumnsType<any> {
+export function getDesktopColumns(props: Props): ColumnsType<InvoiceListItemType> {
   const {
     t,
     pagination: { page, rowsPerPage },
@@ -65,7 +44,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'name',
       render: (_val, record) => (
         <S.NameContainer>
-          {/*{record?.isAggregator && <i className={'icon-award'} />}*/}
+          {record?.clientType === ClientType.aggregator && <i className={'icon-award'} />}
           <Tooltip title={getValueOrDash(record?.name)}>{getValueOrDash(record?.name)}</Tooltip>
         </S.NameContainer>
       ),
@@ -106,7 +85,6 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
         },
       },
     },
-
     {
       title: t('table.bill_generator'),
       dataIndex: 'billGenerator',
@@ -119,7 +97,7 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       dataIndex: 'state',
       ellipsis: false,
       width: widthByButtonCount(2),
-      render: (_val, record) => statusBadgeRenderer(record?.state, userRole, t),
+      render: (_val, record) => statusBadgeRenderer(record?.state, userRole, t, record?.isDeleted),
     },
     {
       key: 'details',
@@ -127,15 +105,15 @@ export function getDesktopColumns(props: Props): ColumnsType<any> {
       align: 'left',
       ellipsis: false,
       render: (item, record) => {
-        // const isApproved = record?.submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
-        // const colorButton = isApproved ? 'secondary' : 'primary';
+        const underReview =
+          (record?.state.code === BillingIssueStatus.COMMERCIAL_BANK_ISSUED && userRole === UserRole.BUSINESS_ADMIN) ||
+          (record?.state.code === BillingIssueStatus.OPERATION_ISSUED && UserRole.COMMERCIAL_BANKING_ADMIN);
         return (
           <Button
             variant={'link'}
             size={'small'}
-            // className={colorButton}
-            // href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${record?.id}`}
-            // color={colorButton}
+            className={underReview ? 'under-review' : ''}
+            href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?Id=${record?.id}`}
           >
             <i className={'icon-document'} />
             {t('table.details')}
@@ -153,7 +131,7 @@ export function getMobileColumns(props: Props) {
     {
       title: '',
       key: 'mobile-columns',
-      render: ({ id, name, year, month, billGenerator, state }) => {
+      render: ({ id, name, year, month, billGenerator, state, isDeleted }) => {
         // const isApproved = submissionStatus?.code === BusinessStatusBadge.APPROVED_BY_BUSINESS_UNIT;
         // const colorButton = isApproved ? 'secondary' : 'primary';
 
@@ -161,14 +139,14 @@ export function getMobileColumns(props: Props) {
           { title: t('table.aggregator_or_client_name'), value: getValueOrDash(name) },
           { title: t('common.year'), value: getValueOrDash(year) },
           { title: t('common.month'), value: getValueOrDash(month) },
-          { title: t('field.status'), value: statusBadgeRenderer(state, userRole, t) },
+          { title: t('field.status'), value: statusBadgeRenderer(state, userRole, t, isDeleted) },
           { title: t('table.bill_generator'), value: getValueOrDash(billGenerator) },
           {
             title: t('table.details'),
             value: (
               <Button
                 // className={isApproved ? 'secondary' : 'primary'}
-                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${id}`}
+                href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?submissionId=${id}`}
                 variant={'link'}
                 size={'small'}
                 // color={colorButton}

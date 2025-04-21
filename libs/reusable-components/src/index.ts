@@ -53,3 +53,5 @@ export { default as TooltipWrapper } from './components/tooltip-wrapper/tooltip-
 export { default as Inquiry } from './components/inquiry/inquiry';
 export type { ContentType } from './components/inquiry/types';
 export * from './components/service-tariff';
+export { default as ClientAggregatorSelector } from './components/client-aggregator-selector/client-aggregator-selector';
+export { default as BillingRequestModal } from './components/billing-request-modal/billing-request-modal';

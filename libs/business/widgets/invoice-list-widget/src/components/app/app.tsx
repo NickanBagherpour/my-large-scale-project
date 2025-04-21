@@ -1,22 +1,20 @@
 import React from 'react';
 
+import { GlobalMessageContainer } from '@oxygen/reusable-components';
+import { getValueOrDash } from '@oxygen/utils';
 import { useTr } from '@oxygen/translation';
-import { PageProps } from '@oxygen/types';
+import { PageProps, UserRole } from '@oxygen/types';
 
 import { resetErrorMessageAction, useAppDispatch, useAppState } from '../../context';
-
-import { GlobalMessageContainer } from '@oxygen/reusable-components';
-import Filters from '../filter/filter';
-import { UserRoleType } from '../../types/common-types';
 import { prepareInvoiceListParams } from '../../utils/helper';
-import { useGetInvoiceListQuery } from '../../services/get-invoice-list.api';
-import { getValueOrDash } from '@oxygen/utils';
+import { useGetInvoiceListQuery } from '../../services';
 import DataTable from '../data-table/data-table';
+import Filters from '../filter/filter';
 
 import * as S from './app.style';
 
 type AppProps = PageProps & {
-  role?: UserRoleType;
+  role?: UserRole;
 };
 
 const App: React.FC<AppProps> = (props) => {
@@ -46,15 +44,15 @@ const App: React.FC<AppProps> = (props) => {
   );
 
   return (
-    <S.AppContainer title={t('widget_name')} subtitle={`( ${getValueOrDash(invoiceList?.page?.totalElements)} )`}>
+    <S.AppContainer title={t('widget_name')} subtitle={`( ${getValueOrDash(invoiceList?.totalElements)} )`}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {
           resetErrorMessageAction(dispatch);
         }}
       />
-      <Filters userRole={role as UserRoleType} />
-      <DataTable invoiceList={invoiceList} invoiceListFetching={invoiceListFetching} userRole={role as UserRoleType} />
+      <Filters userRole={role as UserRole} />
+      <DataTable invoiceList={invoiceList} invoiceListFetching={invoiceListFetching} userRole={role as UserRole} />
     </S.AppContainer>
   );
 };

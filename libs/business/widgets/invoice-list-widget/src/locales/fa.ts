@@ -14,6 +14,7 @@ export default {
     aggregator_or_client_name: 'نام اگریگیتور یا کلاینت',
     bill_generator: 'صادر‌کننده صورت‌حساب',
     details: 'مشاهده جزئیات',
+    is_deleted: 'باطل شده',
   },
   filter: {
     newest: 'جدیدترین',

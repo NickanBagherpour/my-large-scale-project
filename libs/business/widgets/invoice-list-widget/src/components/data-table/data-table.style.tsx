@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { Table as KitTable, Tag as KitTag } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
 
@@ -9,8 +10,7 @@ export const Table = styled(KitTable)`
     margin-inline-start: 1.6rem;
   }
 
-  & tbody > tr:has(.ant-btn-color-secondary) > td {
-    border-bottom: 1px solid ${(p) => p.theme.success.main};
+  & tbody > tr:has(.under-review) > td {
     background-color: ${(p) => p.theme.success._50};
 
     .rotate-icon {
