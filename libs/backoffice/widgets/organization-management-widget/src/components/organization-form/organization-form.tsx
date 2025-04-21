@@ -13,6 +13,7 @@ import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from 
 import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 
 import * as S from './organization-form.style';
+import { OrganizationInfoSection } from '../organization-info-section/organization-info-section';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -97,113 +98,9 @@ export const OrganizationForm = () => {
           <i className={'icon-search-normal'} />
         </Button>
       </S.SearchContainer>
-      <S.TitleContainer>
-        <S.TitleText>{t('organization_info')}</S.TitleText>
-      </S.TitleContainer>
 
       <Form style={{ flexGrow: 1 }} layout={'vertical'} onFinish={onFinish} form={form} disabled={isFormDisabled}>
-        <S.Card>
-          <SearchItemsContainer>
-            <Form.Item
-              name={FORM_ITEMS_NAME.LEGAL_ENTITY_NAME}
-              label={t('organization_form_label.legal_entity_name')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.legal_entity_name')}
-                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
-                minLength={FORM_INPUT_VALIDATION.MIN_LEGAL_PERSON_NAME_LENGTH}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.LEGAL_ENTITY_TYPE}
-              label={t('organization_form_label.legal_entity_type')}
-              rules={[rule]}
-            >
-              <Select
-                placeholder={t('organization_form_placeholder.legal_entity_type')}
-                disabled={isFormDisabled}
-                size={'large'}
-                options={selectOptions}
-              ></Select>
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.REGISTRATION_NUMBER}
-              label={t('organization_form_label.registration_number')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.registration_number')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_REGISTRATION_NUMBER_LENGTH}
-                allow={'number'}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.REGISTRATION_DATE}
-              label={t('organization_form_label.Registration_date')}
-              rules={[rule]}
-            >
-              <DatePicker
-                placeholder={t('organization_form_placeholder.Registration_date')}
-                suffixIcon={<i className='icon-calendar-2' />}
-                disableFuture={true}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.ECONOMY_CODE}
-              label={t('organization_form_label.economy_code')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.economy_code')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_ECONOMY_CODE_NUMBER_LENGTH}
-                allow={'number'}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.ACTIVITY_FIELD}
-              label={t('organization_form_label.activity_field')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.activity_field')}
-                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
-              />
-            </Form.Item>
-            <Form.Item name={FORM_ITEMS_NAME.ZIP_CODE} label={t('organization_form_label.zip_code')} rules={[rule]}>
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.zip_code')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_POSTAL_CODE_NUMBER_LENGTH}
-                allow={'number'}
-              />
-            </Form.Item>
-            <Form.Item name={FORM_ITEMS_NAME.TELEPHONE} label={t('organization_form_label.telephone')} rules={[rule]}>
-              <Input
-                size='large'
-                placeholder={t(`${t('organization_form_placeholder.telephone')} (0210000000)`)}
-                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
-                allow={'number'}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.LAST_REGISTERED_ADDRESS}
-              rules={[rule]}
-              label={t('organization_form_label.last_registered_address')}
-              className='full-width '
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.last_registered_address')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_LAST_REGISTRATION_ADDRESS_LENGTH}
-              />
-            </Form.Item>
-          </SearchItemsContainer>
-        </S.Card>
+        <OrganizationInfoSection rule={rule} selectOptions={selectOptions} isFormDisabled={isFormDisabled} />
         <S.TitleContainer>
           <S.TitleText>{t('representative_information')}</S.TitleText>
           <Tooltip color={theme.primary.main} title={t('tooltip.representative_name')}>
