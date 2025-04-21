@@ -1,7 +1,7 @@
 {
     "name": "customer-portal",
     "version": "0.0.18",
-    "tryCount": "3",
+    "tryCount": "4",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/customer-portal",
     "projectType": "application",
