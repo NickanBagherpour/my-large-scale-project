@@ -5,11 +5,12 @@ import { useAppDispatch } from '../context';
 import Api from './api';
 import { InfoParams } from '../types';
 
-export const useInfoQuery = (params: InfoParams) => {
+export const useGetInfoQuery = (params: InfoParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.DETAILED_BILL_REPORT.INFO, params],
+    queryKey: [RQKEYS.BUSINESS.DETAILED_INVOICE.INFO, params],
     queryFn: withErrorHandling(() => Api.getInfo(params), dispatch),
+    enabled: !!params.id && !!params['client-type'],
   });
 };

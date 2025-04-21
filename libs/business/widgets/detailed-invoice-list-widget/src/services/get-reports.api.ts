@@ -9,7 +9,7 @@ export const useGetReportsQuery = (params: ReportsParams) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.CLIENTS_DETAILED_BILL.REPORTS, params],
+    queryKey: [RQKEYS.BUSINESS.DETAILED_INVOICE_LIST.REPORTS, params],
     queryFn: withErrorHandling(() => Api.getReports(params), dispatch),
   });
 };

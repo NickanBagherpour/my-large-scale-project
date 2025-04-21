@@ -15,7 +15,7 @@ export const useGetNonFinancialReportQuery = (props: Props) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.DETAILED_BILL_REPORT.NON_FINANCIAL, params],
+    queryKey: [RQKEYS.BUSINESS.DETAILED_INVOICE.NON_FINANCIAL, params],
     queryFn: withErrorHandling(() => Api.getNonfinancialReport(params), dispatch),
     enabled,
   });

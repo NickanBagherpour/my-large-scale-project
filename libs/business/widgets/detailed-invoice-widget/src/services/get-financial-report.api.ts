@@ -15,7 +15,7 @@ export const useGetFinancialReportQuery = (props: Props) => {
   const dispatch = useAppDispatch();
 
   return useQuery({
-    queryKey: [RQKEYS.BUSINESS.DETAILED_BILL_REPORT.FINANCIAL, params],
+    queryKey: [RQKEYS.BUSINESS.DETAILED_INVOICE.FINANCIAL, params],
     queryFn: withErrorHandling(() => Api.getFinancialReport(params), dispatch),
     enabled,
   });
