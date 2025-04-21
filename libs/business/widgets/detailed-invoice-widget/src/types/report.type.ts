@@ -1,0 +1,47 @@
+export type InfoParams = {
+  'client-type': string;
+  id: string;
+};
+
+export type InfoData = {
+  name: string;
+  nationalCode: string;
+  billingYear: number;
+  billingMonth: number;
+  successTransactions: number;
+  failedTransactions: number;
+  totalTransactions: number;
+  sumAmount: number;
+  clientDataList: [
+    {
+      name: string;
+      gatewayId: string;
+      nationalCode: string;
+    }
+  ];
+};
+
+export type ReportParams = {
+  'client-gateway-id': string;
+  month: number;
+  year: number;
+};
+
+export type NonfinancialReportData = {
+  clientGatewayId: string;
+  successCount: number;
+  failedCount: number;
+  name: string;
+  persianName: string;
+}[];
+
+export type FinancialReportData = {
+  id: number | null;
+  clientGatewayId: string;
+  successCount: number;
+  failedCount: number;
+  totalAmount: number;
+  fromRate: number;
+  toRate: number;
+  percent: number;
+}[];

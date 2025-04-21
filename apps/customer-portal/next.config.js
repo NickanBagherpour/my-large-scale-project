@@ -65,15 +65,7 @@ const nextConfig = {
   },
   compiler: {
     styledComponents: true,
-    removeConsole: {
-      exclude: ['error', 'warn'], // Keep errors and warnings in production
-    },
-  },
-  experimental: {
-    logging: {
-      level: 'verbose', // Next.js 14+ experimental feature
-      fullUrl: true,
-    },
+    removeConsole: false,
   },
 };
 

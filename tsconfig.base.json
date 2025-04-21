@@ -130,6 +130,12 @@
             "@oxygen/business/widgets/dashboard-widget": [
                 "libs/business/widgets/dashboard-widget/src/index.ts"
             ],
+            "@oxygen/business/widgets/detailed-invoice-list-widget": [
+                "libs/business/widgets/detailed-invoice-list-widget/src/index.ts"
+            ],
+            "@oxygen/business/widgets/detailed-invoice-widget": [
+                "libs/business/widgets/detailed-invoice-widget/src/index.ts"
+            ],
             "@oxygen/business/widgets/edit-request-list-widget": [
                 "libs/business/widgets/edit-request-list-widget/src/index.ts"
             ],

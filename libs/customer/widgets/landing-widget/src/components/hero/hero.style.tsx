@@ -29,6 +29,7 @@ export const Nav = styled.nav`
 export const AppName = styled.p`
   margin-block: 0;
   font-size: 1.2rem;
+  width: 100%;
   font-weight: 600;
   color: ${(p) => p.theme.onPrimary};
   ${respondTo.down('md')} {
@@ -38,6 +39,14 @@ export const AppName = styled.p`
 
 export const BankLink = styled(Link)`
   margin-inline-end: 1rem;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 1.5rem;
+  margin: 0 3rem;
+  justify-content: end;
 `;
 
 export const LoginLink = styled(Link)`
