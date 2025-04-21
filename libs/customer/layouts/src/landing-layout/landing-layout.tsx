@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import * as S from './landing-layout.style';
 
 type LandingLayoutProps = {
   children: ReactNode;
@@ -16,7 +17,7 @@ export const LandingLayout = ({ children }: LandingLayoutProps) => {
   //   logout();
   // };
 
-  return <>{children}</>;
+  return <S.MainContentLayout>{children}</S.MainContentLayout>;
 };
 
 export default LandingLayout;

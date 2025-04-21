@@ -1,8 +1,8 @@
+import { cssVar } from '@oxygen/utils';
+import { Layout } from 'antd';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: ${(p) => p.theme.surface};
-  box-sizing: border-box;
+export const MainContentLayout = styled(Layout)`
+  max-width: ${cssVar.maxWidth};
+  margin-inline: auto;
 `;

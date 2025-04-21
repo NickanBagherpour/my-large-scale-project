@@ -9,7 +9,7 @@ export const Sider = styled(AntSider)`
   // height: 100vh',
   position: fixed !important;
   top: calc(var(${cssVar.appBarHeight}) + var(${cssVar.verticalGap}));
-  left: var(${cssVar.drawerSideGap});
+  /* left: var(${cssVar.drawerSideGap}); */
   bottom: 0;
   background: ${(p) => p.theme.surface} !important;
   @media print {
