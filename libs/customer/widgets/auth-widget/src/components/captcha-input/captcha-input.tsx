@@ -17,7 +17,7 @@ interface CaptchaInputProps extends InputProps {
 }
 
 const CaptchaInput: React.FC<CaptchaInputProps> = ({
-  imageSrc,
+  imageSrc = '',
   altText = 'Captcha',
   onRefresh,
   name,
@@ -33,7 +33,7 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({
         <S.SuffixContainer>
           {loading ? (
             <Loading size={'small'} style={{ padding: '0 7rem' }} />
-          ) : (
+          ) : imageSrc ? (
             <Image
               src={imageSrc}
               alt={altText}
@@ -41,7 +41,7 @@ const CaptchaInput: React.FC<CaptchaInputProps> = ({
               height={32}
               style={{ margin: '0 1rem', objectFit: 'cover', borderRadius: '0.7rem' }}
             />
-          )}
+          ) : null}
           <S.RefreshButton
             size='small'
             type='text'

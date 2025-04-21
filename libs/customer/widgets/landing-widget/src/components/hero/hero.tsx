@@ -1,7 +1,7 @@
 import { useTr } from '@oxygen/translation';
 import * as S from './hero.style';
 import Link from 'next/link';
-import { Icons } from '@oxygen/ui-kit';
+import { Button, Icons } from '@oxygen/ui-kit';
 import userChartsImg from 'apps/customer-portal/public/assets/images/user-charts.png';
 import LoginButtons from '../login-buttons/login-buttons';
 import Image from 'next/image';
@@ -16,7 +16,12 @@ const HeroSection = () => {
           <Icons.BankLogo width={21} height={29} />
         </S.BankLink>
         <S.AppName>{t('app_name')}</S.AppName>
-        <S.LoginLink href={ROUTES.CUSTOMER.AUTH}>{t('login_to_platform')}</S.LoginLink>
+        <S.ButtonWrapper>
+          <Button href={ROUTES.CUSTOMER.DOCS_API} variant={'filled'}>
+            {t('documents')}
+          </Button>
+          <Button href={ROUTES.CUSTOMER.AUTH}>{t('login_to_platform')}</Button>
+        </S.ButtonWrapper>
         <Link href='/'>
           <Icons.SadadLogoLight width={69} height={21} />
         </Link>
@@ -32,7 +37,7 @@ const HeroSection = () => {
         </S.Info>
 
         <S.ImgContainer>
-          <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />
+          {userChartsImg && <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />}
         </S.ImgContainer>
       </S.Intro>
     </S.Hero>

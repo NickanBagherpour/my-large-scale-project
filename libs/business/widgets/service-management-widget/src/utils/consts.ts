@@ -4,8 +4,8 @@ export const INITIAL_PAGE = 1;
 export const ALL_STATUS_LIST = null;
 
 export enum SORT_ORDER {
-  ASCENDING = 'asc',
-  DESCENDING = 'desc',
+  ASCENDING = 'createDate,asc',
+  DESCENDING = 'createDate,desc',
 }
 
 // status-enums

@@ -38,7 +38,7 @@ export const useGetClientInfoQuery = (params) => {
         tagIds: clientInfo ? updatedTagIds : [],
         organizationInfo: clientInfo ? clientInfo.organizationInfo : undefined,
       };
-      console.log('this is the test', test);
+      // console.log('this is the test', test);
       return test;
     },
   });
