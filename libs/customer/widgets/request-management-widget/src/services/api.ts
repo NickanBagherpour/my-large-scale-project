@@ -30,21 +30,8 @@ const Api = {
       filteredParams.searchStatusSet = params.status;
     }
 
-    // if (Array.isArray(params.status)) {
-    //   params.status.forEach((status) => {
-    //     if (!filteredParams.searchStatusSet) {
-    //       filteredParams.searchStatusSet = [];
-    //     }
-    //     (filteredParams.searchStatusSet as string[]).push(status);
-    //   });
-    // } else {
-    //   filteredParams.searchStatusSet = params.status;
-    // }
-
     try {
-      const queryString = new URLSearchParams(filteredParams).toString();
-      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?${queryString}`);
-      // const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
+      const res = await client.get(`${API_PREFIX.CUSTOMER}/v1/submissions/search?`, { params: filteredParams });
       return res;
     } catch (error) {
       console.error('Error fetching request list:', error);
