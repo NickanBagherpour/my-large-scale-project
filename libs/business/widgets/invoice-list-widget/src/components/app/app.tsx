@@ -44,7 +44,7 @@ const App: React.FC<AppProps> = (props) => {
   );
 
   return (
-    <S.AppContainer title={t('widget_name')} subtitle={`( ${getValueOrDash(invoiceList?.page?.totalElements)} )`}>
+    <S.AppContainer title={t('widget_name')} subtitle={`( ${getValueOrDash(invoiceList?.totalElements)} )`}>
       <GlobalMessageContainer
         message={message}
         onClose={() => {

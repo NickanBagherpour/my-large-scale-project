@@ -106,13 +106,13 @@ export function getDesktopColumns(props: Props): ColumnsType<InvoiceListItemType
       ellipsis: false,
       render: (item, record) => {
         const underReview =
-          (record?.state === BillingIssueStatus.COMMERCIAL_BANK_ISSUED && userRole === UserRole.BUSINESS_ADMIN) ||
-          (record?.state === BillingIssueStatus.OPERATION_ISSUED && UserRole.COMMERCIAL_BANKING_ADMIN);
+          (record?.state.code === BillingIssueStatus.COMMERCIAL_BANK_ISSUED && userRole === UserRole.BUSINESS_ADMIN) ||
+          (record?.state.code === BillingIssueStatus.OPERATION_ISSUED && UserRole.COMMERCIAL_BANKING_ADMIN);
         return (
           <Button
             variant={'link'}
             size={'small'}
-            className={underReview && 'under-review'}
+            className={underReview ? 'under-review' : ''}
             href={`${ROUTES.BUSINESS.BILLING_DETAILS}?Id=${record?.id}`}
           >
             <i className={'icon-document'} />

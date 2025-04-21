@@ -11,5 +11,8 @@ const Api = {
 
     return client.get<GetInvoiceListResponseType>(`${API_PREFIX.INVOICE}/v1/billings`, { params: restParams });
   },
+  postCreateBill: async (params: any) => {
+    return client.post(`${API_PREFIX.INVOICE}/v1/billings/client`, { ...params });
+  },
 };
 export default Api;

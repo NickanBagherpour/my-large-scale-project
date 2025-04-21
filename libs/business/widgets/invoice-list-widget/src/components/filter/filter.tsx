@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 
+import { BillingRequestModal } from '@oxygen/reusable-components';
 import { useTr } from '@oxygen/translation';
 import { useBounce } from '@oxygen/hooks';
 import { PageProps, UserRole } from '@oxygen/types';
 
-import { updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
+import { queryClient } from '@oxygen/client';
+import { RQKEYS } from '@oxygen/utils';
+
+import { updateMessageAction, updateSearchTerm, updateSort, useAppDispatch, useAppState } from '../../context';
+import { useCreateBillingRequestMutation } from '../../services';
+import { Sort } from '../../types/common-types';
 import { MAX_LENGTH, SORT_ORDER } from '../../utils/consts';
 import { renderChips } from '../../utils/helper';
-import { Sort } from '../../types/common-types';
 
 import * as S from './filter.style';
 
@@ -89,15 +94,16 @@ const Filters: React.FC<FilterProps> = (props) => {
           }}
         />
       </S.Indicators>
-      {/*{openModal &&*/}
-      {/*<BillingRequestModal*/}
-      {/*  dispatch={dispatch}*/}
-      {/*  open={openModal}*/}
-      {/*  setOpen={setOpenModal}*/}
-      {/*  onConfirm={handleCreateBillingRequest}*/}
-      {/*  status={createStatus}*/}
-      {/*/>*/}
-      {/*}*/}
+
+      {openModal && (
+        <BillingRequestModal
+          dispatch={dispatch}
+          open={openModal}
+          setOpen={setOpenModal}
+          onConfirm={handleCreateBillingRequest}
+          status={createStatus}
+        />
+      )}
     </S.Container>
   );
 };
