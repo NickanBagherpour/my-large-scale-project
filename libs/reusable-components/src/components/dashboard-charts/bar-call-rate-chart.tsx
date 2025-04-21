@@ -14,8 +14,8 @@ const BarCallRateChart: React.FC<Props> = ({ data, isLoading, failColor, success
       data={data}
       xAxisProps={{ dataKey: 'time', padding: { right: 0, left: 0 } }}
       barProps={[
-        { dataKey: 'count', fill: failColor, name: t('common.count'), stackId: 'a' },
-        { dataKey: 'count2', fill: successColor, name: t('common.count'), stackId: 'a' },
+        { dataKey: 'failureCount', fill: failColor, name: t('common.count'), stackId: 'a' },
+        { dataKey: 'successCount', fill: successColor, name: t('common.count'), stackId: 'a' },
       ]}
       legendProps={{ content: () => <></> }}
       isLoading={isLoading}

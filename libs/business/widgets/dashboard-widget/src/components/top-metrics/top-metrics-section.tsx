@@ -7,7 +7,7 @@ import * as S from './top-metrics-section.style';
 type Props = {
   icon: string;
   title: string;
-  name: string;
+  name?: string;
   value: string | ReactElement;
   backgroundColor: string;
   color: string;
@@ -20,7 +20,7 @@ const TopMetricsSection: React.FC<Props> = ({
   backgroundColor,
   timeRange,
   title,
-  name,
+  name = ' ',
   value,
   showDivider = true,
 }) => {

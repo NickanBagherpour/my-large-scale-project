@@ -9,7 +9,7 @@ import {
   TooltipProps,
 } from 'recharts';
 import { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import CustomTooltip from '../custom-tooltip';
 import * as S from './pie-chart.style';
 type ComponentProps = {
@@ -32,6 +32,15 @@ export const PieChart: React.FC<ComponentProps> = ({
   children,
   ...rest
 }) => {
+  const [activeIndex, setActiveIndex] = useState<any>(null);
+
+  const handleMouseEnter = (index: any) => {
+    setActiveIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveIndex(null);
+  };
   return (
     <>
       <S.Container>
@@ -40,7 +49,17 @@ export const PieChart: React.FC<ComponentProps> = ({
         ) : (
           <ResponsiveContainer {...containerProps} width='100%' height={200}>
             <RechartPie {...rest}>
-              <Pie {...pieProps}>
+              <Pie
+                fillOpacity={activeIndex ? 0.5 : 1}
+                {...pieProps}
+                activeShape={{
+                  fillOpacity: 1,
+                  strokeWidth: 1,
+                  stroke: data?.[activeIndex || 0]?.fill.slice(0, -4) + '_700',
+                }}
+                onMouseEnter={(props: any) => handleMouseEnter(props)}
+                onMouseLeave={handleMouseLeave}
+              >
                 {cellProps?.map((itemProps, index) => (
                   <Cell key={`cell-${index}`} {...itemProps} />
                 ))}

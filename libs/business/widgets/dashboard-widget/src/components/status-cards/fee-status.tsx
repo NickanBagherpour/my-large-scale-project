@@ -1,53 +1,70 @@
 import { useTr } from '@oxygen/translation';
 import { Flex } from 'antd';
 // type Props = {};
-import * as S from './fee-status.style';
 import FeeStatusSkeleton from './fee-status-skeleton';
-const FeeStatus: React.FC = () => {
+import * as S from './fee-status.style';
+type barType = {
+  color: 'orange' | 'blue';
+  percent?: number | string;
+  value?: number | string;
+  legendText: string;
+};
+export type Props = {
+  date: string;
+  rightBarData: barType;
+  leftBarData: barType;
+  loading: boolean;
+  title: string;
+};
+const FeeStatus: React.FC<Props> = ({ rightBarData, leftBarData, date, loading, title }) => {
   const [t] = useTr();
-  const date = '14خرداد ';
-  const sadadFee = '213,480,456,475';
-  const bankFee = '1,213,456,475';
-  const loading = false;
+
   return (
     <S.Container>
       {!loading && (
         <>
           <S.Header>
-            <S.Title>{t('fee_status')}</S.Title>
+            <S.Title>{title}</S.Title>
             <S.Subtitle>{date}</S.Subtitle>
           </S.Header>
           <S.Chart>
-            <S.SadadBar>
-              <S.ChartLabel>70%</S.ChartLabel>
-              <S.SadadFee>
-                <S.SadadDivider type='vertical' />
+            <S.SadadBar $color='orange'>
+              <S.ChartLabel>
+                {' '}
+                {rightBarData.percent}
+                <span>%</span>
+              </S.ChartLabel>
+              <S.SadadFee $color='orange'>
+                <S.SadadDivider type='vertical' $color='orange' />
                 <S.FeeValue>
                   <S.Currency>IRR</S.Currency>
-                  <S.ChartLabel>{sadadFee}</S.ChartLabel>
+                  <S.ChartLabel>{rightBarData.value}</S.ChartLabel>
                 </S.FeeValue>
               </S.SadadFee>
             </S.SadadBar>
 
-            <S.BankBar>
-              <S.ChartLabel>30%</S.ChartLabel>
-              <S.BankFee>
-                <S.BankDivider type='vertical' />
+            <S.BankBar $color='blue'>
+              <S.ChartLabel>
+                {leftBarData.percent}
+                <span>%</span>
+              </S.ChartLabel>
+              <S.BankFee $color='blue'>
+                <S.BankDivider $color='blue' type='vertical' />
                 <S.FeeValue>
                   <S.Currency> IRR</S.Currency>
-                  <S.ChartLabel>{bankFee} </S.ChartLabel>
+                  <S.ChartLabel>{leftBarData.value} </S.ChartLabel>
                 </S.FeeValue>
               </S.BankFee>
             </S.BankBar>
           </S.Chart>
           <Flex gap={20} align='end'>
             <Flex gap={5}>
-              <S.SadadFlag />
-              <S.Text>{t('sadad_share')}</S.Text>
+              <S.SadadFlag $color='orange' />
+              <S.Text>{rightBarData.legendText}</S.Text>
             </Flex>
             <Flex gap={5}>
-              <S.BankFlag />
-              <S.Text>{t('bank_share')}</S.Text>
+              <S.BankFlag $color='blue' />
+              <S.Text>{leftBarData.legendText}</S.Text>
             </Flex>
           </Flex>
         </>

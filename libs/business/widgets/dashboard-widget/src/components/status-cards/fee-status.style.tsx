@@ -38,29 +38,29 @@ export const Bar = styled.div`
   position: relative;
   height: 3.3rem;
 `;
-export const SadadBar = styled(Bar)`
-  background-color: ${(p) => p.theme.dashboard.orange};
+export const SadadBar = styled(Bar)<{ $color: string }>`
+  background-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
   border-radius: 4px 0 0 4px;
 `;
-export const SadadFee = styled.div`
-  color: ${(p) => p.theme.dashboard.orange};
+export const SadadFee = styled.div<{ $color: string }>`
+  color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
   position: absolute;
   left: 50%;
   top: 100%;
   transform: translate(-50%, 0);
   overflow: visible;
 `;
-export const SadadDivider = styled(kitDivider)`
-  border-color: ${(p) => p.theme.dashboard.orange};
+export const SadadDivider = styled(kitDivider)<{ $color: string }>`
+  border-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
   transform: translate(50%, 0);
 `;
 
-export const BankBar = styled(Bar)`
-  background-color: ${(p) => p.theme.dashboard.blue._500};
+export const BankBar = styled(Bar)<{ $color: string }>`
+  background-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
   border-radius: 0px 4px 4px 0px;
 `;
-export const BankFee = styled.div`
-  color: ${(p) => p.theme.dashboard.blue._500};
+export const BankFee = styled.div<{ $color: string }>`
+  color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
   position: absolute;
   left: 50%;
   top: 100%;
@@ -73,9 +73,9 @@ export const FeeValue = styled.div`
   padding-right: 2rem;
   max-width: 100%;
 `;
-export const BankDivider = styled(kitDivider)`
+export const BankDivider = styled(kitDivider)<{ $color: string }>`
   transform: translate(50%, 0);
-  border-color: ${(p) => p.theme.dashboard.blue._500};
+  border-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
 `;
 export const ChartLabel = styled.span`
   font-size: 1.6rem;
@@ -88,11 +88,11 @@ export const Flag = styled.div`
   height: 1.3rem;
   border-radius: 20px;
 `;
-export const SadadFlag = styled(Flag)`
-  background-color: ${(p) => p.theme.dashboard.orange};
+export const SadadFlag = styled(Flag)<{ $color: string }>`
+  background-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
 `;
-export const BankFlag = styled(Flag)`
-  background-color: ${(p) => p.theme.dashboard.blue._500};
+export const BankFlag = styled(Flag)<{ $color: string }>`
+  background-color: ${(p) => (p.$color === 'orange' ? p.theme.dashboard.orange : p.theme.dashboard.blue._500)};
 `;
 export const Text = styled.span`
   font-size: 1rem;

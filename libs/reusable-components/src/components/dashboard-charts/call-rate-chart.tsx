@@ -18,20 +18,16 @@ type Props = {
 export type ActiveChartType = 'bar' | 'line';
 const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, data, refetchData, isLoading }) => {
   const theme = useAppTheme();
-  const chartData =
-    data?.data?.map((d) => {
-      return { ...d, count2: d.count + 200 }; //NEEDS TO BE DELETED ALSO CHANGE LABLES
-    }) ?? [];
   const failColor = theme.error._500;
   const successColor = theme.dashboard.cyan;
   const [activeChart, setActiveChart] = useState<ActiveChartType>('bar');
   const handleChangeActiveChart = (val: ActiveChartType) => setActiveChart(val);
-
+  const list = data?.data;
   const chartsProps = {
     successColor,
     isLoading,
     failColor,
-    data: chartData,
+    data: list,
   };
   return (
     <Container style={{ minHeight: '400px' }} fillContainer={true}>
@@ -40,10 +36,11 @@ const CallRateChart: React.FC<Props> = ({ timeSelection, onChangeTimeSelection, 
         onChangeTimeSelection={onChangeTimeSelection}
         timeSelection={timeSelection}
       />
-      {chartData.length > 0 ? (
+      {list?.length > 0 || isLoading ? (
         <>
           {activeChart === 'bar' ? <BarCallRateChart {...chartsProps} /> : <AreaCallRateChart {...chartsProps} />}
           <CustomLegend
+            isLoading={isLoading}
             activeChart={activeChart}
             onActiveChartChange={handleChangeActiveChart}
             data={data}

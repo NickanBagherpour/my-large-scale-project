@@ -8,4 +8,6 @@ export const KEYS = createQueryKeys(prefix, [
   'TOP_METRICS_CARD',
   'STATUS_CARD',
   'AGGRIGATOR',
+  'FEE_DISTRIBUTION',
+  'REQUEST_STATUS',
 ]);

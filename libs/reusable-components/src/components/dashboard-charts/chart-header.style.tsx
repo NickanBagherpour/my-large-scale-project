@@ -5,10 +5,11 @@ import { cssVar, respondTo } from '@oxygen/utils';
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2rem 1rem;
+  padding: 2rem 2.2rem 2rem 2rem;
   ${respondTo.down('lg')} {
     flex-direction: column;
     gap: 2rem;
+    padding: 1rem;
   }
 `;
 export const Title = styled.div`

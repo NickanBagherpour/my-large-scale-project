@@ -12,20 +12,20 @@ type Props = {
 const AreaCallRateChart: React.FC<Props> = ({ data, isLoading, failColor, successColor }) => {
   const [t] = useTr();
   const theme = useAppTheme();
-  const maxSuccessValue = getMaxElement(data, 'count');
-  const maxFailValue = getMaxElement(data, 'count2');
+  // const maxSuccessValue = getMaxElement(data, 'count');
+  // const maxFailValue = getMaxElement(data, 'count2');
   return (
     <AreaChart
       xAxisProps={{ dataKey: 'time', padding: { right: 0, left: 0 } }}
       areaProps={[
         {
-          dataKey: 'count2',
+          dataKey: 'failureCount',
           stroke: failColor,
           name: t('common.count'),
           fill: 'url(#colorFail)',
         },
         {
-          dataKey: 'count',
+          dataKey: 'successCount',
           stroke: successColor,
           name: t('common.count'),
           fill: 'url(#colorSuccess)',
@@ -44,8 +44,8 @@ const AreaCallRateChart: React.FC<Props> = ({ data, isLoading, failColor, succes
           <stop offset='102.61%' stopColor={theme.error._100} stopOpacity={0} />
         </linearGradient>
       </defs>
-      <ReferenceDot x={maxSuccessValue?.time} y={maxSuccessValue.count} strokeWidth={0} fill={successColor} r={6} />
-      <ReferenceDot x={maxFailValue?.time} y={maxFailValue.count2} strokeWidth={0} fill={failColor} r={6} />
+      {/* <ReferenceDot x={maxSuccessValue?.time} y={maxSuccessValue.count} strokeWidth={0} fill={successColor} r={6} />
+      <ReferenceDot x={maxFailValue?.time} y={maxFailValue.count2} strokeWidth={0} fill={failColor} r={6} /> */}
     </AreaChart>
   );
 };

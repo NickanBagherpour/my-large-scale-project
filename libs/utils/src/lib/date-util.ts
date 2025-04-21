@@ -1,5 +1,6 @@
 import { Locale } from '@oxygen/types';
 import { dayjs, Dayjs } from './dayjs-instance';
+import jalaliday from 'jalaliday';
 
 export function changeDayjsCalendar(locale?: string) {
   if (locale === Locale.FA_IR) {
@@ -99,7 +100,12 @@ export const getLastMonth = (time?: string) => withTime(time)(dayjs().subtract(1
 export const getLastWeek = (time?: string) => withTime(time)(dayjs().subtract(1, 'week'));
 
 export const getLastDays = (days: number, time?: string) => withTime(time)(dayjs().subtract(days, 'day'));
-
+export const getCurrentMonthAndYear = () => {
+  dayjs.locale('fa');
+  dayjs.extend(jalaliday);
+  return dayjs().format('MMMM YYYY');
+};
+const currentMonth = dayjs().format('YYYY MMMM');
 const withTime = (time?: string) => (date: Dayjs) => {
   if (time) {
     const [hour, minute, second] = time.split(':').map(Number);

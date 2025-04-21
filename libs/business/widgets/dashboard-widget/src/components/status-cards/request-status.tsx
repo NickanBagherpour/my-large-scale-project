@@ -1,39 +1,36 @@
 import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
-import { useAppTheme } from '@oxygen/hooks';
 import RequestPieChart from './request-pie-chart';
 import RequestStatusSkeleton from './request-status-skeleton';
 import * as S from './request-status.style';
-// type Props = {};
-const RequestStatus: React.FC = () => {
+type Props = {
+  title: string;
+  pieData?: { name: string; value: number; fill: string; title: string }[];
+  total?: number;
+  loading: boolean;
+};
+const RequestStatus: React.FC<Props> = ({ title, pieData, total, loading }) => {
   const [t] = useTr();
-  const theme = useAppTheme();
-  const loading = false;
   return (
     <S.Container>
-      {!loading && (
+      {!loading ? (
         <>
           <S.ChartDataContainer>
-            <S.Title>{t('request_status')}</S.Title>
+            <S.Title>{title}</S.Title>
             <Flex gap={14} vertical>
-              <Flex gap={6}>
-                <S.Flag $color={theme.secondary._400} />
-                <S.FlagText>{t('final_confirmation')}</S.FlagText>
-              </Flex>
-              <Flex gap={6}>
-                <S.Flag $color={theme.primary._500} />
-                <S.FlagText>{t('waiting_to_confirm')}</S.FlagText>
-              </Flex>
-              <Flex gap={6}>
-                <S.Flag $color={theme.error._500} />
-                <S.FlagText>{t('rejected')}</S.FlagText>{' '}
-              </Flex>
+              {pieData?.map((p) => (
+                <Flex gap={6}>
+                  <S.Flag $color={p?.fill} />
+                  <S.FlagText>{p?.title}</S.FlagText>
+                </Flex>
+              ))}
             </Flex>
           </S.ChartDataContainer>
-          <RequestPieChart />
+          <RequestPieChart data={pieData} total={total} />
         </>
+      ) : (
+        <RequestStatusSkeleton />
       )}
-      {loading && <RequestStatusSkeleton />}
     </S.Container>
   );
 };

@@ -1,14 +1,15 @@
 import { Flex } from 'antd';
 import { useTr } from '@oxygen/translation';
+import { getValueOrDash } from '@oxygen/utils';
 import * as S from './report-section.style';
 type Props = {
   color: string;
   iconClassName: string;
   title: string;
   subtitle: string;
-  active: number;
-  inactive: number;
-  total: number;
+  active?: number;
+  inactive?: number;
+  total?: number;
 };
 const ReportSection: React.FC<Props> = ({ color, iconClassName, title, subtitle, active, inactive, total }) => {
   const [t] = useTr();
@@ -34,19 +35,19 @@ const ReportSection: React.FC<Props> = ({ color, iconClassName, title, subtitle,
             <Flex align='center' gap={5}>
               <S.ActiveFlag />
               <S.Text>
-                {active} {t('common.active')}
+                {getValueOrDash(active)} {t('common.active')}
               </S.Text>
               <S.SubText>{subText}</S.SubText>
             </Flex>
             <Flex align='center' gap={5}>
               <S.InactiveFlag />
               <S.Text>
-                {inactive} {t('common.inactive')}
+                {getValueOrDash(inactive)} {t('common.inactive')}
               </S.Text>
               <S.SubText>{subText}</S.SubText>
             </Flex>
           </div>
-          <S.Total $color={color}>{total}</S.Total>
+          <S.Total $color={color}>{getValueOrDash(total)}</S.Total>
         </Flex>
       </S.Body>
     </S.Container>

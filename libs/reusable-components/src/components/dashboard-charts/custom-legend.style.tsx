@@ -1,5 +1,6 @@
 import { Button } from '@oxygen/ui-kit';
 import { respondTo } from '@oxygen/utils';
+import { Skeleton } from 'antd';
 import styled from 'styled-components';
 
 export const LegendInfoContainer = styled.div`
@@ -8,6 +9,7 @@ export const LegendInfoContainer = styled.div`
   justify-content: start;
   margin-top: 1rem;
   align-items: center;
+  flex-grow: 1;
   ${respondTo.down('xs')} {
     flex-direction: column;
   }
@@ -24,7 +26,7 @@ export const LegendContainer = styled.div`
   }
 `;
 export const CallResultIcon = styled.i`
-  font-size: '2.4rem';
+  font-size: 2.4rem;
 `;
 export const CallRate = styled.div<{ $iconColor: string }>`
   display: flex;
@@ -42,6 +44,7 @@ export const DateContainer = styled.div`
 `;
 export const Date = styled.span`
   direction: rtl !important;
+  min-width: 100px;
 `;
 export const Subtitle = styled.span`
   font-size: 12px;
@@ -69,4 +72,7 @@ export const BarChartButton = styled(BaseChartButton)`
 `;
 export const LineChartButton = styled(BaseChartButton)`
   border-radius: 0 10000px 10000px 0;
+`;
+export const SkeletonText = styled(Skeleton.Button)`
+  max-width: 130px;
 `;

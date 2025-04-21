@@ -10,7 +10,6 @@ const CustomTooltip = (props: IProps) => {
   // console.log('rev pay',payload.reverse());
   const { payload, active, label } = props;
   const reversedPayload = [...payload].reverse();
-  console.log('payload', payload);
   if (active && payload && payload.length) {
     return (
       <div
