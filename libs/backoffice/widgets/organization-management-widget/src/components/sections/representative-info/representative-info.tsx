@@ -1,9 +1,9 @@
-import React from 'react';
-import { FormSection } from '../form-section-title/form-section';
-import { FormItem } from '../form-item/form-item';
-import { DatePicker, SearchItemsContainer, Select } from '@oxygen/ui-kit';
-import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
+import { SearchItemsContainer } from '@oxygen/ui-kit';
+
+import { FormItem } from '../../form-item/form-item';
+import { FORM_ITEMS_NAME } from '../../../utils/consts';
+import { FormSection } from '../../form-section/form-section';
 
 export const RepresentativeInfoSection = (props) => {
   const { rule } = props;

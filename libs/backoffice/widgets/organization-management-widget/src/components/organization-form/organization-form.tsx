@@ -2,21 +2,23 @@ import { Form } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import React, { useEffect, useState } from 'react';
 
+import { useApp } from '@oxygen/hooks';
 import { useTr } from '@oxygen/translation';
-import { useApp, useAppTheme } from '@oxygen/hooks';
-import { Button, DatePicker, Input, Loading, SearchItemsContainer, Select, Tooltip } from '@oxygen/ui-kit';
+import { Button, Loading } from '@oxygen/ui-kit';
 
 import { ApiErrorResponseType, createFormSchema } from '../../types';
 import { prepareSubmitOrganizationParams } from '../../utils/helper';
+import { INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
 import { useGetOrganizationInfoQuery, usePostNewOrganizationMutation } from '../../services';
 import { updateOrganizationNationalIDAction, useAppDispatch, useAppState } from '../../context';
-import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME, INQUIRY_MAX_LENGTH, selectLegalTypeOptions } from '../../utils/consts';
+import {
+  ClientKeySection,
+  OrganizationInfoSection,
+  RepresentativeInfoSection,
+  TechnicalRepresentativeInfoSection,
+} from '../sections';
 
 import * as S from './organization-form.style';
-import { OrganizationInfoSection } from '../organization-info-section/organization-info-section';
-import { RepresentativeInfoSection } from '../representative-info/representative-info';
-import { TechnicalRepresentativeInfoSection } from '../technical-representative-info/technical-representative-info';
-import { ClientKeySection } from '../client-key-section/client-key-section';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -25,7 +27,6 @@ export const OrganizationForm = () => {
   const [t] = useTr();
   const [form] = Form.useForm();
   const { notification } = useApp();
-  const theme = useAppTheme();
 
   //Validations
   const rule = createSchemaFieldRule(createFormSchema(t));

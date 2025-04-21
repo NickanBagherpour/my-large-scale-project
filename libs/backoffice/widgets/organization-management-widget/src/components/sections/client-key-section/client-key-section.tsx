@@ -1,9 +1,10 @@
-import React from 'react';
-import { FormSection } from '../form-section-title/form-section';
-import { FormItem } from '../form-item/form-item';
-import { Alert, DatePicker, SearchItemsContainer, Select } from '@oxygen/ui-kit';
-import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME } from '../../utils/consts';
 import { useTr } from '@oxygen/translation';
+import { Alert, SearchItemsContainer } from '@oxygen/ui-kit';
+
+import { FormItem } from '../../form-item/form-item';
+import { FormSection } from '../../form-section/form-section';
+import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME } from '../../../utils/consts';
+
 import styled from 'styled-components';
 
 export const AlertContainer = styled(Alert)`

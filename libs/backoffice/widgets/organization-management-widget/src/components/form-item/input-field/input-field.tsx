@@ -1,8 +1,9 @@
-import { useTr } from '@oxygen/translation';
-import { Input } from '@oxygen/ui-kit';
 import { Form, FormItemProps } from 'antd';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
-import { ReactNode } from 'react';
+
+import { Input } from '@oxygen/ui-kit';
+import { useTr } from '@oxygen/translation';
+
 interface InputFieldPropsType extends FormItemProps {
   size?: SizeType;
   name: string;
