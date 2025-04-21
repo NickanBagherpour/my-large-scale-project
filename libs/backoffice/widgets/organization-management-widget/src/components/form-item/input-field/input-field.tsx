@@ -1,17 +1,17 @@
+import { useTr } from '@oxygen/translation';
 import { Input } from '@oxygen/ui-kit';
-import { Form } from 'antd';
+import { Form, FormItemProps } from 'antd';
 import { SizeType } from 'antd/lib/config-provider/SizeContext';
 import { ReactNode } from 'react';
-interface InputFieldPropsType {
+interface InputFieldPropsType extends FormItemProps {
   size?: SizeType;
   name: string;
   placeholder: string;
   maxLength?: number;
   minLength?: number;
   allow?: 'number' | RegExp | 'all' | 'letter';
-  label?: string;
+  label: string;
   rules?: any[];
-  children: ReactNode;
 }
 export const InputField = ({
   name,
@@ -22,8 +22,12 @@ export const InputField = ({
   maxLength = 250,
   allow = 'all',
   size = 'large',
-}: InputFieldPropsType) => (
-  <Form.Item name={name} label={label} rules={rules}>
-    <Input size={size} placeholder={placeholder} maxLength={maxLength} allow={allow} minLength={minLength} />
-  </Form.Item>
-);
+  ...rest
+}: InputFieldPropsType) => {
+  const [t] = useTr();
+  return (
+    <Form.Item name={name} label={t(label)} rules={rules} {...rest}>
+      <Input size={size} placeholder={t(placeholder)} maxLength={maxLength} allow={allow} minLength={minLength} />
+    </Form.Item>
+  );
+};
