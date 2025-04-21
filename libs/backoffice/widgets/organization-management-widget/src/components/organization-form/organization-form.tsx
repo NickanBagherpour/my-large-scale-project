@@ -15,6 +15,7 @@ import { FORM_INPUT_VALIDATION, FORM_ITEMS_NAME, INQUIRY_MAX_LENGTH, selectLegal
 import * as S from './organization-form.style';
 import { OrganizationInfoSection } from '../organization-info-section/organization-info-section';
 import { RepresentativeInfoSection } from '../representative-info/representative-info';
+import { TechnicalRepresentativeInfoSection } from '../technical-representative-info/technical-representative-info';
 
 export const OrganizationForm = () => {
   //Hooks
@@ -102,51 +103,9 @@ export const OrganizationForm = () => {
 
       <Form style={{ flexGrow: 1 }} layout={'vertical'} onFinish={onFinish} form={form} disabled={isFormDisabled}>
         <OrganizationInfoSection rule={rule} selectOptions={selectOptions} isFormDisabled={isFormDisabled} />
-        <RepresentativeInfoSection rule={rule} isFormDisabled={isFormDisabled} />
+        <RepresentativeInfoSection rule={rule} />
+        <TechnicalRepresentativeInfoSection rule={rule} />
 
-        <S.TitleContainer>
-          <S.TitleText>{t('technical_representative_information')}</S.TitleText>
-          <Tooltip color={theme.primary.main} title={t('tooltip.technical_representative_name')}>
-            <S.Icon className={'icon-info-circle'} />
-          </Tooltip>
-        </S.TitleContainer>
-        <S.Card>
-          <SearchItemsContainer $columnNumber='3'>
-            <Form.Item
-              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.FIRST_AND_LAST_NAME}
-              label={t('organization_form_label.first_and_last_name')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.first_and_last_name')}
-                maxLength={FORM_INPUT_VALIDATION.INPUT_MAX_LENGTH}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.MOBILE_NUMBER}
-              label={t('organization_form_label.mobile_number')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.mobile_number')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
-              />
-            </Form.Item>
-            <Form.Item
-              name={FORM_ITEMS_NAME.TECHNICAL_REPRESENTATIVE.LANDLINE_NUMBER}
-              label={t('organization_form_label.landline_number')}
-              rules={[rule]}
-            >
-              <Input
-                size='large'
-                placeholder={t('organization_form_placeholder.landline_number')}
-                maxLength={FORM_INPUT_VALIDATION.MAX_MOBILE_NUMBER_LENGTH}
-              />
-            </Form.Item>
-          </SearchItemsContainer>
-        </S.Card>
         <S.TitleContainer>
           <S.TitleText>{t('client_key')}</S.TitleText>
         </S.TitleContainer>
