@@ -16,6 +16,7 @@ import { ExpandButton } from '../button/expand-button';
 
 import * as S from './table.style';
 import { getValueOrDash } from '@oxygen/utils';
+import { FilterIcon, getDropdown } from './filter-dropdown';
 
 export type ColumnsType<T> = AntColumnsType<T> & {
   //
@@ -83,6 +84,14 @@ export const Table = (props: TableProps) => {
     return {
       align: column.align ?? 'center',
       ellipsis: column.ellipsis ?? { showTitle: false },
+
+      ...(column.filters
+        ? {
+            filters: column.filters,
+            filterIcon: <FilterIcon />,
+            filterDropdown: getDropdown,
+          }
+        : {}),
       ...column,
     };
   });
