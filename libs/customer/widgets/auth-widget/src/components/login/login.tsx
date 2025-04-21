@@ -110,14 +110,17 @@ export const Login = ({ title }: FormContainerProps) => {
 
         <S.FormInput>
           <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
-            <CaptchaInput
-              captchaMaxLength={CAPTCHA_MAX_LENGTH}
-              imageSrc={imageSrc}
-              onRefresh={refreshCaptcha}
-              // name='captcha_code'
-              placeholder={t('captcha_code')}
-              loading={isLoading}
-            />
+            {imageSrc && (
+              <Form.Item name={FORM_ITEM_NAMES.captcha_code} rules={[rule]}>
+                <CaptchaInput
+                  captchaMaxLength={CAPTCHA_MAX_LENGTH}
+                  imageSrc={imageSrc}
+                  onRefresh={refreshCaptcha}
+                  placeholder={t('captcha_code')}
+                  loading={isLoading}
+                />
+              </Form.Item>
+            )}
           </Form.Item>
         </S.FormInput>
       </Form>
