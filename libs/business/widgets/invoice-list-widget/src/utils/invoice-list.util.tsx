@@ -113,7 +113,7 @@ export function getDesktopColumns(props: Props): ColumnsType<InvoiceListItemType
             variant={'link'}
             size={'small'}
             className={underReview ? 'under-review' : ''}
-            href={`${ROUTES.BUSINESS.BILLING_DETAILS}?Id=${record?.id}`}
+            href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?Id=${record?.id}`}
           >
             <i className={'icon-document'} />
             {t('table.details')}
@@ -146,7 +146,7 @@ export function getMobileColumns(props: Props) {
             value: (
               <Button
                 // className={isApproved ? 'secondary' : 'primary'}
-                href={`${ROUTES.BUSINESS.REQUEST_DETAILS}?submissionId=${id}`}
+                href={`${ROUTES.BUSINESS.DETAILED_INVOICE}?submissionId=${id}`}
                 variant={'link'}
                 size={'small'}
                 // color={colorButton}
