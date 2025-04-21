@@ -29,7 +29,15 @@ export default async function middleware(request: NextRequest) {
   }
 
   // If the user is authenticated and trying to access public routes, redirect them to the dashboard
-  if (token && publicPaths.some((path) => pathname === path)) {
+  if (
+    token &&
+    publicPaths.some(
+      (path) =>
+        pathname === path &&
+        pathname !== ROUTES.CUSTOMER.DOCS_API &&
+        pathname !== '/assets/images/service-categories.jpg'
+    )
+  ) {
     return NextResponse.redirect(new URL(ROUTES.CUSTOMER.DASHBOARD, request.url));
   }
 

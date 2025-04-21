@@ -75,16 +75,18 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <>
       {loading && <Loading containerProps={{ display: 'flex', height: '100%' }} />}
-      <StyledIframe
-        ref={iframeRef}
-        // src={reportUrl}
-        src={url}
-        onLoad={() => {
-          // console.log('loaded');
-          setLoading(false);
-        }}
-        style={{ display: loading ? 'none' : 'block' }}
-      />
+      {url && (
+        <StyledIframe
+          ref={iframeRef}
+          // src={reportUrl}
+          src={url}
+          onLoad={() => {
+            // console.log('loaded');
+            setLoading(false);
+          }}
+          style={{ display: loading ? 'none' : 'block' }}
+        />
+      )}
     </>
   );
 };

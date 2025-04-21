@@ -37,7 +37,7 @@ const HeroSection = () => {
         </S.Info>
 
         <S.ImgContainer>
-          <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />
+          {userChartsImg && <Image priority fill src={userChartsImg} alt='' sizes='(min-width: 1200px) 50vw, 100vw' />}
         </S.ImgContainer>
       </S.Intro>
     </S.Hero>
