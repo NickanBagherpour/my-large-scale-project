@@ -231,55 +231,6 @@
                 },
                 "security": [],
                 "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "scope": {
-                                        "type": "number",
-                                        "description": "مقدار پیش فرض: scope-client-test (در محیط تست) یا مقدار اختصاصی در محیط عملیاتی"
-                                    },
-                                    "grant_type": {
-                                        "type": "number",
-                                        "description": "مقدار ثابت: client-credentials"
-                                    }
-                                },
-                                "required": [
-                                    "accountNumber",
-                                    "creditDebit",
-                                    "field_0"
-                                ],
-                                "description": "بدنه درخواست"
-                            },
-                            "examples": {
-                                "example1": {
-                                    "value": {
-                                        "error": {
-                                            "code": "کد خطای سیستمی (GENERAL_ERROR)",
-                                            "timestamp": "2023-11-20T12:00:00Z",
-                                            "errors": [
-                                                {
-                                                    "detail": "توضیح خطای خاص",
-                                                    "name": "نام خطا (VALIDATION_ERROR)",
-                                                    "summary": "خلاصه خطا (مقدار ورودی نامعتبر است)"
-                                                }
-                                            ],
-                                            "message": "پیام کلی خطا به زبان خوانا",
-                                            "error_number": 1001
-                                        },
-                                        "response": {
-                                            "nationalCodes": [
-                                                "1234567890",
-                                                "0987654321"
-                                            ]
-                                        },
-                                        "successful": false
-                                    }
-                                }
-                            }
-                        }
-                    },
                     "description": "دریافت توکن با موفقیت انجام شد"
                 },
                 "x-codeSamples": [
