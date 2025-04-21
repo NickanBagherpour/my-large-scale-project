@@ -42,6 +42,7 @@ export const ROUTES = {
     SERVICES_REPORT: '/services-report',
     SERVICE_DOCUMENT_HISTORY: '/service-documentation-history',
     SERVICE_CALL_LOG: '/service-call-log',
+    ORGANIZATION_MANAGEMENT: '/organization-management',
   },
   CUSTOMER: {
     LANDING: '/',

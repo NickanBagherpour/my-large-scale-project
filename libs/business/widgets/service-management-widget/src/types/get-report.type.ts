@@ -1,4 +1,5 @@
 import { Nullable } from '@oxygen/types';
+import { SORT_ORDER } from '../utils/consts';
 
 export interface TableResponseType {
   content: TableDataContentType[];
@@ -43,7 +44,7 @@ export type PaginationResultType = {
 export type getTableReportParamsType = {
   serviceName?: Nullable<string>;
   isCommercial?: boolean;
-  sort: 'asc' | 'desc';
+  sort: SORT_ORDER;
   page: number;
   size: number;
 };

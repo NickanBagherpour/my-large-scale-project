@@ -1,4 +1,5 @@
 /*--import-backoffice--*/
+import { KEYS as ORGANIZATION_MANAGEMENT_KEYS } from './portals/backoffice/organization-management.key';
 import { KEYS as SERVICE_CALL_LOG_KEYS } from './portals/backoffice/service-call-log.key';
 import { KEYS as CLIENT_REPORT_KEYS } from './portals/backoffice/client-report.key';
 import { KEYS as SERVICES_REPORT_KEYS } from './portals/backoffice/services-report.key';
@@ -71,6 +72,7 @@ export const RQKEYS = {
     CLIENT_PROFILE: 'client_profile',
 
     /*--export-backoffice--*/
+    ORGANIZATION_MANAGEMENT: ORGANIZATION_MANAGEMENT_KEYS,
     SERVICE_CALL_LOG: SERVICE_CALL_LOG_KEYS,
     SERVICE_DOCUMENTATION_HISTORY: SERVICE_DOCUMENTATION_HISTORY_KEYS,
     SERVICES_REPORT: SERVICES_REPORT_KEYS,
