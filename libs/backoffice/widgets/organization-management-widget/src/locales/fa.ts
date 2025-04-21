@@ -57,8 +57,8 @@ export default {
     representative_name: 'نام نماینده',
   },
   tooltip: {
-    technical_representative_name: ' اطلاعات نماینده فنی را وارد کنید',
-    representative_name: ' اطلاعات نماینده را وارد کنید',
+    technical_representative_name: ' اطلاعات نماینده فنی سازمان را وارد کنید',
+    representative_name: ' اطلاعات نماینده حقوقی سازمان را وارد کنید',
   },
   client_key_note:
     'در صورت این که قبلا از وب‌سرویس های شرکت داده‌ورزی سداد استفاده کرده‌اید نام Client Key را ذکر کنید.',
