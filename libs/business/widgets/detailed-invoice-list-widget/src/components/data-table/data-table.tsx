@@ -1,9 +1,16 @@
 import { useTr } from '@oxygen/translation';
 import type { TablePaginationConfig } from 'antd';
 import * as S from './data-table.style';
-import { updatePaginationAction, useAppDispatch, useAppState } from '../../context';
+import {
+  updateMonthAction,
+  updatePaginationAction,
+  updateYearAction,
+  useAppDispatch,
+  useAppState,
+} from '../../context';
 import { Reports } from '../../types';
 import { getDesktopColumns, getMobileColumns } from '../../utils';
+import type { FilterValue } from 'antd/es/table/interface';
 
 type Props = {
   data: Reports | undefined;
@@ -14,9 +21,12 @@ export default function DataTable(props: Props) {
   const { data, isFetching } = props;
   const [t] = useTr();
   const dispatch = useAppDispatch();
-  const { page, size, year, month } = useAppState();
+  const { page, size } = useAppState();
 
-  const changePage = async (currentPagination: TablePaginationConfig) => {
+  const onChange = async (
+    currentPagination: TablePaginationConfig,
+    filters: Record<'month' | 'year', FilterValue | null>
+  ) => {
     const { pageSize, current } = currentPagination;
     if (pageSize && current) {
       updatePaginationAction(dispatch, {
@@ -24,17 +34,12 @@ export default function DataTable(props: Props) {
         size: pageSize,
       });
     }
+
+    updateYearAction(dispatch, filters?.year?.[0] as number);
+    updateMonthAction(dispatch, filters?.month?.[0] as number);
   };
 
-  const desktopColumns = getDesktopColumns({
-    t,
-    size,
-    page,
-    dispatch,
-    year,
-    month,
-  });
-
+  const desktopColumns = getDesktopColumns({ t, size, page });
   const mobileColumns = getMobileColumns({ t });
 
   return (
@@ -46,7 +51,7 @@ export default function DataTable(props: Props) {
       columns={desktopColumns}
       loading={isFetching}
       mobileColumns={mobileColumns}
-      onChange={changePage}
+      onChange={onChange}
       rowKey={(row) => row.id}
     />
   );

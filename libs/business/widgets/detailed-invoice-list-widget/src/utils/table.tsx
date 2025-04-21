@@ -2,7 +2,6 @@ import { Button, ColumnsType, Table, Tooltip } from '@oxygen/ui-kit';
 import * as S from '../components/data-table/data-table.style';
 import { TFunction } from 'i18next';
 import { clientTypeMap, getMonthsWithValues, years } from './consts';
-import { updateMonthAction, updateYearAction, WidgetDispatchType, WidgetStateType } from '../context';
 import { addThousandSeparator, CONSTANTS, getValueOrDash, ROUTES } from '@oxygen/utils';
 import { Reports } from '../types';
 
@@ -27,13 +26,10 @@ type DesktopProps = {
   size: number;
   page: number;
   t: TFunction;
-  dispatch: WidgetDispatchType;
-  year: WidgetStateType['year'];
-  month: WidgetStateType['month'];
 };
 
 export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['content'][number]> => {
-  const { page, size, t, dispatch, year, month } = props;
+  const { page, size, t } = props;
   const jalliMonths = getJalalliMonths(t);
 
   return [
@@ -71,28 +67,6 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
         const value = getValueOrDash(year);
         return <Tooltip title={value}>{value}</Tooltip>;
       },
-      filterDropdown: ({ filters, close }) => {
-        return (
-          <S.Dropdown>
-            {filters?.map((filter, idx) => (
-              <li key={idx}>
-                <S.FilterBtn
-                  variant='text'
-                  color='primary'
-                  $active={filter.value === year}
-                  onClick={() => {
-                    close();
-                    updateYearAction(dispatch, filter.value as number);
-                  }}
-                >
-                  {filter.text}
-                </S.FilterBtn>
-              </li>
-            ))}
-          </S.Dropdown>
-        );
-      },
-      filterIcon: () => <S.ChevIcon className='icon-chev-down' />,
     },
     {
       title: t('month'),
@@ -102,28 +76,6 @@ export const getDesktopColumns = (props: DesktopProps): ColumnsType<Reports['con
         const value = getValueOrDash(month);
         return <Tooltip title={value}>{jalliMonths[value]}</Tooltip>;
       },
-      filterDropdown: ({ filters, close }) => {
-        return (
-          <S.Dropdown>
-            {filters?.map((filter, idx) => (
-              <li key={idx}>
-                <S.FilterBtn
-                  variant='text'
-                  color='primary'
-                  $active={filter.value === month}
-                  onClick={() => {
-                    close();
-                    updateMonthAction(dispatch, filter.value as number);
-                  }}
-                >
-                  {filter.text}
-                </S.FilterBtn>
-              </li>
-            ))}
-          </S.Dropdown>
-        );
-      },
-      filterIcon: () => <S.ChevIcon className='icon-chev-down' />,
     },
     {
       title: t('successful_transaction'),
@@ -184,7 +136,6 @@ export function getMobileColumns(props: MobileProps) {
   const { t } = props;
   return [
     {
-      title: '',
       key: 'mobile-columns',
       render(record: Reports['content'][number]) {
         const data = [
