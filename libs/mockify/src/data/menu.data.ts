@@ -190,7 +190,7 @@ export const businessMenu = [
         href: ROUTES.BUSINESS.DETAILED_INVOICE_LIST,
         size: 'small',
         icon: 'icon-dot',
-        active: true,
+        active: false,
         description: null,
         parentId: null,
         children: [],
